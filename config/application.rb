@@ -58,5 +58,10 @@ module Recruiters
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.corporate_name = "Jombay"
+    config.copyright_year = DateTime::now.year
+
+    config.facebook = YAML::load(File.open("#{Rails.root.to_s}/config/facebook.yml"))[Rails.env.to_s]
   end
 end

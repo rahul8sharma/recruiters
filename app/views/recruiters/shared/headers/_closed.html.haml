@@ -1,0 +1,27 @@
+.header_layout
+  .header
+    .ynl_logo
+      %a{:href => "http://jombay.com/"}
+        = image_tag("ynl-logo.png")
+    .navbar.pull-right
+      .navigations
+        %ul.nav.nav-pills
+          %li#menu1.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#menu1"}
+              %span.first.small-icon.small-icon-user_name
+              #{ current_user.name }
+              %b.caret
+            %ul.dropdown-menu
+              %li.fl_none
+                %a{:href => root_url(:trailing_slash => false} Home              
+              %li.fl_none
+                %a{:href => show_persia_users_path(current_user) } Profile
+              %li.fl_none
+                %a{:href => "/users/sign_out"} Log Out
+
+    -#
+      //for SearchBox and LHS menus
+      %form.pull-right{:action => ""}
+        %input{:placeholder => "Search ...", :type => "text"}
+          .clr
+  .clr
