@@ -1,0 +1,17 @@
+:javascript
+  var _kmq = _kmq || [];
+  function _kms(u){
+    setTimeout(function(){
+      var s = document.createElement('script'); 
+      var f = document.getElementsByTagName('script')[0]; 
+      s.type = 'text/javascript'; 
+      s.async = true;
+      s.src = u; f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+   
+  _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/ad6ccc64be11cb529d70a073e57e215dd2151108.1.js');
+
+- if current_user.present?
+  :javascript
+    _kmq.push(['identify', '#{ current_user.sid }']);

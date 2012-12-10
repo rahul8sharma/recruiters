@@ -1,0 +1,16 @@
+= content_for :dont_bundle do
+  = stylesheet_link_tag 'recruiters/shared/open_header' 
+
+.header_layout
+  .header
+    .ynl_logo
+      %a{:href => "http://jombay.com/"}
+        = image_tag("ynl-logo.png")
+    .header_right_sec
+      .navigations
+        %ul.login_btn.unstyled.clearfix
+          %li
+            %a{:href => "http://jombay.com/jobs/"} For Job Seekers
+        .clr
+      .clr
+  .clr
