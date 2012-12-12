@@ -1,3 +1,2 @@
-class Recruiters::ApplicationController < ActionController::Base
-  protect_from_forgery
+class Recruiters::ApplicationController < ApplicationController
 end
