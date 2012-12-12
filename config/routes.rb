@@ -2,6 +2,21 @@ Recruiters::Application.routes.draw do
   namespace :recruiters, :path => '' do
     root :to => 'landing#index', :as => :root
   end
+
+  resources :jobs, :only => [] do
+    member do
+      get :show
+      get :preview, :path => "preview", :as => "_preview"
+    end
+    collection do
+      # get :show, :path => ":status/:id", :as => "_show"
+      get :status, :path => ":status", :as => "_status"
+      get :edit, :path => ":id/edit/:section", :as => "_edit"
+      put :update, :path => ":id/edit/:section", :as => "_"
+    end
+
+    resources :candidates, :only => [:index, :show]
+  end
   
   
   # The priority is based upon order of creation:
