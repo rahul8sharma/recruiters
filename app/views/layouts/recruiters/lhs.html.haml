@@ -1,0 +1,23 @@
+- content_for :javascript_libs do
+  = javascript_include_tag "lib/bootstrap/alert"
+- content_for :stylesheets do
+  -#= stylesheet_link_tag ''
+- content_for :content do
+  .divider2
+  .new_job
+    .container-fluid.fixed-container
+      .white_box.padding.clearfix
+        - if content_for?(:recommendation_header)
+          = yield(:recommendation_header)
+        .clearfix
+          .side_bar.span6.margin
+            - if content_for?(:sidebar)
+              = yield(:sidebar)
+
+          .main-content.span17 
+            - if content_for?(:inner_content)
+              = yield(:inner_content)
+            - else
+              = yield
+
+= render :file => 'layouts/recruiters/base', :locals => {:options => {:body_class => "normal_header"}}

@@ -1,2 +1,7 @@
--#= render :partial => "jobs/status/#{ @status }_status/job"
+- content_for :sidebar do
+  %h2 Sidebar
+  %ul
+    - 5.times do |i|
+      %li menu #{i}
+%h2 Some text
 Show OPEN/PENDING/INCOMPLETE/CLOSED job

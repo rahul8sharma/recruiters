@@ -1,8 +1,3 @@
--# New base layout for persia. All persia layouts inherit from this. Common css and
-  js is loaded here. Derived from haml.html.haml.  This layout is now
-  deprecated. New recruiters designs are being based off recruiters/base.html.haml.
-  
-
 :ruby 
   unless defined? options
     options = {}
@@ -48,7 +43,7 @@
     - if content_for?(:footer)
       = yield (:footer)
     - else
-      - cache([:main_footer, 20_11_2012].join(".")) do
+      - cache([:main_footer, 12_12_2012].join(".")) do
         = render :partial => "recruiters/shared/footer"
 
     
