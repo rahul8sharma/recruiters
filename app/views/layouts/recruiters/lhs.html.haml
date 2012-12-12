@@ -10,11 +10,11 @@
         - if content_for?(:recommendation_header)
           = yield(:recommendation_header)
         .clearfix
-          .side_bar.span6.margin
+          .side_bar
             - if content_for?(:sidebar)
               = yield(:sidebar)
 
-          .main-content.span17 
+          .main-content.pull-left 
             - if content_for?(:inner_content)
               = yield(:inner_content)
             - else
