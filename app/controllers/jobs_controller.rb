@@ -20,7 +20,7 @@ class JobsController < ApplicationController
 
   private
 
-  # Extract section name from url
+  # Extract status from url
   def init_status
     @status = params[:status]
   end

@@ -15,9 +15,7 @@ Recruiters::Application.routes.draw do
       put :update, :path => ":id/edit/:section", :as => "_"
     end
 
-    resources :candidates, :only => [:index, :show] do
-
-    end
+    resources :candidates, :only => [:index, :show]
   end
   
   
