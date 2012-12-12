@@ -2,7 +2,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   before_filter :init_section, :only => [:edit, :update]
   before_filter :init_status, :only => [:status]
 
-  layout "recruiters/lhs"
+  layout "recruiters/jobs"
 
   # GET /jobs/<id>
   def show
