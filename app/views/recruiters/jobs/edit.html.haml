@@ -1,1 +1,7 @@
+- content_for :sidebar do
+  %h2 Sidebar
+  %ul
+    - 5.times do |i|
+      %li menu #{i}
+%h2 Some content
 = render :partial => "recruiters/jobs/edit/#{ @section }_section"
