@@ -1,4 +1,4 @@
-class JobsController < ApplicationController
+class Recruiters::JobsController < Recruiters::ApplicationController
   before_filter :init_section, :only => [:edit, :update]
   before_filter :init_status, :only => [:status]
 
@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   end
 
   # GET /jobs/<id>/preview
-  def preview
+  def previews
   end
 
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>

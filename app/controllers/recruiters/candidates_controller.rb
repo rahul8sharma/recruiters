@@ -1,4 +1,4 @@
-class CandidatesController < ApplicationController
+class Recruiters::CandidatesController < Recruiters::ApplicationController
   
   # GET /jobs/<id>/candidates
   def index
