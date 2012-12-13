@@ -12,9 +12,7 @@
       .label_subtitle 
         Add an industry that describes your company the best
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
+      = select_tag("work_experience[][industry]", options_from_collection_for_select(@master_data[:industries], :id, :name), :include_blank => "Choose Industry", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)")
       .badge_label.clearfix.span9.first
         .badge_count
           1
@@ -26,9 +24,7 @@
     %label.control-label
       Functional Area of this role*  
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
+      = select_tag("work_experience[][category]", options_from_collection_for_select(@master_data[:job_categories], :id, :name), :include_blank => "Choose Job Category", class: "span9 first fl_none", "data-preselect" => "job.try(:job_categories).try(:first).try(:id)")
       .badge_label.clearfix.span9.first
         .badge_count
           1
@@ -48,9 +44,7 @@
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
+      = select_tag("work_experience[][profile]", options_from_collection_for_select(@master_data[:work_profiles], :id, :name), :include_blank => "Choose Work Profile", class: "span9 first fl_none", "data-preselect" => "job.try(:work_profiles).try(:first).try(:id)")
       .badge_label.clearfix.span9.first
         .badge_count
           1
@@ -77,9 +71,7 @@
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
+      = select_tag("work_experience[][location][query_options][geography_id]", top_list_for_select(:india_cities), class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)")
       .badge_label.clearfix.span9.first
         .badge_count
           1

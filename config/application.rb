@@ -11,6 +11,8 @@ end
 
 module Recruiters
   class Application < Rails::Application
+
+    config.top_lists = HashWithIndifferentAccess.new(YAML::load_file Rails.root.join("config", "top_lists.yml"))
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
