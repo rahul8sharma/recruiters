@@ -1,1 +1,98 @@
-Job details
+%form.form-horizontal
+  .control-group
+    %label.control-label{:for => "job_title"} 
+      Job Title
+      .label_subtitle 
+        This would be the title of your job
+    .controls
+      %input#job_title{:placeholder => "type the title of the job", :type => "text"}
+  .control-group
+    %label.control-label{:for => "inputPassword"} 
+      Industry
+      .label_subtitle 
+        Add an industry that describes your company the best
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+  .control-group
+    %label.control-label{:for => "inputPassword"} 
+      Functional Area of this role
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+  .control-group
+    %label.control-label{:for => "inputPassword"} 
+      Job Profile
+      .label_subtitle 
+        Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+
+  .control-group
+    %label.control-label{:for => "job_title"} 
+      Number of Openings
+    .controls
+      %input#job_title{:placeholder => "type the title of the job", :type => "text"}
+
+  .control-group
+    %label.control-label{:for => "inputPassword"} 
+      Job Location
+      .label_subtitle 
+        Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Marketing, Advertising, Market Reasearch, public...
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+  .form-actions
+    %button.pull-right{:class => "btn btn-primary", :type => "button"}
+      Cancel
+    .clr
