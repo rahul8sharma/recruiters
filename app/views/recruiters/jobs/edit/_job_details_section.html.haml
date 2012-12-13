@@ -1,14 +1,14 @@
 %form.form-horizontal
   .control-group
-    %label.control-label{:for => "job_title"} 
-      Job Title
+    %label.control-label
+      Job Title* 
       .label_subtitle 
         This would be the title of your job
     .controls
-      %input#job_title{:placeholder => "type the title of the job", :type => "text"}
+      %input#job_title{:placeholder => "type the title of the job", :type => "text", :class => "span10 first"}
   .control-group
-    %label.control-label{:for => "inputPassword"} 
-      Industry
+    %label.control-label
+      Industry* 
       .label_subtitle 
         Add an industry that describes your company the best
     .controls
@@ -23,8 +23,8 @@
         %a.close{"data-dismiss" => "alert", :type => "button"} ×
 
   .control-group
-    %label.control-label{:for => "inputPassword"} 
-      Functional Area of this role
+    %label.control-label
+      Functional Area of this role*  
     .controls
       %select.span9.first.fl_none
         %option Select one or more
@@ -43,8 +43,8 @@
         %a.close{"data-dismiss" => "alert", :type => "button"} ×
 
   .control-group
-    %label.control-label{:for => "inputPassword"} 
-      Job Profile
+    %label.control-label
+      Job Profile* 
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
@@ -66,14 +66,14 @@
 
 
   .control-group
-    %label.control-label{:for => "job_title"} 
-      Number of Openings
+    %label.control-label
+      Number of Openings* 
     .controls
-      %input#job_title{:placeholder => "type the title of the job", :type => "text"}
+      %input#job_title{:placeholder => "1", :type => "text", :class => "span3 first"}
 
   .control-group
-    %label.control-label{:for => "inputPassword"} 
-      Job Location
+    %label.control-label
+      Job Location* 
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
@@ -84,15 +84,17 @@
         .badge_count
           1
         .badge_content
-          Marketing, Advertising, Market Reasearch, public...
+          pune
         %a.close{"data-dismiss" => "alert", :type => "button"} ×
       .badge_label.clearfix.span9.first
         .badge_count
           1
         .badge_content
-          Marketing, Advertising, Market Reasearch, public...
+          Mumbai
         %a.close{"data-dismiss" => "alert", :type => "button"} ×
   .form-actions
-    %button.pull-right{:class => "btn btn-primary", :type => "button"}
-      Cancel
+    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
     .clr
