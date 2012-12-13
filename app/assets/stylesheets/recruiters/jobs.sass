@@ -1,0 +1,116 @@
+.side_bar
+  width: 270px
+  float: left
+.main-content
+  min-height: 420px
+  width: 670px
+  padding: 0 0 0 5px
+  background: url("/assets/recruiters/jobs/rhs_bg_border.png") repeat-y top left
+
+.job_flow_lhs
+  ul
+    margin: 0
+    margin-top: 35px
+    li
+      list-style: none
+      color: #8e8e8e
+      font-size: 14px
+      font-weight: bold
+      margin: 0 0 18px
+      padding: 10px 10px 10px 30px
+      width: 234px
+    li.done
+      color: #070707
+    li.active
+      background: #9e9e9e
+      color: #fff
+      position: relative
+
+      &:after, &:before
+        left: 100%
+        border: solid transparent
+        content: " "
+        height: 0
+        width: 0
+        position: absolute
+        pointer-events: none
+
+      &:after
+        border-color: rgba(136, 183, 213, 0)
+        border-left-color: #9e9e9e
+        border-width: 19px
+        top: 0
+        margin-top: 0px
+  .job_lhs_help
+    background: url("/assets/recruiters/jobs/flow_help_bg.jpg")
+    padding: 18px
+    border-top: 1px solid #e3e3e3
+    width: 237px
+    .title
+      font: italic bold 24px/26px Georgia, "Times New Roman", Times, serif
+      color: #d97003
+      margin: 27px 0 0 10px
+    .user_icon
+      width: 75px
+      height: 75px
+      border: 1px solid #e3e3e3
+      overflow: hidden
+
+.job_flow_rhs
+  margin: 0 0 0 20px
+
+  .form-horizontal
+    label
+      color: #333 
+      font-size: 14px 
+      cursor: default 
+      font-weight: bold 
+      width: 230px 
+    .label_subtitle
+      font-size: 12px
+      color: #8e8e8e
+      font-weight: normal
+    .controls
+      margin-left: 240px 
+    .badge_label
+      line-height: 30px 
+      border: 1px solid #c4c4c4
+      border-radius: 4px
+      margin-top: 10px
+      padding-right: 7px
+      .badge_count
+        background: #cc741c
+        float: left
+        text-align: center
+        font-weight: bold
+        font-size: 14px
+        color: #fff
+        width: 30px
+        height: 30px
+        border-radius: 3px
+      .badge_content
+        padding: 0 10px
+        float: left
+      .close
+        float: right
+        line-height: 26px
+    .badge_label.span9
+      width: 340px
+    .form-actions
+      background: #f9f9f9
+      border: 1px solid #e3e3e3 
+      border-left: none
+      border-right: none
+      padding: 17px 36px
+      margin-left: -21px
+      width: 602px
+
+      button
+        width: 102px
+
+
+
+
+
+
+      
