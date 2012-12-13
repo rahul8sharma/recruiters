@@ -25,6 +25,10 @@ gem 'awesome_print', '1.1.0'
 #gem 'jquery-rails'
 gem "haml-rails", "0.3.5"
 gem "will_paginate", "3.0.3"
+gem "redis-rails", "3.2.3"
+
+gem 'disable_assets_logger', :group => :development
+
 gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
 
