@@ -1,0 +1,28 @@
+--- 
+test_enabled_buckets: 
+  career: Opus::Career
+  work_profile: Opus::WorkProfile
+
+:all: 
+- Opus::Job
+- Opus::Career
+- Opus::WorkProfile
+- Opus::Stream
+- Opus::Field
+- Opus::CompanyOrganization
+- Opus::Degree
+- Opus::Tag
+- Opus::Industry
+
+:addable: 
+- Opus::Job
+
+:showable: 
+- Opus::WorkProfile
+- Opus::Degree
+- Opus::Job
+
+:visible: 
+- Opus::WorkProfile
+- Opus::Degree
+- Opus::Job

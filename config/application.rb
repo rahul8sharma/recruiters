@@ -66,6 +66,8 @@ module Recruiters
 
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
 
+    config.buckets = YAML::load(File.open("#{Rails.root.to_s}/config/sparta/buckets.yml"))
+    
     Rails.application.config.autoload_paths += Dir[Gem::Specification.find_by_name("vger").gem_dir+"/**"]
   end
 end
