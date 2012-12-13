@@ -1,1 +1,165 @@
-Logistics
+%form.form-horizontal
+  .control-group
+    %label.control-label
+      Type of Employment*
+    .controls
+      %select.span9.first.fl_none
+        %option Select the job type
+        %option 1
+  .control-group
+    %label.control-label
+      Annual Salary*
+    .controls
+      %label.radio.span3.first
+        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          Range
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          No Constraint
+  .control-group
+    %label.control-label
+      
+    .controls
+      .span.first 
+        %strong.line_height2 Rs
+      %select.span3.pull-left
+        %option min-salary
+        %option 1
+      .span
+        %strong.line_height2 To
+      %select.span3.pull-left
+        %option max-salary
+        %option 1
+      .span
+        %strong.line_height2 In Lakhs/ Year
+  .control-group
+    %label.control-label
+    .controls
+      %label.checkbox
+        %input{:type => "checkbox", :value => ""}
+        Do not disclose salary to candidates
+
+  .control-group
+    %label.control-label.pull-left
+      Perks
+      .label_subtitle 
+        Check the perks which
+        %br/
+        you offer as a part of the job
+    .span10
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Relocation Assistance
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Medical Insurance
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Mobile/Broadband Bills
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Transport facility
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Life Insurance
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Food Coupons  
+      .clr
+
+      .divider1
+      Additional Perks
+      %textarea{:placeholder => "Type additional Perks Here"}
+
+  .control-group
+    %label.control-label.pull-left
+      Shift Timings
+    .span10
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Day shift
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Evening shift
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Night shift
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Rotating shift
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Early morning shift
+      .clr
+
+  .control-group
+    %label.control-label.pull-left
+      Weekly offs on
+    .span10
+      %label.checkbox.span2.first
+        %input{:type => "checkbox", :value => ""}
+        Mon
+      %label.checkbox.span2
+        %input{:type => "checkbox", :value => ""}
+        Tue
+      
+      %label.checkbox.span2.first
+        %input{:type => "checkbox", :value => ""}
+        Wed
+      %label.checkbox.span2
+        %input{:type => "checkbox", :value => ""}
+        Thur
+      
+      %label.checkbox.span2.first
+        %input{:type => "checkbox", :value => ""}
+        Fri
+      %label.checkbox.span2
+        %input{:type => "checkbox", :value => ""}
+        Sat
+      %label.checkbox.span2.first
+        %input{:type => "checkbox", :value => ""}
+        Sun
+      .clr
+  .control-group
+    %label.control-label.pull-left
+      Additional information
+      .label_subtitle 
+        Check whichever applicable.
+    .span10
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Involves Travel
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Government Job
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Vehicle is required
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        This is a Walk in event
+      .clr
+
+
+
+
+
+
+
+ 
+  
+
+
+  .form-actions
+    %a.pull-left{:class => "", :href => "#"}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
+    .clr
