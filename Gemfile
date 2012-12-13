@@ -24,7 +24,11 @@ gem 'awesome_print', '1.1.0'
 
 #gem 'jquery-rails'
 gem "haml-rails", "0.3.5"
+gem "will_paginate", "3.0.3"
+gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
+
+#gem 'vger', :path => '/home/letronje/workspace/src/vger'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

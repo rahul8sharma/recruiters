@@ -63,5 +63,9 @@ module Recruiters
     config.copyright_year = DateTime::now.year
 
     config.facebook = YAML::load(File.open("#{Rails.root.to_s}/config/facebook.yml"))[Rails.env.to_s]
+
+    config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
+
+    Rails.application.config.autoload_paths += Dir[Gem::Specification.find_by_name("vger").gem_dir+"/**"]
   end
 end
