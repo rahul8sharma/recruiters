@@ -1,1 +1,83 @@
-Job requirements
+%form.form-horizontal
+  .control-group
+    %label.control-label
+      Years of Work Experience* Required
+    .controls
+      %label.radio.span4
+        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          Experienced
+      %label.radio.span4
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          Fresher
+      .clr
+      .exp_slider
+        slider goes here
+  .control-group
+    %label.control-label
+      Qualification - Preffered 
+    .controls
+      %select.span5.first.fl_none
+        %option Select Degree/ Diploma 
+        %option 1
+      %select.span4
+        %option Select Specialization
+        %option 1
+  .control-group
+    %label.control-label
+      Must Have Skills* 
+    .controls
+      %select.span5.first.fl_none
+        %option Select Skills 
+        %option 1
+      %select.span4
+        %option Experience
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Auditing - 1 yr
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+      .badge_label.clearfix.span9.first
+        .badge_count
+          2
+        .badge_content
+          Bookkeeping - 2 yrs
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+  .control-group
+    %label.control-label
+      Nice to Have Skills
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Auditing - 1 yr
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+      .badge_label.clearfix.span9.first
+        .badge_count
+          2
+        .badge_content
+          Bookkeeping - 2 yrs
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+
+  .control-group
+    %label.control-label
+      Job Description
+    .controls
+      hgfhgfhgfhgfhfhgfhfh
+
+  .form-actions
+    %a.pull-left{:class => "", :href => "#"}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
+    .clr

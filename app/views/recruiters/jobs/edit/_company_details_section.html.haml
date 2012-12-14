@@ -1,1 +1,92 @@
-Company details
+.contact_details
+  .title
+    Hiring Company Profile
+  .divider2
+  %form.form-horizontal
+    .control-group
+      %label.control-label
+        Application Instructions
+      .controls
+        %label.radio.span4
+          %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+            Use Default Profile
+        %label.radio.span4
+          %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+            Use a different profile
+    .control-group
+      %label.control-label
+        Company Name* 
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        About Company  
+      .controls.medium_text
+        %textarea{:rows => "4", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        Website of company 
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        Address 
+      .controls.medium_text
+        %textarea{:rows => "4", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        City*  
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        Company Logo  
+      .controls
+        .span3.divider6.first.gray_border
+          = image_tag ("http://www.placehold.it/110x110")
+        .divider5
+        %input.span3{:type => "file"}
+    .divider1
+          
+    .form-actions
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+        %strong Continue
+      .clr
+  .title
+    Employer Account Details
+  .divider2
+  %form.form-horizontal
+    .control-group
+      %label.control-label
+        Job ID (Internal) 
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Type internal Job Id for your reference in the future"}
+    .control-group
+      %label.control-label
+        Application URL (if any) 
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Type URL"}
+    .control-group
+      %label.control-label
+        HR Name*
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled"}
+    .control-group
+      %label.control-label
+        Phone Number*
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled number"}
+    .control-group
+      %label.control-label
+        Official Email id* 
+      .controls.medium_text
+        %input{:type => "text", :class => "span9 first", :placeholder => "Prefiled"}
+    .divider1
+    .form-actions
+      %a.pull-left{:class => "", :href => "#"}
+        Previous
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+        %strong Next Step
+      %a.pull-right{:class => "", :href => "#"}
+        %strong save and continue later
+      .clr

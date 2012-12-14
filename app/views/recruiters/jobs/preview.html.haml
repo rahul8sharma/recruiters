@@ -1,1 +1,417 @@
-job PREVIEW
+= content_for :stylesheets do
+  = stylesheet_link_tag 'recruiters/jobs'
+  
+
+- content_for :sidebar do
+  .job_flow_lhs
+    %ul
+      %li.done
+        1. Job Description
+      %li.active
+        2. Candidate Requirement
+      %li
+        3. Candidate Preference
+      %li
+        4. Compensation &amp; Logistics
+      %li
+        5. Miscellaneous
+      %li
+        6. Contact Details
+      %li
+        7. Preview
+    .job_lhs_help
+      .user_icon.rounded.pull-left
+        = image_tag("http://www.placehold.it/75x75")
+
+      .title.pull-left
+        Need Help?
+      .clr
+      .divider1
+      %p
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      .text_center.big_text.font_normal.line_height2
+        Write Us
+        %br/
+        OR 
+        %br/
+        Call us on: 09882353371
+
+.job_flow_rhs
+  %form.form-horizontal
+
+    .form-actions.yellow_bg.margin_top
+      .span8.first.medium_text
+        If everything looks okay, scroll down to bottom and click on 
+        %strong
+          "Post this job" 
+        to post the job.
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+        %strong Post Job
+      
+      .clr
+
+    
+    .preview
+      .heading.gray_bg
+        Job Description
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Job Title
+        .description.span10
+          Mahindra Satyam IT Job at Hyderabad, Bangalore, Pune: Technical Lead
+      .section  
+        .title.span5
+          Functional Area of this role
+        .description.span10
+          Legal
+      .section  
+        .title.span5
+          Job Profile
+        .description.span10
+          Managerial
+      .section  
+        .title.span5
+          Number of Openings
+        .description.span10
+          1
+      .section  
+        .title.span5
+          Job Location
+        .description.span10
+          .highlight_badge.span
+            Pune
+          .highlight_badge.span
+            Mumbai
+
+      .heading.gray_bg
+        Candidate Requirement
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Years of Work Experience Required
+        .description.span10
+          2-6 yrs of Experience
+      .section  
+        .title.span5
+          Qualification - Preffered
+        .description.span10
+          B. Tech in  IT 
+      .section  
+        .title.span5
+          Must Have Skills
+        .description.span10
+          - 2.times do
+            .highlight_badge.span
+              Bookkeeping - 2 yrs
+      .section  
+        .title.span5
+          Nice to have Skills
+        .description.span10
+          - 2.times do
+            .highlight_badge.span
+              Bookkeeping
+      .section  
+        .title.span5
+          Job Description
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+
+      .heading.gray_bg
+        Candidate Preference
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Industries
+        .description.span10
+          - 2.times do
+            .highlight_badge
+              Advertising, Public Relations, Market Research, Events
+      .section  
+        .title.span5
+          Location(s)
+        .description.span10
+          .highlight_badge.span
+            Pune
+          .highlight_badge.span
+            Mumbai
+      .section  
+        .title.span5
+          Communication Skills required for this job
+        .description.span10
+          .span3
+            Spoken English
+          .span3
+            jst Implmnt stars,css later
+          .span3
+            Average
+          .clr
+          .span3
+            Written English
+          .span3
+            jst Implmnt stars,css later
+          .span3
+            Excellent
+      .section  
+        .title.span5
+          Preferred Behavioral Traits
+        .description.span10
+          -3.times do
+            .highlight_badge.span
+              Probleme solving
+      .section  
+        .title.span5
+          Preferred Gender
+        .description.span10
+          Male
+      .section  
+        .title.span5
+          Preferred Marital Status
+        .description.span10
+          No Preference 
+
+      .heading.gray_bg
+        Candidate Preference
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Type of Employment
+        .description.span10
+          .highlight_badge.span
+            Part time 
+      .section  
+        .title.span5
+          Annual Salary
+        .description.span10
+          Rs. xy to yz in Lakhs/Year 
+          .faded_light
+            Do not disclose salary to candidates
+      .section  
+        .title.span5
+          Perks
+        .description.span10
+          - 3.times do
+            .highlight_badge.span8.first
+              Relocation Assistance 
+          .highlight_badge.span8.first
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim
+      .section  
+        .title.span5
+          Shift Timings
+        .description.span10
+          - 3.times do
+            .highlight_badge.span
+              Day shift
+      .section  
+        .title.span5
+          Weekly offs on
+        .description.span10
+          .highlight_badge.span
+            Saturday
+          .highlight_badge.span
+            Sunday
+      .section  
+        .title.span5
+          Additional information
+        .description.span10
+          - 2.times do
+            .highlight_badge.span8.first
+              Involves Travel
+         
+
+      .heading.gray_bg
+        Miscellaneous
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Application Instructions
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+      .section  
+        .title.span5
+          Are there specific companies where your required candidates would be working currently?
+        .description.span10
+          ABC Corporation, XYZ Limited, YNL.com
+      .section  
+        .title.span5
+          Other job titles such candidates have in the industry?
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
+      .section  
+        .title.span5
+          Keywords or buzzwords that such candidates write on their profiles?
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
+      .section  
+        .title.span5
+          Kind of people you do not want to hire?
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
+
+      .heading.gray_bg
+        Miscellaneous
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Company Name    
+        .description.span10
+          XYZ Corporation
+      .section  
+        .title.span5
+          About Company    
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      .section  
+        .title.span5
+          Website of company    
+        .description.span10
+          XYZ@gmail.com
+      .section  
+        .title.span5
+          Address    
+        .description.span10
+          Lorem ipsum dolor sit amet,
+      .section  
+        .title.span5
+          City    
+        .description.span10
+          Pune
+
+      .heading.gray_bg
+        Employer Account Details
+        .pull-right
+          %a{:href => "#", :title => "Edit this section"}
+            Edit
+      .section  
+        .title.span5
+          Job ID (Internal)    
+        .description.span10
+          ID-12345678
+      .section  
+        .title.span5
+          Application URL (if any)    
+        .description.span10
+          Lorem ipsum dolor sit amet, consectetur
+      .section  
+        .title.span5
+          HR Name    
+        .description.span10
+          Sagar Shrivastava
+      .section  
+        .title.span5
+          Phone Number    
+        .description.span10
+          +91-9935525433
+      .section  
+        .title.span5
+          Official Email id    
+        .description.span10
+          abc@gmail.com
+    .form-actions
+      %a.pull-left{:class => "", :href => "#"}
+        Previous
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+        %strong Post Job
+      %a.pull-right{:class => "", :href => "#"}
+        %strong save and continue later
+      .clr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

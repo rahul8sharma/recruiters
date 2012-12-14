@@ -1,1 +1,92 @@
-Hiring preferences
+%form.form-horizontal
+  .control-group
+    %label.control-label
+      Do you want to hire candidates from particular industries?
+    .controls
+      %select.span9.first.fl_none
+        %option Select the job type
+        %option 1
+      .badge_label.clearfix.span9.first
+        .badge_count
+          1
+        .badge_content
+          Education
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+  .control-group
+    %label.control-label
+      Do you want to hire candidates from a particular location(s)?
+    .controls
+      %select.span9.first.fl_none
+        %option Select one or more
+        %option 1
+  .control-group
+    %label.control-label
+      Communication Skills 
+      %br/
+      required for this job
+
+  .control-group
+    %label.control-label.font_normal
+      Spoken English
+    .controls
+      %select.span7.first.fl_none
+        %option Select one
+        %option 1
+  .control-group
+    %label.control-label.font_normal
+      Written English
+    .controls
+      %select.span7.first.fl_none
+        %option Select one
+        %option 1
+  .control-group
+    %label.control-label
+      Preferred Behavioral Traits
+      .label_subtitle 
+        Select upto 5 options
+    .controls.behavioral_traits
+      -10.times do
+        -3.times do  
+          %label.checkbox.traits_badge
+            -#do for selected lable jst add "active" class EXP - %label.checkbox.traits_badge.active
+            %input.hide{:type => "checkbox", :value => ""}
+            some text
+  .control-group
+    %label.control-label
+      Preferred Gender
+    .controls
+      %label.radio.span3.first
+        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          male
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          Female
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          No Preference
+      .clr
+
+  .control-group
+    %label.control-label
+      Preferred Marital Status
+    .controls
+      %label.radio.span3.first
+        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          Single
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          Married
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          No Preference
+      .clr
+    .divider1
+
+  .form-actions
+    %a.pull-left{:class => "", :href => "#"}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
+    .clr
