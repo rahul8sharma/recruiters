@@ -1,0 +1,7 @@
+.badge_label.clearfix.span9.first
+  .badge_count
+    #{ job_location.count }
+  .badge_content
+    #{ job_location.name }
+  %a.close{"data-dismiss" => "alert", :href => "[data-id='#{ job_location.id }']"} ×
+  = hidden_field_tag("basic[job_preferences][preferred_job_locations][query_options][id][]", job_location.id)

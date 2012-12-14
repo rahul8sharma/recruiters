@@ -21,6 +21,33 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def status
   end
 
+  # GET /recommendations/traversable_from/:id
+  # Used in edit profile pages to fetch skills/job profiles for a job category
+  def traversable_from
+    source_node_id = "Vger::Spartan::#{params[:source_class]}".constantize\
+      .find(params[:id]).node_id
+    
+    recommendations = Vger::Spartan::Opus::Recommendation\
+      .traverse({
+                  :source_nodes => [
+                                    {
+                                      "id" => source_node_id,
+                                      "relationship" => params[:relation]
+                                    }
+                                   ],
+                  :options => {
+                    "bucket_type" => params[:bucket_type]
+                  },
+                  :order => "name ASC",
+                  :without_cache => true,
+                  :plain_fetch => true
+                })
+
+    respond_to do |format|
+      format.json { render json: recommendations }
+    end
+  end
+
   private
 
   # Extract status from url
@@ -37,6 +64,6 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data = {}
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
     @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
-    @master_data.merge! :work_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
+    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
   end
 end

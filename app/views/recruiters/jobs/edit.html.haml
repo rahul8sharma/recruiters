@@ -1,5 +1,18 @@
+= content_for :javascript_libs do
+  = javascript_include_tag "lib/handlebars-1.0.0.beta.6"
+  = javascript_include_tag "lib/jslider/js/draggable-0.1"
+  = javascript_include_tag "lib/jslider/js/tmpl"
+  = javascript_include_tag "lib/jslider/js/jquery.slider"
+  = javascript_include_tag "lib/jslider/js/jquery.dependClass-0.1"
+
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
+  = stylesheet_link_tag "javascripts/lib/jslider/css/jslider.css"
+  = stylesheet_link_tag "javascripts/lib/jslider/css/jslider.round.plastic.css"
+
+= content_for :javascripts do
+  = javascript_include_tag "jobs/edit"
+  = javascript_include_tag "chained_select"
   
 
 - content_for :sidebar do

@@ -6,6 +6,7 @@ Recruiters::Application.routes.draw do
       member do
         get :show
         get :preview, :path => "preview", :as => "_preview"
+        get :traversable_from
       end
       collection do
         # get :show, :path => ":status/:id", :as => "_show"
