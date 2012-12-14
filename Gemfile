@@ -27,6 +27,10 @@ gem "haml-rails", "0.3.5"
 gem "will_paginate", "3.0.3"
 gem "redis-rails", "3.2.3"
 
+gem "ohm", "1.2.0"
+gem "ohm-contrib", "1.2"
+gem "hashie", "1.2.0"
+
 gem 'disable_assets_logger', :group => :development
 
 gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
