@@ -3,6 +3,9 @@
     %label.control-label
       Do you want to hire candidates from particular industries?
     .controls
+      = select_tag("work_experience[][industry]", options_from_collection_for_select(@master_data[:industries], :id, :name), :include_blank => "Choose Industry", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
+      %div{:data => {"preferred-job_industry-container" => true}}
+    -#
       %select.span9.first.fl_none
         %option Select the job type
         %option 1
@@ -16,6 +19,10 @@
     %label.control-label
       Do you want to hire candidates from a particular location(s)?
     .controls
+      = select_tag("work_experience[][location][query_options][geography_id]", top_list_for_select(:india_cities), class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+      %div{:data => {"preferred-job_location-container" => true}}
+
+    -#
       %select.span9.first.fl_none
         %option Select one or more
         %option 1
@@ -29,6 +36,7 @@
     %label.control-label.font_normal
       Spoken English
     .controls
+    -#
       %select.span7.first.fl_none
         %option Select one
         %option 1
@@ -55,6 +63,15 @@
     %label.control-label
       Preferred Gender
     .controls
+      - @master_data[:gender].each_with_index do |gender, index|
+        %label.radio.span3{:class => index == 0 ? "first" : ""}
+          = radio_button_tag("basic[personal][gender][query_options][id]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
+          #{ gender.name }
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "basic[personal][gender][query_options][id]", :type => "radio", :value => ""}
+          No Preference
+      .clr
+    -#
       %label.radio.span3.first
         %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
           male
@@ -70,6 +87,15 @@
     %label.control-label
       Preferred Marital Status
     .controls
+      - @master_data[:marital_status].each_with_index do |status, index|
+        %label.radio.span3{:class => index == 0 ? "first" : ""}
+          = radio_button_tag("basic[personal][status][query_options][id]", status.id, (@basic[:marital_status] rescue nil).try(:id) == status.id)
+          #{ status.name }
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "basic[personal][status][query_options][id]", :type => "radio", :value => "option2"}
+          No Preference
+      .clr
+    -#
       %label.radio.span3.first
         %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
           Single
@@ -90,3 +116,8 @@
     %a.pull-right{:class => "", :href => "#"}
       %strong save and continue later
     .clr
+
+%script#preferred-job_industry{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_industry", locals: {job_industry: preferred_job_industry_template_struct}
+%script#preferred-job_location{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_location", locals: {job_location: preferred_job_location_template_struct}

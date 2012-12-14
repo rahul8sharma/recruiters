@@ -65,5 +65,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
     @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
     @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
+    @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
+    @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
+    # @master_data.merge! :skills => ["beginner", "average", "good", "very good"]
   end
 end
