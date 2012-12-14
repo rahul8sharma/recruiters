@@ -2,12 +2,18 @@
 
 Vger::Authentication.send(:include, Rails.application.routes.url_helpers)
 
-Rails.application.config.vger.each_pair do |api, cred|
-  if api == "penumbra"
-    # do settings for penumbra devise wrappers and umbra ActiveResource wrapper both
+Rails.application.config.vger.each_pair do |api, config|
+  
+  cred = config.extract!('app_name', 'password')
+  
+  if config["auth"]
+    # do settings for penumbra devise wrappers and umbra
+    # ActiveResource wrapper both
+    
     cred.each_pair do |k, v|
       Vger::Authentication.send("#{k}=", v)
     end
+    
     Vger::Authentication.url_mappings = {
                                     :register => {:method => :post, :uri => "/users.json"},
                                     :signin => {:method => :post, :uri => '/users/sign_in.json'},
@@ -19,7 +25,7 @@ Rails.application.config.vger.each_pair do |api, cred|
                                     :change_password => {:method => :put, :uri => '/users/password'}
                                   }
     # setup the same credentials for Authentication ActiveResource wrapper
-    Vger::PenumbraARWrapper.setup(cred)
+    Vger::YorenWrapper.setup(cred)
 
   else
     "Vger::#{api.capitalize}Wrapper".constantize.setup(cred)

@@ -1,10 +1,10 @@
 development: &dev
-
-  penumbra:
-    url : "http://umbra.jombaylocal.com"
+  yoren:
+    url : "http://yoren.jombaylocal.com:1111"
     app_name : "YNL"
     password : "ynl71"
-
+    auth : true
+           
   leonidas:
     url : "http://leo.jombaylocal.com"
     app_name : "100K"
