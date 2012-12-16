@@ -1,4 +1,8 @@
 Recruiters::Application.routes.draw do
+  devise_for :users, :controllers => {
+    :registrations => "recruiters/users/registrations",
+  }
+
   namespace :recruiters, :path => '' do
     root :to => 'landing#index', :as => :root
 

@@ -36,4 +36,6 @@ Recruiters::Application.configure do
   config.assets.debug = false
   config.assets.logger = nil
   config.cache_store = :redis_store
+  
+  config.action_mailer.default_url_options = { :host => 'localhost:3333' }
 end
