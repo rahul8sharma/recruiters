@@ -37,5 +37,7 @@ Recruiters::Application.configure do
   config.assets.logger = nil
   config.cache_store = :redis_store
   
-  config.action_mailer.default_url_options = { :host => 'localhost:3333' }
+  config.action_mailer.default_url_options = {
+    :host => 'recruiters.jombaylocal.com'
+  }
 end

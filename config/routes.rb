@@ -3,6 +3,8 @@ Recruiters::Application.routes.draw do
     :registrations => "recruiters/users/registrations",
   }
 
+  resources :users
+  
   namespace :recruiters, :path => '' do
     root :to => 'landing#index', :as => :root
 

@@ -1,6 +1,6 @@
 development: &dev
   yoren:
-    url : "http://yoren.jombaylocal.com:1111"
+    url : "http://yoren.jombaylocal.com"
     app_name : "YNL"
     password : "ynl71"
     auth : true
