@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 2a97bac8454666f40523a6e58012ec14a2ff7a03
+  revision: 5b6d279e32e22a249584b95f9a02d6689d3a2f02
   branch: develop
   specs:
     vger (0.0.1)
@@ -75,7 +75,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
-    multi_json (1.4.0)
+    multi_json (1.5.0)
     nest (1.1.2)
       redis
     ohm (1.2.0)
@@ -109,7 +109,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
-    rake (10.0.2)
+    rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
