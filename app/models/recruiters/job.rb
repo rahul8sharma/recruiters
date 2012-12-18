@@ -15,7 +15,7 @@ class Recruiters::Job < Ohm::Model
   index :uuid
 
   def create(data)
-    super({:other => {}}.merge(data))
+    super({:other => {}}.deep_merge(data))
   end
   
   def method_missing(method, *args, &block)
@@ -31,7 +31,7 @@ class Recruiters::Job < Ohm::Model
     # fixed_attributes.each do |name, value|
     #   self.send("#{name}=", value)
     # end
-    self.other = (self.other || {}).merge(data)
+    self.other = (self.other || {}).deep_merge(data)
     self.save
   end
 
