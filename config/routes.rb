@@ -4,6 +4,8 @@ Recruiters::Application.routes.draw do
     :sessions => "recruiters/users/sessions"
   }
 
+  resources :users
+  
   namespace :recruiters, :path => '' do
     root :to => 'landing#index', :as => :root
 
