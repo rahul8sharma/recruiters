@@ -83,6 +83,10 @@ function workexSlider() {
   });
 }
 
+/*=== VALIDATIONS starts ===*/
+
+/*=== VALIDATIONS ends ===*/
+
 $(function() {
 
   $("select[data-job_industry_pseudo_select]").on("change", function() {

@@ -8,7 +8,11 @@ Rails.application.config.vger.each_pair do |api, config|
       Vger::Authentication.send("#{key}=", value)
     end
   end
-  "Vger::#{api.capitalize}Wrapper".constantize.setup(config)
+  if api == "penumbra"
+  	Vger::PenumbraARWrapper.setup(config)
+  else
+    "Vger::#{api.capitalize}Wrapper".constantize.setup(config)
+  end
 end
 
 ActiveResource::Base.logger = Rails.logger

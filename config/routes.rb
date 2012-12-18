@@ -25,11 +25,11 @@ Recruiters::Application.routes.draw do
       resources :candidates, :only => [:index, :show]
     end
 
-    resources :users, :only => [] do
-      collection do
-        get :show, :path => "company-profile/:id"
-        get :edit, :path => "company-profile/:id/edit"
-        put :update, :path => "company-profile/:id/edit"
+    resources :company_profiles, :path => "company-profiles", :only => [] do
+      member do
+        get :show
+        get :edit
+        put :update
       end
     end
 

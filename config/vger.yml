@@ -1,4 +1,9 @@
 development: &dev
+  penumbra:
+    url : "http://umbra.jombaylocal.com"
+    app_name : "YNL"
+    password : "ynl71"
+
   yoren:
     url : "http://yoren.jombaylocal.com"
     app_name : "YNL"
