@@ -70,6 +70,19 @@ function initJobLocationPseudoSelect(select) {
   }
 }
 
+function workexSlider() {
+  // Enable slider for abilities
+  $("[data-work-ex-level]").slider({
+    from: 1,
+    to: 10,
+    step: 1,
+    limits: false,
+    smooth: false,
+    scale: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    skin: "round_plastic"
+  });
+}
+
 $(function() {
 
   $("select[data-job_industry_pseudo_select]").on("change", function() {
@@ -84,6 +97,8 @@ $(function() {
   $("select[data-job_location_pseudo_select]").on("change", function() {
   	initJobLocationPseudoSelect($(this));
   });
+
+  workexSlider();
 
   var chainedSelect = function(current, chainedSelectSelector, url, prompt, postCallback){
     if(!current.val()){

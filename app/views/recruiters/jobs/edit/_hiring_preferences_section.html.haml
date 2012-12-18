@@ -1,9 +1,9 @@
-%form.form-horizontal
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin" do
   .control-group
     %label.control-label
       Do you want to hire candidates from particular industries?
     .controls
-      = select_tag("work_experience[][industry]", options_from_collection_for_select(@master_data[:industries], :id, :name), :include_blank => "Choose Industry", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
+      = select_tag("work_experience[][industry]", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
     -#
       %select.span9.first.fl_none
@@ -19,7 +19,7 @@
     %label.control-label
       Do you want to hire candidates from a particular location(s)?
     .controls
-      = select_tag("work_experience[][location][query_options][geography_id]", top_list_for_select(:india_cities), class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+      = select_tag("work_experience[][location][query_options][geography_id]", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
 
     -#
@@ -36,17 +36,12 @@
     %label.control-label.font_normal
       Spoken English
     .controls
-    -#
-      %select.span7.first.fl_none
-        %option Select one
-        %option 1
+      = select_tag(:level, skill_level_options, :prompt => "Select one", :class => "span7 first fl_none")
   .control-group
     %label.control-label.font_normal
       Written English
     .controls
-      %select.span7.first.fl_none
-        %option Select one
-        %option 1
+      = select_tag(:level, skill_level_options, :prompt => "Select one", :class => "span7 first fl_none")
   .control-group
     %label.control-label
       Preferred Behavioral Traits
@@ -111,7 +106,7 @@
   .form-actions
     %a.pull-left{:class => "", :href => "#"}
       Previous
-    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
     %a.pull-right{:class => "", :href => "#"}
       %strong save and continue later

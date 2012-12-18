@@ -15,6 +15,20 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>
   def edit
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
+  end
+
+  def update
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
+    @job.update(params.to_hash)
+    Rails.logger.ap params.to_hash
+
+    section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
+    next_section = section_keys[section_keys.index(params[:section]) + 1]
+
+    # redirect_to recruiters_jobs_path(:id => @job.uuid, :section => next_section)
+
+    redirect_to next_section.present? ? recruiters_jobs_path(:id => @job.uuid, :section => next_section) : preview_recruiters_job(:id => @job.uuid)
   end
 
   # GET /<status:(open | pending | closed | incomplete)>
@@ -48,6 +62,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     end
   end
 
+
   private
 
   # Extract status from url
@@ -67,6 +82,6 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
     @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
     @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
-    # @master_data.merge! :skills => ["beginner", "average", "good", "very good"]
+    @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
   end
 end

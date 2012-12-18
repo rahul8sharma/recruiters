@@ -1,4 +1,4 @@
-%form.form-horizontal
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-logistics" => true, :class => "form-horizontal margin" do
   .control-group
     %label.control-label
       Type of Employment*
@@ -47,6 +47,11 @@
         %br/
         you offer as a part of the job
     .span10
+      -#
+        - @master_data[:gender].each_with_index do |gender, index|
+          %label.checkbox.span4{:class => index == 0 ? "first" : ""}
+            = check_box_tag("basic[personal][gender][query_options][id]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
+            #{ gender.name }
       %label.checkbox.span4.first
         %input{:type => "checkbox", :value => ""}
         Relocation Assistance
@@ -71,7 +76,7 @@
 
       .divider1
       Additional Perks
-      %textarea{:placeholder => "Type additional Perks Here"}
+      %textarea{:placeholder => "TType additional perks here"}
 
   .control-group
     %label.control-label.pull-left
@@ -149,7 +154,7 @@
   .form-actions
     %a.pull-left{:class => "", :href => "#"}
       Previous
-    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
     %a.pull-right{:class => "", :href => "#"}
       %strong save and continue later

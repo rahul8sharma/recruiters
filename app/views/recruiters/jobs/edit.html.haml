@@ -7,8 +7,8 @@
 
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
-  = stylesheet_link_tag "javascripts/lib/jslider/css/jslider.css"
-  = stylesheet_link_tag "javascripts/lib/jslider/css/jslider.round.plastic.css"
+  = stylesheet_link_tag "lib/jslider/css/jslider.css"
+  = stylesheet_link_tag "lib/jslider/css/jslider.round.plastic.css"
 
 = content_for :javascripts do
   = javascript_include_tag "jobs/edit"
@@ -18,6 +18,11 @@
 - content_for :sidebar do
   .job_flow_lhs
     %ul
+      - section_matched = false
+      - Rails.application.config.recruiters[:job_posting_sections].each_with_index do |(section, title), index|
+        %li{:class => section == @section ? (section_matched = true; "active") : (section_matched ? "" : "done")}
+          #{ index + 1 }. #{ title }
+    -#
       %li.done
         1. Job Description
       %li.active

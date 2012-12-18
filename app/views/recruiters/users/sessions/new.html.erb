@@ -1,0 +1,15 @@
+<h2>Sign in</h2>
+
+<%= form_tag user_session_path(:redirect_to => @redirect_to) do %>
+  <%= fields_for :user do |f| %>
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.submit "Sign in" %></div>
+  <% end %>
+<% end %>
+
+

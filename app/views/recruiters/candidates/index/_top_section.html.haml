@@ -1,0 +1,15 @@
+.inn.gray_border.border_left.border_right.border_bottom
+  .span22.fl_none.clearfix
+    .span3
+      %hr.divider10
+      -#%label.checkbox
+        %input#optionsCheckbox2{:type => "checkbox", :value => "option1"}
+          Select All
+    -#%a{:href => "#", :title => "Download in Excel", :class => "span5 btn btn-success line_height2 medium_text"} 
+      %i.icon-download-alt.icon-white
+      %strong Download in Excel
+    .span5
+      %a{:href => persia_recruiters_dashboard_path(@job, :starred => !(params[:starred] == true.to_s)), :title => "Show Starred", :class => "medium_text text_center span3 fl_none show_btn margin_auto line_height2"}
+        %strong.black Show #{ params[:starred] == true.to_s ? "All" : "Starred" }
+    .pull-right
+      = bootstrap_paginate(applications, :inner_window => 0, :outer_window => 0,)

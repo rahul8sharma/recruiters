@@ -1,7 +1,8 @@
 .badge_label.clearfix.span9.first
-  .badge_count
-    #{ job_industry.count }
+  -#
+    .badge_count
+      #{ job_category.count }
   .badge_content
-    #{ job_industry.name }
+    #{ truncate(job_industry.name, length: 50) }
   %a.close{"data-dismiss" => "alert", :href => "[data-id='#{ job_industry.id }']"} ×
   = hidden_field_tag("basic[job_preferences][preferred_job_industries][query_options][id][]", job_industry.id)

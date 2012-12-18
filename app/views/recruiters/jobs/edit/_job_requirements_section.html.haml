@@ -1,4 +1,6 @@
-%form.form-horizontal
+- job = job_template_struct
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin" do
+  -#%form.form-horizontal
   .control-group
     %label.control-label
       Years of Work Experience* Required
@@ -11,7 +13,7 @@
           Fresher
       .clr
       .exp_slider
-        slider goes here
+        %input{:name => "workex", :type => "slider", :data => {"work-ex-level" => true}}
   .control-group
     %label.control-label
       Qualification - Preffered 
@@ -26,58 +28,31 @@
     %label.control-label
       Must Have Skills* 
     .controls
-      %select.span5.first.fl_none
-        %option Select Skills 
-        %option 1
-      %select.span4
-        %option Experience
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Auditing - 1 yr
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-
-      .badge_label.clearfix.span9.first
-        .badge_count
-          2
-        .badge_content
-          Bookkeeping - 2 yrs
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none")
+      = select_tag(:skill_experience, skill_experience_options, :prompt => "Select Experience", :class => "span4")
 
   .control-group
     %label.control-label
       Nice to Have Skills
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Auditing - 1 yr
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-
-      .badge_label.clearfix.span9.first
-        .badge_count
-          2
-        .badge_content
-          Bookkeeping - 2 yrs
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none")
 
   .control-group
     %label.control-label
       Job Description
     .controls
-      hgfhgfhgfhgfhfhgfhfh
+      %textarea.span10.first{:placeholder => "Type job roles, responsibilities and any additional details here", :rows => "4"}
 
   .form-actions
     %a.pull-left{:class => "", :href => "#"}
       Previous
-    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
     %a.pull-right{:class => "", :href => "#"}
       %strong save and continue later
     .clr
+
+%script{id: "must_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet", locals: {skills_snippet: skill_template_struct, show_exp: true}
+%script{id: "nice_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet", locals: {skills_snippet: skill_template_struct, show_exp: false}

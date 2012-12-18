@@ -1,0 +1,7 @@
+.gray_gradient.clearfix
+  .inn.border-bottom
+    %strong.yellow_text.big_text
+      Job Location Preferences
+  .inn.border_bottom
+    = render partial: "persia/recruiters/application/job_location_preferences/location", collection: preferred, locals: {preferred: true}
+    = render partial: "persia/recruiters/application/job_location_preferences/location", collection: rejected, locals: {preferred: false}

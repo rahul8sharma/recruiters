@@ -1,0 +1,42 @@
+- cache  [1.3, :recruiters, :dashboard, candidate_list_snippet.id, candidate_list_snippet.updated_at.to_i], :tags => [:recruiters_dashboard] do
+
+  -# Application initialised from controller contains only id and
+    updated_at. Since this block is being rendered, it means the cache block has
+    been invalidated, so we need to fetch the application and associated data.
+  - application = get_application_details(candidate_list_snippet, :dashboard)
+
+  -# Initialise user resource so it can be passed to display image helper
+  - user = Vger::Spartan::User.new(application.user_information.attributes)
+
+  .inn.padding_top
+    .span22.fl_none.clearfix
+      .time.text_right
+        = timeago(application.created_at)
+      .span2
+        %label.checkbox.line_height2
+          -#%input#optionsCheckbox2{:type => "checkbox", :value => "option1"}
+          .img-normal
+            = render_display_image(user)
+      .span16
+        %a{:href => persia_recruiters_application_path(job, application)}
+          %strong.show.link_color.medium_text
+            #{ user.name }
+        %span
+          #{ user_bio(application.user_profile_information) }
+        .divider1
+        - if application.skills_information.attributes.to_a.present?
+          %strong.medium_text
+            Skilled in
+          .divider1
+          .skills_level.span16.fl_none.clearfix.first
+            = render :partial => "persia/recruiters/skill_level", collection: application.skills_information.attributes.to_a.slice(0, 3)
+          .divider1
+      .span4.first
+        .divider1
+        .divider4.pull-right.clearfix
+          = rating_stars(application.employer_rating, "data-application" => application.id)
+
+        - if application.skills_information.present? and application.skills_information.attributes.to_a.count > 3
+          %a{:href => persia_recruiters_application_path(job, application), :title => "See more", :class => "gray_bg gray_border more_btn medium_text span3 pull-right"}
+            +#{ remaining_count(application.skills_information.attributes.to_a, 3) } More
+

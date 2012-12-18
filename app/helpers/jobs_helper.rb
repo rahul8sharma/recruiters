@@ -1,4 +1,21 @@
 module JobsHelper
+  # Enum for skill levels
+  def skill_enum
+    ["Beginner", "Average", "Good", "Very good"].each_with_index.collect{|level, index| [level, (index + 1) * 10]}
+  end
+  # Enum for skill-wise experience in years
+  def skill_experience_enum
+    (0..16).step(0.5).to_a
+  end
+
+  # Options for skill level
+  def skill_level_options
+    options_for_select(skill_enum)
+  end
+  # Options for skill-wise experience in years
+  def skill_experience_options
+    options_for_select(skill_experience_enum.map{|exp| ["#{exp} years", exp] })
+  end
   # Helper that returns struct with placeholder values for blank question
   # template for jobs
   # OpenStruct is used to create a temporary structure.
@@ -25,10 +42,7 @@ module JobsHelper
                :name => "{{ name }}"
                )
   end
-  # Helper that returns struct with placeholder values for handlebar template
-  # for preferred job category
-  # OpenStruct is used to create a temporary structure.
-  # Ref: http://ruby-doc.org/stdlib-1.9.3/libdoc/ostruct/rdoc/OpenStruct.html
+
   def preferred_job_category_template_struct
     OpenStruct.new(
     	       :count => "{{ count }}",
@@ -48,6 +62,16 @@ module JobsHelper
                :count => "{{ count }}",
                :id => "{{ id }}",
                :name => "{{ name }}"
+               )
+  end
+
+  def skill_template_struct
+    OpenStruct.new(
+               id: "{{ id }}",
+               name: "{{ name}}",
+               level_display: "{{ level_display }}",
+               level_value: "{{ level_value }}",
+               experience: "{{ experience }}"
                )
   end
 end

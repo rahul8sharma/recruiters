@@ -1,21 +1,36 @@
 Recruiters::Application.routes.draw do
+  devise_for :users, :controllers => {
+    :registrations => "recruiters/users/registrations",
+    :sessions => "recruiters/users/sessions"
+  }
+
+  resources :users
+  
   namespace :recruiters, :path => '' do
     root :to => 'landing#index', :as => :root
 
     resources :jobs, :only => [] do
       member do
         get :show
-        get :preview, :path => "preview", :as => "_preview"
+        get :preview, :path => "preview"
         get :traversable_from
       end
       collection do
         # get :show, :path => ":status/:id", :as => "_show"
-        get :status, :path => ":status", :as => "_status"
-        get :edit, :path => ":id/edit/:section", :as => "_edit"
-        put :update, :path => ":id/edit/:section", :as => "_"
+        get :status, :path => ":status"
+        get :edit, :path => ":id/edit/:section"
+        put :update, :path => ":id/edit/:section"
       end
 
       resources :candidates, :only => [:index, :show]
+    end
+
+    resources :users, :only => [] do
+      collection do
+        get :show, :path => "company-profile/:id"
+        get :edit, :path => "company-profile/:id/edit"
+        put :update, :path => "company-profile/:id/edit"
+      end
     end
 
   end  
