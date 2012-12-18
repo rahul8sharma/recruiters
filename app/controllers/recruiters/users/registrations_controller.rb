@@ -1,5 +1,6 @@
 module Recruiters
   class Users::RegistrationsController < ApplicationController
+    layout "recruiters/users"
 
     respond_to :html, :xml, :js, :json
     
