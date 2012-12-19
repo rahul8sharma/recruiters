@@ -14,7 +14,14 @@ module JobsHelper
   end
   # Options for skill-wise experience in years
   def skill_experience_options
-    options_for_select(skill_experience_enum.map{|exp| ["#{exp} years", exp] })
+    options_for_select(skill_experience_enum.map{ |exp| ["#{exp} years", exp] })
+  end
+
+  def salary_enum
+    (0..30).step(0.5).to_a
+  end
+  def salary_options
+    options_for_select(salary_enum.map{ |sal| ["#{sal}", sal] })
   end
   # Helper that returns struct with placeholder values for blank question
   # template for jobs

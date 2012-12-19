@@ -38,10 +38,10 @@ module ApplicationHelper
         :other_label => "Other"
       })
 
-    # Rails.cache.fetch({:top_list => 29_11_2012, :list => list_name, :options => options}, :expires_in => 1.day) do
-    top_elements = Rails.application.config.top_lists[list_name]
-    collection = collection_for_top_list(list_name)
-    grouped_options_for_select([
+    Rails.cache.fetch({:top_list => 18_12_2012, :list => list_name, :options => options}, :expires_in => 1.day) do
+      top_elements = Rails.application.config.top_lists[list_name]
+      collection = collection_for_top_list(list_name)
+      grouped_options_for_select([
                                    [
                                      options[:top_label],
                                      collection.select{|element| top_elements.include? element.send(options[:key_attribute]) }.collect{|element| [element.send(options[:display_method]), element.send(options[:value_method])] }
@@ -51,7 +51,7 @@ module ApplicationHelper
                                      collection.reject{|element| top_elements.include? element.send(options[:key_attribute]) }.collect{|element| [element.send(options[:display_method]), element.send(options[:value_method])] }
                                    ]
                                  ])
-    # end
+    end
   end
 
   def bootstrap_type(type)

@@ -3,18 +3,20 @@
     %label.control-label
       Type of Employment*
     .controls
-      %select.span9.first.fl_none
-        %option Select the job type
-        %option 1
+      = select_tag(:kind, options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none")
+      -#
+        %select.span9.first.fl_none
+          %option Select the job type
+          %option 1
   .control-group
     %label.control-label
       Annual Salary*
     .controls
       %label.radio.span3.first
-        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+        %input#optionsRadios1{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "1"}
           Range
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+        %input#optionsRadios2{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "0"}
           No Constraint
   .control-group
     %label.control-label
@@ -22,14 +24,18 @@
     .controls
       .span.first 
         %strong.line_height2 Rs
-      %select.span3.pull-left
-        %option min-salary
-        %option 1
+      = select_tag(:min_salary, salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true)
+      -#
+        %select.span3.pull-left
+          %option min-salary
+          %option 1
       .span
         %strong.line_height2 To
-      %select.span3.pull-left
-        %option max-salary
-        %option 1
+      = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true)
+      -#
+        %select.span3.pull-left
+          %option max-salary
+          %option 1
       .span
         %strong.line_height2 In Lakhs/ Year
   .control-group
@@ -47,88 +53,35 @@
         %br/
         you offer as a part of the job
     .span10
-      -#
-        - @master_data[:gender].each_with_index do |gender, index|
-          %label.checkbox.span4{:class => index == 0 ? "first" : ""}
-            = check_box_tag("basic[personal][gender][query_options][id]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
-            #{ gender.name }
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Relocation Assistance
-      %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
-        Medical Insurance
-      .clr
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Mobile/Broadband Bills
-      %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
-        Transport facility
-      .clr
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Life Insurance
-      %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
-        Food Coupons  
-      .clr
+      - @master_data[:perks].each_with_index do |perk, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[perks][query_options][id]", perk.id, false)
+          #{ perk.name }
+        .clr
 
       .divider1
       Additional Perks
-      %textarea{:placeholder => "TType additional perks here"}
+      %textarea{:placeholder => "Type additional perks here"}
 
   .control-group
     %label.control-label.pull-left
       Shift Timings
     .span10
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Day shift
-      %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
-        Evening shift
-      .clr
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Night shift
-      %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
-        Rotating shift
-      .clr
-      %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
-        Early morning shift
-      .clr
+      - @master_data[:time_slots].each_with_index do |slot, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[time_slots][query_options][id]", slot.id, false)
+          #{ slot.name }
+        .clr
 
   .control-group
     %label.control-label.pull-left
       Weekly offs on
     .span10
-      %label.checkbox.span2.first
-        %input{:type => "checkbox", :value => ""}
-        Mon
-      %label.checkbox.span2
-        %input{:type => "checkbox", :value => ""}
-        Tue
-      
-      %label.checkbox.span2.first
-        %input{:type => "checkbox", :value => ""}
-        Wed
-      %label.checkbox.span2
-        %input{:type => "checkbox", :value => ""}
-        Thur
-      
-      %label.checkbox.span2.first
-        %input{:type => "checkbox", :value => ""}
-        Fri
-      %label.checkbox.span2
-        %input{:type => "checkbox", :value => ""}
-        Sat
-      %label.checkbox.span2.first
-        %input{:type => "checkbox", :value => ""}
-        Sun
-      .clr
+      - @master_data[:weekdays].each_with_index do |weekday, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[weekdays][query_options][id]", weekday.id, false)
+          #{ weekday.name }
+        .clr
   .control-group
     %label.control-label.pull-left
       Additional information

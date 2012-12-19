@@ -42,18 +42,26 @@
       Written English
     .controls
       = select_tag(:level, skill_level_options, :prompt => "Select one", :class => "span7 first fl_none")
-  .control-group
+  .control-group.margin
     %label.control-label
       Preferred Behavioral Traits
       .label_subtitle 
-        Select upto 5 options
+        Select upto 6 options
     .controls.behavioral_traits
-      -10.times do
-        -3.times do  
-          %label.checkbox.traits_badge
-            -#do for selected lable jst add "active" class EXP - %label.checkbox.traits_badge.active
-            %input.hide{:type => "checkbox", :value => ""}
-            some text
+      - @master_data[:traits].each_with_index do |trait, index|
+        %label.checkbox.traits_badge
+          = check_box_tag("job[traits][query_options][id][]", trait.id, false, :class => "")
+          #{ trait.name }
+  .control-group.error
+    .controls
+      %span.error.help-inline{:for => "job[traits][query_options][id][]", :generated => "true"}
+      -#
+        -10.times do
+          -3.times do  
+            %label.checkbox.traits_badge
+              -#do for selected lable jst add "active" class EXP - %label.checkbox.traits_badge.active
+              %input.hide{:type => "checkbox", :value => ""}
+              some text
   .control-group
     %label.control-label
       Preferred Gender

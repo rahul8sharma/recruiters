@@ -29,7 +29,7 @@ function initJobIndustryPseudoSelect(select) {
       Handlebars.compile($("#preferred-job_industry[type='text/x-template']").html()),
       $("[data-preferred-job_industry-container]"),
       "id",
-      "basic[job_preferences][preferred_job_industries][query_options][id][]"
+      "job[industries][query_options][id][]"
     );
   }
 }
@@ -41,7 +41,7 @@ function initJobCategoryPseudoSelect(select) {
       Handlebars.compile($("#preferred-job_category[type='text/x-template']").html()),
       $("[data-preferred-job_category-container]"),
       "id",
-      "basic[job_preferences][preferred_job_categories][query_options][id][]"
+      "job[categories][query_options][id][]"
     );
   }
 }
@@ -53,7 +53,7 @@ function initJobProfilePseudoSelect(select) {
       Handlebars.compile($("#preferred-job_profile[type='text/x-template']").html()),
       $("[data-preferred-job_profile-container]"),
       "id",
-      "basic[job_preferences][preferred_job_profiles][query_options][id][]"
+      "job[profiles][query_options][id][]"
     );
   }
 }
@@ -65,7 +65,7 @@ function initJobLocationPseudoSelect(select) {
       Handlebars.compile($("#preferred-job_location[type='text/x-template']").html()),
       $("[data-preferred-job_location-container]"),
       "id",
-      "basic[job_preferences][preferred_job_locations][query_options][id][]"
+      "job[locations][query_options][id][]"
     );
   }
 }
@@ -84,7 +84,204 @@ function workexSlider() {
 }
 
 /*=== VALIDATIONS starts ===*/
+$.validator.addMethod("check_presence", function(value, element, params) {
+  var form = $(element).parents("form");
+  var elem_legth = form.find("[name='"+params+"']").length;
+  return elem_legth > 0;
+}, "Please select at least one.");
 
+$.validator.addMethod("chronological", function(value, element, params) {
+  var form = $(element).parents("form");
+
+  var salaryFrom = parseInt(form.find("[name='" + params.from.salary + "']").val());
+  var salaryTo = parseInt(form.find("[name='" + params.to.salary + "']").val());
+  
+  if(isNaN(salaryFrom) || isNaN(salaryTo)){
+    return this.optional(element);
+  }
+  else{
+    return (salaryFrom <= salaryTo);
+  }
+}, "Invalid range");
+
+function setupJobDetailsValidations() {
+  $("form[data-job_details]").validate(
+    $.extend(
+      {
+        ignore: "",
+        rules: {
+          "job_title": {
+            required: true
+          },
+          "job_industry_ids": {
+            check_presence: "job[industries][query_options][id][]"
+          },
+          "job_category_ids": {
+            check_presence: "job[categories][query_options][id][]"
+          },
+          "job_profile_ids": {
+            check_presence: "job[profiles][query_options][id][]"
+          },
+          "job_openings": {
+            required: true
+          },
+          "job_location_ids": {
+            check_presence: "job[locations][query_options][id][]"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.insertAfter($(element).siblings("br"));
+        },
+        submitHandler: function(form) {
+          // form = $(form);
+          // var skill_select = form.find("select[name='skill']");
+          // var level_select = form.find("select[name='level']");
+          // var experience_select = form.find("select[name='experience']");
+
+          // var skillId = skill_select.val();
+          // var skill = {
+          //   name: skill_select.find("option:selected").text(),
+          //   id: skillId,
+          //   level_display: level_select.find("option:selected").text(),
+          //   level_value: level_select.val(),
+          //   experience: experience_select.val()
+          // };
+
+          // //skill_select.find("option[value='" + skill.id + "']").remove();
+          // skill_select.val("");
+          // level_select.val("");
+          // experience_select.val("");
+
+          // var skillsContainer = $("[data-domain-skills='true']");
+          // skillsContainer.find("[data-skill='" + skillId + "']").remove();
+          // $(skill_template(skill)).prependTo($("[data-domain-skills-wrapper]"));
+          // $("form[data-domain-skills='true']").valid();
+          return false;
+        }
+      }, bootstrap_error_settings
+    )
+  );
+}
+
+function setupHiringPreferencesValidations() {
+  $("form[data-hiring_preferences]").validate(
+    $.extend(
+      {
+        ignore: "",
+        rules: {
+          "job[traits][query_options][id][]": {
+            maxlength: 6
+          }
+        },
+        messages: {
+          "job[traits][query_options][id][]": "Please select exactly 6"
+        },
+        // errorPlacement: function(error, element) {
+        //   error.insertAfter($(element).siblings("br"));
+        // },
+        submitHandler: function(form) {
+          return false;
+        }
+      }, bootstrap_error_settings
+    )
+  );
+}
+
+var logistics_validation_options = function() {
+  var options = $.extend(
+  {
+    ignore: "",
+    rules: {
+      "kind": {
+        required: true
+      }
+    },
+    // errorPlacement: function(error, element) {
+    //   error.insertAfter($(element).siblings("br"));
+    // },
+    submitHandler: function(form) {
+      return false;
+    }
+  }, bootstrap_error_settings);
+  // function min_sal_validation() {
+  //   options.rules["min_salary"] = {
+  //     required: true,
+  //     number: true
+  //   };
+  // }
+  // function max_sal_validation() {
+  //   options.rules["max_salary"] = {
+  //     required: true,
+  //     number: true,
+  //     chronological : {
+  //       from : {
+  //         salary: "min_salary"
+  //       },
+  //       to : {
+  //         salary: "max_salary"
+  //       }
+  //     }
+  //   }
+  // }
+  // min_sal_validation();max_sal_validation();
+  return options;
+}
+
+function setupLogisticsValidations() {
+  $("form[data-logistics]").validate(logistics_validation_options);
+}
+
+function setupCompanyDetailsValidations() {
+  $("form[data-company_details]").validate(
+    $.extend(
+      {
+        ignore: "",
+        rules: {
+          "company_name": {
+            required: true
+          },
+          "company_location": {
+            required: true
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.insertAfter($(element).siblings("br"));
+        },
+        submitHandler: function(form) {
+          console.log("test");
+          return false;
+        }
+      }, bootstrap_error_settings
+    )
+  );
+}
+
+function setupEmployerDetailsValidations() {
+  $("form[data-employer_details]").validate(
+    $.extend(
+      {
+        ignore: "",
+        rules: {
+          "hr_name": {
+            required: true
+          },
+          "contact_number": {
+            required: true
+          },
+          "email": {
+            required: true
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.insertAfter($(element).siblings("br"));
+        },
+        submitHandler: function(form) {
+          return false;
+        }
+      }, bootstrap_error_settings
+    )
+  );
+}
 /*=== VALIDATIONS ends ===*/
 
 $(function() {
@@ -103,6 +300,12 @@ $(function() {
   });
 
   workexSlider();
+
+  setupJobDetailsValidations();
+  setupHiringPreferencesValidations();
+  setupLogisticsValidations();
+  setupCompanyDetailsValidations();
+  setupEmployerDetailsValidations();
 
   var chainedSelect = function(current, chainedSelectSelector, url, prompt, postCallback){
     if(!current.val()){
@@ -168,7 +371,17 @@ $(function() {
   // });
 
   // $("select[data-job-profile]").on("change", function() {
-  // 	// Enable pseudo multiselect for preferred job_profile
+  // 	// Enablree pseudo multiselect for preferred job_profile
   //   initJobProfilePseudoSelect();
   // });
+
+  $("[name='logistics[][salary_range]']").on("change", function() {
+    var selected = $(this).val();
+    console.log(selected);
+    if(selected == 1) {
+      $("[data-salary]").removeAttr("disabled");
+    } else {
+      $("[data-salary]").attr("disabled", true);
+    }
+  });
 });

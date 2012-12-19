@@ -1,6 +1,5 @@
 - job = job_template_struct
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_details" => true, :class => "form-horizontal margin" do
-  = hidden_field_tag("title", "ABC")
   -#%form.form-horizontal
   .control-group
     %label.control-label
@@ -9,6 +8,7 @@
         This would be the title of your job
     .controls
       = text_field_tag(:job_title, "", placeholder: "Type title here", class: "span9 first")
+      %br/
       -#%input#job_title{:placeholder => "type the title of the job", :type => "text", :class => "span10 first"}
   .control-group
     %label.control-label
@@ -18,6 +18,9 @@
     .controls
       = select_tag(:job_industry, options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
+    .controls
+      = hidden_field_tag "job_industry_ids"
+      %br/
 
   .control-group
     %label.control-label
@@ -26,6 +29,9 @@
       = select_tag(:job_category, top_list_for_select(:job_categories), :prompt => "Select one or more", class: "span9 first fl_none", "data-path" => traversable_from_recruiters_job_path(":id", relation: "job_category_in", source_class: "Opus::JobCategory", bucket_type: "Opus::WorkProfile"), "data-preselect" => "job.try(:job_categories).try(:first).try(:id)", "data-job-category" => true, "data-job_category_pseudo_select" => true)
       %div{:data => {"preferred-job_category-container" => true}}
         -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
+    .controls
+      = hidden_field_tag "job_category_ids"
+      %br/
 
   .control-group
     %label.control-label
@@ -37,12 +43,16 @@
       -#= select_tag("work_experience[][profile]", "", class: "span9 first fl_none", "data-preselect" => job.try(:work_profiles).try(:first).try(:id), "data-job-profile" => true, "data-type" => "recommendation", "data-job_profile_pseudo_select" => true)
       %div{:data => {"preferred-job_profile-container" => true}}
         -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
+    .controls
+      = hidden_field_tag "job_profile_ids"
+      %br/
 
   .control-group
     %label.control-label
       Number of Openings* 
     .controls
       = text_field_tag(:job_openings, "", placeholder: "Type a number", class: "span3 first")
+      %br/
       -#%input#job_title{:placeholder => "1", :type => "text", :class => "span3 first"}
 
   .control-group
@@ -53,6 +63,9 @@
     .controls
       = select_tag(:job_location, top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
+    .controls
+      = hidden_field_tag "job_location_ids"
+      %br/
   .form-actions
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step

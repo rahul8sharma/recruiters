@@ -83,5 +83,25 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
     @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
     @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
+    @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.find(:all)
+    @master_data.merge! :weekdays => Vger::Spartan::WeekDay.all
+    @master_data.merge! :time_slots => Vger::Spartan::Opus::TimeSlot.all
+    @master_data.merge! :perks => Vger::Spartan::Opus::JobPerk.all
+    @master_data.merge! :kind_of_job => Vger::Spartan::Opus::KindOfJob.all
+
+    degree_diploma = []
+    Vger::Spartan::Opus::DegreeType.all.each do |degree|
+      degree_diploma.push(Vger::Spartan::Opus::DegreeType.find(degree.id,:params => {:methods => "apex_degrees"}).apex_degrees)
+    end
+    degree_diploma.flatten!.uniq!
+
+    # specializations = []
+    # degree_diploma.each do |degree|
+    #   specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
+    # end
+    # specializations.flatten!.uniq!
+
+    @master_data.merge! :degree_diploma => degree_diploma
+    # @master_data.merge! :specializations => specializations
   end
 end
