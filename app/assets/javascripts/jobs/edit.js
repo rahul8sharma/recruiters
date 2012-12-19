@@ -70,6 +70,30 @@ function initJobLocationPseudoSelect(select) {
   }
 }
 
+function initMustSkillPseudoSelect(select) {
+  if (select.length && (select.find("option:selected").val() != "")) {
+    initPseudoSelect(
+      select,
+      Handlebars.compile($("#must_skill_display_template[type='text/x-template']").html()),
+      $("[data-preferred-must_skill-container]"),
+      "id",
+      "job[skills][must][query_options][id][]"
+    );
+  }
+}
+
+function initNiceSkillPseudoSelect(select) {
+  if (select.length && (select.find("option:selected").val() != "")) {
+    initPseudoSelect(
+      select,
+      Handlebars.compile($("#nice_skill_display_template[type='text/x-template']").html()),
+      $("[data-preferred-nice_skill-container]"),
+      "id",
+      "job[skills][nice][query_options][id][]"
+    );
+  }
+}
+
 function workexSlider() {
   // Enable slider for abilities
   $("[data-work-ex-level]").slider({
@@ -294,6 +318,14 @@ $(function() {
   });
   $("select[data-job_location_pseudo_select]").on("change", function() {
   	initJobLocationPseudoSelect($(this));
+  });
+  $("select[data-must_skill_pseudo_select]").on("change", function() {
+    if($("[data-must_skill_degree_diploma]").val() != "") {
+      initMustSkillPseudoSelect($(this));
+    }
+  });
+  $("select[data-nice_skill_pseudo_select]").on("change", function() {
+    initNiceSkillPseudoSelect($(this));
   });
 
   workexSlider();

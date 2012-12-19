@@ -5,8 +5,10 @@
   .badge_content
     #{ skills_snippet.name }
     -if show_exp
-      = "- #{ skills_snippet.experience } Yrs" if skills_snippet.experience
+      = "- #{ skills_snippet.experience }" if skills_snippet.experience
   %a.close{"data-dismiss" => "alert", :type => "button"} ×
+  = hidden_field_tag("job[skills][must][query_options][id][]", skills_snippet.id)
+  = hidden_field_tag("job[skills][nice][query_options][id][]", skills_snippet.id)
 
 -# = hidden_field_tag("skills[domain_skills][query_options][id][]", skills_snippet.id)
 -# = hidden_field_tag("skills[domain_skills][levels][#{ skills_snippet.id }]", skills_snippet.level_value)

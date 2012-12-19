@@ -24,14 +24,15 @@
     %label.control-label
       Must Have Skills* 
     .controls
-      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none")
-      = select_tag(:skill_experience, skill_experience_options, :prompt => "Select Experience", :class => "span4")
-
+      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true)
+      = select_tag(:skill_experience, skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true)
+      %div{:data => {"preferred-must_skill-container" => true}}
   .control-group
     %label.control-label
       Nice to Have Skills
     .controls
-      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none")
+      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-nice_skill_pseudo_select" => true)
+      %div{:data => {"preferred-nice_skill-container" => true}}
 
   .control-group
     %label.control-label
