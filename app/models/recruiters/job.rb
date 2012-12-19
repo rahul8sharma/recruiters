@@ -14,6 +14,10 @@ class Recruiters::Job < Ohm::Model
   index :posted_by
   index :uuid
 
+  unique :uuid
+
+  #assert_member :status, [:incomplete, :pending, :open, :close]
+  
   def create(data)
     super({:other => {}}.deep_merge(data))
   end
