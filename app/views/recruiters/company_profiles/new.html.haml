@@ -3,8 +3,15 @@
     .content
       .main
         Company Details
+    .content
+      .main_sub
+        Hi User Name,
+      .medium_text 
+        Fill the following details of your organization. We need to know these before you post your first job.
+      .divider1
+
 - content_for :sidebar do
-  &nbsp;
+  = render :partial => "recruiters/shared/help_block"
 .rec_rhs
   .clearfix
     .divider2
@@ -42,49 +49,9 @@
             = image_tag("http://www.placehold.it/10x10")
           %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
       .form-actions
-        %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
-          %strong Save changes
+        %button.pull-right{:class => "btn btn-info offset1 medium_text", :type => "submit"}
+          %strong Next Step
         .clr
 
 
-    .title.faded_dark
-      Account Details
-    %form.form-horizontal
-      .control-group
-        %label.control-label{:for => "name"} Name*
-        .controls
-          %input#name{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
-      .control-group
-        %label.control-label{:for => "phoneNumber"} Phone Number*
-        .controls
-          %input#phoneNumber{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
-      .control-group
-        %label.control-label{:for => "emailId"} Email ID*
-        .controls
-          %input#emailId{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
-      .form-actions
-        %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
-          %strong Save changes
-        .clr
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
