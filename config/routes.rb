@@ -12,25 +12,20 @@ Recruiters::Application.routes.draw do
     resources :jobs, :only => [] do
       member do
         get :show
-        get :preview, :path => "preview", :as => "_preview"
+        get :preview, :path => "preview"
+        get :traversable_from
       end
       collection do
         # get :show, :path => ":status/:id", :as => "_show"
-        get :status, :path => ":status", :as => "_status"
-        get :edit, :path => ":id/edit/:section", :as => "_edit"
-        put :update, :path => ":id/edit/:section", :as => "_"
+        get :status, :path => ":status"
+        get :edit, :path => ":id/edit/:section"
+        put :update, :path => ":id/edit/:section"
       end
 
       resources :candidates, :only => [:index, :show]
     end
 
-    resources :company_profiles, :path => "company-profiles", :only => [] do
-      member do
-        get :show
-        get :edit
-        put :update
-      end
-    end
+    resources :company_profiles, :path => "company-profiles"
 
   end  
   

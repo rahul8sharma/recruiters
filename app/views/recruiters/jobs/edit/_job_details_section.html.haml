@@ -1,46 +1,37 @@
-%form.form-horizontal
+- job = job_template_struct
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_details" => true, :class => "form-horizontal margin" do
+  -#%form.form-horizontal
   .control-group
     %label.control-label
       Job Title* 
       .label_subtitle 
         This would be the title of your job
     .controls
-      %input#job_title{:placeholder => "type the title of the job", :type => "text", :class => "span10 first"}
+      = text_field_tag(:job_title, "", placeholder: "Type title here", class: "span9 first")
+      %br/
+      -#%input#job_title{:placeholder => "type the title of the job", :type => "text", :class => "span10 first"}
   .control-group
     %label.control-label
       Industry* 
       .label_subtitle 
         Add an industry that describes your company the best
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Marketing, Advertising, Market Reasearch, public...
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      = select_tag(:job_industry, options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
+      %div{:data => {"preferred-job_industry-container" => true}}
+    .controls
+      = hidden_field_tag "job_industry_ids"
+      %br/
 
   .control-group
     %label.control-label
       Functional Area of this role*  
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Marketing, Advertising, Market Reasearch, public...
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Marketing, Advertising, Market Reasearch, public...
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      = select_tag(:job_category, top_list_for_select(:job_categories), :prompt => "Select one or more", class: "span9 first fl_none", "data-path" => traversable_from_recruiters_job_path(":id", relation: "job_category_in", source_class: "Opus::JobCategory", bucket_type: "Opus::WorkProfile"), "data-preselect" => "job.try(:job_categories).try(:first).try(:id)", "data-job-category" => true, "data-job_category_pseudo_select" => true)
+      %div{:data => {"preferred-job_category-container" => true}}
+        -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
+    .controls
+      = hidden_field_tag "job_category_ids"
+      %br/
 
   .control-group
     %label.control-label
@@ -48,28 +39,21 @@
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Marketing, Advertising, Market Reasearch, public...
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Marketing, Advertising, Market Reasearch, public...
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-
+      = select_tag(:job_profile, options_from_collection_for_select(@master_data[:job_profiles], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:work_profiles).try(:first).try(:id)", "data-job-profile" => true, "data-job_profile_pseudo_select" => true)
+      -#= select_tag("work_experience[][profile]", "", class: "span9 first fl_none", "data-preselect" => job.try(:work_profiles).try(:first).try(:id), "data-job-profile" => true, "data-type" => "recommendation", "data-job_profile_pseudo_select" => true)
+      %div{:data => {"preferred-job_profile-container" => true}}
+        -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
+    .controls
+      = hidden_field_tag "job_profile_ids"
+      %br/
 
   .control-group
     %label.control-label
       Number of Openings* 
     .controls
-      %input#job_title{:placeholder => "1", :type => "text", :class => "span3 first"}
+      = text_field_tag(:job_openings, "", placeholder: "Type a number", class: "span3 first")
+      %br/
+      -#%input#job_title{:placeholder => "1", :type => "text", :class => "span3 first"}
 
   .control-group
     %label.control-label
@@ -77,24 +61,23 @@
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
-      %select.span9.first.fl_none
-        %option Select one or more
-        %option 1
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          pune
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
-      .badge_label.clearfix.span9.first
-        .badge_count
-          1
-        .badge_content
-          Mumbai
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+      = select_tag(:job_location, top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+      %div{:data => {"preferred-job_location-container" => true}}
+    .controls
+      = hidden_field_tag "job_location_ids"
+      %br/
   .form-actions
-    %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
     %a.pull-right{:class => "", :href => "#"}
       %strong save and continue later
     .clr
+
+%script#preferred-job_industry{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_industry", locals: {job_industry: preferred_job_industry_template_struct}
+%script#preferred-job_category{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_category", locals: {job_category: preferred_job_category_template_struct}
+%script#preferred-job_profile{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_profile", locals: {job_profile: preferred_job_profile_template_struct}
+%script#preferred-job_location{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/job_details/job_location", locals: {job_location: preferred_job_location_template_struct}

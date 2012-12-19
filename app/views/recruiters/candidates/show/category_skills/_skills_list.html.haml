@@ -1,0 +1,6 @@
+- if skills_list.skills.attributes.to_a.present?
+  .inn.clearfix
+    %strong.medium_text
+      #{ skills_list.hexref }
+    .divider1
+    = render :partial => "persia/recruiters/skill_level", collection: skills_list.skills.attributes.to_a

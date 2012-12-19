@@ -1,21 +1,52 @@
+- content_for :javascripts do
+  = javascript_include_tag "users/signup"
+- content_for :recruiter_title do
+  .t_heading.clearfix.padding_left_right1
+    .pull-left.biggest_text.white.font_normal.line_height2
+      New Client Registration
+    .pull-right.medium_text.white.line_height2
+      Already have Recruiter account?
+      %a{:href =>  new_user_session_path(:redirect_to => ""), :title => "Jomaby sign in"}
+        %strong.white Sign in
+      here
+  .clr
+
 - content_for :sidebar do
-  .job_flow_lhs
-    %ul
-      %li
-        1. Job Description
-      %li.active
-        2. Candidate Requirement
-      %li
-        3. Candidate Preference
-      %li
-        4. Compensation &amp; Logistics
-      %li
-        5. Miscellaneous
-      %li
-        6. Contact Details
-      %li
-        7. Preview
-%h2 Sign up
+  = render :partial => "recruiters/shared/help_block"
+  
+  
+.rec_rhs
+  .divider1
+  .biggest_text.faded_dark.font_normal.line_height2.offset1
+    Account Details
+  .registration_form
+    = form_for @user, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
+      .control-group
+        = f.label :name, "HR Name", :class => "control-label"
+        .controls
+          = f.text_field :name, :placeholder => "HR Name", :class => "span9"
 
+      .control-group
+        = f.label :email, "Email id", :class => "control-label"
+        .controls
+          = f.text_field :email, :placeholder => "Email id", :class => "span9"
 
+      .control-group
+        %label.control-label{:for => "phoneNumber"} Phone Number
+        .controls
+          %input#phoneNumber{:class=> "span9", :placeholder => "Phone Number", :type => "text"}
 
+      .control-group
+        = f.label :password, "Password", :class => "control-label"
+        .controls
+          = f.password_field :password, :placeholder => "Password", :class => "span9"
+
+      .control-group
+        = f.label :password, "Confirm Password", :class => "control-label"
+        .controls
+          = f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "span9"
+    
+      .form-actions
+        %button.pull-right{:class => "btn btn-warning offset1", :type => "submit"}
+          %strong Register Now
+        .clr

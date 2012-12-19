@@ -1,11 +1,29 @@
+= content_for :javascript_libs do
+  = javascript_include_tag "lib/handlebars-1.0.0.beta.6"
+  = javascript_include_tag "lib/jslider/js/draggable-0.1"
+  = javascript_include_tag "lib/jslider/js/tmpl"
+  = javascript_include_tag "lib/jslider/js/jquery.slider"
+  = javascript_include_tag "lib/jslider/js/jquery.dependClass-0.1"
+
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
+  = stylesheet_link_tag "lib/jslider/css/jslider.css"
+  = stylesheet_link_tag "lib/jslider/css/jslider.round.plastic.css"
+
+= content_for :javascripts do
+  = javascript_include_tag "jobs/edit"
+  = javascript_include_tag "chained_select"
   
 
 - content_for :sidebar do
   .job_flow_lhs
     %ul
-      %li
+      - section_matched = false
+      - Rails.application.config.recruiters[:job_posting_sections].each_with_index do |(section, title), index|
+        %li{:class => section == @section ? (section_matched = true; "active") : (section_matched ? "" : "done")}
+          #{ index + 1 }. #{ title }
+    -#
+      %li.done
         1. Job Description
       %li.active
         2. Candidate Requirement
@@ -19,22 +37,7 @@
         6. Contact Details
       %li
         7. Preview
-    .job_lhs_help
-      .user_icon.rounded.pull-left
-        = image_tag("http://www.placehold.it/75x75")
-
-      .title.pull-left
-        Need Help?
-      .clr
-      .divider1
-      %p
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      .text_center.big_text.font_normal.line_height2
-        Write Us
-        %br/
-        OR 
-        %br/
-        Call us on: 09882353371
-.job_flow_rhs
+    = render :partial => "recruiters/shared/help_block"
+.rec_rhs
   .divider2
   = render :partial => "recruiters/jobs/edit/#{ @section }_section"

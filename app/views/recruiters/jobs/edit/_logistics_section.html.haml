@@ -1,1 +1,108 @@
-Logistics
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-logistics" => true, :class => "form-horizontal margin" do
+  .control-group
+    %label.control-label
+      Type of Employment*
+    .controls
+      = select_tag(:kind_of_job, options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none")
+  .control-group
+    %label.control-label
+      Annual Salary*
+    .controls
+      %label.radio.span3.first
+        %input#optionsRadios1{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "1"}
+          Range
+      %label.radio.span3
+        %input#optionsRadios2{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "0"}
+          No Constraint
+  .control-group
+    %label.control-label
+      
+    .controls
+      .span.first 
+        %strong.line_height2 Rs
+      = select_tag(:min_salary, salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true)
+      -#
+        %select.span3.pull-left
+          %option min-salary
+          %option 1
+      .span
+        %strong.line_height2 To
+      = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true)
+      .span
+        %strong.line_height2 In Lakhs/ Year
+    .controls
+      %span.error.help-inline{:for => :max_salary, :generated => "true"}
+  .control-group
+    %label.control-label
+    .controls
+      %label.checkbox
+        %input{:type => "checkbox", :value => ""}
+        Do not disclose salary to candidates
+
+  .control-group
+    %label.control-label.pull-left
+      Perks
+      .label_subtitle 
+        Check the perks which
+        %br/
+        you offer as a part of the job
+    .span10
+      - @master_data[:perks].each_with_index do |perk, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[perks][query_options][id]", perk.id, false)
+          #{ perk.name }
+        .clr
+
+      .divider1
+      Additional Perks
+      %textarea{:placeholder => "Type additional perks here"}
+
+  .control-group
+    %label.control-label.pull-left
+      Shift Timings
+    .span10
+      - @master_data[:time_slots].each_with_index do |slot, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[time_slots][query_options][id]", slot.id, false)
+          #{ slot.name }
+        .clr
+
+  .control-group
+    %label.control-label.pull-left
+      Weekly offs on
+    .span10
+      - @master_data[:weekdays].each_with_index do |weekday, index|
+        %label.checkbox.span5.first
+          = check_box_tag("job[weekdays][query_options][id]", weekday.id, false)
+          #{ weekday.name }
+        .clr
+  .control-group
+    %label.control-label.pull-left
+      Additional information
+      .label_subtitle 
+        Check whichever applicable.
+    .span10
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Involves Travel
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        Government Job
+      .clr
+      %label.checkbox.span4.first
+        %input{:type => "checkbox", :value => ""}
+        Vehicle is required
+      %label.checkbox.span4
+        %input{:type => "checkbox", :value => ""}
+        This is a Walk in event
+      .clr
+
+
+  .form-actions
+    %a.pull-left{:class => "", :href => "#"}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
+    .clr

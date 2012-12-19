@@ -1,1 +1,97 @@
-Company details
+.contact_details
+  .title
+    Hiring Company Profile
+  .divider2
+  = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-company_details" => true, :class => "form-horizontal margin" do
+    .control-group
+      %label.control-label
+        Application Instructions
+      .controls
+        %label.radio.span4
+          %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+            Use Default Profile
+        %label.radio.span4
+          %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+            Use a different profile
+    .control-group
+      %label.control-label
+        Company Name* 
+      .controls.medium_text
+        = text_field_tag(:company_name, "", placeholder: "Type company name here", class: "span9 first")
+        %br/
+    .control-group
+      %label.control-label
+        About Company  
+      .controls.medium_text
+        = text_area_tag(:about_company, "", :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first")
+    .control-group
+      %label.control-label
+        Company Website
+      .controls.medium_text
+        = text_field_tag(:company_url, "", placeholder: "Type company website", class: "span9 first")
+    .control-group
+      %label.control-label
+        Address 
+      .controls.medium_text
+        = text_area_tag(:company_address, "", :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first")
+    .control-group
+      %label.control-label
+        Location*  
+      .controls.medium_text
+        = select_tag(:company_location, top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+        %br/
+    .control-group
+      %label.control-label
+        Company Logo  
+      .controls
+        .span3.divider6.first.gray_border
+          = image_tag ("http://www.placehold.it/110x110")
+        .divider5
+        %input.span3{:type => "file"}
+    .divider1
+          
+    .form-actions
+      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+        %strong Continue
+      .clr
+  .title
+    Employer Account Details
+  .divider2
+  = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-employer_details" => true, :class => "form-horizontal margin" do
+    .control-group
+      %label.control-label
+        Job ID (Internal) 
+      .controls.medium_text
+        = text_field_tag(:internal_job_id, "", :placeholder => "Type internal Job ID for your reference in the future", :class => "span9 first")
+    .control-group
+      %label.control-label
+        Application URL (if any) 
+      .controls.medium_text
+        = text_field_tag(:application_url, "", :placeholder => "Type URL", :class => "span9 first")
+    .control-group
+      %label.control-label
+        HR Name*
+      .controls.medium_text
+        = text_field_tag(:hr_name, "", :placeholder => "PREFILLED", :class => "span9 first")
+        %br/
+    .control-group
+      %label.control-label
+        Phone Number*
+      .controls.medium_text
+        = text_field_tag(:contact_number, "", :placeholder => "PREFILLED", :class => "span9 first")
+        %br/
+    .control-group
+      %label.control-label
+        Official Email id* 
+      .controls.medium_text
+        = text_field_tag(:email, "", :placeholder => "PREFILLED", :class => "span9 first")
+        %br/
+    .divider1
+    .form-actions
+      %a.pull-left{:class => "", :href => "#"}
+        Previous
+      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+        %strong Next Step
+      %a.pull-right{:class => "", :href => "#"}
+        %strong save and continue later
+      .clr

@@ -1,0 +1,54 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Company Details
+    .content
+      .main_sub
+        Hi User Name,
+      .medium_text 
+        Fill the following details of your organization. We need to know these before you post your first job.
+      .divider1
+
+- content_for :sidebar do
+  = render :partial => "recruiters/shared/help_block"
+.rec_rhs
+  .clearfix
+    .divider2
+    .title.faded_dark
+      Edit Profile
+    %form.form-horizontal
+      .control-group
+        %label.control-label{:for => "userType"} I am*
+        .controls
+          %input#userType{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
+      .control-group
+        %label.control-label{:for => "companyName"} Company Name*
+        .controls
+          %input#companyName{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
+      .control-group
+        %label.control-label{:for => "aboutCompany"} About Company 
+        .controls
+          %textarea#aboutCompany{:rows => "4", :class => "span9"}
+      .control-group
+        %label.control-label{:for => "companyWebsite"} Company Website
+        .controls
+          %input#companyWebsite{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
+      .control-group
+        %label.control-label{:for => "location"} Location*
+        .controls
+          %input#location{:class=> "span9", :placeholder => "Prefilled", :type => "text"}
+      .control-group
+        %label.control-label{:for => "address"} Address
+        .controls
+          %textarea#address{:rows => "4", :class => "span9"}
+      .control-group
+        %label.control-label{:for => "companyLogo"} Company Logo
+        .controls
+          .span3.divider6.gray_border
+            = image_tag("http://www.placehold.it/10x10")
+          %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
+      .form-actions
+        %button.pull-right{:class => "btn btn-info offset1 medium_text", :type => "submit"}
+          %strong Next Step
+        .clr

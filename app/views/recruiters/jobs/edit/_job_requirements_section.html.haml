@@ -1,1 +1,55 @@
-Job requirements
+- job = job_template_struct
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin" do
+  -#%form.form-horizontal
+  .control-group
+    %label.control-label
+      Years of Work Experience* Required
+    .controls
+      %label.radio.span4
+        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          Experienced
+      %label.radio.span4
+        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          Fresher
+      .clr
+      .exp_slider
+        %input{:name => "workex", :type => "slider", :data => {"work-ex-level" => true}}
+  .control-group
+    %label.control-label
+      Qualification - Preffered 
+    .controls
+      = select_tag(:job_degree_diploma, options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none")
+      = select_tag(:job_specializations, options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4")
+  .control-group
+    %label.control-label
+      Must Have Skills* 
+    .controls
+      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true)
+      = select_tag(:skill_experience, skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true)
+      %div{:data => {"preferred-must_skill-container" => true}}
+  .control-group
+    %label.control-label
+      Nice to Have Skills
+    .controls
+      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-nice_skill_pseudo_select" => true)
+      %div{:data => {"preferred-nice_skill-container" => true}}
+
+  .control-group
+    %label.control-label
+      Job Description
+    .controls
+      %textarea.span10.first{:placeholder => "Type job roles, responsibilities and any additional details here", :rows => "4"}
+
+  .form-actions
+    %a.pull-left{:class => "", :href => "#"}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#"}
+      %strong save and continue later
+    .clr
+
+%script{id: "must_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet", locals: {skills_snippet: skill_template_struct, show_exp: true}
+%script{id: "nice_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet", locals: {skills_snippet: skill_template_struct, show_exp: false}

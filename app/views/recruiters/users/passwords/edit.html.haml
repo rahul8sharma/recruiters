@@ -1,0 +1,25 @@
+- content_for :javascripts do
+  = javascript_include_tag "users/forgot_password/edit"
+- content_for :recruiter_title do
+  .t_heading.clearfix.padding_left_right1
+    .pull-left.biggest_text.white.font_normal.line_height2
+      Reset Password
+  .clr  
+  
+.rec_rhs
+  .divider2
+  .registration_form
+    = form_tag(user_password_path, :method => :put, :class => "form-horizontal", :id => "formResetPassword" ) do
+      = fields_for :user do |f|
+        .control-group
+          = f.label :password, "New Password", :class => "control-label"
+          .controls
+            = f.password_field :password, :class => "span9"
+        .control-group
+          = f.label :password, "Confirm Password", :class => "control-label"
+          .controls
+            = f.password_field :password_confirmation, :class => "span9"
+        .form-actions
+          %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
+            %strong Reset Password
+          .clr
