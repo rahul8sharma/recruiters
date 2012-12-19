@@ -30,7 +30,7 @@ gem "redis-rails", "3.2.3"
 gem "ohm", "1.2.0"
 gem "ohm-contrib", "1.2"
 gem "hashie", "1.2.0"
-
+gem 'mysql2', '0.3.12b5'
 gem 'disable_assets_logger', :group => :development
 
 gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
