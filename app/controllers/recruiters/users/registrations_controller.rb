@@ -17,12 +17,10 @@ module Recruiters
                                    :autoconfirm => 1
                                  })
 
-      Rails.logger.ap auth_token
-      
       if auth.errors.empty?
         @user = set_yoren_session(auth_token)
 
-        #Vger::Spartan::User.get(:find_or_create_current_user)
+        Vger::Spartan::Vanguard::Recruiter.get(:find_or_create_current_user)
 
         respond_with @user, :location => @redirect_to
       else
