@@ -50,7 +50,7 @@
     .controls.behavioral_traits
       - @master_data[:traits].each_with_index do |trait, index|
         %label.checkbox.traits_badge
-          = check_box_tag("job[traits][query_options][id][]", trait.id, false, :class => "")
+          = check_box_tag("job[traits][query_options][id][]", trait.id, false, :class => "hide")
           #{ trait.name }
   .control-group.error
     .controls
