@@ -1,5 +1,7 @@
 module Recruiters
   class Users::SessionsController < ApplicationController
+    layout "recruiters/users"
+    
     respond_to :html, :xml, :js, :json
     
     before_filter :redirect_if_logged_in!, :except => :destroy

@@ -37,22 +37,7 @@
         6. Contact Details
       %li
         7. Preview
-    .job_lhs_help
-      .user_icon.rounded.pull-left
-        = image_tag("http://www.placehold.it/75x75")
-
-      .title.pull-left
-        Need Help?
-      .clr
-      .divider1
-      %p
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      .text_center.big_text.font_normal.line_height2
-        Write Us
-        %br/
-        OR 
-        %br/
-        Call us on: 09882353371
-.job_flow_rhs
+    = render :partial => "recruiters/shared/help_block"
+.rec_rhs
   .divider2
   = render :partial => "recruiters/jobs/edit/#{ @section }_section"

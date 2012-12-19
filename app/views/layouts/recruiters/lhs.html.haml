@@ -7,8 +7,8 @@
   .new_job
     .container-fluid.fixed-container
       .white_box.padding.clearfix
-        - if content_for?(:recommendation_header)
-          = yield(:recommendation_header)
+        - if content_for?(:recruiter_title)
+          = yield(:recruiter_title)
         .clearfix
           .side_bar
             - if content_for?(:sidebar)

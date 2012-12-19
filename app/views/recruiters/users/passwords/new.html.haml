@@ -1,0 +1,20 @@
+- content_for :javascripts do
+  = javascript_include_tag "users/forgot_password/new"
+- content_for :recruiter_title do
+  .t_heading.clearfix.padding_left_right1
+    .pull-left.biggest_text.white.font_normal.line_height2
+      Forgot Password
+  .clr  
+  
+.rec_rhs
+  .divider2
+  .registration_form
+    = form_for(:user, :url => user_password_path, :html => {:class => "form-horizontal", :id => "formForgotPassword"}) do |f|
+      .control-group
+        = f.label :email, "Email id", :class => "control-label"
+        .controls
+          = f.text_field :email, :class => "span9"
+      .form-actions
+        %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
+          %strong Send Password
+        .clr
