@@ -192,43 +192,40 @@ var logistics_validation_options = function() {
   {
     ignore: "",
     rules: {
-      "kind": {
+      "kind_of_job": {
         required: true
       }
     },
-    // errorPlacement: function(error, element) {
-    //   error.insertAfter($(element).siblings("br"));
-    // },
     submitHandler: function(form) {
       return false;
     }
   }, bootstrap_error_settings);
-  // function min_sal_validation() {
-  //   options.rules["min_salary"] = {
-  //     required: true,
-  //     number: true
-  //   };
-  // }
-  // function max_sal_validation() {
-  //   options.rules["max_salary"] = {
-  //     required: true,
-  //     number: true,
-  //     chronological : {
-  //       from : {
-  //         salary: "min_salary"
-  //       },
-  //       to : {
-  //         salary: "max_salary"
-  //       }
-  //     }
-  //   }
-  // }
-  // min_sal_validation();max_sal_validation();
+  function min_sal_validation() {
+    options.rules["min_salary"] = {
+      required: true,
+      number: true
+    };
+  }
+  function max_sal_validation() {
+    options.rules["max_salary"] = {
+      required: true,
+      number: true,
+      chronological : {
+        from : {
+          salary: "min_salary"
+        },
+        to : {
+          salary: "max_salary"
+        }
+      }
+    }
+  }
+  min_sal_validation();max_sal_validation();
   return options;
 }
 
 function setupLogisticsValidations() {
-  $("form[data-logistics]").validate(logistics_validation_options);
+  $("form[data-logistics]").validate(logistics_validation_options());
 }
 
 function setupCompanyDetailsValidations() {

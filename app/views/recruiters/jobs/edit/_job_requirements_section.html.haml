@@ -19,7 +19,7 @@
       Qualification - Preffered 
     .controls
       = select_tag(:job_degree_diploma, options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none")
-      -#= select_tag(:job_specializations, options_from_collection_for_select(@master_data[:Specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4")
+      = select_tag(:job_specializations, options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4")
   .control-group
     %label.control-label
       Must Have Skills* 

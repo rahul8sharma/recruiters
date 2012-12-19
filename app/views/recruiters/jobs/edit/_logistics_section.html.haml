@@ -3,11 +3,7 @@
     %label.control-label
       Type of Employment*
     .controls
-      = select_tag(:kind, options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none")
-      -#
-        %select.span9.first.fl_none
-          %option Select the job type
-          %option 1
+      = select_tag(:kind_of_job, options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none")
   .control-group
     %label.control-label
       Annual Salary*
@@ -32,12 +28,10 @@
       .span
         %strong.line_height2 To
       = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true)
-      -#
-        %select.span3.pull-left
-          %option max-salary
-          %option 1
       .span
         %strong.line_height2 In Lakhs/ Year
+    .controls
+      %span.error.help-inline{:for => :max_salary, :generated => "true"}
   .control-group
     %label.control-label
     .controls

@@ -95,13 +95,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     end
     degree_diploma.flatten!.uniq!
 
-    # specializations = []
-    # degree_diploma.each do |degree|
-    #   specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
-    # end
-    # specializations.flatten!.uniq!
+    specializations = []
+    degree_diploma.each do |degree|
+      specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
+    end
+    specializations.flatten!.uniq!
 
     @master_data.merge! :degree_diploma => degree_diploma
-    # @master_data.merge! :specializations => specializations
+    @master_data.merge! :specializations => specializations
   end
 end
