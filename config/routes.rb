@@ -7,7 +7,17 @@ Recruiters::Application.routes.draw do
   resources :users
   
   namespace :recruiters, :path => '' do
-    root :to => 'landing#index', :as => :root
+    # root :to => 'landing#index', :as => :root
+    root :to => proc { |env|
+      user = env["rack.session"]["yoren_user"]
+      if user.blank?
+        controller = Recruiters::LandingController
+        controller.action("index").call(env)
+      else
+        controller = Recruiters::DashboardController
+        controller.action("dashboard").call(env)
+      end
+    }
 
     resources :jobs, :only => [] do
       member do
@@ -26,6 +36,7 @@ Recruiters::Application.routes.draw do
     end
 
     resources :company_profiles, :path => "company-profiles"
+    resources :dashboard, :only => []
 
   end  
   
