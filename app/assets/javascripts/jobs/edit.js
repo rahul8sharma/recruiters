@@ -290,7 +290,8 @@ function setupEmployerDetailsValidations() {
             required: true
           },
           "email": {
-            required: true
+            required: true,
+            email: true
           }
         },
         errorPlacement: function(error, element) {
