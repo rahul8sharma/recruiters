@@ -1,5 +1,6 @@
 - job = job_template_struct
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_details" => true, :class => "form-horizontal margin" do
+  = hidden_field_tag :posted_by, current_user.sid
   -#%form.form-horizontal
   .control-group
     %label.control-label

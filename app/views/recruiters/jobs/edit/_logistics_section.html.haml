@@ -20,14 +20,10 @@
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag(:min_salary, salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true)
-      -#
-        %select.span3.pull-left
-          %option min-salary
-          %option 1
+      = select_tag(:min_salary, salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
       .span
         %strong.line_height2 To
-      = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true)
+      = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls
@@ -36,7 +32,8 @@
     %label.control-label
     .controls
       %label.checkbox
-        %input{:type => "checkbox", :value => ""}
+        = check_box_tag(:show_salary, "show", false)
+        -#%input{:type => "checkbox", :value => ""}
         Do not disclose salary to candidates
 
   .control-group
@@ -53,9 +50,12 @@
           #{ perk.name }
         .clr
 
-      .divider1
+  .control-group
+    %label.control-label
       Additional Perks
-      %textarea{:placeholder => "Type additional perks here"}
+    .controls
+      = text_area_tag(:additional_perks, "", :placeholder => "Type additional perks here", :rows => 4, :class => "span10 first")
+      -# %textarea{:placeholder => "Type additional perks here"}
 
   .control-group
     %label.control-label.pull-left
@@ -63,7 +63,7 @@
     .span10
       - @master_data[:time_slots].each_with_index do |slot, index|
         %label.checkbox.span5.first
-          = check_box_tag("job[time_slots][query_options][id]", slot.id, false)
+          = check_box_tag("job[time_slots][query_options][id][]", slot.id, false)
           #{ slot.name }
         .clr
 
@@ -73,7 +73,7 @@
     .span10
       - @master_data[:weekdays].each_with_index do |weekday, index|
         %label.checkbox.span5.first
-          = check_box_tag("job[weekdays][query_options][id]", weekday.id, false)
+          = check_box_tag("job[weekdays][query_options][id][]", weekday.id, false)
           #{ weekday.name }
         .clr
   .control-group
@@ -83,17 +83,21 @@
         Check whichever applicable.
     .span10
       %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
+        = check_box_tag("job[additional_info][travel][query_options][id][]", "travel", false)
+        -#  %input{:type => "checkbox", :value => ""}
         Involves Travel
       %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
+        = check_box_tag("job[additional_info][govt_job][query_options][id][]", "govt", false)
+        -#  %input{:type => "checkbox", :value => ""}
         Government Job
       .clr
       %label.checkbox.span4.first
-        %input{:type => "checkbox", :value => ""}
+        = check_box_tag("job[additional_info][vehicle][query_options][id][]", "vehicle", false)
+        -# %input{:type => "checkbox", :value => ""}
         Vehicle is required
       %label.checkbox.span4
-        %input{:type => "checkbox", :value => ""}
+        = check_box_tag("job[additional_info][walkin][query_options][id][]", "walkin", false)
+        -# %input{:type => "checkbox", :value => ""}
         This is a Walk in event
       .clr
 

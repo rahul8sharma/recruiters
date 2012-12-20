@@ -7,7 +7,7 @@ class Recruiters::Job < Ohm::Model
   attribute :other, Type::Hash
 
   attribute :status, Type::Integer
-  attribute :posted_by, Type::Integer
+  attribute :posted_by
   attribute :uuid
   
   index :status

@@ -16,3 +16,9 @@
       %li
         7. Preview
 %h1 THIS IS DASHBOARD
+%div
+  = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
+    = fields_for :job_posting do |f|
+      = f.submit "Post job"
+%div
+  -# Rails.logger.ap current_user.leonidas_resource.company

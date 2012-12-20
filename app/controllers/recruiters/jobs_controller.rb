@@ -10,7 +10,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   # GET /jobs/<id>/preview
-  def previews
+  def preview
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
   end
 
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>
@@ -21,14 +22,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def update
     @job = Recruiters::Job.find(:uuid => params[:id]).first
     @job.update(params.to_hash)
-    Rails.logger.ap params.to_hash
 
     section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
     next_section = section_keys[section_keys.index(params[:section]) + 1]
 
     # redirect_to recruiters_jobs_path(:id => @job.uuid, :section => next_section)
 
-    redirect_to next_section.present? ? recruiters_jobs_path(:id => @job.uuid, :section => next_section) : preview_recruiters_job(:id => @job.uuid)
+    redirect_to next_section.present? ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
   end
 
   # GET /<status:(open | pending | closed | incomplete)>
@@ -60,6 +60,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     respond_to do |format|
       format.json { render json: recommendations }
     end
+  end
+
+  def split_arr_by(arr, elem)
+    idx = arr.index(elem)
+    idx ? [arr[0..idx-1], arr[idx], arr[idx+1..-1]] : nil
   end
 
 
@@ -94,14 +99,15 @@ class Recruiters::JobsController < Recruiters::ApplicationController
       degree_diploma.push(Vger::Spartan::Opus::DegreeType.find(degree.id,:params => {:methods => "apex_degrees"}).apex_degrees)
     end
     degree_diploma.flatten!.uniq!
+    @master_data.merge! :degree_diploma => degree_diploma
+
+    @master_data.merge! :company_profile => current_user.leonidas_resource.company
 
     specializations = []
     degree_diploma.each do |degree|
       specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
     end
     specializations.flatten!.uniq!
-
-    @master_data.merge! :degree_diploma => degree_diploma
     @master_data.merge! :specializations => specializations
   end
 end

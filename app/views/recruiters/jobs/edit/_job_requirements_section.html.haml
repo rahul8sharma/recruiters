@@ -31,14 +31,14 @@
     %label.control-label
       Nice to Have Skills
     .controls
-      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-nice_skill_pseudo_select" => true)
+      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true)
       %div{:data => {"preferred-nice_skill-container" => true}}
 
   .control-group
     %label.control-label
       Job Description
     .controls
-      %textarea.span10.first{:placeholder => "Type job roles, responsibilities and any additional details here", :rows => "4"}
+      = text_area_tag(:description, "", :placeholder => "Type job roles, responsibilities and any additional details here", :class => "span9 first", :rows => "4")
 
   .form-actions
     %a.pull-left{:class => "", :href => "#"}

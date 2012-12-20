@@ -17,28 +17,28 @@
       %label.control-label
         Company Name* 
       .controls.medium_text
-        = text_field_tag(:company_name, "", placeholder: "Type company name here", class: "span9 first")
+        = text_field_tag("company[name]", @master_data[:company_profile].name, placeholder: "Type company name here", class: "span9 first")
         %br/
     .control-group
       %label.control-label
         About Company  
       .controls.medium_text
-        = text_area_tag(:about_company, "", :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first")
+        = text_area_tag("company[description]", @master_data[:company_profile].description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first")
     .control-group
       %label.control-label
         Company Website
       .controls.medium_text
-        = text_field_tag(:company_url, "", placeholder: "Type company website", class: "span9 first")
+        = text_field_tag("company[url]", @master_data[:company_profile].url, placeholder: "Type company website", class: "span9 first")
     .control-group
       %label.control-label
         Address 
       .controls.medium_text
-        = text_area_tag(:company_address, "", :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first")
+        = text_area_tag("company[address]", @master_data[:company_profile].address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first")
     .control-group
       %label.control-label
         Location*  
       .controls.medium_text
-        = select_tag(:company_location, top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+        = select_tag("company[location][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none", "data-preselect" => @master_data[:company_profile].locations.first.geography_id)
         %br/
     .control-group
       %label.control-label
@@ -54,6 +54,8 @@
       %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
         %strong Continue
       .clr
+
+
   .title
     Employer Account Details
   .divider2
@@ -62,29 +64,30 @@
       %label.control-label
         Job ID (Internal) 
       .controls.medium_text
-        = text_field_tag(:internal_job_id, "", :placeholder => "Type internal Job ID for your reference in the future", :class => "span9 first")
+        = text_field_tag("contact_detail[job_id]", "", :placeholder => "Type internal Job ID for your reference in the future", :class => "span9 first")
     .control-group
       %label.control-label
         Application URL (if any) 
       .controls.medium_text
-        = text_field_tag(:application_url, "", :placeholder => "Type URL", :class => "span9 first")
+        = text_field_tag("contact_detail[application_url]", "", :placeholder => "Type URL", :class => "span9 first")
     .control-group
       %label.control-label
         HR Name*
       .controls.medium_text
-        = text_field_tag(:hr_name, "", :placeholder => "PREFILLED", :class => "span9 first")
+        = text_field_tag("contact_detail[name]", current_user.name, :placeholder => "PREFILLED", :class => "span9 first")
         %br/
     .control-group
       %label.control-label
         Phone Number*
       .controls.medium_text
-        = text_field_tag(:contact_number, "", :placeholder => "PREFILLED", :class => "span9 first")
+        = text_field_tag("contact_detail[phone]", current_user.phone, :placeholder => "PREFILLED", :class => "span9 first")
         %br/
     .control-group
       %label.control-label
         Official Email id* 
       .controls.medium_text
-        = text_field_tag(:email, "", :placeholder => "PREFILLED", :class => "span9 first")
+        #{ current_user.email }
+        -# = text_field_tag("contact_detail[email]", current_user.email, :placeholder => "PREFILLED", :class => "span9 first")
         %br/
     .divider1
     .form-actions

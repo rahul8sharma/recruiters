@@ -76,8 +76,6 @@ module JobsHelper
     OpenStruct.new(
                id: "{{ id }}",
                name: "{{ name}}",
-               level_display: "{{ level_display }}",
-               level_value: "{{ level_value }}",
                experience: "{{ experience }}"
                )
   end

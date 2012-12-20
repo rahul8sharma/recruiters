@@ -19,7 +19,7 @@
     .divider2
     .title.faded_dark
       Edit Profile
-    = form_tag new_recruiters_company_profile_path(:redirect_to => ""), :id => "newCompanyProfileForm", :class => "form-horizontal" do
+    = form_tag create_new_recruiters_company_profiles_path(:redirect_to => ""), :id => "newCompanyProfileForm", :class => "form-horizontal", :method => :post do
       = fields_for :company do |f|
         .control-group
           = f.label :type, "I am*", :class => "control-label"
@@ -30,17 +30,17 @@
           .controls
             = f.text_field :name, :placeholder => "Type company name here", :class => "span9"
         .control-group
-          = f.label :about, "About Company", :class => "control-label"
+          = f.label :description, "About Company", :class => "control-label"
           .controls
-            = f.text_area :about, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9"
+            = f.text_area :description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9"
         .control-group
           = f.label :url, "Company Website", :class => "control-label"
           .controls
             = f.text_field :url, :placeholder => "Type company website", :class => "span9"
         .control-group
-          = f.label :location, "Location*", :class => "control-label"
+          = f.label "location[:geography_id][]", "Location*", :class => "control-label"
           .controls
-            = f.select(:location, top_list_for_select(:india_cities), {:prompt => "Select City"}, {:class => "span9 fl_none"})
+            = f.select("location[:geography_id][]", top_list_for_select(:india_cities), {:prompt => "Select City"}, {:class => "span9 fl_none"})
         .control-group
           = f.label :address, "Address", :class => "control-label"
           .controls
