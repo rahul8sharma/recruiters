@@ -19,7 +19,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'sqlite3'
 gem 'awesome_print', '1.1.0'
 
 #gem 'jquery-rails'
