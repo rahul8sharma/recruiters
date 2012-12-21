@@ -32,8 +32,39 @@ Recruiters::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 
+  #config.assets.precompile = ['recruiters.css', 'header.css']
+
+  precompileable_assets = [
+                           'recruiters.css',
+                           'recruiters/layout.css'
+                          ].to_set
+  
+  config.assets.precompile = []
+  config.assets.precompile << Proc.new { |path|
+    precompile = true
+
+    full_path = Rails.application.assets.resolve(path).to_path
+    
+    if path =~ /\.css/
+      if full_path =~ /\.sass/
+        precompile = precompileable_assets.include?(path)
+      end
+    end
+
+    if precompile
+      puts "Compiling '#{path}' "
+    end
+    precompile
+  }
+                              
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+  
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
   config.assets.logger = nil
 
   #config.cache_store = :dalli_store, 'cache.recruiters.jombaylocal.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
