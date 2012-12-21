@@ -1,19 +1,31 @@
 - content_for :javascripts do
-  = javascript_include_tag "users/forgot_password/new"
+  = javascript_include_tag "users/signup"
 - content_for :recruiter_title do
   .t_heading.clearfix.padding_left_right1
     .pull-left.biggest_text.white.font_normal.line_height2
-      Forgot Password
-  .clr  
+      New Client Registration
+    .pull-right.medium_text.white.line_height2
+      Already have Recruiter account?
+      %a{:href =>  new_user_session_path(:redirect_to => ""), :title => "Jomaby sign in"}
+        %strong.white Sign in
+      here
+  .clr
+
+- content_for :sidebar do
+  = render :partial => "recruiters/shared/help_block"
+  
   
 .rec_rhs
-  .divider2
+  .divider1
+  .biggest_text.faded_dark.font_normal.line_height2.offset1
+    Account Details
   .registration_form
-    = form_for(:user, :url => user_password_path, :html => {:class => "form-horizontal", :id => "formForgotPassword"}) do |f|
+    = form_for :user, :url => user_password_path, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
       .control-group
-        = f.label :email, "Email id", :class => "control-label"
+        = f.label :email, "Email", :class => "control-label"
         .controls
-          = f.text_field :email, :class => "span9"
+          = f.text_field :email, :placeholder => "Email", :class => "span9"
+
       .form-actions
         %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
           %strong Send Password

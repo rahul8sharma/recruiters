@@ -36,7 +36,9 @@ Recruiters::Application.configure do
   config.assets.debug = false
   config.assets.logger = nil
 
-  # config.cache_store = :redis_store
+  #config.cache_store = :dalli_store, 'cache.recruiters.jombaylocal.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
+
+  #config.cache_store = :redis_store
   
   config.action_mailer.default_url_options = {
     :host => 'recruiters.jombaylocal.com'

@@ -5,7 +5,7 @@ development:
   database: recruiters_development
   pool: 5
   username: root
-  password: abc123
+  password: nextleap
   socket: /var/run/mysqld/mysqld.sock
 
 staging_dennis:
