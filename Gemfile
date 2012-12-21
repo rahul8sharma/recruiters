@@ -35,6 +35,7 @@ gem 'disable_assets_logger', :group => :development
 gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 gem 'unicorn', '4.5.0'
 gem 'devise', '2.1.2'
+gem "dalli", "2.6.0"
 
 #gem 'vger', :path => '/home/letronje/workspace/src/vger'
 # To use ActiveModel has_secure_password
