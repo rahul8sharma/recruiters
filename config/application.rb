@@ -18,7 +18,7 @@ module Recruiters
         "job_details" => "Job Details",
         "job_requirements" => "Job Requirements",
         "hiring_preferences" => "Hiring Preferences",
-        "logistics" => "Compensation and Logistics",
+        "logistics" => "Compensation & Logistics",
         "additional_details" => "Additional Details",
         "company_details" => "Company Details",
         "preview" => "Preview"

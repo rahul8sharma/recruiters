@@ -1,9 +1,22 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Specify your job requirements and we will get you the right candidates
+      .divider1
+
 - job = job_template_struct
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin" do
   -#%form.form-horizontal
   .control-group
     %label.control-label
-      Years of Work Experience* Required
+      Years of Work Experience*
+      .label_subtitle
+        Adjust the slider to specify the range
     .controls
       %label.radio.span4
         %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
@@ -16,7 +29,7 @@
         %input{:name => "workex", :type => "slider", :data => {"work-ex-level" => true}}
   .control-group
     %label.control-label
-      Qualification - Preffered 
+      Qualifications*
     .controls
       = select_tag(:job_degree_diploma, options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none")
       = select_tag(:job_specializations, options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4")
@@ -24,14 +37,14 @@
     %label.control-label
       Must Have Skills* 
     .controls
-      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true)
+      = select_tag("mustSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skill", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true)
       = select_tag(:skill_experience, skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true)
       %div{:data => {"preferred-must_skill-container" => true}}
   .control-group
     %label.control-label
       Nice to Have Skills
     .controls
-      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true)
+      = select_tag("niceSkills", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select one or more", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true)
       %div{:data => {"preferred-nice_skill-container" => true}}
 
   .control-group

@@ -1,3 +1,14 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Provide Logistics details of your job to attract more candidates
+      .divider1
+
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-logistics" => true, :class => "form-horizontal margin" do
   .control-group
     %label.control-label
@@ -10,7 +21,7 @@
     .controls
       %label.radio.span3.first
         %input#optionsRadios1{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "1"}
-          Range
+          Fixed Range
       %label.radio.span3
         %input#optionsRadios2{:checked => "", :name => "logistics[][salary_range]", :type => "radio", :value => "0"}
           No Constraint
@@ -20,10 +31,10 @@
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag(:min_salary, salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
+      = select_tag(:min_salary, salary_options, :prompt => "Min Salary", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
       .span
         %strong.line_height2 To
-      = select_tag(:max_salary, salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
+      = select_tag(:max_salary, salary_options, :prompt => "Max Salary", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls
@@ -38,11 +49,7 @@
 
   .control-group
     %label.control-label.pull-left
-      Perks
-      .label_subtitle 
-        Check the perks which
-        %br/
-        you offer as a part of the job
+      Perks Offered 
     .span10
       - @master_data[:perks].each_with_index do |perk, index|
         %label.checkbox.span5.first
@@ -52,8 +59,9 @@
 
   .control-group
     %label.control-label
-      Additional Perks
+      
     .controls
+      .medium_text Additional Perks (if any)
       = text_area_tag(:additional_perks, "", :placeholder => "Type additional perks here", :rows => 4, :class => "span10 first")
       -# %textarea{:placeholder => "Type additional perks here"}
 
@@ -69,7 +77,7 @@
 
   .control-group
     %label.control-label.pull-left
-      Weekly offs on
+      Weekly Offs on
     .span10
       - @master_data[:weekdays].each_with_index do |weekday, index|
         %label.checkbox.span5.first
@@ -78,9 +86,7 @@
         .clr
   .control-group
     %label.control-label.pull-left
-      Additional information
-      .label_subtitle 
-        Check whichever applicable.
+      Additional Information
     .span10
       %label.checkbox.span4.first
         = check_box_tag("job[additional_info][travel][query_options][id][]", "travel", false)

@@ -1,3 +1,15 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .main_sub
+        Hi Employer Name,
+      .medium_text
+        Fill the following details about your job. These details are essential for the candidates to know.
+      .divider1
+
 - job = job_template_struct
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_details" => true, :class => "form-horizontal margin" do
   = hidden_field_tag :posted_by, current_user.sid
@@ -6,7 +18,7 @@
     %label.control-label
       Job Title* 
       .label_subtitle 
-        This would be the title of your job
+        This is the first thing candidates see
     .controls
       = text_field_tag(:job_title, "", placeholder: "Type title here", class: "span9 first")
       %br/
@@ -14,8 +26,6 @@
   .control-group
     %label.control-label
       Industry* 
-      .label_subtitle 
-        Add an industry that describes your company the best
     .controls
       = select_tag(:job_industry, options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
@@ -25,7 +35,7 @@
 
   .control-group
     %label.control-label
-      Functional Area of this role*  
+      Functional Area of this Role*  
     .controls
       = select_tag(:job_category, top_list_for_select(:job_categories), :prompt => "Select one or more", class: "span9 first fl_none", "data-path" => traversable_from_recruiters_job_path(":id", relation: "job_category_in", source_class: "Opus::JobCategory", bucket_type: "Opus::WorkProfile"), "data-preselect" => "job.try(:job_categories).try(:first).try(:id)", "data-job-category" => true, "data-job_category_pseudo_select" => true)
       %div{:data => {"preferred-job_category-container" => true}}
@@ -37,8 +47,6 @@
   .control-group
     %label.control-label
       Job Profile* 
-      .label_subtitle 
-        Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
       = select_tag(:job_profile, options_from_collection_for_select(@master_data[:job_profiles], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:work_profiles).try(:first).try(:id)", "data-job-profile" => true, "data-job_profile_pseudo_select" => true)
       -#= select_tag("work_experience[][profile]", "", class: "span9 first fl_none", "data-preselect" => job.try(:work_profiles).try(:first).try(:id), "data-job-profile" => true, "data-type" => "recommendation", "data-job_profile_pseudo_select" => true)

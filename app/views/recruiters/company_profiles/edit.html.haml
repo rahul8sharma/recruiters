@@ -16,7 +16,7 @@
       = fields_for :company do |f|
         .control-group
           = f.label :type, "I am*", :class => "control-label"
-          .controls
+          .controls.medium_text
             = @company_type
         .control-group
           = f.label :name, "Company Name*", :class => "control-label"
@@ -30,7 +30,8 @@
           = f.label :url, "Company Website", :class => "control-label"
           .controls
             = f.text_field :url, :placeholder => "Type company website", :class => "span9"
-        -#
+        -# 
+          //should be not commented, be present
           .control-group
             = f.label "location[geography_id][]", "Location*", :class => "control-label"
             .controls

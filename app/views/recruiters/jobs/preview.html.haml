@@ -1,7 +1,16 @@
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
-  
 
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Job Preview
+    .content
+      .divider1
+      .medium_text
+        Your job has not been posted yet. Take a look at the information you entered.
+      .divider1
 - content_for :sidebar do
   .job_flow_lhs
     %ul
@@ -35,7 +44,7 @@
       .span8.first.medium_text
         If everything looks okay, scroll down to bottom and click on 
         %strong
-          "Post this job" 
+          "Post Job" 
         to post the job.
       %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
         %strong Post Job
@@ -57,7 +66,7 @@
           -# Mahindra Satyam IT Job at Hyderabad, Bangalore, Pune: Technical Lead
       .section  
         .medium_text.text_right.span5
-          %strong Functional Area of this role
+          %strong Functional Area of this Role
         .description.span10
           Legal
       .section  
@@ -80,18 +89,18 @@
             Mumbai
 
       .heading.gray_bg
-        Candidate Requirement
+        Job Requirements
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
-          %strong Years of Work Experience Required
+          %strong Years of Work Experience
         .description.span10
           2-6 yrs of Experience
       .section  
         .medium_text.text_right.span5
-          %strong Qualification - Preffered
+          %strong Qualifications
         .description.span10
           B. Tech in  IT 
       .section  
@@ -115,7 +124,7 @@
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
 
       .heading.gray_bg
-        Candidate Preference
+        Hiring Preferences
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
@@ -128,7 +137,7 @@
               Advertising, Public Relations, Market Research, Events
       .section  
         .medium_text.text_right.span5
-          %strong Location(s)
+          %strong Locations
         .description.span10
           .highlight_badge.span
             Pune
@@ -136,7 +145,7 @@
             Mumbai
       .section  
         .medium_text.text_right.span5
-          %strong Communication Skills required for this job
+          %strong Communication Skills
         .description.span10
           .span3
             Spoken English
@@ -153,24 +162,24 @@
             Excellent
       .section  
         .medium_text.text_right.span5
-          %strong Preferred Behavioral Traits
+          %strong Behavioral Traits
         .description.span10
           -3.times do
             .highlight_badge.span
               Probleme solving
       .section  
         .medium_text.text_right.span5
-          %strong Preferred Gender
+          %strong Gender
         .description.span10
           Male
       .section  
         .medium_text.text_right.span5
-          %strong Preferred Marital Status
+          %strong Marital Status
         .description.span10
           No Preference 
 
       .heading.gray_bg
-        Candidate Preference
+        Compensation &amp; Logistics
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
@@ -189,7 +198,7 @@
             Do not disclose salary to candidates
       .section  
         .medium_text.text_right.span5
-          %strong Perks
+          %strong Perks Offered
         .description.span10
           - 3.times do
             .highlight_badge.span8.first
@@ -205,7 +214,7 @@
               Day shift
       .section  
         .medium_text.text_right.span5
-          %strong Weekly offs on
+          %strong Weekly Offs on
         .description.span10
           .highlight_badge.span
             Saturday
@@ -213,7 +222,7 @@
             Sunday
       .section  
         .medium_text.text_right.span5
-          %strong Additional information
+          %strong Additional Information
         .description.span10
           - 2.times do
             .highlight_badge.span8.first
@@ -221,7 +230,7 @@
          
 
       .heading.gray_bg
-        Miscellaneous
+        Additional Details
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
@@ -237,7 +246,7 @@
           ABC Corporation, XYZ Limited, YNL.com
       .section  
         .medium_text.text_right.span5
-          %strong Other job titles such candidates have in the industry?
+          %strong Are there other job profiles such candidates have in the industry?
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
       .section  
@@ -247,12 +256,12 @@
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
       .section  
         .medium_text.text_right.span5
-          %strong Kind of people you do not want to hire?
+          %strong Are there any kind of people that you do not want to hire?
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
 
       .heading.gray_bg
-        Miscellaneous
+        Recruiter Details
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
@@ -268,22 +277,22 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
       .section  
         .medium_text.text_right.span5
-          %strong Website of company    
+          %strong Company  Website    
         .description.span10
           XYZ@gmail.com
+      .section  
+        .medium_text.text_right.span5
+          %strong Location    
+        .description.span10
+          Pune
       .section  
         .medium_text.text_right.span5
           %strong Address    
         .description.span10
           Lorem ipsum dolor sit amet,
-      .section  
-        .medium_text.text_right.span5
-          %strong City    
-        .description.span10
-          Pune
 
       .heading.gray_bg
-        Employer Account Details
+        Recruiter Contact Details
         .pull-right
           %a{:href => "#", :title => "Edit this section"}
             Edit
@@ -299,7 +308,7 @@
           Lorem ipsum dolor sit amet, consectetur
       .section  
         .medium_text.text_right.span5
-          %strong HR Name    
+          %strong Hiring Manager Name    
         .description.span10
           = current_user.name
       .section  
@@ -309,7 +318,7 @@
           = current_user.phone
       .section  
         .medium_text.text_right.span5
-          %strong Official Email id    
+          %strong Email id    
         .description.span10
           = current_user.email
     .form-actions

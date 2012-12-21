@@ -17,8 +17,6 @@
 .rec_rhs
   .clearfix
     .divider2
-    .title.faded_dark
-      New Profile
     = form_tag create_new_recruiters_company_profiles_path(:redirect_to => ""), :id => "newCompanyProfileForm", :class => "form-horizontal", :method => :post do
       -# = fields_for :company do |f|
       .control-group
@@ -50,7 +48,7 @@
           Location*
         -#= f.label "company[location][geography_id]", "Location*", :class => "control-label"
         .controls
-          = select_tag("company[location][geography_id]", top_list_for_select(:india_cities), :prompt => "Select City", :class => "span9 fl_none")
+          = select_tag("company[location][geography_id]", top_list_for_select(:india_cities), :prompt => "Select Location", :class => "span9 fl_none")
       .control-group
         %label.control-label
           Address

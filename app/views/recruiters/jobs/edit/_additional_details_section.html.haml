@@ -1,9 +1,19 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Mention additional details which will help us find best fit candidates for you.
+      .divider1
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-additional_details" => true, :class => "form-horizontal margin" do
   .control-group
     %label.control-label
       Application Instructions
     .controls
-      = text_area_tag(:application_instructions, "", :placeholder => "Separate titles by comma", :rows => 4, :class => "span10 first")
+      = text_area_tag(:application_instructions, "", :placeholder => "Type application instruction", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "", :rows => "4"}
   .divider1
   .control-group
@@ -15,7 +25,7 @@
   .divider1
   .control-group
     %label.control-label
-      Other job titles such candidates have in the industry?
+      Are there other job profiles such candidates have in the industry?
     .controls
       = text_area_tag(:candidate_job_title, "", :placeholder => "Type designation/profiles separated by comma", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type designation/profiles separated by comma", :rows => "4"}
@@ -29,7 +39,7 @@
   .divider1
   .control-group
     %label.control-label
-      Kind of people you do not want to hire? 
+      Are there any kind of people that you do not want to hire? 
     .controls
       = text_area_tag(:candidate_keywords, "", :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type additional eligibilty", :rows => "4"}
