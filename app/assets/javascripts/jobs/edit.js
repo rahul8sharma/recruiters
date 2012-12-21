@@ -1,10 +1,8 @@
 // Pseudo multiselect implementation for preferred job category and
 // preferred location
-function initPseudoSelect(select, template, container, id_key, container_input_element){
+function initPseudoSelect(select, template, container, id_key){
   var selected_option = select.find("option:selected");
-  var total_selected_options = $("[name='"+container_input_element+"']").length;
   var obj = {
-    count: total_selected_options + 1,
     name: selected_option.text()
   };
   var id = select.val();
@@ -26,8 +24,7 @@ function initJobIndustryPseudoSelect(select) {
       select,
       Handlebars.compile($("#preferred-job_industry[type='text/x-template']").html()),
       $("[data-preferred-job_industry-container]"),
-      "id",
-      "job[industries][query_options][id][]"
+      "id"
     );
   }
 }
@@ -38,8 +35,7 @@ function initJobCategoryPseudoSelect(select) {
       select,
       Handlebars.compile($("#preferred-job_category[type='text/x-template']").html()),
       $("[data-preferred-job_category-container]"),
-      "id",
-      "job[categories][query_options][id][]"
+      "id"
     );
   }
 }
@@ -50,8 +46,7 @@ function initJobProfilePseudoSelect(select) {
       select,
       Handlebars.compile($("#preferred-job_profile[type='text/x-template']").html()),
       $("[data-preferred-job_profile-container]"),
-      "id",
-      "job[profiles][query_options][id][]"
+      "id"
     );
   }
 }
@@ -62,8 +57,7 @@ function initJobLocationPseudoSelect(select) {
       select,
       Handlebars.compile($("#preferred-job_location[type='text/x-template']").html()),
       $("[data-preferred-job_location-container]"),
-      "id",
-      "job[locations][query_options][id][]"
+      "id"
     );
   }
 }
@@ -93,8 +87,7 @@ function initNiceSkillPseudoSelect(select, skill) {
       Handlebars.compile($("#nice_skill_display_template[type='text/x-template']").html()),
       // skill_template.nice(skill)
       $("[data-preferred-nice_skill-container]"),
-      "id",
-      "job[skills][nice][query_options][id][]"
+      "id"
     );
   }
 }
@@ -139,23 +132,23 @@ function setupJobDetailsValidations() {
       {
         ignore: "",
         rules: {
-          "job_title": {
+          "title": {
             required: true
           },
           "job_industry_ids": {
-            check_presence: "job[industries][query_options][id][]"
+            check_presence: "industries[]"
           },
           "job_category_ids": {
-            check_presence: "job[categories][query_options][id][]"
+            check_presence: "categories[]"
           },
           "job_profile_ids": {
-            check_presence: "job[profiles][query_options][id][]"
+            check_presence: "profiles[]"
           },
-          "job_openings": {
+          "job[total_openings]": {
             required: true
           },
           "job_location_ids": {
-            check_presence: "job[locations][query_options][id][]"
+            check_presence: "locations[]"
           }
         },
         errorPlacement: function(error, element) {
@@ -172,12 +165,12 @@ function setupHiringPreferencesValidations() {
       {
         ignore: "",
         rules: {
-          "job[traits][query_options][id][]": {
+          "trait[]": {
             maxlength: 6
           }
         },
         messages: {
-          "job[traits][query_options][id][]": "Please select exactly 6"
+          "trait[]": "Please select exactly 6"
         }
       }, bootstrap_error_settings
     )
@@ -189,27 +182,27 @@ var logistics_validation_options = function() {
   {
     ignore: "",
     rules: {
-      "kind_of_job": {
+      "kind_of": {
         required: true
       }
     }
   }, bootstrap_error_settings);
   function min_sal_validation() {
-    options.rules["min_salary"] = {
+    options.rules["salary[min_range]"] = {
       required: true,
       number: true
     };
   }
   function max_sal_validation() {
-    options.rules["max_salary"] = {
+    options.rules["salary[max_range]"] = {
       required: true,
       number: true,
       chronological : {
         from : {
-          salary: "min_salary"
+          salary: "salary[min_range]"
         },
         to : {
-          salary: "max_salary"
+          salary: "salary[max_range]"
         }
       }
     }
@@ -340,7 +333,6 @@ $(function() {
       url: url,
       dataType: 'json',
       success: function(data) {
-      	console.log("in success");
         populate_select(chained, data, data_type, generate_option, prompt);
         if(postCallback){
           postCallback();
@@ -383,9 +375,8 @@ $(function() {
   //   initJobProfilePseudoSelect();
   // });
 
-  $("[name='logistics[][salary_range]']").on("change", function() {
+  $("[name='salary[range][]']").on("change", function() {
     var selected = $(this).val();
-    console.log(selected);
     if(selected == 1) {
       $("[data-salary]").removeAttr("disabled");
     } else {

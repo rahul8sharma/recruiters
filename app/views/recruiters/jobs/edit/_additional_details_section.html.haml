@@ -3,40 +3,40 @@
     %label.control-label
       Application Instructions
     .controls
-      = text_area_tag(:application_instructions, "", :placeholder => "Separate titles by comma", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[application_instruction]", "", :placeholder => "Separate titles by comma", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "", :rows => "4"}
   .divider1
   .control-group
     %label.control-label
       Are there specific companies where your required candidates would be working currently?
     .controls
-      = text_area_tag(:candidate_company_history, "", :placeholder => "Type companies separated by comma", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[candidate][company_history]", "", :placeholder => "Type companies separated by comma", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type companies separated by comma", :rows => "4"}
   .divider1
   .control-group
     %label.control-label
       Other job titles such candidates have in the industry?
     .controls
-      = text_area_tag(:candidate_job_title, "", :placeholder => "Type designation/profiles separated by comma", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[candidate][job_title]", "", :placeholder => "Type designation/profiles separated by comma", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type designation/profiles separated by comma", :rows => "4"}
   .divider1
   .control-group
     %label.control-label
       Keywords or buzzwords that such candidates write on their profiles?
     .controls
-      = text_area_tag(:candidate_keywords, "", :placeholder => "Type keywords separate by comma", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[candidate][keyword]", "", :placeholder => "Type keywords separate by comma", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type keywords separate by comma", :rows => "4"}
   .divider1
   .control-group
     %label.control-label
       Kind of people you do not want to hire? 
     .controls
-      = text_area_tag(:candidate_keywords, "", :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[undesired]", "", :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
       -# %textarea.span10.first{:placeholder => "Type additional eligibilty", :rows => "4"}
   .divider1
   
   .form-actions
-    %a.pull-left{:class => "", :href => "#"}
+    %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
       Previous
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step

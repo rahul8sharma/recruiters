@@ -16,6 +16,6 @@ class Recruiters::DashboardController < ApplicationController
   end
   def job_posting
   	@job = Recruiters::Job.create(:status => 1, :uuid => SecureRandom.hex(3))
-  	redirect_to edit_recruiters_jobs_path(:id => @job.uuid, :section => "job_details")
+  	redirect_to edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details")
   end
 end
