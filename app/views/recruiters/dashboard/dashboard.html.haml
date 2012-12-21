@@ -1,24 +1,113 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Dashboard
+    .content
+      .main_sub
+        Hello Employer Name
+      .medium_text
+        Welcome back! Here are few of your latest activities on Jombay.com.
+      .divider1
 - content_for :sidebar do
-  .job_flow_lhs
-    %ul
-      %li.done
-        1. Job Description
-      %li.active
-        2. Candidate Requirement
-      %li
-        3. Candidate Preference
-      %li
-        4. Compensation &amp; Logistics
-      %li
-        5. Miscellaneous
-      %li
-        6. Contact Details
-      %li
-        7. Preview
-%h1 THIS IS DASHBOARD
-%div
-  = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
-    = fields_for :job_posting do |f|
-      = f.submit "Post job"
-%div
-  -# Rails.logger.ap current_user.leonidas_resource.company
+  =render :partial => "recruiters/shared/help_block"
+  .solution_info.medium_text
+    How does our 
+    %strong
+      recruitment solution
+    work?
+    .divider2
+    %a.btn.btn-primary.medium_text.span3.margin{:href => "#", :title => "How does our recruitment solution work?"}
+      Find Out
+    .clr
+    .divider1
+
+.wrapper
+  .post_job
+    %a.btn-post{:href => "#", :title => "Click here to post job"}
+      %i.icon-plus-sign
+      Post a Job
+    .listing_container
+      .medium_text
+        Select a job thet you wish to duplicate. You can select only one job
+      .divider1
+      %form.margin
+        .inner_listing
+          - 6.times do
+            .control-group
+              %label.radio.pull-left
+                %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+                  %strong.medium_text 
+                    Java Developer
+                  at Pune, Mumbai....
+              .date.pull-right
+                Dec 24
+              .clr
+        .divider1
+        .pull-right
+          %button.span{:class => "btn", :type => "button"}
+            Cancel
+          %button.span{:class => "btn btn-primary", :type => "button"}
+            Duplicate this Job
+        .clr
+  .divider2
+  .dash_listing
+    .dash_listing_title
+      .pull-left 
+        Pending  Jobs (12)
+      %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
+        \-
+      .clr
+    %ul.listing
+      - 2.times do
+        = render :partial => "recruiters/shared/listing_snippet"
+    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      Show all Pending jobs
+    .clr
+  .divider2
+
+  .dash_listing
+    .dash_listing_title
+      .pull-left 
+        Open Jobs (23)
+      %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
+        \-
+      .clr
+    %ul.listing
+      - 2.times do
+        = render :partial => "recruiters/shared/listing_snippet"
+    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      Show all Open jobs
+    .clr
+  .divider2
+
+  .dash_listing
+    .dash_listing_title
+      .pull-left 
+        Incomplete Jobs (6)
+      %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
+        \-
+      .clr
+    %ul.listing
+      - 2.times do
+        = render :partial => "recruiters/shared/listing_snippet"
+    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      Show all Incomplete Jobs 
+    .clr
+  .divider2
+
+  .dash_listing
+    .dash_listing_title
+      .pull-left 
+        Closed Jobs (23)
+      %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
+        \-
+      .clr
+    %ul.listing
+      - 2.times do
+        = render :partial => "recruiters/shared/listing_snippet"
+    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      Show all Closed Jobs 
+    .clr
+  .divider2
+>>>>>>> Stashed changes
