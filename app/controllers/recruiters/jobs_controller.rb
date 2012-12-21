@@ -11,6 +11,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /jobs/<id>/preview
   def preview
+    @section = "preview"
     @job = Recruiters::Job.find(:uuid => params[:id]).first
   end
 
@@ -28,7 +29,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
     # redirect_to recruiters_jobs_path(:id => @job.uuid, :section => next_section)
 
-    redirect_to next_section.present? ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
+    redirect_to (next_section.present? && next_section != "preview") ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
   end
 
   # GET /<status:(open | pending | closed | incomplete)>
