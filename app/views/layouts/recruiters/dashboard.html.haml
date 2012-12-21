@@ -1,6 +1,6 @@
 - content_for :javascript_libs do
   /
 - content_for :stylesheets do
-  /
+  = stylesheet_link_tag 'recruiters/jobs'
 
 = render :file => 'layouts/recruiters/lhs', :locals => {:options => {:body_class => "normal_header"}}
