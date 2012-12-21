@@ -1,25 +1,23 @@
 // Pseudo multiselect implementation for preferred job category and
 // preferred location
 function initPseudoSelect(select, template, container, id_key, container_input_element){
-  // select.change(function(){
-    var selected_option = select.find("option:selected");
-    var total_selected_options = $("[name='"+container_input_element+"']").length;
-    var obj = {
-      count: total_selected_options + 1,
-      name: selected_option.text()
-    };
-    var id = select.val();
-    obj[id_key] = id;
-    select.val("");
-    //selected_option.remove();
-    var existingIds = $.map(container.find("[data-id]"), function(bubble){ 
-      return parseInt($(bubble).attr("data-id"));
-    });
+  var selected_option = select.find("option:selected");
+  var total_selected_options = $("[name='"+container_input_element+"']").length;
+  var obj = {
+    count: total_selected_options + 1,
+    name: selected_option.text()
+  };
+  var id = select.val();
+  obj[id_key] = id;
+  select.val("");
+
+  var existingIds = $.map(container.find("[data-snippet]"), function(bubble){ 
+    return parseInt($(bubble).attr("data-snippet"));
+  });
       
-    if($.inArray(parseInt(id), existingIds) == -1){
-      $(template(obj)).appendTo(container);
-    }
-  // });
+  if($.inArray(parseInt(id), existingIds) == -1) {
+    $(template(obj)).appendTo(container);
+  }
 }
 
 function initJobIndustryPseudoSelect(select) {
@@ -70,23 +68,30 @@ function initJobLocationPseudoSelect(select) {
   }
 }
 
-function initMustSkillPseudoSelect(select) {
+function initSkillTemplate() {
+  window.skill_template = {
+    must: Handlebars.compile($("#must_skill_display_template[type='text/x-template']").html())
+  };
+}
+
+function initMustSkillPseudoSelect(select, skill) {
   if (select.length && (select.find("option:selected").val() != "")) {
-    initPseudoSelect(
-      select,
-      Handlebars.compile($("#must_skill_display_template[type='text/x-template']").html()),
-      $("[data-preferred-must_skill-container]"),
-      "id",
-      "job[skills][must][query_options][id][]"
-    );
+    var container = $("[data-preferred-must_skill-container]");
+    var snippet = container.find("[data-snippet]");
+    var is_present = (snippet.attr("data-snippet") == skill.id);
+    if(is_present) {
+      snippet.remove();
+    }
+    $(skill_template.must(skill)).appendTo(container);
   }
 }
 
-function initNiceSkillPseudoSelect(select) {
+function initNiceSkillPseudoSelect(select, skill) {
   if (select.length && (select.find("option:selected").val() != "")) {
     initPseudoSelect(
       select,
       Handlebars.compile($("#nice_skill_display_template[type='text/x-template']").html()),
+      // skill_template.nice(skill)
       $("[data-preferred-nice_skill-container]"),
       "id",
       "job[skills][nice][query_options][id][]"
@@ -155,32 +160,6 @@ function setupJobDetailsValidations() {
         },
         errorPlacement: function(error, element) {
           error.insertAfter($(element).siblings("br"));
-        },
-        submitHandler: function(form) {
-          // form = $(form);
-          // var skill_select = form.find("select[name='skill']");
-          // var level_select = form.find("select[name='level']");
-          // var experience_select = form.find("select[name='experience']");
-
-          // var skillId = skill_select.val();
-          // var skill = {
-          //   name: skill_select.find("option:selected").text(),
-          //   id: skillId,
-          //   level_display: level_select.find("option:selected").text(),
-          //   level_value: level_select.val(),
-          //   experience: experience_select.val()
-          // };
-
-          // //skill_select.find("option[value='" + skill.id + "']").remove();
-          // skill_select.val("");
-          // level_select.val("");
-          // experience_select.val("");
-
-          // var skillsContainer = $("[data-domain-skills='true']");
-          // skillsContainer.find("[data-skill='" + skillId + "']").remove();
-          // $(skill_template(skill)).prependTo($("[data-domain-skills-wrapper]"));
-          // $("form[data-domain-skills='true']").valid();
-          return false;
         }
       }, bootstrap_error_settings
     )
@@ -199,12 +178,6 @@ function setupHiringPreferencesValidations() {
         },
         messages: {
           "job[traits][query_options][id][]": "Please select exactly 6"
-        },
-        // errorPlacement: function(error, element) {
-        //   error.insertAfter($(element).siblings("br"));
-        // },
-        submitHandler: function(form) {
-          return false;
         }
       }, bootstrap_error_settings
     )
@@ -219,9 +192,6 @@ var logistics_validation_options = function() {
       "kind_of_job": {
         required: true
       }
-    },
-    submitHandler: function(form) {
-      return false;
     }
   }, bootstrap_error_settings);
   function min_sal_validation() {
@@ -267,10 +237,6 @@ function setupCompanyDetailsValidations() {
         },
         errorPlacement: function(error, element) {
           error.insertAfter($(element).siblings("br"));
-        },
-        submitHandler: function(form) {
-          console.log("test");
-          return false;
         }
       }, bootstrap_error_settings
     )
@@ -296,9 +262,6 @@ function setupEmployerDetailsValidations() {
         },
         errorPlacement: function(error, element) {
           error.insertAfter($(element).siblings("br"));
-        },
-        submitHandler: function(form) {
-          return false;
         }
       }, bootstrap_error_settings
     )
@@ -307,6 +270,8 @@ function setupEmployerDetailsValidations() {
 /*=== VALIDATIONS ends ===*/
 
 $(function() {
+
+  initSkillTemplate();
 
   $("select[data-job_industry_pseudo_select]").on("change", function() {
   	initJobIndustryPseudoSelect($(this));
@@ -322,7 +287,12 @@ $(function() {
   });
   $("select[data-must_skill_pseudo_select]").on("change", function() {
     if($("[data-must_skill_degree_diploma]").val() != "") {
-      initMustSkillPseudoSelect($(this));
+      var skill = {
+            name: $("[data-must_skill_degree_diploma]").find("option:selected").text(),
+            id: $("[data-must_skill_degree_diploma]").val(),
+            experience: $("select[data-must_skill_pseudo_select]").val()
+          };
+      initMustSkillPseudoSelect($(this), skill);
     }
   });
   $("select[data-nice_skill_pseudo_select]").on("change", function() {
@@ -336,6 +306,14 @@ $(function() {
   setupLogisticsValidations();
   setupCompanyDetailsValidations();
   setupEmployerDetailsValidations();
+
+  $.each(
+    $("[data-preselect]"),
+    function(index, element){
+      element = $(element);
+      element.val(element.attr("data-preselect"));
+    }
+  );
 
   var chainedSelect = function(current, chainedSelectSelector, url, prompt, postCallback){
     if(!current.val()){

@@ -3,7 +3,7 @@
     %label.control-label
       Do you want to hire candidates from particular industries?
     .controls
-      = select_tag("work_experience[][industry]", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
+      = select_tag("job[experience][industry][query_options][id][]", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
     -#
       %select.span9.first.fl_none
@@ -19,7 +19,7 @@
     %label.control-label
       Do you want to hire candidates from a particular location(s)?
     .controls
-      = select_tag("work_experience[][location][query_options][geography_id]", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+      = select_tag("job[location][query_options][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
 
     -#
@@ -55,34 +55,16 @@
   .control-group.error
     .controls
       %span.error.help-inline{:for => "job[traits][query_options][id][]", :generated => "true"}
-      -#
-        -10.times do
-          -3.times do  
-            %label.checkbox.traits_badge
-              -#do for selected lable jst add "active" class EXP - %label.checkbox.traits_badge.active
-              %input.hide{:type => "checkbox", :value => ""}
-              some text
   .control-group
     %label.control-label
       Preferred Gender
     .controls
       - @master_data[:gender].each_with_index do |gender, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
-          = radio_button_tag("basic[personal][gender][query_options][id]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
+          = radio_button_tag("job[preferred][personal][gender][query_options][id]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
           #{ gender.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "basic[personal][gender][query_options][id]", :type => "radio", :value => ""}
-          No Preference
-      .clr
-    -#
-      %label.radio.span3.first
-        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-          male
-      %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
-          Female
-      %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+        %input#optionsRadios2{:checked => "", :name => "job[preferred][personal][gender][query_options][id]", :type => "radio", :value => ""}
           No Preference
       .clr
 
@@ -92,21 +74,10 @@
     .controls
       - @master_data[:marital_status].each_with_index do |status, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
-          = radio_button_tag("basic[personal][status][query_options][id]", status.id, (@basic[:marital_status] rescue nil).try(:id) == status.id)
+          = radio_button_tag("job[preferred][personal][status][query_options][id]", status.id, (@basic[:marital_status] rescue nil).try(:id) == status.id)
           #{ status.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "basic[personal][status][query_options][id]", :type => "radio", :value => "option2"}
-          No Preference
-      .clr
-    -#
-      %label.radio.span3.first
-        %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-          Single
-      %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
-          Married
-      %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+        %input#optionsRadios2{:checked => "", :name => "job[preferred][personal][status][query_options][id]", :type => "radio", :value => "option2"}
           No Preference
       .clr
     .divider1

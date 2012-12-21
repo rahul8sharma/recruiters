@@ -1,15 +1,11 @@
-.badge_label.clearfix.span9.first
+.badge_label.clearfix.span9.first{"data-snippet" => skills_snippet.id}
   -#
     .badge_count
       1
   .badge_content
     #{ skills_snippet.name }
     -if show_exp
-      = "- #{ skills_snippet.experience }" if skills_snippet.experience
+      = "- #{ skills_snippet.experience } years" if skills_snippet.experience
   %a.close{"data-dismiss" => "alert", :type => "button"} ×
-  = hidden_field_tag("job[skills][must][query_options][id][]", skills_snippet.id)
-  = hidden_field_tag("job[skills][nice][query_options][id][]", skills_snippet.id)
-
--# = hidden_field_tag("skills[domain_skills][query_options][id][]", skills_snippet.id)
--# = hidden_field_tag("skills[domain_skills][levels][#{ skills_snippet.id }]", skills_snippet.level_value)
--# = hidden_field_tag("skills[domain_skills][experiences][#{ skills_snippet.id }]", skills_snippet.experience)
+  = hidden_field_tag("skill[must][query_options][id][]", skills_snippet.id)
+  = hidden_field_tag("skill[nice][query_options][id][]", skills_snippet.id)

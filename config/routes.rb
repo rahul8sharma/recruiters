@@ -35,8 +35,17 @@ Recruiters::Application.routes.draw do
       resources :candidates, :only => [:index, :show]
     end
 
-    resources :company_profiles, :path => "company-profiles"
-    resources :dashboard, :only => []
+    resources :company_profiles, :path => "company-profiles" do
+      collection do
+        post :create_new
+      end
+    end
+
+    resources :dashboard, :only => [] do
+      collection do
+        put :job_posting, :path => "job_posting"
+      end
+    end
 
   end  
   

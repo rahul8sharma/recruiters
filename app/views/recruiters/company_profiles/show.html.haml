@@ -23,32 +23,36 @@
       %strong.span6.text_right  
         Account Type
       .span8
-        Employer
+        = @company_type
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         About Company
       .span8
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+        = @company.description
+        -#
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
 
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         Company Website
       .span8
-        ww.dfg.fg
+        = @company.url
+        -# ww.dfg.fg
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         Location
       .span8
-        Pune
+        = Vger::Penumbra::Geography.find(@company.locations.first.geography_id).name
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         Address
       .span8
-        Lorem ipsum dolor sit amet, 
+        = @company.address
+        -# Lorem ipsum dolor sit amet, 
 
   .inn.clearfix
     .title.pull-left.faded_dark
@@ -62,19 +66,19 @@
       %strong.span6.text_right  
         Name
       .span8
-        My name is khan
+        = current_user.name
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         Phone Number
       .span8
-        +91-904304303
+        = current_user.phone
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
         Email ID
       .span8
-        ww.dfg@gh.cfg
+        = current_user.email
 
 
 

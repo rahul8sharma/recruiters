@@ -5,21 +5,28 @@
 - content_for :sidebar do
   .job_flow_lhs
     %ul
-      %li.done
-        1. Job Description
-      %li.active
-        2. Candidate Requirement
-      %li
-        3. Candidate Preference
-      %li
-        4. Compensation &amp; Logistics
-      %li
-        5. Miscellaneous
-      %li
-        6. Contact Details
-      %li
-        7. Preview
-    = render :partial => "recruiters/shared/help_block"
+      - section_matched = false
+      - Rails.application.config.recruiters[:job_posting_sections].each_with_index do |(section, title), index|
+        %li{:class => section == @section ? (section_matched = true; "active") : (section_matched ? "" : "done")}
+          #{ index + 1 }. #{ title }
+  -#
+    .job_flow_lhs
+      %ul
+        %li.done
+          1. Job Description
+        %li.active
+          2. Candidate Requirement
+        %li
+          3. Candidate Preference
+        %li
+          4. Compensation &amp; Logistics
+        %li
+          5. Miscellaneous
+        %li
+          6. Contact Details
+        %li
+          7. Preview
+  = render :partial => "recruiters/shared/help_block"
 
 .rec_rhs
   %form.form-horizontal
@@ -43,28 +50,29 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Job Title
+        .medium_text.text_right.span5
+          %strong Job Title
         .description.span10
-          Mahindra Satyam IT Job at Hyderabad, Bangalore, Pune: Technical Lead
+          = @job.other["job_title"]
+          -# Mahindra Satyam IT Job at Hyderabad, Bangalore, Pune: Technical Lead
       .section  
-        .title.span5
-          Functional Area of this role
+        .medium_text.text_right.span5
+          %strong Functional Area of this role
         .description.span10
           Legal
       .section  
-        .title.span5
-          Job Profile
+        .medium_text.text_right.span5
+          %strong Job Profile
         .description.span10
           Managerial
       .section  
-        .title.span5
-          Number of Openings
+        .medium_text.text_right.span5
+          %strong Number of Openings
         .description.span10
           1
       .section  
-        .title.span5
-          Job Location
+        .medium_text.text_right.span5
+          %strong Job Location
         .description.span10
           .highlight_badge.span
             Pune
@@ -77,32 +85,32 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Years of Work Experience Required
+        .medium_text.text_right.span5
+          %strong Years of Work Experience Required
         .description.span10
           2-6 yrs of Experience
       .section  
-        .title.span5
-          Qualification - Preffered
+        .medium_text.text_right.span5
+          %strong Qualification - Preffered
         .description.span10
           B. Tech in  IT 
       .section  
-        .title.span5
-          Must Have Skills
+        .medium_text.text_right.span5
+          %strong Must Have Skills
         .description.span10
           - 2.times do
             .highlight_badge.span
               Bookkeeping - 2 yrs
       .section  
-        .title.span5
-          Nice to have Skills
+        .medium_text.text_right.span5
+          %strong Nice to have Skills
         .description.span10
           - 2.times do
             .highlight_badge.span
               Bookkeeping
       .section  
-        .title.span5
-          Job Description
+        .medium_text.text_right.span5
+          %strong Job Description
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
 
@@ -112,23 +120,23 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Industries
+        .medium_text.text_right.span5
+          %strong Industries
         .description.span10
           - 2.times do
             .highlight_badge
               Advertising, Public Relations, Market Research, Events
       .section  
-        .title.span5
-          Location(s)
+        .medium_text.text_right.span5
+          %strong Location(s)
         .description.span10
           .highlight_badge.span
             Pune
           .highlight_badge.span
             Mumbai
       .section  
-        .title.span5
-          Communication Skills required for this job
+        .medium_text.text_right.span5
+          %strong Communication Skills required for this job
         .description.span10
           .span3
             Spoken English
@@ -144,20 +152,20 @@
           .span3
             Excellent
       .section  
-        .title.span5
-          Preferred Behavioral Traits
+        .medium_text.text_right.span5
+          %strong Preferred Behavioral Traits
         .description.span10
           -3.times do
             .highlight_badge.span
               Probleme solving
       .section  
-        .title.span5
-          Preferred Gender
+        .medium_text.text_right.span5
+          %strong Preferred Gender
         .description.span10
           Male
       .section  
-        .title.span5
-          Preferred Marital Status
+        .medium_text.text_right.span5
+          %strong Preferred Marital Status
         .description.span10
           No Preference 
 
@@ -167,21 +175,21 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Type of Employment
+        .medium_text.text_right.span5
+          %strong Type of Employment
         .description.span10
           .highlight_badge.span
             Part time 
       .section  
-        .title.span5
-          Annual Salary
+        .medium_text.text_right.span5
+          %strong Annual Salary
         .description.span10
           Rs. xy to yz in Lakhs/Year 
           .faded_light
             Do not disclose salary to candidates
       .section  
-        .title.span5
-          Perks
+        .medium_text.text_right.span5
+          %strong Perks
         .description.span10
           - 3.times do
             .highlight_badge.span8.first
@@ -189,23 +197,23 @@
           .highlight_badge.span8.first
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim
       .section  
-        .title.span5
-          Shift Timings
+        .medium_text.text_right.span5
+          %strong Shift Timings
         .description.span10
           - 3.times do
             .highlight_badge.span
               Day shift
       .section  
-        .title.span5
-          Weekly offs on
+        .medium_text.text_right.span5
+          %strong Weekly offs on
         .description.span10
           .highlight_badge.span
             Saturday
           .highlight_badge.span
             Sunday
       .section  
-        .title.span5
-          Additional information
+        .medium_text.text_right.span5
+          %strong Additional information
         .description.span10
           - 2.times do
             .highlight_badge.span8.first
@@ -218,28 +226,28 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Application Instructions
+        .medium_text.text_right.span5
+          %strong Application Instructions
         .description.span10
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
       .section  
-        .title.span5
-          Are there specific companies where your required candidates would be working currently?
+        .medium_text.text_right.span5
+          %strong Are there specific companies where your required candidates would be working currently?
         .description.span10
           ABC Corporation, XYZ Limited, YNL.com
       .section  
-        .title.span5
-          Other job titles such candidates have in the industry?
+        .medium_text.text_right.span5
+          %strong Other job titles such candidates have in the industry?
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
       .section  
-        .title.span5
-          Keywords or buzzwords that such candidates write on their profiles?
+        .medium_text.text_right.span5
+          %strong Keywords or buzzwords that such candidates write on their profiles?
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
       .section  
-        .title.span5
-          Kind of people you do not want to hire?
+        .medium_text.text_right.span5
+          %strong Kind of people you do not want to hire?
         .description.span10
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper  dignissim
 
@@ -249,28 +257,28 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Company Name    
+        .medium_text.text_right.span5
+          %strong Company Name    
         .description.span10
           XYZ Corporation
       .section  
-        .title.span5
-          About Company    
+        .medium_text.text_right.span5
+          %strong About Company    
         .description.span10
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
       .section  
-        .title.span5
-          Website of company    
+        .medium_text.text_right.span5
+          %strong Website of company    
         .description.span10
           XYZ@gmail.com
       .section  
-        .title.span5
-          Address    
+        .medium_text.text_right.span5
+          %strong Address    
         .description.span10
           Lorem ipsum dolor sit amet,
       .section  
-        .title.span5
-          City    
+        .medium_text.text_right.span5
+          %strong City    
         .description.span10
           Pune
 
@@ -280,30 +288,30 @@
           %a{:href => "#", :title => "Edit this section"}
             Edit
       .section  
-        .title.span5
-          Job ID (Internal)    
+        .medium_text.text_right.span5
+          %strong Job ID (Internal)    
         .description.span10
           ID-12345678
       .section  
-        .title.span5
-          Application URL (if any)    
+        .medium_text.text_right.span5
+          %strong Application URL (if any)    
         .description.span10
           Lorem ipsum dolor sit amet, consectetur
       .section  
-        .title.span5
-          HR Name    
+        .medium_text.text_right.span5
+          %strong HR Name    
         .description.span10
-          Sagar Shrivastava
+          = current_user.name
       .section  
-        .title.span5
-          Phone Number    
+        .medium_text.text_right.span5
+          %strong Phone Number    
         .description.span10
-          +91-9935525433
+          = current_user.phone
       .section  
-        .title.span5
-          Official Email id    
+        .medium_text.text_right.span5
+          %strong Official Email id    
         .description.span10
-          abc@gmail.com
+          = current_user.email
     .form-actions
       %a.pull-left{:class => "", :href => "#"}
         Previous
