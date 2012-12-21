@@ -383,4 +383,12 @@ $(function() {
       $("[data-salary]").attr("disabled", true);
     }
   });
+
+  $("[name='trait[]']").on("change", function() {
+    if($(this).is(':checked')) {
+      $(this).parents("label").addClass("active");
+    } else {
+      $(this).parents("label").removeClass("active");
+    }
+  });
 });
