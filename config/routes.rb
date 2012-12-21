@@ -1,7 +1,8 @@
 Recruiters::Application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => "recruiters/users/registrations",
-    :sessions => "recruiters/users/sessions"
+    :sessions => "recruiters/users/sessions",
+    :passwords => "recruiters/users/passwords"
   }
 
   resources :users

@@ -1,25 +1,37 @@
 - content_for :javascripts do
-  = javascript_include_tag "users/forgot_password/edit"
+  = javascript_include_tag "users/signup"
 - content_for :recruiter_title do
   .t_heading.clearfix.padding_left_right1
     .pull-left.biggest_text.white.font_normal.line_height2
-      Reset Password
-  .clr  
+      New Client Registration
+    .pull-right.medium_text.white.line_height2
+      Already have Recruiter account?
+      %a{:href =>  new_user_session_path(:redirect_to => ""), :title => "Jomaby sign in"}
+        %strong.white Sign in
+      here
+  .clr
+
+- content_for :sidebar do
+  = render :partial => "recruiters/shared/help_block"
+  
   
 .rec_rhs
-  .divider2
+  .divider1
+  .biggest_text.faded_dark.font_normal.line_height2.offset1
+    Account Details
   .registration_form
-    = form_tag(user_password_path, :method => :put, :class => "form-horizontal", :id => "formResetPassword" ) do
-      = fields_for :user do |f|
-        .control-group
-          = f.label :password, "New Password", :class => "control-label"
-          .controls
-            = f.password_field :password, :class => "span9"
-        .control-group
-          = f.label :password, "Confirm Password", :class => "control-label"
-          .controls
-            = f.password_field :password_confirmation, :class => "span9"
-        .form-actions
-          %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
-            %strong Reset Password
-          .clr
+    = form_for :user, :url => user_password_path, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
+      .control-group
+        = f.label :password, "Password", :class => "control-label"
+        .controls
+          = f.text_field :password, :placeholder => "Password", :class => "span9"
+
+      .control-group
+        = f.label :password_confirmation, "Confirm Password", :class => "control-label"
+        .controls
+          = f.text_field :password_confirmation, :placeholder => "Confirm Password", :class => "span9"
+
+      .form-actions
+        %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
+          %strong Reset Password
+        .clr
