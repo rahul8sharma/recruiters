@@ -4,6 +4,9 @@ $(document).ready(function() {
     $.extend(
       {
         rules: {
+          "company[type]": {
+              required: true
+          },
           "company[name]": {
               required: true
           },

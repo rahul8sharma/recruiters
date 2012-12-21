@@ -5,23 +5,18 @@ class Recruiters::CompanyProfilesController < ApplicationController
   end
 
   def create_new
-  	current_user.leonidas_resource.company = {
-       :name => params[:company][:name],
-       :description => params[:company][:description],
-       :address => params[:company][:address],
-       :url => params[:company][:url],
-       :location => {
-         :geography_id => params[:company][:location][:geography_id]
-       }
-    }
-     # current_user.leonidas_resource.recruiter_type = params[:company][:type].to_i
+  	current_user.leonidas_resource.company = params[:company]
+    current_user.leonidas_resource.recruiter_type = Vger::Spartan::Vanguard::RecruiterType.find_by_name(params[:type])
   end
 
   def show
   	@company = current_user.leonidas_resource.company
+    @company_type = current_user.leonidas_resource.recruiter_type.name
   end
 
   def edit
+    @company = current_user.leonidas_resource.company
+    @company_type = current_user.leonidas_resource.recruiter_type.name
   end
 
   def update

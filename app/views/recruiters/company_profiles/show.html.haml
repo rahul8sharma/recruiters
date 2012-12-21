@@ -23,7 +23,7 @@
       %strong.span6.text_right  
         Account Type
       .span8
-        Employer
+        = @company_type
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
@@ -45,8 +45,7 @@
       %strong.span6.text_right  
         Location
       .span8
-        -# = @company.location.first.geography_id
-        Pune
+        = Vger::Penumbra::Geography.find(@company.locations.first.geography_id).name
     .divider1
     .content.clearfix.medium_text
       %strong.span6.text_right  
