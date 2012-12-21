@@ -53,21 +53,26 @@
 
     .title.faded_dark
       Account Details
-    = form_tag user_path(:redirect_to => ""), :id => "editProfileForm", :class => "form-horizontal" do
-      = fields_for :user do |f|
-        .control-group
-          = f.label :name, "Name", :class => "control-label"
-          .controls
-            = f.text_field :name, :placeholder => "Name", :class => "span9"
-        .control-group
-          = f.label :phone, "Phone Number", :class => "control-label"
-          .controls
-            = f.text_field :phone, :placeholder => "Name", :class => "span9"
-        .control-group
-          = f.label :email, "Email ID", :class => "control-label"
-          .controls
-            = f.text_field :email, :placeholder => "Email ID", :class => "span9"
-        .form-actions
-          %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
-            %strong Save changes
-          .clr
+    = form_tag users_path(:redirect_to => ""), :id => "editProfileForm", :class => "form-horizontal", :method => :put do
+      -#= fields_for :user do |f|
+      .control-group
+        %label.control-label
+          Name
+        .controls
+          = text_field_tag "user[name]", current_user.name, :placeholder => "Name", :class => "span9"
+      .control-group
+        %label.control-label
+          Phone Number
+          -# = f.label :phone, "Phone Number", :class => "control-label"
+        .controls
+          = text_field_tag "user[phone]", current_user.phone, :placeholder => "Name", :class => "span9"
+      .control-group
+        %label.control-label
+          Email ID
+          -#= f.label :email, "Email ID", :class => "control-label"
+        .controls
+          = current_user.email
+      .form-actions
+        %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
+          %strong Save changes
+        .clr

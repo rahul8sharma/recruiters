@@ -8,6 +8,12 @@ module Recruiters
       @user = User.new
     end
 
+    def update
+      current_user.update_yoren_attributes = true
+      current_user.update_attributes!(params[:user])
+      redirect_to recruiters_root_path
+    end
+
     def create
       @redirect_to = params["redirect_to"] || default_after_signup_path
       
