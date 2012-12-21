@@ -14,7 +14,6 @@ class Recruiters::Job < Ohm::Model
 
   UNIQUE_ATTRIBUTES = [:uuid]
   
-
   FIXED_ATTRIBUTES.each do |name, type|
     type ? attribute(name, type) : attribute(name)
   end
@@ -22,7 +21,7 @@ class Recruiters::Job < Ohm::Model
   UNIQUE_ATTRIBUTES.each { |attr| unique attr }
 
   module STATUSES
-    INCOMPLETE, PENDING, OPEN, CLOSE = (1..4).to_a
+    INCOMPLETE, PENDING, READY, OPEN, CLOSE = (1..5).to_a
   end
   
   def self.create(data={})
@@ -51,6 +50,24 @@ class Recruiters::Job < Ohm::Model
     self
   end
 
+  def repost
+    leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
+    leo_job.update_attributes(:updated_at => Time.now,
+                              :bucket_attributes => {
+                                :posted_on => Time.now
+                              })
+  end
+
+  def open
+    leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
+    leo_job.update_attributes(:active => true)
+  end
+
+  def close
+    leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
+    leo_job.update_attributes(:active => false)
+  end
+  
   private
 
   def after_save
