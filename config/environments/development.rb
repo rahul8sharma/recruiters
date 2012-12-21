@@ -31,35 +31,52 @@ Recruiters::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
-
+  config.assets.initialize_on_precompile = false
   #config.assets.precompile = ['recruiters.css', 'header.css']
 
-  precompileable_assets = [
-                           'recruiters.css',
-                           'recruiters/layout.css'
-                          ].to_set
+  config.assets.precompile += [
+                               '*.js',
+                               'recruiters/shared/*',
+                               'recruiters.css',
+                               'recruiters/jobs.css',
+                               'recruiters/header.css',
+                               'recruiters/landing.css',
+                               'recruiters/layout.css',
+                               'sparta/rupee.css',
+                               'lib/awesome-font.css'
+                              ]
+
+  # precompileable_assets = [
+  #                          'recruiters.css',
+  #                          'recruiters/layout.css',
+  #                          'recruiters/landing.css',
+  #                          'recruiters/shared/footer_no_column.css',
+  #                          'recruiters/header.css',
+  #                          'recruiters/shared/open_header.css'
+  #                         ].to_set
   
-  config.assets.precompile = []
-  config.assets.precompile << Proc.new { |path|
-    precompile = true
+  # config.assets.precompile = []
+  # config.assets.precompile << Proc.new { |path|
+  #   precompile = true
 
-    full_path = Rails.application.assets.resolve(path).to_path
+  #   full_path = Rails.application.assets.resolve(path).to_path
     
-    if path =~ /\.css/
-      if full_path =~ /\.sass/
-        precompile = precompileable_assets.include?(path)
-      end
-    end
+  #   if path =~ /\.css/
+  #     if full_path =~ /\.sass/
+  #       precompile = precompileable_assets.include?(path)
+  #     end
+  #   end
 
-    if precompile
-      puts "Compiling '#{path}' "
-    end
-    precompile
-  }
+  #   if precompile
+  #     puts "Compiling '#{path}' "
+  #   end
+  #   precompile
+  # }
                               
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
-
+  config.assets.compile = false
+  config.serve_static_assets = false
+  
   # Generate digests for assets URLs
   config.assets.digest = true
   
