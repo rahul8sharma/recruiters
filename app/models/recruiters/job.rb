@@ -16,6 +16,7 @@ class Recruiters::Job < Ohm::Model
   
   FIXED_ATTRIBUTES.each do |name, type|
     type ? attribute(name, type) : attribute(name)
+    index(name)
   end
 
   UNIQUE_ATTRIBUTES.each { |attr| unique attr }
