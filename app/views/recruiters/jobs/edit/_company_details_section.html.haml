@@ -7,38 +7,43 @@
       %label.control-label
         Application Instructions
       .controls
-        %label.radio.span4
-          %input#optionsRadios1{:checked => "", :name => "contact[profile]", :type => "radio", :value => 1}
+        %label.radio.span5
+          %input#optionsRadios1{:checked => true, :name => "contact[profile]", :type => "radio", :value => 1, :disabled => true}
             Use Default Profile
-        %label.radio.span4
-          %input#optionsRadios2{:checked => "", :name => "contact[profile]", :type => "radio", :value => 2}
+        %label.radio.span5
+          %input#optionsRadios2{:name => "contact[profile]", :type => "radio", :value => 2, :disabled => true}
             Use a different profile
     .control-group
       %label.control-label
         Company Name* 
       .controls.medium_text
-        = text_field_tag("company[name]", @master_data[:company_profile].name, placeholder: "Type company name here", class: "span9 first")
+        = text_field_tag("company[name]", @master_data[:company_profile].name, placeholder: "Type company name here", class: "span9 first hide", "data-setter-company-name" => true)
+        %strong.span9.hide{data: {"getter-company-name" => true}}
         %br/
     .control-group
       %label.control-label
         About Company  
       .controls.medium_text
-        = text_area_tag("company[description]", @master_data[:company_profile].description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first")
+        = text_area_tag("company[description]", @master_data[:company_profile].description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first hide", "data-setter-company-description" => true)
+        %strong.span9.hide{data: {"getter-company-description" => true}}
     .control-group
       %label.control-label
         Company Website
       .controls.medium_text
-        = text_field_tag("company[url]", @master_data[:company_profile].url, placeholder: "Type company website", class: "span9 first")
+        = text_field_tag("company[url]", @master_data[:company_profile].url, placeholder: "Type company website", class: "span9 first hide", "data-setter-company-url" => true)
+        %strong.span9.hide{data: {"getter-company-url" => true}}
     .control-group
       %label.control-label
         Address 
       .controls.medium_text
-        = text_area_tag("company[address]", @master_data[:company_profile].address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first")
+        = text_area_tag("company[address]", @master_data[:company_profile].address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first hide", "data-setter-company-address" => true)
+        %strong.span9.hide{data: {"getter-company-address" => true}}
     .control-group
       %label.control-label
         Location*  
       .controls.medium_text
-        = select_tag("company[location][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none", "data-preselect" => @master_data[:company_profile].locations.first.geography_id)
+        = select_tag("company[location][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none hide", "data-preselect" => @master_data[:company_profile].locations.first.geography_id, "data-setter-company-location" => true)
+        %strong.span9.hide{data: {"getter-company-location" => true}}
         %br/
     .control-group
       %label.control-label
@@ -51,7 +56,9 @@
     .divider1
           
     .form-actions
-      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %a.pull-right{:href => "#", :data => {"edit_company_profile" => true}}
+        Edit
+      %button.pull-right.hide{:class => "btn btn-info offset1", :type => "submit"}
         %strong Continue
       .clr
 
@@ -60,6 +67,11 @@
     Employer Account Details
   .divider2
   = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-employer_details" => true, :class => "form-horizontal margin" do
+    = hidden_field_tag("company[name]", @master_data[:company_profile].name)
+    = hidden_field_tag("company[description]", @master_data[:company_profile].description)
+    = hidden_field_tag("company[url]", @master_data[:company_profile].url)
+    = hidden_field_tag("company[address]", @master_data[:company_profile].address)
+    = hidden_field_tag("company[location][geography_id][]", @master_data[:company_profile].locations.first.geography_id)
     .control-group
       %label.control-label
         Job ID (Internal) 
@@ -94,7 +106,7 @@
       %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
         Previous
       %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
-        %strong Next Step
+        %strong Continue
       %a.pull-right{:class => "", :href => "#"}
         %strong save and continue later
       .clr

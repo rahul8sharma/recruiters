@@ -214,7 +214,22 @@ var logistics_validation_options = function() {
 function setupLogisticsValidations() {
   $("form[data-logistics]").validate(logistics_validation_options());
 }
-
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 function setupCompanyDetailsValidations() {
   $("form[data-company_details]").validate(
     $.extend(
@@ -230,6 +245,16 @@ function setupCompanyDetailsValidations() {
         },
         errorPlacement: function(error, element) {
           error.insertAfter($(element).siblings("br"));
+        },
+        submitHandler: function(form) {
+          var params = $(form).serializeObject();
+          console.log(params["company[name]"]);
+          $("[data-employer_details] input[name='company[name]']").val(params["company[name]"]);
+          $("[data-employer_details] input[name='company[description]']").val(params["company[description]"]);
+          $("[data-employer_details] input[name='company[url]']").val(params["company[url]"]);
+          $("[data-employer_details] input[name='company[address]']").val(params["company[address]"]);
+          $("[data-employer_details] input[name='company[location][geography_id][]']").val(params["company[location][geography_id][]"]);
+          return false;
         }
       }, bootstrap_error_settings
     )
@@ -347,6 +372,55 @@ $(function() {
       }
     });
   };
+
+  function buildCompanyDetailsHash() {
+    var company = {
+      name: $("form[data-company_details] [data-setter-company-name]").val(),
+      description: $("form[data-company_details] [data-setter-company-description]").val(),
+      url: $("form[data-company_details] [data-setter-company-url]").val(),
+      address: $("form[data-company_details] [data-setter-company-address]").val(),
+      location: $("form[data-company_details] [data-setter-company-location]").val(),
+      location_name: $("form[data-company_details] [data-setter-company-location] :selected").text()
+    };
+    return company;
+  }
+
+  function showElement(flag, element, value) {
+    if(value) {
+      $("form[data-company_details] [data-getter-company-"+element+"]").html(value)
+    }
+    if(flag) {
+      $("form[data-company_details] [data-setter-company-"+element+"]").hide();
+      $("form[data-company_details] [data-getter-company-"+element+"]").show();
+    }
+    else {
+      $("form[data-company_details] [data-setter-company-"+element+"]").show();
+      $("form[data-company_details] [data-getter-company-"+element+"]").hide();
+    }
+  }
+
+  $("[data-edit_company_profile]").on("click", function(e) {
+    $("form[data-company_details] button[type='submit']").removeClass("hide");
+    $("form[data-company_details] [data-edit_company_profile]").remove();
+    $("form[data-company_details] [name='contact[profile]']").removeAttr("disabled");
+    showElement(false, "name");
+    showElement(false, "description");
+    showElement(false, "url");
+    showElement(false, "address");
+    showElement(false, "location");
+    e.preventDefault();
+  });
+
+  function setUneditableContactDetails() {
+    var company = buildCompanyDetailsHash();
+    showElement(true, "name", company.name);
+    showElement(true, "description", company.description);
+    showElement(true, "url", company.url);
+    showElement(true, "address", company.address);
+    showElement(true, "location", company.location_name);
+
+  }
+  setUneditableContactDetails();
 
   // $("select[data-job-category]").on("change", function() {
   // 	// console.log($(this));
