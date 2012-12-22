@@ -27,6 +27,10 @@
     %a.btn-post{:href => "#", :title => "Click here to post job"}
       %i.icon-plus-sign
       Post a Job
+    %div
+    = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
+      = fields_for :job_posting do |f|
+        = f.submit "Post job"
     .listing_container
       .medium_text
         Select a job thet you wish to duplicate. You can select only one job

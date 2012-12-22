@@ -5,4 +5,4 @@
   .badge_content
     #{ truncate(job_industry.name, length: 50) }
   %a.close{"data-dismiss" => "alert", :href => "[data-id='#{ job_industry.id }']"} ×
-  = hidden_field_tag("industries[]", job_industry.id)
+  = hidden_field_tag("candidate[industry][id][]", job_industry.id)

@@ -18,6 +18,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>
   def edit
     @job = Recruiters::Job.find(:uuid => params[:id]).first
+    section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
+
+    next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
+
+    @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
   end
 
   def update
@@ -25,9 +30,9 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job.update(params.to_hash)
 
     section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
-    next_section = section_keys[section_keys.index(params[:section]) + 1]
+    next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
 
-    # redirect_to recruiters_jobs_path(:id => @job.uuid, :section => next_section)
+    @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
 
     redirect_to (next_section.present? && next_section != "preview") ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
   end
