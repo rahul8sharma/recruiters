@@ -1,1 +1,18 @@
-All PENDING jobs will be posted here
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Jobs
+    .content
+      .medium_text
+        Here is the list of jobs that are pending approval from the Jombay.com team. You'll be notified once they are approved and posted on Jombay.com.
+      .divider1
+- content_for :sidebar do
+  =render :partial => "recruiters/shared/help_block"
+
+- if @jobs.present?
+  %ul.listing
+    - @jobs.each do |job|
+      = render :partial => "recruiters/dashboard/section/pending_job", :locals => {:job => job}
+- else
+  There are 0 jobs

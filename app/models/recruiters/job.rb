@@ -22,7 +22,7 @@ class Recruiters::Job < Ohm::Model
   UNIQUE_ATTRIBUTES.each { |attr| unique attr }
 
   module STATUSES
-    INCOMPLETE, PENDING, READY, OPEN, CLOSE = (1..5).to_a
+    INCOMPLETE, PENDING, READY, OPEN, CLOSED = (1..5).to_a
   end
   
   def self.create(data={})

@@ -39,6 +39,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /<status:(open | pending | closed | incomplete)>
   def status
+    status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
+    @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid)
   end
 
   # GET /recommendations/traversable_from/:id
