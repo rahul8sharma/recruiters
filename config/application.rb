@@ -95,6 +95,7 @@ module Recruiters
                                  'recruiters/layout.css',
                                  'sparta/rupee.css',
                                  'lib/awesome-font.css'
-                              ]
+                                ]
+    
   end
 end
