@@ -7,7 +7,7 @@
         Company Details
     .content
       .main_sub
-        Hi User Name,
+        Hi #{current_user.name},
       .medium_text 
         Fill the following details of your organization. We need to know these before you post your first job.
       .divider1
@@ -19,14 +19,16 @@
     .divider2
     .title.faded_dark
       New Profile
-    = form_tag create_new_recruiters_company_profiles_path(:redirect_to => ""), :id => "newCompanyProfileForm", :class => "form-horizontal", :method => :post do
+    = form_tag create_new_recruiters_company_profiles_path(:redirect_to => @redirect), :id => "newCompanyProfileForm", :class => "form-horizontal", :method => :post do
       -# = fields_for :company do |f|
+      = hidden_field_tag("redirect", @redirect)
       .control-group
         %label.control-label
           I am*
         -#= f.label "company[type]", "I am*", :class => "control-label"
         .controls
-          = text_field_tag "type", "Employer", :placeholder => "Prefilled", :class => "span9"
+          = select_tag("type", options_from_collection_for_select(Vger::Spartan::Vanguard::RecruiterType.all, :id, :name), :prompt => "Select Type", :class => "span9")
+          -#= text_field_tag "type", "Employer", :placeholder => "Prefilled", :class => "span9"
       .control-group
         %label.control-label
           Company Name
