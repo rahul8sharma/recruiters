@@ -29,6 +29,12 @@ staging_steve:
     app_name : "YNL"
     password : "ynl71"
 
+  yoren:
+    url : "http://yoren.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+  
   leonidas:
     url : "http://leo.ur-nl.com"
     app_name : "100K"
@@ -45,6 +51,12 @@ staging_dennis:
     app_name : "YNL"
     password : "ynl71"
 
+  yoren:
+    url : "http://yoren.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+
   leonidas:
     url : "http://leo.ur-nl.com"
     app_name : "100K"
@@ -60,6 +72,12 @@ production:
     url : "http://umbra.jombay.com"
     app_name : "YNL"
     password : "ynl71"
+
+  yoren:
+    url : "http://yoren.jombay.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
 
   leonidas:
     url : "http://leo.jombay.com"
