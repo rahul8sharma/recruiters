@@ -10,7 +10,7 @@ $(document).ready(function() {
           "company[name]": {
               required: true
           },
-          "company[location]": {
+          "company[location][geography_id]": {
               required: true
           }
         }
