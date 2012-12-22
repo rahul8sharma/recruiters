@@ -310,7 +310,7 @@
           = current_user.email
 
     .form-actions
-      %a.pull-left{:class => "", :href => "#"}
+      %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => "company-details")}
         Previous
       %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
         %strong Post Job
