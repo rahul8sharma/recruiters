@@ -1,3 +1,5 @@
+= content_for :javascripts do
+  = javascript_include_tag "dashboard/dashboard"
 - content_for :recruiter_title do
   .recruiter_title
     .content
@@ -5,7 +7,7 @@
         Dashboard
     .content
       .main_sub
-        Hello Employer Name
+        Hello #{current_user.name}
       .medium_text
         Welcome back! Here are few of your latest activities on Jombay.com.
       .divider1
@@ -23,14 +25,14 @@
     .divider1
 
 .wrapper
+  = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
+    = fields_for :job_posting do |f|
+      = f.submit "Post job"
   .post_job
     %a.btn-post{:href => "#", :title => "Click here to post job"}
       %i.icon-plus-sign
       Post a Job
     %div
-    = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
-      = fields_for :job_posting do |f|
-        = f.submit "Post job"
     .listing_container
       .medium_text
         Select a job thet you wish to duplicate. You can select only one job
@@ -58,14 +60,14 @@
   .dash_listing
     .dash_listing_title
       .pull-left 
-        Pending  Jobs (12)
+        Pending Jobs (#{Recruiters::Job.find(:status => 2).size})
       %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
         \-
       .clr
     %ul.listing
-      - 2.times do
-        = render :partial => "recruiters/shared/listing_snippet"
-    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      - (@jobs[:pending] || []).each do |job|
+        = render :partial => "recruiters/dashboard/pending/pending_job", :locals => {:job => job}
+    %a.show_details{:href => status_recruiters_jobs_path(:status => "pending"), :title => "View all Pending jobs"}
       Show all Pending jobs
     .clr
   .divider2
@@ -73,14 +75,14 @@
   .dash_listing
     .dash_listing_title
       .pull-left 
-        Open Jobs (23)
+        Open Jobs (#{Recruiters::Job.find(:status => 4).size})
       %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
         \-
       .clr
     %ul.listing
-      - 2.times do
-        = render :partial => "recruiters/shared/listing_snippet"
-    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      - (@jobs[:open] || []).each do |job|
+        = render :partial => "recruiters/dashboard/open/open_job", :locals => {:job => job}
+    %a.show_details{:href => status_recruiters_jobs_path(:status => "open"), :title => "View all Open jobs"}
       Show all Open jobs
     .clr
   .divider2
@@ -88,14 +90,14 @@
   .dash_listing
     .dash_listing_title
       .pull-left 
-        Incomplete Jobs (6)
+        Incomplete Jobs (#{Recruiters::Job.find(:status => 1).size})
       %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
         \-
       .clr
     %ul.listing
-      - 2.times do
-        = render :partial => "recruiters/shared/listing_snippet"
-    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      - (@jobs[:incomplete] || []).each do |job|
+        = render :partial => "recruiters/dashboard/incomplete/incomplete_job", :locals => {:job => job}
+    %a.show_details{:href => status_recruiters_jobs_path(:status => "incomplete"), :title => "View all Incomplete jobs"}
       Show all Incomplete Jobs 
     .clr
   .divider2
@@ -103,14 +105,14 @@
   .dash_listing
     .dash_listing_title
       .pull-left 
-        Closed Jobs (23)
-      %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here"}
+        Closed Jobs (#{Recruiters::Job.find(:status => 5).size})
+      %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimise/Maximise Here"}
         \-
       .clr
     %ul.listing
-      - 2.times do
-        = render :partial => "recruiters/shared/listing_snippet"
-    %a.show_details{:href => "#", :title => "View all Pending jobs"}
+      - (@jobs[:closed] || []).each do |job|
+        = render :partial => "recruiters/dashboard/closed/closed_job", :locals => {:job => job}
+    %a.show_details{:href => "#", :title => "View all Closed jobs"}
       Show all Closed Jobs 
     .clr
   .divider2

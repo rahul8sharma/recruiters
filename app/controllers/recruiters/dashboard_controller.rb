@@ -7,7 +7,6 @@ class Recruiters::DashboardController < ApplicationController
       :open => Recruiters::Job.find(:status => 4).paginate(:page => 1, :per_page => 2),
       :closed => Recruiters::Job.find(:status => 5).paginate(:page => 1, :per_page => 2)
     }
-
   end
   def job_posting
     # Rails.logger.ap current_user
