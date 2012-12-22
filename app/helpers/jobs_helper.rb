@@ -17,11 +17,33 @@ module JobsHelper
     options_for_select(skill_experience_enum.map{ |exp| ["#{exp} years", exp] })
   end
 
+  def skill_level_display(weight)
+    case weight
+    when 10
+      "Beginner"
+    when 20
+      "Average"
+    when 30
+      "Good"
+    when 40
+      "Very good"
+    end
+  end
+
   def salary_enum
     (0..30).step(0.5).to_a
   end
   def salary_options
     options_for_select(salary_enum.map{ |sal| ["#{sal}", sal] })
+  end
+
+  def additional_info_enum
+    {
+      :involves_travel => "Involves Travel",
+      :government_job => "Government Job",
+      :own_vehicle => "Vehicle is required",
+      :walkin => "This is a Walk in event"
+    }
   end
   # Helper that returns struct with placeholder values for blank question
   # template for jobs

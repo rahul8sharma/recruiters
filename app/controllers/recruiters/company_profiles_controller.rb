@@ -2,11 +2,19 @@ class Recruiters::CompanyProfilesController < ApplicationController
   layout "recruiters/company_profiles"
 
   def new
+    @redirect = params[:redirect_to] || ""
+    if current_user.leonidas_resource.company.present?
+      @company = current_user.leonidas_resource.company
+      redirect_to recruiters_company_profile_path(:id => @company.id)
+    end
   end
 
   def create_new
-  	current_user.leonidas_resource.company = params[:company]
-    current_user.leonidas_resource.recruiter_type = Vger::Spartan::Vanguard::RecruiterType.find_by_name(params[:type])
+    @redirect = params[:redirect]
+    current_user.leonidas_resource.company = params[:company]
+    current_user.leonidas_resource.recruiter_type = Vger::Spartan::Vanguard::RecruiterType.find(params[:type])
+    redirect_to @redirect
+
   end
 
   def show

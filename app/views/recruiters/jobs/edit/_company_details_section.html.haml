@@ -8,10 +8,10 @@
         Application Instructions
       .controls
         %label.radio.span4
-          %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+          %input#optionsRadios1{:checked => "", :name => "contact[profile]", :type => "radio", :value => 1}
             Use Default Profile
         %label.radio.span4
-          %input#optionsRadios2{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option2"}
+          %input#optionsRadios2{:checked => "", :name => "contact[profile]", :type => "radio", :value => 2}
             Use a different profile
     .control-group
       %label.control-label
@@ -91,7 +91,7 @@
         %br/
     .divider1
     .form-actions
-      %a.pull-left{:class => "", :href => "#"}
+      %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
         Previous
       %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
         %strong Next Step
