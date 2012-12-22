@@ -132,7 +132,7 @@
             jst Implmnt stars,css later
           .span3
             - if @job.skill.spoken.present?
-              = skill_level_display(@job.skill.spoken.level)
+              = skill_level_display(@job.skill.spoken.level.to_i)
           .clr
           .span3
             Written English
@@ -140,7 +140,7 @@
             jst Implmnt stars,css later
           .span3
             - if @job.skill.written.present?
-              = skill_level_display(@job.skill.written.level)
+              = skill_level_display(@job.skill.written.level.to_i)
       .section  
         .medium_text.text_right.span5
           %strong Preferred Behavioral Traits
