@@ -16,12 +16,14 @@ class Recruiters::DashboardController < ApplicationController
     # Rails.logger.ap r
     # Rails.logger.ap r.present?
     @job = Recruiters::Job.create
-    begin
-      if current_user.leonidas_resource.company.present?
-  	    redirect_to edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details")
-      end
-    rescue
+    
+    company = current_user.leonidas_resource.company
+    
+    if company.present?
+      redirect_to edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details")
+    else
       redirect_to new_recruiters_company_profile_path(:redirect_to => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details"))
     end
+
   end
 end
