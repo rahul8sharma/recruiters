@@ -73,6 +73,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     idx ? [arr[0..idx-1], arr[idx], arr[idx+1..-1]] : nil
   end
 
+  def update_status
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
+    @job.status = params[:status].to_i
+    @job.save!
+    redirect_to recruiters_root_path
+  end
+
 
   private
 
