@@ -97,5 +97,22 @@ module Recruiters
                                  'lib/awesome-font.css'
                                 ]
     
+    config.assets.precompile << Proc.new { |path|
+      precompile = false
+      
+      if path =~ /\.css/
+        full_path = Rails.application.assets.resolve(path).to_path
+        if full_path =~ /\.css/
+          precompile = true
+        end
+      end
+      
+      if precompile
+        puts "Compiling '#{path}' "
+      end
+      precompile
+    }
+           
+    
   end
 end
