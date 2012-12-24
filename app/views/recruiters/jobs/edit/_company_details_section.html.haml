@@ -76,30 +76,29 @@
       %label.control-label
         Job ID (Internal) 
       .controls.medium_text
-        = text_field_tag("contact_detail[job_id]", "", :placeholder => "Type internal Job ID for your reference in the future", :class => "span9 first")
+        = text_field_tag("contact_detail[job_id]", "", :placeholder => "Type internal Job ID for your reference in the future", :class => "span9 first", "data-preselect" => @job.try(:contact_detail).try(:job_id))
     .control-group
       %label.control-label
         Application URL (if any) 
       .controls.medium_text
-        = text_field_tag("contact_detail[application_url]", "", :placeholder => "Type URL", :class => "span9 first")
+        = text_field_tag("contact_detail[application_url]", "", :placeholder => "Type URL", :class => "span9 first", "data-preselect" => @job.try(:contact_detail).try(:application_url))
     .control-group
       %label.control-label
         HR Name*
       .controls.medium_text
-        = text_field_tag("contact_detail[name]", current_user.name, :placeholder => "PREFILLED", :class => "span9 first")
+        = text_field_tag("contact_detail[name]", current_user.name, :placeholder => "Type your name", :class => "span9 first", "data-preselect" => @job.try(:contact_detail).try(:name))
         %br/
     .control-group
       %label.control-label
         Phone Number*
       .controls.medium_text
-        = text_field_tag("contact_detail[phone]", current_user.phone, :placeholder => "PREFILLED", :class => "span9 first")
+        = text_field_tag("contact_detail[phone]", current_user.phone, :placeholder => "Type your phone number", :class => "span9 first", "data-preselect" => @job.try(:contact_detail).try(:phone))
         %br/
     .control-group
       %label.control-label
         Official Email id* 
       .controls.medium_text
         #{ current_user.email }
-        -# = text_field_tag("contact_detail[email]", current_user.email, :placeholder => "PREFILLED", :class => "span9 first")
         %br/
     .divider1
     .form-actions

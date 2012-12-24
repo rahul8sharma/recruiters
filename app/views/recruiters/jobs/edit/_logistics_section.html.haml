@@ -4,16 +4,16 @@
     %label.control-label
       Type of Employment*
     .controls
-      = select_tag("kind_of", options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none")
+      = select_tag("kind_of", options_from_collection_for_select(@master_data[:kind_of_job], :id, :name), :prompt => "Select the job type", :class => "span9 first fl_none", "data-preselect" => @job.try(:kind_of))
   .control-group
     %label.control-label
       Annual Salary*
     .controls
       %label.radio.span3.first
-        %input#optionsRadios1{:checked => "", :name => "salary[range][]", :type => "radio", :value => "1"}
+        %input#optionsRadios1{:checked => @job.salary.range.first.to_i == 1, :name => "salary[range][]", :type => "radio", :value => "1"}
           Range
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "salary[range][]", :type => "radio", :value => "0"}
+        %input#optionsRadios2{:checked => @job.salary.range.first.to_i == 2, :name => "salary[range][]", :type => "radio", :value => "2"}
           No Constraint
   .control-group
     %label.control-label
@@ -21,10 +21,10 @@
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
+      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => @job.salary.range.first.to_i != 1)
       .span
         %strong.line_height2 To
-      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, :disabled => true)
+      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => @job.salary.range.first.to_i != 1)
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls
@@ -33,7 +33,7 @@
     %label.control-label
     .controls
       %label.checkbox
-        = check_box_tag("salary[show]", "show", false)
+        = check_box_tag("salary[show]", "show", @job.try(:salary).try(:show) == "show")
         -#%input{:type => "checkbox", :value => ""}
         Do not disclose salary to candidates
 
@@ -47,7 +47,7 @@
     .span10
       - @master_data[:perks].each_with_index do |perk, index|
         %label.checkbox.span5.first
-          = check_box_tag("perk[]", perk.id, false)
+          = check_box_tag("perk[]", perk.id, (@job.perk rescue []).include?(perk.id.to_s))
           #{ perk.name }
         .clr
 
@@ -55,7 +55,7 @@
     %label.control-label
       Additional Perks
     .controls
-      = text_area_tag("additional_perk", "", :placeholder => "Type additional perks here", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_perk", "", :placeholder => "Type additional perks here", :rows => 4, :class => "span10 first", "data-preselect" => @job.try(:additional_perk))
       -# %textarea{:placeholder => "Type additional perks here"}
 
   .control-group
@@ -64,7 +64,7 @@
     .span10
       - @master_data[:time_slots].each_with_index do |slot, index|
         %label.checkbox.span5.first
-          = check_box_tag("time_slot[]", slot.id, false)
+          = check_box_tag("time_slot[]", slot.id, (@job.time_slot rescue []).include?(slot.id.to_s))
           #{ slot.name }
         .clr
 
@@ -74,7 +74,7 @@
     .span10
       - @master_data[:weekdays].each_with_index do |weekday, index|
         %label.checkbox.span5.first
-          = check_box_tag("offday[]", weekday.id, false)
+          = check_box_tag("offday[]", weekday.id, (@job.offday rescue []).include?(weekday.id.to_s))
           #{ weekday.name }
         .clr
   .control-group
@@ -84,17 +84,17 @@
         Check whichever applicable.
     .span10
       %label.checkbox.span5.first
-        = check_box_tag("additional_info[]", additional_info_enum[:involves_travel], false)
+        = check_box_tag("additional_info[]", additional_info_enum[:involves_travel], (@job.additional_info rescue []).include?(additional_info_enum[:involves_travel]))
         = additional_info_enum[:involves_travel]
       %label.checkbox.span5
-        = check_box_tag("additional_info[]", additional_info_enum[:government_job], false)
+        = check_box_tag("additional_info[]", additional_info_enum[:government_job], (@job.additional_info rescue []).include?(additional_info_enum[:government_job]))
         = additional_info_enum[:government_job]
       .clr
       %label.checkbox.span5.first
-        = check_box_tag("additional_info[]", additional_info_enum[:own_vehicle], false)
+        = check_box_tag("additional_info[]", additional_info_enum[:own_vehicle], (@job.additional_info rescue []).include?(additional_info_enum[:own_vehicle]))
         = additional_info_enum[:own_vehicle]
       %label.checkbox.span5
-        = check_box_tag("additional_info[]", additional_info_enum[:involves_travel], false)
+        = check_box_tag("additional_info[]", additional_info_enum[:walkin], (@job.additional_info rescue []).include?(additional_info_enum[:walkin]))
         = additional_info_enum[:walkin]
       .clr
 

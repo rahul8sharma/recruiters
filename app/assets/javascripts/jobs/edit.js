@@ -325,9 +325,7 @@ $(function() {
   setupCompanyDetailsValidations();
   setupEmployerDetailsValidations();
 
-  $.each(
-    $("[data-preselect]"),
-    function(index, element){
+  $.each($("[data-preselect]"), function(index, element) {
       element = $(element);
       element.val(element.attr("data-preselect"));
     }
