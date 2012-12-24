@@ -22,11 +22,11 @@
         .control-group
           = f.label :email, "Email id", :class => "control-label"
           .controls
-            = f.text_field :email, :placeholder => "Email id", :class => "span9"
+            = f.text_field :email, :placeholder => "Your Email", :class => "span9"
         .control-group
           = f.label :password, "Password", :class => "control-label"
           .controls
-            = f.password_field :password, :placeholder => "Password", :class => "span9"
+            = f.password_field :password, :placeholder => "At least 8 characters", :class => "span9"
           .offset12
             %a.pull-left.black.line_height2.padding_left_right1.paddin_right{:href => new_user_password_path, :title => "Forgot Password?"}
               Forgot Password?
