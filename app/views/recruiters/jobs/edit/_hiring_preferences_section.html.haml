@@ -1,16 +1,17 @@
-= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin" do
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
+  = hidden_field_tag "continue_later", false
   .control-group
     %label.control-label
       Do you want to hire candidates from particular industries?
     .controls
-      = select_tag("candidate_industry_select", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:industries).try(:first).try(:id)", "data-job_industry_pseudo_select" => true)
+      = select_tag("candidate_industry_select", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:industry).try(:id).try(:first), "data-job_industry_pseudo_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
 
   .control-group
     %label.control-label
       Do you want to hire candidates from a particular location(s)?
     .controls
-      = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => "job.try(:locations).try(:first).try(:geography_id)", "data-job_location_pseudo_select" => true)
+      = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:location).try(:id).try(:first), "data-job_location_pseudo_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
 
   .control-group
@@ -23,21 +24,23 @@
     %label.control-label.font_normal
       Spoken English
     .controls
-      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none")
+      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
   .control-group
     %label.control-label.font_normal
       Written English
     .controls
-      = select_tag("skill[written][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none")
+      = select_tag("skill[written][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none", "data-preselect" => @job.try(:skill).try(:written).try(:level))
   .control-group.margin
     %label.control-label
       Preferred Behavioral Traits
       .label_subtitle 
         Select upto 6 options
     .controls.behavioral_traits
+      - selected_traits = @job.trait rescue []
       - @master_data[:traits].each_with_index do |trait, index|
-        %label.checkbox.traits_badge
-          = check_box_tag("trait[]", trait.id, false, :class => "hide")
+        %label.checkbox.traits_badge{:class => selected_traits.include?(trait.id.to_s) ? "active" : ""}
+          = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id), :class => "hide")
+          - Rails.logger.ap selected_traits.include?(trait.id)
           #{ trait.name }
   .control-group.error
     .controls
@@ -48,10 +51,10 @@
     .controls
       - @master_data[:gender].each_with_index do |gender, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
-          = radio_button_tag("candidate[personal][gender]", gender.id, (@basic[:gender] rescue nil).try(:id) == gender.id)
+          = radio_button_tag("candidate[personal][gender]", gender.id, (@job.candidate.personal.gender rescue nil) == gender.id.to_s)
           #{ gender.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "candidate[personal][gender]", :type => "radio", :value => ""}
+        %input#optionsRadios2{:checked => (@job.candidate.personal.gender rescue nil) == "", :name => "candidate[personal][gender]", :type => "radio", :value => ""}
           No Preference
       .clr
 
@@ -61,10 +64,10 @@
     .controls
       - @master_data[:marital_status].each_with_index do |status, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
-          = radio_button_tag("candidate[personal][marital_status]", status.id, (@basic[:marital_status] rescue nil).try(:id) == status.id)
+          = radio_button_tag("candidate[personal][marital_status]", status.id, (@job.candidate.personal.marital_status rescue nil) == status.id.to_s)
           #{ status.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => "", :name => "candidate[personal][marital_status]", :type => "radio", :value => "option2"}
+        %input#optionsRadios2{:checked => (@job.candidate.personal.marital_status rescue nil) == "", :name => "candidate[personal][marital_status]", :type => "radio", :value => "option2"}
           No Preference
       .clr
     .divider1
@@ -74,7 +77,7 @@
       Previous
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
-    %a.pull-right{:class => "", :href => "#"}
+    %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
       %strong save and continue later
     .clr
 
