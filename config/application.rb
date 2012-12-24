@@ -84,5 +84,35 @@ module Recruiters
     config.autoload_paths += Dir[Gem::Specification.find_by_name("vger").gem_dir+"/**"]
 
     config.assets.paths << "#{Rails.root}/app/assets/font"
+
+    config.assets.precompile += [
+                                 '*.js',
+                                 'recruiters/shared/*',
+                                 'recruiters.css',
+                                 'recruiters/jobs.css',
+                                 'recruiters/header.css',
+                                 'recruiters/landing.css',
+                                 'recruiters/layout.css',
+                                 'sparta/rupee.css',
+                                 'lib/awesome-font.css'
+                                ]
+    
+    config.assets.precompile << Proc.new { |path|
+      precompile = false
+      
+      if path =~ /\.css/
+        full_path = Rails.application.assets.resolve(path).to_path
+        if full_path =~ /\.css/
+          precompile = true
+        end
+      end
+      
+      if precompile
+        puts "Compiling '#{path}' "
+      end
+      precompile
+    }
+           
+    
   end
 end

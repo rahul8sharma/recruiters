@@ -17,3 +17,4 @@ pickle-email-*.html
 vendor/*
 config/database.yml
 db/schema.rb
+public/assets/*
