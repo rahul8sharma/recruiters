@@ -29,12 +29,16 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job = Recruiters::Job.find(:uuid => params[:id]).first
     @job.update(params.to_hash)
 
-    section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
-    next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
+    if params[:continue_later] == "true"
+      redirect_to recruiters_root_path
+    else
+      section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
+      next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
 
-    @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
-
-    redirect_to (next_section.present? && next_section != "preview") ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
+      @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
+      
+      redirect_to (next_section.present? && next_section != "preview") ? recruiters_jobs_path(:id => @job.uuid, :section => next_section.dasherize) : preview_recruiters_job_path(:id => @job.uuid)
+    end
   end
 
   # GET /<status:(open | pending | closed | incomplete)>
@@ -75,6 +79,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     idx ? [arr[0..idx-1], arr[idx], arr[idx+1..-1]] : nil
   end
 
+  def update_status
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
+    @job.status = params[:status].to_i
+    @job.save!
+    redirect_to recruiters_root_path
+  end
+
 
   private
 
@@ -90,18 +101,16 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def init_master_data
     @master_data = {}
+    send("init_#{ params[:section].underscore }_data")
+  end
+
+  def init_job_details_data
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
     @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
     @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
-    @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
-    @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
-    @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
-    @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.find(:all)
-    @master_data.merge! :weekdays => Vger::Spartan::WeekDay.all
-    @master_data.merge! :time_slots => Vger::Spartan::Opus::TimeSlot.all
-    @master_data.merge! :perks => Vger::Spartan::Opus::JobPerk.all
-    @master_data.merge! :kind_of_job => Vger::Spartan::Opus::KindOfJob.all
+  end
 
+  def init_job_requirements_data
     degree_diploma = []
     Vger::Spartan::Opus::DegreeType.all.each do |degree|
       degree_diploma.push(Vger::Spartan::Opus::DegreeType.find(degree.id,:params => {:methods => "apex_degrees"}).apex_degrees)
@@ -109,13 +118,35 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     degree_diploma.flatten!.uniq!
     @master_data.merge! :degree_diploma => degree_diploma
 
-    @master_data.merge! :company_profile => current_user.leonidas_resource.company
-
     specializations = []
     degree_diploma.each do |degree|
       specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
     end
     specializations.flatten!.uniq!
     @master_data.merge! :specializations => specializations
+
+    @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
   end
+
+  def init_hiring_preferences_data
+    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
+    @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.find(:all)
+    @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
+    @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
+  end
+
+  def init_logistics_data
+    @master_data.merge! :kind_of_job => Vger::Spartan::Opus::KindOfJob.all
+    @master_data.merge! :perks => Vger::Spartan::Opus::JobPerk.all
+    @master_data.merge! :time_slots => Vger::Spartan::Opus::TimeSlot.all
+    @master_data.merge! :weekdays => Vger::Spartan::WeekDay.all
+  end
+
+  def init_additional_details_data
+  end
+
+  def init_company_details_data
+    @master_data.merge! :company_profile => current_user.leonidas_resource.company
+  end
+
 end

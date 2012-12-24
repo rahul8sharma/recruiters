@@ -18,7 +18,7 @@ class Recruiters::CompanyProfilesController < ApplicationController
   end
 
   def show
-  	@company = current_user.leonidas_resource.company
+    @company = current_user.leonidas_resource.company
     @company_type = current_user.leonidas_resource.recruiter_type.name
   end
 

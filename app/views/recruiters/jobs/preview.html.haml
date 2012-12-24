@@ -12,8 +12,7 @@
   = render :partial => "recruiters/shared/help_block"
 
 .rec_rhs
-  %form.form-horizontal
-
+  = form_tag update_status_recruiters_job_path(:id => @job.uuid, :status => 2), :method => :put, "data-preview_job" => true, :class => "form-horizontal margin" do
     .form-actions.yellow_bg.margin_top
       .span8.first.medium_text
         If everything looks okay, scroll down to bottom and click on 
@@ -132,7 +131,7 @@
             jst Implmnt stars,css later
           .span3
             - if @job.skill.spoken.present?
-              = skill_level_display(@job.skill.spoken.level)
+              = skill_level_display(@job.skill.spoken.level.to_i)
           .clr
           .span3
             Written English
@@ -140,7 +139,7 @@
             jst Implmnt stars,css later
           .span3
             - if @job.skill.written.present?
-              = skill_level_display(@job.skill.written.level)
+              = skill_level_display(@job.skill.written.level.to_i)
       .section  
         .medium_text.text_right.span5
           %strong Preferred Behavioral Traits
@@ -310,9 +309,9 @@
           = current_user.email
 
     .form-actions
-      %a.pull-left{:class => "", :href => "#"}
+      %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => "company-details")}
         Previous
-      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
         %strong Post Job
       %a.pull-right{:class => "", :href => "#"}
         %strong save and continue later
