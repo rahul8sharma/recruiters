@@ -7,7 +7,7 @@
     .pull-right.medium_text.white.line_height2
       Already have Recruiter account?
       %a{:href =>  new_user_session_path(:redirect_to => ""), :title => "Jomaby sign in"}
-        %strong.white Sign in
+        %strong.white Log in
       here
   .clr
 
@@ -22,24 +22,24 @@
   .registration_form
     = form_for @user, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
       .control-group
-        = f.label :name, "HR Name", :class => "control-label"
+        = f.label :name, "Name", :class => "control-label"
         .controls
-          = f.text_field :name, :placeholder => "HR Name", :class => "span9"
+          = f.text_field :name, :placeholder => "Your Full Name", :class => "span9"
 
       .control-group
-        = f.label :email, "Email id", :class => "control-label"
+        = f.label :email, "Email ID", :class => "control-label"
         .controls
-          = f.text_field :email, :placeholder => "Email id", :class => "span9"
+          = f.text_field :email, :placeholder => "Your Email", :class => "span9"
 
       .control-group
         %label.control-label{:for => "phoneNumber"} Phone Number
         .controls
-          = f.text_field :phone, :id => :phoneNumber, :class=> "span9", :placeholder => "Phone Number"
+          = f.text_field :phone, :id => :phoneNumber, :class=> "span9", :placeholder => "Your Phone Number"
 
       .control-group
         = f.label :password, "Password", :class => "control-label"
         .controls
-          = f.password_field :password, :placeholder => "Password", :class => "span9"
+          = f.password_field :password, :placeholder => "At least 8 characters", :class => "span9"
 
       .control-group
         = f.label :password, "Confirm Password", :class => "control-label"

@@ -29,7 +29,7 @@ Recruiters::Application.routes.draw do
       end
       collection do
         # get :show, :path => ":status/:id", :as => "_show"
-        get :status, :path => ":status"
+        get :status, :path => "status/:status"
         get :edit, :path => ":id/edit/:section"
         put :update, :path => ":id/edit/:section"
       end

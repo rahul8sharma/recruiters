@@ -2,13 +2,9 @@
   = javascript_include_tag "users/signup"
 - content_for :recruiter_title do
   .t_heading.clearfix.padding_left_right1
-    .pull-left.biggest_text.white.font_normal.line_height2
-      New Client Registration
-    .pull-right.medium_text.white.line_height2
-      Already have Recruiter account?
-      %a{:href =>  new_user_session_path(:redirect_to => ""), :title => "Jomaby sign in"}
-        %strong.white Sign in
-      here
+    .biggest_text.white.font_normal.line_height2
+      Reset Password
+    
   .clr
 
 - content_for :sidebar do
@@ -16,15 +12,16 @@
   
   
 .rec_rhs
-  .divider1
-  .biggest_text.faded_dark.font_normal.line_height2.offset1
-    Account Details
+  .forgot_pass
+    .blue_bg.info_text
+      Please Enter New Password.
+    .divider1
   .registration_form
     = form_for :user, :url => user_password_path, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
       .control-group
         = f.label :password, "Password", :class => "control-label"
         .controls
-          = f.text_field :password, :placeholder => "Password", :class => "span9"
+          = f.text_field :password, :placeholder => "At least 8 characters", :class => "span9"
 
       .control-group
         = f.label :password_confirmation, "Confirm Password", :class => "control-label"
