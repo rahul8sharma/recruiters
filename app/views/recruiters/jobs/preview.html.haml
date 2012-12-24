@@ -21,7 +21,7 @@
   = render :partial => "recruiters/shared/help_block"
 
 .rec_rhs
-  = form_tag update_status_recruiters_job_path(:id => @job.uuid, :status => 2), :method => :put, "data-preview_job" => true, :class => "form-horizontal margin" do
+  = form_tag update_status_recruiters_job_path(:id => @job.uuid, :status => "pending"), :method => :put, "data-preview_job" => true, :class => "form-horizontal margin" do
     .form-actions.yellow_bg.margin_top
       .span8.first.medium_text
         If everything looks okay, scroll down to bottom and click on 
