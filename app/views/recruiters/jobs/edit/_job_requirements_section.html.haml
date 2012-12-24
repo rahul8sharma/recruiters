@@ -1,9 +1,22 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Specify your job requirements and we will get you the right candidates
+      .divider1
+
 - job = job_template_struct
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
   = hidden_field_tag "continue_later", false
   .control-group
     %label.control-label
-      Years of Work Experience* Required
+      Years of Work Experience*
+      .label_subtitle
+        Adjust the slider to specify the range
     .controls
       %label.radio.span4
         %input#optionsRadios1{:checked => @job.work_experience.to_i == 1, :name => "work_experience", :type => "radio", :value => 1}
@@ -16,7 +29,7 @@
         %input{:name => "workex", :type => "slider", :data => {"work-ex-level" => true}}
   .control-group
     %label.control-label
-      Qualification - Preffered 
+      Qualifications*
     .controls
       = select_tag("qualification[degree_diploma][]", options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none", "data-preselect" => @job.try(:qualification).try(:degree_diploma).try(:first))
       = select_tag("qualification[specialization][]", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first))
@@ -31,7 +44,7 @@
     %label.control-label
       Nice to Have Skills
     .controls
-      = select_tag("job_skill_nice_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:nice).try(:skill_id).try(:first))
+      = select_tag("job_skill_nice_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select one or more", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:nice).try(:skill_id).try(:first))
       %div{:data => {"preferred-nice_skill-container" => true}}
 
   .control-group
@@ -41,7 +54,7 @@
       = text_area_tag("description", @job.try(:description), :placeholder => "Type job roles, responsibilities and any additional details here", :class => "span9 first", :rows => "4")
 
   .form-actions
-    %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
+    %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
       Previous
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step

@@ -1,7 +1,16 @@
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
-  
 
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Job Preview
+    .content
+      .divider1
+      .medium_text
+        Your job has not been posted yet. Take a look at the information you entered.
+      .divider1
 - content_for :sidebar do
   .job_flow_lhs
     %ul
@@ -17,7 +26,7 @@
       .span8.first.medium_text
         If everything looks okay, scroll down to bottom and click on 
         %strong
-          "Post this job" 
+          "Post Job" 
         to post the job.
       %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
         %strong Post Job
@@ -27,7 +36,7 @@
       .heading.gray_bg
         Job Description
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -37,7 +46,7 @@
           -# Mahindra Satyam IT Job at Hyderabad, Bangalore, Pune: Technical Lead
       .section  
         .medium_text.text_right.span5
-          %strong Functional Area of this role
+          %strong Functional Area of this Role
         - (@job.categories || []).each do |category|
           .description.span10
             = Vger::Spartan::Opus::JobCategory.find(category).name
@@ -60,24 +69,24 @@
             .highlight_badge.span
               = Vger::Penumbra::Geography.find(location).name
       .heading.gray_bg
-        Candidate Requirement
+        Job Requirements
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-requirements"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
-          %strong Years of Work Experience Required
+          %strong Years of Work Experience
         .description.span10
           2-6 yrs of Experience
       .section  
         .medium_text.text_right.span5
-          %strong Qualification - Preffered
+          %strong Qualifications
         - if @job.qualification
           - degrees = @job.qualification.degree_diploma
           - specializations = @job.qualification.specialization
           - degrees.zip(specializations).each do |degree, specialization|
             .description.span10
-              #{degree} in #{specialization}
+              #{Vger::Spartan::Opus::Recommendation.find(degree).name} in #{Vger::Spartan::Opus::Recommendation.find(specialization).name}
       .section  
         .medium_text.text_right.span5
           %strong Must Have Skills
@@ -103,9 +112,9 @@
           = @job.description
 
       .heading.gray_bg
-        Candidate Preference
+        Hiring Preferences
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "hiring-preferences"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -116,14 +125,14 @@
               = Vger::Spartan::Opus::Recommendation.find(industry).name
       .section  
         .medium_text.text_right.span5
-          %strong Location(s)
+          %strong Locations
         .description.span10
           - (@job.candidate.location.id || []).each do |location|
             .highlight_badge.span
               = Vger::Penumbra::Geography.find(location).name
       .section  
         .medium_text.text_right.span5
-          %strong Communication Skills required for this job
+          %strong Communication Skills
         .description.span10
           .span3
             Spoken English
@@ -142,28 +151,28 @@
               = skill_level_display(@job.skill.written.level.to_i)
       .section  
         .medium_text.text_right.span5
-          %strong Preferred Behavioral Traits
+          %strong Behavioral Traits
         .description.span10
           - (@job.trait || []).each do |trait|
             .highlight_badge.span
               #{Vger::Spartan::Dilios::Trait.find(trait).name}
       .section  
         .medium_text.text_right.span5
-          %strong Preferred Gender
+          %strong Gender
         .description.span10
           - if @job.candidate.personal.gender.present?
             #{Vger::Spartan::Dilios::Gender.find(@job.candidate.personal.gender).name}
       .section
         .medium_text.text_right.span5
-          %strong Preferred Marital Status
+          %strong Marital Status
         .description.span10
           - if @job.candidate.personal.marital_status.present?
             #{Vger::Spartan::Dilios::MaritalStatus.find(@job.candidate.personal.marital_status).name}
 
       .heading.gray_bg
-        Candidate Preference
+        Compensation &amp; Logistics
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "logistics"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -182,7 +191,7 @@
               Do not disclose salary to candidates
       .section  
         .medium_text.text_right.span5
-          %strong Perks
+          %strong Perks Offered
         .description.span10
           - (@job.perk || []).each do |perk|
             .highlight_badge.span8.first
@@ -199,24 +208,23 @@
               = Vger::Spartan::Opus::TimeSlot.find(slot).name
       .section  
         .medium_text.text_right.span5
-          %strong Weekly offs on
+          %strong Weekly Offs on
         .description.span10
           - (@job.offday || []).each do |day|
             .highlight_badge.span
               #{Vger::Spartan::WeekDay.find(day).name}
       .section  
         .medium_text.text_right.span5
-          %strong Additional information
+          %strong Additional Information
         .description.span10
           - (@job.additional_info || []).each do |info|
             .highlight_badge.span8.first
               #{info}
-         
 
       .heading.gray_bg
-        Miscellaneous
+        Additional Details
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "additional-details"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -230,7 +238,7 @@
           #{@job.additional_detail.candidate.company_history}
       .section  
         .medium_text.text_right.span5
-          %strong Other job titles such candidates have in the industry?
+          %strong Are there other job profiles such candidates have in the industry?
         .description.span10
           #{@job.additional_detail.candidate.job_title}
       .section  
@@ -240,14 +248,14 @@
           #{@job.additional_detail.candidate.keyword}
       .section  
         .medium_text.text_right.span5
-          %strong Kind of people you do not want to hire?
+          %strong Are there any kind of people that you do not want to hire?
         .description.span10
           #{@job.additional_detail.undesired}
 
       .heading.gray_bg
-        Miscellaneous
+        Recruiter Details
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "company-details"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -261,24 +269,24 @@
           #{@job.company.description}
       .section  
         .medium_text.text_right.span5
-          %strong Website of company    
+          %strong Company  Website    
         .description.span10
           #{@job.company.url}
       .section  
         .medium_text.text_right.span5
-          %strong Address    
+          %strong Location    
         .description.span10
           #{@job.company.address}
       .section  
         .medium_text.text_right.span5
-          %strong City    
+          %strong Address    
         .description.span10
           #{Vger::Penumbra::Geography.find(@job.company.location.geography_id.first).name}
 
       .heading.gray_bg
-        Employer Account Details
+        Recruiter Contact Details
         .pull-right
-          %a{:href => "#", :title => "Edit this section"}
+          %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "company-details"), :title => "Edit this section"}
             Edit
       .section  
         .medium_text.text_right.span5
@@ -294,7 +302,7 @@
             #{@job.contact_detail.application_url}
       .section  
         .medium_text.text_right.span5
-          %strong HR Name    
+          %strong Hiring Manager Name    
         .description.span10
           = current_user.name
       .section  
@@ -304,7 +312,7 @@
           = current_user.phone
       .section  
         .medium_text.text_right.span5
-          %strong Official Email id    
+          %strong Email id    
         .description.span10
           = current_user.email
 
@@ -313,6 +321,6 @@
         Previous
       %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
         %strong Post Job
-      %a.pull-right{:class => "", :href => "#"}
+      %a.pull-right{:class => "", :href => recruiters_root_path}
         %strong save and continue later
       .clr

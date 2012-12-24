@@ -1,3 +1,14 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Tell us your preferences in a candidate
+      .divider1
+
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
   = hidden_field_tag "continue_later", false
   .control-group
@@ -9,7 +20,7 @@
 
   .control-group
     %label.control-label
-      Do you want to hire candidates from a particular location(s)?
+      Do you want to hire candidates from a particular locations?
     .controls
       = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:location).try(:id).try(:first), "data-job_location_pseudo_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
@@ -17,22 +28,14 @@
   .control-group
     %label.control-label
       Communication Skills 
-      %br/
-      required for this job
+    .controls
+      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Spoken English", :class => "span4", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
+      = select_tag("skill[written][level]", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:skill).try(:written).try(:level))
+    .clr
 
-  .control-group
-    %label.control-label.font_normal
-      Spoken English
-    .controls
-      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
-  .control-group
-    %label.control-label.font_normal
-      Written English
-    .controls
-      = select_tag("skill[written][level]", skill_level_options, :prompt => "Select one", :class => "span7 first fl_none", "data-preselect" => @job.try(:skill).try(:written).try(:level))
   .control-group.margin
     %label.control-label
-      Preferred Behavioral Traits
+      Behavioral Traits
       .label_subtitle 
         Select upto 6 options
     .controls.behavioral_traits
@@ -47,7 +50,7 @@
       %span.error.help-inline{:for => "trait[]", :generated => "true"}
   .control-group
     %label.control-label
-      Preferred Gender
+      Gender
     .controls
       - @master_data[:gender].each_with_index do |gender, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
@@ -60,7 +63,7 @@
 
   .control-group
     %label.control-label
-      Preferred Marital Status
+      Marital Status
     .controls
       - @master_data[:marital_status].each_with_index do |status, index|
         %label.radio.span3{:class => index == 0 ? "first" : ""}
@@ -73,7 +76,7 @@
     .divider1
 
   .form-actions
-    %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
+    %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
       Previous
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
