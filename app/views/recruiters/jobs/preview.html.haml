@@ -80,7 +80,7 @@
         .medium_text.text_right.span5
           %strong Years of Work Experience
         .description.span10
-          2-6 yrs of Experience
+          #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
       .section  
         .medium_text.text_right.span5
           %strong Qualifications

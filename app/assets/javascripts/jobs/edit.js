@@ -92,19 +92,19 @@ function initNiceSkillPseudoSelect(select, skill) {
   }
 }
 
-function workexSlider() {
-  // Enable slider for abilities
-  // $("[data-work-ex-level]").slider();
-  $("[data-work-ex-level]").slider({
-    from: 1,
-    to: 10,
-    step: 1,
-    limits: false,
-    smooth: false,
-    scale: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    skin: "round_plastic"
-  });
-}
+// function workexSlider() {
+//   // Enable slider for abilities
+//   $("[data-work-ex-level]").slider();
+//   $("[data-work-ex-level]").slider({
+//     from: 1,
+//     to: 10,
+//     step: 1,
+//     limits: false,
+//     smooth: false,
+//     scale: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+//     skin: "round_plastic"
+//   });
+// }
 
 /*=== VALIDATIONS starts ===*/
 $.validator.addMethod("check_presence", function(value, element, params) {
@@ -116,14 +116,14 @@ $.validator.addMethod("check_presence", function(value, element, params) {
 $.validator.addMethod("chronological", function(value, element, params) {
   var form = $(element).parents("form");
 
-  var salaryFrom = parseInt(form.find("[name='" + params.from.salary + "']").val());
-  var salaryTo = parseInt(form.find("[name='" + params.to.salary + "']").val());
+  var From = parseInt(form.find("[name='" + params.from.range + "']").val());
+  var To = parseInt(form.find("[name='" + params.to.range + "']").val());
   
-  if(isNaN(salaryFrom) || isNaN(salaryTo)){
+  if(isNaN(From) || isNaN(To)){
     return this.optional(element);
   }
   else{
-    return (salaryFrom <= salaryTo);
+    return (From <= To);
   }
 }, "Invalid range");
 
@@ -158,6 +158,50 @@ function setupJobDetailsValidations() {
       }, bootstrap_error_settings
     )
   );
+}
+
+var job_requirements_validation_options = function() {
+  var options = $.extend(
+  {
+    ignore: "",
+    rules: {
+      "qualification[degree_diploma][]": {
+        required: true
+      },
+      "job_must_skill_ids": {
+        check_presence: "skill[must][skill_id][]"
+      }
+    },
+    errorPlacement: function(error, element) {
+      error.insertAfter($(element).siblings("br"));
+    }
+  }, bootstrap_error_settings);
+  function min_work_ex_validation() {
+    options.rules["work_experience[min_range]"] = {
+      required: true,
+      number: true
+    };
+  }
+  function max_work_ex_validation() {
+    options.rules["work_experience[max_range]"] = {
+      required: true,
+      number: true,
+      chronological : {
+        from : {
+          range: "work_experience[min_range]"
+        },
+        to : {
+          range: "work_experience[max_range]"
+        }
+      }
+    }
+  }
+  min_work_ex_validation();max_work_ex_validation();
+  return options;
+}
+
+function setupJobRequirementsValidations() {
+  $("form[data-job_requirements]").validate(job_requirements_validation_options());
 }
 
 function setupHiringPreferencesValidations() {
@@ -200,10 +244,10 @@ var logistics_validation_options = function() {
       number: true,
       chronological : {
         from : {
-          salary: "salary[min_range]"
+          range: "salary[min_range]"
         },
         to : {
-          salary: "salary[max_range]"
+          range: "salary[max_range]"
         }
       }
     }
@@ -318,9 +362,10 @@ $(function() {
     initNiceSkillPseudoSelect($(this));
   });
 
-  workexSlider();
+  // workexSlider();
 
   setupJobDetailsValidations();
+  setupJobRequirementsValidations();
   setupHiringPreferencesValidations();
   setupLogisticsValidations();
   setupCompanyDetailsValidations();
@@ -454,6 +499,15 @@ $(function() {
   // 	// Enablree pseudo multiselect for preferred job_profile
   //   initJobProfilePseudoSelect();
   // });
+
+  $("[name='work_experience[type]']").on("change", function() {
+    var selected = $(this).val();
+    if(selected == 1) {
+      $("[data-work_exp]").removeAttr("disabled");
+    } else {
+      $("[data-work_exp]").attr("disabled", true);
+    }
+  });
 
   $("[name='salary[range][]']").on("change", function() {
     var selected = $(this).val();
