@@ -94,6 +94,7 @@ function initNiceSkillPseudoSelect(select, skill) {
 
 function workexSlider() {
   // Enable slider for abilities
+  // $("[data-work-ex-level]").slider();
   $("[data-work-ex-level]").slider({
     from: 1,
     to: 10,
@@ -132,7 +133,7 @@ function setupJobDetailsValidations() {
       {
         ignore: "",
         rules: {
-          "title": {
+          "name": {
             required: true
           },
           "job_industry_ids": {

@@ -20,7 +20,7 @@
       .label_subtitle 
         This is the first thing candidates see
     .controls
-      = text_field_tag("title", @job.try(:title), placeholder: "Type title here", class: "span9 first")
+      = text_field_tag("name", @job.try(:name), placeholder: "Type title here", class: "span9 first")
       %br/
   .control-group
     %label.control-label
