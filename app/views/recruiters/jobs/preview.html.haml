@@ -1,5 +1,8 @@
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
+- content_for :javascripts do
+  = javascript_include_tag "lib/raty/js/jquery.raty.js"
+  = javascript_include_tag "jobs/preview"
 
 - content_for :recruiter_title do
   .recruiter_title
@@ -136,18 +139,18 @@
         .description.span10
           .span3
             Spoken English
-          .span3
-            jst Implmnt stars,css later
-          .span3
-            - if @job.skill.spoken.present?
+          - if @job.skill.spoken.present?
+            .span3
+              %div{data: {"star" => true, "star_rating" => @job.skill.spoken.level.to_i}}
+            .span3
               = skill_level_display(@job.skill.spoken.level.to_i)
           .clr
           .span3
             Written English
-          .span3
-            jst Implmnt stars,css later
-          .span3
-            - if @job.skill.written.present?
+          - if @job.skill.written.present?
+            .span3
+              %div{data: {"star" => true, "star_rating" => @job.skill.written.level.to_i}}
+            .span3
               = skill_level_display(@job.skill.written.level.to_i)
       .section  
         .medium_text.text_right.span5
