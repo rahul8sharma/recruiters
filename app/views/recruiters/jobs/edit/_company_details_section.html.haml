@@ -62,16 +62,16 @@
         %strong Continue
       .clr
 
-
   .title
     Employer Account Details
   .divider2
-  = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-employer_details" => true, :class => "form-horizontal margin" do
+  = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-employer_details" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
     = hidden_field_tag("company[name]", @master_data[:company_profile].name)
     = hidden_field_tag("company[description]", @master_data[:company_profile].description)
     = hidden_field_tag("company[url]", @master_data[:company_profile].url)
     = hidden_field_tag("company[address]", @master_data[:company_profile].address)
     = hidden_field_tag("company[location][geography_id][]", @master_data[:company_profile].locations.first.geography_id)
+    = hidden_field_tag "continue_later", false
     .control-group
       %label.control-label
         Job ID (Internal) 
@@ -107,6 +107,6 @@
         Previous
       %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
         %strong Continue
-      %a.pull-right{:class => "", :href => "#"}
+      %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
         %strong save and continue later
       .clr

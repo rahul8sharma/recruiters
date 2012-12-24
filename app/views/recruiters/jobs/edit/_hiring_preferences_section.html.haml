@@ -1,4 +1,5 @@
-= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin" do
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
+  = hidden_field_tag "continue_later", false
   .control-group
     %label.control-label
       Do you want to hire candidates from particular industries?
@@ -74,7 +75,7 @@
       Previous
     %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
       %strong Next Step
-    %a.pull-right{:class => "", :href => "#"}
+    %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
       %strong save and continue later
     .clr
 

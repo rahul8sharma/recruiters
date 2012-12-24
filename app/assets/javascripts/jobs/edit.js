@@ -422,6 +422,13 @@ $(function() {
   }
   setUneditableContactDetails();
 
+  $("[data-continue_later]").on("click", function(e) {
+    var form = $("[data-job_posting_container]").find("[data-job_posting_form]");
+    form.find("input[name='continue_later']").val("true");
+    form.submit();
+    e.preventDefault();
+  })
+
   // $("select[data-job-category]").on("change", function() {
   // 	// console.log($(this));
   // 	initCategoryPseudoSelect($(this));
