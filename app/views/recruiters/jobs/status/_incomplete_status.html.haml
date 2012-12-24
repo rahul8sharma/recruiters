@@ -6,6 +6,8 @@
     .content
       .medium_text
         Here is the list of incomplete jobs on Jombay.com.
+      .pull-right
+        = bootstrap_paginate @jobs, :inner_window => 0, :outer_window => 0, :previous_label => "&laquo;", :next_label => "&raquo;"
       .divider1
 - content_for :sidebar do
   =render :partial => "recruiters/shared/help_block"

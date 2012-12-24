@@ -54,6 +54,18 @@ module ApplicationHelper
     end
   end
 
+  # Helper wrapper for will_paginate to add default options to work with
+  # bootstrap
+  def bootstrap_paginate(pages, options={})
+    options.reverse_merge!(
+      :class => 'pagination margin', 
+      :renderer => BootstrapLinkRenderer, 
+      :previous_label => '&larr;'.html_safe, 
+      :next_label => '&rarr;'.html_safe
+    )
+    will_paginate(pages, options)
+  end
+
   def bootstrap_type(type)
     case type
     when :alert

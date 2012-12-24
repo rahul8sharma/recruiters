@@ -4,6 +4,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   before_filter :init_master_data, :only => [:edit, :update]
 
   layout "recruiters/jobs"
+  PER_PAGE = 3
 
   # GET /jobs/<id>
   def show
@@ -44,7 +45,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   # GET /<status:(open | pending | closed | incomplete)>
   def status
     status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
-    @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid)
+    @jobs = Recruiters::Job.find(:status => status).paginate(:page => 1, :per_page => PER_PAGE)#, :posted_by => current_user.sid)
   end
 
   # GET /recommendations/traversable_from/:id
