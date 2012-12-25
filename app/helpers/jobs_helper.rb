@@ -37,6 +37,13 @@ module JobsHelper
     options_for_select(salary_enum.map{ |sal| ["#{sal}", sal] })
   end
 
+  def work_experience_enum
+    (1..10).to_a
+  end
+  def work_experience_options
+    options_for_select(work_experience_enum.map{ |exp| ["#{exp} years", exp] })
+  end
+
   def additional_info_enum
     {
       :involves_travel => "Involves Travel",
