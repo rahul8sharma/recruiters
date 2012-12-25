@@ -23,6 +23,10 @@ class Recruiters::Job < Ohm::Model
 
   module STATUSES
     INCOMPLETE, PENDING, READY, OPEN, CLOSED = (1..5).to_a
+
+    def self.[](status_str)
+      self.const_get(status_str.upcase)
+    end
   end
   
   def self.create(data={})

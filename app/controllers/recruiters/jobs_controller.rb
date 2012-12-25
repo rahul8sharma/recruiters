@@ -44,7 +44,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /<status:(open | pending | closed | incomplete)>
   def status
-    status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
+    status = Recruiters::Job::STATUSES[params[:status]]
     @jobs = Recruiters::Job.find(:status => status).paginate(:page => 1, :per_page => PER_PAGE)#, :posted_by => current_user.sid)
   end
 
