@@ -220,19 +220,19 @@
         .medium_text.text_right.span5
           %strong Additional Information
         .description.span10
-          - if @job.involves_travel.present?
+          - if @job.involves_travel.present? && @job.involves_travel == "true"
             .highlight_badge.span8.first
               = additional_info_enum[:involves_travel]
 
-          - if @job.government_job.present?
+          - if @job.government_job.present? && @job.government_job == "true"
             .highlight_badge.span8.first
               = additional_info_enum[:government_job]
 
-          - if @job.own_vehicle.present?
+          - if @job.own_vehicle.present? && @job.own_vehicle == "true"
             .highlight_badge.span8.first
               = additional_info_enum[:own_vehicle]
               
-          - if @job.walkin.present?
+          - if @job.walkin.present? && @job.walkin == "true"
             .highlight_badge.span8.first
               = additional_info_enum[:walkin]
 
