@@ -82,7 +82,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def update_status
     @job = Recruiters::Job.find(:uuid => params[:id]).first
-    @job.status = params[:status].to_i
+    @job.status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
     @job.save!
     redirect_to recruiters_root_path
   end
