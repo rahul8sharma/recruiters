@@ -29,8 +29,8 @@
     %label.control-label
       Communication Skills 
     .controls
-      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Spoken English", :class => "span4", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
-      = select_tag("skill[written][level]", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:skill).try(:written).try(:level))
+      = select_tag("spoken_skill", skill_level_options, :prompt => "Spoken English", :class => "span4", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
+      = select_tag("written_skill", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:skill).try(:written).try(:level))
     .clr
 
   .control-group.margin

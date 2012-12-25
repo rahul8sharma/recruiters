@@ -11,6 +11,10 @@ $(document).ready(function() {
           "user[name]": {
             required: true
           },
+          "user[phone]": {
+            number: true,
+            minlength: 10
+          },
           "user[password]": {
             required: true,
             minlength: 8
