@@ -25,42 +25,17 @@
     .divider1
 
 .wrapper
-  
   .post_job
+    -#
+      Add ".active" class after clicking on grren "post job" link 
+      For Exp :- .post_sub.active
     %a.btn-post{:href => "#", :title => "Click here to post job"}
       %i.icon-plus-sign
       Post a Job
     .listing_container
-      .post_sub
-        %a.offset1{:href => "#"}
-          Post a New Job
-        %span.rounded.gray_bg.white
-          OR
-        %a{:href => "#"}
-          Duplicate An Existing Job
-      .listing_snippets
-        .medium_text
-          Select a job thet you wish to duplicate. You can select only one job
-        .divider1
-        %form.margin
-          .inner_listing
-            - 6.times do
-              .control-group
-                %label.radio.pull-left
-                  %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                    %strong.medium_text 
-                      Java Developer
-                    at Pune, Mumbai....
-                .date.pull-right
-                  Dec 24
-                .clr
-          .divider1
-          .pull-right
-            %button.span{:class => "btn", :type => "button"}
-              Cancel
-            %button.span{:class => "btn btn-primary", :type => "button"}
-              Duplicate this Job
-          .clr
+      =render :partial => "recruiters/dashboard/post_sub_links"
+      =render :partial => "recruiters/dashboard/dashboard_listing_snippets"
+  =render :partial => "recruiters/dashboard/start_posting"
   .divider2
 
   - if @jobs[:pending].present?
