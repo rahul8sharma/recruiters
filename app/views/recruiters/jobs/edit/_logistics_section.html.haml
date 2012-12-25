@@ -24,17 +24,17 @@
         %input#optionsRadios1{:checked => (@job.salary.present? ? @job.salary.range.first.to_i == 1 : false), :name => "salary[range][]", :type => "radio", :value => "1"}
           Fixed Range
       %label.radio.span3
-        %input#optionsRadios2{:checked => (@job.salary.present? ? @job.salary.range.first.to_i == 2 : false), :name => "salary[range][]", :type => "radio", :value => "2"}
+        %input#optionsRadios2{:checked => (@job.salary.present? ? @job.salary.range.first.to_i == 2 : true), :name => "salary[range][]", :type => "radio", :value => "2"}
           No Constraint
   .control-group
     %label.control-label
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : false))
+      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : true))
       .span
         %strong.line_height2 To
-      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : false))
+      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : true))
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls

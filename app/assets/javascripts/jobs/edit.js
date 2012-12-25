@@ -145,7 +145,7 @@ function setupJobDetailsValidations() {
           "job_profile_ids": {
             check_presence: "profiles[]"
           },
-          "job[total_openings]": {
+          "total_openings": {
             required: true
           },
           "job_location_ids": {

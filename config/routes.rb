@@ -48,7 +48,7 @@ Recruiters::Application.routes.draw do
 
     resources :dashboard, :only => [] do
       collection do
-        put :job_posting, :path => "job_posting"
+        post :job_posting, :path => "job_posting"
       end
     end
 
