@@ -8,7 +8,7 @@ class Recruiters::Job < Ohm::Model
 
   FIXED_ATTRIBUTES = [
     [:status, Type::Integer],
-    [:posted_by, Type::Integer],
+    [:posted_by],
     [:uuid]
   ]
 
@@ -42,6 +42,7 @@ class Recruiters::Job < Ohm::Model
   end
 
   def update(data)
+    data = data.deep_symbolize_keys
     fixed_attributes = data.extract!(*FIXED_ATTRIBUTES.map(&:first))
     fixed_attributes.select{|_, v| v}.each do |name, value|
       self.send("#{name}=", value)
