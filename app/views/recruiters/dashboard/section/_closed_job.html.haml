@@ -1,8 +1,8 @@
 %li.listing_snippet
   %a.job_title.pull-left{:href => "#", :title => "Job Title goes here"}
-    = truncate(job.title, :length => 45)
+    = truncate(closed_job.name, :length => 45)
   .date.pull-right
-    = job.updated_at.strftime("%b %d")
+    -#= job.updated_at.strftime("%b %d")
   .clr
   .divider1
   .bottom_sec 

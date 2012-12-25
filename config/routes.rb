@@ -26,6 +26,7 @@ Recruiters::Application.routes.draw do
         get :preview, :path => "preview"
         get :traversable_from
         put :update_status
+        post :duplicate
       end
       collection do
         # get :show, :path => ":status/:id", :as => "_show"

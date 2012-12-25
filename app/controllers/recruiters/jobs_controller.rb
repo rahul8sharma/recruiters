@@ -45,7 +45,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   # GET /<status:(open | pending | closed | incomplete)>
   def status
     status = Recruiters::Job::STATUSES[params[:status]]
-    @jobs = Recruiters::Job.find(:status => status).paginate(:page => 1, :per_page => PER_PAGE)#, :posted_by => current_user.sid)
+
+    if(status == Recruiters::Job::STATUSES::OPEN || status == Recruiters::Job::STATUSES::CLOSED)
+    else
+      @jobs = Recruiters::Job.find(:status => status).paginate(:page => 1, :per_page => PER_PAGE)#, :posted_by => current_user.sid)
+    end
   end
 
   # GET /recommendations/traversable_from/:id
@@ -85,6 +89,9 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job.status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
     @job.save!
     redirect_to recruiters_root_path
+  end
+
+  def duplicate
   end
 
 

@@ -65,16 +65,40 @@ class Recruiters::Job < Ohm::Model
   end
 
   def open
-    leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
-    leo_job.update_attributes(:active => true)
+  end
+  def close
   end
 
-  def close
-    leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
-    leo_job.update_attributes(:active => false)
+  def self.open(recruiter_sid, pagination = {})
+    # leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
+    # leo_job.update_attributes(:active => true)
+    self.get_leo_jobs("true", recruiter_sid, pagination)
+  end
+
+  def self.closed(recruiter_sid, pagination = {})
+    # leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
+    # leo_job.update_attributes(:active => false)
+    self.get_leo_jobs("false", recruiter_sid, pagination)
   end
   
   private
+
+  def self.get_leo_jobs(status, recruiter_sid, pagination = {})
+    jobs = Vger::Spartan::Opus::Recommendation.traverse({
+                          :source_nodes => [{
+                            "id" => recruiter_sid,
+                            "relationship" => "posts_out"
+                          }],
+                          :options => {
+                            "bucket_type" => "Opus::Job",
+                            "active" => status
+                          },
+                          :visible => true,
+                          :order => "updated_at DESC",
+                          :without_cache => true,
+                          :plain_fetch => true
+            }.merge(pagination || {}))
+  end
 
   def after_save
     reset_other

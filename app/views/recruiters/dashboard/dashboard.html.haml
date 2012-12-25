@@ -25,20 +25,18 @@
     .divider1
 
 .wrapper
-  = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
-    = fields_for :job_posting do |f|
-      = f.submit "Post job"
   .post_job
     %a.btn-post{:href => "#", :title => "Click here to post job"}
       %i.icon-plus-sign
       Post a Job
-    %div
-      %a{:href => "#"}
-        Post a New Job
-      OR
-      %a{:href => "#"}
-        Duplicate An Existing Job
     .listing_container
+      %div
+        = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
+          = fields_for :job_posting do |f|
+            = f.submit "Post a New Job"
+        OR
+        %a{:href => "#"}
+          Duplicate An Existing Job
       .medium_text
         Select a job thet you wish to duplicate. You can select only one job
       .divider1
@@ -74,8 +72,7 @@
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
-          - @jobs[:pending].each do |job|
-            = render :partial => "recruiters/dashboard/section/pending_job", :locals => {:job => job}
+          = render :partial => "recruiters/dashboard/section/pending_job", :collection => @jobs[:pending]
         %a.show_details{:href => status_recruiters_jobs_path(:status => "pending"), :title => "View all Pending jobs"}
           Show all Pending jobs
         .clr
@@ -86,14 +83,13 @@
       .dash_listing_title
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "open")}
-            Open Jobs (#{Recruiters::Job.find(:status => 4).size})
+            Open Jobs (#{@jobs[:open].total_entries})
         %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
           \-
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
-          - @jobs[:open].each do |job|
-            = render :partial => "recruiters/dashboard/section/open_job", :locals => {:job => job}
+          = render :partial => "recruiters/dashboard/section/open_job", :collection => @jobs[:open]
         %a.show_details{:href => status_recruiters_jobs_path(:status => "open"), :title => "View all Open jobs"}
           Show all Open jobs
         .clr
@@ -110,8 +106,7 @@
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
-          - @jobs[:incomplete].each do |job|
-            = render :partial => "recruiters/dashboard/section/incomplete_job", :locals => {:job => job}
+          = render :partial => "recruiters/dashboard/section/incomplete_job", :collection => @jobs[:incomplete]
         %a.show_details{:href => status_recruiters_jobs_path(:status => "incomplete"), :title => "View all Incomplete jobs"}
           Show all Incomplete Jobs
       .clr
@@ -122,15 +117,14 @@
       .dash_listing_title
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "closed")}
-            Closed Jobs (#{Recruiters::Job.find(:status => 5).size})
+            Closed Jobs (#{@jobs[:closed].total_entries})
         %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimise/Maximise Here", "data-section_collapser" => true}
           \-
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
-          - @jobs[:closed].each do |job|
-            = render :partial => "recruiters/dashboard/section/closed_job", :locals => {:job => job}
-        %a.show_details{:href => "#", :title => "View all Closed jobs"}
+          = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs[:closed]
+        %a.show_details{:href => status_recruiters_jobs_path(:status => "closed"), :title => "View all Closed jobs"}
           Show all Closed Jobs 
         .clr
     .divider2
