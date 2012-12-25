@@ -39,11 +39,10 @@
       .label_subtitle 
         Select upto 6 options
     .controls.behavioral_traits
-      - selected_traits = @job.trait rescue []
+      - selected_traits = @job.trait.present? ? @job.trait : []
       - @master_data[:traits].each_with_index do |trait, index|
         %label.checkbox.traits_badge{:class => selected_traits.include?(trait.id.to_s) ? "active" : ""}
           = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id), :class => "hide")
-          - Rails.logger.ap selected_traits.include?(trait.id)
           #{ trait.name }
   .control-group.error
     .controls
