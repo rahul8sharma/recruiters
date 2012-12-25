@@ -2,23 +2,50 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   before_filter :init_section, :only => [:edit, :update]
   before_filter :init_status, :only => [:status]
   before_filter :init_master_data, :only => [:edit, :update]
-
+  before_filter :init_job, :only => [:edit, :preview, :show,
+                                     :update, :update_status, :flush]
+  before_filter :ensure_flush_perms, :only => [:flush]
+  
   layout "recruiters/jobs"
+  
   PER_PAGE = 3
+
+  def flush
+    respond_to do |format|
+      format.json{
+        if @job
+          @job.delete
+          render :json => @job
+        else
+          render :nothing => true, :status => 404
+        end
+      }
+    end
+  end
 
   # GET /jobs/<id>
   def show
+    respond_to do |format|
+      format.json{
+        if @job
+          render :json => @job
+        else
+          render :nothing => true, :status => 404
+        end
+      }
+      format.html{
+        render :text => :blah
+      }
+    end
   end
 
   # GET /jobs/<id>/preview
   def preview
     @section = "preview"
-    @job = Recruiters::Job.find(:uuid => params[:id]).first
   end
 
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>
   def edit
-    @job = Recruiters::Job.find(:uuid => params[:id]).first
     section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
 
     next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
@@ -27,7 +54,6 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   def update
-    @job = Recruiters::Job.find(:uuid => params[:id]).first
     @job.update(params.to_hash)
 
     if params[:continue_later] == "true"
@@ -81,7 +107,6 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   def update_status
-    @job = Recruiters::Job.find(:uuid => params[:id]).first
     @job.status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
     @job.save!
     redirect_to recruiters_root_path
@@ -90,6 +115,12 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   private
 
+  def ensure_flush_perms
+    key = params[:key] || ''
+    unless key == Digest::SHA256.hexdigest("JOMBAYDOTCOM")
+      redirect_to recruiters_root_path
+    end
+  end
   # Extract status from url
   def init_status
     @status = params[:status]
@@ -150,4 +181,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :company_profile => current_user.leonidas_resource.company
   end
 
+  def init_job
+    @job = Recruiters::Job.find(:uuid => params[:id]).first
+  end
 end
