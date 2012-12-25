@@ -25,9 +25,7 @@
     .divider1
 
 .wrapper
-  = form_tag job_posting_recruiters_dashboard_index_path, :method => :put do
-    = fields_for :job_posting do |f|
-      = f.submit "Post job"
+  
   .post_job
     %a.btn-post{:href => "#", :title => "Click here to post job"}
       %i.icon-plus-sign
