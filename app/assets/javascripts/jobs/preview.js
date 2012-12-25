@@ -9,4 +9,8 @@ $(function() {
   	  'size':0
     });
   });
+  $("[data-preview_top_submit]").on("click", function(e) {
+    $("form[data-preview_job]").submit();
+    e.preventDefault();
+  });
 });
