@@ -19,12 +19,12 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
   # GET /jobs/<job_id>/candidates/<candidate_id>
   def show
     @application = Vger::Spartan::Opus::Jobs::Application.find(
-                                                          params[:app_id],
-                                                          :params => {
+                                                               params[:id],
+                                                               :params => {
                                                                  :user_profile_info_aliases => ["preferred_locations", "bb81cffd", "preferred_job_categories", "2c795204", "1aae6648", "62f71862", "current_location", "c539c70c"],
                                                                  :methods => ["categorywise_skills_information", "preferred_locations", "rejected_locations", "user_information"]
                                                                }
-                                                          )
+                                                               )
   end
 
   protected
