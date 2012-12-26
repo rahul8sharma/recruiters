@@ -18,7 +18,7 @@
           .img-normal
             = render_umbra_user_display_image(user)
       .span16
-        %a{:href => "#"}
+        %a{:href => recruiters_job_candidate_path(:id => application.id)}
           %strong.show.link_color.medium_text
             #{ user.name }
         %span
@@ -28,7 +28,7 @@
           %strong.medium_text
             Skilled in
           .divider1
-          .skills_level.span16.fl_none.clearfix.first
+          .skills_level.span16.fl_none.clearfix
             = render :partial => "recruiters/skill_level", collection: application.skills_information.attributes.to_a.slice(0, 3)
           .divider1
       .span4.first

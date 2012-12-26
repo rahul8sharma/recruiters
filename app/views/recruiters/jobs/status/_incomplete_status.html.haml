@@ -1,8 +1,9 @@
 - content_for :recruiter_title do
   .recruiter_title
     .content
-      .main
+      .main.pull-left
         Jobs
+      =render :partial => "recruiters/jobs/status/status_nav" 
     .content
       .medium_text.line_height2
         Here is the list of incomplete jobs on Jombay.com.
