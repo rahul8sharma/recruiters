@@ -1,13 +1,12 @@
 - content_for :recruiter_title do
   .recruiter_title
     .content
-      .main
+      .main.pull-left
         Jobs
-    .content
-      .pull-left
-        .medium_text.line_height2
-          Here is the list of closed jobs on Jombay.com.
       =render :partial => "recruiters/jobs/status/status_nav" 
+    .content
+      .medium_text.line_height2
+        Here is the list of closed jobs on Jombay.com.
 - content_for :sidebar do
   =render :partial => "recruiters/shared/help_block"  
 
