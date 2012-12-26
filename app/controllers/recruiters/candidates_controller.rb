@@ -1,7 +1,8 @@
 class Recruiters::CandidatesController < Recruiters::ApplicationController
-  before_filter :validate_token
-  before_filter :init_job, :only => [:dashboard, :application]
-  
+  #before_filter :validate_token
+  before_filter :init_job, :only => [:index, :show]
+
+  PER_PAGE = 10
   # GET /jobs/<id>/candidates
   def index
     @applications = Vger::Spartan::Opus::Jobs::Application.paginate(
@@ -37,8 +38,11 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
 
   # Initialise job from token
   def init_job
-    @job = Vger::Spartan::Opus::Recommendation.find(params[:id], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})
-    #@job = Vger::Spartan::Opus::Recommendation.find_by_access_token(params[:token], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})
+    #
+    #@job = Vger::Spartan::Opus::Recommendation.find(params[:id], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})   # cd@job =
+    # Vger::Spartan::Opus::Recommendation.find_by_access_token(params[:token], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})
+
+    @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:job_id])
   end
 
 end
