@@ -30,10 +30,10 @@
           %li
             3x faster hiring
         .btn_sec
-          %a{:href => "https://www.surveymonkey.com/s/YNL_Employer_Engagement", :class => "btn btn-warning", :title => "Start Free Job Trial Now!"}
+          %a{:href => new_user_registration_path, :class => "btn btn-warning", :title => "Start Free Job Trial Now!"}
             Start Free Trial Now!
           
-          %a.link_color.medium_text.show{:href => "https://www.surveymonkey.com/s/YNL_Employer_Engagement", :title=> "Post another Job"}
+          %a.link_color.medium_text.show{:href => new_user_session_path(:redirect_to => job_posting_recruiters_dashboard_index_path), :title=> "Post another Job"}
             %strong
               Already Registered? Post another Job
 

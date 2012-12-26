@@ -50,7 +50,7 @@ Recruiters::Application.routes.draw do
 
     resources :dashboard, :only => [] do
       collection do
-        post :job_posting, :path => "job_posting"
+        get :job_posting, :path => "job_posting"
       end
     end
 
