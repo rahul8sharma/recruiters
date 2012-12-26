@@ -1,0 +1,16 @@
+= content_for :stylesheets do
+  = stylesheet_link_tag 'persia/header'
+.header_layout.recruiter_header
+  .header
+    .ynl_logo
+      %a{:href => recruiters_root_path(:trailing_slash => false)}
+        %img{:src => "/images/persia/ynl-logo.png"}
+    .navbar.pull-right.span10
+      If you shortlist a candidate, please mention that you found the
+      resume on Jombay.com! For more benefits; contact 09673333088 or recruitment-manager@jombay.com
+    -#
+      //for SearchBox and LHS menus
+      %form.pull-right{:action => ""}
+        %input{:placeholder => "Search ...", :type => "text"}
+          .clr
+  .clr

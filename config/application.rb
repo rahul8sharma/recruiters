@@ -113,6 +113,6 @@ module Recruiters
       precompile
     }
            
-    
+    ActiveSupport.parse_json_times = true
   end
 end

@@ -9,7 +9,7 @@
       %i.icon-download-alt.icon-white
       %strong Download in Excel
     .span5
-      %a{:href => persia_recruiters_dashboard_path(@job, :starred => !(params[:starred] == true.to_s)), :title => "Show Starred", :class => "medium_text text_center span3 fl_none show_btn margin_auto line_height2"}
+      %a{:href => "#", :title => "Show Starred", :class => "medium_text text_center span3 fl_none show_btn margin_auto line_height2"}
         %strong.black Show #{ params[:starred] == true.to_s ? "All" : "Starred" }
     .pull-right
       = bootstrap_paginate(applications, :inner_window => 0, :outer_window => 0,)
