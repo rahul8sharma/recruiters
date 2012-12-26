@@ -1,3 +1,5 @@
+- content_for :javascripts do
+  = javascript_include_tag "jobs/actions.js"
 - content_for :sidebar do
   .padding_all1
     =render :partial => "recruiters/shared/lhs_post_btn"

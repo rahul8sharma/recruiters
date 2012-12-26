@@ -28,6 +28,8 @@ Recruiters::Application.routes.draw do
         get :preview, :path => "preview"
         get :traversable_from
         put :update_status
+        post :duplicate
+        post :repost
       end
       
       collection do

@@ -2,12 +2,15 @@ class Recruiters::DashboardController < ApplicationController
   layout "recruiters/dashboard"
   def dashboard
   	@jobs = {
-      :incomplete => Recruiters::Job.find(:status => 1, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
-      :pending => Recruiters::Job.find(:status => 2, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
-      :open => Recruiters::Job.find(:status => 4, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
-      :closed => Recruiters::Job.find(:status => 5, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2)
+      :incomplete => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
+      :pending => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
+      :open => Recruiters::Job.open(current_user.leonidas_resource.id, {:page => 1, :per_page => 2}),
+      :closed => Recruiters::Job.closed(current_user.leonidas_resource.id, {:page => 1, :per_page => 2})
     }
+
+    Rails.logger.ap @jobs
   end
+
   def job_posting
     @job = Recruiters::Job.create
     

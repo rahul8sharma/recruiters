@@ -1,20 +1,18 @@
 %li.listing_snippet
-  %a.job_title.pull-left{:href => recruiters_job_path(:id => job.uuid), :title => "Job Title goes here"}
-    = truncate(job.title, :length => 45)
+  %a.job_title.pull-left{:href => recruiters_job_path(:id => incomplete_job.uuid), :title => "Job Title goes here"}
+    = truncate(incomplete_job.name, :length => 45)
   .date.pull-right
-    = job.updated_at.strftime("%b %d")
+    = incomplete_job.updated_at.strftime("%b %d")
   .clr
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    %a.pull-left{:href => "#", :title => "Number of candidates"}
-      %i.icon-user.icon-large
-      View candidates(644)
     .bottom_sec_hidden.pull-left
-      %a.pull-left{:href => "#", :title => "Number of candidates"}
-        %i.icon-th-large.icon-large
-        Duplicate 
-      %a.pull-left{:href => edit_recruiters_jobs_path(:id => job.uuid, :section => "job-details"), :title => "Edit this job"}
+      = form_tag duplicate_recruiters_job_path(:id => incomplete_job.uuid), :class => "pull-left margin", :method => :post do
+        %a.pull-left{:href => "#", :title => "Number of candidates", "data-duplicate_job" => true}
+          %i.icon-th-large.icon-large
+          Duplicate 
+      %a.pull-left{:href => edit_recruiters_jobs_path(:id => incomplete_job.uuid, :section => "job-details"), :title => "Edit this job"}
         %i.icon-pencil.icon-large
         Edit       
       %a.margin.pull-right{:href => "#", :title => "Number of candidates"}

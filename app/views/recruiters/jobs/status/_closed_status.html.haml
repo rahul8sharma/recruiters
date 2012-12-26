@@ -9,13 +9,10 @@
           Here is the list of closed jobs on Jombay.com.
       =render :partial => "recruiters/jobs/status/status_nav" 
 - content_for :sidebar do
-  
+  =render :partial => "recruiters/shared/help_block"  
 
 - if @jobs.present?
   %ul.listing
-    - @jobs.each do |job|
-      = render :partial => "recruiters/dashboard/section/closed_job", :locals => {:job => job}
+    = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs
 - else
-  .padding_all1
-    .blank_job_alert
-      There are 0 jobs posted by you on Jombay.com Please go ahead and start posting jobs.
+  = render :partial => "recruiters/jobs/status/no_job"
