@@ -121,4 +121,9 @@ module CandidatesHelper
       ("with #{language_fluency}" if language_fluency),
     ].compact.join(" ")
   end
+
+  # Helper to return skill display based on value
+  def skill_display(value)
+    Hash[skill_enum].invert[value.to_i]
+  end
 end
