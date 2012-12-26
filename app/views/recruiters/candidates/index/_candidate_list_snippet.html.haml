@@ -28,7 +28,7 @@
           %strong.medium_text
             Skilled in
           .divider1
-          .skills_level.span16.fl_none.clearfix.first
+          .skills_level.span16.fl_none.clearfix
             = render :partial => "recruiters/skill_level", collection: application.skills_information.attributes.to_a.slice(0, 3)
           .divider1
       .span4.first

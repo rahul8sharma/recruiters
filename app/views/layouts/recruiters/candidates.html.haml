@@ -2,15 +2,15 @@
   = render :partial => "recruiters/shared/headers/candidates"
 
 = content_for :stylesheets do
-  = stylesheet_link_tag 'persia/dashboard'
-  = stylesheet_link_tag 'persia/recommendations/recruiters'
-  = stylesheet_link_tag 'persia/rating_star'
+  = stylesheet_link_tag 'recruiters/candidates'
+  //= stylesheet_link_tag 'recruiters/candidates/recommendations/recruiters'
+  = stylesheet_link_tag 'recruiters/candidates/rating_star'
 
 = content_for :javascript_libs do
   = javascript_include_tag "lib/raty/js/jquery.raty"
 
 = content_for :javascripts do
-  = javascript_include_tag "persia/recruiters"
+  = javascript_include_tag "recruiters/candidates/recruiters"
 
 = content_for :extra_meta do
   = render :partial => "shared/no_index"

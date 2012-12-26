@@ -3,4 +3,5 @@
     %strong.medium_text
       #{ skills_list.hexref }
     .divider1
-    = render :partial => "persia/recruiters/skill_level", collection: skills_list.skills.attributes.to_a
+    .skills_level.span16.fl_none.clearfix
+      = render :partial => "recruiters/skill_level", collection: skills_list.skills.attributes.to_a

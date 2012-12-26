@@ -1,13 +1,14 @@
 - content_for :recruiter_title do
   .recruiter_title
     .content
-      .main
+      .main.pull-left
         Jobs
+      =render :partial => "recruiters/jobs/status/status_nav"
     .content
-      .pull-right
-        .medium_text.line_height2
-          Here is the list of jobs that are pending approval from the Jombay.com team. You'll be notified once they are approved and posted on Jombay.com.
-      =render :partial => "recruiters/jobs/status/status_nav" 
+      .divider1
+      .medium_text
+        Here is the list of jobs that are pending approval from the Jombay.com team. You'll be notified once they are approved and posted on Jombay.com.
+      .divider1
 - content_for :sidebar do
   =render :partial => "recruiters/shared/help_block"
 
