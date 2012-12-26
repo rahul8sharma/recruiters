@@ -16,8 +16,9 @@
         Duplicate 
       %a.pull-left{:href => "#", :title => "Number of candidates"}
         %i.icon-eye-close.icon-large
-        Close  
-      %a.pull-left{:href => "#", :title => "Number of candidates"}
-        %i.icon-share-alt.icon-large
-        Repost
+        Close
+      = form_tag repost_recruiters_job_path(:id => open_job.id), :class => "pull-left margin", :method => :post do
+        %a.pull-left{:href => "#", :title => "Number of candidates", "data-repost_job" => true}
+          %i.icon-share-alt.icon-large
+          Repost
     .clr

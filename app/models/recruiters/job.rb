@@ -22,7 +22,7 @@ class Recruiters::Job < Ohm::Model
   UNIQUE_ATTRIBUTES.each { |attr| unique attr }
 
   module STATUSES
-    INCOMPLETE, PENDING, READY, OPEN, CLOSED = (1..5).to_a
+    INCOMPLETE, PENDING, DELETED = (1..3).to_a
 
     def self.[](status_str)
       self.const_get(status_str.upcase)
@@ -33,6 +33,10 @@ class Recruiters::Job < Ohm::Model
     self.new.update(data.deep_merge(self.default_state))
   end
 
+  def soft_delete
+    self.update(:status => STATUSES::DELETED)
+  end
+  
   def duplicate
     attribs = self.attributes
     

@@ -4,7 +4,7 @@ $(document).ready(function() {
     $.extend(
       {
         rules: {
-          "company[type]": {
+          "type": {
               required: true
           },
           "company[name]": {

@@ -20,17 +20,17 @@
         Adjust the slider to specify the range
     .controls
       %label.radio.span4
-        %input#optionsRadios1{:checked => @job.work_experience.type.to_i == 1, :name => "work_experience[type]", :type => "radio", :value => 1}
+        %input#optionsRadios1{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_i == 1 : false), :name => "work_experience[type]", :type => "radio", :value => 1}
           Experienced
       %label.radio.span4
-        %input#optionsRadios2{:checked => @job.work_experience.type.to_i == 2, :name => "work_experience[type]", :type => "radio", :value => 2}
+        %input#optionsRadios2{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_i == 2 : true), :name => "work_experience[type]", :type => "radio", :value => 2}
           Fresher
       .clr
     .control-group
       %label.control-label
       .controls
-        = select_tag("work_experience[min_range]", work_experience_options, :prompt => "<Min Work Ex>", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:min_range), :disabled => @job.work_experience.type.to_i != 1)
-        = select_tag("work_experience[max_range]", work_experience_options, :prompt => "<Max Work Ex>", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:max_range), :disabled => @job.work_experience.type.to_i != 1)
+        = select_tag("work_experience[min_range]", work_experience_options, :prompt => "<Min Work Ex>", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:min_range), :disabled => (@job.work_experience.present? ? @job.work_experience.type.to_i != 1 : true))
+        = select_tag("work_experience[max_range]", work_experience_options, :prompt => "<Max Work Ex>", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:max_range), :disabled => (@job.work_experience.present? ? @job.work_experience.type.to_i != 1 : true))
         %br/
       .controls
         %span.error.help-inline{:for => :max_range, :generated => "true"}

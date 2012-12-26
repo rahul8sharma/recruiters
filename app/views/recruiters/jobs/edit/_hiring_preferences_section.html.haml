@@ -29,8 +29,8 @@
     %label.control-label
       Communication Skills 
     .controls
-      = select_tag("skill[spoken][level]", skill_level_options, :prompt => "Spoken English", :class => "span4", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
-      = select_tag("skill[written][level]", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:skill).try(:written).try(:level))
+      = select_tag("spoken_skill", skill_level_options, :prompt => "Spoken English", :class => "span4", "data-preselect" => @job.try(:skill).try(:spoken).try(:level))
+      = select_tag("written_skill", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:skill).try(:written).try(:level))
     .clr
 
   .control-group.margin
@@ -39,11 +39,10 @@
       .label_subtitle 
         Select upto 6 options
     .controls.behavioral_traits
-      - selected_traits = @job.trait rescue []
+      - selected_traits = @job.trait.present? ? @job.trait : []
       - @master_data[:traits].each_with_index do |trait, index|
         %label.checkbox.traits_badge{:class => selected_traits.include?(trait.id.to_s) ? "active" : ""}
           = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id), :class => "hide")
-          - Rails.logger.ap selected_traits.include?(trait.id)
           #{ trait.name }
   .control-group.error
     .controls

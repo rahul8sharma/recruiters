@@ -31,7 +31,7 @@
         %strong
           "Post Job" 
         to post the job.
-      %button.pull-right{:class => "btn btn-info offset1", :type => "button"}
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button", :data => {"preview_top_submit" => true}}
         %strong Post Job
       .clr
 
@@ -79,8 +79,9 @@
       .section  
         .medium_text.text_right.span5
           %strong Years of Work Experience
-        .description.span10
-          #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
+        - if @job.work_experience.present? && @job.work_experience.type.to_i == 1
+          .description.span10
+            #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
       .section  
         .medium_text.text_right.span5
           %strong Qualifications
@@ -123,14 +124,14 @@
         .medium_text.text_right.span5
           %strong Industries
         .description.span10
-          - (@job.candidate.industry.id || []).each do |industry|
+          - (@job.candidate.industry.present? ? @job.candidate.industry.id : []).each do |industry|
             .highlight_badge
               = Vger::Spartan::Opus::Recommendation.find(industry).name
       .section  
         .medium_text.text_right.span5
           %strong Locations
         .description.span10
-          - (@job.candidate.location.id || []).each do |location|
+          - (@job.candidate.location.present? ? @job.candidate.location.id : []).each do |location|
             .highlight_badge.span
               = Vger::Penumbra::Geography.find(location).name
       .section  
@@ -139,19 +140,19 @@
         .description.span10
           .span3
             Spoken English
-          - if @job.skill.spoken.present?
+          - if @job.spoken_skill.present?
             .span3
-              %div{data: {"star" => true, "star_rating" => @job.skill.spoken.level.to_i}}
+              %div{data: {"star" => true, "star_rating" => @job.spoken_skill.to_i}}
             .span3
-              = skill_level_display(@job.skill.spoken.level.to_i)
+              = skill_level_display(@job.spoken_skill.to_i)
           .clr
           .span3
             Written English
-          - if @job.skill.written.present?
+          - if @job.written_skill.present?
             .span3
-              %div{data: {"star" => true, "star_rating" => @job.skill.written.level.to_i}}
+              %div{data: {"star" => true, "star_rating" => @job.written_skill.to_i}}
             .span3
-              = skill_level_display(@job.skill.written.level.to_i)
+              = skill_level_display(@job.written_skill.to_i)
       .section  
         .medium_text.text_right.span5
           %strong Behavioral Traits
@@ -220,9 +221,21 @@
         .medium_text.text_right.span5
           %strong Additional Information
         .description.span10
-          - (@job.additional_info || []).each do |info|
+          - if @job.involves_travel.present? && @job.involves_travel == "true"
             .highlight_badge.span8.first
-              #{info}
+              = additional_info_enum[:involves_travel]
+
+          - if @job.government_job.present? && @job.government_job == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:government_job]
+
+          - if @job.own_vehicle.present? && @job.own_vehicle == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:own_vehicle]
+              
+          - if @job.walkin.present? && @job.walkin == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:walkin]
 
       .heading.gray_bg
         Additional Details

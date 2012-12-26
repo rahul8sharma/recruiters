@@ -32,11 +32,6 @@ class Recruiters::DashboardController < ApplicationController
   #           }.merge(options[:pagination] || {}))
   # end
   def job_posting
-    # Rails.logger.ap current_user
-    # Rails.logger.ap current_user.leonidas_resource.company
-    # r = current_user.leonidas_resource.company rescue nil
-    # Rails.logger.ap r
-    # Rails.logger.ap r.present?
     @job = Recruiters::Job.create
     
     company = current_user.leonidas_resource.company
