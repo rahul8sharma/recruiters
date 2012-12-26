@@ -78,4 +78,38 @@ module ApplicationHelper
       "alert-#{ type.to_s }"
     end
   end
+
+  def timeago(datetime, element = :div, options = {})
+    content_tag(element, datetime.strftime('%d-%m-%Y %H:%M'), options.merge(:title => datetime.getutc.iso8601, "data-dynamicTime" => true)) if datetime
+  end
+
+  def render_umbra_user_display_image(leo_user, options={})
+    default_user_icon = "persia/shared/default_user_icon.png"
+    #if leo_user.respond_to? :sid
+    umbra_user = Vger::Penumbra::User.find_by_sid(leo_user.sid)
+      
+      
+      # Display the FB profile pic only if the user is an FB user and hasn't
+    # yet uploaded a profile picture
+
+    if umbra_user.external_user?(:facebook) && \
+      umbra_user.profile_photo_small == default_user_icon
+      non_fbml_fb_profile_pic(umbra_user.external_auth(:facebook), {
+                                :type => :square
+                              }.merge(options))
+    else
+      image_tag(umbra_user.profile_photo_small)
+    end
+    #else
+      
+    #  image_tag(default_user_icon)
+    #end
+  end
+
+  def rating_stars(rating, options={})
+    options.merge!(
+      "data-rating" => rating
+      )
+    content_tag(:div, "", options)
+  end
 end
