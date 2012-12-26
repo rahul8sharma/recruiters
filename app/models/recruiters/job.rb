@@ -25,7 +25,7 @@ class Recruiters::Job < Ohm::Model
     INCOMPLETE, PENDING, DELETED = (1..3).to_a
 
     def self.[](status_str)
-      self.const_get(status_str.upcase)
+      self.const_get(status_str.upcase) rescue nil
     end
   end
   
@@ -73,30 +73,36 @@ class Recruiters::Job < Ohm::Model
   def close
   end
 
-  def self.open(recruiter_sid, pagination = {})
+  def self.open(recruiter, pagination = {})
     # leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
     # leo_job.update_attributes(:active => true)
-    self.get_leo_jobs("true", recruiter_sid, pagination)
+    self.get_leo_jobs(recruiter, {
+      :pagination => pagination,
+      :active => true
+    })
   end
 
-  def self.closed(recruiter_sid, pagination = {})
+  def self.closed(recruiter, pagination = {})
     # leo_job = Vger::Spartan::Opus::Recommendation.find(self.leonidas_id)
     # leo_job.update_attributes(:active => false)
-    self.get_leo_jobs("false", recruiter_sid, pagination)
+    self.get_leo_jobs(recruiter, {
+      :pagination => pagination,
+      :active => false
+    })
   end
   
   private
 
-  def self.get_leo_jobs(status, recruiter_sid, pagination = {})
+  def self.get_leo_jobs(recruiter, options={})
+    pagination = options.extract!(:pagination)
+    # Rails.logger.ap pagination
     jobs = Vger::Spartan::Opus::Recommendation.traverse({
                           :source_nodes => [{
-                            "id" => recruiter_sid,
+                            "id" => recruiter.id,
                             "relationship" => "posts_out"
                           }],
                           :options => {
-                            "bucket_type" => "Opus::Job",
-                            "active" => status
-                          },
+                            "bucket_type" => "Opus::Job"}.merge(options),
                           :visible => true,
                           :order => "updated_at DESC",
                           :without_cache => true,

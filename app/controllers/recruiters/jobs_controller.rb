@@ -71,7 +71,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   # GET /<status:(open | pending | closed | incomplete)>
   def status
     status = Recruiters::Job::STATUSES[params[:status]]
-    @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).paginate(:page => 1, :per_page => PER_PAGE)
+    if status.present?
+      @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).paginate(:page => 1, :per_page => PER_PAGE)
+    elsif params[:status] == "open"
+      @jobs = Recruiters::Job.open(current_user.leonidas_resource, {:page => 1, :per_page => PER_PAGE})
+    elsif params[:status] == "closed"
+      @jobs = Recruiters::Job.closed(current_user.leonidas_resource, {:page => 1, :per_page => PER_PAGE})
+    end
   end
 
   # GET /recommendations/traversable_from/:id

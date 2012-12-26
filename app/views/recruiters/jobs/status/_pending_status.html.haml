@@ -15,6 +15,4 @@
   %ul.listing
     = render :partial => "recruiters/dashboard/section/pending_job", :collection => @jobs
 - else
-  .padding_all1
-    .blank_job_alert
-      There are 0 jobs posted by you on Jombay.com Please go ahead and start posting jobs.
+  = render :partial => "recruiters/jobs/status/no_job"
