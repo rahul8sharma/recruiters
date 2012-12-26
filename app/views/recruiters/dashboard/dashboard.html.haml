@@ -14,16 +14,8 @@
       .divider1
 - content_for :sidebar do
   =render :partial => "recruiters/shared/help_block"
-  .solution_info.medium_text
-    How does our 
-    %strong
-      recruitment solution
-    work?
-    .divider2
-    %a.btn.btn-primary.medium_text.span3.margin{:href => "#", :title => "How does our recruitment solution work?"}
-      Find Out
-    .clr
-    .divider1
+  =render :partial => "recruiters/shared/update_profile"
+  =render :partial => "recruiters/shared/recruitment_solution_info"
 
 .wrapper
   .post_job
