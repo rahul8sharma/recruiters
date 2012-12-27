@@ -31,32 +31,32 @@
         Company Name* 
       .controls.medium_text
         = text_field_tag("company[name]", @master_data[:company_profile].name, placeholder: "Type company name here", class: "span9 first hide", "data-setter-company-name" => true)
-        %strong.span9.hide{data: {"getter-company-name" => true}}
+        .span9.hide{data: {"getter-company-name" => true}}
         %br/
     .control-group
       %label.control-label
         About Company  
       .controls.medium_text
         = text_area_tag("company[description]", @master_data[:company_profile].description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9 first hide", "data-setter-company-description" => true)
-        %strong.span9.hide{data: {"getter-company-description" => true}}
+        .span9.hide{data: {"getter-company-description" => true}}
     .control-group
       %label.control-label
         Company Website
       .controls.medium_text
         = text_field_tag("company[url]", @master_data[:company_profile].url, placeholder: "Type company website", class: "span9 first hide", "data-setter-company-url" => true)
-        %strong.span9.hide{data: {"getter-company-url" => true}}
+        .span9.hide{data: {"getter-company-url" => true}}
     .control-group
       %label.control-label
         Address 
       .controls.medium_text
         = text_area_tag("company[address]", @master_data[:company_profile].address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9 first hide", "data-setter-company-address" => true)
-        %strong.span9.hide{data: {"getter-company-address" => true}}
+        .span9.hide{data: {"getter-company-address" => true}}
     .control-group
       %label.control-label
         Location*  
       .controls.medium_text
         = select_tag("company[location][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none hide", "data-preselect" => @master_data[:company_profile].locations.first.geography_id, "data-setter-company-location" => true)
-        %strong.span9.hide{data: {"getter-company-location" => true}}
+        .span9.hide{data: {"getter-company-location" => true}}
         %br/
     .control-group
       %label.control-label
