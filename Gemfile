@@ -22,7 +22,7 @@ gem 'uglifier', '>= 1.0.3'
 #end
 
 gem 'awesome_print', '1.1.0'
-
+gem 'resque-scheduler', '2.0.0', :require => 'resque_scheduler'
 #gem 'jquery-rails'
 gem "haml-rails", "0.3.5"
 gem "will_paginate", "3.0.3"
@@ -38,6 +38,8 @@ gem "vger", :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 gem 'unicorn', '4.5.0'
 gem 'devise', '2.1.2'
 gem "dalli", "2.6.0"
+gem "resque", "1.23.0", :require => 'resque/server'
+
 
 #gem 'vger', :path => '/home/letronje/workspace/src/vger'
 # To use ActiveModel has_secure_password

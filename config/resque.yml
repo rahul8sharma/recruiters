@@ -1,0 +1,4 @@
+development: resque.recruiters.jombaylocal.com:6379
+staging_dennis: resque.dennis.recruiters.ur-nl.com:6379
+staging_steve: resque.dennis.recruiters.ur-nl.com:6379
+production: resque.recruiters.jombay.com:6379

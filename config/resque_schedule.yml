@@ -1,0 +1,4 @@
+export_jobs:
+  every: 1hr
+  class: ExportJobs
+  queue: asap

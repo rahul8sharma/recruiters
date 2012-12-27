@@ -28,6 +28,10 @@ class Recruiters::Job < Ohm::Model
       self.const_get(status_str.upcase) rescue nil
     end
   end
+
+  def self.with_status(status)
+    self.find(:status => STATUSES[status])
+  end
   
   def self.create(data={})
     self.new.update(data.deep_merge(self.default_state))
@@ -70,6 +74,7 @@ class Recruiters::Job < Ohm::Model
 
   def open
   end
+  
   def close
   end
 
