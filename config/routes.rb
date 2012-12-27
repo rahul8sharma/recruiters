@@ -39,7 +39,12 @@ Recruiters::Application.routes.draw do
         put :update, :path => ":id/edit/:section"
       end
 
-      resources :candidates, :only => [:index, :show]
+      resources :candidates, :only => [:index, :show] do
+        member do
+          put :rate
+          get :resume
+        end
+      end
     end
 
     resources :company_profiles, :path => "company-profiles" do

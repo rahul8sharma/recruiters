@@ -1,4 +1,6 @@
 -# Initialise user resource so it can be passed to display image helper
+- content_for :javascripts do
+  = javascript_include_tag "candidates/show"
 
 - user = Vger::Spartan::User.new(@application.user_information.attributes)
 
@@ -6,14 +8,14 @@
   .inn.border-bottom
     .span22.fl_none.clearfix
       .pull-left
-        %a{:href => "#", :title => "See this Job Posting"}
+        %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
           %strong See this Job Posting
       .pull-right
-        %a{:href => "#", :title => "Go Back to the list", :class => "medium_text recruiters_icons go_back_btn"}
+        %a{:href => recruiters_job_candidates_path(@job.reference_key), :title => "Go Back to the list", :class => "medium_text recruiters_icons go_back_btn"}
           %strong Go Back to the list
       .clr
       .big_text.faded_light Applicant for:
-      %a{:href => "#", :title => @job.name, :class => "biggest_text link_color"}
+      %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => @job.name, :class => "biggest_text link_color"}
         #{ @job.name }
   .inn.border_bottom
     .span22.fl_none.clearfix

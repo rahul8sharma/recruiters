@@ -1,5 +1,4 @@
 class Recruiters::CandidatesController < Recruiters::ApplicationController
-  #before_filter :validate_token
   before_filter :init_job, :only => [:index, :show]
 
   PER_PAGE = 10
@@ -27,21 +26,44 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
                                                                )
   end
 
-  protected
+  helper_method :link_to_jobseeker_app
+  
+  # This is HACK to generate links outside Recruiters app,
+  # as we don't have helper to access jombay.com urls
+  def  link_to_jobseeker_app(option="")
+    jobseeker_url = request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + option.to_s
+  end
 
-  # Validate presence of token
-  def validate_token
-    unless params[:token]
-      raise ActionController::RoutingError.new('Not Found')
+  # Saves rating for the application
+  def rate
+    @application = Vger::Spartan::Opus::Jobs::Application.find(params[:id])
+
+    respond_to do |format|
+      if @application.update_attributes({:employer_rating => params[:employer_rating]})
+        format.json{ head :no_content }
+      else
+        format.json{ render json: @application.errors, status: :unprocessable_entity }
+      end
     end
   end
 
+  def resume
+    @application = Vger::Spartan::Opus::Jobs::Application.find(params[:id])
+
+    resume = @application.download_resume_and_notify_user(
+                                                     :urls => {
+                                                            :fresher_jobs => link_to_jobseeker_app("jobs"),
+                                                            :job => params[:job_url]
+                                                          }
+                                                     )
+
+    redirect_to resume["resume"]["url"]
+  end
+
+  protected
+
   # Initialise job from token
   def init_job
-    #
-    #@job = Vger::Spartan::Opus::Recommendation.find(params[:id], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})   # cd@job =
-    # Vger::Spartan::Opus::Recommendation.find_by_access_token(params[:token], :from => :bucket_index, :params => {:bucket_type => "Opus::Job"})
-
     @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:job_id])
   end
 
