@@ -18,7 +18,7 @@ module Recruiters
       @redirect_to = params["redirect_to"] || default_after_signup_path
       
       auth = Vger::Authentication.new
-      auth_token = auth.register(default_after_signup_url, 'http://host.com', {
+      auth_token = auth.register(default_after_signup_url, recruiters_root_url(:trailing_slash => false), {
                                    :user => params[:user],
                                    :autoconfirm => 1
                                  })
