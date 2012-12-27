@@ -34,7 +34,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
         end
       }
       format.html{
-        render :text => :blah
+        # render :text => :blah
       }
     end
   end

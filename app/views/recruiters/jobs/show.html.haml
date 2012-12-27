@@ -1,7 +1,34 @@
 - content_for :sidebar do
-  %h2 Sidebar
-  %ul
-    - 5.times do |i|
-      %li menu #{i}
+  .divider1
+  .span5.divider9.fl_none.gray_border
+    = image_tag("http://placehold.it/188x163")
+  
+  .padding_all1.medium_text
+    %strong
+      ZS Associates Company Pvt. Limited
+  .padding_all1
+    %a{:href => "#", :title => "to know how your job looks to candidate."} 
+      Click here 
+    to know how 
+    %br/
+    your job looks to candidate. 
+  %a.download_all_application_btn{:href => "#", :title => "Download All Applicants"}
+    %i.icon-inbox
+    Download All Applicants
+  .divider1
+
+  .job_action.medium_text
+    %a{:href => "#", :title => "Number of candidates"}
+      %i.icon-share-alt.icon-large
+      Repost
+    %a{:href => "#", :title => "Number of candidates"}
+      %i.icon-th-large.icon-large
+      Duplicate 
+    %a{:href => "#", :title => "Number of candidates"}
+      %i.icon-user.icon-large
+      View Candidates
+    %a{:href => "#", :title => "Number of candidates"}
+      %i.icon-trash.icon-large
+      Delete
 %h2 Some text
 Show OPEN/PENDING/INCOMPLETE/CLOSED job
