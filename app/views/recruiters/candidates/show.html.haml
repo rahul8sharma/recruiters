@@ -8,7 +8,9 @@
   .inn.border-bottom
     .span22.fl_none.clearfix
       .pull-left
-        -# link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app
+        -# 
+          link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app.
+          Link to Job can't be generated here. The '-' at end is required to redirect to correct url.
         %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
           %strong See this Job Posting
       .pull-right
@@ -16,7 +18,9 @@
           %strong Go Back to the list
       .clr
       .big_text.faded_light Applicant for:
-      -# link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app
+      -# 
+        link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app.
+        Link to Job can't be generated here. The '-' at end is required to redirect to correct url.
       %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => @job.name, :class => "biggest_text link_color"}
         #{ @job.name }
   .inn.border_bottom

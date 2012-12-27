@@ -2,7 +2,9 @@
   = javascript_include_tag "candidates/index"
 .inn.border_bottom
   .span22.fl_none.clearfix
-    -# link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app
+    -# 
+      link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app.
+      Link to Job can't be generated here. The '-' at end is required to redirect to correct url.
     %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
       %strong See this Job Posting
     .divider1
