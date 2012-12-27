@@ -1,4 +1,5 @@
 class Recruiters::DashboardController < ApplicationController
+  before_filter :redirect_if_not_logged_in!
   before_filter :init_leonidas_user, :only => [:dashboard]
 
   layout "recruiters/dashboard"

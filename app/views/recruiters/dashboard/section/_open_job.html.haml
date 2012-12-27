@@ -10,15 +10,16 @@
     %a.pull-left{:href => "#", :title => "Number of candidates"}
       %i.icon-user.icon-large
       View candidates(644)
-    .bottom_sec_hidden.pull-left
-      %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}
-        %i.icon-th-large.icon-large
-        Duplicate 
-      %a.pull-left{:href => "#", :title => "Number of candidates"}
-        %i.icon-eye-close.icon-large
-        Close
-      = form_tag repost_recruiters_job_path(:id => open_job.id), :class => "pull-left margin", :method => :post do
-        %a.pull-left{:href => "#", :title => "Number of candidates", "data-repost_job" => true}
-          %i.icon-share-alt.icon-large
-          Repost
+    -#
+      .bottom_sec_hidden.pull-left
+        %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}
+          %i.icon-th-large.icon-large
+          Duplicate 
+        %a.pull-left{:href => "#", :title => "Number of candidates"}
+          %i.icon-eye-close.icon-large
+          Close
+        = form_tag repost_recruiters_job_path(:id => open_job.id), :class => "pull-left margin", :method => :post do
+          %a.pull-left{:href => "#", :title => "Number of candidates", "data-repost_job" => true}
+            %i.icon-share-alt.icon-large
+            Repost
     .clr
