@@ -9,7 +9,7 @@ module Recruiters
     # POST /resource/password
     def create
       @pen = Vger::Authentication.new
-      @pen.forgot_password(request.env['HTTP_REFERER'], {:user => params[:user]})
+      @pen.forgot_password(request.env['HTTP_REFERER'], recruiters_root_url(:trailing_slash => false),{:user => params[:user]})
       respond_to do |format|
         if @pen.errors
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
@@ -18,17 +18,14 @@ module Recruiters
           format.html {redirect_to after_sending_reset_password_instructions_path, :flash => {:info => "Password reset instructions have been sent to your email!"}}
           format.json {render :json => {}, :status => 201 }
         end
-
       end
     end
 
     # GET /resource/password/edit?reset_password_token=abcdef
     def edit
       @pen = Vger::Authentication.new
-      #self.resource = resource_class.new
-      
-      #resource.reset_password_token = params[:reset_password_token]
-      #render_with_scope :edit
+      @user = User.new
+      @user.reset_password_token = params[:reset_password_token]
     end
 
     # PUT /resource/password
@@ -38,7 +35,6 @@ module Recruiters
 
       if @pen.errors
         respond_to do |format|
-          format.html { render_with_scope :edit }
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
         end
       else

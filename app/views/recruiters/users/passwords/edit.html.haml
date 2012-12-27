@@ -17,18 +17,20 @@
       Please Enter New Password.
     .divider1
   .registration_form
-    = form_for :user, :url => user_password_path, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
-      .control-group
-        = f.label :password, "Password", :class => "control-label"
-        .controls
-          = f.text_field :password, :placeholder => "At least 8 characters", :class => "span9"
+    = form_tag(user_password_path, :method => :put, :id => "signupForm", :class => "form-horizontal") do
+      = fields_for @user do |f|
+        = f.hidden_field :reset_password_token
+        .control-group
+          = f.label :password, "Password", :class => "control-label"
+          .controls
+            = f.password_field :password, :placeholder => "At least 8 characters", :class => "span9"
 
-      .control-group
-        = f.label :password_confirmation, "Confirm Password", :class => "control-label"
-        .controls
-          = f.text_field :password_confirmation, :placeholder => "Confirm Password", :class => "span9"
+        .control-group
+          = f.label :password_confirmation, "Confirm Password", :class => "control-label"
+          .controls
+            = f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "span9"
 
-      .form-actions
-        %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
-          %strong Reset Password
-        .clr
+        .form-actions
+          %button.pull-right{:class => "btn btn-primary offset1", :type => "submit"}
+            %strong Reset Password
+          .clr
