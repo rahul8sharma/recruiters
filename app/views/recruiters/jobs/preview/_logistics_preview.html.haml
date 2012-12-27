@@ -1,0 +1,64 @@
+.heading.gray_bg
+  Compensation &amp; Logistics
+  - if allow_edit ||= false
+    .pull-right
+      %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "logistics"), :title => "Edit this section"}
+        Edit
+.section  
+  .medium_text.text_right.span5
+    %strong Type of Employment
+  .description.span10
+    - if @job.kind_of.present?
+      .highlight_badge.span
+        #{Vger::Spartan::Opus::KindOfJob.find(@job.kind_of).name}
+.section  
+  .medium_text.text_right.span5
+    %strong Annual Salary
+  .description.span10
+    Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
+    - if (@job.salary.show != "show")
+      .faded_light
+        Do not disclose salary to candidates
+.section  
+  .medium_text.text_right.span5
+    %strong Perks Offered
+  .description.span10
+    - (@job.perk || []).each do |perk|
+      .highlight_badge.span8.first
+        #{Vger::Spartan::Opus::JobPerk.find(perk).name}
+    - if @job.additional_perk.present?
+      .highlight_badge.span8.first
+        #{@job.additional_perk}
+.section  
+  .medium_text.text_right.span5
+    %strong Shift Timings
+  .description.span10
+    - (@job.time_slot || []).each do |slot|
+      .highlight_badge.span
+        = Vger::Spartan::Opus::TimeSlot.find(slot).name
+.section  
+  .medium_text.text_right.span5
+    %strong Weekly Offs on
+  .description.span10
+    - (@job.offday || []).each do |day|
+      .highlight_badge.span
+        #{Vger::Spartan::WeekDay.find(day).name}
+.section  
+  .medium_text.text_right.span5
+    %strong Additional Information
+  .description.span10
+    - if @job.involves_travel.present? && @job.involves_travel == "true"
+      .highlight_badge.span8.first
+        = additional_info_enum[:involves_travel]
+
+    - if @job.government_job.present? && @job.government_job == "true"
+      .highlight_badge.span8.first
+        = additional_info_enum[:government_job]
+
+    - if @job.own_vehicle.present? && @job.own_vehicle == "true"
+      .highlight_badge.span8.first
+        = additional_info_enum[:own_vehicle]
+        
+    - if @job.walkin.present? && @job.walkin == "true"
+      .highlight_badge.span8.first
+        = additional_info_enum[:walkin]

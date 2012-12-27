@@ -30,5 +30,19 @@
     %a{:href => "#", :title => "Number of candidates"}
       %i.icon-trash.icon-large
       Delete
-%h2 Some text
-Show OPEN/PENDING/INCOMPLETE/CLOSED job
+
+.rec_rhs
+  .preview
+    = render :partial => "recruiters/jobs/preview/job_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/job_requirements_preview"
+
+    = render :partial => "recruiters/jobs/preview/hiring_preferences_preview"
+
+    = render :partial => "recruiters/jobs/preview/logistics_preview"
+
+    = render :partial => "recruiters/jobs/preview/additional_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/recruiter_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/recruiter_contact_details_preview"
