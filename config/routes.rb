@@ -1,4 +1,5 @@
 Recruiters::Application.routes.draw do
+  mount Resque::Server.new, :at => "/resque"
   
   devise_for :users, :controllers => {
     :registrations => "recruiters/users/registrations",
