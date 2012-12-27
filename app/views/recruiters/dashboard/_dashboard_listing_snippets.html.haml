@@ -5,7 +5,8 @@
   %form.margin
     .inner_listing
       - 6.times do
-        .control-group
+        .control-group.active
+          // Add or remove active class on selected state
           %label.radio.pull-left
             %input#optionsRadios1{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
               %strong.medium_text 
