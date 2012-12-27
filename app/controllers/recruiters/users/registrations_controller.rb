@@ -1,5 +1,7 @@
 module Recruiters
   class Users::RegistrationsController < ApplicationController
+    before_filter :redirect_if_logged_in!
+
     layout "recruiters/users"
 
     respond_to :html, :xml, :js, :json

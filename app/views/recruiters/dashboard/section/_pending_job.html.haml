@@ -10,14 +10,15 @@
     %a.pull-left{:href => "#", :title => "Number of candidates"}
       %i.icon-user.icon-large
       View candidates(644)
-    .bottom_sec_hidden.pull-left
-      %a.pull-left{:href => duplicate_recruiters_job_path(:id => pending_job.uuid), :title => ""}
-        %i.icon-th-large.icon-large
-        Duplicate
-      %a.pull-left{:href => "#", :title => ""}
-        %i.icon-eye-close.icon-large
-        Close      
-      %a.margin.pull-right{:href => "#", :title => ""}
-        %i.icon-trash.icon-large
-        Delete
+    -#
+      .bottom_sec_hidden.pull-left
+        %a.pull-left{:href => duplicate_recruiters_job_path(:id => pending_job.uuid), :title => ""}
+          %i.icon-th-large.icon-large
+          Duplicate
+        %a.pull-left{:href => "#", :title => ""}
+          %i.icon-eye-close.icon-large
+          Close      
+        %a.margin.pull-right{:href => "#", :title => ""}
+          %i.icon-trash.icon-large
+          Delete
     .clr

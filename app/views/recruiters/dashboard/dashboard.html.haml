@@ -22,14 +22,15 @@
     -#
       Add ".active" class after clicking on grren "post job" link 
       For Exp :- .post_sub.active
-    = form_tag job_posting_recruiters_dashboard_index_path, :method => :post, "data-job_post_form" => true
-    %a.btn-post{:href => "#", :title => "Click here to post job"}
+    %a.btn-post{:href => job_posting_recruiters_dashboard_index_path, :title => "Click here to post job"}
       %i.icon-plus-sign
       Post a Job
-    .listing_container
-      =render :partial => "recruiters/dashboard/post_sub_links"
-      =render :partial => "recruiters/dashboard/dashboard_listing_snippets"
-  =render :partial => "recruiters/dashboard/start_posting"
+    -#
+      .listing_container
+        = render :partial => "recruiters/dashboard/post_sub_links"
+        = render :partial => "recruiters/dashboard/dashboard_listing_snippets"
+  - unless @jobs.present?
+    =render :partial => "recruiters/dashboard/start_posting"
   .divider2
 
   - if @jobs[:pending].present?
