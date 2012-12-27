@@ -93,6 +93,8 @@ module Recruiters
                                  'recruiters/header.css',
                                  'recruiters/landing.css',
                                  'recruiters/layout.css',
+                                 'recruiters/candidates.css',
+                                 'recruiters/candidates/rating_star.css',
                                  'sparta/rupee.css',
                                  'lib/awesome-font.css'
                                 ]
