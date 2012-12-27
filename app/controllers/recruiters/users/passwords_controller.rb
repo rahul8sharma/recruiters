@@ -9,7 +9,7 @@ module Recruiters
     # POST /resource/password
     def create
       @pen = Vger::Authentication.new
-      @pen.forgot_password(request.env['HTTP_REFERER'], 'http://host.com',{:user => params[:user]})
+      @pen.forgot_password(request.env['HTTP_REFERER'], recruiters_root_url(:trailing_slash => false),{:user => params[:user]})
       respond_to do |format|
         if @pen.errors
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
@@ -34,8 +34,6 @@ module Recruiters
       @pen.change_password(:user => params[:user])
 
       if @pen.errors
-
-        Rails.logger.ap @pen.errors
         respond_to do |format|
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
         end
