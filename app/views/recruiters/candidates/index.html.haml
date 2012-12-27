@@ -1,12 +1,13 @@
+- content_for :javascripts do
+  = javascript_include_tag "candidates/index"
 .inn.border_bottom
   .span22.fl_none.clearfix
-    %a{:href => "#", :title => "See this Job Posting"}
+    %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
       -#%a{:href => sparta_recommendation_path(@job), :title => "See this Job Posting"}
       %strong See this Job Posting
     .divider1
     .biggest_text
-      Job name
-    -#  #{ @job.name }
+      #{ @job.name }
 
 = render :partial => "recruiters/candidates/index/top_section", locals: { applications: @applications }
 = render :partial => "recruiters/candidates/index/candidate_list_snippet", collection: @applications, locals: {job: @job}

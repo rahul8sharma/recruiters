@@ -47,6 +47,7 @@
     <!--[if IE 7]>
     =# stylesheet_link_tag 'fixie7'
     <![endif]-->
+    = csrf_meta_tags
 
     -# - stylesheets = (yield :stylesheets)
     -# - bundle :name => bundler_name(:stylesheet) do

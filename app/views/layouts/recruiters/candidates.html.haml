@@ -1,5 +1,5 @@
 = content_for :main_header do
-  = render :partial => "recruiters/shared/headers/candidates"
+  = render :partial => "recruiters/shared/header"
 
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/candidates'
@@ -10,7 +10,7 @@
   = javascript_include_tag "lib/raty/js/jquery.raty"
 
 = content_for :javascripts do
-  = javascript_include_tag "recruiters/candidates/recruiters"
+  -#= javascript_include_tag "recruiters/candidates/recruiters"
 
 = content_for :extra_meta do
   = render :partial => "shared/no_index"

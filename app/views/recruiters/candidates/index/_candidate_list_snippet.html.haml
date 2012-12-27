@@ -1,4 +1,4 @@
-- cache  [1.3, :recruiters, :dashboard, candidate_list_snippet.id, candidate_list_snippet.updated_at.to_i], :tags => [:recruiters_dashboard] do
+- cache  [27_12_2012, :recruiters, :dashboard, candidate_list_snippet.id, candidate_list_snippet.updated_at.to_i], :tags => [:recruiters_dashboard] do
 
   -# Application initialised from controller contains only id and
     updated_at. Since this block is being rendered, it means the cache block has
@@ -34,9 +34,9 @@
       .span4.first
         .divider1
         .divider4.pull-right.clearfix
-          = rating_stars(application.employer_rating, "data-application" => application.id)
+          = rating_stars(application.employer_rating, "data-application" => application.id, "data-rate_application" => rate_recruiters_job_candidate_path(:id => application.id))
 
         - if application.skills_information.present? and application.skills_information.attributes.to_a.count > 3
-          %a{:href => "#", :title => "See more", :class => "gray_bg gray_border more_btn medium_text span3 pull-right"}
+          %a{:href => recruiters_job_candidate_path(:id => application.id), :title => "See more", :class => "gray_bg gray_border more_btn medium_text span3 pull-right"}
             +#{ remaining_count(application.skills_information.attributes.to_a, 3) } More
 
