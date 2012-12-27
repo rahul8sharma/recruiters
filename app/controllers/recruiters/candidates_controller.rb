@@ -30,8 +30,8 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
   
   # This is HACK to generate links outside Recruiters app,
   # as we don't have helper to access jombay.com urls
-  def  link_to_jobseeker_app(option="")
-    jobseeker_url = request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + option.to_s
+  def  link_to_jobseeker_app(suffix="")
+    jobseeker_url = request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + suffix.to_s
   end
 
   # Saves rating for the application

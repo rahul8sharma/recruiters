@@ -2,8 +2,8 @@
   = javascript_include_tag "candidates/index"
 .inn.border_bottom
   .span22.fl_none.clearfix
+    -# link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app
     %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
-      -#%a{:href => sparta_recommendation_path(@job), :title => "See this Job Posting"}
       %strong See this Job Posting
     .divider1
     .biggest_text
