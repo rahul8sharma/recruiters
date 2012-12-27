@@ -191,7 +191,6 @@ class ExportJobs
     end
     csv.close
 
-    #GC 1 day old csvs
     FileUtils.rm_rf(absolute_dir_prev)
     
     recipient_emails = ["hardik@jombay.com"]

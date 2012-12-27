@@ -1,4 +1,4 @@
 export_jobs:
-  every: 1hr
+  every: 60m
   class: ExportJobs
   queue: asap
