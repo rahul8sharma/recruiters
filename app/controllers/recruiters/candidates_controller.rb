@@ -1,18 +1,35 @@
 class Recruiters::CandidatesController < Recruiters::ApplicationController
   before_filter :init_job, :only => [:index, :show]
 
+  caches_action :show, {
+    :tags => [:candidates_show],
+    :cache_path => Proc.new {
+      application = Vger::Spartan::Opus::Jobs::Application\
+        .find(params[:id], :params => {
+                :select => [:id, :updated_at]
+              })
+      
+      [
+       :recruiters,
+       :candidates_show,
+       application.id,
+       application.updated_at.to_i,
+      ].join("/")
+    }, :layout => false
+  }
+  
   PER_PAGE = 10
   # GET /jobs/<id>/candidates
   def index
     @applications = Vger::Spartan::Opus::Jobs::Application.paginate(
-                                                           :all,
-                                                           :params => {
+                                                                    :all,
+                                                                    :params => {
                                                                       :job => @job.id,
                                                                       :min_rating => params[:starred] == true.to_s ? 1 : 0
                                                                     },
-                                                           :page => params[:page],
-                                                           :per_page => PER_PAGE
-                                                           )
+                                                                    :page => params[:page],
+                                                                    :per_page => PER_PAGE
+                                                                    )
   end
   
   # GET /jobs/<job_id>/candidates/<candidate_id>
@@ -51,11 +68,11 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
     @application = Vger::Spartan::Opus::Jobs::Application.find(params[:id])
 
     resume = @application.download_resume_and_notify_user(
-                                                     :urls => {
+                                                          :urls => {
                                                             :fresher_jobs => link_to_jobseeker_app("jobs"),
                                                             :job => params[:job_url]
                                                           }
-                                                     )
+                                                          )
 
     redirect_to resume["resume"]["url"]
   end
