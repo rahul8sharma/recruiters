@@ -15,14 +15,14 @@
     %label.control-label
       Do you want to hire candidates from particular industries?
     .controls
-      = select_tag("candidate_industry_select", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:industry).try(:id).try(:first), "data-job_industry_pseudo_select" => true)
+      = select_tag("candidate_industry_select", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:industry).try(:id).try(:first), "data-job_industry_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
 
   .control-group
     %label.control-label
       Do you want to hire candidates from a particular locations?
     .controls
-      = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:location).try(:id).try(:first), "data-job_location_pseudo_select" => true)
+      = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:location).try(:id).try(:first), "data-job_location_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
 
   .control-group
