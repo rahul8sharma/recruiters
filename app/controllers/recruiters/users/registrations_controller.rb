@@ -27,9 +27,15 @@ module Recruiters
 
       if auth.errors.empty?
         @user = set_yoren_session(auth_token)
-        
-        Vger::Spartan::Vanguard::Recruiter.get(:find_or_create_current_user)
 
+        recruiter = Vger::Spartan::Vanguard::Recruiter.find_by_user_id(@user.email)
+        
+        if recruiter.present?
+          recruiter.update_attributes(:user_id => @user.sid)
+        else
+          Vger::Spartan::Vanguard::Recruiter.get(:find_or_create_current_user)
+        end
+        
         #@user.update_yoren_attributes = true
         @user.update_attributes(params[:user].dup.extract!(:name, :phone))
 

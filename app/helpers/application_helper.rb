@@ -84,26 +84,18 @@ module ApplicationHelper
   end
 
   def render_umbra_user_display_image(leo_user, options={})
-    default_user_icon = "persia/shared/default_user_icon.png"
-    #if leo_user.respond_to? :sid
     umbra_user = Vger::Penumbra::User.find_by_sid(leo_user.sid)
-      
       
       # Display the FB profile pic only if the user is an FB user and hasn't
     # yet uploaded a profile picture
 
-    if umbra_user.external_user?(:facebook) && \
-      umbra_user.profile_photo_small == default_user_icon
+    if umbra_user.profile_photo_small.include?("default_user_icon") && umbra_user.external_user?(:facebook)
       non_fbml_fb_profile_pic(umbra_user.external_auth(:facebook), {
                                 :type => :square
                               }.merge(options))
     else
-      image_tag(umbra_user.profile_photo_small)
+      image_tag("default_user_icon.png")
     end
-    #else
-      
-    #  image_tag(default_user_icon)
-    #end
   end
 
   def rating_stars(rating, options={})
