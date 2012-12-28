@@ -124,7 +124,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def update_status
     @job.status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
     @job.save!
-    
+
+    if params[:status] == "pending"
+      Vger::Herald::Notification.create(:event => "recruiters/jobpost_pending", :view_params => {:user_ids => [current_user.sid], :job_title => "Awesome Job @ Awsome Company", :urls => {:post_job => job_posting_recruiters_dashboard_index_url}})
+    end
+
     redirect_to recruiters_root_path
   end
 

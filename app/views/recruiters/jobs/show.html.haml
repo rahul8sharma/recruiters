@@ -4,9 +4,10 @@
     .span5.divider9.fl_none.gray_border
       = image_tag("http://placehold.it/188x163")
   
-  .padding_all1.medium_text
-    %strong
-      #{current_user.leonidas_resource.company.name}
+  - if current_user.leonidas_resource.company.present?
+    .padding_all1.medium_text
+      %strong
+        #{current_user.leonidas_resource.company.name}
   -#
     .padding_all1
       %a{:href => "#", :title => "to know how your job looks to candidate."} 

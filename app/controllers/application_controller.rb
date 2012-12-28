@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     set_auth_token
 
     if !user_signed_in?
-      redirect_to((controller_redirect_path || root_path(:trailing_slash => false)), :notice => "You need to be signed in to continue!")
+      redirect_to(new_user_session_path(:redirect_to => request.fullpath), :notice => "You need to be signed in to continue!")
     end
   end
 end
