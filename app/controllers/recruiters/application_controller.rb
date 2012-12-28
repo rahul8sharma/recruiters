@@ -7,10 +7,17 @@ class Recruiters::ApplicationController < ApplicationController
     end
   end
 
-  def redirect_if_not_logged_in!
+  def redirect_if_not_logged_in!(&redirect_path_block)
     set_auth_token
     if !user_signed_in?
-      redirect_to(new_user_session_path(:redirect_to => request.fullpath), :notice => not_logged_in_msg)
+      if block_given?
+        
+        path, msg = yield(request, params)
+      else
+        path, msg = new_user_session_path(:redirect_to => request.fullpath), not_logged_in_msg
+      end
+      
+      redirect_to(path, :notice => msg)
     end
   end
 
