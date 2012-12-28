@@ -10,11 +10,19 @@ module Recruiters
     def create
       @pen = Vger::Authentication.new
       @pen.forgot_password(request.env['HTTP_REFERER'], recruiters_root_url(:trailing_slash => false),{:user => params[:user]})
+      
       user = User.find_by_email(params[:user][:email])
       if user.present?
-        Rails.logger.ap user.reset_password_token
-        Vger::Herald::Notification.create(:event => "recruiters/reset_password", :view_params => {:user_ids => [user.sid], :urls => {:reset_password => edit_user_password_url(:reset_password_token => user.reset_password_token)}})
+        Vger::Herald::\
+        Notification.create(:event => "recruiters/reset_password",
+                            :view_params => {
+                              :user_ids => [user.sid],
+                              :urls => {
+                                :reset_password => edit_user_password_url(:reset_password_token => user.reset_password_token)
+                              }
+                            })
       end
+
       respond_to do |format|
         if @pen.errors
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
