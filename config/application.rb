@@ -115,6 +115,10 @@ module Recruiters
       precompile
     }
            
-    ActiveSupport.parse_json_times = true
+    config.middleware.use ::ExceptionNotifier,
+    :email_prefix => "[recruiters-#{Rails.env}] ",
+    :sender_address => "Application Error <errors@jombay.com>",
+    :exception_recipients => %w(nikhil@jombay.com manoj@jombay.com saurabh@jombay.com),
+    :normalize_subject => true
   end
 end

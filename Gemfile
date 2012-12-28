@@ -23,6 +23,7 @@ gem 'uglifier', '>= 1.0.3'
 
 gem 'awesome_print', '1.1.0'
 gem 'resque-scheduler', '2.0.0', :require => 'resque_scheduler'
+gem "exception_notification", "3.0.0"
 #gem 'jquery-rails'
 gem "haml-rails", "0.3.5"
 gem "will_paginate", "3.0.3"

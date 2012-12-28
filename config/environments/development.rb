@@ -51,4 +51,6 @@ Recruiters::Application.configure do
   config.action_mailer.default_url_options = {
     :host => 'recruiters.jombaylocal.com'
   }
+
+  config.middleware.delete ::ExceptionNotifier
 end
