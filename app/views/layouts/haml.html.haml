@@ -32,7 +32,7 @@
 
 
     -#= render :partial => 'shared/analytics/kiss_metrics'
-    = favicon_link_tag
+    = favicon_link_tag '/assets/favicon.ico'
     = render :partial => "shared/meta", :locals => {:seo => @default_seo.merge(@seo || {})}
 
     = yield :extra_meta
