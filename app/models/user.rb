@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     :key_column => {:self => :sid, :remote => :user_id},
     :wrapper => Vger::Spartan::Vanguard::Recruiter
   },:yoren => {
-    :attributes => [:sex, :login, :fb_user_id, :fb_email, :sid, :location_id, :name, :phone, :confirmed_at],
+    :attributes => [:sex, :login, :fb_user_id, :fb_email, :sid, :location_id, :name, :phone, :confirmed_at, :reset_password_token],
     :key_column => {:self => :email, :remote => :email},
     :wrapper => Vger::Yoren::User
   }
