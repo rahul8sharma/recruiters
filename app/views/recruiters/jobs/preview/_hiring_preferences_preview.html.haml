@@ -4,20 +4,23 @@
     .pull-right
       %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "hiring-preferences"), :title => "Edit this section"}
         Edit
-.section  
-  .medium_text.text_right.span5
-    %strong Industries
-  .description.span10
-    - (@job.candidate.industry.present? ? @job.candidate.industry.id : []).each do |industry|
-      .highlight_badge
-        = Vger::Spartan::Opus::Recommendation.find(industry).name
-.section  
-  .medium_text.text_right.span5
-    %strong Locations
-  .description.span10
-    - (@job.candidate.location.present? ? @job.candidate.location.id : []).each do |location|
-      .highlight_badge.span
-        = Vger::Penumbra::Geography.find(location).name
+- if @job.candidate.present?
+  - if @job.candidate.industry.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Industries
+      .description.span10
+        - @job.candidate.industry.id.each do |industry|
+          .highlight_badge
+            = Vger::Spartan::Opus::Recommendation.find(industry).name
+  - if @job.candidate.location.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Locations
+      .description.span10
+        - @job.candidate.location.id.each do |location|
+          .highlight_badge.span
+            = Vger::Penumbra::Geography.find(location).name
 .section  
   .medium_text.text_right.span5
     %strong Communication Skills
@@ -44,15 +47,16 @@
     - (@job.trait || []).each do |trait|
       .highlight_badge.span
         #{Vger::Spartan::Dilios::Trait.find(trait).name}
-.section  
-  .medium_text.text_right.span5
-    %strong Gender
-  .description.span10
-    - if @job.candidate.personal.gender.present?
-      #{Vger::Spartan::Dilios::Gender.find(@job.candidate.personal.gender).name}
-.section
-  .medium_text.text_right.span5
-    %strong Marital Status
-  .description.span10
-    - if @job.candidate.personal.marital_status.present?
-      #{Vger::Spartan::Dilios::MaritalStatus.find(@job.candidate.personal.marital_status).name}
+- if @job.candidate.present?
+  - if @job.candidate.personal.gender.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Gender
+      .description.span10
+        #{Vger::Spartan::Dilios::Gender.find(@job.candidate.personal.gender).name}
+  - if @job.candidate.personal.marital_status.present?
+    .section
+      .medium_text.text_right.span5
+        %strong Marital Status
+      .description.span10
+        #{Vger::Spartan::Dilios::MaritalStatus.find(@job.candidate.personal.marital_status).name}

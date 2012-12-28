@@ -11,14 +11,15 @@
     - if @job.kind_of.present?
       .highlight_badge.span
         #{Vger::Spartan::Opus::KindOfJob.find(@job.kind_of).name}
-.section  
-  .medium_text.text_right.span5
-    %strong Annual Salary
-  .description.span10
-    Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
-    - if (@job.salary.show != "show")
-      .faded_light
-        Do not disclose salary to candidates
+- if @job.salary.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Annual Salary
+    .description.span10
+      Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
+      - if (@job.salary.show != "show")
+        .faded_light
+          Do not disclose salary to candidates
 .section  
   .medium_text.text_right.span5
     %strong Perks Offered

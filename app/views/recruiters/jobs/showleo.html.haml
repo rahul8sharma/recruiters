@@ -222,87 +222,110 @@
           .highlight_badge.span8.first
             = additional_info_enum[:walkin]
 
-    .heading.gray_bg
-      Additional Details
-    .section  
-      .medium_text.text_right.span5
-        %strong Application Instructions
-      .description.span10
-        #{@job.bucket.application_instructions}
-    .section  
-      .medium_text.text_right.span5
-        %strong Are there specific companies where your required candidates would be working currently?
-      .description.span10
-        #{@job.bucket.candidate_companies}
-    .section  
-      .medium_text.text_right.span5
-        %strong Are there other job profiles such candidates have in the industry?
-      .description.span10
-        #{@job.bucket.candidate_job_titles}
-    .section  
-      .medium_text.text_right.span5
-        %strong Keywords or buzzwords that such candidates write on their profiles?
-      .description.span10
-        #{@job.bucket.candidate_profile_keywords}
-    .section  
-      .medium_text.text_right.span5
-        %strong Are there any kind of people that you do not want to hire?
-      .description.span10
-        #{@job.bucket.candidate_kind_blacklist}
+    - if (@job.bucket.application_instructions.present? || @job.bucket.candidate_companies.present? || @job.bucket.candidate_job_titles.present? || @job.bucket.candidate_profile_keywords.present? || @job.bucket.candidate_kind_blacklist.present?)
+      .heading.gray_bg
+        Additional Details
+      - @job.bucket.application_instructions.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Application Instructions
+          .description.span10
+            #{@job.bucket.application_instructions}
+      - @job.bucket.candidate_companies.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there specific companies where your required candidates would be working currently?
+          .description.span10
+            #{@job.bucket.candidate_companies}
+      - @job.bucket.candidate_job_titles.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there other job profiles such candidates have in the industry?
+          .description.span10
+            #{@job.bucket.candidate_job_titles}
+      - @job.bucket.candidate_profile_keywords.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Keywords or buzzwords that such candidates write on their profiles?
+          .description.span10
+            #{@job.bucket.candidate_profile_keywords}
+      - @job.bucket.candidate_kind_blacklist.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there any kind of people that you do not want to hire?
+       	  .description.span10
+            #{@job.bucket.candidate_kind_blacklist}
 
-    .heading.gray_bg
-      Recruiter Details
-    .section  
-      .medium_text.text_right.span5
-        %strong Company Name    
-      .description.span10
-        = @job.company.present? ? @job.company.first.name : nil
-    .section  
-      .medium_text.text_right.span5
-        %strong About Company    
-      .description.span10
-        = @job.company.present? ? @job.company.first.description : nil
-    -#
-      .section  
-        .medium_text.text_right.span5
-          %strong Company  Website    
-        .description.span10
-          #{@job.company.url}
-      .section  
-        .medium_text.text_right.span5
-          %strong Location    
-        .description.span10
-          #{@job.company.address}
-      .section  
-        .medium_text.text_right.span5
-          %strong Address    
-        .description.span10
-          #{Vger::Penumbra::Geography.find(@job.company.location.geography_id.first).name}
-
-    .heading.gray_bg
-      Recruiter Contact Details
-    .section  
-      .medium_text.text_right.span5
-        %strong Job ID (Internal)    
-      .description.span10
-        #{@job.bucket.internal_reference_number}
-    .section  
-      .medium_text.text_right.span5
-        %strong Application URL (if any)    
-      .description.span10
-        #{@job.bucket.application_url}
-    .section  
-      .medium_text.text_right.span5
-        %strong Hiring Manager Name    
-      .description.span10
-        #{@job.bucket.executive_name}
-    .section  
-      .medium_text.text_right.span5
-        %strong Phone Number    
-      .description.span10
-        #{@job.bucket.phone_number}
-    .section  
-      .medium_text.text_right.span5
-        %strong Email id    
-      .description.span10
-        #{@job.bucket.email_id}
+    - if @job.company.present?
+      .heading.gray_bg
+        Recruiter Details
+      - company_name = safe_access(@job.company.first, :name)
+      - if company_name.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Company Name    
+          .description.span10
+            #{company_name}
+      - company_description = safe_access(@job.company.first, :description)
+      - if company_description.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong About Company    
+          .description.span10
+            #{company_description}
+      - company_website = safe_access(@job.company.first, :website)
+      - if company_website.present?
+        .section
+          .medium_text.text_right.span5
+            %strong Company  Website    
+          .description.span10
+            #{company_website}
+      -#
+        - company_location = safe_access(@job.company.first, :address)
+        - if company_address.present?
+          .section
+            .medium_text.text_right.span5
+              %strong Location
+            .description.span10
+              #{company_address}
+      - company_address = safe_access(@job.company.first, :address)
+      - if company_address.present?
+        .section
+          .medium_text.text_right.span5
+            %strong Address
+          .description.span10
+            #{company_address}
+    
+    - if (@job.bucket.internal_reference_number.present? || @job.bucket.application_url.present? || @job.bucket.executive_name.present? || @job.bucket.phone_number.present? || @job.bucket.phone_number.present?)
+      .heading.gray_bg
+        Recruiter Contact Details
+      - if @job.bucket.internal_reference_number.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Job ID (Internal)    
+          .description.span10
+            #{@job.bucket.internal_reference_number}
+      - if @job.bucket.application_url.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Application URL (if any)    
+          .description.span10
+            #{@job.bucket.application_url}
+      - if @job.bucket.executive_name.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Hiring Manager Name    
+          .description.span10
+            #{@job.bucket.executive_name}
+      - if @job.bucket.phone_number.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Phone Number    
+          .description.span10
+            #{@job.bucket.phone_number}
+      - if @job.bucket.email_id.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Email id    
+          .description.span10
+            #{@job.bucket.email_id}

@@ -19,24 +19,27 @@
     - degrees.zip(specializations).each do |degree, specialization|
       .description.span10
         #{Vger::Spartan::Opus::Recommendation.find(degree).name} in #{Vger::Spartan::Opus::Recommendation.find(specialization).name}
-.section  
-  .medium_text.text_right.span5
-    %strong Must Have Skills
-  .description.span10
-    - if @job.skill.must
-      - skill_ids = @job.skill.must.skill_id
-      - experiences = @job.skill.must.experience
-      - skill_ids.zip(experiences).each do |skill, exp|
-        .highlight_badge.span
-          = Vger::Spartan::Opus::Recommendation.find(skill).name
-          #{exp} years
-.section  
-  .medium_text.text_right.span5
-    %strong Nice to have Skills
-  .description.span10
-    - (@job.skill.nice.skill_id || []).each do |skill|
-      .highlight_badge.span
-        = Vger::Spartan::Opus::Recommendation.find(skill).name
+- if @job.skill.present?
+  - if @job.skill.must.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Must Have Skills
+      .description.span10
+        - if @job.skill.must
+          - skill_ids = @job.skill.must.skill_id
+          - experiences = @job.skill.must.experience
+          - skill_ids.zip(experiences).each do |skill, exp|
+            .highlight_badge.span
+              = Vger::Spartan::Opus::Recommendation.find(skill).name
+              #{exp} years
+  - if @job.skill.nice.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Nice to have Skills
+      .description.span10
+        - (@job.skill.nice.skill_id || []).each do |skill|
+          .highlight_badge.span
+            = Vger::Spartan::Opus::Recommendation.find(skill).name
 .section  
   .medium_text.text_right.span5
     %strong Job Description
