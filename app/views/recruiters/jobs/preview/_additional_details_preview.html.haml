@@ -20,9 +20,9 @@
   - if @job.additional_detail.candidate.job_title.present?
     .section  
       .medium_text.text_right.span5
-      %strong Are there other job profiles such candidates have in the industry?
-    .description.span10
-      #{@job.additional_detail.candidate.job_title}
+        %strong Are there other job profiles such candidates have in the industry?
+      .description.span10
+        #{@job.additional_detail.candidate.job_title}
   - if @job.additional_detail.candidate.keyword.present?
     .section  
       .medium_text.text_right.span5

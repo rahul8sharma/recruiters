@@ -14,8 +14,7 @@
         = bootstrap_paginate @jobs, :inner_window => 0, :outer_window => 0, :previous_label => "&laquo;", :next_label => "&raquo;"
       .clr
       .divider1
-- content_for :sidebar do
-  =render :partial => "recruiters/shared/help_block"
+
 
 - if @jobs.present?
   %ul.listing
