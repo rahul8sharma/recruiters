@@ -1,8 +1,10 @@
 class Recruiters::JobsController < Recruiters::ApplicationController
+  before_filter :redirect_if_not_logged_in!, :except => [:flush, :show]
+  # before_filter :redirect_if_not_logged_in!, :except => [:show], :if => :html_format?
   before_filter :init_section, :only => [:edit, :update]
   before_filter :init_status, :only => [:status]
   before_filter :init_master_data, :only => [:edit, :update]
-  before_filter :init_job, :only => [:edit, :preview, :show,
+  before_filter :init_job, :only => [:edit, :preview,
                                      :update, :update_status, :flush]
   before_filter :ensure_flush_perms, :only => [:flush]
   
@@ -25,6 +27,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /jobs/<id>
   def show
+
     respond_to do |format|
       format.json{
         if @job
@@ -34,7 +37,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
         end
       }
       format.html{
-        # render :text => :blah
+        @job = Recruiters::Job.find(:uuid => params[:id]).first
+        if @job.blank?
+          @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:id], :params => {:include_related => [:job_category, :company, :work_profile, :degree, :job, :location], :include => {:methods => [:required_skills,:industries,:job_posters,:job_perks,:weekly_offs,:time_slots,:job_types,:recruiters,:eligibility_criteria]}})
+          render :template => "recruiters/jobs/showleo"
+        end
       }
     end
   end
@@ -46,11 +53,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /<job-id>/edit/<section:(job_details | company_details | additional_details | hiring_preferences | job_requirements | logistics)>
   def edit
-    section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
-
-    next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
-
-    @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
+    if @job.present? && @job.status.present? && @job.status == Recruiters::Job::STATUSES::INCOMPLETE
+      section_keys = Rails.application.config.recruiters[:job_posting_sections].keys
+      next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
+      @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
+    else
+     redirect_to recruiters_job_path(:id => params[:id])
+    end
   end
 
   def update
@@ -115,6 +124,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def update_status
     @job.status = Recruiters::Job::STATUSES.const_get(params[:status].upcase)
     @job.save!
+    
     redirect_to recruiters_root_path
   end
 
@@ -199,4 +209,14 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def init_job
     @job = Recruiters::Job.find(:uuid => params[:id]).first
   end
+
+  # def init_job_struct
+  #   @job = OpenStruct.new
+
+  #   @getjob = Recruiters::Job.find(:uuid => params[:id]).first
+  #   if @getjob.present?
+  #   else
+  #     @getjob = Vger::Spartan::Opus::Recommendation.find(22469, :params => {:included_related => [:job_category, :company, :work_profile, :degree, :job, :location], :include => {:methods => [:required_skills,:industries,:job_posters,:job_perks,:weekly_offs,:time_slots,:job_types,:recruiters,:eligibility_criteria]}})
+  #   end
+  # end
 end

@@ -1,5 +1,5 @@
 %li.listing_snippet
-  %a.job_title.pull-left{:href => "#", :title => "Job Title goes here"}
+  %a.job_title.pull-left{:href => recruiters_job_path(:id => open_job.reference_key), :title => "#{open_job.name}"}
     = truncate(open_job.name, :length => 45)
   .date.pull-right
     = open_job.updated_at.strftime("%b %d")
@@ -7,9 +7,9 @@
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    %a.pull-left{:href => "#", :title => "Number of candidates"}
+    %a.pull-left{:href => recruiters_job_candidates_path(:job_id => open_job.reference_key), :title => "Number of candidates"}
       %i.icon-user.icon-large
-      View candidates(644)
+      View candidates
     -#
       .bottom_sec_hidden.pull-left
         %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}
