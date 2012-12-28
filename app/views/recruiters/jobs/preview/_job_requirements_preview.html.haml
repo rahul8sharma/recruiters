@@ -1,0 +1,47 @@
+.heading.gray_bg
+  Job Requirements
+  - if allow_edit ||= false
+    .pull-right
+      %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-requirements"), :title => "Edit this section"}
+        Edit
+.section  
+  .medium_text.text_right.span5
+    %strong Years of Work Experience
+  - if @job.work_experience.present? && @job.work_experience.type.to_i == 1
+    .description.span10
+      #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
+.section  
+  .medium_text.text_right.span5
+    %strong Qualifications
+  - if @job.qualification
+    - degrees = @job.qualification.degree_diploma
+    - specializations = @job.qualification.specialization
+    - degrees.zip(specializations).each do |degree, specialization|
+      .description.span10
+        #{Vger::Spartan::Opus::Recommendation.find(degree).name} in #{Vger::Spartan::Opus::Recommendation.find(specialization).name}
+- if @job.skill.present?
+  - if @job.skill.must.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Must Have Skills
+      .description.span10
+        - if @job.skill.must
+          - skill_ids = @job.skill.must.skill_id
+          - experiences = @job.skill.must.experience
+          - skill_ids.zip(experiences).each do |skill, exp|
+            .highlight_badge.span
+              = Vger::Spartan::Opus::Recommendation.find(skill).name
+              #{exp} years
+  - if @job.skill.nice.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Nice to have Skills
+      .description.span10
+        - (@job.skill.nice.skill_id || []).each do |skill|
+          .highlight_badge.span
+            = Vger::Spartan::Opus::Recommendation.find(skill).name
+.section  
+  .medium_text.text_right.span5
+    %strong Job Description
+  .description.span10
+    = @job.description

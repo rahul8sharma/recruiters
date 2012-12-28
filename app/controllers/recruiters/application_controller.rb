@@ -1,4 +1,6 @@
 class Recruiters::ApplicationController < ApplicationController
+  include ActionView::Helpers::TagHelper
+  
   def redirect_if_logged_in!
     if user_signed_in?
       redirect_to recruiters_root_path(:trailing_slash => false)

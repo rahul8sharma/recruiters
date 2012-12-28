@@ -1,4 +1,6 @@
 class Recruiters::CompanyProfilesController < ApplicationController
+  before_filter :redirect_if_not_logged_in!
+  
   layout "recruiters/company_profiles"
 
   def new

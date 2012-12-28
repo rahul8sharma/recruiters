@@ -27,14 +27,14 @@
           = f.text_field :name, :placeholder => "Your Full Name", :class => "span9"
 
       .control-group
-        = f.label :email, "Email ID", :class => "control-label"
-        .controls
-          = f.text_field :email, :placeholder => "Your Email", :class => "span9"
-
-      .control-group
         %label.control-label{:for => "phoneNumber"} Phone Number
         .controls
           = f.text_field :phone, :id => :phoneNumber, :class=> "span9", :placeholder => "Your Phone Number"
+
+      .control-group
+        = f.label :email, "Email ID", :class => "control-label"
+        .controls
+          = f.text_field :email, :placeholder => "Your Email", :class => "span9"
 
       .control-group
         = f.label :password, "Password", :class => "control-label"

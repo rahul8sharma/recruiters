@@ -104,4 +104,17 @@ module ApplicationHelper
       )
     content_tag(:div, "", options)
   end
+
+  # Safely return method without raising errors
+  def safe_access(target_object, method, *args)
+    return nil if not target_object.respond_to? method
+
+    # quick fix for when safe access is called on
+    # Struct or OpenStruct
+    if args.present?
+      target_object.send method, args
+    else
+      target_object.send method
+    end
+  end
 end

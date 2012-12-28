@@ -1,0 +1,37 @@
+- if @job.additional_detail.present?
+  .heading.gray_bg
+    Additional Details
+    - if allow_edit ||= false
+      .pull-right
+        %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "additional-details"), :title => "Edit this section"}
+          Edit
+  - if @job.additional_detail.application_instruction.present?
+    .section
+      .medium_text.text_right.span5
+        %strong Application Instructions
+      .description.span10
+        #{@job.additional_detail.application_instruction}
+  - if @job.additional_detail.candidate.company_history.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Are there specific companies where your required candidates would be working currently?
+      .description.span10
+        #{@job.additional_detail.candidate.company_history}
+  - if @job.additional_detail.candidate.job_title.present?
+    .section  
+      .medium_text.text_right.span5
+      %strong Are there other job profiles such candidates have in the industry?
+    .description.span10
+      #{@job.additional_detail.candidate.job_title}
+  - if @job.additional_detail.candidate.keyword.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Keywords or buzzwords that such candidates write on their profiles?
+      .description.span10
+        #{@job.additional_detail.candidate.keyword}
+  - if @job.additional_detail.candidate.undesired.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Are there any kind of people that you do not want to hire?
+      .description.span10
+        #{@job.additional_detail.candidate.undesired}
