@@ -44,7 +44,14 @@ module Recruiters
         @user.update_yoren_attributes = true
         @user.update_attributes(params[:user].dup.extract!(:name, :phone))
         
-        Vger::Herald::Notification.create(:event => "recruiters/welcome", :view_params => {:user_ids => [@user.sid], :urls => {:update_company_profile => new_recruiters_company_profile_url, :post_job => job_posting_recruiters_dashboard_index_url}})
+        Vger::Herald::Notification.create(:event => "recruiters/welcome",
+                                          :view_params => {
+                                            :user_ids => [@user.sid],
+                                            :urls => {
+                                              :update_company_profile => new_recruiters_company_profile_url,
+                                              :post_job => job_posting_recruiters_dashboard_index_url
+                                            }
+                                          })
 
         respond_with @user, :location => @redirect_to
       else
