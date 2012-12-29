@@ -1,4 +1,20 @@
 class Recruiters::CandidatesController < Recruiters::ApplicationController
+  before_filter do
+    redirect_if_not_logged_in! do |request, params|
+      options = {
+        :redirect_to => request.fullpath
+      }
+      
+      user = params[:user]
+      options.merge!(:user => user) if user.present?
+      [
+       new_user_registration_path(options),
+       'You need to sign up to continue.'
+      ]
+    end
+  end
+  
+
   before_filter :init_job, :only => [:index, :show]
 
   caches_action :show, {

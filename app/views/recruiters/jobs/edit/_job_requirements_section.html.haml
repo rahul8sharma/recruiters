@@ -41,15 +41,15 @@
     %label.control-label
       Qualifications*
     .controls
-      = select_tag("qualification[degree_diploma][]", options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none", "data-preselect" => @job.try(:qualification).try(:degree_diploma).try(:first))
-      = select_tag("qualification[specialization][]", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first))
+      = select_tag("qualification[degree_diploma][]", options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none", "data-preselect" => @job.try(:qualification).try(:degree_diploma).try(:first), "data-chosen_select" => true)
+      = select_tag("qualification[specialization][]", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first), "data-chosen_select" => true)
       %br/
   .control-group
     %label.control-label
       Must Have Skills* 
     .controls
-      = select_tag("job_skill_must_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true, "data-preselect" => @job.try(:skill).try(:must).try(:skill_id).try(:first))
-      = select_tag("job_skill_must_exp", skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:must).try(:experience).try(:first))
+      = select_tag("job_skill_must_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true, "data-preselect" => @job.try(:skill).try(:must).try(:skill_id).try(:first), "data-chosen_select" => true)
+      = select_tag("job_skill_must_exp", skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:must).try(:experience).try(:first), "data-chosen_select" => true)
       %div{:data => {"preferred-must_skill-container" => true}}
     .controls
       = hidden_field_tag "job_must_skill_ids"
@@ -58,7 +58,7 @@
     %label.control-label
       Nice to Have Skills
     .controls
-      = select_tag("job_skill_nice_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select one or more", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:nice).try(:skill_id).try(:first))
+      = select_tag("job_skill_nice_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select one or more", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:nice).try(:skill_id).try(:first), "data-chosen_select" => true)
       %div{:data => {"preferred-nice_skill-container" => true}}
 
   .control-group

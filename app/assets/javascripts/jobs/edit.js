@@ -337,6 +337,8 @@ $(function() {
 
   initSkillTemplate();
 
+  $("[data-chosen_select]").chosen();
+
   $("select[data-job_industry_pseudo_select]").on("change", function() {
   	initJobIndustryPseudoSelect($(this));
   });

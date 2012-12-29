@@ -26,7 +26,7 @@
     %label.control-label
       Industry* 
     .controls
-      = select_tag("industry", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:industries).try(:first), "data-job_industry_pseudo_select" => true)
+      = select_tag("industry", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:industries).try(:first), "data-job_industry_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_industry-container" => true}}
     .controls
       = hidden_field_tag "job_industry_ids"
@@ -36,7 +36,7 @@
     %label.control-label
       Functional Area of this Role*  
     .controls
-      = select_tag("category", top_list_for_select(:job_categories), :prompt => "Select one or more", class: "span9 first fl_none", "data-path" => traversable_from_recruiters_job_path(":id", relation: "job_category_in", source_class: "Opus::JobCategory", bucket_type: "Opus::WorkProfile"), "data-preselect" => @job.try(:categories).try(:first), "data-job-category" => true, "data-job_category_pseudo_select" => true)
+      = select_tag("category", top_list_for_select(:job_categories), :prompt => "Select one or more", class: "span9 first fl_none", "data-path" => traversable_from_recruiters_job_path(":id", relation: "job_category_in", source_class: "Opus::JobCategory", bucket_type: "Opus::WorkProfile"), "data-preselect" => @job.try(:categories).try(:first), "data-job-category" => true, "data-job_category_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_category-container" => true}}
         -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
     .controls
@@ -47,7 +47,7 @@
     %label.control-label
       Job Profile* 
     .controls
-      = select_tag("profile", options_from_collection_for_select(@master_data[:job_profiles], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:profiles).try(:first), "data-job-profile" => true, "data-job_profile_pseudo_select" => true)
+      = select_tag("profile", options_from_collection_for_select(@master_data[:job_profiles], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:profiles).try(:first), "data-job-profile" => true, "data-job_profile_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_profile-container" => true}}
         -#= render :partial => "persia/users/edit/basic_section/job_preferences/job_category", collection: (@basic[:preferred_job_categories] rescue [])
     .controls
@@ -67,7 +67,7 @@
       .label_subtitle 
         Eg. Software Engineer, Marketing Manager, Data Entry Operator, etc.
     .controls
-      = select_tag("location", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:locations).try(:first), "data-job_location_pseudo_select" => true)
+      = select_tag("location", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:locations).try(:first), "data-job_location_pseudo_select" => true, "data-chosen_select" => true)
       %div{:data => {"preferred-job_location-container" => true}}
     .controls
       = hidden_field_tag "job_location_ids"
