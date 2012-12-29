@@ -85,7 +85,7 @@
         .description.span10
           = @job.bucket.min_work_experience.present? ? @job.bucket.min_work_experience : 0
           \- #{@job.bucket.max_work_experience.present? ? @job.bucket.max_work_experience : 0} yrs of Experience
-    - if @job.required_academic_qualifications.present?
+    - if safe_access(@job, :required_academic_qualifications).present?
       .section  
         .medium_text.text_right.span5
           %strong Qualifications
