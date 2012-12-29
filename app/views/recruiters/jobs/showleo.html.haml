@@ -49,12 +49,13 @@
         %strong Job Title
       .description.span10
         = @job.name
-    .section  
-      .medium_text.text_right.span5
-        %strong Functional Area of this Role
-      - (@job.job_category || []).each do |category|
+    - if @job.job_category.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Functional Area of this Role
         .description.span10
-          = category.name
+          - @job.job_category.each do |category|
+            = category.name
     - if @job.work_profile.present?
       .section  
         .medium_text.text_right.span5
