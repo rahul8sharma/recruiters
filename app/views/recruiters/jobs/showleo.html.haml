@@ -90,10 +90,12 @@
         .medium_text.text_right.span5
           %strong Qualifications
         - @job.required_academic_qualifications.each do |qualification|
+          - degree = qualification.select {|element| element.bucket_type == "Opus::Degree"}.first
+          - career = qualification.select {|element| element.bucket_type == "Opus::Career"}.first
           .description.span10
-            = qualification[0][:name]
-            - if qualification[1].present?
-              in #{qualification[1][:name]}
+            = degree.name
+            - if career.present?
+              in #{career.name}
     - if @job.required_skills.reject(&:optional).present?
       .section  
         .medium_text.text_right.span5
