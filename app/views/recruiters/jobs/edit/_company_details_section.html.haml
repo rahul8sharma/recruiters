@@ -58,15 +58,16 @@
         = select_tag("company[location][geography_id][]", top_list_for_select(:india_cities), :prompt => "Select Location", class: "span9 first fl_none hide", "data-preselect" => @master_data[:company_profile].locations.first.geography_id, "data-setter-company-location" => true)
         .span9.hide{data: {"getter-company-location" => true}}
         %br/
-    .control-group
-      %label.control-label
-        Company Logo  
-      .controls
-        .span3.divider6.first.gray_border
-          = image_tag ("http://www.placehold.it/110x110")
-        .divider5
-        %input.span3{:type => "file"}
-    .divider1
+    -#
+      .control-group
+        %label.control-label
+          Company Logo  
+        .controls
+          .span3.divider6.first.gray_border
+            = image_tag ("http://www.placehold.it/110x110")
+          .divider5
+          %input.span3{:type => "file"}
+      .divider1
           
     .form-actions
       %a.pull-right{:href => "#", :data => {"edit_company_profile" => true}}

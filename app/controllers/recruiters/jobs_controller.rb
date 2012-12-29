@@ -39,7 +39,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
       format.html{
         @job = Recruiters::Job.find(:uuid => params[:id]).first
         if @job.blank?
-          @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:id], :params => {:include_related => [:job_category, :company, :work_profile, :degree, :job, :location], :include => {:methods => [:required_skills,:industries,:job_posters,:job_perks,:weekly_offs,:time_slots,:job_types,:recruiters,:eligibility_criteria]}})
+          @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:id], :params => {:include_related => [:job_category, :company, :work_profile, :degree, :job, :location], :include => {:methods => [:required_skills,:industries,:job_posters,:job_perks,:weekly_offs,:time_slots,:job_types,:recruiters,:eligibility_criteria,:required_academic_qualifications,:eligibility_criteria_with_edge_properties]}})
           render :template => "recruiters/jobs/showleo"
         end
       }
@@ -167,8 +167,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def init_job_details_data
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
-    @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
-    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
+    # @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
+    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles.sort_by {|profile| profile.name}
   end
 
   def init_job_requirements_data
