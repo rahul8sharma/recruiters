@@ -89,11 +89,11 @@
       .section  
         .medium_text.text_right.span5
           %strong Qualifications
-        - @job.required_academic_qualifications.each do |degree, specialization|
+        - @job.required_academic_qualifications.each do |qualification|
           .description.span10
-            = degree
-            - if specialization.present?
-              in #{specialization}
+            = qualification[0][:name]
+            - if qualification[1].present?
+              in #{qualification[1][:name]}
     - if @job.required_skills.reject(&:optional).present?
       .section  
         .medium_text.text_right.span5
