@@ -1,3 +1,7 @@
+- content_for :javascript_libs do
+  = javascript_include_tag "lib/raty/js/jquery.raty.js"
+- content_for :javascripts do
+  = javascript_include_tag "jobs/showleo"
 - content_for :sidebar do
   .divider1
   -#
@@ -51,17 +55,19 @@
       - (@job.job_category || []).each do |category|
         .description.span10
           = category.name
-    .section  
-      .medium_text.text_right.span5
-        %strong Job Profile
-      - (@job.work_profile || []).each do |profile|
+    - if @job.work_profile.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Job Profile
+        - @job.work_profile.each do |profile|
+          .description.span10
+            = profile.name
+    - if @job.bucket.openings.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Number of Openings
         .description.span10
-          = profile.name
-    .section  
-      .medium_text.text_right.span5
-        %strong Number of Openings
-    .description.span10
-      = @job.bucket.openings
+          = @job.bucket.openings
     .section  
       .medium_text.text_right.span5
         %strong Job Location
@@ -72,30 +78,38 @@
 
     .heading.gray_bg
       Job Requirements
-    .section  
-      .medium_text.text_right.span5
-        %strong Years of Work Experience
-      .description.span10
-        #{@job.bucket.min_work_experience} - #{@job.bucket.max_work_experience} yrs of Experience
-    .section  
-      .medium_text.text_right.span5
-        %strong Qualifications
-      .description.span10
-        Quali in Specialization
-    .section  
-      .medium_text.text_right.span5
-        %strong Must Have Skills
-      .description.span10
-        - @job.required_skills.reject(&:optional).map{|skill| [skill.name, skill.min_experience]}.each do |skill|
-          .highlight_badge.span
-            #{skill[0]} #{skill[1]} years
-    .section  
-      .medium_text.text_right.span5
-        %strong Nice to have Skills
-      .description.span10
-        - @job.required_skills.select(&:optional).map(&:name).each do |skill|
-          .highlight_badge.span
-            #{skill}
+    - if @job.bucket.min_work_experience.present? || @job.bucket.max_work_experience.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Years of Work Experience
+        .description.span10
+          = @job.bucket.min_work_experience.present? ? @job.bucket.min_work_experience : 0
+          \- #{@job.bucket.max_work_experience.present? ? @job.bucket.max_work_experience : 0} yrs of Experience
+    - if @job.required_academic_qualifications.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Qualifications
+        - @job.required_academic_qualifications.each do |degree, specialization|
+          .description.span10
+            = degree
+            - if specialization.present?
+              in #{specialization}
+    - if @job.required_skills.reject(&:optional).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Must Have Skills
+        .description.span10
+          - @job.required_skills.reject(&:optional).each do |skill|
+            .highlight_badge.span
+              #{skill.name} #{skill.min_experience} years
+    - if @job.required_skills.select(&:optional).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Nice to have Skills
+        .description.span10
+          - @job.required_skills.select(&:optional).each do |skill|
+            .highlight_badge.span
+              #{skill.name}
     .section  
       .medium_text.text_right.span5
         %strong Job Description
@@ -104,68 +118,66 @@
 
     .heading.gray_bg
       Hiring Preferences
-    .section  
-      .medium_text.text_right.span5
-        %strong Industries
-      .description.span10
-        - @job.industries.each do |industry|
-          .highlight_badge
-            #{industry.name}
-    .section  
-      .medium_text.text_right.span5
-        %strong Locations
-      .description.span10
-        - @job.location.each do |location|
-          .highlight_badge.span
-            #{location.name}
-    .section  
-      .medium_text.text_right.span5
-        %strong Communication Skills
-      .description.span10
-      -#
-        .span3
-          Spoken English
-          - if @job.spoken_skill.present?
-            .span3
-              %div{data: {"star" => true, "star_rating" => @job.spoken_skill.to_i}}
-            .span3
-              = skill_level_display(@job.spoken_skill.to_i)
-        .clr
-        .span3
-          Written English
-          - if @job.written_skill.present?
-            .span3
-              %div{data: {"star" => true, "star_rating" => @job.written_skill.to_i}}
-            .span3
-              level
-    .section  
-      .medium_text.text_right.span5
-        %strong Behavioral Traits
-      .description.span10
-        - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Trait')}.present?
+    - if @job.industries.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Industries
+        .description.span10
+          - @job.industries.each do |industry|
+            .highlight_badge
+              #{industry.name}
+    - if @job.location.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Locations
+        .description.span10
+          - @job.location.each do |location|
+            .highlight_badge.span
+              #{location.name}
+    - eligibility_criteria_with_edge_properties = safe_access(@job, :eligibility_criteria_with_edge_properties)
+    - if eligibility_criteria_with_edge_properties.present?
+      - if @job.eligibility_criteria_with_edge_properties.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::SoftSkill')}.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Communication Skills
+          .description.span10
+            -@job.eligibility_criteria_with_edge_properties.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::SoftSkill')}.each do |skill|
+              - if skill.level.present?
+                .span3.first
+                  = skill.name
+                .span3
+                  %div{data: {"star" => true, "star_rating" => skill.level.to_i}}
+                .span3
+                  = skill_level_display(skill.level.to_i)
+                .clr
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Trait')}.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Behavioral Traits
+        .description.span10
           - @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Trait')}.each do |trait|
             .highlight_badge.span
               #{trait.name}
-    .section  
-      .medium_text.text_right.span5
-        %strong Gender
-      .description.span10
-        - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Gender')}.present?
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Gender')}.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Gender
+        .description.span10
           = @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Gender')}.first.name
-    .section
-      .medium_text.text_right.span5
-        %strong Marital Status
-      .description.span10
-        - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::MaritalStatus')}.present?
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::MaritalStatus')}.present?
+      .section
+        .medium_text.text_right.span5
+          %strong Marital Status
+        .description.span10
           = @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::MaritalStatus')}.first.name
 
     .heading.gray_bg
       Compensation &amp; Logistics
-    .section  
-      .medium_text.text_right.span5
-        %strong Type of Employment
-      .description.span10
-        - if @job.job_types.present?
+    - if @job.job_types.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Type of Employment
+        .description.span10
           .highlight_badge.span
             #{@job.job_types.name}
     .section  
@@ -181,79 +193,84 @@
           - if (@job.salary.show != "show")
             .faded_light
               Do not disclose salary to candidates
-    .section  
-      .medium_text.text_right.span5
-        %strong Perks Offered
-      .description.span10
-        - @job.job_perks.each do |perk|
-          .highlight_badge.span8.first
-            #{perk.name}
-        - if @job.bucket.additional_perks.present?
-          .highlight_badge.span8.first
-            #{@job.bucket.additional_perks}
-    .section  
-      .medium_text.text_right.span5
-        %strong Shift Timings
-      .description.span10
-        - @job.time_slots.each do |slot|
-          .highlight_badge.span
-            = slot.name
-    .section  
-      .medium_text.text_right.span5
-        %strong Weekly Offs on
-      .description.span10
-        - @job.weekly_offs.each do |day|
-          .highlight_badge.span
-            #{day.name}
-    .section  
-      .medium_text.text_right.span5
-        %strong Additional Information
-      .description.span10
-        - if @job.bucket.involves_travel.present? && @job.bucket.involves_travel.to_s == "true"
-          .highlight_badge.span8.first
-            = additional_info_enum[:involves_travel]
-        - if @job.bucket.government_job.present? && @job.bucket.government_job.to_s == "true"
-          .highlight_badge.span8.first
-            = additional_info_enum[:government_job]
-        - if @job.bucket.own_vehicle.present? && @job.bucket.own_vehicle.to_s == "true"
-          .highlight_badge.span8.first
-            = additional_info_enum[:own_vehicle]
-        - if @job.bucket.walkin.present? && @job.bucket.walkin.to_s == "true"
-          .highlight_badge.span8.first
-            = additional_info_enum[:walkin]
+    - if @job.job_perks.present? || @job.bucket.additional_perks.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Perks Offered
+        .description.span10
+          - if @job.job_perks.present?
+            - @job.job_perks.each do |perk|
+              .highlight_badge.span8.first
+                #{perk.name}
+          - if @job.bucket.additional_perks.present?
+            .highlight_badge.span8.first
+              #{@job.bucket.additional_perks}
+    - if @job.time_slots.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Shift Timings
+        .description.span10
+          - @job.time_slots.each do |slot|
+            .highlight_badge.span
+              = slot.name
+    - if @job.weekly_offs.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Weekly Offs on
+        .description.span10
+          - @job.weekly_offs.each do |day|
+            .highlight_badge.span
+              #{day.name}
+    - if (@job.bucket.involves_travel.present? || @job.bucket.government_job.present? ||  @job.bucket.own_vehicle.present? || @job.bucket.walkin.present?)
+      .section  
+        .medium_text.text_right.span5
+          %strong Additional Information
+        .description.span10
+          - if @job.bucket.involves_travel.present? && @job.bucket.involves_travel.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:involves_travel]
+          - if @job.bucket.government_job.present? && @job.bucket.government_job.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:government_job]
+          - if @job.bucket.own_vehicle.present? && @job.bucket.own_vehicle.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:own_vehicle]
+          - if @job.bucket.walkin.present? && @job.bucket.walkin.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:walkin]
 
     - if (@job.bucket.application_instructions.present? || @job.bucket.candidate_companies.present? || @job.bucket.candidate_job_titles.present? || @job.bucket.candidate_profile_keywords.present? || @job.bucket.candidate_kind_blacklist.present?)
       .heading.gray_bg
         Additional Details
-      - @job.bucket.application_instructions.present?
+      - if @job.bucket.application_instructions.present?
         .section  
           .medium_text.text_right.span5
             %strong Application Instructions
           .description.span10
             #{@job.bucket.application_instructions}
-      - @job.bucket.candidate_companies.present?
+      - if @job.bucket.candidate_companies.present?
         .section  
           .medium_text.text_right.span5
             %strong Are there specific companies where your required candidates would be working currently?
           .description.span10
             #{@job.bucket.candidate_companies}
-      - @job.bucket.candidate_job_titles.present?
+      - if @job.bucket.candidate_job_titles.present?
         .section  
           .medium_text.text_right.span5
             %strong Are there other job profiles such candidates have in the industry?
           .description.span10
             #{@job.bucket.candidate_job_titles}
-      - @job.bucket.candidate_profile_keywords.present?
+      - if @job.bucket.candidate_profile_keywords.present?
         .section  
           .medium_text.text_right.span5
             %strong Keywords or buzzwords that such candidates write on their profiles?
           .description.span10
             #{@job.bucket.candidate_profile_keywords}
-      - @job.bucket.candidate_kind_blacklist.present?
+      - if @job.bucket.candidate_kind_blacklist.present?
         .section  
           .medium_text.text_right.span5
             %strong Are there any kind of people that you do not want to hire?
-       	  .description.span10
+          .description.span10
             #{@job.bucket.candidate_kind_blacklist}
 
     - if @job.company.present?

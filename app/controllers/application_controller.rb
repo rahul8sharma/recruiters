@@ -33,4 +33,12 @@ class ApplicationController < ActionController::Base
       redirect_to(new_user_session_path(:redirect_to => request.fullpath), :notice => "You need to be signed in to continue!")
     end
   end
+
+  helper_method :link_to_jobseeker_app
+  
+  # This is HACK to generate links outside Recruiters app,
+  # as we don't have helper to access jombay.com urls
+  def  link_to_jobseeker_app(suffix="")
+    request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + suffix.to_s
+  end
 end
