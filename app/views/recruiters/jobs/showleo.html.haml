@@ -49,12 +49,13 @@
         %strong Job Title
       .description.span10
         = @job.name
-    .section  
-      .medium_text.text_right.span5
-        %strong Functional Area of this Role
-      - (@job.job_category || []).each do |category|
+    - if @job.job_category.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Functional Area of this Role
         .description.span10
-          = category.name
+          - @job.job_category.each do |category|
+            = category.name
     - if @job.work_profile.present?
       .section  
         .medium_text.text_right.span5
@@ -85,15 +86,17 @@
         .description.span10
           = @job.bucket.min_work_experience.present? ? @job.bucket.min_work_experience : 0
           \- #{@job.bucket.max_work_experience.present? ? @job.bucket.max_work_experience : 0} yrs of Experience
-    - if @job.required_academic_qualifications.present?
+    - if safe_access(@job, :required_academic_qualifications).present?
       .section  
         .medium_text.text_right.span5
           %strong Qualifications
-        - @job.required_academic_qualifications.each do |degree, specialization|
+        - @job.required_academic_qualifications.each do |qualification|
+          - degree = qualification.select {|element| element[:bucket_type] == "Opus::Degree"}.first
+          - career = qualification.select {|element| element[:bucket_type] == "Opus::Career"}.first
           .description.span10
-            = degree
-            - if specialization.present?
-              in #{specialization}
+            = degree[:name]
+            - if career.present?
+              in #{career[:name]}
     - if @job.required_skills.reject(&:optional).present?
       .section  
         .medium_text.text_right.span5
