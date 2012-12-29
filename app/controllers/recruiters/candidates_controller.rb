@@ -59,14 +59,6 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
                                                                )
   end
 
-  helper_method :link_to_jobseeker_app
-  
-  # This is HACK to generate links outside Recruiters app,
-  # as we don't have helper to access jombay.com urls
-  def  link_to_jobseeker_app(suffix="")
-    request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + suffix.to_s
-  end
-
   # Saves rating for the application
   def rate
     @application = Vger::Spartan::Opus::Jobs::Application.find(params[:id])
