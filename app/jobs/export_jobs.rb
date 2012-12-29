@@ -8,111 +8,111 @@ class ExportJobs
       :name => :name,
       :description => :description,
       :eligibility => '',
-      :job_categories => lambda{ |j|
-        j.categories.map { |c|
-          Vger::Spartan::Opus::JobCategory.find(c).alias
-        }.join(",")
+      :job_categories => lambda{ |job|
+        (job.categories || []).map { |category|
+          Vger::Spartan::Opus::JobCategory.find(category).alias rescue nil
+        }.compact.join(",")
       },
-      :work_profiles => lambda{ |j|
-        j.profiles.map { |p|
-          Vger::Spartan::Opus::Recommendation.find(p).name
-        }.join(",")
+      :work_profiles => lambda{ |job|
+        (job.profiles || []).map { |work_profile|
+          Vger::Spartan::Opus::Recommendation.find(work_profile).name rescue nil
+        }.compact.join(",")
       },
-      :cities => lambda{ |j|
-        j.locations.map { |l|
-          Vger::Penumbra::Geography.find(l).name
-        }.join(",")
+      :cities => lambda{ |job|
+        (job.locations || []).map { |location|
+          Vger::Penumbra::Geography.find(location).name rescue nil
+        }.compact.join(",")
       },
-      :company => lambda{ |j| j.company.name},
-      :about_the_company => lambda{ |j| j.company.description},
-      :company_website => lambda{ |j| j.company.url },
-      :executive_name => lambda {|j| j.contact_detail.name},
-      :email => lambda {|j| j.contact_detail.email || ''},
-      :phone_number => lambda { |j| j.contact_detail.phone },
-      :posted_on => lambda { |j| (j.posted_on || Date.today).strftime("%d/%m/%Y") },
-      :address => lambda { |j| j.company.address },
-      :min_salary => lambda { |j|
-        s = j.salary.min_range.to_f * 1e5
-        s > 0 ? s : ''
-      }, #TODO FIXTHIS
-      :max_salary => lambda { |j|
-        s = (j.salary.max_range || 0).to_f * 1e5
+      :company => lambda{ |job| (job.company.name rescue nil) || ''},
+      :about_the_company => lambda{ |job| (job.company.description rescue nil) || ''} ,
+      :company_website => lambda{ |job| (job.company.url rescue nil) || ''},
+      :executive_name => lambda {|job| (job.contact_detail.name rescue nil) || ''},
+      :email => lambda {|job| (job.contact_detail.email rescue nil) || ''},
+      :phone_number => lambda { |job| (job.contact_detail.phone rescue nil) || ''},
+      :posted_on => lambda { |job| ((job.posted_on || Date.today).strftime("%d/%m/%Y") rescue nil) || '' },
+      :address => lambda { |job| (job.company.address rescue nil) || ''},
+      :min_salary => lambda { |job|
+        s = ((job.salary.min_range.to_f * 1e5) rescue 0)
         s > 0 ? s : ''
       },
-      :work_hours => lambda{ |j|
-        j.time_slot.map { |t|
-          Vger::Spartan::Opus::TimeSlot.find(t).name
-        }.join(",")
+      :max_salary => lambda { |job|
+        s = ((job.salary.max_range.to_f * 1e5) rescue 0)
+        s > 0 ? s : ''
+      },
+      :work_hours => lambda{ |job|
+        (job.time_slot || []).map { |time_slot|
+          Vger::Spartan::Opus::TimeSlot.find(time_slot).name rescue nil
+        }.compact.join(",")
       },
       :openings => :total_openings,
-      :disclose_salary => lambda{ |j| j.salary.show.to_s == "true" },
+      :disclose_salary => lambda{ |job| (job.salary.show.to_s rescue '') == "true" },
       :site_url => '',
-      :application_url => lambda{ |j| j.contact_detail.application_url},
-      :application_instructions => lambda{ |j| j.additional_detail.application_instruction},
-      :work_experiences => lambda{ |j|
-        j.skill.must.skill_id.zip(j.skill.must.experience).map { |skill_id, exp|
+      :application_url => lambda{ |job| (job.contact_detail.application_url rescue nil) || ''},
+      :application_instructions => lambda{ |job| (job.additional_detail.application_instruction rescue nil) || ''},
+      :work_experiences => lambda{ |job|
+        (job.skill.must.skill_id.zip(job.skill.must.experience) rescue []).map { |skill_id, experience|
           [
-           Vger::Spartan::Opus::Recommendation.find(skill_id).name,
-           exp.to_f
-          ].join(":")
+           (Vger::Spartan::Opus::Recommendation.find(skill_id).name rescue nil),
+           experience.to_f
+          ].compact.join(":")
         }.join(",")
       },
       :job_poster => '',
       :active => true,        
-      :min_work_experience => lambda{ |j| j.work_experience.min_range || '' },
-      :max_work_experience => lambda{ |j| j.work_experience.max_range || '' },
-      :internal_reference_number => lambda{ |j| j.contact_detail.job_id },
-      :kind_of_job => lambda{ |j|
-        Vger::Spartan::Opus::KindOfJob.find(j.kind_of).name
+      :min_work_experience => lambda{ |job| (job.work_experience.min_range rescue nil) || '' },
+      :max_work_experience => lambda{ |job| (job.work_experience.max_range rescue nil) || '' },
+      :internal_reference_number => lambda{ |job| (job.contact_detail.job_id rescue nil)  || ''},
+      :kind_of_job => lambda{ |job|
+        Vger::Spartan::Opus::KindOfJob.find(job.kind_of).name rescue nil
       },
-      :job_industries => lambda{ |j|
-        j.industries.map { |i|
-          Vger::Spartan::Opus::Recommendation.find(i).bucket.alias
-        }.join(",")
+      :job_industries => lambda{ |job|
+        (job.industries || []).map { |industry|
+          Vger::Spartan::Opus::Recommendation.find(industry).bucket.alias rescue nil
+        }.compact.join(",")
       },
-      :soft_skills => lambda{ |j|
+      :soft_skills => lambda{ |job|
         #TODO: fix this
         [
-         "Spoken English:#{j.spoken_skill}",
-         "Written English:#{j.written_skill}"
+         "Spoken English:#{job.spoken_skill}",
+         "Written English:#{job.written_skill}"
         ].join(",")
       },
       :academic_performance => '',
-      :academic_qualifications => lambda{ |j|
-        j.qualification.degree_diploma.zip(j.qualification.specialization).map { |degree, career|
+      :academic_qualifications => lambda{ |job|
+        ((job.qualification.degree_diploma.zip(job.qualification.specialization) rescue nil) || []).map { |degree, career|
           [
-           Vger::Spartan::Opus::Recommendation.find(degree).name,
+           (Vger::Spartan::Opus::Recommendation.find(degree).name rescue ''),
            (Vger::Spartan::Opus::Recommendation.find(career).name rescue '')
           ].join(":")
         }.join(",")
       },
-      :candidate_industries => lambda{ |j|
-        j.candidate.industry.id.map { |i|
-          Vger::Spartan::Opus::Recommendation.find(i).bucket.alias
-        }.join(",")
+      :candidate_industries => lambda{ |job|
+        ((job.candidate.industry.id rescue nil) || []).map { |industry|
+          Vger::Spartan::Opus::Recommendation.find(industry).bucket.alias rescue nil
+        }.compact.join(",")
       },
-      :gender => lambda{ |j|
-        Vger::Spartan::Dilios::Gender.find(j.candidate.personal.gender).name
+      :gender => lambda{ |job|
+        (Vger::Spartan::Dilios::Gender.find(job.candidate.personal.gender).name rescue nil) || ''
       },
-      :marital_status => lambda{ |j|
-        Vger::Spartan::Dilios::MaritalStatus.find(j.candidate.personal.marital_status).name
+      :marital_status => lambda{ |job|
+        (Vger::Spartan::Dilios::MaritalStatus.find(job.candidate.personal.marital_status).name rescue nil) || '' 
       },
       :abilities => '',
-      :traits => lambda{ |j|
-        j.trait.map { |t|
-          Vger::Spartan::Dilios::Trait.find(t).name
-        }.join(",")
+      :traits => lambda{ |job|
+        (job.trait || []).map { |trait|
+          Vger::Spartan::Dilios::Trait.find(trait).name rescue nil
+        }.compact.join(",")
       },
       :interests => '',
-      :candidate_locations => lambda{ |j|
-        j.candidate.location.id.map { |l|
-          Vger::Penumbra::Geography.find(l).name
-        }.join(",")
+      :candidate_locations => lambda{ |job|
+        (((job.candidate.location.id) rescue nil) || []).map { |location|
+          Vger::Penumbra::Geography.find(location).name rescue nil
+        }.compact.join(",")
       },
-      :perks => lambda{ |j|
-        (j.perk || []).map { |p|
-          Vger::Spartan::Opus::JobPerk.find(p).name
-        }.join(",")
+      :perks => lambda{ |job|
+        (job.perk || []).map { |perk|
+          Vger::Spartan::Opus::JobPerk.find(perk).name rescue nil
+        }.compact.join(",")
       },
       :additional_perks => :additional_perk,
       :involves_travel => :involves_travel,
@@ -120,27 +120,27 @@ class ExportJobs
       :walkin => :walkin,
       :own_vehicle => :own_vehicle,
       :other_work_profile => '',
-      :candidate_companies => lambda{ |j|
-        j.additional_detail.candidate.company_history
+      :candidate_companies => lambda{ |job|
+        (job.additional_detail.candidate.company_history rescue nil) || ''
       },
-      :candidate_job_titles => lambda{ |j|
-        j.additional_detail.candidate.job_title
+      :candidate_job_titles => lambda{ |job|
+        (job.additional_detail.candidate.job_title rescue nil) || ''
       },
-      :candidate_profile_keywords => lambda{ |j|
-        j.additional_detail.candidate.keyword
+      :candidate_profile_keywords => lambda{ |job|
+        (job.additional_detail.candidate.keyword rescue nil) || ''
       },
-      :candidate_kind_blacklist => lambda{ |j|
-        j.additional_detail.candidate.undesired || ''
+      :candidate_kind_blacklist => lambda{ |job|
+        (job.additional_detail.candidate.undesired rescue nil) || ''
       },
-      :optional_skills => lambda{ |j|
-        j.skill.nice.skill_id.map { |skill_id|
-          Vger::Spartan::Opus::Recommendation.find(skill_id).name
-        }.join(",")
+      :optional_skills => lambda{ |job|
+        ((job.skill.nice.skill_id rescue nil) || []).map { |skill_id|
+          Vger::Spartan::Opus::Recommendation.find(skill_id).name rescue nil
+        }.compact.join(",")
       },
-      :weekly_offs => lambda{ |j|
-        j.offday.map { |d|
-          Vger::Spartan::WeekDay.find(d).name
-        }.join(",")
+      :weekly_offs => lambda{ |job|
+        (job.offday || []).map { |day|
+          Vger::Spartan::WeekDay.find(day).name rescue nil
+        }.compact.join(",")
       },
       
       :reference_key => :uuid,
