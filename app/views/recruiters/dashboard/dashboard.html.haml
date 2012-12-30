@@ -13,9 +13,9 @@
         Welcome to your Jombay dashboard! You can manage your job postings here.
       .divider1
 - content_for :sidebar do
-  =render :partial => "recruiters/shared/help_block"
-  =render :partial => "recruiters/shared/update_profile"
-  =render :partial => "recruiters/shared/recruitment_solution_info"
+  = render :partial => "recruiters/shared/help_block"
+  = render :partial => "recruiters/shared/update_profile"
+  -#= render :partial => "recruiters/shared/recruitment_solution_info"
 
 .wrapper
   .post_job
@@ -29,7 +29,8 @@
       .listing_container
         = render :partial => "recruiters/dashboard/post_sub_links"
         = render :partial => "recruiters/dashboard/dashboard_listing_snippets"
-  - unless @jobs.present?
+
+  - unless @jobs[:pending].present? || @jobs[:open].present? || @jobs[:incomplete].present? || @jobs[:closed].present?
     =render :partial => "recruiters/dashboard/start_posting"
   .divider2
 
@@ -38,11 +39,13 @@
       .dash_listing_title
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "pending")}
-            Pending Jobs (#{Recruiters::Job.find(:status => 2).size})
+            Pending Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).size})
         %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
           \-
         .clr
       %div{data: {"section_content" => true}}
+        %div{data: {"job_post_notification" => true}}
+          = render :partial=> "recruiters/shared/job_post_notification"
         %ul.listing
           = render :partial => "recruiters/dashboard/section/pending_job", :collection => @jobs[:pending]
         %a.show_details{:href => status_recruiters_jobs_path(:status => "pending"), :title => "View all Pending jobs"}
@@ -72,7 +75,7 @@
       .dash_listing_title
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "incomplete")}
-            Incomplete Jobs (#{Recruiters::Job.find(:status => 1).size})
+            Incomplete Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).size})
         %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
           \-
         .clr

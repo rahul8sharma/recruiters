@@ -112,7 +112,7 @@
       %label.control-label
         Email id* 
       .controls.medium_text
-        #{ current_user.email }
+        = text_field_tag("contact_detail[email]", current_user.email, :placeholder => "Type your name", :class => "span9 first", "data-preselect" => @job.try(:contact_detail).try(:email))
         %br/
     .divider1
     .form-actions

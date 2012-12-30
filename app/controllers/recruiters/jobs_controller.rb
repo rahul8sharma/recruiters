@@ -65,6 +65,10 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def update
     @job.update(params.to_hash)
 
+    if @job.posted_by.blank?
+      @job.update(:posted_by => current_user.sid)
+    end
+
     if params[:continue_later] == "true"
       redirect_to recruiters_root_path
     else
@@ -126,6 +130,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job.save!
 
     if params[:status] == "pending"
+      flash[:job_posted] = true
       Vger::Herald::Notification.create(:event => "recruiters/jobpost_pending", :view_params => {:user_ids => [current_user.sid], :job_title => @job.name, :urls => {:post_job => job_posting_recruiters_dashboard_index_url}})
     end
 

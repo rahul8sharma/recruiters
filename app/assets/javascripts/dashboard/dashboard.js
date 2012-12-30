@@ -7,5 +7,7 @@ $(function() {
   $("[data-post_new_job]").on("click", function(e) {
   	$("form[data-job_post_form]").submit();
   	e.preventDefault();
-  })
+  });
+
+  $("[data-job_post_notification]").delay(5000).slideUp();
 });
