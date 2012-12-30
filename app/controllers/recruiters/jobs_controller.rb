@@ -206,6 +206,9 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :perks => Vger::Spartan::Opus::JobPerk.all
     @master_data.merge! :time_slots => Vger::Spartan::Opus::TimeSlot.all
     @master_data.merge! :weekdays => Vger::Spartan::WeekDay.all
+
+    @master_data.merge! :default_slots => @master_data[:time_slots].select{ |slot| ['Day shift'].include? slot.name }
+    @master_data.merge! :default_offs => @master_data[:weekdays].select{ |day| ['Sun', 'Sat'].include? day.name }
   end
 
   def init_additional_details_data

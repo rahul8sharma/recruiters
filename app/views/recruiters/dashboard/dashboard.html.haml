@@ -30,7 +30,7 @@
         = render :partial => "recruiters/dashboard/post_sub_links"
         = render :partial => "recruiters/dashboard/dashboard_listing_snippets"
 
-  - unless @jobs[:pending].present? || @jobs[:open].present? || @jobs[:incomplete].present? || @jobs[:closed].present?
+  - if @jobs.values.all? { |jobs| jobs.empty? }
     =render :partial => "recruiters/dashboard/start_posting"
   .divider2
 
