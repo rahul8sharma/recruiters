@@ -40,12 +40,13 @@
           = f.label :address, "Address", :class => "control-label"
           .controls
             = f.text_area :address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9"
-        .control-group
-          %label.control-label{:for => "companyLogo"} Company Logo
-          .controls
-            .span3.divider6.gray_border
-              = image_tag("http://www.placehold.it/10x10")
-            %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
+        -#
+          .control-group
+            %label.control-label{:for => "companyLogo"} Company Logo
+            .controls
+              .span3.divider6.gray_border
+                = image_tag("http://www.placehold.it/10x10")
+              %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
         .form-actions
           %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
             %strong Save changes

@@ -1,6 +1,5 @@
 %li.listing_snippet.post_notification
   //".post_notification" class will only aaded when we want notification of job posted successfully, If ther is no need to show notification just remove class ".post_notification" Plz dont remove any of HTML or partial you jst have to change/add/remove class ".post_notification" to show and hide notification
-  = render :partial=> "recruiters/shared/job_post_notification"
   %a.job_title.pull-left{:href => recruiters_job_path(:id => pending_job.uuid), :title => "#{pending_job.name}"}
     = truncate(pending_job.name, :length => 45)
   .date.pull-right
@@ -9,7 +8,7 @@
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    %a.pull-left{:href => recruiters_job_candidates_path(:job_id => pending_job.uuid), :title => "Number of candidates"}
+    %a.pull-left{:title => "Number of candidates"}
       %i.icon-user.icon-large
       View candidates
     -#

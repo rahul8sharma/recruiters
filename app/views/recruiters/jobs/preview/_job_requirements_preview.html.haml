@@ -4,16 +4,17 @@
     .pull-right
       %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-requirements"), :title => "Edit this section"}
         Edit
-.section  
-  .medium_text.text_right.span5
-    %strong Years of Work Experience
-  - if @job.work_experience.present? && @job.work_experience.type.to_i == 1
-    .description.span10
-      #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
-.section  
-  .medium_text.text_right.span5
-    %strong Qualifications
-  - if @job.qualification
+- if @job.work_experience.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Years of Work Experience
+    - if @job.work_experience.type.to_s == "true"
+      .description.span10
+        #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
+- if @job.qualification.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Qualifications
     - degrees = @job.qualification.degree_diploma
     - specializations = @job.qualification.specialization
     - degrees.zip(specializations).each do |degree, specialization|
@@ -40,8 +41,9 @@
         - (@job.skill.nice.skill_id || []).each do |skill|
           .highlight_badge.span
             = Vger::Spartan::Opus::Recommendation.find(skill).name
-.section  
-  .medium_text.text_right.span5
-    %strong Job Description
-  .description.span10
-    = @job.description
+- if @job.description.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Job Description
+    .description.span10
+      = @job.description

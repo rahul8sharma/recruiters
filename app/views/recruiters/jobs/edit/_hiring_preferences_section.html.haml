@@ -56,7 +56,7 @@
           = radio_button_tag("candidate[personal][gender]", gender.id, (@job.candidate.personal.gender rescue nil) == gender.id.to_s)
           #{ gender.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => (@job.candidate.personal.gender rescue nil) == "", :name => "candidate[personal][gender]", :type => "radio", :value => ""}
+        %input#optionsRadios2{:checked => (@job.candidate.personal.gender rescue nil).blank?, :name => "candidate[personal][gender]", :type => "radio", :value => ""}
           No Preference
       .clr
 
@@ -69,7 +69,7 @@
           = radio_button_tag("candidate[personal][marital_status]", status.id, (@job.candidate.personal.marital_status rescue nil) == status.id.to_s)
           #{ status.name }
       %label.radio.span3
-        %input#optionsRadios2{:checked => (@job.candidate.personal.marital_status rescue nil) == "", :name => "candidate[personal][marital_status]", :type => "radio", :value => ""}
+        %input#optionsRadios2{:checked => (@job.candidate.personal.marital_status rescue nil).blank?, :name => "candidate[personal][marital_status]", :type => "radio", :value => ""}
           No Preference
       .clr
     .divider1

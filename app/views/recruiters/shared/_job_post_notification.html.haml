@@ -1,5 +1,7 @@
-.post_notification_inn
-  .medium_text
-    Thank you for posting your job on Jombay.com
-  Your job has been logged into the system. We will notify you as soon as it is posted on the website.
-.divider1
+- job_posted = flash[:job_posted]
+- if job_posted.present?
+  .post_notification_inn
+    .medium_text
+      Thank you for posting your job on Jombay.com
+    Your job has been logged into the system. We will notify you as soon as it is posted on the website.
+  .divider1
