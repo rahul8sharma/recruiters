@@ -4,30 +4,29 @@
     .pull-right
       %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "company-details"), :title => "Edit this section"}
         Edit
-.section  
-  .medium_text.text_right.span5
-    %strong Job ID (Internal)    
-  .description.span10
-    - if @job.contact_detail.present?
+- if @job.contact_detail.present?
+  .section
+    .medium_text.text_right.span5
+      %strong Job ID (Internal)    
+    .description.span10
       #{@job.contact_detail.job_id}
-.section  
-  .medium_text.text_right.span5
-    %strong Application URL (if any)    
-  .description.span10
-    - if @job.contact_detail.present?
+  .section
+    .medium_text.text_right.span5
+      %strong Application URL (if any)    
+    .description.span10
       #{@job.contact_detail.application_url}
 .section  
   .medium_text.text_right.span5
     %strong Hiring Manager Name    
   .description.span10
-    = current_user.name
+    #{@job.contact_detail.name}
 .section  
   .medium_text.text_right.span5
     %strong Phone Number    
   .description.span10
-    = current_user.phone
+    #{@job.contact_detail.phone}
 .section  
   .medium_text.text_right.span5
     %strong Email id    
   .description.span10
-    = current_user.email
+    #{@job.contact_detail.email}

@@ -21,20 +21,20 @@
       Annual Salary*
     .controls
       %label.radio.span3.first
-        %input#optionsRadios1{:checked => (@job.salary.present? ? @job.salary.range.first.to_i == 1 : false), :name => "salary[range][]", :type => "radio", :value => "1"}
+        %input#optionsRadios1{:checked => (@job.salary.present? ? @job.salary.range.to_s == "true" : false), :name => "salary[range]", :type => "radio", :value => "true"}
           Fixed Range
       %label.radio.span3
-        %input#optionsRadios2{:checked => (@job.salary.present? ? @job.salary.range.first.to_i == 2 : true), :name => "salary[range][]", :type => "radio", :value => "2"}
+        %input#optionsRadios2{:checked => (@job.salary.present? ? @job.salary.range.to_s == "false" : true), :name => "salary[range]", :type => "radio", :value => "false"}
           No Constraint
   .control-group
     %label.control-label
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : true))
+      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
       .span
         %strong.line_height2 To
-      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.first.to_i != 1 : true))
+      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls
@@ -43,7 +43,8 @@
     %label.control-label
     .controls
       %label.checkbox
-        = check_box_tag("salary[show]", "show", @job.try(:salary).try(:show) == "show")
+        = hidden_field_tag("salary[show]", "false")
+        = check_box_tag("salary[show]", "true", @job.try(:salary).try(:show) == "true")
         -#%input{:type => "checkbox", :value => ""}
         Do not disclose salary to candidates
 
@@ -70,7 +71,7 @@
     .span10
       - @master_data[:time_slots].each_with_index do |slot, index|
         %label.checkbox.span4.first
-          = check_box_tag("time_slot[]", slot.id, (@job.time_slot.present? ? @job.time_slot : []).include?(slot.id.to_s))
+          = check_box_tag("time_slot[]", slot.id, (@job.time_slot.present? ? @job.time_slot.include?(slot.id.to_s) : "1688623".include?(slot.id.to_s)))
           #{ slot.name }
       .clr
 
@@ -80,7 +81,7 @@
     .span10
       - @master_data[:weekdays].each_with_index do |weekday, index|
         %label.checkbox.span4.first
-          = check_box_tag("offday[]", weekday.id, (@job.offday.present? ? @job.offday : []).include?(weekday.id.to_s))
+          = check_box_tag("offday[]", weekday.id, (@job.offday.present? ? @job.offday.include?(weekday.id.to_s) : "1688634".include?(weekday.id.to_s)))
           #{ weekday.name }
       .clr
   .control-group
