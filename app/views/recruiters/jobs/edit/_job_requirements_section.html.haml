@@ -20,10 +20,10 @@
         Adjust the slider to specify the range
     .controls
       %label.radio.span4
-        %input#optionsRadios1{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_i == 1 : false), :name => "work_experience[type]", :type => "radio", :value => 1}
+        %input#optionsRadios1{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_s == "true" : false), :name => "work_experience[type]", :type => "radio", :value => "true"}
           Experienced
       %label.radio.span4
-        %input#optionsRadios2{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_i == 2 : true), :name => "work_experience[type]", :type => "radio", :value => 2}
+        %input#optionsRadios2{:checked => (@job.work_experience.present? ? @job.work_experience.type.to_s == "false" : true), :name => "work_experience[type]", :type => "radio", :value => "false"}
           Fresher
       .clr
     .control-group

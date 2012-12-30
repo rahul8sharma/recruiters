@@ -7,6 +7,9 @@
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
+    %a.pull-left{:href => edit_recruiters_jobs_path(:id => incomplete_job.uuid, :section => "job-details"), :title => "Edit this job"}
+      %i.icon-pencil.icon-large
+      Edit
     -#
       .bottom_sec_hidden.pull-left
         = form_tag duplicate_recruiters_job_path(:id => incomplete_job.uuid), :class => "pull-left margin", :method => :post do

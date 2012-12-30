@@ -65,6 +65,10 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def update
     @job.update(params.to_hash)
 
+    if @job.posted_by.blank?
+      @job.update(:posted_by => current_user.sid)
+    end
+
     if params[:continue_later] == "true"
       redirect_to recruiters_root_path
     else
@@ -126,6 +130,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job.save!
 
     if params[:status] == "pending"
+      flash[:job_posted] = true
       Vger::Herald::Notification.create(:event => "recruiters/jobpost_pending", :view_params => {:user_ids => [current_user.sid], :job_title => @job.name, :urls => {:post_job => job_posting_recruiters_dashboard_index_url}})
     end
 
@@ -167,8 +172,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def init_job_details_data
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
-    @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
-    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles
+    # @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
+    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles.sort_by {|profile| profile.name}
   end
 
   def init_job_requirements_data
@@ -201,6 +206,9 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @master_data.merge! :perks => Vger::Spartan::Opus::JobPerk.all
     @master_data.merge! :time_slots => Vger::Spartan::Opus::TimeSlot.all
     @master_data.merge! :weekdays => Vger::Spartan::WeekDay.all
+
+    @master_data.merge! :default_slots => @master_data[:time_slots].select{ |slot| ['Day shift'].include? slot.name }
+    @master_data.merge! :default_offs => @master_data[:weekdays].select{ |day| ['Sun', 'Sat'].include? day.name }
   end
 
   def init_additional_details_data

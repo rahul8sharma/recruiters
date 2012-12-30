@@ -19,6 +19,9 @@
               %b.caret
             %ul.dropdown-menu
               %li.fl_none
+                - current_user_company_profile = safe_access(current_user.leonidas_resource, :company)
+                %a{:href => current_user_company_profile.present? ? recruiters_company_profile_path(:id => current_user.leonidas_resource.company.id) : new_recruiters_company_profile_path} Profile
+              %li.fl_none
                 %a{:href => destroy_user_session_path} Log Out
 
     -#

@@ -5,10 +5,10 @@
         Company Details
 - content_for :sidebar do
   .divider1
-  .divider9.span5.fl_none.gray_border.margin_auto
-  .divider1
+  -#.divider9.span5.fl_none.gray_border.margin_auto
+  -# .divider1
   %strong.show.medium_text.padding_left_right2
-    ZS Associates Company Pvt. Limited
+    = @company.name
 
 .rec_rhs.margin
   .inn.clearfix

@@ -5,16 +5,16 @@
     :path => recruiters_root_path(:trailing_slash => false)
   }, {
   :title => "About Us",
-    :path => "/about-us"#about_us_url(host: request.domain)
+    :path => link_to_jobseeker_app("about-us/")
   }, {
   :title => "Work with Jombay",
-    :path => "/jobs"#jobs_url(host: request.domain)
+    :path => link_to_jobseeker_app("jobs/")
   }, {
   :title => "Blog",
-    :path => recruiters_root_url(host: request.domain, trailing_slash: false) + "blog/"
+    :path => link_to_jobseeker_app("blog/")
   }, {
   :title => "Contact Us",
-    :path => "/contact-us"#contact_us_url(host: request.domain)
+    :path => link_to_jobseeker_app("contact-us/")
   }
   ]
 

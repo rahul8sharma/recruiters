@@ -4,7 +4,8 @@
   %strong 
     Keeping your company profile updated helps you post jobs faster.
   .divider2
-  %a.btn.btn-primary.medium_text.span3.margin{:href => "#", :title => "How does our recruitment solution work?"}
+  - current_user_company_profile = safe_access(current_user.leonidas_resource, :company)
+  %a.btn.btn-primary.medium_text.span3.margin{:href => current_user_company_profile.present? ? edit_recruiters_company_profile_path(:id => current_user_company_profile.id) : new_recruiters_company_profile_path, :title => "How does our recruitment solution work?"}
     Update Now
   .clr
   .divider1

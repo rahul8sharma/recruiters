@@ -216,7 +216,7 @@ function setupHiringPreferencesValidations() {
           }
         },
         messages: {
-          "trait[]": "Please select exactly 6"
+          "trait[]": "Please select 6 or less"
         }
       }, bootstrap_error_settings
     )
@@ -313,13 +313,16 @@ function setupEmployerDetailsValidations() {
       {
         ignore: "",
         rules: {
-          "hr_name": {
+          "contact_detail[name]": {
             required: true
           },
-          "contact_number": {
-            required: true
+          "contact_detail[phone]": {
+            required: true,
+            number: true,
+            minlength: 10,
+            maxlength: 10
           },
-          "email": {
+          "contact_detail[email]": {
             required: true,
             email: true
           }
@@ -505,16 +508,16 @@ $(function() {
 
   $("[name='work_experience[type]']").on("change", function() {
     var selected = $(this).val();
-    if(selected == 1) {
+    if(selected == "true") {
       $("[data-work_exp]").removeAttr("disabled");
     } else {
       $("[data-work_exp]").attr("disabled", true);
     }
   });
 
-  $("[name='salary[range][]']").on("change", function() {
+  $("[name='salary[range]']").on("change", function() {
     var selected = $(this).val();
-    if(selected == 1) {
+    if(selected == "true") {
       $("[data-salary]").removeAttr("disabled");
     } else {
       $("[data-salary]").attr("disabled", true);

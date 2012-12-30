@@ -5,8 +5,6 @@
   = javascript_include_tag "lib/jslider/js/jquery.slider"
   = javascript_include_tag "lib/jslider/js/jquery.dependClass-0.1"
   = javascript_include_tag "lib/chosen/chosen.jquery"
-  
- 
 
 = content_for :stylesheets do
   = stylesheet_link_tag 'recruiters/jobs'
@@ -16,7 +14,6 @@
 
 = content_for :javascripts do
   = javascript_include_tag "jobs/edit"
-  = javascript_include_tag "chained_select"
   
 
 - content_for :sidebar do
@@ -26,21 +23,6 @@
       - Rails.application.config.recruiters[:job_posting_sections].each_with_index do |(section, title), index|
         %li{:class => section == @section ? (section_matched = true; "active") : (section_matched ? "" : "done")}
           #{ index + 1 }. #{ title }
-    -#
-      %li.done
-        1. Job Description
-      %li.active
-        2. Candidate Requirement
-      %li
-        3. Candidate Preference
-      %li
-        4. Compensation &amp; Logistics
-      %li
-        5. Miscellaneous
-      %li
-        6. Contact Details
-      %li
-        7. Preview
     = render :partial => "recruiters/shared/help_block"
 .rec_rhs{data: {"job_posting_container" => true}}
   .divider2
