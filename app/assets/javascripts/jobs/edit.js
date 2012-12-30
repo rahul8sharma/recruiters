@@ -294,7 +294,6 @@ function setupCompanyDetailsValidations() {
         },
         submitHandler: function(form) {
           var params = $(form).serializeObject();
-          console.log(params["company[name]"]);
           $("[data-employer_details] input[name='company[name]']").val(params["company[name]"]);
           $("[data-employer_details] input[name='company[description]']").val(params["company[description]"]);
           $("[data-employer_details] input[name='company[url]']").val(params["company[url]"]);
@@ -480,7 +479,6 @@ $(function() {
   });
 
   // $("select[data-job-category]").on("change", function() {
-  // 	// console.log($(this));
   // 	initCategoryPseudoSelect($(this));
   //   // var that = $(this);
   //   // chainedSelect(

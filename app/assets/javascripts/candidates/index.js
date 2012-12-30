@@ -15,7 +15,6 @@ $(function() {
         data: {employer_rating: score, token: token},
         dataType: 'json',
         success: function(data){
-          console.log(data);
         },
         error: function(data, textStatus, XMLHttpRequest){
           alert("Sorry, an error has occured. Please try again!");
