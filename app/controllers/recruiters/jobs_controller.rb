@@ -172,24 +172,20 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   def init_job_requirements_data
-    degree_diploma = []
-    Vger::Spartan::Opus::DegreeType.all.each do |degree|
-      degree_diploma.push(Vger::Spartan::Opus::DegreeType.find(degree.id,:params => {:methods => "apex_degrees"}).apex_degrees)
-    end
-    degree_diploma.flatten!.uniq!
+    degree_diploma = Vger::Spartan::Opus::DegreeType.all.map { |degree|
+      Vger::Spartan::Opus::DegreeType.find(degree.id,
+                                           :params => {
+                                             :methods => "apex_degrees"
+                                           }).apex_degrees
+    }.flatten.uniq
+    
     @master_data.merge! :degree_diploma => degree_diploma
-
-    specializations = []
-    degree_diploma.each do |degree|
-      specializations.push(Vger::Spartan::Opus::Recommendation.find(degree.id, params: {bucket_methods: [:careers]}).bucket.careers)
-    end
-    specializations.flatten!.uniq!
-    @master_data.merge! :specializations => specializations
-
+    @master_data.merge! :specializations => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Career"}})
     @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
   end
 
   def init_hiring_preferences_data
+    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Industry"}})
     @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
     @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.find(:all)
     @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
