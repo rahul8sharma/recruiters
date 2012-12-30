@@ -5,7 +5,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   before_filter :init_status, :only => [:status]
   before_filter :init_master_data, :only => [:edit, :update]
   before_filter :init_job, :only => [:edit, :preview,
-                                     :update, :update_status, :flush]
+                                     :update, :update_status, :show, :flush]
   before_filter :ensure_flush_perms, :only => [:flush]
   
   layout "recruiters/jobs"
@@ -27,7 +27,6 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   # GET /jobs/<id>
   def show
-
     respond_to do |format|
       format.json{
         if @job
@@ -37,9 +36,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
         end
       }
       format.html{
-        @job = Recruiters::Job.find(:uuid => params[:id]).first
         if @job.blank?
-          @job = Vger::Spartan::Opus::Recommendation.find_by_reference_key(params[:id], :params => {:include_related => [:job_category, :company, :work_profile, :degree, :job, :location], :include => {:methods => [:required_skills,:industries,:job_posters,:job_perks,:weekly_offs,:time_slots,:job_types,:recruiters,:eligibility_criteria,:required_academic_qualifications,:eligibility_criteria_with_edge_properties]}})
+          @job = leo_job
           render :template => "recruiters/jobs/showleo"
         end
       }
@@ -58,7 +56,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
       next_section = section_keys[section_keys.index(params[:section].underscore) + 1]
       @prev_section = (section_keys[section_keys.index(params[:section].underscore) - 1]).dasherize
     else
-     redirect_to recruiters_job_path(:id => params[:id])
+      redirect_to recruiters_job_path(:id => params[:id])
     end
   end
 
@@ -171,9 +169,19 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   def init_job_details_data
-    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
-    # @master_data.merge! :job_categories => Vger::Spartan::Opus::JobCategory.find(:all)
-    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.work_profiles.sort_by {|profile| profile.name}
+    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.all(:params => {
+                                                                                 :select => [:id, :name],
+                                                                                 :query_options => {
+                                                                                   :bucket_type => "Opus::Industry"
+                                                                                 }
+                                                                               })
+    
+    @master_data.merge! :job_profiles => Vger::Spartan::Opus::Recommendation.all(:params => {
+                                                                                   :select => [:id, :name],
+                                                                                   :query_options => {
+                                                                                     :bucket_type => "Opus::WorkProfile"
+                                                                                   }
+                                                                                 }).sort_by(&:name)
   end
 
   def init_job_requirements_data
@@ -185,14 +193,28 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     }.flatten.uniq
     
     @master_data.merge! :degree_diploma => degree_diploma
-    @master_data.merge! :specializations => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Career"}})
-    @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Skill"}})
+    @master_data.merge! :specializations => Vger::Spartan::Opus::Recommendation.all(:params => {
+                                                                                      :select => [:id, :name],
+                                                                                      :query_options => {
+                                                                                        :bucket_type => "Opus::Career"
+                                                                                      }
+                                                                                    })
+    @master_data.merge! :skills => Vger::Spartan::Opus::Recommendation.all(:params => {
+                                                                             :select => [:id, :name],
+                                                                             :query_options => {
+                                                                               :bucket_type => "Opus::Skill"
+                                                                             }
+                                                                           })
   end
 
   def init_hiring_preferences_data
-    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.all(:params => {:select => [:id, :name], :query_options => {:bucket_type => "Opus::Industry"}})
-    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.industries
-    @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.find(:all)
+    @master_data.merge! :industries => Vger::Spartan::Opus::Recommendation.all(:params => {
+                                                                                 :select => [:id, :name],
+                                                                                 :query_options => {
+                                                                                   :bucket_type => "Opus::Industry"
+                                                                                 }
+                                                                               })
+    @master_data.merge! :traits => Vger::Spartan::Dilios::Trait.all
     @master_data.merge! :gender => Vger::Spartan::Dilios::Gender.all
     @master_data.merge! :marital_status => Vger::Spartan::Dilios::MaritalStatus.all
   end
@@ -218,6 +240,32 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job = Recruiters::Job.find(:uuid => params[:id]).first
   end
 
+  def leo_job
+    Vger::Spartan::Opus::Recommendation\
+      .find_by_reference_key(params[:id],
+                             :params => {
+                               :include_related => [:job_category,
+                                                    :company,
+                                                    :work_profile,
+                                                    :degree,
+                                                    :job,
+                                                    :location
+                                                   ],
+                               :include => {
+                                 :methods => [:required_skills,
+                                              :industries,
+                                              :job_posters,
+                                              :job_perks,
+                                              :weekly_offs,
+                                              :time_slots,
+                                              :job_types,
+                                              :recruiters,
+                                              :eligibility_criteria,
+                                              :required_academic_qualifications,
+                                              :eligibility_criteria_with_edge_properties]
+                               }
+                             })
+  end
   # def init_job_struct
   #   @job = OpenStruct.new
 
