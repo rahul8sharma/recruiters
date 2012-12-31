@@ -55,5 +55,6 @@ Recruiters::Application.configure do
   config.middleware.delete ::ExceptionNotifier
   config.active_record.auto_explain_threshold_in_seconds = nil
 
-  config.redis_server = "resque.recruiters.jombaylocal.com:6379"
+  config.redis_server = "resque.recruiters.jombaylocal.com:6379/1"
+  config.ohm = 'redis://resque.recruiters.jombaylocal.com:6379/0'
 end

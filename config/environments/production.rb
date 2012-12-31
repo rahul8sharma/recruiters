@@ -66,5 +66,6 @@ Recruiters::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   #
 
-  config.redis_server = "resque.recruiters.jombay.com:6379"
+  config.redis_server = "resque.recruiters.jombay.com:6379/1"
+  config.ohm = "redis://resque.recruiters.jombay.com:6379/0"
 end
