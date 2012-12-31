@@ -1,5 +1,5 @@
 - if @job.additional_detail.present?
-  - if @job.additional_detail.application_instruction.present? || @job.additional_detail.candidate.values.all? { |val| val.present? }
+  - if @job.additional_detail.application_instruction.present? || @job.additional_detail.candidate.values.any? { |val| val.present? }
     .heading.gray_bg
       Additional Details
       - if allow_edit ||= false
