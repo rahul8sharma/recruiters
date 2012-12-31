@@ -1,5 +1,5 @@
 - content_for :javascripts do
-  = javascript_include_tag "users/signup"
+  = javascript_include_tag "users/forgot_password/edit"
 - content_for :recruiter_title do
   .t_heading.clearfix.padding_left_right1
     .biggest_text.white.font_normal.line_height2
@@ -16,8 +16,12 @@
     .blue_bg.info_text
       Please Enter New Password.
     .divider1
+    - if @pen.errors.present?
+      .alert.alert-block.alert-error
+        %h4.alert-heading Error!
+        #{ @pen.errors.first }
   .registration_form
-    = form_tag(user_password_path, :method => :put, :id => "signupForm", :class => "form-horizontal") do
+    = form_tag(user_password_path, :method => :put, :id => "formResetPassword", :class => "form-horizontal") do
       = fields_for @user do |f|
         = f.hidden_field :reset_password_token
         .control-group
