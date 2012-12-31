@@ -70,5 +70,5 @@ Recruiters::Application.configure do
   }
 
   config.redis_server = "resque.ur-nl.com:6379/1"
-  config.ohm = 'redis://resque.ur-nl.com:6379/0"
+  config.ohm = 'redis://resque.ur-nl.com:6379/0'
 end
