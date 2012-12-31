@@ -47,7 +47,9 @@ module Recruiters
       @pen.change_password(:user => params[:user])
 
       if @pen.errors
+        @user = User.new
         respond_to do |format|
+          format.html { render :action => :edit }
           format.json {render :json => { :error => @pen.errors}, :status => 422 }
         end
       else
