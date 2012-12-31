@@ -128,7 +128,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
     @job.save!
 
     if params[:status] == "pending"
-      flash[:job_posted] = true
+      flash[:job_posted] = "true"
       Vger::Herald::Notification.create(:event => "recruiters/jobpost_pending", :view_params => {:user_ids => [current_user.sid], :job_title => @job.name, :urls => {:post_job => job_posting_recruiters_dashboard_index_url}})
     end
 
