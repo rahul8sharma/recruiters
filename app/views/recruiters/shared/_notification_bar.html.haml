@@ -1,7 +1,7 @@
 .clr
 
 - flash.each do |type, message|
-  - unless flash[type] != flash[:job_posting]
+  - unless flash[type] == flash[:job_posting]
     .alert.span12.fl_none.margin_auto{:class => bootstrap_type(type) }
       %p
         =message.html_safe

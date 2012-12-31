@@ -17,6 +17,10 @@
   
 .rec_rhs
   .divider1
+  - if @pen.errors.present?
+    .alert.alert-block.alert-error
+      %h4.alert-heading Error!
+      #{ @pen.errors.first }
   .biggest_text.faded_dark.font_normal.line_height2.offset1
     Account Details
   .registration_form

@@ -15,7 +15,11 @@
   = render :partial => "recruiters/shared/help_block"
   
 .rec_rhs
-  .divider2
+  .divider1
+  - if @pen.errors.present?
+    .alert.alert-block.alert-error
+      %h4.alert-heading Error!
+      #{ @pen.errors }
   .registration_form
     = form_tag user_session_path(:redirect_to => @redirect_to), :id => "loginForm", :class => "form-horizontal" do
       = fields_for :user do |f|
