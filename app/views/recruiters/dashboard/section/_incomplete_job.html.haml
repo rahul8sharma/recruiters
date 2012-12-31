@@ -1,5 +1,5 @@
 %li.listing_snippet
-  %a.job_title.pull-left{:href => recruiters_job_path(:id => incomplete_job.uuid), :title => "#{incomplete_job.name}"}
+  %a.job_title.pull-left{:href => edit_recruiters_jobs_path(:id => incomplete_job.uuid, :section => "job-details"), :title => "#{incomplete_job.name}"}
     = truncate(incomplete_job.name, :length => 45)
   .date.pull-right
     = incomplete_job.updated_at.strftime("%b %d")
