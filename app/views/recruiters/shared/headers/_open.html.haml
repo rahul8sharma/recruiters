@@ -10,9 +10,9 @@
       .navigations
         %ul.menu.unstyled.clearfix
           %li
-            %a{:href => new_user_session_path} Log In
+            %a{:href => new_user_session_path(:redirect_to => @redirect_to)} Log In
           %li
-            %a{:href => new_user_registration_path} Register
+            %a{:href => new_user_registration_path(:redirect_to => @redirect_to)} Register
           %li.selected.fade_blue.medium_text
             %a{:href => link_to_jobseeker_app} 
               For Job Seekers
