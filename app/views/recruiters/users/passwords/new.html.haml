@@ -21,6 +21,10 @@
     .blue_bg.info_text
       Enter your Email id, and we will email you instructions on how to reset your password.
     .divider1
+    - if @pen.errors.present?
+      .alert.alert-block.alert-error
+        %h4.alert-heading Error!
+        #{ @pen.errors.first }
   .registration_form
     = form_for :user, :url => user_password_path, :html => {:id => "signupForm", :class => "form-horizontal"} do |f|
       .control-group
