@@ -16,10 +16,13 @@
     .medium_text.text_right.span5
       %strong Annual Salary
     .description.span10
-      Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
-      - if (@job.salary.show.to_s == "false")
-        .faded_light
-          Do not disclose salary to candidates
+      - if @job.salary.try(:min_range).blank? && @job.salary.try(:max_range).blank?
+        No Constraint
+      - else    
+        Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
+        - if (@job.salary.show.to_s == "false")
+          .faded_light
+            Do not disclose salary to candidates
 - if @job.perk.present?
   .section  
     .medium_text.text_right.span5
