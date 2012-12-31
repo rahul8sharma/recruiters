@@ -124,7 +124,7 @@ module JobsHelper
         :name => Vger::Spartan::Opus::Recommendation.find(recommendation.to_i).name
         }
     end
-    @preselect_job_recommendations = job_recommendations.map { |element| Hashie::Mash.new(element)}
+    job_recommendations.map { |element| Hashie::Mash.new(element)}
   end
 
   def preselect_job_categories(categories)
@@ -133,7 +133,7 @@ module JobsHelper
         :name => Vger::Spartan::Opus::JobCategory.find(category.to_i).name
         }
     end
-    @preselect_job_categories = job_categories.map { |element| Hashie::Mash.new(element)}
+    job_categories.map { |element| Hashie::Mash.new(element)}
   end
 
   def preselect_job_locations(locations)
@@ -142,7 +142,7 @@ module JobsHelper
         :name => Vger::Penumbra::Geography.find(location.to_i).name
         }
     end
-    @preselect_job_locations = job_locations.map { |element| Hashie::Mash.new(element)}
+    job_locations.map { |element| Hashie::Mash.new(element)}
   end
 
   def preselect_job_qualifications(qualifications)
@@ -156,7 +156,7 @@ module JobsHelper
         :specialization_name => Vger::Spartan::Opus::Recommendation.find(specialization.to_i).name
         }
     end
-    @preselect_job_qualifications = job_acads.map { |element| Hashie::Mash.new(element)}
+    job_acads.map { |element| Hashie::Mash.new(element)}
   end
 
   def preselect_job_must_skills(skills)
@@ -169,7 +169,7 @@ module JobsHelper
         :experience => experience
         }
     end
-    @preselect_job_must_skills = job_skills.map { |element| Hashie::Mash.new(element)}
+    job_skills.map { |element| Hashie::Mash.new(element)}
   end
 
   def preselect_job_nice_skills(skills)
@@ -178,7 +178,7 @@ module JobsHelper
         :name => Vger::Spartan::Opus::Recommendation.find(skill.to_i).name
         }
     end
-    @preselect_job_nice_skills = job_skills.map { |element| Hashie::Mash.new(element)}
+    job_skills.map { |element| Hashie::Mash.new(element)}
   end
 
 end
