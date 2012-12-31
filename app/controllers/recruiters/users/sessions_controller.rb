@@ -8,7 +8,7 @@ module Recruiters
     
     def new
       @user = User.new
-      auth = Vger::Authentication.new
+      @pen = Vger::Authentication.new
       @redirect_to = if params[:redirect_to].present?
                        params[:redirect_to]
                      else
@@ -23,16 +23,16 @@ module Recruiters
     # POST /resource/sign_in
     def create
       @user = User.new(params[:user])
-      auth = Vger::Authentication.new
-      auth_token = auth.signin(:user => params[:user])
+      @pen = Vger::Authentication.new
+      auth_token = @pen.signin(:user => params[:user])
       @redirect_to = params[:redirect_to] || env['HTTP_REFERER'] || default_after_signin_path
-      if auth.errors.empty?
+      if @pen.errors.empty?
         @user = set_yoren_session(auth_token)
         #flash[:notice] = "Successfully logged in."
         respond_with @user, :location => @redirect_to
       else
         respond_to do |format|
-          format.json {render :json => { :error => auth.errors}, :status => 401 }
+          format.json {render :json => { :error => @pen.errors}, :status => 401 }
           format.html { render :action => :new }
         end
       end
