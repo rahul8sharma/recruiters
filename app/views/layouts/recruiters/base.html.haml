@@ -44,7 +44,7 @@
     - if content_for?(:footer)
       = yield (:footer)
     - else
-      - cache([:main_footer, 31_12_2012].join(".")) do
+      - cache([:main_footer, 31_12_2012_16_30].join(".")) do
         = render :partial => "recruiters/shared/footer"
 
     
