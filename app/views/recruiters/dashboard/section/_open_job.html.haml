@@ -7,9 +7,11 @@
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    %a.pull-left{:href => recruiters_job_candidates_path(:job_id => open_job.reference_key), :title => "Number of candidates"}
-      %i.icon-user.icon-large
-      View candidates
+    - job_posters = safe_access(open_job, :job_posters)
+    - unless job_posters.try(:first).try(:job_poster_type) == "Jombay Premium"
+      %a.pull-left{:href => recruiters_job_candidates_path(:job_id => open_job.reference_key), :title => "Number of candidates"}
+        %i.icon-user.icon-large
+        View candidates
     -#
       .bottom_sec_hidden.pull-left
         %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}

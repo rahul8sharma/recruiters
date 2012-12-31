@@ -86,20 +86,20 @@
           Show all Incomplete Jobs
       .clr
     .divider2
-
-  - if @jobs[:closed].present?
-    .dash_listing{data: {"section" => true}}
-      .dash_listing_title
-        .pull-left
-          %a{:href => status_recruiters_jobs_path(:status => "closed")}
-            Closed Jobs (#{@jobs[:closed].total_entries})
-        %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimise/Maximise Here", "data-section_collapser" => true}
-          \-
-        .clr
-      %div{data: {"section_content" => true}}
-        %ul.listing
-          = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs[:closed]
-        %a.show_details{:href => status_recruiters_jobs_path(:status => "closed"), :title => "View all Closed jobs"}
-          Show all Closed Jobs 
-        .clr
-    .divider2
+  -#
+    - if @jobs[:closed].present?
+      .dash_listing{data: {"section" => true}}
+        .dash_listing_title
+          .pull-left
+            %a{:href => status_recruiters_jobs_path(:status => "closed")}
+              Closed Jobs (#{@jobs[:closed].total_entries})
+          %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimise/Maximise Here", "data-section_collapser" => true}
+            \-
+          .clr
+        %div{data: {"section_content" => true}}
+          %ul.listing
+            = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs[:closed]
+          %a.show_details{:href => status_recruiters_jobs_path(:status => "closed"), :title => "View all Closed jobs"}
+            Show all Closed Jobs 
+          .clr
+      .divider2
