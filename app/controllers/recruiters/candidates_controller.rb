@@ -9,7 +9,7 @@ class Recruiters::CandidatesController < Recruiters::ApplicationController
       options.merge!(:user => user) if user.present?
       [
        new_user_registration_path(options),
-       'You need to sign up to continue.'
+       'You need to Register/Log In to continue.'
       ]
     end
   end
