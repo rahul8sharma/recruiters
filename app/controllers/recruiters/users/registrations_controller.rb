@@ -7,6 +7,7 @@ module Recruiters
     respond_to :html, :xml, :js, :json
     
     def new
+      @pen = Vger::Authentication.new()
       @user = User.new
       if params[:user].present?
         @email = Base64.urlsafe_decode64(params[:user]) rescue nil
@@ -23,14 +24,14 @@ module Recruiters
     def create
       @redirect_to = params["redirect_to"] || default_after_signup_path
 
-      auth = Vger::Authentication.new
-      auth_token = auth.register(default_after_signup_url,
+      @pen = Vger::Authentication.new
+      auth_token = @pen.register(default_after_signup_url,
                                  recruiters_root_url(:trailing_slash => false),
                                  {
                                    :user => params[:user],
                                    :autoconfirm => 1
                                  })
-      if auth.errors.empty?
+      if @pen.errors.empty?
         @user = set_yoren_session(auth_token)
 
         recruiter = Vger::Spartan::Vanguard::Recruiter.find_by_user_id(@user.email)
@@ -57,7 +58,7 @@ module Recruiters
       else
         @user = User.new
         respond_to do |format|
-          format.json {render :json => { :error => auth.errors}, :status => 401 }
+          format.json {render :json => { :error => @pen.errors}, :status => 401 }
           format.html { render :action => :new }
         end
       end
