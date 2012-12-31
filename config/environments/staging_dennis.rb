@@ -68,4 +68,7 @@ Recruiters::Application.configure do
   config.action_mailer.default_url_options = {
     :host => 'dennis.recruiters.ur-nl.com'
   }
+
+  config.redis_server = "resque.ur-nl.com:6379"
+
 end
