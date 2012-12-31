@@ -45,7 +45,7 @@ class ExportJobs
         }.compact.join(",")
       },
       :openings => :total_openings,
-      :disclose_salary => lambda{ |job| (job.salary.show.to_s rescue '') == "true" },
+      :disclose_salary => lambda{ |job| !((job.salary.show.to_s rescue '') == "true") },
       :site_url => '',
       :application_url => lambda{ |job| (job.contact_detail.application_url rescue nil) || ''},
       :application_instructions => lambda{ |job| (job.additional_detail.application_instruction rescue nil) || ''},
