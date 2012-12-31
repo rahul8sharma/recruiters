@@ -20,7 +20,7 @@ Recruiters::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
   config.assets.initialize_on_precompile = false
-  
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
@@ -68,4 +68,6 @@ Recruiters::Application.configure do
   config.action_mailer.default_url_options = {
     :host => 'steve.recruiters.ur-nl.com'
   }
+
+  config.redis_server = "resque.ur-nl.com:6379"
 end

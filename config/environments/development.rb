@@ -32,14 +32,14 @@ Recruiters::Application.configure do
   # Do not compress assets
   config.assets.compress = false
   config.assets.initialize_on_precompile = false
-  
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
   config.serve_static_assets = true
-  
+
   # Generate digests for assets URLs
   config.assets.digest = false
-  
+
   # Expands the lines which load the assets
   config.assets.debug = true
   config.assets.logger = nil
@@ -47,11 +47,13 @@ Recruiters::Application.configure do
   #config.cache_store = :dalli_store, 'cache.recruiters.jombaylocal.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
 
   #config.cache_store = :redis_store
-  
+
   config.action_mailer.default_url_options = {
     :host => 'recruiters.jombaylocal.com'
   }
 
   config.middleware.delete ::ExceptionNotifier
   config.active_record.auto_explain_threshold_in_seconds = nil
+
+  config.redis_server = "resque.recruiters.jombaylocal.com:6379"
 end

@@ -22,9 +22,9 @@ namespace :resque do
     # The schedule doesn't need to be stored in a YAML, it just needs to
     # be a hash.  YAML is usually the easiest.
 
-    resque_config = YAML.load_file(Rails.root + 'config/resque.yml')
-    
-    Resque.redis = resque_config[Rails.env]
+    #resque_config = YAML.load_file(Rails.root + 'config/resque.yml')
+
+    Resque.redis = Rails.application.config.redis_server #resque_config[Rails.env]
     Resque.redis.namespace = "resque_recruiters_jombay_#{Rails.env}"
     Resque.schedule = YAML.load_file(Rails.root + 'config/resque_schedule.yml')
 

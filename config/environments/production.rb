@@ -13,14 +13,14 @@ Recruiters::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
   config.assets.initialize_on_precompile = false
-  
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
@@ -64,4 +64,7 @@ Recruiters::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  #
+
+  config.redis_server = "resque.recruiters.jombay.com:6379"
 end
