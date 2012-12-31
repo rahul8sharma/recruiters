@@ -62,10 +62,28 @@ function initJobLocationPseudoSelect(select) {
   }
 }
 
+function initAcadTemplate() {
+  window.acad_template = {
+    acad: Handlebars.compile($("#academic_display_template[type='text/x-template']").html())
+  };
+}
+
 function initSkillTemplate() {
   window.skill_template = {
     must: Handlebars.compile($("#must_skill_display_template[type='text/x-template']").html())
   };
+}
+
+function initQualificationSpecializationPseudoSelect(select, qualification_specialization) {
+  if (select.length && (select.find("option:selected").val() != "")) {
+    var container = $("[data-preferred-qualification_specialization-container]");
+    var snippet = container.find("[data-snippet]");
+    var is_present = (snippet.attr("data-snippet") == qualification_specialization.qualification_id);
+    if(is_present) {
+      snippet.remove();
+    }
+    $(acad_template.acad(qualification_specialization)).appendTo(container);
+  }
 }
 
 function initMustSkillPseudoSelect(select, skill) {
@@ -166,8 +184,8 @@ var job_requirements_validation_options = function() {
   {
     ignore: "",
     rules: {
-      "qualification[degree_diploma][]": {
-        required: true
+      "job_qualification_ids": {
+        check_presence: "qualification[degree_diploma][]"
       },
       "job_must_skill_ids": {
         check_presence: "skill[must][skill_id][]"
@@ -294,7 +312,6 @@ function setupCompanyDetailsValidations() {
         },
         submitHandler: function(form) {
           var params = $(form).serializeObject();
-          console.log(params["company[name]"]);
           $("[data-employer_details] input[name='company[name]']").val(params["company[name]"]);
           $("[data-employer_details] input[name='company[description]']").val(params["company[description]"]);
           $("[data-employer_details] input[name='company[url]']").val(params["company[url]"]);
@@ -339,8 +356,10 @@ function setupEmployerDetailsValidations() {
 $(function() {
 
   initSkillTemplate();
+  initAcadTemplate();
 
   $("[data-chosen_select]").chosen();
+  $("[data-chosen_select]").trigger("liszt:updated");
 
   $("select[data-job_industry_pseudo_select]").on("change", function() {
   	initJobIndustryPseudoSelect($(this));
@@ -364,6 +383,19 @@ $(function() {
       initMustSkillPseudoSelect($(this), skill);
     }
   });
+
+  $("select[data-academic_specialization_pseudo_select]").on("change", function() {
+    if($("[data-academic_qualification_select]").val() != "") {
+      var qualification_specialization = {
+            qualification_id: $("[data-academic_qualification_select]").val(),
+            qualification_name: $("[data-academic_qualification_select]").find("option:selected").text(),
+            specialization_id: $("select[data-academic_specialization_pseudo_select]").val(),
+            specialization_name: $("select[data-academic_specialization_pseudo_select]").find("option:selected").text()
+          };
+      initQualificationSpecializationPseudoSelect($(this), qualification_specialization);
+    }
+  });
+
   $("select[data-nice_skill_pseudo_select]").on("change", function() {
     initNiceSkillPseudoSelect($(this));
   });
@@ -480,7 +512,6 @@ $(function() {
   });
 
   // $("select[data-job-category]").on("change", function() {
-  // 	// console.log($(this));
   // 	initCategoryPseudoSelect($(this));
   //   // var that = $(this);
   //   // chainedSelect(

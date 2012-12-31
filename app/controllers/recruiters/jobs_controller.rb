@@ -10,7 +10,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   
   layout "recruiters/jobs"
   
-  PER_PAGE = 3
+  PER_PAGE = 10
 
   def flush
     respond_to do |format|
@@ -83,11 +83,11 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def status
     status = Recruiters::Job::STATUSES[params[:status]]
     if status.present?
-      @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).paginate(:page => 1, :per_page => PER_PAGE)
+      @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).paginate(:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE)
     elsif params[:status] == "open"
-      @jobs = Recruiters::Job.open(current_user.leonidas_resource, {:page => 1, :per_page => PER_PAGE})
+      @jobs = Recruiters::Job.open(current_user.leonidas_resource, {:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE})
     elsif params[:status] == "closed"
-      @jobs = Recruiters::Job.closed(current_user.leonidas_resource, {:page => 1, :per_page => PER_PAGE})
+      @jobs = Recruiters::Job.closed(current_user.leonidas_resource, {:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE})
     end
   end
 

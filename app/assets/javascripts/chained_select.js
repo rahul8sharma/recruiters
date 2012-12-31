@@ -1,11 +1,8 @@
 // Populate select box with new options
 function populate_select(select_box, data, data_source, generate_option, prompt) {
-  console.log([select_box, data, data_source, generate_option, prompt]);
   select_box.attr('disabled', 'disabled');
   prompt = prompt || "Please select";
-  console.log("b4 append");
   select_box.empty().append('<option value="">' + prompt + '</option>');
-  console.log("after appeend");
 
   data.sort(function(a, b) {
     if(a[data_source].name < b [data_source].name) {

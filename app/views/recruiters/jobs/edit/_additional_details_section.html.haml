@@ -38,7 +38,7 @@
     %label.control-label
       Are there any kind of people that you do not want to hire? 
     .controls
-      = text_area_tag("additional_detail[candidate][undesired]", @job.try(:additional_detail).try(:undesired), :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
+      = text_area_tag("additional_detail[candidate][undesired]", @job.try(:additional_detail).try(:candidate).try(:undesired), :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
   .divider1
   
   .form-actions
