@@ -43,9 +43,8 @@
     %label.control-label
     .controls
       %label.checkbox
-        = hidden_field_tag("salary[show]", "false")
-        = check_box_tag("salary[show]", "true", @job.try(:salary).try(:show) == "true")
-        -#%input{:type => "checkbox", :value => ""}
+        = hidden_field_tag("salary[show]", "true")
+        = check_box_tag("salary[show]", "false", @job.try(:salary).try(:show).to_s == "false")
         Do not disclose salary to candidates
 
   .control-group

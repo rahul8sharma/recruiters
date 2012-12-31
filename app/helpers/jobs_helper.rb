@@ -101,6 +101,15 @@ module JobsHelper
                )
   end
 
+  def academic_template_struct
+    OpenStruct.new(
+               qualification_id: "{{ qualification_id }}",
+               qualification_name: "{{ qualification_name }}",
+               specialization_id: "{{ specialization_id }}",
+               specialization_name: "{{ specialization_name }}"
+               )
+  end
+
   def skill_template_struct
     OpenStruct.new(
                id: "{{ id }}",
@@ -108,4 +117,68 @@ module JobsHelper
                experience: "{{ experience }}"
                )
   end
+
+  def preselect_job_recommendations(recommendations)
+    job_recommendations = recommendations.map do |recommendation|
+       {:id => recommendation.to_i,
+        :name => Vger::Spartan::Opus::Recommendation.find(recommendation.to_i).name
+        }
+    end
+    @preselect_job_recommendations = job_recommendations.map { |element| Hashie::Mash.new(element)}
+  end
+
+  def preselect_job_categories(categories)
+    job_categories = categories.map do |category|
+       {:id => category.to_i,
+        :name => Vger::Spartan::Opus::JobCategory.find(category.to_i).name
+        }
+    end
+    @preselect_job_categories = job_categories.map { |element| Hashie::Mash.new(element)}
+  end
+
+  def preselect_job_locations(locations)
+    job_locations = locations.map do |location|
+       {:id => location.to_i,
+        :name => Vger::Penumbra::Geography.find(location.to_i).name
+        }
+    end
+    @preselect_job_locations = job_locations.map { |element| Hashie::Mash.new(element)}
+  end
+
+  def preselect_job_qualifications(qualifications)
+    degrees = qualifications.degree_diploma
+    specializations = qualifications.specialization
+
+    job_acads = degrees.zip(specializations).map do |degree, specialization|
+       {:qualification_id => degree.to_i,
+        :qualification_name => Vger::Spartan::Opus::Recommendation.find(degree.to_i).name,
+        :specialization_id => specialization.to_i,
+        :specialization_name => Vger::Spartan::Opus::Recommendation.find(specialization.to_i).name
+        }
+    end
+    @preselect_job_qualifications = job_acads.map { |element| Hashie::Mash.new(element)}
+  end
+
+  def preselect_job_must_skills(skills)
+    ids = skills.skill_id
+    exp = skills.experience
+
+    job_skills = ids.zip(exp).map do |skill, experience|
+       {:id => skill.to_i,
+        :name => Vger::Spartan::Opus::Recommendation.find(skill.to_i).name,
+        :experience => experience
+        }
+    end
+    @preselect_job_must_skills = job_skills.map { |element| Hashie::Mash.new(element)}
+  end
+
+  def preselect_job_nice_skills(skills)
+    job_skills = skills.map do |skill|
+       {:id => skill.to_i,
+        :name => Vger::Spartan::Opus::Recommendation.find(skill.to_i).name
+        }
+    end
+    @preselect_job_nice_skills = job_skills.map { |element| Hashie::Mash.new(element)}
+  end
+
 end
