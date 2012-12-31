@@ -1,3 +1,5 @@
+Ohm.connect(:url => Rails.application.config.ohm)
+
 class Ohm::BasicSet
   def paginate (options)
     current_page = options[:page].to_i

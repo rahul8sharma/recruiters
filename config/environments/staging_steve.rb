@@ -69,5 +69,6 @@ Recruiters::Application.configure do
     :host => 'steve.recruiters.ur-nl.com'
   }
 
-  config.redis_server = "resque.ur-nl.com:6379"
+  config.redis_server = "resque.ur-nl.com:6379/1"
+  config.ohm = 'redis://resque.ur-nl.com:6379/0"
 end
