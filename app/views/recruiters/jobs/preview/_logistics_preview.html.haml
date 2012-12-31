@@ -1,69 +1,70 @@
-.heading.gray_bg
-  Compensation &amp; Logistics
-  - if allow_edit ||= false
-    .pull-right
-      %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "logistics"), :title => "Edit this section"}
-        Edit
-- if @job.kind_of.present?
-  .section  
-    .medium_text.text_right.span5
-      %strong Type of Employment
-    .description.span10
-      .highlight_badge.span
-        #{Vger::Spartan::Opus::KindOfJob.find(@job.kind_of).name}
-- if @job.salary.present?
-  .section  
-    .medium_text.text_right.span5
-      %strong Annual Salary
-    .description.span10
-      - if @job.salary.try(:min_range).blank? && @job.salary.try(:max_range).blank?
-        No Constraint
-      - else    
-        Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
-        - if (@job.salary.show.to_s == "false")
-          .faded_light
-            Do not disclose salary to candidates
-- if @job.perk.present?
-  .section  
-    .medium_text.text_right.span5
-      %strong Perks Offered
-    .description.span10
-      - @job.perk.each do |perk|
-        .highlight_badge.span8.first
-          #{Vger::Spartan::Opus::JobPerk.find(perk).name}
-    - if @job.additional_perk.present?
-      .highlight_badge.span8.first
-        #{@job.additional_perk}
-- if @job.time_slot.present?
-  .section  
-    .medium_text.text_right.span5
-      %strong Shift Timings
-    .description.span10
-      - @job.time_slot.each do |slot|
+- if @job.kind_of.present? || @job.salary.present? || @job.perk.present? || @job.time_slot.present? || @job.offday.present? || @job.involves_travel.present? || @job.government_job.present? || @job.own_vehicle.present? || @job.walkin.present?
+  .heading.gray_bg
+    Compensation &amp; Logistics
+    - if allow_edit ||= false
+      .pull-right
+        %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "logistics"), :title => "Edit this section"}
+          Edit
+  - if @job.kind_of.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Type of Employment
+      .description.span10
         .highlight_badge.span
-          = Vger::Spartan::Opus::TimeSlot.find(slot).name
-- if @job.offday.present?
-  .section  
-    .medium_text.text_right.span5
-      %strong Weekly Offs on
-    .description.span10
-      - @job.offday.each do |day|
-        .highlight_badge.span
-          #{Vger::Spartan::WeekDay.find(day).name}
-- if (@job.involves_travel.present? || @job.government_job.present? || @job.own_vehicle.present? || @job.walkin.present?)
-  .section  
-    .medium_text.text_right.span5
-      %strong Additional Information
-    .description.span10
-      - if @job.involves_travel.to_s == "true"
+          #{Vger::Spartan::Opus::KindOfJob.find(@job.kind_of).name}
+  - if @job.salary.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Annual Salary
+      .description.span10
+        - if @job.salary.try(:min_range).blank? && @job.salary.try(:max_range).blank?
+          No Constraint
+        - else    
+          Rs. #{@job.salary.min_range} to #{@job.salary.max_range} in Lakhs/Year
+          - if (@job.salary.show.to_s == "false")
+            .faded_light
+              Do not disclose salary to candidates
+  - if @job.perk.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Perks Offered
+      .description.span10
+        - @job.perk.each do |perk|
+          .highlight_badge.span8.first
+            #{Vger::Spartan::Opus::JobPerk.find(perk).name}
+      - if @job.additional_perk.present?
         .highlight_badge.span8.first
-          = additional_info_enum[:involves_travel]
-      - if @job.government_job.to_s == "true"
-        .highlight_badge.span8.first
-          = additional_info_enum[:government_job]
-      - if @job.own_vehicle.to_s == "true"
-        .highlight_badge.span8.first
-          = additional_info_enum[:own_vehicle]
-      - if @job.walkin.to_s == "true"
-        .highlight_badge.span8.first
-          = additional_info_enum[:walkin]
+          #{@job.additional_perk}
+  - if @job.time_slot.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Shift Timings
+      .description.span10
+        - @job.time_slot.each do |slot|
+          .highlight_badge.span
+            = Vger::Spartan::Opus::TimeSlot.find(slot).name
+  - if @job.offday.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Weekly Offs on
+      .description.span10
+        - @job.offday.each do |day|
+          .highlight_badge.span
+            #{Vger::Spartan::WeekDay.find(day).name}
+  - if (@job.involves_travel.present? || @job.government_job.present? || @job.own_vehicle.present? || @job.walkin.present?)
+    .section  
+      .medium_text.text_right.span5
+        %strong Additional Information
+      .description.span10
+        - if @job.involves_travel.to_s == "true"
+          .highlight_badge.span8.first
+            = additional_info_enum[:involves_travel]
+        - if @job.government_job.to_s == "true"
+          .highlight_badge.span8.first
+            = additional_info_enum[:government_job]
+        - if @job.own_vehicle.to_s == "true"
+          .highlight_badge.span8.first
+            = additional_info_enum[:own_vehicle]
+        - if @job.walkin.to_s == "true"
+          .highlight_badge.span8.first
+            = additional_info_enum[:walkin]
