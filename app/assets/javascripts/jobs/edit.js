@@ -134,8 +134,8 @@ $.validator.addMethod("check_presence", function(value, element, params) {
 $.validator.addMethod("chronological", function(value, element, params) {
   var form = $(element).parents("form");
 
-  var From = parseInt(form.find("[name='" + params.from.range + "']").val());
-  var To = parseInt(form.find("[name='" + params.to.range + "']").val());
+  var From = parseFloat(form.find("[name='" + params.from.range + "']").val());
+  var To = parseFloat(form.find("[name='" + params.to.range + "']").val());
   
   if(isNaN(From) || isNaN(To)){
     return this.optional(element);
@@ -205,7 +205,7 @@ var job_requirements_validation_options = function() {
     options.rules["work_experience[max_range]"] = {
       required: true,
       number: true,
-      chronological : {
+      chronological: {
         from : {
           range: "work_experience[min_range]"
         },
@@ -261,11 +261,11 @@ var logistics_validation_options = function() {
     options.rules["salary[max_range]"] = {
       required: true,
       number: true,
-      chronological : {
-        from : {
+      chronological: {
+        from: {
           range: "salary[min_range]"
         },
-        to : {
+        to: {
           range: "salary[max_range]"
         }
       }
