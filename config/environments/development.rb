@@ -14,7 +14,7 @@ Recruiters::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-	config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -44,7 +44,7 @@ Recruiters::Application.configure do
   config.assets.debug = true
   config.assets.logger = nil
 
-  config.cache_store = :dalli_store, 'cache.recruiters.jombaylocal.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
+  #config.cache_store = :dalli_store, 'cache.recruiters.jombaylocal.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
 
   #config.cache_store = :redis_store
   
@@ -53,4 +53,5 @@ Recruiters::Application.configure do
   }
 
   config.middleware.delete ::ExceptionNotifier
+  config.active_record.auto_explain_threshold_in_seconds = nil
 end
