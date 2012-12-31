@@ -300,10 +300,10 @@ function setupCompanyDetailsValidations() {
       {
         ignore: "",
         rules: {
-          "company_name": {
+          "company[name]": {
             required: true
           },
-          "company_location": {
+          "company[location][geography_id][]": {
             required: true
           }
         },
@@ -317,6 +317,7 @@ function setupCompanyDetailsValidations() {
           $("[data-employer_details] input[name='company[url]']").val(params["company[url]"]);
           $("[data-employer_details] input[name='company[address]']").val(params["company[address]"]);
           $("[data-employer_details] input[name='company[location][geography_id][]']").val(params["company[location][geography_id][]"]);
+          $("form[data-employer_details] [data-preview_job]").removeAttr("disabled");
           return false;
         }
       }, bootstrap_error_settings
@@ -485,6 +486,7 @@ $(function() {
     $("form[data-company_details] button[type='submit']").removeClass("hide");
     $("form[data-company_details] [data-edit_company_profile]").remove();
     $("form[data-company_details] [name='contact[profile]']").removeAttr("disabled");
+    $("form[data-employer_details] [data-preview_job]").attr("disabled", true);
     showElement(false, "name");
     showElement(false, "description");
     showElement(false, "url");

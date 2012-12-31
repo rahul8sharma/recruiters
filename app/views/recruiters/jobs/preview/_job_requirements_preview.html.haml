@@ -8,9 +8,11 @@
   .section  
     .medium_text.text_right.span5
       %strong Years of Work Experience
-    - if @job.work_experience.type.to_s == "true"
-      .description.span10
+    .description.span10
+      - if @job.work_experience.type.to_s == "true"
         #{@job.work_experience.min_range} - #{@job.work_experience.max_range} yrs of Experience
+      - else
+        Fresher
 - if @job.qualification.present?
   .section  
     .medium_text.text_right.span5

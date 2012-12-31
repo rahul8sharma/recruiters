@@ -118,8 +118,8 @@
     .form-actions
       %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
         Previous
-      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
-        %strong Continue
+      %button.pull-right{:class => "btn btn-info offset1", :type => "submit", "data-preview_job" => true}
+        %strong Next Step
       %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
         %strong save and continue later
       .clr

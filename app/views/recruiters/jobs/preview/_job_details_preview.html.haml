@@ -12,14 +12,14 @@
 .section  
   .medium_text.text_right.span5
     %strong Functional Area of this Role
-  - (@job.categories || []).each do |category|
-    .description.span10
+  .description.span10
+    - (@job.categories || []).each do |category|
       = Vger::Spartan::Opus::JobCategory.find(category).name
 .section  
   .medium_text.text_right.span5
     %strong Job Profile
-  - (@job.profiles || []).each do |profile|
-    .description.span10
+  .description.span10
+    - (@job.profiles || []).each do |profile|
       = Vger::Spartan::Opus::Recommendation.find(profile).name
 .section  
   .medium_text.text_right.span5
