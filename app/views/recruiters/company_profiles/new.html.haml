@@ -29,7 +29,7 @@
           = select_tag("type", options_from_collection_for_select(Vger::Spartan::Vanguard::RecruiterType.all, :id, :name), :prompt => "Select Type", :class => "span9")
       .control-group
         %label.control-label
-          Company Name
+          Company Name*
         .controls
           = text_field_tag "company[name]", "", :placeholder => "Type company name here", :class => "span9"
       .control-group
