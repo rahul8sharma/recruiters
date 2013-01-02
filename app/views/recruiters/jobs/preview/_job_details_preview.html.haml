@@ -22,7 +22,7 @@
     .medium_text.text_right.span5
       %strong Job Profile
     .description.span10
-      = @job.profiles.map {|profile| Vger::Spartan::Opus::Recommendation.find(profile).name}.map {|profile_name| "#{profile_name}"}.join(", ")
+      = @job.profiles.map {|profile| Vger::Spartan::Opus::Recommendation.find(profile).name}.join(", ")
 - if @job.total_openings.present?
   .section  
     .medium_text.text_right.span5
