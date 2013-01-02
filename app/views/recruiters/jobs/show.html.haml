@@ -24,10 +24,11 @@
       Download All Applicants
   .divider1
 
-  .job_action.medium_text
-    %a{:href => recruiters_job_candidates_path(:job_id => @job.reference_key.present? ? @job.reference_key : @job.uuid), :title => "Number of candidates"}
-      %i.icon-user.icon-large
-      View Candidates
+  - unless @job.status.present? && (@job.status == Recruiters::Job::STATUSES::PENDING || @job.status == Recruiters::Job::STATUSES::INCOMPLETE)
+    .job_action.medium_text
+      %a{:href => recruiters_job_candidates_path(:job_id => @job.reference_key.present? ? @job.reference_key : @job.uuid), :title => "Number of candidates"}
+        %i.icon-user.icon-large
+        View Candidates
     -#
       %a{:href => "#", :title => "Number of candidates"}
         %i.icon-share-alt.icon-large
