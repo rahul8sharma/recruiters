@@ -16,7 +16,6 @@ class Recruiters::CompanyProfilesController < ApplicationController
     current_user.leonidas_resource.company = params[:company]
     current_user.leonidas_resource.recruiter_type = Vger::Spartan::Vanguard::RecruiterType.find(params[:type])
     redirect_to @redirect
-
   end
 
   def show
@@ -30,5 +29,7 @@ class Recruiters::CompanyProfilesController < ApplicationController
   end
 
   def update
+    current_user.leonidas_resource.company = params[:company]
+    redirect_to recruiters_company_profile_path(:id => current_user.leonidas_resource.company.id)
   end
 end
