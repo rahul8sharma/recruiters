@@ -8,9 +8,10 @@
   .divider1
   .bottom_sec 
     //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    %a.pull-left{:title => "Number of candidates"}
-      %i.icon-user.icon-large
-      View candidates
+    -#
+      %a.pull-left{:title => "Number of candidates"}
+        %i.icon-user.icon-large
+        View candidates
     -#
       .bottom_sec_hidden.pull-left
         %a.pull-left{:href => duplicate_recruiters_job_path(:id => pending_job.uuid), :title => ""}
