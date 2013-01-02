@@ -42,6 +42,7 @@ gem 'unicorn', '4.5.0'
 gem 'devise', '2.1.2'
 gem "dalli", "2.6.0"
 gem "resque", "1.23.0", :require => 'resque/server'
+gem 'turbo-sprockets-rails3', '0.3.4'
 
 
 #gem 'vger', :path => '/home/letronje/workspace/src/vger'
