@@ -70,7 +70,7 @@
     .span10
       - @master_data[:time_slots].each_with_index do |slot, index|
         %label.checkbox.span4.first
-          = check_box_tag("time_slot[]", slot.id, (@job.time_slot.present? ? @job.time_slot.include?(slot.id.to_s) : @master_data[:default_slots].map(&:id).include?(slot.id)))
+          = check_box_tag("time_slot[]", slot.id, (@job.time_slot.nil? ? @master_data[:default_slots].map(&:id).include?(slot.id) : @job.time_slot.include?(slot.id.to_s)))
           #{ slot.name }
       .clr
 
@@ -80,7 +80,7 @@
     .span10
       - @master_data[:weekdays].each_with_index do |weekday, index|
         %label.checkbox.span4.first
-          = check_box_tag("offday[]", weekday.id, (@job.offday.present? ? @job.offday.include?(weekday.id.to_s) : @master_data[:default_offs].map(&:id).include?(weekday.id)))
+          = check_box_tag("offday[]", weekday.id, (@job.offday.nil? ? @master_data[:default_offs].map(&:id).include?(weekday.id) : @job.offday.include?(weekday.id.to_s)))
           #{ weekday.name }
       .clr
   .control-group
