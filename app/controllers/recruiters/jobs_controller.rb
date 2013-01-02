@@ -61,11 +61,25 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   end
 
   def update
-    @job.update(params.to_hash)
+    #Todo - Fix hardcoding of params
+    sectionwise_params = {
+      :logistics => [:perk, :time_slot, :offday]
+    }
+
+    current_section = params[:section].underscore.to_sym
+
+    default_params = (sectionwise_params[current_section] || []).reduce({}) { |hash, val|
+      hash.update(val => [])
+    }
+    
+    job_params = default_params.merge(params.to_hash)
+
 
     if @job.posted_by.blank?
-      @job.update(:posted_by => current_user.sid)
+      job_params.merge!(:posted_by => current_user.sid)
     end
+
+    @job.update(job_params)
 
     if params[:continue_later] == "true"
       redirect_to recruiters_root_path
