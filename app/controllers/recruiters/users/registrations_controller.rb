@@ -1,6 +1,7 @@
 module Recruiters
   class Users::RegistrationsController < ApplicationController
-    before_filter :redirect_if_logged_in!
+    before_filter :redirect_if_logged_in!, :except => [:update]
+    before_filter :redirect_if_not_logged_in!, :only => [:update]
 
     layout "recruiters/users"
 
