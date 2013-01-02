@@ -62,18 +62,13 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def update
     #Todo - Fix hardcoding of params
-    sectionwise_params = {
-      :logistics => [:perk, :time_slot, :offday]
+    sectionwise_defaults = { 
+      :logistics => { :perk => [], :time_slot => [], :offday => [] }
     }
 
     current_section = params[:section].underscore.to_sym
-
-    default_params = (sectionwise_params[current_section] || []).reduce({}) { |hash, val|
-      hash.update(val => [])
-    }
     
-    job_params = default_params.merge(params.to_hash)
-
+    job_params = (sectionwise_defaults[current_section] || {}).merge(params.to_hash)
 
     if @job.posted_by.blank?
       job_params.merge!(:posted_by => current_user.sid)
