@@ -12,7 +12,7 @@
     .divider2
     .title.faded_dark
       Edit Profile
-    = form_tag recruiters_company_profile_path(:redirect_to => ""), :id => "editCompanyProfileForm", :class => "form-horizontal" do
+    = form_tag recruiters_company_profile_path(:redirect_to => ""), :id => "editCompanyProfileForm", :class => "form-horizontal", :method => :put do
       = fields_for :company do |f|
         .control-group
           = f.label :type, "I am*", :class => "control-label"
@@ -21,7 +21,7 @@
         .control-group
           = f.label :name, "Company Name*", :class => "control-label"
           .controls
-            = f.text_field :name, :placeholder => "Prefilled", :class => "span9"
+            = f.text_field :name, :placeholder => "Type company name", :class => "span9"
         .control-group
           = f.label :description, "About Company", :class => "control-label"
           .controls
