@@ -51,7 +51,7 @@
         - @job.offday.each do |day|
           .highlight_badge.span
             #{Vger::Spartan::WeekDay.find(day).name}
-  - if (@job.involves_travel.present? || @job.government_job.present? || @job.own_vehicle.present? || @job.walkin.present?)
+  - if (@job.try(:involves_travel).to_s == "true" || @job.try(:government_job).to_s == "true" || @job.try(:own_vehicle) == "true" || @job.try(:walkin).to_s == "true")
     .section  
       .medium_text.text_right.span5
         %strong Additional Information
