@@ -62,7 +62,8 @@ class Recruiters::JobsController < Recruiters::ApplicationController
 
   def update
     #Todo - Fix hardcoding of params
-    sectionwise_defaults = { 
+    sectionwise_defaults = {
+      :hiring_preferences => { :trait => [] },
       :logistics => { :perk => [], :time_slot => [], :offday => [] }
     }
 
