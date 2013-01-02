@@ -1,27 +1,30 @@
-%li.listing_snippet
-  %a.job_title.pull-left{:href => recruiters_job_path(:id => open_job.reference_key), :title => "#{open_job.name}"}
-    = truncate(open_job.name, :length => 45)
-  .date.pull-right
-    = open_job.updated_at.strftime("%b %d")
-  .clr
-  .divider1
-  .bottom_sec 
-    //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
-    - job_posters = safe_access(open_job, :job_posters)
-    - unless job_posters.try(:first).try(:job_poster_type) == "Jombay Premium"
-      %a.pull-left{:href => recruiters_job_candidates_path(:job_id => open_job.reference_key), :title => "Number of candidates"}
-        %i.icon-user.icon-large
-        View candidates
-    -#
-      .bottom_sec_hidden.pull-left
-        %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}
-          %i.icon-th-large.icon-large
-          Duplicate 
-        %a.pull-left{:href => "#", :title => "Number of candidates"}
-          %i.icon-eye-close.icon-large
-          Close
-        = form_tag repost_recruiters_job_path(:id => open_job.id), :class => "pull-left margin", :method => :post do
-          %a.pull-left{:href => "#", :title => "Number of candidates", "data-repost_job" => true}
-            %i.icon-share-alt.icon-large
-            Repost
+- cache_version = 02_01_2013
+- cache([cache_version, :open_jobs_listing, open_job.id, open_job.updated_at.to_i], :tags => [:jobs_listing, :open_jobs]) do
+  - open_job = Vger::Spartan::Opus::Recommendation.find_with_read_through_cache_update(open_job.id, :params => {:include => {:methods => [:job_posters]}})
+  %li.listing_snippet
+    %a.job_title.pull-left{:href => recruiters_job_path(:id => open_job.reference_key), :title => "#{open_job.name}"}
+      = truncate(open_job.name, :length => 45)
+    .date.pull-right
+      = open_job.updated_at.strftime("%b %d")
     .clr
+    .divider1
+    .bottom_sec 
+      //if view candidates are "(0)" then add class .inactive //if view candidates are "(0)" then add class .inactive exp  %a.pull-left.inactive
+      - job_posters = safe_access(open_job, :job_posters)
+      - unless job_posters.try(:first).try(:job_poster_type) == "Jombay Premium"
+        %a.pull-left{:href => recruiters_job_candidates_path(:job_id => open_job.reference_key), :title => "Number of candidates"}
+          %i.icon-user.icon-large
+          View candidates
+      -#
+        .bottom_sec_hidden.pull-left
+          %a.pull-left{:href => duplicate_recruiters_job_path(:id => open_job.id), :title => "Number of candidates"}
+            %i.icon-th-large.icon-large
+            Duplicate 
+          %a.pull-left{:href => "#", :title => "Number of candidates"}
+            %i.icon-eye-close.icon-large
+            Close
+          = form_tag repost_recruiters_job_path(:id => open_job.id), :class => "pull-left margin", :method => :post do
+            %a.pull-left{:href => "#", :title => "Number of candidates", "data-repost_job" => true}
+              %i.icon-share-alt.icon-large
+              Repost
+      .clr
