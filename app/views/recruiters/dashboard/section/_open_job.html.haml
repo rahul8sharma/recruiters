@@ -1,5 +1,5 @@
 - cache_version = 02_01_2013
-- cache([cache_version, :jobs_listing, open_job.id, open_job.updated_at.to_i], :tags => [:jobs_listing, :open_jobs]) do
+- cache([cache_version, :jobs_listing, open_job.id, open_job.updated_at.to_i], :tags => [:jobs_listing, :open_jobs_listing]) do
   - open_job = Vger::Spartan::Opus::Recommendation.find_with_read_through_cache_update(open_job.id, :params => {:include => {:methods => [:job_posters]}})
   %li.listing_snippet
     %a.job_title.pull-left{:href => recruiters_job_path(:id => open_job.reference_key), :title => "#{open_job.name}"}
