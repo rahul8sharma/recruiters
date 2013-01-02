@@ -69,21 +69,24 @@
           %strong Number of Openings
         .description.span10
           = @job.bucket.openings
-    .section  
-      .medium_text.text_right.span5
-        %strong Job Location
-      .description.span10
-      - (@job.location || []).each do |location|
-        .highlight_badge.span
-          = location.name
+    - if @job.try(:location).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Job Location
+        .description.span10
+        - @job.location.each do |location|
+          .highlight_badge.span
+            = Vger::Penumbra::Geography.find(location.geography_id).name
 
     .heading.gray_bg
       Job Requirements
-    - if @job.bucket.min_work_experience.present? || @job.bucket.max_work_experience.present?
-      .section  
-        .medium_text.text_right.span5
-          %strong Years of Work Experience
-        .description.span10
+    .section  
+      .medium_text.text_right.span5
+        %strong Years of Work Experience
+      .description.span10
+        - if @job.bucket.min_work_experience.blank? && @job.bucket.max_work_experience.blank?
+          Fresher
+        - else
           = @job.bucket.min_work_experience.present? ? @job.bucket.min_work_experience : 0
           \- #{@job.bucket.max_work_experience.present? ? @job.bucket.max_work_experience : 0} yrs of Experience
     - if safe_access(@job, :required_academic_qualifications).present?
@@ -129,14 +132,17 @@
           - @job.industries.each do |industry|
             .highlight_badge
               #{industry.name}
-    - if @job.location.present?
-      .section  
-        .medium_text.text_right.span5
-          %strong Locations
-        .description.span10
-          - @job.location.each do |location|
-            .highlight_badge.span
-              #{location.name}
+    - eligibility_criteria = safe_access(@job, :eligibility_criteria)
+    - if eligibility_criteria.present?
+      - candidate_locations = eligibility_criteria.select{|i| (i.respond_to?(:model) && i.model == 'Geography')}
+      - if candidate_locations.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Locations
+          .description.span10
+            - candidate_locations.each do |location|
+              .highlight_badge.span
+                = Vger::Penumbra::Geography.find(location.geography_id).name
     - eligibility_criteria_with_edge_properties = safe_access(@job, :eligibility_criteria_with_edge_properties)
     - if eligibility_criteria_with_edge_properties.present?
       - if @job.eligibility_criteria_with_edge_properties.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::SoftSkill')}.present?
@@ -187,11 +193,14 @@
       .medium_text.text_right.span5
         %strong Annual Salary
       .description.span10
-        Rs.
-        = @job.bucket.min_salary.present? ? @job.bucket.min_salary : 0
-        to
-        = @job.bucket.max_salary.present? ? @job.bucket.max_salary : 0
-        in Lakhs/Year
+        - if @job.bucket.min_salary.blank? && @job.bucket.max_salary.blank?
+          No Constraint
+        - else
+          Rs.
+          = @job.bucket.min_salary.present? ? @job.bucket.min_salary : 0
+          to
+          = @job.bucket.max_salary.present? ? @job.bucket.max_salary : 0
+          in Lakhs/Year
         -#
           - if (@job.salary.show != "show")
             .faded_light
