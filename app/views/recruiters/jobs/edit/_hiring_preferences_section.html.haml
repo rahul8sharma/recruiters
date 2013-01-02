@@ -46,7 +46,7 @@
       - selected_traits = @job.trait.present? ? @job.trait : []
       - @master_data[:traits].each_with_index do |trait, index|
         %label.checkbox.traits_badge{:class => selected_traits.include?(trait.id.to_s) ? "active" : nil}
-          = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id), :class => "hide")
+          = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id.to_s), :class => "hide")
           #{ trait.name }
   .control-group.error
     .controls
