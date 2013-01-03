@@ -35,5 +35,5 @@
       %strong Job Location
     .description.span10
       - @job.locations.each do |location|
-        .highlight_badge.span
+        .highlight_badge
           = Vger::Penumbra::Geography.find(location).name
