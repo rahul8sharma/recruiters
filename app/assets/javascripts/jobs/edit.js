@@ -77,8 +77,8 @@ function initSkillTemplate() {
 function initQualificationSpecializationPseudoSelect(select, qualification_specialization) {
   if (select.length && (select.find("option:selected").val() != "")) {
     var container = $("[data-preferred-qualification_specialization-container]");
-    var snippet = container.find("[data-snippet]");
-    var is_present = (snippet.attr("data-snippet") == qualification_specialization.qualification_id);
+    var snippet = container.find("[data-snippet='"+qualification_specialization.qualification_id+"']");
+    var is_present = (parseInt(snippet.attr("data-snippet")) == qualification_specialization.qualification_id);
     if(is_present) {
       snippet.remove();
     }
@@ -89,8 +89,8 @@ function initQualificationSpecializationPseudoSelect(select, qualification_speci
 function initMustSkillPseudoSelect(select, skill) {
   if (select.length && (select.find("option:selected").val() != "")) {
     var container = $("[data-preferred-must_skill-container]");
-    var snippet = container.find("[data-snippet]");
-    var is_present = (snippet.attr("data-snippet") == skill.id);
+    var snippet = container.find("[data-snippet='"+skill.id+"']");
+    var is_present = (parseInt(snippet.attr("data-snippet")) == skill.id);
     if(is_present) {
       snippet.remove();
     }
