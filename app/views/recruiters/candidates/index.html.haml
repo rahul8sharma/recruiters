@@ -11,13 +11,18 @@
     .biggest_text
       #{ @job.name }
 
-= render :partial => "recruiters/candidates/index/top_section", locals: { applications: @applications }
-= render :partial => "recruiters/candidates/index/candidate_list_snippet", collection: @applications, locals: {job: @job}
+- if @applications.size != 0
+  = render :partial => "recruiters/candidates/index/top_section", locals: { applications: @applications }
+  = render :partial => "recruiters/candidates/index/candidate_list_snippet", collection: @applications, locals: {job: @job}
 
-.divider1
-.inn.border_bottom
-  .span22.fl_none.clearfix
-    .pull-right
-      = bootstrap_paginate(@applications, :inner_window => 0, :outer_window => 0,)
-    .clr
+  .divider1
+  .inn.border_bottom
+    .span22.fl_none.clearfix
+      .pull-right
+        = bootstrap_paginate(@applications, :inner_window => 0, :outer_window => 0,)
+      .clr
+- else
+  .padding_all1
+    .blank_job_alert
+      Currently there are no applicants for this job.
 .divider2
