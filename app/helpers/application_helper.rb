@@ -89,12 +89,16 @@ module ApplicationHelper
       # Display the FB profile pic only if the user is an FB user and hasn't
     # yet uploaded a profile picture
 
-    if umbra_user.profile_photo_small.include?("default_user_icon") && umbra_user.external_user?(:facebook)
-      non_fbml_fb_profile_pic(umbra_user.external_auth(:facebook), {
+    if umbra_user.profile_photo_small.include?("default_user_icon")
+      if umbra_user.external_user?(:facebook)
+        non_fbml_fb_profile_pic(umbra_user.external_auth(:facebook), {
                                 :type => :square
                               }.merge(options))
+      else
+        image_tag("default_user_icon.png")
+      end
     else
-      image_tag("default_user_icon.png")
+      image_tag(umbra_user.profile_photo_small)
     end
   end
 
