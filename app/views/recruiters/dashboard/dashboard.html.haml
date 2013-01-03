@@ -40,8 +40,8 @@
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "pending")}
             Pending Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).size})
-        %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
-          \-
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
         .clr
       %div{data: {"section_content" => true}}
         %div{data: {"job_post_notification" => true}}
@@ -59,8 +59,8 @@
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "open")}
             Open Jobs (#{@jobs[:open].total_entries})
-        %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
-          \-
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
@@ -76,8 +76,8 @@
         .pull-left
           %a{:href => status_recruiters_jobs_path(:status => "incomplete")}
             Incomplete Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).size})
-        %a.pull-right.min_max{:href => "#", :title => "Minimise/Maximise Here", "data-section_collapser" => true}
-          \-
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
         .clr
       %div{data: {"section_content" => true}}
         %ul.listing
@@ -93,8 +93,8 @@
           .pull-left
             %a{:href => status_recruiters_jobs_path(:status => "closed")}
               Closed Jobs (#{@jobs[:closed].total_entries})
-          %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimise/Maximise Here", "data-section_collapser" => true}
-            \-
+          %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+            %i.icon-minus-sign
           .clr
         %div{data: {"section_content" => true}}
           %ul.listing
