@@ -147,9 +147,6 @@
     color: #595858
     font-size: 16px
     margin-top: 15px
-    &:hover
-      color: #fff
-      text-decoration: none
 ul.listing
   list-style: none
   border-bottom: 1px solid #b7b7b7
@@ -230,7 +227,10 @@ a.show_details
         display: inline-block
         font-size: 14px
 
-    li a:hover, li.active a
+        &:hover
+          background: #1a404e
+          color: #fff
+    li.active a
       position: relative
       background: #1a404e
       color: #fff

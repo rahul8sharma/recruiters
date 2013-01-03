@@ -46,7 +46,7 @@
     .section  
       .medium_text.text_right.span5
         %strong Behavioral Traits
-      .description.span10
+      .description.span10.highlight_badge_main
         - @job.trait.each do |trait|
           .highlight_badge.span
             #{Vger::Spartan::Dilios::Trait.find(trait).name}
