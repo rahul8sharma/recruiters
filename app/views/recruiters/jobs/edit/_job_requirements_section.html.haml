@@ -13,7 +13,8 @@
 = form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
   = hidden_field_tag "continue_later", false
   .control-group
-    %label.control-label      Years of Work Experience*
+    %label.control-label
+      Years of Work Experience*
     -#
       .label_subtitle
         Adjust the slider to specify the range
@@ -22,7 +23,7 @@
         %input#optionsRadios1{:checked => (@job.try(:work_experience).try(:type).to_s == "true"), :name => "work_experience[type]", :type => "radio", :value => "true"}
           Experienced
       %label.radio.span4
-        %input#optionsRadios2{:checked => (@job.try(:work_experience).try(:type).to_s == "false"), :name => "work_experience[type]", :type => "radio", :value => "false"}
+        %input#optionsRadios2{:checked => (["false", ""].include? @job.try(:work_experience).try(:type).to_s), :name => "work_experience[type]", :type => "radio", :value => "false"}
           Fresher
       .clr
     .control-group
