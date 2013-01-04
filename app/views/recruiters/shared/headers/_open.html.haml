@@ -1,3 +1,8 @@
+:ruby
+  urls = {
+    :login => new_user_session_path,
+    :sign_up => new_user_registration_path
+  }
 = content_for :dont_bundle do
   = stylesheet_link_tag 'recruiters/shared/open_header' 
 
@@ -9,9 +14,9 @@
     .header_right_sec
       .navigations
         %ul.menu.unstyled.clearfix
-          %li
+          %li{:class => (request.fullpath.include? urls[:login]) ? "selected" : nil}
             %a{:href => new_user_session_path(:redirect_to => @redirect_to)} Log In
-          %li
+          %li{:class => (request.fullpath.include? urls[:sign_up]) ? "selected" : nil}
             %a{:href => new_user_registration_path(:redirect_to => @redirect_to)} Register
           %li.selected.fade_blue.medium_text
             %a{:href => link_to_jobseeker_app, :target => "_blank"} 

@@ -1,3 +1,9 @@
+:ruby
+  urls = {
+    :dashboard => recruiters_root_path(:trailing_slash => false),
+    :jobs => "/jobs",
+    :profile => recruiters_company_profiles_path
+  }
 .header_layout
   .header
     .ynl_logo
@@ -6,13 +12,13 @@
     .navbar.pull-right
       .navigations
         %ul.nav.nav-pills
-          %li
+          %li{:class => (urls[:dashboard] == request.fullpath) ? "selected" : nil}
             %a{:href => recruiters_root_path}
               Dashboard
-          %li
+          %li{:class => (request.fullpath.include? urls[:jobs]) ? "selected" : nil}
             %a{:href => status_recruiters_jobs_path(:status => "pending")}
               Jobs
-          %li#menu1.dropdown
+          %li#menu1.dropdown{:class => (request.fullpath.include? urls[:profile]) ? "selected" : nil}
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#menu1"}
               %span.first.small-icon.small-icon-user_name
               #{ current_user.name }
