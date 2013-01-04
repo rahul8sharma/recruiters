@@ -42,7 +42,7 @@
       Qualifications*
     .controls
       = select_tag("job_academic_qualification", options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none", "data-preselect" => @job.try(:qualification).try(:degree_diploma).try(:first), "data-chosen_select" => true, "data-academic_qualification_select" => true)
-      = select_tag("job_academic_specialization", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Any", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first), "data-chosen_select" => true, :placeholder => "Select Specialization", "data-academic_specialization_pseudo_select" => true)
+      = select_tag("job_academic_specialization", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first), "data-chosen_select" => true, :placeholder => "Select Specialization", "data-academic_specialization_pseudo_select" => true)
       %div{:data => {"preferred-qualification_specialization-container" => true}}
         - if @job.try(:qualification).try(:degree_diploma).present?
           - preselect_job_qualifications(@job.qualification).each do |qualification|

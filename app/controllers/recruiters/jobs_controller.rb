@@ -93,7 +93,7 @@ class Recruiters::JobsController < Recruiters::ApplicationController
   def status
     status = Recruiters::Job::STATUSES[params[:status]]
     if status.present?
-      @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).paginate(:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE)
+      @jobs = Recruiters::Job.find(:status => status, :posted_by => current_user.sid).sort_by(:updated_at, :order => "ALPHA DESC").paginate(:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE)
     elsif params[:status] == "open"
       @jobs = Recruiters::Job.open(current_user.leonidas_resource, {:page => params[:page].present? ? params[:page] : 1, :per_page => PER_PAGE})
     elsif params[:status] == "closed"
