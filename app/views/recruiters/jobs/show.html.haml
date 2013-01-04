@@ -39,7 +39,11 @@
       %a{:href => "#", :title => "Number of candidates"}
         %i.icon-trash.icon-large
         Delete
-
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        = truncate(@job.name, :length => 70)
 .rec_rhs
   .divider1
   .preview

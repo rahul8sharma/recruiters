@@ -5,8 +5,8 @@ class Recruiters::DashboardController < ApplicationController
   layout "recruiters/dashboard"
   def dashboard
   	@jobs = {
-      :incomplete => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
-      :pending => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).paginate(:page => 1, :per_page => 2),
+      :incomplete => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).sort_by(:updated_at, :order => "ALPHA DESC").paginate(:page => 1, :per_page => 2),
+      :pending => Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).sort_by(:updated_at, :order => "ALPHA DESC").paginate(:page => 1, :per_page => 2),
       :open => Recruiters::Job.open(@recruiter, {:page => 1, :per_page => 2}) #,:closed => Recruiters::Job.closed(@recruiter, {:page => 1, :per_page => 2})
     }
   end

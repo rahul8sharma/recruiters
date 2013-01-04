@@ -144,18 +144,9 @@
     line-height: 35px
 
   a.min_max
-    background: #595858
-    color: #fff
-    border-radius: 50%
-    line-height: 7px
-    font-size: 34px
-    width: 12px
-    height: 12px
-    text-align: center
+    color: #595858
+    font-size: 16px
     margin-top: 15px
-    &:hover
-      color: #fff
-      text-decoration: none
 ul.listing
   list-style: none
   border-bottom: 1px solid #b7b7b7
@@ -236,7 +227,10 @@ a.show_details
         display: inline-block
         font-size: 14px
 
-    li a:hover, li.active a
+        &:hover
+          background: #1a404e
+          color: #fff
+    li.active a
       position: relative
       background: #1a404e
       color: #fff

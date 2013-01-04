@@ -10,7 +10,7 @@
       .medium_text.text_right.span5
         %strong Type of Employment
       .description.span10
-        .highlight_badge.span
+        .highlight_badge
           #{Vger::Spartan::Opus::KindOfJob.find(@job.kind_of).name}
   - if @job.salary.present?
     .section  
@@ -32,16 +32,16 @@
         - @job.perk.each do |perk|
           .highlight_badge.span8.first
             #{Vger::Spartan::Opus::JobPerk.find(perk).name}
-      - if @job.additional_perk.present?
-        .highlight_badge.span8.first
-          #{@job.additional_perk}
+        - if @job.additional_perk.present?
+          .highlight_badge.span8.first
+            #{@job.additional_perk}
   - if @job.time_slot.present?
     .section  
       .medium_text.text_right.span5
         %strong Shift Timings
       .description.span10
         - @job.time_slot.each do |slot|
-          .highlight_badge.span
+          .highlight_badge
             = Vger::Spartan::Opus::TimeSlot.find(slot).name
   - if @job.offday.present?
     .section  
@@ -49,7 +49,7 @@
         %strong Weekly Offs on
       .description.span10
         - @job.offday.each do |day|
-          .highlight_badge.span
+          .highlight_badge
             #{Vger::Spartan::WeekDay.find(day).name}
   - if (@job.try(:involves_travel).to_s == "true" || @job.try(:government_job).to_s == "true" || @job.try(:own_vehicle) == "true" || @job.try(:walkin).to_s == "true")
     .section  

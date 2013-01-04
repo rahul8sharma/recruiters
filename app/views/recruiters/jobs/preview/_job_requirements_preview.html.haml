@@ -17,11 +17,11 @@
   .section  
     .medium_text.text_right.span5
       %strong Qualifications
-    - degrees = @job.qualification.degree_diploma
-    - specializations = @job.qualification.specialization
-    - degrees.zip(specializations).each do |degree, specialization|
-      .description.span10
-        #{Vger::Spartan::Opus::Recommendation.find(degree).name} in #{Vger::Spartan::Opus::Recommendation.find(specialization).name}
+    .description.span10
+      - degrees = @job.qualification.degree_diploma
+      - specializations = @job.qualification.specialization
+      = degrees.zip(specializations).map {|degree, specialization| "#{Vger::Spartan::Opus::Recommendation.find(degree).name} in #{Vger::Spartan::Opus::Recommendation.find(specialization).name}"}.join(", ")
+
 - if @job.skill.present?
   - if @job.skill.must.present?
     .section  
@@ -32,7 +32,7 @@
           - skill_ids = @job.skill.must.skill_id
           - experiences = @job.skill.must.experience
           - skill_ids.zip(experiences).each do |skill, exp|
-            .highlight_badge.span
+            .highlight_badge
               = Vger::Spartan::Opus::Recommendation.find(skill).name
               #{exp} years
   - if @job.skill.nice.present?

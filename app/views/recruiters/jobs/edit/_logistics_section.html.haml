@@ -31,10 +31,10 @@
     .controls
       .span.first 
         %strong.line_height2 Rs
-      = select_tag("salary[min_range]", salary_options, :prompt => "<Min Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
+      = select_tag("salary[min_range]", salary_options, :prompt => "Min Salary", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:min_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
       .span
         %strong.line_height2 To
-      = select_tag("salary[max_range]", salary_options, :prompt => "<Max Salary>", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
+      = select_tag("salary[max_range]", salary_options, :prompt => "Max Salary", :class => "span3 pull-left", "data-salary" => true, "data-preselect" => @job.try(:salary).try(:max_range), :disabled => (@job.salary.present? ? @job.salary.range.to_s != "true" : true))
       .span
         %strong.line_height2 In Lakhs/ Year
     .controls
