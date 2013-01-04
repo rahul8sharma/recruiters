@@ -1,0 +1,37 @@
+- if @job.company.present?
+  .heading.gray_bg
+    Recruiter Details
+    - if allow_edit ||= false
+      .pull-right
+        %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "company-details"), :title => "Edit this section"}
+          Edit
+  - if @job.company.name.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Company Name    
+      .description.span10
+        #{@job.company.name}
+  - if @job.company.description.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong About Company    
+      .description.span10
+        #{@job.company.description}
+  - if @job.company.url.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Company  Website    
+      .description.span10
+        #{@job.company.url}
+  - if @job.company.address.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Location    
+      .description.span10
+        #{@job.company.address}
+  - if @job.company.location.present?
+    .section  
+      .medium_text.text_right.span5
+        %strong Address    
+      .description.span10
+        #{Vger::Penumbra::Geography.find(@job.company.location.geography_id.first).name}

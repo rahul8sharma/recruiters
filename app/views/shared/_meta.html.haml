@@ -1,0 +1,23 @@
+- title = seo[:title].present? ? "#{ seo[:title] } | Jombay.com" : "Jombay.com"
+
+%title
+  = title
+
+%meta{:content => "3993CE25EE3009E2053C4DD7960CEC91", :name => "msvalidate.01"}
+%meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
+- if content_for?(:meta_og_url)
+  = yield (:meta_og_url)
+- else
+  %meta{:content => "#{recruiters_root_url[0..-3]}#{request.fullpath}", :property => "og:url"}
+%meta{:content => "Jombay", :property => "og:site_name"}
+%meta{:content => "website", :property => "og:type"}
+%meta{:content => Rails.application.config.facebook["app_id"].to_s, :name => "fb:app_id"}
+%meta{:content => "#{recruiters_root_url[0..-3]}#{seo[:image]}", :property => "og:image"}
+
+%meta{:content => title, :property => "og:title"}
+%meta{:content => title, :name => "title"}
+%meta{:content => title, :itemprop => "name"}
+
+%meta{:content => seo[:description], :property => "og:description"}
+%meta{:content => seo[:description], :name => "description"}
+%meta{:content => seo[:description], :itemprop => "description"}

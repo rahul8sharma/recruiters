@@ -1,0 +1,23 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main.pull-left
+        Jobs
+      =render :partial => "recruiters/jobs/status/status_nav" 
+    .content
+      .span15
+        .divider1
+        .medium_text
+          Here is the list of jobs that are closed. You can reopen a job to take it live.
+      .pull-right
+        .divider1
+        = bootstrap_paginate @jobs, :inner_window => 0, :outer_window => 0, :previous_label => "&laquo;", :next_label => "&raquo;"
+      .clr
+      .divider1
+
+
+- if @jobs.present?
+  %ul.listing
+    = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs
+- else
+  = render :partial => "recruiters/jobs/status/no_job"

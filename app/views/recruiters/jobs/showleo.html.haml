@@ -1,0 +1,366 @@
+- content_for :javascript_libs do
+  = javascript_include_tag "lib/raty/js/jquery.raty.js"
+- content_for :javascripts do
+  = javascript_include_tag "jobs/showleo"
+- content_for :sidebar do
+  .divider1
+  -#
+    .span5.divider9.fl_none.gray_border
+      = image_tag("http://placehold.it/188x163")
+  
+  .padding_all1.medium_text
+    %strong
+      - if @job.company.present?
+        = @job.company.first.name
+  -#
+    .padding_all1
+      %a{:href => "#", :title => "to know how your job looks to candidate."} 
+        Click here 
+      to know how 
+      %br/
+      your job looks to candidate. 
+    %a.download_all_application_btn{:href => "#", :title => "Download All Applicants"}
+      %i.icon-inbox
+      Download All Applicants
+  .divider1
+
+  - unless safe_access(@job, :job_posters).try(:first).try(:job_poster_type) == "Jombay Premium"
+    .job_action.medium_text
+      %a{:href => recruiters_job_candidates_path(:job_id => @job.reference_key), :title => "Number of candidates"}
+        %i.icon-user.icon-large
+        View Candidates
+    -#
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-share-alt.icon-large
+        Repost
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-th-large.icon-large
+        Duplicate
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-trash.icon-large
+        Delete
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        = truncate(@job.name, :length => 70)
+.rec_rhs
+  .divider1
+  .preview
+
+    .heading.gray_bg
+      Job Description
+    .section  
+      .medium_text.text_right.span5
+        %strong Job Title
+      .description.span10
+        = @job.name
+    - if @job.job_category.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Functional Area of this Role
+        .description.span10
+          - @job.job_category.each do |category|
+            = category.name
+    - if @job.work_profile.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Job Profile
+        - @job.work_profile.each do |profile|
+          .description.span10
+            = profile.name
+    - if @job.bucket.openings.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Number of Openings
+        .description.span10
+          = @job.bucket.openings
+    - if @job.try(:location).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Job Location
+        .description.span10
+        - @job.location.each do |location|
+          .highlight_badge.span
+            = Vger::Penumbra::Geography.find(location.geography_id).name
+
+    .heading.gray_bg
+      Job Requirements
+    .section  
+      .medium_text.text_right.span5
+        %strong Years of Work Experience
+      .description.span10
+        - if @job.bucket.min_work_experience.blank? && @job.bucket.max_work_experience.blank?
+          Fresher
+        - else
+          = @job.bucket.min_work_experience.present? ? @job.bucket.min_work_experience : 0
+          \- #{@job.bucket.max_work_experience.present? ? @job.bucket.max_work_experience : 0} yrs of Experience
+    - if safe_access(@job, :required_academic_qualifications).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Qualifications
+        - @job.required_academic_qualifications.each do |qualification|
+          - degree = qualification.select {|element| element[:bucket_type] == "Opus::Degree"}.first
+          - career = qualification.select {|element| element[:bucket_type] == "Opus::Career"}.first
+          .description.span10
+            = degree[:name]
+            - if career.present?
+              in #{career[:name]}
+    - if @job.required_skills.reject(&:optional).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Must Have Skills
+        .description.span10
+          - @job.required_skills.reject(&:optional).each do |skill|
+            .highlight_badge.span
+              #{skill.name} #{skill.min_experience} years
+    - if @job.required_skills.select(&:optional).present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Nice to have Skills
+        .description.span10
+          - @job.required_skills.select(&:optional).each do |skill|
+            .highlight_badge.span
+              #{skill.name}
+    .section  
+      .medium_text.text_right.span5
+        %strong Job Description
+      .description.span10
+        = @job.description
+
+    .heading.gray_bg
+      Hiring Preferences
+    - if @job.industries.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Industries
+        .description.span10
+          - @job.industries.each do |industry|
+            .highlight_badge
+              #{industry.name}
+    - eligibility_criteria = safe_access(@job, :eligibility_criteria)
+    - if eligibility_criteria.present?
+      - candidate_locations = eligibility_criteria.select{|i| (i.respond_to?(:model) && i.model == 'Geography')}
+      - if candidate_locations.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Locations
+          .description.span10
+            - candidate_locations.each do |location|
+              .highlight_badge.span
+                = Vger::Penumbra::Geography.find(location.geography_id).name
+    - eligibility_criteria_with_edge_properties = safe_access(@job, :eligibility_criteria_with_edge_properties)
+    - if eligibility_criteria_with_edge_properties.present?
+      - if @job.eligibility_criteria_with_edge_properties.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::SoftSkill')}.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Communication Skills
+          .description.span10
+            -@job.eligibility_criteria_with_edge_properties.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::SoftSkill')}.each do |skill|
+              - if skill.level.present?
+                .span3.first
+                  = skill.name
+                .span3
+                  %div{data: {"star" => true, "star_rating" => skill.level.to_i}}
+                .span3
+                  = skill_level_display(skill.level.to_i)
+                .clr
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Trait')}.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Behavioral Traits
+        .description.span10
+          - @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Trait')}.each do |trait|
+            .highlight_badge.span
+              #{trait.name}
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Gender')}.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Gender
+        .description.span10
+          = @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::Gender')}.first.name
+    - if @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::MaritalStatus')}.present?
+      .section
+        .medium_text.text_right.span5
+          %strong Marital Status
+        .description.span10
+          = @job.eligibility_criteria.select{|i| (i.respond_to?(:__type__) && i.__type__ == 'Dilios::MaritalStatus')}.first.name
+
+    .heading.gray_bg
+      Compensation &amp; Logistics
+    - if @job.job_types.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Type of Employment
+        .description.span10
+          .highlight_badge.span
+            #{@job.job_types.first.name}
+    .section  
+      .medium_text.text_right.span5
+        %strong Annual Salary
+      .description.span10
+        - if @job.bucket.min_salary.blank? && @job.bucket.max_salary.blank?
+          No Constraint
+        - else
+          Rs.
+          = @job.bucket.min_salary.present? ? @job.bucket.min_salary : 0
+          to
+          = @job.bucket.max_salary.present? ? @job.bucket.max_salary : 0
+          in Lakhs/Year
+        -#
+          - if (@job.salary.show != "show")
+            .faded_light
+              Do not disclose salary to candidates
+    - if @job.job_perks.present? || @job.bucket.additional_perks.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Perks Offered
+        .description.span10
+          - if @job.job_perks.present?
+            - @job.job_perks.each do |perk|
+              .highlight_badge.span8.first
+                #{perk.name}
+          - if @job.bucket.additional_perks.present?
+            .highlight_badge.span8.first
+              #{@job.bucket.additional_perks}
+    - if @job.time_slots.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Shift Timings
+        .description.span10
+          - @job.time_slots.each do |slot|
+            .highlight_badge.span
+              = slot.name
+    - if @job.weekly_offs.present?
+      .section  
+        .medium_text.text_right.span5
+          %strong Weekly Offs on
+        .description.span10
+          - @job.weekly_offs.each do |day|
+            .highlight_badge.span
+              #{day.name}
+    - if (@job.bucket.involves_travel.present? || @job.bucket.government_job.present? ||  @job.bucket.own_vehicle.present? || @job.bucket.walkin.present?)
+      .section  
+        .medium_text.text_right.span5
+          %strong Additional Information
+        .description.span10
+          - if @job.bucket.involves_travel.present? && @job.bucket.involves_travel.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:involves_travel]
+          - if @job.bucket.government_job.present? && @job.bucket.government_job.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:government_job]
+          - if @job.bucket.own_vehicle.present? && @job.bucket.own_vehicle.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:own_vehicle]
+          - if @job.bucket.walkin.present? && @job.bucket.walkin.to_s == "true"
+            .highlight_badge.span8.first
+              = additional_info_enum[:walkin]
+
+    - if (@job.bucket.application_instructions.present? || @job.bucket.candidate_companies.present? || @job.bucket.candidate_job_titles.present? || @job.bucket.candidate_profile_keywords.present? || @job.bucket.candidate_kind_blacklist.present?)
+      .heading.gray_bg
+        Additional Details
+      - if @job.bucket.application_instructions.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Application Instructions
+          .description.span10
+            #{@job.bucket.application_instructions}
+      - if @job.bucket.candidate_companies.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there specific companies where your required candidates would be working currently?
+          .description.span10
+            #{@job.bucket.candidate_companies}
+      - if @job.bucket.candidate_job_titles.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there other job profiles such candidates have in the industry?
+          .description.span10
+            #{@job.bucket.candidate_job_titles}
+      - if @job.bucket.candidate_profile_keywords.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Keywords or buzzwords that such candidates write on their profiles?
+          .description.span10
+            #{@job.bucket.candidate_profile_keywords}
+      - if @job.bucket.candidate_kind_blacklist.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Are there any kind of people that you do not want to hire?
+          .description.span10
+            #{@job.bucket.candidate_kind_blacklist}
+
+    - if @job.company.present?
+      .heading.gray_bg
+        Recruiter Details
+      - company_name = safe_access(@job.company.first, :name)
+      - if company_name.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Company Name    
+          .description.span10
+            #{company_name}
+      - company_description = safe_access(@job.company.first, :description)
+      - if company_description.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong About Company    
+          .description.span10
+            #{company_description}
+      - company_website = safe_access(@job.company.first, :website)
+      - if company_website.present?
+        .section
+          .medium_text.text_right.span5
+            %strong Company  Website    
+          .description.span10
+            #{company_website}
+      -#
+        - company_location = safe_access(@job.company.first, :address)
+        - if company_address.present?
+          .section
+            .medium_text.text_right.span5
+              %strong Location
+            .description.span10
+              #{company_address}
+      - company_address = safe_access(@job.company.first, :address)
+      - if company_address.present?
+        .section
+          .medium_text.text_right.span5
+            %strong Address
+          .description.span10
+            #{company_address}
+    
+    - if (@job.bucket.internal_reference_number.present? || @job.bucket.application_url.present? || @job.bucket.executive_name.present? || @job.bucket.phone_number.present? || @job.bucket.phone_number.present?)
+      .heading.gray_bg
+        Recruiter Contact Details
+      - if @job.bucket.internal_reference_number.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Job ID (Internal)    
+          .description.span10
+            #{@job.bucket.internal_reference_number}
+      - if @job.bucket.application_url.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Application URL (if any)    
+          .description.span10
+            #{@job.bucket.application_url}
+      - if @job.bucket.executive_name.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Hiring Manager Name    
+          .description.span10
+            #{@job.bucket.executive_name}
+      - if @job.bucket.phone_number.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Phone Number    
+          .description.span10
+            #{@job.bucket.phone_number}
+      - if @job.bucket.email_id.present?
+        .section  
+          .medium_text.text_right.span5
+            %strong Email id    
+          .description.span10
+            #{@job.bucket.email_id}

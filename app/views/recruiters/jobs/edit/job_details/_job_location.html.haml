@@ -1,0 +1,8 @@
+.badge_label.clearfix.span9.first{"data-snippet" => job_location.id}
+  -#
+    .badge_count
+      #{ job_category.count }
+  .badge_content
+    #{ truncate(job_location.name, length: 50) }
+  %a.close{"data-dismiss" => "alert", :href => "[data-id='#{ job_location.id }']"} ×
+  = hidden_field_tag("locations[]", job_location.id)

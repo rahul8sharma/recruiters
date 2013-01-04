@@ -1,0 +1,36 @@
+:ruby
+  contents = [
+  {
+    :title => "Home",
+    :path => recruiters_root_path(:trailing_slash => false)
+  }, {
+  :title => "About Us",
+    :path => link_to_jobseeker_app("about-us/")
+  }, {
+  :title => "Work with Jombay",
+    :path => link_to_jobseeker_app("work-with-jombay/")
+  }, {
+  :title => "Blog",
+    :path => link_to_jobseeker_app("blog/")
+  }, {
+  :title => "Contact Us",
+    :path => link_to_jobseeker_app("contact-us/")
+  }
+  ]
+
+.clr
+.divider4
+.footer_layout
+  .footer
+    .divider1
+    .footer_navigations.medium_text.pull-left
+      
+      %ul.unstyled.margin_bottom
+        - contents.each do |page|
+          %li.pull-left
+            %a{:href => page[:path], :title => page[:title]} 
+              #{ page[:title] }
+        %li.clr
+
+    .copyright.pull-right
+      = render :partial => "recruiters/shared/copyright"

@@ -1,0 +1,39 @@
+.heading.gray_bg
+  Job Description
+  - if allow_edit ||= false
+    .pull-right
+      %a{:href => edit_recruiters_jobs_path(:id => @job.uuid, :section => "job-details"), :title => "Edit this section"}
+        Edit
+- if @job.name.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Job Title
+    .description.span10
+      = @job.name
+- if @job.categories.present?
+  .section
+    .medium_text.text_right.span5
+      %strong Functional Area of this Role
+    .description.span10
+      - @job.categories.each do |category|
+        = Vger::Spartan::Opus::JobCategory.find(category).name
+- if @job.profiles.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Job Profile
+    .description.span10
+      = @job.profiles.map {|profile| Vger::Spartan::Opus::Recommendation.find(profile).name}.join(", ")
+- if @job.total_openings.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Number of Openings
+    .description.span10
+      = @job.total_openings
+- if @job.locations.present?
+  .section  
+    .medium_text.text_right.span5
+      %strong Job Location
+    .description.span10
+      - @job.locations.each do |location|
+        .highlight_badge
+          = Vger::Penumbra::Geography.find(location).name

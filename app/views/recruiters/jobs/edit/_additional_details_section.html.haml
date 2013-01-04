@@ -1,0 +1,51 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Mention additional details which will help us find best fit candidates for you.
+      .divider1
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-additional_details" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
+  = hidden_field_tag "continue_later", false
+  .control-group
+    %label.control-label
+      Application Instructions
+    .controls
+      = text_area_tag("additional_detail[application_instruction]", @job.try(:additional_detail).try(:application_instruction), :placeholder => "Type application instruction", :rows => 4, :class => "span10 first")
+  .divider1
+  .control-group
+    %label.control-label
+      Are there specific companies where your required candidates would be working currently?
+    .controls
+      = text_area_tag("additional_detail[candidate][company_history]", @job.try(:additional_detail).try(:candidate).try(:company_history), :placeholder => "Type companies separated by comma", :rows => 4, :class => "span10 first")
+  .divider1
+  .control-group
+    %label.control-label
+      Are there other job profiles such candidates have in the industry?
+    .controls
+      = text_area_tag("additional_detail[candidate][job_title]", @job.try(:additional_detail).try(:candidate).try(:job_title), :placeholder => "Type designation/profiles separated by comma", :rows => 4, :class => "span10 first")
+  .divider1
+  .control-group
+    %label.control-label
+      Keywords or buzzwords that such candidates write on their profiles?
+    .controls
+      = text_area_tag("additional_detail[candidate][keyword]", @job.try(:additional_detail).try(:candidate).try(:keyword), :placeholder => "Type keywords separate by comma", :rows => 4, :class => "span10 first")
+  .divider1
+  .control-group
+    %label.control-label
+      Are there any kind of people that you do not want to hire? 
+    .controls
+      = text_area_tag("additional_detail[candidate][undesired]", @job.try(:additional_detail).try(:candidate).try(:undesired), :placeholder => "Type additional eligibilty", :rows => 4, :class => "span10 first")
+  .divider1
+  
+  .form-actions
+    %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
+      %strong save and continue later
+    .clr

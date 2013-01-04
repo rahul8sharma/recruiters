@@ -1,0 +1,62 @@
+- content_for :javascript_libs do
+  = javascript_include_tag "lib/raty/js/jquery.raty.js"
+- content_for :javascripts do
+  = javascript_include_tag "jobs/show"
+- content_for :sidebar do
+  .divider1
+  -#
+    .span5.divider9.fl_none.gray_border
+      = image_tag("http://placehold.it/188x163")
+  
+  - if current_user.leonidas_resource.company.present?
+    .padding_all1.medium_text
+      %strong
+        #{current_user.leonidas_resource.company.name}
+  -#
+    .padding_all1
+      %a{:href => "#", :title => "to know how your job looks to candidate."} 
+        Click here 
+      to know how 
+      %br/
+      your job looks to candidate. 
+    %a.download_all_application_btn{:href => "#", :title => "Download All Applicants"}
+      %i.icon-inbox
+      Download All Applicants
+  .divider1
+
+  - unless @job.status.present? && (@job.status == Recruiters::Job::STATUSES::PENDING || @job.status == Recruiters::Job::STATUSES::INCOMPLETE)
+    .job_action.medium_text
+      %a{:href => recruiters_job_candidates_path(:job_id => @job.reference_key.present? ? @job.reference_key : @job.uuid), :title => "Number of candidates"}
+        %i.icon-user.icon-large
+        View Candidates
+    -#
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-share-alt.icon-large
+        Repost
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-th-large.icon-large
+        Duplicate
+      %a{:href => "#", :title => "Number of candidates"}
+        %i.icon-trash.icon-large
+        Delete
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        = truncate(@job.name, :length => 70)
+.rec_rhs
+  .divider1
+  .preview
+    = render :partial => "recruiters/jobs/preview/job_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/job_requirements_preview"
+
+    = render :partial => "recruiters/jobs/preview/hiring_preferences_preview"
+
+    = render :partial => "recruiters/jobs/preview/logistics_preview"
+
+    = render :partial => "recruiters/jobs/preview/additional_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/recruiter_details_preview"
+
+    = render :partial => "recruiters/jobs/preview/recruiter_contact_details_preview"

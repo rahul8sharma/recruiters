@@ -1,0 +1,38 @@
+:ruby
+  urls = {
+    :dashboard => recruiters_root_path(:trailing_slash => false),
+    :jobs => "/jobs",
+    :profile => recruiters_company_profiles_path
+  }
+.header_layout
+  .header
+    .ynl_logo
+      %a{:href => recruiters_root_path}
+        = image_tag("ynl-logo.png")
+    .navbar.pull-right
+      .navigations
+        %ul.nav.nav-pills
+          %li{:class => (urls[:dashboard] == request.fullpath) ? "selected" : nil}
+            %a{:href => recruiters_root_path}
+              Dashboard
+          %li{:class => (request.fullpath.include? urls[:jobs]) ? "selected" : nil}
+            %a{:href => status_recruiters_jobs_path(:status => "pending")}
+              Jobs
+          %li#menu1.dropdown{:class => (request.fullpath.include? urls[:profile]) ? "selected" : nil}
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#menu1"}
+              %span.first.small-icon.small-icon-user_name
+              #{ current_user.name }
+              %b.caret
+            %ul.dropdown-menu
+              %li.fl_none
+                - current_user_company_profile = safe_access(current_user.leonidas_resource, :company)
+                %a{:href => current_user_company_profile.present? ? recruiters_company_profile_path(:id => current_user.leonidas_resource.company.id) : new_recruiters_company_profile_path} Profile
+              %li.fl_none
+                %a{:href => destroy_user_session_path} Log Out
+
+    -#
+      //for SearchBox and LHS menus
+      %form.pull-right{:action => ""}
+        %input{:placeholder => "Search ...", :type => "text"}
+          .clr
+  .clr

@@ -1,0 +1,90 @@
+development: &dev
+  penumbra:
+    url : "http://umbra.jombaylocal.com"
+    app_name : "YNL"
+    password : "ynl71"
+
+  yoren:
+    url : "http://yoren.jombaylocal.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+           
+  leonidas:
+    url : "http://leo.jombaylocal.com"
+    app_name : "100K"
+    password : "100k"
+
+  herald:
+    url : "http://herald.jombaylocal.com"
+    app_name : "100K"
+    password : "100K"
+
+test: &test
+  <<: *dev
+
+staging_steve:
+  penumbra:
+    url : "http://umbra.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+
+  yoren:
+    url : "http://yoren.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+  
+  leonidas:
+    url : "http://leo.ur-nl.com"
+    app_name : "100K"
+    password : "100k"
+
+  herald:
+    url : "http://herald.ur-nl.com"
+    app_name : "100K"
+    password : "100K"
+
+staging_dennis:
+  penumbra:
+    url : "http://umbra.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+
+  yoren:
+    url : "http://yoren.ur-nl.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+
+  leonidas:
+    url : "http://leo.ur-nl.com"
+    app_name : "100K"
+    password : "100k"
+
+  herald:
+    url : "http://herald.ur-nl.com"
+    app_name : "100K"
+    password : "100K"
+
+production:
+  penumbra:
+    url : "http://umbra.jombay.com"
+    app_name : "YNL"
+    password : "ynl71"
+
+  yoren:
+    url : "http://yoren.jombay.com"
+    app_name : "YNL"
+    password : "ynl71"
+    auth : true
+
+  leonidas:
+    url : "http://leo.jombay.com"
+    app_name : "100K"
+    password : "100k"
+
+  herald:
+    url : "http://herald.jombay.com"
+    app_name : "100K"
+    password : "100K"

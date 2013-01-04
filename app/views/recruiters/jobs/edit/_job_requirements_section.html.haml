@@ -1,0 +1,96 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Specify your job requirements and we will get you the right candidates
+      .divider1
+
+- job = job_template_struct
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-job_requirements" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
+  = hidden_field_tag "continue_later", false
+  .control-group
+    %label.control-label
+      Years of Work Experience*
+    -#
+      .label_subtitle
+        Adjust the slider to specify the range
+    .controls
+      %label.radio.span4
+        %input#optionsRadios1{:checked => (@job.try(:work_experience).try(:type).to_s == "true"), :name => "work_experience[type]", :type => "radio", :value => "true"}
+          Experienced
+      %label.radio.span4
+        %input#optionsRadios2{:checked => (["false", ""].include? @job.try(:work_experience).try(:type).to_s), :name => "work_experience[type]", :type => "radio", :value => "false"}
+          Fresher
+      .clr
+    .control-group
+      %label.control-label
+      .controls
+        = select_tag("work_experience[min_range]", work_experience_options, :prompt => "Min Work Ex", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:min_range), :disabled => (["false", ""].include? @job.try(:work_experience).try(:type).to_s))
+        = select_tag("work_experience[max_range]", work_experience_options, :prompt => "Max Work Ex", :class => "span3 pull-left", "data-work_exp" => true, "data-preselect" => @job.try(:work_experience).try(:max_range), :disabled => (["false", ""].include? @job.try(:work_experience).try(:type).to_s))
+        %br/
+      .controls
+        %span.error.help-inline{:for => :max_range, :generated => "true"}
+    -#
+      .exp_slider
+        %input{:name => "workex", :type => "slider", :data => {"work-ex-level" => true}}
+  .control-group
+    %label.control-label
+      Qualifications*
+    .controls
+      = select_tag("job_academic_qualification", options_from_collection_for_select(@master_data[:degree_diploma], "id", "name"), :prompt => "Select Degree/Diploma", :class => "span5 first fl_none", "data-preselect" => @job.try(:qualification).try(:degree_diploma).try(:first), "data-chosen_select" => true, "data-academic_qualification_select" => true)
+      = select_tag("job_academic_specialization", options_from_collection_for_select(@master_data[:specializations], "id", "name"), :prompt => "Select Specialization", :class => "span4", "data-preselect" => @job.try(:qualification).try(:specialization).try(:first), "data-chosen_select" => true, :placeholder => "Select Specialization", "data-academic_specialization_pseudo_select" => true)
+      %div{:data => {"preferred-qualification_specialization-container" => true}}
+        - if @job.try(:qualification).try(:degree_diploma).present?
+          - preselect_job_qualifications(@job.qualification).each do |qualification|
+            = render :partial => "recruiters/jobs/edit/job_requirements/qualification_specialization", :locals => {:qualification_specialization => qualification}
+    .controls
+      = hidden_field_tag "job_qualification_ids"
+      %br/
+  .control-group
+    %label.control-label
+      Must Have Skills* 
+    .controls
+      = select_tag("job_skill_must_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select a Skills", :class => "span5 first fl_none", "data-must_skill_degree_diploma" => true, "data-preselect" => @job.try(:skill).try(:must).try(:skill_id).try(:first), "data-chosen_select" => true)
+      = select_tag("job_skill_must_exp", skill_experience_options, :prompt => "Select Experience", :class => "span4", "data-must_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:must).try(:experience).try(:first), "data-chosen_select" => true)
+      %div{:data => {"preferred-must_skill-container" => true}}
+        - if @job.try(:skill).try(:must).try(:skill_id).present?
+          - preselect_job_must_skills(@job.skill.must).each do |skill|
+            = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet_must", :locals => {:skills_snippet => skill}
+
+    .controls
+      = hidden_field_tag "job_must_skill_ids"
+      %br/
+  .control-group
+    %label.control-label
+      Nice to Have Skills
+    .controls
+      = select_tag("job_skill_nice_skill_id", options_from_collection_for_select(@master_data[:skills], "id", "name"), :prompt => "Select one or more", :class => "span9 first fl_none", "data-nice_skill_pseudo_select" => true, "data-preselect" => @job.try(:skill).try(:nice).try(:skill_id).try(:first), "data-chosen_select" => true)
+      %div{:data => {"preferred-nice_skill-container" => true}}
+        - if @job.try(:skill).try(:nice).try(:skill_id).present?
+          - preselect_job_nice_skills(@job.skill.nice.skill_id).each do |skill|
+            = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet_nice", :locals => {:skills_snippet => skill}
+
+  .control-group
+    %label.control-label
+      Job Description
+    .controls
+      = text_area_tag("description", @job.try(:description), :placeholder => "Type job roles, responsibilities and any additional details here", :class => "span9 first", :rows => "4")
+
+  .form-actions
+    %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
+      %strong save and continue later
+    .clr
+%script{id: "academic_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/qualification_specialization", locals: {qualification_specialization: academic_template_struct}
+%script{id: "must_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet_must", locals: {skills_snippet: skill_template_struct}
+%script{id: "nice_skill_display_template", type: "text/x-template"}
+  = render :partial => "recruiters/jobs/edit/job_requirements/skills_snippet_nice", locals: {skills_snippet: skill_template_struct}

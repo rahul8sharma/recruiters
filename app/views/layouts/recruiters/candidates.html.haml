@@ -1,0 +1,33 @@
+= content_for :main_header do
+  = render :partial => "recruiters/shared/header"
+
+= content_for :stylesheets do
+  = stylesheet_link_tag 'recruiters/candidates'
+  //= stylesheet_link_tag 'recruiters/candidates/recommendations/recruiters'
+  = stylesheet_link_tag 'recruiters/candidates/rating_star'
+
+= content_for :javascript_libs do
+  = javascript_include_tag "lib/raty/js/jquery.raty"
+
+= content_for :javascripts do
+  -#= javascript_include_tag "recruiters/candidates/recruiters"
+
+= content_for :extra_meta do
+  = render :partial => "shared/no_index"
+
+= content_for :content do
+  -# var rate_persia_recruiter_path = "#{ rate_persia_recruiter_path(":id") }";
+  :javascript
+    var rate_persia_recruiter_path = "#{ }";
+    var token = "#{ params[:token] }";
+
+  .container-fluid.fixed-container
+    .hero-unit
+      - if content_for?(:inner_content)
+        = yield(:inner_content)
+      - else
+        = yield
+    .clr    
+    = yield(:seo_footer)
+    
+= render :file => 'layouts/recruiters/base', :locals => {:options => {:body_class => "long_header"}}

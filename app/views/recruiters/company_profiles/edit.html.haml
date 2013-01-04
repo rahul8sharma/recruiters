@@ -1,0 +1,80 @@
+- content_for :javascripts do
+  = javascript_include_tag "company_profiles/edit"
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Company Details
+- content_for :sidebar do
+  &nbsp;
+.rec_rhs
+  .clearfix
+    .divider2
+    .title.faded_dark
+      Edit Profile
+    = form_tag recruiters_company_profile_path(:redirect_to => ""), :id => "editCompanyProfileForm", :class => "form-horizontal", :method => :put do
+      = fields_for :company do |f|
+        .control-group
+          = f.label :type, "I am*", :class => "control-label"
+          .controls.medium_text
+            = @company_type
+        .control-group
+          = f.label :name, "Company Name*", :class => "control-label"
+          .controls
+            = f.text_field :name, :placeholder => "Type company name", :class => "span9"
+        .control-group
+          = f.label :description, "About Company", :class => "control-label"
+          .controls
+            = f.text_area :description, :placeholder => "Tell us more about your company", :rows => 4, :class => "span9"
+        .control-group
+          = f.label :url, "Company Website", :class => "control-label"
+          .controls
+            = f.text_field :url, :placeholder => "Type company website", :class => "span9"
+        -# 
+          //should be not commented, be present
+          .control-group
+            = f.label "location[geography_id][]", "Location*", :class => "control-label"
+            .controls
+              = f.select("location[geography_id][]", top_list_for_select(:india_cities), {:prompt => "Select City"}, {:class => "span9 fl_none"})
+        .control-group
+          = f.label :address, "Address", :class => "control-label"
+          .controls
+            = f.text_area :address, :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9"
+        -#
+          .control-group
+            %label.control-label{:for => "companyLogo"} Company Logo
+            .controls
+              .span3.divider6.gray_border
+                = image_tag("http://www.placehold.it/10x10")
+              %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
+        .form-actions
+          %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
+            %strong Save changes
+          .clr
+
+
+    .title.faded_dark
+      Account Details
+    = form_tag users_path(:redirect_to => ""), :id => "editProfileForm", :class => "form-horizontal", :method => :put do
+      -#= fields_for :user do |f|
+      .control-group
+        %label.control-label
+          Name
+        .controls
+          = text_field_tag "user[name]", current_user.name, :placeholder => "Name", :class => "span9"
+      .control-group
+        %label.control-label
+          Phone Number
+          -# = f.label :phone, "Phone Number", :class => "control-label"
+        .controls
+          = text_field_tag "user[phone]", current_user.phone, :placeholder => "Name", :class => "span9"
+      .control-group
+        %label.control-label
+          Email ID
+          -#= f.label :email, "Email ID", :class => "control-label"
+        .controls.medium_text
+          = current_user.email
+      .form-actions
+        %button.pull-right{:class => "btn btn-success offset1 medium_text", :type => "submit"}
+          %strong Save changes
+        .clr

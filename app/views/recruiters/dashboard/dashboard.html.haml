@@ -1,0 +1,105 @@
+- content_for :javascripts do
+  = javascript_include_tag "dashboard/dashboard"
+  = javascript_include_tag "jobs/actions.js"
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Dashboard
+    .content
+      .main_sub
+        Hello #{current_user.name}
+      .medium_text
+        Welcome to your Jombay dashboard! You can manage your job postings here.
+      .divider1
+- content_for :sidebar do
+  = render :partial => "recruiters/shared/help_block"
+  = render :partial => "recruiters/shared/update_profile"
+  -#= render :partial => "recruiters/shared/recruitment_solution_info"
+
+.wrapper
+  .post_job
+    -#
+      Add ".active" class after clicking on grren "post job" link 
+      For Exp :- .post_sub.active
+    %a.btn-post{:href => job_posting_recruiters_dashboard_index_path, :title => "Click here to post job"}
+      %i.icon-plus-sign
+      Post a Job
+    -#
+      .listing_container
+        = render :partial => "recruiters/dashboard/post_sub_links"
+        = render :partial => "recruiters/dashboard/dashboard_listing_snippets"
+
+  - if @jobs.values.all? { |jobs| jobs.empty? }
+    =render :partial => "recruiters/dashboard/start_posting"
+  .divider2
+
+  - if @jobs[:pending].present?
+    .dash_listing{data: {"section" => true}}
+      .dash_listing_title
+        .pull-left
+          %a{:href => status_recruiters_jobs_path(:status => "pending")}
+            Pending Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::PENDING, :posted_by => current_user.sid).size})
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
+        .clr
+      %div{data: {"section_content" => true}}
+        %div{data: {"job_post_notification" => true}}
+          = render :partial=> "recruiters/shared/job_post_notification"
+        %ul.listing
+          = render :partial => "recruiters/dashboard/section/pending_job", :collection => @jobs[:pending]
+        %a.show_details{:href => status_recruiters_jobs_path(:status => "pending"), :title => "View all Pending jobs"}
+          Show all Pending jobs
+        .clr
+    .divider2
+
+  - if @jobs[:open].present?
+    .dash_listing{data: {"section" => true}}
+      .dash_listing_title
+        .pull-left
+          %a{:href => status_recruiters_jobs_path(:status => "open")}
+            Open Jobs (#{@jobs[:open].total_entries})
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
+        .clr
+      %div{data: {"section_content" => true}}
+        %ul.listing
+          = render :partial => "recruiters/dashboard/section/open_job", :collection => @jobs[:open]
+        %a.show_details{:href => status_recruiters_jobs_path(:status => "open"), :title => "View all Open jobs"}
+          Show all Open jobs
+        .clr
+    .divider2
+
+  - if @jobs[:incomplete].present?
+    .dash_listing{data: {"section" => true}}
+      .dash_listing_title
+        .pull-left
+          %a{:href => status_recruiters_jobs_path(:status => "incomplete")}
+            Incomplete Jobs (#{Recruiters::Job.find(:status => Recruiters::Job::STATUSES::INCOMPLETE, :posted_by => current_user.sid).size})
+        %a.pull-right.min_max{:href => "#", :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+          %i.icon-minus-sign
+        .clr
+      %div{data: {"section_content" => true}}
+        %ul.listing
+          = render :partial => "recruiters/dashboard/section/incomplete_job", :collection => @jobs[:incomplete]
+        %a.show_details{:href => status_recruiters_jobs_path(:status => "incomplete"), :title => "View all Incomplete jobs"}
+          Show all Incomplete Jobs
+      .clr
+    .divider2
+  -#
+    - if @jobs[:closed].present?
+      .dash_listing{data: {"section" => true}}
+        .dash_listing_title
+          .pull-left
+            %a{:href => status_recruiters_jobs_path(:status => "closed")}
+              Closed Jobs (#{@jobs[:closed].total_entries})
+          %a.pull-right.min_max{:href => status_recruiters_jobs_path(:status => "closed"), :title => "Minimize/Maximize Here", "data-section_collapser" => true}
+            %i.icon-minus-sign
+          .clr
+        %div{data: {"section_content" => true}}
+          %ul.listing
+            = render :partial => "recruiters/dashboard/section/closed_job", :collection => @jobs[:closed]
+          %a.show_details{:href => status_recruiters_jobs_path(:status => "closed"), :title => "View all Closed jobs"}
+            Show all Closed Jobs 
+          .clr
+      .divider2

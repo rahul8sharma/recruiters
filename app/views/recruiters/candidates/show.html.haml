@@ -1,0 +1,39 @@
+-# Initialise user resource so it can be passed to display image helper
+- content_for :javascripts do
+  = javascript_include_tag "candidates/show"
+
+- user = Vger::Spartan::User.new(@application.user_information.attributes)
+
+#recruiter_details
+  .inn.border-bottom
+    .span22.fl_none.clearfix
+      .pull-left
+        -# 
+          link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app.
+          Link to Job can't be generated here. The '-' at end is required to redirect to correct url.
+        %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => "See this Job Posting"}
+          %strong See this Job Posting
+      .pull-right
+        %a{:href => recruiters_job_candidates_path(@job.reference_key), :title => "Go Back to the list", :class => "medium_text recruiters_icons go_back_btn"}
+          %strong Go Back to the list
+      .clr
+      .big_text.faded_light Applicant for:
+      -# 
+        link_to_jobseeker_app("jobs/#{@job.id}-") - Link to job details page on jombay (jobseeker) app.
+        Link to Job can't be generated here. The '-' at end is required to redirect to correct url.
+      %a{:href => link_to_jobseeker_app("jobs/#{@job.id}-"), :title => @job.name, :class => "biggest_text link_color"}
+        #{ @job.name }
+  .inn.border_bottom
+    .span22.fl_none.clearfix
+      = render partial: "recruiters/candidates/show/user_details", locals: { user: user, user_prof_infos: @application.user_profile_information }
+      .pull-right
+        = render partial: "recruiters/candidates/show/detail_page_rating", locals: {application: @application, recommendation: @job}
+      .clr
+      - if @application.categorywise_skills_information 
+        = render partial: "recruiters/candidates/show/category_skills", locals: { skills: @application.categorywise_skills_information }
+      - if @application.rejected_locations or @application.preferred_locations
+        = render partial: "recruiters/candidates/show/job_location_preferences", locals: { rejected: @application.rejected_locations, preferred: @application.preferred_locations }
+      = render partial: "recruiters/candidates/show/extra_skills", locals: { user_prof_infos: @application.user_profile_information }
+      = render partial: "recruiters/candidates/show/strengths", locals: { user_prof_infos: @application.user_profile_information }
+      = render partial: "recruiters/candidates/show/preferences", locals: { user_prof_infos: @application.user_profile_information }
+  .divider3

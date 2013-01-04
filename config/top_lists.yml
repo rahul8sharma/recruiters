@@ -1,0 +1,29 @@
+india_cities:
+  - Bangalore
+  - Chennai
+  - Hyderabad
+  - Kolkata
+  - Mumbai City
+  - Pune
+  - NCR Region
+  - New Delhi
+
+fields:
+  - Engineering
+  - Management and Administration
+  - Media and Communication
+  - Accounting and Finance
+  - Sciences
+  - Hospitality
+
+job_categories:
+  - IT - Software
+  - ITES, BPO, KPO, Customer Service, Operations
+  - Marketing, Advertising, Market Research, Public Relations, Sales, Business Development
+  - Quality, Testing
+  - Web Design, Graphic Design
+  - Accounts, Finance, Tax, CS, Audit
+  - General Administration, Front Office, Data Entry
+  - HR, Industrial Relations, Recruitment
+  - IT - Hardware, Telecom, Technical Staff, Support
+  - Content, Journalism

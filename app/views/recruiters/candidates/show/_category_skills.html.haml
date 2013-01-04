@@ -1,0 +1,7 @@
+- if !!skills.collect(&:skills).detect{|skills| skills.attributes.to_a.present?}
+  .gray_gradient.clearfix
+    .inn.border-bottom
+      %strong.yellow_text.big_text
+        Skills
+    #skills
+      = render partial: "recruiters/candidates/show/category_skills/skills_list", collection: skills

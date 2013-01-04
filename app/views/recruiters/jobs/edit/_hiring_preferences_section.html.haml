@@ -1,0 +1,93 @@
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Post a Job
+    .content
+      .divider1
+      .medium_text
+        Tell us your preferences in a candidate
+      .divider1
+
+= form_tag recruiters_jobs_path(:id => @job.uuid, :section => @section), :method => :put, "data-hiring_preferences" => true, :class => "form-horizontal margin", "data-job_posting_form" => true do
+  = hidden_field_tag "continue_later", false
+  .control-group
+    %label.control-label
+      Do you want to hire candidates from particular industries?
+    .controls
+      = select_tag("candidate_industry_select", options_from_collection_for_select(@master_data[:industries], :id, :name), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:industry).try(:id).try(:first), "data-job_industry_pseudo_select" => true, "data-chosen_select" => true)
+      %div{:data => {"preferred-job_industry-container" => true}}
+        - if @job.try(:candidate).try(:industry).try(:id).present?
+          = render :partial => "recruiters/jobs/edit/hiring_preferences/job_candidate_industry", :collection => preselect_job_recommendations(@job.candidate.industry.id)
+
+  .control-group
+    %label.control-label
+      Do you want to hire candidates from a particular locations?
+    .controls
+      = select_tag("candidate_location_select", top_list_for_select(:india_cities), :prompt => "Select one or more", class: "span9 first fl_none", "data-preselect" => @job.try(:candidate).try(:location).try(:id).try(:first), "data-job_location_pseudo_select" => true, "data-chosen_select" => true)
+      %div{:data => {"preferred-job_location-container" => true}}
+        - if @job.try(:candidate).try(:location).try(:id).present?
+          = render :partial => "recruiters/jobs/edit/hiring_preferences/job_candidate_location", :collection => preselect_job_locations(@job.candidate.location.id)
+
+  .control-group
+    %label.control-label
+      Communication Skills 
+    .controls
+      = select_tag("spoken_skill", skill_level_options, :prompt => "Spoken English", :class => "span4 first", "data-preselect" => @job.try(:spoken_skill))
+      = select_tag("written_skill", skill_level_options, :prompt => "Written English", :class => "span4", "data-preselect" => @job.try(:written_skill))
+    .clr
+
+  .control-group.margin
+    %label.control-label
+      Behavioral Traits
+      .label_subtitle 
+        Select upto 6 options
+    .controls.behavioral_traits
+      - selected_traits = @job.trait.present? ? @job.trait : []
+      - @master_data[:traits].each_with_index do |trait, index|
+        %label.checkbox.traits_badge{:class => selected_traits.include?(trait.id.to_s) ? "active" : nil}
+          = check_box_tag("trait[]", trait.id, selected_traits.include?(trait.id.to_s), :class => "hide")
+          #{ trait.name }
+  .control-group.error
+    .controls
+      %span.error.help-inline{:for => "trait[]", :generated => "true"}
+  .control-group
+    %label.control-label
+      Gender
+    .controls
+      - @master_data[:gender].each_with_index do |gender, index|
+        %label.radio.span3{:class => index == 0 ? "first" : ""}
+          = radio_button_tag("candidate[personal][gender]", gender.id, (@job.candidate.personal.gender rescue nil) == gender.id.to_s)
+          #{ gender.name }
+      %label.radio.span3
+        %input#optionsRadios2{:checked => (@job.candidate.personal.gender rescue nil).blank?, :name => "candidate[personal][gender]", :type => "radio", :value => ""}
+          No Preference
+      .clr
+
+  .control-group
+    %label.control-label
+      Marital Status
+    .controls
+      - @master_data[:marital_status].each_with_index do |status, index|
+        %label.radio.span3{:class => index == 0 ? "first" : ""}
+          = radio_button_tag("candidate[personal][marital_status]", status.id, (@job.candidate.personal.marital_status rescue nil) == status.id.to_s)
+          #{ status.name }
+      %label.radio.span3
+        %input#optionsRadios2{:checked => (@job.candidate.personal.marital_status rescue nil).blank?, :name => "candidate[personal][marital_status]", :type => "radio", :value => ""}
+          No Preference
+      .clr
+    .divider1
+
+  .form-actions
+    %a.pull-left{:class => "", :href => edit_recruiters_jobs_path(:id => @job.uuid, :section => @prev_section)}
+      Previous
+    %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+      %strong Next Step
+    %a.pull-right{:class => "", :href => "#", :data => {"continue_later" => true}}
+      %strong save and continue later
+    .clr
+
+%script#preferred-job_industry{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/hiring_preferences/job_candidate_industry", locals: {job_candidate_industry: preferred_job_industry_template_struct}
+%script#preferred-job_location{type: 'text/x-template'}
+  = render :partial => "recruiters/jobs/edit/hiring_preferences/job_candidate_location", locals: {job_candidate_location: preferred_job_location_template_struct}

@@ -1,0 +1,66 @@
+- content_for :javascripts do
+  = javascript_include_tag "company_profiles/new"
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Company Details
+    .content
+      .main_sub
+        Hi #{current_user.name},
+      .medium_text 
+        Fill the following details of your organization. We need to know these before you post your first job.
+      .divider1
+
+- content_for :sidebar do
+  = render :partial => "recruiters/shared/help_block"
+.rec_rhs
+  .clearfix
+    .divider2
+    -#
+      .title.faded_dark
+        New Profile
+    = form_tag create_new_recruiters_company_profiles_path(:redirect_to => @redirect), :id => "newCompanyProfileForm", :class => "form-horizontal", :method => :post do
+      = hidden_field_tag("redirect", @redirect)
+      .control-group
+        %label.control-label
+          I am*
+        .controls
+          = select_tag("type", options_from_collection_for_select(Vger::Spartan::Vanguard::RecruiterType.all, :id, :name), :prompt => "Select Type", :class => "span9")
+      .control-group
+        %label.control-label
+          Company Name*
+        .controls
+          = text_field_tag "company[name]", "", :placeholder => "Type company name here", :class => "span9"
+      .control-group
+        %label.control-label
+          About Company
+        .controls
+          = text_area_tag "company[description]", "", :placeholder => "Tell us more about your company", :rows => 4, :class => "span9"
+      .control-group
+        %label.control-label
+          Company Website
+        .controls
+          = text_field_tag "company[url]", "", :placeholder => "Type company website", :class => "span9"
+      .control-group
+        %label.control-label
+          Location*
+        .controls
+          = select_tag("company[location][geography_id]", top_list_for_select(:india_cities), :prompt => "Select Location", :class => "span9 fl_none")
+      .control-group
+        %label.control-label
+          Address
+        .controls
+          = text_area_tag "company[address]", "", :placeholder => "Type company address (This address will be shown in case of a walk-in event)", :rows => 4, :class => "span9"
+      -#
+        .control-group
+          %label.control-label
+            Company Logo
+          .controls
+            .span3.divider6.gray_border
+              = image_tag("http://www.placehold.it/10x10")
+            %input#companyLogo.pull-left{:class=> "span9", :placeholder => "Prefilled", :type => "file"}
+      .form-actions
+        %button.pull-right{:class => "btn btn-info offset1 medium_text", :type => "submit"}
+          %strong Next Step
+        .clr

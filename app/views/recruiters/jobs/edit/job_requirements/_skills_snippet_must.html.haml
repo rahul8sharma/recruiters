@@ -1,0 +1,12 @@
+.badge_label.clearfix.span9.first{"data-snippet" => skills_snippet.id}
+  -#
+    .badge_count
+      1
+  .badge_content
+    #{ skills_snippet.name }
+    - if skills_snippet.experience
+      \-
+      #{ skills_snippet.experience } years
+  %a.close{"data-dismiss" => "alert", :type => "button"} ×
+  = hidden_field_tag("skill[must][skill_id][]", skills_snippet.id)
+  = hidden_field_tag("skill[must][experience][]", skills_snippet.experience)

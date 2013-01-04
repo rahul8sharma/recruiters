@@ -1,0 +1,9 @@
+:ruby
+  statuses = ["pending","open","incomplete"]
+.status_nav.pull-right
+  %ul.unstyled.clearfix.margin
+    - statuses.each do |status|
+      %li{:class => @status == status ? "active" : nil}
+        %a{:href => status_recruiters_jobs_path(:status => status), :title => "Click here to view all #{status.titleize} jobs"}
+          #{status.titleize}
+.clr

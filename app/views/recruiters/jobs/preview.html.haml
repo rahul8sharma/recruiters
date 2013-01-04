@@ -1,0 +1,60 @@
+= content_for :stylesheets do
+  = stylesheet_link_tag 'recruiters/jobs'
+- content_for :javascripts do
+  = javascript_include_tag "lib/raty/js/jquery.raty.js"
+  = javascript_include_tag "jobs/preview"
+
+- content_for :recruiter_title do
+  .recruiter_title
+    .content
+      .main
+        Job Preview
+    .content
+      .divider1
+      .medium_text
+        Your job has not been posted yet. Take a look at the information you entered.
+      .divider1
+- content_for :sidebar do
+  .job_flow_lhs
+    %ul
+      - section_matched = false
+      - Rails.application.config.recruiters[:job_posting_sections].each_with_index do |(section, title), index|
+        %li{:class => section == @section ? (section_matched = true; "active") : (section_matched ? "" : "done")}
+          #{ index + 1 }. #{ title }
+  = render :partial => "recruiters/shared/help_block"
+
+.rec_rhs
+  = form_tag update_status_recruiters_job_path(:id => @job.uuid, :status => "pending"), :method => :put, "data-preview_job" => true, :class => "form-horizontal margin" do
+    .form-actions.yellow_bg.margin_top
+      .span8.first.medium_text
+        If everything looks okay, scroll down to bottom and click on 
+        %strong
+          "Post Job" 
+        to post the job.
+      %button.pull-right{:class => "btn btn-info offset1", :type => "button", :data => {"preview_top_submit" => true}}
+        %strong Post Job
+      .clr
+
+    .preview
+      = render :partial => "recruiters/jobs/preview/job_details_preview", :locals => {:allow_edit => true}
+      
+      = render :partial => "recruiters/jobs/preview/job_requirements_preview", :locals => {:allow_edit => true}
+
+      = render :partial => "recruiters/jobs/preview/hiring_preferences_preview", :locals => {:allow_edit => true}
+
+      = render :partial => "recruiters/jobs/preview/logistics_preview", :locals => {:allow_edit => true}
+
+      = render :partial => "recruiters/jobs/preview/additional_details_preview", :locals => {:allow_edit => true}
+
+      = render :partial => "recruiters/jobs/preview/recruiter_details_preview", :locals => {:allow_edit => true}
+
+      = render :partial => "recruiters/jobs/preview/recruiter_contact_details_preview", :locals => {:allow_edit => true}      
+
+    .form-actions
+      %a.pull-left{:class => "", :href => recruiters_jobs_path(:id => @job.uuid, :section => "company-details")}
+        Previous
+      %button.pull-right{:class => "btn btn-info offset1", :type => "submit"}
+        %strong Post Job
+      %a.pull-right{:class => "", :href => recruiters_root_path}
+        %strong save and continue later
+      .clr
