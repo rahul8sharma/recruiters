@@ -43,7 +43,7 @@ Recruiters::Application.configure do
   config.cache_store = :dalli_store, 'cache.jombay.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "http://cdn.recruiters.jombay.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
