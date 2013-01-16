@@ -116,12 +116,6 @@ module Recruiters
       precompile
     }
            
-    config.middleware.use ::ExceptionNotifier,
-    :email_prefix => "[recruiters-#{Rails.env}] ",
-    :sender_address => "Application Error <errors@jombay.com>",
-    :exception_recipients => %w(nikhil@jombay.com manoj@jombay.com saurabh@jombay.com),
-    :normalize_subject => true
-
     config.stats = YAML::load(File.open(Rails.root.join("config", "stats", "#{Rails.env}.yml")))
   end
 end
