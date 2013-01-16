@@ -80,7 +80,7 @@ module Recruiters
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
 
     config.buckets = YAML::load(File.open("#{Rails.root.to_s}/config/sparta/buckets.yml"))
-    
+
     config.autoload_paths += Dir[Gem::Specification.find_by_name("vger").gem_dir+"/**"]
     config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
 
@@ -99,23 +99,26 @@ module Recruiters
                                  'sparta/rupee.css',
                                  'lib/awesome-font.css'
                                 ]
-    
+
     config.assets.precompile << Proc.new { |path|
       precompile = false
-      
+
       if path =~ /\.css/
         full_path = Rails.application.assets.resolve(path).to_path
         if full_path =~ /\.css/
           precompile = true
         end
       end
-      
+
       if precompile
         puts "Compiling '#{path}' "
       end
       precompile
     }
-           
+
     config.stats = YAML::load(File.open(Rails.root.join("config", "stats", "#{Rails.env}.yml")))
+
+    # Fix for Rails vulnerability
+    ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
   end
 end
