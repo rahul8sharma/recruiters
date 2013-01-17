@@ -8,8 +8,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: c59d68ad29d73126d68778803469620a56f9469c
-  branch: develop
+  revision: b73427439ccffa1cdce1c5af628b6863462e789d
   specs:
     vger (0.0.1)
       json (~> 1.7.5)
@@ -86,7 +85,7 @@ GEM
     http_parser.rb (0.5.3)
     i18n (0.6.1)
     journey (1.0.4)
-    json (1.7.5)
+    json (1.7.6)
     kgio (2.7.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -106,7 +105,7 @@ GEM
       ohm (~> 1.2)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
-    rack (1.4.1)
+    rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.3.2)
