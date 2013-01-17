@@ -2,7 +2,7 @@ require 'csv'
 
 class ExportJobs
   @queue = :asap
-  
+
   def self.perform
     valuators = {
       :name => :name,
@@ -58,7 +58,7 @@ class ExportJobs
         }.join(",")
       },
       :job_poster => '',
-      :active => true,        
+      :active => true,
       :min_work_experience => lambda{ |job| (job.work_experience.min_range rescue nil) || '' },
       :max_work_experience => lambda{ |job| (job.work_experience.max_range rescue nil) || '' },
       :internal_reference_number => lambda{ |job| (job.contact_detail.job_id rescue nil)  || ''},
@@ -95,7 +95,7 @@ class ExportJobs
         (Vger::Spartan::Dilios::Gender.find(job.candidate.personal.gender).name rescue nil) || ''
       },
       :marital_status => lambda{ |job|
-        (Vger::Spartan::Dilios::MaritalStatus.find(job.candidate.personal.marital_status).name rescue nil) || '' 
+        (Vger::Spartan::Dilios::MaritalStatus.find(job.candidate.personal.marital_status).name rescue nil) || ''
       },
       :abilities => '',
       :traits => lambda{ |job|
@@ -142,12 +142,13 @@ class ExportJobs
           Vger::Spartan::WeekDay.find(day).name rescue nil
         }.compact.join(",")
       },
-      
+
       :reference_key => :uuid,
       :recruiter_sid => :posted_by,
+      :created_date => :created_at
     }
 
-    
+
     pending_jobs = Recruiters::Job.with_status(:pending)
 
     rows = pending_jobs.map do |job|
@@ -160,7 +161,7 @@ class ExportJobs
                               else
                                 valuator
                               end))
-        
+
       end
     end
 
@@ -168,13 +169,13 @@ class ExportJobs
 
     relative_dir = "#{base}/#{Date.today.strftime('%Y-%m-%d')}"
     relative_dir_prev = "#{base}/#{(Date.today-2.days).strftime('%Y-%m-%d')}"
-    
+
     absolute_dir = "#{Rails.root.to_s}/#{relative_dir}"
     absolute_dir_prev = "#{Rails.root.to_s}/#{relative_dir_prev}"
-    
+
     FileUtils.mkdir_p(absolute_dir)
 
-    file = "#{Time.now.strftime('%H_%M_%S')}.csv"
+    file = "RecruiterPendingJobs_#{Date.today.strftime('%d%m%y')}_#{Time.now.strftime('%H_%M_%S')}.csv"
     relative_file = "#{relative_dir}/#{file}"
     absolute_file = "#{absolute_dir}/#{file}"
 
@@ -192,9 +193,9 @@ class ExportJobs
     csv.close
 
     FileUtils.rm_rf(absolute_dir_prev)
-    
+
     recipient_emails = ["hardik@jombay.com"]
-    
+
     data = {
       :success => [ "Pending jobs as of #{Time.now.strftime('%Y/%m/%d %H:%M:%S')}: #{url}" ],
       :error_msgs => [],
