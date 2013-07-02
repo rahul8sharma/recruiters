@@ -1,14 +1,3 @@
--# Base layout for persia. All persia layouts inherit from this. Common css and
-  js is loaded here. Derived from haml.html.haml.  This layout is now
-  deprecated. New designs are being based off new_base.html.haml. Once all
-  features have moved to the new layout, this will be deleted and new_base will
-  be renamed to base.
-
-:ruby
-  unless defined? options
-    options = {}
-  end
-
 - content_for :stylesheets do
   = stylesheet_link_tag "shared"
 
@@ -33,8 +22,4 @@
       = yield (:footer)
     - else
       = render :partial => "shared/footer"
-
-    -#= render partial: "shared/rebrand_modal_notification"
-
-    
-= render :file => 'layouts/haml', :locals => {:options => options}
+= render :file => 'layouts/haml'
