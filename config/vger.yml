@@ -1,0 +1,32 @@
+development: &dev
+  api:
+    url : "http://api.jombaylocal.com"
+    app_name : "recruiters"
+    password : "JIT987"
+
+test: &test
+  <<: *dev
+
+staging:
+  api:
+    url : "http://api.ur-nl.com"
+    app_name : "recruiters"
+    password : "JIT987"
+
+staging_internal:
+  api:
+    url : "http://api.internal.ur-nl.com:5088"
+    app_name : "recruiters"
+    password : "JIT987"
+
+staging_dennis:
+  api:
+    url : "http://api.ur-nl.com"
+    app_name : "recruiters"
+    password : "JIT987"
+
+production:
+  api:
+    url : "http://api.jombay.com"
+    app_name : "recruiters"
+    password : "JIT987"

@@ -30,7 +30,7 @@ module Recruiters
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-
+    
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
@@ -58,11 +58,29 @@ module Recruiters
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
-
+    
+    # assets_precompile_enforcer module copied from https://github.com/ndbroadbent/assets_precompile_enforcer
+    require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
+    config.assets.original_precompile = config.assets.precompile.dup
+    config.to_prepare { load 'config/assets_precompile.rb' }
+    config.watchable_files << 'config/assets_precompile.rb'
+    config.assets.enforce_precompile = true
+    
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
+    config.action_controller.default_url_options = { :trailing_slash => true }
+    config.time_zone = 'Mumbai'
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.delivery_method = :smtp
+    # Temporary fix for Rails vulnerability
+    ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
+    
+    
   end
 end

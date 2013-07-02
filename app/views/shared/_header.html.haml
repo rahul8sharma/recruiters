@@ -1,0 +1,6 @@
+.header-layout
+  .header.clearfix
+    .jombay-logo
+      = image_tag("jombay-logo.png")
+    .navbar.medium-text.white.pull-right
+      = current_user.email if current_user
