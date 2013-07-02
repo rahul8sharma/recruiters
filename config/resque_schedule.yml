@@ -1,4 +1,0 @@
-export_jobs:
-  every: 60m
-  class: ExportJobs
-  queue: asap

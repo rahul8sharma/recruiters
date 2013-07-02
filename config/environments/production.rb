@@ -19,7 +19,6 @@ Recruiters::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  config.assets.initialize_on_precompile = false
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -40,10 +39,11 @@ Recruiters::Application.configure do
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
-  config.cache_store = :dalli_store, 'cache.jombay.com:11211', { :namespace => "jombay_recruiters_#{Rails.env.to_s}", :compress => true }
+  # Use a different cache store in production
+  # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://cdn.recruiters.jombay.com"
+  # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -61,14 +61,4 @@ Recruiters::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  #
-
-  config.action_mailer.default_url_options = {
-    :host => 'recruiters.jombay.com'
-  }
-  config.redis_server = "resque.recruiters.jombay.com:6379/1"
-  config.ohm = "redis://resque.recruiters.jombay.com:6379/0"
 end

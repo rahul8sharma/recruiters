@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Recruiters::Application.config.secret_token = 'bcb7c106d2581188fa77e4365f7289c49a9521714775047f47aeefbad8873ac1a0bb11074a2a92cb0e75c4b1067b84e58516d44a4ba87e7137fe9f5153969d82'
+Recruiters::Application.config.secret_token = 'd918c501a9ac02301b4937bc8857ae57ac6f4c50e3c51a4330ff456772d7ba8d3f8eec56dec4f310086b269b5277f615abfc01a4b8f69cbe10b7fde15fdb0c6a'

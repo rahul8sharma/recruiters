@@ -1,9 +1,0 @@
-.badge_label.clearfix.span9.first{"data-snippet" => qualification_specialization.qualification_id}
-  .badge_content
-    #{ qualification_specialization.qualification_name }
-    - if qualification_specialization.specialization_id
-      in
-      #{ qualification_specialization.specialization_name }
-  %a.close{"data-dismiss" => "alert", :type => "button"} ×
-  = hidden_field_tag("qualification[degree_diploma][]", qualification_specialization.qualification_id)
-  = hidden_field_tag("qualification[specialization][]", qualification_specialization.specialization_id)
