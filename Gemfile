@@ -1,35 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rake', '0.9.2'
-gem 'rails', '3.2.9'
-gem 'rack', '1.4.1'
+gem 'rails', '3.2.13'
+group :assets do
+  gem 'sass-rails',   '3.2.3'
+	gem 'bootstrap-sass', '2.3.1.0'
+  gem 'uglifier', '1.0.3'
+end
 
-# Gems used only for assets and not required
-# in production environments by default.
-gem 'sass-rails',   '~> 3.2.3'
-gem 'coffee-rails', '~> 3.2.1'
-
-gem 'uglifier', '>= 1.0.3'
-
-gem 'awesome_print', '1.1.0'
-gem 'resque-scheduler', '2.0.0', :require => 'resque_scheduler'
-gem "exception_notification", "3.0.0"
-gem "statsd-ruby", '1.1.0', :require => "statsd"
-gem "stats", :git => "git@github.com:yournextleap/actor_guardian.git", :branch => "stats"
-gem "haml-rails", "0.3.5"
-gem "will_paginate", "3.0.3"
-gem "redis-rails", "3.2.3"
-
-gem "ohm", "1.2.0"
-gem "ohm-contrib", "1.2"
-gem "hashie", "1.2.0"
-gem 'mysql2', '0.3.12b5'
-gem 'disable_assets_logger', :group => :development
-
-gem "vger", :git => "git@github.com:yournextleap/vger.git"
-gem 'unicorn', '4.5.0'
-gem 'devise', '2.1.2'
-gem "dalli", "2.6.0"
-gem "resque", "1.23.0", :require => 'resque/server'
-gem 'turbo-sprockets-rails3', '0.3.4'
+gem 'jquery-rails', '2.2.1'
 
