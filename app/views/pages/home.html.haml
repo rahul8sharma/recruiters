@@ -1,0 +1,40 @@
+- if current_user
+  = link_to "Logout", logout_path, method: :delete
+- else
+  = link_to "Login", login_path
+%br  
+= link_to "Companies List", companies_path
+%br  
+= link_to "Company Page", company_path(:id => 1)
+%br  
+= link_to "Settings", settings_company_path(:id => 1)
+%br  
+= link_to "Account Settings", account_settings_company_path(:id => 1)
+%br  
+= link_to "Company Settings", company_settings_company_path(:id => 1)
+%br  
+= link_to "Company Statistics", statistics_company_path(:id => 1)
+%br
+= link_to "Tests", company_tests_path(:company_id => 1)
+%br
+= link_to "Test page", company_test_path(:company_id => 1, :id => 1)        
+%br
+= link_to "New Test page", new_company_test_path(:company_id => 1)
+%br
+= link_to "Norms Criteria for a Test page", norm_criteria_company_test_path(:company_id => 1, :id => 1)
+%br
+= link_to "Norms for a Test page", norms_company_test_path(:company_id => 1, :id => 1)                                
+%br
+= link_to "Candidates List", company_candidates_path(:company_id => 1)
+%br
+= link_to "Candidate page", company_candidate_path(:company_id => 1, :id => 1)
+%br
+= link_to "Candidate bulk upload", bulk_upload_company_candidates_path(:company_id => 1)
+%br
+= link_to "Candidate single upload", single_upload_company_candidates_path(:company_id => 1)
+%br
+= link_to "Send test to Candidates", send_test_to_candidates_company_candidates_path(:company_id=>1)
+%br
+= link_to "Send test to Employees", send_test_to_employees_company_path(:id=>1)                                             
+                                         
+
