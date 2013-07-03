@@ -27,6 +27,7 @@ Recruiters::Application.routes.draw do
       end
       
       member do
+        get "/:assessment_id/report" => "candidates#assessment_report", :as => :assessment_report
       end
     end
   end

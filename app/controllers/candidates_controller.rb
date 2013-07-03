@@ -16,4 +16,7 @@ class CandidatesController < ApplicationController
   
   def send_test_to_employees
   end
+  
+  def assessment_report
+  end
 end
