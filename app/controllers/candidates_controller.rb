@@ -18,5 +18,6 @@ class CandidatesController < ApplicationController
   end
   
   def assessment_report
+    render :layout => "reports" 
   end
 end
