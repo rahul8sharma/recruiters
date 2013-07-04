@@ -1,0 +1,15 @@
+%h1
+  Item ::
+  = @item.body
+
+= link_to "Edit", edit_suitability_factor_item_path(params[:factor_id],params[:id])
+ 
+= link_to "Back", suitability_factor_path(params[:factor_id])
+
+%div
+  %h3
+    Options added for this item
+  - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
+    = link_to option.body, suitability_factor_item_option_path(params[:factor_id],params[:id], option.id)
+    %br
+    

@@ -1,0 +1,4 @@
+= form_tag import_jobs_path, multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Post jobs'

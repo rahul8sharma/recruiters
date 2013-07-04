@@ -1,0 +1,4 @@
+= form_tag import_company_candidates_path(:company_id => params[:company_id]), multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Upload Candidates'

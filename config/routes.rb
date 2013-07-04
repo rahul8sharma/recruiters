@@ -1,5 +1,12 @@
 Recruiters::Application.routes.draw do
   resources :companies, :only => [:index, :show] do
+    collection do
+      post :import
+  	  get :manage
+  	  post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+    
     member do
       get "settings" => "companies#settings", :as => :settings
       get "statistics" => "companies#statistics", :as => :statistics
@@ -19,15 +26,127 @@ Recruiters::Application.routes.draw do
       end
     end
     
-    resources :candidates, :only => [:index, :show] do
+    resources :hiring_managers, :only => [:index, :new] do
+    	collection do
+        post :import
+        get 'assign_jobs' => "hiring_managers#assign_jobs_form", :as => :assign_jobs_form
+        post :assign_jobs
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :admins, :only => [:index, :new] do
+    	collection do
+    	  get :manage
+    	  post :import
+    	  post 'import_from_google_drive'
+        post 'export_to_google_drive' 
+	    end
+    end
+    
+    resources :candidates, :only => [:index, :show, :new] do
       collection do
         get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
         get "upload/single" => "candidates#upload_single", :as => :single_upload
         get "send-test" => "candidates#send_test_to_candidates", :as => :send_test_to_candidates
+
+        get 'manage'
+        post 'import'
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
       end
       
       member do
         get "assessment/:assessment_id/report/:page" => "candidates#assessment_report", :as => :assessment_report
+      end
+    end
+  end
+  
+  resources :account_managers, :only => [:index, :new] do
+  	collection do
+      post :import
+      get 'assign_jobs' => "account_managers#assign_jobs_form", :as => :assign_jobs_form
+      post :assign_jobs
+      get :manage
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
+
+  resources :jobs, :only => [:show, :index, :new] do
+  	collection do
+  	  get :manage
+  	  post :import 
+  	  post 'import_from_google_drive'
+      post 'export_to_google_drive'
+	  end
+  end
+  
+  resources :functional_areas, :only => [:index, :new] do
+	  collection do 
+	    post :import 
+      get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+	  end
+  end
+
+  resources :industries, :only => [:index, :new] do
+	  collection do
+	    post :import 
+	    get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
+
+  resources :job_experiences, :only => [:index, :new] do
+	  collection do
+	    post :import 
+	    get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
+  
+  namespace :suitability do
+    resources :item_groups do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+	    end
+	  end
+	  
+	  resources :items, :only => [:index, :new, :show] do
+	  end
+	
+	  resources :assessments do
+	  end
+	
+    resources :factors, :only => [:index, :new, :show] do
+		  resources :items do
+			  get 'add_option' => 'items#add_option'
+			  resources :options do
+			  end
+		  end
+		  collection do
+		    post :import 
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end
+  	
+  	namespace :job do
+      resources :factor_norms, :only => [ :index ] do
+        collection do
+          post :import
+          get :edit
+          get 'manage'
+          post 'import_from_google_drive'
+          post 'export_to_google_drive'
+        end
       end
     end
   end

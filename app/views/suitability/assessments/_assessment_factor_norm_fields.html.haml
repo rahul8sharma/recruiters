@@ -1,0 +1,42 @@
+- id_name = "assessment[job_assessment_factor_norms_attributes][#{index}][id]"
+- factor_name = "assessment[job_assessment_factor_norms_attributes][#{index}][factor_id]"
+- fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
+- industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
+- exp_name = "assessment[job_assessment_factor_norms_attributes][#{index}][job_experience_id]"
+- std_dev_name = "assessment[job_assessment_factor_norms_attributes][#{index}][std_dev]"
+- norm_value_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_value]"
+- check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
+.fields
+  = job_factor_norm.factor.name
+  = job_factor_norm.functional_area.name
+  = job_factor_norm.industry.name
+  = job_factor_norm.job_experience.display_text
+  - if job_factor_norm.norm_value.zero?
+    - if job_factor_norm.id.present?
+      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index), disabled: 'disabled'}
+    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, disabled: 'disabled', index: (index)}
+    
+    %label "norm_value"
+    %input{name: (norm_value_name), type: 'text', value: (job_factor_norm.norm_value), disabled: 'disabled', index: (index)}
+    
+    %label "std_dev"
+    %input{name: (std_dev_name), type: 'text', value: (job_factor_norm.std_dev), disabled: 'disabled', index: (index)}
+      
+    %input{name: "selected_factor", type: 'checkbox', index: (index)}
+  - else
+    - if job_factor_norm.id.present?
+      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, index: (index)} 
+    %label "norm_value"
+    %input{name: (norm_value_name), type: 'text', value: (job_factor_norm.norm_value), index: (index)}
+    
+    %label "std_dev"
+    %input{name: (std_dev_name), type: 'text', value: (job_factor_norm.std_dev), index: (index)}
+    
+    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: 'checked'}  

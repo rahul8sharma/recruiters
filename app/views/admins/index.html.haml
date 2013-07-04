@@ -1,0 +1,7 @@
+%h1 All Admins
+- if can? :create, "Admin"
+  = link_to "Post admins", new_company_admin_path(:company_id => params[:company_id])
+%ul.unstyled
+  - for admin in @admins do
+    %li 
+    =	admin.email

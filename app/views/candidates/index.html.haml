@@ -1,2 +1,8 @@
-%h1 Candidates#index
-%p Find me in app/views/candidates/index.html.haml
+%h1 All Candidates
+- if can? :create, "Candidate"
+  = link_to "Upload Candidates", new_company_candidate_path(:company_id => params[:company_id])
+  = link_to "Manage Candidates", manage_company_candidates_path(:company_id => params[:company_id])
+%ul.unstyled
+  - for candidate in @candidates do
+    %li 
+    =	candidate.email

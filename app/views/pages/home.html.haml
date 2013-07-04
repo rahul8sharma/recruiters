@@ -3,6 +3,8 @@
 - else
   = link_to "Login", login_path
 %br
+= link_to "Report PDF Page 1", assessment_report_company_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1, :format => :pdf)
+%br
 = link_to "Report Page 1", assessment_report_company_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1)
 %br
 = link_to "Report Page 2", assessment_report_company_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 2)
@@ -47,4 +49,29 @@
 %br
 = link_to "Send test to Employees", send_test_to_employees_company_path(:id=>1)                                             
                                          
+%hr
+%hr
+%div
+  = link_to "Admins", company_admins_path(:company_id => params[:company_id])
+%div
+  = link_to "Hiring Managers", company_hiring_managers_path(:company_id => params[:company_id])
+%div
+  = link_to "Account managers", account_managers_path 
+%div
+  = link_to "Jobs", jobs_path 
+%div
+  = link_to "Companies", companies_path 
+%div
+  = link_to "Candidates", company_candidates_path(:company_id => params[:company_id]) 
+%div
+  = link_to "Assign jobs to Account Managers", assign_jobs_form_account_managers_path 
+%div
+  = link_to "Assign jobs to Hiring Managers", assign_jobs_form_company_hiring_managers_path(:company_id => params[:company_id])
+%div
+  = link_to "Suitability Factors", suitability_factors_path 
+  = link_to "Suitability Job Factor Norms", suitability_job_factor_norms_path 
+%div
+  = link_to "Functional Areas", functional_areas_path 
+  = link_to "Industries", industries_path 
+  = link_to "Job Experiences", job_experiences_path 
 

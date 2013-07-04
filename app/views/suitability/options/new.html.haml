@@ -1,0 +1,5 @@
+%h1 Create new suitability option
+
+= render 'form', url: new_suitability_factor_item_option_path(params[:factor_id],params[:item_id]), method: :post
+
+= link_to 'Back', suitability_factor_item_path(params[:factor_id],params[:item_id])

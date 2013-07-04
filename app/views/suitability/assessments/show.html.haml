@@ -1,0 +1,20 @@
+%h1
+  Assessment ::
+  = @assessment.name
+
+= link_to "Edit", edit_suitability_assessment_path(@assessment.id)
+ 
+= link_to "Back", suitability_assessments_path()
+
+%div
+  %h3
+    Job assessment factor norms added for this assessment
+  - @assessment.job_assessment_factor_norms.each do |assessment_factor_norm|
+    = assessment_factor_norm.factor.name
+    = assessment_factor_norm.functional_area.name
+    = assessment_factor_norm.industry.name
+    = assessment_factor_norm.job_experience.display_text
+    = assessment_factor_norm.norm_value
+    = assessment_factor_norm.std_dev
+    %br
+    

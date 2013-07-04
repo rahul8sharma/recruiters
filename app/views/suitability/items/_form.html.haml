@@ -1,0 +1,21 @@
+- item_type = params[:item_type] || item.item_type
+= form_for item, :as => :item, :url => url, multipart: true, method: method do |f|
+  - if @item.error_messages.present?
+    %ul
+    - @item.error_messages.each do |msg|
+      %li #{msg}
+  = f.hidden_field :factor_id, value: params[:factor_id]
+  = f.hidden_field :item_type, value: item_type
+  .field
+    = f.label :body
+    = f.text_field :body
+  .field
+    = f.label :behavior
+    = f.select :behaviour, Vger::Resources::Suitability::BEHAVIORS
+  - if item_type == 'Suitability::ImageItem'
+    .field
+      = f.label :image_url
+      = f.text_field :image_url
+      
+  .actions
+    = submit_tag 'Submit'

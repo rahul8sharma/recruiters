@@ -1,0 +1,53 @@
+= form_for :assessment, :url => request.url, multipart: true, method: :get do |f|
+  - if assessment.errors.any?
+    %ul
+      - assessment.errors.each do |field,msg|
+        %li
+          = "#{field} : #{msg}"
+  = f.hidden_field :assessable_type, value: assessment.assessable_type
+  = f.hidden_field :assessable_id, value: assessment.assessable_id
+  = f.label :functional_area  
+  %select{:name => 'functional_area', id: 'select_functional_area'}
+    - @functional_areas.each do |functional_area|
+      %option{:value => (functional_area.id), selected: (params[:functional_area] == functional_area.id.to_s)}
+        = functional_area.name
+
+  = f.label :industry        
+  %select{:name => 'industry', id: 'select_industry'}
+    - @industries.each do |industry|
+      %option{:value => (industry.id), selected: (params[:industry] == industry.id.to_s)}
+        = industry.name
+
+  = f.label :experience
+  %select{:name => 'job_experience', id: 'select_job_experience'}
+    - @job_experiences.each do |job_experience|
+      %option{:value => (job_experience.id), selected: (params[:job_experience] == job_experience.id.to_s)}
+        = job_experience.display_text            
+  = submit_tag 'Okay'
+
+= form_for assessment, :as => :assessment, :url => url, multipart: true, method: method do |f|
+  = f.hidden_field :assessable_type, value: assessment.assessable_type
+  = f.hidden_field :assessable_id, value: assessment.assessable_id
+  %input{type: 'hidden', name: 'industry', value: (params[:industry])}
+  %input{type: 'hidden', name: 'functional_area', value: (params[:functional_area])}
+  %input{type: 'hidden', name: 'job_experience', value: (params[:job_experience])}
+  .field
+    = f.label :name
+    = f.text_field :name
+    
+  - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
+    = render :partial => 'assessment_factor_norm_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
+        
+  .actions
+    = submit_tag 'Submit'
+    
+%script{type: 'text/javascript'} 
+  $(document).ready(function(){
+  $("input[name='selected_factor']").change(function(){
+  if($(this).is(":checked")){
+  $("input[index='"+$(this).attr("index")+"']").removeAttr("disabled");
+  }else{
+  $("input[index='"+$(this).attr("index")+"']").attr("disabled",'disabled');
+  }
+  });
+  });

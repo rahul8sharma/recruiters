@@ -1,0 +1,6 @@
+%h1
+  = @option.body
+  %br
+  = @option.score
+
+= link_to "Edit", admin_suitability_factor_item_option_path(params[:factor_id],params[:item_id], params[:id]) 

@@ -1,0 +1,4 @@
+= form_tag import_account_managers_path, multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Add account managers'
