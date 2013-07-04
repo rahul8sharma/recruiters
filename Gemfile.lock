@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: 8243e2aba6628837391d89e94386862d12634e70
+  revision: cad3220b91eadff5ae945685b813d47a3f224427
   branch: suitability-tool-jit-features
   specs:
     vger (0.0.1)
@@ -155,6 +155,8 @@ GEM
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    wicked_pdf (0.9.6)
+      rails
 
 PLATFORMS
   java
@@ -178,3 +180,4 @@ DEPENDENCIES
   sass-rails (= 3.2.3)
   uglifier (= 1.0.3)
   vger!
+  wicked_pdf (= 0.9.6)
