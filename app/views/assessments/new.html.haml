@@ -1,1 +1,44 @@
-%div
+.creat-test
+  .inn.first
+    .page-title Tests
+  .inn
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .extra-medium-text
+      %b Please fill the following information.
+    .divider1
+    .medium-text 
+      %b Put Title to a Test
+      (For Eg : Sales Manager for online Engine Business Unit)
+    %form
+      %input{:type=>"text"}
+      .divider1
+      .control
+        %label 
+          Function Area
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Industry
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Experience Level
+        %select.span4
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .clr
+      .divider2
+      %button.pull-right.btn.btn-info
+        Proceed
+      .clr
