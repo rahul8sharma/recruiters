@@ -1,5 +1,6 @@
 @import toolkit/component/pagination
 @import toolkit/component/buttons
+
 @import shared/sub-nav
 .tests
   color: #484848
@@ -11,16 +12,16 @@
     display: table
   &:after
     clear: both
+[class*="span"].lhs-border
+  margin-left: 0
+  padding-left: 10px
+  border-left: 1px solid #e8e8e8
 .list-snippet
   border: 1px solid #d8d8d8
   &:hover
     border: 1px solid #efefef
     background: #fffef2
 
-  [class*="span"].lhs-border
-    margin-left: 0
-    padding-left: 10px
-    border-left: 1px solid #e8e8e8
 .list-snippet-titles
   font-weight: bold
   font-size: 14px
@@ -71,3 +72,64 @@
     height: 36px
   .control
     float: left
+.norms
+  .action
+    padding: 18px 0
+    border-top: 1px dashed #cfcfcf
+  .factors
+    .titles
+      font-weight: bold
+    .factor-snippet
+      li.item
+        padding: 5px 20px 10px 40px
+        border: 1px solid #f8f8d2
+        margin-bottom: 18px
+      li.item.checked
+        background: #ffffcd
+      input
+        margin: 3px 0 0 -30px
+      .white-box
+        border: 1px solid #d8d8d8
+        text-align: center
+        font-weight: bold
+        width: 25px
+        line-height: 25px
+        float: left
+        margin-right: 10px
+  .dropdown
+    ul
+      list-style: none
+      margin: 0
+
+      li
+        a
+          font-weight: bold
+          color: #484848
+    li.dropdown-submenu
+      position: relative
+      &:hover
+        ul.dropdown-menu
+          display: block
+
+    ul.dropdown-menu
+      background-color: #FFFFFF
+      border: 1px solid rgba(0, 0, 0, 0.2)
+      border-radius: 6px 6px 6px 6px
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
+      display: none
+      float: left
+      left: -15px
+      list-style: none outside none
+      margin: 2px 0 0
+      min-width: 60px
+      padding: 5px 0px
+      position: absolute
+      top: 115%
+      z-index: 1000
+
+      li
+        padding: 3px 10px
+        &:hover
+          background: #ffff9a
+    ul.dropdown-menu.active
+      display: block

@@ -1,2 +1,97 @@
-%h1 Assessment#norms
-%p Find me in app/views/assessments/norms.html.haml
+.creat-test.norms
+  .inn.first
+    .page-title Tests
+  .inn
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .extra-medium-text
+      %b Please fill the following information.
+    .divider1
+    .medium-text 
+      %b Put Title to a Test
+      (For Eg : Sales Manager for online Engine Business Unit)
+    %form
+      %input{:type=>"text"}
+      .divider1
+      .control
+        %label 
+          Function Area
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Industry
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Experience Level
+        %select.span4
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .clr
+      .divider2
+      %button.pull-right.btn.btn-success
+        Modify
+      .clr
+      .divider1
+      .action
+        %button.pull-right.btn.btn-info
+          Proceed
+        .clr
+    .factors
+      .titles.clearfix
+        .span17.first
+          Factors
+        .pull-right
+          .span3
+            Qualifying score 
+          .span2
+            Importances 
+      .divider1
+      %ul.unstyled.factor-snippet
+        -8.times do
+          %li.item.checked
+            //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+            .pull-left 
+              %input{:type => "checkbox"}
+            .pull-left
+              %b Emotional intelligent
+            .pull-right
+              .span3.lhs-border
+                .white-box
+                  3
+                .white-box
+                  3
+              .span2.lhs-border
+                .dropdown
+                  %ul
+                    %li.dropdown-submenu.pull-left
+                      %a{:href => "#"} High 
+                      %span.icon-caret-down
+                      %ul.dropdown-menu.active
+                        %li
+                          %a{:href => "#", :tabindex => "-1"}
+                            High
+                        %li
+                          %a{:href => "#", :tabindex => "-1"}
+                            Medium
+                        %li
+                          %a{:href => "#", :tabindex => "-1"}
+                            Low
+            .clr
+            .divider1
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    .divider2
+    %button.pull-right.btn.btn-info
+      Proceed
+    .clr
+    .divider1
