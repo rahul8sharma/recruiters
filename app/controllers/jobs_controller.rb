@@ -3,7 +3,7 @@ class JobsController < ApplicationController
 	
 	def import
 		@errors = Vger::Resources::Job.import(params[:file])
-		redirect_to jobs_url, notice: "Jobs imported."
+		redirect_to company_jobs_url, notice: "Jobs imported."
 	end	
 	
 	def manage
@@ -12,13 +12,13 @@ class JobsController < ApplicationController
 	def import_from_google_drive
     Vger::Resources::Job\
       .import_from_google_drive(params[:import])
-    redirect_to jobs_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to company_jobs_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
 	end
 
   def export_to_google_drive
     Vger::Resources::Job\
       .export_to_google_drive(params[:export].merge(:columns => [:title, :description]))
-    redirect_to jobs_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to company_jobs_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 	
   def show
@@ -46,7 +46,7 @@ class JobsController < ApplicationController
 			
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to company_job(:company_id => params[:company_id], @job), notice: 'Job was successfully created.' }
         format.json { render json: @job, status: :created, location: @job }
       else
         format.html { render action: "new" }

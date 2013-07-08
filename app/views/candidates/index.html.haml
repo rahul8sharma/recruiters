@@ -1,7 +1,7 @@
 %h1 All Candidates
 - if can? :create, "Candidate"
-  = link_to "Upload Candidates", new_company_candidate_path(:company_id => params[:company_id])
-  = link_to "Manage Candidates", manage_company_candidates_path(:company_id => params[:company_id])
+  = link_to "Upload Candidates", new_company_assessment_candidate_path(:company_id => params[:company_id], :assessment_id => params[:assessment_id])
+  = link_to "Manage Candidates", manage_company_assessment_candidates_path(:company_id => params[:company_id], :assessment_id => params[:assessment_id])
 %ul.unstyled
   - for candidate in @candidates do
     %li 

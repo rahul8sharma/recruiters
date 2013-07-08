@@ -25,6 +25,12 @@ class CandidatesController < ApplicationController
 
   def show
   end
+  
+  def send_reminder
+  end
+  
+  def add
+  end
 
   def upload_bulk
   end

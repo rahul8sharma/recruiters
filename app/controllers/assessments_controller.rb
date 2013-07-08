@@ -1,9 +1,15 @@
-class Suitability::AssessmentsController < ApplicationController
+class AssessmentsController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :get_meta_data, :except => [:index, :show]
+	before_filter :get_meta_data, :except => [:index, :show, :norms, :styles]
 	
   def show
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    #@assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+  end
+  
+  def norms
+  end
+  
+  def styles
   end
   
   # GET /assessments
@@ -25,7 +31,7 @@ class Suitability::AssessmentsController < ApplicationController
   def create
     respond_to do |format|
       if @assessment.valid? and @assessment.save
-        format.html { redirect_to suitability_assessment_path(@assessment), notice: 'Assessment was successfully created.' }
+        format.html { redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), notice: 'Assessment was successfully created.' }
         format.json { render json: @assessment, status: :created, location: @job }
       else
         format.html { render action: "new" }
@@ -47,7 +53,7 @@ class Suitability::AssessmentsController < ApplicationController
   def update
     respond_to do |format|
       if Vger::Resources::Suitability::Assessment.save_existing(params[:id], params[:assessment])
-        format.html { redirect_to suitability_assessment_path(params[:id]), notice: 'Suitability Assessment was successfully updated.' }
+        format.html { redirect_to company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: 'Suitability Assessment was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
@@ -60,10 +66,10 @@ class Suitability::AssessmentsController < ApplicationController
 		if params[:id].present?
 			@assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
 			@job_assessment_factor_norms = @assessment.job_assessment_factor_norms  	
-		else
+		elsif params[:assessment].present?
 			if params[:assessment][:assessable_type].blank? || params[:assessment][:assessable_id].blank?
 				flash[:notice] = "You must select assessable entity first"
-				redirect_to suitability_assessments_path and return
+				redirect_to company_assessments_path(:company_id => params[:company_id], ) and return
 			end
 			@assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
 			job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm.where(:query_options => { :industry_id => params[:industry], :functional_area_id => params[:functional_area], :job_experience_id => params[:job_experience] }).all
@@ -71,10 +77,10 @@ class Suitability::AssessmentsController < ApplicationController
   		job_factor_norms.each do |job_factor_norm|
   			@job_assessment_factor_norms.push Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(job_factor_norm.attributes.except(:id,:created_at,:updated_at))
   		end
+  		@assessable = "Vger::Resources::#{@assessment.assessable_type}".constantize.where(:methods => [:functional_areas, :industries]).find(@assessment.assessable_id)
+		  @functional_areas = @assessable.functional_areas
+    	@industries = @assessable.industries
+    	@job_experiences = [@assessable.job_experience]
 		end
-		@assessable = "Vger::Resources::#{@assessment.assessable_type}".constantize.where(:methods => [:functional_areas, :industries]).find(@assessment.assessable_id)
-		@functional_areas = @assessable.functional_areas
-  	@industries = @assessable.industries
-  	@job_experiences = [@assessable.job_experience]
   end
 end

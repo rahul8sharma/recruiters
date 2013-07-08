@@ -1,4 +1,4 @@
-= form_tag export_to_google_drive_company_candidates_path(:company_id => params[:company_id]), multipart: true, :method => :post do
+= form_tag export_to_google_drive_company_assessment_candidates_path(:company_id => params[:company_id], :assessment_id => params[:assessment_id]), multipart: true, :method => :post do
   %fieldset
     %legend 
       %strong Download candidates
