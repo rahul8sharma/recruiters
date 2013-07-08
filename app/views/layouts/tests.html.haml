@@ -2,9 +2,8 @@
   = stylesheet_link_tag "tests"
 - content_for :content do
   .divider1
-  .white-box.container
-    .test-list
-      = render :partial => "shared/sub-nav"
-      = yield
+  .white-box.tests.bordered.container
+    = render :partial => "shared/sub-nav"
+    = yield
   .divider1
 = render :file => 'layouts/jit'
