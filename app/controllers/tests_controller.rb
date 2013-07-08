@@ -1,4 +1,6 @@
 class TestsController < ApplicationController
+  layout "tests" 
+  
   def index
   end
 
