@@ -18,3 +18,8 @@ vendor/cache
 .ruby-version
 .rvmrc
 public/assets
+**.DS_Store
+*:Zone.Identifier
+*:encryptable
+*Thumbs.db
+*~
