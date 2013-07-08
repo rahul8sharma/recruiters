@@ -1,0 +1,4 @@
+= form_tag import_functional_areas_path, multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Upload functional areas'

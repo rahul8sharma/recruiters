@@ -1,0 +1,23 @@
+- option_type = params[:option_type] || option.option_type
+- option = defined?(option)? option : ("Vger::Resources::#{option_type}".constantize).new()
+= form_for option, :as => :option, :url => url, multipart: true, :method => method, remote: true do |f|
+  = f.hidden_field :item_id, value: item_id
+  = f.hidden_field :option_type, value: option_type
+  = f.hidden_field :factor_id, value: factor_id
+  .field
+    = f.label :body
+    = f.text_field :body
+  - if option_type == 'Suitability::ImageOption'
+    .field
+      = f.label :image_url
+      = f.text_field :image_url
+    
+      
+  .field
+    = f.label :score
+    %input{type:'text',name:'option[score]',value:(option.score rescue '')}
+  .actions
+    = submit_tag 'Submit'
+    
+%br
+%br

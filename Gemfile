@@ -13,6 +13,7 @@ gem 'rails-backbone','0.7.2'
 
 gem 'puma','2.0.1'
 
+gem 'wicked_pdf','0.9.6'
 
 gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "7acdb8600d62"
 
