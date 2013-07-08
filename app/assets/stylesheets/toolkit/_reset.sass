@@ -19,11 +19,13 @@ html
   -ms-text-size-adjust: 100%
 a.underlined
   text-decoration: underline
+  &:hover
+    text-decoration: none
 strong, a
   display: inline-block
 // Focus states
 a:focus
-  outline: none
+  +tab-focus
 
 // Hover & Active
 a:hover, a:active
@@ -92,15 +94,19 @@ textarea
   // Readability and alignment cross-browser
 body
   margin: 0
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
-  font-size: 14px
-  line-height: 16px
- 
+  font-family: $baseFontFamily
+  font-size: $baseFontSize
+  line-height: $baseLineHeight
+  color: $textColor
+  background-color: $white
+
 // LINKS
 // -----
 
 a
+  color: $linkColor
   text-decoration: none
 
 a:hover
+  color: $linkColorHover
   text-decoration: underline

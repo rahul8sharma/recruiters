@@ -1,0 +1,44 @@
+@import toolkit/component/pagination
+@import toolkit/component/buttons
+@import shared/sub-nav
+.test-list
+  color: #484848
+  border: 1px solid #dedede
+.inn
+  padding: 15px 35px
+  border-top: 1px solid #dedede
+  &:before, &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+.list-snippet
+  border: 1px solid #d8d8d8
+  &:hover
+    border: 1px solid #efefef
+    background: #fffef2
+
+  [class*="span"].lhs-border
+    margin-left: 0
+    padding-left: 10px
+    border-left: 1px solid #e8e8e8
+.list-snippet-titles
+  font-weight: bold
+  font-size: 14px
+.list-snippet, .list-snippet-titles
+  cursor: default
+  margin: 0 0 15px 0
+  padding: 7px 10px
+  &:before, &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+.inn.first
+  border: none
+.page-title 
+  font-size: 24px
+  line-height: 36px
+
+
+    

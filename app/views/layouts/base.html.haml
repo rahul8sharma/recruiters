@@ -1,8 +1,9 @@
 - content_for :stylesheets do
+  = stylesheet_link_tag "toolkit/main-layout"
   = stylesheet_link_tag "shared"
 
 - content_for :body do
-  %div
+  .wrapper
     - if content_for?(:main_header)
       = yield (:main_header)
     - else
