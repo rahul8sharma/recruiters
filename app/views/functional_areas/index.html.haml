@@ -1,0 +1,8 @@
+%h1 All functional areas
+- if can? :create, "FunctionalArea"
+  = link_to "Upload functional areas", new_functional_area_path
+  = link_to "Manage Functional Areas", manage_functional_areas_path  
+%ul.unstyled
+  - for functional_area in @functional_areas do
+    %li 
+    =	functional_area.name

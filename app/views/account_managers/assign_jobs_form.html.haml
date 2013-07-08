@@ -1,0 +1,8 @@
+%h1 Assign jobs to account managers
+
+= form_tag assign_jobs_account_managers_path, multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Assign Jobs'
+
+= link_to 'Back', account_managers_path

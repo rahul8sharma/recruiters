@@ -1,0 +1,5 @@
+%h1 All Company Assessments
+%ul.unstyled
+  - for assessment in @assessments do
+    %li 
+    =	link_to assessment.name, company_assessment_path(:company_id => params[:company_id], :id => assessment.id)

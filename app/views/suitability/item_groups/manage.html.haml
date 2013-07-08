@@ -1,0 +1,10 @@
+= form_for :item_group, :url => import_from_google_drive_suitability_item_groups_path, :method => :post do |f|
+  = f.fields_for :file do |ff|
+    File
+    = ff.text_field "url", value: ""
+  %br
+  Notifier Email
+  = f.email_field :email, value: ""
+  %br
+  .actions
+    = submit_tag 'Import Suitability Items'

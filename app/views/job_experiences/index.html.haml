@@ -1,0 +1,10 @@
+%h1 All job experiences
+- if can? :create, "JobExperience"
+  = link_to "Upload job experiences", new_job_experience_path
+  = link_to "Manage Job Experiences", manage_job_experiences_path    
+%ul.unstyled
+  - for job_experience in @job_experiences do
+    %li 
+    =	job_experience.display_text
+    =	job_experience.min
+    =	job_experience.max

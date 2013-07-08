@@ -1,0 +1,8 @@
+%h1 All industries
+- if can? :create, "Industry"
+  = link_to "Upload industries", new_industry_path
+  = link_to "Manage Industries", manage_industries_path  
+%ul.unstyled
+  - for industry in @industries do
+    %li 
+    =	industry.name
