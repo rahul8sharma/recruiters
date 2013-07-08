@@ -25,7 +25,7 @@ class Suitability::FactorsController < ApplicationController
 
   # GET /factors
   def index
-  	@factors = Vger::Resources::Suitability::Factor.all
+  	@factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 20)
   end
 
   # GET /factors/new

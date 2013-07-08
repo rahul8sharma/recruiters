@@ -2,7 +2,17 @@
 - if can? :create, "Suitability::Factor"
   = link_to "Upload Suitability Factors", new_suitability_factor_path
   = link_to "Manage Suitability Factors", manage_suitability_factors_path
-%ul.unstyled
+%table
+  %tr
+    %th
+      Name
+    %th
+      Definition
   - for factor in @factors do
-    %li 
-    =	link_to factor.name, suitability_factor_path(factor)
+    %tr 
+      %td
+        =	link_to factor.name, suitability_factor_path(factor)
+      %td
+        = factor.definition
+
+= paginate @factors        
