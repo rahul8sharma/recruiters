@@ -1,6 +1,8 @@
 class Suitability::FactorsController < ApplicationController
 	before_filter :authenticate_user!
 	
+	layout "admin"
+	
   def import
 		Vger::Resources::Suitability::Factor.import(params[:file])
 		redirect_to suitability_factors_url, notice: "Suitability Factors imported."

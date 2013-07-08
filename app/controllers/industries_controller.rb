@@ -1,6 +1,8 @@
 class IndustriesController < ApplicationController
 	before_filter :authenticate_user!
-	
+
+  layout "admin"
+    	
 	def import
 		Vger::Resources::Industry.import(params[:file])
 		redirect_to industries_url, notice: "Industrys imported."

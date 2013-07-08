@@ -95,6 +95,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.0)
     json (1.8.0-java)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -173,6 +176,7 @@ DEPENDENCIES
   haml-rails (= 0.3.4)
   her (= 0.6.6)!
   jquery-rails (= 2.2.1)
+  kaminari (= 0.14.1)
   puma (= 2.0.1)
   rails (= 3.2.13)
   rails-backbone (= 0.7.2)

@@ -1,6 +1,8 @@
 class Suitability::ItemsController < ApplicationController
 	before_filter :authenticate_user!
 	
+	layout "admin"
+	
   # GET /items
   def index
   	@items = Vger::Resources::Suitability::Item.all

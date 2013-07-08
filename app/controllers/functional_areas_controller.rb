@@ -1,6 +1,8 @@
 class FunctionalAreasController < ApplicationController
 	before_filter :authenticate_user!
 	
+	layout "admin"
+	
 	def manage
   end
   

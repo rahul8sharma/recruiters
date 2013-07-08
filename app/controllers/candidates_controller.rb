@@ -20,7 +20,7 @@ class CandidatesController < ApplicationController
   end
 
   def index
-    @candidates = Vger::Resources::Candidate.all
+    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => params[:per] ||= 2)
   end
 
   def show

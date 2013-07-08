@@ -1,6 +1,8 @@
 class JobExperiencesController < ApplicationController
 	before_filter :authenticate_user!
 	
+	layout "admin"
+	
 	def import
 		Vger::Resources::JobExperience.import(params[:file])
 		redirect_to job_experiences_url, notice: "JobExperiences imported."

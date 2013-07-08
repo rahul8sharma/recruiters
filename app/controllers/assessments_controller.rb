@@ -2,6 +2,8 @@ class AssessmentsController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :get_meta_data, :except => [:index, :show, :norms, :styles]
 	
+	layout "tests"
+	
   def show
     #@assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
   end

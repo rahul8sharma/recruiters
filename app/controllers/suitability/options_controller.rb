@@ -1,6 +1,8 @@
 class Suitability::OptionsController < ApplicationController
 	before_filter :authenticate_user!
 	
+	layout "admin"
+	
   def import
 		Vger::Resources::Suitability::Option.import(params[:file])
 		redirect_to options_url, notice: "Suitability Options imported."
