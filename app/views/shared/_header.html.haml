@@ -1,0 +1,16 @@
+#header
+  .container
+    .logo
+      = link_to(image_tag("jombay-logo.png"), "/")
+
+    .navbar.pull-right
+      .navigations.clearfix
+        %a.companies.pull-left{:href =>"#", :title => "Companies" }
+          Companies
+          %span.icon-caret-down
+        %a.userName.pull-right{:href =>"#", :title => "Companies" }
+          %b Username 
+          \| 
+          Admin
+          %span.icon-caret-down
+    .clr
