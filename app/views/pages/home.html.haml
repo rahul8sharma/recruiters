@@ -52,7 +52,7 @@
   = link_to "Assessment Candidates", company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
   %br
   %br
-  = link_to "Add Candidates", add_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  = link_to "Add Candidates", add_candidates_company_assessment_path(:company_id => 1, :id => 1)
   %br
   %br
   = link_to "Candidate bulk upload", bulk_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
@@ -61,7 +61,7 @@
   = link_to "Candidate single upload", single_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
   %br
   %br
-  = link_to "Send test to Candidates", send_test_to_candidates_company_assessment_candidates_path(:company_id=>1, :assessment_id => 1)
+  = link_to "Send test to Candidates", send_test_to_candidates_company_assessment_path(:company_id=>1, :id => 1)
   %br
   %br
   = link_to "Send Reminder to Candidate", send_reminder_company_assessment_candidate_path(:company_id=>1, :assessment_id => 1, :id => 1)

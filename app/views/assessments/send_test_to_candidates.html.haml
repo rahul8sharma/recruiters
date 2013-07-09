@@ -1,0 +1,63 @@
+= form_for @assessment, :as => :assessment, :url => send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  .create-test.send-test-to-candidate
+    .inn.first
+      .page-title Test #{@assessment.name}
+      
+    .inn
+      = render :partial => "shared/test-flow-sub-nav"
+      .divider2
+      .alert.alert-warning.text-center
+        %b.medium-text Pressing the Back Button you may loose all the candidates added this far
+      .divider1
+      .medium-text
+        %b To: 
+        (Please note the following candidate are being send the test)
+      %ul.unstyled.clearfix.candidate-list-to-send
+        - @candidate_assessments.each_with_index do |candidate_assessment,index|
+          %li
+            %label
+              %input{:type => "checkbox", name: "candidates[#{candidate_assessment.candidate.id}]"}
+              = candidate_assessment.candidate.name
+      .divider2
+      .test-text-to-send
+        .title
+          Test Title
+        .massage-body.test-title
+          = @assessment.name
+        .title
+          Subject
+        .massage-body.subject
+          "#{@company.name}" - "#{@assessment.name}"
+        .title
+          Message
+        .massage-body.massage
+          %p 
+            Hello "First Name",
+          %p 
+            "#{@company.name}" has arranged for you to complate a Jombay Suitability Questionaire.
+          %p 
+            To Complete, please click the weblink listed below or copy paste the URL into your web browser address bar.
+          %p 
+            %b
+              URL: 
+              %a{:href=>"#", :title => "Some Title goes Here"} 
+                https://www.google.co.in/webhp?source=search
+          %p
+            If you have any questions about taking the Jombay Suitability Questionnaire, Call on 
+            %b +91 - 87960 - 29607 
+            or Email 
+            %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"} 
+              prakhar@jombay.com
+          %p 
+            Best Regards
+            %br/
+            Prakhar Srivastava,
+            %br/
+            Jombay
+      .pull-right
+        %a.span.line-height2{:href=>"#", :title => "cancel"}
+          Cancel
+        %button.btn.btn-info.span
+          Send
+      .clr
+

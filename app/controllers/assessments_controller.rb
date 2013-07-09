@@ -5,7 +5,7 @@ class AssessmentsController < ApplicationController
 	layout "tests"
 
   def show
-    #@assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
   end
   
   def norms
@@ -49,9 +49,35 @@ class AssessmentsController < ApplicationController
   
   def add_candidates
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    if request.get?
+      @candidate_assessments ||= @assessment.candidate_assessments.to_a
+      10.times do 
+        @candidate_assessments.push(Vger::Resources::Suitability::CandidateAssessment.new(:assessment_id => params[:id]))
+      end
+    end
+    if request.put?
+      assessment = Vger::Resources::Suitability::Assessment.add_candidates(params)
+      redirect_to send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+    end
+  end
+  
+  def send_test_to_candidates
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @company = Vger::Resources::Company.find(params[:company_id])
     @candidate_assessments ||= @assessment.candidate_assessments.to_a
-    10.times do 
-      @candidate_assessments.push(Vger::Resources::Suitability::CandidateAssessment.new(:assessment_id => params[:id]))
+    if request.put?
+      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(params)
+      redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+    end
+  end
+  
+  def send_test_to_employees
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @company = Vger::Resources::Company.find(params[:company_id])
+    @candidate_assessments ||= @assessment.candidate_assessments.to_a
+    if request.put?
+      assessment = Vger::Resources::Suitability::Assessment.send_test_to_employees(params)
+      redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
     end
   end
   

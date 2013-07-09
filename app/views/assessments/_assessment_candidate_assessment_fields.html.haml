@@ -1,6 +1,7 @@
 %li
+  %input{name: "candidates[#{index-1}][name]", type: "hidden"}
   .count= index
-  %input.span5.first{name: "assessment[candidate_assessment_attributes][#{index-1}][name]", type: "text", placeholder: "First name"}
-  %input.span5.left-offset1{name: "assessment[candidate_assessment_attributes][#{index-1}][email]", type: "text", placeholder: "Email id"}
-  %input.span4.left-offset1{name: "assessment[candidate_assessment_attributes][#{index-1}][mobile]", type: "text", placeholder: "Contact number (optional)"}
+  %input.span5.first{name: "candidates[#{index-1}][name]", type: "text", placeholder: "Full Name"}
+  %input.span5.left-offset1{name: "candidates[#{index-1}][email]", type: "text", placeholder: "Email id"}
+  %input.span4.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number (optional)"}
   .clr

@@ -35,11 +35,23 @@ Recruiters::Application.routes.draw do
     end
     
     resources :assessments, :path => "tests", :except => [:destroy] do
+      member do
+        get "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
+        put "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
+        get "norms" => "assessments#norms", :as => :norms
+        put "norms" => "assessments#norms", :as => :norms
+        get "styles" => "assessments#styles", :as => :styles
+        put "styles" => "assessments#styles", :as => :styles
+        get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
+        get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
+      end
+      
       resources :candidates, :except => [:destroy, :show] do
         collection do
           get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
           get "upload/single" => "candidates#upload_single", :as => :single_upload
-          get "send-test" => "candidates#send_test_to_candidates", :as => :send_test_to_candidates
           get 'manage'
           post 'import'
           post 'import_from_google_drive'
@@ -50,17 +62,6 @@ Recruiters::Application.routes.draw do
           get "report/:page" => "candidates#assessment_report", :as => :assessment_report
           get "send-reminder" => "candidates#send_reminder", :as => :send_reminder
         end
-      end
-      
-      
-      member do
-        get "employees/send-test" => "candidates#send_test_to_employees", :as => :send_test_to_employees
-        get "norms" => "assessments#norms", :as => :norms
-        put "norms" => "assessments#norms", :as => :norms
-        get "styles" => "assessments#styles", :as => :styles
-        put "styles" => "assessments#styles", :as => :styles
-        get "add" => "assessments#add_candidates", :as => :add_candidates
-        put "add" => "assessments#add_candidates", :as => :add_candidates
       end
     end
     

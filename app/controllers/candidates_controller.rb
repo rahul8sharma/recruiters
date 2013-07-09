@@ -38,12 +38,6 @@ class CandidatesController < ApplicationController
   def upload_single
   end
 
-  def send_test_to_candidates
-  end
-  
-  def send_test_to_employees
-  end
-  
   def assessment_report
     respond_to do |format|
       format.html { render :layout => "reports" }
