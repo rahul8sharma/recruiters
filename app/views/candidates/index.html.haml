@@ -1,1 +1,69 @@
-%h1 hejekl
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      Test ID - Test Title
+    %button.btn.pull-right
+      .link-color Send This Test
+  .clr
+  .inn
+    .pull-left
+      = render :partial => "shared/candidate-summary-nav"
+    .pagination.pull-right
+      %ul
+        %li.disabled
+          %a{:href => "#"} &laquo; 
+        %li.active
+          %a{:href => "#"} 1
+        %li
+          %a{:href => "#"} 2
+        %li
+          %a{:href => "#"} 3
+        %li
+          %a{:href => "#"} 4
+        %li
+          %a{:href => "#"} 5
+        %li
+          %a{:href => "#"} &raquo;
+    .clr
+    .divider2
+    .list-snippet-titles.clearfix
+      .span2
+        ID
+      .span8
+        Candidate Name 
+      .span4
+        Test Status
+      .span
+        Action
+    %ul.unstyled
+      - 8.times do
+        %li.list-snippet.padding-all1
+          .span2
+            %a.default-color{:href=> "#", :title=>"JOM033"} JOM033
+          .span10.first.lhs-border
+            %a.default-color{:href=> "#", :title=>"Candidate1 Name"} 
+              Candidate1 Name
+          .span6.lhs-border
+            %a.default-color{:href=> "#", :title=>"Complete"}  
+              Complete
+          .span.lhs-border
+            %a.underlined{:href => "#", :title => "Send This Test"}
+              View Report  
+  .inn
+    .pagination.pull-right
+      %ul
+        %li.disabled
+          %a{:href => "#"} &laquo; 
+        %li.active
+          %a{:href => "#"} 1
+        %li
+          %a{:href => "#"} 2
+        %li
+          %a{:href => "#"} 3
+        %li
+          %a{:href => "#"} 4
+        %li
+          %a{:href => "#"} 5
+        %li
+          %a{:href => "#"} &raquo;
+      .clr
