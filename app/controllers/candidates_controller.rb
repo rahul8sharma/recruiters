@@ -1,4 +1,5 @@
 class CandidatesController < ApplicationController
+  layout "candidates"
   def import
 		Vger::Resources::Candidate.import(params[:file])
 		redirect_to candidates_url, notice: "Candidates imported."

@@ -1,2 +1,71 @@
-%h1 assessment#styles
-%p Find me in app/views/assessment/styles.html.haml
+.create-test.styles
+  .inn.first
+    .page-title Tests
+  .inn
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .extra-medium-text
+      %b Please fill the following information.
+    .divider1
+    .medium-text 
+      %b Put Title to a Test
+      (For Eg : Sales Manager for online Engine Business Unit)
+    %form.creat-test-form
+      %input{:type=>"text"}
+      .divider1
+      .control
+        %label 
+          Function Area
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Industry
+        %select.span8
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .control.left-offset1
+        %label 
+          Experience Level
+        %select.span4
+          %option 1
+          %option 2
+          %option 3
+        .clr
+      .clr
+      .divider2
+      %button.pull-right.btn.btn-success.disabled
+        Modify
+      .clr
+      .divider1
+      %b.medium-text
+        Factors selected : Emotional intelligent, Emotional intelligent, Emotional intelligent, Emotional intelligent
+      .divider2
+      .action
+      .alert.alert-info.padding-all1.text-center
+        %b.extra-medium-text
+          Apart from the factors that you have selected, you can also select one or more factors below.
+    .factors
+      %ul.unstyled.factor-snippet
+        -3.times do
+          %li.item.checked
+            //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+            .pull-left 
+              %input{:type => "checkbox"}
+            .pull-left
+              %b Conflict Resolution Style
+            .clr
+            .divider1
+            %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    .divider2
+    %button.pull-right.btn.btn-info.left-offset1
+      Proceed
+    %a.line-height2.pull-right.medium-text{:href => "#", :title => "Click Here to Go back"} 
+      Back
+    .clr
+    .divider1
