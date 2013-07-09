@@ -47,6 +47,7 @@
   border-left: 0
   min-width: 140px
   .menu
+    line-height: 21px
     width: 155px
     font-size: 13px
     font-weight: bold
@@ -60,19 +61,22 @@
     background-position: 9px -22px
     
 .create-test
-  input 
+  input[type="text"]
+    border: 1px solid #dbdbdb
     height: 36px
-    width: 100%
-    margin-top: 10px
-  label
-    font-size: 14px
-    font-weight: bold
-    display: block
-  select
-    margin: 10px 0 0 0
-    height: 36px
-  .control
-    float: left
+  .creat-test-form
+    input[type="text"]
+      width: 100%
+      margin-top: 10px
+    label
+      font-size: 14px
+      font-weight: bold
+      display: block
+    select
+      margin: 10px 0 0 0
+      height: 36px
+    .control
+      float: left
 
   .action
     padding: 18px 0
@@ -185,4 +189,30 @@
       font-weight: bold
       padding: 10px 0
       color: #002b3a
+  .select-candidate-type 
+    font-size: 14px
+    padding: 18px 0
+    padding-bottom: 0
+    background: #fffcde
+
+    label
+      font-weight: normal
+      margin-bottom: 18px
+      display: block
+
+    input[type="radio"]
+      margin: 0 40px 0 0
+
+  ul.add-candidates
+    li
+      margin-bottom: 18px
+      .count
+        float: left
+        width: 35px
+        height: 18px
+        background: #fafafa
+        text-align: center
+        border: 1px solid #d8d8d8
+        border-right: 0
+        padding: 10px 0 
          
