@@ -24,6 +24,10 @@ class CompaniesController < ApplicationController
     #@company = Vger::Resources::Company.find(params[:id])
   end
   
+  def candidate
+    #@company = Vger::Resources::Company.find(params[:id])
+  end
+  
   def settings
   end
   

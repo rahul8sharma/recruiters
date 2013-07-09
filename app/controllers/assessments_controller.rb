@@ -61,6 +61,28 @@ class AssessmentsController < ApplicationController
     end
   end
   
+  def candidates
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id =>@assessment.candidate_assessments.map(&:candidate_id)}, :page => params[:page], :per => 10)
+  end
+  
+  def candidate
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
+  end
+  
+  def send_reminder
+    if request.get?
+      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+      @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
+      @company = Vger::Resources::Company.find(params[:company_id])
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+    elsif request.put?
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id]))
+      redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    end  
+  end
+  
   def send_test_to_candidates
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
     @company = Vger::Resources::Company.find(params[:company_id])

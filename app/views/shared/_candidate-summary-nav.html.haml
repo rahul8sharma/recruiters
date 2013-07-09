@@ -1,5 +1,5 @@
 .candidate-summary-nav.clearfix
-  %a.menu{:href => "#", :title => "Candidates"}
+  %a.menu{:href => candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Candidates"}
     Candidates     
-  %a.menu.active{:href => "#", :title => "Summary"}
+  %a.menu.active{:href => company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
     Summary     

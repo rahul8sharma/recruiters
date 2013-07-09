@@ -12,7 +12,7 @@ Recruiters::Application.routes.draw do
       get "statistics" => "companies#statistics", :as => :statistics
       get "settings/company" => "companies#company", :as => :company_settings                        
       get "settings/account" => "companies#account", :as => :account_settings
-      get "candidates/:candidate_id" => "candidates#show", :as => :candidate                                  
+      get "candidates/:candidate_id" => "companies#candidate", :as => :candidate                                  
     end
     
     resources :hiring_managers, :only => [:index, :new] do
@@ -36,6 +36,7 @@ Recruiters::Application.routes.draw do
     
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
+        get "candidates" => "assessments#candidates", :as => :candidates
         get "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
         put "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
         get "norms" => "assessments#norms", :as => :norms
@@ -46,6 +47,10 @@ Recruiters::Application.routes.draw do
         put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
         get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        get "candidates/:candidate_id/report/:page" => "assessments#assessment_report", :as => :assessment_report
+        get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
       end
       
       resources :candidates, :except => [:destroy, :show] do
@@ -56,11 +61,6 @@ Recruiters::Application.routes.draw do
           post 'import'
           post 'import_from_google_drive'
           post 'export_to_google_drive'
-        end
-        
-        member do
-          get "report/:page" => "candidates#assessment_report", :as => :assessment_report
-          get "send-reminder" => "candidates#send_reminder", :as => :send_reminder
         end
       end
     end
