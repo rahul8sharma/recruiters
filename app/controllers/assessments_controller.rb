@@ -17,7 +17,7 @@ class AssessmentsController < ApplicationController
   	if request.put?  
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+        redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id, :functional_area => params[:functional_area], :industry => params[:industry], :job_experience => params[:job_experience]) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
@@ -26,17 +26,33 @@ class AssessmentsController < ApplicationController
   end
   
   def styles
-    all_direct_predictor_ids = Vger::Resources::Suitability::DirectPredictor.where(:methods => [ :parent ]).all.collect{|x| x.parent_id}.uniq
-    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_ids })
-    selected_direct_predictor_parents = @assessment.job_assessment_factor_norms.all.collect do |x| 
-      x.factor.parent_id
-    end.compact.uniq
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:methods => [ :parent ]).all.collect{|x| x.parent_id}.uniq
+    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids })
     
-	  @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.all.collect{|a| a}.select{|x| selected_direct_predictor_parents.include? x.factor_id.present?}
+	  @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
+	  
+	  selected_parents = @job_assessment_factor_norms.map(&:factor_id)
+	  
 	  all_direct_predictors.each do |factor|
-	    Rails.logger.ap factor.id
-  	  @job_assessment_factor_norms.push Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:functional_area_id => params[:functional_area], :industry_id => params[:industry], :job_experience_id => params[:job_experience], :factor_id => factor.id)
+  	  @job_assessment_factor_norms.push Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:functional_area_id => params[:functional_area], :industry_id => params[:industry], :job_experience_id => params[:job_experience], :factor_id => factor.id) unless selected_parents.include? factor.id
   	end  
+  	if request.put?  
+      @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+      if @assessment.error_messages.blank?
+        redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+      else
+        @assessment.error_messages << @assessment.errors.full_messages.dup
+        @assessment.error_messages.flatten!
+      end
+    end  
+  end
+  
+  def add_candidates
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @candidate_assessments ||= @assessment.candidate_assessments.to_a
+    10.times do 
+      @candidate_assessments.push(Vger::Resources::Suitability::CandidateAssessment.new(:assessment_id => params[:id]))
+    end
   end
   
   # GET /assessments

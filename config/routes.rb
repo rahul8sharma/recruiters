@@ -37,7 +37,6 @@ Recruiters::Application.routes.draw do
     resources :assessments, :path => "tests", :except => [:destroy] do
       resources :candidates, :except => [:destroy, :show] do
         collection do
-          get "add" => "candidates#add", :as => :add
           get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
           get "upload/single" => "candidates#upload_single", :as => :single_upload
           get "send-test" => "candidates#send_test_to_candidates", :as => :send_test_to_candidates
@@ -59,6 +58,9 @@ Recruiters::Application.routes.draw do
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
         get "styles" => "assessments#styles", :as => :styles
+        put "styles" => "assessments#styles", :as => :styles
+        get "add" => "assessments#add_candidates", :as => :add_candidates
+        put "add" => "assessments#add_candidates", :as => :add_candidates
       end
     end
     

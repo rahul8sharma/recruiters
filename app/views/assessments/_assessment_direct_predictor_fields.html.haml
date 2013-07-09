@@ -11,7 +11,7 @@
 %li.item.checked
   %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: "off"}
   .pull-left 
-    %input{name: "selected_factor", type: 'checkbox', index: (index)}
+    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: !job_factor_norm.id.nil?}
   .pull-left
     %b= job_factor_norm.factor.name
   .clr

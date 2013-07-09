@@ -49,6 +49,9 @@
       .divider1
       
     = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+      %input{type: 'hidden', name: 'industry', value: (params[:industry])}
+      %input{type: 'hidden', name: 'functional_area', value: (params[:functional_area])}
+      %input{type: 'hidden', name: 'job_experience', value: (params[:job_experience])}
       .action
         %button.pull-right.btn.btn-info
           Proceed

@@ -1,5 +1,4 @@
 class CompaniesController < ApplicationController
-  
   layout "admin" 
   
   def index
@@ -22,7 +21,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Vger::Resources::Company.find(params[:id])
+    #@company = Vger::Resources::Company.find(params[:id])
   end
   
   def settings
