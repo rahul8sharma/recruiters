@@ -1,12 +1,7 @@
 class CandidatesController < ApplicationController
-<<<<<<< Updated upstream
   layout "candidates"
-=======
-  #before_filter :authenticate_user!
+  before_filter :authenticate_user!
   
-  layout "tests"
-  
->>>>>>> Stashed changes
   def import
 		Vger::Resources::Candidate.import(params[:file])
 		redirect_to candidates_url, notice: "Candidates imported."
