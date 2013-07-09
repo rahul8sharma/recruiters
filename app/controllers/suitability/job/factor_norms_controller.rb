@@ -1,13 +1,15 @@
 class Suitability::Job::FactorNormsController < ApplicationController
 	before_filter :authenticate_user!
-
+	
+  layout "admin"
+  
   def index
     @job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm\
                         .all(:methods => [:suitability_factor,
                                           :industry,
                                           :functional_area,
                                           :job_experience
-                                          ], :page => params[:page], :per_page => 10)
+                                          ], :page => params[:page], :per => 10)
 
     respond_to do | format |
       format.html

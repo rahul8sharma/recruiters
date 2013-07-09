@@ -10,4 +10,8 @@ class Suitability::ItemGroupsController < ApplicationController
 	
 	def manage
 	end
+	
+	def index
+	  @items = Vger::Resources::Suitability::Item.where(:page => params[:page], :per => 10, :methods => [:options])
+	end
 end

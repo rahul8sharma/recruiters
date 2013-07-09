@@ -1,2 +1,92 @@
-%h1 assessment#styles
-%p Find me in app/views/assessment/styles.html.haml
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+  
+.create-test.styles
+  .inn.first
+    .page-title Tests
+  .inn
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .extra-medium-text
+      %b Please fill the following information.
+    .divider1
+    .medium-text 
+      %b Put Title to a Test
+      (For Eg : Sales Manager for online Engine Business Unit)
+    = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put, :html => { :class => "creat-test-form" } do |f|
+
+      %input{type: 'hidden', name: 'industry', value: (params[:industry])}
+      %input{type: 'hidden', name: 'functional_area', value: (params[:functional_area])}
+      %input{type: 'hidden', name: 'job_experience', value: (params[:job_experience])}
+
+      = f.text_field :name
+      .divider1
+      .control
+        %label 
+          Function Area
+        %select.span8{:name => 'functional_area', id: 'select_functional_area'}
+          - @functional_areas.each do |functional_area|
+            %option{:value => (functional_area.id), selected: (params[:functional_area] == functional_area.id.to_s)}
+              = functional_area.name
+        .clr
+      .control.left-offset1
+        %label 
+          Industry
+        %select.span8{:name => 'industry', id: 'select_industry'}
+          - @industries.each do |industry|
+            %option{:value => (industry.id), selected: (params[:industry] == industry.id.to_s)}
+              = industry.name
+        .clr
+      .control.left-offset1
+        %label 
+          Experience Level
+        %select.span4{:name => 'job_experience', id: 'select_job_experience'}
+          - @job_experiences.each do |job_experience|
+            %option{:value => (job_experience.id), selected: (params[:job_experience] == job_experience.id.to_s)}
+              = job_experience.display_text          
+        .clr
+      .clr
+      .divider2
+      %button.pull-right.btn.btn-success.disabled
+        Modify
+      .clr
+      .divider1
+      %b.medium-text
+        Factors selected : 
+        = @assessment.job_assessment_factor_norms.collect{|x| x.factor.name}.join(",")
+      .divider2
+      .action
+      .alert.alert-info.padding-all1.text-center
+        %b.extra-medium-text
+          Apart from the factors that you have selected, you can also select one or more factors below.
+    .factors
+      %ul.unstyled.factor-snippet
+        - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
+          = render :partial => 'assessment_direct_predictor_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
+    .divider2
+    %button.pull-right.btn.btn-info.left-offset1
+      Proceed
+    %a.line-height2.pull-right.medium-text{:href => norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id, :functional_area => params[:functional_area], :industry => params[:industry], :job_experience => params[:job_experience]), :title => "Click Here to Go back"} 
+      Back
+    .clr
+    .divider1
+
+
+%script{type: 'text/javascript'} 
+  jQuery(document).ready(function($){
+  $("input[name='selected_factor']").change(function(){
+  if($(this).is(":checked")){
+  $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").removeAttr("disabled");
+  }else{
+  $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").attr("disabled",'disabled');
+  }
+  });
+  $("input[name='checkbox_critical']").change(function(){
+  if($(this).is(":checked")){
+  $("#critical_"+$(this).attr("index")).val("on");
+  }else{
+  $("#critical_"+$(this).attr("index")).val("off");
+  }
+  });
+  });    

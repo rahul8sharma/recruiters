@@ -49,7 +49,7 @@ Recruiters::Application.routes.draw do
         
         member do
           get "report/:page" => "candidates#assessment_report", :as => :assessment_report
-          get "send_reminder" => "candidates#send_reminder", :as => :send_reminder
+          get "send-reminder" => "candidates#send_reminder", :as => :send_reminder
         end
       end
       
@@ -57,6 +57,7 @@ Recruiters::Application.routes.draw do
       member do
         get "employees/send-test" => "candidates#send_test_to_employees", :as => :send_test_to_employees
         get "norms" => "assessments#norms", :as => :norms
+        put "norms" => "assessments#norms", :as => :norms
         get "styles" => "assessments#styles", :as => :styles
       end
     end

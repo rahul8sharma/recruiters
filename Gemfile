@@ -17,7 +17,7 @@ gem 'kaminari', '0.14.1'
 
 gem 'wicked_pdf','0.9.6'
 
-gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "7acdb8600d62"
+gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "cc9986c861f79aeeacfbb4de17ea32d1ecdd9fd3"
 
 gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby"
 

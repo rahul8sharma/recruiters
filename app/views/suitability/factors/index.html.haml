@@ -1,7 +1,9 @@
 %h1 All Suitability Factors
 - if can? :create, "Suitability::Factor"
-  = link_to "Upload Suitability Factors", new_suitability_factor_path
   = link_to "Manage Suitability Factors", manage_suitability_factors_path
+.pagination.pull-right
+  = paginate @factors        
+.clr  
 %table
   %tr
     %th
@@ -14,5 +16,6 @@
         =	link_to factor.name, suitability_factor_path(factor)
       %td
         = factor.definition
-
-= paginate @factors        
+.pagination.pull-right
+  = paginate @factors       
+.clr   

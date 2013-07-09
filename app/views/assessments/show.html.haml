@@ -1,2 +1,66 @@
-%h1 Assessments#show
-%p Find me in app/views/assessments/show.html.haml
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      Test ID - Test Title
+    %button.btn.pull-right
+      .link-color Send This Test
+  .clr
+  .inn
+    .pull-left
+      = render :partial => "shared/candidate-summary-nav"
+    %a.btn.btn-info.pull-right{:href => "#", :title => "Edit Test"}
+      Edit Test
+    .clr
+    .divider2
+    .summary.padding-all1.clearfix
+      .span
+        %b.show.pull-left 
+          Industry: 
+        .span6
+          Computer Hardware, Computer Software Computer Hardware, Computer Software
+      .span
+        %b.show.pull-left 
+          Functional Area: 
+        .span6
+          Engineering, Information Technology Engineering, Information Technology 
+      .span
+        %b.show.span
+          Experience level: 
+        .span 3 - 6 years
+    .divider1
+    .text-right
+      %span.medium-text Tests Sent : 
+      %span.large-text 753
+
+      %span.left-offset1
+        %span.medium-text Tests Taken : 
+        %span.large-text 453
+    .divider1
+    .medium-text 
+      %b Selected Factors
+    .divider1
+    .left-offset1
+      %b.span12
+        Factors
+      %b.span6
+        Qualifying Score
+      %b.span
+        Importance
+      .clr.divider1
+      %ul.unstyled.selected-factors
+        - 4.times do
+          %li
+            .selected-factors-title.clearfix
+              .span12
+                Emotional intelligent
+              .span6.lhs-border
+                2 - 5
+              .span.lhs-border
+                High
+            %p
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+
+    .divider1
+    %a.btn.btn-info.pull-right{:href => "#", :title => "Edit Test"}
+      Edit Test
+    .clr

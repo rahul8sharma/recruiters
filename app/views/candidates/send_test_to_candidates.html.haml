@@ -1,2 +1,61 @@
-%h1 Candidates#send_test_to_candidates
-%p Find me in app/views/candidates/send_test_to_candidates.html.haml
+.create-test.send-test-to-candidate
+  .inn.first
+    .page-title Tests
+  .inn
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider2
+    .alert.alert-warning.text-center
+      %b.medium-text Pressing the Back Button you may loose all the candidates added this far
+    .divider1
+    .medium-text
+      %b To: 
+      (Please note the following candidate are being send the test)
+    %ul.unstyled.clearfix.candidate-list-to-send
+      -10.times do
+        %li
+          %label
+            %input{:type => "checkbox"}
+            Prakhar Shrivastav
+    .divider2
+    .test-text-to-send
+      .title
+        Test Title
+      .massage-body.test-title
+        Some Test title comes here
+      .title
+        Subject
+      .massage-body.subject
+        "Company Name" - "Test Name"
+      .title
+        Message
+      .massage-body.massage
+        %p 
+          Hello "First Name",
+        %p 
+          "Company Name" has arranged for you to complate a Jombay Suitability Questionaire.
+        %p 
+          To Complete, please click the weblink listed below or copy paste the URL into your web browser address bar.
+        %p 
+          %b
+            URL: 
+            %a{:href=>"#", :title => "Some Title goes Here"} 
+              https://www.google.co.in/webhp?source=search
+        %p
+          If you have any questions about taking the Jombay Suitability Questionnaire, Call on 
+          %b +91 - 87960 - 29607 
+          or Email 
+          %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"} 
+            prakhar@jombay.com
+        %p 
+          Best Regards
+          %br/
+          Prakhar Srivastava,
+          %br/
+          Jombay
+    .pull-right
+      %a.span.line-height2{:href=>"#", :title => "cancel"}
+        Cancel
+      %button.btn.btn-info.span
+        Send
+    .clr
+

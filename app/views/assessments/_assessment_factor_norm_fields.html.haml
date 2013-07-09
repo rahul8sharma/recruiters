@@ -3,40 +3,88 @@
 - fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
 - industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
 - exp_name = "assessment[job_assessment_factor_norms_attributes][#{index}][job_experience_id]"
-- std_dev_name = "assessment[job_assessment_factor_norms_attributes][#{index}][std_dev]"
-- norm_value_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_value]"
+- norm_min_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_min]"
+- norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_max]"
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
+- critical_checkbox_name = "checkbox_critical"
+- critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
+
+
+%li.item.checked
+  //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+  .pull-left 
+    %input{:type => "checkbox"}
+  .pull-left
+    %b Emotional intelligent
+  .pull-right
+    .span3.lhs-border
+      .white-box
+        3
+      .white-box
+        3
+    .span2.lhs-border
+      .dropdown
+        %ul
+          %li.dropdown-submenu.pull-left
+            %a{:href => "#"} High 
+            %span.icon-caret-down
+            %ul.dropdown-menu.active
+              %li
+                %a{:href => "#", :tabindex => "-1"}
+                  High
+              %li
+                %a{:href => "#", :tabindex => "-1"}
+                  Medium
+              %li
+                %a{:href => "#", :tabindex => "-1"}
+                  Low
+  .clr
+  .divider1
+  %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+
+
+
+
 .fields
-  = job_factor_norm.factor.name
-  = job_factor_norm.functional_area.name
-  = job_factor_norm.industry.name
-  = job_factor_norm.job_experience.display_text
-  - if job_factor_norm.norm_value.zero?
-    - if job_factor_norm.id.present?
-      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index), disabled: 'disabled'}
-    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
-    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
-    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
-    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, disabled: 'disabled', index: (index)}
-    
-    %label "norm_value"
-    %input{name: (norm_value_name), type: 'text', value: (job_factor_norm.norm_value), disabled: 'disabled', index: (index)}
-    
-    %label "std_dev"
-    %input{name: (std_dev_name), type: 'text', value: (job_factor_norm.std_dev), disabled: 'disabled', index: (index)}
+  - if job_factor_norm.norm_min.to_f.zero?
+    .pull-left
+      %input{name: "selected_factor", type: 'checkbox', index: (index)}
+      = job_factor_norm.factor.name
+      %br
+      = job_factor_norm.factor.definition
+    .pull-right
+      - if job_factor_norm.id.present?
+        %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index), disabled: 'disabled'}
+      %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
+      %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
+      %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
+      %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, disabled: 'disabled', index: (index)}
       
-    %input{name: "selected_factor", type: 'checkbox', index: (index)}
+      %input{name: (norm_min_name), type: 'text', value: (job_factor_norm.norm_min.to_f), disabled: 'disabled', index: (index)}
+      %input{name: (norm_max_name), type: 'text', value: (job_factor_norm.norm_max.to_f), disabled: 'disabled', index: (index)}
+
+      %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (job_factor_norm.critical? ? "on" : "off"), disabled: 'disabled'}      
+      %input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", type: 'checkbox', index: (index), checked: job_factor_norm.critical?, disabled: 'disabled'}
+    .clr        
   - else
-    - if job_factor_norm.id.present?
-      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
-    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
-    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
-    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
-    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, index: (index)} 
-    %label "norm_value"
-    %input{name: (norm_value_name), type: 'text', value: (job_factor_norm.norm_value), index: (index)}
+    .pull-left
+      %input{name: "selected_factor", type: 'checkbox', index: (index), checked: true}
+      = job_factor_norm.factor.name
+      %br
+      = job_factor_norm.factor.definition
+    .pull-right
+      - if job_factor_norm.id.present?
+        %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
+      %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
+      %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
+      %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
+      %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, index: (index)}
+       
+      %input{name: (norm_min_name), type: 'text', value: (job_factor_norm.norm_min.to_f), index: (index)}
+      %input{name: (norm_max_name), type: 'text', value: (job_factor_norm.norm_max.to_f), index: (index)}
+      
+      %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (job_factor_norm.critical? ? "on" : "off")}      
+      %input{name: critical_checkbox_name, type: 'checkbox', index: (index), checked: job_factor_norm.critical?}
+    .clr
     
-    %label "std_dev"
-    %input{name: (std_dev_name), type: 'text', value: (job_factor_norm.std_dev), index: (index)}
     
-    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: 'checked'}  

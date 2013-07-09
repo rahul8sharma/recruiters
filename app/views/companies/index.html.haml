@@ -1,2 +1,22 @@
-%h1 Companies#index
-%p Find me in app/views/companies/index.html.haml
+%h1 All industries
+- if can? :create, "Company"
+  = link_to "Manage Companies", manage_companies_path  
+%table
+  %tr
+    %th ID
+    %th Name
+    %th Company Code
+    %th Website
+  - for company in @companies do
+    %tr
+      %td 
+        = company.id
+      %td 
+        = link_to company.name, company_path(company)
+      %td 
+        = company.company_code
+      %td 
+        = company.website    
+
+%br
+= paginate @companies        

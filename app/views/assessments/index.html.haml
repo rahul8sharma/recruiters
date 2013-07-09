@@ -3,30 +3,16 @@
     .page-title.pull-left
       Tests
     .pagination.pull-right
-      %ul
-        %li.disabled
-          %a{:href => "#"} &laquo; 
-        %li.active
-          %a{:href => "#"} 1
-        %li
-          %a{:href => "#"} 2
-        %li
-          %a{:href => "#"} 3
-        %li
-          %a{:href => "#"} 4
-        %li
-          %a{:href => "#"} 5
-        %li
-          %a{:href => "#"} &raquo;
+      = paginate @assessments  
   .inn
-    %a.btn.btn-info.pull-right{:href => "#", :title => "Click Here To Create New Test"} 
+    %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
       Create New Test
     .clr
     .divider1
     .list-snippet-titles.clearfix
       .span2
         Test ID
-      .span9.first
+      .span8
         Test Title 
       .span4
         Tests Sent
@@ -35,37 +21,25 @@
       .span            
         Send Test 
     %ul.unstyled
-      - 8.times do
-        .list-snippet
+      - @assessments.each do |assessment|
+        %li.list-snippet
           .span2
-            TEST043
-          .span9.first
-            Some test title will come here in one line 
+            %a.default-color{:href=> company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST 
+            = assessment.id
+          .span8.first.lhs-border
+            %a.default-color{:href=> company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+            = assessment.name
           .span4.lhs-border
-            333
+            %a.default-color{:href=> "#", :title=>"333"}  333
           .span4.lhs-border
-            333  
+            %a.default-color{:href=> "#", :title=>"333"}  333  
           .span.lhs-border
-            %a.underlined{:href => "#", :title => "Send This Test"}
+            %a.underlined{:href => add_company_assessment_candidates_path(:company_id => params[:company_id], :assessment_id => assessment.id), :title => "Send This Test"}
               Send This Test   
     .divider1         
-    %a.btn.btn-info.pull-right{:href => "#", :title => "Click Here To Create New Test"} 
+    %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
       Create New Test
     .clr
   .inn
     .pagination.pull-right
-      %ul
-        %li.disabled
-          %a{:href => "#"} &laquo; 
-        %li.active
-          %a{:href => "#"} 1
-        %li
-          %a{:href => "#"} 2
-        %li
-          %a{:href => "#"} 3
-        %li
-          %a{:href => "#"} 4
-        %li
-          %a{:href => "#"} 5
-        %li
-          %a{:href => "#"} &raquo;
+      = paginate @assessments

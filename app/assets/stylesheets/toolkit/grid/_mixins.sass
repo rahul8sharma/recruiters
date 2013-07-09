@@ -167,7 +167,13 @@
   @for $i from 1 through $gridColumns - 1
     .right-offset#{$i}
       +gridSystemRightOffset($gridColumnWidth, $gridGutterWidth, $i)
-
+  //UI Related
+  @for $i from 1 through 6
+    .padding-all#{$i}
+      padding: $i * $baseLineHeight
+  @for $i from 1 through 6
+    .line-height#{$i}
+      line-height: $i * $baseLineHeight
 // Fluid grid system
 // -------------------------
 =fluidGridSystemColumns($fluidGridGutterWidth, $fluidGridColumnWidth, $columns)

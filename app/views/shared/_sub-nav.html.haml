@@ -6,14 +6,14 @@
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
       %li
-        %a{:href=>"#", :title=>"Test"} 
+        %a{:href=> company_assessments_path(:company_id => params[:company_id]), :title=>"Test"} 
           %span.icon-pencil 
           Test
       %li.active
-        %a{:href=>"#", :title=>"Statistics"} 
+        %a{:href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics"} 
           %span.icon-pie 
           Statistics
       %li
-        %a{:href=>"#", :title=>"Settings"} 
+        %a{:href=> settings_company_path(:id => params[:company_id]), :title=>"Settings"} 
           %span.icon-cog
           Settings

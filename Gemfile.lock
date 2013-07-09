@@ -1,7 +1,7 @@
 GIT
   remote: git@github.com:prcongithub/faraday.git
-  revision: 7acdb8600d62c354d27585778d1b470ae622ec9c
-  ref: 7acdb8600d62
+  revision: cc9986c861f79aeeacfbb4de17ea32d1ecdd9fd3
+  ref: cc9986c861f79aeeacfbb4de17ea32d1ecdd9fd3
   branch: handle-unprocessable-entity
   specs:
     faraday (0.9.0.rc5)

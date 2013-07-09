@@ -1,10 +1,30 @@
 %h1 All job experiences
 - if can? :create, "JobExperience"
-  = link_to "Upload job experiences", new_job_experience_path
   = link_to "Manage Job Experiences", manage_job_experiences_path    
-%ul.unstyled
+
+.pagination.pull-right        
+  = paginate @job_experiences        
+.clr       
+  
+%table
+  %tr
+    %th ID
+    %th Name
+    %th Min
+    %th Max
   - for job_experience in @job_experiences do
-    %li 
-    =	job_experience.display_text
-    =	job_experience.min
-    =	job_experience.max
+    %tr
+      %td 
+        = job_experience.id
+      %td 
+        = job_experience.display_text
+      %td 
+        = job_experience.min
+      %td 
+        = job_experience.max    
+
+%br
+.pagination.pull-right        
+  = paginate @job_experiences        
+.clr       
+

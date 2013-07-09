@@ -1,0 +1,25 @@
+%h1 All Items / Item Groups
+- if can? :create, "Suitability::Item"
+  = link_to "Manage Suitability Items", manage_suitability_item_groups_path
+.pagination.pull-right        
+  = paginate @items    
+.clr
+%table
+  %tr
+    %th Id
+    %th Body
+    %th Option 1
+    %th Option 2
+    %th Option 3
+    %th Option 4
+    %th Option 5
+  - @items.each do |item|
+    %tr 
+      %td{ width: "13%" }= item.id
+      %td{ width: "13%" }= item.body
+      - item.options.each do |option|
+        %td{ width: "13%" }= option.body
+        
+.pagination.pull-right        
+  = paginate @items    
+.clr
