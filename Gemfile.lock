@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: e0590e50961294027cd81403b5bad3c16f988806
+  revision: c9ca40f58cdb5fcf86b4a37c4f0fb359bea408f3
   branch: suitability-tool-jit-features
   specs:
     vger (0.0.1)

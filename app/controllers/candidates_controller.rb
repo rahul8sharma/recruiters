@@ -34,11 +34,4 @@ class CandidatesController < ApplicationController
 
   def upload_single
   end
-
-  def assessment_report
-    respond_to do |format|
-      format.html { render :layout => "reports" }
-      format.pdf { render :pdf => "report", :layout => "reports.html.haml", :template => "candidates/assessment_report.pdf.haml" }
-    end
-  end
 end

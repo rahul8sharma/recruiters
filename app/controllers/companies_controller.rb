@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  layout "admin" 
+  layout "companies" 
   
   def index
     @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)

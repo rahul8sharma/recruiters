@@ -10,10 +10,10 @@
           Please select the candidate type :
         .show.left-offset1.pull-left
           %label
-            %input{:type => "radio", :name => "candidate_stage", value: "employee"}
+            %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED}
             Existing Employees
           %label
-            %input{:type => "radio", :name => "candidate_stage", value: "candidate"}
+            %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: true}
             Potential Employees
         .clr 
       .divider1
@@ -27,8 +27,8 @@
       .clr
       .divider1
       %ul.add-candidates.unstyled.clearfix
-        - @candidate_assessments.each_with_index do |candidate_assessment,index|
-          = render :partial => "assessments/assessment_candidate_assessment_fields", :locals => { :candidate_assessment => candidate_assessment, :index => (index+1) } 
+        - 10.times do |index|
+          = render :partial => "assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1) } 
       %button.pull-right.btn.btn-info
         Proceed
       .clr

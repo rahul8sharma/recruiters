@@ -7,11 +7,10 @@
 - norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_max]"
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
-
 %li.item.checked
   %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: "off"}
   .pull-left 
-    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: !job_factor_norm.id.nil?}
+    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: job_factor_norm.id.present?}
   .pull-left
     %b= job_factor_norm.factor.name
   .clr

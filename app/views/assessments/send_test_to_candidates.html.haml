@@ -13,11 +13,11 @@
         %b To: 
         (Please note the following candidate are being send the test)
       %ul.unstyled.clearfix.candidate-list-to-send
-        - @candidate_assessments.each_with_index do |candidate_assessment,index|
+        - @candidates.each do |candidate|
           %li
             %label
-              %input{:type => "checkbox", name: "candidates[#{candidate_assessment.candidate.id}]"}
-              = candidate_assessment.candidate.name
+              %input{:type => "checkbox", name: "candidates[#{candidate.id}]"}
+              = candidate[:name]
       .divider2
       .test-text-to-send
         .title

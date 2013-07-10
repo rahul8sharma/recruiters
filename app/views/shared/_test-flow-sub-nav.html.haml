@@ -1,8 +1,8 @@
 .test-flow-sub-nav.clearfix.pull-left
-  .menu
+  .menu{ class: [:new, :norms, :styles].include?(params[:action].to_sym) ? "active" : "" }
     1 &nbsp; Create a Test 
-  .menu.active
+  .menu{ class: [:add_candidates].include?(params[:action].to_sym) ? "active" : "" }
     2 &nbsp; Add Candidates
-  .menu
+  .menu{ class: [:send_test_to_candidates, :send_test_to_employees].include?(params[:action].to_sym) ? "active" : "" }
     3 &nbsp; Confirm &amp; Send     
 .clr

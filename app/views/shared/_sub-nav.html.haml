@@ -5,15 +5,15 @@
     Wipro Technologies
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
-      %li
-        %a{:href=> company_assessments_path(:company_id => params[:company_id]), :title=>"Test"} 
+      %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
+        %a{ :href=> company_assessments_path(:id => params[:company_id]), :title=>"Test"} 
           %span.icon-pencil 
           Test
-      %li.active
-        %a{:href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics"} 
+      %li{ class: (["statistics"].include?(params[:action]) ? 'active' : '') }
+        %a{ :href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics" }  
           %span.icon-pie 
           Statistics
-      %li
+      %li{ class: (["settings","company","account"].include?(params[:action]) ? 'active' : '') }
         %a{:href=> settings_company_path(:id => params[:company_id]), :title=>"Settings"} 
           %span.icon-cog
           Settings

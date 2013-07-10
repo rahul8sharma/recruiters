@@ -16,35 +16,22 @@
       (For Eg : Sales Manager for online Engine Business Unit)
     = form_for @assessment, :as => :assessment, :url => styles_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put, :html => { :class => "creat-test-form" } do |f|
 
-      %input{type: 'hidden', name: 'industry', value: (params[:industry])}
-      %input{type: 'hidden', name: 'functional_area', value: (params[:functional_area])}
-      %input{type: 'hidden', name: 'job_experience', value: (params[:job_experience])}
-
       = f.text_field :name
       .divider1
       .control
         %label 
-          Function Area
-        %select.span8{:name => 'functional_area', id: 'select_functional_area'}
-          - @functional_areas.each do |functional_area|
-            %option{:value => (functional_area.id), selected: (params[:functional_area] == functional_area.id.to_s)}
-              = functional_area.name
+          Function Area : 
+          = @assessment.functional_area.name
         .clr
       .control.left-offset1
         %label 
-          Industry
-        %select.span8{:name => 'industry', id: 'select_industry'}
-          - @industries.each do |industry|
-            %option{:value => (industry.id), selected: (params[:industry] == industry.id.to_s)}
-              = industry.name
+          Industry : 
+          = @assessment.industry.name
         .clr
       .control.left-offset1
         %label 
-          Experience Level
-        %select.span4{:name => 'job_experience', id: 'select_job_experience'}
-          - @job_experiences.each do |job_experience|
-            %option{:value => (job_experience.id), selected: (params[:job_experience] == job_experience.id.to_s)}
-              = job_experience.display_text          
+          Experience Level : 
+          = @assessment.job_experience.display_text          
         .clr
       .clr
       .divider2
@@ -67,7 +54,7 @@
       .divider2
       %button.pull-right.btn.btn-info.left-offset1
         Proceed
-      %a.line-height2.pull-right.medium-text{:href => norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id, :functional_area => params[:functional_area], :industry => params[:industry], :job_experience => params[:job_experience]), :title => "Click Here to Go back"} 
+      %a.line-height2.pull-right.medium-text{:href => norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "Click Here to Go back"} 
         Back
       .clr
       .divider1

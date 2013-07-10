@@ -20,25 +20,25 @@
       .control
         %label 
           Function Area
-        %select.span8{name: 'functional_area', id: 'select_functional_area'}
-          - @functional_areas.each do |functional_area|
-            %option{:value => (functional_area.id), selected: (params[:functional_area] == functional_area.id.to_s)}
+        %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+          - @functional_areas.each do |id,functional_area|
+            %option{:value => (functional_area.id), selected: (@assessment.functional_area_id == functional_area.id)}
               = functional_area.name
         .clr
       .control.left-offset1
         %label 
           Industry
-        %select.span8{name: 'industry', id: 'select_industry'}
-          - @industries.each do |industry|
-            %option{:value => (industry.id), selected: (params[:industry] == industry.id.to_s)}
+        %select.span8{name: 'assessment[industry_id]', id: 'select_industry'}
+          - @industries.each do |id,industry|
+            %option{:value => (industry.id), selected: (@assessment.industry_id == industry.id)}
               = industry.name
         .clr
       .control.left-offset1
         %label 
           Experience Level
-        %select.span4{name: 'job_experience', id: 'select_job_experience'}
-          - @job_experiences.each do |job_experience|
-            %option{:value => (job_experience.id), selected: (params[:job_experience] == job_experience.id.to_s)}
+        %select.span4{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+          - @job_experiences.each do |id,job_experience|
+            %option{:value => (job_experience.id), selected: (@assessment.job_experience_id == job_experience.id)}
               = job_experience.display_text   
         .clr
       .clr
@@ -49,9 +49,9 @@
       .divider1
       
     = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
-      %input{type: 'hidden', name: 'industry', value: (params[:industry])}
-      %input{type: 'hidden', name: 'functional_area', value: (params[:functional_area])}
-      %input{type: 'hidden', name: 'job_experience', value: (params[:job_experience])}
+      %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
+      %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
+      %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
       .action
         %button.pull-right.btn.btn-info
           Proceed
@@ -67,8 +67,8 @@
               Importances 
         .divider1
         %ul.unstyled.factor-snippet
-          - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
-            = render :partial => 'assessment_factor_norm_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
+          - @job_assessment_factor_norms.each_with_index do |assessment_factor_norm,index|
+            = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => index }
       .divider2
       %button.pull-right.btn.btn-info
         Proceed
