@@ -21,7 +21,7 @@ gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "han
 
 gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby"
 
-gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "suitability-tool-jit-features"
+gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "pagination-new-models"
 
 gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'

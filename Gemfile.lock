@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: 4c8c0b2230a848b8794df3108afdb9d42673ee7c
-  branch: suitability-tool-jit-features
+  revision: c7177099a7f12583e07f5ae3f89623ef2bc7f7bd
+  branch: pagination-new-models
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
