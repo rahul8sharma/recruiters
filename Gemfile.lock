@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/her.git
-  revision: 047fb246e81d78a09e8f5115371fb02cd37798c1
+  revision: af961919e664ddeeb42fd94ec7394290855b7c9c
   branch: v0.6.6-associations-fix-jruby
   specs:
     her (0.6.6)
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: c9ca40f58cdb5fcf86b4a37c4f0fb359bea408f3
+  revision: 4c8c0b2230a848b8794df3108afdb9d42673ee7c
   branch: suitability-tool-jit-features
   specs:
     vger (0.0.1)
