@@ -1,21 +1,21 @@
 class Suitability::FactorsController < ApplicationController
-	before_filter :authenticate_user!
-	
-	layout "admin"
-	
+  before_filter :authenticate_user!
+  
+  layout "admin"
+  
   def import
-		Vger::Resources::Suitability::Factor.import(params[:file])
-		redirect_to suitability_factors_url, notice: "Suitability Factors imported."
-	end	
-	
-	def manage
+    Vger::Resources::Suitability::Factor.import(params[:file])
+    redirect_to suitability_factors_url, notice: "Suitability Factors imported."
+  end  
+  
+  def manage
   end
   
-	def import_from_google_drive
+  def import_from_google_drive
     Vger::Resources::Suitability::Factor\
       .import_from_google_drive(params[:import])
     redirect_to suitability_factors_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export_to_google_drive
     Vger::Resources::Suitability::Factor\
@@ -25,7 +25,7 @@ class Suitability::FactorsController < ApplicationController
 
   # GET /factors
   def index
-  	@factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 20)
+    @factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 20)
   end
 
   # GET /factors/new
@@ -39,7 +39,7 @@ class Suitability::FactorsController < ApplicationController
   # GET /factors/:id
   # GET /factors/:id.json
   def show
-  	@factor = Vger::Resources::Suitability::Factor.find(params[:id])
+    @factor = Vger::Resources::Suitability::Factor.find(params[:id])
     respond_to do |format|
       format.html # new.html.erb
     end

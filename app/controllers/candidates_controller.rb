@@ -23,7 +23,7 @@ class CandidatesController < ApplicationController
   end
 
   def index
-    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => params[:per] ||= 2)
+    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10)
   end
 
   def show

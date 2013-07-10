@@ -142,7 +142,7 @@ class AssessmentsController < ApplicationController
   
   # GET /assessments
   def index
-    @assessments = Vger::Resources::Suitability::Assessment.where(:page => params[:page], :per => 10)
+    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :assessable_id => params[:company_id], :assessable_type => "Company" }, :page => params[:page], :per => 10)
   end
   
   # GET /assessments/new

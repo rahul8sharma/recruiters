@@ -1,22 +1,22 @@
 class Suitability::OptionsController < ApplicationController
-	before_filter :authenticate_user!
-	
-	layout "admin"
-	
+  before_filter :authenticate_user!
+  
+  layout "admin"
+  
   def import
-		Vger::Resources::Suitability::Option.import(params[:file])
-		redirect_to options_url, notice: "Suitability Options imported."
-	end	
+    Vger::Resources::Suitability::Option.import(params[:file])
+    redirect_to options_url, notice: "Suitability Options imported."
+  end  
 
   # GET /options
   def index
-  	@options = Vger::Resources::Suitability::Option.all
+    @options = Vger::Resources::Suitability::Option.all
   end
 
   # GET /options/new
   # GET /options/new.json
   def new
-  	@option = Vger::Resources::Suitability::Option.new
+    @option = Vger::Resources::Suitability::Option.new
     respond_to do |format|
       format.html
     end
@@ -25,16 +25,16 @@ class Suitability::OptionsController < ApplicationController
   # GET /options/:id
   # GET /options/:id.json
   def show
-  	@option = Vger::Resources::Suitability::Option.find(params[:id], :factor_id => params[:factor_id], :item_id => params[:item_id], :methods => [:option_type])
+    @option = Vger::Resources::Suitability::Option.find(params[:id], :factor_id => params[:factor_id], :item_id => params[:item_id], :methods => [:option_type])
     respond_to do |format|
       format.html
     end
   end
 
-	# GET /options/:id/edit
+  # GET /options/:id/edit
   # GET /options/:id/edit.json
   def edit
-  	@option = Vger::Resources::Suitability::Option.find(params[:id], :factor_id => params[:factor_id], :item_id => params[:item_id], :methods => [:option_type])
+    @option = Vger::Resources::Suitability::Option.find(params[:id], :factor_id => params[:factor_id], :item_id => params[:item_id], :methods => [:option_type])
     respond_to do |format|
       format.html
     end
@@ -43,7 +43,7 @@ class Suitability::OptionsController < ApplicationController
   # POST /options
   # POST /options.json
   def create
-  	@option = "Vger::Resources::#{params[:option][:option_type]}".constantize.new(params[:option])
+    @option = "Vger::Resources::#{params[:option][:option_type]}".constantize.new(params[:option])
     respond_to do |format|
       if @option.save
         format.html { redirect_to suitability_factor_item_option_path(params[:factor_id],params[:item_id], @option), notice: 'Suitability Option was successfully created.' }
