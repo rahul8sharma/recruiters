@@ -1,7 +1,20 @@
 - content_for :stylesheets do
   = wicked_pdf_stylesheet_link_tag "reports"
+  = stylesheet_link_tag "toolkit/main-layout"
 
 - content_for :body do 
-  = yield 
+  .report
+    .inner
+      .header.clearfix
+        .logo
+          = image_tag('report/jombay-logo.png')
+        .right_side.pull-right
+          .user_name
+            Pratik Munot
+          .date
+            Test Date: 23/12/2013
+      = yield 
+      .footer
+        Confidential
 
 = render :file => 'layouts/haml.html.haml'
