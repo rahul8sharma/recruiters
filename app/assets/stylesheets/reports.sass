@@ -3,25 +3,123 @@ $p_strenghts_color: #f4b525
 $weaknesses_color: #ed1f24  
 .report
   background: image-url('gray-textured-bg.png')
-
+  .page_inner
+    padding: 0 25px 0 40px
+  .dashed_border
+    border-bottom: 1px dashed #b2b2b2
+    margin-bottom: 18px
+  .small-text
+    font-size: 10px
+    line-height: 12px
+  .report_title
+    .inn
+      padding: 18px 0
   .weakness
     color: $weaknesses_color !important
   .strenght
     color: $strenghts_color !important
   .p_strenght
     color: $p_strenghts_color !important
+  .hexagon-box
+    background: image-url('report/hexagon-box-bg.png') no-repeat
+    padding-left: 75px
+    margin-bottom: 20px
+    .lhs, .rhs
+
+    .lhs
+      padding: 10px 0
+      margin: 0 
+
+    .content
+      border: 1px solid #34bc5c
+      border-left: 0
+      height: 49px
+      padding: 5px 7px 5px 0px
+      background: #fff
+    .content.span4
+      margin-left: 0
+  .hexagon-box.yellow
+    background-position: 0px -69px
+    .content
+      border-color: #f4b525
+      height: 51px
+  .hexagon-box.red
+    background-position: 0px -140px
+    .content
+      border-color: #ed1f24
+      height: 51px
+  .header
+    padding: 18px 25px 18px 40px
+    .logo
+      float: left
+      width: 115px
+    .user_name
+      color: #ff8308
+      font-size: 20px
+      font-weight: bold
   .inner
     width: 580px
     margin: 0 auto
-  .head_space
-    background: #002836
-    width: 100%
-    height: 70px
+  .interview_guide_report
+    .hexagon-box
+      margin-bottom: 25px
+      text-align: left
+    .span1
+      line-height: 25px
+      width: 25px
+      margin: -5px 0 0 0
+      color: #fff
+      font-weight: bold
+      background: #38c963
+    .span4
+      width: 170px
+    .span6
+      width: 225px
+    .lhs
+      line-height: 17px
+      font-size: 14px
+      margin-top: 5px
+    .red
+      .span1
+        background: #ed1f24
+    .yellow
+      .span1
+        background: #f7c974
+  .summary_report
+    .hexagon-box
+      margin-bottom: 25px
+      text-align: left
+    .span1
+      line-height: 51px
+      width: 20px
+      margin-left: 0
+    .span4
+      width: 170px
+    .lhs
+      line-height: 30px
+      font-size: 14px
+    .rhs
+      padding-top: 7px
+      margin-left: 0
+  .over_all_report
+    .report_title
+      .inn
+        padding: 11px 0 11px 115px
+        background: image-url('report/report-over-all-title-bg.png') no-repeat
+        .extra_large_text
+          font-size: 30px
+          line-height: 33px
+        .font-normal
+          font-size: 12px
   .report_title
-    font-size: 14px
+    font-size: 18px
     font-weight: bold
-    color: #002836
-    padding: 15px 30px
+    color: #fff
+    padding: 10px 40px
+    border-width: 3px 0
+    border-color: #ff8308
+    border-style: solid
+    background: #002735
 
     [class*="icon"]
       display: inline-block
@@ -37,9 +135,16 @@ $weaknesses_color: #ed1f24
       background-position: 0px -30px
     .icon3
       background-position: 0px -60px
+  .over_all_report
+    .report_content
+      background: image-url('report/report-over-all-bg.png') no-repeat center 55px
+      height: 635px
+ 
+  .measured_report, .score_report
+    .report_content
+      background: image-url('report/report-hexagon-bg.png') no-repeat
+      height: 670px
   .report_content
-    background: image-url('report/report-content-bg.png') no-repeat
-    height: 718px
     margin: 18px 0 0 0 
     padding-top: 1px
     .report_visual
@@ -52,21 +157,20 @@ $weaknesses_color: #ed1f24
       [class*="behavior"].small
         font-size: 9px
 
-
-
       div
         position: absolute
         width: 57px
         text-align: center
-        color: #939393
-        font-size: 11px
+        color: #002836
+        font-size: 10px
         line-height: 13px
+        font-weight: bold
 
       .title
         font-weight: bold
         color: #fff
       .average
-        font-size: 16px
+        font-size: 11px
         font-weight: bold
         color: #002836
     .job
@@ -74,7 +178,7 @@ $weaknesses_color: #ed1f24
         left: 6px
         top: -43px
       .average
-        left: 70px
+        left: 73px
         top: -38px
       .behavior1
         left: 4px
@@ -134,8 +238,8 @@ $weaknesses_color: #ed1f24
         left: 189px
         top: 204px
       .behavior7
-        left: 187px
-        top: 254px
+        left: 192px
+        top: 252px
       .behavior8
         left: 249px
         top: 11px
@@ -144,14 +248,14 @@ $weaknesses_color: #ed1f24
         top: 102px
       .behavior10
         left: 248px
-        top: 156px
+        top: 150px
     .organization
       .title
         left: -56px
         top: 66px
       .average
         left: -85px
-        top: 15px
+        top: 11px
       .behavior1
         left: -228px
         top: 22px
@@ -179,3 +283,9 @@ $weaknesses_color: #ed1f24
       .behavior9
         left: -111px
         top: 166px
+  .footer
+    color: #0b6e92
+    background: #002735
+    font-size: 14px
+    text-align: right
+    padding: 15px 25px 
