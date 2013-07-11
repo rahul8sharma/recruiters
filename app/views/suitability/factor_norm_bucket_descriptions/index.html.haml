@@ -1,0 +1,29 @@
+%h1 All Suitability FactorNormBucketDescription
+- if can? :create, "Suitability::FactorNormBucketDescription"
+  = link_to "Manage Suitability FactorNormBucketDescriptions", manage_suitability_factor_norm_bucket_descriptions_path
+.pagination.pull-right
+  = paginate @factor_norm_bucket_descriptions        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Description
+    %th
+      Factor
+    %th
+      Norm Bucket
+  - @factor_norm_bucket_descriptions.each do |factor_norm_bucket_description|
+    %tr 
+      %td
+        = factor_norm_bucket_description.id
+      %td
+        = factor_norm_bucket_description.description
+      %td
+        = factor_norm_bucket_description.factor.name
+      %td
+        = factor_norm_bucket_description.norm_bucket.name
+.pagination.pull-right
+  = paginate @factor_norm_bucket_descriptions       
+.clr   

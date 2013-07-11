@@ -1,0 +1,29 @@
+%h1 All Suitability Fits
+- if can? :create, "Suitability::Fit"
+  = link_to "Manage Suitability Fit", manage_suitability_fits_path
+.pagination.pull-right
+  = paginate @fits        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      UID
+    %th
+      Name
+    %th
+      Factor Ids
+  - @fits.each do |fit|
+    %tr 
+      %td
+        = fit.id
+        %td
+        = fit.uid
+      %td
+        = fit.name
+      %td
+        = fit.factor_ids
+.pagination.pull-right
+  = paginate @fits
+.clr   

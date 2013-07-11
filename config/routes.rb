@@ -124,6 +124,70 @@ Recruiters::Application.routes.draw do
 	  resources :items, :only => [:index, :new, :show] do
 	  end
 	
+	  resources :factor_norm_bucket_descriptions, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :fitment_grade_mappings, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :fitment_grades, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end  
+  	
+  	resources :fits, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :norm_buckets, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :overall_fitment_grades, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :post_assessment_guidelines, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :recommendations, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+	
     resources :factors, :only => [:index, :new, :show] do
 		  resources :items do
 			  get 'add_option' => 'items#add_option'

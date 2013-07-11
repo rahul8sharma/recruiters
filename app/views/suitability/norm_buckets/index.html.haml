@@ -1,0 +1,25 @@
+%h1 All Suitability NormBuckets
+- if can? :create, "Suitability::NormBucket"
+  = link_to "Manage Suitability NormBucket", manage_suitability_norm_buckets_path
+.pagination.pull-right
+  = paginate @norm_buckets
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      UID
+    %th
+      Name
+  - @norm_buckets.each do |norm_bucket|
+    %tr 
+      %td
+        = norm_bucket.id
+        %td
+        = norm_bucket.uid
+      %td
+        = norm_bucket.name
+.pagination.pull-right
+  = paginate @norm_buckets
+.clr   
