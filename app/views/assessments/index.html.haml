@@ -29,9 +29,9 @@
             %a.default-color{:href=> company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
             = assessment.name
           .span4.lhs-border
-            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => {:assessment_id => assessment.id}).count}
+            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => {:assessment_id => assessment.id})}
           .span4.lhs-border
-            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => { :overall_fitment_grade_id => nil, :assessment_id => assessment.id }).count}
+            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => { :overall_fitment_grade_id => nil, :assessment_id => assessment.id })}
           .span.lhs-border
             %a.underlined{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               Send This Test   
