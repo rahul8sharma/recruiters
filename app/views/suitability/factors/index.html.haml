@@ -7,15 +7,89 @@
 %table
   %tr
     %th
+      ID
+    %th
       Name
     %th
       Definition
-  - for factor in @factors do
+    %th
+      Type
+    %th
+      Parent    
+  - @factors.each do |factor|
     %tr 
       %td
-        =	link_to factor.name, suitability_factor_path(factor)
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
       %td
         = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
+.pagination.pull-right
+  = paginate @factors       
+.clr   
+
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Type
+    %th
+      Parent    
+  - @direct_predictors.each do |factor|
+    %tr 
+      %td
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
+      %td
+        = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
+.pagination.pull-right
+  = paginate @factors       
+.clr   
+
+
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Type
+    %th
+      Parent    
+  - @alarm_factors.each do |factor|
+    %tr 
+      %td
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
+      %td
+        = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
 .pagination.pull-right
   = paginate @factors       
 .clr   

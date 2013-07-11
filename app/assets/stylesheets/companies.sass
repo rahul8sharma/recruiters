@@ -1,0 +1,53 @@
+@import toolkit/component/pagination
+@import toolkit/component/buttons
+@import toolkit/component/alerts
+@import shared/sub-nav
+
+
+.page-title 
+  font-size: 24px
+  line-height: 36px
+.companies-list, .companies-list a
+  color: #3e3e3e
+.companies-list
+  .big-text
+    line-height: 30px
+  ul
+    li
+      &:first-child
+        .inn
+          border-top: none
+      .inn
+        border-top-style: dashed
+        font-size: 14px
+.statistic
+  min-height: 500px
+  [class*="icon"]
+    background: none
+    line-height: 10px
+    width: 10px
+  span
+    display: inline-block
+    margin-left: 10px
+  .biggest-text 
+    font-size: 30px
+    line-height: 50px
+  .graph
+    padding: 0 0 5px 2px
+    width: 150px
+    border-color: #b8b8b8
+    border-width: 0 0 0 3px
+    border-style: none none dashed solid
+    background: image-url("jit/dot-border.png") repeat-x 0 bottom #fff
+  .column
+    height: 25px
+    margin-bottom: 2px
+  .green-bg
+    background: #6ab724
+    color: #6ab724
+  .yellow-bg
+    background: #fac934
+    color: #fac934
+  .orange-bg
+    background: #f46316
+    color: #f46316

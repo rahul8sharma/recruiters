@@ -19,13 +19,15 @@ class Suitability::FactorsController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Suitability::Factor\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name","definition"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id","uid","name","definition","type","parent_id"]))
     redirect_to suitability_factors_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   # GET /factors
   def index
-    @factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 20)
+    @factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
+    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
+    @alarm_factors = Vger::Resources::Suitability::AlarmFactor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
   end
 
   # GET /factors/new

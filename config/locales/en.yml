@@ -9,3 +9,11 @@ en:
       previous: "&lsaquo;"
       next: "&rsaquo;"
       truncate: "..."  
+  marital_status:
+    s: "Single"
+    m: "Married"    
+    d: "Divorcee"
+  gender:
+    m: 'Male'
+    f: 'Female'
+    o: 'Other'

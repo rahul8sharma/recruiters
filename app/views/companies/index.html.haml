@@ -1,22 +1,65 @@
-%h1 All Companies
-- if can? :create, "Company"
-  = link_to "Manage Companies", manage_companies_path  
-%table
-  %tr
-    %th ID
-    %th Name
-    %th Company Code
-    %th Website
-  - for company in @companies do
-    %tr
-      %td 
-        = company.id
-      %td 
-        = link_to company.name, company_path(company)
-      %td 
-        = company.company_code
-      %td 
-        = company.website    
-
-%br
-= paginate @companies        
+.inn.first
+  .page-title.pull-left
+    Companies
+  .pagination.pull-right
+    %ul
+      %li.disabled
+        %a{:href => "#"} &laquo; 
+      %li.active
+        %a{:href => "#"} 1
+      %li
+        %a{:href => "#"} 2
+      %li
+        %a{:href => "#"} 3
+      %li
+        %a{:href => "#"} &raquo;
+.inn
+  .companies-list
+    %ul.unstyled
+      - 5.times do
+        %li
+          .inn
+            .lhs.span13
+              %a.extra-medium-text{:href => "#", :title => "Go to Employer Name"}
+                EMP037 - Employer Name
+              %br/
+              %br/
+              Account Manager Name
+              %br/
+              %br/
+              manager@email.com
+            .rhs.span5
+              %a{:href => "#", :title =>"Test bought"}
+                Test bought: 
+                %sapn.extra-medium-text 800
+              %br/
+              %br/
+              %a{:href => "#", :title =>"Test used"}
+                Test used: 
+                %sapn.extra-medium-text 624
+              %br/
+              %br/
+              %a{:href => "#", :title =>"Test remaining"}
+                Test remaining: 
+                %sapn.extra-medium-text 176
+            .text-center.span
+              Validity
+              .big-text
+                04
+              Days 
+            
+            .clr
+            .divider1
+.inn
+  .pagination.pull-right
+    %ul
+      %li.disabled
+        %a{:href => "#"} &laquo; 
+      %li.active
+        %a{:href => "#"} 1
+      %li
+        %a{:href => "#"} 2
+      %li
+        %a{:href => "#"} 3
+      %li
+        %a{:href => "#"} &raquo;
