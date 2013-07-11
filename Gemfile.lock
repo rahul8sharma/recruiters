@@ -1,7 +1,7 @@
 GIT
   remote: git@github.com:prcongithub/faraday.git
-  revision: cc9986c861f79aeeacfbb4de17ea32d1ecdd9fd3
-  ref: cc9986c861f79aeeacfbb4de17ea32d1ecdd9fd3
+  revision: 10ff492fb74000ce1d8efc4f1492e41ddfb02a11
+  ref: 10ff492fb74000ce1d8
   branch: handle-unprocessable-entity
   specs:
     faraday (0.9.0.rc5)
@@ -10,6 +10,7 @@ GIT
 GIT
   remote: git@github.com:prcongithub/her.git
   revision: af961919e664ddeeb42fd94ec7394290855b7c9c
+  ref: af961919e664ddeeb42
   branch: v0.6.6-associations-fix-jruby
   specs:
     her (0.6.6)
@@ -20,7 +21,8 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: c7177099a7f12583e07f5ae3f89623ef2bc7f7bd
+  revision: de1edfeed11d2309b79f0719e4d1cdb058b937a9
+  ref: de1edfeed11d2309b79f0719e
   branch: pagination-new-models
   specs:
     vger (0.0.1)
