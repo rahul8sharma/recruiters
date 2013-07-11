@@ -2,26 +2,16 @@
   .page-title.pull-left
     Companies
   .pagination.pull-right
-    %ul
-      %li.disabled
-        %a{:href => "#"} &laquo; 
-      %li.active
-        %a{:href => "#"} 1
-      %li
-        %a{:href => "#"} 2
-      %li
-        %a{:href => "#"} 3
-      %li
-        %a{:href => "#"} &raquo;
+    = paginate @companies
 .inn
   .companies-list
     %ul.unstyled
-      - 5.times do
+      - @companies.each do |company|
         %li
           .inn
             .lhs.span13
-              %a.extra-medium-text{:href => "#", :title => "Go to Employer Name"}
-                EMP037 - Employer Name
+              %a.extra-medium-text{:href => "#", :title => "Go to #{company.name}"}
+                EMP#{company.company_code} - #{company.name}
               %br/
               %br/
               Account Manager Name
@@ -52,14 +42,4 @@
             .divider1
 .inn
   .pagination.pull-right
-    %ul
-      %li.disabled
-        %a{:href => "#"} &laquo; 
-      %li.active
-        %a{:href => "#"} 1
-      %li
-        %a{:href => "#"} 2
-      %li
-        %a{:href => "#"} 3
-      %li
-        %a{:href => "#"} &raquo;
+    = paginate @companies
