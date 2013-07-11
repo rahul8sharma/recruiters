@@ -1,0 +1,12 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "users"
+- content_for :main_header do
+  = render :partial => 'shared/users/header'
+- content_for :content do
+  .divider2
+  .white-box.tests.bordered.container
+    .users-content
+      .box
+        = yield
+  .divider2
+= render :file => 'layouts/base'
