@@ -1,2 +1,41 @@
-%h1 companies#statistics
-%p Find me in app/views/companies/statistics.html.haml
+.statistic
+  = render :partial => "shared/sub-nav"
+  .inn.first
+    .page-title
+      Statistics
+  .inn
+    .large-text.span.float-none
+      Tests
+    .divider1
+    .span13.first
+      .span6
+        .graph
+          .column.green-bg{:style => "width: 100%"}
+          .column.yellow-bg{:style => "width: 40%"}
+          .column.orange-bg{:style => "width: 20%"}
+      .span6
+        %span.icon-stop.green-bg 
+        %span Total Tests Sent: 
+        %span.large-text
+          427
+        %br/
+        %br/
+        %span.icon-stop.yellow-bg 
+        %span Total Tests Answered:  
+        %span.large-text
+          325
+        %br/
+        %br/
+        %span.icon-stop.orange-bg 
+        %span Total Tests Remaining:  
+        %span.large-text
+          153
+    .span4.pull-right.text-center  
+      .medium-text Validity 
+      .biggest-text 
+        %b 32 
+      .large-text
+        %b Days
+    .clr
+
+

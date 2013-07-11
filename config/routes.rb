@@ -148,6 +148,8 @@ Recruiters::Application.routes.draw do
   end
 
   match "/login", :to => "users#login", :as => :login
+  match "/users/password/edit", :to => "users#reset_password", :as => :reset_password
+  match "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
 	match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
 	
   root :to => "pages#home"
