@@ -132,6 +132,14 @@ Recruiters::Application.routes.draw do
 		  end
   	end   
   	
+  	resources :default_factor_norm_ranges, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
   	resources :fitment_grade_mappings, :only => [:index] do
 		  collection do
 		    get :manage

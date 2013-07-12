@@ -34,6 +34,8 @@ class AssessmentsController < ApplicationController
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
+        Rails.logger.ap @assessment.error_messages
+        flash[:notice] = @assessment.error_messages.join("<br/>")
       end
     end  
   end
@@ -186,34 +188,46 @@ class AssessmentsController < ApplicationController
   end
   
   def get_norms
-    job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm.where(:query_options => { :industry_id => @assessment.industry_id, :functional_area_id => @assessment.functional_area_id, :job_experience_id => @assessment.job_experience_id }, :page => 1, :per => 100).all.to_a
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    
+    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => { 
+                                      :functional_area_id => @assessment.functional_area_id,
+                                      :industry_id => @assessment.industry_id,
+                                      :job_experience_id => @assessment.job_experience_id
+                                    }, :page => 1, :per => 100).all
     
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ], :page => 1, :per => 100).all.to_a
     added_factor_ids = @job_assessment_factor_norms.map(&:factor_id)
-    job_factor_norms.each do |job_factor_norm|
-      next if @factors[job_factor_norm.factor_id].nil?
+    default_norm_bucket_ranges.each do |default_norm_bucket_range|
+      next if @factors[default_norm_bucket_range.factor_id].nil?
+      
       assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-        job_factor_norm.attributes.except("created_at","updated_at","id")
+        default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
+           merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
+                 :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
       )
       
       # to avoid calls to API, set fa, industry and exp from already fetched data
-      assessment_factor_norm.functional_area = @functional_areas[job_factor_norm.functional_area_id]
-      assessment_factor_norm.industry = @industries[job_factor_norm.industry_id]
-      assessment_factor_norm.job_experience = @job_experiences[job_factor_norm.job_experience_id]
-      assessment_factor_norm.factor = @factors[job_factor_norm.factor_id]
+      assessment_factor_norm.functional_area = @functional_areas[default_norm_bucket_range.functional_area_id]
+      assessment_factor_norm.industry = @industries[default_norm_bucket_range.industry_id]
+      assessment_factor_norm.job_experience = @job_experiences[default_norm_bucket_range.job_experience_id]
+      assessment_factor_norm.factor = @factors[default_norm_bucket_range.factor_id]
       
-      @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? job_factor_norm.factor_id
+      @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? default_norm_bucket_range.factor_id
     end  
   end
   
   def get_styles
     all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).all.map(&:parent_id).uniq
     
-    alarm_factor_ids = Vger::Resources::Suitability::AlarmFactor.all.map(&:id).uniq 
+    alarm_factors = Vger::Resources::Suitability::AlarmFactor.all.to_a
     
-    all_direct_predictor_parent_ids |= alarm_factor_ids
+    all_direct_predictor_parent_ids
     
     all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids })
+    
+    all_direct_predictors |= alarm_factors
     
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
     

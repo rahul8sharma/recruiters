@@ -30,7 +30,7 @@
           #{@candidate.location.name rescue '-'}
         %li
           %b Current Functional area:
-          #{@candidate.functional_area.name}
+          #{@candidate.functional_area.name rescue '-'}
         %li
           %b Age:
           #{@candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "-"}

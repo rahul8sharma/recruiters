@@ -61,7 +61,7 @@
           .span17.first
             Factors
           .pull-right
-            .span3
+            .span6
               Qualifying score 
             .span2
               Importances 
@@ -80,9 +80,11 @@
   $("input[name='selected_factor']").change(function(){
   if($(this).is(":checked")){
   $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").removeAttr("disabled");
+  $("select[index='"+$(this).attr("index")+"']").removeAttr("disabled");
   $("#critical_checkbox_"+$(this).attr("index")).removeAttr("disabled");
   }else{
   $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").attr("disabled",'disabled');
+  $("select[index='"+$(this).attr("index")+"']").attr("disabled",'disabled');
   $("#critical_checkbox_"+$(this).attr("index")).attr("disabled",'disabled');
   }
   });
