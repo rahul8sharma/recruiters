@@ -21,9 +21,9 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: de1edfeed11d2309b79f0719e4d1cdb058b937a9
-  ref: de1edfeed11d2309b79f0719e
-  branch: pagination-new-models
+  revision: f62005cf1430ef3a7bd4e565d7587f595715feea
+  ref: f62005cf1430ef3a7bd4
+  branch: scoring-master-data
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
