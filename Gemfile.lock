@@ -20,10 +20,9 @@ GIT
       multi_json (~> 1.7)
 
 GIT
-  remote: git@github.com:prcongithub/vger.git
-  revision: f62005cf1430ef3a7bd4e565d7587f595715feea
-  ref: f62005cf1430ef3a7bd4
-  branch: scoring-master-data
+  remote: git@github.com:yournextleap/vger.git
+  revision: d526effc43d64dc585eec719eb2e937dcd457bef
+  branch: develop
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
