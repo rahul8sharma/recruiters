@@ -19,9 +19,10 @@
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
     .pull-left 
-      %input{name: "selected_factor", type: 'checkbox', index: (index), checked: assessment_factor_norm.id.present?}
+      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
     .pull-left
-      %b= assessment_factor_norm.factor.name
+      %label{ for: "checkbox_factor_#{index}" }
+        %b= assessment_factor_norm.factor.name
     .pull-right
       .span6.lhs-border
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), disabled: 'disabled', index: (index)}
@@ -60,9 +61,10 @@
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
     .pull-left 
-      %input{name: "selected_factor", type: 'checkbox', index: (index), checked: assessment_factor_norm.id.present?}
+      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
     .pull-left
-      %b= assessment_factor_norm.factor.name
+      %label{ for: "checkbox_factor_#{index}" }
+        %b= assessment_factor_norm.factor.name
     .pull-right
       .span6.lhs-border
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), index: (index)}
