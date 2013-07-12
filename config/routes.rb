@@ -37,8 +37,6 @@ Recruiters::Application.routes.draw do
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
         get "candidates" => "assessments#candidates", :as => :candidates
-        get "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
-        put "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
         get "styles" => "assessments#styles", :as => :styles

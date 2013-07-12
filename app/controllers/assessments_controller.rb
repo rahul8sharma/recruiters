@@ -50,7 +50,7 @@ class AssessmentsController < ApplicationController
         @candidates.push candidate
       end
       @company = Vger::Resources::Company.find(params[:company_id])
-      render :action => params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE ? :send_test_to_candidates : :send_test_to_employees
+      render :action => :send_test_to_candidates
     end
   end
   
@@ -90,30 +90,10 @@ class AssessmentsController < ApplicationController
           :candidate_id => candidate_id
         }).all[0]
         
-        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => Vger::Resources::Candidate::Stage::CANDIDATE, :responses_count => 0) unless candidate_assessment
+        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0) unless candidate_assessment
         candidate_assessments.push candidate_assessment 
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
-      flash[:notice] = "You have successfully sent the test!!"
-      redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-    end
-  end
-  
-  def send_test_to_employees
-    @company = Vger::Resources::Company.find(params[:company_id])
-    if request.put?
-      params[:candidates] ||= []
-      candidate_assessments = []
-      params[:candidates].each do |candidate_id,on|
-        candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
-          :assessment_id => @assessment.id, 
-          :candidate_id => candidate_id
-        }).all[0]
-        
-        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => Vger::Resources::Candidate::Stage::EMPLOYED, :responses_count => 0) unless candidate_assessment
-        candidate_assessments.push candidate_assessment
-      end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_employees(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
       flash[:notice] = "You have successfully sent the test!!"
       redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
     end
