@@ -10,9 +10,22 @@ class TokenAuthentication < Faraday::Middleware
 	end
 end
 
+class PaginationParser  < Faraday::Response::Middleware
+  def on_complete(env)
+    pagination = nil
+    if env[:response_headers]["x-pagination"]
+      pagination = JSON.parse(env[:response_headers]["x-pagination"], :symbolize_names => true)
+    end
+    errors = env[:body].delete(:errors) || {}
+    metadata = env[:body].delete(:metadata) || []
+    env[:body] = {:data => env[:body][:data], :errors => errors, :metadata => metadata , :pagination => pagination}
+  end
+end
+
 Vger::Config.configure({
 	:url => Rails.application.config.vger["api"]["url"],
-	:middlewares => [TokenAuthentication,Faraday::Response::RaiseError],
+	:middlewares => [TokenAuthentication,Faraday::Response::RaiseError,PaginationParser],
 	:app_name => Rails.application.config.vger["api"]["app_name"],
 	:password => Rails.application.config.vger["api"]["password"]
 })
+

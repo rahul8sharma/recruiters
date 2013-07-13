@@ -1,105 +1,121 @@
-- if current_user
-  = link_to "Logout", logout_path, method: :delete
-- else
-  = link_to "Login", login_path
-%br
-%br
-= link_to "Report PDF Page 1", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1)
-%br
-%br
-= link_to "Report Page 1", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1)
-%br
-%br
-= link_to "Report Page 2", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 2)
-%br
-%br
-= link_to "Report Page 3", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 3)
-%br
-%br
-= link_to "Report Page 4", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 4)
-%br
-%br
-= link_to "Report Page 5", assessment_report_company_assessment_candidate_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 5)
-%br  
-%br
-= link_to "Companies List", companies_path
-%br  
-%br
-= link_to "Company Page", company_path(:id => 1)
-%br  
-%br
-= link_to "Settings", settings_company_path(:id => 1)
-%br  
-%br
-= link_to "Account Settings", account_settings_company_path(:id => 1)
-%br  
-%br
-= link_to "Company Settings", company_settings_company_path(:id => 1)
-%br  
-%br
-= link_to "Company Statistics", statistics_company_path(:id => 1)
-%br
-%br
-= link_to "Tests", company_assessments_path(:company_id => 1)
-%br
-%br
-= link_to "Test page", company_assessment_path(:company_id => 1, :id => 1)        
-%br
-%br
-= link_to "New Test page", new_company_assessment_path(:company_id => 1)
-%br
-%br
-= link_to "Norms for a Test page", norms_company_assessment_path(:company_id => 1, :id => 1)                                
-%br
-%br
-= link_to "Styles for a Test page", styles_company_assessment_path(:company_id => 1, :id => 1)                                
-%br
-%br
-= link_to "Assessment Candidates", company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-%br
-%br
-= link_to "Company Candidate page", candidate_company_path(:id => 1, :candidate_id => 1)
-%br
-%br
-= link_to "Add Candidates", add_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-%br
-%br
-= link_to "Candidate bulk upload", bulk_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-%br
-%br
-= link_to "Candidate single upload", single_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-%br
-%br
-= link_to "Send test to Candidates", send_test_to_candidates_company_assessment_candidates_path(:company_id=>1, :assessment_id => 1)
-%br
-%br
-= link_to "Send Reminder to Candidate", send_reminder_company_assessment_candidate_path(:company_id=>1, :assessment_id => 1, :id => 1)
-%br
-%br
-= link_to "Send test to Employees", send_test_to_employees_company_assessment_path(:company_id=>1, :id => 1)
-%br
-%br
-%hr
-%hr
-%div
-  = link_to "Admins", company_admins_path(:company_id => 1)
-%div
-  = link_to "Hiring Managers", company_hiring_managers_path(:company_id => 1)
-%div
-  = link_to "Account managers", account_managers_path 
-%div
-  = link_to "Jobs", company_jobs_path(:company_id => 1)
-%div
-  = link_to "Companies", companies_path 
-%div
-  = link_to "Assign jobs to Account Managers", assign_jobs_form_account_managers_path 
-%div
-  = link_to "Assign jobs to Hiring Managers", assign_jobs_form_company_hiring_managers_path(:company_id => 1)
-%div
+.pull-left
+  - if current_user
+    = link_to "Logout", logout_path, method: :delete
+  - else
+    = link_to "Login", login_path
+  %br
+  %br
+.pull-left
+  Company Pages  
+  %br
+  %br
+  = link_to "Companies List", companies_path
+  %br  
+  %br
+  = link_to "Company Page", company_path(:id => 1)
+  %br  
+  %br
+  = link_to "Settings", settings_company_path(:id => 1)
+  %br  
+  %br
+  = link_to "Account Settings", account_settings_company_path(:id => 1)
+  %br  
+  %br
+  = link_to "Company Settings", company_settings_company_path(:id => 1)
+  %br  
+  %br
+  = link_to "Company Statistics", statistics_company_path(:id => 1)
+  %br
+  %br
+  = link_to "Company Candidate page", candidate_company_path(:id => 1, :candidate_id => 1)
+  %br
+  %br
+.pull-left
+  Test Pages
+  %br
+  %br  
+  = link_to "Tests", company_assessments_path(:company_id => 1)
+  %br
+  %br
+  = link_to "Test page", company_assessment_path(:company_id => 1, :id => 1)        
+  %br
+  %br
+  = link_to "New Test page", new_company_assessment_path(:company_id => 1)
+  %br
+  %br
+  = link_to "Norms for a Test page", norms_company_assessment_path(:company_id => 1, :id => 1)                                
+  %br
+  %br
+  = link_to "Styles for a Test page", styles_company_assessment_path(:company_id => 1, :id => 1)                                
+  %br
+  %br
+  = link_to "Assessment Candidates", company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  %br
+  %br
+  = link_to "Add Candidates", add_candidates_company_assessment_path(:company_id => 1, :id => 1)
+  %br
+  %br
+  = link_to "Candidate bulk upload", bulk_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  %br
+  %br
+  = link_to "Candidate single upload", single_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  %br
+  %br
+  = link_to "Send test to Candidates", send_test_to_candidates_company_assessment_path(:company_id=>1, :id => 1)
+  %br
+  %br
+  = link_to "Send Reminder to Candidate", send_reminder_to_candidate_company_assessment_path(:company_id=>1, :assessment_id => 1, :id => 1, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Send test to Employees", send_test_to_employees_company_assessment_path(:company_id=>1, :id => 1)
+  %br
+  %br
+.pull-left
+  Master Data Links
+  %br
+  %br
   = link_to "Suitability Factors", suitability_factors_path 
+  %br
+  %br
   = link_to "Suitability Job Factor Norms", suitability_job_factor_norms_path 
-%div
+  %br
+  %br
+  = link_to "Suitability Items", suitability_item_groups_path 
+  %br
+  %br
   = link_to "Functional Areas", functional_areas_path 
+  %br
+  %br
   = link_to "Industries", industries_path 
+  %br
+  %br
   = link_to "Job Experiences", job_experiences_path 
 
+.pull-left  
+  Report Pages
+  %br
+  %br
+  = link_to "Report PDF Page 1", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Report Page 1", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Report Page 2", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 2, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Report Page 3", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 3, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Report Page 4", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 4, :candidate_id => 1)
+  %br
+  %br
+  = link_to "Report Page 5", assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 5, :candidate_id => 1)
+
+.clr
+=# link_to "Admins", company_admins_path(:company_id => 1)
+=# link_to "Hiring Managers", company_hiring_managers_path(:company_id => 1)
+=# link_to "Account managers", account_managers_path 
+=# link_to "Jobs", company_jobs_path(:company_id => 1)
+=# link_to "Assign jobs to Account Managers", assign_jobs_form_account_managers_path 
+=# link_to "Assign jobs to Hiring Managers", assign_jobs_form_company_hiring_managers_path(:company_id => 1)

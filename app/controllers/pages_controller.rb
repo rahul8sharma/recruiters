@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
-	def home
-	end
+  layout 'admin'
+  def home
+  end
 end

@@ -1,0 +1,39 @@
+- id_name = "assessment[job_assessment_factor_norms_attributes][#{index}][id]"
+- factor_name = "assessment[job_assessment_factor_norms_attributes][#{index}][factor_id]"
+- fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
+- industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
+- exp_name = "assessment[job_assessment_factor_norms_attributes][#{index}][job_experience_id]"
+- norm_min_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_min]"
+- norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][norm_max]"
+- check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
+- critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
+%li.item.checked
+  %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: "off"}
+  .pull-left 
+    %input{name: "selected_factor", type: 'checkbox', index: (index), checked: job_factor_norm.id.present?}
+  .pull-left
+    %b= job_factor_norm.factor.name
+  .clr
+  .divider1
+  %p= job_factor_norm.factor.definition
+  //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+  - if job_factor_norm.id.nil?
+    - if job_factor_norm.id.present?
+      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index), disabled: 'disabled'}
+    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, disabled: 'disabled', index: (index)}
+    
+    %input{name: (norm_min_name), type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
+    %input{name: (norm_max_name), type: 'hidden', value: 5, disabled: 'disabled', index: (index)}
+  - else
+    - if job_factor_norm.id.present?
+      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, index: (index)}
+     
+    %input{name: (norm_min_name), type: 'hidden', value: 0, index: (index)}
+    %input{name: (norm_max_name), type: 'hidden', value: 5, index: (index)}

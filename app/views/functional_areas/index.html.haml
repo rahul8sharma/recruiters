@@ -1,8 +1,23 @@
 %h1 All functional areas
 - if can? :create, "FunctionalArea"
-  = link_to "Upload functional areas", new_functional_area_path
   = link_to "Manage Functional Areas", manage_functional_areas_path  
-%ul.unstyled
+  
+.pagination.pull-right        
+  = paginate @functional_areas        
+.clr     
+
+%table
+  %tr
+    %th ID
+    %th Name
   - for functional_area in @functional_areas do
-    %li 
-    =	functional_area.name
+    %tr
+      %td 
+        = functional_area.id
+      %td 
+        = functional_area.name
+
+%br
+.pagination.pull-right        
+  = paginate @functional_areas        
+.clr     

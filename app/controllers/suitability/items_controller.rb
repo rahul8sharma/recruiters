@@ -1,23 +1,25 @@
 class Suitability::ItemsController < ApplicationController
-	before_filter :authenticate_user!
-	
+  before_filter :authenticate_user!
+  
+  layout "admin"
+  
   # GET /items
   def index
-  	@items = Vger::Resources::Suitability::Item.all
+    @items = Vger::Resources::Suitability::Item.all
   end
 
   # GET /items/new
   # GET /items/new.json
   def new
-  	@item = "Vger::Resources::#{params[:item_type]}".constantize.new
+    @item = "Vger::Resources::#{params[:item_type]}".constantize.new
     respond_to do |format|
       format.html
     end
   end
   
   def add_option
-  	@option = "Vger::Resources::#{params[:option_type]}".constantize.new
-  	respond_to do |format|
+    @option = "Vger::Resources::#{params[:option_type]}".constantize.new
+    respond_to do |format|
       format.js
     end
   end
@@ -25,7 +27,7 @@ class Suitability::ItemsController < ApplicationController
   # GET /items/:id
   # GET /items/:id.json
   def show
-  	@item = Vger::Resources::Suitability::Item.find(params[:id], :factor_id => params[:factor_id])
+    @item = Vger::Resources::Suitability::Item.find(params[:id], :factor_id => params[:factor_id])
     respond_to do |format|
       format.html
     end
@@ -34,7 +36,7 @@ class Suitability::ItemsController < ApplicationController
   # GET /items/:id
   # GET /items/:id.json
   def edit
-  	@item = Vger::Resources::Suitability::Item.find(params[:id], :factor_id => params[:factor_id], :methods => [:item_type])
+    @item = Vger::Resources::Suitability::Item.find(params[:id], :factor_id => params[:factor_id], :methods => [:item_type])
     respond_to do |format|
       format.html
     end

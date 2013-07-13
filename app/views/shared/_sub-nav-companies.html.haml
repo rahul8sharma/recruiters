@@ -2,18 +2,18 @@
   .company-logo.pull-left
     = image_tag("http://placehold.it/36x26")
   .company-name.span11
-    Wipro Technologies
+    #{@company.name}
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
       %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
-        %a{ :href=> company_assessments_path(:id => params[:company_id]), :title=>"Test"} 
+        %a{ :href=> company_assessments_path(:company_id => params[:id]), :title=>"Test"} 
           %span.icon-pencil 
           Test
       %li{ class: (["statistics"].include?(params[:action]) ? 'active' : '') }
-        %a{ :href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics" }  
+        %a{ :href=> statistics_company_path(:id => params[:id]), :title=>"Statistics" }  
           %span.icon-pie 
           Statistics
       %li{ class: (["settings","company","account"].include?(params[:action]) ? 'active' : '') }
-        %a{:href=> settings_company_path(:id => params[:company_id]), :title=>"Settings"} 
+        %a{:href=> settings_company_path(:id => params[:id]), :title=>"Settings"} 
           %span.icon-cog
           Settings

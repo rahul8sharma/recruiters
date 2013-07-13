@@ -13,14 +13,15 @@ gem 'rails-backbone','0.7.2'
 
 gem 'puma','2.0.1'
 
+gem 'kaminari', '0.14.1'
+
 gem 'wicked_pdf','0.9.6'
 
-gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "7acdb8600d62"
+gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
 
-gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby"
+gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "af961919e664ddeeb42"
 
-gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "suitability-tool-jit-features"
-
+gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "pagination-new-models", :ref => "de1edfeed11d2309b79f0719e"
 
 gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'

@@ -1,7 +1,7 @@
 GIT
   remote: git@github.com:prcongithub/faraday.git
-  revision: 7acdb8600d62c354d27585778d1b470ae622ec9c
-  ref: 7acdb8600d62
+  revision: 10ff492fb74000ce1d8efc4f1492e41ddfb02a11
+  ref: 10ff492fb74000ce1d8
   branch: handle-unprocessable-entity
   specs:
     faraday (0.9.0.rc5)
@@ -9,7 +9,8 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/her.git
-  revision: 047fb246e81d78a09e8f5115371fb02cd37798c1
+  revision: af961919e664ddeeb42fd94ec7394290855b7c9c
+  ref: af961919e664ddeeb42
   branch: v0.6.6-associations-fix-jruby
   specs:
     her (0.6.6)
@@ -20,11 +21,13 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: cad3220b91eadff5ae945685b813d47a3f224427
-  branch: suitability-tool-jit-features
+  revision: de1edfeed11d2309b79f0719e4d1cdb058b937a9
+  ref: de1edfeed11d2309b79f0719e
+  branch: pagination-new-models
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
+      kaminari (= 0.14.1)
       rails (>= 3.0.0)
 
 GEM
@@ -59,20 +62,13 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     awesome_print (1.1.0)
-    better_errors (0.8.0)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-    binding_of_caller (0.7.1)
-      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
-    coderay (1.0.9)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
-    debug_inspector (0.0.2)
+    coffee-script-source (1.6.3)
     ejs (1.0.0)
     erubis (2.7.0)
     exception_notification (3.0.1)
@@ -93,8 +89,10 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.0)
     json (1.8.0-java)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -102,8 +100,6 @@ GEM
     multi_json (1.7.7)
     multipart-post (1.2.0)
     polyglot (0.3.3)
-    puma (2.0.1)
-      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
@@ -160,7 +156,6 @@ GEM
 
 PLATFORMS
   java
-  ruby
 
 DEPENDENCIES
   awesome_print (= 1.1.0)
@@ -173,6 +168,7 @@ DEPENDENCIES
   haml-rails (= 0.3.4)
   her (= 0.6.6)!
   jquery-rails (= 2.2.1)
+  kaminari (= 0.14.1)
   puma (= 2.0.1)
   rails (= 3.2.13)
   rails-backbone (= 0.7.2)

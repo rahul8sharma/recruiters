@@ -1,7 +1,8 @@
 class CompaniesController < ApplicationController
-  
   layout "companies" 
+  
   def index
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)
   end
   
   def manage
@@ -20,17 +21,26 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    @company = Vger::Resources::Company.find(params[:id])
+  end
+  
+  def candidate
+    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def settings
+    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def account
+    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def company
+    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def statistics
+    @company = Vger::Resources::Company.find(params[:id])
   end
 end

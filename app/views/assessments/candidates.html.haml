@@ -1,0 +1,46 @@
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      Test ID - #{@assessment.name}
+    %a.btn.pull-right{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+      .link-color Send This Test
+  .clr
+  .inn
+    .pull-left
+      = render :partial => "shared/candidate-summary-nav"
+    .pagination.pull-right
+      = paginate @candidates
+    .clr
+    .divider2
+    .list-snippet-titles.clearfix
+      .span2
+        ID
+      .span10
+        Candidate Name 
+      .span6
+        Test Status
+      .span
+        Action
+    %ul.unstyled
+      - @candidates.each do |candidate|
+        - candidate_assessment = @assessment.candidate_assessments.find{|x| x.candidate_id == candidate.id}
+        %li.list-snippet.padding-all1
+          .span2
+            %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"JOM#{candidate.id}"} JOM#{candidate.id}
+          .span10.first.lhs-border
+            %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
+              = candidate.name
+          .span6.lhs-border
+            %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }  
+              = candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'
+          .span.lhs-border
+            - if candidate_assessment.overall_fitment_grade_id.present?
+              %a.underlined{:href => assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :page => 1, :candidate_id => candidate.id), :title => "View Report"}
+                View Report
+            - else    
+              %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                Send Reminder
+  .inn
+    .pagination.pull-right
+      = paginate @candidates
+      .clr
