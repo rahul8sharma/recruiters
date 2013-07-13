@@ -12,16 +12,13 @@
   - if job_factor_norm.id.nil?
     %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), disabled: 'disabled'}
     .pull-left 
-      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: job_factor_norm.id.present?}
+      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index)}
     .pull-left
       %label{ for: "checkbox_factor_#{index}" }
         %b= job_factor_norm.factor.name
     .clr
     .divider1
     %p= job_factor_norm.factor.definition
-    //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
-    - if job_factor_norm.id.present?
-      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index), disabled: 'disabled'}
     %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
     %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
     %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
@@ -32,16 +29,14 @@
   - else
     %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index)}
     .pull-left 
-      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: job_factor_norm.id.present?}
+      %input{name: "selected_factor", class: "#{job_factor_norm.id.present? ? 'checked':''}", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: job_factor_norm.id.present?}
     .pull-left
       %label{ for: "checkbox_factor_#{index}" }
         %b= job_factor_norm.factor.name
     .clr
     .divider1
     %p= job_factor_norm.factor.definition
-    //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
-    - if job_factor_norm.id.present?
-      %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
+    %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
     %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
     %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
     %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
