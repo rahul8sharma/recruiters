@@ -74,6 +74,7 @@ module Recruiters
     
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
+    config.default_set = YAML::load(File.open("#{Rails.root.to_s}/config/default_set.yml"))["default_set"]
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true

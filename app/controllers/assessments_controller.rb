@@ -37,6 +37,7 @@ class AssessmentsController < ApplicationController
     if request.put?  
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
+        Vger::Resources::Suitability::Set.create(Rails.application.config.default_set.merge(:assessment_id => @assessment.id, :end_index => @assessment.item_ids.count))
         redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -137,14 +138,6 @@ class AssessmentsController < ApplicationController
     end
   end
  
-  # TODO Assessment Report for a candidate 
-  def assessment_report
-    respond_to do |format|
-      format.html { render :layout => "reports" }
-      format.pdf { render :pdf => "report", :layout => "reports.html.haml", :template => "assessments/assessment_report.pdf.haml" }
-    end
-  end
-  
   protected
   
   # fetches assessment if id is present in params
@@ -209,11 +202,12 @@ class AssessmentsController < ApplicationController
   # fetch all alarm factors
   # create new job_assessment_factor_norm for each factor
   def get_styles
-    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).all.map(&:parent_id).uniq
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).to_a.map(&:parent_id).uniq
     
     alarm_factors = Vger::Resources::Suitability::AlarmFactor.all.to_a
     
-    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids })
+    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids }).to_a
     
     all_direct_predictors |= alarm_factors
     
@@ -224,6 +218,7 @@ class AssessmentsController < ApplicationController
     all_direct_predictors.each do |factor|
       assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:functional_area_id => @assessment.functional_area_id, :industry_id => @assessment.industry_id, :job_experience_id => @assessment.job_experience_id, :factor_id => factor.id)
       assessment_factor_norm.factor = factor
+      Rails.logger.ap assessment_factor_norm.factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end  
   end
