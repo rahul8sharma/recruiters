@@ -42,7 +42,6 @@ class AssessmentsController < ApplicationController
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
-        Rails.logger.ap @assessment.error_messages
         flash[:notice] = @assessment.error_messages.join("<br/>")
       end
     end  
@@ -218,7 +217,6 @@ class AssessmentsController < ApplicationController
     all_direct_predictors.each do |factor|
       assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:functional_area_id => @assessment.functional_area_id, :industry_id => @assessment.industry_id, :job_experience_id => @assessment.job_experience_id, :factor_id => factor.id)
       assessment_factor_norm.factor = factor
-      Rails.logger.ap assessment_factor_norm.factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end  
   end
