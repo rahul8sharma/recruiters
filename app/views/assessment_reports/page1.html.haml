@@ -1,0 +1,18 @@
+.over_all_report
+  .report_title
+    .inn
+      .large-text Recommendation
+      .extra_large_text #{@recommendation.body} 
+      .font-normal Test Name: #{@assessment.name}
+  .report_content
+    .divider1
+    .large-text.text-center
+      %b Overall Scores
+- @candidate_fit_scores.each do |candidate_fit_score|      
+  #{candidate_fit_score.fit.name} - 
+  #{candidate_fit_score.fitment_grade.name} : 
+  #{candidate_fit_score.percentage_factors_passed.round(2)} 
+  %br
+  %br
+  
+= render :partial => "assessment_reports/navigation", :locals => { current_page: 1 }  

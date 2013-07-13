@@ -1,0 +1,31 @@
+.interview_guide_report
+  .report_title
+    .inn
+      Interview Guide
+  .report_content
+    .page_inner
+      - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MATCH }.each_with_index do |(factor_id, factor_score), index|
+        - if @post_assessment_guidelines[factor_score.factor_id] and @post_assessment_guidelines[factor_score.factor_id][factor_score.norm_bucket_id]
+          .hexagon-box
+            .content
+              .lhs.span4
+                %b #{factor_score.factor.name}
+              .span1.text-center
+                Q
+              .rhs.span6
+                #{@post_assessment_guidelines[factor_score.factor_id][factor_score.norm_bucket_id].first.body}
+              .clr
+      .divider1
+      - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MISS }.each_with_index do |(factor_id, factor_score), index|
+        - if @post_assessment_guidelines[factor_score.factor_id] and @post_assessment_guidelines[factor_score.factor_id][factor_score.norm_bucket_id]
+          .hexagon-box.red
+            .content
+              .lhs.span4
+                %b #{factor_score.factor.name}
+              .span1.text-center
+                Q
+              .rhs.span6
+                #{@post_assessment_guidelines[factor_score.factor_id][factor_score.norm_bucket_id].first.body}
+              .clr
+    .divider4
+= render :partial => "assessment_reports/navigation", :locals => { current_page: 5 }    
