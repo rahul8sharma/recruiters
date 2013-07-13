@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: d526effc43d64dc585eec719eb2e937dcd457bef
+  revision: 46af15995d36c92bbde0c997d95d1d42639d69e0
   branch: develop
   specs:
     vger (0.0.1)
@@ -132,8 +132,8 @@ GEM
       json (~> 1.4)
     request_store (1.0.5)
     sass (3.2.9)
-    sass-rails (3.2.3)
-      railties (~> 3.2.0.beta)
+    sass-rails (3.2.6)
+      railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
     sprockets (2.2.2)
@@ -172,7 +172,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rails-backbone (= 0.7.2)
   request_store (= 1.0.5)
-  sass-rails (= 3.2.3)
+  sass-rails (= 3.2.6)
   uglifier (= 1.0.3)
   vger!
   wicked_pdf (= 0.9.6)
