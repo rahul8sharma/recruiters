@@ -45,10 +45,13 @@ Recruiters::Application.routes.draw do
         put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
         get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        get "candidates/:candidate_id/report/:page" => "assessments#assessment_report", :as => :assessment_report
         get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
+        
+        [*1..6].each do |page|
+          get "candidates/:candidate_id/report/page#{page}" => "assessment_reports#page#{page}", :as => "page#{page}_assessment_report"
+        end
       end
       
       resources :candidates, :except => [:destroy, :show] do
@@ -91,6 +94,15 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
 	  end
+  end
+  
+  resources :locations, :only => [:index, :new] do
+	  collection do
+	    post :import 
+	    get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
   end
 
   resources :industries, :only => [:index, :new] do
