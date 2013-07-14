@@ -46,11 +46,9 @@ class JobsController < ApplicationController
 			
     respond_to do |format|
       if @job.save
-        format.html { redirect_to company_job(:company_id => params[:company_id], @job), notice: 'Job was successfully created.' }
-        format.json { render json: @job, status: :created, location: @job }
+        format.html { redirect_to company_job(:company_id => params[:company_id], :id => @job.id), notice: 'Job was successfully created.' }
       else
         format.html { render action: "new" }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
   end
