@@ -15,7 +15,7 @@ staging:
 
 staging_internal:
   api:
-    url : "http://api.internal.ur-nl.com:5088"
+    url : "http://api.internal.ur-nl.com:6080"
     app_name : "recruiters"
     password : "JIT987"
 
