@@ -29,5 +29,5 @@
               .clr
     .divider4
 
-- if request.format.to_s != "application/pdf"  
+- content_for :report_navigation do
   = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 5 }    

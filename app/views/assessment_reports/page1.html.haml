@@ -28,9 +28,7 @@
     %div{ class: "report_average team_fit #{company_fit_grade.downcase}" } 
       = team_fit_grade
       
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 1 }  
-  
 .page-break
   
-- if request.format.to_s != "application/pdf"  
+- content_for :report_navigation do
   = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 1 }  
