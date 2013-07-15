@@ -144,7 +144,7 @@ Recruiters::Application.routes.draw do
           post :import
           get :edit
           get 'manage'
-          post 'import_from_google_drive'
+          post 'import_via_s3'
           post 'export_to_google_drive'
         end
       end
