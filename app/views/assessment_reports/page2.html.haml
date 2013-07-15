@@ -9,11 +9,11 @@
           .title
             #{fit.name} 
           .average
-            .strenght
+            .strength
               High
           - factors.each_with_index do |factor,index|
             - measured = @measured_factors_ids.include?(factor.id)
-            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strenght' : 'weakness'}" }
+            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}" }
               = measured ? factor.name : ''
 
 = render :partial => "assessment_reports/navigation", :locals => { current_page: 2 }              

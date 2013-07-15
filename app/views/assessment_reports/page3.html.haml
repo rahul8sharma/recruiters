@@ -4,7 +4,7 @@
       Strengths and Areas of improvements
   .report_content
     .page_inner
-      %b.medium-text.strenght
+      %b.medium-text.strength
         Top Strengths 
       .divider1
       - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MATCH }.each_with_index do |(factor_id, factor_score), index|

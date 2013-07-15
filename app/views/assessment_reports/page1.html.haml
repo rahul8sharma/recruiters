@@ -1,3 +1,6 @@
+- job_fit_grade = @candidate_fit_scores.select{ |x| x.fit.uid == Rails.application.config.uids.job_fit_uid }.first.fitment_grade.name
+- company_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids.company_fit_uid}.first.fitment_grade.name
+- team_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids.team_fit_uid}.first.fitment_grade.name
 .over_all_report
   .report_title
     .inn
@@ -8,11 +11,21 @@
     .divider1
     .large-text.text-center
       %b Overall Scores
-- @candidate_fit_scores.each do |candidate_fit_score|      
-  #{candidate_fit_score.fit.name} - 
-  #{candidate_fit_score.fitment_grade.name} : 
-  #{candidate_fit_score.percentage_factors_passed.round(2)} 
-  %br
-  %br
-  
+    
+    .role_fit.title.pull-left
+      Job Role Fit
+    %div{ class: "report_average job_fit #{company_fit_grade.downcase}" } 
+      = job_fit_grade
+    
+    .company_fit.title.pull-left
+      Company Fit
+    %div{ class: "report_average company_fit #{company_fit_grade.downcase}" } 
+      = company_fit_grade
+    .clr
+    
+    .team_fit.title
+      Team Fit
+    %div{ class: "report_average team_fit #{company_fit_grade.downcase}" } 
+      = team_fit_grade
+      
 = render :partial => "assessment_reports/navigation", :locals => { current_page: 1 }  
