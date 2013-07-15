@@ -10,7 +10,7 @@
         %li
           .inn
             .lhs.span13
-              %a.extra-medium-text{:href => "#", :title => "Go to #{company.name}"}
+              %a.extra-medium-text{:href => company_path(:id => company.id), :title => "Go to #{company.name}"}
                 EMP#{company.company_code} - #{company.name}
               %br/
               %br/

@@ -1,6 +1,6 @@
-- job_fit_grade = @candidate_fit_scores.select{ |x| x.fit.uid == Rails.application.config.uids.job_fit_uid }.first.fitment_grade.name
-- company_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids.company_fit_uid}.first.fitment_grade.name
-- team_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids.team_fit_uid}.first.fitment_grade.name
+- job_fit_grade = @candidate_fit_scores.select{ |x| x.fit.uid == Rails.application.config.uids["job_fit_uid"] }.first.fitment_grade.name
+- company_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids["company_fit_uid"] }.first.fitment_grade.name
+- team_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids["team_fit_uid"] }.first.fitment_grade.name
 .over_all_report
   .report_title
     .inn
@@ -29,3 +29,8 @@
       = team_fit_grade
       
 = render :partial => "assessment_reports/navigation", :locals => { current_page: 1 }  
+  
+.page-break
+  
+- if request.format.to_s != "application/pdf"  
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 1 }  

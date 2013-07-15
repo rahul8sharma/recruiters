@@ -8,12 +8,12 @@
         Top Strengths 
       .divider1
       - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MATCH }.each_with_index do |(factor_id, factor_score), index|
-        - if @factor_norm_bucket_descriptions[factor_score.factor_id] and @factor_norm_bucket_descriptions[factor_score.factor_id][factor_score.norm_bucket_id]
+        - if @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id] and @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id]
           %div{ class: "hexagon-box #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
             .content.text-center.span4
               %b #{factor_score.factor.name}
               .small-text 
-                #{@factor_norm_bucket_descriptions[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
+                #{@factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
             .clr
       .clr
       .divider.dashed_border  
@@ -22,13 +22,17 @@
         Areas of Improvement
       .divider1
       - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MISS }.each_with_index do |(factor_id, factor_score), index| 
-        - if @factor_norm_bucket_descriptions[factor_score.factor_id] and @factor_norm_bucket_descriptions[factor_score.factor_id][factor_score.norm_bucket_id]
+        - if @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id] and @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id]
           %div{ class: "hexagon-box red #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
             .content.text-center.span4
               %b #{factor_score.factor.name}
               .small-text 
-                #{@factor_norm_bucket_descriptions[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
+                #{@factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
             .clr
       .clr
     .divider3
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 3 }    
+
+.page-break
+  
+- if request.format.to_s != "application/pdf"  
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 3 }    

@@ -15,5 +15,7 @@
             - measured = @measured_factors_ids.include?(factor.id)
             %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}" }
               = measured ? factor.name : ''
-
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 2 }              
+.page-break
+  
+- if request.format.to_s != "application/pdf"  
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 2 }              

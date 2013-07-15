@@ -28,4 +28,6 @@
                 #{@post_assessment_guidelines[factor_score.factor_id][factor_score.norm_bucket_id].first.body}
               .clr
     .divider4
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 5 }    
+
+- if request.format.to_s != "application/pdf"  
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 5 }    

@@ -4,7 +4,7 @@
       Miscellaneous
   .report_content
     .page_inner
-      - @candidate_factor_scores.each do |factor_id, factor_score|
+      - @candidate_factor_scores_for_alarms.each do |factor_id, factor_score|
         - if @factor_norm_bucket_descriptions[factor_id]
           .hexagon-box
             .content
@@ -24,5 +24,8 @@
     - @alarm_factors.each do |alarm_factor|
       %p.medium-text #{@factor_norm_bucket_descriptions[alarm_factor.id].first.description}
     .divider7
-    
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 4 }    
+
+.page-break
+  
+- if request.format.to_s != "application/pdf"  
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 4 }    
