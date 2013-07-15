@@ -113,6 +113,15 @@ Recruiters::Application.routes.draw do
     end
   end
   
+  resources :locations, :only => [:index, :new] do
+	  collection do
+	    post :import 
+	    get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
+  
   namespace :suitability do
     resources :item_groups do
 		  collection do

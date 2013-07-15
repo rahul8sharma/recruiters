@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 group :assets do
-  gem 'sass-rails',   '3.2.3'
+  gem 'sass-rails',   '3.2.6'
 	gem 'bootstrap-sass', '2.3.1.0'
   gem 'uglifier', '1.0.3'
 end
@@ -21,7 +21,7 @@ gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "han
 
 gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "af961919e664ddeeb42"
 
-gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "pagination-new-models", :ref => "de1edfeed11d2309b79f0719e"
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
 gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
