@@ -35,7 +35,7 @@
               = candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'
           .span.lhs-border
             - if candidate_assessment.overall_fitment_grade_id.present?
-              %a.underlined{:href => assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :page => 1, :candidate_id => candidate.id), :title => "View Report"}
+              %a.underlined{:href => page1_assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => candidate.id), :title => "View Report"}
                 View Report
             - else    
               %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}

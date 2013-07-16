@@ -1,4 +1,5 @@
 = form_for @assessment, :as => :assessment, :url => send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] } 
   .create-test.send-test-to-candidate
     .inn.first
       .page-title Test #{@assessment.name}

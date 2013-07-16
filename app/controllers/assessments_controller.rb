@@ -9,7 +9,11 @@ class AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
     @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:factor, :functional_area, :industry, :job_experience]).all.to_a
   end
-  
+
+
+  # fetches norms data
+  # GET : renders norms when request method is get
+  # PUT : updates assessment and renders styles
   def norms
     get_norms
     if params[:assessment]
@@ -25,19 +29,26 @@ class AssessmentsController < ApplicationController
     end
   end
   
+  # fetches styles data
+  # GET : renders styles
+  # PUT : updates assessment and redirects to add_candidates
   def styles
     get_styles
     if request.put?  
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
+        Vger::Resources::Suitability::Set.create(Rails.application.config.default_set.merge(:assessment_id => @assessment.id, :end_index => @assessment.item_ids.count))
         redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
+        flash[:notice] = @assessment.error_messages.join("<br/>")
       end
     end  
   end
   
+  # GET : renders form to add candidates
+  # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
     params[:candidates].reject!{|key,data| data[:email].blank?} if params[:candidates]
     if request.put?
@@ -48,23 +59,12 @@ class AssessmentsController < ApplicationController
         @candidates.push candidate
       end
       @company = Vger::Resources::Company.find(params[:company_id])
-      render :action => params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE ? :send_test_to_candidates : :send_test_to_employees
+      render :action => :send_test_to_candidates
     end
   end
   
-  def candidates
-    ids = @assessment.candidate_assessments.where(:page => params[:page], :per => 10).map(&:candidate_id)
-    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1})
-  end
-  
-  def candidate
-    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :methods => [ :functional_area, :industry, :location ])
-    @company = Vger::Resources::Company.find @assessment.assessable_id
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
-      :candidate_id => @candidate.id
-    })
-  end
-  
+  # GET : renders send_reminder page
+  # PUT : sends reminder and redirects to candidates list for current assessment
   def send_reminder
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
@@ -77,6 +77,8 @@ class AssessmentsController < ApplicationController
     end  
   end
   
+  # GET : renders send_test_to_candidates page
+  # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     @company = Vger::Resources::Company.find(params[:company_id])
     if request.put?
@@ -88,7 +90,7 @@ class AssessmentsController < ApplicationController
           :candidate_id => candidate_id
         }).all[0]
         
-        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => Vger::Resources::Candidate::Stage::CANDIDATE, :responses_count => 0) unless candidate_assessment
+        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0) unless candidate_assessment
         candidate_assessments.push candidate_assessment 
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
@@ -97,24 +99,19 @@ class AssessmentsController < ApplicationController
     end
   end
   
-  def send_test_to_employees
-    @company = Vger::Resources::Company.find(params[:company_id])
-    if request.put?
-      params[:candidates] ||= []
-      candidate_assessments = []
-      params[:candidates].each do |candidate_id,on|
-        candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
-          :assessment_id => @assessment.id, 
-          :candidate_id => candidate_id
-        }).all[0]
-        
-        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => Vger::Resources::Candidate::Stage::EMPLOYED, :responses_count => 0) unless candidate_assessment
-        candidate_assessments.push candidate_assessment
-      end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_employees(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
-      flash[:notice] = "You have successfully sent the test!!"
-      redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-    end
+  # GET : renders list of candidates
+  def candidates
+    ids = @assessment.candidate_assessments.where(:page => params[:page], :per => 10).map(&:candidate_id)
+    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1})
+  end
+  
+  # GET : renders candidate info for selected assessment
+  def candidate
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :methods => [ :functional_area, :industry, :location ])
+    @company = Vger::Resources::Company.find @assessment.assessable_id
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
+      :candidate_id => @candidate.id
+    })
   end
   
   # GET /assessments
@@ -129,6 +126,7 @@ class AssessmentsController < ApplicationController
 
   # POST /assessments
   # POST /assessments.json
+  # POST creates assessment and redirects to norms page
   def create
     respond_to do |format|
       if @assessment.valid? and @assessment.save
@@ -138,36 +136,11 @@ class AssessmentsController < ApplicationController
       end
     end
   end
-  
-  # GET /assessments/:id
-  # GET /assessments/:id.json
-  def edit
-    respond_to do |format|
-      format.html
-    end
-  end
-  
-  # PUT /assessments/:id
-  # PUT /assessments/:id.json
-  def update
-    respond_to do |format|
-      if Vger::Resources::Suitability::Assessment.save_existing(params[:id], params[:assessment])
-        format.html { redirect_to company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: 'Suitability Assessment was successfully updated.' }
-      else
-        format.html { render action: "edit" }
-      end
-    end
-  end
-  
-  def assessment_report
-    respond_to do |format|
-      format.html { render :layout => "reports" }
-      format.pdf { render :pdf => "report", :layout => "reports.html.haml", :template => "assessments/assessment_report.pdf.haml" }
-    end
-  end
-  
+ 
   protected
   
+  # fetches assessment if id is present in params
+  # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
       @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience])
@@ -178,6 +151,7 @@ class AssessmentsController < ApplicationController
     end
   end
   
+  # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
     @factors = Hash[Vger::Resources::Suitability::Factor.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
     @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
@@ -185,35 +159,56 @@ class AssessmentsController < ApplicationController
     @job_experiences = Hash[Vger::Resources::JobExperience.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
   end
   
+  # fetches default factor norms
+  # fetches norm buckets for dropdowns
+  # fetches default_norm_bucket_ranges for the assessment's FA, Industry and Exp
+  # creates job_assessment_factor_norm for each factor with default values   
   def get_norms
-    job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm.where(:query_options => { :industry_id => @assessment.industry_id, :functional_area_id => @assessment.functional_area_id, :job_experience_id => @assessment.job_experience_id }, :page => 1, :per => 100).all.to_a
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    
+    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => { 
+                                      :functional_area_id => @assessment.functional_area_id,
+                                      :industry_id => @assessment.industry_id,
+                                      :job_experience_id => @assessment.job_experience_id
+                                    }, :page => 1, :per => 100).all
     
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ], :page => 1, :per => 100).all.to_a
     added_factor_ids = @job_assessment_factor_norms.map(&:factor_id)
-    job_factor_norms.each do |job_factor_norm|
-      next if @factors[job_factor_norm.factor_id].nil?
+    default_norm_bucket_ranges.each do |default_norm_bucket_range|
+      next if @factors[default_norm_bucket_range.factor_id].nil?
+      
       assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-        job_factor_norm.attributes.except("created_at","updated_at","id")
+        default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
+           merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
+                 :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
       )
       
       # to avoid calls to API, set fa, industry and exp from already fetched data
-      assessment_factor_norm.functional_area = @functional_areas[job_factor_norm.functional_area_id]
-      assessment_factor_norm.industry = @industries[job_factor_norm.industry_id]
-      assessment_factor_norm.job_experience = @job_experiences[job_factor_norm.job_experience_id]
-      assessment_factor_norm.factor = @factors[job_factor_norm.factor_id]
+      assessment_factor_norm.functional_area = @functional_areas[default_norm_bucket_range.functional_area_id]
+      assessment_factor_norm.industry = @industries[default_norm_bucket_range.industry_id]
+      assessment_factor_norm.job_experience = @job_experiences[default_norm_bucket_range.job_experience_id]
+      assessment_factor_norm.factor = @factors[default_norm_bucket_range.factor_id]
       
-      @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? job_factor_norm.factor_id
+      @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? default_norm_bucket_range.factor_id
     end  
   end
   
+  
+  # fetch styles data
+  # fetch all direct predictors
+  # fetch parents of all direct predictors
+  # fetch all alarm factors
+  # create new job_assessment_factor_norm for each factor
   def get_styles
-    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).all.map(&:parent_id).uniq
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).to_a.map(&:parent_id).uniq
     
-    alarm_factor_ids = Vger::Resources::Suitability::AlarmFactor.all.map(&:id).uniq 
+    alarm_factors = Vger::Resources::Suitability::AlarmFactor.all.to_a
     
-    all_direct_predictor_parent_ids |= alarm_factor_ids
+    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids }).to_a
     
-    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids })
+    all_direct_predictors |= alarm_factors
     
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
     

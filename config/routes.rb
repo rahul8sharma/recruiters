@@ -37,8 +37,6 @@ Recruiters::Application.routes.draw do
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
         get "candidates" => "assessments#candidates", :as => :candidates
-        get "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
-        put "employees/send-test" => "assessments#send_test_to_employees", :as => :send_test_to_employees
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
         get "styles" => "assessments#styles", :as => :styles
@@ -47,10 +45,13 @@ Recruiters::Application.routes.draw do
         put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
         get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        get "candidates/:candidate_id/report/:page" => "assessments#assessment_report", :as => :assessment_report
         get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
+        
+        [*1..6].each do |page|
+          get "candidates/:candidate_id/report/page#{page}" => "assessment_reports#page#{page}", :as => "page#{page}_assessment_report"
+        end
       end
       
       resources :candidates, :except => [:destroy, :show] do
@@ -94,6 +95,15 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
 	  end
   end
+  
+  resources :locations, :only => [:index, :new] do
+	  collection do
+	    post :import 
+	    get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
 
   resources :industries, :only => [:index, :new] do
 	  collection do
@@ -132,6 +142,78 @@ Recruiters::Application.routes.draw do
 	  
 	  resources :items, :only => [:index, :new, :show] do
 	  end
+	
+	  resources :factor_norm_bucket_descriptions, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :default_factor_norm_ranges, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :fitment_grade_mappings, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :fitment_grades, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end  
+  	
+  	resources :fits, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :norm_buckets, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :overall_fitment_grades, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :post_assessment_guidelines, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
+  	
+  	resources :recommendations, :only => [:index] do
+		  collection do
+		    get :manage
+		    post :import_from_google_drive
+		    post 'export_to_google_drive'
+		  end
+  	end   
 	
     resources :factors, :only => [:index, :new, :show] do
 		  resources :items do

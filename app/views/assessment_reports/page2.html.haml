@@ -1,0 +1,19 @@
+.measured_report
+  .report_title
+    .inn
+      What was the candidate measured on?
+  .report_content
+    .report_visual
+      - @factors_by_fit.each_with_index do |(fit,factors),index|    
+        %div{ class: "fit#{index+1}" }
+          .title
+            #{fit.name} 
+          .average
+            .strength
+              High
+          - factors.each_with_index do |factor,index|
+            - measured = @measured_factors_ids.include?(factor.id)
+            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}" }
+              = measured ? factor.name : ''
+
+= render :partial => "assessment_reports/navigation", :locals => { current_page: 2 }              
