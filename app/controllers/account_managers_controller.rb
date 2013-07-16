@@ -31,7 +31,7 @@ class AccountManagersController < ApplicationController
   
   # GET /account_managers
   def index
-  	@account_managers = Vger::Resources::AccountManager.all
+  	@account_managers = Vger::Resources::AccountManager.where(:page => params[:page], :per => 10)
   end
 
   # GET /account_managers/new

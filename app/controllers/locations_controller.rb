@@ -19,6 +19,6 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = Vger::Resources::Location.all
+    @locations = Vger::Resources::Location.where(:page => params[:page], :per => 10)
   end
 end

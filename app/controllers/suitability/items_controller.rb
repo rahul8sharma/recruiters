@@ -5,7 +5,7 @@ class Suitability::ItemsController < ApplicationController
   
   # GET /items
   def index
-    @items = Vger::Resources::Suitability::Item.all
+    @items = Vger::Resources::Suitability::Item.where(:page => params[:page], :per => 10)
   end
 
   # GET /items/new
