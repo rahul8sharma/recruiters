@@ -1,20 +1,22 @@
-.pull-left
-  = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
-  = "&nbsp;&nbsp;&nbsp;".html_safe  
-.pull-right
-  - case current_page
-    - when 1
-      = link_to "Next", page2_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-    - when 2
-      = link_to "Prev", page1_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-      = link_to "Next", page3_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-    - when 3
-      = link_to "Prev", page2_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-      = link_to "Next", page4_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-    - when 4
-      = link_to "Prev", page3_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-      = link_to "Next", page5_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-    - when 5
-      = link_to "Prev", page4_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
-.clr    
+- if request.format.to_s != "application/pdf"
+  .pull-left
+    = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
+    = "&nbsp;&nbsp;&nbsp;".html_safe  
+  .pull-right
+    = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
+    - case current_page
+      - when 1
+        = link_to "Next", page2_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+      - when 2
+        = link_to "Prev", page1_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+        = link_to "Next", page3_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+      - when 3
+        = link_to "Prev", page2_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+        = link_to "Next", page4_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+      - when 4
+        = link_to "Prev", page3_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+        = link_to "Next", page5_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+      - when 5
+        = link_to "Prev", page4_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
+  .clr    
 
