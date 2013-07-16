@@ -5,7 +5,7 @@ class Suitability::FactorsController < ApplicationController
   
   def import
     Vger::Resources::Suitability::Factor.import(params[:file])
-    redirect_to suitability_factors_url, notice: "Suitability Factors imported."
+    redirect_to suitability_factors_path, notice: "Suitability Factors imported."
   end  
   
   def manage
@@ -14,13 +14,13 @@ class Suitability::FactorsController < ApplicationController
   def import_from_google_drive
     Vger::Resources::Suitability::Factor\
       .import_from_google_drive(params[:import])
-    redirect_to suitability_factors_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to suitability_factors_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::Suitability::Factor\
       .export_to_google_drive(params[:export].merge(:columns => ["id","uid","name","definition","type","parent_id"]))
-    redirect_to suitability_factors_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to suitability_factors_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   # GET /factors

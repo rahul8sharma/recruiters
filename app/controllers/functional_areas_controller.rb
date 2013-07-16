@@ -9,18 +9,18 @@ class FunctionalAreasController < ApplicationController
   def import_from_google_drive
     Vger::Resources::FunctionalArea\
       .import_from_google_drive(params[:import])
-    redirect_to functional_areas_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to functional_areas_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::FunctionalArea\
       .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
-    redirect_to functional_areas_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to functional_areas_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
   
   def import
     Vger::Resources::FunctionalArea.import(params[:file])
-    redirect_to functional_areas_url, notice: "FunctionalAreas imported."
+    redirect_to functional_areas_path, notice: "FunctionalAreas imported."
   end  
 
   def show
