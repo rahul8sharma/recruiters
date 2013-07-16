@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
 
   def import
 		Vger::Resources::Admin.import(params[:file])
-		redirect_to admins_url, notice: "Admins imported."
+		redirect_to admins_path, notice: "Admins imported."
 	end	
 
   # GET /admins

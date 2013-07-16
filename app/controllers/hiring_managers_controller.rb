@@ -3,7 +3,7 @@ class HiringManagersController < ApplicationController
 
   def import
 		Vger::Resources::HiringManager.import(params[:file])
-		redirect_to hiring_managers_url, notice: "HiringManagers imported."
+		redirect_to hiring_managers_path, notice: "HiringManagers imported."
 	end	
 
   def assign_jobs_form
