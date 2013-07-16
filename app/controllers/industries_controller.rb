@@ -5,7 +5,7 @@ class IndustriesController < ApplicationController
       
   def import
     Vger::Resources::Industry.import(params[:file])
-    redirect_to industries_url, notice: "Industrys imported."
+    redirect_to industries_path, notice: "Industrys imported."
   end  
   
   def manage
@@ -14,13 +14,13 @@ class IndustriesController < ApplicationController
   def import_from_google_drive
     Vger::Resources::Industry\
       .import_from_google_drive(params[:import])
-    redirect_to industries_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to industries_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::Industry\
       .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
-    redirect_to industries_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to industries_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   def show
