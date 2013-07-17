@@ -14,7 +14,7 @@
     
     .role_fit.title.pull-left
       Job Role Fit
-    %div{ class: "report_average job_fit #{company_fit_grade.downcase}" } 
+    %div{ class: "report_average job_fit #{job_fit_grade.downcase}" } 
       = job_fit_grade
     
     .company_fit.title.pull-left
@@ -25,7 +25,7 @@
     
     .team_fit.title
       Team Fit
-    %div{ class: "report_average team_fit #{company_fit_grade.downcase}" } 
+    %div{ class: "report_average team_fit #{team_fit_grade.downcase}" } 
       = team_fit_grade
       
 .page-break
