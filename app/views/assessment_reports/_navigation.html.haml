@@ -3,7 +3,6 @@
     = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
     = "&nbsp;&nbsp;&nbsp;".html_safe  
   .pull-right
-    = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
     - case current_page
       - when 1
         = link_to "Next", page2_assessment_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id])
