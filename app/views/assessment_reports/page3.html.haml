@@ -12,8 +12,9 @@
           %div{ class: "hexagon-box #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
             .content.text-center.span4
               %b #{factor_score.factor.name}
-              .small-text 
-                #{@factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
+              - description = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description
+              .small-text{ title: "#{description}" }
+                #{description.to_s[0..25]}
             .clr
       .clr
       .divider.dashed_border  
@@ -26,11 +27,14 @@
           %div{ class: "hexagon-box red #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
             .content.text-center.span4
               %b #{factor_score.factor.name}
-              .small-text 
-                #{@factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description}
+              - description = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description
+              .small-text{ title: "#{description}" }
+                #{description.to_s[0..25]}
             .clr
       .clr
     .divider3
+
+= render :partial => "shared/report_footer.html.haml"    
 
 .page-break
   

@@ -1,4 +1,4 @@
-- if request.format.to_s != "application/pdf"
+- if request.format.to_s != "application/pdf" and params[:action].to_sym != :assessment_report
   .pull-left
     = link_to "Download Report (As Pdf)", assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :candidate_id => params[:candidate_id])
     = "&nbsp;&nbsp;&nbsp;".html_safe  

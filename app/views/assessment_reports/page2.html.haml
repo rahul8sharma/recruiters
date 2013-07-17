@@ -13,8 +13,11 @@
               = @candidate_fit_scores.select{|x| x.fit.id == fit.id }.first.fitment_grade.name
           - factors.each_with_index do |factor,index|
             - measured = @measured_factors_ids.include?(factor.id)
-            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}" }
+            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}", title: "#{factor.name.to_s}" }
               = measured ? factor.name : ''
+              
+= render :partial => "shared/report_footer.html.haml"    
+              
 .page-break
   
 - content_for :report_navigation do

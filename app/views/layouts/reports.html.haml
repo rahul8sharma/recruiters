@@ -1,23 +1,18 @@
 - content_for :stylesheets do
-  = stylesheet_link_tag "reports"
-  = stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "reports"
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
 
 - content_for :body do 
   .report
     .inner
       .header.clearfix
         .logo
-          = image_tag('report/jombay-logo.png')
+          = wicked_pdf_image_tag('report/jombay-logo.png')
         .right_side.pull-right
           .user_name
             #{@candidate.name}
           .date
             Test Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
       = yield 
-      .footer
-        .pull-left
-          -  if content_for? :report_navigation and request.format.to_s != "application/pdf"  
-            = yield :report_navigation
-        Confidential
 
 = render :file => 'layouts/haml.html.haml'
