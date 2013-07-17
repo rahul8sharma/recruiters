@@ -3,7 +3,7 @@ class AccountManagersController < ApplicationController
 	
   def import
 		Vger::Resources::AccountManager.import(params[:file])
-		redirect_to account_managers_url, notice: "Account Managers imported."
+		redirect_to account_managers_path, notice: "Account Managers imported."
 	end	
 
   def manage
@@ -12,13 +12,13 @@ class AccountManagersController < ApplicationController
 	def import_from_google_drive
     Vger::Resources::AccountManager\
       .import_from_google_drive(params[:import])
-    redirect_to account_managers_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to account_managers_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
 	end
 
   def export_to_google_drive
     Vger::Resources::AccountManager\
       .export_to_google_drive(params[:export].merge(:columns => ["id","name","email"]))
-    redirect_to account_managers_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to account_managers_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   def assign_jobs_form

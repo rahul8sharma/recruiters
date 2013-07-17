@@ -22,7 +22,7 @@ class Suitability::Job::FactorNormsController < ApplicationController
 
   def import
     Vger::Resources::Suitability::Job::FactorNorm.import(params[:file])
-    redirect_to suitability_job_factor_norms_url,
+    redirect_to suitability_job_factor_norms_path,
                 notice: "Suitability Job Factor Norms imported."
   end
   
@@ -42,12 +42,12 @@ class Suitability::Job::FactorNormsController < ApplicationController
                         :bucket => s3_bucket_name,
                         :key => s3_key
                       })
-    redirect_to manage_suitability_job_factor_norms_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to manage_suitability_job_factor_norms_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::Suitability::Job::FactorNorm\
       .export_to_google_drive(params[:export])
-    redirect_to manage_suitability_job_factor_norms_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to manage_suitability_job_factor_norms_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 end

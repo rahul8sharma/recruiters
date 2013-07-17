@@ -5,7 +5,7 @@ class JobExperiencesController < ApplicationController
   
   def import
     Vger::Resources::JobExperience.import(params[:file])
-    redirect_to job_experiences_url, notice: "JobExperiences imported."
+    redirect_to job_experiences_path, notice: "JobExperiences imported."
   end  
   
   def manage
@@ -14,13 +14,13 @@ class JobExperiencesController < ApplicationController
   def import_from_google_drive
     Vger::Resources::JobExperience\
       .import_from_google_drive(params[:import])
-    redirect_to job_experiences_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to job_experiences_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::JobExperience\
       .export_to_google_drive(params[:export].merge(:columns => ["id","display_text","max","min"]))
-    redirect_to job_experiences_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to job_experiences_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   def show

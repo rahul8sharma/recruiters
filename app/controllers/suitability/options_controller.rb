@@ -5,7 +5,7 @@ class Suitability::OptionsController < ApplicationController
   
   def import
     Vger::Resources::Suitability::Option.import(params[:file])
-    redirect_to options_url, notice: "Suitability Options imported."
+    redirect_to options_path, notice: "Suitability Options imported."
   end  
 
   # GET /options

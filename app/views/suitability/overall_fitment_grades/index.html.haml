@@ -1,0 +1,25 @@
+%h1 All Suitability Fits
+- if can? :create, "Suitability::OverallFitmentGrade"
+  = link_to "Manage Suitability OverallFitmentGrade", manage_suitability_overall_fitment_grades_path
+.pagination.pull-right
+  = paginate @overall_fitment_grades        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      UID
+    %th
+      Name
+  - @overall_fitment_grades.each do |overall_fitment_grade|
+    %tr 
+      %td
+        = overall_fitment_grade.id
+      %td
+        = overall_fitment_grade.uid
+      %td
+        = overall_fitment_grade.name
+.pagination.pull-right
+  = paginate @overall_fitment_grades
+.clr   

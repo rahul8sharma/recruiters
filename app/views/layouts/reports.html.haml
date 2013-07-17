@@ -10,9 +10,9 @@
           = image_tag('report/jombay-logo.png')
         .right_side.pull-right
           .user_name
-            Pratik Munot
+            #{@candidate.name}
           .date
-            Test Date: 23/12/2013
+            Test Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
       = yield 
       .footer
         Confidential
