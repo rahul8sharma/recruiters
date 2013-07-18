@@ -242,6 +242,6 @@ Recruiters::Application.routes.draw do
   match "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   match "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
 	match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
-	
+	match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   root :to => "pages#home"
 end

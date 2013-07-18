@@ -29,6 +29,7 @@ gem 'request_store','1.0.5'
 #gem 'roo'
 gem "exception_notification","3.0.1"
 gem 'aws-s3', '0.6.3'
+gem 'sidekiq', '2.12.1'
 
 platform :ruby do
 	group :development do

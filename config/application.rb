@@ -23,7 +23,7 @@ module Recruiters
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib)
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -75,6 +75,8 @@ module Recruiters
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
     config.default_set = YAML::load(File.open("#{Rails.root.to_s}/config/default_set.yml"))["default_set"]
+    config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
+    
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
