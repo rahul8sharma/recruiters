@@ -1,5 +1,5 @@
 class SystemMailer < ActionMailer::Base
-  default :from => "no-reply@jombay.com"
+  default :from => "sysadmin@jombay.com"
   
   def report_exception(exception,context)
     @exception = exception
