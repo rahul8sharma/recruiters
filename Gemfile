@@ -21,7 +21,7 @@ gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "han
 
 gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "af961919e664ddeeb42"
 
-gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
+gem 'vger', :git => "git@github.com:prcongithub/vger.git", :branch => "assessment-reports"
 
 gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
@@ -29,6 +29,7 @@ gem 'request_store','1.0.5'
 #gem 'roo'
 gem "exception_notification","3.0.1"
 gem 'aws-s3', '0.6.3'
+gem 'sidekiq', '2.12.1'
 
 platform :ruby do
 	group :development do
