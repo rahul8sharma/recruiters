@@ -101,6 +101,7 @@ class AssessmentsController < ApplicationController
   
   # GET : renders list of candidates
   def candidates
+    AWS::S3::Base.establish_connection!(Rails.configuration.s3)
     ids = @assessment.candidate_assessments.where(:page => params[:page], :per => 10).map(&:candidate_id)
     @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1})
   end
