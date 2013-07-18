@@ -110,34 +110,16 @@
   = link_to "Fitment Grade Mappings", suitability_fitment_grade_mappings_path 
   %br
   %br
-  = link_to "Default Factor Norm Ranges", suitability_default_factor_norm_ranges_path    
+  = link_to "Fits", suitability_fits_path 
+  %br
+  %br
+  = link_to "Default Factor Norm Ranges", manage_suitability_default_factor_norm_ranges_path    
   %br
   %br
   = link_to "Post Assessment Guidelines", suitability_post_assessment_guidelines_path  
   %br
   %br
   = link_to "Recommendations", suitability_recommendations_path    
-
-.pull-left  
-  Report Pages
-  %br
-  %br
-  = link_to "Report PDF Page 1", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1, :candidate_id => 1)
-  %br
-  %br
-  = link_to "Report Page 1", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 1, :candidate_id => 1)
-  %br
-  %br
-  = link_to "Report Page 2", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 2, :candidate_id => 1)
-  %br
-  %br
-  = link_to "Report Page 3", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 3, :candidate_id => 1)
-  %br
-  %br
-  = link_to "Report Page 4", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 4, :candidate_id => 1)
-  %br
-  %br
-  = link_to "Report Page 5", page1_assessment_report_company_assessment_path(:assessment_id => 1, :company_id => 1, :id => 1, :page => 5, :candidate_id => 1)
 
 .clr
 =# link_to "Admins", company_admins_path(:company_id => 1)

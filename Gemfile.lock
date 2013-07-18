@@ -20,9 +20,15 @@ GIT
       multi_json (~> 1.7)
 
 GIT
+<<<<<<< HEAD
   remote: git@github.com:prcongithub/vger.git
   revision: adf5684c352be3831ea773277b545ed1891eff9a
   branch: assessment-reports
+=======
+  remote: git@github.com:yournextleap/vger.git
+  revision: 3c051e9e8b7a44660953f6ea4fb24042148a304c
+  branch: develop
+>>>>>>> ff011b2c5ffca5a661f8cb7623ffdef6070f6028
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
