@@ -1,6 +1,6 @@
-- job_fit_grade = @candidate_fit_scores.select{ |x| x.fit.uid == Rails.application.config.uids["job_fit_uid"] }.first.fitment_grade.name
-- company_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids["company_fit_uid"] }.first.fitment_grade.name
-- team_fit_grade = @candidate_fit_scores.select{|x| x.fit.uid == Rails.application.config.uids["team_fit_uid"] }.first.fitment_grade.name
+- job_fit_grade = @candidate_fit_scores.select{ |x| ['job', 'role'].any? { |w| x.fit.name.downcase =~ /#{w}/ } }.first.fitment_grade.name
+- company_fit_grade = @candidate_fit_scores.select{|x| ['organization', 'company'].any? { |w| x.fit.name.downcase =~ /#{w}/ }}.first.fitment_grade.name
+- team_fit_grade = @candidate_fit_scores.select{|x| ['people', 'team'].any? { |w| x.fit.name.downcase =~ /#{w}/ } }.first.fitment_grade.name
 .over_all_report
   .report_title
     .inn
