@@ -48,11 +48,6 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
-        
-        get "candidates/:candidate_id/report/" => "assessment_reports#assessment_report", :as => "assessment_report"
-        [*1..6].each do |page|
-          get "candidates/:candidate_id/report/page#{page}" => "assessment_reports#page#{page}", :as => "page#{page}_assessment_report"
-        end
       end
       
       resources :candidates, :except => [:destroy, :show] do
@@ -236,7 +231,7 @@ Recruiters::Application.routes.draw do
           post :import
           get :edit
           get 'manage'
-          post 'import_from_google_drive'
+          post 'import_via_s3'
           post 'export_to_google_drive'
         end
       end
@@ -247,6 +242,6 @@ Recruiters::Application.routes.draw do
   match "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   match "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
 	match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
-	
+	match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   root :to => "pages#home"
 end

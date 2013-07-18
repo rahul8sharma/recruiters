@@ -29,15 +29,25 @@ class Suitability::Job::FactorNormsController < ApplicationController
   def manage
   end
   
-  def import_from_google_drive
+  def import_via_s3
+    AWS::S3::Base.establish_connection!(Rails.configuration.s3)
+
+    s3_bucket_name = 'master_data'
+    s3_key = 'factor_norms.csv.zip'
+    
+    S3Utils.upload(s3_bucket_name, s3_key, params[:import][:file])
+    
     Vger::Resources::Suitability::Job::FactorNorm\
-      .import_from_google_drive(params[:import])
-    redirect_to suitability_job_factor_norms_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+      .import_from_s3(:file => {
+                        :bucket => s3_bucket_name,
+                        :key => s3_key
+                      })
+    redirect_to manage_suitability_job_factor_norms_url, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def export_to_google_drive
     Vger::Resources::Suitability::Job::FactorNorm\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","factor_id","functional_area_id","industry_id","job_experience_id","norm_value","std_dev"]))
-    redirect_to suitability_job_factor_norms_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+      .export_to_google_drive(params[:export])
+    redirect_to manage_suitability_job_factor_norms_url, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 end
