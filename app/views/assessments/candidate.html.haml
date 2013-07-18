@@ -73,7 +73,7 @@
               %a.default-color{:href=> company_assessment_path(:id => candidate_assessment.assessment.id, :company_id => @company.id), :title=>"TEST043"} 
                 #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
             .span5.first.lhs-border
-              Highly recommended
+              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
             .span3.lhs-border
-              %a.default-color{:href=> assessment_report_company_assessment_path(:id => params[:id], :company_id => params[:company_id], :page => 1, :candidate_id => candidate_assessment.candidate_id), :title=>"Click here to View Report"}  
+              %a.default-color{:href=> "#", :title=>"Click here to View Report"}  
                 View Report

@@ -10,7 +10,7 @@ class Suitability::OptionsController < ApplicationController
 
   # GET /options
   def index
-    @options = Vger::Resources::Suitability::Option.all
+    @options = Vger::Resources::Suitability::Option.where(:page => params[:page], :per => 10)
   end
 
   # GET /options/new

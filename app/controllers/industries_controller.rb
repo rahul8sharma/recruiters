@@ -29,7 +29,7 @@ class IndustriesController < ApplicationController
   
   # GET /industrys
   def index
-    @industries = Vger::Resources::Industry.all
+    @industries = Vger::Resources::Industry.where(:page => params[:page], :per => 10)
   end
 
   # GET /industrys/new

@@ -48,10 +48,6 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
-        
-        [*1..6].each do |page|
-          get "candidates/:candidate_id/report/page#{page}" => "assessment_reports#page#{page}", :as => "page#{page}_assessment_report"
-        end
       end
       
       resources :candidates, :except => [:destroy, :show] do

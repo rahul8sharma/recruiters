@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 
   # GET /admins
   def index
-  	@admins = Vger::Resources::Admin.all
+  	@admins = Vger::Resources::Admin.where(:page => params[:page], :per => 10)
   end
 
   # GET /admins/new

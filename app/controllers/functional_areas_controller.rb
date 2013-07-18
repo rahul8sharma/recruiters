@@ -29,7 +29,7 @@ class FunctionalAreasController < ApplicationController
   
   # GET /functional_areas
   def index
-    @functional_areas = Vger::Resources::FunctionalArea.all
+    @functional_areas = Vger::Resources::FunctionalArea.where(:page => params[:page], :per => 10)
   end
 
   # GET /functional_areas/new

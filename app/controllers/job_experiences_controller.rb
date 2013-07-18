@@ -29,7 +29,7 @@ class JobExperiencesController < ApplicationController
   
   # GET /job_experiences
   def index
-    @job_experiences = Vger::Resources::JobExperience.all
+    @job_experiences = Vger::Resources::JobExperience.where(:page => params[:page], :per => 10)
   end
 
   # GET /job_experiences/new

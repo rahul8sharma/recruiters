@@ -9,11 +9,16 @@
           .title
             #{fit.name} 
           .average
-            .strength
-              High
+            %div{ class: "#{@candidate_fit_scores.select{|x| x.fit.id == fit.id }.first.fitment_grade.name.downcase}" }
+              = @candidate_fit_scores.select{|x| x.fit.id == fit.id }.first.fitment_grade.name
           - factors.each_with_index do |factor,index|
             - measured = @measured_factors_ids.include?(factor.id)
-            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}" }
+            %div{ class: "behavior#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'strength' : 'weakness'}", title: "#{factor.name.to_s}" }
               = measured ? factor.name : ''
-
-= render :partial => "assessment_reports/navigation", :locals => { current_page: 2 }              
+              
+= render :partial => "shared/report_footer.html.haml"    
+              
+.page-break
+  
+- content_for :report_navigation do
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 2 }              
