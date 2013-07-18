@@ -1,6 +1,6 @@
 - if flash[:notice].present?
   .divider1
   .container
-    .test-alert
+    %div{ class: "alert #{ flash[:type] == "error" ? 'alert-error' : 'alert-success'}" }
       %strong
         = flash[:notice]
