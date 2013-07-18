@@ -61,6 +61,10 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     awesome_print (1.1.0)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -152,12 +156,14 @@ GEM
       multi_json (>= 1.0.2)
     wicked_pdf (0.9.6)
       rails
+    xml-simple (1.1.2)
 
 PLATFORMS
   java
 
 DEPENDENCIES
   awesome_print (= 1.1.0)
+  aws-s3 (= 0.6.3)
   better_errors (= 0.8.0)
   binding_of_caller (= 0.7.1)
   bootstrap-sass (= 2.3.1.0)
