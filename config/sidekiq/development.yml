@@ -1,0 +1,6 @@
+:redis:
+  :url: 'redis://localhost:6379/0'
+  :namespace: sidekiq_recruiters_development
+:verbose: true
+:pidfile: ./tmp/pids/sidekiq.pid
+:concurrency: 25
