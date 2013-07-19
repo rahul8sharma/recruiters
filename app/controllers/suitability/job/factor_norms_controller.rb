@@ -49,6 +49,10 @@ class Suitability::Job::FactorNormsController < ApplicationController
   end
 
   def export_to_google_drive
+    if params[:export][:filters].blank? || params[:export][:filters][:industry_id].blank?
+      flash[:notice] = "Please select at least one industry"
+      redirect_to manage_suitability_job_factor_norms_path and return
+    end
     Vger::Resources::Suitability::Job::FactorNorm\
       .export_to_google_drive(params[:export])
     redirect_to manage_suitability_job_factor_norms_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
