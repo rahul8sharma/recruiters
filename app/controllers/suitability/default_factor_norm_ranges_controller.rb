@@ -4,6 +4,9 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
   layout "admin"
   
   def manage
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
+    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
+    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 
   def import_via_s3
