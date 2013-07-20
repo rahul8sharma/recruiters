@@ -186,6 +186,7 @@ p.test
         position: absolute
         width: 100px
         text-align: center
+        font-weight: bold
         .wrapper
           word-break: break-all
           -ms-word-break: break-all
@@ -254,6 +255,7 @@ p.test
       
     ul
       background: image-url('report/score-listing-bg.png') repeat-y right 0
+      min-height: 600px
       li
         border-bottom: 1px dotted #c3ced9
 
@@ -301,15 +303,53 @@ p.test
     text-align: center
     line-height: 26px
 
-  .hexagon-icon.favorable
   .hexagon-icon.less_favorable
     background-position: 0px -36px
-  
-    
 
+  .overview
+    .heading
+      padding: 13px 50px 13px 10px
+      font-size: 18px
+      font-weeight: bold
+      color: #fff
+   
+    .miscellaneous
+      .snippet
+        margin-bottom: 25px
+      .lhs
+        color: #062b58
+        font-weight: bold
+        .title
+          font-size: 14px
+          margin: 20px 10px 0 15px
+          width: 110px
+        .hexagon-big-icon
+          background: image-url('report/hexagon-big.png') no-repeat
+          font-size: 11px
+          width: 75px
+          height: 63px
+          text-align: center
+          line-height: 12px
+          padding-top: 10px
+      .rhs
+        ffont-size: 11px
+        width: 290px
+        padding: 0 0 0 15px
+        margin-top: 20px
+        border-left: 1px solid #b5b5b5  
+        line-height: 13px
+
+  .heading.yellow
+    background: image-url('report/yellow-texture.png')
+    text-shadow: 1px 1px 1px #7a6902 
+
+  .heading.green
+    background: image-url('report/green-texture.png')
+    text-shadow: 1px 1px 1px #283d06 
+
+  
   .footer
     color: #0b6e92
     background: #002735
     font-size: 14px
-    width: 100%
     padding: 15px 35px 
