@@ -1,6 +1,13 @@
-$strengths_color: #24a249  
-$p_strengths_color: #f4b525 
-$weaknesses_color: #ed1f24  
+$favorable_color: #82d23f  
+$less_favorable_color: #ffc000 
+p.test 
+  border: 1px solid red
+  word-break: break-all
+  -ms-word-break: break-all
+  -webkit-word-break: break-all
+  width: 100px
+  font-size: 20px
+  font-weight: bold
 
 .page-break
   display: block 
@@ -8,9 +15,23 @@ $weaknesses_color: #ed1f24
   page-break-after: always     
   
 .report
-  background: image-url('gray-textured-bg.png')
-  .page_inner
-    padding: 0 25px 0 40px
+  .favorable
+    color: $favorable_color  
+  .less_favorable
+    color: $less_favorable_color
+  .favorable_bg
+    background: $favorable_color  
+  .less_favorable_bg
+    background: $less_favorable_color
+
+  .inner
+    background: image-url('report/body-bg.png') no-repeat #fff
+    width: 580px
+    margin: 0 auto
+  .report_content
+    background: image-url("report/hexagon-bg.png") no-repeat 70px 125px 
+    height: 700px
+    padding: 30px
   .dashed_border
     border-bottom: 1px dashed #b2b2b2
     margin-bottom: 18px
@@ -18,320 +39,205 @@ $weaknesses_color: #ed1f24
     font-size: 10px
     line-height: 12px
   .report_title
-    .inn
-      border: 0
-      padding: 18px 0
-  .weakness
-    color: $weaknesses_color !important
-  .strength
-    color: $strengths_color !important
-  .p_strength
-    color: $p_strengths_color !important
-  .hexagon-box
-    background: image-url('report/hexagon-box-bg.png') no-repeat
-    padding-left: 75px
-    margin-bottom: 20px
-    .lhs, .rhs
-
-    .lhs
-      padding: 10px 0
-      margin: 0 
-
-    .content
-      border: 1px solid #34bc5c
-      border-left: 0
-      height: 49px
-      padding: 5px 7px 5px 0px
-      background: #fff
-    .content.span4
-      margin-left: 0
-  .hexagon-box.yellow
-    background-position: 0px -69px
-    .content
-      border-color: #f4b525
-      height: 51px
-  .hexagon-box.red
-    background-position: 0px -140px
-    .content
-      border-color: #ed1f24
-      height: 51px
+    font-size: 18px 
+    font-weight: bold
+    color: #0c315e
+    margin-bottom: 15px  
   .header
-    padding: 18px 25px 18px 40px
+    background: image-url('report/blue-texture.png')
+    padding: 15px 0 15px 30px 
+    color: #fff
+    .right-side
+      .pull-left.span
+        width: 240px
+    .left-side, .right-side
+      padding: 0 10px 0 15px
+      float: left
+    .left-side
+      border-right: 3px solid #929dab
+      max-width: 125px
+      word-break: break-all
+      -ms-word-break: break-all
+      -webkit-word-break: break-all
     .logo
       float: left
-      width: 115px
+      width: 55px
     .user_name
-      color: #ff8308
       font-size: 20px
       font-weight: bold
-  .inner
-    width: 580px
-    margin: 0 auto
-  .interview_guide_report
-    .hexagon-box
-      margin-bottom: 25px
-      text-align: left
-    .span1
       line-height: 25px
-      width: 25px
-      margin: -5px 0 0 0
-      color: #fff
-      font-weight: bold
-      background: #38c963
-    .span4
-      width: 170px
-    .span6
-      width: 225px
-    .lhs
-      line-height: 17px
-      font-size: 14px
-      margin-top: 5px
-    .red
-      .span1
-        background: #ed1f24
-    .yellow
-      .span1
-        background: #f7c974
-  .summary_report
-    .hexagon-box
-      margin-bottom: 25px
-      text-align: left
-    .span1
-      line-height: 51px
-      width: 20px
-      margin-left: 0
-    .span4
-      width: 170px
-    .lhs
-      line-height: 15px
-      font-size: 15px
-    .rhs
-      padding-top: 7px
-      margin-left: 0
-  .over_all_report
-    .report_content
-      Position: relative
-      .report_average
-        position: absolute
-        font-weight: bold
-        font-size: 13px
-      .team_fit
-        margin: 212px 0px 0px 256px
-      .company_fit
-        margin: 170px 0 0 160px
-      .job_fit
-        margin: 170px 0 0 110px
-      .team_fit_name
-        left: 276px
-        top: 332px
-      .company_fit_name
-        left: 332px
-        top: 235px
-      .job_fit_name
-        left: 218px
-        top: 235px
-      .poor
-        color: $weaknesses_color !important
-      .good
-        color: $strengths_color !important
-      .average
-        color: $p_strengths_color !important  
-      .title
-        font-weight: bold
-        font-size: 18px
-        color: #fff
-
-    .report_title
-      .inn
-        padding: 11px 0 11px 115px
-        background: image-url('report/report-over-all-title-bg.png') no-repeat
-        .extra_large_text
-          font-size: 30px
-          line-height: 33px
-        .font-normal
-          font-size: 12px
-  .report_title
-    font-size: 18px
-    font-weight: bold
-    color: #fff
-    padding: 10px 40px
-    border-width: 3px 0
-    border-color: #ff8308
-    border-style: solid
-    background: #002735
-
-    [class*="icon"]
-      display: inline-block
-      font-weight: bold
-      font-size: 12px
-      margin: 0 0 0 15px
-      padding: 0 0 0 27px
-      line-height: 21px
-      background: image-url('report/report-indication.png') no-repeat
-    .icon1
-      background-position: 0px 0px
-    .icon2
-      background-position: 0px -30px
-    .icon3
-      background-position: 0px -60px
-  .over_all_report
-    .report_content
-      background: image-url('report/report-over-all-bg.png') no-repeat center 55px
-      height: 635px
  
-  .measured_report, .score_report
-    .report_content
-      background: image-url('report/report-hexagon-bg.png') no-repeat
-      height: 670px
-  .report_content
-    margin: 18px 0 0 0 
-    padding-top: 1px
-    .report_visual
+    .hexagon_small
+      width: 25px
+      height: 25px
+  .overall_report
+    padding: 30px
+    .visual
+      height: 350px
+      background: image-url('report/overall_hexagon_visual.png') no-repeat right top
       position: relative
-      width: 80px 
-      height: 80px
-      margin: 270px auto auto
 
-    .fit1, .fit2, .fit3
-      [class*="behavior"].small
-        font-size: 9px
+    [class*="strength_"], [class*="title_"]
+      position: absolute
+      color: #002552
+      text-align: center
+      font-weight: bold
+    [class*="strength_"]
+      font-size: 12px
+      width: 70px
+    [class*="title_"]
+      font-size: 16px
+      width: 170px
+      text-align: right
+    .strength_1
+      left: 268px
+      top: 165px
+    .strength_2
+      left: 338px
+      top: 203px
+    .strength_3
+      left: 336px
+      top: 123px
 
-      div
+    .title_1
+      left: 129px
+      top: 35px
+    .title_2
+      left: -19px
+      top: 207px
+    .title_3
+      left: 143px
+      top: 305px
+      
+    .heading
+      background: image-url('report/blue-texture.png')
+      margin-left: -30px
+      padding: 18px 30px
+      width: 385px
+      color: #fff
+      margin-bottom: 145px
+      .user_name
+        font-size: 22px
+        font-weight: bold
+        line-height: 30px
+    .logo
+      width: 100px
+      height: 25px
+      background: image-url('report/logo.png') no-repeat center center
+      margin-bottom: 60px
+    .sub-heading
+      font-weight: bold
+      color: #fff
+      text-shadow: 1px 1px 1px #283d06
+      background: image-url('report/green-texture.png')
+      padding: 15px 10px 15px 50px
+      margin-bottom: 20px
+
+  
+  .factor_fit
+    [class*=instruction]
+      padding: 5px 40px
+      color: #969696
+      font-weight: bold
+      margin-bottom: 15px
+      background: image-url("report/hexagon-small.png") no-repeat
+    .instruction2
+      background-position: 0px -33px
+    .bottom_sec
+      margin: 400px 0 0 360px 
+
+      position: relative
+      [class*="title_"], [class*="strength_"]
         position: absolute
-        width: 57px
-        text-align: center
-        color: #002836
-        font-size: 10px
-        line-height: 13px
-        font-weight: bold
-
-      .title
-        font-weight: bold
         color: #fff
-      .average
-        font-size: 11px
+        font-size: 9px
         font-weight: bold
-        color: #002836
-        .poor
-          color: $weaknesses_color !important
-        .good
-          color: $strengths_color !important
-        .average
-          color: $p_strengths_color !important  
-        
-    .fit1
-      .title
-        left: 6px
-        top: -43px
-      .average
-        left: 73px
-        top: -38px
-      .behavior1
-        left: 4px
-        top: -112px
-      .behavior2
-        left: -54px
-        top: -146px
-      .behavior3
-        left: 60px
-        top: -159px
-      .behavior4
-        left: 4px
-        top: -181px
-      .behavior5
-        left: -115px
-        top: -185px
-      .behavior6
-        left: 123px
-        top: -187px
-      .behavior7
-        left: 64px
-        top: -215px
-      .behavior8
-        left: -56px
-        top: -220px
-      .behavior9
-        left: 3px
-        top: -254px
-      .behavior10
-        left: 123px
-        top: -256px
+      [class*="strength_"]
+        top: 80px
+        width: 35px
+        text-align: center
+        color: #b6b6b6
+      .title_1 
+        font-size: 13px
+        left: -5px
+        top: 30px
+      .strength_1
+        font-size: 10px
+        color: #082d5a
+        left: 35px
+        width: 40px
+      .title_2
+        left: 28px
+        top: 173px
+      .strength_2
+        left: 40px
+        top: 135px
+      .title_3
+        left: 95px
+        top: 135px
+      .strength_3
+        left: 81px
+        top: 111px
+
+    .factors_container
+      position: relative
 
 
-    .fit2
-      .title
-        left: 69px
-        top: 62px
-      .average
-        left: 36px
-        top: 125px
-      .behavior1
-        left: 129px
-        top: 95px
-      .behavior2
-        left: 129px
-        top: 171px
-      .behavior3
-        left: 129px
-        top: 238px
-      .behavior4
-        left: 189px
-        top: 53px
-      .behavior5
-        left: 189px
-        top: 137px
-      .behavior6
-        left: 189px
-        top: 204px
-      .behavior7
-        left: 192px
-        top: 252px
-      .behavior8
-        left: 249px
-        top: 11px
-      .behavior9
-        left: 248px
-        top: 102px
-      .behavior10
-        left: 248px
-        top: 150px
-    .fit3
-      .title
-        left: -56px
-        top: 66px
-      .average
-        left: -85px
-        top: 11px
-      .behavior1
-        left: -228px
-        top: 22px
-      .behavior2
-        left: -228px
-        top: 102px
-      .behavior3
-        left: -228px
-        top: 159px
-      .behavior4
-        left: -170px
-        top: 63px
-      .behavior5
-        left: -171px
-        top: 121px
-      .behavior6
-        left: -170px
-        top: 200px
-      .behavior7
-        left: -171px
-        top: 262px
-      .behavior8
-        left: -112px
-        top: 103px
-      .behavior9
-        left: -111px
-        top: 166px
+      [class*="factor_"]
+        position: absolute
+        width: 100px
+        text-align: center
+        .wrapper
+          word-break: break-all
+          -ms-word-break: break-all
+          -webkit-word-break: break-all
+
+      .factor_1
+        left: 134px
+        top: -16px
+      .factor_2
+        left: 45px
+        top: 35px
+      .factor_3
+        left: 229px
+        top: 33px
+      .factor_4
+        left: 140px
+        top: 86px
+      .factor_5
+        left: 321px
+        top: 86px
+      .factor_6
+        left: 49px
+        top: 139px
+      .factor_7
+        left: 233px
+        top: 140px
+      .factor_8
+        left: 140px
+        top: 189px
+      .factor_9
+        left: 51px
+        top: 242px
+      .factor_10
+        left: 146px
+        top: 292px
+      .factor_11
+        left: 236px
+        top: 240px
+      .factor_12
+        left: 327px
+        top: 187px
+      .factor_13
+        left: 327px
+        top: 290px
+      .factor_14
+        left: 240px
+        top: 342px
+
   .footer
     color: #0b6e92
     background: #002735
     font-size: 14px
-    text-align: right
-    padding: 15px 25px 
+    width: 100%
+    padding: 15px 35px 
