@@ -1,0 +1,42 @@
+.improvements_report
+  .report_title
+    .inn
+      Strengths and Areas of improvements
+  .report_content
+    .page_inner
+      %b.medium-text.strength
+        Top Strengths 
+      .divider1
+      - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MATCH }.each_with_index do |(factor_id, factor_score), index|
+        - if @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id] and @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id]
+          %div{ class: "hexagon-box #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
+            .content.text-center.span4
+              %b #{factor_score.factor.name}
+              - description = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description
+              .small-text{ title: "#{description}" }
+                #{description.to_s[0..25]}
+            .clr
+      .clr
+      .divider.dashed_border  
+
+      %b.medium-text.weakness
+        Areas of Improvement
+      .divider1
+      - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.score_bucket == Vger::Resources::Suitability::Factor::ScoreBucket::MISS }.each_with_index do |(factor_id, factor_score), index| 
+        - if @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id] and @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id]
+          %div{ class: "hexagon-box red #{ index % 2 == 0 ? 'pull-left' : 'pull-right' }" }
+            .content.text-center.span4
+              %b #{factor_score.factor.name}
+              - description = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id][factor_score.norm_bucket_id].first.description
+              .small-text{ title: "#{description}" }
+                #{description.to_s[0..25]}
+            .clr
+      .clr
+    .divider3
+
+= render :partial => "shared/report_footer.html.haml"    
+
+.page-break
+  
+- content_for :report_navigation do
+  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 3 }    

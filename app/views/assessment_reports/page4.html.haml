@@ -1,37 +1,63 @@
-.summary_report
+.factor_fit.report_content
   .report_title
-    .inn
-      Miscellaneous
-  .report_content
-    .page_inner
-      - @candidate_factor_scores_for_direct_predictors.each do |factor_id, factor_score|
-        - if @factor_norm_bucket_descriptions[factor_id]
-          - description = @factor_norm_bucket_descriptions[factor_id].first.description
-          .hexagon-box
-            .content
-              .lhs.span4
-                %b #{factor_score.factor.name} (#{@factors_by_id[factor_score.factor.parent_id].name})
-              .span1.text-center
-                \|
-              .rhs.span6{ title: "#{description}" }
-                = description.to_s[0..50]
-
-              .clr
-  .report_title
-    .inn
-      Alarms
-  .page_inner
-    .divider1
-    - @candidate_factor_scores_for_alarm_factors.each do |factor_id,factor_score|
-      %p.medium-text
-        = factor_score.factor.name
-        %br
-        = @factor_norm_bucket_descriptions[factor_id].first.description
-    .divider7
-
-= render :partial => "shared/report_footer.html.haml"    
-
-.page-break
-  
-- content_for :report_navigation do
-  = render :partial => "assessment_reports/navigation.html.haml", :locals => { current_page: 4 }    
+    Factors under Team Fit
+  .instruction1
+    Favorable 
+  .instruction2
+    Less Favorable 
+  .factors_container
+    .factor_1.favorable
+      .wrapper
+        Assertiveness
+    .factor_2.less_favorable
+      .wrapper{:style=>"margin-top: 10px;"}
+        Assertiveness
+    .factor_3
+      .wrapper
+        Assertiveness
+    .factor_4.less_favorable
+      .wrapper
+        Assertiveness
+    .factor_5.favorable
+      .wrapper
+        Assertiveness
+    .factor_6
+      .wrapper
+        Assertiveness
+    .factor_7.favorable
+      .wrapper
+        Assertiveness
+    .factor_8.less_favorable
+      .wrapper
+        Assertiveness
+    .factor_9.favorable
+      .wrapper
+        Assertiveness
+    .factor_10
+      .wrapper
+        Assertiveness
+    .factor_11.less_favorable
+      .wrapper
+        Assertiveness
+    .factor_12.favorable
+      .wrapper
+        Assertiveness
+    .factor_13
+      .wrapper
+        Assertiveness
+    .factor_14.less_favorable
+      .wrapper
+        Assertiveness
+  .bottom_sec
+    .title_1
+      Job Role Fit
+    .strength_1
+      High
+    .title_2
+      Team Fit
+    .strength_2
+      Low
+    .title_3
+      Company Fit
+    .strength_3
+      Average
