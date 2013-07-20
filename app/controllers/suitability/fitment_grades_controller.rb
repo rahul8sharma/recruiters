@@ -14,7 +14,13 @@ class Suitability::FitmentGradesController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Suitability::FitmentGrade\
-      .export_to_google_drive(params[:export].merge(:columns => [:id,:name, :uid, :min_factors_pass_percent, :max_factors_pass_percent]))
+      .export_to_google_drive(params[:export]\
+                                .merge(:columns => [
+                                                    :uid,
+                                                    :name,
+                                                    :min_factors_pass_percent,
+                                                    :max_factors_pass_percent
+                                                   ]))
     redirect_to suitability_fitment_grades_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
