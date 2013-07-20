@@ -1,4 +1,4 @@
-$favorable_color: #82d23f  
+$favorable_color: #88b22a  
 $less_favorable_color: #ffc000 
 p.test 
   border: 1px solid red
@@ -182,7 +182,6 @@ p.test
     .factors_container
       position: relative
 
-
       [class*="factor_"]
         position: absolute
         width: 100px
@@ -234,6 +233,79 @@ p.test
       .factor_14
         left: 240px
         top: 342px
+
+  .scores
+    padding: 30px
+    .wrapper
+      background: image-url('report/scores-heading-icon.png') no-repeat
+      padding: 18px 0 18px 100px
+    .heading
+      padding: 5px 13px
+      font-weight: bold
+      color: #fff
+      text-shadow: 1px 1px 1px #283d06
+      background: image-url('report/green-texture.png')
+    .title
+      font-size: 14px
+      font-weight: bold
+      color: #5a5a5a
+      margin-bottom: 18px
+      width: 108px
+      
+    ul
+      background: image-url('report/score-listing-bg.png') repeat-y right 0
+      li
+        border-bottom: 1px dotted #c3ced9
+
+        &:last-child
+          border: none
+      .factor-name
+        color: #092e5b
+        font-size: 14px
+        font-weight: bold
+        margin-bottom: 10px
+      .factor-description
+        font-size: 11px
+      .lhs-sec
+        width: 290px
+        padding-top: 18px
+      .wrap-actual, .wrap-desire
+        min-height: 90px
+        text-align: center
+        margin-left: 5px
+        
+      .wrap-desire
+        color: #0e3360
+        .wrap-inn
+          padding: 15px 10px
+      .wrap-actual
+        color: #fff
+        font-weight: bold
+        .wrap-inn
+          padding: 30px 10px 
+      .small
+        font-size: 10px
+
+
+  .less_favorable_factors
+    .wrapper
+      background-position: 0px -102px
+      .heading
+        background: image-url('report/yellow-texture.png')
+        text-shadow: 1px 1px 1px #7a6902 
+  .hexagon-icon
+    background: image-url('report/hexagon-icon.png') no-repeat
+    width: 30px
+    font-size: 14px
+    font-weight: bold
+    text-align: center
+    line-height: 26px
+
+  .hexagon-icon.favorable
+  .hexagon-icon.less_favorable
+    background-position: 0px -36px
+  
+    
 
   .footer
     color: #0b6e92
