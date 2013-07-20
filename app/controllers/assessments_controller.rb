@@ -2,6 +2,8 @@ class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_assessment, :except => [:index]
   before_filter :get_meta_data, :only => [:new, :norms]
+  before_filter :get_company
+  
   
   layout "tests"
 
@@ -154,10 +156,10 @@ class AssessmentsController < ApplicationController
   
   # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
-    @factors = Hash[Vger::Resources::Suitability::Factor.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
-    @industries = Hash[Vger::Resources::Industry.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
-    @job_experiences = Hash[Vger::Resources::JobExperience.where(:page => 1, :per => 100).all.to_a.collect{|x| [x.id,x]}]
+    @factors = Hash[Vger::Resources::Suitability::Factor.all.to_a.collect{|x| [x.id,x]}]
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|x| [x.id,x]}]
+    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|x| [x.id,x]}]
+    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|x| [x.id,x]}]
   end
   
   # fetches default factor norms
@@ -172,9 +174,8 @@ class AssessmentsController < ApplicationController
                                       :functional_area_id => @assessment.functional_area_id,
                                       :industry_id => @assessment.industry_id,
                                       :job_experience_id => @assessment.job_experience_id
-                                    }, :page => 1, :per => 100).all
-    
-    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ], :page => 1, :per => 100).all.to_a
+                                    }).all
+    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ]).all.to_a
     added_factor_ids = @job_assessment_factor_norms.map(&:factor_id)
     default_norm_bucket_ranges.each do |default_norm_bucket_range|
       next if @factors[default_norm_bucket_range.factor_id].nil?
@@ -220,5 +221,9 @@ class AssessmentsController < ApplicationController
       assessment_factor_norm.factor = factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end  
+  end
+  
+  def get_company
+    @company = Vger::Resources::Company.find(params[:company_id])
   end
 end

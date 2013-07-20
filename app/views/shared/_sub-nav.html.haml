@@ -2,7 +2,7 @@
   .company-logo.pull-left
     = image_tag("http://placehold.it/36x26")
   .company-name.span11
-    Wipro Technologies
+    = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
       %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
