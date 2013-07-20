@@ -7,24 +7,12 @@
     .inner
       .header.clearfix
         .logo
-          = image_tag ('report/jombay-logo-icon.png')
-        .left-side
+          = wicked_pdf_image_tag('report/jombay-logo.png')
+        .right_side.pull-right
           .user_name
-            Prashant
+            #{@candidate.name}
           .date
-            Test Date: 
-        .right-side
-          .pull-left
-            Test Name: 
-          .pull-left.span
-            Sales Manager at Mercedes Benz Dealership
-          .clr
+            Test Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
       = yield 
-      .footer.clearfix
-        .pull-left
-          1
-        .pull-right 
-          &copy; Jombay 
-
 
 = render :file => 'layouts/haml.html.haml'
