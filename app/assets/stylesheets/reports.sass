@@ -253,75 +253,51 @@ p.test
       color: #5a5a5a
       margin-bottom: 18px
       width: 108px
-      
+    ul.scores_listing, ul.alarms_listing
+      li
+        border-bottom: 1px dotted #c3ced9
+        &:last-child
+          border: none
+      .factor-name
+        color: #092e5b
+        font-size: 14px
+        font-weight: bold
+        margin-bottom: 10px
+      .factor-description
+        font-size: 11px
+      .lhs-sec
+        padding-top: 18px
+      .wrap-desire
+        color: #0e3360
+      .wrap-inn
+        padding: 15px 10px
+      .wrap-actual
+        color: #fff
+        font-weight: bold
+      .wrap-inn
+        padding: 30px 10px 
+      .small
+        font-size: 10px
+
+
     ul.scores_listing
       background: image-url('report/score-listing-bg.png') repeat-y right 0
       min-height: 600px
-      li
-        border-bottom: 1px dotted #c3ced9
-
-        &:last-child
-          border: none
-      .factor-name
-        color: #092e5b
-        font-size: 14px
-        font-weight: bold
-        margin-bottom: 10px
-      .factor-description
-        font-size: 11px
       .lhs-sec
         width: 290px
-        padding-top: 18px
       .wrap-actual, .wrap-desire
         min-height: 90px
         text-align: center
         margin-left: 5px
-        
-      .wrap-desire
-        color: #0e3360
-        .wrap-inn
-          padding: 15px 10px
-      .wrap-actual
-        color: #fff
-        font-weight: bold
-        .wrap-inn
-          padding: 30px 10px 
-      .small
-        font-size: 10px
 
     ul.alarms_listing
       background: image-url('report/alarms-listing-bg.png') repeat-y right 0
-      li
-        border-bottom: 1px dotted #c3ced9
-
-        &:last-child
-          border: none
-      .factor-name
-        color: #092e5b
-        font-size: 14px
-        font-weight: bold
-        margin-bottom: 10px
-      .factor-description
-        font-size: 11px
       .lhs-sec
         width: 402px
-        padding-top: 18px
       .wrap-actual, .wrap-desire
         min-height: 90px
         text-align: center
         margin-left: 5px
-        
-      .wrap-desire
-        color: #0e3360
-        .wrap-inn
-          padding: 15px 10px
-      .wrap-actual
-        color: #fff
-        font-weight: bold
-        .wrap-inn
-          padding: 30px 10px 
-      .small
-        font-size: 10px
 
   .less_favorable_factors
     .wrapper
