@@ -14,7 +14,15 @@ class Suitability::FactorNormBucketDescriptionsController < ApplicationControlle
 
   def export_to_google_drive
     Vger::Resources::Suitability::FactorNormBucketDescription\
-      .export_to_google_drive(params[:export].merge(:columns => [:id,:description, :factor_id, :norm_bucket_id]))
+      .export_to_google_drive(params[:export]\
+                                .merge(:columns => [
+                                                    :uid,
+                                                    :description
+                                                   ],
+                                       :pseudo_columns => [
+                                                           :factor,
+                                                           :norm_bucket
+                                                          ]))
     redirect_to suitability_factor_norm_bucket_descriptions_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

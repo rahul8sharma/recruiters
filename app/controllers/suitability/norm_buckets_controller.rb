@@ -14,8 +14,12 @@ class Suitability::NormBucketsController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Suitability::NormBucket\
-      .export_to_google_drive(params[:export].merge(:columns => [:id,:uid, :name]))
-    redirect_to suitability_norm_buckets_buckets_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+      .export_to_google_drive(params[:export]\
+                                .merge(:columns => [
+                                                    :uid,
+                                                    :name
+                                                   ]))
+    redirect_to suitability_norm_buckets_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
   # GET /factors
