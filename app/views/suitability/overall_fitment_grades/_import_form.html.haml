@@ -9,7 +9,7 @@
           = f.text_field "url"
         %p
           Worksheet Names(separated by comma,keep empty to import all)
-          = f.text_field "worksheets"
+          = f.text_field "worksheets", :value => 'OverallFitmentGrade'
       %p
         Notification Email : 
         = f.text_field :email, :value => "notifications@jombay.com"

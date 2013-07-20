@@ -1,14 +1,6 @@
-$favorable_color: #82d23f  
+$favorable_color: #88b22a  
 $less_favorable_color: #ffc000 
-p.test 
-  border: 1px solid red
-  word-break: break-all
-  -ms-word-break: break-all
-  -webkit-word-break: break-all
-  width: 100px
-  font-size: 20px
-  font-weight: bold
-
+$mid_favorable_color: #062b58
 .page-break
   display: block 
   clear: both 
@@ -19,6 +11,8 @@ p.test
     color: $favorable_color  
   .less_favorable
     color: $less_favorable_color
+  .mid_favorable
+    color: $mid_favorable_color
   .favorable_bg
     background: $favorable_color  
   .less_favorable_bg
@@ -187,6 +181,7 @@ p.test
         position: absolute
         width: 100px
         text-align: center
+        font-weight: bold
         .wrapper
           word-break: break-all
           -ms-word-break: break-all
@@ -235,9 +230,162 @@ p.test
         left: 240px
         top: 342px
 
+  .scores
+    padding: 30px
+    min-height: 700px
+    padding-top: 20px
+    .wrapper
+      background: image-url('report/scores-heading-icon.png') no-repeat
+      padding: 18px 0 18px 100px
+    .heading
+      padding: 5px 13px
+      font-weight: bold
+      color: #fff
+      text-shadow: 1px 1px 1px #283d06
+      background: image-url('report/green-texture.png')
+    .title
+      font-size: 14px
+      font-weight: bold
+      color: #5a5a5a
+      margin-bottom: 18px
+      width: 108px
+    ul.scores_listing, ul.alarms_listing
+      li
+        border-bottom: 1px dotted #c3ced9
+        &:last-child
+          border: none
+      .factor-name
+        color: #092e5b
+        font-size: 14px
+        font-weight: bold
+        margin-bottom: 10px
+      .factor-description
+        font-size: 11px
+      .lhs-sec
+        padding-top: 18px
+      .wrap-desire
+        color: #0e3360
+      
+      .wrap-actual
+        color: #fff
+        font-weight: bold
+       
+      .small
+        font-size: 10px
+      .wrap-inn
+        padding: 30px 10px
+
+
+    ul.scores_listing
+      background: image-url('report/score-listing-bg.png') repeat-y right 0
+      min-height: 600px
+      .lhs-sec
+        width: 290px
+      .wrap-actual, .wrap-desire
+        min-height: 90px
+        text-align: center
+        margin-left: 5px
+      .wrap-actual
+        .wrap-inn
+          padding-top: 45px
+
+    ul.alarms_listing
+      background: image-url('report/light-blue-bg.png') repeat-y right 0
+
+      .lhs-sec
+        width: 402px
+      .wrap-actual, .wrap-desire
+        min-height: 90px
+        text-align: center
+        margin-left: 5px
+
+  .less_favorable_factors
+    .wrapper
+      background-position: 0px -102px
+      .heading
+        background: image-url('report/yellow-texture.png')
+        text-shadow: 1px 1px 1px #7a6902 
+  .hexagon-icon
+    background: image-url('report/hexagon-icon.png') no-repeat
+    width: 30px
+    font-size: 14px
+    font-weight: bold
+    text-align: center
+    line-height: 26px
+
+  .hexagon-icon.less_favorable
+    background-position: 0px -36px
+  .hexagon-icon.mid_favorable
+    background-position: 0px -72px
+
+  .overview
+    .heading
+      padding: 13px 50px 13px 10px
+      font-size: 18px
+      font-weeight: bold
+      color: #fff
+   
+    .miscellaneous
+      .snippet
+        margin-bottom: 25px
+      .lhs
+        color: #062b58
+        font-weight: bold
+        .title
+          font-size: 14px
+          margin: 20px 10px 0 15px
+          width: 110px
+        .hexagon-big-icon
+          background: image-url('report/hexagon-big.png') no-repeat center center
+          font-size: 11px
+          width: 77px
+          height: 50px
+          text-align: center
+          line-height: 12px
+          padding-top: 15px
+      .rhs
+        ffont-size: 11px
+        width: 290px
+        padding: 0 0 0 15px
+        margin-top: 20px
+        border-left: 1px solid #b5b5b5  
+        line-height: 13px
+
+  .heading.yellow
+    background: image-url('report/yellow-texture.png')
+    text-shadow: 1px 1px 1px #7a6902 
+
+  .heading.green
+    background: image-url('report/green-texture.png')
+    text-shadow: 1px 1px 1px #283d06 
+  .interview_guide 
+    .heading.light_blue
+      background: image-url('report/light-blue-bg.png')
+      text-shadow: 1px 1px 1px #043d43
+      font-size: 18px
+      padding: 15px 40px 15px 10px
+
+    .interview_guide_listing
+      li
+        border-bottom: 1px dotted #cccccc
+        margin: 0 0 20px 0
+        padding: 0 0 10px 0
+        &:last-child
+          border: none
+      .factor-name
+        width: 100px
+        padding: 0 10px 
+        font-weight: bold
+        color: #042956
+      .description
+        font-size: 10px
+        border-left: 1px solid #cccccc
+        padding: 0 0 0 5px
+        width: 355px
+        line-height: 13px
+  
   .footer
     color: #0b6e92
     background: #002735
     font-size: 14px
-    width: 100%
     padding: 15px 35px 

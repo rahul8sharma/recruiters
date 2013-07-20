@@ -14,7 +14,12 @@ class Suitability::FitsController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Suitability::Fit\
-      .export_to_google_drive(params[:export].merge(:columns => [:id,:factor_ids, :name]))
+      .export_to_google_drive(params[:export]\
+                                .merge(:columns => [
+                                                    :uid,
+                                                    :name
+                                                   ],
+                                       :pseudo_columns => [:factors]))
     redirect_to suitability_fits_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

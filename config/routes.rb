@@ -238,10 +238,6 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  [*1..10].each do |page|
-    get "/report/page#{page}", :to => "assessment_reports#page#{page}"
-  end
-
   match "/login", :to => "users#login", :as => :login
   match "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   match "/users/password/new", :to => "users#forgot_password", :as => :forgot_password

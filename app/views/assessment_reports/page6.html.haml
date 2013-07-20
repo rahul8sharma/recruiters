@@ -1,0 +1,36 @@
+.scores.less_favorable_factors
+  .wrapper
+    .heading.pull-left
+      .large-text
+        Scores for Favorable Factors
+      Across Job Role  Fit. Company Fit & Team Fit
+    .clr
+  .divider1
+  .left-offset7
+    .span3.first.title
+      Desired Scores 
+    .span3.title
+      Actual Scores 
+    .clr
+  %ul.unstyled.clearfix.scores_listing
+    - 6.times do
+      %li
+        .lhs-sec.pull-left
+          .span1.first.que-no.hexagon-icon.less_favorable
+            1
+          .span6
+            .factor-name
+              Street Smartness
+            .factor-description
+              Self-dependant, creative and spontaneous in solving problems;
+          .clr 
+        .span3.wrap-desire
+          .wrap-inn
+            Below Average 
+            .small
+              to 
+            Above Average
+        .span3.wrap-actual
+          .wrap-inn
+            Average
+        .clr

@@ -1,0 +1,46 @@
+.scores.overview
+  .heading.green.pull-left
+    Miscellaneous
+
+  .clr
+  .divider2
+
+  .miscellaneous
+    -3.times do 
+      .snippet
+        .lhs.pull-left
+          .hexagon-big-icon.pull-left
+            Conflict Resolution
+          .title.pull-left
+            Avoidance
+          .clr
+        .rhs.pull-left
+          More likely to avoid confrontation with the other parties involved in conflict
+        .clr
+  .heading.yellow.pull-left
+    Alarms
+
+  .clr.divider2
+  .alarms
+    .left-offset10
+      .span3.title
+        Actual Scores 
+      .clr
+    %ul.unstyled.clearfix.alarms_listing
+      - 2.times do
+        %li
+          .lhs-sec.pull-left
+            .span1.first.que-no.hexagon-icon.less_favorable
+              1
+            .span9
+              .factor-name
+                Gender Bias
+              .factor-description
+                Likely to show gender bias - might impact decision-making and team culture
+            .clr 
+          .span3.wrap-actual
+            .wrap-inn
+              High
+          .clr
+
+
