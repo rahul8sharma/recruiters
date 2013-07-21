@@ -9,8 +9,8 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/her.git
-  revision: af961919e664ddeeb42fd94ec7394290855b7c9c
-  ref: af961919e664ddeeb42
+  revision: ad78cb181ee6cd2a0f52c4fde8adb238ba737d5d
+  ref: ad78cb181ee6cd2a
   branch: v0.6.6-associations-fix-jruby
   specs:
     her (0.6.6)
@@ -21,13 +21,22 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 3c051e9e8b7a44660953f6ea4fb24042148a304c
+  revision: 7822b249a12b0dff01071feb04df948809258b55
   branch: develop
   specs:
     vger (0.0.1)
       her (~> 0.6.6)
       kaminari (= 0.14.1)
       rails (>= 3.0.0)
+
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 5ee8cac707b9a3d580f388bf5e22e673ac57562e
+  ref: 5ee8cac707b9a
+  specs:
+    exception_notification (3.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -77,8 +86,6 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday_middleware (0.9.0)
@@ -180,7 +187,7 @@ DEPENDENCIES
   better_errors (= 0.8.0)
   binding_of_caller (= 0.7.1)
   bootstrap-sass (= 2.3.1.0)
-  exception_notification (= 3.0.1)
+  exception_notification!
   faraday!
   faraday_middleware (= 0.9.0)
   haml-rails (= 0.3.4)
