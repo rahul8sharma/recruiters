@@ -21,10 +21,11 @@ class ReportUploader < AbstractController::Base
       html = render_to_string(template: 'assessment_reports/assessment_report.html.haml', :layout => "layouts/reports.html.haml", :handlers => [ :haml ])
       pdf = WickedPdf.new.pdf_from_string(html)
       
-      pdf_file_id = "#{report.id}.pdf"
-      html_file_id = "#{report.id}.html"
-      pdf_save_path = Rails.root.join('reports',"#{pdf_file_id}")
-      html_save_path = Rails.root.join('reports',"#{html_file_id}")
+      FileUtils.mkdir_p(Rails.root.join("tmp"))
+      pdf_file_id = "report_#{report.id}.pdf"
+      html_file_id = "report_#{report.id}.html"
+      pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
+      html_save_path = Rails.root.join('tmp',"#{html_file_id}")
       
       Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(report.id,  
         :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
