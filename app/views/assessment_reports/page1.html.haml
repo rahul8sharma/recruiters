@@ -1,30 +1,34 @@
+- job_fit_grade = get_job_fit_grade(@candidate_fit_scores)
+- company_fit_grade = get_company_fit_grade(@candidate_fit_scores)
+- team_fit_grade = get_team_fit_grade(@candidate_fit_scores)
+
 .overall_report
   .logo.pull-right
   .clr
   .heading
     .user_name
-      Pratik Munot
+      = @candidate.name
     .date
-      Test Date: 33/33/3333
+      Test Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
     .span.first
       Test Name: 
     .span8
-      Sales Manager at Mercedes Benz Dealership
+      #{@assessment.name} 
     .clr
 
   .sub-heading.large-text.pull-right
-    Jombay Recommends : Hire with Caution 
+    Jombay Recommends : #{@recommendation.body} 
   .clr
   .sub-heading.medium-text.pull-right
-    Pratik’s Fitment Scores
+    #{@candidate.name}’s Fitment Scores
   .clr
   .visual
     .strength_1
-      High
+      = company_fit_grade
     .strength_2
-      Low
+      = job_fit_grade
     .strength_3
-      Average
+      = team_fit_grade
       
     .title_1
       Company Fit
@@ -32,3 +36,6 @@
       Job Role Fit
     .title_3
       Team Fit
+
+= render :partial => "shared/report_footer"      
+.page-break      

@@ -1,3 +1,11 @@
+- job_fit = get_job_fit(@fits)
+
+- job_fit_grade = get_job_fit_grade(@candidate_fit_scores)
+- company_fit_grade = get_company_fit_grade(@candidate_fit_scores)
+- team_fit_grade = get_team_fit_grade(@candidate_fit_scores)
+
+= render :partial => "shared/report_header"      
+
 .factor_fit.report_content
   .report_title
     Factors under Job Role Fit
@@ -6,59 +14,25 @@
   .instruction2
     Less Favorable 
   .factors_container
-    //add inline margin to .wrapper{:style=>"margin-top: 10px;"} by calculation 
-    .factor_1.favorable
-      .wrapper
-        Assertiveness
-    .factor_2.less_favorable
-      .wrapper{:style=>"margin-top: 10px;"}
-        Assertiveness
-    .factor_3
-      .wrapper
-        Assertiveness
-    .factor_4.less_favorable
-      .wrapper
-        Assertiveness
-    .factor_5.favorable
-      .wrapper
-        Assertiveness
-    .factor_6
-      .wrapper
-        Assertiveness
-    .factor_7.favorable
-      .wrapper
-        Assertiveness
-    .factor_8.less_favorable
-      .wrapper
-        Assertiveness
-    .factor_9.favorable
-      .wrapper
-        Assertiveness
-    .factor_10
-      .wrapper
-        Assertiveness
-    .factor_11.less_favorable
-      .wrapper
-        Assertiveness
-    .factor_12.favorable
-      .wrapper
-        Assertiveness
-    .factor_13
-      .wrapper
-        Assertiveness
-    .factor_14.less_favorable
-      .wrapper
-        Assertiveness
+    - @factors_by_fit[job_fit].each_with_index do |factor,index|
+      - measured = @measured_factors_ids.include?(factor.id)
+      %div{ class: "factor_#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
+        .wrapper{:style=>"margin-top: 30px;"}
+          = factor.name
   .bottom_sec
     .title_1
       Job Role Fit
     .strength_1
-      High
+      = job_fit_grade
     .title_2
       Team Fit
     .strength_2
-      Low
+      = team_fit_grade
     .title_3
       Company Fit
     .strength_3
-      Average
+      = company_fit_grade
+      
+= render :partial => "shared/report_footer"      
+      
+.page-break      

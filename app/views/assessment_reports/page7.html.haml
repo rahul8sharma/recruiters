@@ -1,3 +1,5 @@
+= render :partial => "shared/report_header"      
+
 .scores.overview
   .heading.green.pull-left
     Miscellaneous
@@ -6,16 +8,16 @@
   .divider2
 
   .miscellaneous
-    -3.times do 
+    - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
       .snippet
         .lhs.pull-left
-          .hexagon-big-icon.pull-left
-            Conflict Resolution
+          .hexagon-big-icon.pull-left{ :style => "margin-top:10px" }
+            = factor_score.factor.parent.name
           .title.pull-left
-            Avoidance
+            = factor_score.factor.name
           .clr
         .rhs.pull-left
-          More likely to avoid confrontation with the other parties involved in conflict
+          = factor_score.factor.parent.definition
         .clr
   .heading.yellow.pull-left
     Alarms
@@ -27,20 +29,22 @@
         Actual Scores 
       .clr
     %ul.unstyled.clearfix.alarms_listing
-      - 2.times do
+      - @candidate_factor_scores_for_alarm_factors.each_with_index do |(factor_id, factor_score), index|
         %li
           .lhs-sec.pull-left
             .span1.first.que-no.hexagon-icon.less_favorable
-              1
+              = index + 1
             .span9
               .factor-name
-                Gender Bias
+                = factor_score.factor.name
               .factor-description
-                Likely to show gender bias - might impact decision-making and team culture
+                = factor_score.factor.definition
             .clr 
           .span3.wrap-actual
             .wrap-inn
-              High
+              = factor_score.norm_bucket.name
           .clr
 
+= render :partial => "shared/report_footer"      
 
+.page-break          
