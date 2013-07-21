@@ -59,6 +59,12 @@ Recruiters::Application.routes.draw do
           post 'import_from_google_drive'
           post 'export_to_google_drive'
         end
+        
+        member do
+          [*1..10].each do |page|
+            get "/report/page#{page}", :to => "assessment_reports#page#{page}"
+          end
+        end
       end
     end
     
