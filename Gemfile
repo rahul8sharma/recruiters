@@ -19,7 +19,7 @@ gem 'wicked_pdf','0.9.6'
 
 gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
 
-gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "af961919e664ddeeb42"
+gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "ad78cb181ee6cd2a"
 
 gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
@@ -27,7 +27,7 @@ gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'
-gem "exception_notification","3.0.1"
+gem "exception_notification", :git => "https://github.com/smartinez87/exception_notification.git", :ref => "5ee8cac707b9a"
 gem 'aws-s3', '0.6.3'
 gem 'sidekiq', '2.12.1'
 

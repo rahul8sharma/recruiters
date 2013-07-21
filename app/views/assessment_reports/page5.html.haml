@@ -1,3 +1,5 @@
+= render :partial => "shared/report_header"      
+
 .scores.favorable_factors
   .wrapper
     .heading.pull-left
@@ -13,24 +15,31 @@
       Actual Scores 
     .clr
   %ul.unstyled.clearfix.scores_listing
-    - 6.times do
-      %li
-        .lhs-sec.pull-left
-          .span1.first.que-no.hexagon-icon.favorable
-            1
-          .span6
-            .factor-name
-              Street Smartness
-            .factor-description
-              Self-dependant, creative and spontaneous in solving problems;
-          .clr 
-        .span3.wrap-desire
-          .wrap-inn
-            Below Average 
-            .small
-              to 
-            Above Average
-        .span3.wrap-actual
-          .wrap-inn
-            Average
-        .clr
+    - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.pass }.each_with_index do |(factor_id,factor_score),index|
+      - measured = @measured_factors_ids.include?(factor_id)
+      - if measured
+        %li
+          .lhs-sec.pull-left
+            .span1.first.que-no.hexagon-icon.favorable
+              = index + 1
+            .span6
+              .factor-name
+                = factor_score.factor.name
+              .factor-description
+                = factor_score.factor.definition
+            .clr 
+          .span3.wrap-desire
+            .wrap-inn
+              = @assessment_factor_norms[factor_id].from_norm_bucket.name rescue '-'
+              .small
+                to 
+              = @assessment_factor_norms[factor_id].to_norm_bucket.name rescue '-'
+          .span3.wrap-actual
+            .wrap-inn
+              = factor_score.norm_bucket.name rescue '-'
+          .clr
+          
+= render :partial => "shared/report_footer"      
+
+.page-break          
+          

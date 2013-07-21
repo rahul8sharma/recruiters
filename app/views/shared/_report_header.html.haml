@@ -1,0 +1,15 @@
+.header.clearfix
+  .logo
+    = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
+  .left-side
+    .user_name
+      = @candidate.name
+    .date
+      Test Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
+  .right-side
+    .pull-left
+      Test Name: 
+    .pull-left.span
+      = @assessment.name
+    .clr
+

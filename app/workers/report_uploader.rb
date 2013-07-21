@@ -7,7 +7,6 @@ class ReportUploader < AbstractController::Base
   include AbstractController::AssetPaths
   include Rails.application.routes.url_helpers
   helper ApplicationHelper
-  helper Suitability::FitmentGradesHelper
   self.view_paths = "app/views"
   
   def perform(report_id, auth_token)
@@ -113,6 +112,14 @@ class ReportUploader < AbstractController::Base
       @factors_by_fit[fit] = (@factors - @direct_predictors - @alarm_factors - @parent_factors).select{|x| fit.factor_ids.include? x.id}
     end
     @candidate_fit_scores = @candidate_assessment.candidate_fit_scores.where(:methods => [:fitment_grade, :fit]).to_a
+    
+    @job_fit = get_job_fit(@fits)
+    @company_fit = get_company_fit(@fits)
+    @team_fit = get_team_fit(@fits)
+
+    @job_fit_grade = get_job_fit_grade(@candidate_fit_scores)
+    @company_fit_grade = get_company_fit_grade(@candidate_fit_scores)
+    @team_fit_grade = get_team_fit_grade(@candidate_fit_scores)
   end
   
   def get_page3_data
@@ -132,7 +139,30 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_page5_data
-    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where(:query_options => { :factor_id => @measured_factors_ids }).to_a.group_by{|x| x.factor_id}
-    @post_assessment_guidelines.each{|x,y| @post_assessment_guidelines[x] = y.group_by{|z| z.norm_bucket_id}}
+    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where( :methods => [ :factor ], :query_options => { :factor_id => @measured_factors_ids }).to_a.group_by{|x| x.factor}
+  end
+  
+  def get_job_fit_grade(candidate_fit_scores)
+    candidate_fit_scores.select{ |fit_score| ["job","role"].any?{|fit_name| fit_score.fit.name.downcase =~ /#{fit_name}/ } }.first.fitment_grade.name
+  end
+  
+  def get_company_fit_grade(candidate_fit_scores)
+    candidate_fit_scores.select{ |fit_score| ["organization","company"].any?{|fit_name| fit_score.fit.name.downcase =~ /#{fit_name}/ } }.first.fitment_grade.name
+  end
+  
+  def get_team_fit_grade(candidate_fit_scores)
+    candidate_fit_scores.select{ |fit_score| ["team","people"].any?{|fit_name| fit_score.fit.name.downcase =~ /#{fit_name}/ } }.first.fitment_grade.name
+  end
+  
+  def get_job_fit(fits)
+    fits.select{|fit| ["job","role"].any?{|fit_name| fit.name.downcase =~ /#{fit_name}/ }  }.first
+  end
+  
+  def get_company_fit(fits)
+    fits.select{|fit| ["organization","company"].any?{|fit_name| fit.name.downcase =~ /#{fit_name}/ }  }.first
+  end
+  
+  def get_team_fit(fits)
+    fits.select{|fit| ["team","people"].any?{|fit_name| fit.name.downcase =~ /#{fit_name}/ }  }.first
   end
 end

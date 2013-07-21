@@ -11,6 +11,6 @@ class SidekiqController < ApplicationController
     reports.each do |report|
       ReportUploader.perform_async(report.id, RequestStore.store[:auth_token])
     end
-    render :json => { :status => "Job Started" }
+    render :json => { :status => "Job Started", :reports => reports }
 	end
 end
