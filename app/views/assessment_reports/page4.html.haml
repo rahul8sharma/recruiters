@@ -1,9 +1,3 @@
-- team_fit = get_team_fit(@fits)
-
-- job_fit_grade = get_job_fit_grade(@candidate_fit_scores)
-- company_fit_grade = get_company_fit_grade(@candidate_fit_scores)
-- team_fit_grade = get_team_fit_grade(@candidate_fit_scores)
-
 = render :partial => "shared/report_header"      
 
 .factor_fit.report_content
@@ -14,7 +8,7 @@
   .instruction2
     Less Favorable 
   .factors_container
-    - @factors_by_fit[team_fit].each_with_index do |factor,index|
+    - @factors_by_fit[@team_fit].each_with_index do |factor,index|
       - measured = @measured_factors_ids.include?(factor.id)
       %div{ class: "factor_#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
         .wrapper{:style=>"margin-top: 30px;"}
@@ -23,15 +17,15 @@
     .title_1
       Team Fit
     .strength_1
-      = team_fit_grade
+      = @team_fit_grade
     .title_2
       Job Role Fit
     .strength_2
-      = job_fit_grade
+      = @job_fit_grade
     .title_3
       Company Fit
     .strength_3
-      = company_fit_grade
+      = @company_fit_grade
 
 = render :partial => "shared/report_footer"      
 
