@@ -5,26 +5,6 @@
 - content_for :body do 
   .report
     .inner
-      .header.clearfix
-        .logo
-          = image_tag ('report/jombay-logo-icon.png')
-        .left-side
-          .user_name
-            Prashant
-          .date
-            Test Date: 
-        .right-side
-          .pull-left
-            Test Name: 
-          .pull-left.span
-            Sales Manager at Mercedes Benz Dealership
-          .clr
       = yield 
-      .footer.clearfix
-        .pull-left
-          1
-        .pull-right 
-          &copy; Jombay 
-
-
+      
 = render :file => 'layouts/haml.html.haml'
