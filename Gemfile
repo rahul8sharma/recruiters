@@ -27,7 +27,7 @@ gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'
-gem "exception_notification", :git => "https://github.com/smartinez87/exception_notification.git", :ref => "5ee8cac707b9a"
+gem "exception_notification", :git => "git@github.com:pmahoney/exception_notification.git", :branch => "jruby"
 gem 'aws-s3', '0.6.3'
 gem 'sidekiq', '2.12.1'
 
