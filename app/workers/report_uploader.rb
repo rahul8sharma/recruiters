@@ -71,6 +71,7 @@ class ReportUploader < AbstractController::Base
   def get_assessment(candidate_assessment)
     @assessment = Vger::Resources::Suitability::Assessment.find(candidate_assessment.assessment_id) 
     @candidate = Vger::Resources::Candidate.find(candidate_assessment.candidate_id)
+   @assessment_factor_norms = Hash[@assessment.job_assessment_factor_norms.where(:methods => [ :from_norm_bucket, :to_norm_bucket ]).all.to_a.collect{|x| [x.factor_id,x]}]
     get_factors
     get_measured_factors
     get_page1_data
@@ -81,9 +82,9 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_factors
-    @factors = Vger::Resources::Suitability::Factor.all.to_a
-    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:methods => [:parent]).all.to_a
-    @alarm_factors = Vger::Resources::Suitability::AlarmFactor.all.to_a
+    @factors = Vger::Resources::Suitability::Factor.where(:methods => [:type]).all.to_a
+    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:methods => [:parent,:type]).all.to_a
+    @alarm_factors = Vger::Resources::Suitability::AlarmFactor.where(:methods => [:type]).all.to_a
     @factors |= @direct_predictors 
     @factors |= @alarm_factors
     @factors_by_id = Hash[@factors.collect{|x| [x.id,x]}]
@@ -92,9 +93,9 @@ class ReportUploader < AbstractController::Base
   
   def get_measured_factors
     @candidate_factor_scores = Hash[@candidate_assessment.candidate_factor_scores.where(:methods => [:norm_bucket]).to_a.each{|x| x.factor = @factors_by_id[x.factor_id]}.collect{|x| [x.factor_id,x]}]
-    @measured_factors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) })
-    @measured_factors |= Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
-    @measured_factors |= Vger::Resources::Suitability::AlarmFactor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
+    @measured_factors = Vger::Resources::Suitability::Factor.where(:query_options => { :type => "Suitability::Factor",  :id => @candidate_factor_scores.values.map(&:factor_id) })
+    #@measured_factors |= Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
+    #@measured_factors |= Vger::Resources::Suitability::AlarmFactor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
     @measured_factors_ids = @measured_factors.map(&:id).compact
   end
   
@@ -129,7 +130,9 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_page4_data
-    @candidate_factor_scores_for_direct_predictors = @candidate_factor_scores.select{|factor_id,factor_score| factor_score.norm_bucket_id.nil? and factor_score.pass }
+    @candidate_factor_scores_for_direct_predictors = @candidate_factor_scores.select do |factor_id,factor_score| 
+      factor_score.factor.type == "Suitability::DirectPredictor" and factor_score.pass
+    end
     
     alarm_factor_ids = @candidate_factor_scores.keys
     alarm_factors = Vger::Resources::Suitability::AlarmFactor.where(:query_options => { :id => alarm_factor_ids }) 
@@ -140,7 +143,7 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_page5_data
-    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where( :methods => [ :factor ], :query_options => { :factor_id => @measured_factors_ids }).to_a.group_by{|x| x.factor}
+    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where( :methods => [ :factor ], :query_options => { :factor_id => @measured_factors_ids }).to_a.group_by{ |x| x.factor_id }
   end
   
   def get_job_fit_grade(candidate_fit_scores)

@@ -11,7 +11,7 @@
     - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
       .snippet
         .lhs.pull-left
-          .hexagon-big-icon.pull-left{ :style => "margin-top:10px" }
+          .hexagon-big-icon.pull-left{ :style => "margin-top:20px" }
             = factor_score.factor.parent.name
           .title.pull-left
             = factor_score.factor.name
@@ -45,6 +45,6 @@
               = factor_score.norm_bucket.name
           .clr
 
-= render :partial => "shared/report_footer"      
+= render :partial => "shared/report_footer", :locals => { :current_page => 7 }      
 
 .page-break          
