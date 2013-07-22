@@ -1,4 +1,6 @@
 class CompaniesController < ApplicationController
+  before_filter :authenticate_user!
+  
   layout "companies" 
   
   def index
