@@ -6,8 +6,9 @@
   .clr
   .divider1
   %ul.unstyled.clearfix.interview_guide_listing 
-    - @post_assessment_guidelines.each do |factor, guides|
-      - guides.each do |guide|
+    - @post_assessment_guidelines.each do |factor_id, guides|
+      - guides[0..0].each do |guide|
+        - factor = guide.factor
         %li
           .span1.first.que-no.hexagon-icon.favorable
             Q
@@ -18,6 +19,6 @@
             = guide.body
           .clr
 
-= render :partial => "shared/report_footer"      
+= render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
 
 .page-break                    

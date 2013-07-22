@@ -1,6 +1,5 @@
 .footer.clearfix
   .pull-left
-    - if content_for? :report_navigation and request.format.to_s != "application/pdf"  
-      = yield :report_navigation
+    = render :partial => "assessment_reports/navigation", :locals => { :current_page => current_page }
   .pull-right 
     &copy; Jombay 

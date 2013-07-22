@@ -16,7 +16,7 @@
     Jombay Recommends : #{@recommendation.body} 
   .clr
   .sub-heading.medium-text.pull-right
-    #{@candidate.name}’s Fitment Scores
+    #{@candidate.name}&#39;s Fitment Scores
   .clr
   .visual
     .strength_1
@@ -33,5 +33,6 @@
     .title_3
       Team Fit
 
-= render :partial => "shared/report_footer"      
+= render :partial => "shared/report_footer", :locals => { :current_page => 1 }
+
 .page-break      
