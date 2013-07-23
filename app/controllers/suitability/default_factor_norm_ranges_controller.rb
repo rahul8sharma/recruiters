@@ -37,6 +37,6 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
   
   # GET /factors
   def index
-    @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(:page => params[:page], :per => 50).all
+    @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(:methods => [:factor, :functional_area, :industry, :from_norm_bucket, :to_norm_bucket, :job_experience], :page => params[:page], :per => 50).all
   end
 end
