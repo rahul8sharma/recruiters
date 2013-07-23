@@ -31,7 +31,7 @@ Recruiters::Application.configure do
 
   # config.threadsafe!
   
-  config.action_controller.asset_host = "http://companies.jombaylocal.com"
+  config.action_controller.asset_host = "http://recruiters.jombaylocal.com"
   # Do not compress assets
   config.assets.compress = false
 
