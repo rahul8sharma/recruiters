@@ -3,6 +3,8 @@ class CompaniesController < ApplicationController
   
   layout "companies" 
   
+  before_filter :get_company, :only => [ :show, :candidate, :settings, :account, :company, :statistics]
+  
   def index
     @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)
   end
@@ -23,26 +25,29 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Vger::Resources::Company.find(params[:id])
+    
   end
   
   def candidate
-    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def settings
-    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def account
-    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def company
-    @company = Vger::Resources::Company.find(params[:id])
   end
   
   def statistics
+  end
+  
+
+  protected
+  
+  def get_company
     @company = Vger::Resources::Company.find(params[:id])
   end
 end
+
