@@ -11,6 +11,16 @@ class ApplicationController < ActionController::Base
 	
 	helper_method :current_user
 	helper_method :can?
+	
+  def after_sign_in_path_for()
+    case current_user.type
+      when "SuperAdmin"
+        companies_path
+      else
+        root_path        
+    end    
+  end
+
   
   protected
   def set_auth_token
@@ -18,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
   
   def unauthorized
-    flash[:notice] = "You must be logged in to visit this page"
+    flash[:alert] = "You must be logged in to visit this page"
     redirect_to login_path
   end
   
@@ -30,7 +40,7 @@ class ApplicationController < ActionController::Base
   
   def invalid_authentication(e)
     session[:auth_token] = nil
-    flash[:notice] = e.message
+    flash[:error] = e.message
     redirect_to login_path
   end
 end
