@@ -10,9 +10,10 @@
   .factors_container
     - @factors_by_fit[@job_fit].each_with_index do |factor,index|
       - measured = @measured_factors_ids.include?(factor.id)
-      %div{ class: "factor_#{index+1} #{measured && @candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
-        .wrapper{:style=>"margin-top: 30px;"}
-          = factor.name
+      - if measured
+        %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
+          .wrapper{:style=>"margin-top: 30px;"}
+            = factor.name
   .bottom_sec
     .title_1
       Job Role Fit

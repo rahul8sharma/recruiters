@@ -11,8 +11,9 @@
     - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
       .snippet
         .lhs.pull-left
-          .hexagon-big-icon.pull-left{ :style => "margin-top:20px" }
-            = factor_score.factor.parent.name
+          .hexagon-big-icon.pull-left
+            .name{ :style => "padding-top:5px;" }
+              = factor_score.factor.parent.name
           .title.pull-left
             = factor_score.factor.name
           .clr
