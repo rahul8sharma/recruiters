@@ -19,24 +19,24 @@
       = f.text_field :name
       .divider1
       .control
-        %label 
-          Function Area : 
+        %div 
+          Functional Area : 
           = @assessment.functional_area.name
         .clr
       .control.left-offset1
-        %label 
+        %div 
           Industry : 
           = @assessment.industry.name
         .clr
       .control.left-offset1
-        %label 
+        %div 
           Experience Level : 
           = @assessment.job_experience.display_text          
         .clr
       .clr
       .divider2
-      %button.pull-right.btn.btn-success.disabled
-        Modify
+      //%button.pull-right.btn.btn-success.disabled
+      //  Modify
       .clr
       .divider1
       %b.medium-text
