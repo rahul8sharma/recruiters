@@ -54,7 +54,7 @@
               .span12
                 = factor_norm.factor.name
               .span6.lhs-border
-                #{factor_norm.norm_min} - #{factor_norm.norm_max}
+                #{factor_norm.from_norm_bucket.name} - #{factor_norm.to_norm_bucket.name}
               .span.lhs-border
                 #{factor_norm.critical? ? "High":"Low"}
             %p
