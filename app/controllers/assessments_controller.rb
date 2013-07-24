@@ -9,7 +9,7 @@ class AssessmentsController < ApplicationController
 
   def show
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
-    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:factor, :functional_area, :industry, :job_experience]).all.to_a
+    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:factor, :functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket]).all.to_a
   end
 
 
@@ -44,7 +44,7 @@ class AssessmentsController < ApplicationController
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
-        flash[:notice] = @assessment.error_messages.join("<br/>")
+        flash[:error] = @assessment.error_messages.join("<br/>")
       end
     end  
   end
@@ -52,9 +52,15 @@ class AssessmentsController < ApplicationController
   # GET : renders form to add candidates
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
-    params[:candidates].reject!{|key,data| data[:email].blank?} if params[:candidates]
+    params[:candidates] ||= {}
+    params[:candidates].reject!{|key,data| data[:email].blank?}
+    params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     if request.put?
       @candidates = []
+      if params[:candidates].empty? 
+        flash[:error] = "Please add at least one candidate."
+        render :action => :add_candidates and return
+      end
       params[:candidates].each do |key,candidate_data|
         candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
         candidate = Vger::Resources::Candidate.create(candidate_data) unless candidate
@@ -86,6 +92,11 @@ class AssessmentsController < ApplicationController
     if request.put?
       params[:candidates] ||= []
       candidate_assessments = []
+      if params[:candidates].empty?
+        @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
+        flash[:error] = "Please select at least one candidate."
+        render :action => :send_test_to_candidates and return
+      end
       params[:candidates].each do |candidate_id,on|
         candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
           :assessment_id => @assessment.id, 
@@ -97,7 +108,7 @@ class AssessmentsController < ApplicationController
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
       flash[:notice] = "You have successfully sent the test!!"
-      redirect_to company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+      redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end
   end
   
@@ -105,7 +116,7 @@ class AssessmentsController < ApplicationController
   def candidates
     AWS::S3::Base.establish_connection!(Rails.configuration.s3)
     ids = @assessment.candidate_assessments.where(:page => params[:page], :per => 10).map(&:candidate_id)
-    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1})
+    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1}, :page => params[:page], :per => 10)
   end
   
   # GET : renders candidate info for selected assessment
@@ -133,8 +144,10 @@ class AssessmentsController < ApplicationController
   def create
     respond_to do |format|
       if @assessment.valid? and @assessment.save
-        format.html { redirect_to norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), notice: 'Assessment was successfully created.' }
+        format.html { redirect_to norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) }
       else
+        get_meta_data
+        flash[:error] = @assessment.errors.values.flatten.join(",") rescue ""
         format.html { render action: "new" }
       end
     end
@@ -174,7 +187,7 @@ class AssessmentsController < ApplicationController
                                       :functional_area_id => @assessment.functional_area_id,
                                       :industry_id => @assessment.industry_id,
                                       :job_experience_id => @assessment.job_experience_id
-                                    }).all
+                                    }).all.to_a
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ]).all.to_a
     added_factor_ids = @job_assessment_factor_norms.map(&:factor_id)
     default_norm_bucket_ranges.each do |default_norm_bucket_range|
@@ -194,6 +207,9 @@ class AssessmentsController < ApplicationController
       
       @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? default_norm_bucket_range.factor_id
     end  
+    if default_norm_bucket_ranges.empty?
+      flash[:error] = "There are no default norms for this criteria. Please export default norms before creating a test with this criteria."
+    end
   end
   
   
