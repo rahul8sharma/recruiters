@@ -18,16 +18,23 @@ class AssessmentsController < ApplicationController
   # PUT : updates assessment and renders styles
   def norms
     get_norms
-    if params[:assessment]
-      @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
-    end
-    if request.put?  
-      if @assessment.error_messages.blank?
-        get_styles
-        render :styles
-      else
-        @assessment.error_messages << @assessment.errors.full_messages.dup
+    if request.get?
+      if params[:assessment]
+        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       end
+    elsif request.put?  
+      if !params[:assessment][:job_assessment_factor_norms_attributes].present?
+        flash[:error] = "Please select at least one factor to proceed."
+        return false
+      else
+        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+        if @assessment.error_messages.blank?
+          get_styles
+          render :styles
+        else
+          @assessment.error_messages << @assessment.errors.full_messages.dup
+        end
+      end  
     end
   end
   
@@ -58,7 +65,7 @@ class AssessmentsController < ApplicationController
     if request.put?
       @candidates = []
       if params[:candidates].empty? 
-        flash[:error] = "Please add at least one candidate."
+        flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
       end
       params[:candidates].each do |key,candidate_data|
@@ -77,9 +84,9 @@ class AssessmentsController < ApplicationController
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
       @company = Vger::Resources::Company.find(params[:company_id])
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }, :methods => [ :instructions_url ]).all[0]
     elsif request.put?
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id]))
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
       flash[:notice] = "Reminder sent to candidate successfully."
       redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end  
@@ -208,7 +215,7 @@ class AssessmentsController < ApplicationController
       @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? default_norm_bucket_range.factor_id
     end  
     if default_norm_bucket_ranges.empty?
-      flash[:error] = "There are no default norms for this criteria. Please export default norms before creating a test with this criteria."
+      flash[:error] = "There are no default norms for this criteria. Please add the required data."
     end
   end
   
