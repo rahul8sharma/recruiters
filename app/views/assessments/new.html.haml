@@ -5,9 +5,9 @@
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
     .extra-medium-text
-      %b Please fill the following information.
+      %b Please provide the following information:
     .divider1
     .medium-text 
-      %b Put Title to a Test
-      (For Eg : Sales Manager for online Engine Business Unit)
+      %b Test Title
+      (For Eg : Sales Manager for Oil Engine Business Unit)
     = render 'form', method: :post, url: company_assessments_path(:company_id => params[:company_id]), assessment: @assessment  

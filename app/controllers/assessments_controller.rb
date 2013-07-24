@@ -84,7 +84,7 @@ class AssessmentsController < ApplicationController
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
       @company = Vger::Resources::Company.find(params[:company_id])
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }, :methods => [ :instructions_url ]).all[0]
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
     elsif request.put?
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
       flash[:notice] = "Reminder sent to candidate successfully."
@@ -114,7 +114,7 @@ class AssessmentsController < ApplicationController
         candidate_assessments.push candidate_assessment 
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
-      flash[:notice] = "You have successfully sent the test!!"
+      flash[:notice] = "Test was sent successfully!"
       redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end
   end

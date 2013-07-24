@@ -3,17 +3,14 @@
   %input{:type => "hidden", name: "candidate_ids", value: @candidates.map(&:id).join(",") }
   .create-test.send-test-to-candidate
     .inn.first
-      .page-title Test #{@assessment.name}
+      .page-title Test - "#{@assessment.name}"
       
     .inn
       = render :partial => "shared/test-flow-sub-nav"
-      .divider2
-      .alert.alert-warning.text-center
-        %b.medium-text Pressing the Back Button you may loose all the candidates added this far
       .divider1
       .medium-text
         %b To: 
-        (Please note the following candidate are being send the test)
+        Test will be sent to the following candidates: (Please uncheck the candidates you don't wish to send the test to)
       %ul.unstyled.clearfix.candidate-list-to-send
         - @candidates.each do |candidate|
           %li
@@ -34,22 +31,21 @@
           Message
         .massage-body.massage
           %p 
-            Hello "First Name",
+            Hello "Candidate Name",
           %p 
-            "#{@company.name}" has arranged for you to complate a Jombay Suitability Questionaire.
+            "#{@company.name}" has arranged for you to complete a Jombay Suitability Questionaire.
           %p 
-            To Complete, please click the weblink listed below or copy paste the URL into your web browser address bar.
+            To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar."
           %p 
             %b
-              URL: 
-              %a{:href=>"#", :title => "Some Title goes Here"} 
-                https://www.google.co.in/webhp?source=search
+              URL: &lt;candidate specific url&gt;
           %p
-            If you have any questions about taking the Jombay Suitability Questionnaire, Call on 
-            %b +91 - 87960 - 29607 
-            or Email 
+            If you face any technical difficulties or have any queries please feel free to reach us at 
             %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"} 
-              prakhar@jombay.com
+              prakhar@jombay.com. 
+            %br  
+            You can also call us at 
+            %b+91 87960 2960
           %p 
             Best Regards
             %br/
@@ -57,7 +53,7 @@
             %br/
             Jombay
       .pull-right
-        %a.span.line-height2{:href=>"#", :title => "cancel"}
+        %a.span.line-height2{:href=> add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
           Cancel
         %button.btn.btn-info.span
           Send
