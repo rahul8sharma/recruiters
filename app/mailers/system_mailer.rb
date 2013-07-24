@@ -1,9 +1,9 @@
 class SystemMailer < ActionMailer::Base
   default :from => "sysadmin@jombay.com"
   
-  def report_exception(exception,context)
-    @exception = exception
+  def notify_report_status(context,subject,messages)
+    @messages = messages
     mail(:to => "engineering@jombay.com",
-         :subject => "Exception in '#{context}'")
+         :subject => subject)
   end
 end
