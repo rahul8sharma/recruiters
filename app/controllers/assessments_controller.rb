@@ -20,8 +20,8 @@ class AssessmentsController < ApplicationController
     if request.get?
       if params[:assessment]
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
-        get_norms
       end
+      get_norms
     elsif request.put?  
       get_norms
       if !params[:assessment][:job_assessment_factor_norms_attributes].present?
