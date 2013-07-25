@@ -17,12 +17,13 @@ class AssessmentsController < ApplicationController
   # GET : renders norms when request method is get
   # PUT : updates assessment and renders styles
   def norms
-    get_norms
     if request.get?
       if params[:assessment]
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+        get_norms
       end
     elsif request.put?  
+      get_norms
       if !params[:assessment][:job_assessment_factor_norms_attributes].present?
         flash[:error] = "Please select at least one factor to proceed."
         return false
