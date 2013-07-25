@@ -1,5 +1,8 @@
 %b.large-text
   Log In
+.divider2
+.medium-text
+  Please enter your Email id & Password
 .divider1
 - if flash[:error].present?
   .text-center
@@ -8,5 +11,13 @@
   = form_for(:user, :url => login_path) do |f|
     = f.text_field :email, :placeholder => "Email ID"
     = f.password_field :password, :placeholder => "Password"
-    = f.submit "Login", :class=>"btn btn-info pull-right"
+    .pull-left
+      = f.check_box :remember_password
+      = f.label "Remember me", :for => "user_remember_password"
+    .pull-right
+      Forgot Password?
     .clr
+    .divider1
+    = f.submit "Login", :class=>"medium-text btn btn-info pull-right"
+    .clr
+
