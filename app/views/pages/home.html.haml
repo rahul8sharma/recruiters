@@ -11,23 +11,23 @@
   %br
   = link_to "Companies List", companies_path
   %br  
-  %br
-  = link_to "Company Page", company_path(:id => 1)
-  %br  
+  //%br
+  //= link_to "Company Page", company_path(:id => 1)
+  //%br  
   %br
   = link_to "Settings", settings_company_path(:id => 1)
   %br  
-  %br
-  = link_to "Account Settings", account_settings_company_path(:id => 1)
-  %br  
+  //%br
+  //= link_to "Account Settings", account_settings_company_path(:id => 1)
+  //%br  
   %br
   = link_to "Company Settings", company_settings_company_path(:id => 1)
   %br  
   %br
   = link_to "Company Statistics", statistics_company_path(:id => 1)
   %br
-  %br
-  = link_to "Company Candidate page", candidate_company_path(:id => 1, :candidate_id => 1)
+  //%br
+  //= link_to "Company Candidate page", candidate_company_path(:id => 1, :candidate_id => 1)
   %br
   %br
 .pull-left
@@ -54,12 +54,12 @@
   %br
   = link_to "Add Candidates", add_candidates_company_assessment_path(:company_id => 1, :id => 1)
   %br
-  %br
-  = link_to "Candidate bulk upload", bulk_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-  %br
-  %br
-  = link_to "Candidate single upload", single_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
-  %br
+  //%br
+  //= link_to "Candidate bulk upload", bulk_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  //%br
+  //%br
+  //= link_to "Candidate single upload", single_upload_company_assessment_candidates_path(:company_id => 1, :assessment_id => 1)
+  //%br
   %br
   = link_to "Send test to Candidates", send_test_to_candidates_company_assessment_path(:company_id=>1, :id => 1)
   %br

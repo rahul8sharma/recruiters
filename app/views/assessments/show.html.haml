@@ -29,11 +29,11 @@
         .span #{@assessment_factor_norms.collect{|x| x.job_experience.display_text}.compact.uniq.join(", ")}
     .divider1
     .text-right
-      %span.medium-text Tests Sent : 
+      %span.medium-text Tests Sent: 
       %span.large-text 753
 
       %span.left-offset1
-        %span.medium-text Tests Taken : 
+        %span.medium-text Tests Taken: 
         %span.large-text 453
     .divider1
     .medium-text 
@@ -41,11 +41,11 @@
     .divider1
     .left-offset1
       %b.span12
-        Factors
+        Suitability Factors
       %b.span6
-        Qualifying Score
+        Desired/Acceptable Score Range
       %b.span
-        Importance
+        Critical
       .clr.divider1
       %ul.unstyled.selected-factors
         - @assessment_factor_norms.each do |factor_norm|
@@ -54,7 +54,7 @@
               .span12
                 = factor_norm.factor.name
               .span6.lhs-border
-                #{factor_norm.norm_min} - #{factor_norm.norm_max}
+                #{factor_norm.from_norm_bucket.name} - #{factor_norm.to_norm_bucket.name}
               .span.lhs-border
                 #{factor_norm.critical? ? "High":"Low"}
             %p

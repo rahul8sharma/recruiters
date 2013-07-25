@@ -17,6 +17,11 @@ class ReportUploader < AbstractController::Base
     @candidate_assessment = report.candidate_assessment
     get_assessment(@candidate_assessment)
     tries = 0
+    report_status = {
+      :errors => [],
+      :message => "",
+      :status => "success"
+    }
     begin
       html = render_to_string(template: 'assessment_reports/assessment_report.html.haml', :layout => "layouts/reports.html.haml", :handlers => [ :haml ])
       pdf = WickedPdf.new.pdf_from_string(html)
@@ -44,6 +49,12 @@ class ReportUploader < AbstractController::Base
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
+      
+      SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{report.id}",{
+        :report => {
+          :status => "Success"
+        }
+      })
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
@@ -53,9 +64,14 @@ class ReportUploader < AbstractController::Base
         Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(report.id,  
           :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::FAILED
         )
-        SystemMailer.delay.report_exception(e,"Report Uploader")
       end
+      SystemMailer.delay.notify_report_status("Report Uploader","Failed to upload report #{report.id}",{
+        :errors => {
+          :backtrace => [e.message] + e.backtrace[0..20]
+        } 
+      })
     end  
+    
   end
   
   def upload_pdf_to_s3(file_id,pdf)

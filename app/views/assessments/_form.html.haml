@@ -1,11 +1,6 @@
 = form_for assessment, :as => :assessment, :url => url, multipart: true, method: method, html: { class: "creat-test-form" } do |f|
   = f.hidden_field :assessable_type, value: assessment.assessable_type
   = f.hidden_field :assessable_id, value: assessment.assessable_id
-  - if assessment.errors.any?
-    %ul
-      - assessment.errors.each do |field,msg|
-        %li
-          = "#{field} : #{msg}"
   = f.text_field :name
   .divider1
   .control

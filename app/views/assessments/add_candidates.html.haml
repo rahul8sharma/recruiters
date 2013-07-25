@@ -1,6 +1,6 @@
 .create-test.norms.add
   .inn.first
-    .page-title Tests
+    .page-title Test - "#{@assessment.name}"
   .inn
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
@@ -17,11 +17,11 @@
             Potential Employees
         .clr 
       .divider1
-      .span4.left-offset1
+      .span7.first
         %b Full name
-      .span5.left-offset1
+      .span6
         %b Email id
-      .span4.left-offset1
+      .span4
         %b Contact number
         (optional)
       .clr

@@ -13,13 +13,13 @@
     .divider1
     .medium-text 
       %b Put Title to a Test
-      (For Eg : Sales Manager for online Engine Business Unit)
+      (For Eg: Sales Manager for online Engine Business Unit)
     = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :get, html: { class: "creat-test-form" } do |f|
       = f.text_field :name
       .divider1
       .control
         %label 
-          Function Area
+          Functional Area
         %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
           - @functional_areas.each do |id,functional_area|
             %option{:value => (functional_area.id), selected: (@assessment.functional_area_id == functional_area.id)}
@@ -53,18 +53,20 @@
       %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
       %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
       .action
+        .pull-left
+          %b{ :style => "font-size:14px;" } Please select the behavioral factors that you would like to measure:
         %button.pull-right.btn.btn-info
           Proceed
         .clr
       .factors
         .titles.clearfix
-          .span17.first
-            Factors
+          .span14.first
+            Suitability Factors
           .pull-right
             .span6
-              Qualifying score 
+              Desired/Acceptable Score Range 
             .span2
-              Importances 
+              Critical
         .divider1
         %ul.unstyled.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |assessment_factor_norm,index|

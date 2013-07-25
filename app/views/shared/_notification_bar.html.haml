@@ -1,6 +1,15 @@
-- if flash[:notice].present?
-  .divider1
-  .container
-    %div{ class: "alert #{ flash[:type] == "error" ? 'alert-error' : 'alert-success'}" }
+.divider1
+.container
+  - if flash[:notice].present?
+    %div{ class: "alert alert-success" }
       %strong
         = flash[:notice]
+  - if flash[:error].present?
+    %div{ class: "alert alert-error" }
+      %strong
+        = flash[:error]    
+  - if flash[:alert].present?    
+    %div{ class: "alert" }
+      %strong
+        = flash[:alert]        
+- flash.clear        

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 		  begin
 			  sign_in(params[:user])
 			rescue Faraday::Unauthorized => e
-			  flash[:notice] = e.response[:body][:data][:error]
+			  flash[:error] = e.response[:body][:data][:error]
 			end
 		else
 		end

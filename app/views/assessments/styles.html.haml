@@ -13,40 +13,40 @@
     .divider1
     .medium-text 
       %b Put Title to a Test
-      (For Eg : Sales Manager for online Engine Business Unit)
+      (For Eg: Sales Manager for online Engine Business Unit)
     = form_for @assessment, :as => :assessment, :url => styles_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put, :html => { :class => "creat-test-form" } do |f|
 
       = f.text_field :name
       .divider1
       .control
-        %label 
-          Function Area : 
+        %div 
+          Functional Area: 
           = @assessment.functional_area.name
         .clr
       .control.left-offset1
-        %label 
-          Industry : 
+        %div 
+          Industry: 
           = @assessment.industry.name
         .clr
       .control.left-offset1
-        %label 
-          Experience Level : 
+        %div 
+          Experience Level: 
           = @assessment.job_experience.display_text          
         .clr
       .clr
       .divider2
-      %button.pull-right.btn.btn-success.disabled
-        Modify
+      //%button.pull-right.btn.btn-success.disabled
+      //  Modify
       .clr
       .divider1
       %b.medium-text
-        Factors selected : 
-        = @assessment.job_assessment_factor_norms.collect{|x| x.factor.name}.join(",")
+        Selected Factors: 
+        = @assessment.job_assessment_factor_norms.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
       .alert.alert-info.padding-all1.text-center
         %b.extra-medium-text
-          Apart from the factors that you have selected, you can also select one or more factors below.
+          You may select some additional factors to measure.
       .factors
         %ul.unstyled.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
