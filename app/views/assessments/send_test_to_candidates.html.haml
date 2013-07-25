@@ -3,39 +3,40 @@
   %input{:type => "hidden", name: "candidate_ids", value: @candidates.map(&:id).join(",") }
   .create-test.send-test-to-candidate
     .inn.first
-      .page-title Test - "#{@assessment.name}"
+      .page-title Test - #{@assessment.name}
       
     .inn
       = render :partial => "shared/test-flow-sub-nav"
       .divider1
       .medium-text
-        %b To: 
-        Test will be sent to the following candidates: (Please uncheck the candidates you don't wish to send the test to)
+        %b Test will be sent to the following candidates: (Please uncheck the candidates you don't wish to send the test to)
       %ul.unstyled.clearfix.candidate-list-to-send
         - @candidates.each do |candidate|
           %li
             %label
               %input{:type => "checkbox", name: "candidates[#{candidate.id}]", checked: true}
-              = candidate[:name]
+              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidate_names][candidate.email][:name]}
+              #{params[:candidate_names][candidate.email][:name]} &lt;#{candidate.email}&gt;
       .divider2
       .test-text-to-send
         .title
           Test Title
-        .massage-body.test-title
+        .massage-body
           = @assessment.name
         .title
           Subject
         .massage-body.subject
-          "#{@company.name}" - "#{@assessment.name}"
+          #{@company.name} - #{@assessment.name}
         .title
           Message
         .massage-body.massage
           %p 
-            Hello "Candidate Name",
+            Hello &lt;Candidate Name&gt;,
           %p 
-            "#{@company.name}" has arranged for you to complete a Jombay Suitability Questionaire.
+            %b #{@company.name} 
+            has arranged for you to complete a Jombay Suitability Questionaire.
           %p 
-            To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar."
+            To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar.
           %p 
             %b
               URL: &lt;candidate specific url&gt;

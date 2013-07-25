@@ -4,20 +4,22 @@
   .inn
     .test-text-to-send
       .title
-        To,
+        To
       .massage-body.test-title
         = @candidate.name
       .title
         Subject
       .massage-body.subject
-        "#{@company.name}" - "#{@assessment.name}"
+        #{@company.name} - #{@assessment.name}
       .title
         Message
       .massage-body.massage
         %p 
-          Hello "#{@candidate.name}",
-        %p 
-          "#{@company.name}" has arranged for you to complate a Jombay Suitability Questionaire.
+          Hello #{@candidate.name},
+        %p
+          This is a reminder email.  
+          %b #{@company.name} 
+          has arranged for you to complate a Jombay Suitability Questionaire.
         %p 
           To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar.
         %p 

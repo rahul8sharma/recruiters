@@ -24,7 +24,7 @@
       %label{ for: "checkbox_factor_#{index}" }
         %b= assessment_factor_norm.factor.name
     .pull-right
-      .span6.lhs-border
+      .span7.lhs-border
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), disabled: 'disabled', index: (index)}
         
         %select{name: norm_min_name, disabled: 'disabled', index: (index)}
@@ -36,7 +36,7 @@
               %option{value: norm_bucket.id}
                 = norm_bucket.name         
             
-        
+        to
         //%input{name: (norm_max_name), class: 'white-box', style: "float:right", type: 'text', value: (assessment_factor_norm.norm_max.to_f), disabled: 'disabled', index: (index)}
         
         %select{name: norm_max_name, disabled: 'disabled', index: (index)}
@@ -66,7 +66,7 @@
       %label{ for: "checkbox_factor_#{index}" }
         %b= assessment_factor_norm.factor.name
     .pull-right
-      .span6.lhs-border
+      .span7.lhs-border
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), index: (index)}
         %select{name: norm_min_name, index: (index)}
           - @norm_buckets.each do |norm_bucket|
@@ -77,7 +77,7 @@
               %option{value: norm_bucket.id}
                 = norm_bucket.name         
         //%input{name: (norm_max_name), class: 'white-box', style: "float:right", type: 'text', value: (assessment_factor_norm.norm_max.to_f), index: (index)}
-        
+        to
         %select{name: norm_max_name, index: (index)}
           - @norm_buckets.each do |norm_bucket|
             - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id

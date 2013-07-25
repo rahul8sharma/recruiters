@@ -5,10 +5,11 @@
 
     .span17.navbar.pull-right
       .navigations.clearfix
-        %a.userName.pull-right{:href => "#", :title => "Companies" }
-          %b Username 
-          \| 
-          Admin
+        %a.userName.pull-right{:href => current_user.present? ? "#" : login_path, :title => "Companies" }
+          %b #{current_user.present? ? current_user.name : "Login" } 
+          - if current_user
+            \| 
+            #{current_user.type}
           %span.icon-caret-down
         %a.companies.pull-right{:href => companies_path, :title => "Companies" }
           Companies
