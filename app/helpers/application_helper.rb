@@ -23,8 +23,4 @@ module ApplicationHelper
       "Not available"
     end
   end
-  
-  def hdate
-    
-  end
 end
