@@ -5,12 +5,14 @@
 
     .span17.navbar.pull-right
       .navigations.clearfix
+        %a.userName.logout.pull-right{:href => "#", :title => "Logout"}
+          Logout
         %a.userName.pull-right{:href => "#", :title => "Companies" }
           %b Username 
           \| 
           Admin
-          %span.icon-caret-down
+          / %span.icon-caret-down
         %a.companies.pull-right{:href => companies_path, :title => "Companies" }
           Companies
-          %span.icon-caret-down
+          / %span.icon-caret-down
     .clr
