@@ -15,7 +15,8 @@
       = f.check_box :remember_password
       = f.label "Remember me", :for => "user_remember_password"
     .pull-right
-      Forgot Password?
+      %a.default-color{:href=>"#", :title=>"Forgot Password?"}
+        Forgot Password?
     .clr
     .divider1
     = f.submit "Login", :class=>"medium-text btn btn-info pull-right"
