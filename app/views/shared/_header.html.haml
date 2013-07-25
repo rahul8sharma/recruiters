@@ -5,13 +5,17 @@
 
     .span17.navbar.pull-right
       .navigations.clearfix
-        %a.userName.logout.pull-right{:href => "#", :title => "Logout"}
-          Logout
-        %a.userName.pull-right{:href => "#", :title => "Companies" }
-          %b Username 
-          \| 
-          Admin
-          / %span.icon-caret-down
+        - if current_user  
+          %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
+            Logout
+          %a.userName.pull-right{:href => companies_path, :title => current_user.name }
+            %b #{current_user.name} 
+            \| 
+            #{current_user.type} 
+            / %span.icon-caret-down
+        - else
+          %a.userName.logout.pull-right{:href => login_path, :title => "Login"}
+            Login
         %a.companies.pull-right{:href => companies_path, :title => "Companies" }
           Companies
           / %span.icon-caret-down

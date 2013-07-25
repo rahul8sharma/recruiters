@@ -9,7 +9,13 @@ class AssessmentsController < ApplicationController
 
   def show
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
-    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:factor, :functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket]).all.to_a
+    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket], :include => { :factor => { :methods => [:type, :direct_predictor_ids] } }).all.to_a
+    
+    direct_predictor_parent_ids = @assessment_factor_norms.collect{ |x| x.factor.direct_predictor_ids.present? ? x.factor_id : nil }.compact.uniq
+    direct_predictor_norms = @assessment_factor_norms.select{ |x| direct_predictor_parent_ids.include? x.factor_id }.uniq
+    alarm_factor_norms = @assessment_factor_norms.select{ |x| x.factor.type == "Suitability::AlarmFactor" }.uniq
+    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms
+    @other_norms = direct_predictor_norms | alarm_factor_norms
   end
 
 
@@ -26,8 +32,17 @@ class AssessmentsController < ApplicationController
       get_norms
       if !params[:assessment][:job_assessment_factor_norms_attributes].present?
         flash[:error] = "Please select at least one factor to proceed."
-        return false
+        return
       else
+        params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
+          norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+          from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
+          to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
+          if from_weight > to_weight
+            flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
+            return
+          end
+        end
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
         if @assessment.error_messages.blank?
           get_styles
@@ -69,12 +84,17 @@ class AssessmentsController < ApplicationController
         flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
       end
+      if params[:candidates].find{|key,data| data[:name].blank? }.present?
+        flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
+        render :action => :add_candidates and return
+      end
       params[:candidates].each do |key,candidate_data|
         candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
         candidate = Vger::Resources::Candidate.create(candidate_data) unless candidate
         @candidates.push candidate
       end
       @company = Vger::Resources::Company.find(params[:company_id])
+      params[:candidate_names] = params[:candidates]
       render :action => :send_test_to_candidates
     end
   end
@@ -88,7 +108,7 @@ class AssessmentsController < ApplicationController
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
     elsif request.put?
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
-      flash[:notice] = "Reminder sent to candidate successfully."
+      flash[:notice] = "Reminder was sent successfully!"
       redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end  
   end
@@ -133,7 +153,7 @@ class AssessmentsController < ApplicationController
     @company = Vger::Resources::Company.find @assessment.assessable_id
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
-    })
+    }, :methods => [:candidate_assessment_reports])
   end
   
   # GET /assessments

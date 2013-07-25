@@ -17,7 +17,8 @@ class Suitability::NormBucketsController < ApplicationController
       .export_to_google_drive(params[:export]\
                                 .merge(:columns => [
                                                     :uid,
-                                                    :name
+                                                    :name,
+                                                    :weight
                                                    ]))
     redirect_to suitability_norm_buckets_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end

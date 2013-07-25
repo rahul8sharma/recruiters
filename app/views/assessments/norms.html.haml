@@ -9,11 +9,11 @@
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
     .extra-medium-text
-      %b Please fill the following information.
+      %b Please provide the following information:
     .divider1
     .medium-text 
-      %b Put Title to a Test
-      (For Eg: Sales Manager for online Engine Business Unit)
+      %b Test Title
+      (For example, "Sales Manager for Oil Engine Business Unit")
     = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :get, html: { class: "creat-test-form" } do |f|
       = f.text_field :name
       .divider1
@@ -63,7 +63,7 @@
           .span14.first
             Suitability Factors
           .pull-right
-            .span6
+            .span7
               Desired/Acceptable Score Range 
             .span2
               Critical
