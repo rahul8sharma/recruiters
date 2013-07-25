@@ -14,4 +14,17 @@ module ApplicationHelper
   def link_to_add_form(partial_path, local_variables)
   	
   end
+  
+  
+  def h(obj,options={})
+    if obj.present?
+      return obj
+    else
+      "Not available"
+    end
+  end
+  
+  def hdate
+    
+  end
 end
