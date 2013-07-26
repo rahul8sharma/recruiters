@@ -16,11 +16,11 @@ module ApplicationHelper
   end
   
   
-  def h(obj,options={})
+  def h(obj, replacement=nil,options={})
     if obj.present?
       return obj
     else
-      "Not available"
+      replacement ? replacement : "Not available"
     end
   end
 end
