@@ -1,4 +1,4 @@
-$favorable_color: #88b22a  
+$favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
 .page-break
@@ -131,6 +131,29 @@ $mid_favorable_color: #062b58
       background: image-url('report/orange-texture.png')
       padding: 10px 10px 10px 50px
       margin-bottom: 20px
+  .blue_bg_heading
+    background: #1db3c4
+    padding: 15px 10px
+    color: #fff
+    font-size: 18px
+    margin-bottom: 18px
+  .blue_bg_heading.iconic
+    position: relative
+    padding: 15px 70px 15px 30px
+    .thumbnails 
+      position: absolute
+      left: 92%
+      top: 0%
+      width: 113px
+      height: 96px
+      background: image-url("report/hexagon-thumbnails.png") no-repeat
+      [class*="thumbnails_inn"]
+        background: image-url("report/thumbnails-inn.png") no-repeat center 0
+        height: 97px
+      .thumbnails_inn2
+        background-position: center -105px
+      .thumbnails_inn3
+        background-position: center -210px
 
   .factor_fit
     [class*=instruction]
@@ -139,33 +162,6 @@ $mid_favorable_color: #062b58
       font-weight: bold
       margin-bottom: 5px
       background: image-url("report/hexagon-small.png") no-repeat
-    .blue_bg_heading
-      background: #1db3c4
-      padding: 15px 10px
-      color: #fff
-      font-size: 18px
-      margin-bottom: 18px
-    .blue_bg_heading.iconic
-      position: relative
-      padding: 15px 70px 15px 30px
-      .thumbnails 
-        position: absolute
-        left: 92%
-        top: 0%
-        width: 113px
-        height: 96px
-        background: image-url("report/hexagon-thumbnails.png") no-repeat
-        [class*="thumbnails_inn"]
-          background: image-url("report/thumbnails-inn.png") no-repeat center 0
-          height: 97px
-        .thumbnails_inn2
-          background-position: center -105px
-        .thumbnails_inn3
-          background-position: center -210px
-
-
-
-
 
     .instruction2
       background-position: 0px -33px
@@ -274,27 +270,14 @@ $mid_favorable_color: #062b58
         top: 342px
 
   .scores
-    padding: 30px
+    padding: 18px 30px
     min-height: 700px
-    padding-top: 20px
-    .wrapper
-      background: image-url('report/scores-heading-icon.png') no-repeat
-      padding: 18px 0 18px 100px
-    .heading
-      padding: 5px 13px
-      font-weight: bold
-      color: #fff
-      text-shadow: 1px 1px 1px #283d06
-      background: image-url('report/green-texture.png')
-    .title
-      font-size: 14px
-      font-weight: bold
-      color: #5a5a5a
-      margin-bottom: 18px
-      width: 108px
-    ul.scores_listing, ul.alarms_listing
+    
+    ul.scores_listing
+      min-height: 600px
       li
-        border-bottom: 1px dotted #c3ced9
+        border-bottom: 1px dotted #b1becd
+        padding-bottom: 5px
         &:last-child
           border: none
       .factor-name
@@ -306,60 +289,82 @@ $mid_favorable_color: #062b58
         font-size: 11px
       .lhs-sec
         padding-top: 18px
-      .wrap-desire
-        color: #0e3360
-      
-      .wrap-actual
-        color: #fff
-        font-weight: bold
+        width: 275px
+      .rhs-sec
+        .slider
+          position: relative
+          border: 1px solid #2b90ba
+          width: 240px
+          height: 10px
+          margin-top: 60px
+          .range
+            height: 10px
+            background: #cfcfcf
+          .pointer
+            background: image-url('report/scale-pointer-hexagon.png') no-repeat 
+            height: 20px
+            width: 23px
+            position: absolute
+            top: -5px
+          @for $i from 0 through 5
+            .position#{$i}
+              left: $i * 59px - (12)
+          
+          @for $i from 0 through 3
+            .offset#{$i}
+              margin-left: $i * 60px 
+          @for $i from 0 through 3
+            .width#{$i}
+              width: $i * 60px 
+          .width0
+            width: 5px
+          .width4
+            width: 100%
+
        
       .small
         font-size: 10px
       .wrap-inn
         padding: 30px 10px
 
-
-    ul.scores_listing
-      background: image-url('report/score-listing-bg.png') repeat-y right 0
-      min-height: 600px
-      .lhs-sec
-        width: 290px
-      .wrap-actual, .wrap-desire
-        min-height: 90px
+  .favorable_factors
+    .scale
+      background: image-url('report/scale-bg.png') no-repeat center bottom
+      width: 317px
+      height: 50px
+      margin-left: 235px
+      .marker
+        color: #36a3b2
+        font-size: 10px
+        width: 50px
         text-align: center
-        margin-left: 5px
-      .wrap-actual
-        .wrap-inn
-          padding-top: 45px
-
-    ul.alarms_listing
-      background: image-url('report/light-blue-bg.png') repeat-y right 0
-
-      .lhs-sec
-        width: 402px
-      .wrap-actual, .wrap-desire
-        min-height: 90px
-        text-align: center
-        margin-left: 5px
-
-  .less_favorable_factors
-    .wrapper
-      background-position: 0px -102px
-      .heading
-        background: image-url('report/yellow-texture.png')
-        text-shadow: 1px 1px 1px #7a6902 
+        float: left
+        line-height: 12px
+        margin-left: 10px
+    .indication
+      font-size: 10px
+      line-height: 15px
+      margin-bottom: 10px
+      b
+        margin-left: 10px
+      .box
+        border: 1px solid #2b90ba
+        background: #cfcfcf
+        height: 12px
+        width:  24px
+      .left-offset1
+        b
+          line-height: 26px
   .hexagon-icon
-    background: image-url('report/hexagon-icon.png') no-repeat
+    background: image-url('report/hexagon-icon.png') no-repeat 
     width: 30px
-    font-size: 14px
-    font-weight: bold
-    text-align: center
-    line-height: 26px
-
+    height: 26px
+  .hexagon-icon.favorable
+    background-position: 0px -3px
   .hexagon-icon.less_favorable
-    background-position: 0px -36px
+    background-position: 0px -39px
   .hexagon-icon.mid_favorable
-    background-position: 0px -72px
+    background-position: 0px -75px
 
   .overview
     .heading
@@ -368,39 +373,30 @@ $mid_favorable_color: #062b58
       font-weeight: bold
       color: #fff
    
-    .miscellaneous
-      .snippet
-        margin-bottom: 25px
-      .lhs
-        color: #062b58
-        font-weight: bold
-        .title
-          font-size: 14px
-          margin: 20px 10px 0 15px
-          width: 110px
-        .hexagon-big-icon
-          background: image-url('report/hexagon-big.png') no-repeat center center
-          font-size: 11px
-          width: 77px
-          height: 50px
+  .miscellaneous_factors
+    .blue_bg_heading
+      text-shadow: 1px 1px 1px #0c5836
+
+    .miscellaneous_listing
+      li
+        border-bottom: 1px dotted #b5c0cd
+        padding: 18px 0
+        &:last-child
+          border: none
+        .measured, .preferred, .description
+          border-left: 2px solid #cfcfcf
+          padding: 5px 10px
+        .measured
+          width: 90px
+          font-size: 10px
           text-align: center
-          line-height: 12px
-          padding-top: 15px
-      .rhs
-        ffont-size: 11px
-        width: 290px
-        padding: 0 0 0 15px
-        margin-top: 20px
-        border-left: 1px solid #b5b5b5  
-        line-height: 13px
+        .preferred
+          width: 90px
+          text-align: center
+        .description
+          width: 160px
+          font-size: 10px
 
-  .heading.yellow
-    background: image-url('report/yellow-texture.png')
-    text-shadow: 1px 1px 1px #7a6902 
-
-  .heading.green
-    background: image-url('report/green-texture.png')
-    text-shadow: 1px 1px 1px #283d06 
   .interview_guide 
     .heading.light_blue
       background: image-url('report/light-blue-bg.png')
