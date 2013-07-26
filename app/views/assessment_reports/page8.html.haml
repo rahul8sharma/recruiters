@@ -1,25 +1,17 @@
 .inner
   = render :partial => "shared/report_header"      
 
-  .scores.interview_guide 
-    .heading.light_blue.pull-left
-      Interview Guide 
+  .scores.disclaimer 
+    .blue_bg_heading.logo.pull-left
+      %b About 
     .clr
-    .divider1
-    %ul.unstyled.clearfix.interview_guide_listing 
-      - @post_assessment_guidelines.each do |factor_id, guides|
-        - guides[0..0].each do |guide|
-          - factor = guide.factor
-          %li
-            .span1.first.que-no.hexagon-icon.favorable
-              Q
-            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-            .factor-name.pull-left
-              = factor.name
-            .description.pull-left
-              = guide.body
-            .clr
+    %p
+      Jombay is an India-focused Talent Measurement solution that solves People Problems involved in Hiring, Retention and Performance. Jombay uniquely deconstructs the complexity of Psychometric Assessments into simple, easy-to-use, affordable online tools and reports that could be used by everyone (without the need of certifications and interpreters!). Our tools measure the most unpredictable of resources - People. We help to mitigate the 'People Risk' that has become the biggest threat for Indian companies. We have built a Talent Measurement expertise by profiling more than one million Indian Professionals.
+    
+    .divider3
 
-  = render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
-
-.page-break                    
+    .blue_bg_heading.pull-left
+      %b Legal Disclaimer 
+    .clr
+    %p
+      The information mentioned in this report is strictly confidential and that it should not be shared with any non-related person. The information contained is potentially sensitive and every effort should be made to ensure that it is stored in a secure place. The report must not be published in any way and should be used only for its intended purpose.
