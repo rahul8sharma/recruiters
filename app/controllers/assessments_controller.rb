@@ -36,11 +36,13 @@ class AssessmentsController < ApplicationController
       else
         params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
           norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-          from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
-          to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
-          if from_weight > to_weight
-            flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
-            return
+          if factor_norms_attributes[:from_norm_bucket_id]
+            from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
+            to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
+            if from_weight > to_weight
+              flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
+              return
+            end
           end
         end
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
@@ -76,7 +78,7 @@ class AssessmentsController < ApplicationController
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
     params[:candidates] ||= {}
-    params[:candidates].reject!{|key,data| data[:email].blank?}
+    params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     if request.put?
       @candidates = []
@@ -84,7 +86,7 @@ class AssessmentsController < ApplicationController
         flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
       end
-      if params[:candidates].find{|key,data| data[:name].blank? }.present?
+      if params[:candidates].find{|key,data| data[:name].blank? || data[:email].blank? }.present?
         flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
         render :action => :add_candidates and return
       end
@@ -94,7 +96,6 @@ class AssessmentsController < ApplicationController
         @candidates.push candidate
       end
       @company = Vger::Resources::Company.find(params[:company_id])
-      params[:candidate_names] = params[:candidates]
       render :action => :send_test_to_candidates
     end
   end
@@ -197,7 +198,9 @@ class AssessmentsController < ApplicationController
   
   # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
-    @factors = Hash[Vger::Resources::Suitability::Factor.all.to_a.collect{|x| [x.id,x]}]
+    factors = Vger::Resources::Suitability::Factor.where(:methods => [:type]).all.to_a
+    factors |= Vger::Resources::Suitability::AlarmFactor.where(:methods => [:type]).all.to_a
+    @factors = Hash[factors.collect{|x| [x.id,x]}]
     @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|x| [x.id,x]}]
     @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|x| [x.id,x]}]
     @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|x| [x.id,x]}]
@@ -209,6 +212,7 @@ class AssessmentsController < ApplicationController
   # creates job_assessment_factor_norm for each factor with default values   
   def get_norms
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    @fits = Vger::Resources::Suitability::Fit.all
     
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => { 
@@ -216,25 +220,47 @@ class AssessmentsController < ApplicationController
                                       :industry_id => @assessment.industry_id,
                                       :job_experience_id => @assessment.job_experience_id
                                     }).all.to_a
-    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods =>[ :factor ]).all.to_a
-    added_factor_ids = @job_assessment_factor_norms.map(&:factor_id)
-    default_norm_bucket_ranges.each do |default_norm_bucket_range|
-      next if @factors[default_norm_bucket_range.factor_id].nil?
+    
+                                    
+    added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
+    added_factor_ids = added_factors.map(&:factor_id)
+    @factor_norms_by_fit = {}
+    @fits.each do |fit|
+      norms_by_fit = default_norm_bucket_ranges.select{|default_norm| fit.factor_ids.include? (default_norm.factor_id)}  
       
-      assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-        default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
-           merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
-                 :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
-      )
+      assessment_factor_norms = added_factors.select{|assessment_norm| fit.factor_ids.include? (assessment_norm.factor_id)}
       
-      # to avoid calls to API, set fa, industry and exp from already fetched data
-      assessment_factor_norm.functional_area = @functional_areas[default_norm_bucket_range.functional_area_id]
-      assessment_factor_norm.industry = @industries[default_norm_bucket_range.industry_id]
-      assessment_factor_norm.job_experience = @job_experiences[default_norm_bucket_range.job_experience_id]
-      assessment_factor_norm.factor = @factors[default_norm_bucket_range.factor_id]
+      Rails.logger.ap assessment_factor_norms.collect{|x| x.factor.name}
       
-      @job_assessment_factor_norms.push assessment_factor_norm unless added_factor_ids.include? default_norm_bucket_range.factor_id
-    end  
+      @factor_norms_by_fit[fit] = {
+        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}, 
+        :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
+      }
+      
+      norms_by_fit.each do |default_norm_bucket_range|
+        next if @factors[default_norm_bucket_range.factor_id].nil?
+        
+        assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
+          default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
+             merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
+                   :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
+        )
+        
+        # to avoid calls to API, set fa, industry and exp from already fetched data
+        assessment_factor_norm.functional_area = @functional_areas[default_norm_bucket_range.functional_area_id]
+        assessment_factor_norm.industry = @industries[default_norm_bucket_range.industry_id]
+        assessment_factor_norm.job_experience = @job_experiences[default_norm_bucket_range.job_experience_id]
+        assessment_factor_norm.factor = @factors[default_norm_bucket_range.factor_id]
+        
+        unless added_factor_ids.include? default_norm_bucket_range.factor_id
+          if assessment_factor_norm.factor.type == 'Suitability::AlarmFactor'
+            @factor_norms_by_fit[fit][:alarm_factors] << assessment_factor_norm  
+          else
+            @factor_norms_by_fit[fit][:factors] << assessment_factor_norm  
+          end
+        end
+      end  
+    end
     if default_norm_bucket_ranges.empty?
       flash[:error] = "There are no default norms for this criteria. Please add the required data."
     end
@@ -250,13 +276,9 @@ class AssessmentsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).to_a.map(&:parent_id).uniq
     
-    alarm_factors = Vger::Resources::Suitability::AlarmFactor.all.to_a
-    
     all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids }).to_a
     
-    all_direct_predictors |= alarm_factors
-    
-    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
+    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
     
     selected_parents = @job_assessment_factor_norms.map(&:factor_id)
     
@@ -268,6 +290,6 @@ class AssessmentsController < ApplicationController
   end
   
   def get_company
-    @company = Vger::Resources::Company.find(params[:company_id])
+    @company = Vger::Resources::Company.find(params[:company_id], :methods => [ :assessmentwise_statistics ])
   end
 end
