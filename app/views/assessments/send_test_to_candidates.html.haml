@@ -15,8 +15,8 @@
           %li
             %label
               %input{:type => "checkbox", name: "candidates[#{candidate.id}]", checked: true}
-              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidate_names][candidate.email][:name]}
-              #{params[:candidate_names][candidate.email][:name]} &lt;#{candidate.email}&gt;
+              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidates][candidate.email][:name]}
+              #{params[:candidates][candidate.email][:name]} &lt;#{candidate.email}&gt;
       .divider2
       .test-text-to-send
         .title
