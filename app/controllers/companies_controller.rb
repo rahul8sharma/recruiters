@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
   before_filter :get_company, :only => [ :show, :candidate, :settings, :account, :company, :statistics]
   
   def index
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :methods => [ :subscription, :assessmentwise_statistics ])
   end
   
   def manage
@@ -47,7 +47,7 @@ class CompaniesController < ApplicationController
   protected
   
   def get_company
-    @company = Vger::Resources::Company.find(params[:id])
+    @company = Vger::Resources::Company.find(params[:id], :methods => [ :subscription, :assessment_statistics ])
   end
 end
 
