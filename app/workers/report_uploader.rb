@@ -77,7 +77,7 @@ class ReportUploader < AbstractController::Base
   def upload_pdf_to_s3(file_id,pdf)
     Rails.logger.debug "Uploading #{file_id} to s3 ........."
     AWS::S3::Base.establish_connection!(Rails.application.config.s3)
-    s3_bucket_name = 'report_pdfs'
+    s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
     s3_key = "#{file_id}"
     url = S3Utils.upload(s3_bucket_name, s3_key, pdf)
     Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"

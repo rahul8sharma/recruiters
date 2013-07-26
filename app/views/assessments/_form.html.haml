@@ -5,7 +5,7 @@
   .divider1
   .control
     %label 
-      Function Area
+      Functional Area
     %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       - @functional_areas.each do |id,functional_area|
         %option{:value => (functional_area.id), selected: (assessment.functional_area_id == functional_area.id)}

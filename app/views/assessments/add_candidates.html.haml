@@ -7,7 +7,7 @@
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .select-candidate-type 
         %b.span.show.left-offset1
-          Please select the candidate type :
+          Please select the candidate type:
         .show.left-offset1.pull-left
           %label
             %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED}

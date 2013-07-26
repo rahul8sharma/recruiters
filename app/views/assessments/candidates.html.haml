@@ -1,7 +1,7 @@
 .create-test.creat-test-show
   .inn.first
     .page-title.pull-left
-      Test ID - #{@assessment.name}
+      Test #{@assessment.id} - #{@assessment.name}
     %a.btn.pull-right{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
       .link-color Send This Test
   .clr
@@ -20,16 +20,16 @@
       .span6
         Test Status
       .span
-        Action
+        //Action
     %ul.unstyled
       - @candidates.each do |candidate|
         - candidate_assessment = @assessment.candidate_assessments.where(:methods => [:candidate_assessment_reports]).find{|x| x.candidate_id == candidate.id}
-        %li.list-snippet.padding-all1
+        %li.list-snippet
           .span2
             %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"JOM#{candidate.id}"} JOM#{candidate.id}
           .span10.first.lhs-border
             %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
-              = candidate.name
+              = h candidate.name
           .span6.lhs-border
             %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }  
               = candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'
