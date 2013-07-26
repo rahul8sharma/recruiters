@@ -1,51 +1,52 @@
-= render :partial => "shared/report_header"      
+.inner
+  = render :partial => "shared/report_header"      
 
-.scores.overview
-  .heading.green.pull-left
-    Miscellaneous
+  .scores.overview
+    .heading.green.pull-left
+      Miscellaneous
 
-  .clr
-  .divider2
+    .clr
+    .divider2
 
-  .miscellaneous
-    - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
-      .snippet
-        .lhs.pull-left
-          .hexagon-big-icon.pull-left
-            .name{ :style => "padding-top:5px;" }
-              = factor_score.factor.parent.name
-          .title.pull-left
-            = factor_score.factor.name
+    .miscellaneous
+      - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
+        .snippet
+          .lhs.pull-left
+            .hexagon-big-icon.pull-left
+              .name{ :style => "padding-top:5px;" }
+                = factor_score.factor.parent.name
+            .title.pull-left
+              = factor_score.factor.name
+            .clr
+          .rhs.pull-left
+            = factor_score.factor.parent.definition
           .clr
-        .rhs.pull-left
-          = factor_score.factor.parent.definition
+    .heading.yellow.pull-left
+      Alarms
+
+    .clr.divider2
+    .alarms
+      .left-offset10
+        .span3.title
+          Actual Scores 
         .clr
-  .heading.yellow.pull-left
-    Alarms
+      %ul.unstyled.clearfix.alarms_listing
+        - @candidate_factor_scores_for_alarm_factors.each_with_index do |(factor_id, factor_score), index|
+          %li
+            .lhs-sec.pull-left
+              .span1.first.que-no.hexagon-icon.less_favorable
+                = index + 1
+              .span9
+                .factor-name
+                  = factor_score.factor.name
+                .factor-description
+                  = factor_score.factor.definition
+              .clr 
+            .span3.wrap-actual
+              .wrap-inn
+                = factor_score.norm_bucket.name
+            .clr
 
-  .clr.divider2
-  .alarms
-    .left-offset10
-      .span3.title
-        Actual Scores 
-      .clr
-    %ul.unstyled.clearfix.alarms_listing
-      - @candidate_factor_scores_for_alarm_factors.each_with_index do |(factor_id, factor_score), index|
-        %li
-          .lhs-sec.pull-left
-            .span1.first.que-no.hexagon-icon.less_favorable
-              = index + 1
-            .span9
-              .factor-name
-                = factor_score.factor.name
-              .factor-description
-                = factor_score.factor.definition
-            .clr 
-          .span3.wrap-actual
-            .wrap-inn
-              = factor_score.norm_bucket.name
-          .clr
-
-= render :partial => "shared/report_footer", :locals => { :current_page => 7 }      
+  = render :partial => "shared/report_footer", :locals => { :current_page => 7 }      
 
 .page-break          

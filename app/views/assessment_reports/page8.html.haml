@@ -1,24 +1,25 @@
-= render :partial => "shared/report_header"      
+.inner
+  = render :partial => "shared/report_header"      
 
-.scores.interview_guide 
-  .heading.light_blue.pull-left
-    Interview Guide 
-  .clr
-  .divider1
-  %ul.unstyled.clearfix.interview_guide_listing 
-    - @post_assessment_guidelines.each do |factor_id, guides|
-      - guides[0..0].each do |guide|
-        - factor = guide.factor
-        %li
-          .span1.first.que-no.hexagon-icon.favorable
-            Q
-          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-          .factor-name.pull-left
-            = factor.name
-          .description.pull-left
-            = guide.body
-          .clr
+  .scores.interview_guide 
+    .heading.light_blue.pull-left
+      Interview Guide 
+    .clr
+    .divider1
+    %ul.unstyled.clearfix.interview_guide_listing 
+      - @post_assessment_guidelines.each do |factor_id, guides|
+        - guides[0..0].each do |guide|
+          - factor = guide.factor
+          %li
+            .span1.first.que-no.hexagon-icon.favorable
+              Q
+            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+            .factor-name.pull-left
+              = factor.name
+            .description.pull-left
+              = guide.body
+            .clr
 
-= render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
+  = render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
 
 .page-break                    

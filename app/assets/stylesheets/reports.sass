@@ -23,9 +23,8 @@ $mid_favorable_color: #062b58
     width: 580px
     margin: 0 auto
   .report_content
-    background: image-url("report/hexagon-bg.png") no-repeat 70px 125px 
-    height: 700px
-    padding: 30px
+    min-height: 700px
+    padding: 18px 30px
   .dashed_border
     border-bottom: 1px dashed #b2b2b2
     margin-bottom: 18px
@@ -41,15 +40,17 @@ $mid_favorable_color: #062b58
     background: image-url('report/blue-texture.png')
     padding: 15px 0 15px 30px 
     color: #fff
+    .date
+      font-size: 10px
     .right-side
       .pull-left.span
-        width: 240px
+        width: 180px
     .left-side, .right-side
       padding: 0 10px 0 15px
       float: left
     .left-side
-      border-right: 3px solid #929dab
-      max-width: 125px
+      border-right: 1px solid #fff
+      max-width: 145px
       word-break: break-all
       -ms-word-break: break-all
       -webkit-word-break: break-all
@@ -111,35 +112,65 @@ $mid_favorable_color: #062b58
       color: #fff
       margin-bottom: 145px
       .user_name
-        font-size: 22px
+        font-size: 16px
         font-weight: bold
         line-height: 30px
+      .big-text
+        font-size: 22px
+        font-weight: bold
+        line-height: 22px
     .logo
       width: 100px
       height: 25px
       background: image-url('report/logo.png') no-repeat center center
-      margin-bottom: 60px
+      margin-bottom: 45px
     .sub-heading
       font-weight: bold
       color: #fff
       text-shadow: 1px 1px 1px #283d06
-      background: image-url('report/green-texture.png')
-      padding: 15px 10px 15px 50px
+      background: image-url('report/orange-texture.png')
+      padding: 10px 10px 10px 50px
       margin-bottom: 20px
 
-  
   .factor_fit
     [class*=instruction]
-      padding: 5px 40px
+      padding: 5px 50px
       color: #969696
       font-weight: bold
-      margin-bottom: 15px
+      margin-bottom: 5px
       background: image-url("report/hexagon-small.png") no-repeat
+    .blue_bg_heading
+      background: #1db3c4
+      padding: 15px 10px
+      color: #fff
+      font-size: 18px
+      margin-bottom: 18px
+    .blue_bg_heading.iconic
+      position: relative
+      padding: 15px 70px 15px 30px
+      .thumbnails 
+        position: absolute
+        left: 92%
+        top: 0%
+        width: 113px
+        height: 96px
+        background: image-url("report/hexagon-thumbnails.png") no-repeat
+        [class*="thumbnails_inn"]
+          background: image-url("report/thumbnails-inn.png") no-repeat center 0
+          height: 97px
+        .thumbnails_inn2
+          background-position: center -105px
+        .thumbnails_inn3
+          background-position: center -210px
+
+
+
+
+
     .instruction2
       background-position: 0px -33px
     .bottom_sec
-      margin: 400px 0 0 360px 
-
+      margin: 0px 0 0 360px 
       position: relative
       [class*="title_"], [class*="strength_"]
         position: absolute
@@ -148,38 +179,50 @@ $mid_favorable_color: #062b58
         font-weight: bold
       [class*="strength_"]
         top: 80px
-        width: 35px
+        width: 42px
         text-align: center
         color: #b6b6b6
       .title_1 
         font-size: 13px
-        left: -5px
+        left: -0px
         top: 30px
       .strength_1
         font-size: 10px
         color: #082d5a
-        left: 35px
-        width: 40px
+        left: 38px
+        top: 72px
       .title_2
         left: 28px
         top: 173px
       .strength_2
-        left: 40px
-        top: 135px
+        left: 41px
+        top: 125px
       .title_3
-        left: 95px
-        top: 135px
+        left: 103px
+        top: 127px
       .strength_3
-        left: 81px
-        top: 111px
+        left: 83px
+        top: 102px
+      .indication
+        position: absolute
+        font-size: 11px
+        line-height: 13px
+        width: 260px
+        left: -300px
+        top: 150px
 
     .factors_container
-      position: relative
+      background: image-url("report/hexagon-bg.png") no-repeat 10px top
+      height: 600px
+      width: 580px
 
+      .factors_list
+        position: relative
+        height: 395px
 
       [class*="factor_"]
         position: absolute
-        width: 100px
+        width: 90px
         text-align: center
         font-weight: bold
         .wrapper
@@ -188,46 +231,46 @@ $mid_favorable_color: #062b58
           -webkit-word-break: break-all
 
       .factor_1
-        left: 134px
-        top: -16px
+        left: 160px
+        top: 11px
       .factor_2
-        left: 45px
-        top: 35px
+        left: 78px
+        top: 60px
       .factor_3
-        left: 229px
-        top: 33px
+        left: 248px
+        top: 57px
       .factor_4
-        left: 140px
-        top: 86px
+        left: 167px
+        top: 106px
       .factor_5
-        left: 321px
-        top: 86px
+        left: 334px
+        top: 105px
       .factor_6
-        left: 49px
-        top: 139px
+        left: 83px
+        top: 155px
       .factor_7
-        left: 233px
-        top: 140px
+        left: 252px
+        top: 154px
       .factor_8
-        left: 140px
-        top: 189px
+        left: 169px
+        top: 201px
       .factor_9
-        left: 51px
-        top: 242px
+        left: 86px
+        top: 249px
       .factor_10
-        left: 146px
-        top: 292px
+        left: 173px
+        top: 296px
       .factor_11
-        left: 236px
-        top: 240px
+        left: 256px
+        top: 247px
       .factor_12
-        left: 327px
-        top: 187px
+        left: 339px
+        top: 199px
       .factor_13
-        left: 327px
-        top: 290px
+        left: 340px
+        top: 293px
       .factor_14
-        left: 240px
+        left: 260px
         top: 342px
 
   .scores
@@ -385,7 +428,7 @@ $mid_favorable_color: #062b58
         line-height: 13px
   
   .footer
-    color: #0b6e92
+    color: #fff
     background: #002735
-    font-size: 14px
+    font-size: 12px
     padding: 15px 35px 
