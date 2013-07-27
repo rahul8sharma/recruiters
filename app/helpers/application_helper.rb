@@ -15,7 +15,13 @@ module ApplicationHelper
   	
   end
   
-  
+  # this is a UI helper for rendering labels
+  # this method could be used to render factual information
+  # this method checks if object to be displayed exists 
+  # if yes, render the object
+  # else render default alternative text / replacement text if present
+  # TODO add support for prefix and suffix to the displayed text
+  # this could be achieved via options later
   def h(obj, replacement=nil,options={})
     if obj.present?
       return obj
