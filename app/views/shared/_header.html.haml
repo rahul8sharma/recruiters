@@ -8,8 +8,8 @@
         - if current_user  
           %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
             Logout
-          %a.userName.pull-right{:href => companies_path, :title => current_user.name }
-            %b #{current_user.name} 
+          .userName.pull-right
+            %b #{h current_user.name, "-"} 
             \| 
             #{current_user.type} 
             / %span.icon-caret-down

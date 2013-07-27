@@ -8,7 +8,7 @@
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
 
-%li.item.checked
+%li{ id: "li_#{index}", class: "item #{job_factor_norm.id.present? ? 'checked':''}" }
   - if job_factor_norm.id.nil?
     %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), disabled: 'disabled'}
     .pull-left 

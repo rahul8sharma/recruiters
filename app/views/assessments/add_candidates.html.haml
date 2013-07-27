@@ -1,6 +1,6 @@
 .create-test.norms.add
   .inn.first
-    .page-title Test - "#{@assessment.name}"
+    .page-title #{@assessment.name}
   .inn
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
@@ -28,7 +28,7 @@
       .divider1
       %ul.add-candidates.unstyled.clearfix
         - 10.times do |index|
-          = render :partial => "assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1) } 
+          = render :partial => "assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
       %button.pull-right.btn.btn-info
         Proceed
       .clr

@@ -28,9 +28,9 @@
             %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
           .span4.lhs-border
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=> "333"}  111
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=> "333"}  #{@company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0}
           .span4.lhs-border
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=>"333"}  22
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=>"333"}  #{@company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0}
           .span.lhs-border
             %a.underlined{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               Send This Test   
