@@ -32,7 +32,7 @@
       .divider1
       %b.medium-text
         Selected Factors: 
-        = @job_assessment_factor_norms.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
+      = @assessment.job_assessment_factor_norms.where(:methods => [ :factor ]).collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
       .alert.alert-info.padding-all1.text-center
