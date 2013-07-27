@@ -230,8 +230,6 @@ class AssessmentsController < ApplicationController
       
       assessment_factor_norms = added_factors.select{|assessment_norm| fit.factor_ids.include? (assessment_norm.factor_id)}
       
-      Rails.logger.ap assessment_factor_norms.collect{|x| x.factor.name}
-      
       @factor_norms_by_fit[fit] = {
         :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}, 
         :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
