@@ -23,8 +23,17 @@ class ReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
-      html = render_to_string(template: 'assessment_reports/assessment_report.html.haml', :layout => "layouts/reports.html.haml", :handlers => [ :haml ])
-      pdf = WickedPdf.new.pdf_from_string(html)
+      html = render_to_string(
+         template: 'assessment_reports/assessment_report.html.haml', 
+         layout: "layouts/reports.html.haml", 
+         handlers: [ :haml ]
+      )
+      
+      pdf = WickedPdf.new.pdf_from_string(render_to_string(
+         template: 'assessment_reports/assessment_report.html.haml', 
+         layout: "layouts/reports.html.haml", 
+         handlers: [ :haml ], margin: { :left => "5mm",:right => "5mm", :top => "20mm", :bottom => "0mm" }
+      ))
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       pdf_file_id = "report_#{report.id}.pdf"
@@ -87,7 +96,7 @@ class ReportUploader < AbstractController::Base
   def get_assessment(candidate_assessment)
     @assessment = Vger::Resources::Suitability::Assessment.find(candidate_assessment.assessment_id) 
     @candidate = Vger::Resources::Candidate.find(candidate_assessment.candidate_id)
-   @assessment_factor_norms = Hash[@assessment.job_assessment_factor_norms.where(:methods => [ :from_norm_bucket, :to_norm_bucket ]).all.to_a.collect{|x| [x.factor_id,x]}]
+    @assessment_factor_norms = Hash[@assessment.job_assessment_factor_norms.where(:methods => [ :from_norm_bucket, :to_norm_bucket ]).all.to_a.collect{|x| [x.factor_id,x]}]
     get_factors
     get_measured_factors
     get_page1_data
@@ -108,10 +117,13 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_measured_factors
+    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:from_norm_bucket, :to_norm_bucket]).all.to_a
+    @assessment_factor_norms = Hash[@assessment_factor_norms.collect{|x| [x.factor_id, x]}]
+  
     @candidate_factor_scores = Hash[@candidate_assessment.candidate_factor_scores.where(:methods => [:norm_bucket]).to_a.each{|x| x.factor = @factors_by_id[x.factor_id]}.collect{|x| [x.factor_id,x]}]
     @measured_factors = Vger::Resources::Suitability::Factor.where(:query_options => { :type => "Suitability::Factor",  :id => @candidate_factor_scores.values.map(&:factor_id) })
     #@measured_factors |= Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
-    #@measured_factors |= Vger::Resources::Suitability::AlarmFactor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
+    @measured_factors |= Vger::Resources::Suitability::AlarmFactor.where(:query_options => { :id => @candidate_factor_scores.values.map(&:factor_id) }) 
     @measured_factors_ids = @measured_factors.map(&:id).compact
   end
   
@@ -127,9 +139,8 @@ class ReportUploader < AbstractController::Base
     @factors_by_fit = {}
     @fits = Vger::Resources::Suitability::Fit.all.to_a
     @fits.each do |fit|
-      @factors_by_fit[fit] = (@factors - @direct_predictors - @alarm_factors - @parent_factors).select{|x| fit.factor_ids.include? x.id}
+      @factors_by_fit[fit] = (@factors - @direct_predictors - @parent_factors).select{|x| fit.factor_ids.include? x.id}
     end
-    @candidate_fit_scores = @candidate_assessment.candidate_fit_scores.where(:methods => [:fitment_grade, :fit]).to_a
     
     @job_fit = get_job_fit(@fits)
     @company_fit = get_company_fit(@fits)
