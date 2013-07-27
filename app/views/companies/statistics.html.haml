@@ -18,7 +18,7 @@
             - completed_percentage = ((@company.assessment_statistics[:assessments_completed] * 100) / total)
           .column.green-bg{:style => "width: #{sent_percentage}%"}
           .column.yellow-bg{:style => "width: #{completed_percentage}%"}
-          .column.orange-bg{:style => "width: 20%"}
+          //.column.orange-bg{:style => "width: 20%"}
       .span6
         %span.icon-stop.green-bg 
         %span Total Tests Sent: 
