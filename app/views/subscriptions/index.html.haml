@@ -1,0 +1,33 @@
+%h1 All job experiences
+- if can? :create, "Subscription"
+  = link_to "Manage Subscriptions", manage_subscriptions_path    
+
+.pagination.pull-right        
+  = paginate @subscriptions
+.clr       
+  
+%table
+  %tr
+    %th ID
+    %th Company Id
+    %th Assessments Purchased
+    %th Valid From
+    %th Valid To
+  - for subscription in @subscriptions do
+    %tr
+      %td 
+        = subscription.id
+      %td 
+        = subscription.company_id
+      %td 
+        = subscription.assessments_purchased
+      %td 
+        = Date.parse(subscription.valid_from) rescue '-'
+      %td 
+        = Date.parse(subscription.valid_to) rescue '-'
+
+%br
+.pagination.pull-right        
+  = paginate @subscriptions    
+.clr       
+
