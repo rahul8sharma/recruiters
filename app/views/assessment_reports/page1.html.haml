@@ -7,19 +7,20 @@
         Suitability Assessment Report
       .user_name
         = @candidate.name
-      .date
-        %span Date: 
-        %span
-          &nbsp; #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
       .span.first
         Assessment: 
       .span7
         #{@assessment.name} 
       .clr
+      .date
+        %span Date: 
+        %span
+          #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
+      .clr
 
 
     .sub-heading.large-text.pull-right
-      Jombay’s Recommendation : #{@recommendation.body} 
+      Jombay&#39;s Recommendation : #{@recommendation.body} 
     .clr
     .sub-heading.medium-text.pull-right
       #{@candidate.name}&#39;s Fitment Scores
@@ -39,6 +40,4 @@
       .title_3
         Team Fit
 
-  = render :partial => "shared/report_footer", :locals => { :current_page => 1 }
-
-.page-break      
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 1 }

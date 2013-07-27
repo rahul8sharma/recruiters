@@ -1,5 +1,5 @@
 .inner
-  = render :partial => "shared/report_header"      
+  = render :partial => "shared/report_header.html.haml"      
 
   .factor_fit.report_content
     .blue_bg_heading.iconic.pull-left
@@ -17,8 +17,8 @@
         - @factors_by_fit[@job_fit].each_with_index do |factor,index|
           - measured = @measured_factors_ids.include?(factor.id)
           - if measured
-            %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
-              .wrapper{:style=>"margin-top: 30px;"}
+            %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass? ? 'favorable' : 'less_favorable'}" }
+              .wrapper{:style=>"margin-top: 25px;"}
                 = factor.name
       .bottom_sec
         .title_1
@@ -36,6 +36,4 @@
         .indication
           Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
         
-  = render :partial => "shared/report_footer", :locals => { :current_page => 2 }      
-      
-.page-break       
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 2 }      
