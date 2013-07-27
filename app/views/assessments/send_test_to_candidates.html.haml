@@ -9,7 +9,8 @@
       = render :partial => "shared/test-flow-sub-nav"
       .divider1
       .medium-text
-        %b Test will be sent to the following candidates: (Please uncheck the candidates you don't wish to send the test to)
+        %b Test will be sent to the following candidates: 
+        (Please uncheck the candidates you don't wish to send the test to)
       %ul.unstyled.clearfix.candidate-list-to-send
         - @candidates.each do |candidate|
           %li
@@ -26,7 +27,7 @@
         .title
           Subject
         .massage-body.subject
-          #{@company.name} - #{@assessment.name}
+          &lt;Candidate Name&gt;, #{@company.name} has chosen you to write an Assessment
         .title
           Message
         .massage-body.massage
