@@ -1,51 +1,34 @@
-= render :partial => "shared/report_header"      
+.inner
+  = render :partial => "shared/report_header"      
 
-.scores.overview
-  .heading.green.pull-left
-    Miscellaneous
+  .scores.interview_guide 
+    .blue_bg_heading.pull-left
+      %b Interview Questions
+    .indication.pull-right
+      .hexagon-icon.favorable.pull-left
+      .pull-left
+        Favorable
+      .hexagon-icon.less_favorable.pull-left
+      .pull-left
+        Less Favorable
+      .hexagon-icon.mid_favorable.pull-left
+      .pull-left
+        Miscellaneous
+    .clr
+    .divider1
+    %ul.unstyled.clearfix.interview_guide_listing 
+      - @post_assessment_guidelines.each do |factor_id, guides|
+        - guides[0..0].each do |guide|
+          - factor = guide.factor
+          %li
+            .span1.first.que-no.hexagon-icon.favorable
+            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+            .factor-name.pull-left
+              = factor.name
+            .description.pull-left
+              = guide.body
+            .clr
 
-  .clr
-  .divider2
+  = render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
 
-  .miscellaneous
-    - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
-      .snippet
-        .lhs.pull-left
-          .hexagon-big-icon.pull-left
-            .name{ :style => "padding-top:5px;" }
-              = factor_score.factor.parent.name
-          .title.pull-left
-            = factor_score.factor.name
-          .clr
-        .rhs.pull-left
-          = factor_score.factor.parent.definition
-        .clr
-  .heading.yellow.pull-left
-    Alarms
-
-  .clr.divider2
-  .alarms
-    .left-offset10
-      .span3.title
-        Actual Scores 
-      .clr
-    %ul.unstyled.clearfix.alarms_listing
-      - @candidate_factor_scores_for_alarm_factors.each_with_index do |(factor_id, factor_score), index|
-        %li
-          .lhs-sec.pull-left
-            .span1.first.que-no.hexagon-icon.less_favorable
-              = index + 1
-            .span9
-              .factor-name
-                = factor_score.factor.name
-              .factor-description
-                = factor_score.factor.definition
-            .clr 
-          .span3.wrap-actual
-            .wrap-inn
-              = factor_score.norm_bucket.name
-          .clr
-
-= render :partial => "shared/report_footer", :locals => { :current_page => 7 }      
-
-.page-break          
+.page-break                    
