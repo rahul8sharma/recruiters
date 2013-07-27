@@ -19,7 +19,7 @@ class SubscriptionsController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Subscription\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id", "uid", "assessments_purchased", "price"]))
     redirect_to subscriptions_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
