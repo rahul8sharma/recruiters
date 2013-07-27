@@ -1,5 +1,14 @@
 class Suitability::FactorsController < ApplicationController
   before_filter :authenticate_user!
+
+  def api_resource
+    Vger::Resources::Suitability::Factor
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+  end
   
   layout "admin"
   

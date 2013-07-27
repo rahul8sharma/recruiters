@@ -1,8 +1,17 @@
 class Suitability::Job::FactorNormsController < ApplicationController
   before_filter :authenticate_user!
-  
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
+  def api_resource
+    Vger::Resources::Suitability::Job::FactorNorm
+  end
+
   layout "admin"
-  
+
   def index
     @job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm\
                         .all(:methods => [:factor,
@@ -25,21 +34,21 @@ class Suitability::Job::FactorNormsController < ApplicationController
     redirect_to suitability_job_factor_norms_path,
                 notice: "Suitability Job Factor Norms imported."
   end
-  
+
   def manage
     @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
     @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
     @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
-  
+
   def import_via_s3
     AWS::S3::Base.establish_connection!(Rails.configuration.s3)
 
     s3_bucket_name = 'master_data'
     s3_key = 'factor_norms.csv.zip'
-    
+
     S3Utils.upload(s3_bucket_name, s3_key, params[:import][:file])
-    
+
     Vger::Resources::Suitability::Job::FactorNorm\
       .import_from_s3(:file => {
                         :bucket => s3_bucket_name,

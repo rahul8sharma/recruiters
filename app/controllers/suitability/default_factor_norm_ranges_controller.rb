@@ -1,5 +1,14 @@
 class Suitability::DefaultFactorNormRangesController < ApplicationController
   before_filter :authenticate_user!
+
+  def api_resource
+    Vger::Resources::FunctionalArea
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+  end
   
   layout "admin"
   

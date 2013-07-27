@@ -1,14 +1,23 @@
 class AccountManagersController < ApplicationController
 	before_filter :authenticate_user!
-	
+
+  def api_resource
+    Vger::Resources::AccountManager
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   def import
 		Vger::Resources::AccountManager.import(params[:file])
 		redirect_to account_managers_path, notice: "Account Managers imported."
-	end	
+	end
 
   def manage
   end
-  
+
 	def import_from_google_drive
     Vger::Resources::AccountManager\
       .import_from_google_drive(params[:import])
@@ -28,7 +37,7 @@ class AccountManagersController < ApplicationController
     Vger::Resources::AccountManager.import_jobs(params[:file])
     redirect_to account_managers_path, notice: "Jobs assigned."
   end
-  
+
   # GET /account_managers
   def index
   	@account_managers = Vger::Resources::AccountManager.where(:page => params[:page], :per => 10)
