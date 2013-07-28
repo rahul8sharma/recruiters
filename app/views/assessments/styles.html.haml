@@ -59,8 +59,13 @@
   $("#li_"+index).addClass("checked");
   $("input:not(:checkbox)[index='"+index+"']").removeAttr("disabled");
   }else{
+  var id = $("#id_"+index).val();
+  if(id != null && id != ""){
+  $("#destroy_"+index).val(true);
+  }else{
   $("input:not(:checkbox)[index='"+index+"']").attr("disabled",'disabled');
   $("#li_"+index).removeClass("checked");
+  }
   }
   });
   $("input[name='checkbox_critical']").change(function(){
