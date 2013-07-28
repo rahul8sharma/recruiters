@@ -7,20 +7,20 @@ class CompaniesController < ApplicationController
 
   def destroy_all
     api_resource.destroy_all
-    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
-  
-  layout "companies" 
-  
+
+  layout "companies"
+
   before_filter :get_company, :only => [ :show, :candidate, :settings, :account, :company, :statistics]
-  
+
   def index
     @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)
   end
-  
+
   def manage
   end
-  
+
 	def import_from_google_drive
     Vger::Resources::Company\
       .import_from_google_drive(params[:import])
@@ -34,27 +34,27 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    
+
   end
-  
+
   def candidate
   end
-  
+
   def settings
   end
-  
+
   def account
   end
-  
+
   def company
   end
-  
+
   def statistics
   end
-  
+
 
   protected
-  
+
   def get_company
     @company = Vger::Resources::Company.find(params[:id])
   end

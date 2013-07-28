@@ -7,7 +7,7 @@ class AccountManagersController < ApplicationController
 
   def destroy_all
     api_resource.destroy_all
-    redirect_to ENV['HTTP_REFERER'], notice: 'All records deleted'
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
 
   def import
