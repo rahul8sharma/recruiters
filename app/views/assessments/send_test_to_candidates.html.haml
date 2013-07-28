@@ -9,14 +9,15 @@
       = render :partial => "shared/test-flow-sub-nav"
       .divider1
       .medium-text
-        %b Test will be sent to the following candidates: (Please uncheck the candidates you don't wish to send the test to)
+        %b Test will be sent to the following candidates: 
+        (Please uncheck the candidates you don't wish to send the test to)
       %ul.unstyled.clearfix.candidate-list-to-send
         - @candidates.each do |candidate|
           %li
             %label
               %input{:type => "checkbox", name: "candidates[#{candidate.id}]", checked: true}
-              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidate_names][candidate.email][:name]}
-              #{params[:candidate_names][candidate.email][:name]} &lt;#{candidate.email}&gt;
+              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidates][candidate.email][:name]}
+              #{params[:candidates][candidate.email][:name]} &lt;#{candidate.email}&gt;
       .divider2
       .test-text-to-send
         .title
@@ -26,7 +27,7 @@
         .title
           Subject
         .massage-body.subject
-          #{@company.name} - #{@assessment.name}
+          &lt;Candidate Name&gt;, #{@company.name} has chosen you to write an Assessment
         .title
           Message
         .massage-body.massage

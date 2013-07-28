@@ -1,13 +1,9 @@
 .create-test
   .inn.first
-    .page-title Tests
+    .page-title Create New Test
   .inn
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
     .extra-medium-text
       %b Please provide the following information:
-    .divider1
-    .medium-text 
-      %b Test Title
-      (For example, "Sales Manager for Oil Engine Business Unit")
     = render 'form', method: :post, url: company_assessments_path(:company_id => params[:company_id]), assessment: @assessment  

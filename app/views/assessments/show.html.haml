@@ -30,21 +30,21 @@
     .divider1
     .text-right
       %span.medium-text Tests Sent: 
-      %span.large-text 753
+      %span.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
 
       %span.left-offset1
         %span.medium-text Tests Taken: 
-        %span.large-text 453
+        %span.large-text #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
     .divider1
     .medium-text 
       %b Selected Factors
     .divider1
     .left-offset1
-      %b.span12
+      %b.span12.medium-text
         Suitability Factors
-      %b.span6
+      %b.span6.medium-text
         Desired/Acceptable Score Range
-      %b.span
+      %b.span.medium-text
         Critical
       .clr.divider1
       %ul.unstyled.selected-factors

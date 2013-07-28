@@ -1,33 +1,39 @@
-= render :partial => "shared/report_header"      
+.inner
+  = render :partial => "shared/report_header.html.haml"      
 
-.factor_fit.report_content
-  .report_title
-    Factors under Company Fit
-  .instruction1
-    Favorable 
-  .instruction2
-    Less Favorable 
-  .factors_container
-    - @factors_by_fit[@company_fit].each_with_index do |factor,index|
-      - measured = @measured_factors_ids.include?(factor.id)
-      - if measured
-        %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass ? 'favorable' : 'less_favorable'}" }
-          .wrapper{:style=>"margin-top: 30px;"}
-            = factor.name
-  .bottom_sec
-    .title_1
-      Company Fit
-    .strength_1
-      = @company_fit_grade
-    .title_2
-      Job Role Fit
-    .strength_2
-      = @job_fit_grade
-    .title_3
-      Team Fit
-    .strength_3
-      = @team_fit_grade
-
-= render :partial => "shared/report_footer", :locals => { :current_page => 3 }       
-      
-.page-break      
+  .factor_fit.report_content
+    .blue_bg_heading.iconic.pull-left
+      Factors measured under 
+      %b Company Fit
+      .thumbnails
+        .thumbnails_inn1
+    .clr
+    .instruction1
+      Favorable 
+    .instruction2
+      Less Favorable 
+    .factors_container
+      .factors_list
+        - @factors_by_fit[@company_fit].each_with_index do |factor,index|
+          - measured = @measured_factors_ids.include?(factor.id)
+          - if measured
+            %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass? ? 'favorable' : 'less_favorable'}" }
+              .wrapper{:style=>"margin-top: 25px;"}
+                = factor.name
+      .bottom_sec
+        .title_1
+          Company Fit
+        .strength_1
+          = @company_fit_grade
+        .title_2
+          Job Role Fit
+        .strength_2
+          = @job_fit_grade
+        .title_3
+          Team Fit
+        .strength_3
+          = @team_fit_grade
+        .indication
+          Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
+        
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 3 }      

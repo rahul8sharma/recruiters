@@ -61,6 +61,13 @@ Recruiters::Application.routes.draw do
           post 'import_from_google_drive'
           post 'export_to_google_drive'
         end
+        
+        get "/report/", :to => "assessment_reports#assessment_report"
+        member do
+          [*1..10].each do |page|
+            get "/report/page#{page}", :to => "assessment_reports#page#{page}"
+          end
+        end
       end
     end
 
@@ -96,6 +103,15 @@ Recruiters::Application.routes.draw do
 	  end
   end
 
+  resources :subscriptions, :only => [:index] do
+	  collection do 
+	    post :import 
+      get 'manage'
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+	  end
+  end
+  
   resources :locations, :only => [:index, :new] do
 	  collection do
 	    post :import
@@ -255,9 +271,15 @@ Recruiters::Application.routes.draw do
   end
 
   match "/login", :to => "users#login", :as => :login
-  match "/users/password/edit", :to => "users#reset_password", :as => :reset_password
-  match "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
+  
+  get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
+  put "/users/password/edit", :to => "users#update_password", :as => :update_password
+  
+  get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
+  post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
+	
 	match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
 	match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+	
   root :to => "pages#home"
 end
