@@ -38,29 +38,25 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @candidate_factor_scores.select{|factor_id,factor_score| @team_fit.factor_ids.include?(factor_score.factor_id) }.each_with_index do |(factor_id,factor_score),index|
-        - measured = @measured_factors_ids.include?(factor_id)
-        - if measured
-          %li
-            .lhs-sec.pull-left
-              %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
-              //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-              .span6
-                .factor-name
-                  = factor_score.factor.name
-                .factor-description
-                  = factor_score.factor.definition
-              .clr 
-            .rhs-sec.pull-left
-              .slider
-                - position = factor_score.norm_bucket.weight - 1
-                .pointer{ class: "position#{position}" }
-                // Use position1, postion2...5. for pointer position
-                - width = @assessment_factor_norms[factor_score.factor_id].to_norm_bucket.weight - 1
-                - offset = @assessment_factor_norms[factor_score.factor_id].from_norm_bucket.weight - 1
-                .range{ class: "offset#{offset} width#{width}" }
-                  //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+      - @candidate_factor_scores.select{|factor_id,factor_score| @team_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.each_with_index do |(factor_id,factor_score),index|
+        %li
+          .lhs-sec.pull-left
+            %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
+            //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+            .span6
+              .factor-name
+                = factor_score.factor.name
+              .factor-description
+                = factor_score.factor.definition
+            .clr 
+          .rhs-sec.pull-left
+            .slider
+              - position = factor_score.norm_bucket.weight - 1
+              .pointer{ class: "position#{position}" }
+              // Use position1, postion2...5. for pointer position
+              - width = @assessment_factor_norms[factor_score.factor_id].to_norm_bucket.weight - 1
+              - offset = @assessment_factor_norms[factor_score.factor_id].from_norm_bucket.weight - 1
+              .range{ class: "offset#{offset} width#{width}" }
+                //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
-            .clr
-            
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 7 }      
+          .clr

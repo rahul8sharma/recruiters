@@ -26,13 +26,15 @@ class ReportUploader < AbstractController::Base
       html = render_to_string(
          template: 'assessment_reports/assessment_report.html.haml', 
          layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         locals: { :@view_mode => "html" }
       )
       
       pdf = WickedPdf.new.pdf_from_string(render_to_string(
          template: 'assessment_reports/assessment_report.html.haml', 
          layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ], margin: { :left => "5mm",:right => "5mm", :top => "20mm", :bottom => "0mm" }
+         handlers: [ :haml ], margin: { :left => "5mm",:right => "5mm", :top => "20mm", :bottom => "0mm" },
+         locals: { :@view_mode => "pdf" }
       ))
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
