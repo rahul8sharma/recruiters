@@ -30,6 +30,7 @@ class AssessmentsController < ApplicationController
       get_norms
     elsif request.put?  
       get_norms
+      params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       if !params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.present?
         flash[:error] = "Please select at least one factor to proceed."
         return
