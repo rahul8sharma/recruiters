@@ -1,12 +1,15 @@
 $favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
+
 .page-break
   display: block 
   clear: both 
   page-break-after: always     
   
 .report
+  width: 580px
+  margin: 0 auto
   .favorable
     color: $favorable_color  
   .less_favorable
@@ -21,6 +24,7 @@ $mid_favorable_color: #062b58
   .inner
     background: image-url('report/body-bg.png') no-repeat #fff
     width: 580px
+    min-height: 330mm
     margin: 0 auto
   .report_content
     min-height: 700px
@@ -143,7 +147,7 @@ $mid_favorable_color: #062b58
     .thumbnails 
       position: absolute
       left: 92%
-      top: 0%
+      top: -2px
       width: 113px
       height: 96px
       background: image-url("report/hexagon-thumbnails.png") no-repeat

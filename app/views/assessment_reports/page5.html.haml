@@ -1,5 +1,5 @@
 .inner
-  = render :partial => "shared/report_header"      
+  = render :partial => "shared/report_header.html.haml"      
 
   .scores.favorable_factors
     .blue_bg_heading.iconic.pull-left
@@ -38,12 +38,12 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @candidate_factor_scores.select{|factor_id,factor_score| factor_score.pass }.each_with_index do |(factor_id,factor_score),index|
+      - @candidate_factor_scores.select{|factor_id,factor_score| @job_fit.factor_ids.include?(factor_score.factor_id) }.each_with_index do |(factor_id,factor_score),index|
         - measured = @measured_factors_ids.include?(factor_id)
         - if measured
           %li
             .lhs-sec.pull-left
-              .span1.first.hexagon-icon.mid_favorable
+              %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
               //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
               .span6
                 .factor-name
@@ -53,14 +53,14 @@
               .clr 
             .rhs-sec.pull-left
               .slider
-                .pointer.position1
+                - position = factor_score.norm_bucket.weight - 1
+                .pointer{ class: "position#{position}" }
                 // Use position1, postion2...5. for pointer position
-                .range.offset1.width3
+                - width = @assessment_factor_norms[factor_score.factor_id].to_norm_bucket.weight - 1
+                - offset = @assessment_factor_norms[factor_score.factor_id].from_norm_bucket.weight - 1
+                .range{ class: "offset#{offset} width#{width}" }
                   //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
             .clr
             
-  = render :partial => "shared/report_footer", :locals => { :current_page => 5 }      
-
-.page-break          
-          
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 5 }      

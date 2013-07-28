@@ -1,17 +1,29 @@
 .inner
-  = render :partial => "shared/report_header"      
+  = render :partial => "shared/report_header.html.haml"      
 
-  .scores.disclaimer 
-    .blue_bg_heading.logo.pull-left
-      %b About 
-    .clr
-    %p
-      Jombay is an India-focused Talent Measurement solution that solves People Problems involved in Hiring, Retention and Performance. Jombay uniquely deconstructs the complexity of Psychometric Assessments into simple, easy-to-use, affordable online tools and reports that could be used by everyone (without the need of certifications and interpreters!). Our tools measure the most unpredictable of resources - People. We help to mitigate the 'People Risk' that has become the biggest threat for Indian companies. We have built a Talent Measurement expertise by profiling more than one million Indian Professionals.
-    
-    .divider3
-
+  .scores.miscellaneous_factors
     .blue_bg_heading.pull-left
-      %b Legal Disclaimer 
+      %b Miscellaneous Factors
     .clr
-    %p
-      The information mentioned in this report is strictly confidential and that it should not be shared with any non-related person. The information contained is potentially sensitive and every effort should be made to ensure that it is stored in a secure place. The report must not be published in any way and should be used only for its intended purpose.
+    .left-offset3.pull-left
+      %b Measured
+    .left-offset1.pull-left
+      %b Preferred
+    .clr
+    .divider1
+    %ul.unstyled.miscellaneous_listing
+      - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
+        %li
+          .span1.first.hexagon-icon.mid_favorable
+          //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+          .span2.mid_favorable.pull-left
+            %b #{factor_score.factor.parent.name}
+          .measured.pull-left
+            #{factor_score.factor.parent.definition}
+          .preferred.pull-left
+            %b.mid_favorable
+              = factor_score.factor.name
+          .description.pull-left
+            #{factor_score.factor.definition}
+          .clr
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 8 }      

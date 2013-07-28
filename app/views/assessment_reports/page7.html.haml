@@ -1,34 +1,66 @@
 .inner
-  = render :partial => "shared/report_header"      
+  = render :partial => "shared/report_header.html.haml"      
 
-  .scores.interview_guide 
-    .blue_bg_heading.pull-left
-      %b Interview Questions
-    .indication.pull-right
-      .hexagon-icon.favorable.pull-left
-      .pull-left
-        Favorable
-      .hexagon-icon.less_favorable.pull-left
-      .pull-left
-        Less Favorable
-      .hexagon-icon.mid_favorable.pull-left
-      .pull-left
-        Miscellaneous
+  .scores.favorable_factors
+    .blue_bg_heading.iconic.pull-left
+      Scores of Factors measured under  
+      %b Team Fit
+      .thumbnails
+        .thumbnails_inn2
+      //above heading is same for page 6 and 7, just change a copy "Compny fit", "Team Fit"
+      //and also change class name for "Team Fit" use ".thumbnails_inn2"- for "Compny fit" use ".thumbnails_inn1"
     .clr
-    .divider1
-    %ul.unstyled.clearfix.interview_guide_listing 
-      - @post_assessment_guidelines.each do |factor_id, guides|
-        - guides[0..0].each do |guide|
-          - factor = guide.factor
+    .indication
+      .pull-left
+        .pull-left.box
+        .pull-left
+          %b Desired/Acceptable Score
+        .clr
+
+      .left-offset1.pull-left 
+        .pull-left.hexagon-icon.mid_favorable
+        .pull-left
+          %b Obtained Score
+
+      .clr
+    .scale.clearfix
+      .marker
+        %br/
+        Low
+      .marker
+        Below Average
+      .marker
+        %br/
+        Average
+      .marker
+        Above Average
+      .marker
+        %br/
+        High
+    %ul.unstyled.clearfix.scores_listing
+      - @candidate_factor_scores.select{|factor_id,factor_score| @team_fit.factor_ids.include?(factor_score.factor_id) }.each_with_index do |(factor_id,factor_score),index|
+        - measured = @measured_factors_ids.include?(factor_id)
+        - if measured
           %li
-            .span1.first.que-no.hexagon-icon.favorable
-            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-            .factor-name.pull-left
-              = factor.name
-            .description.pull-left
-              = guide.body
+            .lhs-sec.pull-left
+              %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
+              //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+              .span6
+                .factor-name
+                  = factor_score.factor.name
+                .factor-description
+                  = factor_score.factor.definition
+              .clr 
+            .rhs-sec.pull-left
+              .slider
+                - position = factor_score.norm_bucket.weight - 1
+                .pointer{ class: "position#{position}" }
+                // Use position1, postion2...5. for pointer position
+                - width = @assessment_factor_norms[factor_score.factor_id].to_norm_bucket.weight - 1
+                - offset = @assessment_factor_norms[factor_score.factor_id].from_norm_bucket.weight - 1
+                .range{ class: "offset#{offset} width#{width}" }
+                  //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+
             .clr
-
-  = render :partial => "shared/report_footer", :locals => { :current_page => 8 }      
-
-.page-break                    
+            
+= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 7 }      
