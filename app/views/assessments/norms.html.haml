@@ -71,10 +71,15 @@
   $("#critical_checkbox_"+index).removeAttr("disabled");
   $("#li_"+index).addClass("checked");
   }else{
+  var id = $("#id_"+index).val();
+  if(id != null && id != ""){
+  $("#destroy_"+index).val(true);
+  }else{
   $("input:not(:checkbox)[index='"+index+"']").attr("disabled",'disabled');
   $("select[index='"+index+"']").attr("disabled",'disabled');
   $("#critical_checkbox_"+index).attr("disabled",'disabled');
   $("#li_"+index).removeClass("checked");
+  }
   }
   });
   $("input[name='checkbox_critical']").change(function(){

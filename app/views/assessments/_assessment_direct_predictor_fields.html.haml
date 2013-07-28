@@ -1,4 +1,5 @@
 - id_name = "assessment[job_assessment_factor_norms_attributes][#{index}][id]"
+- destroy_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - factor_name = "assessment[job_assessment_factor_norms_attributes][#{index}][factor_id]"
 - fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
 - industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
@@ -19,6 +20,7 @@
     .clr
     .divider1
     %p= job_factor_norm.factor.definition
+    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}  
     %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
     %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
     %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
@@ -37,6 +39,7 @@
     .divider1
     %p= job_factor_norm.factor.definition
     %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
+    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
     %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
     %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
     %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}

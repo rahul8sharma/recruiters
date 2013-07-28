@@ -32,7 +32,7 @@
       .divider1
       %b.medium-text
         Selected Factors: 
-        = @job_assessment_factor_norms.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
+      = @assessment.job_assessment_factor_norms.where(:methods => [ :factor ]).collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
       .alert.alert-info.padding-all1.text-center
@@ -59,8 +59,13 @@
   $("#li_"+index).addClass("checked");
   $("input:not(:checkbox)[index='"+index+"']").removeAttr("disabled");
   }else{
+  var id = $("#id_"+index).val();
+  if(id != null && id != ""){
+  $("#destroy_"+index).val(true);
+  }else{
   $("input:not(:checkbox)[index='"+index+"']").attr("disabled",'disabled');
   $("#li_"+index).removeClass("checked");
+  }
   }
   });
   $("input[name='checkbox_critical']").change(function(){
