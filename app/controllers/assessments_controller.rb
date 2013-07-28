@@ -14,7 +14,7 @@ class AssessmentsController < ApplicationController
     direct_predictor_parent_ids = @assessment_factor_norms.collect{ |x| x.factor.direct_predictor_ids.present? ? x.factor_id : nil }.compact.uniq
     direct_predictor_norms = @assessment_factor_norms.select{ |x| direct_predictor_parent_ids.include? x.factor_id }.uniq
     alarm_factor_norms = @assessment_factor_norms.select{ |x| x.factor.type == "Suitability::AlarmFactor" }.uniq
-    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms
+    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - alarm_factor_norms
     @other_norms = direct_predictor_norms | alarm_factor_norms
   end
 
@@ -30,7 +30,7 @@ class AssessmentsController < ApplicationController
       get_norms
     elsif request.put?  
       get_norms
-      if !params[:assessment][:job_assessment_factor_norms_attributes].present?
+      if !params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.present?
         flash[:error] = "Please select at least one factor to proceed."
         return
       else
@@ -47,8 +47,9 @@ class AssessmentsController < ApplicationController
         end
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
         if @assessment.error_messages.blank?
-          get_styles
-          render :styles
+          #get_styles
+          #render :styles
+          redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
         else
           flash[:error] = @assessment.error_messages.join("<br/>")
         end
@@ -62,6 +63,7 @@ class AssessmentsController < ApplicationController
   def styles
     get_styles
     if request.put?  
+      params[:assessment] ||= {}
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
         Vger::Resources::Suitability::Set.create(Rails.application.config.default_set.merge(:assessment_id => @assessment.id, :end_index => @assessment.item_ids.count))
