@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	layout "users"
 	def login
-	  redirect_to root_path if current_user
+	  redirect_to after_sign_in_path_for if current_user
 		if request.post?
 		  begin
 			  sign_in(params[:user])
