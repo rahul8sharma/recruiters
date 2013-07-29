@@ -1,16 +1,25 @@
 class IndustriesController < ApplicationController
   before_filter :authenticate_user!
 
+  def api_resource
+    Vger::Resources::Industry
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   layout "admin"
-      
+
   def import
     Vger::Resources::Industry.import(params[:file])
     redirect_to industries_path, notice: "Industrys imported."
-  end  
-  
+  end
+
   def manage
   end
-  
+
   def import_from_google_drive
     Vger::Resources::Industry\
       .import_from_google_drive(params[:import])
@@ -26,7 +35,7 @@ class IndustriesController < ApplicationController
   def show
     @industry = Vger::Resources::Industry.find(params[:id])
   end
-  
+
   # GET /industrys
   def index
     @industries = Vger::Resources::Industry.where(:page => params[:page], :per => 10)
@@ -45,7 +54,7 @@ class IndustriesController < ApplicationController
   # POST /industrys.json
   def create
     @industry = Vger::Resources::Industry.new(params[:industry])
-      
+
     respond_to do |format|
       if @industry.save
         format.html { redirect_to @industry, notice: 'Industry was successfully created.' }

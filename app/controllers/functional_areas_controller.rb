@@ -1,11 +1,20 @@
 class FunctionalAreasController < ApplicationController
   before_filter :authenticate_user!
-  
+
   layout "admin"
-  
+
+  def api_resource
+    Vger::Resources::FunctionalArea
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   def manage
   end
-  
+
   def import_from_google_drive
     Vger::Resources::FunctionalArea\
       .import_from_google_drive(params[:import])
@@ -17,16 +26,16 @@ class FunctionalAreasController < ApplicationController
       .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
     redirect_to functional_areas_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def import
     Vger::Resources::FunctionalArea.import(params[:file])
     redirect_to functional_areas_path, notice: "FunctionalAreas imported."
-  end  
+  end
 
   def show
     @functional_area = Vger::Resources::FunctionalArea.find(params[:id])
   end
-  
+
   # GET /functional_areas
   def index
     @functional_areas = Vger::Resources::FunctionalArea.where(:page => params[:page], :per => 10)
@@ -45,7 +54,7 @@ class FunctionalAreasController < ApplicationController
   # POST /functional_areas.json
   def create
     @functional_area = Vger::Resources::FunctionalArea.new(params[:functional_area])
-      
+
     respond_to do |format|
       if @functional_area.save
         format.html { redirect_to @functional_area, notice: 'FunctionalArea was successfully created.' }
