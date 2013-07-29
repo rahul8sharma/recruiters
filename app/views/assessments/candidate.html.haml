@@ -78,8 +78,8 @@
               - if candidate_assessment.overall_fitment_grade_id.present?
                 - report = candidate_assessment.candidate_assessment_reports[0] 
                 - if report and report.status == "uploaded"
-                  - pdf_url =  AWS::S3::S3Object.find(report.s3_keys["pdf"]["key"],report.s3_keys["pdf"]["bucket"]).url 
-                  %a.color{:href=> pdf_url, :title=>"Click here to View Report"}  
+                  - pdf_url =  AWS::S3::S3Object.find(report.s3_keys["html"]["key"],report.s3_keys["html"]["bucket"]).url 
+                  %a.color{:href=> pdf_url, :title=>"Click here to View Report", target: "_blank"}  
                     View Report
                 - else
                   Generating report...  

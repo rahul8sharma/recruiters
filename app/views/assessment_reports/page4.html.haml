@@ -14,12 +14,10 @@
       Less Favorable 
     .factors_container
       .factors_list
-        - @factors_by_fit[@team_fit].each_with_index do |factor,index|
-          - measured = @measured_factors_ids.include?(factor.id)
-          - if measured
-            %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass? ? 'favorable' : 'less_favorable'}" }
-              .wrapper{:style=>"margin-top: 25px;"}
-                = factor.name
+        - @factors_by_fit[@team_fit].select{|factor| @measured_factors_ids.include?(factor.id) }.each_with_index do |factor,index|
+          %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass? ? 'favorable' : 'less_favorable'}" }
+            .wrapper{:style=>"margin-top: 25px;"}
+              = factor.name
       .bottom_sec
         .title_1
           Team Fit
@@ -35,5 +33,3 @@
           = @company_fit_grade
         .indication
           Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
-        
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => 4 }      
