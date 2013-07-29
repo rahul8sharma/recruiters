@@ -15,7 +15,7 @@
       .date
         %span Date: 
         %span
-          #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
+          #{hdate @candidate_assessment.completed_at}
       .clr
 
 
