@@ -39,7 +39,7 @@
     .span4.pull-right.text-center  
       .medium-text Validity 
       .biggest-text 
-        %b{ style: "margin-left: 10px;" } #{ @company.subscription.present? ? hdate(@company.subscription.valid_to) : h(nil) }
+        %b{ style: "margin-left: 10px;" } #{ @company.subscription.present? ? hdate(@company.subscription.valid_to) : h(nil) rescue "-" }
     .span4.pull-right.text-center  
       .medium-text Tests Bought 
       .biggest-text 
