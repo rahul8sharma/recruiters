@@ -7,6 +7,7 @@ class ReportUploader < AbstractController::Base
   include AbstractController::AssetPaths
   include Rails.application.routes.url_helpers
   helper ApplicationHelper
+  helper ReportsHelper
   self.view_paths = "app/views"
   
   def perform(report_id, auth_token)
