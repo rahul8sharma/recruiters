@@ -109,8 +109,8 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_factors
-    @factors = Vger::Resources::Suitability::Factor.where(:methods => [:type]).all.to_a
-    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:methods => [:parent,:type]).all.to_a
+    @factors = Vger::Resources::Suitability::Factor.where(:methods => [:type, :direct_predictors]).all.to_a
+    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:methods => [:type], :include => { :parent => { :methods => [:direct_predictors] } }).all.to_a
     @alarm_factors = Vger::Resources::Suitability::AlarmFactor.where(:methods => [:type]).all.to_a
     @factors |= @direct_predictors 
     @factors |= @alarm_factors
@@ -154,7 +154,7 @@ class ReportUploader < AbstractController::Base
   end
   
   def get_page3_data
-    @factor_norm_bucket_descriptions_by_norm_bucket = Vger::Resources::Suitability::FactorNormBucketDescription.where(:query_options => { :factor_id => @measured_factors_ids }).to_a.group_by{|x| x.factor_id}
+    @factor_norm_bucket_descriptions_by_norm_bucket = Vger::Resources::Suitability::FactorNormBucketDescription.where(:query_options => { :factor_id => @factors_by_id.keys }).to_a.group_by{|x| x.factor_id}
     @factor_norm_bucket_descriptions_by_norm_bucket.each{|x,y| @factor_norm_bucket_descriptions_by_norm_bucket[x] = y.group_by{|z| z.norm_bucket_id}}
   end
   
