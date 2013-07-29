@@ -19,10 +19,10 @@
           .span2.mid_favorable.pull-left
             %b #{factor_score.factor.parent.name}
           .measured.pull-left
-            #{factor_score.factor.parent.definition}
+            = factor_score.factor.parent.direct_predictors.map(&:name).join(",<br/>").html_safe
           .preferred.pull-left
             %b.mid_favorable
               = factor_score.factor.name
           .description.pull-left
-            #{factor_score.factor.definition}
+            = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id].values.flatten.first.description rescue factor_score.factor.name
           .clr

@@ -26,8 +26,7 @@
               %br/
               %a{:href => "#", :title =>"Test used"}
                 Validity: 
-                - valid_to = Date.parse(company.subscription.valid_to) rescue Date.today
-                %sapn.extra-medium-text #{ (valid_to - Date.today).to_i } Days
+                %sapn.extra-medium-text #{ hdate company.subscription.valid_to }
               %br/
             .text-center.span
               //Validity

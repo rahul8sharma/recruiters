@@ -47,16 +47,14 @@
               .factor-name
                 = factor_score.factor.name
               .factor-description
-                = factor_score.factor.definition
+                = @factor_norm_bucket_descriptions_by_norm_bucket[factor_id][factor_score.norm_bucket_id].first.description
             .clr 
           .rhs-sec.pull-left
             .slider
-              - position = factor_score.norm_bucket.weight - 1
-              .pointer{ class: "position#{position}" }
+              - scale = get_scale @assessment_factor_norms, factor_score
+              .pointer{ class: "position#{scale[:position]}" }
               // Use position1, postion2...5. for pointer position
-              - width = @assessment_factor_norms[factor_score.factor_id].to_norm_bucket.weight - 1
-              - offset = @assessment_factor_norms[factor_score.factor_id].from_norm_bucket.weight - 1
-              .range{ class: "offset#{offset} width#{width}" }
+              .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
                 //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
           .clr

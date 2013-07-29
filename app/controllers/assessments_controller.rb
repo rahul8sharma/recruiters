@@ -14,8 +14,8 @@ class AssessmentsController < ApplicationController
     direct_predictor_parent_ids = @assessment_factor_norms.collect{ |x| x.factor.direct_predictor_ids.present? ? x.factor_id : nil }.compact.uniq
     direct_predictor_norms = @assessment_factor_norms.select{ |x| direct_predictor_parent_ids.include? x.factor_id }.uniq
     alarm_factor_norms = @assessment_factor_norms.select{ |x| x.factor.type == "Suitability::AlarmFactor" }.uniq
-    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - alarm_factor_norms
-    @other_norms = direct_predictor_norms | alarm_factor_norms
+    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms
+    @other_norms = direct_predictor_norms
   end
 
 
@@ -30,6 +30,7 @@ class AssessmentsController < ApplicationController
       get_norms
     elsif request.put?  
       get_norms
+      params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       if !params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.present?
         flash[:error] = "Please select at least one factor to proceed."
         return
@@ -133,9 +134,12 @@ class AssessmentsController < ApplicationController
           :assessment_id => @assessment.id, 
           :candidate_id => candidate_id
         }).all[0]
-        
-        candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0) unless candidate_assessment
-        candidate_assessments.push candidate_assessment 
+        # create candidate_assessment if not present
+        # add it to list of candidate_assessments to send email
+        unless candidate_assessment
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0) 
+          candidate_assessments.push candidate_assessment 
+        end
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
       flash[:notice] = "Test was sent successfully!"
