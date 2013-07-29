@@ -29,4 +29,17 @@ module ApplicationHelper
       replacement ? replacement : "Not available"
     end
   end
+  
+  
+  def hdate date,replacement=nil,options={}
+    if date.present?
+      if date.is_a? String
+        Date.parse(date).strftime("%d/%m/%Y")
+      elsif date.is_a? Date
+        return date.strftime("%d/%m/%Y")
+      end
+    else
+      replacement ? replacement : "Not available"
+    end
+  end
 end

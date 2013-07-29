@@ -39,10 +39,7 @@
     .span4.pull-right.text-center  
       .medium-text Validity 
       .biggest-text 
-        - valid_to = Date.parse(@company.subscription.valid_to) rescue Date.today
-        %b #{(valid_to - Date.today).to_i}
-      .large-text
-        %b Days
+        %b{ style: "margin-left: 10px;" } #{ hdate @company.subscription.valid_to }
     .span4.pull-right.text-center  
       .medium-text Tests Bought 
       .biggest-text 
