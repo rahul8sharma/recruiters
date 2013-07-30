@@ -37,15 +37,13 @@
         //%span.large-text
         //153
     .span4.pull-right.text-center  
-      .medium-text Validity 
+      .medium-text Valid till
       .biggest-text 
         %b{ style: "margin-left: 10px;" } #{ (@company.subscription ? hdate(@company.subscription.valid_to) : h(nil)) rescue "-" }
     .span4.pull-right.text-center  
       .medium-text Tests Bought 
       .biggest-text 
         %b #{@company.subscription.assessments_purchased rescue 0}
-      .large-text
-        %b Tests
     .clr
 
 

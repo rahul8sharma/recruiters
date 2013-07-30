@@ -25,7 +25,7 @@
           = @assessment_factor_norms.collect{|x| x.functional_area.name}.compact.uniq.join(", ")
       .span
         %b.show.span
-          Experience level: 
+          Experience Level: 
         .span #{@assessment_factor_norms.collect{|x| x.job_experience.display_text}.compact.uniq.join(", ")}
     .divider1
     .text-right
