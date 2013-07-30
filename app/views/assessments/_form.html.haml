@@ -22,7 +22,7 @@
     .clr
   .control.left-offset1
     %label 
-      Experience Level
+      Experience
     %select.span4{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       - @job_experiences.each do |id,job_experience|
         %option{:value => (job_experience.id), selected: (assessment.job_experience_id == job_experience.id)}
