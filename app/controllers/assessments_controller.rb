@@ -84,7 +84,7 @@ class AssessmentsController < ApplicationController
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     if request.put?
-      @candidates = []
+      candidates = {}
       if params[:candidates].empty? 
         flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
@@ -94,20 +94,28 @@ class AssessmentsController < ApplicationController
         render :action => :add_candidates and return
       end
       errors = {}
+      
       params[:candidates].each do |key,candidate_data|
         candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
-        candidate = Vger::Resources::Candidate.create(candidate_data) unless candidate
-        if candidate.error_messages.present?
-          errors[candidate.email] ||= []
-          errors[candidate.email] |= candidate.error_messages
+        if candidate
+          candidate_data[:id] = candidate.id
+          candidates[candidate.id] = candidate_data
         else
-          @candidates.push candidate
-        end
+          candidate = Vger::Resources::Candidate.create(candidate_data)
+          if candidate.error_messages.present?
+            errors[candidate.email] ||= []
+            errors[candidate.email] |= candidate.error_messages
+          else
+            candidate_data[:id] = candidate.id
+            candidates[candidate.id] = candidate_data
+          end
+        end  
         unless errors.empty?
           flash[:error] = "Invalid data. Please ensure that email addresses and phone numbers provided are in the correct format."
           render :action => :add_candidates and return
         end
       end
+      params[:candidates] = candidates
       @company = Vger::Resources::Company.find(params[:company_id])
       render :action => :send_test_to_candidates
     end
