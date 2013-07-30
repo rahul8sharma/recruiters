@@ -93,10 +93,20 @@ class AssessmentsController < ApplicationController
         flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
         render :action => :add_candidates and return
       end
+      errors = {}
       params[:candidates].each do |key,candidate_data|
         candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
         candidate = Vger::Resources::Candidate.create(candidate_data) unless candidate
-        @candidates.push candidate
+        if candidate.error_messages.present?
+          errors[candidate.email] ||= []
+          errors[candidate.email] |= candidate.error_messages
+        else
+          @candidates.push candidate
+        end
+        unless errors.empty?
+          flash[:error] = "Invalid data. Please ensure that email addresses and phone numbers provided are in the correct format."
+          render :action => :add_candidates and return
+        end
       end
       @company = Vger::Resources::Company.find(params[:company_id])
       render :action => :send_test_to_candidates
