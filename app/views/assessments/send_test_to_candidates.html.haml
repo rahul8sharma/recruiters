@@ -1,6 +1,6 @@
 = form_for @assessment, :as => :assessment, :url => send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] } 
-  %input{:type => "hidden", name: "candidate_ids", value: @candidates.map(&:id).join(",") }
+  %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
   .create-test.send-test-to-candidate
     .inn.first
       .page-title Test - #{@assessment.name}
@@ -12,12 +12,13 @@
         %b Test will be sent to the following candidates: 
         (Please uncheck the candidates you don't wish to send the test to)
       %ul.unstyled.clearfix.candidate-list-to-send
-        - @candidates.each do |candidate|
+        - params[:candidates].each do |id,candidate_data|
+          -  email = candidate_data[:email]
           %li
             %label
-              %input{:type => "checkbox", name: "candidates[#{candidate.id}]", checked: true}
-              %input{:type => "hidden", name: "candidate_names[#{candidate.email}][name]", value: params[:candidates][candidate.email][:name]}
-              #{params[:candidates][candidate.email][:name]} &lt;#{candidate.email}&gt;
+              %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
+              %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
+              #{params[:candidates][id][:name]} &lt;#{email}&gt;
       .divider2
       .test-text-to-send
         .title
