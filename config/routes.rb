@@ -61,6 +61,8 @@ Recruiters::Application.routes.draw do
           post 'import_from_google_drive'
           post 'export_to_google_drive'
         end
+        
+        get "/report", :to => "assessment_reports#assessment_report"
       end
     end
 
@@ -264,6 +266,7 @@ Recruiters::Application.routes.draw do
   end
 
   match "/login", :to => "users#login", :as => :login
+  get "/master-data", :to => "pages#home"
   
   get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   put "/users/password/edit", :to => "users#update_password", :as => :update_password
