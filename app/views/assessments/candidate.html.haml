@@ -24,31 +24,31 @@
           #{ h @candidate.mobile }
         %li
           %b Industry:
-          #{ h @candidate.industry.name rescue 'Not available' }
+          #{ h(@candidate.industry.name) rescue 'Not available' }
         %li
           %b Current Location:
-          #{ h @candidate.location.name rescue 'Not available' }
+          #{ h(@candidate.location.name) rescue 'Not available' }
         %li
           %b Current Functional area:
-          #{ h @candidate.functional_area.name rescue 'Not available' }
+          #{ h(@candidate.functional_area.name) rescue 'Not available' }
         %li
           %b Age:
           #{ @candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "Not available" }
         %li
           %b Experience in Current Company:
-          #{ h @candidate.current_company_experience }
+          #{ h(@candidate.current_company_experience, nil, :suffix => " Years") }
         %li
           %b Gender:
           = @candidate.gender.present? ? raw(t "gender.#{@candidate.gender}") : "Not available"
         %li
           %b Total Work Experience:
-          #{ @candidate.total_experience.present? ? "#{@candidate.total_experience} Years" : "Not available"} 
+          #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
         %li
           %b Marital Status:
           = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
         %li
           %b Current CTC:
-          #{@candidate.current_ctc.present? ? "#{@candidate.current_ctc} Lakhs" : "Not available" } 
+          #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") } 
         //%li
         //%b Degree with Specialization:
         //TODO
