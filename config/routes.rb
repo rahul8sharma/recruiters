@@ -56,12 +56,13 @@ Recruiters::Application.routes.draw do
         collection do
           get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
           get "upload/single" => "candidates#upload_single", :as => :single_upload
-          get 'manage'
+          get :manage
+          get :destroy_all
           post 'import'
           post 'import_from_google_drive'
           post 'export_to_google_drive'
         end
-        
+
         get "/report", :to => "assessment_reports#assessment_report"
       end
     end
@@ -92,25 +93,28 @@ Recruiters::Application.routes.draw do
   resources :functional_areas, :only => [:index, :new] do
 	  collection do
 	    post :import
-      get 'manage'
+      get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
 	  end
   end
 
   resources :subscriptions, :only => [:index] do
-	  collection do 
-	    post :import 
-      get 'manage'
+	  collection do
+	    post :import
+      get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
 	  end
   end
-  
+
   resources :locations, :only => [:index, :new] do
 	  collection do
 	    post :import
-	    get 'manage'
+	    get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
@@ -119,7 +123,8 @@ Recruiters::Application.routes.draw do
   resources :industries, :only => [:index, :new] do
 	  collection do
 	    post :import
-	    get 'manage'
+	    get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
@@ -128,7 +133,8 @@ Recruiters::Application.routes.draw do
   resources :job_experiences, :only => [:index, :new] do
 	  collection do
 	    post :import
-	    get 'manage'
+	    get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
@@ -137,7 +143,8 @@ Recruiters::Application.routes.draw do
   resources :locations, :only => [:index, :new] do
 	  collection do
 	    post :import
-	    get 'manage'
+	    get :manage
+      get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
@@ -267,15 +274,15 @@ Recruiters::Application.routes.draw do
 
   match "/login", :to => "users#login", :as => :login
   get "/master-data", :to => "pages#home"
-  
+
   get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   put "/users/password/edit", :to => "users#update_password", :as => :update_password
-  
+
   get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
   post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
-	
+
 	match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
 	match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
-	
+
   root :to => "users#login"
 end
