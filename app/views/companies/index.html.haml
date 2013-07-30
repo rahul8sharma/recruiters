@@ -26,7 +26,7 @@
               %br/
               %a{:href => "#", :title =>"Test used"}
                 Validity: 
-                %sapn.extra-medium-text #{ company.subscription ? hdate(company.subscription.valid_to) : h(nil) rescue "-" }
+                %sapn.extra-medium-text #{ (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-" }
               %br/
             .text-center.span
               //Validity
