@@ -24,7 +24,7 @@ module ApplicationHelper
   # this could be achieved via options later
   def h(obj, replacement=nil,options={})
     if obj.present?
-      return obj
+      return "#{options[:prefix]}#{obj}#{options[:suffix]}"
     else
       replacement ? replacement : "Not available"
     end
