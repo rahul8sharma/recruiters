@@ -9,23 +9,31 @@
             <li> <%=raw RedCloth.new(text).to_html %> </li>
           <% end %>  
         </ul> 
-      <% else %>
+      <% elsif section_messages.is_a? Hash %>
         <ul>
           <% section_messages.each do |title, message| %>
             <li>
-              <% if message.is_a? Enumerable %>
-                <%= title.to_s.humanize %>
+              <%= title.to_s.humanize %> : 
+              <% if message.is_a? Array %>
                 <ul>
                   <% message.each do |text|%>
                     <li> <%= text.html_safe %> </li>
                   <% end %>  
                 </ul> 
+              <% elsif message.is_a? Hash %>
+                <ul>
+                  <% message.each do |key,value|%>
+                    <li> <%= key.to_s.html_safe %> : <%= value.to_s.html_safe %> </li>
+                  <% end %>  
+                </ul> 
               <% else %>
-                <%= title.to_s.humanize %> : <%= message %>
+                <%= message.to_s %>
               <% end %>
             </li>
           <% end %>
         </ul>  
+      <% else %>
+        <%= secction_messages.to_s.html_safe %>  
       <% end %>
     <% end %>
   </p>  
