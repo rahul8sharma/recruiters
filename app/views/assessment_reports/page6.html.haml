@@ -1,0 +1,60 @@
+.inner
+  = render :partial => "shared/report_header.html.haml"      
+
+  .scores.favorable_factors
+    .blue_bg_heading.iconic.pull-left
+      Scores of Factors measured under  
+      %b Company Fit
+      .thumbnails
+        .thumbnails_inn1
+      //above heading is same for page 6 and 7, just change a copy "Compny fit", "Team Fit"
+      //and also change class name for "Team Fit" use ".thumbnails_inn2"- for "Compny fit" use ".thumbnails_inn1"
+    .clr
+    .indication
+      .pull-left
+        .pull-left.box
+        .pull-left
+          %b Desired/Acceptable Score
+        .clr
+
+      .left-offset1.pull-left 
+        .pull-left.hexagon-icon.mid_favorable
+        .pull-left
+          %b Obtained Score
+
+      .clr
+    .scale.clearfix
+      .marker
+        %br/
+        Low
+      .marker
+        Below Average
+      .marker
+        %br/
+        Average
+      .marker
+        Above Average
+      .marker
+        %br/
+        High
+    %ul.unstyled.clearfix.scores_listing
+      - @candidate_factor_scores.select{|factor_id,factor_score| @company_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.each_with_index do |(factor_id,factor_score),index|
+        %li
+          .lhs-sec.pull-left
+            %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
+            //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+            .span6
+              .factor-name
+                = factor_score.factor.name
+              .factor-description
+                = @factor_norm_bucket_descriptions_by_norm_bucket[factor_id][factor_score.norm_bucket_id].first.description
+            .clr 
+          .rhs-sec.pull-left
+            .slider
+              - scale = get_scale @assessment_factor_norms, factor_score
+              .pointer{ class: "position#{scale[:position]}" }
+              // Use position1, postion2...5. for pointer position
+              .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+                //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+
+          .clr

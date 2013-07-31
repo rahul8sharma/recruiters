@@ -1,4 +1,0 @@
-statsd_host: statsd.recruiters.jombaylocal.com
-statsd_port: 8125
-node_type: dev.recruiters
-node_name: dev.recruiters

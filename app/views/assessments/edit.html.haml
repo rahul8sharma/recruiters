@@ -1,0 +1,7 @@
+%h1 Edit company assessment
+
+= render 'form', method: :put, url: company_assessment_path(:company_id => params[:company_id], @assessment.id), :assessment => @assessment
+%br
+%br
+%br
+= link_to 'Back', company_assessment_path(:company_id => params[:company_id], @assessment.id)

@@ -1,0 +1,13 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "companies"
+- content_for :content do
+  .divider1
+  .container
+    //For Alerts
+    //= render :partial => "shared/alert-success-iconic"
+    //= render :partial => "shared/alert-error"
+    //= render :partial => "shared/alert-success"
+  .white-box.tests.bordered.container
+    = yield
+  .divider1
+= render :file => 'layouts/jit'

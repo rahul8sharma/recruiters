@@ -1,0 +1,10 @@
+%h1 All jobs
+- if can? :create, "Job"
+  = link_to "Post jobs", new_job_path
+  = link_to "Manage jobs", manage_jobs_path
+%ul.unstyled
+  - for job in @jobs do
+    %a{:href => job_path(job)}
+      %li 
+        =	job.title
+        =	link_to "Create Assessment", new_suitability_assessment_path(:assessment => {:assessable_type => "Job",:assessable_id => job.id})

@@ -1,0 +1,22 @@
+%b.large-text
+  Log In
+.divider2
+- content_for :notification_bar do
+  = ""
+= render :partial => "shared/user-alerts"
+
+%div
+  = form_for(:user, :url => login_path) do |f|
+    = f.text_field :email, :placeholder => "Email ID"
+    = f.password_field :password, :placeholder => "Password"
+    .pull-left
+      = f.check_box :remember_password
+      = f.label "Remember me", :for => "user_remember_password"
+    .pull-right
+      %a.default-color{:href=> forgot_password_path, :title=>"Forgot Password?"}
+        Forgot Password?
+    .clr
+    .divider1
+    = f.submit "Login", :class=>"medium-text btn btn-info pull-right"
+    .clr
+

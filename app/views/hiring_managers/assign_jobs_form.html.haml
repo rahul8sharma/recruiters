@@ -1,0 +1,8 @@
+%h1 Assign jobs to hiring managers
+
+= form_tag assign_jobs_company_hiring_managers_path(:company_id => params[:company_id]), multipart: true, :method => :post do
+  = file_field_tag :file
+  .actions
+    = submit_tag 'Assign Jobs'
+
+= link_to 'Back', company_hiring_managers_path(:company_id => params[:company_id])

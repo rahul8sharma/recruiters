@@ -1,0 +1,16 @@
+= form_for :item_group, :url => import_from_google_drive_suitability_item_groups_path, :method => :post do |f|
+  %fieldset
+    %legend
+      Import Suitability Items
+    = f.fields_for :file do |ff|
+      File
+      = ff.text_field "url", value: ""
+    %br
+    Notifier Email
+    = f.email_field :email, value: "product@jombay.com"
+    %br
+    .actions
+      = submit_tag 'Import Suitability Items'
+%br
+= link_to 'Back', suitability_item_groups_path     
+= link_to 'Destroy All', destroy_all_suitability_item_groups_path     

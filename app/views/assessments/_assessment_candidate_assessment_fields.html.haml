@@ -1,0 +1,7 @@
+%li
+  %input{name: "candidates[#{index-1}][name]", type: "hidden"}
+  .count= index
+  %input.span5.first{name: "candidates[#{index-1}][name]", type: "text", placeholder: "Full Name", value: (candidate[:name])}
+  %input.span5.left-offset1{name: "candidates[#{index-1}][email]", type: "text", placeholder: "Email id", value: (candidate[:email])}
+  %input.span4.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number (optional)", value: (candidate[:mobile])}
+  .clr

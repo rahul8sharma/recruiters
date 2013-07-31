@@ -1,0 +1,80 @@
+.create-test.creat-test-show
+  .inn.first
+    .page-title
+      Test ID - Test Title
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/candidate-summary-nav"
+    .clr
+    .divider2
+
+    .candidate-details
+      %b Name: 
+      Candidate FullName
+      .divider1
+      %ul.unstyled.clearfix
+        %li
+          %b Email id:
+          something@id.com
+        %li
+          %b Current Company Name:
+          Something
+        %li
+          %b Contact no.:
+          8936746596
+        %li
+          %b Industry:
+          Something
+        %li
+          %b Current Location:
+          Something
+        %li
+          %b Current Functional area:
+          Something
+        %li
+          %b Age:
+          25
+        %li
+          %b Experience in Current Company:
+          YY/MM
+        %li
+          %b Gender:
+          Something
+        %li
+          %b Total Work Experience:
+          YY/MM
+        %li
+          %b Marital Status:
+          Something
+        %li
+          %b Current CTC:
+          5.5 Lakhs
+        %li
+          %b Degree with Specialization:
+          Something
+        %li
+          %b Number of Dependants:
+          4
+    .divider3
+    .candidate-report
+      .large-text
+        Reports
+      .divider2
+      .list-snippet-titles.clearfix
+        .span13.first
+          Test ID &amp; Name
+        .span8
+          Recommendation
+        
+      %ul.unstyled
+        - 8.times do
+          %li.list-snippet
+            .span13
+              %a.default-color{:href=> "#", :title=>"TEST043"} 
+                IBM8303 - Test title will come here i couldbe anything
+            .span5.first.lhs-border
+              Highly recommended
+            .span3.lhs-border
+              %a.default-color{:href=> "#", :title=>"Click here to View Report"}  
+                View Report
+   

@@ -1,124 +1,45 @@
 module ApplicationHelper
-  # Collection to use for top list
-  def collection_for_top_list(list_name)
-    case list_name
-    when :fields
-      Vger::Spartan::Opus::Recommendation.fields
-    when :job_categories
-      Vger::Spartan::Opus::JobCategory.find(:all)
-    when :india_cities
-      Vger::Penumbra::Geography.find(
-                                :all,
-                                :params => {
-                                       :query_options => {
-                                         :geotype => Vger::Penumbra::Geography.geotype(:city),
-                                         :country_id => Vger::Penumbra::Geography.find(
-                                                                                  :first,
-                                                                                  :params => {
-                                                                                         :query_options => {
-                                                                                           :name => "India",
-                                                                                           :geotype => Vger::Penumbra::Geography.geotype(:country)
-                                                                                         }
-                                                                                       }
-                                                                                  ).id
-                                       }
-                                     }
-                                )
+	# renders set of hidden fields and button to add new record using nested_attributes
+  def link_to_add_fields(name, append_to_selector,f, parent_klass, association_klass, association, callback, options={})
+    new_object = association_klass.new
+    obj = nil
+    fields = f.fields_for("#{association}_attributes", new_object, :index => "new_#{association}") do |builder|
+      obj = builder.object
+      render("#{parent_klass.to_s.underscore.pluralize}/"+association.to_s.singularize + "_fields", :f => builder, :options => options)
     end
+    link_to_function(name, raw("#{callback}(\"#{append_to_selector}\", \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "add_fields", :content => "#{fields}", :object_id => "#{obj.id}", :style => options[:style])
   end
-
-
-  # Creates options for top list with top items from yml
-  def top_list_for_select(list_name, options = {})
-    options.reverse_merge!({
-        :key_attribute => :name,
-        :display_method => :name,
-        :value_method => :id,
-        :top_label => "Top",
-        :other_label => "Other"
-      })
-
-    Rails.cache.fetch({:top_list => 18_12_2012, :list => list_name, :options => options}, :expires_in => 1.day) do
-      top_elements = Rails.application.config.top_lists[list_name]
-      collection = collection_for_top_list(list_name)
-      grouped_options_for_select([
-                                   [
-                                     options[:top_label],
-                                     collection.select{|element| top_elements.include? element.send(options[:key_attribute]) }.collect{|element| [element.send(options[:display_method]), element.send(options[:value_method])] }
-                                   ],
-                                   [
-                                     options[:other_label],
-                                     collection.reject{|element| top_elements.include? element.send(options[:key_attribute]) }.collect{|element| [element.send(options[:display_method]), element.send(options[:value_method])] }
-                                   ]
-                                 ])
-    end
+  
+  # renders a form
+  def link_to_add_form(partial_path, local_variables)
+  	
   end
-
-  # Helper wrapper for will_paginate to add default options to work with
-  # bootstrap
-  def bootstrap_paginate(pages, options={})
-    options.reverse_merge!(
-      :class => 'pagination margin', 
-      :renderer => BootstrapLinkRenderer, 
-      :previous_label => '&larr;'.html_safe, 
-      :next_label => '&rarr;'.html_safe
-    )
-    will_paginate(pages, options)
-  end
-
-  def bootstrap_type(type)
-    case type
-    when :alert
-      "alert-warning"
-    when :error
-      "alert-error"
-    when :notice
-      "alert-success"
+  
+  # this is a UI helper for rendering labels
+  # this method could be used to render factual information
+  # this method checks if object to be displayed exists 
+  # if yes, render the object
+  # else render default alternative text / replacement text if present
+  # TODO add support for prefix and suffix to the displayed text
+  # this could be achieved via options later
+  def h(obj, replacement=nil,options={})
+    if obj.present?
+      return "#{options[:prefix]}#{obj}#{options[:suffix]}"
     else
-      "alert-#{ type.to_s }"
+      replacement ? replacement : "Not available"
     end
   end
-
-  def timeago(datetime, element = :div, options = {})
-    content_tag(element, datetime.strftime('%d-%m-%Y %H:%M'), options.merge(:title => datetime.getutc.iso8601, "data-dynamicTime" => true)) if datetime
-  end
-
-  def render_umbra_user_display_image(leo_user, options={})
-    umbra_user = Vger::Penumbra::User.find_by_sid(leo_user.sid)
-      
-      # Display the FB profile pic only if the user is an FB user and hasn't
-    # yet uploaded a profile picture
-
-    if umbra_user.profile_photo_small.include?("default_user_icon")
-      if umbra_user.external_user?(:facebook)
-        non_fbml_fb_profile_pic(umbra_user.external_auth(:facebook), {
-                                :type => :square
-                              }.merge(options))
-      else
-        image_tag("default_user_icon.png")
+  
+  
+  def hdate date,replacement=nil,options={}
+    if date.present?
+      if date.is_a? String
+        Date.parse(date).strftime("%d/%m/%Y")
+      elsif date.is_a? Date
+        return date.strftime("%d/%m/%Y")
       end
     else
-      image_tag(umbra_user.profile_photo_small)
-    end
-  end
-
-  def rating_stars(rating, options={})
-    options.merge!(
-      "data-rating" => rating
-      )
-    content_tag(:div, "", options)
-  end
-
-  # Safely return method without raising errors
-  def safe_access(target_object, method, *args)
-    return nil if not target_object.respond_to? method
-
-    # quick fix for when safe access is called on
-    # Struct or OpenStruct
-    if args.present?
-      target_object.send method, args
-    else
-      target_object.send method
+      replacement ? replacement : "Not available"
     end
   end
 end

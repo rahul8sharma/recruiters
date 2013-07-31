@@ -1,0 +1,26 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "toolkit/main-layout"
+  = stylesheet_link_tag "shared"
+
+- content_for :body do
+  .wrapper
+    - if content_for?(:main_header)
+      = yield (:main_header)
+    - else
+      = render :partial => "shared/header"
+
+    - if content_for?(:notification_bar)
+      = yield (:notification_bar)
+    - else
+      = render :partial => "shared/notification_bar"
+    
+    - if content_for?(:content)
+      = yield(:content)
+    - else
+      = yield
+
+    - if content_for?(:footer)
+      = yield (:footer)
+    - else
+      = render :partial => "shared/footer"
+= render :file => 'layouts/haml'

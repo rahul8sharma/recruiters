@@ -1,0 +1,19 @@
+.page-sub-nav.clearfix
+  //.company-logo.pull-left
+  //  = image_tag("http://placehold.it/36x26")
+  .company-name.span11
+    = @company.name
+  .navigation.pull-right.clearfix
+    %ul.unstyled.clearfix
+      %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
+        %a{ :href=> company_assessments_path(params[:company_id]), :title=>"Tests"} 
+          %span.icon-pencil 
+          Tests
+      %li{ class: (["statistics"].include?(params[:action]) ? 'active' : '') }
+        %a{ :href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics" }  
+          %span.icon-pie 
+          Statistics
+      //%li{ class: (["settings","company","account"].include?(params[:action]) ? 'active' : '') }
+      //%a{:href=> settings_company_path(:id => params[:company_id]), :title=>"Settings"} 
+      //%span.icon-cog
+      //Settings

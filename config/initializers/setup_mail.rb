@@ -1,6 +1,8 @@
+# Suppress mailers if environment is development
+
 require 'development_mail_interceptor'
 
-Mail.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
+# Mail.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
 Mail.register_interceptor(StagingMailInterceptor) if Rails.env.staging_steve? or Rails.env.staging_dennis? 
 
 ActionMailer::Base.raise_delivery_errors = true

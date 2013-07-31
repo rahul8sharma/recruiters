@@ -1,44 +1,46 @@
-require 'vger/helpers/recruiters_yoren_helper'
-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  include RecruitersYorenHelper
   
   before_filter :set_auth_token
-  around_filter :define_request_in_active_record
-
-  def default_after_signup_url
-    recruiters_root_url(:trailing_slash => false)
+	
+	include Vger::Helpers::AuthenticationHelper
+	
+	rescue_from Faraday::Unauthorized, :with => :unauthorized
+	rescue_from Faraday::ResourceNotFound, :with => :resource_not_found
+	rescue_from Vger::Errors::InvalidAuthenticationException, :with => :invalid_authentication
+	
+	helper_method :current_user
+	helper_method :can?
+	
+  def after_sign_in_path_for()
+    case current_user.type
+      when "SuperAdmin"
+        companies_path
+      else
+        root_path        
+    end    
   end
 
-  def default_after_signup_path
-    recruiters_root_path(:trailing_slash => false)
-  end
-
-  def redirect_if_logged_in!
-    if user_signed_in?
-      redirect_to recruiters_root_path(:trailing_slash => false)
-    end
-  end
-
-  def controller_redirect_path
-    recruiters_root_path
+  
+  protected
+  def set_auth_token
+  	RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
   end
   
-  def redirect_if_not_logged_in!
-    set_auth_token
-
-    if !user_signed_in?
-      redirect_to(new_user_session_path(:redirect_to => request.fullpath), :notice => "You need to be signed in to continue!")
+  def unauthorized
+    flash[:alert] = "You must be logged in to visit this page"
+    redirect_to login_path
+  end
+  
+  def resource_not_found
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
     end
   end
-
-  helper_method :link_to_jobseeker_app
   
-  # This is HACK to generate links outside Recruiters app,
-  # as we don't have helper to access jombay.com urls
-  def  link_to_jobseeker_app(suffix="")
-    request.protocol + request.host_with_port.split(".").reject{ |x| x=="recruiters"}.join(".") + "/" + suffix.to_s
+  def invalid_authentication(e)
+    session[:auth_token] = nil
+    flash[:error] = e.message
+    redirect_to login_path
   end
 end

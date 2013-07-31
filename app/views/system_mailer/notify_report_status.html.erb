@@ -1,0 +1,41 @@
+<% @messages.each_pair do |section, section_messages| %>
+  <p>
+    <%= section.to_s.humanize %>
+    <br />
+    <% if section_messages.present? %>
+      <% if section_messages.is_a? Array %>
+        <ul>
+          <% section_messages.each do |text|%>
+            <li> <%=raw RedCloth.new(text).to_html %> </li>
+          <% end %>  
+        </ul> 
+      <% elsif section_messages.is_a? Hash %>
+        <ul>
+          <% section_messages.each do |title, message| %>
+            <li>
+              <%= title.to_s.humanize %> : 
+              <% if message.is_a? Array %>
+                <ul>
+                  <% message.each do |text|%>
+                    <li> <%= text.html_safe %> </li>
+                  <% end %>  
+                </ul> 
+              <% elsif message.is_a? Hash %>
+                <ul>
+                  <% message.each do |key,value|%>
+                    <li> <%= key.to_s.html_safe %> : <%= value.to_s.html_safe %> </li>
+                  <% end %>  
+                </ul> 
+              <% else %>
+                <%= message.to_s %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>  
+      <% else %>
+        <%= secction_messages.to_s.html_safe %>  
+      <% end %>
+    <% end %>
+  </p>  
+<% end %>
+

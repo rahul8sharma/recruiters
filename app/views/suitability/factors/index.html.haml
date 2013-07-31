@@ -1,0 +1,95 @@
+%h1 All Suitability Factors
+- if can? :create, "Suitability::Factor"
+  = link_to "Manage Suitability Factors", manage_suitability_factors_path
+.pagination.pull-right
+  = paginate @factors        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Type
+    %th
+      Parent    
+  - @factors.each do |factor|
+    %tr 
+      %td
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
+      %td
+        = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
+.pagination.pull-right
+  = paginate @factors       
+.clr   
+
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Type
+    %th
+      Parent    
+  - @direct_predictors.each do |factor|
+    %tr 
+      %td
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
+      %td
+        = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
+.pagination.pull-right
+  = paginate @factors       
+.clr   
+
+
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Type
+    %th
+      Parent    
+  - @alarm_factors.each do |factor|
+    %tr 
+      %td
+        = factor.id
+      %td
+        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
+          = factor.name
+      %td
+        = factor.definition
+      %td
+        = factor.type
+      %td
+        = factor.parent_id
+.pagination.pull-right
+  = paginate @factors       
+.clr   

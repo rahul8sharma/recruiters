@@ -1,0 +1,258 @@
+@import toolkit/component/pagination
+@import toolkit/component/buttons
+@import toolkit/component/alerts
+
+@import shared/sub-nav
+.white-box
+  min-height: 500px
+.tests
+  color: #484848
+
+[class*="span"].lhs-border
+  margin-left: 0
+  padding-left: 10px
+  border-left: 1px solid #e8e8e8
+.list-snippet
+  border: 1px solid #d8d8d8
+  &:hover
+    border: 1px solid #efefef
+    background: #fffef2
+
+.list-snippet-titles
+  font-weight: bold
+  font-size: 14px
+.list-snippet, .list-snippet-titles
+  cursor: default
+  margin: 0 0 15px 0
+  padding: 7px 10px
+  &:before, &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+
+.page-title 
+  font-size: 18px
+  line-height: 36px
+
+.test-flow-sub-nav
+  color: #b6b6b6
+  border: 1px solid #e0e0e0
+  background: #fff
+  border-left: 0
+  min-width: 140px
+  .menu
+    line-height: 21px
+    width: 155px
+    font-size: 13px
+    font-weight: bold
+    text-indent: -19px
+    float: left
+    padding: 10px 20px 10px 35px
+    border-left: 1px solid #e0e0e0
+    background: url(asset-path('tests/test-flow-sub-nav-icon.png', image)) 9px 9px no-repeat
+  .menu.active
+    color: #002b3a
+    background-position: 9px -22px
+    
+.create-test
+  input[type="text"]
+    border: 1px solid #dbdbdb
+    height: 36px
+  .creat-test-form
+    input[type="text"]
+      width: 100%
+      margin-top: 10px
+    label
+      font-size: 14px
+      font-weight: bold
+      display: block
+    select
+      margin: 10px 0 0 0
+      height: 36px
+    .control
+      float: left
+
+  .action
+    padding: 18px 0
+    border-top: 1px dashed #cfcfcf
+  .factors
+    .titles
+      font-weight: bold
+    .factor-snippet
+      select
+        width: 108px
+      li.item
+        padding: 5px 20px 10px 40px
+        border: 1px solid #f8f8d2
+        margin-bottom: 18px
+      li.item.checked
+        background: #ffffcd
+      input
+        margin: 3px 0 0 -30px
+      .white-box
+        border: 1px solid #d8d8d8
+        text-align: center
+        font-weight: bold
+        width: 25px
+        line-height: 25px
+        float: left
+        margin-right: 10px
+  .dropdown
+    ul
+      list-style: none
+      margin: 0
+
+      li
+        a
+          font-weight: bold
+          color: #484848
+    li.dropdown-submenu
+      position: relative
+      &:hover
+        ul.dropdown-menu
+          display: block
+
+    ul.dropdown-menu
+      background-color: #FFFFFF
+      border: 1px solid rgba(0, 0, 0, 0.2)
+      border-radius: 6px 6px 6px 6px
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
+      display: none
+      float: left
+      left: -15px
+      list-style: none outside none
+      margin: 2px 0 0
+      min-width: 60px
+      padding: 5px 0px
+      position: absolute
+      top: 115%
+      z-index: 1000
+
+      li
+        padding: 3px 10px
+        &:hover
+          background: #ffff9a
+    ul.dropdown-menu.active
+      display: block
+  .candidate-summary-nav
+    background: #fafafa
+    border: 1px solid #dddddd
+    border-left: 0
+    .menu
+      float: left
+      width: 155px
+      font-size: 13px
+      font-weight: bold
+      text-align: center
+      color: #484848
+      border-left: 1px solid #dddddd
+      border-bottom: 3px solid transparent
+      padding: 7px 0
+      display: block
+
+      &:hover, &.active
+        border-bottom: 3px solid #ff8308
+        background: #fff
+
+      &.active
+        position: relative
+
+        &:before
+          top: 100%
+          border: solid transparent
+          content: " "
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+          border-color: rgba(255, 131, 8, 0)
+          border-top-color: #ff8308
+          border-width: 14px
+          left: 50%
+          margin-left: -15px
+  .summary
+    background: #fffcde
+  .selected-factors
+    li
+      border: 1px solid #f6f3d2
+      margin-bottom: 18px
+
+      p
+        margin-left: 10px
+
+    .selected-factors-title
+      background: #fffcde
+      font-weight: bold
+      padding: 10px 0
+      color: #002b3a
+  .select-candidate-type 
+    font-size: 14px
+    padding: 18px 0
+    padding-bottom: 0
+    background: #fffcde
+
+    label
+      font-weight: normal
+      margin-bottom: 18px
+      display: block
+
+    input[type="radio"]
+      margin: 0 40px 0 0
+
+  ul.add-candidates
+    li
+      margin-bottom: 18px
+      .count
+        float: left
+        width: 35px
+        height: 18px
+        background: #fafafa
+        text-align: center
+        border: 1px solid #d8d8d8
+        border-right: 0
+        padding: 10px 0 
+  ul.candidate-list-to-send
+    li
+      margin: 18px 0 0 0 
+      float: left
+      &:nth-child(odd)
+        margin-right: 90px
+      label 
+        background: #f8f8f8
+        border: 1px solid #dfdfdf
+        padding: 7px 10px
+        font-size: 14px
+        width: 370px
+        display: block
+
+        input
+          margin: 0 25px 0 0 
+  .test-text-to-send
+    .title
+      font-weight: bold
+      margin: 18px 0
+      font-size: 14px
+    .subject
+      font-size: 14px
+    .massage-body.test-title
+      background: #fff
+      border: 1px solid #b2b2b2
+      font-size: 14px
+    .massage-body
+      padding: 10px
+      background: #f8f8f8
+      border: 1px solid #dddddd
+      margin-bottom: 15px
+    .massage 
+      p
+        padding-top: 9px
+         
+  .candidate-details
+    li
+      float: left
+      width: 425px
+      margin: 0 0 18px 20px
+
+      &:nth-child(odd)
+        margin-left: 0

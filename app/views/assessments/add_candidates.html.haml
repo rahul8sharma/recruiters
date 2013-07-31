@@ -1,0 +1,34 @@
+.create-test.norms.add
+  .inn.first
+    .page-title #{@assessment.name}
+  .inn.gray-gradient
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    = form_for @assessment, :as => :assessment, :url => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+      .select-candidate-type 
+        %b.span.show.left-offset1
+          Please select the candidate type:
+        .show.left-offset1.pull-left
+          %label
+            %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED}
+            Existing Employees
+          %label
+            %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: true}
+            Potential Employees
+        .clr 
+      .divider1
+      .span7.first
+        %b Full name
+      .span6
+        %b Email id
+      .span4
+        %b Contact number
+        (optional)
+      .clr
+      .divider1
+      %ul.add-candidates.unstyled.clearfix
+        - 10.times do |index|
+          = render :partial => "assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
+      %button.pull-right.btn.btn-info
+        Proceed
+      .clr

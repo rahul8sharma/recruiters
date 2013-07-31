@@ -1,0 +1,14 @@
+= form_tag import_via_s3_suitability_job_factor_norms_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Upload factor norms
+    = fields_for "import" do |f|
+      %p
+        Zipped CSV File
+        = f.file_field "file"
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = submit_tag 'Upload Factor Norms'

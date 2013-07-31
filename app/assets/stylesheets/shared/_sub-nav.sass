@@ -1,0 +1,46 @@
+.page-sub-nav
+  background: #fffef2
+  border-bottom: 3px solid #ff8b17
+  padding-left: 25px
+  font-size: 14px
+  .company-name
+    font-weight: bold
+    font-size: 23px
+    line-height: 30px
+    margin: 13px 0 13px 10px
+  .company-logo
+    width: 36px
+    height: 26px
+    margin: 13px 0 
+    border: 1px solid #dedede
+
+  [class^="icon-"], [class*=" icon-"]
+    margin-left: 0
+    &:before
+      font-size: 19px 
+  .icon-pie
+    background: url(asset-path('jit/pie-icon.png', image)) no-repeat 
+    display: inline-block
+    height: 16px
+    width: 17px
+  [class^="icon-"]
+    height: 16px  
+  ul
+    margin: 0
+    li
+      float: left
+      border-left: 1px solid #f3f0ce  
+      background: url(asset-path('jit/sub-navigartion-bg.png', image)) repeat-x #fffcda
+      a
+        color: #575757
+        display: inline-block
+        padding: 15px
+        border-top: 6px solid transparent
+        &:hover
+          text-decoration: none
+    li.active a, li a:hover
+      color: #fff
+      background: #fe8309
+      border-top: 6px solid #fe8309
+      .icon-pie
+        background-position: 0px -27px

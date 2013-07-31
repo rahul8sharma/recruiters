@@ -1,0 +1,22 @@
+#header
+  .container
+    .logo
+      = link_to(image_tag("jombay-logo.png"), "/")
+
+    .span17.navbar.pull-right
+      .navigations.clearfix
+        - if current_user  
+          %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
+            Logout
+          .userName.pull-right
+            %b #{h current_user.name, "-"} 
+            \| 
+            #{current_user.type} 
+            / %span.icon-caret-down
+        - else
+          %a.userName.logout.pull-right{:href => login_path, :title => "Login"}
+            Login
+        %a.companies.pull-right{:href => companies_path, :title => "Companies" }
+          Companies
+          / %span.icon-caret-down
+    .clr

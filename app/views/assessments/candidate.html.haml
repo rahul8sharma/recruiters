@@ -1,0 +1,87 @@
+.create-test.creat-test-show
+  .inn.first
+    .page-title
+      Test #{@assessment.id} - #{@assessment.name}
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/candidate-summary-nav"
+    .clr
+    .divider2
+
+    .candidate-details
+      %b Name: 
+      #{@candidate.name}
+      .divider1
+      %ul.unstyled.clearfix
+        %li
+          %b Email id:
+          #{ h @candidate.email}
+        %li
+          %b Current Company Name:
+          #{ h @candidate.current_company }
+        %li
+          %b Contact no.:
+          #{ h @candidate.mobile }
+        %li
+          %b Industry:
+          #{ h(@candidate.industry.name) rescue 'Not available' }
+        %li
+          %b Current Location:
+          #{ h(@candidate.location.name) rescue 'Not available' }
+        %li
+          %b Current Functional area:
+          #{ h(@candidate.functional_area.name) rescue 'Not available' }
+        %li
+          %b Age:
+          #{ @candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "Not available" }
+        %li
+          %b Experience in Current Company:
+          #{ h(@candidate.current_company_experience, nil, :suffix => " Years") }
+        %li
+          %b Gender:
+          = @candidate.gender.present? ? raw(t "gender.#{@candidate.gender}") : "Not available"
+        %li
+          %b Total Work Experience:
+          #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
+        %li
+          %b Marital Status:
+          = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
+        %li
+          %b Current CTC:
+          #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") } 
+        //%li
+        //%b Degree with Specialization:
+        //TODO
+        %li
+          %b Number of Dependants:
+          #{ h @candidate.no_of_dependents }
+    .divider3
+    .candidate-report
+      .large-text
+        Reports
+      .divider2
+      .list-snippet-titles.clearfix
+        .span13.first
+          Test ID &amp; Name
+        .span8
+          Recommendation
+        
+      %ul.unstyled
+        - @candidate_assessments.each do |candidate_assessment|
+          %li.list-snippet
+            .span13
+              %a.default-color{:href=> company_assessment_path(:id => candidate_assessment.assessment.id, :company_id => @company.id), :title=>"TEST043"} 
+                #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
+            .span5.first.lhs-border
+              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
+            .span3.lhs-border
+              - if candidate_assessment.overall_fitment_grade_id.present?
+                - report = candidate_assessment.candidate_assessment_reports[0] 
+                - if report and report.status == "uploaded"
+                  - pdf_url =  AWS::S3::S3Object.find(report.s3_keys["html"]["key"],report.s3_keys["html"]["bucket"]).url 
+                  %a.color{:href=> pdf_url, :title=>"Click here to View Report", target: "_blank"}  
+                    View Report
+                - else
+                  Generating report...  
+              - else
+                Pending          

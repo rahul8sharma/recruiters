@@ -1,0 +1,26 @@
+@import grid/core-set
+@import reset
+@import grid/grid
+@import typography
+@import layout/utilities
+
+// Container (centered, fixed-width layouts)
+.container
+  +container-fixed
+
+.white-box
+  background: $white
+.white-box.bordered
+  border: 1px solid #dedede
+.inn
+  padding: 15px 35px
+  border-top: 1px solid #dedede
+  &:before, &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+  &.first
+    border: none
+  &.gray-gradient
+    background: image-url("inn-bg.png") repeat-x #fff

@@ -1,0 +1,41 @@
+.inner
+  .overall_report
+    .logo.pull-right
+    .clr
+    .heading
+      .big-text
+        Suitability Assessment Report
+      .user_name
+        = @candidate.name
+      .span.first
+        Assessment: 
+      .span7
+        #{@assessment.name} 
+      .clr
+      .date
+        %span Date: 
+        %span
+          #{hdate @candidate_assessment.completed_at}
+      .clr
+
+
+    .sub-heading.large-text.pull-right
+      Jombay&#39;s Recommendation : #{@recommendation.body} 
+    .clr
+    .sub-heading.medium-text.pull-right
+      #{@candidate.name}&#39;s Fitment Scores
+    .clr
+    .visual
+      .strength_1
+        = @company_fit_grade
+      .strength_2
+        = @job_fit_grade
+      .strength_3
+        = @team_fit_grade
+        
+      .title_1
+        Company Fit
+      .title_2
+        Job Role Fit
+      .title_3
+        Team Fit

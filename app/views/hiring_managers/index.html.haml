@@ -1,0 +1,7 @@
+%h1 All Hiring Managers
+- if can? :create, "HiringManager"
+  = link_to "Post hiring managers", new_company_hiring_manager_path(:company_id => params[:company_id])
+%ul.unstyled
+  - for hiring_manager in @hiring_managers do
+    %li 
+    =	hiring_manager.email

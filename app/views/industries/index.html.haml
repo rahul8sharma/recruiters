@@ -1,0 +1,23 @@
+%h1 All industries
+- if can? :create, "Industry"
+  = link_to "Manage Industries", manage_industries_path  
+  
+.pagination.pull-right        
+  = paginate @industries        
+.clr     
+
+%table
+  %tr
+    %th ID
+    %th Name
+  - for industry in @industries do
+    %tr
+      %td 
+        = industry.id
+      %td 
+        = industry.name
+
+%br
+.pagination.pull-right        
+  = paginate @industries        
+.clr     

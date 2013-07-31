@@ -1,0 +1,18 @@
+= form_tag import_from_google_drive_suitability_fitment_grade_mappings_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Upload new suitability fitment grade mappings
+    = fields_for "import" do |f|
+      = f.fields_for "file" do |f|
+        %p
+          Google Spreadsheet Url : 
+          = f.text_field "url"
+        %p
+          Worksheet Names(separated by comma,keep empty to import all)
+          = f.text_field "worksheets", :value => 'FitmentGradeMapping'
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = submit_tag 'Upload Suitability fitment grade mappings'

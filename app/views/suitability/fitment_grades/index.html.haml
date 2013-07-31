@@ -1,0 +1,33 @@
+%h1 All Suitability FitmentGrades
+- if can? :create, "Suitability::FitmentGrade"
+  = link_to "Manage Suitability FitmentGrade", manage_suitability_fitment_grades_path
+.pagination.pull-right
+  = paginate @fitment_grades        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      UID
+    %th
+      Name
+    %th
+      Min factors pass percent
+    %th
+      Max factors pass percent
+  - @fitment_grades.each do |fitment_grade|
+    %tr 
+      %td
+        = fitment_grade.id
+      %td
+        = fitment_grade.uid
+      %td
+        = fitment_grade.name
+      %td
+        = fitment_grade.min_factors_pass_percent
+      %td
+        = fitment_grade.max_factors_pass_percent  
+.pagination.pull-right
+  = paginate @fitment_grades
+.clr   

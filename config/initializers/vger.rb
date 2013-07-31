@@ -1,18 +1,31 @@
-# Vger app credential configurations
+puts "Loading Her Configuration"
+require 'faraday/response/raise_error'
+require 'faraday/adapter/net_http'
+class TokenAuthentication < Faraday::Middleware
+	def call(env)
+		if RequestStore.store[:auth_token]
+			env[:request_headers]["X-AuthToken"] = RequestStore.store[:auth_token]
+		end
+		@app.call(env)
+	end
+end
 
-Vger::Authentication.send(:include, Rails.application.routes.url_helpers)
-
-Rails.application.config.vger.each_pair do |api, config|
-  if config.delete('auth')
-    config.each_pair do |key, value|
-      Vger::Authentication.send("#{key}=", value)
+class PaginationParser  < Faraday::Response::Middleware
+  def on_complete(env)
+    pagination = nil
+    if env[:response_headers]["x-pagination"]
+      pagination = JSON.parse(env[:response_headers]["x-pagination"], :symbolize_names => true)
     end
-  end
-  if api == "penumbra"
-  	Vger::PenumbraARWrapper.setup(config)
-  else
-    "Vger::#{api.capitalize}Wrapper".constantize.setup(config)
+    errors = env[:body].delete(:errors) || {}
+    metadata = env[:body].delete(:metadata) || []
+    env[:body] = {:data => env[:body][:data], :errors => errors, :metadata => metadata , :pagination => pagination}
   end
 end
 
-ActiveResource::Base.logger = Rails.logger
+Vger::Config.configure({
+	:url => Rails.application.config.vger["api"]["url"],
+	:middlewares => [TokenAuthentication,Faraday::Response::RaiseError,PaginationParser],
+	:app_name => Rails.application.config.vger["api"]["app_name"],
+	:password => Rails.application.config.vger["api"]["password"]
+})
+
