@@ -64,7 +64,19 @@ class ReportUploader < AbstractController::Base
       
       SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{report.id}",{
         :report => {
-          :status => "Success"
+          :status => "Success",
+          :candidate_assessment_id => @candidate_assessment.id,
+          
+          :candidate => {
+            :name => @candidate.name,
+            :email => @candidate.email
+          },
+          :assessment => {
+            :id => @assessment.id,
+            :name => @assessment.name,
+            :assessable_id => @assessment.assessable_id,
+            :assessable_type => @assessment.assessable_type
+          } 
         }
       })
     rescue Exception => e
@@ -78,9 +90,23 @@ class ReportUploader < AbstractController::Base
         )
       end
       SystemMailer.delay.notify_report_status("Report Uploader","Failed to upload report #{report.id}",{
+        :report => {
+          :status => "Failed",
+          :candidate_assessment_id => @candidate_assessment.id,
+          :candidate => {
+            :name => @candidate.name,
+            :email => @candidate.email
+          },
+          :assessment => {
+            :id => @assessment.id,
+            :name => @assessment.name,
+            :assessable_id => @assessment.assessable_id,
+            :assessable_type => @assessment.assessable_type
+          }
+        },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
-        } 
+        }
       })
     end  
     
