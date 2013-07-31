@@ -1,5 +1,6 @@
 - force ||= false
 - navigation ||= true
+- last_page ||= false
 - if @view_mode != "html" || force
   .footer.clearfix
     - if @view_mode != "html" && navigation
@@ -12,3 +13,5 @@
         Private & Confidential
     .medium-text.pull-right 
       &copy; Jombay  
+- if @view_mode == "html" && !last_page     
+  %hr
