@@ -28,9 +28,9 @@
           //Action
       %ul.unstyled
         - @candidates.each do |candidate|
-          - candidate_assessment = @assessment.candidate_assessments.where(:methods => [:candidate_assessment_reports]).find{|x| x.candidate_id == candidate.id}
+          - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = "Pending"
-          - if candidate_assessment.overall_fitment_grade_id.present?
+          - if candidate_assessment && candidate_assessment.overall_fitment_grade_id.present?
             - report = candidate_assessment.candidate_assessment_reports[0] 
             - status = "Complete" if report.status == "uploaded"
           %li.list-snippet
