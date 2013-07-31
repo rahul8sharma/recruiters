@@ -21,3 +21,4 @@ module WickedPdfHelper
     sources.collect{ |source| "<script type='text/javascript'>#{Rails.application.assets.find_asset(source+".js")}</script>" }.join("\n").html_safe
   end
 end
+WickedPdf.config = { :exe_path => '/usr/bin/wkhtmltopdf' }

@@ -1,15 +1,24 @@
 class CandidatesController < ApplicationController
   layout "candidates"
   before_filter :authenticate_user!
-  
+
+  def api_resource
+    Vger::Resources::Candidate
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   def import
 		Vger::Resources::Candidate.import(params[:file])
 		redirect_to candidates_path, notice: "Candidates imported."
-	end	
-  
+	end
+
   def manage
   end
-  
+
 	def import_from_google_drive
     Vger::Resources::Candidate\
       .import_from_google_drive(params[:import])
@@ -28,7 +37,7 @@ class CandidatesController < ApplicationController
 
   def show
   end
-  
+
   def upload_bulk
   end
 

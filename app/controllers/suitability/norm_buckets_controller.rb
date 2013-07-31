@@ -1,11 +1,20 @@
 class Suitability::NormBucketsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   layout "admin"
-  
+
+  def api_resource
+    Vger::Resources::Suitability::NormBucket
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   def manage
   end
-  
+
   def import_from_google_drive
     Vger::Resources::Suitability::NormBucket\
       .import_from_google_drive(params[:import])
@@ -17,7 +26,8 @@ class Suitability::NormBucketsController < ApplicationController
       .export_to_google_drive(params[:export]\
                                 .merge(:columns => [
                                                     :uid,
-                                                    :name
+                                                    :name,
+                                                    :weight
                                                    ]))
     redirect_to suitability_norm_buckets_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end

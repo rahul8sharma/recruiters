@@ -14,4 +14,32 @@ module ApplicationHelper
   def link_to_add_form(partial_path, local_variables)
   	
   end
+  
+  # this is a UI helper for rendering labels
+  # this method could be used to render factual information
+  # this method checks if object to be displayed exists 
+  # if yes, render the object
+  # else render default alternative text / replacement text if present
+  # TODO add support for prefix and suffix to the displayed text
+  # this could be achieved via options later
+  def h(obj, replacement=nil,options={})
+    if obj.present?
+      return "#{options[:prefix]}#{obj}#{options[:suffix]}"
+    else
+      replacement ? replacement : "Not available"
+    end
+  end
+  
+  
+  def hdate date,replacement=nil,options={}
+    if date.present?
+      if date.is_a? String
+        Date.parse(date).strftime("%d/%m/%Y")
+      elsif date.is_a? Date
+        return date.strftime("%d/%m/%Y")
+      end
+    else
+      replacement ? replacement : "Not available"
+    end
+  end
 end

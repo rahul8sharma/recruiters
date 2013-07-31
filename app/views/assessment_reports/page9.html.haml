@@ -1,0 +1,41 @@
+.inner
+  = render :partial => "shared/report_header.html.haml"      
+
+  .scores.interview_guide 
+    .blue_bg_heading.pull-left
+      %b Interview Questions
+    .indication.pull-right
+      .hexagon-icon.favorable.pull-left
+      .pull-left
+        Favorable
+      .hexagon-icon.less_favorable.pull-left
+      .pull-left
+        Less Favorable
+      .hexagon-icon.mid_favorable.pull-left
+      .pull-left
+        Miscellaneous
+    .clr
+    .divider1
+    %ul.unstyled.clearfix.interview_guide_listing 
+      - @post_assessment_guidelines.select{|factor_id, guide| @candidate_factor_scores[factor_id].pass?  }.each do |factor_id, guides|
+        - guides[0..0].each do |guide|
+          - factor = guide.factor
+          %li
+            .span1.first.que-no.hexagon-icon.favorable
+            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+            .factor-name.pull-left
+              = factor.name
+            .description.pull-left
+              = guide.body
+            .clr
+      - @post_assessment_guidelines.select{|factor_id, guide| !@candidate_factor_scores[factor_id].pass?  }.each do |factor_id, guides|
+        - guides[0..0].each do |guide|
+          - factor = guide.factor
+          %li
+            .span1.first.que-no.hexagon-icon.less_favorable
+            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+            .factor-name.pull-left
+              = factor.name
+            .description.pull-left
+              = guide.body
+            .clr     

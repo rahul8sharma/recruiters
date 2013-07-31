@@ -17,8 +17,8 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/her.git
-  revision: ad78cb181ee6cd2a0f52c4fde8adb238ba737d5d
-  ref: ad78cb181ee6cd2a
+  revision: 14721ddd0e1477ea789ca5718b484c41c265f29b
+  ref: 14721ddd0e1477e
   branch: v0.6.6-associations-fix-jruby
   specs:
     her (0.6.6)
@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 7822b249a12b0dff01071feb04df948809258b55
+  revision: b592ea42a98c86dda017acd6034b2fd5ca4b3442
   branch: develop
   specs:
     vger (0.0.1)
@@ -147,7 +147,7 @@ GEM
     redis-namespace (1.3.0)
       redis (~> 3.0.0)
     request_store (1.0.5)
-    sass (3.2.9)
+    sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

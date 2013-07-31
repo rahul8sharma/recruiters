@@ -4,7 +4,7 @@
       Tests
     .pagination.pull-right
       = paginate @assessments  
-  .inn
+  .inn.gray-gradient
     %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
       Create New Test
     .clr
@@ -19,26 +19,25 @@
       .span4
         Tests Taken
       .span            
-        Send Test 
     %ul.unstyled
       - @assessments.each do |assessment|
         %li.list-snippet
           .span2
-            %a.default-color{:href=> company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST #{assessment.id}
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST #{assessment.id}
           .span8.first.lhs-border
-            %a.default-color{:href=> company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
-            = assessment.name
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+              = assessment.name
           .span4.lhs-border
-            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => {:assessment_id => assessment.id})}
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=> "333"}  #{@company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0}
           .span4.lhs-border
-            %a.default-color{:href=> "#", :title=>"333"}  #{Vger::Resources::Suitability::CandidateAssessment.count(:assessment_id => assessment.id, :query_options => { :overall_fitment_grade_id => nil, :assessment_id => assessment.id })}
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title=>"333"}  #{@company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0}
           .span.lhs-border
             %a.underlined{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               Send This Test   
-    .divider1         
-    %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
-      Create New Test
-    .clr
+    //.divider1         
+    //%a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
+    //  Create New Test
+    //.clr
   .inn
     .pagination.pull-right
       = paginate @assessments

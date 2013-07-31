@@ -4,49 +4,40 @@
   
 .create-test.styles
   .inn.first
-    .page-title Tests
-  .inn
+    .page-title 
+      %b Test Title: 
+      #{@assessment.name}
+  .inn.gray-gradient
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
-    .extra-medium-text
-      %b Please fill the following information.
-    .divider1
-    .medium-text 
-      %b Put Title to a Test
-      (For Eg : Sales Manager for online Engine Business Unit)
     = form_for @assessment, :as => :assessment, :url => styles_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put, :html => { :class => "creat-test-form" } do |f|
-
-      = f.text_field :name
-      .divider1
-      .control
-        %label 
-          Function Area : 
-          = @assessment.functional_area.name
-        .clr
-      .control.left-offset1
-        %label 
-          Industry : 
-          = @assessment.industry.name
-        .clr
-      .control.left-offset1
-        %label 
-          Experience Level : 
-          = @assessment.job_experience.display_text          
-        .clr
+      .medium-text
+        .span.first
+          %b Functional Area: 
+        .span4
+          #{@assessment.functional_area.name}
+        .span.left-offset1
+          %b Industry:  
+        .span4
+          #{@assessment.industry.name}
+        .span.left-offset1
+          %b Experience: 
+        .span4
+          #{@assessment.job_experience.display_text}
       .clr
       .divider2
-      %button.pull-right.btn.btn-success.disabled
-        Modify
+      //%button.pull-right.btn.btn-success.disabled
+      //  Modify
       .clr
       .divider1
       %b.medium-text
-        Factors selected : 
-        = @assessment.job_assessment_factor_norms.collect{|x| x.factor.name}.join(",")
+        Selected Factors: 
+      = @assessment.job_assessment_factor_norms.where(:methods => [ :factor ]).collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
       .alert.alert-info.padding-all1.text-center
         %b.extra-medium-text
-          Apart from the factors that you have selected, you can also select one or more factors below.
+          Miscellaneous Factors - You may select one or more to measure.
       .factors
         %ul.unstyled.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
@@ -63,17 +54,26 @@
 %script{type: 'text/javascript'} 
   jQuery(document).ready(function($){
   $("input[name='selected_factor']").change(function(){
+  var index = $(this).attr("index");
   if($(this).is(":checked")){
-  $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").removeAttr("disabled");
+  $("#li_"+index).addClass("checked");
+  $("input:not(:checkbox)[index='"+index+"']").removeAttr("disabled");
   }else{
-  $("input:not(:checkbox)[index='"+$(this).attr("index")+"']").attr("disabled",'disabled');
+  var id = $("#id_"+index).val();
+  if(id != null && id != ""){
+  $("#destroy_"+index).val(true);
+  }else{
+  $("input:not(:checkbox)[index='"+index+"']").attr("disabled",'disabled');
+  $("#li_"+index).removeClass("checked");
+  }
   }
   });
   $("input[name='checkbox_critical']").change(function(){
+  var index = $(this).attr("index");
   if($(this).is(":checked")){
-  $("#critical_"+$(this).attr("index")).val("on");
+  $("#critical_"+index).val("on");
   }else{
-  $("#critical_"+$(this).attr("index")).val("off");
+  $("#critical_"+index).val("off");
   }
   });
   });    

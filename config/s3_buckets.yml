@@ -1,0 +1,13 @@
+development: &dev
+  bucket_name : "report_pdfs_development"
+test: &test
+  <<: *dev
+
+staging:
+  bucket_name : "report_pdfs_staging"
+
+staging_internal:
+  bucket_name : "report_pdfs_staging_internal"
+
+production:
+  bucket_name : "report_pdfs"

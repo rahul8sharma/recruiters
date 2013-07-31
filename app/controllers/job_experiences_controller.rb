@@ -1,16 +1,25 @@
 class JobExperiencesController < ApplicationController
   before_filter :authenticate_user!
-  
+
+  def api_resource
+    Vger::Resources::JobExperience
+  end
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
   layout "admin"
-  
+
   def import
     Vger::Resources::JobExperience.import(params[:file])
     redirect_to job_experiences_path, notice: "JobExperiences imported."
-  end  
-  
+  end
+
   def manage
   end
-  
+
   def import_from_google_drive
     Vger::Resources::JobExperience\
       .import_from_google_drive(params[:import])
@@ -26,7 +35,7 @@ class JobExperiencesController < ApplicationController
   def show
     @job_experience = Vger::Resources::JobExperience.find(params[:id])
   end
-  
+
   # GET /job_experiences
   def index
     @job_experiences = Vger::Resources::JobExperience.where(:page => params[:page], :per => 10)
@@ -45,7 +54,7 @@ class JobExperiencesController < ApplicationController
   # POST /job_experiences.json
   def create
     @job_experience = Vger::Resources::JobExperience.new(params[:job_experience])
-      
+
     respond_to do |format|
       if @job_experience.save
         format.html { redirect_to @job_experience, notice: 'JobExperience was successfully created.' }

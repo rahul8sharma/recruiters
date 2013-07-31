@@ -1,23 +1,28 @@
-= render :partial => "shared/report_header"      
+.inner
+  = render :partial => "shared/report_header.html.haml"      
 
-.scores.interview_guide 
-  .heading.light_blue.pull-left
-    Interview Guide 
-  .clr
-  .divider1
-  %ul.unstyled.clearfix.interview_guide_listing 
-    - @post_assessment_guidelines.each do |factor, guides|
-      - guides.each do |guide|
+  .scores.miscellaneous_factors
+    .blue_bg_heading.pull-left
+      %b Miscellaneous Factors
+    .clr
+    .left-offset3.pull-left
+      %b Measured
+    .left-offset1.pull-left
+      %b Preferred
+    .clr
+    .divider1
+    %ul.unstyled.miscellaneous_listing
+      - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
         %li
-          .span1.first.que-no.hexagon-icon.favorable
-            Q
-          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-          .factor-name.pull-left
-            = factor.name
+          .span1.first.hexagon-icon.mid_favorable
+          //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+          .span2.mid_favorable.pull-left
+            %b #{factor_score.factor.parent.name}
+          .measured.pull-left
+            = factor_score.factor.parent.direct_predictors.map(&:name).join(",<br/>").html_safe
+          .preferred.pull-left
+            %b.mid_favorable
+              = factor_score.factor.name
           .description.pull-left
-            = guide.body
+            = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id].values.flatten.first.description rescue factor_score.factor.name
           .clr
-
-= render :partial => "shared/report_footer"      
-
-.page-break                    

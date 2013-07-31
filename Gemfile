@@ -19,7 +19,7 @@ gem 'wicked_pdf','0.9.6'
 
 gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
 
-gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "ad78cb181ee6cd2a"
+gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "14721ddd0e1477e"
 
 gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 

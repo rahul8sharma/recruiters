@@ -1,13 +1,26 @@
 class CompaniesController < ApplicationController
-  layout "companies" 
-  
-  def index
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5)
+  before_filter :authenticate_user!
+
+  def api_resource
+    Vger::Resources::Company
   end
-  
+
+  def destroy_all
+    api_resource.destroy_all
+    redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+
+  layout "companies"
+
+  before_filter :get_company, :only => [ :show, :candidate, :settings, :account, :company, :statistics]
+
+  def index
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :methods => [ :subscription, :assessmentwise_statistics ])
+  end
+
   def manage
   end
-  
+
 	def import_from_google_drive
     Vger::Resources::Company\
       .import_from_google_drive(params[:import])
@@ -21,26 +34,29 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Vger::Resources::Company.find(params[:id])
+
   end
-  
+
   def candidate
-    @company = Vger::Resources::Company.find(params[:id])
   end
-  
+
   def settings
-    @company = Vger::Resources::Company.find(params[:id])
   end
-  
+
   def account
-    @company = Vger::Resources::Company.find(params[:id])
   end
-  
+
   def company
-    @company = Vger::Resources::Company.find(params[:id])
   end
-  
+
   def statistics
-    @company = Vger::Resources::Company.find(params[:id])
+  end
+
+
+  protected
+
+  def get_company
+    @company = Vger::Resources::Company.find(params[:id], :methods => [ :subscription, :assessment_statistics ])
   end
 end
+
