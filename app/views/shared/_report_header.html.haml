@@ -7,13 +7,13 @@
         = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
     .left-side
       .user_name
-        = @candidate.name
+        = @report.report_hash[:candidate][:name]
       .date
-        Assessment Date: #{Date.parse(@candidate_assessment.updated_at).strftime("%d/%m/%Y")}
+        Assessment Date: #{@report.report_hash[:completed_at]}
     .right-side
       .pull-left
         Assessment Name: 
       .pull-left.span
-        = @assessment.name
+        = @report.report_hash[:assessment][:name]
       .clr
 
