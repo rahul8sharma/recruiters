@@ -38,20 +38,20 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @candidate_factor_scores.select{|factor_id,factor_score| @job_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.each_with_index do |(factor_id,factor_score),index|
+      - @report.report_hash[:job_fit_scores].each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
-            %div{ class: "span1 first hexagon-icon #{factor_score.pass? ? 'facorable' : 'less_favorable'}" }
+            %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
             .span6
               .factor-name
-                = factor_score.factor.name
+                = factor_name
               .factor-description
-                = @factor_norm_bucket_descriptions_by_norm_bucket[factor_id][factor_score.norm_bucket_id].first.description
+                = factor_score[:description]
             .clr 
           .rhs-sec.pull-left
             .slider
-              - scale = get_scale @assessment_factor_norms, factor_score
+              - scale = factor_score[:scale]
               .pointer{ class: "position#{scale[:position]}" }
               // Use position1, postion2...5. for pointer position
               .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
