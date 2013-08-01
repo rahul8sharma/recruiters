@@ -168,8 +168,9 @@ class AssessmentsController < ApplicationController
   # GET : renders list of candidates
   def candidates
     AWS::S3::Base.establish_connection!(Rails.configuration.s3)
-    ids = @assessment.candidate_assessments.where(:page => params[:page], :per => 10).map(&:candidate_id)
-    @candidates = Vger::Resources::Candidate.where(:query_options=> {:id => ids.present? ? ids : -1}, :page => params[:page], :per => 10)
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
+    @candidates = @candidate_assessments.map(&:candidate)    
+    @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
   
   # GET : renders candidate info for selected assessment
