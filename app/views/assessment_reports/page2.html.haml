@@ -13,22 +13,23 @@
       Less Favorable 
     .factors_container
       .factors_list
-        - @factors_by_fit[@job_fit].select{|factor| @measured_factors_ids.include?(factor.id) }.each_with_index do |factor,index|
-          %div{ class: "factor_#{index+1} #{@candidate_factor_scores[factor.id].pass? ? 'favorable' : 'less_favorable'}" }
-            .wrapper{:style=>"margin-top: 25px;"}
-              = factor.name
+        - @report.report_hash[:job_fit_scores].each_with_index do |(factor_name,factor_score),index|
+          - margin = factor_name.split(" ").size > 1 ? 20 : 25
+          %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            .wrapper{:style=>"margin-top: #{margin}px;"}
+              = factor_name.gsub("- ","").gsub(" ","<br/>").html_safe
       .bottom_sec
         .title_1
           Job Role Fit
         .strength_1
-          = @job_fit_grade
+          = @report.report_hash[:job_fit_grade]
         .title_2
           Team Fit
         .strength_2
-          = @team_fit_grade
+          = @report.report_hash[:team_fit_grade]
         .title_3
           Company Fit
         .strength_3
-          = @company_fit_grade
+          = @report.report_hash[:company_fit_grade]
         .indication
           Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment

@@ -4,55 +4,61 @@
 = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
 .page-break      
 
-- if @factors_by_fit[@job_fit].select{|factor| @measured_factors_ids.include?(factor.id) }.present?
+- if @report.report_hash[:job_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page2.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
-- if @factors_by_fit[@company_fit].select{|factor| @measured_factors_ids.include?(factor.id) }.present?
+- if @report.report_hash[:company_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page3.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
  
-- if @factors_by_fit[@team_fit].select{|factor| @measured_factors_ids.include?(factor.id) }.present?        
+- if @report.report_hash[:team_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page4.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
 
-- if @candidate_factor_scores.select{|factor_id,factor_score| @job_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.present?        
+- if @report.report_hash[:job_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page5.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
-- if @candidate_factor_scores.select{|factor_id,factor_score| @company_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.present?
+- if @report.report_hash[:company_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page6.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 
-- if @candidate_factor_scores.select{|factor_id,factor_score| @team_fit.factor_ids.include?(factor_score.factor_id) && @measured_factors_ids.include?(factor_id) }.present?
+- if @report.report_hash[:team_fit_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page7.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
-- if @candidate_factor_scores_for_direct_predictors.present?
+- if @report.report_hash[:direct_predictor_scores].present?
   - page = page + 1
   = render :template => "assessment_reports/page8.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
-- if @post_assessment_guidelines.present?
+- if @report.report_hash[:post_assessment_guidelines].present?
   - page = page + 1
   = render :template => "assessment_reports/page9.html.haml"
   = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
-  .page-break      
+  .page-break
+  
+- if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
+  - page = page + 1
+  = render :template => "assessment_reports/page10.html.haml"
+  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
+  .page-break              
   
 - page = page + 1
-= render :template => "assessment_reports/page10.html.haml"
+= render :template => "assessment_reports/page11.html.haml"
 = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page, :force => true, :navigation => false, :last_page => true }

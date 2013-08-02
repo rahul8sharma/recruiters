@@ -12,17 +12,17 @@
     .clr
     .divider1
     %ul.unstyled.miscellaneous_listing
-      - @candidate_factor_scores_for_direct_predictors.each do |factor_id,factor_score|
+      - @report.report_hash[:direct_predictor_scores].each do |factor_name,factor_score|
         %li
           .span1.first.hexagon-icon.mid_favorable
           //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
           .span2.mid_favorable.pull-left
-            %b #{factor_score.factor.parent.name}
+            %b #{factor_score[:parent_name]}
           .measured.pull-left
-            = factor_score.factor.parent.direct_predictors.map(&:name).join(",<br/>").html_safe
+            = factor_score[:direct_predictors].join(",<br/>").html_safe
           .preferred.pull-left
             %b.mid_favorable
-              = factor_score.factor.name
+              = factor_name
           .description.pull-left
-            = @factor_norm_bucket_descriptions_by_norm_bucket[factor_score.factor_id].values.flatten.first.description rescue factor_score.factor.name
+            = factor_score[:description]
           .clr

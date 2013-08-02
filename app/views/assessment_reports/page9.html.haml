@@ -3,7 +3,13 @@
 
   .scores.interview_guide 
     .blue_bg_heading.pull-left
-      %b Interview Questions
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate
+        %b Interview Questions
+      - else
+        %b 
+          Development Guide
+          .medium-text
+            for the Candidate
     .indication.pull-right
       .hexagon-icon.favorable.pull-left
       .pull-left
@@ -11,31 +17,38 @@
       .hexagon-icon.less_favorable.pull-left
       .pull-left
         Less Favorable
-      .hexagon-icon.mid_favorable.pull-left
-      .pull-left
-        Miscellaneous
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate  
+        .hexagon-icon.mid_favorable.pull-left
+        .pull-left
+          Miscellaneous
     .clr
     .divider1
     %ul.unstyled.clearfix.interview_guide_listing 
-      - @post_assessment_guidelines.select{|factor_id, guide| @candidate_factor_scores[factor_id].pass?  }.each do |factor_id, guides|
-        - guides[0..0].each do |guide|
-          - factor = guide.factor
+      - @report.report_hash[:post_assessment_guidelines].select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.each do |factor_name, guide|
+        %li
+          .span1.first.que-no.hexagon-icon.favorable
+          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+          .factor-name.pull-left
+            = factor_name
+          .description.pull-left
+            = guide[:body]
+          .clr
+      - @report.report_hash[:post_assessment_guidelines].select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor")  }.each do |factor_name, guide|
+        %li
+          .span1.first.que-no.hexagon-icon.less_favorable
+          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+          .factor-name.pull-left
+            = factor_name
+          .description.pull-left
+            = guide[:body]
+          .clr     
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate    
+        - @report.report_hash[:post_assessment_guidelines].select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"  }.each do |factor_name, guide|
           %li
-            .span1.first.que-no.hexagon-icon.favorable
+            .span1.first.que-no.hexagon-icon.mid_favorable
             //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
             .factor-name.pull-left
-              = factor.name
+              = factor_name
             .description.pull-left
-              = guide.body
-            .clr
-      - @post_assessment_guidelines.select{|factor_id, guide| !@candidate_factor_scores[factor_id].pass?  }.each do |factor_id, guides|
-        - guides[0..0].each do |guide|
-          - factor = guide.factor
-          %li
-            .span1.first.que-no.hexagon-icon.less_favorable
-            //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-            .factor-name.pull-left
-              = factor.name
-            .description.pull-left
-              = guide.body
-            .clr     
+              = guide[:body]
+            .clr        
