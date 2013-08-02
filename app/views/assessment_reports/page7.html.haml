@@ -38,7 +38,7 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @report.report_hash[:company_fit_scores].each_with_index do |(factor_name,factor_score),index|
+      - @report.report_hash[:team_fit_scores].each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
