@@ -27,16 +27,15 @@
       #{@report.report_hash[:candidate][:name]}&#39;s Fitment Scores
     .clr
     .visual
-      .strength_1
-        = @report.report_hash[:company_fit_grade]
-      .strength_2
-        = @report.report_hash[:job_fit_grade]
-      .strength_3
-        = @report.report_hash[:team_fit_grade]
-        
-      .title_1
+      .title_company
         Company Fit
-      .title_2
+      .strength_company
+        = @report.report_hash[:company_fit_grade]
+      .title_job
         Job Role Fit
-      .title_3
+      .strength_job
+        = @report.report_hash[:job_fit_grade]
+      .title_team
         Team Fit
+      .strength_team
+        = @report.report_hash[:team_fit_grade]
