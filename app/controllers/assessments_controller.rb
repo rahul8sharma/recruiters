@@ -155,7 +155,7 @@ class AssessmentsController < ApplicationController
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0) 
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
           candidate_assessments.push candidate_assessment 
         end
       end

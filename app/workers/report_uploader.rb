@@ -59,24 +59,24 @@ class ReportUploader < AbstractController::Base
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      
-      SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{@report.id}",{
-        :report => {
-          :status => "Success",
-          :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
-          
-          :candidate => {
-            :name => @report.report_hash[:candidate][:name],
-            :email => @report.report_hash[:candidate][:email]
-          },
-          :assessment => {
-            :id => @report.report_hash[:assessment][:id],
-            :name => @report.report_hash[:assessment][:name],
-            :assessable_id => @report.report_hash[:assessment][:assessable_id],
-            :assessable_type => @report.report_hash[:assessment][:assessable_type]
-          } 
-        }
-      })
+      SystemMailer.delay.send_report(@report.report_hash)
+      #SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{@report.id}",{
+      #  :report => {
+      #    :status => "Success",
+      #    :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
+      #    
+      #    :candidate => {
+      #      :name => @report.report_hash[:candidate][:name],
+      #      :email => @report.report_hash[:candidate][:email]
+      #    },
+      #    :assessment => {
+      #      :id => @report.report_hash[:assessment][:id],
+      #      :name => @report.report_hash[:assessment][:name],
+      #      :assessable_id => @report.report_hash[:assessment][:assessable_id],
+      #      :assessable_type => @report.report_hash[:assessment][:assessable_type]
+      #    } 
+      #  }
+      #})
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
