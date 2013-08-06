@@ -18,7 +18,7 @@
           - margin = factor_name.split(" ").size > 1 ? 20 : 25
           %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             .wrapper{:style=>"margin-top: #{margin}px;"}
-              = factor_name.gsub("- ","").gsub(" ","<br/>").html_safe
+              = factor_name.gsub(" ","<br/>").html_safe
       .bottom_sec
         .title_1
           Company Fit
