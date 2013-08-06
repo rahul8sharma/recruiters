@@ -1,0 +1,21 @@
+Hi, 
+<p>
+  <%= @report_hash[:candidate][:name] %> has completed the assessment - <%= @report_hash[:assessment][:name] %> on <%= @report_hash[:completed_at] %>. You may view the candidate report by clicking on the web-link below.
+</p>
+<p>
+  Report URL: <%= company_assessment_candidate_candidate_assessment_report_url(:company_id => @report_hash[:company][:id], :candidate_id => @report_hash[:candidate][:id], :assessment_id => @report_hash[:assessment][:id], :id => @report_hash[:id])  %>
+</p>
+<p>
+  You may alternatively view the report by copy-pasting the link in your web browser's address bar and visiting the link or by logging into   your Jombay Account. 
+</p>
+<p>
+  If you face any technical difficulties or have any queries please feel free to reach us at 
+  <a href="mailto:prakhar@jombay.com" title="For any queries Mail to Prakhar"> 
+    prakhar@jombay.com. 
+  </a>  
+  You can also call us at 
+  <b>+91 87960 29607</b>
+</p>
+Best regards,<br/>
+Prakhar Srivastava<br/>
+Jombay
