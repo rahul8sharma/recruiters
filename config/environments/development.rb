@@ -30,7 +30,7 @@ Recruiters::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # config.threadsafe!
-  
+  config.action_mailer.default_url_options = { :host => "companies.jombaylocal.com", :only_path => false, :protocol => "http" }
   config.action_controller.asset_host = "http://companies.jombaylocal.com"
   # Do not compress assets
   config.assets.compress = false
