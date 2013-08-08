@@ -52,6 +52,7 @@ Recruiters::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.default_url_options = { :host => "companies.jombay.com", :only_path => false, :protocol => "http" }
   config.action_controller.asset_host = "http://companies.jombay.com"
   # Enable threaded mode
   config.threadsafe!

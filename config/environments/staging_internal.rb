@@ -39,7 +39,8 @@ Recruiters::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
-  config.action_controller.asset_host = "http://recruiters.internal.ur-nl.com:6080"  
+  config.action_mailer.default_url_options = { :host => "companies.internal.ur-nl.com:6080", :only_path => false, :protocol => "http" }
+  config.action_controller.asset_host = "http://companies.internal.ur-nl.com:6080"  
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store

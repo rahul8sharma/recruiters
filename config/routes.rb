@@ -62,8 +62,9 @@ Recruiters::Application.routes.draw do
           post 'import_from_google_drive'
           post 'export_to_google_drive'
         end
-
-        get "/report", :to => "assessment_reports#assessment_report"
+        
+        resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+        end
       end
     end
 

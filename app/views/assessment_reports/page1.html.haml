@@ -4,38 +4,38 @@
     .clr
     .heading
       .big-text
-        Suitability Assessment Report
+        = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Suitability" : "Employee"
+        Assessment Report
       .user_name
-        = @candidate.name
+        = @report.report_hash[:candidate][:name]
       .span.first
         Assessment: 
       .span7
-        #{@assessment.name} 
+        = @report.report_hash[:assessment][:name]
       .clr
       .date
         %span Date: 
         %span
-          #{hdate @candidate_assessment.completed_at}
+          = @report.report_hash[:completed_at]
       .clr
 
-
-    .sub-heading.large-text.pull-right
-      Jombay&#39;s Recommendation : #{@recommendation.body} 
-    .clr
+    - if @report.report_hash[:candidate_stage].to_sym == :candidate
+      .sub-heading.large-text.pull-right
+        Jombay&#39;s Recommendation : #{@report.report_hash[:recommendation]} 
+      .clr
     .sub-heading.medium-text.pull-right
-      #{@candidate.name}&#39;s Fitment Scores
+      #{@report.report_hash[:candidate][:name]}&#39;s Fitment Scores
     .clr
     .visual
-      .strength_1
-        = @company_fit_grade
-      .strength_2
-        = @job_fit_grade
-      .strength_3
-        = @team_fit_grade
-        
-      .title_1
+      .title_company
         Company Fit
-      .title_2
+      .strength_company
+        = @report.report_hash[:company_fit_grade]
+      .title_job
         Job Role Fit
-      .title_3
+      .strength_job
+        = @report.report_hash[:job_fit_grade]
+      .title_team
         Team Fit
+      .strength_team
+        = @report.report_hash[:team_fit_grade]
