@@ -1,5 +1,0 @@
-.content-sub-nav.clearfix
-  %a.menu{ class: (["candidate","candidates"].include?(params[:action]) ? "active" : ""),:href => candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Candidates"}
-    Candidates     
-  %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
-    Summary     
