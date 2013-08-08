@@ -1,6 +1,7 @@
 @import toolkit/component/pagination
 @import toolkit/component/buttons
 @import toolkit/component/alerts
+@import shared/content-sub-nav
 
 @import shared/sub-nav
 .white-box
@@ -135,42 +136,7 @@
           background: #ffff9a
     ul.dropdown-menu.active
       display: block
-  .candidate-summary-nav
-    background: #fafafa
-    border: 1px solid #dddddd
-    border-left: 0
-    .menu
-      float: left
-      width: 155px
-      font-size: 13px
-      font-weight: bold
-      text-align: center
-      color: #484848
-      border-left: 1px solid #dddddd
-      border-bottom: 3px solid transparent
-      padding: 7px 0
-      display: block
 
-      &:hover, &.active
-        border-bottom: 3px solid #ff8308
-        background: #fff
-
-      &.active
-        position: relative
-
-        &:before
-          top: 100%
-          border: solid transparent
-          content: " "
-          height: 0
-          width: 0
-          position: absolute
-          pointer-events: none
-          border-color: rgba(255, 131, 8, 0)
-          border-top-color: #ff8308
-          border-width: 14px
-          left: 50%
-          margin-left: -15px
   .summary
     background: #fffcde
   .selected-factors
