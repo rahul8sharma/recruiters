@@ -51,8 +51,8 @@ class ReportUploader < AbstractController::Base
       File.open(pdf_save_path, 'wb') do |file|
         file << pdf
       end
-      pdf_s3 = upload_pdf_to_s3(pdf_file_id,File.open(pdf_save_path,"r"))
-      html_s3 = upload_pdf_to_s3(html_file_id,File.open(html_save_path,"r"))
+      pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
+      html_s3 = upload_file_to_s3(html_file_id,html_save_path)
       Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(@report.id,  
         :s3_keys => { :pdf => pdf_s3, :html => html_s3 },
         :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
@@ -111,13 +111,14 @@ class ReportUploader < AbstractController::Base
     
   end
   
-  def upload_pdf_to_s3(file_id,pdf)
-    Rails.logger.debug "Uploading #{file_id} to s3 ........."
-    AWS::S3::Base.establish_connection!(Rails.application.config.s3)
-    s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
-    s3_key = "#{file_id}"
-    url = S3Utils.upload(s3_bucket_name, s3_key, pdf)
-    Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
-    return { :bucket => s3_bucket_name, :key => s3_key }
+  def upload_file_to_s3(file_id,file_path)
+    File.open(file_path,"r") do |file|
+      Rails.logger.debug "Uploading #{file_id} to s3 ........."
+      s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
+      s3_key = "#{file_id}"
+      url = S3Utils.upload(s3_bucket_name, s3_key, file)
+      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
+      return { :bucket => s3_bucket_name, :key => s3_key }
+    end
   end
 end

@@ -45,8 +45,8 @@
             .span.lhs-border
               - if report
                 - if report.status == "uploaded"
-                  - pdf_url =  AWS::S3::S3Object.find(report.s3_keys["html"]["key"],report.s3_keys["html"]["bucket"]).url 
-                  %a.underlined{:href => pdf_url, :title => "View Report", target: "_blank"}
+                  - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :assessment_id => @assessment.id, :id => report.id)
+                  %a.underlined{:href => url, :title => "View Report", target: "_blank"}
                     View Report
                 - else
                   Generating report...  
