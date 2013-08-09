@@ -19,8 +19,6 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
   end
 
   def import_via_s3
-    AWS::S3::Base.establish_connection!(Rails.configuration.s3)
-
     s3_bucket_name = 'master_data'
     s3_key = 'default_factor_norm_ranges.csv.zip'
 
