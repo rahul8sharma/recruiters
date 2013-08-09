@@ -1,0 +1,42 @@
+.user-list
+  = render :partial => "shared/sub-nav-companies"
+  %form
+    .inn.first
+      .page-title
+        Settings
+    .inn.gray-gradient
+      .pull-left
+        = render :partial => "shared/settings-content-sub-nav"
+      .pull-right.medium-text
+        %a.line-height2.show.span{:href => "#"}
+          Remove User
+        %button.btn.btn-info.span.show
+          Add New User
+        .clr
+      .clr
+      .divider2
+
+      .list-snippet-titles.clearfix
+        .span1.first
+          &nbsp;
+        .span3
+          User ID
+        .span6
+          Name
+        .span8
+          Email id
+        .span
+          Date Added
+      %ul.unstyled
+        - 10.times do |index|
+          %li.list-snippet
+            .span1.first
+              %input{:type => "checkbox"}
+            .span3
+              JOM41
+            .span6.first.lhs-border
+              Sub Account Name
+            .span8.lhs-border
+              someone@email.com
+            .span.lhs-border
+              23-04-2012
