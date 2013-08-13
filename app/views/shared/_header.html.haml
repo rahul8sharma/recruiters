@@ -16,7 +16,8 @@
         - else
           %a.userName.logout.pull-right{:href => login_path, :title => "Login"}
             Login
-        %a.companies.pull-right{:href => companies_path, :title => "Companies" }
-          Companies
-          / %span.icon-caret-down
+        - if current_user.type == "SuperAdmin"
+          %a.companies.pull-right{:href => companies_path, :title => "Companies" }
+            Companies
+            / %span.icon-caret-down
     .clr
