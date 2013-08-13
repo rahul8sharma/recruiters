@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
     case current_user.type
       when "SuperAdmin"
         companies_path
+      when "Admin"
+        company_path(current_user.company_id)  
       else
         root_path        
     end    
@@ -28,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   
   def unauthorized
-    flash[:alert] = "You must be logged in to visit this page"
+    flash[:notice] = "You must be logged in to visit this page"
     redirect_to login_path
   end
   
