@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
       when "SuperAdmin"
         companies_path
       when "Admin"
-        company_path(current_user.company_id)  
+        company_assessments_path(current_user.company_id)  
       else
         root_path        
     end    
