@@ -1,0 +1,206 @@
+body {
+  background: url('../images/shared/blue_bg.png');
+  color: #333333;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+ul {
+    list-style: none outside none;
+    margin: 0;
+}
+a, a:hover {
+    text-decoration: none;
+}
+a, a:focus {
+    outline: medium none;
+}
+p{
+  font-size: 18px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.pull-left{
+  float: left;
+}
+.pull-right{
+  float: right;
+}
+.clr{
+  clear: both;
+}
+.container {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: auto;
+    width: 970px;
+}
+
+#nav {
+    background: none repeat scroll 0 0 #002734;
+    padding-bottom: 15px;
+    width: 100%;
+    position: relative;
+}
+.navbar-inner.container {
+    background: none repeat scroll 0 0 transparent;
+    padding: 0 35px;
+    width: 900px;
+}
+#nav a {
+    color: #FFFFFF;
+    font-size: 16px;
+}
+#nav a:hover, #nav li.active a {
+    color: #FF8308;
+}
+#nav ul {
+    margin-top: 30px;
+}
+#nav li {
+    float: left;
+    padding: 0 30px;
+}
+#nav li:last-child {
+    padding-right: 0;
+}
+#logo {
+    float: left;
+}
+#logo a {
+    background: url("../images/shared/jombay-logo.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 62px;
+    margin: 35px 0 0;
+    text-indent: -100000px;
+    width: 195px;
+}
+.ask-btn {
+  background: url("../images/shared/ask-btn.png") repeat-x scroll 0 0 #FE8A16;
+  border-radius: 0 0 10px 10px;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 14px 20px;
+  text-align: center;
+  margin-left: 50px
+}
+.ask-btn{
+  color: #fff !important;
+}
+
+.content{
+  background: #fff;
+  box-shadow: 0 0 10px #7d9da7;
+  padding: 30px 335px 50px  50px;
+  background: url("../images/error/error_icon.png") no-repeat 680px 120px;
+}
+.title{
+  font-size: 30px;
+  line-height: 35px;
+}
+.sub-title{
+  margin-bottom: 40px;
+}
+.instructions{
+  font-size: 13px;
+  margin: 0 0 0 15px;
+}
+.instructions a {
+  margin-top: 40px;
+  color: #333;
+  display: block;
+}
+.instructions span{
+  display: block;
+}
+.instructions .caption{
+  color: #0da1cc;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+[class^="icon"]{
+  color: red;
+  float: left;
+  height: 35px;
+  width: 35px;
+  border-radius: 5px;
+  margin-right: 10px;
+  background: url("../images/error/icons.png") no-repeat center center #0da1cc;
+}
+.icon1{
+  background-position: 0px 0px;
+}
+ 
+.icon2{
+  background-position: 0px -42px;
+}
+
+.icon3{
+  background-position: 0px -84px;
+}
+#footer {
+  background: none repeat scroll 0 0 #002A3A;
+  color: #6AA5BA;
+  font-size: 18px;
+  margin-top: 30px;
+  position: relative;
+}
+#footer .container {
+  margin: 0 auto;
+  width: 950px;
+}
+#footer {
+  background: none repeat scroll 0 0 #002734;
+  color: #6EABC1;
+  font-size: 16px;
+}
+#footer a {
+  color: #6EABC1;
+  text-decoration: none;
+}
+#footer .inn {
+  border: medium none;
+  margin: auto;
+  padding: 30px 0;
+  width: 710px;
+}
+#footer .inn ul li {
+  margin: 0 0 15px;
+}
+#footer .inn ul {
+  margin: 0 0 0 90px;
+}
+#footer .inn .header-text {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+}
+#footer .pull-left ul {
+  list-style: none outside none;
+  padding: 0;
+  width: 200px;
+}
+#footer .pull-left ul li a:hover {
+  color: #FF8308;
+  font-weight: bold;
+  height: 21px;
+}
+#footer .inn .footer-right * {
+  display: block;
+  margin-bottom: 10px;
+}
+#footer .white {
+  color: #FFFFFF;
+}
