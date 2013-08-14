@@ -35,7 +35,7 @@ class CompaniesController < ApplicationController
 
   def show
     if @company.hq_location_id
-      @hq_location = Vger::Resources::Location.find(@company.hq_location_id, :methods => [ :display_string ])
+      @hq_location = Vger::Resources::Location.find(@company.hq_location_id, :methods => [ :address ])
     end
   end
 
