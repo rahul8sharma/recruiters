@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   
   # redenr companies layout and header if user belongs to a company
   def password_settings
-    if current_user.company_id.present?
+    if current_user.respond_to?(:company_id) && current_user.company_id.present?
       @company = Vger::Resources::Company.find(current_user.company_id)
       render :layout => "companies"
     end      
@@ -61,8 +61,27 @@ class UsersController < ApplicationController
   end
   
   def reset_password
+    if params[:activate]
+      @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
+      render :action => :activate 
+    end
   end
-
+  
+  def activate
+    if request.put?
+      @user = Vger::Resources::User.reset_password_by_token(params[:user], :root => :user)
+      if @user.error_messages && @user.error_messages.empty?
+        flash[:notice] = "#{@user.name}, Your account has been successfully activated!"
+        sign_in(:auth_token => @user.authentication_token)
+      else
+        flash[:error] = @user.error_messages.join("<br/>").html_safe
+        redirect_to activate_account_path(:reset_password_token => params[:user][:reset_password_token])
+      end
+    else  
+      @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
+    end
+  end
+  
   def update_password
     @user = Vger::Resources::User.reset_password_by_token(params[:user])
     if @user.error_messages && @user.error_messages.empty?

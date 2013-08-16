@@ -286,6 +286,9 @@ Recruiters::Application.routes.draw do
   get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
   post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
   
+  get "/users/activate", :to => "users#activate", :as => :activate_account
+  put "/users/activate", :to => "users#activate"
+  
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
