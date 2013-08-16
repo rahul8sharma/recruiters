@@ -73,7 +73,7 @@ class CompaniesController < ApplicationController
     params[:user_ids].split("|").each do |user_id,on|
       Vger::Resources::Admin.destroy_existing(user_id)
     end
-    flash[:notice] = "You have successfully removed the Users"
+    flash[:notice] = "Users removed successfully."
     redirect_to user_settings_company_path(@company)
   end
   
@@ -112,7 +112,7 @@ class CompaniesController < ApplicationController
           render :action => :add_users and return
         end
       end
-      flash[:notice] = "New users successfully added.Instructions to login have been emailed to the users"
+      flash[:notice] = "New users successfully added. Instructions to login have been emailed to the users."
       redirect_to user_settings_company_path(@company)
     else
     end
