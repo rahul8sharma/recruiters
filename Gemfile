@@ -13,7 +13,7 @@ gem 'rails-backbone','0.7.2'
 
 gem 'puma','2.0.1'
 
-gem 'kaminari', :git => "git@github.com:amatsuda/kaminari.git", :branch => "master"
+gem 'kaminari', :git => "git@github.com:amatsuda/kaminari.git", :branch => "master", :ref => "c7c88c576786"
 
 gem 'wicked_pdf','0.9.6'
 
@@ -27,7 +27,7 @@ gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'
-gem "exception_notification", :git => "git@github.com:pmahoney/exception_notification.git", :branch => "jruby"
+gem "exception_notification", :git => "git@github.com:pmahoney/exception_notification.git", :branch => "jruby", :ref => "5ac9f405fd53ee"
 gem 'aws-sdk', '1.14.1'
 gem 'sidekiq', '2.12.1'
 

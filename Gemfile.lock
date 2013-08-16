@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:amatsuda/kaminari.git
   revision: c7c88c576786d44623423ed3a5d466874a63837f
+  ref: c7c88c576786
   branch: master
   specs:
     kaminari (0.14.1)
@@ -10,6 +11,7 @@ GIT
 GIT
   remote: git@github.com:pmahoney/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
+  ref: 5ac9f405fd53ee
   branch: jruby
   specs:
     exception_notification (3.0.1)
@@ -38,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: bfdf7a9c850332b877d9ce6f2662827459258b01
+  revision: b309fd96a1dd2ad07b78f6f9b4fe028bcd5ad96a
   branch: develop
   specs:
     vger (0.0.1)
@@ -110,6 +112,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    json (1.8.0)
     json (1.8.0-java)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -117,8 +120,11 @@ GEM
     mime-types (1.23)
     multi_json (1.7.8)
     multipart-post (1.2.0)
+    nokogiri (1.5.10)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
+    puma (2.0.1)
+      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)

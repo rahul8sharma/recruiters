@@ -12,10 +12,9 @@
       .large-text.pull-left
         Add New User
       .pull-right.medium-text
-        %a.line-height2.show.span{:href => "#"}
+        %a.line-height2.show.span{:href => settings_company_path(@company)}
           Cancel
-        %button.btn.btn-info.span.show
-          Add
+        %input{ class: "button btn btn-info span show", type: "submit", value: "Add" }
         .clr
       .clr
       .clearfix
@@ -23,7 +22,7 @@
         %b.right Email ID
       .divider1
 
-      %ul.unstyled
+      %ul.unstyled.add-users-listing
         - 10.times do |index|
           %li.clearfix
             .sr-no
