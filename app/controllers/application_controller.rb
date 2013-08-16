@@ -38,11 +38,12 @@ class ApplicationController < ActionController::Base
   # set session[:redirect_to] = request.fullpath
   # and redirect to login path
   def unauthorized
-    flash[:notice] = "You must be logged in to visit this page"
     if current_user
+      flash[:error] = "You are not authorized to access this page."
       session[:redirect_to] = nil
       redirect_to after_sign_in_path_for()
     else
+      flash[:error] = "You must be logged in to visit this page."
       session[:redirect_to] = request.fullpath
       redirect_to login_path
     end
