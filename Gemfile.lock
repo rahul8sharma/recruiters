@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:prcongithub/vger.git
-  revision: b309fd96a1dd2ad07b78f6f9b4fe028bcd5ad96a
+  revision: 547774d17a5c9ac576eb811d82ff2c42e57ade10
   branch: develop
   specs:
     vger (0.0.1)
