@@ -21,6 +21,64 @@ class Suitability::ItemGroupsController < ApplicationController
   end
 
   def index
-    @items = Vger::Resources::Suitability::Item.where(:page => params[:page], :per => 10, :methods => [:options])
+    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :methods => [:item_groups])
+  end
+  
+  
+  # GET /item_groups/new
+  # GET /item_groups/new.json
+  def new
+    @item_group= Vger::Resources::Suitability::ItemGroup.new
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  # GET /item_groups/:id
+  # GET /item_groups/:id.json
+  def show
+    @item_group= Vger::Resources::Suitability::ItemGroup.find(params[:id], :methods => [ :items ])
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  # GET /item_groups/:id
+  # GET /item_groups/:id.json
+  def edit
+    @item_group= Vger::Resources::Suitability::ItemGroup.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  # POST /item_groups
+  # POST /item_groups.json
+  def create
+    @item_group= Vger::Resources::Suitability::ItemGroup.new(params[:item_group])
+    respond_to do |format|
+      if @item_group.save
+        format.html { redirect_to suitability_item_group_path(@item_group), notice: 'Suitability Item Group was successfully created.' }
+        format.json { render json: @item_group, status: :created, location: @item_group}
+      else
+        format.html { render action: "new" }
+        format.json { render json: @item_group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # PUT /item_groups/:id
+  # PUT /item_groups/:id.json
+  def update
+    @item_group = Vger::Resources::Suitability::ItemGroup.find(params[:id])
+    respond_to do |format|
+      if @item_group.class.save_existing(params[:id], params[:item_group])
+        format.html { redirect_to suitability_item_group_path(params[:id]), notice: 'Suitability Item Group was successfully updated.' }
+        format.json { render json: @item_group, status: :created, location: @item_group}
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @item_group.errors, status: :unprocessable_entity }
+      end
+    end
   end
 end
