@@ -1,0 +1,12 @@
+%b.large-text
+  Activate your Jombay Account
+.divider1
+= render :partial => "shared/user-alerts"
+= form_for(:user, :url => activate_account_path, method: :put) do |f|
+  %input{type: "text", :name => "user[email]", :placeholder => "Email", value: @user.email, disabled: "disabled"}
+  %input{type: "password", :name => "user[password]", :placeholder => "New Password"}
+  %input{type: "password", :name => "user[password_confirmation]", :placeholder => "Confirm Password"}
+  %input{type: "hidden", name: "user[reset_password_token]", value: params[:reset_password_token]}
+  %button.btn.btn-info.pull-right
+    Activate
+  .clr

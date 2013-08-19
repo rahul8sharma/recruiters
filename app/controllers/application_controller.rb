@@ -15,9 +15,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for()
     case current_user.type
       when "SuperAdmin"
-        companies_path
+        session[:redirect_to] || companies_path
+      when "Admin"
+        session[:redirect_to] || company_assessments_path(current_user.company_id)  
       else
-        root_path        
+        session[:redirect_to] || root_path        
     end    
   end
 
@@ -27,9 +29,24 @@ class ApplicationController < ActionController::Base
   	RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
   end
   
+  
+  # catch unauthorized exception from Faraday
+  # if user is logged in the error is because of cancan
+  # set session[:redirect_to] - nil to avoid redirect loop
+  # redirect to after_sign_in_path_for  
+  # else
+  # set session[:redirect_to] = request.fullpath
+  # and redirect to login path
   def unauthorized
-    flash[:alert] = "You must be logged in to visit this page"
-    redirect_to login_path
+    if current_user
+      flash[:error] = "You are not authorized to access this page."
+      session[:redirect_to] = nil
+      redirect_to after_sign_in_path_for()
+    else
+      flash[:error] = "You must be logged in to visit this page."
+      session[:redirect_to] = request.fullpath
+      redirect_to login_path
+    end
   end
   
   def resource_not_found
@@ -38,6 +55,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # set session[:auth_token] to nil
+  # redirect to login_path
   def invalid_authentication(e)
     session[:auth_token] = nil
     flash[:error] = e.message

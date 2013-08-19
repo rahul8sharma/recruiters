@@ -1,7 +1,9 @@
 @import toolkit/component/pagination
+@import toolkit/component/forms
 @import toolkit/component/buttons
 @import toolkit/component/alerts
 @import shared/sub-nav
+@import shared/content-sub-nav
 
 .white-box
   min-height: 490px
@@ -53,3 +55,108 @@
     
 .white-box.test
   min-height: 580px
+.add-user
+  .actions
+    width: 125px
+  .sub-nav
+    width: 470px
+  .left
+    width: 330px
+    float: left
+  .right
+    width: 410px
+    margin-left: 45px
+    float: right
+  b.right
+    width: 420px
+  ul.add-users-listing
+    li
+      margin-bottom: 18px
+      .sr-no
+        background: #fafafa
+        border: 1px solid #d8d8d8
+        border-right: 0
+        font-size: 13px
+        line-height: 36px
+        width: 28px
+        text-align: center
+        width: 40px
+        float: left
+.user-list
+  .lhs-border[class*="span"]
+    border-left: 1px solid #E8E8E8
+    margin-left: 0
+    padding-left: 10px
+
+  .list-snippet
+    border: 1px solid #D8D8D8
+    &:hover
+      background: none repeat scroll 0 0 #FFFEF2
+      border: 1px solid #EFEFEF
+
+  .list-snippet-titles
+    font-size: 14px
+    font-weight: bold
+
+  .list-snippet, .list-snippet-titles
+    cursor: default
+    margin: 0 0 15px
+    padding: 7px 10px
+
+  .list-snippet
+    &:before, &:after
+      content: ""
+      display: table
+
+  .list-snippet-titles
+    &:before, &:after
+      content: ""
+      display: table
+
+  .list-snippet:after, .list-snippet-titles:after
+    clear: both
+.password_setting
+  .actions
+    width: 125px
+  .sub-nav
+    width: 470px
+  .control
+    margin-bottom: 18px
+  label
+    font-size: 13px
+    line-height: 36px
+    font-weight: bold
+    width: 145px
+    float: left
+    color: #676767
+
+  input[type="text"], input[type="password"]
+    float: left
+    width: 250px
+    font-size: 24px
+  .control.error
+    input[type="text"], input[type="password"]
+      border-color: #f3c7c7 
+  .alert
+    font-weight: bold
+    text-align: center
+    padding: 18px
+    width: 355px
+.company_profile
+  font-size: 13px
+  p
+    font-size: 13px
+
+  .company_logo
+    width: 110px
+    height: 75px
+    border: 1px solid #d1d1d1
+  .description
+    margin-bottom: 36px
+  .hqcity, .domain_name
+    background: image-url("jit/company_description_icons.png") no-repeat
+    padding: 0 0 0 30px
+  .domain_name
+    background-position: 0px -29px
+
+

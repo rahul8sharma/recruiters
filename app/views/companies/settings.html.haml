@@ -1,6 +1,38 @@
-.statistic
+.add-user
   = render :partial => "shared/sub-nav-companies"
   .inn.first
     .page-title
       Settings
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/settings-content-sub-nav"
+    .clr
+    .divider2
+    %form
+      .large-text.pull-left
+        Add New User
+      .pull-right.medium-text
+        %a.line-height2.show.span{:href => settings_company_path(@company)}
+          Cancel
+        %input{ class: "button btn btn-info span show", type: "submit", value: "Add" }
+        .clr
+      .clr
+      .clearfix
+        %b.left Full Name
+        %b.right Email ID
+      .divider1
 
+      %ul.unstyled.add-users-listing
+        - 10.times do |index|
+          %li.clearfix
+            .sr-no
+              #{index+1}
+            %input.left{:type => "text", :placeholder => "Enter Name Here"}
+            %input.right{:type => "text", :placeholder => "Your_Email@Doamin.com"}
+      .pull-right.medium-text
+        %a.line-height2.show.span{:href => "#"}
+          Cancel
+        %button.btn.btn-info.span.show
+          Add
+        .clr
+      .clr

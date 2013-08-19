@@ -4,7 +4,7 @@
       Test #{@assessment.id} - #{@assessment.name}
   .inn.gray-gradient
     .pull-left
-      = render :partial => "shared/candidate-summary-nav"
+      = render :partial => "shared/candidate-content-sub-nav"
     .clr
     .divider2
 
@@ -78,8 +78,8 @@
               - if candidate_assessment.overall_fitment_grade_id.present?
                 - report = candidate_assessment.candidate_assessment_reports[0] 
                 - if report and report.status == "uploaded"
-                  - pdf_url =  AWS::S3::S3Object.find(report.s3_keys["html"]["key"],report.s3_keys["html"]["bucket"]).url 
-                  %a.color{:href=> pdf_url, :title=>"Click here to View Report", target: "_blank"}  
+                  - url = company_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => @candidate.id, :assessment_id => candidate_assessment.assessment.id, :id => report.id)
+                  %a.color{:href=> url, :title=>"Click here to View Report", target: "_blank"}  
                     View Report
                 - else
                   Generating report...  

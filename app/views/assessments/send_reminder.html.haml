@@ -19,7 +19,7 @@
         %p
           This is a reminder email.  
           %b #{@company.name} 
-          has arranged for you to complate a Jombay Suitability Questionaire.
+          has arranged for you to complete a Jombay Suitability Questionaire.
         %p 
           To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar.
         %p 
@@ -39,7 +39,7 @@
           %br/
           Jombay
     .pull-right
-      %a.span.line-height2{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "cancel"}
+      %a.span.line-height2{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
         Cancel
       = form_for @assessment, as: :assessment, url: send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id), method: :put, html: { class: 'span' } do |f|
         %button.btn.btn-info

@@ -1,0 +1,54 @@
+- if params[:users].present?
+  = content_for :alert do
+    .alert.alert-error.large-text.line-height2
+      %b
+        %a.close{"data-dismiss" => "alert", :type => "button"} ×
+        .pull-left
+          Are you sure you want to remove these Users  
+        .pull-right
+          = link_to "YES",confirm_remove_users_company_path(@company, :user_ids => params[:users].keys.join("|"))
+          \| 
+          = link_to "NO", user_settings_company_path(@company)
+        .clr  
+.user-list
+  = render :partial => "shared/sub-nav-companies"
+  .inn.first
+    .page-title
+      Settings
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/settings-content-sub-nav"
+    = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
+      .pull-right.medium-text
+        %button.btn.btn-info.show.span
+          Remove Users
+        %a.btn.btn-info.span.show{ href: add_users_company_path(@company) }
+          Add New User
+        .clr
+      .clr
+      .divider2
+
+      .list-snippet-titles.clearfix
+        .span1.first
+          &nbsp;
+        .span3
+          User ID
+        .span6
+          Name
+        .span8
+          Email id
+        .span
+          Date Added
+      %ul.unstyled
+        - @users.each do |user|
+          %li.list-snippet
+            .span1.first
+              %input{:type => "checkbox", name: "users[#{user.id}]", checked: (params[:users].keys.include?(user.id.to_s))}
+            .span3
+              JOM#{user.id}
+            .span6.first.lhs-border
+              = user.name
+            .span8.lhs-border
+              = user.email
+            .span.lhs-border
+              = hdate user.created_at

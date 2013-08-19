@@ -3,13 +3,8 @@ class AssessmentReportsController < ApplicationController
   
   def show
     @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id])
-    url = AWS::S3::S3Object.find(@report.s3_keys[:html][:key],@report.s3_keys[:html][:bucket]).url rescue nil
-    if url
-      redirect_to url 
-    else
-      flash[:notice] = "This is not a valid report url."
-      redirect_to root_url
-    end
+    url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
+    redirect_to url 
   end
   
   def assessment_report

@@ -42,12 +42,15 @@ class Suitability::Job::FactorNormsController < ApplicationController
   end
 
   def import_via_s3
-    AWS::S3::Base.establish_connection!(Rails.configuration.s3)
-
     s3_bucket_name = 'master_data'
     s3_key = 'factor_norms.csv.zip'
-
-    S3Utils.upload(s3_bucket_name, s3_key, params[:import][:file])
+    
+    unless params[:import][:file]
+      flash[:notice] = "Please select a zip file."
+      redirect_to manage_suitability_job_factor_norms_path and return
+    end
+    data = params[:import][:file].read
+    S3Utils.upload(s3_bucket_name, s3_key, data)
 
     Vger::Resources::Suitability::Job::FactorNorm\
       .import_from_s3(:file => {

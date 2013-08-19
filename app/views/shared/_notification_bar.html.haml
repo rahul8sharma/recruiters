@@ -1,5 +1,7 @@
 .divider1
 .container
+  - if content_for? :alert
+    = yield :alert
   - if flash[:notice].present?
     %div{ class: "alert alert-success" }
       %strong
