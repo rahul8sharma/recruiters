@@ -7,6 +7,9 @@
   .field
     = f.label :body
     = f.text_field :body
+  .field
+    = f.label :active
+    = f.check_box :active  
   - if option_type == 'Suitability::ImageOption'
     .field
       = f.label :image_url
@@ -15,7 +18,7 @@
       
   .field
     = f.label :score
-    %input{type:'text',name:'option[score]',value:(option.score rescue '')}
+    = f.select :score, [*0..5]
   .actions
     = submit_tag 'Submit'
     
