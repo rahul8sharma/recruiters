@@ -1,5 +1,4 @@
-%h1 Create new suitability item
+%h3 Create new suitability item
 
-= render 'form', method: :post, url: suitability_factor_items_path(params[:factor_id]), item: @item
+= render 'form', method: :post, url: suitability_items_path(), item: @item
 
-= link_to 'Back', suitability_factor_path(params[:factor_id])

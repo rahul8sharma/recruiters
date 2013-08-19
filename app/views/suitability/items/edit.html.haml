@@ -1,6 +1,6 @@
-%h1 Edit suitability item
+%h3 Edit suitability item
 
-= render 'form', method: :put, url: suitability_factor_item_path(params[:factor_id], @item.id), item: @item
+= render 'form', method: :put, url: suitability_item_path(@item.id), item: @item
 %br
 %br
 %br
@@ -8,9 +8,8 @@
 %br
 #options_container
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
-    = render :partial => 'suitability/options/form', :locals => { :option => option,method: :put, url: suitability_factor_item_option_path(params[:factor_id],params[:id],option.id), item_id: params[:id], factor_id: params[:factor_id] } 
+    = render :partial => 'suitability/options/form', :locals => { :option => option,method: :put, url: suitability_item_option_path(params[:id],option.id), item_id: params[:id], factor_id: params[:factor_id] } 
 
-= link_to 'Add Text Option', suitability_factor_item_add_option_path(params[:factor_id],params[:id], :option_type => 'Suitability::Option'), remote: true
-= link_to 'Add Image Option', suitability_factor_item_add_option_path(params[:factor_id],params[:id], :option_type => 'Suitability::ImageOption'), remote: true
+= link_to 'Add Option', suitability_item_add_option_path(params[:id], :option_type => 'Suitability::Option'), remote: true
 %br
-= link_to 'Back', suitability_factor_item_path(params[:factor_id],params[:id])
+= link_to 'Back', suitability_item_path(params[:id])

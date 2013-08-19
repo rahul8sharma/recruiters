@@ -1,6 +1,14 @@
-%h1
+%h3 Option #{@option.id}
+%p
+  %b Body:
   = @option.body
   %br
+  %b Score:
   = @option.score
+  %br
+  %b Active:
+  = @option.active
 
-= link_to "Edit", edit_suitability_factor_item_option_path(params[:factor_id],params[:item_id], params[:id]) 
+= link_to "Edit", edit_suitability_item_option_path(params[:item_id], params[:id])
+\|
+= link_to "Back", suitability_item_path(params[:item_id])  

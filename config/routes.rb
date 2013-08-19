@@ -164,7 +164,10 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :items, :only => [:index, :new, :show] do
+    resources :items do
+      get 'add_option' => 'items#add_option'
+      resources :options do
+      end
     end
 
     resources :factor_norm_bucket_descriptions, :only => [:index] do
@@ -249,11 +252,6 @@ Recruiters::Application.routes.draw do
     end
 
     resources :factors, :only => [:index, :new, :show] do
-      resources :items do
-        get 'add_option' => 'items#add_option'
-        resources :options do
-        end
-      end
       collection do
         post :import
         get :manage
