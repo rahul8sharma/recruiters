@@ -1,0 +1,39 @@
+%h3 Item Group #{@item_group.id}
+%p
+  %b Body: 
+  = @item_group.body
+  %br
+  %b Behavior: 
+  = @item_group.behaviour
+  %br
+  %b Active: 
+  = @item_group.active
+= link_to "Edit", edit_suitability_item_group_path(params[:id])
+\| 
+= link_to "Add Item", new_suitability_item_path(:item => { :item_group_id => @item_group.id }, item_type: "Suitability::Item")
+\| 
+= link_to "Back", suitability_item_groups_path()
+
+%br
+%br
+%h4 Items under this group
+%br
+%table
+  %tr
+    %th Id
+    %th Body
+    %th Behavior
+    %th Active
+  - @item_group.items.each do |item|
+    %tr 
+      %td{ width: "13%" }
+        = link_to item.id, suitability_item_path(item.id)
+      %td{ width: "13%" }
+        = link_to item.body, suitability_item_path(item.id)
+      %td{ width: "13%" }
+        = item.behaviour
+      %td{ width: "13%" }
+        = item.active
+      %td{ width: "13%" }
+        = link_to "Edit", edit_suitability_item_path(item.id)      
+
