@@ -4,14 +4,28 @@
     %ul
     - @item.error_messages.each do |msg|
       %li #{msg}
-  = f.hidden_field :factor_id, value: params[:factor_id]
   = f.hidden_field :item_type, value: item_type
+  - if params[:factor_id]    
+    = f.hidden_field :factor_id, value: params[:factor_id]
+  - else
+    .field
+      = f.label :factor_id
+      = f.select :factor_id, @factors
+  .field
+    = f.label :item_group_id
+    = f.select :item_group_id, @item_groups, { :prompt => "Select" }, { :style => "width:200px;" }
   .field
     = f.label :body
     = f.text_field :body
   .field
+    = f.label :max_score
+    = f.text_field :max_score
+  .field
     = f.label :behavior
     = f.select :behaviour, Vger::Resources::Suitability::BEHAVIORS
+  .field
+    = f.label :active
+    = f.check_box :active  
   - if item_type == 'Suitability::ImageItem'
     .field
       = f.label :image_url
