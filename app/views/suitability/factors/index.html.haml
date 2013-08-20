@@ -22,12 +22,12 @@
       Parent    
   - @factors.each do |factor|
     %tr 
-      %td
+      %td{ width: "5%" }
         = factor.id
-      %td
+      %td{ width: "20%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
-      %td
+      %td{ width: "55%" }
         = factor.definition
       %td
         - if factor.parent

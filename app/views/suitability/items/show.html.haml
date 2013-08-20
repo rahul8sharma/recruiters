@@ -6,12 +6,19 @@
   %b Behavior: 
   = @item.behaviour
   %br
+  %b Max score: 
+  = @item.max_score
+  %br
   %b Active: 
   = @item.active
 %br
 = link_to "Edit", edit_suitability_item_path(params[:id])
 \|
-= link_to "Back", suitability_factor_path(@item.factor_id)
+- if @item.item_group_id
+  = link_to "Back", suitability_item_group_path(@item.item_group_id)  
+- else
+  = link_to "Back", suitability_factor_path(@item.factor_id)
+
 %br
 %br
 %div
@@ -25,11 +32,19 @@
     %th
       Body
     %th
+      Score
+    %th
+      Active 
+    %th
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
     %tr 
       %td
         = link_to option.id, suitability_item_option_path(params[:id], option.id)
       %td
         = link_to option.body, suitability_item_option_path(params[:id], option.id)
+      %td
+        = option.score
+      %td
+        = option.active
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)  

@@ -2,3 +2,9 @@
 
 = render 'form', method: :post, url: suitability_items_path(), item: @item
 
+- if @item.item_group_id
+  = link_to "Back", suitability_item_group_path(@item.item_group_id)  
+- else
+  = link_to "Back", suitability_factor_path(@item.factor_id)
+
+

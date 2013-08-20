@@ -10,7 +10,7 @@
   = @item_group.active
 = link_to "Edit", edit_suitability_item_group_path(params[:id])
 \| 
-= link_to "Add Item", new_suitability_item_path(:item => { :item_group_id => @item_group.id }, item_type: "Suitability::Item")
+= link_to "Add Item", new_suitability_item_path(:item => { :item_group_id => @item_group.id, :behaviour => @item_group.behaviour }, item_type: "Suitability::Item")
 \| 
 = link_to "Back", suitability_item_groups_path()
 

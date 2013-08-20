@@ -15,9 +15,9 @@
     %th Active
   - @item_groups.each do |item_group|
     %tr 
-      %td{ width: "13%" }
+      %td{ width: "5%" }
         = link_to item_group.id, suitability_item_group_path(item_group.id)
-      %td{ width: "13%" }
+      %td{ width: "30%" }
         = link_to item_group.body, suitability_item_group_path(item_group.id)
       %td{ width: "13%" }
         = item_group.behaviour
