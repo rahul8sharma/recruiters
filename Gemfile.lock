@@ -39,8 +39,8 @@ GIT
       multi_json (~> 1.7)
 
 GIT
-  remote: git@github.com:prcongithub/vger.git
-  revision: 547774d17a5c9ac576eb811d82ff2c42e57ade10
+  remote: git@github.com:yournextleap/vger.git
+  revision: 7530edc5f69a2f67e002abc7051140b00e91e11e
   branch: develop
   specs:
     vger (0.0.1)
@@ -116,8 +116,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.23)
-    multi_json (1.7.8)
+    mime-types (1.24)
+    multi_json (1.7.9)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
@@ -175,7 +175,7 @@ GEM
     thor (0.18.1)
     tilt (1.4.1)
     timers (1.1.0)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
