@@ -12,14 +12,15 @@ class Suitability::ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
-    @item = "Vger::Resources::#{params[:item_type]}".constantize.new(params[:item])
+    params[:item] ||= {}
+    @item = "Vger::Resources::#{params[:item_type]}".constantize.new(params[:item].merge(:active => true))
     respond_to do |format|
       format.html
     end
   end
   
   def add_option
-    @option = "Vger::Resources::#{params[:option_type]}".constantize.new
+    @option = "Vger::Resources::#{params[:option_type]}".constantize.new(:active => true)
     respond_to do |format|
       format.js
     end
@@ -80,6 +81,5 @@ class Suitability::ItemsController < ApplicationController
     factors |= Vger::Resources::Suitability::AlarmFactor.all.to_a.collect{|x| [x.name, x.id]}
     factors |= Vger::Resources::Suitability::DirectPredictor.all.to_a.collect{|x| [x.name, x.id]}
     @factors = Hash[factors.compact]
-    @item_groups = Vger::Resources::Suitability::ItemGroup.all.to_a.collect{|x| [x.body, x.id]}  
   end
 end
