@@ -28,7 +28,7 @@ class Suitability::ItemGroupsController < ApplicationController
   # GET /item_groups/new
   # GET /item_groups/new.json
   def new
-    @item_group= Vger::Resources::Suitability::ItemGroup.new
+    @item_group= Vger::Resources::Suitability::ItemGroup.new(:active => true)
     respond_to do |format|
       format.html
     end
