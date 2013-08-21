@@ -5,7 +5,7 @@
     #{@company.name}
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
-      %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
+      %li{ class: (["statistics","user_settings", "add_users", "remove_users","company","account"].include?(params[:action]) ? '' : 'active') }
         %a{ :href=> company_assessments_path(@company), :title=>"Tests"} 
           %span.icon-pencil 
           Tests
@@ -13,7 +13,7 @@
         %a{ :href=> statistics_company_path(@company), :title=>"Statistics" }  
           %span.icon-pie 
           Statistics
-      %li{ class: (["settings","company","account"].include?(params[:action]) ? 'active' : '') }
+      %li{ class: (["user_settings","company","account", "add_users", "remove_users"].include?(params[:action]) ? 'active' : '') }
         %a{:href=> user_settings_company_path(@company), :title=>"Settings"} 
           %span.icon-cog
           Settings

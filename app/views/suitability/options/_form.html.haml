@@ -6,16 +6,17 @@
   = f.hidden_field :factor_id, value: factor_id
   .field
     = f.label :body
-    = f.text_field :body
+    = f.text_field :body, :required => true
   - if option_type == 'Suitability::ImageOption'
     .field
       = f.label :image_url
       = f.text_field :image_url
-    
-      
   .field
     = f.label :score
-    %input{type:'text',name:'option[score]',value:(option.score rescue '')}
+    = f.text_field :score, :required => true
+  .field
+    = f.label :active
+    = f.check_box :active  
   .actions
     = submit_tag 'Submit'
     

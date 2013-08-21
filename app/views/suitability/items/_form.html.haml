@@ -1,17 +1,39 @@
 - item_type = params[:item_type] || item.item_type
 = form_for item, :as => :item, :url => url, multipart: true, method: method do |f|
+  - if @item.item_group_id
+    - item_group = Vger::Resources::Suitability::ItemGroup.find(@item.item_group_id)
+    %b Adding item for Item Group : #{item_group.body}
   - if @item.error_messages.present?
     %ul
     - @item.error_messages.each do |msg|
       %li #{msg}
-  = f.hidden_field :factor_id, value: params[:factor_id]
   = f.hidden_field :item_type, value: item_type
+  = f.hidden_field :item_group_id
+  .field
+    = f.label :factor_id
+    = f.select :factor_id, @factors
+  - if @item.item_group_id.present?
+    - behaviors = Vger::Resources::Suitability::GROUP_BEHAVIORS
+    = f.hidden_field :behaviour
+  - else
+    .field
+      = f.label :behavior
+      - behaviors = Vger::Resources::Suitability::ITEM_BEHAVIORS
+      = f.select :behaviour, behaviors, {}, { :id => "select_behavior", style: "width:200px;" }
   .field
     = f.label :body
-    = f.text_field :body
+    = f.text_field :body, :required => true
+  .field.situational{ class: ((@item.id.nil? && @item.behaviour == Vger::Resources::Suitability::Behavior::SITUATIONAL) ? '':'hide') }
+    = f.label :score
+    = f.text_field :score
+    (Score for default option which is created for this situational item)
   .field
-    = f.label :behavior
-    = f.select :behaviour, Vger::Resources::Suitability::BEHAVIORS
+    = f.label :max_score
+    = f.text_field :max_score, :required => (@item.id.nil? || @item.options.empty?)
+    (Max Score of options which will be added for this item)
+  .field
+    = f.label :active
+    = f.check_box :active  
   - if item_type == 'Suitability::ImageItem'
     .field
       = f.label :image_url

@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: b309fd96a1dd2ad07b78f6f9b4fe028bcd5ad96a
+  revision: f71148121d13d8f75d2288bd8d9f76c37f7a733b
   branch: develop
   specs:
     vger (0.0.1)
@@ -96,8 +96,7 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.0.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     haml (3.1.8)
@@ -112,19 +111,15 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.0)
     json (1.8.0-java)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.23)
-    multi_json (1.7.8)
+    mime-types (1.24)
+    multi_json (1.7.9)
     multipart-post (1.2.0)
-    nokogiri (1.5.10)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
-    puma (2.0.1)
-      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
@@ -179,7 +174,7 @@ GEM
     thor (0.18.1)
     tilt (1.4.1)
     timers (1.1.0)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
