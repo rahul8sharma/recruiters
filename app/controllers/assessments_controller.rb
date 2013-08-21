@@ -83,6 +83,7 @@ class AssessmentsController < ApplicationController
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
+    @functional_areas = Vger::Resources::FunctionalArea.all.to_a
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
@@ -167,7 +168,20 @@ class AssessmentsController < ApplicationController
   
   # GET : renders list of candidates
   def candidates
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
+    order = params[:order_by] || "default"
+    order_type = params[:order_type] || "ASC"
+    case order
+      when "default"
+        order = "candidates.created_at DESC"
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+      when "status"
+        column = "suitability_candidate_assessments.status"
+        order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_candidate_assessments.updated_at #{order_type}"
+    end    
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
     @candidates = @candidate_assessments.map(&:candidate)    
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
