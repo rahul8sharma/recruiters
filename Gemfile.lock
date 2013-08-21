@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 7530edc5f69a2f67e002abc7051140b00e91e11e
+  revision: f71148121d13d8f75d2288bd8d9f76c37f7a733b
   branch: develop
   specs:
     vger (0.0.1)
@@ -96,8 +96,7 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.0.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     haml (3.1.8)
