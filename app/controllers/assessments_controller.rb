@@ -180,8 +180,14 @@ class AssessmentsController < ApplicationController
       when "status"
         column = "suitability_candidate_assessments.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_candidate_assessments.updated_at #{order_type}"
+    end
+    scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
+    params[:search] ||= {}
+    params[:search] = params[:search].reject{|k,v| v.blank? }
+    if params[:search].present?
+      scope = scope.where(:query_options => params[:search])
     end    
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
+    @candidate_assessments = scope
     @candidates = @candidate_assessments.map(&:candidate)    
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
