@@ -15,6 +15,7 @@
   border-left: 1px solid #e8e8e8
 .list-snippet
   border: 1px solid #d8d8d8
+  margin: 0 0 15px 0
   &:hover
     border: 1px solid #efefef
     background: #fffef2
@@ -22,9 +23,25 @@
 .list-snippet-titles
   font-weight: bold
   font-size: 14px
+  margin: 0 0 5px 0
+
+  a
+    color: #484848
+    padding-right: 25px
+    background: image-url('caret-arrow.png') no-repeat
+  a.up
+    background-position: right -20px
+  a.down
+    background-position: right 5px
+  .filter-status
+    background: #f1f1f1
+    border: 1px solid #dddddd
+    padding: 0 10px
+    line-height: 36px
+    float: left
+
 .list-snippet, .list-snippet-titles
   cursor: default
-  margin: 0 0 15px 0
   padding: 7px 10px
   &:before, &:after
     content: ""
