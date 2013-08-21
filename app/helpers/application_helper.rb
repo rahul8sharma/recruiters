@@ -42,4 +42,11 @@ module ApplicationHelper
       replacement ? replacement : "Not available"
     end
   end
+  
+  def sort_link(label,url,order_by)
+    order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
+    order_type_text = order_type == "ASC" ? "&uarr;" : "&darr;"
+    title = order_type == "ASC" ? "Sort by #{order_by.to_s} in ascending order" : "Sort by #{order_by.to_s} in descending order"
+    link_to "#{label} #{order_type_text}".html_safe, "#{url}?order_by=#{order_by}&order_type=#{order_type}", :title => title
+  end
 end

@@ -19,11 +19,11 @@
     - else    
       .list-snippet-titles.clearfix
         .span2
-          ID
+          = sort_link "ID", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id
         .span10
-          Candidate Name 
+          = sort_link "Candidate Name", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name
         .span6
-          Test Status
+          = sort_link "Test Status", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status
         .span
           //Action
       %ul.unstyled
