@@ -34,9 +34,8 @@ class Suitability::FactorsController < ApplicationController
 
   # GET /factors
   def index
-    @factors = Vger::Resources::Suitability::Factor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
-    @direct_predictors = Vger::Resources::Suitability::DirectPredictor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
-    @alarm_factors = Vger::Resources::Suitability::AlarmFactor.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
+    params[:type] ||= "Suitability::Factor"
+    @factors = "Vger::Resources::#{params[:type]}".constantize.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
   end
 
   # GET /factors/new
@@ -50,7 +49,7 @@ class Suitability::FactorsController < ApplicationController
   # GET /factors/:id
   # GET /factors/:id.json
   def show
-    @factor = Vger::Resources::Suitability::Factor.find(params[:id])
+    @factor = Vger::Resources::Suitability::Factor.find(params[:id], :root => :factor)
     respond_to do |format|
       format.html # new.html.erb
     end

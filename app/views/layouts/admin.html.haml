@@ -1,9 +1,14 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "admin"
+- content_for :javascripts do
+  = javascript_include_tag "admin"
+
 - content_for :content do
   .divider1
   .white-box.container
-    .test-list
-      = yield
+    = link_to "Dashboard", "/master-data"
+    = yield
   .divider1
 = render :file => 'layouts/jit'
+
+= yield :custom_javascripts

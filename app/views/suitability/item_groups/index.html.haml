@@ -1,25 +1,29 @@
 %h1 All Items / Item Groups
-- if can? :create, "Suitability::Item"
-  = link_to "Manage Suitability Items", manage_suitability_item_groups_path
+- if can? :create, "Suitability::ItemGroup"
+  = link_to "Manage Suitability ItemGroups", manage_suitability_item_groups_path
+  \| 
+  = link_to "Add New", new_suitability_item_group_path
+
 .pagination.pull-right        
-  = paginate @items    
+  = paginate @item_groups    
 .clr
 %table
   %tr
     %th Id
     %th Body
-    %th Option 1
-    %th Option 2
-    %th Option 3
-    %th Option 4
-    %th Option 5
-  - @items.each do |item|
+    %th Behavior
+    %th Active
+  - @item_groups.each do |item_group|
     %tr 
-      %td{ width: "13%" }= item.id
-      %td{ width: "13%" }= item.body
-      - item.options.each do |option|
-        %td{ width: "13%" }= option.body
-        
+      %td{ width: "5%" }
+        = link_to item_group.id, suitability_item_group_path(item_group.id)
+      %td{ width: "30%" }
+        = link_to item_group.body, suitability_item_group_path(item_group.id)
+      %td{ width: "13%" }
+        = item_group.behaviour
+      %td{ width: "13%" }
+        = item_group.active  
+      
 .pagination.pull-right        
-  = paginate @items    
+  = paginate @item_groups    
 .clr

@@ -1,2 +1,40 @@
-%h1 Companies#show
-%p Find me in app/views/companies/show.html.haml
+.company_profile
+  = render :partial => "shared/sub-nav-companies"
+  .inn.first
+    .page-title
+      Settings
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/settings-content-sub-nav"
+    .clr
+    .divider2
+
+    .company_logo.pull-left
+      =# image_tag("image 110X75")
+
+    .span18.medium-text
+      .divider1
+      %b #{@company.name}
+      .divider1
+      %b 
+        = @company.company_code
+    .clr
+    .divider1
+    .span13.first.medium-text
+      %a.domain_name.default-color{:href => "#", :title => "Click Here to go SomeoneName's website"}
+        = h @company.website
+      .divider1
+      .hqcity
+        - if @hq_location
+          = @hq_location.address
+        - else
+          = h nil
+    .span8
+      %b 
+        = h @company.hq_address
+    .clr
+    .divider1
+    .description
+      %b Employer Description
+      %p 
+        = h(@company.description).html_safe

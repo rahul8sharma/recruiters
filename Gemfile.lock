@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:amatsuda/kaminari.git
   revision: c7c88c576786d44623423ed3a5d466874a63837f
+  ref: c7c88c576786
   branch: master
   specs:
     kaminari (0.14.1)
@@ -10,6 +11,7 @@ GIT
 GIT
   remote: git@github.com:pmahoney/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
+  ref: 5ac9f405fd53ee
   branch: jruby
   specs:
     exception_notification (3.0.1)
@@ -38,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: bfdf7a9c850332b877d9ce6f2662827459258b01
+  revision: f71148121d13d8f75d2288bd8d9f76c37f7a733b
   branch: develop
   specs:
     vger (0.0.1)
@@ -94,8 +96,7 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.0.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     haml (3.1.8)
@@ -114,8 +115,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.23)
-    multi_json (1.7.8)
+    mime-types (1.24)
+    multi_json (1.7.9)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
@@ -173,7 +174,7 @@ GEM
     thor (0.18.1)
     tilt (1.4.1)
     timers (1.1.0)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)

@@ -1,5 +1,5 @@
 %h1 Edit suitability option
 
-= render 'form', url: suitability_factor_item_option_path(params[:factor_id],params[:item_id],@option.id), method: :put, item_id: params[:item_id], factor_id: params[:factor_id], option: @option
+= render 'form', url: suitability_item_option_path(params[:item_id],@option.id), method: :put, item_id: params[:item_id], factor_id: params[:factor_id], option: @option
 
-= link_to 'Back', suitability_factor_item_path(params[:factor_id],params[:item_id])
+= link_to 'Back', suitability_item_option_path(params[:item_id],@option.id)

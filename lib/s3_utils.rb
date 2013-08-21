@@ -17,7 +17,7 @@ module S3Utils
   
   def self.get_url(bucket_name,key)
     obj = S3Utils.find(bucket_name,key)
-    obj.url_for("get").to_s rescue nil
+    obj.url_for("get").to_s
   end
 
   def self.upload(bucket_name, key, data)

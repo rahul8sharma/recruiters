@@ -1,0 +1,6 @@
+%h3 Edit suitability Item Group #{@item_group.id}
+
+= render 'form', method: :put, url: suitability_item_group_path(@item_group.id), item_group: @item_group
+%br
+%br
+= link_to 'Back', suitability_item_group_path(params[:id])
