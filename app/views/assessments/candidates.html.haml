@@ -19,13 +19,22 @@
     - else    
       .list-snippet-titles.clearfix
         .span2
-          ID
-        .span10
-          Candidate Name 
-        .span6
-          Test Status
+          %a.up{:href => "#", :title => "By ID"}
+            ID
+        .span7
+          %a.down{:href => "#", :title => "By Candidate Name"}
+            Candidate Name 
         .span
-          //Action
+          %a.up{:href => "#", :title => "By Test Status"}
+            Test Status
+        .filter-status.pull-right
+          Filter by Test Status: 
+          %select
+            %option 1
+            %option 2
+          %button.btn.btn-link{:href => "#", :title => ""}
+            Apply
+        .clr
       %ul.unstyled
         - @candidates.each do |candidate|
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
@@ -36,13 +45,15 @@
           %li.list-snippet
             .span2
               %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"JOM#{candidate.id}"} JOM#{candidate.id}
-            .span10.first.lhs-border
+            .span7.first.lhs-border
               %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
                 = h candidate.name
-            .span6.lhs-border
-              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }  
+            .span9.lhs-border
+              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }
                 = status
-            .span.lhs-border
+                \| 19/12/2013 | 22:00 Hrs
+                //remember Hrs & Hr 
+            .span
               - if report
                 - if report.status == "uploaded"
                   - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :assessment_id => @assessment.id, :id => report.id)
@@ -53,6 +64,7 @@
               - else    
                 %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                   Send Reminder
+            .clr
   .inn
     .pagination.pull-right
       = paginate @candidates
