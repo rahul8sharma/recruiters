@@ -1,5 +1,5 @@
 %h3 #{params[:type]}
-- if can? :create, "All Suitability Factor"
+- if can? :create, "All Suitability Factors"
   = link_to "Manage Suitability Factors", manage_suitability_factors_path
   \|
   = link_to "Suitability Factors", suitability_factors_path(:type => "Suitability::Factor")
