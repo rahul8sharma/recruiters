@@ -30,7 +30,22 @@ module ApplicationHelper
     end
   end
   
+  # helper for rendering time
+  # checks arguments and renders time in "hours:minutes" format
+  def htime datetime,replacement=nil,options={}
+    if datetime.present?
+      if datetime.is_a? String
+        DateTime.parse(datetime).strftime("%H:%M")
+      elsif datetime.is_a? DateTime
+        return datetime.strftime("%H:%M")
+      end
+    else
+      replacement ? replacement : "Not available"
+    end
+  end
   
+  # helper for rendering date
+  # checks arguments and renders data in "date/month/year" format
   def hdate date,replacement=nil,options={}
     if date.present?
       if date.is_a? String
@@ -41,5 +56,33 @@ module ApplicationHelper
     else
       replacement ? replacement : "Not available"
     end
+  end
+  
+  
+  # helper for rendering a sort link
+  # this helper returns a link tag with an up/down css background image
+  def sort_link(label,url,order_by)
+    order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
+    order_type_class = order_type == "ASC" ? "down" : "up"
+    title = order_type == "ASC" ? "Sort by #{order_by.to_s} in ascending order" : "Sort by #{order_by.to_s} in descending order"
+    link_to "#{label}".html_safe, "#{url}?order_by=#{order_by}&order_type=#{order_type}", :title => title, :class => order_type_class
+  end
+  
+  def test_statuses
+    {
+      "sent" => "Pending",
+      "started" => "Started",
+      "scored" => "Completed",
+      "completed" => "Completed",
+      "ready_for_scoring" => "Completed"
+    }
+  end
+  
+  def report_statuses
+    {
+      "uploaded" => "Completed",
+      "scored" => "Generating Report...",
+      "failed" => "Failed to generate report"
+    }
   end
 end

@@ -1,7 +1,7 @@
-= form_tag export_to_google_drive_suitability_factors_path, multipart: true, :method => :post do
+= form_tag export_to_google_drive_degrees_path, multipart: true, :method => :post do
   %fieldset
     %legend 
-      %strong Download suitability factors
+      %strong Download degrees
     = fields_for "export" do |f|
       = f.fields_for "folder" do |f|
         %p
@@ -17,4 +17,4 @@
         = f.text_field :email, :value => "product@jombay.com"
 
     .actions
-      = submit_tag 'Download Suitability Factors'
+      = submit_tag 'Download Degrees'

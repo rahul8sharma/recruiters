@@ -134,6 +134,16 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
+  
+  resources :degrees, :only => [:index, :new] do
+    collection do
+      post :import
+      get :manage
+      get :destroy_all
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
 
   resources :job_experiences, :only => [:index, :new] do
     collection do

@@ -28,7 +28,7 @@ class Suitability::FactorsController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Suitability::Factor\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","uid","name","definition","type","parent_id"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["uid","name","definition","type"]))
     redirect_to suitability_factors_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
