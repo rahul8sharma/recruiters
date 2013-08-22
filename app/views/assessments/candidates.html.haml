@@ -37,8 +37,11 @@
       .clr
     - if @candidates.empty?
       .medium-text.alert
-        Test not sent to any candidate. To send this test, 
-        %a{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Send test" } Click here
+        - if params[:search].present?
+          No results found!
+        - else
+          Test not sent to any candidate. To send this test, 
+          %a{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Send test" } Click here
     - else    
       %ul.unstyled
         - @candidates.each do |candidate|
