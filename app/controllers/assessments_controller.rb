@@ -167,6 +167,9 @@ class AssessmentsController < ApplicationController
   end
   
   # GET : renders list of candidates
+  # checks for order_by params and sets ordering accordingly
+  # checks for search params and adds query options accordingly
+  # sort by status needs a custom sorting logic where sorting is decided by predefined array of statuses
   def candidates
     order = params[:order_by] || "default"
     order_type = params[:order_type] || "ASC"

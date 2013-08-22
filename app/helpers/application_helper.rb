@@ -30,6 +30,8 @@ module ApplicationHelper
     end
   end
   
+  # helper for rendering time
+  # checks arguments and renders time in "hours:minutes" format
   def htime datetime,replacement=nil,options={}
     if datetime.present?
       if datetime.is_a? String
@@ -42,6 +44,8 @@ module ApplicationHelper
     end
   end
   
+  # helper for rendering date
+  # checks arguments and renders data in "date/month/year" format
   def hdate date,replacement=nil,options={}
     if date.present?
       if date.is_a? String
@@ -54,6 +58,9 @@ module ApplicationHelper
     end
   end
   
+  
+  # helper for rendering a sort link
+  # this helper returns a link tag with an up/down css background image
   def sort_link(label,url,order_by)
     order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
     order_type_class = order_type == "ASC" ? "down" : "up"
