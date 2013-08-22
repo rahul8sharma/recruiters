@@ -7,6 +7,6 @@
   %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number (optional)", value: (candidate[:mobile])}
   %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]"}
     - @functional_areas.each do |fa|
-        %option{ value: fa.id, selected: candidate[:functional_area_id] == fa.id }
-          = fa.name
+      %option{ value: fa.id, selected: candidate[:functional_area_id] == fa.id }
+        = fa.name
   .clr
