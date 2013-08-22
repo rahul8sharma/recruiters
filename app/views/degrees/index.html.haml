@@ -1,0 +1,23 @@
+%h1 All degrees
+- if can? :create, "Degree"
+  = link_to "Manage degrees", manage_degrees_path  
+  
+.pagination.pull-right        
+  = paginate @degrees
+.clr     
+
+%table
+  %tr
+    %th ID
+    %th Name
+  - for degree in @degrees do
+    %tr
+      %td 
+        = degree.id
+      %td 
+        = degree.name
+
+%br
+.pagination.pull-right        
+  = paginate @degrees
+.clr     
