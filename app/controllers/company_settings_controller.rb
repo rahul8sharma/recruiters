@@ -1,10 +1,6 @@
 class CompanySettingsController < ApplicationController
   before_filter :authenticate_user!
 
-  def api_resource
-    Vger::Resources::Company
-  end
-
   layout "companies"
 
   before_filter :get_company
