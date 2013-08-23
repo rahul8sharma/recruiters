@@ -1,0 +1,49 @@
+.statistic
+  = render :partial => "shared/sub-nav"
+  .inn.first
+    .page-title
+      Statistics
+  .inn.gray-gradient
+    .large-text.span.float-none
+      Tests
+    .divider1
+    .span13.first
+      .span6
+        .graph
+          - total = @company.subscription.assessments_purchased rescue 0
+          - sent_percentage = 0
+          - completed_percentage = 0
+          - if total != 0
+            - sent_percentage = ((@company.assessment_statistics[:assessments_sent] * 100) / total)
+            - completed_percentage = ((@company.assessment_statistics[:assessments_completed] * 100) / total)
+          .column.green-bg{:style => "width: #{sent_percentage}%"}
+          .column.yellow-bg{:style => "width: #{completed_percentage}%"}
+          //.column.orange-bg{:style => "width: 20%"}
+      .span6
+        %span.icon-stop.green-bg 
+        %span Total Tests Sent: 
+        %span.large-text
+          #{@company.assessment_statistics[:assessments_sent]}
+        %br/
+        %br/
+        %span.icon-stop.yellow-bg 
+        %span Total Tests Answered:  
+        %span.large-text
+          #{@company.assessment_statistics[:assessments_completed]}
+        //%br/
+        //%br/
+        //%span.icon-stop.orange-bg 
+        //%span Total Tests Remaining:  
+        //%span.large-text
+        //153
+    .span4.pull-right.text-center  
+      .medium-text Valid till
+      .biggest-text 
+        %b{ style: "margin-left: 10px;" } #{ (@company.subscription ? hdate(@company.subscription.valid_to) : h(nil)) rescue "-" }
+    .span4.pull-right.text-center  
+      .medium-text Tests Bought 
+      .biggest-text 
+        %b #{@company.subscription.assessments_purchased rescue 0}
+    .clr
+
+
