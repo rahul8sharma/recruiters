@@ -13,7 +13,7 @@
         %a{ :href=> statistics_company_path(@company), :title=>"Statistics" }  
           %span.icon-pie 
           Statistics
-      %li{ class: (["company_settings", "companies"].include?(params[:controller]) ? 'active' : '') }
+      %li{ class: (["company_settings", "companies", "users"].include?(params[:controller]) ? 'active' : '') }
         %a{:href=> user_settings_company_path(@company), :title=>"Settings"} 
           %span.icon-cog
           Settings
