@@ -46,63 +46,66 @@ p{
 }
 
 #nav {
-    background: none repeat scroll 0 0 #002734;
-    padding-bottom: 15px;
-    width: 100%;
-    position: relative;
+  background: #002B3A;
+  padding: 10px 0;
+  position: relative;
+  width: 100%;
 }
-.navbar-inner.container {
-    background: none repeat scroll 0 0 transparent;
-    padding: 0 35px;
-    width: 900px;
+#nav h1 {
+  font-size: 13px;
+  line-height: 18px;
 }
 #nav a {
-    color: #FFFFFF;
-    font-size: 16px;
+  color: #FFFFFF;
+  font-size: 13px;
+  padding: 10px;
+  display: block;
 }
-#nav a:hover, #nav li.active a {
-    color: #FF8308;
+#nav a:hover {
+  text-decoration: underline;
+}
+#nav li.active a {
+  background: none repeat scroll 0 0 white;
+  color: #002B3A;
+  font-weight: bold;
+}
+#nav li.active a:hover {
+  cursor: default;
+  text-decoration: none;
 }
 #nav ul {
-    margin-top: 30px;
+  margin: 0;
 }
 #nav li {
-    float: left;
-    padding: 0 30px;
+  float: left;
+  padding: 0 5px;
 }
 #nav li:last-child {
-    padding-right: 0;
+  padding-right: 0;
 }
-#logo {
-    float: left;
+#nav .header-menu {
+  float: right;
 }
-#logo a {
-    background: url("/images/shared/jombay-logo.png") no-repeat scroll 0 0 transparent;
-    display: inline-block;
-    height: 62px;
-    margin: 35px 0 0;
-    text-indent: -100000px;
-    width: 195px;
+#nav .navbar-inner.container {
+  background: transparent;
+  padding: 0 35px;
+  width: 900px;
 }
-.ask-btn {
-  background: url("/images/shared/ask-btn.png") repeat-x scroll 0 0 #FE8A16;
-  border-radius: 0 0 10px 10px;
-  color: #FFFFFF;
+#nav #logo {
+  float: left;
+}
+#nav #logo a {
+  background: url("/images/shared/jombay-logo.png") no-repeat 0 center;
   display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 14px 20px;
-  text-align: center;
-  margin-left: 50px
-}
-.ask-btn{
-  color: #fff !important;
+  text-indent: -100000px;
+  width: 195px;
 }
 
 .content{
   background: #fff;
   box-shadow: 0 0 10px #7d9da7;
   padding: 30px 335px 50px  50px;
+  min-height: 420px;
   background: url("/images/error/error_icon.png") no-repeat 680px 120px;
 }
 .title{
@@ -163,44 +166,44 @@ p{
 }
 #footer {
   background: none repeat scroll 0 0 #002734;
-  color: #6EABC1;
-  font-size: 16px;
+  color: #6eabc1;
+  font-size: 14px;
+  min-height: 130px;
+}
+#footer .copyright{
+  font-size: 12px
 }
 #footer a {
   color: #6EABC1;
   text-decoration: none;
 }
+#footer a:hover{
+  color: #fff;
+  text-decoration: underline;
+}
 #footer .inn {
-  border: medium none;
+  background: none;
+  padding: 0 35px;
+  width: 900px;
   margin: auto;
-  padding: 30px 0;
-  width: 710px;
 }
 #footer .inn ul li {
-  margin: 0 0 15px;
+  float: left;
 }
-#footer .inn ul {
-  margin: 0 0 0 90px;
+#footer ul.footer-menu {
+  padding: 15px 0 0 0;
+  float: right
 }
-#footer .inn .header-text {
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 20px;
+#footer ul.footer-menu li{
+  padding: 0 10px 
+} 
+#footer ul{
+  margin-bottom: 15px
 }
-#footer .pull-left ul {
-  list-style: none outside none;
-  padding: 0;
-  width: 200px;
+
+#footer .inn .reach-us li {
+  padding: 0 5px
 }
-#footer .pull-left ul li a:hover {
-  color: #FF8308;
-  font-weight: bold;
-  height: 21px;
-}
-#footer .inn .footer-right * {
-  display: block;
-  margin-bottom: 10px;
-}
-#footer .white {
-  color: #FFFFFF;
-}
+#footer .inn .reach-us * {
+color: #fff;}
+
