@@ -1,54 +1,65 @@
 @import toolkit/component/buttons
 @import toolkit/component/alerts
 #nav
-  background: none repeat scroll 0 0 #002734
-  padding-bottom: 15px
+  background: #002b3a
+  padding: 10px 0
   width: 100%
   position: relative
-  .ask-btn 
-    background: image-url("users/ask-btn.png") repeat-x scroll 0 0 #FE8A16
-    border-radius: 0 0 10px 10px
-    color: #FFFFFF
-    display: inline-block
-    font-size: 18px !important
-    font-weight: bold
-    padding: 14px 20px
-    text-align: center
-    margin-left: 50px 
-    &:hover
-      color: #fff
-
-.navbar-inner.container
-  background: none repeat scroll 0 0 transparent
-  padding: 0 35px
-  width: 900px
-
-#nav
+  
+  h1
+    font-size: 13px
+    line-height: 18px
   a
     color: #FFFFFF
-    font-size: 16px
+    font-size: 13px
+    padding: 10px
+    display: block
+
     &:hover
-      color: #FF8308
+      text-decoration: underline
   li.active a
-    color: #FF8308
+    color: #002b3a
+    background: #fff
+    font-weight: bold
+
+    &:hover
+      text-decoration: none
+      cursor: default
+
   ul
-    margin-top: 30px
-    margin-bottom: 0
+    margin: 0
   li
     float: left
-    padding: 0 30px
+    padding: 0 5px
     &:last-child
       padding-right: 0
+  .header-menu
+    float: right
+    .ask-btn 
+      background: image-url("users/ask-btn.png") repeat-x scroll 0 0 #FE8A16
+      border-radius: 0 0 10px 10px
+      color: #FFFFFF
+      display: inline-block
+      font-size: 18px !important
+      font-weight: bold
+      padding: 14px 20px
+      text-align: center
+      margin-left: 50px 
+      &:hover
+        color: #fff
 
-#logo
-  float: left
-  a
-    background: image-url("jombay-caption-logo.png") no-repeat scroll 0 0 transparent
-    display: inline-block
-    height: 62px
-    margin: 35px 0 0
-    text-indent: -100000px
-    width: 195px
+  .navbar-inner.container
+    background: none repeat scroll 0 0 transparent
+    padding: 0 35px
+    width: 900px
+
+  #logo
+    float: left
+    a
+      background: image-url("jombay-logo.png") no-repeat 0 center
+      display: inline-block
+      text-indent: -100000px
+      width: 195px
   
 .users-content
   background: image-url("users/users-content-bg.png") repeat-x #fff
