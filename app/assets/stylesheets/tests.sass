@@ -210,22 +210,38 @@
       .count
         float: left
         width: 35px
-        height: 18px
+        height: 27px
+        line-height: 27px
         background: #fafafa
         text-align: center
         border: 1px solid #d8d8d8
         border-right: 0
-        padding: 10px 0 
-      select
-        height: 40px
-        line-height: 40px
-        background-color: #FFFFFF
+
+
+      .input-big 
+        width: 100%
+
+      input, textarea 
+        background: none repeat scroll 0 0 transparent
         border: 1px solid #CCCCCC
         color: #555555
+        display: inline-block
         font-size: 14px
-        margin-bottom: 10px
-        padding: 7px 6px
-        vertical-align: middle
+        line-height: 25px
+        height: 25px
+        &:focus
+          border-color: rgba(82, 168, 236, 0.8)
+          outline: 0 none
+
+      select
+        background: none repeat scroll 0 0 transparent
+        border: 1px solid #CCCCCC
+        color: #555555
+        display: inline-block
+        font-size: 14px
+        line-height: 18px
+        margin-bottom: 9px
+        padding: 4px
   ul.candidate-list-to-send
     li
       margin: 18px 0 0 0 
