@@ -101,6 +101,9 @@ class AssessmentsController < ApplicationController
         if candidate
           candidate_data[:id] = candidate.id
           candidates[candidate.id] = candidate_data
+          attributes_to_update = candidate_data.dup
+          attributes_to_update.each { |k,v| attributes_to_update.delete(k) unless candidate.send(k).blank? }
+          Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
         else
           candidate = Vger::Resources::Candidate.create(candidate_data)
           if candidate.error_messages.present?
