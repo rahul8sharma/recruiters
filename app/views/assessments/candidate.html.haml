@@ -16,9 +16,10 @@
         %li
           %b Email id:
           #{ h @candidate.email}
-        %li
-          %b Current Company Name:
-          #{ h @candidate.current_company }
+        -#
+          %li
+            %b Current Company Name:
+            #{ h @candidate.current_company }
         %li
           %b Contact no.:
           #{ h @candidate.mobile }
@@ -43,9 +44,10 @@
         %li
           %b Total Work Experience:
           #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
-        %li
-          %b Marital Status:
-          = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
+        -#
+          %li
+            %b Marital Status:
+            = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
         %li
           %b Current CTC:
           #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") } 
