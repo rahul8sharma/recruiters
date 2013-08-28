@@ -218,8 +218,10 @@ class AssessmentsController < ApplicationController
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
   def create
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
+    flash[:alert] = "There are no default norms for this criteria. Please select another criterita or try after adding the required data." if default_norm_bucket_ranges.empty?                                    
     respond_to do |format|
-      if @assessment.valid? and @assessment.save
+      if default_norm_bucket_ranges.present? and @assessment.valid? and @assessment.save
         format.html { redirect_to norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) }
       else
         get_meta_data
@@ -237,6 +239,7 @@ class AssessmentsController < ApplicationController
     if params[:id].present?
       @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience])
     else
+      params[:assessment] = params[:assessment].reject{ |k,v| v.blank? }
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
@@ -261,12 +264,7 @@ class AssessmentsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
     @fits = Vger::Resources::Suitability::Fit.all
     
-    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
-                                    where(:query_options => { 
-                                      :functional_area_id => @assessment.functional_area_id,
-                                      :industry_id => @assessment.industry_id,
-                                      :job_experience_id => @assessment.job_experience_id
-                                    }).all.to_a
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
     
                                     
     added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
@@ -298,7 +296,7 @@ class AssessmentsController < ApplicationController
             :from_norm_bucket_id => @norm_buckets.first.id, 
             :to_norm_bucket_id => @norm_buckets.last.id,
             :factor_id => factor.id,
-            :functional_area_id => @assessment.functional_area.id,
+            :functional_area_id => @assessment.functional_area_id,
             :industry_id => @assessment.industry_id,
             :job_experience_id => @assessment.job_experience_id
           )
@@ -346,6 +344,17 @@ class AssessmentsController < ApplicationController
       assessment_factor_norm.factor = factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end  
+  end
+  
+  def get_default_norm_bucket_ranges
+    query_options = { 
+      :functional_area_id => @assessment.functional_area_id,
+      :industry_id => @assessment.industry_id,
+      :job_experience_id => @assessment.job_experience_id
+    }
+    query_options = query_options.reject{|k,v| v.blank? }
+    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => query_options).all.to_a
   end
   
   def get_company
