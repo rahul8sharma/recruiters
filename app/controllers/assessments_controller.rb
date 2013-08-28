@@ -242,7 +242,6 @@ class AssessmentsController < ApplicationController
     if params[:id].present?
       @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience])
     else
-      params[:assessment] = params[:assessment].reject{ |k,v| v.blank? }
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
