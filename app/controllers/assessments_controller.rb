@@ -354,7 +354,6 @@ class AssessmentsController < ApplicationController
       :industry_id => @assessment.industry_id,
       :job_experience_id => @assessment.job_experience_id
     }
-    query_options = query_options.reject{|k,v| v.blank? }
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => query_options).all.to_a
   end
