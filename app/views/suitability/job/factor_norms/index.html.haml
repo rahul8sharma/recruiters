@@ -20,8 +20,8 @@
         %td=	job_factor_norm.id
         %td=	job_factor_norm.factor.name
         %td=	job_factor_norm.industry.name
-        %td=	job_factor_norm.functional_area.name
-        %td=	job_factor_norm.job_experience.display_text
+        %td=	job_factor_norm.functional_area.name rescue "-"
+        %td=	job_factor_norm.job_experience.display_text rescue "-"
         %td=	job_factor_norm.norm_min
         %td=	job_factor_norm.norm_max
 %br   

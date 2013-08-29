@@ -14,15 +14,15 @@
       .span.first
         %b Functional Area: 
       .span4
-        #{@assessment.functional_area.name}
+        #{@assessment.functional_area.name rescue '-'}
       .span.left-offset1
         %b Industry:  
       .span4
-        #{@assessment.industry.name}
+        #{@assessment.industry.name rescue '-'}
       .span.left-offset1
         %b Experience: 
       .span4
-        #{@assessment.job_experience.display_text}
+        #{@assessment.job_experience.display_text rescue '-'}
     .clr
     .divider1
       
