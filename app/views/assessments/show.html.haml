@@ -17,16 +17,17 @@
         %b.show.pull-left 
           Industry: 
         .span6
-          = @assessment_factor_norms.collect{|x| x.industry.name}.compact.uniq.join(", ")
+          = @assessment.industry.name rescue '-'
       .span
         %b.show.pull-left 
           Functional Area: 
         .span6
-          = @assessment_factor_norms.collect{|x| x.functional_area.name}.compact.uniq.join(", ")
+          = @assessment.functional_area.name rescue '-'
       .span
         %b.show.span
           Experience Level: 
-        .span #{@assessment_factor_norms.collect{|x| x.job_experience.display_text}.compact.uniq.join(", ")}
+        .span 
+          = @assessment.job_experience.display_text rescue '-'
     .divider1
     .text-right
       %span.medium-text Tests Sent: 

@@ -13,14 +13,17 @@ class ApplicationController < ActionController::Base
 	helper_method :can?
 	
   def after_sign_in_path_for()
+    redirect_to = nil
     case current_user.type
       when "SuperAdmin"
-        session[:redirect_to] || companies_path
+        redirect_to = session[:redirect_to] || companies_path
       when "Admin"
-        session[:redirect_to] || company_assessments_path(current_user.company_id)  
+        redirect_to = session[:redirect_to] || company_assessments_path(current_user.company_id)  
       else
-        session[:redirect_to] || root_path        
+        redirect_to = session[:redirect_to] || root_path        
     end    
+    session[:redirect_to] = nil
+    redirect_to
   end
 
   

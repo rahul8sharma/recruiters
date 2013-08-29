@@ -24,12 +24,7 @@
                 %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
                 %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
                 #{params[:candidates][id][:name]} &lt;#{email}&gt;
-        .divider2
         .test-text-to-send
-          .title
-            Test Title
-          .massage-body.subject
-            = @assessment.name
           .title
             Subject
           .massage-body.subject

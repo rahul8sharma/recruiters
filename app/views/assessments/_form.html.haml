@@ -20,7 +20,7 @@
       %option{:value => ""}
         Select Industry
       - @industries.each do |id,industry|
-        %option{:value => (industry.id), selected: (assessment.industry_id.to_s == id.to_s)}
+        %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
           = industry.name
 
     .clr
