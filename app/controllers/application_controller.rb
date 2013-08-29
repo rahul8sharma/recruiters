@@ -13,17 +13,14 @@ class ApplicationController < ActionController::Base
 	helper_method :can?
 	
   def after_sign_in_path_for()
-    redirect_to = nil
     case current_user.type
       when "SuperAdmin"
-        redirect_to = session[:redirect_to] || companies_path
+        params[:redirect_to] || companies_path
       when "Admin"
-        redirect_to = session[:redirect_to] || company_assessments_path(current_user.company_id)  
+        params[:redirect_to] || company_assessments_path(current_user.company_id)  
       else
-        redirect_to = session[:redirect_to] || root_path        
+        params[:redirect_to] || root_path        
     end    
-    session[:redirect_to] = nil
-    redirect_to
   end
 
   
@@ -43,12 +40,10 @@ class ApplicationController < ActionController::Base
   def unauthorized
     if current_user
       flash[:error] = "You are not authorized to access this page."
-      session[:redirect_to] = nil
       redirect_to after_sign_in_path_for()
     else
       flash[:error] = "You must be logged in to visit this page."
-      session[:redirect_to] = request.fullpath
-      redirect_to login_path
+      redirect_to login_path(:redirect_to => request.fullpath)
     end
   end
   
