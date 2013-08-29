@@ -6,7 +6,7 @@
   %input.span5.left-offset1{name: "candidates[#{index-1}][email]", type: "text", placeholder: "Email id", value: (candidate[:email])}
   %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number", value: (candidate[:mobile])}
   %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]"}
-    %option{ value: nil }
+    %option{ value: "" }
       Select Functional Area
     - @functional_areas.each do |fa|
       %option{ value: fa.id, selected: candidate[:functional_area_id] == fa.id || (@assessment.functional_area_id == fa.id && params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)}
