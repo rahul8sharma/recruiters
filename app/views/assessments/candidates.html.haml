@@ -59,9 +59,9 @@
             .span9.lhs-border
               %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }
                 = status
-                as of #{hdate candidate_assessment.updated_at} | #{htime candidate_assessment.updated_at} Hrs
+                as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 //remember Hrs & Hr 
-            .span
+            .span.lhs-border
               - if report
                 - if report.status == "uploaded"
                   - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :assessment_id => @assessment.id, :id => report.id)

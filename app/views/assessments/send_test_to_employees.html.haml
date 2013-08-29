@@ -24,10 +24,37 @@
                 %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
                 %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
                 #{params[:candidates][id][:name]} &lt;#{email}&gt;
-        - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-          = render :partial => "assessments/mail_body_for_candidate"
-        - else
-          = render :partial => "assessments/mail_body_for_employee"
+        .test-text-to-send
+          .title
+            Subject
+          .massage-body.subject
+            &lt;Candidate Name&gt;, #{@company.name} has chosen you to write an Assessment
+          .title
+            Message
+          .massage-body.massage
+            %p
+              Hello &lt;Candidate Name&gt;,
+            %p
+              %b #{@company.name}
+              has arranged for you to complete a Jombay Suitability Questionaire.
+            %p
+              To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar.
+            %p
+              %b
+                URL: &lt;candidate specific url&gt;
+            %p
+              If you face any technical difficulties or have any queries please feel free to reach us at
+              %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"}
+                prakhar@jombay.com.
+              %br
+              You can also call us at
+              %b +91 87960 29607
+            %p
+              Best Regards,
+              %br/
+              Prakhar Srivastava
+              %br/
+              Jombay
         -#
           %label.pull-left.invitation-sms.medium-text
             Also send test invitations to candidates via SMS
