@@ -101,6 +101,9 @@ class AssessmentsController < ApplicationController
         if candidate
           candidate_data[:id] = candidate.id
           candidates[candidate.id] = candidate_data
+          attributes_to_update = candidate_data.dup
+          attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless candidate.send(attribute).blank? }
+          Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
         else
           candidate = Vger::Resources::Candidate.create(candidate_data)
           if candidate.error_messages.present?
@@ -186,7 +189,7 @@ class AssessmentsController < ApplicationController
     end
     scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
     params[:search] ||= {}
-    params[:search] = params[:search].reject{|k,v| v.blank? }
+    params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
     end    
@@ -218,8 +221,10 @@ class AssessmentsController < ApplicationController
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
   def create
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
+    flash[:alert] = "There are no default norms for this criteria. Please select another criterita or try after adding the required data." if default_norm_bucket_ranges.empty?                                    
     respond_to do |format|
-      if @assessment.valid? and @assessment.save
+      if default_norm_bucket_ranges.present? and @assessment.valid? and @assessment.save
         format.html { redirect_to norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) }
       else
         get_meta_data
@@ -261,12 +266,7 @@ class AssessmentsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
     @fits = Vger::Resources::Suitability::Fit.all
     
-    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
-                                    where(:query_options => { 
-                                      :functional_area_id => @assessment.functional_area_id,
-                                      :industry_id => @assessment.industry_id,
-                                      :job_experience_id => @assessment.job_experience_id
-                                    }).all.to_a
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
     
                                     
     added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
@@ -298,7 +298,7 @@ class AssessmentsController < ApplicationController
             :from_norm_bucket_id => @norm_buckets.first.id, 
             :to_norm_bucket_id => @norm_buckets.last.id,
             :factor_id => factor.id,
-            :functional_area_id => @assessment.functional_area.id,
+            :functional_area_id => @assessment.functional_area_id,
             :industry_id => @assessment.industry_id,
             :job_experience_id => @assessment.job_experience_id
           )
@@ -346,6 +346,16 @@ class AssessmentsController < ApplicationController
       assessment_factor_norm.factor = factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end  
+  end
+  
+  def get_default_norm_bucket_ranges
+    query_options = { 
+      :functional_area_id => @assessment.functional_area_id,
+      :industry_id => @assessment.industry_id,
+      :job_experience_id => @assessment.job_experience_id
+    }
+    default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => query_options).all.to_a
   end
   
   def get_company
