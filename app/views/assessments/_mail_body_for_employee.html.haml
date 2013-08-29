@@ -1,0 +1,41 @@
+.test-text-to-send
+  .title
+    Subject
+  .massage-body.subject
+    &lt;Candidate Name&gt;, #{@company.name} has chosen you to write an Assessment
+  .title
+    Message
+  .massage-body.massage
+    %p
+      Dear &lt;Candidate Name&gt;,
+    %p
+      You have been chosen by 
+      %b #{@company.name} 
+      to complete the Jombay Questionnaire. 
+    %p
+      Please click on the following link and fill out the Questionnaire. 
+    %p
+      %b
+        URL: &lt;candidate specific url&gt;
+    %p
+      The Questionnaire results will be used to help #{@company.name} better support your job satisfaction and career development. There are no right or wrong answers. The questionnaire will take approximately 20 minutes to complete.    
+    %p
+      If you face any difficulty while answering the questionnaire, 
+      call Prakhar Srivastava from the Jombay team on 
+      %b +91-87960-29607 
+      or email
+      %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"}
+        prakhar@jombay.com.
+      %br
+    %p
+      Best Regards,
+      %br/
+      - if ["SuperAdmin"].include? current_user.type
+        Prakhar Srivastava
+        %br
+        Jombay
+      - else
+        = current_user.name  
+      %br/
+    %p
+      P.S.: If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in the between.   
