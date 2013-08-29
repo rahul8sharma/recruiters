@@ -102,7 +102,7 @@ class AssessmentsController < ApplicationController
           candidate_data[:id] = candidate.id
           candidates[candidate.id] = candidate_data
           attributes_to_update = candidate_data.dup
-          attributes_to_update.each { |k,v| attributes_to_update.delete(k) unless candidate.send(k).blank? }
+          attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless candidate.send(attribute).blank? }
           Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
         else
           candidate = Vger::Resources::Candidate.create(candidate_data)
@@ -189,7 +189,7 @@ class AssessmentsController < ApplicationController
     end
     scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
     params[:search] ||= {}
-    params[:search] = params[:search].reject{|k,v| v.blank? }
+    params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
     end    
