@@ -1,0 +1,17 @@
+= form_for item_group, :as => :item_group, :url => url, multipart: true, method: method do |f|
+  - if @item_group.error_messages.present?
+    %ul
+    - @item_group.error_messages.each do |msg|
+      %li #{msg}
+  .field
+    = f.label :body
+    = f.text_field :body
+  .field
+    = f.label :behavior
+    = f.select :behaviour, Vger::Resources::Suitability::GROUP_BEHAVIORS
+  .field
+    = f.label :active
+    = f.check_box :active
+  
+  .actions
+    = submit_tag 'Submit'

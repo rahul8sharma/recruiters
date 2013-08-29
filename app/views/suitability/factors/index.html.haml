@@ -1,6 +1,12 @@
-%h1 All Suitability Factors
+%h3 All Suitability Factors : Showing #{params[:type]}
 - if can? :create, "Suitability::Factor"
   = link_to "Manage Suitability Factors", manage_suitability_factors_path
+  \|
+  = link_to "Suitability Factors", suitability_factors_path(:type => "Suitability::Factor")
+  \|
+  = link_to "Direct Predictors", suitability_factors_path(:type => "Suitability::DirectPredictor")
+  \|
+  = link_to "Alarm Factors", suitability_factors_path(:type => "Suitability::AlarmFactor")
 .pagination.pull-right
   = paginate @factors        
 .clr  
@@ -13,83 +19,20 @@
     %th
       Definition
     %th
-      Type
-    %th
       Parent    
   - @factors.each do |factor|
     %tr 
-      %td
+      %td{ width: "5%" }
         = factor.id
-      %td
+      %td{ width: "20%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
-      %td
+      %td{ width: "55%" }
         = factor.definition
       %td
-        = factor.type
-      %td
-        = factor.parent_id
+        - if factor.parent
+          = link_to factor.parent.name, suitability_factor_path(factor.parent.id)
 .pagination.pull-right
   = paginate @factors       
 .clr   
 
-.clr  
-%table
-  %tr
-    %th
-      ID
-    %th
-      Name
-    %th
-      Definition
-    %th
-      Type
-    %th
-      Parent    
-  - @direct_predictors.each do |factor|
-    %tr 
-      %td
-        = factor.id
-      %td
-        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
-          = factor.name
-      %td
-        = factor.definition
-      %td
-        = factor.type
-      %td
-        = factor.parent_id
-.pagination.pull-right
-  = paginate @factors       
-.clr   
-
-
-.clr  
-%table
-  %tr
-    %th
-      ID
-    %th
-      Name
-    %th
-      Definition
-    %th
-      Type
-    %th
-      Parent    
-  - @alarm_factors.each do |factor|
-    %tr 
-      %td
-        = factor.id
-      %td
-        %a{ href: suitability_factor_path(:id => "#{factor.id}") }
-          = factor.name
-      %td
-        = factor.definition
-      %td
-        = factor.type
-      %td
-        = factor.parent_id
-.pagination.pull-right
-  = paginate @factors       
-.clr   

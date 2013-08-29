@@ -9,14 +9,14 @@ Recruiters::Application.routes.draw do
     end
 
     member do
-      get "settings" => "companies#settings", :as => :settings
-      get "statistics" => "companies#statistics", :as => :statistics
-      get "settings/company" => "companies#company", :as => :company_settings
-      get "settings/account" => "companies#account", :as => :account_settings
-      get "settings/user_settings" => "companies#user_settings", :as => :user_settings
-      match "settings/user_settings/add_users" => "companies#add_users", :as => :add_users
-      put "settings/user_settings/remove_users" => "companies#remove_users", :as => :remove_users
-      get "settings/user_settings/confirm_remove_users" => "companies#confirm_remove_users", :as => :confirm_remove_users
+      get "settings" => "company_settings#settings", :as => :settings
+      get "statistics" => "company_statistics#statistics", :as => :statistics
+      get "settings/company" => "company_settings#company", :as => :company_settings
+      get "settings/account" => "company_settings#account", :as => :account_settings
+      get "settings/user_settings" => "company_settings#user_settings", :as => :user_settings
+      match "settings/user_settings/add_users" => "company_settings#add_users", :as => :add_users
+      put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
+      get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
     end
 
@@ -134,6 +134,16 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
+  
+  resources :degrees, :only => [:index, :new] do
+    collection do
+      post :import
+      get :manage
+      get :destroy_all
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
 
   resources :job_experiences, :only => [:index, :new] do
     collection do
@@ -164,7 +174,10 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :items, :only => [:index, :new, :show] do
+    resources :items do
+      get 'add_option' => 'items#add_option'
+      resources :options do
+      end
     end
 
     resources :factor_norm_bucket_descriptions, :only => [:index] do
@@ -249,11 +262,6 @@ Recruiters::Application.routes.draw do
     end
 
     resources :factors, :only => [:index, :new, :show] do
-      resources :items do
-        get 'add_option' => 'items#add_option'
-        resources :options do
-        end
-      end
       collection do
         post :import
         get :manage

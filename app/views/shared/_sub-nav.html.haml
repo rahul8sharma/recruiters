@@ -5,15 +5,15 @@
     = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
-      %li{ class: (["statistics","settings","company","account"].include?(params[:action]) ? '' : 'active') }
-        %a{ :href=> company_assessments_path(params[:company_id]), :title=>"Tests"} 
+      %li{ class: (["assessments"].include?(params[:controller]) ? 'active' : '') }
+        %a{ :href=> company_assessments_path(@company), :title=>"Tests"} 
           %span.icon-pencil 
           Tests
-      %li{ class: (["statistics"].include?(params[:action]) ? 'active' : '') }
-        %a{ :href=> statistics_company_path(:id => params[:company_id]), :title=>"Statistics" }  
+      %li{ class: (["company_statistics"].include?(params[:controller]) ? 'active' : '') }
+        %a{ :href=> statistics_company_path(@company), :title=>"Statistics" }  
           %span.icon-pie 
           Statistics
-      %li{ class: (["settings","company","account"].include?(params[:action]) ? 'active' : '') }
-        %a{:href=> settings_company_path(:id => params[:company_id]), :title=>"Settings"} 
+      %li{ class: (["company_settings", "companies", "users"].include?(params[:controller]) ? 'active' : '') }
+        %a{:href=> user_settings_company_path(@company), :title=>"Settings"} 
           %span.icon-cog
           Settings

@@ -1,23 +1,45 @@
-%h1
-  Suitability Factor ::
+%h3 Suitability Factor #{@factor.id}
+%p
+  %b Name:
   = @factor.name
- 
-%div 
-  Suitability Factor Definition ::
+  %br
+  %b Definition:
   = @factor.definition
   
-= link_to "Add Text Item", new_suitability_factor_item_path(@factor, item_type: "Suitability::Item")
-
-= link_to "Add Image Item", new_suitability_factor_item_path(@factor, item_type: "Suitability::ImageItem")
-
+= link_to "Add Item", new_suitability_item_path(item_type: "Suitability::Item", :item => { :factor_id => @factor.id })
+\|
 = link_to "Back", suitability_factors_path
 
 %div
   %h3
     Items added for this factor
     
+%table
+  %tr
+    %th
+      ID
+    %th
+      Body
+    %th
+      Behavior
+    %th
+      Active
+    %th
+      Item Group
+    %th
   - Vger::Resources::Suitability::Item.where(:query_options => { :factor_id => @factor.id }).all.each do |item|
-    = link_to item.body, suitability_factor_item_path(params[:id],item.id)
-    %br
-    
-
+    %tr 
+      %td{ width: "5%" }
+        = link_to item.id, suitability_item_path(item.id)
+      %td{ width: "50%" }
+        = link_to item.body, suitability_item_path(item.id)
+      %td
+        = item.behaviour
+      %td
+        = item.active
+      %td
+        - if item.item_group_id
+          = link_to item.item_group_id, suitability_item_group_path(item.item_group_id)
+      %td
+        = link_to "Edit", edit_suitability_item_path(item.id)
+        
