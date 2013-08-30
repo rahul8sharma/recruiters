@@ -3,12 +3,10 @@
 - content_for :main_header do
   = render :partial => 'shared/users/header'
 - content_for :content do
-  .divider2
+  .divider1
   .white-box.tests.bordered.container
     .users-content
       .box
         = yield
-      .divider1
-      .divider2   
-  .divider2
+      .divider3   
 = render :file => 'layouts/base'
