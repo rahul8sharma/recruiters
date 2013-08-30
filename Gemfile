@@ -13,13 +13,13 @@ gem 'rails-backbone','0.7.2'
 
 gem 'puma','2.0.1'
 
-gem 'kaminari', :git => "git@github.com:amatsuda/kaminari.git", :branch => "master", :ref => "c7c88c576786"
+gem 'kaminari', :git => "https://github.com/amatsuda/kaminari.git", :branch => "master", :ref => "c7c88c576786"
 
 gem 'wicked_pdf','0.9.6'
 
-gem 'faraday', :git => "git@github.com:prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
+gem 'faraday', :git => "https://github.com/prcongithub/faraday.git", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
 
-gem 'her', '0.6.6', :git => "git@github.com:prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "14721ddd0e1477e"
+gem 'her', '0.6.6', :git => "https://github.com/prcongithub/her.git", :branch => "v0.6.6-associations-fix-jruby", :ref => "14721ddd0e1477e"
 
 gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
@@ -27,7 +27,7 @@ gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'
-gem "exception_notification", :git => "git@github.com:pmahoney/exception_notification.git", :branch => "jruby", :ref => "5ac9f405fd53ee"
+gem "exception_notification", :git => "https://github.com/pmahoney/exception_notification.git", :branch => "jruby", :ref => "5ac9f405fd53ee"
 gem 'aws-sdk', '1.14.1'
 gem 'sidekiq', '2.12.1'
 
