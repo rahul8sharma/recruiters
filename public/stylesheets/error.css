@@ -191,6 +191,7 @@ p{
   padding: 0 35px;
   width: 900px;
   margin: auto;
+  border: 0;
 }
 #footer .inn ul li {
   float: left;
