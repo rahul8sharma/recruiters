@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for()
     case current_user.type
       when "SuperAdmin"
-        session[:redirect_to] || companies_path
+        params[:redirect_to] || companies_path
       when "Admin"
-        session[:redirect_to] || company_assessments_path(current_user.company_id)  
+        params[:redirect_to] || company_assessments_path(current_user.company_id)  
       else
-        session[:redirect_to] || root_path        
+        params[:redirect_to] || root_path        
     end    
   end
 
@@ -40,12 +40,10 @@ class ApplicationController < ActionController::Base
   def unauthorized
     if current_user
       flash[:error] = "You are not authorized to access this page."
-      session[:redirect_to] = nil
       redirect_to after_sign_in_path_for()
     else
       flash[:error] = "You must be logged in to visit this page."
-      session[:redirect_to] = request.fullpath
-      redirect_to login_path
+      redirect_to login_path(:redirect_to => request.fullpath)
     end
   end
   
