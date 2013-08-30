@@ -21,7 +21,7 @@ class Suitability::ItemGroupsController < ApplicationController
   end
 
   def index
-    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :methods => [:item_groups])
+    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :order => "updated_at DESC", :methods => [:item_groups])
   end
   
   
