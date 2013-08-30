@@ -1,15 +1,5 @@
 GIT
-  remote: git@github.com:yournextleap/vger.git
-  revision: e26c218ddc32588adc13e0150f7dcdbcb3e0bb9a
-  branch: develop
-  specs:
-    vger (0.0.1)
-      her (~> 0.6.6)
-      kaminari (= 0.14.1)
-      rails (>= 3.0.0)
-
-GIT
-  remote: https://github.com/amatsuda/kaminari.git
+  remote: git://github.com/amatsuda/kaminari.git
   revision: c7c88c576786d44623423ed3a5d466874a63837f
   ref: c7c88c576786
   branch: master
@@ -19,7 +9,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: https://github.com/pmahoney/exception_notification.git
+  remote: git://github.com/pmahoney/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
   ref: 5ac9f405fd53ee
   branch: jruby
@@ -28,7 +18,7 @@ GIT
       actionmailer (>= 3.0.4)
 
 GIT
-  remote: https://github.com/prcongithub/faraday.git
+  remote: git://github.com/prcongithub/faraday.git
   revision: 10ff492fb74000ce1d8efc4f1492e41ddfb02a11
   ref: 10ff492fb74000ce1d8
   branch: handle-unprocessable-entity
@@ -37,7 +27,7 @@ GIT
       multipart-post (~> 1.1)
 
 GIT
-  remote: https://github.com/prcongithub/her.git
+  remote: git://github.com/prcongithub/her.git
   revision: 14721ddd0e1477ea789ca5718b484c41c265f29b
   ref: 14721ddd0e1477e
   branch: v0.6.6-associations-fix-jruby
@@ -47,6 +37,16 @@ GIT
       activesupport (>= 3.0.0)
       faraday (~> 0.8)
       multi_json (~> 1.7)
+
+GIT
+  remote: git://github.com/yournextleap/vger.git
+  revision: e26c218ddc32588adc13e0150f7dcdbcb3e0bb9a
+  branch: develop
+  specs:
+    vger (0.0.1)
+      her (~> 0.6.6)
+      kaminari (= 0.14.1)
+      rails (>= 3.0.0)
 
 GEM
   remote: https://rubygems.org/
