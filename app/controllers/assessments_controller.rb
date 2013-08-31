@@ -250,8 +250,8 @@ class AssessmentsController < ApplicationController
   
   # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
-    factors = Vger::Resources::Suitability::Factor.where(:methods => [:type]).all.to_a
-    factors |= Vger::Resources::Suitability::AlarmFactor.where(:methods => [:type]).all.to_a
+    factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type]).all.to_a
+    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type]).all.to_a
     @factors = Hash[factors.collect{|x| [x.id,x]}]
     @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|x| [x.id,x]}]
     @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|x| [x.id,x]}]
@@ -330,9 +330,9 @@ class AssessmentsController < ApplicationController
   # create new job_assessment_factor_norm for each factor
   def get_styles
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
-    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.where(:query_options => { :type => "Suitability::DirectPredictor" }, :methods => [ :parent ]).to_a.map(&:parent_id).uniq
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.active({ :type => "Suitability::DirectPredictor" }).where(:methods => [ :parent ]).to_a.map(&:parent_id).uniq
     
-    all_direct_predictors = Vger::Resources::Suitability::Factor.where(:query_options => { :id => all_direct_predictor_parent_ids }).to_a
+    all_direct_predictors = Vger::Resources::Suitability::Factor.active({ :id => all_direct_predictor_parent_ids }).to_a
     
     @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
     

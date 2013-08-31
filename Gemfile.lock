@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: e26c218ddc32588adc13e0150f7dcdbcb3e0bb9a
+  revision: 87843bba3d7c80aacd51da3be3125de5c3681600
   branch: develop
   specs:
     vger (0.0.1)
@@ -115,7 +115,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.24)
+    mime-types (1.25)
     multi_json (1.7.9)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)
