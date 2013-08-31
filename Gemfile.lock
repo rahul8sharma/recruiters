@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:amatsuda/kaminari.git
+  remote: git://github.com/amatsuda/kaminari.git
   revision: c7c88c576786d44623423ed3a5d466874a63837f
   ref: c7c88c576786
   branch: master
@@ -9,7 +9,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git@github.com:pmahoney/exception_notification.git
+  remote: git://github.com/pmahoney/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
   ref: 5ac9f405fd53ee
   branch: jruby
@@ -18,7 +18,7 @@ GIT
       actionmailer (>= 3.0.4)
 
 GIT
-  remote: git@github.com:prcongithub/faraday.git
+  remote: git://github.com/prcongithub/faraday.git
   revision: 10ff492fb74000ce1d8efc4f1492e41ddfb02a11
   ref: 10ff492fb74000ce1d8
   branch: handle-unprocessable-entity
@@ -27,7 +27,7 @@ GIT
       multipart-post (~> 1.1)
 
 GIT
-  remote: git@github.com:prcongithub/her.git
+  remote: git://github.com/prcongithub/her.git
   revision: 14721ddd0e1477ea789ca5718b484c41c265f29b
   ref: 14721ddd0e1477e
   branch: v0.6.6-associations-fix-jruby
@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: a3dd1d909fb289861dbc9980b1a68c0bd38d51fa
+  revision: 87843bba3d7c80aacd51da3be3125de5c3681600
   branch: develop
   specs:
     vger (0.0.1)
@@ -96,7 +96,7 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    execjs (2.0.0)
+    execjs (2.0.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     haml (3.1.8)
@@ -115,7 +115,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.24)
+    mime-types (1.25)
     multi_json (1.7.9)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)

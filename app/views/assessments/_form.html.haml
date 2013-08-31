@@ -7,16 +7,20 @@
     %label 
       Functional Area
     %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      %option{:value => ""}
+        Select Functional Area
       - @functional_areas.each do |id,functional_area|
-        %option{:value => (functional_area.id), selected: (assessment.functional_area_id == functional_area.id)}
+        %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
           = functional_area.name
     .clr
   .control.left-offset1
     %label 
       Industry
     %select.span8{name: 'assessment[industry_id]', id: 'select_industry'}
+      %option{:value => ""}
+        Select Industry
       - @industries.each do |id,industry|
-        %option{:value => (industry.id), selected: (assessment.industry_id == industry.id)}
+        %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
           = industry.name
 
     .clr
@@ -24,8 +28,10 @@
     %label 
       Experience
     %select.span4{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+      %option{:value => ""}
+        Select Job Experience
       - @job_experiences.each do |id,job_experience|
-        %option{:value => (job_experience.id), selected: (assessment.job_experience_id == job_experience.id)}
+        %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
           = job_experience.display_text      
     .clr
   .clr

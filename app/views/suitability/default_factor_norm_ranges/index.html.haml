@@ -27,11 +27,11 @@
       %td
         = default_factor_norm_range.factor.name
       %td
-        = default_factor_norm_range.functional_area.name
+        = default_factor_norm_range.functional_area.name rescue "-"
       %td
         = default_factor_norm_range.industry.name
       %td
-        = default_factor_norm_range.job_experience.display_text
+        = default_factor_norm_range.job_experience.display_text rescue "-"
       %td
         = default_factor_norm_range.from_norm_bucket.name
       %td

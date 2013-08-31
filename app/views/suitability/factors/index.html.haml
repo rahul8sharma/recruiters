@@ -19,7 +19,9 @@
     %th
       Definition
     %th
-      Parent    
+      Parent
+    %th
+      Active      
   - @factors.each do |factor|
     %tr 
       %td{ width: "5%" }
@@ -30,8 +32,10 @@
       %td{ width: "55%" }
         = factor.definition
       %td
-        - if factor.parent
-          = link_to factor.parent.name, suitability_factor_path(factor.parent.id)
+        - if factor.parent_id
+          = link_to factor.parent_id, suitability_factor_path(factor.parent_id)
+      %td
+        = factor.active
 .pagination.pull-right
   = paginate @factors       
 .clr   

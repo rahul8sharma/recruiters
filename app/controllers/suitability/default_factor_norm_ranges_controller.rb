@@ -42,6 +42,8 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
       flash[:error] = "Please select at least one industry"
       redirect_to manage_suitability_default_factor_norm_ranges_path and return
     end
+    params[:export][:filters][:functional_area_id] ||= nil
+    params[:export][:filters][:job_experience_id] ||= nil
     Vger::Resources::Suitability::DefaultFactorNormRange\
       .export_to_google_drive(params[:export])
     redirect_to manage_suitability_default_factor_norm_ranges_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
