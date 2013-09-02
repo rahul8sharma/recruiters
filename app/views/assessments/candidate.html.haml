@@ -2,23 +2,29 @@
   .inn.first
     .page-title
       Test #{@assessment.id} - #{@assessment.name}
+
   .inn.gray-gradient
     .pull-left
       = render :partial => "shared/candidate-content-sub-nav"
     .clr
     .divider2
-
     .candidate-details
-      %b.candidate-name.extra-medium-text
-        #{@candidate.name}
-      
+      %b Name: 
+      #{@candidate.name}
       .divider1
+
       %ul.unstyled.clearfix
         %li.no-margin
           %b Email id:
           #{ h @candidate.email}
+        -#
+          %li
+            %b Current Company Name:
+            #{ h @candidate.current_company }
         %li
+
           %b Contact no.:
+
           #{ h @candidate.mobile }
         %li.clr
         %li.no-margin
@@ -45,31 +51,26 @@
         %li.no-margin
           %b Total Work Experience:
           #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
-        %li
-          %b Current CTC:
-          #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
-        %li.clr 
         -#
           %li
             %b Marital Status:
             = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
-        -#
-          %li
-            %b Current Company Name:
-            #{ h @candidate.current_company }
+        %li
+          %b Current CTC:
+          #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
+        %li.clr 
         //%li
         //%b Degree with Specialization:
         //TODO
-
         %li.no-margin
           %b Number of Dependants:
           #{ h @candidate.no_of_dependents }
         %li.clr
     .divider3
     .candidate-report
-      %b.large-text
+      .large-text
         Reports
-      .divider1
+      .divider2
       .list-snippet-titles.clearfix
         .span13.first
           Test ID &amp; Name
