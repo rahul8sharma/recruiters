@@ -146,6 +146,7 @@ class AssessmentsController < ApplicationController
     if request.put?
       params[:candidates] ||= []
       candidate_assessments = []
+      failed_candidate_assessments = []
       if params[:candidates].empty?
         @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
         flash[:error] = "Please select at least one candidate."
@@ -160,12 +161,21 @@ class AssessmentsController < ApplicationController
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
           candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
-          candidate_assessments.push candidate_assessment 
+          if candidate_assessment.error_messages.present?
+            failed_candidate_assessments << candidate_assessment
+          else
+            candidate_assessments.push candidate_assessment 
+          end  
         end
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
-      flash[:notice] = "Test was sent successfully!"
-      redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      if failed_candidate_assessments.present?
+        flash[:alert] = "#{failed_candidate_assessments.size} assessments could not be sent. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      else
+        flash[:notice] = "Test was sent successfully!"
+        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      end
     end
   end
   
@@ -245,6 +255,7 @@ class AssessmentsController < ApplicationController
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
+      @assessment.company_id = params[:company_id]
     end
   end
   
