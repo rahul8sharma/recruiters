@@ -19,18 +19,20 @@
             Potential Employees
         .clr 
       .divider1
-      .span6.left-offset1
+      - offset_incr = params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED ? 0 : 2
+      %div{ class: "span#{6+offset_incr} left-offset1" }
         %b.show Full name
         (Required)
       .span6.first
         %b.show Email id
         (Required)
-      .span4  
+      .span{ class: "span#{4+offset_incr}" }  
         %b.show Contact number
         (Required)
-      .span5
-        %b.show Functional Area
-        (For existing employees only)
+      - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED  
+        .span5
+          %b.show Functional Area
+          (For existing employees only)
       .clr
       .divider1
       %ul.add-candidates.unstyled.clearfix

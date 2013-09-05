@@ -1,14 +1,17 @@
+- offset_incr = params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED ? 0 : 2
+- offset_decr = params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED ? 2 : 0
 %li
   %input{name: "candidates[#{index-1}][name]", type: "hidden"}
   %input{name: "candidates[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
   .count= index
-  %input.span5.first{name: "candidates[#{index-1}][name]", type: "text", placeholder: "Full Name", value: (candidate[:name])}
+  %input{name: "candidates[#{index-1}][name]", type: "text", placeholder: "Full Name", value: (candidate[:name]), class: "span#{5+offset_incr} first"}
   %input.span5.left-offset1{name: "candidates[#{index-1}][email]", type: "text", placeholder: "Email id", value: (candidate[:email])}
-  %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number", value: (candidate[:mobile])}
-  %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]"}
-    %option{ value: "" }
-      Select Functional Area
-    - @functional_areas.each do |fa|
-      %option{ value: fa.id, selected: candidate[:functional_area_id] == fa.id || (@assessment.functional_area_id == fa.id && params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)}
-        = fa.name
+  %input{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number", value: (candidate[:mobile]), class: "span#{5-offset_decr} left-offset1"}
+  - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED
+    %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]"}
+      %option{ value: "" }
+        Select Functional Area
+      - @functional_areas.each do |fa|
+        %option{ value: fa.id, selected: candidate[:functional_area_id] == fa.id || (@assessment.functional_area_id == fa.id)}
+          = fa.name
   .clr
