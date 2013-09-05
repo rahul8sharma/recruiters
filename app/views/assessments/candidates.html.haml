@@ -14,24 +14,19 @@
     .divider2
     .list-snippet-titles.clearfix
       .span2
-        = sort_link "ID", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id
+        = sort_link "ID", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
       .span7
-        = sort_link "Candidate Name", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name
+        = sort_link "Candidate Name", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span
-        = sort_link "Test Status", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status
+        = sort_link "Test Status", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .filter-status.pull-right
         = form_for :search, url: candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
           - params[:search] ||= {}
           Filter by Test Status: 
           %select{name: "search[status]"}
-            %option{ value: "", selected: (params[:search][:status] == '') }
-              All
-            %option{ value: "sent", selected: (params[:search][:status] == 'sent') }
-              Pending
-            %option{ value: "started", selected: (params[:search][:status] == 'started') }
-              Started
-            %option{ value: "scored", selected: (params[:search][:status] == 'scored') }
-              Completed
+            - test_statuses.each do |status,name|  
+              %option{ value: status, selected: (params[:search][:status] == status) }
+                = name
           %button.btn.btn-link
             Apply
       .clr
@@ -63,15 +58,18 @@
                 //remember Hrs & Hr 
             .span.lhs-border
               - if report
-                - if report.status == "uploaded"
+                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :assessment_id => @assessment.id, :id => report.id)
                   %a.underlined{:href => url, :title => "View Report", target: "_blank"}
                     View Report
                 - else
                   Generating report...  
-              - else    
-                %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
-                  Send Reminder
+              - else 
+                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
+                  = status  
+                - else   
+                  %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                    Send Reminder
             .clr
   .inn
     .pagination.pull-right
