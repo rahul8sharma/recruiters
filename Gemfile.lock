@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 87843bba3d7c80aacd51da3be3125de5c3681600
+  revision: 6f27ac5437a2586fbea27552e68447b5ace34955
   branch: develop
   specs:
     vger (0.0.1)
@@ -87,8 +87,8 @@ GEM
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
-    celluloid (0.14.1)
-      timers (>= 1.0.0)
+    celluloid (0.15.1)
+      timers (~> 1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -116,7 +116,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
