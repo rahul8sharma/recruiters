@@ -1,6 +1,4 @@
 .inner
-  = render :partial => "shared/report_header.html.haml"      
-
   .scores.interview_guide 
     .blue_bg_heading.pull-left
       - if @report.report_hash[:candidate_stage].to_sym == :candidate

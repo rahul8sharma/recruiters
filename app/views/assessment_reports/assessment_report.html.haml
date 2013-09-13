@@ -1,64 +1,43 @@
-- page = 1
-
 = render :template => "assessment_reports/page1.html.haml"
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
 .page-break      
 
 - if @report.report_hash[:job_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page2.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 - if @report.report_hash[:company_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page3.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
  
 - if @report.report_hash[:team_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page4.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
 
 - if @report.report_hash[:job_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page5.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 - if @report.report_hash[:company_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page6.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 
 - if @report.report_hash[:team_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page7.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 - if @report.report_hash[:direct_predictor_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page8.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 - if @report.report_hash[:post_assessment_guidelines].present?
-  - page = page + 1
   = render :template => "assessment_reports/page9.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
   
 - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
-  - page = page + 1
   = render :template => "assessment_reports/page10.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
+  = render :partial => "shared/report_footer.html.haml"
   .page-break              
   
-- page = page + 1
 = render :template => "assessment_reports/page11.html.haml"
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page, :force => true, :navigation => false, :last_page => true }
+= render :partial => "shared/report_footer.html.haml", :locals => { :force => true, :last_page => true }

@@ -7,7 +7,7 @@
         = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
     .left-side
       .user_name
-        = @report.report_hash[:candidate][:name]
+        = @report.report_hash[:candidate][:name].split(" ").join("<br/>").html_safe
       .date
         Assessment Date: #{@report.report_hash[:completed_at]}
     .right-side
