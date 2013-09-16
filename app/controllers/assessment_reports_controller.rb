@@ -3,7 +3,7 @@ class AssessmentReportsController < ApplicationController
   
   def show
     @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id])
-    url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
+    url = S3Utils.get_url(@report.s3_keys[:pdf][:bucket], @report.s3_keys[:pdf][:key])
     redirect_to url 
   end
   
