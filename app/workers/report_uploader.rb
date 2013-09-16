@@ -22,19 +22,28 @@ class ReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @view_mode = "html"
       html = render_to_string(
          template: 'assessment_reports/assessment_report.html.haml', 
          layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ],
-         locals: { :@view_mode => "html" }
+         handlers: [ :haml ]
       )
       
-      pdf = WickedPdf.new.pdf_from_string(render_to_string(
-         template: 'assessment_reports/assessment_report.html.haml', 
-         layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ], margin: { :left => "5mm",:right => "5mm", :top => "20mm", :bottom => "0mm" },
-         locals: { :@view_mode => "pdf" }
-      ))
+      @view_mode = "pdf"
+      pdf = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          'assessment_reports/assessment_report.html.haml', 
+          layout: "layouts/reports.html.haml", 
+          handlers: [ :haml ]
+        ),
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        header: { 
+          :content => render_to_string("shared/_report_header.html.haml",layout: "layouts/reports.html.haml")
+        },
+        footer: {
+          :content => render_to_string("shared/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+        }
+      )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       pdf_file_id = "report_#{@report.id}.pdf"
@@ -57,9 +66,9 @@ class ReportUploader < AbstractController::Base
         :s3_keys => { :pdf => pdf_s3, :html => html_s3 },
         :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
       )
-      File.delete(pdf_save_path)
-      File.delete(html_save_path)
-      SystemMailer.delay.send_report(@report.report_hash)
+      #File.delete(pdf_save_path)
+      #File.delete(html_save_path)
+      #SystemMailer.delay.send_report(@report.report_hash)
       #SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{@report.id}",{
       #  :report => {
       #    :status => "Success",
@@ -112,12 +121,13 @@ class ReportUploader < AbstractController::Base
   end
   
   def upload_file_to_s3(file_id,file_path)
+    puts file_path
     File.open(file_path,"r") do |file|
       Rails.logger.debug "Uploading #{file_id} to s3 ........."
       s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
       s3_key = "#{file_id}"
-      url = S3Utils.upload(s3_bucket_name, s3_key, file)
-      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
+      #url = S3Utils.upload(s3_bucket_name, s3_key, file)
+      #Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
       return { :bucket => s3_bucket_name, :key => s3_key }
     end
   end
