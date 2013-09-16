@@ -3,6 +3,7 @@
     .blue_bg_heading.iconic.pull-left
       Scores of Factors measured under  
       %b Team Fit
+      = "(continued)" if step != 0
       .thumbnails
         .thumbnails_inn2
       //above heading is same for page 6 and 7, just change a copy "Compny fit", "Team Fit"
@@ -36,7 +37,7 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @report.report_hash[:team_fit_scores].each_with_index do |(factor_name,factor_score),index|
+      - team_fit_scores.each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
