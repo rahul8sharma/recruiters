@@ -10,6 +10,7 @@ ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
+  :return_response => true,
   :enable_starttls_auto => true,
   :address => 'email-smtp.us-east-1.amazonaws.com',
   :port => 587,
