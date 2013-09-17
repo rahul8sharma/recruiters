@@ -5,7 +5,8 @@
   .footer.clearfix
     - if @view_mode != "html" && navigation
       .medium-text.pull-left
-        = render :partial => "assessment_reports/navigation.html.haml", :locals => { :current_page => current_page }
+        .current-page
+          1
       .left-offset1.pull-left
         Private & Confidential
     - else    

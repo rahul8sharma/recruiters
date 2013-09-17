@@ -1,14 +1,11 @@
 .inner
-  = render :partial => "shared/report_header.html.haml"      
-
   .scores.favorable_factors
     .blue_bg_heading.iconic.pull-left
       Scores of Factors measured under  
       %b Job Role Fit
+      = "(continued)" if step != 0
       .thumbnails
         .thumbnails_inn3
-      //above heading is same for page 6 and 7, just change a copy "Compny fit", "Team Fit"
-      //and also change class name for "Team Fit" use ".thumbnails_inn2"- for "Compny fit" use ".thumbnails_inn1"
     .clr
     .indication
       .pull-left
@@ -38,7 +35,7 @@
         %br/
         High
     %ul.unstyled.clearfix.scores_listing
-      - @report.report_hash[:job_fit_scores].each_with_index do |(factor_name,factor_score),index|
+      - job_fit_scores.each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
