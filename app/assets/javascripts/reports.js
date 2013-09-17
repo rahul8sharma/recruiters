@@ -4,9 +4,9 @@ function number_pages() {
   if(page_params[0] == "page=1"){
     header[0].style.display = "none";
   }
-  var y = document.getElementsByClassName('current-page');
-  for(var j=0; j < y.length; ++j){
-    y[j].textContent = page_params[0].split("=")[1];
+  var current_page_divs = document.getElementsByClassName('current-page');
+  for(var index=0; index < current_page_divs.length; ++index){
+    current_page_divs[index].textContent = page_params[0].split("=")[1];
   }  
 }
 
