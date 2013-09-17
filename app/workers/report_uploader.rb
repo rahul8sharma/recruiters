@@ -121,13 +121,12 @@ class ReportUploader < AbstractController::Base
   end
   
   def upload_file_to_s3(file_id,file_path)
-    puts file_path
     File.open(file_path,"r") do |file|
       Rails.logger.debug "Uploading #{file_id} to s3 ........."
       s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
       s3_key = "#{file_id}"
-      #url = S3Utils.upload(s3_bucket_name, s3_key, file)
-      #Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
+      url = S3Utils.upload(s3_bucket_name, s3_key, file)
+      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
       return { :bucket => s3_bucket_name, :key => s3_key }
     end
   end
