@@ -68,7 +68,7 @@ class ReportUploader < AbstractController::Base
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      SystemMailer.delay.send_report(@report.report_hash)
+      JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
@@ -79,7 +79,7 @@ class ReportUploader < AbstractController::Base
           :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::FAILED
         )
       end
-      SystemMailer.delay.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{
         :report => {
           :status => "Failed",
           :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
@@ -98,7 +98,7 @@ class ReportUploader < AbstractController::Base
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
         }
-      })
+      }), "notify_report_status")
     end  
     
   end

@@ -31,6 +31,8 @@ gem "exception_notification", :github => "pmahoney/exception_notification", :bra
 gem 'aws-sdk', '1.14.1'
 gem 'sidekiq', '2.12.1'
 
+gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :branch => "develop"
+
 platform :ruby do
 	group :development do
 		gem 'better_errors','0.8.0'
