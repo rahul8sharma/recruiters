@@ -5,12 +5,13 @@
     .pagination.pull-right
       = paginate @assessments  
   .inn.gray-gradient
-    .pull-left.line-height2.extra-medium-text
-      You may send an existing test from the list below:
     - if @assessments.empty?
       .medium-text.alert.pull-left
         No tests have been created. To create a test, 
         %a{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.
+    - else
+      .pull-left.line-height2.extra-medium-text
+        You may send an existing test from the list below:
     - if can?(:create, "Suitability::Assessment")    
       %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
         Create New Test
