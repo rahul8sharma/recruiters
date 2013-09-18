@@ -4,7 +4,7 @@
   .count= index
   %input.span5.first{name: "candidates[#{index-1}][name]", type: "text", placeholder: "Full Name", value: (candidate[:name])}
   %input.span5.left-offset1{name: "candidates[#{index-1}][email]", type: "text", placeholder: "Email id", value: (candidate[:email])}
-  %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Contact number", value: (candidate[:mobile])}
+  %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", type: "text", placeholder: "Mobile number", value: (candidate[:mobile])}
   %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]"}
     %option{ value: "" }
       Select Functional Area
