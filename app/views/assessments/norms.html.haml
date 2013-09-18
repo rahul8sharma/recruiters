@@ -40,13 +40,13 @@
         - aindex = 0
         - @factor_norms_by_fit.each do |fit,norms|
           .titles.clearfix
-            .span13.first
+            .span15.first
               Factors for #{fit.name}
             .pull-left
               .span7.first
                 Desired/Acceptable Score Range 
-              .span2
-                Critical
+              //.span2
+              //  Critical
           .divider1
           %ul.unstyled.factor-snippet
             - norms[:factors].each_with_index do |assessment_factor_norm,index|

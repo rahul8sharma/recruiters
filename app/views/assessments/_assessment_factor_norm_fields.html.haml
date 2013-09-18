@@ -50,9 +50,9 @@
                 = norm_bucket.name         
         
         .clr
-      .span2.lhs-border
-        %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off"), disabled: 'disabled'}      
-        %input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?, disabled: 'disabled'}
+      //.span2.lhs-border
+      //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off"), disabled: 'disabled'}      
+      //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?, disabled: 'disabled'}
 
   - else
     - if assessment_factor_norm.id.present?
@@ -90,9 +90,9 @@
                 = norm_bucket.name         
         
         .clr
-      .span2.lhs-border
-        %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off")}      
-        %input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?}
+      // .span2.lhs-border
+      //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off")}      
+      //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?}
   .clr
   .divider1
   %p= assessment_factor_norm.factor.definition
