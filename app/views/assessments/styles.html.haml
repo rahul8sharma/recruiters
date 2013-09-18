@@ -37,7 +37,8 @@
       .action
       .alert.alert-info.padding-all1.text-center
         %b.extra-medium-text
-          Miscellaneous Factors - You may select one or more to measure.
+          Miscellaneous Factors
+          = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
       .factors
         %ul.unstyled.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
