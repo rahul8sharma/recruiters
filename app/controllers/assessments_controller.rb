@@ -171,7 +171,7 @@ class AssessmentsController < ApplicationController
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
       if failed_candidate_assessments.present?
-        flash[:alert] = "#{failed_candidate_assessments.size} assessments could not be sent. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        flash[:alert] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
       else
         flash[:notice] = "Test was sent successfully!"
