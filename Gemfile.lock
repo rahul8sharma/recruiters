@@ -9,7 +9,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/pmahoney/exception_notification.git
+  remote: git://github.com/prcongithub/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
   ref: 5ac9f405fd53ee
   branch: jruby
