@@ -6,16 +6,6 @@
   .divider1
   .control
     %label 
-      Functional Area
-    %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
-      %option{:value => ""}
-        Select Functional Area
-      - @functional_areas.each do |id,functional_area|
-        %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
-          = functional_area.name
-    .clr
-  .control.left-offset1
-    %label 
       Industry
     %select.span8{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
@@ -25,6 +15,17 @@
           = industry.name
 
     .clr
+  .control.left-offset1
+    %label 
+      Functional Area
+    %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      %option{:value => ""}
+        Select Functional Area
+      - @functional_areas.each do |id,functional_area|
+        %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
+          = functional_area.name
+    .clr
+  
   .control.left-offset1
     %label 
       Experience
