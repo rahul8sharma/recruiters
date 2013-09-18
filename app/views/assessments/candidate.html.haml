@@ -5,21 +5,20 @@
   .inn.gray-gradient
     .pull-left
       = render :partial => "shared/candidate-content-sub-nav"
+    %a.pull-right{:href=>candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+      View All Candidates
     .clr
     .divider2
 
     .candidate-details
-      %b Name: 
-      #{@candidate.name}
+      %b.candidate-name.extra-medium-text
+        #{@candidate.name}
+      
       .divider1
       %ul.unstyled.clearfix
         %li.no-margin
           %b Email id:
           #{ h @candidate.email}
-        -#
-          %li
-            %b Current Company Name:
-            #{ h @candidate.current_company }
         %li
           %b Contact no.:
           #{ h @candidate.mobile, nil, :prefix => "+91-" }
@@ -48,14 +47,18 @@
         %li.no-margin
           %b Total Work Experience:
           #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
-        -#
-          %li
-            %b Marital Status:
-            = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
         %li
           %b Current CTC:
           #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
         %li.clr 
+        -#
+          %li
+            %b Marital Status:
+            = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
+        -#
+          %li
+            %b Current Company Name:
+            #{ h @candidate.current_company }
         //%li
         //%b Degree with Specialization:
         //TODO
@@ -66,9 +69,9 @@
         %li.clr
     .divider3
     .candidate-report
-      .large-text
+      %b.large-text
         Reports
-      .divider2
+      .divider1
       .list-snippet-titles.clearfix
         .span13.first
           Test ID &amp; Name
