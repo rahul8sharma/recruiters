@@ -45,9 +45,6 @@
             .span6
               .factor-name
                 = factor_name
-              .factor-description
-                = factor_score[:description]
-            .clr 
           .rhs-sec.pull-left
             .slider
               - scale = factor_score[:scale]
@@ -57,3 +54,6 @@
                 //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
           .clr
+          .factor-description
+            = factor_score[:description]
+        .clr 
