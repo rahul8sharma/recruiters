@@ -14,7 +14,7 @@
             %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
             Existing Employees
           %label
-            - checked = (params[:candidate_stage].nil? || (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE))
+            - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
             %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: checked, :onClick => "window.location='#{request.path}?candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';"}
             Potential Employees
         .clr 

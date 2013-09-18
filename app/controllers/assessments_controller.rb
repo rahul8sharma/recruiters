@@ -83,6 +83,7 @@ class AssessmentsController < ApplicationController
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
+    params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     @functional_areas = Vger::Resources::FunctionalArea.all.to_a
     if request.put?
       candidates = {}
@@ -90,14 +91,10 @@ class AssessmentsController < ApplicationController
         flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
       end
-      if params[:candidates].find{|key,data| data[:name].blank? || data[:email].blank? }.present?
-        flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
-        render :action => :add_candidates and return
-      end
       errors = {}
-      
       params[:candidates].each do |key,candidate_data|
         candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
+        errors[candidate_data[:name]] ||= []
         if candidate
           candidate_data[:id] = candidate.id
           candidates[candidate.id] = candidate_data
@@ -107,17 +104,21 @@ class AssessmentsController < ApplicationController
         else
           candidate = Vger::Resources::Candidate.create(candidate_data)
           if candidate.error_messages.present?
-            errors[candidate.email] ||= []
-            errors[candidate.email] |= candidate.error_messages
+            errors[candidate_data[:name]] |= candidate.error_messages
           else
             candidate_data[:id] = candidate.id
             candidates[candidate.id] = candidate_data
           end
         end  
-        unless errors.empty?
-          flash[:error] = "Invalid data. Please ensure that email addresses and phone numbers provided are in the correct format."
-          render :action => :add_candidates and return
-        end
+      end
+      unless errors.values.flatten.empty?
+        flash[:error] = "Errors in provided data: <br/>".html_safe
+        flash[:error] += errors.map.with_index do |(candidate_name, candidate_errors), index| 
+          if candidate_errors.present?
+            ["Candidate #{index + 1}: #{candidate_errors.join(", ")}"]
+          end  
+        end.compact.join("<br/>").html_safe
+        render :action => :add_candidates and return
       end
       params[:candidates] = candidates
       @company = Vger::Resources::Company.find(params[:company_id])
@@ -146,6 +147,7 @@ class AssessmentsController < ApplicationController
     if request.put?
       params[:candidates] ||= []
       candidate_assessments = []
+      failed_candidate_assessments = []
       if params[:candidates].empty?
         @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
         flash[:error] = "Please select at least one candidate."
@@ -160,12 +162,21 @@ class AssessmentsController < ApplicationController
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
           candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
-          candidate_assessments.push candidate_assessment 
+          if candidate_assessment.error_messages.present?
+            failed_candidate_assessments << candidate_assessment
+          else
+            candidate_assessments.push candidate_assessment 
+          end  
         end
       end
       assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
-      flash[:notice] = "Test was sent successfully!"
-      redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      if failed_candidate_assessments.present?
+        flash[:alert] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      else
+        flash[:notice] = "Test was sent successfully!"
+        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      end
     end
   end
   
@@ -209,7 +220,7 @@ class AssessmentsController < ApplicationController
   
   # GET /assessments
   def index
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :assessable_id => params[:company_id], :assessable_type => "Company" }, :order => "created_at DESC", :page => params[:page], :per => 10)
+    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :assessable_id => params[:company_id], :assessable_type => "Company" }, :order => "created_at DESC", :page => params[:page], :per => 15)
   end
   
   # GET /assessments/new
@@ -245,6 +256,7 @@ class AssessmentsController < ApplicationController
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
+      @assessment.company_id = params[:company_id]
     end
   end
   

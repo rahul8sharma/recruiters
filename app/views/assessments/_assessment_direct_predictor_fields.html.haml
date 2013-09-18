@@ -11,9 +11,9 @@
 
 %li{ id: "li_#{index}", class: "item #{job_factor_norm.id.present? ? 'checked':''}" }
   - if job_factor_norm.id.nil?
-    %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), disabled: 'disabled'}
+    //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), disabled: 'disabled'}
     .pull-left 
-      %input{name: "selected_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index)}
+      %input{name: "selected_factor", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index)}
     .pull-left
       %label{ for: "checkbox_factor_#{index}" }
         %b= job_factor_norm.factor.name
@@ -29,9 +29,9 @@
     %input{name: (norm_min_name), type: 'hidden', value: @norm_buckets.map(&:id).first, disabled: 'disabled', index: (index)}
     %input{name: (norm_max_name), type: 'hidden', value: @norm_buckets.map(&:id).last, disabled: 'disabled', index: (index)}
   - else
-    %input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index)}
+    //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index)}
     .pull-left 
-      %input{name: "selected_factor", class: "#{job_factor_norm.id.present? ? 'checked':''}", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: job_factor_norm.id.present?}
+      %input{name: "selected_factor", disabled: true, class: "#{job_factor_norm.id.present? ? 'checked':''}", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: job_factor_norm.id.present?}
     .pull-left
       %label{ for: "checkbox_factor_#{index}" }
         %b= job_factor_norm.factor.name
