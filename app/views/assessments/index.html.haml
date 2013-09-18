@@ -5,6 +5,8 @@
     .pagination.pull-right
       = paginate @assessments  
   .inn.gray-gradient
+    .pull-left.line-height2.extra-medium-text
+      You may send an existing test from the list below:
     - if @assessments.empty?
       .medium-text.alert.pull-left
         No tests have been created. To create a test, 
