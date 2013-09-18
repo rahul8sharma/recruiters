@@ -22,7 +22,7 @@
             #{ h @candidate.current_company }
         %li
           %b Contact no.:
-          #{ h @candidate.mobile }
+          #{ h @candidate.mobile, nil, :prefix => "+91-" }
         %li.clr
         %li.no-margin
           %b Industry:
@@ -82,7 +82,10 @@
               %a.default-color{:href=> company_assessment_path(:id => candidate_assessment.assessment.id, :company_id => @company.id), :title=>"TEST043"} 
                 #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
             .span5.first.lhs-border
-              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
+              - if candidate_assessment.candidate_stage != Vger::Resources::Candidate::Stage::EMPLOYED
+                = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
+              - else
+                \-  
             .span3.lhs-border
               - if candidate_assessment.overall_fitment_grade_id.present?
                 - report = candidate_assessment.candidate_assessment_reports[0] 
