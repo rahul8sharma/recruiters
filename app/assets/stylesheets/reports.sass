@@ -1,6 +1,7 @@
 $favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
+$width: 816px
 
 .page-break
   display: block 
@@ -8,7 +9,7 @@ $mid_favorable_color: #062b58
   page-break-after: always     
   
 .report
-  width: 580px
+  width: $width
   margin: 0 auto
   .favorable
     color: $favorable_color  
@@ -23,8 +24,9 @@ $mid_favorable_color: #062b58
 
   .inner
     background: image-url('report/body-bg.png') no-repeat #fff
-    width: 580px
+    width: $width
     margin: 0 auto
+    margin-top: 100px
   .report_content
     min-height: 700px
     padding: 18px 30px
@@ -213,7 +215,7 @@ $mid_favorable_color: #062b58
     .factors_container
       background: image-url("report/hexagon-bg.png") no-repeat 10px top
       height: 600px
-      width: 580px
+      width: $width
 
       .factors_list
         position: relative
@@ -276,7 +278,6 @@ $mid_favorable_color: #062b58
   .scores
     padding: 18px 30px
     min-height: 700px
-    
     ul.scores_listing
       min-height: 600px
       li

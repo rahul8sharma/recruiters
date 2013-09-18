@@ -163,7 +163,7 @@ class AssessmentsController < ApplicationController
           candidate_assessments.push candidate_assessment 
         end
       end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
+      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
       flash[:notice] = "Test was sent successfully!"
       redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end

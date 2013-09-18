@@ -22,19 +22,28 @@ class ReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @view_mode = "html"
       html = render_to_string(
          template: 'assessment_reports/assessment_report.html.haml', 
          layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ],
-         locals: { :@view_mode => "html" }
+         handlers: [ :haml ]
       )
       
-      pdf = WickedPdf.new.pdf_from_string(render_to_string(
-         template: 'assessment_reports/assessment_report.html.haml', 
-         layout: "layouts/reports.html.haml", 
-         handlers: [ :haml ], margin: { :left => "5mm",:right => "5mm", :top => "20mm", :bottom => "0mm" },
-         locals: { :@view_mode => "pdf" }
-      ))
+      @view_mode = "pdf"
+      pdf = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          'assessment_reports/assessment_report.html.haml', 
+          layout: "layouts/reports.html.haml", 
+          handlers: [ :haml ]
+        ),
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        header: { 
+          :content => render_to_string("shared/_report_header.html.haml",layout: "layouts/reports.html.haml")
+        },
+        footer: {
+          :content => render_to_string("shared/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+        }
+      )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       pdf_file_id = "report_#{@report.id}.pdf"
@@ -59,24 +68,7 @@ class ReportUploader < AbstractController::Base
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      SystemMailer.delay.send_report(@report.report_hash)
-      #SystemMailer.delay.notify_report_status("Report Uploader","Upload report #{@report.id}",{
-      #  :report => {
-      #    :status => "Success",
-      #    :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
-      #    
-      #    :candidate => {
-      #      :name => @report.report_hash[:candidate][:name],
-      #      :email => @report.report_hash[:candidate][:email]
-      #    },
-      #    :assessment => {
-      #      :id => @report.report_hash[:assessment][:id],
-      #      :name => @report.report_hash[:assessment][:name],
-      #      :assessable_id => @report.report_hash[:assessment][:assessable_id],
-      #      :assessable_type => @report.report_hash[:assessment][:assessable_type]
-      #    } 
-      #  }
-      #})
+      JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
@@ -87,7 +79,7 @@ class ReportUploader < AbstractController::Base
           :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::FAILED
         )
       end
-      SystemMailer.delay.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{
         :report => {
           :status => "Failed",
           :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
@@ -106,7 +98,7 @@ class ReportUploader < AbstractController::Base
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
         }
-      })
+      }), "notify_report_status")
     end  
     
   end

@@ -1,64 +1,72 @@
-- page = 1
-
+- if @view_mode == "html"
+  :css
+    .report .inner{margin-top:0px;} 
+    
 = render :template => "assessment_reports/page1.html.haml"
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
 .page-break      
 
 - if @report.report_hash[:job_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page2.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
 - if @report.report_hash[:company_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page3.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
  
 - if @report.report_hash[:team_fit_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page4.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break
 
+- scores_step = Rails.application.config.reports["scores_step"]
 - if @report.report_hash[:job_fit_scores].present?
-  - page = page + 1
-  = render :template => "assessment_reports/page5.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
-  .page-break      
+  - job_fit_scores = @report.report_hash[:job_fit_scores]
+  - (0..job_fit_scores.keys.length-1).step(scores_step) do |step|  
+    - step_job_fit_scores = job_fit_scores.slice(*job_fit_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/page5.html.haml", :locals => { :job_fit_scores => step_job_fit_scores, :step => step }
+    .page-break      
+    
 
 - if @report.report_hash[:company_fit_scores].present?
-  - page = page + 1
-  = render :template => "assessment_reports/page6.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
-  .page-break      
+  - company_fit_scores = @report.report_hash[:company_fit_scores]
+  - (0..company_fit_scores.keys.length-1).step(scores_step) do |step|
+    - step_company_fit_scores = company_fit_scores.slice(*company_fit_scores.keys[step..(step+(scores_step - 1))])  
+    = render :template => "assessment_reports/page6.html.haml", :locals => { :company_fit_scores => step_company_fit_scores, :step => step }
+    .page-break      
 
 
 - if @report.report_hash[:team_fit_scores].present?
-  - page = page + 1
-  = render :template => "assessment_reports/page7.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
-  .page-break      
+  - team_fit_scores = @report.report_hash[:team_fit_scores]
+  - (0..team_fit_scores.keys.length-1).step(scores_step) do |step|  
+    - step_team_fit_scores = team_fit_scores.slice(*team_fit_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/page7.html.haml", :locals => { :team_fit_scores => step_team_fit_scores, :step => step }
+    .page-break      
 
 - if @report.report_hash[:direct_predictor_scores].present?
-  - page = page + 1
   = render :template => "assessment_reports/page8.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
   .page-break      
 
+- guides_step = Rails.application.config.reports["guides_step"]
 - if @report.report_hash[:post_assessment_guidelines].present?
-  - page = page + 1
-  = render :template => "assessment_reports/page9.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
-  .page-break
+  - post_assessment_guidelines = @report.report_hash[:post_assessment_guidelines]
+
+  - ordered_guides = post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+
+  - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+
+  - if @report.report_hash[:candidate_stage].to_sym == :candidate    
+    - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
+    
+    
+  - (0..ordered_guides.length-1).step(guides_step) do |step|    
+    - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
+    = render :template => "assessment_reports/page9.html.haml", :locals => { :post_assessment_guidelines => step_post_assessment_guidelines, :step => step }
+    .page-break
   
 - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
-  - page = page + 1
   = render :template => "assessment_reports/page10.html.haml"
-  = render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page }
+  = render :partial => "shared/report_footer.html.haml"
   .page-break              
   
-- page = page + 1
 = render :template => "assessment_reports/page11.html.haml"
-= render :partial => "shared/report_footer.html.haml", :locals => { :current_page => page, :force => true, :navigation => false, :last_page => true }
+- if @view_mode == "html"
+  = render :partial => "shared/report_footer.html.haml", :locals => { :force => true, :last_page => true }
