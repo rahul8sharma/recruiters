@@ -83,6 +83,7 @@ class AssessmentsController < ApplicationController
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
+    params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     @functional_areas = Vger::Resources::FunctionalArea.all.to_a
     if request.put?
       candidates = {}
@@ -90,10 +91,10 @@ class AssessmentsController < ApplicationController
         flash[:error] = "Please add at least one candidate to proceed."
         render :action => :add_candidates and return
       end
-      if params[:candidates].find{|key,data| data[:name].blank? || data[:email].blank? }.present?
-        flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
-        render :action => :add_candidates and return
-      end
+      #if params[:candidates].find{|key,data| data[:name].blank? || data[:email].blank? }.present?
+      #  flash[:error] = "Please enter full name as well as email id of the candidates you want to send the test to."
+      #  render :action => :add_candidates and return
+      #end
       errors = {}
       
       params[:candidates].each do |key,candidate_data|
@@ -168,7 +169,7 @@ class AssessmentsController < ApplicationController
           end  
         end
       end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id)) if candidate_assessments.present?
+      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
       if failed_candidate_assessments.present?
         flash[:alert] = "#{failed_candidate_assessments.size} assessments could not be sent. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
