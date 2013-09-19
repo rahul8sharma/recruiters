@@ -38,7 +38,7 @@
                 = assessment.name
             .span4.lhs-border
               - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "sent" }), :title=> "#{sent_count}"}  #{sent_count}
+              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "" }), :title=> "#{sent_count}"}  #{sent_count}
             .span4.lhs-border
               - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
               %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
