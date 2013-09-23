@@ -8,17 +8,17 @@
           Development Guide
           .medium-text
             for the Candidate
-      = "(continued)" if step != 0      
+      =# "(continued)" if step != 0      
     .indication.pull-right
       .hexagon-icon.favorable.pull-left
-      .pull-left
+      .pull-left.extra-medium-text
         Favorable
       .hexagon-icon.less_favorable.pull-left
-      .pull-left
+      .pull-left.extra-medium-text
         Less Favorable
       - if @report.report_hash[:candidate_stage].to_sym == :candidate  
         .hexagon-icon.mid_favorable.pull-left
-        .pull-left
+        .pull-left.extra-medium-text
           Miscellaneous
     .clr
     .divider1
