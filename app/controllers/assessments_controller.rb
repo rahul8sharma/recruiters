@@ -84,7 +84,7 @@ class AssessmentsController < ApplicationController
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
-    @functional_areas = Vger::Resources::FunctionalArea.all.to_a
+    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
