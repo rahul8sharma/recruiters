@@ -265,9 +265,9 @@ class AssessmentsController < ApplicationController
     factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type]).all.to_a
     factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type]).all.to_a
     @factors = Hash[factors.collect{|x| [x.id,x]}]
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|x| [x.id,x]}]
-    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|x| [x.id,x]}]
-    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|x| [x.id,x]}]
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.active.all.to_a.collect{|x| [x.id,x]}]
+    @industries = Hash[Vger::Resources::Industry.active.all.to_a.collect{|x| [x.id,x]}]
+    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
   end
   
   # fetches default factor norms
