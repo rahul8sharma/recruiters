@@ -9,16 +9,18 @@
           = f.text_field "url"
       
       %p
-        Functional Area :
-        %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
-          - @functional_areas.each do |id,name|
-            %option{ value: id }
-              = name
         Industry :
         %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    
           - @industries.each do |id,name|
             %option{ value: id }
               = name      
+        Functional Area :
+        %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
+          - @functional_areas.each do |id,name|
+            %option{ value: id }
+              = name
+        %br      
+        %br
         Job Experiences :
         %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
           - @job_experiences.each do |id,name|
