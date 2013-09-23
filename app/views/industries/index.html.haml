@@ -10,12 +10,15 @@
   %tr
     %th ID
     %th Name
+    %th Active
   - for industry in @industries do
     %tr
       %td 
         = industry.id
       %td 
         = industry.name
+      %td 
+        = industry.active  
 
 %br
 .pagination.pull-right        
