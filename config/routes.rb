@@ -186,6 +186,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post 'export_to_google_drive'
+        post 'import_via_s3'
       end
     end
 
@@ -249,6 +250,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post 'export_to_google_drive'
+        post 'import_via_s3'
       end
     end
 

@@ -23,7 +23,7 @@ class FunctionalAreasController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::FunctionalArea\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id","name","active"]))
     redirect_to functional_areas_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

@@ -1,18 +1,14 @@
-= form_tag import_from_google_drive_suitability_post_assessment_guidelines_path, multipart: true, :method => :post do
+= form_tag import_via_s3_suitability_post_assessment_guidelines_path, multipart: true, :method => :post do
   %fieldset
     %legend 
-      %strong Upload new suitability post assessment guidelines
+      %strong Upload new suitability post_assessment_guidelines
     = fields_for "import" do |f|
-      = f.fields_for "file" do |f|
-        %p
-          Google Spreadsheet Url : 
-          = f.text_field "url"
-        %p
-          Worksheet Names(separated by comma,keep empty to import all)
-          = f.text_field "worksheets", :value => 'PostAssessmentGuideline'
+      %p
+        Zipped CSV File
+        = f.file_field "file"
       %p
         Notification Email : 
         = f.text_field :email, :value => "product@jombay.com"
 
     .actions
-      = submit_tag 'Upload Suitability post assessment guidelines'
+      = submit_tag 'Upload Suitability Post Assessment Guidelines'
