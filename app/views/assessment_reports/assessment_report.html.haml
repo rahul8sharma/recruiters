@@ -63,9 +63,16 @@
     .page-break
   
 - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
-  = render :template => "assessment_reports/page10.html.haml"
-  = render :partial => "shared/report_footer.html.haml"
-  .page-break              
+  
+  - candidate_manager_guidelines = @report.report_hash[:guidelines_for_candidate_manager]
+
+  - ordered_guides = candidate_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+
+  - ordered_guides += candidate_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+  - (0..ordered_guides.length-1).step(guides_step) do |step|
+    - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
+    = render :template => "assessment_reports/page10.html.haml", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
+    .page-break              
   
 = render :template => "assessment_reports/page11.html.haml"
 - if @view_mode == "html"
