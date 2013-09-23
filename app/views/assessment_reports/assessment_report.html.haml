@@ -17,7 +17,7 @@
   = render :template => "assessment_reports/page4.html.haml"
   .page-break
 
-- scores_step = Rails.application.config.reports["scores_step"]
+- scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
 - if @report.report_hash[:job_fit_scores].present?
   - job_fit_scores = @report.report_hash[:job_fit_scores]
   - (0..job_fit_scores.keys.length-1).step(scores_step) do |step|  
@@ -45,7 +45,7 @@
   = render :template => "assessment_reports/page8.html.haml"
   .page-break      
 
-- guides_step = Rails.application.config.reports["guides_step"]
+- guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
 - if @report.report_hash[:post_assessment_guidelines].present?
   - post_assessment_guidelines = @report.report_hash[:post_assessment_guidelines]
 
@@ -63,9 +63,16 @@
     .page-break
   
 - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
-  = render :template => "assessment_reports/page10.html.haml"
-  = render :partial => "shared/report_footer.html.haml"
-  .page-break              
+  
+  - candidate_manager_guidelines = @report.report_hash[:guidelines_for_candidate_manager]
+
+  - ordered_guides = candidate_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+
+  - ordered_guides += candidate_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+  - (0..ordered_guides.length-1).step(guides_step) do |step|
+    - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
+    = render :template => "assessment_reports/page10.html.haml", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
+    .page-break              
   
 = render :template => "assessment_reports/page11.html.haml"
 - if @view_mode == "html"
