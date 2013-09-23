@@ -17,7 +17,7 @@
   = render :template => "assessment_reports/page4.html.haml"
   .page-break
 
-- scores_step = Rails.application.config.reports["scores_step"]
+- scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
 - if @report.report_hash[:job_fit_scores].present?
   - job_fit_scores = @report.report_hash[:job_fit_scores]
   - (0..job_fit_scores.keys.length-1).step(scores_step) do |step|  
@@ -45,7 +45,7 @@
   = render :template => "assessment_reports/page8.html.haml"
   .page-break      
 
-- guides_step = Rails.application.config.reports["guides_step"]
+- guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
 - if @report.report_hash[:post_assessment_guidelines].present?
   - post_assessment_guidelines = @report.report_hash[:post_assessment_guidelines]
 
