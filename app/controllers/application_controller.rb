@@ -2,17 +2,20 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :set_auth_token
-	
-	include Vger::Helpers::AuthenticationHelper
-	
-	rescue_from Faraday::Unauthorized, :with => :unauthorized
-	rescue_from Faraday::ResourceNotFound, :with => :resource_not_found
-	rescue_from Vger::Errors::InvalidAuthenticationException, :with => :invalid_authentication
-	
-	helper_method :current_user
-	helper_method :can?
-	
+  
+  include Vger::Helpers::AuthenticationHelper
+  
+  rescue_from Faraday::Unauthorized, :with => :unauthorized
+  rescue_from Faraday::ResourceNotFound, :with => :resource_not_found
+  rescue_from Vger::Errors::InvalidAuthenticationException, :with => :invalid_authentication
+  
+  helper_method :current_user
+  helper_method :can?
+  
+  # redirect user according to type of the user
+  # keep the flash message before redirecting to display any errors/warnings
   def after_sign_in_path_for()
+    flash.keep
     case current_user.type
       when "SuperAdmin"
         params[:redirect_to] || companies_path
@@ -26,7 +29,7 @@ class ApplicationController < ActionController::Base
   
   protected
   def set_auth_token
-  	RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
+    RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
   end
   
   
