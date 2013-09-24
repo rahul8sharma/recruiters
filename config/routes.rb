@@ -306,6 +306,8 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   get "/master-data", :to => "pages#home"
   
-  get "assessment_report/:id" => "assessment_reports#assessment_report"
+  get "assessment_report/:id" => "assessment_reports#assessment_report", :as => :assessment_report
+  get "assessment_report/:id/manage" => "assessment_reports#manage", :as => :manage_report
+  put "assessment_report/:id/manage" => "assessment_reports#manage", :as => :manage_report
   root :to => "users#login"
 end

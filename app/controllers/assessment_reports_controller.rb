@@ -1,5 +1,21 @@
 class AssessmentReportsController < ApplicationController
   layout 'reports'
+  before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
+  before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
+  
+  def manage
+    
+    @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
+    @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
+    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [ :report_hash ])
+    if request.put?
+      ReportUploader.perform_async(@report.id, RequestStore.store[:auth_token], params[:report])
+      flash[:notice] = "Report is being modified. Please check after some time."
+      #redirect_to assessment_report_path(@report.id, :patch => params[:report]) and return
+    end
+    render :layout => "admin"
+  end
+  
   
   def show
     @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id])
@@ -8,7 +24,7 @@ class AssessmentReportsController < ApplicationController
   end
   
   def assessment_report
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [ :report_hash ])
+    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :patch => params[:patch], :methods => [ :report_hash ])
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  
@@ -35,5 +51,14 @@ class AssessmentReportsController < ApplicationController
         locals: { :@view_mode => "pdf" }
       }
     end
+  end
+  
+  private
+  
+  def check_superadmin
+    if current_user.type != "SuperAdmin"
+      flash[:error] = "You are not authorized to access this page."
+      redirect_to root_url and return
+    end 
   end
 end
