@@ -27,7 +27,7 @@ gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'
-gem "exception_notification", :github => "prcongithub/exception_notification", :branch => "jruby", :ref => "5ac9f405fd53ee"
+gem "exception_notification", :github => "pmahoney/exception_notification", :branch => "jruby", :ref => "5ac9f405fd53ee"
 gem 'aws-sdk', '1.14.1'
 gem 'sidekiq', '2.12.1'
 
