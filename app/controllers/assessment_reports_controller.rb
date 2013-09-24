@@ -4,7 +4,6 @@ class AssessmentReportsController < ApplicationController
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
   def manage
-    
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
     @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [ :report_hash ])
@@ -18,9 +17,14 @@ class AssessmentReportsController < ApplicationController
   
   
   def show
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id])
-    url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
-    redirect_to url 
+    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [:assessment_id, :company_id, :candidate_id])
+    if @report.assessment_id.to_s == params[:assessment_id].to_s && @report.company_id.to_s == params[:company_id].to_s && @report.candidate_id.to_s == params[:candidate_id].to_s
+      url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
+      redirect_to url 
+    else
+      flash[:error] = "You are not authorized to access this page."
+      redirect_to request.env['HTTP_REFERER'] || candidates_company_assessment_path(:company_id => @report.company_id, :id => @report.assessment_id)
+    end
   end
   
   def assessment_report
