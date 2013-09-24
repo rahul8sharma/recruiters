@@ -6,29 +6,30 @@ class AssessmentReportsController < ApplicationController
   def manage
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [ :report_hash ])
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :candidate_id, :company_id, :report_hash ]))
     if request.put?
-      ReportUploader.perform_async(@report.id, RequestStore.store[:auth_token], params[:report])
+      report_data = {
+        :id => @report.id,
+        :company_id => @report.company_id,
+        :assessment_id => @report.assessment_id,
+        :candidate_id => @report.candidate_id
+      }
+      ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
-      #redirect_to assessment_report_path(@report.id, :patch => params[:report]) and return
+      #redirect_to assessment_report_company_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :assessment_id => params[:assessment_id], :patch => params[:report]) and return
     end
     render :layout => "admin"
   end
   
   
   def show
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [:assessment_id, :company_id, :candidate_id])
-    if @report.assessment_id.to_s == params[:assessment_id].to_s && @report.company_id.to_s == params[:company_id].to_s && @report.candidate_id.to_s == params[:candidate_id].to_s
-      url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
-      redirect_to url 
-    else
-      flash[:error] = "You are not authorized to access this page."
-      redirect_to request.env['HTTP_REFERER'] || candidates_company_assessment_path(:company_id => @report.company_id, :id => @report.assessment_id)
-    end
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
+    url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
+    redirect_to url 
   end
   
   def assessment_report
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :patch => params[:patch], :methods => [ :report_hash ])
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :methods => [ :report_hash ]))
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  
