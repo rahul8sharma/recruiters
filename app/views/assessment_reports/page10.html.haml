@@ -7,29 +7,20 @@
           Candidate&#39;s Manager
     .indication.pull-right
       .hexagon-icon.favorable.pull-left
-      .pull-left
+      .pull-left.extra-medium-text
         Favorable
       .hexagon-icon.less_favorable.pull-left
-      .pull-left
+      .pull-left.extra-medium-text
         Less Favorable
     .clr
     .divider1
     %ul.unstyled.clearfix.interview_guide_listing 
-      - @report.report_hash[:guidelines_for_candidate_manager].select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.each do |factor_name, guide|
+      - guidelines_for_candidate_manager.each do |factor_name, guide|
         %li
-          .span1.first.que-no.hexagon-icon.favorable
-          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
+          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+          .span1.first.que-no.hexagon-icon{ class: klass }
           .factor-name.pull-left
             = factor_name
           .description.pull-left
             = guide[:body]
           .clr
-      - @report.report_hash[:guidelines_for_candidate_manager].select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor")  }.each do |factor_name, guide|
-        %li
-          .span1.first.que-no.hexagon-icon.less_favorable
-          //classes for Hexagon icon, .favorable .less_favorable .mid_favorable having green, yellow and blue borders plz delete this comment
-          .factor-name.pull-left
-            = factor_name
-          .description.pull-left
-            = guide[:body]
-          .clr     

@@ -22,7 +22,7 @@
           %b Obtained Score
 
       .clr
-    .scale.clearfix
+    .scale
       .marker
         %br/
         Low
@@ -36,16 +36,18 @@
       .marker
         %br/
         High
+      .clr
+    .clr
     %ul.unstyled.clearfix.scores_listing
       - team_fit_scores.each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-            .span6
+            .span10
               .factor-name
                 = factor_name
-          .rhs-sec.pull-left
+          .rhs-sec.pull-right
             .slider
               - scale = factor_score[:scale]
               .pointer{ class: "position#{scale[:position]}" }

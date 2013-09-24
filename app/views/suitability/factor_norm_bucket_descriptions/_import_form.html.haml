@@ -1,15 +1,11 @@
-= form_tag import_from_google_drive_suitability_factor_norm_bucket_descriptions_path, multipart: true, :method => :post do
+= form_tag import_via_s3_suitability_factor_norm_bucket_descriptions_path, multipart: true, :method => :post do
   %fieldset
     %legend 
       %strong Upload new suitability factor norm bucket descriptions
     = fields_for "import" do |f|
-      = f.fields_for "file" do |f|
-        %p
-          Google Spreadsheet Url : 
-          = f.text_field "url"
-        %p
-          Worksheet Names(separated by comma,keep empty to import all)
-          = f.text_field "worksheets", :value => 'FactorNormBucketDescription'
+      %p
+        Zipped CSV File
+        = f.file_field "file"
       %p
         Notification Email : 
         = f.text_field :email, :value => "product@jombay.com"
