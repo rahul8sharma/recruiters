@@ -1,8 +1,10 @@
 class AssessmentReportsController < ApplicationController
   layout 'reports'
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
+  before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
   def manage
+    
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
     @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(params[:id], :methods => [ :report_hash ])
@@ -49,5 +51,14 @@ class AssessmentReportsController < ApplicationController
         locals: { :@view_mode => "pdf" }
       }
     end
+  end
+  
+  private
+  
+  def check_superadmin
+    if current_user.type != "SuperAdmin"
+      flash[:error] = "You are not authorized to access this page."
+      redirect_to root_url and return
+    end 
   end
 end
