@@ -10,10 +10,10 @@ class ReportUploader < AbstractController::Base
   helper ReportsHelper
   self.view_paths = "app/views"
   
-  def perform(report_id, auth_token)
+  def perform(report_id, auth_token, patch = {})
     RequestStore.store[:auth_token] = auth_token
     
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(report_id, :methods => [ :report_hash ])
+    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(report_id, :patch => patch, :methods => [ :report_hash ])
     
     tries = 0
     report_status = {
@@ -68,7 +68,10 @@ class ReportUploader < AbstractController::Base
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+      patch["send_report"] ||= "Yes"
+      if patch["send_report"] == "Yes"
+        JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+      end
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
