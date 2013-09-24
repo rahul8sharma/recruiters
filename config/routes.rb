@@ -68,6 +68,11 @@ Recruiters::Application.routes.draw do
         end
         
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+          member do
+            get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
+            get "manage" => "assessment_reports#manage", :as => :manage
+            put "manage" => "assessment_reports#manage", :as => :manage
+          end
         end
       end
     end
@@ -306,8 +311,5 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   get "/master-data", :to => "pages#home"
   
-  get "assessment_report/:id" => "assessment_reports#assessment_report", :as => :assessment_report
-  get "assessment_report/:id/manage" => "assessment_reports#manage", :as => :manage_report
-  put "assessment_report/:id/manage" => "assessment_reports#manage", :as => :manage_report
   root :to => "users#login"
 end
