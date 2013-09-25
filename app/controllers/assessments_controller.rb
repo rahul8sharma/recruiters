@@ -84,7 +84,7 @@ class AssessmentsController < ApplicationController
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
-    @functional_areas = Vger::Resources::FunctionalArea.all.to_a
+    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
@@ -265,9 +265,9 @@ class AssessmentsController < ApplicationController
     factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type]).all.to_a
     factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type]).all.to_a
     @factors = Hash[factors.collect{|x| [x.id,x]}]
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|x| [x.id,x]}]
-    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|x| [x.id,x]}]
-    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|x| [x.id,x]}]
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.active.all.to_a.collect{|x| [x.id,x]}]
+    @industries = Hash[Vger::Resources::Industry.active.all.to_a.collect{|x| [x.id,x]}]
+    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
   end
   
   # fetches default factor norms

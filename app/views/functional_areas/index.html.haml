@@ -10,12 +10,15 @@
   %tr
     %th ID
     %th Name
+    %th Active
   - for functional_area in @functional_areas do
     %tr
       %td 
         = functional_area.id
       %td 
         = functional_area.name
+      %td 
+        = functional_area.active  
 
 %br
 .pagination.pull-right        
