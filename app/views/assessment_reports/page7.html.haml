@@ -2,7 +2,7 @@
   .scores.favorable_factors
     .blue_bg_heading.iconic.pull-left
       Scores of Factors measured under  
-      %b Team Fit
+      %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
       = "(continued)" if step != 0
       .thumbnails
         .thumbnails_inn2
