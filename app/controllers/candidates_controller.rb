@@ -1,6 +1,7 @@
 class CandidatesController < ApplicationController
   layout "candidates"
   before_filter :authenticate_user!
+  before_filter :check_superadmin, :except => [:show]
 
   def api_resource
     Vger::Resources::Candidate
@@ -41,6 +42,7 @@ class CandidatesController < ApplicationController
   
   def index
     @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10)
+    render :layout => "admin"
   end
 
   def show
