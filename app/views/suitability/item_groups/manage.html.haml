@@ -2,12 +2,19 @@
   %fieldset
     %legend
       Import Suitability Items
+    %br
+    Assessment ID
+    = f.text_field :assessment_id
+    %br
+    %br
     = f.fields_for :file do |ff|
       File
       = ff.text_field "url", value: ""
     %br
+    %br
     Notifier Email
     = f.email_field :email, value: "product@jombay.com"
+    %br
     %br
     .actions
       = submit_tag 'Import Suitability Items'

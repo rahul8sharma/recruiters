@@ -67,7 +67,10 @@ class AssessmentsController < ApplicationController
       params[:assessment] ||= {}
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        Vger::Resources::Suitability::Set.create(Rails.application.config.default_set.merge(:assessment_id => @assessment.id, :end_index => @assessment.item_ids.count))
+        sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => Rails.application.config.default_set.merge(:assessment_id => @assessment.id)).all.to_a
+        if !sets.present?
+          Vger::Resources::Suitability::Set.create(Rails.application.config.default_set.merge(:assessment_id => @assessment.id, :end_index => @assessment.item_ids.count))
+        end
         redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -368,6 +371,10 @@ class AssessmentsController < ApplicationController
   end
   
   def get_company
-    @company = Vger::Resources::Company.find(params[:company_id], :methods => [ :assessmentwise_statistics ])
+    methods = []
+    if params[:action] == "index"
+      methods << :assessmentwise_statistics
+    end
+    @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
 end

@@ -1,8 +1,12 @@
-= form_tag export_to_google_drive_company_assessment_candidates_path(:company_id => params[:company_id], :assessment_id => params[:assessment_id]), multipart: true, :method => :post do
+= form_tag export_candidates_path, multipart: true, :method => :post do
   %fieldset
     %legend 
       %strong Download candidates
     = fields_for "export" do |f|
+      %p
+        Assessment ID : 
+        = f.text_field :assessment_id
+        
       = f.fields_for "folder" do |f|
         %p
           Google Drive Folder Url : 
@@ -14,7 +18,7 @@
 
       %p
         Notification Email : 
-        = f.text_field :email, :value => "product@jombay.com"
+        = f.text_field :email, :value => "notifications@jombay.com"
 
     .actions
       = submit_tag 'Download Candidates'

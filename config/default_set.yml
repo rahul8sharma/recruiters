@@ -1,5 +1,5 @@
 default_set:
-  name : "Set 1"
+  name : "Application Test"
   page_size : 10
   instructions : "All questions are compulsory."
   start_index: 1

@@ -57,13 +57,4 @@ class AssessmentReportsController < ApplicationController
       }
     end
   end
-  
-  private
-  
-  def check_superadmin
-    if current_user.type != "SuperAdmin"
-      flash[:error] = "You are not authorized to access this page."
-      redirect_to root_url and return
-    end 
-  end
 end

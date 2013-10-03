@@ -1,0 +1,25 @@
+= form_for :candidate, url: export_candidate_responses_candidates_path, multipart: true, :method => :post do |f|
+  %input{ type: "hidden", name: "candidate[job_klass]", value: "FactorScoresExporter" }
+  %fieldset
+    %legend 
+      %strong Download Candidate FactorScores
+    = f.fields_for "args" do |f|
+      %p
+        Assessment ID : 
+        = f.text_field :assessment_id
+        
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url : 
+          = f.text_field "url"
+
+      %p
+        Rows per sheet: 
+        = f.text_field "batch_size", :value => "10000"
+
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Download'
