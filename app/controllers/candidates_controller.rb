@@ -11,26 +11,34 @@ class CandidatesController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
 
-  def import
-		Vger::Resources::Candidate.import(params[:file])
-		redirect_to candidates_path, notice: "Candidates imported."
-	end
-
   def manage
+    render :layout => "admin"
   end
-
-	def import_from_google_drive
+  
+  def import
     Vger::Resources::Candidate\
       .import_from_google_drive(params[:import])
-    redirect_to company_candidates_path(:company_id => params[:company_id]), notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
 	end
-
-  def export_to_google_drive
+  
+  def export
     Vger::Resources::Candidate\
       .export_to_google_drive(params[:export].merge(:columns => [:email, :authentication_token]))
-    redirect_to company_candidates_path(:company_id => params[:company_id]), notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-
+  
+  def export_validation_progress
+    Vger::Resources::Candidate\
+      .export_validation_progress(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
+  def export_candidate_responses
+    Vger::Resources::Candidate\
+      .export_candidate_responses(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
   def index
     @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10)
   end
