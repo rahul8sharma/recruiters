@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   helper_method :can?
+  helper_method :is_superadmin?
   
   # redirect user according to type of the user
   # keep the flash message before redirecting to display any errors/warnings
@@ -30,6 +31,10 @@ class ApplicationController < ActionController::Base
   protected
   def set_auth_token
     RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
+  end
+  
+  def is_superadmin?
+    current_user and current_user.type == "SuperAdmin"
   end
   
   
