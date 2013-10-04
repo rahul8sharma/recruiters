@@ -44,6 +44,10 @@
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
             = render :partial => 'assessment_direct_predictor_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
       .divider2
+      - if is_superadmin?
+        = label_tag :page_size
+        = text_field_tag :page_size, "", :style => "width:100px;"
+        .divider2
       %button.pull-right.btn.btn-info.left-offset1
         Proceed
       %a.line-height2.pull-right.medium-text{:href => norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "Click Here to Go back"} 
