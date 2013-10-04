@@ -82,6 +82,12 @@ module Recruiters
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
+    
+    hosts = YAML::load(File.open("#{Rails.root.to_s}/config/hosts.yml"))[Rails.env.to_s]
+    config.action_mailer.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'] }
+    config.action_controller.asset_host = "http://#{hosts['action_controller']['asset_host']}"
+    
+    
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
