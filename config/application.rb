@@ -87,6 +87,7 @@ module Recruiters
     config.action_mailer.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'] }
     config.action_controller.asset_host = "http://#{hosts['action_controller']['asset_host']}"
     
+    config.statistics = YAML::load(File.open("#{Rails.root.to_s}/config/statistics.yml"))["statistics"].symbolize_keys
     
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
