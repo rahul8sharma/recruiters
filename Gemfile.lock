@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: f2a98b07b95887d58e110914c9341f4419042509
+  revision: eb13936f69c3803097929e535b2310d364bef665
   branch: develop
   specs:
     vger (0.0.1)
@@ -102,7 +102,7 @@ GEM
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
-    celluloid (0.15.1)
+    celluloid (0.15.2)
       timers (~> 1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
@@ -111,7 +111,7 @@ GEM
     connection_pool (1.1.0)
     ejs (1.0.0)
     erubis (2.7.0)
-    execjs (2.0.1)
+    execjs (2.0.2)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     haml (3.1.8)
@@ -132,13 +132,10 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
-    multi_json (1.8.0)
+    multi_json (1.8.1)
     multipart-post (1.2.0)
-    nokogiri (1.5.10)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
-    puma (2.0.1)
-      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
@@ -170,11 +167,11 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (3.0.4)
+    redis (3.0.5)
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
     request_store (1.0.5)
-    sass (3.2.10)
+    sass (3.2.12)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

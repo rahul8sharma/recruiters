@@ -376,7 +376,9 @@ class AssessmentsController < ApplicationController
   def get_company
     methods = []
     if params[:action] == "index"
-      methods << :assessmentwise_statistics
+      if Rails.application.config.statistics[:load_assessmentwise_statistics]
+        methods << :assessmentwise_statistics
+      end
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
