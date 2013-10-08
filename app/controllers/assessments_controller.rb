@@ -68,7 +68,7 @@ class AssessmentsController < ApplicationController
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
         set_params = Rails.application.config.default_set.merge(:assessment_id => @assessment.id)
-        sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => set_params).all.to_a
+        sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => { :name => Rails.application.config.default_set["name"] }).all.to_a
         if !sets.present?
           set_params.merge!(:end_index => @assessment.item_ids.count)
           set_params.merge!(:page_size => params[:page_size]) if params[:page_size].present?
