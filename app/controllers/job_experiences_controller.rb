@@ -28,7 +28,7 @@ class JobExperiencesController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::JobExperience\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","display_text","max","min"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id","display_text","max","min","active"]))
     redirect_to job_experiences_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

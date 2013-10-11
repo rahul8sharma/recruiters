@@ -10,10 +10,22 @@ class ReportUploader < AbstractController::Base
   helper ReportsHelper
   self.view_paths = "app/views"
   
-  def perform(report_id, auth_token)
+  def perform(report_data, auth_token, patch = {})
+    report_data = HashWithIndifferentAccess.new report_data
+    Rails.logger.debug "************* #{report_data} ******************"
     RequestStore.store[:auth_token] = auth_token
+    report_id = report_data["id"]
+    company_id = report_data["company_id"]
+    assessment_id = report_data["assessment_id"]
+    candidate_id = report_data["candidate_id"]
     
-    @report = Vger::Resources::Suitability::CandidateAssessmentReport.find(report_id, :methods => [ :report_hash ])
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id, 
+      :assessment_id => assessment_id, 
+      :candidate_id => candidate_id, 
+      :company_id => company_id, 
+      :patch => patch, 
+      :methods => [ :report_hash ]
+    )
     
     tries = 0
     report_status = {
@@ -51,8 +63,11 @@ class ReportUploader < AbstractController::Base
       pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
       html_save_path = Rails.root.join('tmp',"#{html_file_id}")
       
-      Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(@report.id,  
-        :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
+      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
+        :assessment_id => assessment_id, 
+        :candidate_id => candidate_id, 
+        :company_id => company_id,  
+        :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
       )
       File.open(html_save_path, 'wb') do |file|
         file << html
@@ -62,21 +77,30 @@ class ReportUploader < AbstractController::Base
       end
       pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
-      Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(@report.id,  
+      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
+        :assessment_id => assessment_id, 
+        :candidate_id => candidate_id, 
+        :company_id => company_id,  
         :s3_keys => { :pdf => pdf_s3, :html => html_s3 },
-        :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+        :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+      patch["send_report"] ||= "Yes"
+      if patch["send_report"] == "Yes"
+        JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+      end
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
       if tries < 5
         retry
       else   
-        Vger::Resources::Suitability::CandidateAssessmentReport.save_existing(@report.id,  
-          :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::FAILED
+        Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
+          :assessment_id => assessment_id, 
+          :candidate_id => candidate_id, 
+          :company_id => company_id,  
+          :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::FAILED
         )
       end
       JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{

@@ -12,6 +12,7 @@
     %th Name
     %th Min
     %th Max
+    %th Active
   - for job_experience in @job_experiences do
     %tr
       %td 
@@ -21,7 +22,9 @@
       %td 
         = job_experience.min
       %td 
-        = job_experience.max    
+        = job_experience.max
+      %td 
+        = job_experience.active      
 
 %br
 .pagination.pull-right        

@@ -9,7 +9,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/prcongithub/exception_notification.git
+  remote: git://github.com/pmahoney/exception_notification.git
   revision: 5ac9f405fd53ee488b61ef129d8c8def6aa797da
   ref: 5ac9f405fd53ee
   branch: jruby
@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git@bitbucket.org:jombay/jombay-notify.git
-  revision: d52911766f2b4675d09c1fde1d42103839104ec0
+  revision: 65fea4f05a21f2e33e55d0c443a4ddc701f41f50
   branch: develop
   specs:
     jombay-notify (0.0.1)
@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: d1afadd16463306b6b251ea07779d33a7728c549
+  revision: b4a669ba83508b3204dbd7539c51914b1876b57f
   branch: develop
   specs:
     vger (0.0.1)
@@ -134,8 +134,11 @@ GEM
     mime-types (1.25)
     multi_json (1.8.0)
     multipart-post (1.2.0)
+    nokogiri (1.5.10)
     nokogiri (1.5.10-java)
     polyglot (0.3.3)
+    puma (2.0.1)
+      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)

@@ -1,12 +1,30 @@
 = form_tag export_to_google_drive_suitability_post_assessment_guidelines_path, multipart: true, :method => :post do
   %fieldset
     %legend 
-      %strong Download suitability post assessment guidelines 
+      %strong Download suitability post_assessment_guidelines
     = fields_for "export" do |f|
       = f.fields_for "folder" do |f|
         %p
           Google Drive Folder Url : 
           = f.text_field "url"
+      %p
+        Industry :
+        %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    
+          - @industries.each do |id,name|
+            %option{ value: id }
+              = name      
+        Functional Area :
+        %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
+          - @functional_areas.each do |id,name|
+            %option{ value: id }
+              = name
+        %br
+        %br
+        Job Experiences :
+        %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
+          - @job_experiences.each do |id,name|
+            %option{ value: id }
+              = name        
 
       %p
         Rows per sheet: 
@@ -17,4 +35,4 @@
         = f.text_field :email, :value => "product@jombay.com"
 
     .actions
-      = submit_tag 'Download Suitability post assessment guidelines'
+      = submit_tag 'Download Suitability Post Assessment Guidelines'

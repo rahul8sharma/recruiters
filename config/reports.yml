@@ -1,2 +1,6 @@
-scores_step: 8
-guides_step: 14
+html:
+  scores_step: 1000
+  guides_step: 1000
+pdf:
+  scores_step: 8
+  guides_step: 12

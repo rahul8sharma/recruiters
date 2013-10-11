@@ -28,7 +28,7 @@ class IndustriesController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Industry\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id","name","active"]))
     redirect_to industries_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
