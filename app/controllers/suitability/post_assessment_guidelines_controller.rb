@@ -44,22 +44,7 @@ class Suitability::PostAssessmentGuidelinesController < ApplicationController
   end
 
   def export_to_google_drive
-    #Vger::Resources::Suitability::PostAssessmentGuideline\
-    #  .export_to_google_drive(params[:export]\
-    #                            .merge(:columns => [
-    #                                                :uid,
-    #                                                :candidate_stage,
-    #                                                :body
-    #                                               ],
-    #                                   :pseudo_columns => [
-    #                                                       :factor,
-    #                                                       :norm_bucket
-    #                                                      ]))
-    #redirect_to suitability_post_assessment_guidelines_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
-    if params[:export][:filters].blank? || params[:export][:filters][:industry_id].blank?
-      flash[:error] = "Please select at least one industry"
-      redirect_to manage_suitability_factor_norm_bucket_descriptions_path and return
-    end
+    params[:export][:filters] ||= {}
     params[:export][:filters][:functional_area_id] ||= nil
     params[:export][:filters][:job_experience_id] ||= nil
     Vger::Resources::Suitability::PostAssessmentGuideline\
