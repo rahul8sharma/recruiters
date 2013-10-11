@@ -24,7 +24,12 @@ class AssessmentReportsController < ApplicationController
   
   def show
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
-    url = S3Utils.get_url(@report.s3_keys[:html][:bucket], @report.s3_keys[:html][:key])
+    if request.format.to_s == "application/pdf"
+      type = "pdf"
+    else
+      type = "html"
+    end  
+    url = S3Utils.get_url(@report.s3_keys[type][:bucket], @report.s3_keys[type][:key])
     redirect_to url 
   end
   
@@ -52,7 +57,9 @@ class AssessmentReportsController < ApplicationController
         },           
         template: 'assessment_reports/assessment_report.html.haml', 
         layout: "layouts/reports.html.haml", 
-        handlers: [ :haml ], margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        handlers: [ :haml ], 
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        formats: [:html],
         locals: { :@view_mode => "pdf" }
       }
     end
