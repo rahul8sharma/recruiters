@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: eb13936f69c3803097929e535b2310d364bef665
+  revision: 2428e5028bba53878d7988e86fcf2a2f9d0fb3d8
   branch: develop
   specs:
     vger (0.0.1)
@@ -193,7 +193,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)

@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
   
   def check_superadmin
-    if current_user.type != "SuperAdmin"
+    if current_user && current_user.type != "SuperAdmin"
       flash[:error] = "You are not authorized to access this page."
       redirect_to root_url and return
     end 
