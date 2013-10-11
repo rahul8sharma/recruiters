@@ -1,5 +1,5 @@
 class SidekiqController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :check_superadmin
   
 	def upload_reports
 	  reports = Vger::Resources::Suitability::CandidateAssessmentReport.where(
@@ -19,5 +19,15 @@ class SidekiqController < ApplicationController
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :reports => reports }
+	end
+	
+	def regenerate_reports
+	  hash = {
+	    :args => {}
+	  }
+	  hash[:args][:assessment_id] = params[:assessment_id]
+	  hash[:args][:email] = "product@jombay.com"
+	  assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(hash)
+	  render :json => { :status => "Job Started", :job_id => assessment.job_id }
 	end
 end
