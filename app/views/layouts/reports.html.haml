@@ -4,8 +4,10 @@
   = wicked_pdf_stylesheet_link_tag "reports"
   = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
 
-- content_for :body do 
+- content_for :body do
+  - if @view_mode == "html" 
+    = render :partial => "shared/report_main_header"
   .report
     = yield 
       
-= render :file => 'layouts/haml.html.haml'
+= render :file => 'layouts/haml'

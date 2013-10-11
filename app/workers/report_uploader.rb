@@ -36,17 +36,18 @@ class ReportUploader < AbstractController::Base
     begin
       @view_mode = "html"
       html = render_to_string(
-         template: 'assessment_reports/assessment_report.html.haml', 
-         layout: "layouts/reports.html.haml", 
+         template: 'assessment_reports/assessment_report', 
+         layout: "layouts/reports", 
          handlers: [ :haml ]
       )
       
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          'assessment_reports/assessment_report.html.haml', 
+          'assessment_reports/assessment_report', 
           layout: "layouts/reports.html.haml", 
-          handlers: [ :haml ]
+          handlers: [ :haml ],
+          formats: [:html]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         header: { 
