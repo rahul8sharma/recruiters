@@ -22,12 +22,7 @@ class SidekiqController < ApplicationController
 	end
 	
 	def regenerate_reports
-	  hash = {
-	    :args => {}
-	  }
-	  hash[:args][:assessment_id] = params[:assessment_id]
-	  hash[:args][:email] = "product@jombay.com"
-	  assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(hash)
+	  assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)
 	  render :json => { :status => "Job Started", :job_id => assessment.job_id }
 	end
 end
