@@ -318,4 +318,6 @@ Recruiters::Application.routes.draw do
   get "/master-data", :to => "pages#home"
   
   root :to => "users#login"
+  
+  mount JombayNotify::Engine => "/jombay-notify"
 end
