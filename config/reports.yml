@@ -4,3 +4,16 @@ html:
 pdf:
   scores_step: 8
   guides_step: 12
+candidate:
+  fitment_scores: "Fitment Scores"
+  report_title: "Suitability Assessment Report"
+  job_role_fit: "Job Role Fit"
+  company_fit: "Company Fit"
+  team_fit: "Team Fit"
+employee:
+  fitment_scores: "Scores"
+  report_title: "Employee Assessment Report"
+  job_role_fit: "Job Role Fit"
+  company_fit: "Company Fit"
+  team_fit: "Team Fit"
+  

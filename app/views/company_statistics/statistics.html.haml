@@ -14,8 +14,8 @@
           - sent_percentage = 0
           - completed_percentage = 0
           - if total != 0
-            - sent_percentage = ((@company.assessment_statistics[:assessments_sent] * 100) / total)
-            - completed_percentage = ((@company.assessment_statistics[:assessments_completed] * 100) / total)
+            - sent_percentage = ((@company.assessment_statistics[:assessments_sent].to_i * 100) / total)
+            - completed_percentage = ((@company.assessment_statistics[:assessments_completed].to_i * 100) / total)
           .column.green-bg{:style => "width: #{sent_percentage}%"}
           .column.yellow-bg{:style => "width: #{completed_percentage}%"}
           //.column.orange-bg{:style => "width: 20%"}
@@ -23,13 +23,13 @@
         %span.icon-stop.green-bg 
         %span Total Tests Sent: 
         %span.large-text
-          #{@company.assessment_statistics[:assessments_sent]}
+          #{@company.assessment_statistics[:assessments_sent].to_i}
         %br/
         %br/
         %span.icon-stop.yellow-bg 
         %span Total Tests Answered:  
         %span.large-text
-          #{@company.assessment_statistics[:assessments_completed]}
+          #{@company.assessment_statistics[:assessments_completed].to_i}
         //%br/
         //%br/
         //%span.icon-stop.orange-bg 

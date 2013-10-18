@@ -13,9 +13,9 @@ class CompaniesController < ApplicationController
   layout "companies"
 
   before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
+  before_filter :get_companies, :only => [ :index ]
 
   def index
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :methods => [ :subscription, :assessmentwise_statistics ])
   end
 
   def manage
@@ -46,7 +46,19 @@ class CompaniesController < ApplicationController
   protected
 
   def get_company
-    @company = Vger::Resources::Company.find(params[:id], :methods => [ :subscription, :assessment_statistics ])
+    methods = [ :subscription ]
+    if Rails.application.config.statistics[:load_assessment_statistics]
+      methods.push :assessment_statistics
+    end  
+    @company = Vger::Resources::Company.find(params[:id], :methods => methods)
+  end
+  
+  def get_companies
+    methods = [ :subscription ]
+    if Rails.application.config.statistics[:load_assessmentwise_statistics]
+      methods.push :assessmentwise_statistics
+    end
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :methods => methods)
   end
 end
 

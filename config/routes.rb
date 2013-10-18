@@ -1,4 +1,15 @@
 Recruiters::Application.routes.draw do
+  resources :candidates do
+    collection do 
+      get "manage" => "candidates#manage", :as => :manage
+      post 'export'
+      post 'import'
+      post 'export_validation_progress'
+      post 'export_candidate_responses'
+      get :destroy_all
+    end
+  end
+
   resources :companies, :only => [:index, :show] do
     collection do
       post :import
@@ -60,11 +71,6 @@ Recruiters::Application.routes.draw do
         collection do
           get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
           get "upload/single" => "candidates#upload_single", :as => :single_upload
-          get :manage
-          get :destroy_all
-          post 'import'
-          post 'import_from_google_drive'
-          post 'export_to_google_drive'
         end
         
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
@@ -309,6 +315,7 @@ Recruiters::Application.routes.draw do
 
   
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   get "/master-data", :to => "pages#home"
   
   root :to => "users#login"

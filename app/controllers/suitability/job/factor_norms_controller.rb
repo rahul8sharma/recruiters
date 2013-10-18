@@ -56,7 +56,7 @@ class Suitability::Job::FactorNormsController < ApplicationController
       .import_from_s3(:file => {
                         :bucket => s3_bucket_name,
                         :key => s3_key
-                      })
+                      }, :email => params[:import][:email])
     redirect_to manage_suitability_job_factor_norms_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
