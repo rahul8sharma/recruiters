@@ -6,6 +6,7 @@ Recruiters::Application.routes.draw do
       post 'import'
       post 'export_validation_progress'
       post 'export_candidate_responses'
+      post 'export_candidate_reports'
       get :destroy_all
     end
   end
