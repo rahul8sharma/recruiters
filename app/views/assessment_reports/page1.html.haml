@@ -4,8 +4,7 @@
     .clr
     .heading
       .big-text
-        = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Suitability" : "Employee"
-        Assessment Report
+        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
       .user_name
         = @report.report_hash[:candidate][:name]
       .span.first
@@ -19,23 +18,20 @@
           = @report.report_hash[:completed_at]
       .clr
 
-    - if @report.report_hash[:candidate_stage].to_sym == :candidate
-      .sub-heading.large-text.pull-right
-        Jombay&#39;s Recommendation : #{@report.report_hash[:recommendation]} 
-      .clr
+    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     .sub-heading.medium-text.pull-right
-      #{@report.report_hash[:candidate][:name]}&#39;s Fitment Scores
+      #{@report.report_hash[:candidate][:name]}&#39;s #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["fitment_scores"]}
     .clr
     .visual
       .title_company
-        Company Fit
+        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["company_fit"]}
       .strength_company
         = @report.report_hash[:company_fit_grade]
       .title_job
-        Job Role Fit
+        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
       .strength_job
         = @report.report_hash[:job_fit_grade]
       .title_team
-        Team Fit
+        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
       .strength_team
         = @report.report_hash[:team_fit_grade]

@@ -31,8 +31,11 @@ p{
   position: relative;
   min-height: 100%;
 }
+.divider1{
+  height: 18px; 
+}
 .divider6{
-  height: 108px; 
+  height: 185px; 
 }
 .clearfix:after {
     clear: both;
@@ -67,29 +70,39 @@ p{
   line-height: 18px;
 }
 #nav a {
-  color: #FFFFFF;
-  font-size: 13px;
+  color: #c5d3d7;
+  font-size: 12px;
   padding: 10px;
   display: block;
+  font-weight: bold;
+}
+#nav a.btn.btn-warning, #nav a.btn.btn-warning:hover{
+  color: #fff;
+}
+#nav a.btn, #nav a.btn:hover{
+  color: #002b3a;
+  padding: 5px 10px;
+  margin: 3px 10px 0 0;
 }
 #nav a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: #fff;
 }
 #nav li.active a {
-  background: none repeat scroll 0 0 white;
   color: #002B3A;
   font-weight: bold;
+  color: #fff;
 }
 #nav li.active a:hover {
   cursor: default;
   text-decoration: none;
+  color: #fff;
 }
 #nav ul {
   margin: 0;
 }
 #nav li {
   float: left;
-  padding: 0 5px;
 }
 #nav li:last-child {
   padding-right: 0;
@@ -106,10 +119,74 @@ p{
   float: left;
 }
 #nav #logo a {
-  background: url("/images/shared/jombay-logo.png") no-repeat 0 center;
+  background: url("/images/jombay-logo.png") no-repeat 0 center;
   display: inline-block;
   text-indent: -100000px;
   width: 195px;
+}
+.btn {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #F5F5F5;
+  background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #B3B3B3;
+  border-image: none;
+  border-radius: 4px 4px 4px 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 0;
+  padding: 4px 12px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+}
+.btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  background-color: #E6E6E6;
+  color: #333333;
+}
+
+.btn:hover, .btn:focus {
+  background-position: 0 -15px;
+  color: #333333;
+  text-decoration: none;
+  transition: background-position 0.1s linear 0s;
+}
+.btn:focus {
+    outline: thin dotted #333333;
+    outline-offset: -2px;
+}
+.btn.active, .btn:active {
+    background-image: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    outline: 0 none;
+}
+.btn.disabled, .btn[disabled] {
+    background-image: none;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.65;
+}
+
+.btn-warning {
+    background-color: #FAA732;
+    background-image: linear-gradient(to bottom, #FBB450, #F89406);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
+    background-color: #F89406;
+    color: #FFFFFF;
 }
 
 .content{
@@ -166,10 +243,43 @@ p{
 #footer {
   background: #002b3a;
   color: #6eabc1;
-  font-size: 14px;
+  font-size: 12px;
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+#footer .subscribe-section{
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  padding: 25px 0;
+  border-bottom: 2px solid #1c404d;
+  margin-bottom: 18px
+}
+#footer .subscribe-section input[type="text"]{
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid #f8f9fa;
+  margin: 0 10px;
+  padding: 5px 15px;
+  font-style: italic;}
+#footer .subscribe-section input[type="submit"], #footer .subscribe-section button{
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #005a7a;
+  background-color: #002c3b;
+  background-image: linear-gradient(to bottom, #004056, #002c3b);
+  background-repeat: repeat-x;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #003142;
+  border-radius: 3px;
+  font-size: 13.20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  box-shadow: 1px 1px 2px #000;
+}
+#footer .subscribe-section input[type="submit"]:hover, #footer .subscribe-section button:hover{
+  background-image: linear-gradient(to bottom, #002c3b, #004056);
 }
 #footer .container {
   margin: 0 auto;
@@ -188,7 +298,7 @@ p{
 }
 #footer .inn {
   background: none;
-  padding: 0 35px;
+  padding: 0 35px 25px 35px;
   width: 900px;
   margin: auto;
   border: 0;
@@ -197,19 +307,50 @@ p{
   float: left;
 }
 #footer ul.footer-menu {
-  padding: 15px 0 0 0;
+  padding: 9px 0 0 0;
   float: right
 }
 #footer ul.footer-menu li{
   padding: 0 10px 
 } 
 #footer ul{
-  margin-bottom: 15px
+  margin-bottom: 9px
 }
 
 #footer .inn .reach-us li {
   padding: 0 5px
 }
 #footer .inn .reach-us * {
-color: #fff;}
+color: #fff;
+}
+#footer .inn .reach-us b{
+  font-size: 14px;
+}
+#footer .inn [class*="social-media"]{
+  margin-right: 7px;
+  float:left;
+}
+#footer .inn [class*="social-media"] a{
+  border-radius: 3px;
+  height: 24px;
+  width:24px;
+  display: block;
+  background: url("/images/error/footer-social-media.png") no-repeat;
+}
 
+#footer .inn .social-media-in a{
+  background-position: 0px -35px;
+}
+#footer .inn .social-media-tweet a{
+  background-position: 0px -70px;
+}
+
+#footer .inn .social-media-fb a:hover {
+  background-position: -36px 0;
+}
+#footer .inn .social-media-in a:hover {
+  background-position: -36px -35px;
+}
+#footer .inn .social-media-tweet a:hover {
+  background-position: -36px -70px;
+}

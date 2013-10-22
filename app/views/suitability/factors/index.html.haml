@@ -7,9 +7,11 @@
   = link_to "Direct Predictors", suitability_factors_path(:type => "Suitability::DirectPredictor")
   \|
   = link_to "Alarm Factors", suitability_factors_path(:type => "Suitability::AlarmFactor")
+  \|
+  = link_to "Lie Detectors", suitability_factors_path(:type => "Suitability::LieDetector")
 .pagination.pull-right
-  = paginate @factors        
-.clr  
+  = paginate @factors
+.clr
 %table
   %tr
     %th
@@ -21,9 +23,9 @@
     %th
       Parent
     %th
-      Active      
+      Active
   - @factors.each do |factor|
-    %tr 
+    %tr
       %td{ width: "5%" }
         = factor.id
       %td{ width: "20%" }
@@ -37,6 +39,6 @@
       %td
         = factor.active
 .pagination.pull-right
-  = paginate @factors       
-.clr   
+  = paginate @factors
+.clr
 

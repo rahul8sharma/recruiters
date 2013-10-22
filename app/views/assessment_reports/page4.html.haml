@@ -2,7 +2,7 @@
   .factor_fit.report_content
     .blue_bg_heading.iconic.pull-left
       Factors measured under 
-      %b Team Fit
+      %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
       .thumbnails
         .thumbnails_inn2
     .clr
@@ -19,15 +19,15 @@
               = factor_name.gsub(" ","<br/>").html_safe
       .bottom_sec
         .title_1
-          Team Fit
+          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
         .strength_1
           = @report.report_hash[:team_fit_grade]
         .title_2
-          Job Role Fit
+          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
         .strength_2
           = @report.report_hash[:job_fit_grade]
         .title_3
-          Company Fit
+          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["company_fit"]}
         .strength_3
           = @report.report_hash[:company_fit_grade]
         .indication
