@@ -9,13 +9,15 @@ class AssessmentsController < ApplicationController
   
   def email_reports
     options = {
-      :job_klass => "CandidateReportsExporter",
-      :args => {
-        :user_id => current_user.id,
-        :assessment_id => params[:id]
+      :assessment => {
+        :job_klass => "CandidateReportsExporter",
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
       }
     }
-    Vger::Resources::Candidate\
+    Vger::Resources::Suitability::Assessment.find(params[:id])\
       .export_candidate_reports(options)
         
     redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: "Report summary will be generated and emailed to #{current_user.email}."
