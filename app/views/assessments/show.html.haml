@@ -44,23 +44,23 @@
       %b Selected Factors
     .divider1
     .left-offset1
-      %b.span12.medium-text
+      %b.span14.medium-text
         Suitability Factors
       %b.span6.medium-text
         Desired/Acceptable Score Range
-      %b.span.medium-text
-        Critical
+      //%b.span.medium-text
+      //  Critical
       .clr.divider1
       %ul.unstyled.selected-factors
         - @assessment_factor_norms.each do |factor_norm|
           %li
             .selected-factors-title.clearfix
-              .span12
+              .span14
                 = factor_norm.factor.name
               .span6.lhs-border
                 #{factor_norm.from_norm_bucket.name} - #{factor_norm.to_norm_bucket.name}
-              .span.lhs-border
-                #{factor_norm.critical? ? "Yes":"No"}
+              //.span.lhs-border
+              //  #{factor_norm.critical? ? "Yes":"No"}
             %p
               = factor_norm.factor.definition
     .divider1
