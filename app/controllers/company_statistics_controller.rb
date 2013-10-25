@@ -11,7 +11,12 @@ class CompanyStatisticsController < ApplicationController
   protected
 
   def get_company
-    @company = Vger::Resources::Company.find(params[:id], :methods => [ :subscription, :assessment_statistics ])
+    methods = [ :subscription ]
+    if Rails.application.config.statistics[:load_assessment_statistics]
+      methods.push :assessment_statistics
+    end  
+    @company = Vger::Resources::Company.find(params[:id], :methods => methods)
+    @company.assessment_statistics ||= {}
   end
 end
 
