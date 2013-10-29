@@ -1,3 +1,4 @@
-.sub-heading.large-text.pull-right
-  Jombay&#39;s Recommendation : #{@report.report_hash[:recommendation]} 
-.clr
+- if @report.report_hash[:enable_recommendation]
+  .sub-heading.large-text.pull-right
+    Jombay&#39;s Recommendation : #{@report.report_hash[:recommendation]} 
+  .clr
