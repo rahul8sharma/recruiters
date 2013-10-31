@@ -6,6 +6,7 @@ Recruiters::Application.routes.draw do
       post 'import'
       post 'export_validation_progress'
       post 'export_candidate_responses'
+      post 'export_candidate_reports'
       get :destroy_all
     end
   end
@@ -59,6 +60,7 @@ Recruiters::Application.routes.draw do
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
+        get "email_reports" => "assessments#email_reports", :as => :email_reports
         put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
         get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
@@ -319,4 +321,6 @@ Recruiters::Application.routes.draw do
   get "/master-data", :to => "pages#home"
   
   root :to => "users#login"
+  
+  mount JombayNotify::Engine => "/jombay-notify"
 end
