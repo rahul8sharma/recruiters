@@ -1,66 +1,74 @@
 @import toolkit/component/buttons
 @import toolkit/component/alerts
 #nav
-  background: #002b3a
+  background: #002B3A
   padding: 10px 0
-  width: 100%
   position: relative
-  
+  width: 100%
   h1
     font-size: 13px
     line-height: 18px
   a
-    color: #FFFFFF
-    font-size: 13px
+    color: #c5d3d7
+    font-size: 12px
     padding: 10px
     display: block
-
-    &:hover
-      text-decoration: underline
-  li.active a
-    color: #002b3a
-    background: #fff
     font-weight: bold
-
+    &.btn
+      &.btn-warning
+        color: #fff
+        &:hover
+          color: #fff
+      color: #002b3a
+      padding: 5px 10px
+      margin: 3px 10px 0 10px
+      &:hover
+        color: #002b3a
+        padding: 5px 10px
+        margin: 3px 10px 0 10px
     &:hover
       text-decoration: none
+      color: #fff
+  li.active a
+    color: #002B3A
+    font-weight: bold
+    color: #fff
+    &:hover
       cursor: default
-
+      text-decoration: none
+      color: #fff
   ul
     margin: 0
   li
     float: left
-    padding: 0 5px
+    a.login
+      margin-left: 5px
+      &:hover
+        margin-left: 5px
     &:last-child
       padding-right: 0
   .header-menu
     float: right
-    .ask-btn 
-      background: image-url("users/ask-btn.png") repeat-x scroll 0 0 #FE8A16
-      border-radius: 0 0 10px 10px
-      color: #FFFFFF
-      display: inline-block
-      font-size: 18px !important
-      font-weight: bold
-      padding: 14px 20px
-      text-align: center
-      margin-left: 50px 
-      &:hover
-        color: #fff
-
   .navbar-inner.container
-    background: none repeat scroll 0 0 transparent
+    background: transparent
     padding: 0 35px
     width: 900px
-
   #logo
     float: left
-    a
+    min-width: 230px
+    a.logo-image
       background: image-url("jombay-logo.png") no-repeat 0 center
-      display: inline-block
+      display: block
       text-indent: -100000px
-      width: 195px
-  
+      width: 112px
+      float: left
+    .hiring
+      width: 95px
+      height: 37px
+      background: image-url("hiring.png") no-repeat center center
+      display: block
+      float: left
+      padding: 0
 .users-content
   background: image-url("users/users-content-bg.png") repeat-x #fff
   min-height: 400px

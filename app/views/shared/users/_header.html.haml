@@ -2,18 +2,20 @@
   .navbar-inner.container.clearfix
     #logo
       %h1
-        %a{:href => "/", :title => "Jombay hiring process"}
-          jombay - Missing piece of the hiring puzzle
+        %a.logo-image{href: "/", title: "Jombay Psychometric Test"}
+          Jombay - India-focused Psychometric Tests
+        %a.hiring{href: "/work-with-us/"}
+        .clr
     %ul.clearfix.unstyled.header-menu
       %li
-        %a{:href => "/about-us/", :title => "About Us"} About Us
+        %a{href: "/how-it-works/", title: "How it Works"} How it Works
       %li
-        %a{:href => "/eligibility-tool/", :title => "Eligibility Tool"} Eligibility Tool
+        %a{href: "/pricing/", title: "Pricing"} Pricing
       %li
-        %a{:href => "/suitability-tool/", :title => "Suitability Tool"} Suitability Tool
+        %a{href: "/benefits/", title: "Benefits"} Benefits
       %li
-        %a{:href => "/contact-us/", :title => "Ask For Demo"} Ask For Demo
+        %a{href: "/team/", title: "About Us"} About Us
       %li
-        %a{:href => "/jobs/", :title => "For Job Seekers"} For Job Seekers
-      %li.active  
-        %a{:href => "/login/", :title => "Log in to jombay"} Login
+        %a.btn.btn-warning{href: "/contact-us/", title: "Free Trial for Companies"} Free Trial for Companies
+      %li
+        %a.btn.login{href: "/login/", title: "Log in to jombay"} Login
