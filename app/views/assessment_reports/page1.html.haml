@@ -35,9 +35,10 @@
         #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
       .strength_team
         = @report.report_hash[:team_fit_grade]
-    .LieDetector
-      %p
-        %b
-          Fake Good Impression:
-          %span Above Average
-      %p Candidate has quite possibly attempted to make an impression that is perceived absolutely 'ideal' but not necessarily accurate. Answers that seem most optimal have been given.
+    - if @report.report_hash[:enable_lie_detection]    
+      .LieDetector
+        %p
+          %b
+            Fake Good Impression:
+            %span #{@report.report_hash[:lie_detection][:bucket]}
+        %p #{@report.report_hash[:lie_detection][:description]}
