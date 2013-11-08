@@ -80,6 +80,7 @@ class Suitability::ItemsController < ApplicationController
     factors = Vger::Resources::Suitability::Factor.all.to_a.collect{|x| [x.name, x.id]}  
     factors |= Vger::Resources::Suitability::AlarmFactor.all.to_a.collect{|x| [x.name, x.id]}
     factors |= Vger::Resources::Suitability::DirectPredictor.all.to_a.collect{|x| [x.name, x.id]}
+    factors |= Vger::Resources::Suitability::LieDetector.all.to_a.collect{|x| [x.name, x.id]}
     @factors = Hash[factors.compact]
   end
 end
