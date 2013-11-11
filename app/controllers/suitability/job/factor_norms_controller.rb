@@ -61,10 +61,12 @@ class Suitability::Job::FactorNormsController < ApplicationController
   end
 
   def export_to_google_drive
-    if params[:export][:filters].blank? || params[:export][:filters][:industry_id].blank?
-      flash[:error] = "Please select at least one industry"
-      redirect_to manage_suitability_job_factor_norms_path and return
-    end
+    #if params[:export][:filters].blank? || params[:export][:filters][:industry_id].blank?
+    #  flash[:error] = "Please select at least one industry"
+    #  redirect_to manage_suitability_job_factor_norms_path and return
+    #end
+    params[:export][:filters] ||= {}
+    params[:export][:filters][:industry_id] ||= nil
     params[:export][:filters][:functional_area_id] ||= nil
     params[:export][:filters][:job_experience_id] ||= nil
     Vger::Resources::Suitability::Job::FactorNorm\
