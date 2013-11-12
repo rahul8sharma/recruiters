@@ -26,6 +26,9 @@ Recruiters::Application.routes.draw do
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
       get "settings/user_settings" => "company_settings#user_settings", :as => :user_settings
+      get "settings/data/competencies" => "company_settings#competencies", :as => :competencies
+      get "settings/data/competencies/create" => "company_settings#create_competencies", :as => :create_competencies
+      get "settings/data/competencies/:id/details/" => "company_settings#competency", :as => :competency
       match "settings/user_settings/add_users" => "company_settings#add_users", :as => :add_users
       put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
