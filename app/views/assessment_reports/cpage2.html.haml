@@ -1,0 +1,15 @@
+.inner{ style: "margin-top:0px;" }
+  .overall_report
+    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+    .sub-heading.medium-text.pull-left
+      Competencies Measured 
+      %span (contd.)
+    .clr
+    .clearfix
+      - 7.times do
+        .competency_block
+          .competency 
+            Relationship Building
+          .score
+            High
+          .clr
