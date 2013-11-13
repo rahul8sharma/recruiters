@@ -1,1 +1,72 @@
-competencies.html.haml
+.create-test.norms
+  .inn.first
+    .page-title 
+      %b Tests
+  .inn.gray-gradient
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .description-section.medium-text.clearfix
+      .span.first
+        %b Test Title: 
+      .span18
+        Some title wil come here Some title wil come hereSome title wil come here
+      .clr
+      .divider1
+      .span.first
+        %b Functional Area: 
+      .span4
+        Engineering, Information Technology
+      .span.left-offset1
+        %b Industry:  
+      .span4
+        Computer Software, Computer Hardware
+      .span.left-offset1
+        %b Experience in Years: 
+      .span2
+        3 - 6
+    .clr
+    %form
+      .action
+        .pull-left
+          %b.large-text Select the Competencies you would like to measure:
+        %button.pull-right.btn.btn-info
+          Proceed
+        .clearfix
+
+      .medium-text
+        %b Local Competencies
+      .test-competency-list
+        .global_selector
+          %input{:type=>"checkbox"}
+          %label
+            Select All
+        .test-competency-list-container
+          -3.times do
+            %ul.pull-left
+              -8.times do |index|
+                %li
+                  %input{:type=>"checkbox", :id=>"a#{index}"}
+                  %label{:for=>"a#{index}"}
+                    Competency Name
+          .clr
+
+      .medium-text
+        %b Global Competencies
+      .test-competency-list
+        .global_selector
+          %input{:type=>"checkbox"}
+          %label
+            Select All
+        .test-competency-list-container.last
+          -3.times do
+            %ul.pull-left
+              -8.times do |index|
+                %li
+                  %input{:type=>"checkbox", :id=>"a#{index}"}
+                  %label{:for=>"a#{index}"}
+                    Competency Name
+          .clr
+      %button.pull-right.btn.btn-info
+        Proceed
+
+
