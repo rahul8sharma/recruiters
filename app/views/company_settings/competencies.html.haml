@@ -1,0 +1,37 @@
+.user-list
+  = render :partial => "shared/sub-nav"
+  .inn.first
+    .page-title
+      Settings
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/settings-content-sub-nav"
+    .clr
+
+    .divider1
+    .inn.first
+      .competencies
+        .add_competencies.clearfix
+          .left
+            Add
+            %select
+              %option 1
+              %option 2
+              %option 3
+            Competencies
+          .right
+            %a.underlined{:href=>"#"}
+              Go &rsaquo;
+        .competencies_list
+          .medium-text
+            %b 
+              Active Competencies 
+              \| 
+            %a.underlined{:href=>"#"} 
+              %b Disable selected competencies
+          %ul
+            - 8.times do |index|
+              %li
+                %input{:type=>"checkbox", :id=>"a#{index}"}
+                %label{:for=>"a#{index}"} Sales Negotiation
+            

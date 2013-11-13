@@ -16,6 +16,15 @@ class CompanySettingsController < ApplicationController
 
   def statistics
   end
+
+  def competencies
+  end
+  
+  def create_competencies
+  end  
+
+  def competency
+  end
   
   def user_settings
     params[:users] ||= {}

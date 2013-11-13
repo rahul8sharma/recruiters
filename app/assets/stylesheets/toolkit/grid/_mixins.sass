@@ -170,7 +170,10 @@
   //UI Related
   @for $i from 1 through 6
     .padding-all#{$i}
-      padding: $i * $baseLineHeight
+      padding: $i * $baseLineHeight  
+  @for $i from 1 through 6
+    .padding-right#{$i}
+      padding-right: $i * $baseLineHeight
   @for $i from 1 through 6
     .line-height#{$i}
       line-height: $i * $baseLineHeight

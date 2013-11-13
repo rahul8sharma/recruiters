@@ -34,6 +34,14 @@ class AssessmentsController < ApplicationController
     @other_norms = direct_predictor_norms
   end
 
+  def competencies
+    
+  end
+
+  def competency_norms
+    
+  end
+
 
   # fetches norms data
   # GET : renders norms when request method is get
