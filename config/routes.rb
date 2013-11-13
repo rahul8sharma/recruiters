@@ -60,6 +60,10 @@ Recruiters::Application.routes.draw do
         get "candidates" => "assessments#candidates", :as => :candidates
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
+
+        get "competency_norms" => "assessments#competency_norms", :as => :competency_norms
+        get "competencies" => "assessments#competencies", :as => :competencies          
+
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
