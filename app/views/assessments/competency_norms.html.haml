@@ -1,0 +1,90 @@
+.create-test.norms.competency_norms
+  .inn.first
+    .page-title
+      %b Tests
+      
+  .inn.gray-gradient
+    = render :partial => "shared/test-flow-sub-nav"
+    .divider1
+    .description-section.medium-text.clearfix
+      .span.first
+        %b Test Title:
+      .span17
+        Some title  will come here
+      .clr
+      .divider1
+      .span.first
+        %b Functional Area:
+      .span4
+        Computer Software, Computer Hardware
+      .span.left-offset1
+        %b Industry:
+      .span4
+        Computer Sofware, Hardware
+      .span.left-offset1
+        %b Experience:
+      .span4
+        3 - 6 Years
+      .clr
+      .divider1
+      .span4.first
+        %b Competencies Selected:
+      .span18
+        People Understanding; Introversion - Extraversion; Discipline, Compliance; Trustworthiness; Workplace Aggression; Risk Taking; Initiative, Responsibility; Street Smartness; Social Confidence; Assertiveness; Impulsiveness; 
+      .clr
+    .clr
+    .divider1
+    %form#edit_assessment.edit_assessment
+      .alert.alert-info
+        Please select the qualifying ranges for the behavioral factors under the selected competencies
+      .factors
+        .titles.clearfix
+          .span15.first.medium-text
+            Factors
+          .pull-left.medium-text
+            .span7.first.text-center
+              Qualifying ranges
+            / /.span2
+            / /  Critical
+        .divider1
+        %ul.unstyled.factor-snippet
+          -3.times do
+            %li.item
+              .pull-left.line-height2
+                %b Responsibility
+              .pull-right
+                .span7
+                  %select
+                    %option
+                      Low
+                    %option
+                      Below Average
+                    %option
+                      Average
+                    %option
+                      Above Average
+                    %option
+                      High
+                  %select
+                    %option
+                      Low
+                    %option
+                      Below Average
+                    %option
+                      Average
+                    %option
+                      Above Average
+                    %option
+                      High
+                  .clr
+              .clr
+              .divider1
+              %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing 
+      .divider2
+      .pull-right
+        %a.padding-right1.underlined.medium-text{:href=> "#", :title=>"Back"} 
+          Back
+        %button.btn.btn-info
+          Proceed
+        .clr
+        .divider1
