@@ -1,40 +1,38 @@
-.create-test.norms.competency_norms
+.create-test.norms
   .inn.first
     .page-title
-      %b Tests
-      
+      %b Test Title:
+      #{@assessment.name}      
   .inn.gray-gradient
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
     .description-section.medium-text.clearfix
-      .span.first
-        %b Test Title:
-      .span18
-        Some title  will come here
-      .clr
       .divider1
       .span.first
+        %b Industry:
+      .span4
+        #{@assessment.industry.name rescue '-'}
+      .span.left-offset1
         %b Functional Area:
       .span4
-        Computer Software, Computer Hardware
-      .span.left-offset1
-        %b Industry:
-      .span5
-        Computer Sofware, Hardware
+        #{@assessment.functional_area.name rescue '-'}
       .span.left-offset1
         %b Experience in Years:
       .span3
-        3 - 6 
+        #{@assessment.job_experience.display_text rescue '-'}
       .clr
       .divider1
       .span3.first
         %b Competencies Selected:
       .span19
-        People Understanding; Introversion - Extraversion; Discipline, Compliance; Trustworthiness; Workplace Aggression; Risk Taking; Initiative, Responsibility; Street Smartness; Social Confidence; Assertiveness; Impulsiveness; 
+        = @competencies.map(&:name).join(", ")
       .clr
     .clr
     .divider1
-    %form#edit_assessment.edit_assessment
+    = form_for @assessment, :as => :assessment, :url => competency_norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+      %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
+      %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
+      %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
       .alert.alert-info
         Please select the qualifying ranges for the behavioral factors under the selected competencies
       .factors
@@ -48,41 +46,16 @@
             / /  Critical
         .divider1
         %ul.unstyled.factor-snippet
-          -3.times do
-            %li.item
-              .pull-left.line-height2
-                %b Responsibility
-              .pull-right
-                .span7
-                  %select
-                    %option
-                      Low
-                    %option
-                      Below Average
-                    %option
-                      Average
-                    %option
-                      Above Average
-                    %option
-                      High
-                  %select
-                    %option
-                      Low
-                    %option
-                      Below Average
-                    %option
-                      Average
-                    %option
-                      Above Average
-                    %option
-                      High
-                  .clr
-              .clr
-              .divider1
-              %p Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing 
+          - aindex = 0
+          - @factor_norms.each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }
+          - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_alarm_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }    
       .divider2
       .pull-right
-        %a.padding-right1.underlined.medium-text{:href=> "#", :title=>"Back"} 
+        %a.padding-right1.underlined.medium-text{:href=> competencies_company_assessment_path(:company_id => @company.id, :id => params[:id]), :title=>"Back"} 
           Back
         %button.btn.btn-info
           Proceed
