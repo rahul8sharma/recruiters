@@ -1,7 +1,7 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_assessment, :except => [:index]
-  before_filter :get_meta_data, :only => [:new, :norms]
+  before_filter :get_meta_data, :only => [:new, :norms, :competency_norms]
   before_filter :get_company
   
   
@@ -35,11 +35,34 @@ class AssessmentsController < ApplicationController
   end
 
   def competencies
-    
+    @global_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => nil }).all.to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => @company.id }).all.to_a
+    if request.get?
+    else
+      params[:assessment] ||= {}
+      params[:assessment][:competencies] ||= []
+      if params[:assessment][:competencies].blank?
+        flash[:error] = "Please select at least one competency to proceed."
+        return
+      else
+        params[:assessment][:competencies].map!(&:to_i)
+        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { competency_ids: params[:assessment][:competencies] })
+        if @assessment.error_messages.blank?
+          redirect_to competency_norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+        else
+          flash[:error] = @assessment.error_messages.join("<br/>")
+        end
+      end  
+    end
   end
 
   def competency_norms
-    
+    @competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :id => @assessment.competency_ids }).all.to_a
+    get_competency_norms
+    if request.get?
+    else
+      store_assessment_factor_norms
+    end
   end
 
 
@@ -47,38 +70,13 @@ class AssessmentsController < ApplicationController
   # GET : renders norms when request method is get
   # PUT : updates assessment and renders styles
   def norms
+    get_norms
     if request.get?
       if params[:assessment]
         @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       end
-      get_norms
     elsif request.put?  
-      get_norms
-      params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
-      if !params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.present?
-        flash[:error] = "Please select at least one factor to proceed."
-        return
-      else
-        params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
-          norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-          if factor_norms_attributes[:from_norm_bucket_id]
-            from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
-            to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
-            if from_weight > to_weight
-              flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
-              return
-            end
-          end
-        end
-        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
-        if @assessment.error_messages.blank?
-          #get_styles
-          #render :styles
-          redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
-        else
-          flash[:error] = @assessment.error_messages.join("<br/>")
-        end
-      end  
+      store_assessment_factor_norms
     end
   end
   
@@ -266,7 +264,12 @@ class AssessmentsController < ApplicationController
     flash[:error] = "There are no default norms for this criteria. Please select another criterita or try again after adding the required data. Please reach us at contact@jombay.com on any queries." if default_norm_bucket_ranges.empty?                                    
     respond_to do |format|
       if default_norm_bucket_ranges.present? and @assessment.valid? and @assessment.save
-        format.html { redirect_to norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) }
+        redirect_path = if @assessment.assessment_type == "fit"
+          norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          competencies_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+        end
+        format.html { redirect_to redirect_path }
       else
         get_meta_data
         flash[:error] ||= @assessment.errors.values.flatten.join(",") rescue ""
@@ -281,9 +284,10 @@ class AssessmentsController < ApplicationController
   # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience])
+      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience, :competency_ids])
     else
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
+      @assessment.assessment_type = params[:fit].present? ? "fit" : "competency"
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
       @assessment.company_id = params[:company_id]
@@ -364,6 +368,67 @@ class AssessmentsController < ApplicationController
     end
   end
   
+  # fetches default factor norms
+  # fetches norm buckets for dropdowns
+  # fetches default_norm_bucket_ranges for the assessment's FA, Industry and Exp
+  # creates job_assessment_factor_norm for each factor with default values   
+  def get_competency_norms
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
+                                    
+    added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
+    added_factor_ids = added_factors.map(&:factor_id)
+    @factor_norms_by_competency = {}
+    @competencies.each do |competency|
+      norms_by_competency = default_norm_bucket_ranges.select{|default_norm| competency.factor_ids.include? (default_norm.factor_id)}  
+      
+      assessment_factor_norms = added_factors.select{|assessment_norm| competency.factor_ids.include? (assessment_norm.factor_id)}
+
+      factors_by_competency = @factors.select{|id,factor| competency.factor_ids.include? id }.values      
+      
+      @factor_norms_by_competency[competency] = {
+        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}, 
+        :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
+      }
+      
+      factors_by_competency.each do |factor|
+        default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor.id}
+        #next if @factors[default_norm_bucket_range.factor_id].nil?
+        if default_norm_bucket_range
+          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
+            default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
+               merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
+                     :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
+          )
+        else
+          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
+            :from_norm_bucket_id => @norm_buckets.first.id, 
+            :to_norm_bucket_id => @norm_buckets.last.id,
+            :factor_id => factor.id,
+            :functional_area_id => @assessment.functional_area_id,
+            :industry_id => @assessment.industry_id,
+            :job_experience_id => @assessment.job_experience_id
+          )
+          
+        end
+        
+        # to avoid calls to API, set fa, industry and exp from already fetched data
+        assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
+        assessment_factor_norm.industry = @industries[@assessment.industry_id]
+        assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
+        assessment_factor_norm.factor = @factors[factor.id]
+        
+        unless added_factor_ids.include? factor.id
+          if assessment_factor_norm.factor.type == 'Suitability::AlarmFactor'
+            @factor_norms_by_competency[competency][:alarm_factors] << assessment_factor_norm  
+          else
+            @factor_norms_by_competency[competency][:factors] << assessment_factor_norm  
+          end
+        end
+      end  
+    end
+  end
+  
   
   # fetch styles data
   # fetch all direct predictors
@@ -405,5 +470,31 @@ class AssessmentsController < ApplicationController
       end
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
+  end
+  
+  def store_assessment_factor_norms
+    params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
+    if !params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.present?
+      flash[:error] = "Please select at least one factor to proceed."
+      return
+    else
+      params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
+        norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+        if factor_norms_attributes[:from_norm_bucket_id]
+          from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
+          to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
+          if from_weight > to_weight
+            flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
+            return
+          end
+        end
+      end
+      @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+      if @assessment.error_messages.blank?
+        redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+      else
+        flash[:error] = @assessment.error_messages.join("<br/>")
+      end
+    end 
   end
 end
