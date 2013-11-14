@@ -314,7 +314,6 @@ class AssessmentsController < ApplicationController
     
     default_norm_bucket_ranges = get_default_norm_bucket_ranges
     
-                                    
     added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
     added_factor_ids = added_factors.map(&:factor_id)
     @factor_norms_by_fit = {}
@@ -326,7 +325,7 @@ class AssessmentsController < ApplicationController
       factors_by_fit = @factors.select{|id,factor| fit.factor_ids.include? id }.values      
       
       @factor_norms_by_fit[fit] = {
-        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}, 
+        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'},
         :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
       }
       
@@ -379,16 +378,24 @@ class AssessmentsController < ApplicationController
     added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
     added_factor_ids = added_factors.map(&:factor_id)
     @factor_norms_by_competency = {}
+    @factor_norms = []
+    @alarm_factor_norms = []                
+
     @competencies.each do |competency|
       norms_by_competency = default_norm_bucket_ranges.select{|default_norm| competency.factor_ids.include? (default_norm.factor_id)}  
       
       assessment_factor_norms = added_factors.select{|assessment_norm| competency.factor_ids.include? (assessment_norm.factor_id)}
-
       factors_by_competency = @factors.select{|id,factor| competency.factor_ids.include? id }.values      
       
+      factors = assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}  
+      alarm_factors = assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
+      
+      @factor_norms << factors
+      @alarm_factor_norms << alarm_factors
+
       @factor_norms_by_competency[competency] = {
-        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}, 
-        :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
+        :factors => factors, 
+        :alarm_factors => alarm_factors
       }
       
       factors_by_competency.each do |factor|
@@ -427,6 +434,8 @@ class AssessmentsController < ApplicationController
         end
       end  
     end
+    @factor_norms = @factor_norms.flatten.compact.uniq
+    @alarm_factor_norms = @alarm_factor_norms.flatten.compact.uniq
   end
   
   
