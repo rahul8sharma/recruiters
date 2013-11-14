@@ -27,6 +27,8 @@ class ReportUploader < AbstractController::Base
       :methods => [ :report_hash ]
     )
     
+    template = @report.report_hash[:assessment][:assessment_type] == "fit" ? "assessment_report" : "competency_report"
+    
     tries = 0
     report_status = {
       :errors => [],
@@ -36,7 +38,7 @@ class ReportUploader < AbstractController::Base
     begin
       @view_mode = "html"
       html = render_to_string(
-         template: 'assessment_reports/assessment_report', 
+         template: "assessment_reports/#{template}", 
          layout: "layouts/reports", 
          handlers: [ :haml ]
       )
@@ -44,7 +46,7 @@ class ReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          'assessment_reports/assessment_report', 
+          "assessment_reports/#{template}", 
           layout: "layouts/reports.html.haml", 
           handlers: [ :haml ],
           formats: [:html]

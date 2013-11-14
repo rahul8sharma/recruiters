@@ -33,38 +33,6 @@ class AssessmentReportsController < ApplicationController
     redirect_to url 
   end
 
-  def competency_report
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :methods => [ :report_hash ]))
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
-    else  
-      @view_mode = "html"
-    end
-    @page = 1
-    respond_to do |format|
-      format.html
-      format.pdf { 
-        render pdf: "report_#{params[:id]}.pdf",
-        header: { 
-          :html => {
-            template: "shared/_report_header.html.haml"
-          }
-        },
-        footer: {
-          :html => {
-            template: "shared/_report_footer.html.haml"
-          }
-        },           
-        template: 'assessment_reports/assessment_report.html.haml', 
-        layout: "layouts/reports.html.haml", 
-        handlers: [ :haml ], 
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
-        locals: { :@view_mode => "pdf" }
-      }
-    end
-  end
-
   def assessment_report
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :methods => [ :report_hash ]))
     if request.format == "application/pdf"
@@ -72,9 +40,10 @@ class AssessmentReportsController < ApplicationController
     else  
       @view_mode = "html"
     end
+    template = @report.report_hash[:assessment][:assessment_type] == "fit" ? "assessment_report" : "competency_report"
     @page = 1
     respond_to do |format|
-      format.html
+      format.html { render :template => "assessment_reports/#{template}" }
       format.pdf { 
         render pdf: "report_#{params[:id]}.pdf",
         header: { 
@@ -87,7 +56,7 @@ class AssessmentReportsController < ApplicationController
             template: "shared/_report_footer.html.haml"
           }
         },           
-        template: 'assessment_reports/assessment_report.html.haml', 
+        template: "assessment_reports/#{template}.html.haml", 
         layout: "layouts/reports.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },

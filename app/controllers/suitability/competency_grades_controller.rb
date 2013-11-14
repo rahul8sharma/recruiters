@@ -26,9 +26,9 @@ class Suitability::CompetencyGradesController < ApplicationController
       .export_to_google_drive(params[:export]\
                                 .merge(:columns => [
                                                     :uid,
-                                                    :name,
-                                                    :min_factors_pass_percent,
-                                                    :max_factors_pass_percent
+                                                    :name, 
+                                                    :min_score, 
+                                                    :max_score
                                                    ]))
     redirect_to suitability_competency_grades_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
