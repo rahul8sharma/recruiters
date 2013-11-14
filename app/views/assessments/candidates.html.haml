@@ -44,7 +44,7 @@
         - @candidates.each do |candidate|
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
-          - if candidate_assessment && candidate_assessment.overall_fitment_grade_id.present?
+          - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
             - report = candidate_assessment.candidate_assessment_reports[0] 
             -# status = report_statuses[report.status]
           %li.list-snippet
@@ -54,7 +54,7 @@
               %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
                 = h candidate.name
             .span9.lhs-border
-              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.overall_fitment_grade_id.present? ? 'Complete' : 'Pending'}" }
+              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 //remember Hrs & Hr 
