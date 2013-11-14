@@ -55,7 +55,7 @@ class AssessmentReportsController < ApplicationController
             template: "shared/_report_footer.html.haml"
           }
         },           
-        template: 'assessment_reports/assessment_report.html.haml', 
+        template: 'assessment_reports/competency_report.html.haml', 
         layout: "layouts/reports.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
