@@ -1,0 +1,32 @@
+.inner{ style: "margin-top:0px;" }
+  .overall_report
+    .logo.pull-right
+    .clr
+    .heading
+      .big-text
+        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
+      .user_name
+        = @report.report_hash[:candidate][:name]
+      .span.first
+        Assessment: 
+      .span10
+        = @report.report_hash[:assessment][:name]
+      .clr
+      .date
+        %span Date: 
+        %span
+          = @report.report_hash[:completed_at]
+      .clr
+
+    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+    .sub-heading.medium-text.pull-right
+      Competencies Measured
+    .clr
+    .clearfix
+      - 7.times do
+        .competency_block
+          .competency 
+            Relationship Building
+          .score
+            High
+          .clr

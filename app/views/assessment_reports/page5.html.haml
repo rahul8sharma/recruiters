@@ -41,7 +41,7 @@
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+            -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
             .span10
               .factor-name
                 = factor_name
@@ -49,9 +49,9 @@
             .slider
               - scale = factor_score[:scale]
               .pointer{ class: "position#{scale[:position]}" }
-              // Use position1, postion2...5. for pointer position
+              -# Use position1, postion2...5. for pointer position
               .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
-                //use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+              -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
           .clr
           .factor-description
