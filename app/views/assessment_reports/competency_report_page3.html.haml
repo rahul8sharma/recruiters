@@ -37,48 +37,26 @@
     .clr
     .frame
       .frame-title
-        Sales Negotiation: 
-        %b Above Average
+        #{competency_name}: 
+        %b #{competency_data[:grade]}
       %ul.unstyled.clearfix.scores_listing
-        -2.times do
+        - competency_data[:factor_scores].each do |factor_name, factor_score|
           %li
             .lhs-sec.pull-left
-              .span1.first.hexagon-icon.less_favorable
+              %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
               -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
               .span10
-                .factor-name
-                  Adaptability
+                .factor-name{ class: "#{factor_score[:pass] ? '' : 'underlined'}" }
+                  = factor_name
             .rhs-sec.pull-right
               .slider
-                .pointer.position0
+                - scale = factor_score[:scale]
+                .pointer{ class: "position#{scale[:position]}" }
                 -#Use position1, postion2...5. for pointer position
-                .offset2.range.width2
+                .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
                 -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
             .clr
             .factor-description
-              Tends to prefer stability over change; less likely to be open to new experiences, ideas or feedback; may take time to trust any new modification; may get uncomfortable with frequent changes or feedback
+              = factor_score[:description]
             .clr
     .divider2
-    .frame
-      .frame-title
-        Passion: 
-        %b High
-      %ul.unstyled.clearfix.scores_listing
-        -4.times do
-          %li
-            .lhs-sec.pull-left
-              .span1.first.hexagon-icon.less_favorable
-              -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-              .span10
-                .factor-name
-                  Adaptability
-            .rhs-sec.pull-right
-              .slider
-                .pointer.position0
-                -#Use position1, postion2...5. for pointer position
-                .offset2.range.width2
-                -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-            .clr
-            .factor-description
-              Tends to prefer stability over change; less likely to be open to new experiences, ideas or feedback; may take time to trust any new modification; may get uncomfortable with frequent changes or feedback
-            .clr
