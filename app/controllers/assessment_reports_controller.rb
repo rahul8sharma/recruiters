@@ -43,7 +43,7 @@ class AssessmentReportsController < ApplicationController
     template = @report.report_hash[:assessment][:assessment_type] == "fit" ? "assessment_report" : "competency_report"
     @page = 1
     respond_to do |format|
-      format.html
+      format.html { render :template => "assessment_reports/#{template}" }
       format.pdf { 
         render pdf: "report_#{params[:id]}.pdf",
         header: { 
