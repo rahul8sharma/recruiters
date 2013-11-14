@@ -47,13 +47,12 @@
         .divider1
         %ul.unstyled.factor-snippet
           - aindex = 0
-          - @factor_norms_by_competency.each do |competency,norms|
-            - norms[:factors].each_with_index do |assessment_factor_norm,index|
-              - aindex = aindex + 1
-              = render :partial => 'assessment_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }
-            - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
-              - aindex = aindex + 1
-              = render :partial => 'assessment_alarm_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }    
+          - @factor_norms.each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }
+          - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_alarm_competency_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }    
       .divider2
       .pull-right
         %a.padding-right1.underlined.medium-text{:href=> competencies_company_assessment_path(:company_id => @company.id, :id => params[:id]), :title=>"Back"} 
