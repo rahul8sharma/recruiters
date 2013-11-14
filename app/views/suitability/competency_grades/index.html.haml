@@ -13,9 +13,9 @@
     %th
       Name
     %th
-      Min factors pass percent
+      Min score
     %th
-      Max factors pass percent
+      Max score
   - @competency_grades.each do |competency_grade|
     %tr 
       %td
@@ -25,9 +25,9 @@
       %td
         = competency_grade.name
       %td
-        = competency_grade.min_factors_pass_percent
+        = competency_grade.min_score
       %td
-        = competency_grade.max_factors_pass_percent  
+        = competency_grade.max_score
 .pagination.pull-right
   = paginate @competency_grades
 .clr   
