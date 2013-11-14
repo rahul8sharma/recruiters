@@ -1,0 +1,29 @@
+%h1 All Suitability competencies
+- if can? :create, "Suitability::Competency"
+  = link_to "Manage Suitability Competency", manage_suitability_competencies_path
+.pagination.pull-right
+  = paginate @competencies        
+.clr  
+%table
+  %tr
+    %th
+      ID
+    %th
+      UID
+    %th
+      Name
+    %th
+      Factor Ids
+  - @competencies.each do |competency|
+    %tr 
+      %td
+        = competency.id
+      %td
+        = competency.uid
+      %td
+        = competency.name
+      %td
+        = competency.factor_ids
+.pagination.pull-right
+  = paginate @competencies
+.clr   
