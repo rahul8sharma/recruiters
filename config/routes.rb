@@ -62,7 +62,9 @@ Recruiters::Application.routes.draw do
         put "norms" => "assessments#norms", :as => :norms
 
         get "competency_norms" => "assessments#competency_norms", :as => :competency_norms
-        get "competencies" => "assessments#competencies", :as => :competencies          
+        put "competency_norms" => "assessments#competency_norms", :as => :competency_norms
+        get "competencies" => "assessments#competencies", :as => :competencies
+        put "competencies" => "assessments#competencies", :as => :competencies                    
 
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
@@ -238,6 +240,24 @@ Recruiters::Application.routes.draw do
     end
 
     resources :fits, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :competencies, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :competency_grades, :only => [:index] do
       collection do
         get :manage
         get :destroy_all
