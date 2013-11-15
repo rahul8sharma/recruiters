@@ -36,42 +36,47 @@
         %button.pull-right.btn.btn-info
           Proceed
         .clearfix
-
+      
       .medium-text
         %b Local Competencies
-      .test-competency-list
-        .global_selector
-          %input{:type=>"checkbox", checked: ((@local_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_local"}
-          %label{ for: "check_all_local" }
-            Select All
-        .test-competency-list-container
-          - (0..@local_competencies.length-1).step(8) do |step|    
-            - step_competencies = @local_competencies[step..(step+(8 - 1))]
-            %ul.pull-left
-              - step_competencies.each do |competency|
-                %li
-                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
-                  %label{:for=>"competency_#{competency.id}"}
-                    = competency.name
-          .clr
-
+      - if !@local_competencies.present? 
+        No local competencies present for the company
+      - else
+        .test-competency-list
+          .global_selector
+            %input{:type=>"checkbox", checked: ((@local_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_local"}
+            %label{ for: "check_all_local" }
+              Select All
+          .test-competency-list-container
+            - (0..@local_competencies.length-1).step(8) do |step|    
+              - step_competencies = @local_competencies[step..(step+(8 - 1))]
+              %ul.pull-left
+                - step_competencies.each do |competency|
+                  %li
+                    %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
+                    %label{:for=>"competency_#{competency.id}"}
+                      = competency.name
+            .clr
       .medium-text
         %b Global Competencies
-      .test-competency-list
-        .global_selector
-          %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
-          %label{:for => "check_all_global"}
-            Select All
-        .test-competency-list-container.last
-          - (0..@global_competencies.length-1).step(8) do |step|    
-            - step_competencies = @global_competencies[step..(step+(8 - 1))]
-            %ul.pull-left
-              - step_competencies.each do |competency|
-                %li
-                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
-                  %label{:for=>"competency_#{competency.id}"}
-                    = competency.name
-          .clr
+      - if !@global_competencies.present? 
+        No global competencies present
+      - else 
+        .test-competency-list
+          .global_selector
+            %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
+            %label{:for => "check_all_global"}
+              Select All
+          .test-competency-list-container.last
+            - (0..@global_competencies.length-1).step(8) do |step|    
+              - step_competencies = @global_competencies[step..(step+(8 - 1))]
+              %ul.pull-left
+                - step_competencies.each do |competency|
+                  %li
+                    %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
+                    %label{:for=>"competency_#{competency.id}"}
+                      = competency.name
+            .clr
       %button.pull-right.btn.btn-info
         Proceed
 = javascript_include_tag 'competencies'
