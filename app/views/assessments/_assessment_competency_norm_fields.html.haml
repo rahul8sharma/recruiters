@@ -9,7 +9,7 @@
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - critical_checkbox_name = "checkbox_critical"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
-%li{ :id => "li_#{index}", class: "item" }
+%li{ :id => "li_#{index}", class: "item checked" }
   //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
   - if assessment_factor_norm.id.present?
     %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_factor_norm.id, index: (index)}
