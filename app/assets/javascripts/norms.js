@@ -42,4 +42,16 @@ jQuery(document).ready(function($){
       $("#critical_"+index).val("off");
     }
   });
+  
+  $("#check_all_fit0").change(function(){
+    $(".check_fit0").prop("checked",$(this).is(":checked"));
+  });
+  
+  $("#check_all_fit1").change(function(){
+    $(".check_fit1").prop("checked",$(this).is(":checked"));
+  });
+  
+  $("#check_all_fit2").change(function(){
+    $(".check_fit2").prop("checked",$(this).is(":checked"));
+  });
 });
