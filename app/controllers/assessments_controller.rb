@@ -35,8 +35,8 @@ class AssessmentsController < ApplicationController
   end
 
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => nil }).all.to_a
-    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => @company.id }).all.to_a
+    @global_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => nil, :active => true }).all.to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => @company.id, :active => true }).all.to_a
     if request.get?
     else
       params[:assessment] ||= {}

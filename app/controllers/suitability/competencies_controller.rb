@@ -26,7 +26,8 @@ class Suitability::CompetenciesController < ApplicationController
       .export_to_google_drive(params[:export]\
                                 .merge(:columns => [
                                                     :uid,
-                                                    :name
+                                                    :name,
+                                                    :active
                                                    ],
                                        :pseudo_columns => [:factors, :company]))
     redirect_to suitability_competencies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
