@@ -38,9 +38,9 @@
         .clearfix
       
       .medium-text
-        %b Local Competencies
+        %b Custom Competencies
       - if !@local_competencies.present? 
-        No local competencies present for the company
+        No custom competencies present for the company
       - else
         .test-competency-list
           .global_selector
@@ -58,9 +58,9 @@
                       = competency.name
             .clr
       .medium-text
-        %b Global Competencies
+        %b Standard Competencies
       - if !@global_competencies.present? 
-        No global competencies present
+        No standard competencies present
       - else 
         .test-competency-list
           .global_selector

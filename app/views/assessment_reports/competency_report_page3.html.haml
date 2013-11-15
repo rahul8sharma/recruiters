@@ -1,8 +1,11 @@
 .inner
   .scores.favorable_factors
     .blue_bg_heading
-      Scores of Factors measured under different 
-      %b Competencies 
+      - if @view_mode == "html"
+        Scores of Factors measured under different 
+        %b Competencies 
+      - else
+        Factor wise scores per competency  
       .thumbnails
         .thumbnails_inn3
     .clr
