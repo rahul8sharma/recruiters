@@ -45,13 +45,16 @@ jQuery(document).ready(function($){
   
   $("#check_all_fit0").change(function(){
     $(".check_fit0").prop("checked",$(this).is(":checked"));
+    $(".check_fit0").trigger("change");
   });
   
   $("#check_all_fit1").change(function(){
     $(".check_fit1").prop("checked",$(this).is(":checked"));
+    $(".check_fit1").trigger("change");
   });
   
   $("#check_all_fit2").change(function(){
     $(".check_fit2").prop("checked",$(this).is(":checked"));
+    $(".check_fit2").trigger("change");
   });
 });
