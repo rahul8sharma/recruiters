@@ -40,5 +40,6 @@
   .divider2
   .action
     %input.button.pull-right.btn.btn-info{ type: "submit", value: "Proceed", name: "fit" }
-    %input.button.pull-right.btn.btn-info{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
+    - if current_user.type == "SuperAdmin"
+      %input.button.pull-right.btn.btn-info{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
     .clr
