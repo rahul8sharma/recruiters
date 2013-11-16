@@ -41,39 +41,4 @@
     = render :template => "assessment_reports/page7", :locals => { :team_fit_scores => step_team_fit_scores, :step => step }
     .page-break      
 
-- if @report.report_hash[:direct_predictor_scores].present?
-  = render :template => "assessment_reports/page8"
-  .page-break      
-
-- guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
-- if @report.report_hash[:post_assessment_guidelines].present?
-  - post_assessment_guidelines = @report.report_hash[:post_assessment_guidelines]
-
-  - ordered_guides = post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-
-  - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-
-  - if @report.report_hash[:candidate_stage].to_sym == :candidate    
-    - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
-    
-    
-  - (0..ordered_guides.length-1).step(guides_step) do |step|    
-    - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
-    = render :template => "assessment_reports/page9", :locals => { :post_assessment_guidelines => step_post_assessment_guidelines, :step => step }
-    .page-break
-  
-- if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
-  
-  - candidate_manager_guidelines = @report.report_hash[:guidelines_for_candidate_manager]
-
-  - ordered_guides = candidate_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-
-  - ordered_guides += candidate_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-  - (0..ordered_guides.length-1).step(guides_step) do |step|
-    - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
-    = render :template => "assessment_reports/page10", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
-    .page-break              
-  
-= render :template => "assessment_reports/page11"
-- if @view_mode == "html"
-  = render :partial => "shared/report_footer", :locals => { :force => true, :last_page => true }
+= render :template => "assessment_reports/common_pages"

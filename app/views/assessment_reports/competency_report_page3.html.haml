@@ -1,0 +1,46 @@
+.inner
+  .scores.favorable_factors
+    .blue_bg_heading
+      - if @view_mode == "html"
+        Scores of Factors measured under different 
+        %b Competencies 
+      - else
+        Factor wise scores per competency  
+      .thumbnails
+        .thumbnails_inn3
+    .clr
+    .indication
+      .pull-left
+        .pull-left.box
+        .pull-left
+          %b Desired/Acceptable Score
+        .clr
+
+      .left-offset1.pull-left 
+        .pull-left.hexagon-icon.mid_favorable
+        .pull-left
+          %b Obtained Score
+
+      .clr
+    .scale
+      .marker
+        %br/
+        Low
+      .marker
+        Below Average
+      .marker
+        %br/
+        Average
+      .marker
+        Above Average
+      .marker
+        %br/
+        High
+      .clr
+    .clr
+    - if @view_mode == "html"
+      - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
+        - if competency_data[:factor_scores].present?
+          = render :template => "assessment_reports/competency", :locals => { competency_name: competency_name, competency_data: competency_data }
+    - else
+      = render :template => "assessment_reports/competency", locals: { competency_name: competency_name, competency_data: competency_data }

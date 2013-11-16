@@ -1,9 +1,11 @@
 html:
   scores_step: 1000
   guides_step: 1000
+  competency_step: 1000
 pdf:
+  competency_step: 10
   scores_step: 7
-  guides_step: 10
+  guides_step: 8
 candidate:
   fitment_scores: "Fitment Scores"
   report_title: "Suitability Assessment Report"

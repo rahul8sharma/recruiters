@@ -10,7 +10,7 @@
   .inn.gray-gradient
     = render :partial => "shared/test-flow-sub-nav"
     .divider1
-    .medium-text
+    .description-section.medium-text.clearfix
       .span.first
         %b Industry:  
       .span4
@@ -24,7 +24,6 @@
       .span4
         #{@assessment.job_experience.display_text rescue '-'}
     .clr
-    .divider1
       
     = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
@@ -38,10 +37,14 @@
         .clr
       .factors
         - aindex = 0
-        - @factor_norms_by_fit.each do |fit,norms|
+        - @factor_norms_by_fit.each_with_index do |(fit,norms),fit_index|
           .titles.clearfix
-            .span15.first
+            .span4.first
               Factors for #{fit.name}
+            .span11
+              %input{:type=>"checkbox", id: "check_all_fit#{fit_index}"}
+              %label{ for: "check_all_fit#{fit_index}" }
+                Select All  
             .pull-left
               .span7.first
                 Desired/Acceptable Score Range 
@@ -51,10 +54,10 @@
           %ul.unstyled.factor-snippet
             - norms[:factors].each_with_index do |assessment_factor_norm,index|
               - aindex = aindex + 1
-              = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }
+              = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
             - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
               - aindex = aindex + 1
-              = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex }    
+              = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
       .divider2
       %button.pull-right.btn.btn-info
         Proceed
@@ -62,4 +65,3 @@
       .divider1
 
 = javascript_include_tag 'norms'
-      

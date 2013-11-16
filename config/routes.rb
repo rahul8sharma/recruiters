@@ -26,6 +26,9 @@ Recruiters::Application.routes.draw do
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
       get "settings/user_settings" => "company_settings#user_settings", :as => :user_settings
+      get "settings/data/competencies" => "company_settings#competencies", :as => :competencies
+      get "settings/data/competencies/create" => "company_settings#create_competencies", :as => :create_competencies
+      get "settings/data/competencies/:id/details/" => "company_settings#competency", :as => :competency
       match "settings/user_settings/add_users" => "company_settings#add_users", :as => :add_users
       put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
@@ -57,6 +60,12 @@ Recruiters::Application.routes.draw do
         get "candidates" => "assessments#candidates", :as => :candidates
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
+
+        get "competency_norms" => "assessments#competency_norms", :as => :competency_norms
+        put "competency_norms" => "assessments#competency_norms", :as => :competency_norms
+        get "competencies" => "assessments#competencies", :as => :competencies
+        put "competencies" => "assessments#competencies", :as => :competencies                    
+
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
@@ -78,6 +87,7 @@ Recruiters::Application.routes.draw do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
+            get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
             get "manage" => "assessment_reports#manage", :as => :manage
             put "manage" => "assessment_reports#manage", :as => :manage
           end
@@ -231,6 +241,24 @@ Recruiters::Application.routes.draw do
     end
 
     resources :fits, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :competencies, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :competency_grades, :only => [:index] do
       collection do
         get :manage
         get :destroy_all
