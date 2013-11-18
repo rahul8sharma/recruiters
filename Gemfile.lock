@@ -43,7 +43,7 @@ GIT
   branch: develop
   specs:
     vger (0.0.1)
-      her (~> 0.6.6)
+      her (~> 0.6.8)
       kaminari (= 0.14.1)
       rails (>= 3.0.0)
 
