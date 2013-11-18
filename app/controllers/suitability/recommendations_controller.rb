@@ -37,6 +37,6 @@ class Suitability::RecommendationsController < ApplicationController
 
   # GET /factors
   def index
-    @recommendations = Vger::Resources::Suitability::Recommendation.where(:page => params[:page], :per => 50, :methods => [:overall_fitment_grade]).all
+    @recommendations = Vger::Resources::Suitability::Recommendation.where(:page => params[:page], :per => 50, :include => [:overall_fitment_grade]).all
   end
 end

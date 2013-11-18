@@ -21,7 +21,7 @@ class Suitability::ItemGroupsController < ApplicationController
   end
 
   def index
-    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :order => "updated_at DESC", :methods => [:item_groups])
+    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :order => "updated_at DESC")
   end
   
   
@@ -37,7 +37,7 @@ class Suitability::ItemGroupsController < ApplicationController
   # GET /item_groups/:id
   # GET /item_groups/:id.json
   def show
-    @item_group= Vger::Resources::Suitability::ItemGroup.find(params[:id], :methods => [ :items ])
+    @item_group= Vger::Resources::Suitability::ItemGroup.find(params[:id], :include => [ :items ])
     respond_to do |format|
       format.html
     end

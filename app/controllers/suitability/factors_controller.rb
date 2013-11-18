@@ -35,7 +35,7 @@ class Suitability::FactorsController < ApplicationController
   # GET /factors
   def index
     params[:type] ||= "Suitability::Factor"
-    @factors = "Vger::Resources::#{params[:type]}".constantize.where(:page => params[:page], :per => 50, :methods => [:type, :parent]).all
+    @factors = "Vger::Resources::#{params[:type]}".constantize.where(:page => params[:page], :per => 50, :include => [:parent], :methods => [:type]).all
   end
 
   # GET /factors/new

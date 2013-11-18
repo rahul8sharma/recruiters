@@ -29,6 +29,6 @@ class Suitability::FitmentGradeMappingsController < ApplicationController
 
   # GET /factors
   def index
-    @fitment_grade_mappings = Vger::Resources::Suitability::FitmentGradeMapping.where(:page => params[:page], :per => 50, :methods => [:overall_fitment_grade]).all
+    @fitment_grade_mappings = Vger::Resources::Suitability::FitmentGradeMapping.where(:page => params[:page], :per => 50, :include => [:overall_fitment_grade]).all
   end
 end

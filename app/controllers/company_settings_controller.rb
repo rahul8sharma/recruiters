@@ -93,7 +93,7 @@ class CompanySettingsController < ApplicationController
   protected
 
   def get_company
-    @company = Vger::Resources::Company.find(params[:id], :methods => [ :subscription, :assessment_statistics ])
+    @company = Vger::Resources::Company.find(params[:id], :include => [ :subscription ], :methods => [ :assessment_statistics ])
   end
 end
 

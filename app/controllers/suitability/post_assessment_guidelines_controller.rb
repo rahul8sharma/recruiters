@@ -54,6 +54,6 @@ class Suitability::PostAssessmentGuidelinesController < ApplicationController
 
   # GET /factors
   def index
-    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where(:page => params[:page], :per => 50, :methods => [:factor]).all
+    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where(:page => params[:page], :per => 10, :include => [:factor]).all
   end
 end

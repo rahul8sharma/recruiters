@@ -54,6 +54,6 @@ class Suitability::FactorNormBucketDescriptionsController < ApplicationControlle
 
   # GET /factors
   def index
-    @factor_norm_bucket_descriptions = Vger::Resources::Suitability::FactorNormBucketDescription.where(:page => params[:page], :per => 50, :methods => [:factor, :norm_bucket]).all
+    @factor_norm_bucket_descriptions = Vger::Resources::Suitability::FactorNormBucketDescription.where(:page => params[:page], :per => 10, :include => [:factor, :norm_bucket]).all
   end
 end

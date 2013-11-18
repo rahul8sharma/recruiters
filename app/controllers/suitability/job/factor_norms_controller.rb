@@ -14,7 +14,7 @@ class Suitability::Job::FactorNormsController < ApplicationController
 
   def index
     @job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm\
-                        .where(:methods => [:factor,
+                        .where(:include => [:factor,
                                           :industry,
                                           :functional_area,
                                           :job_experience

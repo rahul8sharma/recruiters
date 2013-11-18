@@ -25,7 +25,7 @@ class AssessmentsController < ApplicationController
 
   def show
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
-    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:methods => [:functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket], :include => { :factor => { :methods => [:type, :direct_predictor_ids] } }).all.to_a
+    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include  => [:functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket], :include => { :factor => { :methods => [:type, :direct_predictor_ids] } }).all.to_a
     
     direct_predictor_parent_ids = @assessment_factor_norms.collect{ |x| x.factor.direct_predictor_ids.present? ? x.factor_id : nil }.compact.uniq
     direct_predictor_norms = @assessment_factor_norms.select{ |x| direct_predictor_parent_ids.include? x.factor_id }.uniq
@@ -226,7 +226,7 @@ class AssessmentsController < ApplicationController
         column = "suitability_candidate_assessments.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_candidate_assessments.updated_at #{order_type}"
     end
-    scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:methods => [:candidate_assessment_reports])
+    scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:include  => [:candidate_assessment_reports])
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
@@ -239,11 +239,11 @@ class AssessmentsController < ApplicationController
   
   # GET : renders candidate info for selected assessment
   def candidate
-    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :methods => [ :functional_area, :industry, :location ])
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
     @company = Vger::Resources::Company.find @assessment.assessable_id
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
-    }, :methods => [:candidate_assessment_reports])
+    }, :include => [:candidate_assessment_reports])
   end
   
   # GET /assessments
@@ -284,7 +284,7 @@ class AssessmentsController < ApplicationController
   # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :methods => [:functional_area, :industry, :job_experience, :competency_ids])
+      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience, :competency_ids])
     else
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessment_type = params[:fit].present? ? "fit" : "competency"
@@ -446,7 +446,7 @@ class AssessmentsController < ApplicationController
   # create new job_assessment_factor_norm for each factor
   def get_styles
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
-    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.active({ :type => "Suitability::DirectPredictor" }).where(:methods => [ :parent ]).to_a.map(&:parent_id).uniq
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.active({ :type => "Suitability::DirectPredictor" }).where(:include => [ :parent ]).to_a.map(&:parent_id).uniq
     
     all_direct_predictors = Vger::Resources::Suitability::Factor.active({ :id => all_direct_predictor_parent_ids }).to_a
     
