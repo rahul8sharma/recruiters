@@ -2,7 +2,9 @@ html:
   scores_step: 1000
   guides_step: 1000
   competency_step: 1000
+  competency_factors_step: 1000
 pdf:
+  competency_factors_step: 6
   competency_step: 10
   scores_step: 7
   guides_step: 8
