@@ -1,6 +1,6 @@
 .frame
   .frame-title
-    %b #{competency_name}#{(step > 0 ? "Cntd...":"")}: 
+    %b #{competency_name} #{(step > 0 ? "(continued)":"")}: 
     #{competency_data[:grade]}
   %ul.unstyled.clearfix.scores_listing
     - factor_scores.each do |factor_name, factor_score|
