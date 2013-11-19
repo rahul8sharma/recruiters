@@ -3,7 +3,7 @@
     %b #{competency_name}: 
     #{competency_data[:grade]}
   %ul.unstyled.clearfix.scores_listing
-    - competency_data[:factor_scores].each do |factor_name, factor_score|
+    - factor_scores.each do |factor_name, factor_score|
       %li
         .lhs-sec.pull-left
           %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
