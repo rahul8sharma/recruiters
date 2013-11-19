@@ -43,4 +43,4 @@
         - if competency_data[:factor_scores].present?
           = render :template => "assessment_reports/competency", :locals => { competency_name: competency_name, competency_data: competency_data, factor_scores: competency_data[:factor_scores] }
     - else
-      = render :template => "assessment_reports/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores }
+      = render :template => "assessment_reports/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
