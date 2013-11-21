@@ -261,9 +261,10 @@ class AssessmentsController < ApplicationController
   # POST creates assessment and redirects to norms page
   def create
     default_norm_bucket_ranges = get_default_norm_bucket_ranges
-    flash[:error] = "There are no default norms for this criteria. Please select another criterita or try again after adding the required data. Please reach us at contact@jombay.com on any queries." if default_norm_bucket_ranges.empty?                                    
+    Rails.logger.ap "******************* #{default_norm_bucket_ranges.map(&:id)} ***************************"
+    flash[:error] = "There are no default norms for this criteria. Selecting global norms. Please reach us at contact@jombay.com on any queries." if default_norm_bucket_ranges.empty?                                    
     respond_to do |format|
-      if default_norm_bucket_ranges.present? and @assessment.valid? and @assessment.save
+      if @assessment.valid? and @assessment.save
         redirect_path = if @assessment.assessment_type == "fit"
           norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         else
@@ -284,7 +285,7 @@ class AssessmentsController < ApplicationController
   # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience, :competency_ids])
+      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
     else
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessment_type = params[:fit].present? ? "fit" : "competency"
