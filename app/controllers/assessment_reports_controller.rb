@@ -34,7 +34,7 @@ class AssessmentReportsController < ApplicationController
   end
 
   def assessment_report
-    report_type = params[:report_type] || @report.report_hash[:assessment][:assessment_type]
+    report_type = params[:report_type] || "fit"
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
     if request.format == "application/pdf"
       @view_mode = "pdf"
