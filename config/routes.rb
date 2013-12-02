@@ -347,6 +347,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   get "/master-data", :to => "pages#home"
+  get "/help/adding_candidates", :to => "help#adding_candidates"
   
   root :to => "users#login"
   
