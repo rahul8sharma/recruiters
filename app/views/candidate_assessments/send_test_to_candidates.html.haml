@@ -1,5 +1,9 @@
 .create-test
-  = form_for @assessment, :as => :assessment, :url => send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put, html: { class: "creat-test-form" } do |f|
+  - if params[:candidates]
+    - url = send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  - else
+    - url = bulk_send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "creat-test-form" } do |f|
     %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
     - if params[:candidates]
       %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
@@ -33,9 +37,9 @@
                   %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
                   #{params[:candidates][id][:name]} &lt;#{email}&gt;
         - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-          = render :partial => "assessments/mail_body_for_candidate"
+          = render :partial => "candidate_assessments/mail_body_for_candidate"
         - else
-          = render :partial => "assessments/mail_body_for_employee"
+          = render :partial => "candidate_assessments/mail_body_for_employee"
         %label.pull-left.invitation-sms.medium-text
           Also send test invitations to candidates via SMS
           %input{:type=>"checkbox", name: "send_sms"}
