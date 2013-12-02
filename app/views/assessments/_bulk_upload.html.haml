@@ -1,24 +1,29 @@
-.bulk-upload.de-activated
+- checked = (params[:upload_method] == "bulk")
+.bulk-upload{class: "#{checked ? 'activated':'de-activated'}"}
+  
   %label
-    %input{:type => "radio"}
+    %input{:type => "radio", :name => "upload_method", :onClick => "window.location='#{request.path}?upload_method=bulk&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
     %b.extra-medium-text Upload candidates in bulk:
   .divider1
-  .left-offset1.pull-left
-    %input{:type => "file"}
-    .divider1
-    %a.underlined{:href => "#"}
-      Sample CSV
-
-  .left-offset1.pull-right
-    .control-group.pull-left
-      %select
-        %option 1
-        %option 2
-        %option 3
-      .help-text
-        ( Select Functional Area for exisiting employees only )
-    %button.btn.btn-info.pull-left
-      Proceed
+  = form_for :bulk_upload, url: bulk_upload_company_assessment_path(company_id: @company.id, id: @assessment.id), method: :put do |f|
+    %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+    .left-offset1.pull-left
+      .control-group
+        = f.file_field :file, disabled: !checked
+        .help-text
+          ( File format supported: CSV )
+        .divider1
+        %a.underlined{:target => "_blank", :href => asset_path('candidates_bulk_upload.csv')}
+          Download sample file for adding candidates
+      
+    .left-offset1.pull-right
+      .control-group
+        = f.select :functional_area_id, Hash[@functional_areas.collect{|x| [x.name,x.id]}], { prompt: "Select Functional Area" }, { disabled: !checked }
+        .help-text
+          ( Select Functional Area for exisiting employees only )
+        .divider1    
+        %button.btn.btn-info.pull-right{ disabled: !checked }
+          Proceed     
+      .clr
     .clr
-  .clr
 
