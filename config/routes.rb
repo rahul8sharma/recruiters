@@ -69,6 +69,7 @@ Recruiters::Application.routes.draw do
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
+        put "candidates/bulk_upload" => "assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "assessments#email_reports", :as => :email_reports
         put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
         get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
