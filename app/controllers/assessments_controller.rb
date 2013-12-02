@@ -77,6 +77,7 @@ class AssessmentsController < ApplicationController
       end
     elsif request.put?  
       store_assessment_factor_norms
+      create_or_update_set
     end
   end
   
@@ -89,13 +90,7 @@ class AssessmentsController < ApplicationController
       params[:assessment] ||= {}
       @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        set_params = Rails.application.config.default_set.merge(:assessment_id => @assessment.id)
-        sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => { :name => Rails.application.config.default_set["name"] }).all.to_a
-        if !sets.present?
-          set_params.merge!(:end_index => @assessment.item_ids.count)
-          set_params.merge!(:page_size => params[:page_size]) if params[:page_size].present?
-          Vger::Resources::Suitability::Set.create(set_params)
-        end
+        create_or_update_set
         redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -105,6 +100,21 @@ class AssessmentsController < ApplicationController
     end  
   end
   
+  def bulk_upload
+    s3_bucket_name = 'bulk_upload_candidates'
+    s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%P")}"
+    unless params[:bulk_upload][:file]
+      flash[:notice] = "Please select a csv file."
+      redirect_to add_candidates_company_assessment_path(company_id: @company.id, id: @assessment.id) and return
+    end
+    data = params[:bulk_upload][:file].read
+    S3Utils.upload(s3_bucket_name, s3_key, data)
+    @s3_bucket = s3_bucket_name
+    @s3_key = s3_key
+    @functional_area_id = params[:bulk_upload][:functional_area_id]
+    render :action => :send_test_to_candidates
+  end
+  
   # GET : renders form to add candidates
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
@@ -112,6 +122,7 @@ class AssessmentsController < ApplicationController
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
+    params[:upload_method] ||= "manual"
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     if request.put?
       candidates = {}
@@ -173,37 +184,55 @@ class AssessmentsController < ApplicationController
   def send_test_to_candidates
     @company = Vger::Resources::Company.find(params[:company_id])
     if request.put?
-      params[:candidates] ||= []
-      candidate_assessments = []
-      failed_candidate_assessments = []
-      if params[:candidates].empty?
-        @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
-        flash[:error] = "Please select at least one candidate."
-        render :action => :send_test_to_candidates and return
-      end
-      params[:candidates].each do |candidate_id,on|
-        candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
-          :assessment_id => @assessment.id, 
-          :candidate_id => candidate_id
-        }).all[0]
-        # create candidate_assessment if not present
-        # add it to list of candidate_assessments to send email
-        unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
-          if candidate_assessment.error_messages.present?
-            failed_candidate_assessments << candidate_assessment
-          else
-            candidate_assessments.push candidate_assessment 
-          end  
-        end
-      end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
-      if failed_candidate_assessments.present?
-        flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
-        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      if params[:upload_type] == "bulk"
+        Vger::Resources::Candidate\
+                        .import_from_s3_files(:email => current_user.email,
+                                        :assessment_id => @assessment.id,
+                                        :sender_type => current_user.type,
+                                        :sender_name => current_user.name,
+                                        :report_email_recipients => params[:report_email_recipients], 
+                                        :worksheets => [{
+                                          :functional_area_id => params[:functional_area_id],
+                                          :candidate_stage => params[:candidate_stage],
+                                          :file => "BulkUpload.csv",
+                                          :bucket => params[:s3_bucket],
+                                          :key => params[:s3_key]
+                                        }]
+                                       )
+        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: "Candidates are being uploaded."                               
       else
-        flash[:notice] = "Test was sent successfully!"
-        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        params[:candidates] ||= []
+        candidate_assessments = []
+        failed_candidate_assessments = []
+        if params[:candidates].empty?
+          @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
+          flash[:error] = "Please select at least one candidate."
+          render :action => :send_test_to_candidates and return
+        end
+        params[:candidates].each do |candidate_id,on|
+          candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
+            :assessment_id => @assessment.id, 
+            :candidate_id => candidate_id
+          }).all[0]
+          # create candidate_assessment if not present
+          # add it to list of candidate_assessments to send email
+          unless candidate_assessment
+            candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
+            if candidate_assessment.error_messages.present?
+              failed_candidate_assessments << candidate_assessment
+            else
+              candidate_assessments.push candidate_assessment 
+            end  
+          end
+        end
+        assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
+        if failed_candidate_assessments.present?
+          flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+          redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        else
+          flash[:notice] = "Test was sent successfully!"
+          redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        end
       end
     end
   end
@@ -226,7 +255,7 @@ class AssessmentsController < ApplicationController
         column = "suitability_candidate_assessments.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_candidate_assessments.updated_at #{order_type}"
     end
-    scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => :candidate).where(:include  => [:candidate_assessment_reports])
+    scope = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => [:candidate, :candidate_assessment_reports])
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
@@ -261,8 +290,9 @@ class AssessmentsController < ApplicationController
   # POST creates assessment and redirects to norms page
   def create
     default_norm_bucket_ranges = get_default_norm_bucket_ranges
-    Rails.logger.ap "******************* #{default_norm_bucket_ranges.map(&:id)} ***************************"
-    flash[:error] = "There are no default norms for this criteria. Selecting global norms. Please reach us at contact@jombay.com on any queries." if default_norm_bucket_ranges.empty?                                    
+    if default_norm_bucket_ranges.empty? && current_user.type == "SuperAdmin"
+      flash[:alert] = "Custom norms not present for this combination. Global norms have been picked." 
+    end
     respond_to do |format|
       if @assessment.valid? and @assessment.save
         redirect_path = if @assessment.assessment_type == "fit"
@@ -286,6 +316,10 @@ class AssessmentsController < ApplicationController
   def get_assessment
     if params[:id].present?
       @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
+      if(@assessment.company_id.to_i == params[:company_id].to_i)
+      else
+        redirect_to root_path, alert: "Page you are looking for doesn't exist."
+      end
     else
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
       @assessment.assessment_type = params[:fit].present? ? "fit" : "competency"
@@ -506,5 +540,18 @@ class AssessmentsController < ApplicationController
         flash[:error] = @assessment.error_messages.join("<br/>")
       end
     end 
+  end
+  
+  def create_or_update_set
+    set_params = Rails.application.config.default_set.merge(:assessment_id => @assessment.id)
+    sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => { :name => Rails.application.config.default_set["name"] }).all.to_a
+    if !sets.present?
+      set_params.merge!(:end_index => @assessment.item_ids.count)
+      set_params.merge!(:page_size => params[:page_size]) if params[:page_size].present?
+      Vger::Resources::Suitability::Set.create(set_params)
+    else
+      set = sets.first
+      Vger::Resources::Suitability::Set.save_existing(set.id, assessment_id: @assessment.id, :end_index => @assessment.item_ids.count)
+    end
   end
 end
