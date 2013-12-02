@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: git@bitbucket.org:jombay/jombay-notify.git
-  revision: 81cc1001704e7c2a0a933fada7c546f07e3a7f3c
+  revision: 29f4bd89d2e931f709af2b6fef510eb8baf83682
   branch: develop
   specs:
     jombay-notify (0.0.1)
@@ -39,11 +39,11 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 385fad9e23e4500a22d55809c02e96d023b9a090
+  revision: 4568382dd3983ee85448b5c479944c32258bd82e
   branch: develop
   specs:
     vger (0.0.1)
-      her (~> 0.6.8)
+      her (~> 0.6.6)
       kaminari (= 0.14.1)
       rails (>= 3.0.0)
 
@@ -96,7 +96,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    connection_pool (1.1.0)
+    connection_pool (1.2.0)
     ejs (1.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -124,7 +124,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.25)
+    mime-types (1.25.1)
     multi_json (1.8.2)
     multipart-post (1.2.0)
     nokogiri (1.5.10-java)
