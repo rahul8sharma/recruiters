@@ -22,7 +22,11 @@ class SidekiqController < ApplicationController
 	end
 	
 	def regenerate_reports
-	  assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)
-	  render :json => { :status => "Job Started", :job_id => assessment.job_id }
+	  if params[:args][:assessment_id].present? && params[:args][:email].present?
+	    assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)
+	    render :json => { :status => "Job Started", :job_id => assessment.job_id }
+	  else
+	    redirect_to report_management_path, alert: "Please specify email and assessment_id."
+	  end
 	end
 end

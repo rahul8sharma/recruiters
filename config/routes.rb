@@ -68,14 +68,20 @@ Recruiters::Application.routes.draw do
 
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
-        get "candidates/add" => "assessments#add_candidates", :as => :add_candidates
-        get "email_reports" => "assessments#email_reports", :as => :email_reports
-        put "candidates/add" => "assessments#add_candidates", :as => :add_candidates
-        get "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        get "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "assessments#candidate", :as => :candidate
+        
+        get "candidates" => "candidate_assessments#candidates", :as => :candidates
+        get "candidates/add" => "candidate_assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "candidate_assessments#add_candidates", :as => :add_candidates
+
+        put "candidates/bulk_upload" => "candidate_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "candidate_assessments#email_reports", :as => :email_reports
+
+        get "candidates/send-test" => "candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/bulk-send-test" => "candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/:candidate_id/send-reminder" => "candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "candidate_assessments#candidate", :as => :candidate
       end
 
       resources :candidates, :except => [:destroy, :show] do
@@ -346,8 +352,11 @@ Recruiters::Application.routes.draw do
   
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
+  put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
+  
   get "/master-data", :to => "pages#home"
-  get "/help/adding_candidates", :to => "help#adding_candidates"
+  get "/report-management", :to => "pages#report_management", :as => :report_management
+  put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   
   root :to => "users#login"
   

@@ -1,5 +1,6 @@
 # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
 assets = Rails.application.config.assets
+assets.paths << "#{Rails.root}/app/assets/files"
 assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 assets.precompile += %w(toolkit/main-layout.css)
 assets.precompile += %w(admin.css)
