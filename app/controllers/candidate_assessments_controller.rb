@@ -22,7 +22,7 @@ class CandidateAssessmentsController < ApplicationController
   end
 
   def bulk_upload
-    s3_bucket_name = 'bulk_upload_candidates'
+    s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%P")}"
     unless params[:bulk_upload][:file]
       flash[:notice] = "Please select a csv file."
