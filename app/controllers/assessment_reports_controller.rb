@@ -34,13 +34,14 @@ class AssessmentReportsController < ApplicationController
   end
 
   def assessment_report
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :methods => [ :report_hash ]))
+    report_type = params[:report_type] || "fit"
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  
       @view_mode = "html"
     end
-    template = @report.report_hash[:assessment][:assessment_type] == "fit" ? "assessment_report" : "competency_report"
+    template = report_type == "fit" ? "assessment_report" : "competency_report"
     @page = 1
     respond_to do |format|
       format.html { render :template => "assessment_reports/#{template}" }

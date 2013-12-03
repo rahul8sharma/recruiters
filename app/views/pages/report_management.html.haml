@@ -1,0 +1,29 @@
+= form_tag regenerate_reports_path, :method => :put do
+  %fieldset
+    %legend 
+      %strong Regenerate report for assessment
+    = fields_for "args" do |f|
+      %p
+        Assessment :
+        = f.text_field :assessment_id, :value => ""
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => ""
+    .actions
+      = submit_tag 'Regenerate report'
+
+%br
+      
+= form_tag modify_norms_path, :method => :put do |f|
+  %fieldset
+    %legend 
+      %strong Modify norms for assessment
+    = fields_for "assessment" do |f|  
+      %p
+        Company ID :
+        = f.text_field :company_id, :value => ""
+      %p
+        Assessment :
+        = f.text_field :assessment_id, :value => ""
+      .actions
+        = submit_tag 'Modify norms'      
