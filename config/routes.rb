@@ -355,8 +355,10 @@ Recruiters::Application.routes.draw do
   
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
+  get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
   get "/report-management", :to => "pages#report_management", :as => :report_management
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
+  put "/manage_report", :to => "pages#manage_report", :as => :manage_report
   
   root :to => "users#login"
   
