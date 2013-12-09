@@ -117,7 +117,8 @@ class CandidateAssessmentsController < ApplicationController
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: "Candidates are being uploaded."             
+    redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), 
+                notice: "Candidates upload in progress. Candidate Listings will be updated and assessment will be sent to the candidates as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
   
   # GET : renders send_test_to_candidates page
