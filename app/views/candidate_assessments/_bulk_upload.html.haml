@@ -13,12 +13,12 @@
         .help-text
           ( File format supported: CSV )
         .divider1
-        %a.underlined{:target => "_blank", :href => asset_path('candidates_bulk_upload.csv')}
+        %a.underlined{:target => "_blank", :href => download_sample_csv_for_candidate_bulk_upload_path}
           Download sample file for adding candidates
       
     .left-offset1.pull-right
       .control-group
-        = f.select :functional_area_id, Hash[@functional_areas.collect{|x| [x.name,x.id]}], { prompt: "Select Functional Area" }, { disabled: !checked }
+        = f.select :functional_area_id, Hash[@functional_areas.collect{|x| [x.name,x.id]}], { prompt: "Select Functional Area" }, { disabled: (!checked || params[:candidate_stage] != Vger::Resources::Candidate::Stage::EMPLOYED) }
         .help-text
           ( Select Functional Area for exisiting employees only )
         .divider1    
