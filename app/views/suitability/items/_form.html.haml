@@ -34,6 +34,9 @@
   .field
     = f.label :active
     = f.check_box :active  
+  .field
+    = f.label :order
+    = f.text_field :item_order  
   - if item_type == 'Suitability::ImageItem'
     .field
       = f.label :image_url

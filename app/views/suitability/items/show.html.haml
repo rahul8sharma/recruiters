@@ -36,6 +36,8 @@
     %th
       Active 
     %th
+      Order 
+    %th
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
     %tr 
       %td
@@ -46,5 +48,7 @@
         = option.score
       %td
         = option.active
+      %td
+        = option.option_order
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)  

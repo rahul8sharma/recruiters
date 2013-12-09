@@ -27,6 +27,8 @@
     %th
       Item Group
     %th
+      Order
+    %th
   - Vger::Resources::Suitability::Item.where(:query_options => { :factor_id => @factor.id }).all.each do |item|
     %tr 
       %td{ width: "5%" }
@@ -37,6 +39,8 @@
         = item.behaviour
       %td
         = item.active
+      %td
+        = item.item_order
       %td
         - if item.item_group_id
           = link_to item.item_group_id, suitability_item_group_path(item.item_group_id)

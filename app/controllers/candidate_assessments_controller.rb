@@ -107,6 +107,8 @@ class CandidateAssessmentsController < ApplicationController
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
                     :report_email_recipients => params[:report_email_recipients], 
+                    :send_sms => params[:send_sms],
+                    :send_email => params[:send_email],
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
@@ -147,7 +149,12 @@ class CandidateAssessmentsController < ApplicationController
           end  
         end
       end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(:id => @assessment.id, :candidate_assessment_ids => candidate_assessments.map(&:id), :send_sms => params[:send_sms]) if candidate_assessments.present?
+      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(
+        :id => @assessment.id, 
+        :candidate_assessment_ids => candidate_assessments.map(&:id), 
+        :send_sms => params[:send_sms],
+        :send_email => params[:send_email]
+      ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
         flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
