@@ -57,7 +57,6 @@ Recruiters::Application.routes.draw do
 
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
-        get "candidates" => "assessments#candidates", :as => :candidates
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
 
