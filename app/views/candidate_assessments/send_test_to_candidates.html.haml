@@ -43,6 +43,9 @@
         %label.pull-left.invitation-sms.medium-text
           Also send test invitations to candidates via SMS
           %input{:type=>"checkbox", name: "send_sms"}
+        %label.pull-left.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+          Send default email
+          %input{:type=>"checkbox", name: "send_email", checked: true}
         .pull-right
           %a.span.line-height2{:href=> add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
             Cancel
