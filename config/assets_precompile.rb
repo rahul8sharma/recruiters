@@ -8,4 +8,5 @@ assets.precompile += %w(application.js jquery.js jquery_ujs.js admin.js reports.
 assets.precompile += %w(shared.css reports.css)
 assets.precompile += %w(users.css)
 assets.precompile += %w(tests.css companies.css)
+assets.precompile += %w(help.css)
 assets.precompile += %w(competencies.js)

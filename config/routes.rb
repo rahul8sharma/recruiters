@@ -57,6 +57,7 @@ Recruiters::Application.routes.draw do
 
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
+        get "candidates" => "assessments#candidates", :as => :candidates
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
 
@@ -84,6 +85,11 @@ Recruiters::Application.routes.draw do
       end
 
       resources :candidates, :except => [:destroy, :show] do
+        collection do
+          get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
+          get "upload/single" => "candidates#upload_single", :as => :single_upload
+        end
+        
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
@@ -349,6 +355,7 @@ Recruiters::Application.routes.draw do
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   
   get "/master-data", :to => "pages#home"
+  get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/report-management", :to => "pages#report_management", :as => :report_management
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   
