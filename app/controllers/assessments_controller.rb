@@ -360,7 +360,8 @@ class AssessmentsController < ApplicationController
       Vger::Resources::Suitability::Set.create(set_params)
     else
       set = sets.first
-      Vger::Resources::Suitability::Set.save_existing(set.id, assessment_id: @assessment.id, :end_index => @assessment.item_ids.count)
+      page_size = params[:page_size] || set_params[:page_size]
+      Vger::Resources::Suitability::Set.save_existing(set.id, assessment_id: @assessment.id, :end_index => @assessment.item_ids.count, :page_size => page_size)
     end
   end
 end
