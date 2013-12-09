@@ -26,7 +26,7 @@ class AssessmentsController < ApplicationController
       params[:assessment] ||= {}
       params[:assessment][:competencies] ||= []
       if params[:assessment][:competencies].blank?
-        flash[:error] = "Please select at least one competency to proceed."
+        flash[:error] = "Suitability Factors to be measured must be selected before proceeding!"
         return
       else
         params[:assessment][:competencies].map!(&:to_i)
@@ -317,7 +317,7 @@ class AssessmentsController < ApplicationController
   
   def get_company
     methods = []
-    if params[:action] == "index"
+    if ["show","index"].include? params[:action]
       if Rails.application.config.statistics[:load_assessmentwise_statistics]
         methods << :assessmentwise_statistics
       end
@@ -354,6 +354,7 @@ class AssessmentsController < ApplicationController
   def create_or_update_set
     set_params = Rails.application.config.default_set.merge(:assessment_id => @assessment.id)
     sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => { :name => Rails.application.config.default_set["name"] }).all.to_a
+    @assessment.item_ids ||= []
     if !sets.present?
       set_params.merge!(:end_index => @assessment.item_ids.count)
       set_params.merge!(:page_size => params[:page_size]) if params[:page_size].present?
