@@ -11,6 +11,25 @@
         = f.text_field :email, :value => ""
     .actions
       = submit_tag 'Regenerate report'
+      
+= form_tag manage_report_path, :method => :put do |f|
+  %fieldset
+    %legend 
+      %strong Manage report for assessment
+    = fields_for "assessment" do |f|    
+      %p
+        Company ID :
+        = f.text_field :company_id, :value => ""
+      %p
+        Assessment ID :
+        = f.text_field :assessment_id, :value => ""
+      %p
+        Candidate ID :
+        = f.text_field :candidate_id, :value => ""  
+      %p
+        Report ID :
+        = f.text_field :report_id, :value => ""
+      = submit_tag 'Manage report'      
 
 %br
       
