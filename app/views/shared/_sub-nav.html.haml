@@ -5,7 +5,7 @@
     = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
-      %li{ class: (["assessments"].include?(params[:controller]) ? 'active' : '') }
+      %li{ class: (["candidate_assessments","assessments"].include?(params[:controller]) ? 'active' : '') }
         %a{ :href=> company_assessments_path(@company), :title=>"Tests"} 
           %span.icon-pencil 
           Tests

@@ -31,6 +31,14 @@ jQuery(document).ready(function($){
     }
   });
   
+  /*
+    Disable proceed btn on submit to avoid multiple post requests
+  */
+  $('#edit_assessment').submit(function() {
+    $('#edit_assessment button').attr("disabled", "disabled");
+    return true;
+  });
+  
   $("input[name='checkbox_critical']").change(function(){
     var index = $(this).attr("index");
     if($(this).is(":checked")){
