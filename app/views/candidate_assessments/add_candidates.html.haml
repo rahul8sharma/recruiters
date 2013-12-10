@@ -28,10 +28,11 @@
       .divider1
       - checked = (params[:upload_method] == "manual")
       %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+      %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         - if current_user.type == "SuperAdmin"
           %label
-            %input{:type => "radio", :name => "upload_method", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+            %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
             %b.extra-medium-text Add candidates manually: 
           .divider1
         .span6.left-offset1
