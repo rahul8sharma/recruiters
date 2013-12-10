@@ -25,8 +25,8 @@ class CandidateAssessmentsController < ApplicationController
     s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%P")}"
     unless params[:bulk_upload][:file]
-      flash[:notice] = "Please select a csv file."
-      redirect_to add_candidates_company_assessment_path(company_id: @company.id, id: @assessment.id) and return
+      flash[:error] = "Please select a csv file."
+      redirect_to add_candidates_company_assessment_path(company_id: @company.id, id: @assessment.id, upload_method: :bulk) and return
     end
     data = params[:bulk_upload][:file].read
     S3Utils.upload(s3_bucket_name, s3_key, data)
