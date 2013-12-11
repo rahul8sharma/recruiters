@@ -188,6 +188,12 @@ class AssessmentsController < ApplicationController
           assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
         end
         
+        # to avoid calls to API, set fa, industry and exp from already fetched data
+        assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
+        assessment_factor_norm.industry = @industries[@assessment.industry_id]
+        assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
+        assessment_factor_norm.factor = @factors[factor.id]
+        
         unless added_factor_ids.include? factor.id
           if assessment_factor_norm.factor.type == 'Suitability::AlarmFactor'
             @factor_norms_by_fit[fit][:alarm_factors] << assessment_factor_norm  
@@ -239,6 +245,12 @@ class AssessmentsController < ApplicationController
           :industry_id => @assessment.industry_id,
           :job_experience_id => @assessment.job_experience_id
         )
+        
+        # to avoid calls to API, set fa, industry and exp from already fetched data
+        assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
+        assessment_factor_norm.industry = @industries[@assessment.industry_id]
+        assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
+        assessment_factor_norm.factor = @factors[factor.id]
         
         if default_norm_bucket_range
           assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
