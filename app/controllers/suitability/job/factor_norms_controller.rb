@@ -1,5 +1,6 @@
 class Suitability::Job::FactorNormsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_meta_info, :only => [ :index, :manage ]
 
   def destroy_all
     api_resource.destroy_all
@@ -13,17 +14,13 @@ class Suitability::Job::FactorNormsController < ApplicationController
   layout "admin"
 
   def index
+    params[:search] ||= {}
     @job_factor_norms = Vger::Resources::Suitability::Job::FactorNorm\
                         .where(:include => [:factor,
                                           :industry,
                                           :functional_area,
                                           :job_experience
-                                          ], :page => params[:page], :per => 10)
-
-    respond_to do | format |
-      format.html
-      format.csv { render :layout => false }
-    end
+                                          ], :query_options => params[:search], :page => params[:page], :per => 10)
   end
 
   def edit
@@ -36,9 +33,7 @@ class Suitability::Job::FactorNormsController < ApplicationController
   end
 
   def manage
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
-    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
-    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
+    
   end
 
   def import_via_s3
@@ -72,5 +67,14 @@ class Suitability::Job::FactorNormsController < ApplicationController
     Vger::Resources::Suitability::Job::FactorNorm\
       .export_to_google_drive(params[:export])
     redirect_to manage_suitability_job_factor_norms_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
+  
+  private
+  
+  def get_meta_info
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
+    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
+    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 end

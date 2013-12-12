@@ -1,5 +1,6 @@
 class Suitability::PostAssessmentGuidelinesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_meta_info, :only => [ :index, :manage ]
 
   layout "admin"
 
@@ -13,9 +14,6 @@ class Suitability::PostAssessmentGuidelinesController < ApplicationController
   end
 
   def manage
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
-    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
-    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 
   def import_from_google_drive
@@ -54,6 +52,20 @@ class Suitability::PostAssessmentGuidelinesController < ApplicationController
 
   # GET /factors
   def index
-    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where(:page => params[:page], :per => 10, :include => [:factor]).all
+    params[:search] ||= {}
+    @post_assessment_guidelines = Vger::Resources::Suitability::PostAssessmentGuideline.where(
+      :query_options => params[:search], 
+      :page => params[:page], 
+      :per => 10, 
+      :include => [:factor]
+    ).all
+  end
+  
+  private
+  
+  def get_meta_info
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
+    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
+    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 end

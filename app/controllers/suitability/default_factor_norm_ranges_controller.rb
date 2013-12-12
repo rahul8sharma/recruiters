@@ -1,6 +1,7 @@
 class Suitability::DefaultFactorNormRangesController < ApplicationController
   before_filter :authenticate_user!
-
+  before_filter :get_meta_info, :only => [ :manage, :index ]
+  
   def api_resource
     Vger::Resources::Suitability::DefaultFactorNormRange
   end
@@ -13,9 +14,6 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
   layout "admin"
 
   def manage
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
-    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
-    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 
   def import_via_s3
@@ -52,6 +50,19 @@ class Suitability::DefaultFactorNormRangesController < ApplicationController
 
   # GET /factors
   def index
-    @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(:include => [:factor, :functional_area, :industry, :from_norm_bucket, :to_norm_bucket, :job_experience], :page => params[:page], :per => 10).all
+    params[:search] ||= {}
+    @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(
+      :include => [:factor, :functional_area, :industry, :from_norm_bucket, :to_norm_bucket, :job_experience], 
+      :query_options => params[:search], 
+      :page => params[:page], 
+      :per => 10).all
+  end
+  
+  private
+  
+  def get_meta_info
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.to_a.collect{|functional_area| [functional_area.id,functional_area.name] }]
+    @industries = Hash[Vger::Resources::Industry.all.to_a.collect{|industry| [industry.id,industry.name] }]
+    @job_experiences = Hash[Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.id,job_exp.display_text] }]
   end
 end
