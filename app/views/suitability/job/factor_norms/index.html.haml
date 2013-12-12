@@ -2,6 +2,28 @@
 =# link_to 'Edit Suitability Job Factor Norms', edit_suitability_job_factor_norms_path
 = link_to 'Manage Suitability Job Factor Norms', manage_suitability_job_factor_norms_path
 %h1 All Suitability Job Factor Norms
+
+= form_for :search, url: suitability_job_factor_norms_path, method: :get do |f|
+  - f.object = OpenStruct.new
+  - f.object.industry_id = params[:search][:industry_id]
+  - f.object.functional_area_id = params[:search][:functional_area_id]
+  - f.object.job_experience_id = params[:search][:job_experience_id]
+  .search
+    .field.pull-left
+      = f.label :industry
+      = f.select :industry_id, @industries.invert, { :prompt => "Global" }, { style: "width:200px;" }
+    .field.pull-left
+      = f.label :functional_area
+      = f.select :functional_area_id, @functional_areas.invert, { :prompt => "Global" }, { style: "width:200px;" }  
+    .field.pull-left
+      = f.label :job_experience
+      = f.select :job_experience_id, @job_experiences.invert, { :prompt => "Global" }, { style: "width:100px;" }
+    .field.pull-left
+      = f.submit :search
+    .clr     
+
+%br
+
 .pagination.pull-right        
   = paginate @job_factor_norms        
 .clr     
@@ -19,7 +41,7 @@
       %tr
         %td=	job_factor_norm.id
         %td=	job_factor_norm.factor.name
-        %td=	job_factor_norm.industry.name
+        %td=	job_factor_norm.industry.name rescue "-"
         %td=	job_factor_norm.functional_area.name rescue "-"
         %td=	job_factor_norm.job_experience.display_text rescue "-"
         %td=	job_factor_norm.norm_min

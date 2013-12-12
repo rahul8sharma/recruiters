@@ -1,6 +1,27 @@
-%h1 All Suitability PostAssessmentGuidelines
 - if can? :create, "Suitability::PostAssessmentGuideline"
   = link_to "Manage Suitability PostAssessmentGuideline", manage_suitability_post_assessment_guidelines_path
+
+%h1 All Suitability PostAssessmentGuidelines
+
+= form_for :search, url: suitability_post_assessment_guidelines_path, method: :get do |f|
+  - f.object = OpenStruct.new
+  - f.object.industry_id = params[:search][:industry_id]
+  - f.object.functional_area_id = params[:search][:functional_area_id]
+  - f.object.job_experience_id = params[:search][:job_experience_id]
+  .search
+    .field.pull-left
+      = f.label :industry
+      = f.select :industry_id, @industries.invert, { :prompt => "Global" }, { style: "width:200px;" }
+    .field.pull-left
+      = f.label :functional_area
+      = f.select :functional_area_id, @functional_areas.invert, { :prompt => "Global" }, { style: "width:200px;" }  
+    .field.pull-left
+      = f.label :job_experience
+      = f.select :job_experience_id, @job_experiences.invert, { :prompt => "Global" }, { style: "width:100px;" }
+    .field.pull-left
+      = f.submit :search
+    .clr  
+  
 .pagination.pull-right
   = paginate @post_assessment_guidelines        
 .clr  

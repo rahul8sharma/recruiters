@@ -1,6 +1,28 @@
-%h1 All Suitability Default Factor Norm Ranges
 - if can? :create, "Suitability::DefaultFactorNormRange"
   = link_to "Manage Suitability Default Factor Norm Ranges", manage_suitability_default_factor_norm_ranges_path
+  
+%h1 All Suitability Default Factor Norm Ranges  
+= form_for :search, url: suitability_default_factor_norm_ranges_path, method: :get do |f|
+  - f.object = OpenStruct.new
+  - f.object.industry_id = params[:search][:industry_id]
+  - f.object.functional_area_id = params[:search][:functional_area_id]
+  - f.object.job_experience_id = params[:search][:job_experience_id]
+  .search
+    .field.pull-left
+      = f.label :industry
+      = f.select :industry_id, @industries.invert, { :prompt => "Global" }, { style: "width:200px;" }
+    .field.pull-left
+      = f.label :functional_area
+      = f.select :functional_area_id, @functional_areas.invert, { :prompt => "Global" }, { style: "width:200px;" }  
+    .field.pull-left
+      = f.label :job_experience
+      = f.select :job_experience_id, @job_experiences.invert, { :prompt => "Global" }, { style: "width:100px;" }
+    .field.pull-left
+      = f.submit :search
+    .clr     
+
+%br  
+  
 .pagination.pull-right
   = paginate @default_factor_norm_ranges        
 .clr  
@@ -29,7 +51,7 @@
       %td
         = default_factor_norm_range.functional_area.name rescue "-"
       %td
-        = default_factor_norm_range.industry.name
+        = default_factor_norm_range.industry.name rescue "-"
       %td
         = default_factor_norm_range.job_experience.display_text rescue "-"
       %td
