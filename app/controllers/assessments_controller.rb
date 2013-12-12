@@ -98,10 +98,7 @@ class AssessmentsController < ApplicationController
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
   def create
-    default_norm_bucket_ranges = get_default_norm_bucket_ranges
-    if default_norm_bucket_ranges.empty? && current_user.type == "SuperAdmin"
-      flash[:alert] = "Custom norms not present for this combination. Global norms have been picked." 
-    end
+    #default_norm_bucket_ranges = get_default_norm_bucket_ranges
     respond_to do |format|
       if @assessment.valid? and @assessment.save
         redirect_path = if @assessment.assessment_type == "fit"
@@ -175,23 +172,20 @@ class AssessmentsController < ApplicationController
       
       factors_by_fit.each do |factor|
         default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor.id}
-        #next if @factors[default_norm_bucket_range.factor_id].nil?
+        
+        assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
+          :factor_id => factor.id,
+          :functional_area_id => @assessment.functional_area_id,
+          :industry_id => @assessment.industry_id,
+          :job_experience_id => @assessment.job_experience_id
+        )
+        
         if default_norm_bucket_range
-          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-            default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
-               merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
-                     :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
-          )
+          assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
+          assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
         else
-          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-            :from_norm_bucket_id => @norm_buckets.first.id, 
-            :to_norm_bucket_id => @norm_buckets.last.id,
-            :factor_id => factor.id,
-            :functional_area_id => @assessment.functional_area_id,
-            :industry_id => @assessment.industry_id,
-            :job_experience_id => @assessment.job_experience_id
-          )
-          
+          assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
+          assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
         end
         
         # to avoid calls to API, set fa, industry and exp from already fetched data
@@ -244,30 +238,27 @@ class AssessmentsController < ApplicationController
       
       factors_by_competency.each do |factor|
         default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor.id}
-        #next if @factors[default_norm_bucket_range.factor_id].nil?
-        if default_norm_bucket_range
-          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-            default_norm_bucket_range.attributes.except("created_at","updated_at","id").\
-               merge(:from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id, 
-                     :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id)
-          )
-        else
-          assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-            :from_norm_bucket_id => @norm_buckets.first.id, 
-            :to_norm_bucket_id => @norm_buckets.last.id,
-            :factor_id => factor.id,
-            :functional_area_id => @assessment.functional_area_id,
-            :industry_id => @assessment.industry_id,
-            :job_experience_id => @assessment.job_experience_id
-          )
-          
-        end
+
+        assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
+          :factor_id => factor.id,
+          :functional_area_id => @assessment.functional_area_id,
+          :industry_id => @assessment.industry_id,
+          :job_experience_id => @assessment.job_experience_id
+        )
         
         # to avoid calls to API, set fa, industry and exp from already fetched data
         assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
         assessment_factor_norm.industry = @industries[@assessment.industry_id]
         assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
         assessment_factor_norm.factor = @factors[factor.id]
+        
+        if default_norm_bucket_range
+          assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
+          assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
+        else
+          assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
+          assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
+        end
         
         unless added_factor_ids.include? factor.id
           if assessment_factor_norm.factor.type == 'Suitability::AlarmFactor'
@@ -313,6 +304,19 @@ class AssessmentsController < ApplicationController
     }
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => query_options).all.to_a
+    if default_norm_bucket_ranges.empty?  
+      if current_user.type == "SuperAdmin" && ["norms","competency_norms"].include?(params[:action])
+        flash[:alert] = "Custom norms not present for this combination. Global norms have been picked." 
+      end
+      query_options = {
+        :functional_area_id => nil,
+        :industry_id => nil,
+        :job_experience_id => nil
+      }
+      default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => query_options).all.to_a
+    end
+    default_norm_bucket_ranges       
   end
   
   def get_company
