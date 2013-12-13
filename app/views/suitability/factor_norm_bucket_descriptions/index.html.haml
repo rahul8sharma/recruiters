@@ -3,27 +3,10 @@
 
 %h1 All Suitability FactorNormBucketDescription
   
-= form_for :search, url: suitability_factor_norm_bucket_descriptions_path, method: :get do |f|
-  - f.object = OpenStruct.new
-  - f.object.industry_id = params[:search][:industry_id]
-  - f.object.functional_area_id = params[:search][:functional_area_id]
-  - f.object.job_experience_id = params[:search][:job_experience_id]
-  .search
-    .field.pull-left
-      = f.label :industry
-      = f.select :industry_id, @industries.invert, { :prompt => "Global" }, { style: "width:200px;" }
-    .field.pull-left
-      = f.label :functional_area
-      = f.select :functional_area_id, @functional_areas.invert, { :prompt => "Global" }, { style: "width:200px;" }  
-    .field.pull-left
-      = f.label :job_experience
-      = f.select :job_experience_id, @job_experiences.invert, { :prompt => "Global" }, { style: "width:100px;" }
-    .field.pull-left
-      = f.submit :search
-    .clr   
+= render :partial => "suitability/master_data/search"
   
 .pagination.pull-right
-  = paginate @factor_norm_bucket_descriptions        
+  = paginate @objects        
 .clr  
 %table
   %tr
@@ -35,7 +18,7 @@
       Factor
     %th
       Norm Bucket
-  - @factor_norm_bucket_descriptions.each do |factor_norm_bucket_description|
+  - @objects.each do |factor_norm_bucket_description|
     %tr 
       %td
         = factor_norm_bucket_description.id
@@ -46,5 +29,5 @@
       %td
         = factor_norm_bucket_description.norm_bucket.name
 .pagination.pull-right
-  = paginate @factor_norm_bucket_descriptions       
+  = paginate @objects       
 .clr   
