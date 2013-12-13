@@ -1,15 +1,9 @@
-class Suitability::FactorNormBucketDescriptionsController < Suitability::MasterDataController
+class Suitability::FactorNormBucketDescriptionsController < SpecialMasterDataController
   def api_resource
     Vger::Resources::Suitability::FactorNormBucketDescription
   end
 
-  def index
-    params[:search] ||= {}
-    @objects = Vger::Resources::Suitability::FactorNormBucketDescription.where(
-      :query_options => params[:search],
-      :page => params[:page], 
-      :per => 10, 
-      :include => [:factor, :norm_bucket]
-    ).all
+  def index_columns
+    [:id, :factor_id, :industry_id, :functional_area_id, :job_experience_id, :description]
   end
 end

@@ -1,15 +1,18 @@
-class Suitability::PostAssessmentGuidelinesController < Suitability::MasterDataController
+class Suitability::PostAssessmentGuidelinesController < SpecialMasterDataController
   def api_resource
     Vger::Resources::Suitability::PostAssessmentGuideline
   end
   
-  def index
-    params[:search] ||= {}
-    @objects = Vger::Resources::Suitability::PostAssessmentGuideline.where(
-      :query_options => params[:search], 
-      :page => params[:page], 
-      :per => 10, 
-      :include => [:factor]
-    ).all
+  def index_columns
+    [
+      :id, 
+      :factor_id,
+      :industry_id,
+      :functional_area_id, 
+      :job_experience_id,
+      :body, 
+      :candidate_stage, 
+      :norm_bucket_id
+    ]
   end
 end

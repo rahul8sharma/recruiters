@@ -1,15 +1,17 @@
-class Suitability::DefaultFactorNormRangesController < Suitability::MasterDataController
+class Suitability::DefaultFactorNormRangesController < SpecialMasterDataController
   def api_resource
     Vger::Resources::Suitability::DefaultFactorNormRange
   end
   
-  def index
-    params[:search] ||= {}
-    @objects = Vger::Resources::Suitability::DefaultFactorNormRange.where(
-      :include => [:factor, :functional_area, :industry, :from_norm_bucket, :to_norm_bucket, :job_experience], 
-      :query_options => params[:search], 
-      :page => params[:page], 
-      :per => 10
-    ).all
+  def index_columns
+    [
+      :id,
+      :factor_id,
+      :industry_id,
+      :functional_area_id, 
+      :job_experience_id,
+      :from_norm_bucket_id,
+      :to_norm_bucket_id
+    ]
   end
 end
