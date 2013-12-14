@@ -1,7 +1,7 @@
-= form_tag import_via_s3_suitability_default_factor_norm_ranges_path, multipart: true, :method => :post do
+= form_tag controller.import_via_s3_path, multipart: true, :method => :post do
   %fieldset
     %legend 
-      %strong Upload default factor norm ranges
+      %strong Upload #{controller.resource_name.humanize}
     = fields_for "import" do |f|
       %p
         Zipped CSV File
@@ -11,4 +11,4 @@
         = f.text_field :email, :value => "product@jombay.com"
 
     .actions
-      = submit_tag 'Upload Default factor norm ranges'
+      = submit_tag "Upload #{controller.resource_name.humanize}"
