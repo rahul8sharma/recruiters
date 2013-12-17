@@ -555,6 +555,8 @@ body
         font-weight: normal
         font-size: 90%
   .benchmark_report
+    .blue_bg_heading
+      font-size: 20px
     .overall_report
       .heading
         padding: 42px
@@ -608,6 +610,111 @@ body
           font-size: 19px
           font-weight: bold
           background: #d2f0f3
+    .graph_section
+      border: 1px solid #cccccc
+      padding: 18px
+      .factor_title
+        color: #092e5b  
+        font-size: 17px
+        font-weight: bold
+      .factor_description
+        font-size: 14px
+        line-height: 26px
+      .graph_title
+        font-size: 11px
+        text-align: center
+        font-style: italic
+      .bargraph
+        border-width: 0 0 2px 2px
+        border-color: #a5a5a5
+        border-style: solid
+        width: 355px
+        height: 170px
+        margin: 15px auto 50px
+        position: relative
+
+        ul.bars
+          height: 100%
+          list-style-type: none
+          margin: 0
+          padding: 0
+
+          li
+            @for $i from 0 through 5
+              &.bar#{$i}
+                left: $i * 70px - (56)
+
+            background: #102540
+            color: #FFFFFF
+            bottom: 0
+            margin: 0
+            padding: 0
+            position: absolute
+            width: 42px
+            z-index: 99
+
+        .label
+          bottom: 3px
+          list-style-type: none
+          margin: 0
+          padding: 0
+          position: absolute
+          li
+            color: #FFFFFF
+            float: left
+            font-size: 11px
+            letter-spacing: 0.1em
+            overflow: hidden
+            text-align: center
+            text-transform: uppercase
+            width: 73px
+
+        ul.y-axis
+          bottom: 0
+          left: -45px
+          list-style-type: none
+          margin: 0
+          padding: 0
+          position: absolute
+          text-align: right
+          width: 40px
+          height: 100%
+          li
+            &:first-child
+              
+            color: #ABA8A8
+            font-size: 8px
+            text-align: right
+            margin-bottom: 26px
+            line-height: 8px
+            &.units
+              bottom: 110px
+              height: auto
+              line-height: 1.2em
+              position: absolute
+              right: 20px
+      .graph
+        
+        position: relative
+        
+        .factor_column
+          height: 100%
+          [class^="column"]
+            
+            height: 100%
+            float: left
+            margin: 0 14px
+            .mask
+        .coordinate-y
+          position: absolute
+          font-size: 8px
+          left: -30px
+          text-align: right
+          [class*="value"]
+            margin-top: 25px
+            line-height: 8px
+          .value0
+            margin: 0
 
 
 
