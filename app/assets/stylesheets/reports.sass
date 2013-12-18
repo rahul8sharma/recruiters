@@ -167,10 +167,10 @@ body
       background: image-url('report/orange-texture.png')
       padding: 15px 10px 15px 35px
       margin-bottom: 20px
-    .sub-heading.large-text
-      font-size: 25px
-    .sub-heading.medium-text
-      font-size: 20px
+      &.large-text
+        font-size: 25px
+      &.medium-text
+        font-size: 20px
 
   .blue_bg_heading
     background: #1db3c4
@@ -566,11 +566,11 @@ body
       font-size: 20px
     .overall_report
       .heading
-        padding: 42px
+        padding: 20px 42px
         margin-bottom: 42px
         .big-text
           font-size: 42px
-          line-height: 46px
+          line-height: 60px
       .visual
         height: auto
         min-height: 250px
@@ -589,7 +589,7 @@ body
             line-height: 57px
             height: 57px
             width: 65px
-            background: image-url('report/benchmark/candidate_count.png') no-repeat
+            background: image-url('report/candidate_count.png') no-repeat
             text-align: center
             color: #1a1c28
             font-size: 25px
@@ -747,6 +747,59 @@ body
             .range
               background: #ff8308
               height: 15px
+  .training_requirements_report
+    .small-text
+      font-size: 28px
+      line-height: 30px
+    .graph
+      height: 480px
+    .tips_listing
+      list-style: none
+      background: image-url("tp.png") no-repeat
+      li
+        border-bottom: 2px dotted #b1becd
+        padding: 10px 0 18px 45px
+        &:first-child
+          border: none
+      .title
+        font-size: 14px
+        font-weight: bold
+        color: #092e5b
+        margin-top: 0px
+      .list_header
+        .title
+          font-size: 22.5px
+          color: #032230
+          margin-top: 25px
+      .lhs
+        width: 345px
+        float: left
+      .list_candidate_score
+        width: 10px
+        text-align: center
+        font-size: 1px 
+        font-weight: bold
+        float: left
+      .list_score
+        background: image-url('report/training_requirements_report/list_score_bg.png') no-repeat
+        width: 155px 
+        float: left
+        margin-left: 10px
+
+        .score_icon
+          background: image-url("report/candidate_count.png") no-repeat
+          color: #1A1C28
+          font-size: 18px
+          height: 57px
+          line-height: 58px
+          text-align: center
+          width: 65px
+      .factor_description
+        background: image-url('report/training_requirements_report/tip.png') 5px 5px no-repeat
+        font-size: 12.75px
+        line-height: 15px
+        padding-left: 35px
+
         
 
 
