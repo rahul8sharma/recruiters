@@ -1,0 +1,45 @@
+.benchmark_report
+  .inner{ style: "margin-top:0px;" }
+    .overall_report
+      .benchmark_assessment_range
+        .indication.clearfix
+          .box.pull-left
+          .span Desired/Acceptable Scores as per benchmarking 
+        .divider2
+        .span17
+          .range_title.text-right
+            Suggested range for candidates assessments
+          .divider1
+          .range_list_title.pull-left
+            Factor Names
+          .scale.pull-right
+            .marker
+              %br/
+              Low
+            .marker
+              Below Average
+            .marker
+              %br/
+              Average
+            .marker
+              Above Average
+            .marker
+              %br/
+              High
+            .clr
+          .clr
+        .clr
+        %ul.range_list
+          -6.times do
+            %li
+              .span17
+                .factor_label
+                  Stress Tolerance
+                .slider 
+                  .offset1.range.width2
+                .clr
+              .clr
+      .notification
+        Factor scores are measured relative to Industry standards for this job role and experience level
+        %span.star *
+            

@@ -11,7 +11,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :companies, :only => [:index, :show] do
+  resources :companies do
     collection do
       post :import
       get :manage
@@ -117,6 +117,7 @@ Recruiters::Application.routes.draw do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
+            get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
             get "manage" => "assessment_reports#manage", :as => :manage
             put "manage" => "assessment_reports#manage", :as => :manage
           end
