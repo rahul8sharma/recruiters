@@ -554,14 +554,14 @@ body
       span
         font-weight: normal
         font-size: 90%
+  .notification
+    background: #dceaf8
+    padding: 18px
+    font-size: 15.5px
+    margin-top: 50px
+    .star
+      color: #ff0000
   .benchmark_report
-    .notification
-      background: #dceaf8
-      padding: 18px
-      font-size: 15.5px
-      margin-top: 50px
-      .star
-        color: #ff0000
     .blue_bg_heading
       font-size: 20px
     .overall_report
@@ -755,12 +755,16 @@ body
       height: 480px
     .tips_listing
       list-style: none
-      background: image-url("tp.png") no-repeat
+      margin: 0
+      background: image-url("report/training_requirements_report/list_score_bg.png") repeat-y 400px 0
       li
         border-bottom: 2px dotted #b1becd
-        padding: 10px 0 18px 45px
-        &:first-child
+        padding: 10px 0 10px 45px
+        &:last-child
           border: none
+        &.list_header
+          border: none
+          padding-top: 0
       .title
         font-size: 14px
         font-weight: bold
@@ -770,19 +774,34 @@ body
         .title
           font-size: 22.5px
           color: #032230
-          margin-top: 25px
+          margin-top: 35px
+        .list_score
+          color: #fff
+          font-size: 15.5px
+          font-weight: bold
+          text-align: center
+          padding: 12px 0
+          background: image-url("report/orange-texture.png")
+          min-height: 10px
+        .list_candidate_score
+          margin: 10px 0 0 12px
+          padding: 0
+
       .lhs
         width: 345px
         float: left
       .list_candidate_score
         width: 10px
         text-align: center
-        font-size: 1px 
+        font-size: 15.5px 
         font-weight: bold
         float: left
+        width: 140px
+        padding: 15px 0 0 0
+        color: #032331
       .list_score
-        background: image-url('report/training_requirements_report/list_score_bg.png') no-repeat
         width: 155px 
+        min-height: 100px
         float: left
         margin-left: 10px
 
@@ -794,6 +813,7 @@ body
           line-height: 58px
           text-align: center
           width: 65px
+          margin: 15px auto 0 
       .factor_description
         background: image-url('report/training_requirements_report/tip.png') 5px 5px no-repeat
         font-size: 12.75px
