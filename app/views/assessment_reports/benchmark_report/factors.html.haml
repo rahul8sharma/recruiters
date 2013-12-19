@@ -1,0 +1,11 @@
+.candidate_factor
+  .divider1
+  .sub-heading.pull-left
+    Factors Candidates Benchmarked On 
+    = continued ? "(Continued)" : ""
+  .clr
+  %ul.clearfix
+    - factors.keys.each do |factor_name|
+      %li.badge
+        = factor_name
+  .divider1

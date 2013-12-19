@@ -1,0 +1,114 @@
+class BenchmarkReportUploader < AbstractController::Base
+  include Sidekiq::Worker
+  
+  include AbstractController::Rendering
+  include AbstractController::Helpers
+  include AbstractController::Translation
+  include AbstractController::AssetPaths
+  include Rails.application.routes.url_helpers
+  helper ApplicationHelper
+  helper ReportsHelper
+  self.view_paths = "app/views"
+  
+  def perform(report_data, auth_token, patch = {})
+    report_data = HashWithIndifferentAccess.new report_data
+    Rails.logger.debug "************* #{report_data} ******************"
+    RequestStore.store[:auth_token] = auth_token
+    assessment_id = report_data["assessment_id"]
+    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, 
+      :methods => [ :benchmark_report ]
+    )
+    report_data["company_id"] = @assessment.company_id
+    candidate_assessment_ids = report_data["candidate_assessment_ids"]
+    @report = @assessment.benchmark_report
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
+    tries = 0
+    report_status = {
+      :errors => [],
+      :message => "",
+      :status => "success"
+    }
+    begin
+      @view_mode = "html"
+      html = render_to_string(
+         template: "assessment_reports/benchmark_report", 
+         layout: "layouts/reports", 
+         handlers: [ :haml ]
+      )
+      
+      @view_mode = "pdf"
+      pdf = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          "assessment_reports/benchmark_report", 
+          layout: "layouts/reports.html.haml", 
+          handlers: [ :haml ],
+          formats: [:html]
+        ),
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        header: { 
+          :content => render_to_string("shared/_benchmark_report_header.html.haml",layout: "layouts/reports.html.haml")
+        },
+        footer: {
+          :content => render_to_string("shared/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+        }
+      )
+      
+      FileUtils.mkdir_p(Rails.root.join("tmp"))
+      pdf_file_id = "benchmark_report_assessment_#{@assessment.id}.pdf"
+      html_file_id = "benchmark_report_assessment_#{@assessment.id}.html"
+      pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
+      html_save_path = Rails.root.join('tmp',"#{html_file_id}")
+      
+      File.open(html_save_path, 'wb') do |file|
+        file << html
+      end
+      File.open(pdf_save_path, 'wb') do |file|
+        file << pdf
+      end
+      pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
+      html_s3 = upload_file_to_s3(html_file_id,html_save_path)
+      File.delete(pdf_save_path)
+      File.delete(html_save_path)
+      Vger::Resources::Suitability::CandidateAssessment.update_all(
+        :assessment_id => @assessment.id, 
+        :query_options => { 
+          :id => candidate_assessment_ids
+        },
+        :update_attributes => {
+          :assessment_id => assessment_id,
+          :status => Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
+        }
+      )
+      patch["send_report"] ||= "Yes"
+      if patch["send_report"] == "Yes"
+        JombayNotify::Email.create_from_mail(SystemMailer.send_benchmark_report(report_data), "send_report")
+      end
+    rescue Exception => e
+      Rails.logger.debug e.message
+      tries = tries + 1
+      if tries < 5
+        retry
+      end
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{report_data[:assessment_id]}",{
+        :report => {
+          :status => "Failed",
+          :assessment_id => @assessment.id
+        },
+        :errors => {
+          :backtrace => [e.message] + e.backtrace[0..20]
+        }
+      }), "notify_report_status")
+    end 
+  end
+  
+  def upload_file_to_s3(file_id,file_path)
+    File.open(file_path,"r") do |file|
+      Rails.logger.debug "Uploading #{file_id} to s3 ........."
+      s3_bucket_name = "#{Rails.env.to_s}_benchmark_reports"
+      s3_key = "#{file_id}"
+      url = S3Utils.upload(s3_bucket_name, s3_key, file)
+      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
+      return { :bucket => s3_bucket_name, :key => s3_key }
+    end
+  end
+end

@@ -2,26 +2,20 @@
   .inner{ style: "margin-top:0px;" }
     .overall_report
       .blue_bg_heading Score distribution for each factor (%)
-      -3.times do
+      - factor_benchmarks.each do |factor_name, benchmarks|
         .graph_section.clearfix
           .pull-left
             .factor_title
-              Adaptability 
+              = factor_name
             %p.factor_description
-              Degree to which an individual is open to new experiences, ideas, feedback and change
+              = benchmarks[:factor_definition]
           .bargraph.pull-right
             %ul.bars.clearfix
-              %li.bar1.bluebar{style: "height: 100%;"}
-              %li.bar2.bluebar{style: "height: 20%;"}
-              %li.bar3.redbar{style: "height: 40%;"}
-              %li.bar4.greenbar{style: "height: 60%;"}
-              %li.bar5.orangebar{style: "height: 80%;"}
+              - @norm_buckets.each_with_index do |norm_bucket,index|
+                %li{ class: "bar#{index+1}", style: "height: #{benchmarks[:scores][norm_bucket.name][:score]}%;background: #{benchmarks[:scores][norm_bucket.name][:color]}"}
             %ul.label
-              %li Low
-              %li Below Average
-              %li Average
-              %li Above Average
-              %li High
+              - @norm_buckets.each_with_index do |norm_bucket,index|
+                %li #{norm_bucket.name}
             %ul.y-axis
               %li 100%
               %li 80%
