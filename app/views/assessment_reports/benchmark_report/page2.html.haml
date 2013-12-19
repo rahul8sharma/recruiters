@@ -11,17 +11,11 @@
               = benchmarks[:factor_definition]
           .bargraph.pull-right
             %ul.bars.clearfix
-              %li.bar1{style: "height: #{benchmarks[:scores]["Low"][:score]}%;background: #{benchmarks[:scores]["Low"][:color]}"}
-              %li.bar2{style: "height: #{benchmarks[:scores]["Below Average"][:score]}%;background: #{benchmarks[:scores]["Below Average"][:color]}"}
-              %li.bar3{style: "height: #{benchmarks[:scores]["Average"][:score]}%;background: #{benchmarks[:scores]["Average"][:color]}"}
-              %li.bar4{style: "height: #{benchmarks[:scores]["Above Average"][:score]}%;background: #{benchmarks[:scores]["Above Average"][:color]}"}
-              %li.bar5{style: "height: #{benchmarks[:scores]["High"][:score]}%;background: #{benchmarks[:scores]["High"][:color]}"}
+              - @norm_buckets.each_with_index do |norm_bucket,index|
+                %li{ class: "bar#{index+1}", style: "height: #{benchmarks[:scores][norm_bucket.name][:score]}%;background: #{benchmarks[:scores][norm_bucket.name][:color]}"}
             %ul.label
-              %li Low
-              %li Below Average
-              %li Average
-              %li Above Average
-              %li High
+              - @norm_buckets.each_with_index do |norm_bucket,index|
+                %li #{norm_bucket.name}
             %ul.y-axis
               %li 100%
               %li 80%

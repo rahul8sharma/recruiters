@@ -21,7 +21,7 @@ class BenchmarkReportUploader < AbstractController::Base
     report_data["company_id"] = @assessment.company_id
     candidate_assessment_ids = report_data["candidate_assessment_ids"]
     @report = @assessment.benchmark_report
-    
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
     tries = 0
     report_status = {
       :errors => [],
