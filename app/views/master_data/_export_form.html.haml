@@ -7,25 +7,25 @@
         %p
           Google Drive Folder Url : 
           = f.text_field "url"
-          
-      %p
-        Industry :
-        %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    
-          - @industries.each do |id,name|
-            %option{ value: id }
-              = name      
-        Functional Area :
-        %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
-          - @functional_areas.each do |id,name|
-            %option{ value: id }
-              = name
-        %br
-        %br
-        Job Experiences :
-        %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
-          - @job_experiences.each do |id,name|
-            %option{ value: id }
-              = name          
+      - if controller.search_columns.present?    
+        %p
+          Industry :
+          %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    
+            - @industries.each do |id,name|
+              %option{ value: id }
+                = name      
+          Functional Area :
+          %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
+            - @functional_areas.each do |id,name|
+              %option{ value: id }
+                = name
+          %br
+          %br
+          Job Experiences :
+          %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
+            - @job_experiences.each do |id,name|
+              %option{ value: id }
+                = name          
 
       %p
         Notification Email : 
