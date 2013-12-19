@@ -68,6 +68,9 @@ Recruiters::Application.routes.draw do
         get "styles" => "benchmarks#styles", :as => :styles
         put "styles" => "benchmarks#styles", :as => :styles
         
+        get "report" => "benchmarks#report", :as => :report
+        get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
+        
         get "candidates" => "benchmarks/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
@@ -375,6 +378,7 @@ Recruiters::Application.routes.draw do
 
   
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   
