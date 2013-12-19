@@ -2,20 +2,20 @@
   .inner{ style: "margin-top:0px;" }
     .overall_report
       .blue_bg_heading Score distribution for each factor (%)
-      -3.times do
+      - factor_benchmarks.each do |factor_name, benchmarks|
         .graph_section.clearfix
           .pull-left
             .factor_title
-              Adaptability 
+              = factor_name
             %p.factor_description
-              Degree to which an individual is open to new experiences, ideas, feedback and change
+              = benchmarks[:factor_definition]
           .bargraph.pull-right
             %ul.bars.clearfix
-              %li.bar1.bluebar{style: "height: 100%;"}
-              %li.bar2.bluebar{style: "height: 20%;"}
-              %li.bar3.redbar{style: "height: 40%;"}
-              %li.bar4.greenbar{style: "height: 60%;"}
-              %li.bar5.orangebar{style: "height: 80%;"}
+              %li.bar1{style: "height: #{benchmarks[:scores]["Low"][:score]}%;background: #{benchmarks[:scores]["Low"][:color]}"}
+              %li.bar2{style: "height: #{benchmarks[:scores]["Below Average"][:score]}%;background: #{benchmarks[:scores]["Below Average"][:color]}"}
+              %li.bar3{style: "height: #{benchmarks[:scores]["Average"][:score]}%;background: #{benchmarks[:scores]["Average"][:color]}"}
+              %li.bar4{style: "height: #{benchmarks[:scores]["Above Average"][:score]}%;background: #{benchmarks[:scores]["Above Average"][:color]}"}
+              %li.bar5{style: "height: #{benchmarks[:scores]["High"][:score]}%;background: #{benchmarks[:scores]["High"][:color]}"}
             %ul.label
               %li Low
               %li Below Average

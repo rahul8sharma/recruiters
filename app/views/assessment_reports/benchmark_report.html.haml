@@ -1,5 +1,38 @@
-= render :template => "assessment_reports/benchmark_report/page1"
-= render :template => "assessment_reports/benchmark_report/page2"
-= render :template => "assessment_reports/benchmark_report/page3"
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", report_company_benchmark_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
+
+- factors_step = Rails.application.config.reports[@view_mode]["benchmark_factor_names_step"]
+- total = @report[:factor_benchmarks].keys.size
+- page1_keys = @report[:factor_benchmarks].keys[0..(factors_step-1)]
+- rest_keys = @report[:factor_benchmarks].keys[factors_step..(total-1)].to_a
+- page1_factors = @report[:factor_benchmarks].select{|key,value| page1_keys.include?(key) }
+- rest_factors = @report[:factor_benchmarks].select{|key,value| rest_keys.include?(key) }.map{|key,value| [key,value] }
+= render :template => "assessment_reports/benchmark_report/page1", locals: { factors: page1_factors, index: 0 }
+.page-break 
+- (0..rest_factors.length-1).step(factors_step) do |step|    
+  - step_factors = Hash[rest_factors[step..(step+(factors_step - 1))]]
+  .benchmark_report
+    .inner{ style: "margin-top:100px;" }
+      .overall_report
+        = render :template => "assessment_reports/benchmark_report/factors", :locals => { factors: step_factors, continued: true }
+  .page-break 
+
+
+- scores_step = Rails.application.config.reports[@view_mode]["benchmark_factor_scores_step"]
+- if @report[:factor_benchmarks].present?
+  - scores = @report[:factor_benchmarks]
+  - (0..scores.keys.length-1).step(scores_step) do |step|  
+    - step_scores = scores.slice(*scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/benchmark_report/page2", locals: { factor_benchmarks: step_scores }
+    .page-break      
+
+=# render :template => "assessment_reports/benchmark_report/page3"
+-#
+  .page-break
+        
 = render :template => "assessment_reports/benchmark_report/page4"
-= render :template => "assessment_reports/benchmark_report/page5"
+.page-break      
+
+- if @view_mode == "html"
+  = render :partial => "shared/report_footer", :locals => { :force => true, :last_page => true }

@@ -9,7 +9,7 @@
         .span.first
           Assessment Name: 
         .span9
-          Sales Manager at Mercedes Benz Dealership
+          = @report[:assessment_name]
         .clr
 
       .visual
@@ -24,19 +24,6 @@
           %br/
           Benchmarked
           .candate_count
-            10
+            = @report[:no_of_candidates_benchmarked]
         .clr
-      .candidate_factor
-        .divider1
-        .sub-heading.pull-left
-          Factors Candidates Benchmarked On
-        .clr
-        %ul.clearfix
-          - 6.times do
-            %li.badge
-              Adaptability 
-        .divider1
-
-
-
-      
+      = render :template => "assessment_reports/benchmark_report/factors", locals: { factors: factors, continued: false } 
