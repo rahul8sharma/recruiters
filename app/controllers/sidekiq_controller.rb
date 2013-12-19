@@ -21,6 +21,19 @@ class SidekiqController < ApplicationController
     render :json => { :status => "Job Started", :reports => reports }
 	end
 	
+	def upload_benchmark_reports
+	  candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.get("/suitability/candidate_assessments/benchmarked?query_options[status]=#{Vger::Resources::Suitability::CandidateAssessment::Status::BENCHMARKED}").to_a
+    job_ids = []
+    candidate_assessments.map(&:assessment_id).uniq.each do |assessment_id|
+      report_data = {
+        :assessment_id => assessment_id,
+        :candidate_assessment_ids => candidate_assessments.select{|x| x.assessment_id == assessment_id }.map(&:id)
+      }
+      job_ids << BenchmarkReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+    end
+    render :json => { :status => "Job Started", :job_ids => job_ids }
+	end
+	
 	def regenerate_reports
 	  if params[:args][:assessment_id].present? && params[:args][:email].present?
 	    assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)

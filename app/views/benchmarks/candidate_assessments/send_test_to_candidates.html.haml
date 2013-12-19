@@ -1,8 +1,8 @@
 .create-test
   - if params[:candidates]
-    - url = send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    - url = send_test_to_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])
   - else
-    - url = bulk_send_test_to_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+    - url = bulk_send_test_to_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])  
   = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "creat-test-form" } do |f|
     %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
     - if params[:candidates]
@@ -15,10 +15,10 @@
       %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id } 
     .create-test.send-test-to-candidate
       .inn.first
-        .page-title Test - #{@assessment.name}
+        .page-title Benchmark - #{@assessment.name}
 
       .inn.gray-gradient
-        = render :partial => "shared/test-flow-sub-nav"
+        = render :partial => "shared/benchmark-flow-sub-nav"
         .divider2
         .email_recipients.medium-text
           %b Notify the following email addresses on the completion of a test by a candidate:
@@ -39,7 +39,7 @@
         - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
           = render :partial => "candidate_assessments/mail_body_for_candidate"
         - else
-          = render :partial => "candidate_assessments/mail_body_for_employee"
+          = render :partial => "assessments/candidate_assessments/mail_body_for_employee"
         %label.pull-left.invitation-sms.medium-text
           Also send test invitations to candidates via SMS
           %input{:type=>"checkbox", name: "send_sms"}
@@ -47,7 +47,7 @@
           Send default email
           %input{:type=>"checkbox", name: "send_email", checked: true}
         .pull-right
-          %a.span.line-height2{:href=> add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
+          %a.span.line-height2{:href=> add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
             Cancel
           %button.btn.btn-info.span
             Send

@@ -3,6 +3,38 @@ class AssessmentReportsController < ApplicationController
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
+  def benchmark_report
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:benchmark_report])
+    @report = @assessment.benchmark_report
+    if request.format == "application/pdf"
+      @view_mode = "pdf"
+    else  
+      @view_mode = "html"
+    end
+    respond_to do |format|
+      format.html { render :template => "assessment_reports/benchmark_report" }
+      format.pdf { 
+        render pdf: "report_#{params[:id]}.pdf",
+        header: { 
+          :html => {
+            template: "shared/_benchmark_report_header.html.haml"
+          }
+        },
+        footer: {
+          :html => {
+            template: "shared/_report_footer.html.haml"
+          }
+        },           
+        template: "assessment_reports/benchmark_report.html.haml", 
+        layout: "layouts/reports.html.haml", 
+        handlers: [ :haml ], 
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        formats: [:html],
+        locals: { :@view_mode => "pdf" }
+      }
+    end
+  end
+  
   def manage
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
@@ -21,7 +53,6 @@ class AssessmentReportsController < ApplicationController
     end
     render :layout => "admin"
   end
-  
   
   def show
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)

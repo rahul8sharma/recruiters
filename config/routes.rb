@@ -54,6 +54,38 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
+    
+    resources :benchmarks, :except => [:destroy] do
+      member do
+        get "norms" => "benchmarks#norms", :as => :norms
+        put "norms" => "benchmarks#norms", :as => :norms
+
+        get "competency_norms" => "benchmarks#competency_norms", :as => :competency_norms
+        put "competency_norms" => "benchmarks#competency_norms", :as => :competency_norms
+        get "competencies" => "benchmarks#competencies", :as => :competencies
+        put "competencies" => "benchmarks#competencies", :as => :competencies                    
+
+        get "styles" => "benchmarks#styles", :as => :styles
+        put "styles" => "benchmarks#styles", :as => :styles
+        
+        get "report" => "benchmarks#report", :as => :report
+        get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
+        
+        get "candidates" => "benchmarks/candidate_assessments#candidates", :as => :candidates
+        get "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
+
+        put "candidates/bulk_upload" => "benchmarks/candidate_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "benchmarks/candidate_assessments#email_reports", :as => :email_reports
+
+        get "candidates/send-test" => "benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/bulk-send-test" => "benchmarks/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/:candidate_id/send-reminder" => "benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "benchmarks/candidate_assessments#candidate", :as => :candidate
+      end
+    end
 
     resources :assessments, :path => "tests", :except => [:destroy] do
       member do
@@ -68,27 +100,22 @@ Recruiters::Application.routes.draw do
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         
-        get "candidates" => "candidate_assessments#candidates", :as => :candidates
-        get "candidates/add" => "candidate_assessments#add_candidates", :as => :add_candidates
-        put "candidates/add" => "candidate_assessments#add_candidates", :as => :add_candidates
+        get "candidates" => "assessments/candidate_assessments#candidates", :as => :candidates
+        get "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
 
-        put "candidates/bulk_upload" => "candidate_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "candidate_assessments#email_reports", :as => :email_reports
+        put "candidates/bulk_upload" => "assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "assessments/candidate_assessments#email_reports", :as => :email_reports
 
-        get "candidates/send-test" => "candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/bulk-send-test" => "candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        get "candidates/:candidate_id/send-reminder" => "candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "candidate_assessments#candidate", :as => :candidate
+        get "candidates/send-test" => "assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/bulk-send-test" => "assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/:candidate_id/send-reminder" => "assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "assessments/candidate_assessments#candidate", :as => :candidate
       end
 
       resources :candidates, :except => [:destroy, :show] do
-        collection do
-          get "upload/bulk" => "candidates#upload_bulk", :as => :bulk_upload
-          get "upload/single" => "candidates#upload_single", :as => :single_upload
-        end
-        
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
@@ -351,6 +378,7 @@ Recruiters::Application.routes.draw do
 
   
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   

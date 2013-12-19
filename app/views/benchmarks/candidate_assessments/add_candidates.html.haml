@@ -1,0 +1,49 @@
+.create-test.norms.add
+  .inn.first
+    .page-title #{@assessment.name}
+  .inn.gray-gradient
+    = render :partial => "shared/benchmark-flow-sub-nav"
+    %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
+      View Instructions
+    .clr
+    .divider1
+    .select-candidate-type 
+      %b.span.show
+        Please add your Top Performing Employees
+        %br
+        %br
+      .clr 
+    .divider1
+    - if current_user.type == "SuperAdmin"
+      = render :partial => "benchmarks/candidate_assessments/bulk_upload"
+    = form_for @assessment, :as => :assessment, :url => add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+      .divider1
+      - checked = (params[:upload_method] == "manual")
+      %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+      %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
+      %div{class: "#{checked ? 'activated':'de-activated'}"}
+        - if current_user.type == "SuperAdmin"
+          %label
+            %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+            %b.extra-medium-text Add Top Performers manually: 
+          .divider1
+        .span6.left-offset1
+          %b.show Name
+          (Required)
+        .span6.first
+          %b.show Email id
+          (Required)
+        .span4  
+          %b.show Mobile number
+          (Optional)
+        .span5
+          %b.show Functional Area
+          (Optional)
+        .clr
+        .divider1
+        %ul.add-candidates.unstyled.clearfix
+          - 10.times do |index|
+            = render :partial => "assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
+        %button.pull-right.btn.btn-info{ disabled: !checked }
+          Proceed
+        .clr

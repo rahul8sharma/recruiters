@@ -1,4 +1,4 @@
-class CandidateAssessmentsController < ApplicationController
+class Assessments::CandidateAssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_assessment
   before_filter :get_company
@@ -17,8 +17,7 @@ class CandidateAssessmentsController < ApplicationController
     }
     Vger::Resources::Suitability::Assessment.find(params[:id])\
       .export_candidate_reports(options)
-        
-    redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), notice: "Report summary will be generated and emailed to #{current_user.email}."
+    redirect_to candidates_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
 
   def bulk_upload
@@ -26,7 +25,7 @@ class CandidateAssessmentsController < ApplicationController
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%P")}"
     unless params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
-      redirect_to add_candidates_company_assessment_path(company_id: @company.id, id: @assessment.id, upload_method: :bulk) and return
+      redirect_to add_candidates_url and return
     end
     data = params[:bulk_upload][:file].read
     S3Utils.upload(s3_bucket_name, s3_key, data)
@@ -96,7 +95,7 @@ class CandidateAssessmentsController < ApplicationController
     elsif request.put?
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
       flash[:notice] = "Reminder was sent successfully!"
-      redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      redirect_to candidates_url
     end  
   end
   
@@ -117,7 +116,7 @@ class CandidateAssessmentsController < ApplicationController
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), 
+    redirect_to candidates_url, 
                 notice: "Candidates upload in progress. Candidate Listings will be updated and assessment will be sent to the candidates as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
   
@@ -158,10 +157,14 @@ class CandidateAssessmentsController < ApplicationController
       ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
         flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
-        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        redirect_to candidates_url
       else
-        flash[:notice] = "Test was sent successfully!"
-        redirect_to candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        if @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
+          flash[:notice] = "You have successfully sent the Benchmark!"
+        else
+          flash[:notice] = "Test was sent successfully!"
+        end
+        redirect_to candidates_url
       end
     end
   end
@@ -224,5 +227,13 @@ class CandidateAssessmentsController < ApplicationController
       end
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
+  end
+  
+  def candidates_url
+    candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+  
+  def add_candidates_url
+    add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 end

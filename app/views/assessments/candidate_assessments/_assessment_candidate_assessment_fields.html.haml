@@ -2,12 +2,12 @@
 %li
   %input{name: "candidates[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
   .count= index
-  %input.span5.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Full Name", value: (candidate[:name])}
+  %input.span5.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (candidate[:name])}
   %input.span5.left-offset1{name: "candidates[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (candidate[:email])}
   %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", disabled: !checked, type: "text", placeholder: "Mobile Number", value: (candidate[:mobile])}
   %select.span5.left-offset1{name: "candidates[#{index-1}][functional_area_id]", disabled: (params[:candidate_stage] != Vger::Resources::Candidate::Stage::EMPLOYED || !checked)}
     %option{ value: "" }
-      Select Functional Area
+      Functional Area
     - @functional_areas.each do |fa|
       %option{ value: fa.id, selected: params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED && (candidate[:functional_area_id] == fa.id || (@assessment.functional_area_id == fa.id))}
         = fa.name
