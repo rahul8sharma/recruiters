@@ -1,6 +1,10 @@
 - if @view_mode == "html"
   :css
     .report .inner{margin-top:0px;} 
+
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", company_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
     
 = render :template => "assessment_reports/page1"
 .page-break      
