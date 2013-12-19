@@ -54,16 +54,15 @@
         Desired/Acceptable Score Range
       .clr.divider1
       %ul.unstyled.selected-factors
-        - @factor_benchmarks.each_pair do |factor_id, factor_benchmarks|
-          - factor_benchmark = factor_benchmarks.first
+        - @assessment.benchmark_report[:factor_benchmarks].each_pair do |factor_name, factor_scores|
           %li
             .pull-left.span6
               .selected-factors-title.clearfix
                 .span14
-                  = factor_benchmark.factor_name
-              = factor_benchmark.factor_definition    
+                  = factor_name
+              = factor_scores[:factor_definition]
             .pull-left      
-              %div{ id: "benchmark-chart-#{factor_id}", style: "width: 400px; height: 300px;", "class" => "benchmark-chart", "data-factor-id" => factor_benchmark.factor_id, "data-score-percentages" => @factor_benchmark_percentages[factor_id] }
+              %div{ id: "benchmark-chart-#{factor_name.underscore}", style: "width: 400px; height: 300px;", "class" => "benchmark-chart", "data-factor-name" => factor_name.underscore, "data-score-percentages" => factor_scores[:scores].to_json }
             .clr  
     .divider1
     
