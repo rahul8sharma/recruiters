@@ -24,24 +24,6 @@ class BenchmarksController < AssessmentsController
   end 
   
   def show
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
-    @factor_benchmarks = Vger::Resources::Suitability::FactorBenchmark.where(assessment_id: params[:id], :methods => [:factor_name, :factor_definition, :norm_bucket_name]).all.to_a.group_by{|factor_benchmark| factor_benchmark.factor_id }
-    colors = ["#a2c7f4","#8eb4e3","#366092","#17355d", "#102540"]
-    @factor_benchmark_percentages = Hash[
-      @factor_benchmarks.map do |factor_id, factor_benchmarks|
-        factor_benchmarks = factor_benchmarks\
-                                          .sort_by{|factor_benchmark| factor_benchmark.score_percentage }
-        scores = Hash[
-          @norm_buckets.map do |norm_bucket|
-            score = factor_benchmarks\
-                    .find{|factor_benchmark| factor_benchmark.norm_bucket_id == norm_bucket.id }\
-                    .score_percentage rescue 0
-            color = colors[factor_benchmarks.map(&:score_percentage).sort.index(score).to_i]
-            [norm_bucket.name, [score,color]]
-          end
-        ]
-        [factor_id,scores.to_json]
-      end
-    ]
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], methods: [ :benchmark_report ])
   end
 end
