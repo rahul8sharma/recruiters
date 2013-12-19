@@ -121,6 +121,7 @@ Recruiters::Application.routes.draw do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
             get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
+            get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
             get "manage" => "assessment_reports#manage", :as => :manage
             put "manage" => "assessment_reports#manage", :as => :manage
           end
