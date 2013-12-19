@@ -1,0 +1,71 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      Benchmark #{@assessment.id} - #{@assessment.name}
+    %a.btn.pull-right{ href: add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
+      .link-color Send This Benchmark
+  .clr
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/candidate-content-benchmark-sub-nav"
+    .sapn6.pull-right.text-right
+      %a.line-height2{:href => company_assessments_path(@company)}
+        Back to all Benchmarks
+
+    //%a.btn.btn-info.pull-right{:href => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
+    //  Edit Test
+    .clr
+    .divider2
+    .summary.padding-all1.clearfix
+      .span
+        %b.show.pull-left 
+          Industry: 
+        .span6
+          = @assessment.industry.name rescue '-'
+      .span
+        %b.show.pull-left 
+          Functional Area: 
+        .span6
+          = @assessment.functional_area.name rescue '-'
+      .span
+        %b.show.span
+          Experience Level: 
+        .span 
+          = @assessment.job_experience.display_text rescue '-'
+    .divider1
+    .text-right
+      %span.medium-text Benchmarks Sent: 
+      %span.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
+        %span.medium-text Benchmarks Taken: 
+        %span.large-text #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
+    .divider1
+    .medium-text 
+      %b Selected Factors
+    .divider1
+    .left-offset1
+      %b.span14.medium-text
+        Suitability Factors
+      %b.span6.medium-text
+        Desired/Acceptable Score Range
+      .clr.divider1
+      %ul.unstyled.selected-factors
+        - @factor_benchmarks.each_pair do |factor_id, factor_benchmarks|
+          - factor_benchmark = factor_benchmarks.first
+          %li
+            .pull-left.span6
+              .selected-factors-title.clearfix
+                .span14
+                  = factor_benchmark.factor_name
+              = factor_benchmark.factor_definition    
+            .pull-left      
+              %div{ id: "benchmark-chart-#{factor_id}", style: "width: 400px; height: 300px;", "class" => "benchmark-chart", "data-factor-id" => factor_benchmark.factor_id, "data-score-percentages" => @factor_benchmark_percentages[factor_id] }
+            .clr  
+    .divider1
+    
+%script{ src: "https://www.google.com/jsapi", type: "text/javascript" }
+= javascript_include_tag 'benchmarks'
