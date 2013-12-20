@@ -19,7 +19,8 @@ class BenchmarksController < AssessmentsController
     else
       type = "html"
     end  
-    redirect_to @assessment.report_urls["benchmark"][type]
+    url = S3Utils.get_url(@assessment.report_urls["benchmark"][type]["bucket"],@assessment.report_urls["benchmark"][type]["key"]);
+    redirect_to url
   end 
   
   def show
