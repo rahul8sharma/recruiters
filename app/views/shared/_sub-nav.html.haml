@@ -7,7 +7,7 @@
     %ul.unstyled.clearfix
       - if current_user.type == "SuperAdmin"
         %li{ class: (["benchmarks/candidate_assessments","benchmarks"].include?(params[:controller]) ? 'active' : '') }
-          %a{ :href=> company_benchmarks_path(@company), :title=>"Tests"} 
+          %a{ :href=> company_benchmarks_path(@company), :title=>"Benchmarks"} 
             %span.icon-j-guy 
             Benchmarks
       %li{ class: (["assessments/candidate_assessments","assessments"].include?(params[:controller]) ? 'active' : '') }
