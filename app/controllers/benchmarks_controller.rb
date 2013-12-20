@@ -25,5 +25,6 @@ class BenchmarksController < AssessmentsController
   
   def show
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], methods: [ :benchmark_report ])
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
   end
 end
