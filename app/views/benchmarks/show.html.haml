@@ -12,8 +12,9 @@
   .inn.gray-gradient
     .pull-left
       = render :partial => "shared/candidate-content-benchmark-sub-nav"
-    .pull-right
-      = link_to "Download a PDF version of the Benchmark Report", report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id]), target: "_blank", class: "line-height2 span"
+    - if @assessment.report_urls && @assessment.report_urls["benchmark"] && @assessment.report_urls["benchmark"]["pdf"]
+      .pull-right
+        = link_to "Download a PDF version of the Benchmark Report", report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id]), target: "_blank", class: "line-height2 span"
     / .sapn6.pull-right.text-right
     /   %a.line-height2{:href => company_assessments_path(@company)}
     /     Back to all Benchmarks
@@ -40,7 +41,7 @@
           = @assessment.job_experience.display_text rescue '-'
     .divider1
     .pull-left.medium-text
-      Results last updated: 20:44 Hrs, 17/11/2013
+      Results last updated: #{htime @assessment.updated_at} Hrs, #{hdate @assessment.updated_at}
     .pull-right.text-right
       %b.medium-text Benchmarks Sent: 
       %b.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
@@ -68,6 +69,3 @@
             / .clr  
             .clr.divider1
     .divider1
-    
-%script{ src: "https://www.google.com/jsapi", type: "text/javascript" }
-= javascript_include_tag 'benchmarks'

@@ -19,8 +19,8 @@ class BenchmarksController < AssessmentsController
     else
       type = "html"
     end  
-    url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{params[:id]}.#{type}")
-    redirect_to url 
+    url = S3Utils.get_url(@assessment.report_urls["benchmark"][type]["bucket"],@assessment.report_urls["benchmark"][type]["key"]);
+    redirect_to url
   end 
   
   def show

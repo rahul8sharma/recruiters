@@ -69,6 +69,24 @@ class BenchmarkReportUploader < AbstractController::Base
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
       File.delete(pdf_save_path)
       File.delete(html_save_path)
+      
+      
+      # Update report_urls hash for assessment
+      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.pdf")
+      html_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.html")
+      @assessment.report_urls ||= {}
+      @assessment.report_urls["benchmark"] ||= {}
+      @assessment.report_urls["benchmark"]["pdf"] = {}
+      @assessment.report_urls["benchmark"]["html"] = {}
+      @assessment.report_urls["benchmark"]["pdf"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
+      @assessment.report_urls["benchmark"]["pdf"]["key"] = "benchmark_report_assessment_#{@assessment.id}.pdf"
+      @assessment.report_urls["benchmark"]["html"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
+      @assessment.report_urls["benchmark"]["html"]["key"] = "benchmark_report_assessment_#{@assessment.id}.html"
+      
+      Vger::Resources::Suitability::Assessment.save_existing(@assessment.id,
+        :report_urls => @assessment.report_urls
+      )
+      
       Vger::Resources::Suitability::CandidateAssessment.update_all(
         :assessment_id => @assessment.id, 
         :query_options => { 
