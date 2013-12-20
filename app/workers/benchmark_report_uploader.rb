@@ -76,8 +76,10 @@ class BenchmarkReportUploader < AbstractController::Base
       html_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.html")
       @assessment.report_urls ||= {}
       @assessment.report_urls["benchmark"] ||= {}
-      @assessment.report_urls["benchmark"]["pdf"] = pdf_url
-      @assessment.report_urls["benchmark"]["html"] = html_url
+      @assessment.report_urls["benchmark"]["pdf"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
+      @assessment.report_urls["benchmark"]["pdf"]["key"] = "benchmark_report_assessment_#{@assessment.id}.pdf"
+      @assessment.report_urls["benchmark"]["html"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
+      @assessment.report_urls["benchmark"]["html"]["key"] = "benchmark_report_assessment_#{@assessment.id}.html"
       
       Vger::Resources::Suitability::Assessment.save_existing(@assessment.id,
         :report_urls => @assessment.report_urls

@@ -19,10 +19,15 @@
     &:before
       font-size: 19px 
   .icon-pie
-    background: url(asset-path('jit/pie-icon.png', image)) no-repeat 
+    background: image-url('jit/pie-icon.png') no-repeat 
     display: inline-block
     height: 16px
     width: 17px
+  .icon-j-guy
+    background: image-url('jit/icon-j-guy.png') no-repeat 
+    display: inline-block
+    height: 16px
+    width: 10px
   [class^="icon-"]
     height: 16px  
   ul
@@ -30,7 +35,7 @@
     li
       float: left
       border-left: 1px solid #f3f0ce  
-      background: url(asset-path('jit/sub-navigartion-bg.png', image)) repeat-x #fffcda
+      background: image-url('jit/sub-navigartion-bg.png') repeat-x #fffcda
       a
         color: #575757
         display: inline-block
@@ -44,3 +49,5 @@
       border-top: 6px solid #fe8309
       .icon-pie
         background-position: 0px -27px
+      .icon-j-guy
+        background-position: 0px -29px

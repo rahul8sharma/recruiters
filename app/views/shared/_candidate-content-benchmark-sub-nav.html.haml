@@ -3,7 +3,4 @@
     Candidates     
   %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
     Results
-.pull-right    
-= link_to "Download a PDF version of the Benchmark Report", report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id], format: "pdf"), target: "_blank"
-
 .clr
