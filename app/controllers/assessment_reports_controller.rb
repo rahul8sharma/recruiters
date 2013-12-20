@@ -5,6 +5,7 @@ class AssessmentReportsController < ApplicationController
   
   def benchmark_report
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:benchmark_report])
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     @report = @assessment.benchmark_report
     if request.format == "application/pdf"
       @view_mode = "pdf"

@@ -55,16 +55,18 @@
       
       %ul.unstyled.selected-factors
         - @assessment.benchmark_report[:factor_benchmarks].each_pair do |factor_name, factor_scores|
-          %li
+          %li.clearfix
             .pull-left.span9.first
               .selected-factors-title.clearfix
                 = factor_name
               .description
                 = factor_scores[:factor_definition]
-            .pull-left      
-              %div{ id: "benchmark-chart-#{factor_name.underscore}", style: "width: 520px; height: 300px; overflow: hidden;", "class" => "benchmark-chart", "data-factor-name" => factor_name.underscore, "data-score-percentages" => factor_scores[:scores].to_json }
-            .clr  
-            .divider1
+            .pull-right
+              = render :partial=> "benchmarks/report/factor_benchkmark", :locals=>{:benchmarks=>factor_scores}
+            / .pull-left      
+            /   %div{ id: "benchmark-chart-#{factor_name.underscore}", style: "width: 520px; height: 300px; overflow: hidden;", "class" => "benchmark-chart", "data-factor-name" => factor_name.underscore, "data-score-percentages" => factor_scores[:scores].to_json }
+            / .clr  
+            .clr.divider1
     .divider1
     
 %script{ src: "https://www.google.com/jsapi", type: "text/javascript" }
