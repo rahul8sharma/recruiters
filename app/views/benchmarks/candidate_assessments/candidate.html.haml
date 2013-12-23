@@ -82,12 +82,21 @@
               %a.default-color{:href=> company_benchmark_path(:id => candidate_assessment.assessment.id, :company_id => @company.id), :title=>"TEST #{candidate_assessment.assessment_id}"} 
                 #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
             .span5.first.lhs-border
+            - if candidate_assessment.candidate_assessment_reports.present?
+              - report = candidate_assessment.candidate_assessment_reports[0] 
             .span3.lhs-border
-              - if candidate_assessment.overall_fitment_grade_id.present?
-                - report = candidate_assessment.candidate_assessment_reports[0] 
+              - if report
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
-                  Included in Benchmark
+                  - if current_user.type == "SuperAdmin"
+                    - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                      - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => @candidate.id, :assessment_id => @assessment.id, :id => report.id)
+                      %a.underlined{:href => url, :title => "View Report", target: "_blank"}
+                        View Report
+                    - else
+                      Included in Benchmark  
+                  - else
+                    Included in Benchmark
                 - else
-                  Including in Benchmark...  
+                  Analysing Responses...  
               - else
                 Pending          

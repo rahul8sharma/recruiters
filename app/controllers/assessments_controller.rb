@@ -11,10 +11,11 @@ class AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
     @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include  => [:functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket], :include => { :factor => { :methods => [:type, :direct_predictor_ids] } }).all.to_a
     
-    direct_predictor_parent_ids = @assessment_factor_norms.collect{ |x| x.factor.direct_predictor_ids.present? ? x.factor_id : nil }.compact.uniq
-    direct_predictor_norms = @assessment_factor_norms.select{ |x| direct_predictor_parent_ids.include? x.factor_id }.uniq
-    alarm_factor_norms = @assessment_factor_norms.select{ |x| x.factor.type == "Suitability::AlarmFactor" }.uniq
-    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms
+    direct_predictor_parent_ids = @assessment_factor_norms.collect{ |factor_norm| factor_norm.factor.direct_predictor_ids.present? ? factor_norm.factor_id : nil }.compact.uniq
+    direct_predictor_norms = @assessment_factor_norms.select{ |factor_norm| direct_predictor_parent_ids.include? factor_norm.factor_id }.uniq
+    lie_detector_norms = @assessment_factor_norms.select{ |factor_norm| factor_norm.factor.type == "Suitability::LieDetector" }.uniq
+    alarm_factor_norms = @assessment_factor_norms.select{ |factor_norm| factor_norm.factor.type == "Suitability::AlarmFactor" }.uniq
+    @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - lie_detector_norms
     @other_norms = direct_predictor_norms
   end
 
@@ -294,7 +295,9 @@ class AssessmentsController < ApplicationController
     
     all_direct_predictors = Vger::Resources::Suitability::Factor.active({ :id => all_direct_predictor_parent_ids }).to_a
     
-    @job_assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
+    @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all
+    
+    @job_assessment_factor_norms = @assessment_factor_norms.select{|x| all_direct_predictor_parent_ids.include? x.factor_id}
     
     selected_parents = @job_assessment_factor_norms.map(&:factor_id)
     

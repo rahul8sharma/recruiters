@@ -14,7 +14,7 @@
       = render :partial => "shared/candidate-content-benchmark-sub-nav"
     - if @assessment.report_urls && @assessment.report_urls["benchmark"] && @assessment.report_urls["benchmark"]["pdf"]
       .pull-right
-        = link_to "Download a PDF version of the Benchmark Report", report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id]), target: "_blank", class: "line-height2 span"
+        = link_to "Download a PDF version of the Benchmark Report", report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id], format: "pdf"), target: "_blank", class: "line-height2 span"
     / .sapn6.pull-right.text-right
     /   %a.line-height2{:href => company_assessments_path(@company)}
     /     Back to all Benchmarks
