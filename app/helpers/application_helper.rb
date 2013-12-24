@@ -78,8 +78,6 @@ module ApplicationHelper
       "sent" => "Pending",
       "started" => "Started",
       "scored" => "Completed",
-      "ready_for_benchmarking" => "Completed",
-      "benchmarked" => "Completed",
       "expired" => "Expired"
     }
   end
