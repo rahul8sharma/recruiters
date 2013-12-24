@@ -207,6 +207,10 @@ class Assessments::CandidateAssessmentsController < ApplicationController
     }, :include => [:candidate_assessment_reports])
   end
   
+  def send_reminder_to_candidate_url
+    send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
+  end
+  
   protected
   
   # fetches assessment if id is present in params
