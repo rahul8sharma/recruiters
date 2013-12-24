@@ -10,20 +10,21 @@
       - if controller.search_columns.present?    
         %p
           Industry :
+            
           %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    
-            - @industries.each do |id,name|
+            - controller.send("select_industry_id").each do |name, id|
               %option{ value: id }
                 = name      
           Functional Area :
           %select{ name: "export[filters][functional_area_id][]", multiple: true, size: 10 }    
-            - @functional_areas.each do |id,name|
+            - controller.send("select_functional_area_id").each do |name, id|
               %option{ value: id }
                 = name
           %br
           %br
           Job Experiences :
           %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
-            - @job_experiences.each do |id,name|
+            - controller.send("select_job_experience_id").each do |name, id|
               %option{ value: id }
                 = name          
 
