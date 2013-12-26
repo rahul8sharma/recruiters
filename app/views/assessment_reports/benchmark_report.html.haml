@@ -1,3 +1,11 @@
+- if @view_mode == "html"
+  :css
+    .benchmark_report .inner{margin-top:0px;} 
+- else
+  :css
+    .benchmark_report .inner{margin-top:80px;min-height:800px}     
+
+
 - content_for :report_link do
   - if @view_mode == "html"
     = link_to "View Printable PDF", report_company_benchmark_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
@@ -13,7 +21,7 @@
 - (0..rest_factors.length-1).step(factors_step) do |step|    
   - step_factors = Hash[rest_factors[step..(step+(factors_step - 1))]]
   .benchmark_report
-    .inner{ style: "margin-top:100px;" }
+    .inner{ style: "margin-top:80px;" }
       .overall_report
         = render :template => "assessment_reports/benchmark_report/factors", :locals => { factors: step_factors, continued: true }
   .page-break 

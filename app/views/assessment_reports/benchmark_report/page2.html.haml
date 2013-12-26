@@ -1,7 +1,9 @@
 .benchmark_report
-  .inner{ style: "margin-top:0px;" }
+  .inner
     .overall_report
-      .blue_bg_heading Score distribution for each factor (%)
+      .blue_bg_heading.pull-left 
+        Score distribution for each factor (%)
+      .clr  
       - factor_benchmarks.each do |factor_name, benchmarks|
         .graph_section.clearfix
           .pull-left
