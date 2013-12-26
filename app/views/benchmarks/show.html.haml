@@ -43,10 +43,10 @@
     .pull-left.medium-text
       Results last updated: #{htime @assessment.updated_at} Hrs, #{hdate @assessment.updated_at}
     .pull-right.text-right
-      %b.medium-text Benchmarks Sent: 
+      %b.medium-text Sent: 
       %b.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
       %span.left-offset1
-        %b.medium-text Benchmarks Taken: 
+        %b.medium-text Taken: 
         %b.large-text #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
     .clr.divider1
     .medium-text 
