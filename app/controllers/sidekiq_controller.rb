@@ -1,6 +1,11 @@
 class SidekiqController < ApplicationController
   before_filter :check_superadmin
   
+  def generate_factor_benchmarks
+    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
+    render :json => { :status => "Job Started" }
+  end
+  
 	def upload_reports
 	  reports = Vger::Resources::Suitability::CandidateAssessmentReport.where(
       :query_options => { 

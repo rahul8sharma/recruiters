@@ -27,7 +27,7 @@ class ReportUploader < AbstractController::Base
       :methods => [ :report_hash ]
     )
     
-    template = @report.report_hash[:assessment][:assessment_type] == "fit" ? "assessment_report" : "competency_report"
+    template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
     
     tries = 0
     report_status = {
