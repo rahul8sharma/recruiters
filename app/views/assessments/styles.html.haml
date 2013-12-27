@@ -32,7 +32,7 @@
       .divider1
       %b.medium-text
         Selected Factors: 
-      = @assessment.job_assessment_factor_norms.where(:include => [ :factor ]).collect{|x| "\"#{x.factor.name}\"" }.join(", ")
+      = @assessment_factor_norms.select{|factor_norm| factor_norm.factor.type != "Suitability::LieDetector" }.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
       .alert.alert-info.padding-all1.text-center

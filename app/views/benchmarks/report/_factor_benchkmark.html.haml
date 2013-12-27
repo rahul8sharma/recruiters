@@ -1,0 +1,18 @@
+.bargraph
+  %ul.bars.clearfix
+    - @norm_buckets.each_with_index do |norm_bucket,index|
+      %li{ class: "bar#{index+1}", style: "height: #{benchmarks[:scores][norm_bucket.name][:score]}%;background: #{benchmarks[:scores][norm_bucket.name][:color]}"}
+  %ul.label
+    - @norm_buckets.each_with_index do |norm_bucket,index|
+      %li #{norm_bucket.name}
+  %ul.y-axis
+    %li 100%
+    %li 80%
+    %li 60%
+    %li 40%
+    %li 20%
+    %li 0%
+    %li.units
+
+  .graph_title
+    Score

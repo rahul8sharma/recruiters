@@ -1,5 +1,6 @@
 @import toolkit/component/buttons
 @import shared/header
+@import factor_benchmark
 $favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
@@ -38,7 +39,7 @@ body
     background: image-url('report/body-bg.png') no-repeat #fff
     width: $width
     margin: 0 auto
-    margin-top: 90px
+    margin-top: 80px
   .report_content
     min-height: 700px
     padding: 25px 45px
@@ -167,17 +168,17 @@ body
       background: image-url('report/orange-texture.png')
       padding: 15px 10px 15px 35px
       margin-bottom: 20px
-    .sub-heading.large-text
-      font-size: 25px
-    .sub-heading.medium-text
-      font-size: 20px
+      &.large-text
+        font-size: 25px
+      &.medium-text
+        font-size: 20px
 
   .blue_bg_heading
     background: #1db3c4
     padding: 18px 12px
     color: #fff
     font-size: 25.5px
-    margin-bottom: 23px
+    margin-bottom: 15px
   .blue_bg_heading.iconic
     position: relative
     padding: 20px 100px 20px 50px
@@ -363,36 +364,36 @@ body
             .position#{$i}
               left: $i * 65px - (20)
           
-          @for $i from 0 through 3
-            .offset#{$i}
-              margin-left: $i * 66px 
-          @for $i from 0 through 3
-            .width#{$i}
-              width: $i * 66px 
-          .width0
-            width: 5px
-          .width4
-            width: 100%
       .small
         font-size: 10px
       .wrap-inn
         padding: 30px 10px
 
+  @for $i from 0 through 3
+    .offset#{$i}
+      margin-left: $i * 66px 
+  @for $i from 0 through 3
+    .width#{$i}
+      width: $i * 66px 
+  .width0
+    width: 5px
+  .width4
+    width: 100%
+  .scale
+    background: image-url('report/scale-bg.png') no-repeat center bottom
+    width: 340px
+    height: 50px
+    margin: 15px -35px 0 0
+    float: right
+    .marker
+      color: #36a3b2
+      font-size: 12.25px
+      width: 56px
+      text-align: center
+      float: left
+      line-height: 14px
+      margin-left: 10px
   .favorable_factors
-    .scale
-      background: image-url('report/scale-bg.png') no-repeat center bottom
-      width: 340px
-      height: 55px
-      margin: 15px -35px 0 0
-      float: right
-      .marker
-        color: #36a3b2
-        font-size: 12.25px
-        width: 56px
-        text-align: center
-        float: left
-        line-height: 14px
-        margin-left: 10px
     .indication
       font-size: 14px
       line-height: 22px
@@ -554,5 +555,200 @@ body
       span
         font-weight: normal
         font-size: 90%
+  .notification
+    background: #dceaf8
+    padding: 18px
+    font-size: 15.5px
+    margin-top: 0px
+    text-align: center
+    .star
+      color: #ff0000
+  .benchmark_report
+    .blue_bg_heading
+      font-size: 20px
+    .overall_report
+      .heading
+        padding: 20px 42px
+        margin-bottom: 42px
+        .big-text
+          font-size: 42px
+          line-height: 60px
+      .visual
+        height: auto
+        min-height: 250px
+        background: image-url('report/benchmark/visual.png') no-repeat
+        padding: 0 0 0 330px
+        .sub-heading
+          position: relative
+          font-size: 16px
+          text-shadow: none
+          padding: 9px 10px
+          padding-right: 15px
+          .candate_count
+            position: absolute
+            right: -45px
+            top: -1px
+            line-height: 57px
+            height: 57px
+            width: 65px
+            background: image-url('report/candidate_count.png') no-repeat
+            text-align: center
+            color: #1a1c28
+            font-size: 25px
+
+        p
+          font-size: 16px
+          line-height: 20px
+          margin-bottom: 18px
+    .candidate_factor
+      border: 5px solid #ff8308
+      .sub-heading
+        font-size: 19px
+        padding: 15px 10px
+
+      ul
+        margin: 0 12px
+        .badge
+          line-height: 30px
+          width: 195px
+          float: left
+          margin: 9px
+          padding: 0 10px
+          list-style: none
+          color: #052634
+          font-size: 15px
+          font-weight: bold
+          background: #d2f0f3
+    .graph_section
+      border: 1px solid #cccccc
+      padding: 15px 25px 
+      margin-bottom: 20px
+      .factor_title
+        color: #092e5b  
+        font-size: 17px
+        font-weight: bold
+        line-height: 26px
+        margin-bottom: 5px
+      .factor_description
+        font-size: 14px
+        line-height: 18px
+        width: 220px
+    .benchmark_assessment_range
+      .indication
+        padding: 15px 35px
+        border: 1px solid #a1a1a1
+        font-size: 14px 
+        font-weight: bold
+        line-height: 18px
+        .box
+          background: #ff8308 
+          border: 2px solid #dadbdb
+          width: 35px
+          height: 18px
+      .range_title
+        font-size: 17px
+        font-weight: bold
+        color: #092e5b
+      .range_list_title
+        font-size: 20px 
+        font-weight: bold
+        margin-top: 35px
+      .scale
+      ul.range_list
+        margin: 0
+        list-style: none
+        li
+          border-bottom: 2px dotted #b1becd
+          padding: 25px 0 
+          .factor_label
+            background: #ceeef2
+            font-size: 20px 
+            font-weight: bold
+            padding: 7px 10px 
+            width: 190px
+            float: left
+          .slider 
+            border: 2px solid #2B90BA
+            height: 15px
+            margin-top: 7px
+            width: 264px
+            float: right
+            .range
+              background: #ff8308
+              height: 15px
+  .training_requirements_report
+    .small-text
+      font-size: 28px
+      line-height: 30px
+    .graph
+      height: 480px
+    .tips_listing
+      list-style: none
+      margin: 0
+      background: image-url("report/training_requirements_report/list_score_bg.png") repeat-y 400px 0
+      li
+        border-bottom: 2px dotted #b1becd
+        padding: 10px 0 10px 45px
+        &:last-child
+          border: none
+        &.list_header
+          border: none
+          padding-top: 0
+      .title
+        font-size: 14px
+        font-weight: bold
+        color: #092e5b
+        margin-top: 0px
+      .list_header
+        .title
+          font-size: 22.5px
+          color: #032230
+          margin-top: 35px
+        .list_score
+          color: #fff
+          font-size: 15.5px
+          font-weight: bold
+          text-align: center
+          padding: 12px 0
+          background: image-url("report/orange-texture.png")
+          min-height: 10px
+        .list_candidate_score
+          margin: 10px 0 0 12px
+          padding: 0
+
+      .lhs
+        width: 345px
+        float: left
+      .list_candidate_score
+        width: 10px
+        text-align: center
+        font-size: 15.5px 
+        font-weight: bold
+        float: left
+        width: 140px
+        padding: 15px 0 0 0
+        color: #032331
+      .list_score
+        width: 155px 
+        min-height: 100px
+        float: left
+        margin-left: 10px
+
+        .score_icon
+          background: image-url("report/candidate_count.png") no-repeat
+          color: #1A1C28
+          font-size: 18px
+          height: 57px
+          line-height: 58px
+          text-align: center
+          width: 65px
+          margin: 15px auto 0 
+      .factor_description
+        background: image-url('report/training_requirements_report/tip.png') 5px 5px no-repeat
+        font-size: 12.75px
+        line-height: 15px
+        padding-left: 35px
+
+        
 
 

@@ -1,9 +1,13 @@
 html:
+  benchmark_factor_names_step: 1000
+  benchmark_factor_scores_step: 1000
   scores_step: 1000
   guides_step: 1000
   competency_step: 1000
   competency_factors_step: 1000
 pdf:
+  benchmark_factor_names_step: 18
+  benchmark_factor_scores_step: 3
   competency_factors_step: 5
   competency_step: 10
   scores_step: 7
