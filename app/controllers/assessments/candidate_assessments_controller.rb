@@ -106,6 +106,7 @@ class Assessments::CandidateAssessmentsController < ApplicationController
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
                     :report_email_recipients => params[:report_email_recipients], 
+                    :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:send_sms],
                     :send_email => params[:send_email],
                     :worksheets => [{
@@ -138,10 +139,19 @@ class Assessments::CandidateAssessmentsController < ApplicationController
           :assessment_id => @assessment.id, 
           :candidate_id => candidate_id
         }).all[0]
+        
+        recipient = ""
+        if(params[:send_report_to_candidate])
+          @candidate = Vger::Resources::Candidate.find(candidate_id)
+          recipient = @candidate.email
+        elsif(params[:report_email_recipients].present?)
+          recipient = params[:report_email_recipients]
+        end
+        
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => params[:report_email_recipients]) 
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient) 
           if candidate_assessment.error_messages.present?
             failed_candidate_assessments << candidate_assessment
           else
