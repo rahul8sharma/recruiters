@@ -26,6 +26,36 @@
         font-size: 14px
 .statistic
   min-height: 400px
+  .stat_graph
+    background: #fffeed
+    border: 1px solid #f1f1f1
+    padding: 18px 70px
+    span.icon-stop
+      height: 10px
+      width: 10px
+  .usage_list
+    .head
+      font-size: 14px
+      font-weight: bold
+    ul
+      margin: 0
+      padding: 0
+      li
+        list-style: none
+        padding: 18px 0
+        margin-bottom: 18px
+        border: 1px solid #e8e8e8
+        [class*="span"]
+          margin: 0
+          padding-left: 10px
+          border-left: 1px solid #e8e8e8
+          &:first-child
+            border: 0
+        .alert-text
+          color: #da1e1e
+        .success-text
+          color: #12b61d
+
   .span4.pull-right.text-center 
     border-left: 1px dotted #DDDDDD
   span
@@ -35,14 +65,14 @@
     font-size: 30px
     line-height: 50px
   .graph
-    padding: 0 0 5px 2px
+    padding: 0 0 3px 1px
     width: 150px
     border-color: #b8b8b8
-    border-width: 0 0 0 3px
-    border-style: none none dashed solid
-    background: image-url("jit/dot-border.png") repeat-x 0 bottom #fff
+    border-width: 0 0 0px 4px
+    border-style: none none none solid
+    background: image-url("jit/dot-border.png") repeat-x 0 bottom 
   .column
-    height: 25px
+    height: 36px
     margin-bottom: 2px
   .green-bg
     background: #6ab724
@@ -53,6 +83,13 @@
   .orange-bg
     background: #f46316
     color: #f46316
+  .darkBlue-bg
+    background: #2f3154
+    color: #2f3154  
+  .lightBlue-bg
+    background: #6680bf
+    color: #6680bf
+    
     
 .white-box.test
   min-height: 450px
