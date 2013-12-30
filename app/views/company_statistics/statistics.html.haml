@@ -7,7 +7,7 @@
     .stat_graph
       .span5
         .graph
-          - total = @company.subscription.assessments_purchased rescue 0
+          - total = @company.assessment_statistics[:assessments_purchased]
           - sent_percentage = 0
           - completed_percentage = 0
           - if total != 0
@@ -55,21 +55,25 @@
         .clr
       .divider1
       %ul
-        - 3.times do
+        - @subscriptions.each_with_index do |subscription, index|
           %li
             .span4
-              Subscription 1
+              Subscription #{index+1}
             .span4
-              %b 34
+              %b #{subscription.assessments_purchased}
             .span4
-              455
+              #{subscription.assessments_sent}
             .span4
-              55
+              #{subscription.assessments_completed}
             .span4
-              %b 28/12/2014
-            .span.alert-text
+              - valid_to = Date.parse(subscription.valid_to)
+              %b #{valid_to.strftime("%d/%m/%Y")}
+            .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
               Active
-              //toggle btween :".success-text" and ".alert-text"
             .clr
+            
+    .pull-right
+      = paginate @subscriptions            
+    .clr  
 
 
