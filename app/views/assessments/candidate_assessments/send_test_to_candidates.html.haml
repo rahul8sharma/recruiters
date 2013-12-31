@@ -23,6 +23,15 @@
         .email_recipients.medium-text
           %b Notify the following email addresses on the completion of a test by a candidate:
           %input{ type:'text', name: 'report_email_recipients', placeholder:' Enter email addresses separated by commas. Do not add candidate emails here.'}
+          - if current_user.type == "SuperAdmin"
+            %br
+            %br
+            %div{ style: "text-align:center;" }
+              %b OR
+            %br
+            %label{ for: "send_report_to_candidate", class: "font-normal" }
+              %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+              Send report to candidate
         .divider2
         - if params[:candidates]
           .medium-text

@@ -91,7 +91,14 @@ class ReportUploader < AbstractController::Base
       File.delete(html_save_path)
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
-        JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+        # if report_email_recipients is same as candidate email
+        # use send_report_to_candidate template
+        # else use send_report template
+        if @report.report_hash[:report_email_recipients] == @report.report_hash[:candidate][:email]
+          JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_candidate(@report.report_hash), "send_report_to_candidate")
+        else
+          JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
+        end
       end
     rescue Exception => e
       Rails.logger.debug e.message
