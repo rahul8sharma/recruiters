@@ -61,13 +61,15 @@
           %li
             .span4
               Subscription #{index+1}
-            .span4
+            .span3
               %b #{subscription.assessments_purchased}
-            .span4
+            .span3
               #{subscription.assessments_sent}
-            .span4
+            .span3
               #{subscription.assessments_completed}
-            .span4
+            .span3
+              %b 28/12/2013
+            .span3
               - valid_to = Date.parse(subscription.valid_to)
               %b #{valid_to.strftime("%d/%m/%Y")}
             .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
