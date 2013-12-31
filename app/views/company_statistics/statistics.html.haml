@@ -42,13 +42,15 @@
       .head
         .span4
           Subscriptions
-        .span4
+        .span3
           Tests Bought
-        .span4
+        .span3
           Tests Sent
-        .span4
+        .span3
           Tests Answered
-        .span4
+        .span3
+          Activated Date        
+        .span3
           Valid Till
         .span
           Status
@@ -59,17 +61,20 @@
           %li
             .span4
               Subscription #{index+1}
-            .span4
+            .span3
               %b #{subscription.assessments_purchased}
-            .span4
+            .span3
               #{subscription.assessments_sent}
-            .span4
+            .span3
               #{subscription.assessments_completed}
-            .span4
+            .span3
+              %b 28/12/2013
+            .span3
               - valid_to = Date.parse(subscription.valid_to)
               %b #{valid_to.strftime("%d/%m/%Y")}
             .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
               Active
+              //toggle btween :".success-text" and ".alert-text"
             .clr
             
     .pull-right
