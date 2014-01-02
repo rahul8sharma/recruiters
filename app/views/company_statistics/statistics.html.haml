@@ -62,7 +62,7 @@
         - @subscriptions.each_with_index do |subscription, index|
           %li
             .span4
-              Subscription #{index+1}
+              Subscription #{@subscriptions.length - index}
             .span3
               %b #{subscription.assessments_purchased}
             .span3
