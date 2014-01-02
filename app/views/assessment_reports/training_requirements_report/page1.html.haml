@@ -11,7 +11,7 @@
         .span.first
           Assessment Name: 
         .span9
-          Sales Manager at Mercedes Benz Dealership
+          #{@assessment.name}
         .clr
 
       .visual
@@ -30,7 +30,7 @@
           %br/
           Assessed
           .candate_count
-            10
+            #{@assessment.training_requirement_report[:no_of_candidates_assessed]}
         .clr
         .divider1
       .graph
