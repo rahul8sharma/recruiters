@@ -6,12 +6,9 @@
     - @norm_buckets.each_with_index do |norm_bucket,index|
       %li #{norm_bucket.name}
   %ul.y-axis
-    %li 100%
-    %li 80%
-    %li 60%
-    %li 40%
-    %li 20%
-    %li 0%
+    - 6.times do |index|
+      %li 
+        #{100 - index *20}%
     %li.units
 
   .graph_title
