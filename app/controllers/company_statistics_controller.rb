@@ -15,8 +15,17 @@ class CompanyStatisticsController < ApplicationController
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end  
-    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription], :methods => methods)
+    @company = Vger::Resources::Company.find(params[:id], :methods => methods)
     @company.assessment_statistics ||= {}
+    @subscriptions = Vger::Resources::Subscription.where(
+      :query_options => { 
+        :company_id => @company.id 
+      }, 
+      :order => ["valid_to DESC"],
+      :methods => [:assessments_sent,:assessments_completed],
+      :page => params[:page], 
+      :per => 5
+    )
   end
 end
 

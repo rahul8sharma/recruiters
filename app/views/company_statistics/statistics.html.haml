@@ -7,13 +7,15 @@
     .stat_graph
       .span5
         .graph
-          - total = @company.subscription.assessments_purchased rescue 0
+          - total = @company.assessment_statistics[:assessments_purchased]
+          - assessments_sent = @company.assessment_statistics[:assessments_sent]
+          - assessments_completed = @company.assessment_statistics[:assessments_completed]
           - sent_percentage = 0
           - completed_percentage = 0
           - if total != 0
-            - sent_percentage = ((@company.assessment_statistics[:assessments_sent].to_i * 100) / total)
-            - completed_percentage = ((@company.assessment_statistics[:assessments_completed].to_i * 100) / total)
-          .column.darkBlue-bg{:style => "width: #{sent_percentage}%"}
+            - sent_percentage = ((assessments_sent.to_i * 100) / total)
+            - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
+          .column.darkBlue-bg{:style => "width: 100%"}
           .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
           //.column.orange-bg{:style => "width: 20%"}
       .span13
@@ -42,34 +44,44 @@
       .head
         .span4
           Subscriptions
-        .span4
+        .span3
           Tests Bought
-        .span4
+        .span3
           Tests Sent
-        .span4
+        .span3
           Tests Answered
-        .span4
+        .span3
+          Activated Date        
+        .span3
           Valid Till
         .span
           Status
         .clr
       .divider1
       %ul
-        - 3.times do
+        - @subscriptions.each_with_index do |subscription, index|
           %li
             .span4
-              Subscription 1
-            .span4
-              %b 34
-            .span4
-              455
-            .span4
-              55
-            .span4
-              %b 28/12/2014
-            .span.alert-text
-              Active
+              Subscription #{@subscriptions.length - index}
+            .span3
+              %b #{subscription.assessments_purchased}
+            .span3
+              #{subscription.assessments_sent}
+            .span3
+              #{subscription.assessments_completed}
+            .span3
+              - valid_from = Date.parse(subscription.valid_from)
+              %b #{valid_from.strftime("%d/%m/%Y")}
+            .span3
+              - valid_to = Date.parse(subscription.valid_to)
+              %b #{valid_to.strftime("%d/%m/%Y")}
+            .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
+              #{(valid_to >= Date.today) ? "Active" : "Expired"}
               //toggle btween :".success-text" and ".alert-text"
             .clr
+            
+    .pull-right
+      = paginate @subscriptions            
+    .clr  
 
 

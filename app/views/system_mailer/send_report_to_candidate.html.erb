@@ -3,7 +3,8 @@ Hi <%= @report_hash[:candidate][:name] %>,
   Thank you for choosing to have your psychometric profiling done by Jombay. Your personal report is ready!
 </p>
 <p>
-  The report provides scores and detailed descriptions on behavioral factors, while classifying them as Favorable and Less Favorable. Also included is a detailed Development Guide to help you improve on all measured behavioural factors.
+  The report provides scores and detailed descriptions on behavioral factors, while classifying them as Favorable and Less Favorable. Also included are the training guide and more details for each factor.
+
 </p>
 <p>
   You can view your report at: <%= company_assessment_candidate_candidate_assessment_report_url(:company_id => @report_hash[:company][:id], :candidate_id => @report_hash[:candidate][:id], :assessment_id => @report_hash[:assessment][:id], :id => @report_hash[:id])  %>.

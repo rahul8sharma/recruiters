@@ -1,6 +1,6 @@
 class ReportUploader < AbstractController::Base
   include Sidekiq::Worker
-  
+
   include AbstractController::Rendering
   include AbstractController::Helpers
   include AbstractController::Translation
@@ -9,7 +9,7 @@ class ReportUploader < AbstractController::Base
   helper ApplicationHelper
   helper ReportsHelper
   self.view_paths = "app/views"
-  
+
   def perform(report_data, auth_token, patch = {})
     report_data = HashWithIndifferentAccess.new report_data
     Rails.logger.debug "************* #{report_data} ******************"
@@ -18,17 +18,20 @@ class ReportUploader < AbstractController::Base
     company_id = report_data["company_id"]
     assessment_id = report_data["assessment_id"]
     candidate_id = report_data["candidate_id"]
-    
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id, 
-      :assessment_id => assessment_id, 
-      :candidate_id => candidate_id, 
-      :company_id => company_id, 
-      :patch => patch, 
+
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
+      :assessment_id => assessment_id,
+      :candidate_id => candidate_id,
+      :company_id => company_id,
+      :patch => patch,
       :methods => [ :report_hash ]
     )
-    
+
+    candidate_name = @report.report_hash[:candidate][:name]
+    company_name = @report.report_hash[:company][:name]
+
     template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
-    
+
     tries = 0
     report_status = {
       :errors => [],
@@ -38,38 +41,38 @@ class ReportUploader < AbstractController::Base
     begin
       @view_mode = "html"
       html = render_to_string(
-         template: "assessment_reports/#{template}", 
-         layout: "layouts/reports", 
+         template: "assessment_reports/#{template}",
+         layout: "layouts/reports",
          handlers: [ :haml ]
       )
-      
+
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/#{template}", 
-          layout: "layouts/reports.html.haml", 
+          "assessment_reports/#{template}",
+          layout: "layouts/reports.html.haml",
           handlers: [ :haml ],
           formats: [:html]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        header: { 
+        header: {
           :content => render_to_string("shared/_report_header.html.haml",layout: "layouts/reports.html.haml")
         },
         footer: {
           :content => render_to_string("shared/_report_footer.html.haml",layout: "layouts/reports.html.haml")
         }
       )
-      
+
       FileUtils.mkdir_p(Rails.root.join("tmp"))
-      pdf_file_id = "report_#{@report.id}.pdf"
+      pdf_file_id = "#{candidate_name.underscore.gsub('_','-')}-#{company_name.underscore.gsub('_','-')}-#{@report.id}.pdf"
       html_file_id = "report_#{@report.id}.html"
       pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
       html_save_path = Rails.root.join('tmp',"#{html_file_id}")
-      
-      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
-        :assessment_id => assessment_id, 
-        :candidate_id => candidate_id, 
-        :company_id => company_id,  
+
+      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+        :assessment_id => assessment_id,
+        :candidate_id => candidate_id,
+        :company_id => company_id,
         :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
       )
       File.open(html_save_path, 'wb') do |file|
@@ -80,10 +83,10 @@ class ReportUploader < AbstractController::Base
       end
       pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
-      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
-        :assessment_id => assessment_id, 
-        :candidate_id => candidate_id, 
-        :company_id => company_id,  
+      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+        :assessment_id => assessment_id,
+        :candidate_id => candidate_id,
+        :company_id => company_id,
         :s3_keys => { :pdf => pdf_s3, :html => html_s3 },
         :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
       )
@@ -105,11 +108,11 @@ class ReportUploader < AbstractController::Base
       tries = tries + 1
       if tries < 5
         retry
-      else   
-        Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id, 
-          :assessment_id => assessment_id, 
-          :candidate_id => candidate_id, 
-          :company_id => company_id,  
+      else
+        Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+          :assessment_id => assessment_id,
+          :candidate_id => candidate_id,
+          :company_id => company_id,
           :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::FAILED
         )
       end
@@ -117,7 +120,7 @@ class ReportUploader < AbstractController::Base
         :report => {
           :status => "Failed",
           :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
-          
+
           :candidate => {
             :name => @report.report_hash[:candidate][:name],
             :email => @report.report_hash[:candidate][:email]
@@ -127,16 +130,16 @@ class ReportUploader < AbstractController::Base
             :name => @report.report_hash[:assessment][:name],
             :assessable_id => @report.report_hash[:assessment][:assessable_id],
             :assessable_type => @report.report_hash[:assessment][:assessable_type]
-          } 
+          }
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
         }
       }), "notify_report_status")
-    end  
-    
+    end
+
   end
-  
+
   def upload_file_to_s3(file_id,file_path)
     File.open(file_path,"r") do |file|
       Rails.logger.debug "Uploading #{file_id} to s3 ........."
