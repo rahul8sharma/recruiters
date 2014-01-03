@@ -18,8 +18,6 @@ class ReportUploader < AbstractController::Base
     company_id = report_data["company_id"]
     assessment_id = report_data["assessment_id"]
     candidate_id = report_data["candidate_id"]
-    candidate_name = report_data['candidate_name']
-    company_name = report_data['company_name']
 
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
       :assessment_id => assessment_id,
@@ -28,6 +26,9 @@ class ReportUploader < AbstractController::Base
       :patch => patch,
       :methods => [ :report_hash ]
     )
+
+    candidate_name = @report.report_hash[:candidate][:name]
+    company_name = @report.report_hash[:company][:name]
 
     template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 
