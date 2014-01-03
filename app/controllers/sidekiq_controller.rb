@@ -14,9 +14,7 @@ class SidekiqController < ApplicationController
       :methods => [
                     :assessment_id,
                     :candidate_id,
-                    :company_id,
-                    :candidate_name,
-                    :company_name
+                    :company_id
                   ]
     ).all.to_a
 
@@ -25,9 +23,7 @@ class SidekiqController < ApplicationController
         :id => report.id,
         :company_id => report.company_id,
         :assessment_id => report.assessment_id,
-        :candidate_id => report.candidate_id,
-        :candidate_name => report.candidate_name,
-        :company_name => report.company_name
+        :candidate_id => report.candidate_id
       }
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
