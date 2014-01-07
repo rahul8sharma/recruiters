@@ -1,17 +1,21 @@
 class SidekiqController < ApplicationController
   before_filter :check_superadmin
-  
+
   def generate_factor_benchmarks
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
     render :json => { :status => "Job Started" }
   end
-  
+
 	def upload_reports
 	  reports = Vger::Resources::Suitability::CandidateAssessmentReport.where(
-      :query_options => { 
+      :query_options => {
         :status =>  Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED
       },
-      :methods => [ :assessment_id, :candidate_id, :company_id ]
+      :methods => [
+                    :assessment_id,
+                    :candidate_id,
+                    :company_id
+                  ]
     ).all.to_a
 
     reports.each do |report|
@@ -25,7 +29,7 @@ class SidekiqController < ApplicationController
     end
     render :json => { :status => "Job Started", :reports => reports }
 	end
-	
+
 	def upload_benchmark_reports
 	  candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.get("/suitability/candidate_assessments/benchmarked?query_options[status]=#{Vger::Resources::Suitability::CandidateAssessment::Status::BENCHMARKED}").to_a
     job_ids = []
@@ -38,7 +42,7 @@ class SidekiqController < ApplicationController
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
 	end
-	
+
 	def regenerate_reports
 	  if params[:args][:assessment_id].present? && params[:args][:email].present?
 	    assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)
