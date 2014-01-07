@@ -1,0 +1,25 @@
+.h-graph
+  %ul.bars.clearfix
+    - factor_scores = @assessment.training_requirement_report[:factor_scores]
+    - factor_scores.keys[0..9].each do |factor_name|
+      - factor_data = factor_scores[factor_name]
+      %li{:style=>"background: '#{factor_data[:color]}'; width: #{factor_data[:percentage_candidates]}%"}
+  %ul.x-axis.clearfix
+    - 11.times do  |index|
+      %li{:class=>"values#{index}"}
+        #{index *10}%
+      
+    %li.units
+      \% 
+      of candidates
+
+  %ul.y-axis
+    - factor_scores.keys[0..9].each do |factor_name|
+      - factor_data = factor_scores[factor_name]
+      %li
+        .values 
+          #{factor_name}
+        .marker
+        .clr
+    %li.units
+

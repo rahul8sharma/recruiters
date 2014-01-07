@@ -1,5 +1,5 @@
-.training_requirements_report
-  .inner{ style: "margin-top:0px;" }
+.benchmark_report.training_requirements_report
+  .inner
     .overall_report
       %ul.tips_listing
         %li.list_header.clearfix
@@ -7,19 +7,18 @@
             .title Factor 
           .list_score % Candidates with less favorable scores
           .list_candidate_score Most candidates scored
-        - 7.times do
+        - factor_scores.keys.each do |factor_name|
+          - factor_data = factor_scores[factor_name]
           %li.clearfix
             .lhs
-              .title Emotional Control
+              .title #{factor_name}
               %p.factor_description
-                You may want to discuss with them alternative ways of dealing with highly emotional situations. It could help them learn how to manage their emotions better.
+                #{factor_data[:tip]}
             .list_score 
               .score_icon
-                70%
+                #{factor_data[:percentage_candidates]}
             .list_candidate_score 
-              Below
-              %br/
-              Average
+              #{factor_data[:most_scored_norm_bucket]}
       .notification
         Factor scores are measured relative to Industry standards for this job role and experience level
         %span.star *

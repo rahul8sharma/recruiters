@@ -1,4 +1,19 @@
+- if @view_mode == "html"
+  :css
+    .benchmark_report .training_requirements_report .inner{margin-top:0px;} 
+- else
+  :css
+    .benchmark_report .training_requirements_report .inner{margin-top:100px;min-height:800px}     
+
+
 = render :template => "assessment_reports/training_requirements_report/page1"
-= render :template => "assessment_reports/training_requirements_report/page2"
+
+- all_factor_scores = @assessment.training_requirement_report[:factor_scores]
+- scores_step = Rails.application.config.reports[@view_mode]["training_requirements_report"]["scores_step"]
+- if all_factor_scores.present?
+  - (0..all_factor_scores.keys.length-1).step(scores_step) do |step|  
+    - step_factor_scores = all_factor_scores.slice(*all_factor_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/training_requirements_report/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
+    .page-break  
+
 = render :template => "assessment_reports/training_requirements_report/page3"
-= render :template => "assessment_reports/training_requirements_report/page4"
