@@ -3,6 +3,37 @@ class AssessmentReportsController < ApplicationController
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
+  def training_requirements_report
+    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:training_requirement_report])
+    if request.format == "application/pdf"
+      @view_mode = "pdf"
+    else  
+      @view_mode = "html"
+    end
+    respond_to do |format|
+      format.html { render :template => "assessment_reports/training_requirements_report" }
+      format.pdf { 
+        render pdf: "training_requirements_report_#{params[:id]}.pdf",
+        header: { 
+          :html => {
+            template: "shared/reports/_training_requirements_report_header.html.haml"
+          }
+        },
+        footer: {
+          :html => {
+            template: "shared/reports/_report_footer.html.haml"
+          }
+        },           
+        template: "assessment_reports/training_requirements_report.html.haml", 
+        layout: "layouts/reports.html.haml", 
+        handlers: [ :haml ], 
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        formats: [:html],
+        locals: { :@view_mode => "pdf" }
+      }
+    end
+  end
+  
   def benchmark_report
     @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:benchmark_report])
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
@@ -18,12 +49,12 @@ class AssessmentReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         header: { 
           :html => {
-            template: "shared/_benchmark_report_header.html.haml"
+            template: "shared/reports/_benchmark_report_header.html.haml"
           }
         },
         footer: {
           :html => {
-            template: "shared/_report_footer.html.haml"
+            template: "shared/reports/_report_footer.html.haml"
           }
         },           
         template: "assessment_reports/benchmark_report.html.haml", 
@@ -82,12 +113,12 @@ class AssessmentReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         header: { 
           :html => {
-            template: "shared/_report_header.html.haml"
+            template: "shared/reports/_report_header.html.haml"
           }
         },
         footer: {
           :html => {
-            template: "shared/_report_footer.html.haml"
+            template: "shared/reports/_report_footer.html.haml"
           }
         },           
         template: "assessment_reports/#{template}.html.haml", 

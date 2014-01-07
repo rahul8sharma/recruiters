@@ -100,6 +100,8 @@ Recruiters::Application.routes.draw do
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         
+        get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
+        
         get "candidates" => "assessments/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
@@ -120,8 +122,6 @@ Recruiters::Application.routes.draw do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
-            get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
-            get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
             get "manage" => "assessment_reports#manage", :as => :manage
             put "manage" => "assessment_reports#manage", :as => :manage
           end
