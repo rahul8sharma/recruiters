@@ -6,19 +6,19 @@
   - if @view_mode == "html"
     = link_to "View Printable PDF", company_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
     
-= render :template => "assessment_reports/page1"
+= render :template => "assessment_reports/fit_report/page1"
 .page-break      
 
 - if @report.report_hash[:job_fit_scores].present?
-  = render :template => "assessment_reports/page2"
+  = render :template => "assessment_reports/fit_report/page2"
   .page-break      
 
 - if @report.report_hash[:company_fit_scores].present?
-  = render :template => "assessment_reports/page3"
+  = render :template => "assessment_reports/fit_report/page3"
   .page-break
  
 - if @report.report_hash[:team_fit_scores].present?
-  = render :template => "assessment_reports/page4"
+  = render :template => "assessment_reports/fit_report/page4"
   .page-break
 
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
@@ -26,7 +26,7 @@
   - job_fit_scores = @report.report_hash[:job_fit_scores]
   - (0..job_fit_scores.keys.length-1).step(scores_step) do |step|  
     - step_job_fit_scores = job_fit_scores.slice(*job_fit_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/page5", :locals => { :job_fit_scores => step_job_fit_scores, :step => step }
+    = render :template => "assessment_reports/fit_report/page5", :locals => { :job_fit_scores => step_job_fit_scores, :step => step }
     .page-break      
     
 
@@ -34,7 +34,7 @@
   - company_fit_scores = @report.report_hash[:company_fit_scores]
   - (0..company_fit_scores.keys.length-1).step(scores_step) do |step|
     - step_company_fit_scores = company_fit_scores.slice(*company_fit_scores.keys[step..(step+(scores_step - 1))])  
-    = render :template => "assessment_reports/page6", :locals => { :company_fit_scores => step_company_fit_scores, :step => step }
+    = render :template => "assessment_reports/fit_report/page6", :locals => { :company_fit_scores => step_company_fit_scores, :step => step }
     .page-break      
 
 
@@ -42,7 +42,7 @@
   - team_fit_scores = @report.report_hash[:team_fit_scores]
   - (0..team_fit_scores.keys.length-1).step(scores_step) do |step|  
     - step_team_fit_scores = team_fit_scores.slice(*team_fit_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/page7", :locals => { :team_fit_scores => step_team_fit_scores, :step => step }
+    = render :template => "assessment_reports/fit_report/page7", :locals => { :team_fit_scores => step_team_fit_scores, :step => step }
     .page-break      
 
 = render :template => "assessment_reports/common_pages"
