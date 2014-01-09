@@ -1,0 +1,33 @@
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      Test #{@assessment.id} - #{@assessment.name}
+    %a.btn.pull-right{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+      .link-color Send This Test
+  .clr
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/candidate-content-sub-nav"
+    .sapn6.pull-right.text-right
+      %a.btn.btn-info.pull-right{:href => enable_training_requirement_report_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
+        Enable Training Requirements Report
+      
+    .clr
+    .divider2
+    .summary.padding-all1.clearfix
+      .span
+        %b.show.pull-left 
+          Industry: 
+        .span6
+          = @assessment.industry.name rescue '-'
+      .span
+        %b.show.pull-left 
+          Functional Area: 
+        .span6
+          = @assessment.functional_area.name rescue '-'
+      .span
+        %b.show.span
+          Experience Level: 
+        .span 
+          = @assessment.job_experience.display_text rescue '-'
+    .divider1
