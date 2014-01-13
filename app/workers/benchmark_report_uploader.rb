@@ -15,12 +15,13 @@ class BenchmarkReportUploader < AbstractController::Base
     Rails.logger.debug "************* #{report_data} ******************"
     RequestStore.store[:auth_token] = auth_token
     assessment_id = report_data["assessment_id"]
-    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, 
-      :methods => [ :benchmark_report ]
-    )
-    report_data["company_id"] = @assessment.company_id
-    candidate_assessment_ids = report_data["candidate_assessment_ids"]
+    assessment_report_id = report_data["assessment_report_id"]
+    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :benchmark_report ])
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
+    @assessment_report.report_data = @assessment.benchmark_report
     @report = @assessment.benchmark_report
+    
+    report_data["company_id"] = @assessment.company_id
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
     tries = 0
     report_status = {
@@ -30,6 +31,11 @@ class BenchmarkReportUploader < AbstractController::Base
     }
     begin
       @view_mode = "html"
+      
+      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING,
+      )
+      
       html = render_to_string(
          template: "assessment_reports/benchmark_report", 
          layout: "layouts/reports", 
@@ -45,11 +51,8 @@ class BenchmarkReportUploader < AbstractController::Base
           formats: [:html]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        header: { 
-          :content => render_to_string("shared/report/_benchmark_report_header.html.haml",layout: "layouts/reports.html.haml")
-        },
         footer: {
-          :content => render_to_string("shared/report/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+          :content => render_to_string("shared/reports/_report_footer.html.haml",layout: "layouts/reports.html.haml")
         }
       )
       
@@ -74,29 +77,16 @@ class BenchmarkReportUploader < AbstractController::Base
       # Update report_urls hash for assessment
       pdf_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.pdf")
       html_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.html")
-      @assessment.report_urls ||= {}
-      @assessment.report_urls["benchmark"] ||= {}
-      @assessment.report_urls["benchmark"]["pdf"] = {}
-      @assessment.report_urls["benchmark"]["html"] = {}
-      @assessment.report_urls["benchmark"]["pdf"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
-      @assessment.report_urls["benchmark"]["pdf"]["key"] = "benchmark_report_assessment_#{@assessment.id}.pdf"
-      @assessment.report_urls["benchmark"]["html"]["bucket"] = "#{Rails.env.to_s}_benchmark_reports"
-      @assessment.report_urls["benchmark"]["html"]["key"] = "benchmark_report_assessment_#{@assessment.id}.html"
       
-      Vger::Resources::Suitability::Assessment.save_existing(@assessment.id,
-        :report_urls => @assessment.report_urls
+      Vger::Resources::Suitability::AssessmentReport.save_existing(@assessment_report.id,
+        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
+        :pdf_bucket  => "#{Rails.env.to_s}_benchmark_reports",
+        :pdf_key     => "benchmark_report_assessment_#{@assessment.id}.pdf",
+        :html_bucket => "#{Rails.env.to_s}_benchmark_reports",
+        :html_key    => "benchmark_report_assessment_#{@assessment.id}.html",
+        :report_data => @report
       )
       
-      Vger::Resources::Suitability::CandidateAssessment.update_all(
-        :assessment_id => @assessment.id, 
-        :query_options => { 
-          :id => candidate_assessment_ids
-        },
-        :update_attributes => {
-          :assessment_id => assessment_id,
-          :status => Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
-        }
-      )
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
         JombayNotify::Email.create_from_mail(SystemMailer.send_benchmark_report(report_data), "send_report")
