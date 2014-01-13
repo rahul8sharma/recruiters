@@ -1,9 +1,8 @@
 - content_for :javascripts do
   = wicked_pdf_javascript_include_tag "reports"  
 
-- if @view_mode == "html"
-  :css
-    .competency_report .inner{margin-top:0px;} 
+:css
+  .report .competency_report .inner{margin-top:0px;} 
     
 - content_for :report_link do
   - if @view_mode == "html"
