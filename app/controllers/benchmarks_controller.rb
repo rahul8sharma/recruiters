@@ -3,8 +3,7 @@ class BenchmarksController < AssessmentsController
   def index
     @assessments = Vger::Resources::Suitability::Assessment.where(
       :query_options => { 
-        :assessable_id => params[:company_id], 
-        :assessable_type => "Company", 
+        :company_id => params[:company_id], 
         :assessment_type => [Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK] 
       }, 
       :order => "created_at DESC", 
@@ -13,18 +12,35 @@ class BenchmarksController < AssessmentsController
     )
   end
   
-  def report
+  def download_benchmark_report
     if request.format.to_s == "application/pdf"
       type = "pdf"
     else
       type = "html"
     end  
-    url = S3Utils.get_url(@assessment.report_urls["benchmark"][type]["bucket"],@assessment.report_urls["benchmark"][type]["key"]);
-    redirect_to url
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
+                            :query_options => {
+                              :assessment_id => params[:id],
+                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK,
+                              :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+                            }
+                          ).all.first
+    if @assessment_report && @assessment_report.report_data.present?
+      url = S3Utils.get_url(@assessment_report.send("#{type}_bucket"),@assessment_report.send("#{type}_key"));
+      redirect_to url
+    else
+      redirect_to company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), alert: "Benchmark report is not ready yet."
+    end
   end 
   
   def show
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], methods: [ :benchmark_report ])
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
+                            :query_options => {
+                              :assessment_id => params[:id],
+                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK,
+                              :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+                            }
+                          ).all.first
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
   end
 end
