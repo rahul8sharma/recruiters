@@ -1,3 +1,6 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"  
+
 - if @view_mode == "html"
   :css
     .competency_report .inner{margin-top:0px;} 
@@ -33,4 +36,4 @@
           .page-break 
       
 .report      
-  = render :template => "assessment_reports/common_pages"      
+  = render :template => "assessment_reports/common_pages"
