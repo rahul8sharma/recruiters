@@ -11,9 +11,6 @@ $width: 850px
 body  
   position: relative
   
-*
-  border: solid 1px red
-  
 #header
   position: fixed
   z-index: 9999  
@@ -182,10 +179,11 @@ body
     background: #1db3c4
     padding: 18px 12px
     color: #fff
-    font-size: 25.5px
+    font-size: 24px
     margin-bottom: 15px
   .blue_bg_heading.iconic
     position: relative
+    max-width: 570px
     padding: 20px 100px 20px 50px
     line-height: 30px
     .thumbnails 
@@ -204,16 +202,19 @@ body
         background-position: center -281px
 
   .factor_fit
-    [class*=instruction]
-      padding: 10px 70px
-      color: #969696
-      font-weight: bold
-      margin-bottom: 10px
-      font-size: 17px
-      background: image-url("report/hexagon-small.png") no-repeat
-
-    .instruction2
-      background-position: 0px -59px
+    .instruction_container
+      position: relative
+      .instructions  
+        position: absolute
+        [class*=instruction]
+          padding: 10px 70px
+          color: #969696
+          font-weight: bold
+          margin-bottom: 10px
+          font-size: 17px
+          background: image-url("report/hexagon-small.png") no-repeat
+        .instruction2
+          background-position: 0px -59px
     .bottom_sec
       margin: 0px 0 0 503px 
       position: relative
@@ -266,7 +267,7 @@ body
 
     .factors_container
       background: image-url("report/hexagon-bg.png") no-repeat 10px top
-      height: 880px
+      height: 870px
 
       .factors_list
         position: relative
@@ -400,7 +401,7 @@ body
     background: image-url('report/scale-bg.png') no-repeat center bottom
     width: 340px
     height: 50px
-    margin: 15px -35px 0 0
+    margin: 15px 10px 0 0
     float: right
     .marker
       color: #36a3b2
