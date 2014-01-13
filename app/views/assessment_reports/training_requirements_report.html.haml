@@ -1,14 +1,20 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "training_requirements_report"  
+    
 - if @view_mode == "html"
   :css
-    .benchmark_report .training_requirements_report .inner{margin-top:0px;} 
+    .training_requirements_report .inner{margin-top:80px;} 
+    .about_us {margin-top:0px;} 
 - else
   :css
-    .benchmark_report .training_requirements_report .inner{margin-top:100px;min-height:800px}     
+    .training_requirements_report .inner{margin-top:0px;min-height:800px}     
+    .about_us {margin-top:100px;} 
 
 
 = render :template => "assessment_reports/training_requirements_report/page1"
+.page-break
 
-- all_factor_scores = @assessment.training_requirement_report[:factor_scores]
+- all_factor_scores = @assessment_report.report_data[:factor_scores]
 - factor_scores = Hash[all_factor_scores.keys[0..9].map{|key| [key,all_factor_scores[key]] }]
 - scores_step = Rails.application.config.reports[@view_mode]["training_requirements_report"]["scores_step"]
 - if factor_scores.present?
@@ -17,8 +23,11 @@
     = render :template => "assessment_reports/training_requirements_report/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break  
 
-= render :template => "assessment_reports/training_requirements_report/page3"
-.page-break      
+= render :partial => "shared/reports/about_us"
+.page-break
+
+= render :partial => "shared/reports/legal_disclaimer"
+.page-break
 
 - if @view_mode == "html"
   = render :partial => "shared/reports/report_footer", :locals => { :force => true, :last_page => true }
