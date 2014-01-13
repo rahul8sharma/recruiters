@@ -131,13 +131,19 @@ class AssessmentsController < ApplicationController
       end
     else
       @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
+      @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
          Vger::Resources::Suitability::Assessment::AssessmentType::FIT
       elsif params[:competency].present?  
         Vger::Resources::Suitability::Assessment::AssessmentType::COMPETENCY
       else
+        @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK
         Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
-      end  
+      end
+      if params[:enable_training_requirements_report].present?
+        @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
+      end
+      @assessment.report_types.uniq!
       @assessment.assessment_type = assessment_type
       @assessment.assessable_type = "Company"
       @assessment.assessable_id = params[:company_id]
