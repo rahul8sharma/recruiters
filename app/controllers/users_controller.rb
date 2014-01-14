@@ -63,6 +63,9 @@ class UsersController < ApplicationController
   def reset_password
     if params[:activate]
       @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
+      if !@user
+        redirect_to(root_url, notice: "Invalid reset password token")  and return
+      end
       render :action => :activate 
     end
   end
