@@ -19,6 +19,6 @@
           %span.icon-pie 
           Usage
       %li{ class: (["company_settings", "companies", "users"].include?(params[:controller]) ? 'active' : '') }
-        %a{:href=> user_settings_company_path(@company), :title=>"Settings"} 
+        %a{:href=> company_path(@company), :title=>"Settings"} 
           %span.icon-cog
           Settings
