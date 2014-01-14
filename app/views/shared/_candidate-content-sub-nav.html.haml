@@ -2,4 +2,6 @@
   %a.menu{ class: (["candidate","candidates"].include?(params[:action]) ? "active" : ""),:href => candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Candidates"}
     Candidates     
   %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
-    Summary     
+    Summary
+  %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
+    Training Requirements

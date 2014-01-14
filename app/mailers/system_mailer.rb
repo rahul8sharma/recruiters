@@ -27,4 +27,11 @@ class SystemMailer < ActionMailer::Base
     to = report_hash['report_email_recipients'].present? ? report_hash['report_email_recipients'] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
+  
+  def send_training_requirements_report(report_hash)
+    @report_hash = report_hash
+    subject = "Training Requirements Report for Assessment with ID #{report_hash['assessment_id']} is generated."
+    to = report_hash['report_email_recipients'].present? ? report_hash['report_email_recipients'] : "engineering@jombay.com"
+    mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
+  end
 end
