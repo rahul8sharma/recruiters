@@ -32,7 +32,7 @@ class SidekiqController < ApplicationController
   
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING, 
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
                   }).all.to_a
     job_ids = []
