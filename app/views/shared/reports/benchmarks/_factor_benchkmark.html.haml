@@ -1,3 +1,6 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "shared/reports/benchmarks/factor_benchmark"
+
 .bargraph
   %ul.bars.clearfix
     - @norm_buckets.each_with_index do |norm_bucket,index|

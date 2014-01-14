@@ -2,8 +2,8 @@
   border-width: 1px 0 0 1px
   border-color: #e4e9e9 transparent transparent #aaabab
   border-style: solid
-  height: 370px
-  width: 640px
+  height: 300px
+  width: 600px
   position: relative
   background: image-url('report/h-graph-bg.png')
   padding-right: 10px
@@ -19,15 +19,15 @@
 
     li
       background: #f27a00
-      margin: 15px 0
+      margin: 12px 0
       padding: 0
       width: 42px
       z-index: 99
       list-style: none
-      height: 22px
+      height: 18px
 
       &:first-child
-        margin-top: 7px
+        margin-top: 6px
 
   ul.x-axis
     top: -20px
@@ -37,7 +37,7 @@
     position: absolute
     @for $i from 0 through 10
       li.values#{$i}
-        left: $i * 64px - (15)
+        left: $i * 60px - (15)
     li
       float: left
       font-size: 8px
@@ -50,7 +50,7 @@
 
       &.units
         bottom: 0px
-        left: 245px
+        left: 222px
         width: 150px
         font-size: 10px
         font-weight: bold
@@ -64,7 +64,7 @@
     margin: 0
 
     li
-      height: 37px
+      height: 30px
       width: 85px
       line-height: 10px
       font-size: 8px
@@ -73,7 +73,7 @@
       list-style: none
       .marker
         width: 3px
-        height: 36px
+        height: 29px
         border-width: 0px 0 1px 0
         border-color: #aaabab transparent
         border-style: solid
@@ -81,7 +81,7 @@
         float: right
       .values
         float: left
-        padding-top: 14px
+        padding-top: 8px
         width: 75px
       &:first-child
         .marker

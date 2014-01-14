@@ -55,11 +55,8 @@ class ReportUploader < AbstractController::Base
           formats: [:html]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        header: {
-          :content => render_to_string("shared/_report_header.html.haml",layout: "layouts/reports.html.haml")
-        },
         footer: {
-          :content => render_to_string("shared/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+          :content => render_to_string("shared/reports/_report_footer.html.haml",layout: "layouts/reports.html.haml")
         }
       )
 

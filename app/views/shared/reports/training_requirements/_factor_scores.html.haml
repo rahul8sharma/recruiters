@@ -1,0 +1,21 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "shared/reports/training_requirements/factor_scores"
+
+%ul.tips_listing
+  %li.list_header.clearfix
+    .lhs
+      .title Factor 
+    .list_score % Candidates with less favorable scores
+    .list_candidate_score Most candidates scored
+  - factor_scores.keys.each do |factor_name|
+    - factor_data = factor_scores[factor_name]
+    %li.clearfix
+      .lhs
+        .title #{factor_name}
+        %p.factor_description
+          #{factor_data[:tip]}
+      .list_score 
+        .score_icon
+          #{factor_data[:percentage_candidates]}
+      .list_candidate_score 
+        #{factor_data[:most_scored_norm_bucket]}

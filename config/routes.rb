@@ -68,7 +68,7 @@ Recruiters::Application.routes.draw do
         get "styles" => "benchmarks#styles", :as => :styles
         put "styles" => "benchmarks#styles", :as => :styles
         
-        get "report" => "benchmarks#report", :as => :report
+        get "download_benchmark_report" => "benchmarks#download_benchmark_report", :as => :download_benchmark_report
         get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
         
         get "candidates" => "benchmarks/candidate_assessments#candidates", :as => :candidates
@@ -100,6 +100,13 @@ Recruiters::Application.routes.draw do
         get "styles" => "assessments#styles", :as => :styles
         put "styles" => "assessments#styles", :as => :styles
         
+        get "enable_training_requirements_report" => "assessments/training_requirements_reports#enable_training_requirements_report", :as => :enable_training_requirements_report
+        
+        get "download_training_requirements_report" => "assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
+        
+        get "training_requirements" => "assessments/training_requirements_reports#training_requirements", :as => :training_requirements
+        get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
+        
         get "candidates" => "assessments/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
@@ -120,8 +127,6 @@ Recruiters::Application.routes.draw do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
-            get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
-            get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
             get "manage" => "assessment_reports#manage", :as => :manage
             put "manage" => "assessment_reports#manage", :as => :manage
           end
@@ -380,6 +385,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
+  match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   
