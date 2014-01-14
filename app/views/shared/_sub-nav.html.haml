@@ -1,10 +1,14 @@
 .page-sub-nav.clearfix
   //.company-logo.pull-left
   //  = image_tag("http://placehold.it/36x26")
-  .company-name.span11
+  .company-name.span10
     = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
+      %li
+        %a{:title => "Walk-Ins", :href => "/companies/2/benchmarks/"}
+          %span.icon-run
+          Walk-Ins
       - if current_user.type == "SuperAdmin"
         %li{ class: (["benchmarks/candidate_assessments","benchmarks"].include?(params[:controller]) ? 'active' : '') }
           %a{ :href=> company_benchmarks_path(@company), :title=>"Benchmarks"} 
