@@ -16,8 +16,7 @@
     .page-title
       Settings
   .inn.gray-gradient
-    .pull-left
-      = render :partial => "shared/settings-content-sub-nav"
+    = render :partial => "shared/settings-content-sub-nav"
     = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
       .pull-right.medium-text
         %button.btn.btn-info.show.span

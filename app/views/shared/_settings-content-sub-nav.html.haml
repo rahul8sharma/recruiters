@@ -3,5 +3,7 @@
     Company Profile
   %a.menu{:title => "Password Settings", :href => password_settings_path, class: "#{ ['password_settings'].include?(params[:action]) ? 'active':''  }"}
     Password Settings
-  %a.menu{:title => "User Settings", :href => user_settings_company_path(@company), class: "#{ ['user_settings','add_users', 'remove_users'].include?(params[:action]) ? 'active':''  }" }
-    User Settings
+  - if current_user.type == "SuperAdmin"  
+    %a.menu{:title => "User Settings", :href => user_settings_company_path(@company), class: "#{ ['user_settings','add_users', 'remove_users'].include?(params[:action]) ? 'active':''  }" }
+      User Settings
+  .clr    
