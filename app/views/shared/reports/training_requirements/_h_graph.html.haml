@@ -11,10 +11,9 @@
     - 11.times do  |index|
       %li{:class=>"values#{index}"}
         #{index *10}%
-      
-    %li.units
-      \% 
-      of candidates
+  .percent      
+    \ % 
+    of candidates
 
   %ul.y-axis
     - factor_scores.keys[0..9].each do |factor_name|
