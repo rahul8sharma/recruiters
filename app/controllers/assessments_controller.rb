@@ -339,7 +339,7 @@ class AssessmentsController < ApplicationController
   
   def get_company
     methods = []
-    if ["show","index"].include? params[:action]
+    if ["show","index", "training_requirements"].include? params[:action]
       if Rails.application.config.statistics[:load_assessmentwise_statistics]
         methods << :assessmentwise_statistics
       end
