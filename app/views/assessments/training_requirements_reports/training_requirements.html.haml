@@ -41,7 +41,7 @@
               = @assessment.job_experience.display_text rescue '-'
         .divider1
         .pull-left.medium-text
-          Results last updated: #{htime @assessment.updated_at} Hrs, #{hdate @assessment.updated_at}
+          Results last updated: #{htime @assessment_report.updated_at} Hrs, #{hdate @assessment_report.updated_at}
         .pull-right.text-right
           %b.medium-text Training Requirements Sent: 
           %b.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
