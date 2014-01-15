@@ -1,0 +1,48 @@
+%div
+  .inn.first
+    .page-title.pull-left
+      Walk-Ins
+    .pagination.pull-right
+      = paginate @assessments  
+  .inn.gray-gradient
+    - if @assessments.empty?
+      .medium-text.alert.pull-left
+        No benchmarks have been created. To create a Benchmarks, 
+        %a{:href => new_company_benchmark_path(:company_id => params[:company_id]), :title => "Click Here To Create New Benchmark"} click here.
+    - if can?(:create, "Suitability::Assessment")    
+      %a.btn.btn-info.pull-right{:href => new_company_benchmark_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+        Create Walk-In Index Page
+    .clr
+    .divider1
+    - if @assessments.present?    
+      .list-snippet-titles.medium-text.clearfix
+        .span3
+          Walk-In ID
+        .span10
+          Walk-In Index Page
+        .span5
+          Page Management
+        .span
+                     
+      %ul.unstyled
+        - @assessments.each do |assessment|
+          %li.list-snippet
+            .span3
+              %a.default-color{:href=> candidates_company_benchmark_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST #{assessment.id}
+            .span10.first.lhs-border
+              %a.default-color{:href=> candidates_company_benchmark_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+                = assessment.name
+            .span5.lhs-border
+              %a.underlined{:href=> "#", :title=> "title"}   
+                Manage
+            
+            .span.lhs-border
+              %a.underlined{:href => "#", :title => "Send This Test"}
+                Link  
+    .divider1         
+    %a.btn.btn-info.pull-right{:href => new_company_benchmark_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+      Create Walk-In Index Page
+    .clr
+  .inn
+    .pagination.pull-right
+      = paginate @assessments
