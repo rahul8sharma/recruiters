@@ -25,19 +25,19 @@
         .span
                      
       %ul.unstyled
-        - @assessment_groups.each do |assessment|
+        - @assessment_groups.each do |assessment_group|
           %li.list-snippet
             .span3
-              %a.default-color{:href=> candidates_company_assessment_group_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST #{assessment.id}
+              %a.default-color{:href=> candidates_company_assessment_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title =>  assessment_group.title} Walk In #{assessment_group.id}
             .span10.first.lhs-border
-              %a.default-color{:href=> candidates_company_assessment_group_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
-                = assessment.name
+              %a.default-color{:href=> candidates_company_assessment_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title => assessment_group.title}  
+                = assessment_group.title
             .span5.lhs-border
-              %a.underlined{:href=> "#", :title=> "title"}   
+              %a.underlined{:href=> edit_company_assessment_group_path(:company_id => @company.id, id: assessment_group.id), :title=> "title"}   
                 Manage
             
             .span.lhs-border
-              %a.underlined{:href => "#", :title => "Send This Test"}
+              %a.underlined{:href => assessment_group.hex_ref, :title => "Send This Test"}
                 Link  
     .divider1         
     %a.btn.btn-info.pull-right{:href => new_company_assessment_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
