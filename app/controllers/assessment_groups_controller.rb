@@ -2,7 +2,7 @@ class AssessmentGroupsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_company
   
-  layout "tests"
+  layout "walk_ins"
   
   def index
     @assessment_groups = Vger::Resources::Suitability::AssessmentGroup.where(:query_options => {  
