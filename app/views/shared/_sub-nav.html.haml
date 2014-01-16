@@ -5,8 +5,8 @@
     = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
-      %li
-        %a{:title => "Walk-Ins", :href => "/companies/2/benchmarks/"}
+      %li{ class: (["assessment_groups"].include?(params[:controller]) ? 'active' : '') }
+        %a{:title => "Walk-Ins", :href => company_assessment_groups_path(@company)}
           %span.icon-run
           Walk-Ins
       - if current_user.type == "SuperAdmin"
