@@ -56,6 +56,13 @@ Recruiters::Application.routes.draw do
     end
     
     resources :assessment_groups, path: "walk-ins", :controller => :assessment_groups do 
+      member do
+        get "summary" => "assessment_groups#summary", as: :summary
+        put "summary" => "assessment_groups#summary", as: :summary
+        get "customize" => "assessment_groups#customize", as: :customize
+        put "customize" => "assessment_groups#customize", as: :customize
+        get "expire" => "assessment_groups#expire", as: :expire
+      end
     end
     
     resources :benchmarks, :except => [:destroy] do
