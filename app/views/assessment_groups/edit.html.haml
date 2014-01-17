@@ -1,0 +1,87 @@
+.customize.edit
+  .inn.first
+    .page-title.pull-left
+      Name of the Walk-In Index Page
+  .inn.gray-gradient
+    
+      
+    .clr
+
+    .divider1
+    %form
+      .expire-container
+        .expire.pull-left
+          %b.show.line-height2.medium-text.pull-left
+            Expire page on: 
+          .left-offset1.pull-left
+            %select
+              %option
+                Hour
+              %option
+                2
+            %select
+              %option
+                Mins
+              %option
+                2
+          .left-offset1.pull-left
+            %select
+              %option
+                Date
+              %option
+                1
+            %select.big
+              %option
+                Month
+              %option
+                2
+            %select
+              %option
+                Year
+              %option
+                2
+          .clr
+        %a.expire-btn.btn.medium-text.link-color.pull-right{:href => "#", :title => "Expire Page Now"}
+          Expire Page Now
+        .clr 
+      
+      .divider1
+      .text-right
+        %a.medium-text{:href => "#", :title => "Cancel"}
+          Cancel
+        %a.btn.btn-info.medium-text.left-offset1{:href => "#", :title => "Update"}
+          Update
+
+      .list
+        %ul.unstyled.clearfix
+          %li.titles
+            .control-group
+              .left-sec
+                %b Included
+              .right-sec
+                %b Selected Tests
+              .clr  
+          - 3.times do
+            %li
+              -# add class ".checked" to "<label>" when user clicks on checkbox/label
+              .control-group
+                .left-sec
+                  %input{:type => "checkbox"}
+                .right-sec
+                  %label
+                    Some Test Name will come here in one line
+                .clr
+              .control-group
+                .left-sec.line-height2
+                  Optional:
+                .right-sec
+                  %input{:type => "text", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be displayed on the Index Page."}
+
+                .clr
+        .text-right
+          %a.medium-text{:href => "#", :title => "Cancel"}
+            Cancel
+          %a.btn.btn-info.medium-text.left-offset1{:href => "#", :title => "Update"}
+            Update
+          
+        .clr
