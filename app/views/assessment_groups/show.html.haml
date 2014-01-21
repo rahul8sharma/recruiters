@@ -1,19 +1,19 @@
 .inn.first
   .page-title.pull-left
-    Name of the Walk-In Index Page
+    = @assessment_group.title
 .inn.gray-gradient
   .pull-left
     .content-sub-nav.clearfix
-      %a.menu{:title => "Candidates", :href => "#", :class => "active"}
+      %a.menu{:title => "Candidates", :href => company_assessment_group_path(@company, @assessment_group), :class => "active"}
         Summary
   .pull-right
     %span.span.medium-text.line-height2
       Test expire on:   
-      %b 22:00hrs  
+      %b #{ htime @assessment_group.expires_on } hrs
       %b 
         \|  
-      %b 19 JAN 2014
-    %a.btn.btn-info.medium-text.span{:href => "#", :title => "Edit Walk-In List"}
+      %b #{ hdate @assessment_group.expires_on }
+    %a.btn.btn-info.medium-text.span{:href => edit_company_assessment_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
       Edit
   .clr
 
@@ -23,8 +23,8 @@
     .span
       %b URL to access Index page:
     .span15
-      %a{:href => "#", :title => "URL to access Index page"}
-        http://doc.gooogle.com/
+      %a{:href => @assessment_group.url, target: "_blank", :title => "URL to access Index page"}
+        = @assessment_group.url
     .clr
   .divider1       
   .list-snippet-titles.clearfix
@@ -37,20 +37,22 @@
     .span
       Tests Answered
   %ul.unstyled
-    %li.list-snippet
-      .span3.first
-        %a.default-color{:title => "", :href => "#"}
-          Test043
-      .span13.lhs-border
-        %a.default-color{:title => "", :href => "#"}
-          Some Test name will appear here
-      .span3.lhs-border
-        %a.default-color{:title => "", :href => "#"}
-          420
-      .span.lhs-border
-        %a.default-color{:title => "", :href => "#"}
-          420
+    - @assessments.each do |assessment|
+      - if @assessment_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
+        %li.list-snippet
+          .span3.first
+            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
+              Test #{assessment.id}
+          .span13.lhs-border
+            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
+              #{assessment.name}
+          .span3.lhs-border
+            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
+              = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+          .span.lhs-border
+            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
+              = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
   .pull-right
-    %a.btn.btn-info.medium-text.span{:href => "#", :title => "Edit Walk-In List"}
+    %a.btn.btn-info.medium-text.span{:href => edit_company_assessment_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
       Edit
   .clr

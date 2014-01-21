@@ -1,51 +1,56 @@
-.customize
-  .inn.first
-    .page-title.pull-left
-      Name of the Walk-In Index Page
-  .inn.gray-gradient
-    .pull-left
-      .test-flow-sub-nav.clearfix.pull-left
-        .menu.active 1 &nbsp; Create Page             
-        .menu 2 &nbsp; Customize           
-        .menu 3 &nbsp; Summary              
-    .pull-right
-      %a.btn.btn-info.medium-text.span{:href => "#", :title => "Proceed"}
-        Proceed
-      
-    .clr
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
 
-    .divider1
-    %form
+.customize
+  = form_for :assessment_group, url: customize_company_assessment_group_path(@company, @assessment_group), method: :put do |f|
+    .inn.first
+      .page-title.pull-left
+        = @assessment_group.title
+    .inn.gray-gradient
+      .pull-left
+        .test-flow-sub-nav.clearfix.pull-left
+          .menu 1 &nbsp; Create Page             
+          .menu.active 2 &nbsp; Customize           
+          .menu 3 &nbsp; Summary              
+      .pull-right
+        %input.btn.btn-info.medium-text.span{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
+      .clr
+
+      .divider1
+    
       .expire
         %b.show.line-height2.medium-text.pull-left
           Expire page on: 
-        .left-offset1.pull-left
-          %select
-            %option
-              Hour
-            %option
-              2
-          %select
-            %option
-              Mins
-            %option
-              2
-        .left-offset1.pull-left
-          %select
-            %option
-              Date
-            %option
-              1
-          %select.big
-            %option
-              Month
-            %option
-              2
-          %select
-            %option
-              Year
-            %option
-              2
+        = f.datetime_select :expires_on  
+        -#
+          .left-offset1.pull-left
+            %select
+              %option
+                Hour
+              %option
+                2
+            %select
+              %option
+                Mins
+              %option
+                2
+          .left-offset1.pull-left
+            %select
+              %option
+                Date
+              %option
+                1
+            %select.big
+              %option
+                Month
+              %option
+                2
+            %select
+              %option
+                Year
+              %option
+                2
         .clr
       .divider1
 
@@ -58,25 +63,26 @@
               .right-sec
                 %b Selected Tests
               .clr  
-          - 3.times do
+          - @assessments.each do |assessment|
             %li
               -# add class ".checked" to "<label>" when user clicks on checkbox/label
               .control-group
                 .left-sec
-                  %input{:type => "checkbox"}
+                  %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "assessment_group[assessment_hash][#{assessment.id}][enabled]", value: @assessment_group.assessment_hash["#{assessment.id}"]['enabled']}
+                  %input{:type => "checkbox", id: "chk_assessment_#{assessment.id}", class: "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", value: assessment.id, checked: @assessment_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
                 .right-sec
-                  %label
-                    Some Test Name will come here in one line
+                  %label.checked{ id: "label_assessment_#{assessment.id}", for: "chk_assessment_#{assessment.id}" }
+                    = assessment.name
                 .clr
               .control-group
                 .left-sec.line-height2
                   Optional:
                 .right-sec
-                  %input{:type => "text", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be displayed on the Index Page."}
+                  %input{:type => "text", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be displayed on the Index Page.", value: @assessment_group.assessment_hash["#{assessment.id}"]["display_text"]}
 
                 .clr
         .pull-right
-          %a.btn.btn-info.medium-text.span{:href => "#", :title => "Proceed"}
-            Proceed
-          
+          %input.btn.btn-info.medium-text.span{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
         .clr
+        
+= javascript_include_tag "walk_ins"
