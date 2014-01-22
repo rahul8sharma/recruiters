@@ -52,8 +52,7 @@
         - factor_scores = @assessment_report.report_data[:factor_scores]
         - factor_scores = Hash[factor_scores.keys[0..9].map{|key| [key,factor_scores[key]] }]
         .training_requirements_report
-          .graph
-            = render :partial => "shared/reports/training_requirements/h_graph", locals: { factors: factor_scores }
+          = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: factor_scores }
           .divider1  
           = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
           .divider3
