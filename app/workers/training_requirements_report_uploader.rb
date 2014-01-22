@@ -19,6 +19,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
     @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
     @assessment_report.report_data = @assessment.training_requirements_report
+    return if !@assessment_report.report_data[:factor_scores].present?
     @report = @assessment.training_requirements_report
     report_data["company_id"] = @assessment.company_id
     tries = 0
