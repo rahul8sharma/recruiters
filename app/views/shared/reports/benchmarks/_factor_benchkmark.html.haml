@@ -1,3 +1,6 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "shared/reports/benchmarks/factor_benchmark"
+
 .bargraph
   %ul.bars.clearfix
     - @norm_buckets.each_with_index do |norm_bucket,index|
@@ -6,12 +9,9 @@
     - @norm_buckets.each_with_index do |norm_bucket,index|
       %li #{norm_bucket.name}
   %ul.y-axis
-    %li 100%
-    %li 80%
-    %li 60%
-    %li 40%
-    %li 20%
-    %li 0%
+    - 6.times do |index|
+      %li 
+        #{100 - index *20}%
     %li.units
 
   .graph_title

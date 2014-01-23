@@ -10,7 +10,7 @@
           %a{ :href=> company_benchmarks_path(@company), :title=>"Benchmarks"} 
             %span.icon-j-guy 
             Benchmarks
-      %li{ class: (["assessments/candidate_assessments","assessments"].include?(params[:controller]) ? 'active' : '') }
+      %li{ class: (["assessments/candidate_assessments","assessments/training_requirements_reports","assessments"].include?(params[:controller]) ? 'active' : '') }
         %a{ :href=> company_assessments_path(@company), :title=>"Tests"} 
           %span.icon-pencil 
           Tests

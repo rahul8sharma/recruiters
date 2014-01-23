@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: ed2e8eeb0ea6af5be8d7cc864e8640f3a34b7e97
+  revision: 6f730462022cbf693b0871744245680e2cbf81be
   branch: develop
   specs:
     vger (0.0.1)
@@ -125,7 +125,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     multipart-post (1.2.0)
     nokogiri (1.5.11-java)
     polyglot (0.3.3)
@@ -157,14 +157,14 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.1.0)
+    rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.6)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
     request_store (1.0.5)
-    sass (3.2.12)
+    sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

@@ -12,7 +12,7 @@
           - assessments_completed = @company.assessment_statistics[:assessments_completed]
           - sent_percentage = 0
           - completed_percentage = 0
-          - if total != 0
+          - if total != 0 && assessments_sent != 0
             - sent_percentage = ((assessments_sent.to_i * 100) / total)
             - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
           .column.darkBlue-bg{:style => "width: 100%"}

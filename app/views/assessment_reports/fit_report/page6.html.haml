@@ -1,11 +1,14 @@
+= render partial: "shared/reports/report_header.html.haml"
 .inner
   .scores.favorable_factors
     .blue_bg_heading.iconic.pull-left
       Scores of Factors measured under  
-      %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
+      %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["company_fit"]}
       = "(continued)" if step != 0
       .thumbnails
-        .thumbnails_inn3
+        .thumbnails_inn1
+      -#above heading is same for page 6 and 7, just change a copy "Compny fit", "Team Fit"
+      -#and also change class name for "Team Fit" use ".thumbnails_inn2"- for "Compny fit" use ".thumbnails_inn1"
     .clr
     .indication
       .pull-left
@@ -37,7 +40,7 @@
       .clr
     .clr
     %ul.unstyled.clearfix.scores_listing
-      - job_fit_scores.each_with_index do |(factor_name,factor_score),index|
+      - company_fit_scores.each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
@@ -45,7 +48,7 @@
             .span10
               .factor-name
                 = factor_name
-          .rhs-sec.pull-right
+          .rhs-sec.pull-left
             .slider
               - scale = factor_score[:scale]
               .pointer{ class: "position#{scale[:position]}" }
@@ -56,4 +59,4 @@
           .clr
           .factor-description
             = factor_score[:description]
-          .clr
+          .clr 

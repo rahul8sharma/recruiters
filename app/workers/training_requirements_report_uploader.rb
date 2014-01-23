@@ -1,4 +1,4 @@
-class BenchmarkReportUploader < AbstractController::Base
+class TrainingRequirementsReportUploader < AbstractController::Base
   include Sidekiq::Worker
   
   include AbstractController::Rendering
@@ -16,13 +16,12 @@ class BenchmarkReportUploader < AbstractController::Base
     RequestStore.store[:auth_token] = auth_token
     assessment_id = report_data["assessment_id"]
     assessment_report_id = report_data["assessment_report_id"]
-    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :benchmark_report ])
+    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-    @assessment_report.report_data = @assessment.benchmark_report
-    @report = @assessment.benchmark_report
-    
+    @assessment_report.report_data = @assessment.training_requirements_report
+    return if !@assessment_report.report_data[:factor_scores].present?
+    @report = @assessment.training_requirements_report
     report_data["company_id"] = @assessment.company_id
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
     tries = 0
     report_status = {
       :errors => [],
@@ -37,7 +36,7 @@ class BenchmarkReportUploader < AbstractController::Base
       )
       
       html = render_to_string(
-         template: "assessment_reports/benchmark_report", 
+         template: "assessment_reports/training_requirements_report", 
          layout: "layouts/reports", 
          handlers: [ :haml ]
       )
@@ -45,7 +44,7 @@ class BenchmarkReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/benchmark_report", 
+          "assessment_reports/training_requirements_report", 
           layout: "layouts/reports.html.haml", 
           handlers: [ :haml ],
           formats: [:html]
@@ -57,8 +56,8 @@ class BenchmarkReportUploader < AbstractController::Base
       )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
-      pdf_file_id = "benchmark_report_assessment_#{@assessment.id}.pdf"
-      html_file_id = "benchmark_report_assessment_#{@assessment.id}.html"
+      pdf_file_id = "training_requirements_report_assessment_#{@assessment.id}.pdf"
+      html_file_id = "training_requirements_report_assessment_#{@assessment.id}.html"
       pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
       html_save_path = Rails.root.join('tmp',"#{html_file_id}")
       
@@ -75,21 +74,21 @@ class BenchmarkReportUploader < AbstractController::Base
       
       
       # Update report_urls hash for assessment
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.html")
+      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.pdf")
+      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.html")
       
-      Vger::Resources::Suitability::AssessmentReport.save_existing(@assessment_report.id,
+      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
         :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
-        :pdf_bucket  => "#{Rails.env.to_s}_benchmark_reports",
-        :pdf_key     => "benchmark_report_assessment_#{@assessment.id}.pdf",
-        :html_bucket => "#{Rails.env.to_s}_benchmark_reports",
-        :html_key    => "benchmark_report_assessment_#{@assessment.id}.html",
+        :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
+        :pdf_key     => "training_requirements_report_assessment_#{@assessment.id}.pdf",
+        :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
+        :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html",
         :report_data => @report
       )
       
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
-        JombayNotify::Email.create_from_mail(SystemMailer.send_benchmark_report(report_data), "send_report")
+        JombayNotify::Email.create_from_mail(SystemMailer.send_training_requirements_report(report_data), "send_report")
       end
     rescue Exception => e
       Rails.logger.debug e.message
@@ -97,7 +96,7 @@ class BenchmarkReportUploader < AbstractController::Base
       if tries < 5
         retry
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{report_data[:assessment_id]}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment with ID #{report_data[:assessment_id]}",{
         :report => {
           :status => "Failed",
           :assessment_id => @assessment.id
@@ -112,7 +111,7 @@ class BenchmarkReportUploader < AbstractController::Base
   def upload_file_to_s3(file_id,file_path)
     File.open(file_path,"r") do |file|
       Rails.logger.debug "Uploading #{file_id} to s3 ........."
-      s3_bucket_name = "#{Rails.env.to_s}_benchmark_reports"
+      s3_bucket_name = "#{Rails.env.to_s}_training_requirements_reports"
       s3_key = "#{file_id}"
       url = S3Utils.upload(s3_bucket_name, s3_key, file)
       Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
