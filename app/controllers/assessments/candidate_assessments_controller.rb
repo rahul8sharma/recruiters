@@ -52,7 +52,9 @@ class Assessments::CandidateAssessmentsController < ApplicationController
       end
       errors = {}
       params[:candidates].each do |key,candidate_data|
-        candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
+        if candidate_data[:email].present?
+          candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
+        end
         errors[candidate_data[:name]] ||= []
         if candidate
           candidate_data[:id] = candidate.id
