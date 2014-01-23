@@ -33,8 +33,7 @@
             #{@assessment_report.report_data[:no_of_candidates_assessed]}
         .clr
         .divider1
-      .graph
-        = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: @assessment_report.report_data[:factor_scores] }
+      = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: @assessment_report.report_data[:factor_scores] }
 
 
 
