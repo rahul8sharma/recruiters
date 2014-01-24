@@ -21,8 +21,9 @@
     
       .expire
         %b.show.line-height2.medium-text.pull-left
-          Expire page on: 
-        = f.datetime_select :expires_on  
+          Expire page on (Date and Time): 
+          &nbsp;
+        = f.datetime_select :expires_on,  prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose year'}
         -#
           .left-offset1.pull-left
             %select
