@@ -76,9 +76,9 @@
                 .clr
               .control-group
                 .left-sec.line-height2
-                  Optional:
+                  Display Name (Optional):
                 .right-sec
-                  %input{:type => "text", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be displayed on the Index Page.", value: @assessment_group.assessment_hash["#{assessment.id}"]["display_text"]}
+                  %input{:type => "text", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be shown.", value: @assessment_group.assessment_hash["#{assessment.id}"]["display_text"]}
 
                 .clr
         .pull-right
