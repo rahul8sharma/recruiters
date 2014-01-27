@@ -50,6 +50,7 @@
                 .left-sec.line-height2
                   Display Name (Optional):
                 .right-sec
+                  %input{:type => "hidden", name: "assessment_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
                   %input{:type => "text", :placeholder => "Enter Display Name for the Test. This name is displayed on the Index Page. If left blank, existing test title will be shown.", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", value: @assessment_group.assessment_hash["#{assessment.id}"]['display_text']}
 
                 .clr
