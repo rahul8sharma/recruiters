@@ -37,7 +37,7 @@
                 Manage
             
             .span.lhs-border
-              %a.underlined{:href => assessment_group.url, :title => "Send This Test"}
+              %a.underlined{:href => assessment_group.url, target: "_blank", :title => "Send This Test"}
                 Link  
     .divider1         
     %a.btn.btn-info.pull-right{:href => new_company_assessment_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 

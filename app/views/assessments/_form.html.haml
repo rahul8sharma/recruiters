@@ -40,9 +40,10 @@
   .divider2
   .action
     .pull-left
-      %label 
-        %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-        Enable Training Requirements Report for this assessment
+      - if current_user.type == "SuperAdmin"
+        %label 
+          %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+          Enable Training Requirements Report for this assessment
     .pull-right  
       - if current_user.type == "SuperAdmin"
         %input.button.btn.btn-info{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }

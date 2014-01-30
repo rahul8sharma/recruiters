@@ -21,7 +21,7 @@ class AssessmentGroupsController < ApplicationController
   
   def new
     @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
-    @assessment_group = Vger::Resources::Suitability::AssessmentGroup.new(:company_id => @company.id)
+    @assessment_group = Vger::Resources::Suitability::AssessmentGroup.new(:company_id => @company.id, :expires_on => Time.now + 24.hours)
   end
   
   def create

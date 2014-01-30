@@ -21,36 +21,9 @@
     
       .expire
         %b.show.line-height2.medium-text.pull-left
-          Expire page on: 
-        = f.datetime_select :expires_on  
-        -#
-          .left-offset1.pull-left
-            %select
-              %option
-                Hour
-              %option
-                2
-            %select
-              %option
-                Mins
-              %option
-                2
-          .left-offset1.pull-left
-            %select
-              %option
-                Date
-              %option
-                1
-            %select.big
-              %option
-                Month
-              %option
-                2
-            %select
-              %option
-                Year
-              %option
-                2
+          Expire page on (Date and Time): 
+          &nbsp;
+        = f.datetime_select :expires_on,  prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose year'}
         .clr
       .divider1
 
@@ -76,9 +49,10 @@
                 .clr
               .control-group
                 .left-sec.line-height2
-                  Optional:
+                  Display Name (Optional):
                 .right-sec
-                  %input{:type => "text", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name will be displayed on the Index Page. If left blank, existing test title will be displayed on the Index Page.", value: @assessment_group.assessment_hash["#{assessment.id}"]["display_text"]}
+                  %input{:type => "hidden", name: "assessment_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
+                  %input{:type => "text", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name is displayed on the Index Page. If left blank, existing test title will be shown.", value: @assessment_group.assessment_hash["#{assessment.id}"]["display_text"]}
 
                 .clr
         .pull-right
