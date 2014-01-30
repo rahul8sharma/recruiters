@@ -19,7 +19,7 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
-
+    
     member do
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
@@ -52,6 +52,16 @@ Recruiters::Application.routes.draw do
         post :import
         post 'import_from_google_drive'
         post 'export_to_google_drive'
+      end
+    end
+    
+    resources :assessment_groups, path: "walk-ins", :controller => :assessment_groups do 
+      member do
+        get "summary" => "assessment_groups#summary", as: :summary
+        put "summary" => "assessment_groups#summary", as: :summary
+        get "customize" => "assessment_groups#customize", as: :customize
+        put "customize" => "assessment_groups#customize", as: :customize
+        get "expire" => "assessment_groups#expire", as: :expire
       end
     end
     
@@ -121,7 +131,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "assessments/candidate_assessments#candidate", :as => :candidate
       end
-
+      
       resources :candidates, :except => [:destroy, :show] do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do

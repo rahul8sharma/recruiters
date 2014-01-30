@@ -1,0 +1,50 @@
+.inn.first
+  .page-title.pull-left
+    = @assessment_group.title
+.inn.gray-gradient
+  .pull-left
+    .test-flow-sub-nav.clearfix.pull-left
+      .menu 1 &nbsp; Create Page             
+      .menu 2 &nbsp; Customize           
+      .menu.active 3 &nbsp; Summary              
+  .pull-right
+    %span.span.medium-text.line-height2
+      Page expires on:   
+      %b #{ htime @assessment_group.expires_on } hrs
+      %b 
+        \|  
+      %b #{ hdate @assessment_group.expires_on }
+    
+  .clr
+
+  .divider1
+
+  .index-page-link
+    .span
+      %b URL to access Index page:
+    .span15
+      %a{:href => @assessment_group.url, target: "_blank", :title => "URL to access Index page"}
+        = @assessment_group.url
+    .clr
+  .divider1       
+  .list-snippet-titles.clearfix
+    .span3.first
+      Test ID
+    .span18
+      Test Name
+   
+  %ul.unstyled
+    - @assessments.each do |assessment|
+      - if @assessment_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
+        %li.list-snippet
+          .span3.first
+            %a.default-color{:title => "", :href => "#"}
+              = "TEST #{assessment.id}"
+          .span18.lhs-border
+            %a.default-color{:title => "", :href => "#"}
+              = assessment.name
+      
+  .pull-right
+    %a.btn.btn-info.medium-text.span{:href => company_assessment_group_path(@company,@assessment_group), :title => "Submit Final List"}
+      Submit
+  .clr
