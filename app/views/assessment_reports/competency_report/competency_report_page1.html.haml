@@ -20,7 +20,10 @@
 
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     %p.competency-description
-      This report is built on Custom Competency Frameworks unique to a company. Along with Competency scores, this report also classifies behavioral factors as Favorable or Less Favorable and provides detailed score descriptions on them. Also included is a comprehensive list of Interview Questions.
+      - if @report.report_hash[:candidate_stage] == "employee"
+        This report is built on Custom Competency Frameworks unique to a company. Along with Competency scores, this report also classifies behavioral factors as Favorable or Less Favorable and provides detailed score descriptions on them. Also included is a Development Guide for Employees and Guidelines for their managers.
+      - else
+        This report is built on Custom Competency Frameworks unique to a company. Along with Competency scores, this report also classifies behavioral factors as Favorable or Less Favorable and provides detailed score descriptions on them. Also included is a comprehensive list of Interview Questions.
     .sub-heading.medium-text.pull-left
       Competencies/Values Measured
     .instruction_container.pull-right
