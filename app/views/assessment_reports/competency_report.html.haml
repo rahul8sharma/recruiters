@@ -11,8 +11,8 @@
 .competency_report
   - competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
   - total = @report.report_hash[:competency_scores].keys.size
-  - page1_keys = @report.report_hash[:competency_scores].keys[0..(competency_step-1)]
-  - rest_keys = @report.report_hash[:competency_scores].keys[competency_step..(total-1)].to_a
+  - page1_keys = @report.report_hash[:competency_scores].keys[0..(competency_step-2)]
+  - rest_keys = @report.report_hash[:competency_scores].keys[(competency_step-1)..(total-1)].to_a
   - page1_competency_scores = @report.report_hash[:competency_scores].select{|key,value| page1_keys.include?(key) }
   - rest_competency_scores = @report.report_hash[:competency_scores].select{|key,value| rest_keys.include?(key) }.map{|key,value| [key,value] }
   = render :template => "assessment_reports/competency_report/competency_report_page1", :locals => { competency_scores: page1_competency_scores }
