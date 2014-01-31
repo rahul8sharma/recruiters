@@ -3,16 +3,25 @@
   .overall_report
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     .sub-heading.medium-text.pull-left
-      Competencies Measured 
+      Competencies/Values Measured
       %span (contd.)
+    .instruction_container.pull-right
+      .instructions
+        .instruction1.pull-left
+          Favorable 
+        .instruction2.pull-left.less_favorable
+          Less Favorable
+        .clr
     .clr
-    .clearfix
-      - competency_scores.each do |competency_name,competency_data|
-        - name_arr = competency_data[:grade].to_s.split(" ")
-        - padding = name_arr.size > 1 ? 20 : 25
-        .competency_block
-          .competency{title: competency_name}
-            = competency_name.to_s[0..30]
-          .score{ style: "padding-top: #{padding}px;height: #{70 - padding}px;" }
-            = name_arr.join("<br/>").html_safe
-          .clr
+    = render :partial => "assessment_reports/competency_report/factor-block"
+    -#
+      .clearfix
+        - competency_scores.each do |competency_name,competency_data|
+          - name_arr = competency_data[:grade].to_s.split(" ")
+          - padding = name_arr.size > 1 ? 20 : 25
+          .competency_block
+            .competency{title: competency_name}
+              = competency_name.to_s[0..30]
+            .score{ style: "padding-top: #{padding}px;height: #{70 - padding}px;" }
+              = name_arr.join("<br/>").html_safe
+            .clr
