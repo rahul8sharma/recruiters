@@ -1,6 +1,6 @@
 development: &dev
   api:
-    url : "http://api.jombaylocal.com"
+    url : "http://api.internal.ur-nl.com:6080"
     app_name : "recruiters"
     password : "JIT987"
 
