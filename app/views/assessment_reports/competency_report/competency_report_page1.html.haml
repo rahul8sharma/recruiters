@@ -31,15 +31,5 @@
           Less Favorable
         .clr
     .clr
-    = render :partial => "assessment_reports/competency_report/factor-block"
-    -#
-      .clearfix
-        - competency_scores.each do |competency_name,competency_data|
-          - name_arr = competency_data[:grade].to_s.split(" ")
-          - padding = name_arr.size > 1 ? 20 : 25
-          .competency_block
-            .competency{title: competency_name}
-              = competency_name.to_s
-            .score{ style: "padding-top: #{padding}px;height: #{70 - padding}px;" }
-              = name_arr.join("<br/>").html_safe
-            .clr
+    - competency_scores.each do |competency_name,competency_data|
+      = render :partial => "assessment_reports/competency_report/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }

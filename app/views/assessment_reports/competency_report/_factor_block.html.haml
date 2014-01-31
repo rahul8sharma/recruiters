@@ -1,0 +1,13 @@
+.factor-block
+  .factor-header
+    .title-block.pull-left{ title: competency_name }
+      = competency_name.to_s[0..55]
+    .score-block.pull-right
+      = competency_data[:grade]
+    .clr
+  .visual 
+    - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
+      - margin_top = factor_name.split(" ").size > 1 ? 0 : 15
+      %div{:class=>"factor#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}", style: "margin-top:#{margin_top}px;"}
+        = factor_name
+    -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.  
