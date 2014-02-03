@@ -61,10 +61,10 @@ class ReportUploader < AbstractController::Base
       )
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))
-      pdf_file_id = "#{candidate_name.underscore.gsub('_','-')}-#{company_name.underscore.gsub('_','-')}-#{@report.id}.pdf"
+      pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
       html_file_id = "report_#{@report.id}.html"
-      pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
-      html_save_path = Rails.root.join('tmp',"#{html_file_id}")
+      pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
+      html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
       Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
         :assessment_id => assessment_id,
