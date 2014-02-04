@@ -38,9 +38,9 @@ GIT
       sidekiq (= 2.12.1)
 
 GIT
-  remote: git@github.com:yournextleap/vger.git
+  remote: git@github.com:prcongithub/vger.git
   revision: 5906746f9776bede825cba03e4279c83b94ec9d8
-  branch: develop
+  branch: trr-2.0
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
