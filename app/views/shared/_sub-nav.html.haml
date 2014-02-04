@@ -6,7 +6,7 @@
       - if current_user.type == "SuperAdmin"
         %li{ class: (["training_requirement_groups"].include?(params[:controller]) ? 'active' : '') }
           %a{:title => "Training Requirements", :href => company_training_requirement_groups_path(@company)}
-            %span.icon-run
+            %span.icon-align-left
             Training Requirements
         %li{ class: (["walkin_groups"].include?(params[:controller]) ? 'active' : '') }
           %a{:title => "Walk-Ins", :href => company_walkin_groups_path(@company)}

@@ -5,6 +5,13 @@ class TrainingRequirementGroupsController < ApplicationController
   layout "training_requirement_groups"
   
   def index
+    @training_requirement_groups = Vger::Resources::Suitability::TrainingRequirementGroup.where(:query_options => {  
+                            company_id: @company.id
+                          },
+                          methods: [:url],
+                          page: params[:page],
+                          per: 10
+                        ).all
   end
   
   def show
