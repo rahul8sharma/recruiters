@@ -8,9 +8,9 @@
     - if @assessment_groups.empty?
       .medium-text.alert.pull-left
         No walk-ins have been created. To create a Walk-In, 
-        %a{:href => new_company_assessment_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
+        %a{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
     - if can?(:create, "Suitability::Assessment")    
-      %a.btn.btn-info.pull-right{:href => new_company_assessment_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+      %a.btn.btn-info.pull-right{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
         Create a new Walk-In Index Page
     .clr
     .divider1
@@ -28,19 +28,19 @@
         - @assessment_groups.each do |assessment_group|
           %li.list-snippet
             .span3
-              %a.default-color{:href=> company_assessment_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title =>  assessment_group.title} Walk In #{assessment_group.id}
+              %a.default-color{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title =>  assessment_group.title} Walk In #{assessment_group.id}
             .span10.first.lhs-border
-              %a.default-color{:href=> company_assessment_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title => assessment_group.title}  
+              %a.default-color{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => assessment_group.id), :title => assessment_group.title}  
                 = assessment_group.title
             .span5.lhs-border
-              %a.underlined{:href=> edit_company_assessment_group_path(:company_id => @company.id, id: assessment_group.id), :title=> "title"}   
+              %a.underlined{:href=> edit_company_walkin_group_path(:company_id => @company.id, id: assessment_group.id), :title=> "title"}   
                 Manage
             
             .span.lhs-border
               %a.underlined{:href => assessment_group.url, target: "_blank", :title => "Send This Test"}
                 Link  
     .divider1         
-    %a.btn.btn-info.pull-right{:href => new_company_assessment_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+    %a.btn.btn-info.pull-right{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
       Create a new Walk-In Index Page
     .clr
   .inn

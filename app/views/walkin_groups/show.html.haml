@@ -4,7 +4,7 @@
 .inn.gray-gradient
   .pull-left
     .content-sub-nav.clearfix
-      %a.menu{:title => "Candidates", :href => company_assessment_group_path(@company, @assessment_group), :class => "active"}
+      %a.menu{:title => "Candidates", :href => company_walkin_group_path(@company, @assessment_group), :class => "active"}
         Summary
   .pull-right
     %span.span.medium-text.line-height2
@@ -13,7 +13,7 @@
       %b 
         \|  
       %b #{ hdate @assessment_group.expires_on }
-    %a.btn.btn-info.medium-text.span{:href => edit_company_assessment_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
+    %a.btn.btn-info.medium-text.span{:href => edit_company_walkin_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
       Edit
   .clr
 
@@ -53,6 +53,6 @@
             %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
               = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
   .pull-right
-    %a.btn.btn-info.medium-text.span{:href => edit_company_assessment_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
+    %a.btn.btn-info.medium-text.span{:href => edit_company_walkin_group_path(@company, @assessment_group), :title => "Edit Walk-In List"}
       Edit
   .clr

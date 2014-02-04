@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .customize
-  = form_for :assessment_group, url: customize_company_assessment_group_path(@company, @assessment_group), method: :put do |f|
+  = form_for :assessment_group, url: customize_company_walkin_group_path(@company, @assessment_group), method: :put do |f|
     .inn.first
       .page-title.pull-left
         = @assessment_group.title

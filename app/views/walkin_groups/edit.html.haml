@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .customize.edit
-  = form_for(:assessment_group, url: company_assessment_group_path(@company, @assessment_group), method: :put) do |f|
+  = form_for(:assessment_group, url: company_walkin_group_path(@company, @assessment_group), method: :put) do |f|
     .inn.first
       .page-title.pull-left
         = @assessment_group.title
@@ -17,13 +17,13 @@
           &nbsp;
           = f.datetime_select :expires_on  
           .clr
-        %a.expire-btn.btn.medium-text.link-color.pull-right{:href => expire_company_assessment_group_path(@company, @assessment_group), :title => "Expire Page Now"}
+        %a.expire-btn.btn.medium-text.link-color.pull-right{:href => expire_company_walkin_group_path(@company, @assessment_group), :title => "Expire Page Now"}
           Expire Page Now
         .clr 
       
       .divider1
       .text-right
-        %a.medium-text{:href => company_assessment_group_path(@company, @assessment_group), :title => "Cancel"}
+        %a.medium-text{:href => company_walkin_group_path(@company, @assessment_group), :title => "Cancel"}
           Cancel
         %input.btn.btn-info.medium-text.left-offset1{:type => "Submit", :title => "Update", :name => "Update", value: "Update"}
       .list
@@ -55,7 +55,7 @@
 
                 .clr
         .text-right
-          %a.medium-text{:href => company_assessment_group_path(@company, @assessment_group), :title => "Cancel"}
+          %a.medium-text{:href => company_walkin_group_path(@company, @assessment_group), :title => "Cancel"}
             Cancel
           %input.btn.btn-info.medium-text.left-offset1{:type => "Submit", :title => "Update", :name => "Update", value: "Update"}
         .clr

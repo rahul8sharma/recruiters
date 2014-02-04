@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .new
-  = form_for(:assessment_group, method: :post, url: company_assessment_groups_path(@company)) do |f|
+  = form_for(:assessment_group, method: :post, url: company_walkin_groups_path(@company)) do |f|
     = f.hidden_field :company_id
     = f.hidden_field :expires_on
     .inn.first
