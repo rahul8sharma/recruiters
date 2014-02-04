@@ -1,15 +1,17 @@
 .page-sub-nav.clearfix
   //.company-logo.pull-left
   //  = image_tag("http://placehold.it/36x26")
-  .company-name.span10
-    = @company.name
   .navigation.pull-right.clearfix
     %ul.unstyled.clearfix
       - if current_user.type == "SuperAdmin"
-        %li{ class: (["assessment_groups"].include?(params[:controller]) ? 'active' : '') }
+        %li{ class: (["training_requirement_groups"].include?(params[:controller]) ? 'active' : '') }
+          %a{:title => "Training Requirements", :href => company_training_requirement_groups_path(@company)}
+            %span.icon-run
+            Training Requirements
+        %li{ class: (["walkin_groups"].include?(params[:controller]) ? 'active' : '') }
           %a{:title => "Walk-Ins", :href => company_walkin_groups_path(@company)}
             %span.icon-run
-            Walk-Ins
+            Walk-Ins    
         %li{ class: (["benchmarks/candidate_assessments","benchmarks"].include?(params[:controller]) ? 'active' : '') }
           %a{ :href=> company_benchmarks_path(@company), :title=>"Benchmarks"} 
             %span.icon-j-guy 
