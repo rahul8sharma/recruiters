@@ -40,7 +40,6 @@ body
   .inner
     background: image-url('report/body-bg.png') no-repeat #fff
     margin: 0 auto
-    margin-top: 80px
     width: $width
   .report_content
     min-height: 700px
@@ -389,12 +388,14 @@ body
 
   @for $i from 0 through 3
     .offset#{$i}
-      margin-left: $i * 66px 
+      margin-left: $i * 66px
+  .offset4
+    margin-left: 254px
   @for $i from 0 through 3
     .width#{$i}
       width: $i * 66px 
   .width0
-    width: 5px
+    width: 10px
   .width4
     width: 100%
   .scale
@@ -520,7 +521,6 @@ body
       border: 3px solid #ff8308
       padding-bottom: 10px
     .inner
-      margin-top: 90px
       .scale
         margin: 15px -20px 0 0
     .scores 
