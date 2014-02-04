@@ -55,7 +55,7 @@ Recruiters::Application.routes.draw do
       end
     end
     
-    resources :assessment_groups, path: "walk-ins", :controller => :assessment_groups do 
+    resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do 
       member do
         get "summary" => "assessment_groups#summary", as: :summary
         put "summary" => "assessment_groups#summary", as: :summary
