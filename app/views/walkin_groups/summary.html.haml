@@ -1,6 +1,6 @@
 .inn.first
   .page-title.pull-left
-    = @assessment_group.title
+    = @walkin_group.title
 .inn.gray-gradient
   .pull-left
     .test-flow-sub-nav.clearfix.pull-left
@@ -10,10 +10,10 @@
   .pull-right
     %span.span.medium-text.line-height2
       Page expires on:   
-      %b #{ htime @assessment_group.expires_on } hrs
+      %b #{ htime @walkin_group.expires_on } hrs
       %b 
         \|  
-      %b #{ hdate @assessment_group.expires_on }
+      %b #{ hdate @walkin_group.expires_on }
     
   .clr
 
@@ -23,8 +23,8 @@
     .span
       %b URL to access Index page:
     .span15
-      %a{:href => @assessment_group.url, target: "_blank", :title => "URL to access Index page"}
-        = @assessment_group.url
+      %a{:href => @walkin_group.url, target: "_blank", :title => "URL to access Index page"}
+        = @walkin_group.url
     .clr
   .divider1       
   .list-snippet-titles.clearfix
@@ -35,7 +35,7 @@
    
   %ul.unstyled
     - @assessments.each do |assessment|
-      - if @assessment_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
+      - if @walkin_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
         %li.list-snippet
           .span3.first
             %a.default-color{:title => "", :href => "#"}
@@ -45,6 +45,6 @@
               = assessment.name
       
   .pull-right
-    %a.btn.btn-info.medium-text.span{:href => company_walkin_group_path(@company,@assessment_group), :title => "Submit Final List"}
+    %a.btn.btn-info.medium-text.span{:href => company_walkin_group_path(@company,@walkin_group), :title => "Submit Final List"}
       Submit
   .clr
