@@ -1,0 +1,48 @@
+%div
+  .inn.first
+    .page-title.pull-left
+      Training Requirements
+    .pagination.pull-right
+      = paginate @training_requirement_groups
+  .inn.gray-gradient
+    - if @training_requirement_groups.empty?
+      .medium-text.alert.span13.first
+        No Training Requirements have been created. To create a Training Requirement, 
+        %a{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Training Requirement"} click here.
+    - if can?(:create, "Suitability::Assessment")    
+      %a.btn.btn-info.pull-right{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+        Create a new Training Requirements
+    .clr
+    .divider1
+    - if @training_requirement_groups.present?    
+      .list-snippet-titles.medium-text.clearfix
+        .span3
+          ID
+        .span10
+          Test Title
+        .span5
+          Total Candidates
+        .span
+          Completed
+      %ul.unstyled
+        - @training_requirement_groups.each do |training_requirement_group|
+          %li.list-snippet
+            .span3
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title} Walk In #{training_requirement_group.id}
+            .span10.first.lhs-border
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+                = training_requirement_group.title
+            .span5.lhs-border
+              %a.underlined{:href=> edit_company_training_requirement_group_path(:company_id => @company.id, id: training_requirement_group.id), :title=> "title"}   
+                Manage
+            
+            .span.lhs-border
+              %a.underlined{:href => training_requirement_group.url, target: "_blank", :title => "Send This Test"}
+                Link  
+    .divider1         
+    %a.btn.btn-info.pull-right{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+      Create a new Training Requirements
+    .clr
+  .inn
+    .pagination.pull-right
+      = paginate @training_requirement_groups
