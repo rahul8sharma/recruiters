@@ -4,7 +4,7 @@
   .graph
     .h-graph
       %ul.bars.clearfix
-        - factor_scores = @assessment_report.report_data[:factor_scores]
+        - factor_scores = @report_data[:factor_scores]
         - factor_scores.keys[0..9].each do |factor_name|
           - factor_data = factor_scores[factor_name]
           %li{:style=>"background: '#{factor_data[:color]}'; width: #{factor_data[:percentage_candidates]}%"}

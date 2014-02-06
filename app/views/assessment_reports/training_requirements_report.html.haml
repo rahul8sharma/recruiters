@@ -14,7 +14,7 @@
 = render :template => "assessment_reports/training_requirements_report/page1"
 .page-break
 
-- all_factor_scores = @assessment_report.report_data[:factor_scores]
+- all_factor_scores = @report_data[:factor_scores]
 - factor_scores = Hash[all_factor_scores.keys[0..9].map{|key| [key,all_factor_scores[key]] }]
 - scores_step = Rails.application.config.reports[@view_mode]["training_requirements_report"]["scores_step"]
 - if factor_scores.present?

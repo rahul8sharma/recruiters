@@ -20,7 +20,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
     @assessment_report.report_data = @assessment.training_requirements_report
     return if !@assessment_report.report_data[:factor_scores].present?
-    @report = @assessment.training_requirements_report
+    @report_data = @assessment.training_requirements_report
     report_data["company_id"] = @assessment.company_id
     tries = 0
     report_status = {
@@ -83,7 +83,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
         :pdf_key     => "training_requirements_report_assessment_#{@assessment.id}.pdf",
         :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
         :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html",
-        :report_data => @report
+        :report_data => @report_data
       )
       
       patch["send_report"] ||= "Yes"
