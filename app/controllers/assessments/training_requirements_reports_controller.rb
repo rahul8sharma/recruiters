@@ -8,6 +8,7 @@ class Assessments::TrainingRequirementsReportsController < AssessmentsController
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
                             }
                           ).all.first
+    @report_data = @assessment_report.report_data if @assessment_report
     respond_to do |format|
       format.html
     end
@@ -18,7 +19,7 @@ class Assessments::TrainingRequirementsReportsController < AssessmentsController
     @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
     @assessment.report_types.uniq!
     respond_to do |format|
-      if @assessment.save
+      if Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { report_types: @assessment.report_types })
         format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
       else
         format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Could not enable training requirements report. Please try again." }

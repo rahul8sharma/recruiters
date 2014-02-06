@@ -66,6 +66,11 @@ Recruiters::Application.routes.draw do
     end
     
     resources :training_requirement_groups, path: "training-requirements", :controller => :training_requirement_groups do 
+      member do
+        get "training_requirements" => "training_requirement_groups#training_requirements", as: :training_requirements
+        get "download_report" => "training_requirement_groups#download_report", as: :download_report
+        get "training_requirements_report" => "training_requirement_groups#training_requirements_report", :as => :training_requirements_report
+      end
     end
     
     resources :benchmarks, :except => [:destroy] do
@@ -399,6 +404,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
+  match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   
