@@ -16,10 +16,10 @@
     .divider1
     - if @training_requirement_groups.present?    
       .list-snippet-titles.medium-text.clearfix
-        .span3
+        .span2
           ID
         .span10
-          Test Title
+          Title
         .span5
           Total Candidates
         .span
@@ -27,18 +27,18 @@
       %ul.unstyled
         - @training_requirement_groups.each do |training_requirement_group|
           %li.list-snippet
-            .span3
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title} Walk In #{training_requirement_group.id}
-            .span10.first.lhs-border
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+            .span2
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
+                = training_requirement_group.id
+            .span10
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
                 = training_requirement_group.title
-            .span5.lhs-border
-              %a.underlined{:href=> edit_company_training_requirement_group_path(:company_id => @company.id, id: training_requirement_group.id), :title=> "title"}   
-                Manage
-            
+            .span5.first.lhs-border
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+                = training_requirement_group.total_candidates
             .span.lhs-border
-              %a.underlined{:href => training_requirement_group.url, target: "_blank", :title => "Send This Test"}
-                Link  
+              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+                = training_requirement_group.completed_candidates
     .divider1         
     %a.btn.btn-info.pull-right{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
       Create a new Training Requirements
