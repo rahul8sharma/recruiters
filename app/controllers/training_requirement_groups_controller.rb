@@ -11,23 +11,21 @@ class TrainingRequirementGroupsController < ApplicationController
                           },
                           methods: [:total_candidates, :completed_candidates],
                           page: params[:page],
-                          per: 10
+                          per: 10,
+                          order: ["created_at DESC"]
                         ).all
   end
   
   def new
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
-    @training_requirement_groups = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
   end
   
   def create
-    @training_requirement_groups = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"]).all
     params[:training_requirement][:assessment_hash].reject!{|training_requirement_group_id, training_requirement_group_data| training_requirement_group_data["enabled"] != "true" }
     if @training_requirement_group.assessment_hash.present? && @training_requirement_group.save
-      redirect_to company_training_requirement_group_path(@company, @training_requirement_group)
+      redirect_to company_training_requirement_groups_path(@company)
     else
       @training_requirement_group.error_messages ||= []
-      @training_requirement_group.error_messages << "Please select at least one training_requirement_group." if !@training_requirement_group.assessment_hash.present?
+      @training_requirement_group.error_messages << "Please select at least one assessment." if !@training_requirement_group.assessment_hash.present?
       flash[:error] = @training_requirement_group.error_messages.join("<br/>")
       render :action => :new
     end
@@ -120,6 +118,7 @@ class TrainingRequirementGroupsController < ApplicationController
       params[:training_requirement] ||= {}
       params[:training_requirement][:company_id] = params[:company_id]
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.new(params[:training_requirement])
+      @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
     end
   end
   
