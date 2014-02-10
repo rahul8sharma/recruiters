@@ -11,7 +11,7 @@
     .inn.gray-gradient
       .pull-left
         .test-flow-sub-nav.clearfix.pull-left
-          .menu.active 1 &nbsp; Create Page             
+          .menu.active 1 &nbsp; Create Training Requirements
       .pull-right
         %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
       .clr
@@ -29,12 +29,12 @@
           %li.titles
             .control-group
               %b.pull-left Test
-              %b.pull-right Include in Page
+              %b.pull-right Include in Training Requirements
               .clr  
           %li.titles
             .control-group
               %b.pull-left Test
-              %b.pull-right Include in Page
+              %b.pull-right Include in Training Requirements
               .clr
           - @assessments.each do |assessment|
             %li
@@ -42,9 +42,9 @@
               .control-group{ id: "control_group_#{assessment.id}" }
                 %label{ for: "chk_assessment_#{assessment.id}" }
                   = assessment.name
-                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "training_requirement[assessment_hash][#{assessment.id}][enabled]", value: "false"}
+                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "training_requirement[assessment_hash][#{assessment.id}][enabled]", value: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] rescue 'false')}
                 %input{:type => "hidden", name: "training_requirement[assessment_hash][#{assessment.id}][name]", value: assessment.name}    
-                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@training_requirement.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
+                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
                 .clr
         .pull-right
           %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
