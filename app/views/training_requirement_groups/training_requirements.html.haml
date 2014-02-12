@@ -39,4 +39,7 @@
     - else
       .alert-info.padding-all1
         %b{ class: "medium-text", style: "color: black;" }
-          Training Requirements calculation is in progress.
+          - if @training_requirement_group.total_candidates == 0
+            Training Requirements are enabled. Page will be updated on sufficient responses.
+          - else
+            Training Requirements calculation is in progress.
