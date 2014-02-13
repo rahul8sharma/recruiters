@@ -58,8 +58,12 @@
           .divider3
       - else
         .alert-info.padding-all1
+          - sent = @company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0
           %b{ class: "medium-text", style: "color: black;" }
-            Training Requirements calculation is in progress.
+            - if sent == 0
+              Training Requirements are enabled for this assessment. Page will be updated on sufficient responses.
+            - else
+              Training Requirements calculation is in progress.
     - else
       .alert-info.padding-all1
         %b{ class: "medium-text", style: "color: black;" }
