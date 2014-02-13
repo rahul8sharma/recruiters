@@ -55,13 +55,21 @@ Recruiters::Application.routes.draw do
       end
     end
     
-    resources :assessment_groups, path: "walk-ins", :controller => :assessment_groups do 
+    resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do 
       member do
-        get "summary" => "assessment_groups#summary", as: :summary
-        put "summary" => "assessment_groups#summary", as: :summary
-        get "customize" => "assessment_groups#customize", as: :customize
-        put "customize" => "assessment_groups#customize", as: :customize
-        get "expire" => "assessment_groups#expire", as: :expire
+        get "summary" => "walkin_groups#summary", as: :summary
+        put "summary" => "walkin_groups#summary", as: :summary
+        get "customize" => "walkin_groups#customize", as: :customize
+        put "customize" => "walkin_groups#customize", as: :customize
+        get "expire" => "walkin_groups#expire", as: :expire
+      end
+    end
+    
+    resources :training_requirement_groups, path: "training-requirements", :controller => :training_requirement_groups do 
+      member do
+        get "training_requirements" => "training_requirement_groups#training_requirements", as: :training_requirements
+        get "download_report" => "training_requirement_groups#download_report", as: :download_report
+        get "training_requirements_report" => "training_requirement_groups#training_requirements_report", :as => :training_requirements_report
       end
     end
     
@@ -396,6 +404,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
+  match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   

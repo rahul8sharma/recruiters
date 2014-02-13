@@ -1,0 +1,45 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "training_requirements_report"  
+
+.create-test.creat-test-show
+  .inn.first
+    .page-title.pull-left
+      #{@training_requirement_group.title}
+  .clr
+  .inn.gray-gradient
+    .pull-left
+      .content-sub-nav.clearfix
+        %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""),:href => company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
+          Summary
+        %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
+          Training Requirements
+    .span10.pull-right.text-right
+      - if @training_requirement_group_report && @training_requirement_group_report.status == Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED
+        %a.pull-right{:href => download_report_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+          Download a PDF version of Training Requirements Report
+    .clr
+    .divider2
+    - if @training_requirement_group_report && @training_requirement_group_report.report_data.present?
+      .pull-left.medium-text
+        Results last updated: #{htime @training_requirement_group_report.updated_at} Hrs, #{hdate @training_requirement_group_report.updated_at}
+      .pull-right.text-right
+        %b.medium-text Sent: 
+        %b.large-text #{@training_requirement_group.total_candidates}
+        %span.left-offset1
+          %b.medium-text Taken: 
+          %b.large-text #{@training_requirement_group.completed_candidates}
+      .clr.divider1
+      - factor_scores = @training_requirement_group_report.report_data[:factor_scores]
+      - factor_scores = Hash[factor_scores.keys[0..9].map{|key| [key,factor_scores[key]] }]
+      .training_requirements_report
+        = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: factor_scores }
+        .divider1  
+        = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
+        .divider3
+    - else
+      .alert-info.padding-all1
+        %b{ class: "medium-text", style: "color: black;" }
+          - if @training_requirement_group.total_candidates == 0
+            Training Requirements are enabled. Page will be updated on sufficient responses.
+          - else
+            Training Requirements calculation is in progress.

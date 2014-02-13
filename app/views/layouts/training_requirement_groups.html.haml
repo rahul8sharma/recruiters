@@ -1,0 +1,16 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "tests"
+  = stylesheet_link_tag "training_requirements"
+- content_for :content do
+  .divider1
+  .container
+    //For Alerts
+    //= render :partial => "shared/alert-success-iconic"
+    //= render :partial => "shared/alert-success"
+    //= render :partial => "shared/alert-error"
+  .white-box.tests.bordered.container
+    .walk-ins
+      = render :partial => "shared/sub-nav"
+      = yield
+    .divider2
+= render :file => 'layouts/jit'

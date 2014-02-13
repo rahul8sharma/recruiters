@@ -3,10 +3,10 @@
   = javascript_include_tag "jquery_ujs"
 
 .customize.edit
-  = form_for(:assessment_group, url: company_assessment_group_path(@company, @assessment_group), method: :put) do |f|
+  = form_for(:walkin_group, url: company_walkin_group_path(@company, @walkin_group), method: :put) do |f|
     .inn.first
       .page-title.pull-left
-        = @assessment_group.title
+        = @walkin_group.title
     .inn.gray-gradient
       .clr
       .divider1
@@ -17,13 +17,13 @@
           &nbsp;
           = f.datetime_select :expires_on  
           .clr
-        %a.expire-btn.btn.medium-text.link-color.pull-right{:href => expire_company_assessment_group_path(@company, @assessment_group), :title => "Expire Page Now"}
+        %a.expire-btn.btn.medium-text.link-color.pull-right{:href => expire_company_walkin_group_path(@company, @walkin_group), :title => "Expire Page Now"}
           Expire Page Now
         .clr 
       
       .divider1
       .text-right
-        %a.medium-text{:href => company_assessment_group_path(@company, @assessment_group), :title => "Cancel"}
+        %a.medium-text{:href => company_walkin_group_path(@company, @walkin_group), :title => "Cancel"}
           Cancel
         %input.btn.btn-info.medium-text.left-offset1{:type => "Submit", :title => "Update", :name => "Update", value: "Update"}
       .list
@@ -40,8 +40,8 @@
               -# add class ".checked" to "<label>" when user clicks on checkbox/label
               .control-group
                 .left-sec
-                  %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "assessment_group[assessment_hash][#{assessment.id}][enabled]", value: @assessment_group.assessment_hash["#{assessment.id}"]['enabled']}
-                  %input{:type => "checkbox", :class => "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", id: "chk_assessment_#{assessment.id}", checked: @assessment_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
+                  %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: @walkin_group.assessment_hash["#{assessment.id}"]['enabled']}
+                  %input{:type => "checkbox", :class => "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", id: "chk_assessment_#{assessment.id}", checked: @walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
                 .right-sec
                   %label.checked{ for: "chk_assessment_#{assessment.id}", id: "label_assessment_#{assessment.id}" }
                     = assessment.name
@@ -50,12 +50,12 @@
                 .left-sec.line-height2
                   Display Name (Optional):
                 .right-sec
-                  %input{:type => "hidden", name: "assessment_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
-                  %input{:type => "text", :placeholder => "Enter Display Name for the Test. This name is displayed on the Index Page. If left blank, existing test title will be shown.", name: "assessment_group[assessment_hash][#{assessment.id}][display_text]", value: @assessment_group.assessment_hash["#{assessment.id}"]['display_text']}
+                  %input{:type => "hidden", name: "walkin_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
+                  %input{:type => "text", :placeholder => "Enter Display Name for the Test. This name is displayed on the Index Page. If left blank, existing test title will be shown.", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", value: @walkin_group.assessment_hash["#{assessment.id}"]['display_text']}
 
                 .clr
         .text-right
-          %a.medium-text{:href => company_assessment_group_path(@company, @assessment_group), :title => "Cancel"}
+          %a.medium-text{:href => company_walkin_group_path(@company, @walkin_group), :title => "Cancel"}
             Cancel
           %input.btn.btn-info.medium-text.left-offset1{:type => "Submit", :title => "Update", :name => "Update", value: "Update"}
         .clr

@@ -10,10 +10,11 @@ class AssessmentReportsController < ApplicationController
                             report_type: Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT,
                             status: Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
                           }).all.to_a.first
-    if !@assessment_report                      
+    if !@assessment_report
       redirect_to company_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Assessment Report not found!"
       return
     end
+    @report_data = @assessment_report.report_data
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  

@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .new
-  = form_for(:assessment_group, method: :post, url: company_assessment_groups_path(@company)) do |f|
+  = form_for(:walkin_group, method: :post, url: company_walkin_groups_path(@company)) do |f|
     = f.hidden_field :company_id
     = f.hidden_field :expires_on
     .inn.first
@@ -45,8 +45,8 @@
               .control-group{ id: "control_group_#{assessment.id}" }
                 %label{ for: "chk_assessment_#{assessment.id}" }
                   = assessment.name
-                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "assessment_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}  
-                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@assessment_group.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
+                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}  
+                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
                 .clr
         .pull-right
           %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}

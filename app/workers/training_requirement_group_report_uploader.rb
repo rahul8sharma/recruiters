@@ -1,4 +1,4 @@
-class TrainingRequirementsReportUploader < AbstractController::Base
+class TrainingRequirementGroupReportUploader < AbstractController::Base
   include Sidekiq::Worker
   
   include AbstractController::Rendering
@@ -14,14 +14,14 @@ class TrainingRequirementsReportUploader < AbstractController::Base
     report_data = HashWithIndifferentAccess.new report_data
     Rails.logger.debug "************* #{report_data} ******************"
     RequestStore.store[:auth_token] = auth_token
-    assessment_id = report_data["assessment_id"]
-    assessment_report_id = report_data["assessment_report_id"]
-    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
-    @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-    @assessment_report.report_data = @assessment.training_requirements_report
-    return if !@assessment_report.report_data[:factor_scores].present?
-    @report_data = @assessment.training_requirements_report
-    report_data["company_id"] = @assessment.company_id
+    training_requirement_group_id = report_data["training_requirement_group_id"]
+    training_requirement_group_report_id = report_data["training_requirement_group_report_id"]
+    @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id, methods: [ :training_requirements_report ])
+    @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
+    @training_requirement_group_report.report_data = @training_requirement_group.training_requirements_report
+    return if !@training_requirement_group_report.report_data[:factor_scores].present?
+    @report_data = @training_requirement_group.training_requirements_report
+    report_data["company_id"] = @training_requirement_group.company_id
     tries = 0
     report_status = {
       :errors => [],
@@ -31,12 +31,12 @@ class TrainingRequirementsReportUploader < AbstractController::Base
     begin
       @view_mode = "html"
       
-      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING,
+      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADING,
       )
       
       html = render_to_string(
-         template: "assessment_reports/training_requirements_report", 
+         template: "assessment_group_reports/training_requirements_report", 
          layout: "layouts/reports", 
          handlers: [ :haml ]
       )
@@ -44,7 +44,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/training_requirements_report", 
+          "assessment_group_reports/training_requirements_report", 
           layout: "layouts/reports.html.haml", 
           handlers: [ :haml ],
           formats: [:html]
@@ -56,8 +56,8 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
-      pdf_file_id = "training_requirements_report_assessment_#{@assessment.id}.pdf"
-      html_file_id = "training_requirements_report_assessment_#{@assessment.id}.html"
+      pdf_file_id = "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf"
+      html_file_id = "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html"
       pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
       html_save_path = Rails.root.join('tmp',"#{html_file_id}")
       
@@ -73,22 +73,22 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       File.delete(html_save_path)
       
       
-      # Update report_urls hash for assessment
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.html")
+      # Update report_urls hash for training_requirement
+      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf")
+      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html")
       
-      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
+      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
         :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
-        :pdf_key     => "training_requirements_report_assessment_#{@assessment.id}.pdf",
+        :pdf_key     => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf",
         :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
-        :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html",
+        :html_key    => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html",
         :report_data => @report_data
       )
       
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
-        JombayNotify::Email.create_from_mail(SystemMailer.send_training_requirements_report(report_data), "send_report")
+        JombayNotify::Email.create_from_mail(SystemMailer.send_training_requirement_group_report(report_data), "send_report")
       end
     rescue Exception => e
       Rails.logger.debug e.message
@@ -96,10 +96,10 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       if tries < 5
         retry
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment with ID #{report_data[:assessment_id]}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment Group with ID #{report_data[:training_requirement_group_id]}",{
         :report => {
           :status => "Failed",
-          :assessment_id => @assessment.id
+          :training_requirement_id => @training_requirement_group.id
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]

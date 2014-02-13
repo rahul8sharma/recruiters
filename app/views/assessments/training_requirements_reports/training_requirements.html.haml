@@ -43,10 +43,10 @@
         .pull-left.medium-text
           Results last updated: #{htime @assessment_report.updated_at} Hrs, #{hdate @assessment_report.updated_at}
         .pull-right.text-right
-          %b.medium-text Training Requirements Sent: 
+          %b.medium-text Sent: 
           %b.large-text #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
           %span.left-offset1
-            %b.medium-text Training Requirements Taken: 
+            %b.medium-text Taken: 
             %b.large-text #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
         .clr.divider1
         - factor_scores = @assessment_report.report_data[:factor_scores]
@@ -58,8 +58,12 @@
           .divider3
       - else
         .alert-info.padding-all1
+          - sent = @company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0
           %b{ class: "medium-text", style: "color: black;" }
-            Training Requirements calculation is in progress.
+            - if sent == 0
+              Training Requirements are enabled for this assessment. Page will be updated on sufficient responses.
+            - else
+              Training Requirements calculation is in progress.
     - else
       .alert-info.padding-all1
         %b{ class: "medium-text", style: "color: black;" }
