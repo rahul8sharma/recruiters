@@ -9,8 +9,9 @@
 - content_for :report_link do
   - if @view_mode == "html"
     = link_to "View Printable PDF", download_benchmark_report_company_benchmark_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
-    %button.submit-feedback.btn.btn-info
-      Submit Feedback
+    -#
+      %button.submit-feedback.btn.btn-info
+        Submit Feedback
 
 - factors_step = Rails.application.config.reports[@view_mode]["benchmark_factor_names_step"]
 - total = @report[:factor_benchmarks].keys.size
