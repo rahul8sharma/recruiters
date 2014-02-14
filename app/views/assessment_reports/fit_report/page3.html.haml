@@ -16,7 +16,7 @@
     .factors_container
       .factors_list
         - @report.report_hash[:company_fit_scores].each_with_index do |(factor_name,factor_score),index|
-          - margin = factor_name.split(" ").size > 1 ? 20 : 25
+          - margin = factor_name.split(" ").size > 1 ? 15 : 30
           %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             .wrapper{:style=>"margin-top: #{margin}px;"}
               = factor_name.gsub(" ","<br/>").html_safe
