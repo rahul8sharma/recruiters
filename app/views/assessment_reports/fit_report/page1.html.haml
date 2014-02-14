@@ -47,9 +47,10 @@
         %span.score 
           Accurate
     .divider1
-    .LieDetector
-      %p
-        %b
-          Fake Good Impression:
-          %span same as above
-      %p kashinath
+    - if @report.report_hash[:enable_lie_detection] && @report.report_hash[:lie_detection][:bucket]
+      .LieDetector
+        %p
+          %b
+            Fake Good Impression:
+            %span #{@report.report_hash[:lie_detection][:bucket]}
+        %p #{@report.report_hash[:lie_detection][:description]}
