@@ -35,10 +35,21 @@
         #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
       .strength_team
         = @report.report_hash[:team_fit_grade]
-    - if @report.report_hash[:enable_lie_detection] && @report.report_hash[:lie_detection][:bucket]
-      .LieDetector
-        %p
-          %b
-            Fake Good Impression:
-            %span #{@report.report_hash[:lie_detection][:bucket]}
-        %p #{@report.report_hash[:lie_detection][:description]}
+    .responses
+      .blocks
+        %i.icon-align-justify
+        Overall Reliability of Candidate's Responses: 
+        %span.score 
+          Below Average
+      .blocks
+        %div.icon-spinner 
+        Overall Consistency of Responses: 
+        %span.score 
+          Accurate
+    .divider1
+    .LieDetector
+      %p
+        %b
+          Fake Good Impression:
+          %span same as above
+      %p kashinath
