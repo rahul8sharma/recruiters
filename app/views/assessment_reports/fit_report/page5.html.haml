@@ -59,13 +59,13 @@
             = factor_score[:description]
 
           .divider1
-          .responses  
-            %i.icon-align-justify
-            Overall Reliability of Candidate's Responses: 
-            %span.score 
-              Below Average
-          .divider1
-
+          - if @report.report_hash[:enable_factor_consistency]
+            .responses  
+              %i.icon-align-justify
+              Overall Reliability of Candidate's Responses: 
+              %span.score 
+                = factor_score[:consistency_bucket]
+            .divider1
           -#
             .optional_feedback
               .title
