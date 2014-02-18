@@ -59,7 +59,7 @@
                   .factors{ style: "padding-left:32px;" }
                     %b
                       Factors: 
-                    = competency.factors.collect{|factor| factor[:factor][:name] }.join(", ")
+                    = competency.factor_names.join(", ")
             .clr
       .medium-text
         %b Standard Competencies
@@ -83,7 +83,7 @@
                   .factors{ style: "padding-left:32px;" }
                     %b
                       Factors: 
-                    = competency.factors.collect{|factor| factor[:factor][:name] }.join(", ")
+                    = competency.factor_names.join(", ")
             .clr
       %button.pull-right.btn.btn-info
         Proceed
