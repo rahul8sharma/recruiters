@@ -12,7 +12,6 @@ class ReportUploader < AbstractController::Base
 
   def perform(report_data, auth_token, patch = {})
     report_data = HashWithIndifferentAccess.new report_data
-    Rails.logger.debug "************* #{report_data} ******************"
     RequestStore.store[:auth_token] = auth_token
     report_id = report_data["id"]
     company_id = report_data["company_id"]
