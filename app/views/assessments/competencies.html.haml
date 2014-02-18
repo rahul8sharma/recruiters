@@ -48,14 +48,18 @@
             %label{ for: "check_all_local" }
               Select All
           .test-competency-list-container
-            - (0..@local_competencies.length-1).step(8) do |step|    
-              - step_competencies = @local_competencies[step..(step+(8 - 1))]
-              %ul.pull-left
-                - step_competencies.each do |competency|
-                  %li
-                    %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
-                    %label{:for=>"competency_#{competency.id}"}
-                      = competency.name
+            %ul
+              - @local_competencies.each do |competency|
+                %li
+                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
+                  %label{:for=>"competency_#{competency.id}"}
+                    %b
+                    = competency.name
+                    %br
+                  .factors{ style: "padding-left:32px;" }
+                    %b
+                      Factors: 
+                    = competency.factors.collect{|factor| factor[:factor][:name] }.join(", ")
             .clr
       .medium-text
         %b Standard Competencies
@@ -68,14 +72,18 @@
             %label{:for => "check_all_global"}
               Select All
           .test-competency-list-container.last
-            - (0..@global_competencies.length-1).step(8) do |step|    
-              - step_competencies = @global_competencies[step..(step+(8 - 1))]
-              %ul.pull-left
-                - step_competencies.each do |competency|
-                  %li
-                    %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
-                    %label{:for=>"competency_#{competency.id}"}
+            %ul
+              - @global_competencies.each do |competency|
+                %li
+                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
+                  %label{:for=>"competency_#{competency.id}"}
+                    %b
                       = competency.name
+                  %br
+                  .factors{ style: "padding-left:32px;" }
+                    %b
+                      Factors: 
+                    = competency.factors.collect{|factor| factor[:factor][:name] }.join(", ")
             .clr
       %button.pull-right.btn.btn-info
         Proceed
