@@ -1,14 +1,6 @@
 :css
   .report .inner{margin-top:0px;} 
     
-
-- content_for :report_link do
-  - if @view_mode == "html"
-    = link_to "View Printable PDF", company_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
-    -#
-      %button.submit-feedback.btn.btn-info
-        Submit Feedback
-    
 = render :template => "assessment_reports/fit_report/page1"
 .page-break      
 
@@ -31,7 +23,7 @@
     - step_job_fit_scores = job_fit_scores.slice(*job_fit_scores.keys[step..(step+(scores_step - 1))])
     = render :template => "assessment_reports/fit_report/page5", :locals => { :job_fit_scores => step_job_fit_scores, :step => step }
     .page-break      
-    
+  
 
 - if @report.report_hash[:company_fit_scores].present?
   - company_fit_scores = @report.report_hash[:company_fit_scores]

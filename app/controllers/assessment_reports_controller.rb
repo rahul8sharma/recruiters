@@ -1,5 +1,5 @@
 class AssessmentReportsController < ApplicationController
-  layout 'reports'
+  layout 'candidate_reports'
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
@@ -22,7 +22,8 @@ class AssessmentReportsController < ApplicationController
     end
     respond_to do |format|
       format.html { 
-        render template: "assessment_reports/training_requirements_report"
+        render template: "assessment_reports/training_requirements_report",
+               layout: "layouts/assessment_reports" 
       }
       format.pdf { 
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
@@ -32,7 +33,7 @@ class AssessmentReportsController < ApplicationController
           }
         },           
         template: "assessment_reports/training_requirements_report.html.haml", 
-        layout: "layouts/reports.html.haml", 
+        layout: "layouts/assessment_reports.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
@@ -60,7 +61,7 @@ class AssessmentReportsController < ApplicationController
           }
         },           
         template: "assessment_reports/benchmark_report.html.haml", 
-        layout: "layouts/reports.html.haml", 
+        layout: "layouts/assessment_reports.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
@@ -89,24 +90,17 @@ class AssessmentReportsController < ApplicationController
   end
   
   def show
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
-    if request.format.to_s == "application/pdf"
-      type = "pdf"
-    else
-      type = "html"
-    end  
-    url = S3Utils.get_url(@report.s3_keys[type][:bucket], @report.s3_keys[type][:key])
+    report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
+    view_mode = params[:view_mode]
+    url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
     redirect_to url 
   end
 
   def assessment_report
     report_type = params[:report_type] || "fit"
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
-    else  
-      @view_mode = "html"
-    end
+    @view_mode = params[:view_mode]
+    request.format = "pdf" if @view_mode == "pdf"
     template = report_type == "fit" ? "assessment_report" : "competency_report"
     @page = 1
     respond_to do |format|
@@ -115,11 +109,12 @@ class AssessmentReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/_report_footer.html.haml"
+            template: "shared/reports/_report_footer.html.haml",
+            layout: "layouts/candidate_reports" 
           }
         },           
         template: "assessment_reports/#{template}.html.haml", 
-        layout: "layouts/reports.html.haml", 
+        layout: "layouts/candidate_reports.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
