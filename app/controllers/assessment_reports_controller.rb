@@ -91,7 +91,11 @@ class AssessmentReportsController < ApplicationController
   
   def show
     report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
-    view_mode = params[:view_mode]
+    if request.format.to_s == "application/pdf"  
+      view_mode = "pdf"
+    else
+      view_mode = params[:view_mode] || "html"
+    end
     url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
     redirect_to url 
   end
