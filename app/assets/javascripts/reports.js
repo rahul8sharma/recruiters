@@ -10,6 +10,23 @@ function number_pages() {
   }  
 }
 
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 
+
+function checkEmail(e){
+  var email = document.getElementById("feedback_email").value;
+  if(validateEmail(email)) {
+    return true;
+  }else {
+    alert("Please enter a valid email address.");
+    return false;
+  }
+}
+
 window.onload = function(){
   number_pages();
 }
+
+

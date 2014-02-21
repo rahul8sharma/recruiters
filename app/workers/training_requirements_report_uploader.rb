@@ -37,7 +37,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       
       html = render_to_string(
          template: "assessment_reports/training_requirements_report", 
-         layout: "layouts/reports", 
+         layout: "layouts/assessment_reports", 
          handlers: [ :haml ]
       )
       
@@ -45,13 +45,13 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
           "assessment_reports/training_requirements_report", 
-          layout: "layouts/reports.html.haml", 
+          layout: "layouts/assessment_reports.html.haml", 
           handlers: [ :haml ],
           formats: [:html]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
-          :content => render_to_string("shared/reports/_report_footer.html.haml",layout: "layouts/reports.html.haml")
+          :content => render_to_string("shared/reports/_report_footer.html.haml",layout: "layouts/assessment_reports.html.haml")
         }
       )
       
