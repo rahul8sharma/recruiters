@@ -17,6 +17,8 @@
     %th
       ID
     %th
+      UID
+    %th
       Name
     %th
       Definition
@@ -28,10 +30,12 @@
     %tr
       %td{ width: "5%" }
         = factor.id
+      %td{ width: "5%" }
+        = factor.uid
       %td{ width: "20%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
-      %td{ width: "55%" }
+      %td{ width: "50%" }
         = factor.definition
       %td
         - if factor.parent_id

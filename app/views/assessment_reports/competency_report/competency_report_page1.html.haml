@@ -19,7 +19,21 @@
       .clr
 
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-    .divider6
+    .divider3
+    .responses
+      - if @report.report_hash[:consistency][:enabled]
+        .blocks
+          %i.icon-align-justify
+          Overall Reliability of Candidate's Responses: 
+          %span.score 
+            = @report.report_hash[:consistency][:bucket_name]
+      - if @report.report_hash[:reliability][:enabled]
+        .blocks
+          %div.icon-spinner 
+          Overall Consistency of Responses: 
+          %span.score 
+            = @report.report_hash[:reliability][:bucket_name]
+    .divider3
     -#
       %p.competency-description
         - if @report.report_hash[:candidate_stage] == "employee"

@@ -10,9 +10,9 @@ html:
 pdf:
   benchmark_factor_names_step: 18
   benchmark_factor_scores_step: 3
-  competency_factors_step: 6
+  competency_factors_step: 5
   competency_step: 3
-  scores_step: 7
+  scores_step: 5
   guides_step: 8
   training_requirements_report:
     scores_step: 6
