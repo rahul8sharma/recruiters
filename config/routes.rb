@@ -255,6 +255,9 @@ Recruiters::Application.routes.draw do
     end
     
     resources :candidate_assessment_report_feedbacks do 
+      collection do
+        get "thank-you" => "candidate_assessment_report_feedbacks#thank_you", :as => :thank_you_page
+      end
     end
 
     resources :items do
