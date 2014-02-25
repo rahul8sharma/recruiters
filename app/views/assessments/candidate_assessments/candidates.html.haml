@@ -4,8 +4,9 @@
       Test #{@assessment.id} - #{@assessment.name}
     %a.btn.pull-right{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
       .link-color Send This Test
-    %a.pull-right{ href: email_reports_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
-      .link-color Email Reports Summary 
+    - if current_user.type == "SuperAdmin"  
+      %a.pull-right{ href: email_reports_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
+        .link-color Email Reports Summary 
   .clr
   .inn.gray-gradient
     .pull-left
