@@ -253,6 +253,12 @@ Recruiters::Application.routes.draw do
         post :import_from_google_drive
       end
     end
+    
+    resources :candidate_assessment_report_feedbacks do 
+      collection do
+        get "thank-you" => "candidate_assessment_report_feedbacks#thank_you", :as => :thank_you_page
+      end
+    end
 
     resources :items do
       get 'add_option' => 'items#add_option'

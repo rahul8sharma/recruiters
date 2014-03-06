@@ -68,19 +68,20 @@
               %span.score 
                 = factor_score[:consistency_bucket]
           .divider1
-          -#
-            .optional_feedback
-              .title
-                Optional feedback on the score:
-              .options
-                %label
-                  %input{:type=>"radio"}
-                  Accurate
-                %label
-                  %input{:type=>"radio"}
-                  Should be more 
-                %label.last
-                  %input{:type=>"radio"}
-                  Should be less 
-              .clr
-              .divider1
+          - if @view_mode == "feedback"
+            = fields_for :feedback do
+              .optional_feedback
+                .title
+                  Optional feedback on the score:
+                .options
+                  %label
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 0, checked: true}
+                    About Right
+                  %label
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 1}
+                    Should be more 
+                  %label.last
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: -1}
+                    Should be less 
+                .clr
+                .divider1

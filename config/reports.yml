@@ -7,12 +7,21 @@ html:
   competency_factors_step: 1000
   training_requirements_report:
     scores_step: 10000
+feedback:
+  benchmark_factor_names_step: 1000
+  benchmark_factor_scores_step: 1000
+  scores_step: 1000
+  guides_step: 1000
+  competency_step: 1000
+  competency_factors_step: 1000
+  training_requirements_report:
+    scores_step: 10000
 pdf:
   benchmark_factor_names_step: 18
   benchmark_factor_scores_step: 3
-  competency_factors_step: 5
+  competency_factors_step: 3
   competency_step: 3
-  scores_step: 5
+  scores_step: 4
   guides_step: 8
   training_requirements_report:
     scores_step: 6
