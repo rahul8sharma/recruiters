@@ -26,12 +26,12 @@
         .strength_1
           = @report.report_hash[:company_fit_grade]
         .title_2
-          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
-        .strength_2
-          = @report.report_hash[:job_fit_grade]
-        .title_3
           #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
-        .strength_3
+        .strength_2
           = @report.report_hash[:team_fit_grade]
+        .title_3
+          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
+        .strength_3
+          = @report.report_hash[:job_fit_grade]
         .indication
           Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
