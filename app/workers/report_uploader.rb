@@ -16,15 +16,15 @@ class ReportUploader < AbstractController::Base
   end
 
   def perform(report_data, auth_token, patch = {})
+    tries = 0
+    report_data = HashWithIndifferentAccess.new report_data
+    RequestStore.store[:auth_token] = auth_token
+    report_id = report_data["id"]
+    company_id = report_data["company_id"]
+    assessment_id = report_data["assessment_id"]
+    candidate_id = report_data["candidate_id"]
+    patch ||= {}
     begin
-      patch ||= {}
-      report_data = HashWithIndifferentAccess.new report_data
-      RequestStore.store[:auth_token] = auth_token
-      report_id = report_data["id"]
-      company_id = report_data["company_id"]
-      assessment_id = report_data["assessment_id"]
-      candidate_id = report_data["candidate_id"]
-
       @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
         :assessment_id => assessment_id,
         :candidate_id => candidate_id,
@@ -38,7 +38,6 @@ class ReportUploader < AbstractController::Base
 
       template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 
-      tries = 0
       report_status = {
         :errors => [],
         :message => "",
@@ -133,21 +132,13 @@ class ReportUploader < AbstractController::Base
           :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::FAILED
         )
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{@report.id}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{report_id}",{
         :report => {
           :status => "Failed",
-          :candidate_assessment_id => @report.report_hash[:candidate_assessment_id],
-
-          :candidate => {
-            :name => @report.report_hash[:candidate][:name],
-            :email => @report.report_hash[:candidate][:email]
-          },
-          :assessment => {
-            :id => @report.report_hash[:assessment][:id],
-            :name => @report.report_hash[:assessment][:name],
-            :assessable_id => @report.report_hash[:assessment][:assessable_id],
-            :assessable_type => @report.report_hash[:assessment][:assessable_type]
-          }
+          :company_id => company_id,
+          :assessment_id => assessment_id,
+          :candidate_id => candidate_id,
+          :report_id => report_id
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
