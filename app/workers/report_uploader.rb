@@ -43,7 +43,7 @@ class ReportUploader < AbstractController::Base
       :message => "",
       :status => "success"
     }
-    #begin
+    begin
       @view_mode = "html"
       html = render_to_string(
          template: "assessment_reports/#{template}",
@@ -119,7 +119,6 @@ class ReportUploader < AbstractController::Base
           JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
         end
       end
-=begin      
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
@@ -154,7 +153,6 @@ class ReportUploader < AbstractController::Base
         }
       }), "notify_report_status")
     end
-=end
   end
 
   def upload_file_to_s3(file_id,file_path)
