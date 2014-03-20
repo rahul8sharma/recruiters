@@ -16,34 +16,35 @@ class ReportUploader < AbstractController::Base
   end
 
   def perform(report_data, auth_token, patch = {})
-    patch ||= {}
-    report_data = HashWithIndifferentAccess.new report_data
-    RequestStore.store[:auth_token] = auth_token
-    report_id = report_data["id"]
-    company_id = report_data["company_id"]
-    assessment_id = report_data["assessment_id"]
-    candidate_id = report_data["candidate_id"]
+    begin
+      patch ||= {}
+      report_data = HashWithIndifferentAccess.new report_data
+      RequestStore.store[:auth_token] = auth_token
+      report_id = report_data["id"]
+      company_id = report_data["company_id"]
+      assessment_id = report_data["assessment_id"]
+      candidate_id = report_data["candidate_id"]
 
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
-      :assessment_id => assessment_id,
-      :candidate_id => candidate_id,
-      :company_id => company_id,
-      :patch => patch,
-      :methods => [ :report_hash ]
-    )
+      @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
+        :assessment_id => assessment_id,
+        :candidate_id => candidate_id,
+        :company_id => company_id,
+        :patch => patch,
+        :methods => [ :report_hash ]
+      )
 
-    candidate_name = @report.report_hash[:candidate][:name]
-    company_name = @report.report_hash[:company][:name]
+      candidate_name = @report.report_hash[:candidate][:name]
+      company_name = @report.report_hash[:company][:name]
 
-    template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
+      template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 
-    tries = 0
-    report_status = {
-      :errors => [],
-      :message => "",
-      :status => "success"
-    }
-    #begin
+      tries = 0
+      report_status = {
+        :errors => [],
+        :message => "",
+        :status => "success"
+      }
+      
       @view_mode = "html"
       html = render_to_string(
          template: "assessment_reports/#{template}",
@@ -119,7 +120,6 @@ class ReportUploader < AbstractController::Base
           JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
         end
       end
-=begin      
     rescue Exception => e
       Rails.logger.debug e.message
       tries = tries + 1
@@ -154,7 +154,6 @@ class ReportUploader < AbstractController::Base
         }
       }), "notify_report_status")
     end
-=end
   end
 
   def upload_file_to_s3(file_id,file_path)
