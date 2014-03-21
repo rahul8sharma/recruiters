@@ -9,6 +9,7 @@ class MasterDataController < ApplicationController
     params[:search] ||= {}
     @objects = api_resource.where(
       :query_options => params[:search], 
+      :methods => index_columns,
       :page => params[:page], 
       :per => 10).all
   end

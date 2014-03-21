@@ -8,6 +8,6 @@ class Suitability::FitsController < MasterDataController
   end
   
   def index_columns
-    [:id, :uid, :name, :factor_ids]
+    [:id, :uid, :name, :factor_names]
   end
 end
