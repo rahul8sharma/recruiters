@@ -8,6 +8,6 @@ class Suitability::CompetenciesController < MasterDataController
   end
   
   def index_columns
-    [:id, :uid, :name, :company_id, :factor_ids, :active]
+    [:id, :uid, :name, :company_id, :factor_names, :active]
   end
 end
