@@ -1,0 +1,36 @@
+.company_profile
+  = render :partial => "shared/sub-nav"
+  .inn.first
+    .page-title
+      Settings
+  .inn.gray-gradient
+    = render :partial => "shared/settings-content-sub-nav"
+    .clr
+    .divider1
+  .inn
+    .page-title.text-center
+      Please provide the following information
+  %form.add_subscription{name:"add_subscription"}
+
+    .left-offset1.pull-left
+      %label
+        Number of Assessments:
+      %input{:type => "text", name:"number_of_assessments"}
+
+    .left-offset1.pull-left
+      %label
+        Expiry Date of Subscription
+      %input{:type => "date", country:"", name:"subscription_expiry_date"}
+
+    .clr
+    
+    .left-offset1.pull-left
+      %label
+        Amount
+      %input{:type => "text", name:"amount" }
+
+    .clr
+    
+    .form-action.pull-right
+      %button.btn.btn-info
+        Submit
