@@ -18,6 +18,12 @@ class CompaniesController < ApplicationController
   def index
   end
 
+  def edit
+  end
+
+  def add_subscription
+  end
+
   def manage
     render :layout => "admin"
   end
