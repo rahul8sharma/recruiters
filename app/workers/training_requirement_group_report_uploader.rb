@@ -16,12 +16,6 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
     RequestStore.store[:auth_token] = auth_token
     training_requirement_group_id = report_data["training_requirement_group_id"]
     training_requirement_group_report_id = report_data["training_requirement_group_report_id"]
-    @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id, methods: [ :training_requirements_report ])
-    @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
-    @training_requirement_group_report.report_data = @training_requirement_group.training_requirements_report
-    return if !@training_requirement_group_report.report_data[:factor_scores].present?
-    @report_data = @training_requirement_group.training_requirements_report
-    report_data["company_id"] = @training_requirement_group.company_id
     tries = 0
     report_status = {
       :errors => [],
@@ -29,6 +23,13 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id, methods: [ :training_requirements_report ])
+      @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
+      @training_requirement_group_report.report_data = @training_requirement_group.training_requirements_report
+      return if !@training_requirement_group_report.report_data[:factor_scores].present?
+      @report_data = @training_requirement_group.training_requirements_report
+      report_data["company_id"] = @training_requirement_group.company_id
+      
       @view_mode = "html"
       
       Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
@@ -99,7 +100,7 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment Group with ID #{report_data[:training_requirement_group_id]}",{
         :report => {
           :status => "Failed",
-          :training_requirement_id => @training_requirement_group.id
+          :training_requirement_id => training_requirement_group_report_id
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]

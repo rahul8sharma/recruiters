@@ -16,12 +16,6 @@ class TrainingRequirementsReportUploader < AbstractController::Base
     RequestStore.store[:auth_token] = auth_token
     assessment_id = report_data["assessment_id"]
     assessment_report_id = report_data["assessment_report_id"]
-    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
-    @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-    @assessment_report.report_data = @assessment.training_requirements_report
-    return if !@assessment_report.report_data[:factor_scores].present?
-    @report_data = @assessment.training_requirements_report
-    report_data["company_id"] = @assessment.company_id
     tries = 0
     report_status = {
       :errors => [],
@@ -29,6 +23,13 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
+      @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
+      @assessment_report.report_data = @assessment.training_requirements_report
+      return if !@assessment_report.report_data[:factor_scores].present?
+      @report_data = @assessment.training_requirements_report
+      report_data["company_id"] = @assessment.company_id
+      
       @view_mode = "html"
       
       Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
@@ -96,10 +97,10 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       if tries < 5
         retry
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment with ID #{report_data[:assessment_id]}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment with ID #{assessment_id}",{
         :report => {
           :status => "Failed",
-          :assessment_id => @assessment.id
+          :assessment_id => assessment_id
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]
