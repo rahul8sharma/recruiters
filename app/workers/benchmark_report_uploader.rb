@@ -97,6 +97,10 @@ class BenchmarkReportUploader < AbstractController::Base
       tries = tries + 1
       if tries < 5
         retry
+      else
+        Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentReport::Status::FAILED,
+        )
       end
       JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{assessment_id}",{
         :report => {

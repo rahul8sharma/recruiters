@@ -96,6 +96,10 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       tries = tries + 1
       if tries < 5
         retry
+      else
+        Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
+          :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
+        )
       end
       JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment Group with ID #{report_data[:training_requirement_group_id]}",{
         :report => {
