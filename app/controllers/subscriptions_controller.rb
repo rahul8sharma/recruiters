@@ -15,31 +15,12 @@ class SubscriptionsController < MasterDataController
     # from the add subscription form on the subscription view
 
     #code to generate URL for the billing app
-    #do we need to redirect to that URL?
-
-    #what is the route to this method? right now it is line 36 of routes.rb under resources :companies
-    #move the relevant view under subscriptions
+    #believed route to this action via line 36 of routes.rb
+    #actual route to this action via line 199 of routes.rb
   end
 
-  #for subscription upgrades
-  def update_subscription
-    if request.put?
-      subscription = Vger::Resources::Subscription.where(:query_options => { :company_id => params[:company_id] }).all[0]
-        #how do I find which subscription of a particular company is getting upgraded, considering companies has_many :subscriptions?
-          #this might be just a Rails thing probably
-        #assuming, I divine which subscription is getting updated
-      subscription_data[:company_id] = params[:company_id]
-      subscription_data[:assessments_purchased] = params[:number_of_assessments_purchased]
-      subscription_data[:price] = params[:amount]
-      subscription_data[:valid_to] = params[:subscription_expiry]
-      subscription = Vger::Resources::Subscription.update(subscription_data)
 
-      #code to trigger an email
-      #no flash "Success"
-    end
-  end
-
-  #for new subscriptions
+  #for successful payments
   def create_subscription
 
     if request.post?
@@ -49,13 +30,19 @@ class SubscriptionsController < MasterDataController
         subscription_data[:valid_from] = Time.now
         subscription_data[:valid_to] = params[:subscription_expiry]
         subscription = Vger::Resources::Subscription.create(subscription_data)
-
-        #code to trigger an email
-        #no flash "Success"
     end
   end
 
+  #for failed payments
+  def payment_failure
+    subscription_data[:company_id] = params[:company_id]
+    subscription_data[:assessments_purchased] = params[:number_of_assessments_purchased]
+    subscription_data[:price] = params[:amount]
 
+    JombayNotify::Email.create_from_mail(SystemMailer.payment_failure_notice(subscription_data), "payment_failure_notice")
+    render template: "companies/payment_failure"
+
+  end
   def index_columns
     [
       :id,
