@@ -31,11 +31,12 @@
               = fits_form.select fit_grade, @fitment_grades, {}, {}
     = f.fields_for :factor_scores do |factor_scores_form|
       %div
-        - ["job_fit_scores", "company_fit_scores", "team_fit_scores"].each do |fit|
+        - fits = { "job_fit_scores" => "Job Sync Scores", "company_fit_scores" => "People Skills Scores", "team_fit_scores" => "Personal Effectiveness Scores" }
+        - fits.each do |fit,fit_name|
           %br
           %br  
           %div
-            %b #{fit.humanize}
+            %b #{fit_name.humanize}
             %table
               %tr
                 %th Factor

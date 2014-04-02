@@ -26,6 +26,9 @@
       Parent
     %th
       Active
+    %th
+      Factor Order
+    
   - @factors.each do |factor|
     %tr
       %td{ width: "5%" }
@@ -42,6 +45,8 @@
           = link_to factor.parent_id, suitability_factor_path(factor.parent_id)
       %td
         = factor.active
+      %td
+        = factor.factor_order  
 .pagination.pull-right
   = paginate @factors
 .clr

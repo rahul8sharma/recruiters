@@ -21,6 +21,7 @@
 %table
   %tr
     %th Id
+    %th Factor
     %th Body
     %th Behavior
     %th Active
@@ -29,6 +30,8 @@
     %tr 
       %td{ width: "13%" }
         = link_to item.id, suitability_item_path(item.id)
+      %td{ width: "13%" }
+        = link_to item.factor_id, suitability_factor_path(item.factor_id)
       %td{ width: "13%" }
         = link_to item.body, suitability_item_path(item.id)
       %td{ width: "13%" }

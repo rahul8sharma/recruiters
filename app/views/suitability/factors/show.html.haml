@@ -40,10 +40,10 @@
       %td
         = item.active
       %td
-        = item.item_order
-      %td
         - if item.item_group_id
           = link_to item.item_group_id, suitability_item_group_path(item.item_group_id)
+      %td
+        = item.item_order
       %td
         = link_to "Edit", edit_suitability_item_path(item.id)
         
