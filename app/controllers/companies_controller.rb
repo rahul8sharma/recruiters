@@ -14,7 +14,16 @@ class CompaniesController < ApplicationController
     api_resource.destroy_all
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
-
+  
+  def add_subscription
+    @callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
+    @redirect_url = payment_status_subscriptions_url
+    # the post request to this route will come in via :
+    # from the add subscription form on the subscription view
+    # code to generate URL for the billing app
+    # believed route to this action via line 36 of routes.rb
+    # actual route to this action via line 199 of routes.rb
+  end
 
   def index
   end
@@ -31,8 +40,6 @@ class CompaniesController < ApplicationController
       render :action => :edit
     end
   end
-
-
 
   def manage
     render :layout => "admin"
@@ -66,7 +73,7 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end
-    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription], :methods => methods)
+    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription, :admin], :methods => methods)
   end
 
   def get_companies
