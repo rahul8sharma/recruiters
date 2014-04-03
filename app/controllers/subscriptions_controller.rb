@@ -1,4 +1,5 @@
 class SubscriptionsController < MasterDataController
+  skip_before_filter :authenticate_user!, :only => [:payment_success]
   def api_resource
     Vger::Resources::Subscription
   end
@@ -21,13 +22,14 @@ class SubscriptionsController < MasterDataController
 
 
   #for successful payments
-  def create_subscription
-
+  #def create_subscription
+  def payment_success
+    subscription_data ||= {}
     if request.post?
         subscription_data[:company_id] = params[:company_id]
         subscription_data[:assessments_purchased] = params[:number_of_assessments_purchased]
         subscription_data[:price] = params[:amount]
-        subscription_data[:valid_from] = Time.now
+        subscription_data[:valid_from] = Time.now.strftime("%Y-%m-%d")
         subscription_data[:valid_to] = params[:subscription_expiry]
         subscription = Vger::Resources::Subscription.create(subscription_data)
     end
@@ -40,7 +42,7 @@ class SubscriptionsController < MasterDataController
     subscription_data[:price] = params[:amount]
 
     JombayNotify::Email.create_from_mail(SystemMailer.payment_failure_notice(subscription_data), "payment_failure_notice")
-    render template: "companies/payment_failure"
+    render :status => :ok, :json => { }
 
   end
   def index_columns
