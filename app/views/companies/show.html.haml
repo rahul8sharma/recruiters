@@ -40,8 +40,8 @@
         = h(@company.description).html_safe
     .clr
       - if current_user.type == "SuperAdmin"
-        %a{href:"edit"}
+        %a{href: edit_company_path(@company)}
           Edit Company Profile
         .clr
-        %a{href:"add_subscription"}
+        %a{href: add_subscription_company_path(@company.id)}
           Add Subscription
