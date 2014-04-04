@@ -41,8 +41,11 @@ $(document).ready(function(){
   
   $("#select_country").on("change",function(){
     $("#select_state").attr("disabled","disabled");
-    var hash = { "search": { "parent_id": $(this).val() } };
-    jsonRequest("/locations/get_locations",hash, get_states_success, get_states_failed);
+    var country = $(this).val();
+    if(country != null && country != ""){
+      var hash = { "search": { "parent_id": country } };
+      jsonRequest("/locations/get_locations",hash, get_states_success, get_states_failed);
+    }
   });
   
   $("#select_city").on("change",function(){  
@@ -51,8 +54,11 @@ $(document).ready(function(){
   
   $("#select_state").on("change",function(){
     $("#select_city").attr("disabled","disabled");
-    var hash = { "search": { "parent_id": $(this).val() } };
-    jsonRequest("/locations/get_locations",hash, get_cities_success, get_cities_failed);
+    var state = $(this).val();
+    if(state != null && state != "") {
+      var hash = { "search": { "parent_id": state } };
+      jsonRequest("/locations/get_locations",hash, get_cities_success, get_cities_failed);
+    }
   });
   
   $("#select_country").trigger("change");
