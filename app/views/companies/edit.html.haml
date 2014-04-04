@@ -14,7 +14,7 @@
   .inn
     .page-title.text-center
       Please provide the following information
-  = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { class: "edit_company" }) do |f|
+  = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { class: "edit_company_page" }) do |f|
     .error
       - @company.error_messages ||= []
       - @company.error_messages.each do |message|
