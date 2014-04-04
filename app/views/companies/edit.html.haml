@@ -1,3 +1,7 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
 .company_profile
   = render :partial => "shared/sub-nav"
   .inn.first
@@ -10,70 +14,59 @@
   .inn
     .page-title.text-center
       Please provide the following information
-  %form.edit_company{name:"edit_company"}
-
+  = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { class: "edit_company" }) do |f|
+    .error
+      - @company.error_messages ||= []
+      - @company.error_messages.each do |message|
+        = message
+    = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
     .left-offset1.pull-left
       %label
         Company Pan Card Number:
-      %input{:type => "text", name:"pancard"}
+      = f.text_field :pancard
 
     .left-offset1.pull-left
       %label
         Country:
-      %input{:type => "text", country:""}
+      = f.select :country, @countries, { :prompt => "Select Country" }, { :id => "select_country" }
 
     .clr
     .left-offset1.pull-left
       %label
         State:
-      %select{name:"state"}
-        %option
-          1
-        %option
-          2
-        %option
-          3
-        %option
-          4
+      = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state" }
 
     .left-offset1.pull-left
       %label
         City:
-      %select{name:"city"}
-        %option
-          1
-        %option
-          2
-        %option
-          3
-        %option
-          4
+      = f.select :city, {@company.city => @company.hq_location_id }, { :prompt => "Select City" }, { :id => "select_city" }
     .clr
 
     .left-offset1.pull-left
       %label
         Company Address:
-      %textarea{name:"company_address", rows:"5"}
+      = f.text_area :address, :rows => 5
 
     .left-offset1.pull-left
       %label
         Pincode:
-      %input{:type => "text", name:"pincode"}
+      = f.text_field :pincode
 
     .clr
 
     .left-offset1.pull-left
       %label
         Contact Person's Name:
-      %input{:type => "text", name:"contact_person" }
+      = f.text_field :contact_person
 
     .left-offset1.pull-left
       %label
         Contact Person's Number:
-      %input{:type => "text", name:"contact_person_number" }
+      = f.text_field :contact_person_mobile
 
     .clr
     
     .form-action.pull-right
       %button.btn.btn-info
         Submit
+= javascript_include_tag 'edit_company'        

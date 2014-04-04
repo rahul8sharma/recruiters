@@ -1,2 +1,18 @@
 Hello,
-<p><b>Company ID <%= @order_data[:company_id] %></b>'s payment of amount <%= @order_data[:amount] %> has failed for some reason! They were trying to buy <%= @order_data[:assessments_purchased] %> assessments. </p>
+<p>
+  <b>
+    Company ID <%= @order_data[:merchant_param3] %>
+  </b>'s 
+    payment of amount <%= @order_data[:amount] %> has failed for some reason! They were trying to buy <%= @order_data[:merchant_param1] %> assessments. 
+</p>
+<p>
+  Parameters received from Payment Gateway are
+</p>
+<p>
+  <ul>
+  <% @order_data.each do |key,value| %>
+    <li><%= key %> : <%= value %></li>
+  <% end %>
+  </ul>
+</p>
+
