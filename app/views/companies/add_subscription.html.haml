@@ -18,7 +18,7 @@
     = f.hidden_field :billing_zip, value: @company.pincode, :name => "billing_zip"
     = f.hidden_field :billing_country, value: @company.country, :name => "billing_country"
     = f.hidden_field :billing_tel, value: @company.contact_person_mobile, :name => "billing_tel"
-    = f.hidden_field :billing_email, value: "prashant@truespider.com", :name => "billing_email"
+    = f.hidden_field :billing_email, value: @company.admin[:email], :name => "billing_email"
     
     = f.hidden_field :delivery_name, value: @company.name, :name => "delivery_name"
     = f.hidden_field :delivery_address, value: @company.address, :name => "delivery_address"
