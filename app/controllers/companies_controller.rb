@@ -16,6 +16,10 @@ class CompaniesController < ApplicationController
   end
   
   def add_subscription
+    if !@company.admin
+      flash[:error] = "Admin account is not created for #{@company.name}. Please create admin acoount before adding a subscription." 
+      redirect_to company_path(@company)
+    end
     @callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
     @redirect_url = payment_status_subscriptions_url
     # the post request to this route will come in via :
@@ -35,7 +39,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Vger::Resources::Company.save_existing(@company.id, params[:company].except(:city, :state, :country))
     if @company.error_messages.blank?
-      redirect_to company_path(@company), notice: "Company details updated successfully!"
+      redirect_to add_subscription_company_path(@company), notice: "Company details updated successfully!"
     else
       render :action => :edit
     end
@@ -69,11 +73,11 @@ class CompaniesController < ApplicationController
   protected
 
   def get_company
-    methods = []
+    methods = [:admin]
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end
-    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription, :admin], :methods => methods)
+    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription], :methods => methods)
   end
 
   def get_companies
