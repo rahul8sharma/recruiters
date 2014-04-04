@@ -18,6 +18,7 @@ class SubscriptionsController < MasterDataController
       subscription_data[:price] = params[:amount]
       subscription_data[:valid_from] = Time.now.strftime("%Y-%m-%d")
       subscription_data[:valid_to] = params[:merchant_param2]
+      subscription_data[:order_id] = params[:order_id]
       job_id = Vger::Resources::Subscription.create(subscription_data)
       render :status => :ok, :json => { :job_id => job_id }
     else
