@@ -21,10 +21,7 @@ class SubscriptionsController < MasterDataController
       job_id = Vger::Resources::Subscription.create(subscription_data)
       render :status => :ok, :json => { :job_id => job_id }
     else
-      subscription_data[:company_id] = params[:merchant_param3]
-      subscription_data[:assessments_purchased] = params[:merchant_param1]
-      subscription_data[:price] = params[:amount]
-      job_id = JombayNotify::Email.create_from_mail(SystemMailer.payment_failure_notice(subscription_data), "payment_failure_notice")
+      job_id = JombayNotify::Email.create_from_mail(SystemMailer.payment_failure_notice(params), "payment_failure_notice")
       render :status => :ok, :json => { :job_id => job_id }
     end
   end

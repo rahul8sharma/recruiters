@@ -9,7 +9,7 @@ class SystemMailer < ActionMailer::Base
 
   def payment_failure_notice(order_data)
     @order_data = order_data
-    subject = "Subscription Payment for company id #{order_data[:company_id]} failed due to some reason}"
+    subject = "Subscription Payment for company id #{order_data[:merchant_param3]} failed due to some reason}"
     mail(:to => "product@jombay.com", :bcc =>"engineering@jombay.com", :subject => subject)
   end
 
