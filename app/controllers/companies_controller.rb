@@ -21,7 +21,7 @@ class CompaniesController < ApplicationController
       redirect_to company_path(@company)
     end
     @callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
-    @redirect_url = payment_status_subscriptions_url
+    # @redirect_url = payment_status_subscriptions_url
     # the post request to this route will come in via :
     # from the add subscription form on the subscription view
     # code to generate URL for the billing app
