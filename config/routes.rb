@@ -262,6 +262,12 @@ Recruiters::Application.routes.draw do
     end
 
     resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
       get 'add_option' => 'items#add_option'
       resources :options do
       end
