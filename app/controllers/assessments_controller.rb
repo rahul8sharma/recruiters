@@ -20,18 +20,26 @@ class AssessmentsController < ApplicationController
   end
 
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => nil, :active => true }, :methods => [:factor_names], :order => ["name ASC"]).all.to_a
-    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :company_id => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"]).all.to_a
+    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
     if request.get?
     else
       params[:assessment] ||= {}
       params[:assessment][:competencies] ||= []
       if params[:assessment][:competencies].blank?
-        flash[:error] = "Suitability Factors to be measured must be selected before proceeding!"
+        flash[:error] = "Competencies to be measured must be selected before proceeding!"
         return
       else
-        params[:assessment][:competencies].map!(&:to_i)
-        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { competency_ids: params[:assessment][:competencies] })
+        selected_competency_ids = params[:assessment][:competencies].map(&:to_i)
+        selected_competencies = Hash[params[:assessment][:competency_order].select{|competency_id,order| selected_competency_ids.include?(competency_id.to_i) }]
+        competency_order = Hash[selected_competencies.map{|competency_id,order| [competency_id.to_i,order.to_i] }]
+        competency_order = Hash[competency_order.sort_by{|competency_id, order| order }]
+        if competency_order.values.size != competency_order.values.uniq.size
+          flash[:error] = "Competencies should have unique order!"
+          return
+        end
+        ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
+        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { competency_order: ordered_competencies })
         if @assessment.error_messages.blank?
           redirect_to competency_norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
         else
@@ -42,7 +50,8 @@ class AssessmentsController < ApplicationController
   end
 
   def competency_norms
-    @competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :id => @assessment.competency_ids }).all.to_a
+    competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :id => @assessment.competency_order }).all.to_a
+    @competencies = @assessment.competency_order.map{|competency_id| competencies.detect{|competency| competency.id == competency_id }}
     get_competency_norms
     if request.get?
     else
@@ -181,6 +190,8 @@ class AssessmentsController < ApplicationController
 
       factors_by_fit = @factors.select{|id,factor| fit.factor_ids.include? id }.values      
       
+      factor_norms = 
+      
       @factor_norms_by_fit[fit] = {
         :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'},
         :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
@@ -217,7 +228,9 @@ class AssessmentsController < ApplicationController
             @factor_norms_by_fit[fit][:factors] << assessment_factor_norm  
           end
         end
-      end  
+      end
+      factor_norms = @factor_norms_by_fit[fit][:factors]
+      @factor_norms_by_fit[fit][:factors] = fit.factor_ids.map{|factor_id| factor_norms.detect{|factor_norm| factor_norm.factor_id == factor_id }}.compact  
     end
   end
   
@@ -234,7 +247,7 @@ class AssessmentsController < ApplicationController
     @factor_norms_by_competency = {}
     @factor_norms = []
     @alarm_factor_norms = []                
-
+    factor_ids = []
     @competencies.each do |competency|
       norms_by_competency = default_norm_bucket_ranges.select{|default_norm| competency.factor_ids.include? (default_norm.factor_id)}  
       
@@ -284,8 +297,10 @@ class AssessmentsController < ApplicationController
           end
         end
       end  
+      factor_ids << competency.factor_ids
     end
-    @factor_norms = @factor_norms.flatten.compact.uniq
+    @factor_norms = @factor_norms.flatten.compact.uniq.map
+    @factor_norms = factor_ids.flatten.uniq.map{|factor_id| @factor_norms.detect{|factor_norm| factor_norm.factor_id == factor_id } }
     @alarm_factor_norms = @alarm_factor_norms.flatten.compact.uniq
   end
   

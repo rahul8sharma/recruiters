@@ -16,13 +16,6 @@ class BenchmarkReportUploader < AbstractController::Base
     RequestStore.store[:auth_token] = auth_token
     assessment_id = report_data["assessment_id"]
     assessment_report_id = report_data["assessment_report_id"]
-    @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :benchmark_report ])
-    @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-    @assessment_report.report_data = @assessment.benchmark_report
-    @report = @assessment.benchmark_report
-    
-    report_data["company_id"] = @assessment.company_id
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
     tries = 0
     report_status = {
       :errors => [],
@@ -30,6 +23,14 @@ class BenchmarkReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :benchmark_report ])
+      @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
+      @assessment_report.report_data = @assessment.benchmark_report
+      @report = @assessment.benchmark_report
+      
+      report_data["company_id"] = @assessment.company_id
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
+      
       @view_mode = "html"
       
       Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
@@ -96,11 +97,15 @@ class BenchmarkReportUploader < AbstractController::Base
       tries = tries + 1
       if tries < 5
         retry
+      else
+        Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentReport::Status::FAILED,
+        )
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{report_data[:assessment_id]}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{assessment_id}",{
         :report => {
           :status => "Failed",
-          :assessment_id => @assessment.id
+          :assessment_id => assessment_id
         },
         :errors => {
           :backtrace => [e.message] + e.backtrace[0..20]

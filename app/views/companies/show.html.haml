@@ -38,3 +38,10 @@
       %b Employer Description
       %p 
         = h(@company.description).html_safe
+    .clr
+      - if current_user.type == "SuperAdmin"
+        %a{href:"edit"}
+          Edit Company Profile
+        .clr
+        %a{href:"add_subscription"}
+          Add Subscription

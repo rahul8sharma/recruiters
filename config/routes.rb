@@ -33,6 +33,7 @@ Recruiters::Application.routes.draw do
       put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
+      get "add_subscription" => "companies#add_subscription", :as => :add_subscription
     end
 
     resources :hiring_managers, :only => [:index, :new] do
@@ -261,6 +262,12 @@ Recruiters::Application.routes.draw do
     end
 
     resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
       get 'add_option' => 'items#add_option'
       resources :options do
       end

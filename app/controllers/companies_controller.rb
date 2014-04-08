@@ -18,6 +18,11 @@ class CompaniesController < ApplicationController
   def index
   end
 
+  def edit
+  end
+
+
+
   def manage
     render :layout => "admin"
   end
@@ -49,10 +54,10 @@ class CompaniesController < ApplicationController
     methods = []
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
-    end  
+    end
     @company = Vger::Resources::Company.find(params[:id], :include => [:subscription], :methods => methods)
   end
-  
+
   def get_companies
     methods = []
     if Rails.application.config.statistics[:load_assessmentwise_statistics]

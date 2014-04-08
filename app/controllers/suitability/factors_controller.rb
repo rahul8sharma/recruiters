@@ -9,7 +9,8 @@ class Suitability::FactorsController < MasterDataController
       :page => params[:page], 
       :per => 50, 
       :include => [:parent], 
-      :methods => [:type]
+      :methods => [:type],
+      :order => [:factor_order]
     ).all
   end
   
