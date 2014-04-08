@@ -14,9 +14,12 @@ db/*.sqlite3
 log/*.log
 tmp
 config/database.yml
+config/vger.yml
 vendor/cache
 .ruby-version
 .rvmrc
+
+
 public/assets
 **.DS_Store
 *:Zone.Identifier
