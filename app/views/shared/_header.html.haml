@@ -3,9 +3,9 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
     - if defined?(@company)  
-      .span10.company_name
+      .span12.company_name
         = @company.name  
-    .pull-right
+    .span14
       %ul.navbar.pull-left.clearfix
         %li
           %a{:href=>"#", :title=> "HOME"}
@@ -19,7 +19,7 @@
         %li
           %a{:href=>"#", :title=> "HELP"}
             HELP
-      %a.label.label-warning.pull-left{:href=>"#", :title=> "UPGRADE ACCOUNT"}
+      %a.label.label-warning.label-small.pull-left{:href=>"#", :title=> "UPGRADE ACCOUNT"}
         UPGRADE ACCOUNT
       %ul#sub-nav.pull-left
         %li
