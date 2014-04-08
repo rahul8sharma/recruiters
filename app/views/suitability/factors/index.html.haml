@@ -34,7 +34,7 @@
       %td{ width: "5%" }
         = factor.id
       %td{ width: "5%" }
-        = factor.uid
+        = factor.uid rescue 'Not Found'
       %td{ width: "20%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
