@@ -8,13 +8,10 @@
   line-height: $baseLineHeight
   color: $grayDark
   text-align: center
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
   vertical-align: middle
   +buttonBackground($white, darken($white, 10%))
   border-bottom-color: #bbb
   +border-radius(4px)
-  $shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05)
-  +box-shadow($shadow)
   cursor: pointer
   // Give IE7 some love
   +reset-filter
@@ -23,11 +20,11 @@
 
   // Hover state
   &:hover
-    -webkit-transition: background-color 500ms linear
-    -moz-transition: background-color 500ms linear
-    -o-transition: background-color 500ms linear
-    -ms-transition: background-color 500ms linear
-    transition: background-color 500ms linear
+    -webkit-transition: background-color 600ms linear
+    -moz-transition: background-color 600ms linear
+    -o-transition: background-color 600ms linear
+    -ms-transition: background-color 600ms linear
+    transition: background-color 600ms linear
 
 
 // Active state
@@ -46,7 +43,11 @@
   background-color: darken($white, 10%)
   +opacity(0.65)
   +box-shadow(none)
-
+.btn-extra-medium
+  padding: 9px 14px
+  font-size: $baseFontSize + 4px
+  line-height: normal
+  +border-radius(5px)
 // Large
 .btn-large
   padding: 9px 14px
@@ -89,7 +90,7 @@
   color: $white
   border: none
 .btn-warning:hover
-  background: #e8730f
+  background: #a64c00
 
 // Danger and error appear as red
 .btn-danger
