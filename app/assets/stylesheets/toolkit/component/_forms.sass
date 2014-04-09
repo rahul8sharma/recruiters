@@ -39,6 +39,7 @@ label
   display: block
   margin-bottom: 5px
   color: $grayDark
+  cursor: pointer
 
 // Inputs, Textareas, Selects
 input, textarea, select, .uneditable-input
@@ -51,7 +52,7 @@ input, textarea, select, .uneditable-input
   line-height: $baseLineHeight
   color: $gray
   border: 1px solid #ccc
-  +border-radius(3px)
+ 
 
 .uneditable-textarea
   width: auto
@@ -110,9 +111,9 @@ select
   width: 220px
   background-color: white
   border: 1px solid #CCCCCC
-  color: #555555
-  font-size: 14px
-  height: 40px
+  color: #aaa
+  font-size: 12px
+  height: 32px
   line-height: 36px
   margin-bottom: 10px
   padding: 7px 6px
@@ -199,6 +200,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 // --------------------------
 
 // Warning
+.control-group
+  margin-bottom: 18px
 .control-group.warning
   +formFieldState($warningText, $warningText, $warningBackground)
 

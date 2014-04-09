@@ -2,50 +2,53 @@
   = f.hidden_field :assessable_type, value: assessment.assessable_type
   = f.hidden_field :assessable_id, value: assessment.assessable_id
   = f.hidden_field :company_id, value: assessment.company_id
-  = f.text_field :name, :placeholder => "Test Title (For example, \"Sales Manager for Oil Engine Business Unit\")"
+ 
   .divider1
-  .control
+  .control-group
     %label 
-      Industry
-    %select.span8{name: 'assessment[industry_id]', id: 'select_industry'}
+      Select the Industry your Company belongs to
+    %select.first.span10{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
-        Select Industry
+        Industry
       - @industries.each do |id,industry|
         %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
           = industry.name
 
     .clr
-  .control.left-offset1
+  .control-group
     %label 
-      Functional Area
-    %select.span8{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      Select the Department for which you are creating this Assessment
+    %select.first.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       %option{:value => ""}
-        Select Functional Area
+        Department
       - @functional_areas.each do |id,functional_area|
         %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
           = functional_area.name
     .clr
   
-  .control.left-offset1
+  .control-group
     %label 
-      Experience
-    %select.span4{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+      Select Experience Range of the Job Role you are creating this Assessment for
+    %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       %option{:value => ""}
-        Select Job Experience
+        Experience
       - @job_experiences.each do |id,job_experience|
         %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
           = job_experience.display_text      
+    .clr
+  .control-group
+    %label
+      Enter a Title for the Assessment 
+    = f.text_field :name, :class => "first span17", :placeholder => "(e.g. Senior Marketing Manager)"
     .clr
   .clr
   .divider2
   .action
     .pull-left
-      - if current_user.type == "SuperAdmin"
-        %label 
-          %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-          Enable Training Requirements Report for this assessment
+      / - if current_user.type == "SuperAdmin"
+      /   %label 
+      /     %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+      /     Enable Training Requirements Report for this assessment
     .pull-right  
-      - if current_user.type == "SuperAdmin"
-        %input.button.btn.btn-info{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
-      %input.button.btn.btn-info{ type: "submit", value: "Proceed", name: "fit" }  
+      %input.button.btn.btn-warning.extra-medium-text{ type: "submit", value: "Proceed", name: "fit" }  
       .clr

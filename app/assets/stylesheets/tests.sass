@@ -1,378 +1,47 @@
 @import toolkit/component/pagination
 @import toolkit/component/buttons
 @import toolkit/component/alerts
+@import toolkit/component/forms
 @import shared/sub-nav
 @import shared/content-sub-nav
 @import competencies
 
-.white-box
-  min-height: 430px
-.tests
-  color: #484848
-  .training_requirements_report
-    .h-graph
-      margin-left: 65px
-    .tips_listing
-      background-position: 555px 0
-      .lhs  
-        width: 400px
-        padding-right: 100px
-
-[class*="span"].lhs-border
-  margin-left: 0
-  padding-left: 10px
-  border-left: 1px solid #e8e8e8
-.list-snippet
-  border: 1px solid #d8d8d8
-  margin: 0 0 15px 0
-  &:hover
-    border: 1px solid #efefef
-    background: #fffef2
-
-.list-snippet-titles
-  font-weight: bold
-  font-size: 12px
-  margin: 0 0 5px 0
-
-  a
-    color: #484848
-    padding-right: 25px
-    background: image-url('caret-arrow.png') no-repeat
-  a.up
-    background-position: right -20px
-  a.down
-    background-position: right 5px
-  .filter-status
-    background: #f1f1f1
-    border: 1px solid #dddddd
-    padding: 0 10px
-    line-height: 36px
-    margin: -12px -10px 0 0
-
-    select
-      width: 117px
-      background-color: white
-      border: 1px solid #CCCCCC
-      border-width: 0 1px 
-      color: #555555
-      font-size: 14px
-      height: 40px
-      line-height: 40px
-      padding: 7px 6px
-      vertical-align: middle
-
-.list-snippet, .list-snippet-titles
-  cursor: default
-  padding: 7px 10px
-  &:before, &:after
-    content: ""
-    display: table
-  &:after
-    clear: both
-
 .page-title 
-  font-size: 18px
-  line-height: 25px
-  width: 545px
+  font-size: 30px
+  line-height: 35px
+  color: #6d6e71
 
 .test-flow-sub-nav
-  color: #b6b6b6
+  color: #bcbec0
   border: 1px solid #e0e0e0
   background: #fff
   border-left: 0
-  min-width: 140px
+  width: 100%
+  
   .menu
-    line-height: 21px
-    width: 155px
-    font-size: 13px
-    font-weight: bold
-    text-indent: -19px
+    padding: 0 0 0 40px
+    position: relative
+    border-left: 1px solid #ccc
+    line-height: 53px
     float: left
-    padding: 10px 20px 10px 35px
-    border-left: 1px solid #e0e0e0
-    background: url(asset-path('tests/test-flow-sub-nav-icon.png', image)) 9px 9px no-repeat
-  .menu.active
-    color: #002b3a
-    background-position: 9px -22px
-    
-.create-test
-  input[type="text"]
-    border: 1px solid #dbdbdb
-    height: 36px
-  .alert.alert-info
     font-size: 16px
-    font-weight: bold
-    text-align: center
-    border-radius: 0
-    padding: 18px
-  .description-section
-    border-bottom: 1px dashed #cfcfcf
-    padding-bottom: 18px
-       
-
-  .creat-test-form
-    .email_recipients
-      background: #fffcde
-      padding: 25px
-      input[type="text"]
-        border: 1px solid #babab6
-    .invitation-sms
-      background: #fffcde
-      padding: 10px
-
-    input[type="text"]
-      width: 100%
-      margin-top: 10px
-    label
-      font-size: 14px
-      font-weight: bold
-      display: block
-    select
-      margin: 10px 0 0 0
-      height: 36px
-    .control
-      float: left
-
-  .action
-    padding: 18px 0
+    width: 21.45%
     
-  .factors
-    .titles
-      font-weight: bold
-    .factor-snippet
-      select
-        width: 108px
-      li.item
-        padding: 5px 20px 10px 40px
-        border: 1px solid #f8f8d2
-        margin-bottom: 18px
-      li.item.checked
-        background: #ffffcd
-      input
-        margin: 3px 0 0 -30px
-      .white-box
-        border: 1px solid #d8d8d8
-        text-align: center
-        font-weight: bold
-        width: 25px
-        line-height: 25px
-        float: left
-        margin-right: 10px
-  .dropdown
-    ul
-      list-style: none
-      margin: 0
-
-      li
-        a
-          font-weight: bold
-          color: #484848
-    li.dropdown-submenu
-      position: relative
-      &:hover
-        ul.dropdown-menu
-          display: block
-
-    ul.dropdown-menu
-      background-color: #FFFFFF
-      border: 1px solid rgba(0, 0, 0, 0.2)
-      border-radius: 6px 6px 6px 6px
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
-      display: none
-      float: left
-      left: -15px
-      list-style: none outside none
-      margin: 2px 0 0
-      min-width: 60px
-      padding: 5px 0px
+    .count
+      border-radius: 50%
+      background: #bcbec0
       position: absolute
-      top: 115%
-      z-index: 1000
-
-      li
-        padding: 3px 10px
-        &:hover
-          background: #ffff9a
-    ul.dropdown-menu.active
-      display: block
-
-  .summary
-    background: #fffcde
-
-  .selected-factors
-    li
-      border: 1px solid #f6f3d2
-      margin-bottom: 18px
-
-      p
-        margin-left: 10px
-        padding-top: 10px
-
-    .selected-factors-title
-      background: #fffcde
-      font-weight: bold
-      padding: 10px 0
-      color: #002b3a
-  .select-candidate-type 
+      color: #fff
+      width: 20px
+      line-height: 20px
+      text-align: center
+      left: 10px
+      margin-top: 15px
+  .menu.active
+    color: #f58220
+    .count
+      background: #f58220
+.new
+  label
     font-size: 14px
-    padding: 18px 0
-    padding-bottom: 0
-    background: #fffcde
-
-    label
-      font-weight: normal
-      margin-bottom: 18px
-      display: block
-
-    input[type="radio"]
-      margin: 0 25px 0 0
-
-  ul.add-candidates
-    li
-      margin-bottom: 18px
-      .count
-        float: left
-        width: 35px
-        height: 27px
-        line-height: 27px
-        background: #fafafa
-        text-align: center
-        border: 1px solid #d8d8d8
-        border-right: 0
-      .input-big 
-        width: 100%
-
-      input, textarea 
-        background: none repeat scroll 0 0 transparent
-        border: 1px solid #CCCCCC
-        color: #555555
-        display: inline-block
-        font-size: 14px
-        line-height: 25px
-        height: 25px
-        &:focus
-          border-color: rgba(82, 168, 236, 0.8)
-          outline: 0 none
-
-      select
-        background: none repeat scroll 0 0 transparent
-        border: 1px solid #CCCCCC
-        color: #555555
-        display: inline-block
-        font-size: 14px
-        line-height: 18px
-        margin-bottom: 9px
-        padding: 4px
-  ul.candidate-list-to-send
-    li
-      margin: 18px 0 0 0 
-      float: left
-      &:nth-child(odd)
-        margin-right: 90px
-      label 
-        background: #f8f8f8
-        border: 1px solid #dfdfdf
-        padding: 7px 10px
-        font-size: 14px
-        width: 370px
-        display: block
-
-        input
-          margin: 0 25px 0 0 
-  .test-text-to-send
-    .title
-      font-weight: bold
-      margin: 18px 0
-      font-size: 14px
-    .subject
-      font-size: 14px
-    .massage-body.test-title
-      background: #fff
-      border: 1px solid #b2b2b2
-      font-size: 14px
-    .massage-body
-      padding: 10px
-      background: #f8f8f8
-      border: 1px solid #dddddd
-      margin-bottom: 15px
-    .massage 
-      p
-        padding-top: 9px
-         
-  .candidate-details
-    background: #fffcde
-    padding: 18px 35px
-    li
-      float: left
-      width: 390px
-      margin: 0 0 18px 20px
-      font-size: 13px
-
-      &.no-margin
-        margin-left: 0
-      &.clr 
-        float: none
-        width: auto
-        margin: 0 
-b.extra-medium-text
-  padding: 0 0 0 20px
-.bulk-upload
-  padding: 20px 0
-  border-width: 1px 0
-  border-style: dashed
-  border-color: #cfcfcf
-  select
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0)
-    border: 1px solid #CCCCCC
-    color: #555555
-    display: inline-block
-    font-size: 14px
-    line-height: 18px
-    margin-bottom: 9px
-    margin-top: 3px
-    padding: 4px
-    width: 387px
-
-  button
-    margin: 0 20px
-  input[type="file"] 
-    font-size: 16px
-    width: 360px
-    margin: 5px 0 10px 0
-  .help-text
-    font-size: 10px
-    color: #8b8b8b
-.de-activated
-  *
-    color: #d0cfcf !important
-    cursor: not-allowed
-  .btn
-    background: #e3e3e3 !important
-    color: #fff !important
-    border: 0 !important
-    box-shadow: none !important
-    text-shadow: none !important
-  select
-    border-color: #f4f4f4 !important
-  b.extra-medium-text
-    color: #484848 !important
-    cursor: pointer
-.create-test.benchmarks
-  .selected-factors 
-    li
-      border: 3px solid #fffcde
-      margin-bottom: 18px
-    .bargraph
-      margin-right: 30px
-      li
-        margin-bottom: 0px
-        border: none
-      ul.y-axis li
-        margin-bottom: 26px
-    .selected-factors-title
-      font-size: 14px
-      padding: 18px 30px
-    .description
-      font-size: 12px
-      line-height: 30px
-      padding: 18px 0px 18px 30px
+    color: #58595b

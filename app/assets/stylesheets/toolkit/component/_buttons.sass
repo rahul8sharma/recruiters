@@ -11,7 +11,6 @@
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
   vertical-align: middle
   +buttonBackground($white, darken($white, 10%))
-  border: 1px solid #ccc
   border-bottom-color: #bbb
   +border-radius(4px)
   $shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05)
@@ -22,19 +21,14 @@
   +ie7-restore-left-whitespace
   font-weight: bold
 
-// Hover state
-.btn:hover
-  color: $grayDark
-  text-decoration: none
-  background-color: darken($white, 10%)
-  background-position: 0 -15px
-  // transition is only when going to hover, otherwise the background
-  // behind the gradient (there for IE<=9 fallback) gets mismatched
-  +transition(background-position 0.1s linear)
+  // Hover state
+  &:hover
+    -webkit-transition: background-color 500ms linear
+    -moz-transition: background-color 500ms linear
+    -o-transition: background-color 500ms linear
+    -ms-transition: background-color 500ms linear
+    transition: background-color 500ms linear
 
-// Focus state for keyboard and accessibility
-.btn:focus
-  +tab-focus
 
 // Active state
 .btn.active, .btn:active
@@ -78,9 +72,7 @@
   font-size: $baseFontSize - 2px
   line-height: $baseLineHeight - 4px
 
-.btn-primary, .btn-primary:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-success, .btn-success:hover, .btn-info, .btn-info:hover, .btn-inverse, .btn-inverse:hover
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-  color: $white
+
 
 // Provide *some* extra contrast for those who can get it
 .btn-primary.active, .btn-warning.active, .btn-danger.active, .btn-success.active, .btn-info.active, .btn-inverse.active
@@ -92,8 +84,12 @@
   +buttonBackground($primaryButtonBackground, adjust-hue($primaryButtonBackground, 20))
 
 // Warning appears are orange
-.btn-warning
-  +buttonBackground(lighten($orange, 15%), $orange)
+.btn-warning,  .btn-warning:hover
+  background: #f58220
+  color: $white
+  border: none
+.btn-warning:hover
+  background: #e8730f
 
 // Danger and error appear as red
 .btn-danger

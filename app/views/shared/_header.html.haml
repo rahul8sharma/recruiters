@@ -3,23 +3,44 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
     - if defined?(@company)  
-      .span9.company_name
+      .span12.company_name
         = @company.name  
-    .span10.navbar.pull-right
-      .navigations.clearfix
-        - if current_user  
-          %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
-            Logout
-          .userName.pull-right
-            %b #{h current_user.name, "-"} 
-            \| 
-            #{current_user.type} 
-            / %span.icon-caret-down
-        - else
-          %a.userName.logout.pull-right{:href => login_path, :title => "Login"}
-            Login
-        - if current_user.type == "SuperAdmin"
-          %a.userName.pull-right{:href => companies_path, :title => "Companies" }
-            Companies
-            / %span.icon-caret-down
+    .span14.pull-right
+      %ul.navbar.pull-left.clearfix
+        %li
+          %a{:href=>"#", :title=> "HOME"}
+            HOME
+        %li
+          %a{:href=>"#", :title=> "ASSESSMENTS"}
+            ASSESSMENTS
+        %li
+          %a{:href=>"#", :title=> "REPORTS"}
+            REPORTS
+        %li
+          %a{:href=>"#", :title=> "HELP"}
+            HELP
+      %a.label.label-warning.label-small.pull-left{:href=>"#", :title=> "UPGRADE ACCOUNT"}
+        UPGRADE ACCOUNT
+      %ul#sub-nav.pull-left
+        %li
+          %a.setting{href: "#", title: "Account"} 
+            
+          %ul
+            %li
+              %a{href: "#"} Usage
+            %li
+              %a{href: "#"} Settings
+            %li
+              %a{href: "#"} Traning Requirements
+            %li
+              %a{href: "#"} Walk-Ins
+            %li
+              %a{href: "#"} Benchmarks
+            %li
+              %a{href: "#"} Logout
+      .clr
     .clr
+
+      
+/ %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
+/   Logout
