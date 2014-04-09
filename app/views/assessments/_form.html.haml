@@ -7,7 +7,7 @@
   .control-group
     %label 
       Select the Industry your Company belongs to
-    %select.span10{name: 'assessment[industry_id]', id: 'select_industry'}
+    %select.first.span10{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
         Industry
       - @industries.each do |id,industry|
@@ -18,7 +18,7 @@
   .control-group
     %label 
       Select the Department for which you are creating this Assessment
-    %select.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+    %select.first.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       %option{:value => ""}
         Department
       - @functional_areas.each do |id,functional_area|
@@ -29,7 +29,7 @@
   .control-group
     %label 
       Select Experience Range of the Job Role you are creating this Assessment for
-    %select.span7{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+    %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       %option{:value => ""}
         Experience
       - @job_experiences.each do |id,job_experience|
@@ -39,16 +39,11 @@
   .control-group
     %label
       Enter a Title for the Assessment 
-    = f.text_field :name, :class => "span17", :placeholder => "(e.g. Senior Marketing Manager)"
+    = f.text_field :name, :class => "first span17", :placeholder => "(e.g. Senior Marketing Manager)"
     .clr
   .clr
   .divider2
   .action
-    .pull-left
-      / - if current_user.type == "SuperAdmin"
-      /   %label 
-      /     %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-      /     Enable Training Requirements Report for this assessment
     .pull-right  
       %input.button.btn.btn-warning.extra-medium-text{ type: "submit", value: "Proceed", name: "fit" }  
       .clr
