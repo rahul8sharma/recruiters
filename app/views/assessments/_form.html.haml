@@ -44,6 +44,11 @@
   .clr
   .divider2
   .action
+    .pull-left
+      / - if current_user.type == "SuperAdmin"
+      /   %label 
+      /     %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+      /     Enable Training Requirements Report for this assessment
     .pull-right  
       %input.button.btn.btn-warning.extra-medium-text{ type: "submit", value: "Proceed", name: "fit" }  
       .clr
