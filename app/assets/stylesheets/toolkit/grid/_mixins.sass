@@ -124,6 +124,9 @@
 =gridSystemRightOffset($gridColumnWidth, $gridGutterWidth, $columns)
   margin-right: $gridColumnWidth * $columns + $gridGutterWidth * ($columns - 1) + $gridGutterWidth * 2  
 
+=gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $columns)
+  margin-left: $gridColumnWidth * $columns + $gridGutterWidth * ($columns - 1) + $gridGutterWidth * 2 - $gridGutterWidth !important
+
 =gridSystemGridColumn($gridGutterWidth)
   float: left
   margin-left: $gridGutterWidth
@@ -177,6 +180,10 @@
   @for $i from 1 through 6
     .line-height#{$i}
       line-height: $i * $baseLineHeight
+  @for $i from 1 through $gridColumns - 1
+    .left-offset#{$i}.first
+      +gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $i) 
+
 // Fluid grid system
 // -------------------------
 =fluidGridSystemColumns($fluidGridGutterWidth, $fluidGridColumnWidth, $columns)
