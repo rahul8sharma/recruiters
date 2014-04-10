@@ -1,14 +1,19 @@
-class Suitability::ItemsController < ApplicationController
+class Suitability::ItemsController < MasterDataController
   before_filter :authenticate_user!
   before_filter :get_factors, :only => [ :new, :create, :update, :edit ]
   
-  layout "admin"
-  
-  # GET /items
-  def index
-    @items = Vger::Resources::Suitability::Item.where(:page => params[:page], :per => 10)
+  def api_resource
+    return Vger::Resources::Suitability::Item
   end
-
+  
+  def index_columns
+    [:id, :factor_id, :body, :item_order]
+  end
+  
+  def import_from
+    "import_from_google_drive"
+  end
+  
   # GET /items/new
   # GET /items/new.json
   def new
