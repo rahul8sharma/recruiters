@@ -1,31 +1,30 @@
 .test-text-to-send
-  .title
+  %span.extra-medium-text.span2.first.show
     Subject
-  .massage-body.subject
+  .massage-body.italic.span13
     &lt;Candidate Name&gt;, #{@company.name} has chosen you to write an Assessment
-  .title
+  .clr
+  %span.extra-medium-text.span2.first.show
     Message
-  .massage-body.massage
+
+  .massage-body.italic.span13
     %p
       Hello &lt;Candidate Name&gt;,
     %p
-      %b #{@company.name}
-      has arranged for you to complete a Jombay Suitability Questionaire.
+      #{@company.name} has arranged for you to complete a Jombay Suitability Questionaire.
     %p
       To proceed, please click the weblink listed below or visit it by copy-pasting the URL into your web browser's address bar.
     %p
-      %b
-        URL: &lt;candidate specific url&gt;
+      URL: &lt;candidate specific url&gt;
     %p
-      If you face any technical difficulties or have any queries please feel free to reach us at
-      %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"}
-        prakhar@jombay.com.
+      If you face any technical difficulties or have any queries please feel free to reach us at  
+      %a.muted{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"}
+        prakhar@jombay.com.  
       %br
-      You can also call us at
-      %b +91 87960 29607
+      You can also call us at +91 87960 29607
+     
     %p
-      Best Regards,
+      Best Regards, 
       %br/
-      Prakhar Srivastava
-      %br/
-      Jombay
+      Team Jombay
+  .clr

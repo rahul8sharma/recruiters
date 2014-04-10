@@ -1,57 +1,83 @@
 .create-test.norms.add
-  .inn.first
-    .page-title #{@assessment.name}
-  .inn.gray-gradient
-    = render :partial => "shared/test-flow-sub-nav"
-    %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
-      View Instructions
-    .clr
-    .divider1
-    .select-candidate-type 
-      %b.span.show.left-offset1
-        Please select the candidate type:
-      .show.left-offset1.span12
-        %label.pull-left
-          - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
-          %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
-          Existing Employees
-        %label.pull-left.left-offset1
-          - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
-          %input{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: checked, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';"}
-          Potential Employees
-        .clr 
+  
+  .page-title #{@assessment.name}
+  .divider1
+  = render :partial => "shared/test-flow-sub-nav"
+  .divider2
+  / %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
+  /   View Instructions
+  / .clr
+  .select-candidate-type 
+    .span13.first.large-text
+      What is the purpose of assessing these candidates ?
+    .span
+      %label.pull-left
+        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
+        .span.medium-text 
+          For Development 
+          //add ".checked" e.g. %span.medium-text.checked
+        %i.muted.span
+          (Existing Employees)
+      %label.pull-left.left-offset1
+        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: checked, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';"}
+        .span.medium-text 
+          For Hiring 
+          //add ".checked" e.g. %span.medium-text.checked
+        %i.muted.span
+          (Potential Candidates)
       .clr 
-    .divider1
-    - if current_user.type == "SuperAdmin"
-      = render :partial => "assessments/candidate_assessments/bulk_upload"
+    .clr 
+  .divider1
+  / - if current_user.type == "SuperAdmin"
+  /   = render :partial => "assessments/candidate_assessments/bulk_upload"
+  .margin-auto.span21
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
       - checked = (params[:upload_method] == "manual")
       %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
-        - if current_user.type == "SuperAdmin"
-          %label
-            %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
-            %b.extra-medium-text Add candidates manually: 
-          .divider1
-        .span6.left-offset1
-          %b.show Full name
-          (Required)
-        .span6.first
-          %b.show Email id
-          (Required)
-        .span4  
-          %b.show Mobile number
-          (Optional)
-        .span5
-          %b.show Functional Area
-          (For existing employees only)
-        .clr
-        .divider1
+        / - if current_user.type == "SuperAdmin"
+        /   %label
+        /     %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+        /     %b.extra-medium-text Add candidates manually: 
+        /   .divider1
+        / .span6.left-offset1
+        /   %b.show Full name
+        /   (Required)
+        / .span6.first
+        /   %b.show Email id
+        /   (Required)
+        / .span4  
+        /   %b.show Mobile number
+        /   (Optional)
+        / .span5
+        /   %b.show Functional Area
+        /   (For existing employees only)
+        / .clr
+        / .divider1
+        .left-offset2.first
+          .span9.first.large-text
+            Assessment taker’s name
+          .span8.large-text.left-offset1
+            .span Assessment taker’s name
+          .clr
         %ul.add-candidates.unstyled.clearfix
           - 10.times do |index|
             = render :partial => "assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
-        %button.pull-right.btn.btn-info{ disabled: !checked }
-          Proceed
+        .divider2
+        .muted.left-offset2.first
+          .large-text
+            Following is the Preview of the email that Assessment takers will receive.
+          .divider1   
+          - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+            = render :partial => "assessments/candidate_assessments/mail_body_for_candidate"
+          - else
+            = render :partial => "assessments/candidate_assessments/mail_body_for_employee"
+        .divider2   
+        %button.pull-right.btn.btn-warning.extra-medium-text{ disabled: !checked }
+          Submit
         .clr
+  .clr

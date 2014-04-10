@@ -19,41 +19,36 @@
     %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, disabled: 'disabled', index: (index)}
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
-    .pull-left 
+    .span1.first
       %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
-    .pull-left
+    .span6
       %label{ for: "checkbox_factor_#{index}" }
-        %b= assessment_factor_norm.factor.name
-    .pull-right
-      .span7.lhs-border
-        //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), disabled: 'disabled', index: (index)}
-        
-        %select{name: norm_min_name, disabled: 'disabled', index: (index)}
-          - @norm_buckets.each do |norm_bucket|
-            - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
-              %option{value: norm_bucket.id, selected:'selected'}
-                = norm_bucket.name         
-            - else
-              %option{value: norm_bucket.id}
-                = norm_bucket.name         
-            
-        to
-        //%input{name: (norm_max_name), class: 'white-box', style: "float:right", type: 'text', value: (assessment_factor_norm.norm_max.to_f), disabled: 'disabled', index: (index)}
-        
-        %select{name: norm_max_name, disabled: 'disabled', index: (index)}
-          - @norm_buckets.each do |norm_bucket|
-            - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
-              %option{value: norm_bucket.id, selected:'selected'}
-                = norm_bucket.name         
-            - else
-              %option{value: norm_bucket.id}
-                = norm_bucket.name         
+        = assessment_factor_norm.factor.name
+        %p
+          = assessment_factor_norm.factor.definition
+        .down-caret
+
+    .left-offset1.pull-left
+      %select.span3.first{name: norm_min_name, disabled: 'disabled', index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+          
+      
+      %select.span3{name: norm_max_name, disabled: 'disabled', index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
         
         .clr
-      //.span2.lhs-border
-      //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off"), disabled: 'disabled'}      
-      //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?, disabled: 'disabled'}
-
   - else
     - if assessment_factor_norm.id.present?
       %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_factor_norm.id, index: (index)}
@@ -62,38 +57,35 @@
     %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, index: (index)}
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
-    .pull-left 
+    .span1.first
       %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
-    .pull-left
+    .span6
       %label{ for: "checkbox_factor_#{index}" }
-        %b= assessment_factor_norm.factor.name
-    .pull-right
-      .span7.lhs-border
-        //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), index: (index)}
-        %select{name: norm_min_name, index: (index)}
-          - @norm_buckets.each do |norm_bucket|
-            - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
-              %option{value: norm_bucket.id, selected:'selected'}
-                = norm_bucket.name         
-            - else
-              %option{value: norm_bucket.id}
-                = norm_bucket.name         
-        //%input{name: (norm_max_name), class: 'white-box', style: "float:right", type: 'text', value: (assessment_factor_norm.norm_max.to_f), index: (index)}
-        to
-        %select{name: norm_max_name, index: (index)}
-          - @norm_buckets.each do |norm_bucket|
-            - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
-              %option{value: norm_bucket.id, selected:'selected'}
-                = norm_bucket.name         
-            - else
-              %option{value: norm_bucket.id}
-                = norm_bucket.name         
-        
-        .clr
-      // .span2.lhs-border
-      //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off")}      
-      //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?}
+        = assessment_factor_norm.factor.name
+        %p= assessment_factor_norm.factor.definition
+        .down-caret
+       
+      
+    .left-offset1.pull-left
+      %select.span3.first{name: norm_min_name, index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+      %select.span3{name: norm_max_name, index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+      
+      .clr
   .clr
   .divider1
-  %p= assessment_factor_norm.factor.definition
+  
 
