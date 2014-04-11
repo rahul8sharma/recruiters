@@ -1,54 +1,81 @@
 %div
-  .inn.first
-    .page-title.pull-left
-      Tests
-    .pagination.pull-right
-      = paginate @assessments  
-  .inn.gray-gradient
-    - if @assessments.empty?
-      .medium-text.alert.pull-left
-        No tests have been created. To create a test, 
-        %a{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.
-    - else
-      .pull-left.line-height2.extra-medium-text
-        You may send an existing test from the list below:
-    - if can?(:create, "Suitability::Assessment")    
-      %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
-        Create New Test
+  .page-title.pull-left
+    Assessments
+  /.pagination.pull-right
+  /  = paginate @assessments  
+  - if @assessments.empty?
+    .medium-text.alert.pull-left
+      No tests have been created. To create a test, 
+      %a{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.
+  / - else
+  /   .pull-left.line-height2.extra-medium-text
+  /     You may send an existing test from the list below:
+  - if can?(:create, "Suitability::Assessment")    
+    %a.btn.btn-warning.btn-extra-medium.pull-right.span{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+      Create Custom Assessment
+  .pull-right
+    %a.extra-medium-text.line-height2{:href=>"/", :title => "View Ready-to-Send Assessments"}
+      View Ready-to-Send Assessments
+  .clr
+  .divider2
+  - if @assessments.present?    
+    .list-snippet-titles.large-text.clearfix
+      .span2.first
+        %a{:href=>"#"}
+          AID
+          %i.icon-chevron-down.small-text.line-height1
+      .span4
+        %a{:href=>"#"}
+          Created On 
+          %i.icon-chevron-down.small-text.line-height1
+      .span8
+        %a{:href=>"#"}
+          Assessment Title
+          %i.icon-chevron-down.small-text.line-height1
+      .span4
+        View Details
+      .span5
+        %a{:href=>"#"}
+          Completed by
+          %i.icon-chevron-down.small-text.line-height1
+      .span3
+        %a{:href=>"#"}
+          Sent to 
+          %i.icon-chevron-down.small-text.line-height1
+      .span4
+        Send Assessment 
+      .clr
+      .divider1          
+    %ul.unstyled
+      - @assessments.each do |assessment|
+        %li.list-snippet
+          .span2.first
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
+          .span4
+            %a{:href => "#"} 
+              = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
+          .span8
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+              = assessment.name
+          .span3.text-center
+            %a{:href => company_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
+              %i.icon-eye-open
+          .span3.text-center.left-offset1
+            - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
+          .span2.text-center.left-offset2
+            - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{sent_count}"}  #{sent_count}
+          .span4.text-center.left-offset1
+            %a{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
+              %i.icon-envelope
+          .clr
+  .divider2
+  .pull-right
+    .muted.span.extra-medium-text.line-height2
+      Go to page
+    %select.span2
+      %option
+        1
     .clr
-    .divider1
-    - if @assessments.present?    
-      .list-snippet-titles.clearfix
-        .span2
-          Test ID
-        .span8
-          Test Title 
-        .span4
-          Tests Sent
-        .span4
-          Tests Taken
-        .span            
-      %ul.unstyled
-        - @assessments.each do |assessment|
-          %li.list-snippet
-            .span2
-              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} TEST #{assessment.id}
-            .span8.first.lhs-border
-              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
-                = assessment.name
-            .span4.lhs-border
-              - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "" }), :title=> "#{sent_count}"}  #{sent_count}
-            .span4.lhs-border
-              - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
-              %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
-            .span.lhs-border
-              %a.underlined{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
-                Send This Test   
-    //.divider1         
-    //%a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} 
-    //  Create New Test
-    //.clr
-  .inn
-    .pagination.pull-right
-      = paginate @assessments
+  
