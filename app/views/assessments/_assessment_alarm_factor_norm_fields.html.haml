@@ -24,7 +24,7 @@
     .span1.first
       %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
     .span6
-      %label.link-color{ for: "checkbox_factor_#{index}" }
+      %label{ for: "checkbox_factor_#{index}" }
         = assessment_factor_norm.factor.name
         %p
           = assessment_factor_norm.factor.definition
