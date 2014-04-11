@@ -26,6 +26,8 @@
     -ms-transition: background-color 600ms linear
     transition: background-color 600ms linear
     text-decoration: none
+  &:visited
+    outline: none
 
 
 // Active state
@@ -136,7 +138,7 @@ button.btn, input[type="submit"].btn
 .btn-link
   border-color: transparent
   border-radius: 0 0 0 0
-  color: #0088CC
+  color: $linkColor
   cursor: pointer
   outline-none
   padding: 7px 15px
