@@ -10,8 +10,9 @@
 - critical_checkbox_name = "checkbox_critical"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
 
-%li{ :id => "li_#{index}", class: "item #{assessment_factor_norm.id.present? ? 'checked':''}" }
+%li{ :id => "li_#{index}", class: "span15 item #{assessment_factor_norm.id.present? ? 'checked':''}" }
   //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+  .divider
   - if assessment_factor_norm.norm_min.to_f.zero? && assessment_factor_norm.id.nil?
     - if assessment_factor_norm.id.present?
       %input{name: (id_name), type: 'hidden', value: assessment_factor_norm.id, index: (index), disabled: 'disabled'}
@@ -20,11 +21,14 @@
     %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, disabled: 'disabled', index: (index)}
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
-    .pull-left 
+    .span1.first
       %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
-    .pull-left
+    .span6
       %label{ for: "checkbox_factor_#{index}" }
-        %b= assessment_factor_norm.factor.name
+        = assessment_factor_norm.factor.name
+        %p
+          = assessment_factor_norm.factor.definition
+        .down-caret
   - else
     - if assessment_factor_norm.id.present?
       %input{name: (id_name), type: 'hidden', value: assessment_factor_norm.id, index: (index)}
@@ -33,12 +37,13 @@
     %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, index: (index)}
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
-    .pull-left 
+    .span1.first
       %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
-    .pull-left
+    .span6
       %label{ for: "checkbox_factor_#{index}" }
-        %b= assessment_factor_norm.factor.name
+        = assessment_factor_norm.factor.name
+        %p
+          = assessment_factor_norm.factor.definition
   .clr
   .divider1
-  %p= assessment_factor_norm.factor.definition
 

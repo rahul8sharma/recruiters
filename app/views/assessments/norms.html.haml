@@ -13,40 +13,39 @@
     %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
     %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
     %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
-   
-      - aindex = 0
-      - @factor_norms_by_fit.each_with_index do |(fit,norms),fit_index|
-        - next if fit_index == 0
-        .span15
-          .factor-list
-            .titles.clearfix
-              .span7.first
-                .large-text
-                  Behavioral Trait
-                .muted
-                  Place the cursor on individual Traits below to see their definition
-                  
-              .span6.left-offset1
-                .large-text
-                  Expected Score Range
-                .muted
-                  Choose Minimum and Maximum score
-              .clr
-              .clearfix
-              .divider1  
-              .semi-muted
-                .left-offset8.first.span3
-                  Minimum
-                .span3 
-                  Maximum
-              
-            %ul.unstyled.factor-snippet
-              - norms[:factors].each_with_index do |assessment_factor_norm,index|
-                - aindex = aindex + 1
-                = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
-              - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
-                - aindex = aindex + 1
-                = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
+    - 2.times do 
+      .span15.first
+        .factor-list
+          .titles.clearfix
+            .span7.first
+              .large-text
+                Behavioral Trait
+              .muted
+                Place the cursor on individual Traits below to see their definition
+                
+            .span6.left-offset1
+              .large-text
+                Expected Score Range
+              .muted
+                Choose Minimum and Maximum score
+            .clr
+            .divider1 
+            .semi-muted
+              .left-offset8.first.span3
+                Minimum
+              .span3 
+                Maximum
+    .clr                
+    - aindex = 0
+    .factor-list
+      %ul.unstyled.factor-snippet
+        - @factor_norms_by_fit.values.each_with_index do |norms,fit_index|
+          - norms[:factors].each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
+          - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
     .divider3
     %button.pull-left.btn.btn-warning.btn-extra-medium
       Save and Close

@@ -1,13 +1,20 @@
 @import grid/core-set
 @import typography/awesome-font
+.small-text
+  font-size: $small-text
 .medium-text
-  font-size: 14px
+  font-size: $medium-text
 .extra-medium-text
-  font-size: 16px
+  font-size: $extra-medium-text
 .large-text
-  font-size: 18px
+  font-size: $large-text
 .big-text
-  font-size: 24px
+  font-size: $big-text
+.extra-large-text
+  font-size: $extra-large-text
+.huge-text 
+  font-size: $huge-text 
+
 .font-normal
   font-weight: normal !important
 .italic
@@ -83,7 +90,7 @@ h6
 .page-header
   padding-bottom: $baseLineHeight - 1
   margin: $baseLineHeight 0
-  border-bottom: 1px solid $grayLighter
+  border-bottom: 1px solid $grayLight
 
 .page-header h1
   line-height: 1
@@ -154,7 +161,7 @@ abbr
 blockquote
   padding: 0 0 0 15px
   margin: 0 0 $baseLineHeight
-  border-left: 5px solid $grayLighter
+  border-left: 5px solid $grayLight
   p
     margin-bottom: 0
     +font-shorthand(16px, 300, $baseLineHeight * 1.25)
@@ -170,7 +177,7 @@ blockquote
     padding-left: 0
     padding-right: 15px
     border-left: 0
-    border-right: 5px solid $grayLighter
+    border-right: 5px solid $grayLight
     p, small
       text-align: right
 

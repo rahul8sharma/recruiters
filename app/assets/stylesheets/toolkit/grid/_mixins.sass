@@ -143,10 +143,6 @@
     padding: 0
     margin: 0
 
-@for $l from 1 through 6
-  .line_height#{$l}
-    line-height: $l * 18px !important
-
 @for $mh from 1 through 30
   .min_height#{$mh}
     min-height: $mh * 18px !important  
@@ -179,7 +175,7 @@
       padding-right: $i * $baseLineHeight
   @for $i from 1 through 6
     .line-height#{$i}
-      line-height: $i * $baseLineHeight
+      line-height: $i * $baseLineHeight !important
   @for $i from 1 through $gridColumns - 1
     .left-offset#{$i}.first
       +gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $i) 
