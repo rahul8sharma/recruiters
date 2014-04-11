@@ -2,16 +2,17 @@
 @import toolkit/component/buttons
 @import toolkit/component/alerts
 @import toolkit/component/forms
+@import shared/content-sub-nav
 @import competencies
 
 .checked
   label
-    color: #f58220
+    color: $color-warning
 label.checked
-  color: #f58220
+  color: $color-warning
 label
   .checked
-    color: #f58220
+    color: $color-warning
 .page-title 
   font-size: 30px
   line-height: 35px
@@ -44,9 +45,9 @@ label
       left: 10px
       margin-top: 15px
   .menu.active
-    color: #f58220
+    color: $color-warning
     .count
-      background: #f58220
+      background: $color-warning
 .new
   label
     font-size: 14px
@@ -80,7 +81,7 @@ label
     position: relative
 
     p
-      border: 1px solid #F58220
+      border: 1px solid $color-warning
       border-radius: 4px
       bottom: 17px
       cursor: pointer
@@ -100,7 +101,7 @@ label
       width: 16px
 
     &:hover
-      color: #f58220
+      color: $color-warning
 
       p
         color: #808285
@@ -110,14 +111,12 @@ label
 
 .list-snippet
   font-size: $extra-medium-text
-  padding: 18px 0
   margin: 0 0 18px 0
-  border-bottom: 1px solid #e3e3e3
   a
     display: block
     color: $default
     &:hover
-      color: $linkColor
+      color: $color-warning
       text-decoration: none
 .list-snippet-titles 
   a
@@ -126,5 +125,5 @@ label
       text-decoration: none
       color: $default
       i
-        color: $linkColor
+        color: $color-warning
 

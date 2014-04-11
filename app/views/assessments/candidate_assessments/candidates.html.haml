@@ -1,38 +1,43 @@
-.create-test.creat-test-show
-  .inn.first
-    .page-title.pull-left
-      Test #{@assessment.id} - #{@assessment.name}
-    %a.btn.pull-right{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
-      .link-color Send This Test
-    - if current_user.type == "SuperAdmin"  
-      %a.pull-right{ href: email_reports_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
-        .link-color Email Reports Summary 
+.creat-test-show
+  .page-title.pull-left
+    AID  #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.btn-big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send this Assessment
+  - if current_user.type == "SuperAdmin"  
+    %a.extra-medium-text.pull-right.line-height4{ :href=>"#", :title => "View Ready-to-Send Assessments" }
+      View Ready-to-Send Assessments
   .clr
-  .inn.gray-gradient
-    .pull-left
-      = render :partial => "shared/candidate-content-sub-nav"
-    .pagination.pull-right
-      = paginate @candidates
+  = render :partial => "shared/candidate-content-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .extra-medium-text.line-height2.pull-left
+      %span
+        Tests Sent: 
+      %span #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
+        Tests Taken: 
+      %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
+    .filter-status.pull-right
+      = form_for :search, url: candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        - params[:search] ||= {}
+        .medium-text.muted.line-height2.pull-left Show Assessment takers with Status
+        %select.span3{name: "search[status]"}
+          - test_statuses.each do |status,name|  
+            %option{ value: status, selected: (params[:search][:status] == status) }
+              = name
+        .clr
     .clr
     .divider2
-    .list-snippet-titles.clearfix
-      .span2
-        = sort_link "ID", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        = sort_link "ATID <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+        
       .span7
-        = sort_link "Candidate Name", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span
-        = sort_link "Test Status", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      .filter-status.pull-right
-        = form_for :search, url: candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
-          - params[:search] ||= {}
-          Filter by Test Status: 
-          %select{name: "search[status]"}
-            - test_statuses.each do |status,name|  
-              %option{ value: status, selected: (params[:search][:status] == status) }
-                = name
-          %button.btn.btn-link
-            Apply
+        = sort_link "Assessment Taker <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span10
+        = sort_link "Assessment Status <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .clr
+      .divider1
     - if @candidates.empty?
       .medium-text.alert
         - if params[:search].present?
@@ -49,32 +54,36 @@
             - report = candidate_assessment.candidate_assessment_reports[0] 
             -# status = report_statuses[report.status]
           %li.list-snippet
-            .span2
-              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"JOM#{candidate.id}"} JOM#{candidate.id}
-            .span7.first.lhs-border
-              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
+            .divider1
+            .span3.first
+              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} #{candidate.id}
+            .span7
+              %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
                 = h candidate.name
-            .span9.lhs-border
+            .span10
               %a.default-color{:href=> candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 //remember Hrs & Hr 
-            .span.lhs-border
+            .span
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
                   %a.underlined{:href => url, :title => "View Report", target: "_blank"}
                     View Report
                 - else
+                  %i.icon-spinner.icon-spin 
                   Generating report...  
               - else 
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
                   = status  
                 - else   
-                  %a.underlined{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                  %a{:href => send_reminder_to_candidate_company_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                    %i.icon-time
                     Send Reminder
             .clr
-  .inn
-    .pagination.pull-right
-      = paginate @candidates
-      .clr
+      .divider3
+    / .inn
+    /   .pagination.pull-right
+    /     = paginate @candidates
+    /     .clr
