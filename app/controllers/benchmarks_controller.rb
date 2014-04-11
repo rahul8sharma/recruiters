@@ -1,10 +1,10 @@
 class BenchmarksController < AssessmentsController
   # GET /assessments
   def index
-    @assessments = Vger::Resources::Suitability::Assessment.where(
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(
       :query_options => { 
         :company_id => params[:company_id], 
-        :assessment_type => [Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK] 
+        :assessment_type => [Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK] 
       }, 
       :order => "created_at DESC", 
       :page => params[:page], 
@@ -21,7 +21,7 @@ class BenchmarksController < AssessmentsController
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => params[:id],
-                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK,
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
                             }
                           ).all.first
@@ -37,7 +37,7 @@ class BenchmarksController < AssessmentsController
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => params[:id],
-                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK,
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
                             }
                           ).all.first

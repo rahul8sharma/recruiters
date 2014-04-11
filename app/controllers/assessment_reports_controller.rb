@@ -4,10 +4,10 @@ class AssessmentReportsController < ApplicationController
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
   def training_requirements_report
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
                             assessment_id: params[:id], 
-                            report_type: Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT,
+                            report_type: Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
                             status: Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
                           }).all.to_a.first
     if !@assessment_report
@@ -43,7 +43,7 @@ class AssessmentReportsController < ApplicationController
   end
   
   def benchmark_report
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:benchmark_report])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], methods: [:benchmark_report])
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     @report = @assessment.benchmark_report
     if request.format == "application/pdf"

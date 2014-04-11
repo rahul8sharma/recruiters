@@ -21,7 +21,7 @@ class PagesController < ApplicationController
     if params[:assessment][:assessment_id].present? && params[:assessment][:company_id].present?
 	    assessment_id = params[:assessment][:assessment_id]
       company_id = params[:assessment][:company_id]
-      assessment = Vger::Resources::Suitability::Assessment.find(assessment_id)
+      assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id)
       if assessment.assessment_type == "fit"
         redirect_to norms_company_assessment_path(:id => assessment_id, :company_id => company_id)
       else

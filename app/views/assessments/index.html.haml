@@ -10,7 +10,7 @@
   / - else
   /   .pull-left.line-height2.extra-medium-text
   /     You may send an existing test from the list below:
-  - if can?(:create, "Suitability::Assessment")    
+  - if can?(:create, "Suitability::CustomAssessment")    
     %a.btn.btn-warning.btn-extra-medium.pull-right.span{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
       Create Custom Assessment
   .pull-right

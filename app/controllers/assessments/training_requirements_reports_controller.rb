@@ -4,7 +4,7 @@ class Assessments::TrainingRequirementsReportsController < AssessmentsController
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => @assessment.id,
-                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
                             }
                           ).all.first
@@ -16,10 +16,10 @@ class Assessments::TrainingRequirementsReportsController < AssessmentsController
   
   def enable_training_requirements_report
     @assessment.report_types ||= []
-    @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
+    @assessment.report_types << Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
     @assessment.report_types.uniq!
     respond_to do |format|
-      if Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { report_types: @assessment.report_types })
+      if Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { report_types: @assessment.report_types })
         format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
       else
         format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Could not enable training requirements report. Please try again." }
@@ -36,7 +36,7 @@ class Assessments::TrainingRequirementsReportsController < AssessmentsController
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => @assessment.id,
-                              :report_type   => Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
                             }
                           ).all.first

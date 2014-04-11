@@ -23,7 +23,7 @@ class BenchmarkReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
-      @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :benchmark_report ])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id, methods: [ :benchmark_report ])
       @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
       @assessment_report.report_data = @assessment.benchmark_report
       @report = @assessment.benchmark_report

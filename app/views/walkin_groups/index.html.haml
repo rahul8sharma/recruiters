@@ -9,7 +9,7 @@
       .medium-text.alert.pull-left
         No walk-ins have been created. To create a Walk-In, 
         %a{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
-    - if can?(:create, "Suitability::Assessment")    
+    - if can?(:create, "Suitability::WalkinGroup")    
       %a.btn.btn-info.pull-right{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
         Create a new Walk-In Index Page
     .clr
