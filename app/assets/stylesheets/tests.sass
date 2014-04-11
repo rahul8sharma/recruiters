@@ -2,8 +2,6 @@
 @import toolkit/component/buttons
 @import toolkit/component/alerts
 @import toolkit/component/forms
-@import shared/sub-nav
-@import shared/content-sub-nav
 @import competencies
 
 .checked
@@ -54,19 +52,29 @@ label
     font-size: 14px
     color: #58595b
 .norms
-  .span15
-    margin-left: 0 !important
-    ul
+  .divider
+    width: 30px
+    display: none
+    height: 10px
+    float: left
+  li
+    min-height: 50px
+    &:nth-child(odd)
       border-right: 1px solid #ddd
-  .span15 + .span15
-    margin: 0 0 0 10px
+  .span15
+    margin-left: 0
+    &:nth-child(odd)
+      .factor-list
+        padding-left: 0
+    &:nth-child(even)
+      .divider
+        display: block
 
     .factor-list
-      padding: 0 0 0 37px
+      padding: 0 0 0 30px
     ul
       border: none
 .factor-list
-
   label
     font-size: 16px
     position: relative
@@ -99,3 +107,24 @@ label
         display: block
       .down-caret
         display: block
+
+.list-snippet
+  font-size: $extra-medium-text
+  padding: 18px 0
+  margin: 0 0 18px 0
+  border-bottom: 1px solid #e3e3e3
+  a
+    display: block
+    color: $default
+    &:hover
+      color: $linkColor
+      text-decoration: none
+.list-snippet-titles 
+  a
+    color: $default
+    &:hover
+      text-decoration: none
+      color: $default
+      i
+        color: $linkColor
+
