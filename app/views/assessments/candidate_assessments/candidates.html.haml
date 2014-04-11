@@ -1,10 +1,10 @@
 .creat-test-show
   .page-title.pull-left
     AID  #{@assessment.id} - #{@assessment.name}
-  %a.btn.btn-warning.pull-right.btn-big{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+  %a.btn.btn-warning.pull-right.btn-big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send this Assessment
   - if current_user.type == "SuperAdmin"  
-    %a.extra-medium-text.pull-right.line-height4{ href: email_reports_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
+    %a.extra-medium-text.pull-right.line-height4{ :href=>"#", :title => "View Ready-to-Send Assessments" }
       View Ready-to-Send Assessments
   .clr
   = render :partial => "shared/candidate-content-sub-nav"
