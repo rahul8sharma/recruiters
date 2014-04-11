@@ -10,12 +10,23 @@
         %li
           %a{:href=>"#", :title=> "HOME"}
             HOME
-        %li
-          %a{:href=>"#", :title=> "ASSESSMENTS"}
-            ASSESSMENTS
-        %li
-          %a{:href=>"#", :title=> "REPORTS"}
-            REPORTS
+        - if defined?(@company)
+          - if current_user.type == "SuperAdmin"
+            %li
+              %a{:href=>companies_path(), :title=> "COMPANIES"}
+                COMPANIES
+          %li
+            %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS"}
+              ASSESSMENTS
+          %li
+            %a{:href=>"#", :title=> "REPORTS"}
+              REPORTS
+
+          - else
+            %li
+              %a{:href=>companies_path(), :title=> "COMPANIES"}
+                COMPANIES
+
         %li
           %a{:href=>"#", :title=> "HELP"}
             HELP
@@ -26,18 +37,19 @@
           %a.setting{href: "#", title: "Account"} 
             
           %ul
+            - if defined?(@company)
+              %li
+                %a{:href=>statistics_company_path(@company)} Usage
+              %li
+                %a{:href=>company_path(@company)} Settings
+              %li
+                %a{href: "#"} Traning Requirements
+              %li
+                %a{href: "#"} Walk-Ins
+              %li
+                %a{href: "#"} Benchmarks
             %li
-              %a{href: "#"} Usage
-            %li
-              %a{href: "#"} Settings
-            %li
-              %a{href: "#"} Traning Requirements
-            %li
-              %a{href: "#"} Walk-Ins
-            %li
-              %a{href: "#"} Benchmarks
-            %li
-              %a{href: "#"} Logout
+              %a{href: "/logout"} Logout
       .clr
     .clr
 
