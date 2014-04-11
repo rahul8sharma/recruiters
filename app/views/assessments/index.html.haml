@@ -11,10 +11,10 @@
   /   .pull-left.line-height2.extra-medium-text
   /     You may send an existing test from the list below:
   - if can?(:create, "Suitability::CustomAssessment")    
-    %a.btn.btn-warning.btn-extra-medium.pull-right.span{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+    %a.btn.btn-warning.btn-big.pull-right.span{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
       Create Custom Assessment
   .pull-right
-    %a.extra-medium-text.line-height2{:href=>"/", :title => "View Ready-to-Send Assessments"}
+    %a.extra-medium-text.line-height4{:href=>"/", :title => "View Ready-to-Send Assessments"}
       View Ready-to-Send Assessments
   .clr
   .divider2
@@ -48,7 +48,8 @@
       .divider1          
     %ul.unstyled
       - @assessments.each do |assessment|
-        %li.list-snippet
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
           .span2.first
             %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
           .span4
@@ -70,6 +71,7 @@
             %a{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               %i.icon-envelope
           .clr
+          .divider1
   .divider2
   .pull-right
     .muted.span.extra-medium-text.line-height2
