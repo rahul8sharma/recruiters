@@ -22,8 +22,6 @@
   margin-right: auto !important
   float: none !important
 
-.link-color
-  color: $linkColor
 .color-warning
   color: $color-warning
 .rounded
@@ -32,6 +30,10 @@
   color: #fff
 .border-primary
   border: 1px solid #dedede
+.border-warning
+  border: 1px solid $color-warning
+.border-bottom-grayLighter
+  border-bottom: 1px solid $grayLighter
 
 a.underlined
   text-decoration: underline
@@ -40,4 +42,4 @@ a.underlined
 a.default-color
   color: $textColor
   &:hover
-    color: $linkColor
+    color: $color-warning
