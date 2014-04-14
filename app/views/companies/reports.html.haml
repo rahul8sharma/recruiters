@@ -1,0 +1,59 @@
+.assessments-list
+  .span14.page-title.first
+    .divider1
+    Assessments
+  .clr
+
+  .divider2
+  .list-snippet-titles.large-text.clearfix
+    .span3.first
+      %a{:href=>"#"}
+        ATID
+        %i.icon-chevron-down.small-text.line-height1
+    .span7
+      %a{:href=>"#"}
+        Assessment Taker
+        %i.icon-chevron-down.small-text.line-height1
+    .span9
+      %a{:href=>"#"}
+        Assessment Title
+        %i.icon-chevron-down.small-text.line-height1
+    .span7.left-offset1
+      %a{:href=>"#"}
+        Completed on
+        %i.icon-chevron-down.small-text.line-height1
+    .span2
+      %a{:href=>"#"}
+        Report
+    .clr
+    .divider1          
+  %ul.unstyled
+    -10.times do |index|
+      %li.list-snippet.border-bottom-grayLighter
+        .divider1
+        .span3.first
+          %a{:href=> "#", :title => "#{index}"}
+            \#{index}
+        .span7
+          %a{:href => "#", :title => "Pranav D Shah"} 
+            Pranav D Shah
+        .span9
+          %a{:href=>"#", :title => "2612-Arts&Crafts-1-3"}
+            2612-Arts&Crafts-1-3
+        .span7.left-offset1
+          %a{:href => "#", :title => "20:30 Hrs, 08/04/2014"}
+            20:30 Hrs, 08/04/2014
+        .span2.text-center
+          %a{:href=> "#", :title => "Click to View Report"}
+            %i.icon-file
+        
+        .clr
+        .divider1
+  .divider1
+  .pull-right
+    .muted.span.extra-medium-text.line-height2
+      Go to page
+    %select.span2
+      %option
+        1
+    .clr

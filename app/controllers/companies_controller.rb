@@ -14,6 +14,9 @@ class CompaniesController < ApplicationController
     api_resource.destroy_all
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
+
+  def reports
+  end
   
   def add_subscription
     if !@company.admin

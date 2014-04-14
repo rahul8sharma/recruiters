@@ -3,25 +3,11 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
     - if defined?(@company)  
-      .span12.company_name
+      .span7.company_name
         = @company.name  
-    .span14.pull-right
-      %ul.navbar.pull-left.clearfix
-        %li
-          %a{:href=>"#", :title=> "HOME"}
-            HOME
-        %li
-          %a{:href=>"#", :title=> "ASSESSMENTS"}
-            ASSESSMENTS
-        %li
-          %a{:href=>"#", :title=> "REPORTS"}
-            REPORTS
-        %li
-          %a{:href=>"#", :title=> "HELP"}
-            HELP
-      %a.label.label-warning.label-small.pull-left{:href=>"#", :title=> "UPGRADE ACCOUNT"}
-        UPGRADE ACCOUNT
-      %ul#sub-nav.pull-left
+    .span19.pull-right
+      
+      %ul#sub-nav.pull-right
         %li
           %a.setting{href: "#", title: "Account"} 
             
@@ -38,6 +24,22 @@
               %a{href: "#"} Benchmarks
             %li
               %a{href: "#"} Logout
+      %a.label.label-warning.label-small.pull-right{:href=>"#", :title=> "UPGRADE ACCOUNT"}
+        UPGRADE ACCOUNT
+      
+      %ul.navbar.pull-right.clearfix
+        %li
+          %a{:href=>"#", :title=> "HOME"}
+            HOME
+        %li
+          %a{:href=>"#", :title=> "ASSESSMENTS"}
+            ASSESSMENTS
+        %li
+          %a{:href=>"#", :title=> "REPORTS"}
+            REPORTS
+        %li
+          %a{:href=>"#", :title=> "HELP"}
+            HELP
       .clr
     .clr
 
