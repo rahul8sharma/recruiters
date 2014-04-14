@@ -1,0 +1,64 @@
+.package_review
+  .page-title 
+    Checkout and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider4
+  .span21.border-right-gray.large-text.first
+    .text-center 
+      Please review the details of the package that you selected
+    .divider2
+    .span10.margin-auto
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Package Name
+        .span3
+          Premium 
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Number of Assessments
+        .span3
+          100 
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Expiry date of the Package
+        .span3
+          28/12/2008 
+        .clr
+      .less-padding-all1.padding-lr1
+        .span6.first
+          Amount
+        .span3
+          &#8377; 5000.00
+        .clr
+    .divider4
+
+    .text-center
+      Clicking on proceed will allow you to buy the package
+    .divider2
+    .span12.margin-auto
+      %a{:href => "#", :title => "Change Package"}
+        Change Package
+      %button.btn.btn-warning.big-text
+        Proceed
+
+  .clr
+%a.btn-warning.btn.big.big-text{:href=>"#"}
+  Send this Assessment   
+.divider1        
+  
+%a.btn-warning.btn.big-text{:href=>"#"}
+  Send this Assessment           
+.divider1        
+  
+
+%a.btn-warning.btn.big.large-text{:href=>"#"}
+  Send this Assessment           
+.divider1        
+  
+%a.btn-warning.btn.large-text{:href=>"#"}
+  Send this Assessment           
+.divider1        
+  
