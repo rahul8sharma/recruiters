@@ -17,6 +17,10 @@ class CompaniesController < ApplicationController
 
   def reports
   end
+
+  def home
+  end
+  
   
   def add_subscription
     if !@company.admin
