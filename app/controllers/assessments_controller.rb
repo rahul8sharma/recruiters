@@ -15,7 +15,7 @@ class AssessmentsController < ApplicationController
       "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
     },
     :page => params[:page],
-    :per=>2).all
+    :per=>10).all
   end
 
   
