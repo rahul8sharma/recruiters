@@ -1,5 +1,6 @@
 .creat-test-show
-  .page-title.pull-left
+  .span16.page-title.first
+    .divider1
     AID  #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-warning.pull-right.btn-big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send this Assessment
@@ -7,6 +8,7 @@
     %a.extra-medium-text.pull-right.line-height4{ :href=>"#", :title => "View Ready-to-Send Assessments" }
       View Ready-to-Send Assessments
   .clr
+  .divider2
   = render :partial => "shared/candidate-content-sub-nav"
   .clr
   .padding-all2.border-warning.shifted-up1

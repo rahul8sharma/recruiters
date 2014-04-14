@@ -1,0 +1,78 @@
+.creat-test-show
+  .span15.page-title.first
+    .divider1
+    AID  #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.btn-big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send this Assessment
+  - if current_user.type == "SuperAdmin"  
+    %a.extra-medium-text.pull-right.line-height4{ :href=>"#", :title => "View Ready-to-Send Assessments" }
+      View Ready-to-Send Assessments
+  .clr
+  .divider2
+  = render :partial => "shared/candidate-content-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    
+    / .filter-status.pull-right
+    /   = form_for :search, url: candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+    /     - params[:search] ||= {}
+    /     .medium-text.muted.line-height2.pull-left Show Assessment takers with Status
+    /     %select.span3{name: "search[status]"}
+    /       - test_statuses.each do |status,name|  
+    /         %option{ value: status, selected: (params[:search][:status] == status) }
+    /           = name
+    /     .clr
+    / .clr
+    /.divider2
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        %a{:href => "#", :title => ""}
+          ATID 
+          %i.icon-chevron-down.small-text.line-height1 
+      .span8
+        %a{:href => "#", :title => ""}
+          Assessment Taker 
+          %i.icon-chevron-down.small-text.line-height1 
+      .span10
+        %a{:href => "#", :title => ""}
+          Assessment Status 
+          %i.icon-chevron-down.small-text.line-height1 
+        
+      .clr
+      .divider1
+    
+    %ul.unstyled
+      - 10.times do |index|
+        %li.list-snippet
+          .divider1
+          .span3.first
+            %a.default-color{:href=> "#", :title=>"#{index}"} 
+              \#{index}
+          .span8
+            %a.default-color{:href=> "#", :title=>"Pritha Das"} 
+              Pritha Das
+          .span10
+            %a.default-color{:href=> "#", :title=> "Completed as of 19:17 Hrs, 07/04/2014"}
+              Completed
+              as of 19:17
+              Hrs, 07/04/2014
+              //remember Hrs & Hr 
+          .span
+            %a{:href => "#", :title => "View Report", target: "_blank"}
+              %i.icon-file
+              View Report
+          .clr
+    .divider2
+    .pull-right
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2
+          %option
+            1
+        .clr
+    .clr
+  / .inn
+  /   .pagination.pull-right
+  /     = paginate @candidates
+  /     .clr

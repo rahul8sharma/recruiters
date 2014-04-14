@@ -6,6 +6,8 @@ class AssessmentsController < ApplicationController
   
   
   layout "tests"
+  def reports
+  end
   
   def show
     @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
