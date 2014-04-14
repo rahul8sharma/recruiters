@@ -21,6 +21,7 @@ Recruiters::Application.routes.draw do
     end
     
     member do
+      get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
       get "settings/company" => "company_settings#company", :as => :company_settings
@@ -110,6 +111,8 @@ Recruiters::Application.routes.draw do
       member do
         get "norms" => "assessments#norms", :as => :norms
         put "norms" => "assessments#norms", :as => :norms
+
+        get "reports" => "assessments#reports", :as => :reports
 
         get "competency_norms" => "assessments#competency_norms", :as => :competency_norms
         put "competency_norms" => "assessments#competency_norms", :as => :competency_norms
