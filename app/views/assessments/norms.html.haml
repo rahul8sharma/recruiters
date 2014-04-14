@@ -6,7 +6,7 @@
   .page-title 
     #{@assessment.name}
   .divider1
-  = render :partial => "shared/test-flow-sub-nav"
+  = render :partial => "shared/navigation-sub-nav"
   .divider2
       
   = form_for @assessment, :as => :assessment, :url => norms_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
@@ -47,9 +47,9 @@
             - aindex = aindex + 1
             = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
     .divider3
-    %button.pull-left.btn.btn-warning.btn-extra-medium
+    %button.pull-left.btn.btn-warning.big-text
       Save and Close
-    %button.pull-right.btn.btn-warning.btn-extra-medium
+    %button.pull-right.btn.btn-warning.big-text
       Proceed
     .clr
     .divider1

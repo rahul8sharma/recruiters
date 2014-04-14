@@ -20,12 +20,13 @@
 
   // Hover state
   &:hover
-    -webkit-transition: background-color 600ms linear
-    -moz-transition: background-color 600ms linear
-    -o-transition: background-color 600ms linear
-    -ms-transition: background-color 600ms linear
-    transition: background-color 600ms linear
+    -webkit-transition: background-color 150ms linear
+    -moz-transition: background-color 150ms linear
+    -o-transition: background-color 150ms linear
+    -ms-transition: background-color 150ms linear
+    transition: background-color 150ms linear
     text-decoration: none
+
   &:visited
     outline: none
 
@@ -46,72 +47,44 @@
   background-color: darken($white, 10%)
   +opacity(0.65)
   +box-shadow(none)
-.btn-extra-medium
-  padding: 9px 14px
-  font-size: $baseFontSize + 4px
-  line-height: normal
-  +border-radius(5px)
-// Large
-.btn-large
-  padding: 9px 14px
-  font-size: $baseFontSize + 2px
-  line-height: normal
-  +border-radius(5px)
-.btn-big
-  padding: 25px 45px
-  font-size: $baseFontSize + 8px
-  +border-radius(5px)
-.btn-large [class^="icon-"]
-  margin-top: 1px
+  border-color: darken($white, 10%)
+  &:hover
+    border-color: darken($white, 10%)
+    background-color: darken($white, 10%)
+    color: #fff
+.btn.big.big-text
+  padding: 18px 40px
+.btn.big-text
+  padding: 14px 25px
 
-// Small
-.btn-small
-  padding: 5px 9px
-  font-size: $baseFontSize - 2px
-  line-height: $baseLineHeight - 2px
-
-.btn-small [class^="icon-"]
-  margin-top: -1px
-
-// Mini
-.btn-mini
-  padding: 2px 6px
-  font-size: $baseFontSize - 2px
-  line-height: $baseLineHeight - 4px
+.btn.big.large-text
+  padding: 16px 36px 
+.btn.large-text
+  padding: 12px 22px
 
 
 
 // Provide *some* extra contrast for those who can get it
-.btn-primary.active, .btn-warning.active, .btn-danger.active, .btn-success.active, .btn-info.active, .btn-inverse.active
+.btn-warning.active
   color: rgba(255, 255, 255, 0.75)
 
-// Set the backgrounds
-// -------------------------
-.btn-primary
-  +buttonBackground($primaryButtonBackground, adjust-hue($primaryButtonBackground, 20))
 
 // Warning appears are orange
 .btn-warning,  .btn-warning:hover
   background: $color-warning
   color: $white
-  border: none
+  border: 1px solid $color-warning
 .btn-warning:hover
-  background: #a64c00
+  background-color: #fff
+  color: $color-warning
+.btn-warning.inverse
+  background-color: #fff
+  color: $color-warning
+  font-weight: normal
+  &:hover
+    background: $color-warning
+    color: $white
 
-// Danger and error appear as red
-.btn-danger
-  +buttonBackground(#ee5f5b, #bd362f)
-
-// Success appears as green
-.btn-success
-  +buttonBackground(#62c462, #51a351)
-
-// Info appears as a neutral blue
-.btn-info
-  +buttonBackground(#66cfee, #3aa0bf)
-
-.btn-inverse
-  +buttonBackground(#454545, #262626)
 
 // For Cross-browser
 // --------------------------------------------------

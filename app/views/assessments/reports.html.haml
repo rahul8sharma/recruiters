@@ -2,10 +2,10 @@
   .span15.page-title.first
     .divider1
     AID  #{@assessment.id} - #{@assessment.name}
-  %a.btn.btn-warning.pull-right.btn-big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send this Assessment
   - if current_user.type == "SuperAdmin"  
-    %a.extra-medium-text.pull-right.line-height4{ :href=>home_company_path(@company), :title => "View Ready-to-Send Assessments" }
+    %a.extra-medium-text.pull-right.line-height3{ :href=>home_company_path(@company), :title => "View Ready-to-Send Assessments" }
       View Ready-to-Send Assessments
   .clr
   .divider2

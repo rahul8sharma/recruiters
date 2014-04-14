@@ -1,14 +1,14 @@
-.test-flow-sub-nav.clearfix.pull-left
+.navigation-sub-nav.clearfix.pull-left
   .menu{ class: [:new, :norms, :styles, :competencies, :competency_norms].include?(params[:action].to_sym) ? "active" : "" }
     .count 1 
-    Enter Job Role Details
+    Package Review
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.get?) ? "active" : "" }
     .count 2 
-    Choose Behavioral Traits
+    Contact Information
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.put?) ? "active" : "" }
     .count 3 
-    Add Assessment Taker’s Details
+    Payment Information
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.put?) ? "active" : "" }
     .count 4 
-    Confirm &amp; Send Assessment  
+    Confirmation
 .clr

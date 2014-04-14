@@ -171,7 +171,17 @@
     .padding-all#{$i}
       padding: $i * $baseLineHeight  
   @for $i from 1 through 6
+    .less-padding-all#{$i}
+      padding: $i * $baseLineHeight - 8
+  @for $i from 1 through 6
     .padding-right#{$i}
+      padding-right: $i * $baseLineHeight
+  @for $i from 1 through 6
+    .padding-left#{$i}
+      padding-left: $i * $baseLineHeight
+  @for $i from 1 through 6
+    .padding-lr#{$i}
+      padding-left: $i * $baseLineHeight
       padding-right: $i * $baseLineHeight
   @for $i from 1 through 6
     .line-height#{$i}
