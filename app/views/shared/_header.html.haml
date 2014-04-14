@@ -6,15 +6,19 @@
       .span12.company_name
         = @company.name  
     .span14.pull-right
-      %ul.navbar.pull-left.clearfix
-        %li
-          %a{:href=>"#", :title=> "HOME"}
-            HOME
+      %ul.navbar.pull-left.clearfix        
         - if defined?(@company)
-          - if current_user.type == "SuperAdmin"
+          - if current_user.type == "SuperAdmin"            
+            %li
+              %a{:href=>companies_path(), :title=> "HOME"}
+                HOME
             %li
               %a{:href=>companies_path(), :title=> "COMPANIES"}
                 COMPANIES
+          - if current_user.type == "Admin"
+            %li
+              %a{:href=>company_assessments_path(@company), :title=> "HOME"}
+                HOME
           %li
             %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS"}
               ASSESSMENTS
@@ -24,11 +28,14 @@
 
           - else
             %li
+              %a{:href=>companies_path(), :title=> "HOME"}
+                HOME
+            %li
               %a{:href=>companies_path(), :title=> "COMPANIES"}
                 COMPANIES
 
         %li
-          %a{:href=>"#", :title=> "HELP"}
+          %a{:href=>"/help/adding_candidates", :title=> "HELP"}
             HELP
       %a.label.label-warning.label-small.pull-left{:href=>"#", :title=> "UPGRADE ACCOUNT"}
         UPGRADE ACCOUNT
@@ -43,11 +50,11 @@
               %li
                 %a{:href=>company_path(@company)} Settings
               %li
-                %a{href: "#"} Traning Requirements
+                %a{:href=>company_training_requirement_groups_path(@company, @training_requirement_groups)} Traning Requirements
               %li
-                %a{href: "#"} Walk-Ins
+                %a{:href=>company_walkin_groups_path(@company, @walkin_groups)} Walk-Ins
               %li
-                %a{href: "#"} Benchmarks
+                %a{:href=>company_benchmarks_path(@company)} Benchmarks
             %li
               %a{href: "/logout"} Logout
       .clr
