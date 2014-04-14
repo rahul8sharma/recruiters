@@ -5,10 +5,10 @@
   = render :partial => "shared/billing-navigation-sub-nav"
   .divider4
   .span21.border-right-gray.large-text.first
-    .text-center 
+    .gray-dark.text-center 
       Please review the details of the package that you selected
     .divider2
-    .span10.margin-auto
+    .span10.margin-auto.gray-darker
       .border-bottom-grayLighter.less-padding-all1.padding-lr1
         .span6.first
           Package Name
@@ -35,30 +35,28 @@
         .clr
     .divider4
 
-    .text-center
+    .gray-dark.text-center
       Clicking on proceed will allow you to buy the package
     .divider2
     .span12.margin-auto
-      %a{:href => "#", :title => "Change Package"}
+      %a.btn.btn-warning.inverse.big-text.pull-left{:href => "#", :title => "Change Package"}
         Change Package
-      %button.btn.btn-warning.big-text
+      %button.btn.btn-warning.big-text.pull-right
         Proceed
+      .clr
+
+
+  .span7.left-offset1.text-center
+    .gray-dark.big-text
+      Our Trusted Payment Partner
+    .divider1
+    = image_tag("plans/ccavenue.png")
+    .divider4
+    .gray-dark.big-text
+      Supported by
+    .divider1
+    = image_tag("plans/supported.png")
 
   .clr
-%a.btn-warning.btn.big.big-text{:href=>"#"}
-  Send this Assessment   
-.divider1        
-  
-%a.btn-warning.btn.big-text{:href=>"#"}
-  Send this Assessment           
-.divider1        
-  
-
-%a.btn-warning.btn.big.large-text{:href=>"#"}
-  Send this Assessment           
-.divider1        
-  
-%a.btn-warning.btn.large-text{:href=>"#"}
-  Send this Assessment           
-.divider1        
+        
   
