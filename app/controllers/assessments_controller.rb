@@ -7,6 +7,15 @@ class AssessmentsController < ApplicationController
   
   layout "tests"
   def reports
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
+    :assessment_id => @assessment.id,
+    :joins => :assessment,
+    :include => [:candidate_assessment_reports, :candidate],
+    :query_options => {
+      :status => Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
+    },
+    :page => params[:page],
+    :per=>2).all
   end
 
   
