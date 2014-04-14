@@ -16,9 +16,9 @@
               %li
                 %a{:href=>company_path(@company)} Settings
               %li
-                %a{:href=>company_training_requirement_groups_path(@company, @training_requirement_groups)} Traning Requirements
+                %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
               %li
-                %a{:href=>company_walkin_groups_path(@company, @walkin_groups)} Walk-Ins
+                %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
               %li
                 %a{:href=>company_benchmarks_path(@company)} Benchmarks
             %li
@@ -55,7 +55,7 @@
                 COMPANIES
 
         %li
-          %a{:href=>"/help/adding_candidates", :title=> "HELP"}
+          %a{:href=>help_adding_candidates_path(), :title=> "HELP"}
             HELP
       .clr
     .clr
