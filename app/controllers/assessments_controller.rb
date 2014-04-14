@@ -9,10 +9,10 @@ class AssessmentsController < ApplicationController
   def reports
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
     :assessment_id => @assessment.id,
-    :joins => :assessment,
+    :joins => :candidate_assessment_reports,
     :include => [:candidate_assessment_reports, :candidate],
     :query_options => {
-      :status => Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
+      "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
     },
     :page => params[:page],
     :per=>2).all
