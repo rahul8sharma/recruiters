@@ -1,8 +1,10 @@
 .assessments-list
-  .span16.page-title.first
+  .span14.page-title.first
+    .divider1
     Assessments
   /.pagination.pull-right
-  /  = paginate @assessments  
+  /  = paginate @assessments 
+   
   - if @assessments.empty?
     .medium-text.alert.pull-left
       No tests have been created. To create a test, 
@@ -51,22 +53,22 @@
         %li.list-snippet.border-bottom-grayLighter
           .divider1
           .span2.first
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
+            %a{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
           .span4
             %a{:href => "#"} 
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
           .span8
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+            %a{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
           .span3.text-center
             %a{:href => company_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
               %i.icon-eye-open
           .span3.text-center.left-offset1
             - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
+            %a{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
           .span2.text-center.left-offset2
             - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-            %a.default-color{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{sent_count}"}  #{sent_count}
+            %a{:href=> candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{sent_count}"}  #{sent_count}
           .span4.text-center.left-offset1
             %a{:href => add_candidates_company_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               %i.icon-envelope
