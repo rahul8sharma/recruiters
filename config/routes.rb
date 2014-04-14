@@ -19,8 +19,12 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
-    
+
     member do
+      get "plans/:plan_id/review" => "companies/plans#review", :as => :review_plan
+      get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
+      get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
+
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
