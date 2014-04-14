@@ -34,22 +34,22 @@
                 COMPANIES
           - if current_user.type == "Admin"
             %li
-              %a{:href=>home_company_path(@company), :title=> "HOME"}
+              %a{:href=>home_company_path(@company), :title=> "HOME", class: (["companies/home"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 HOME
-          %li
-            %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS"}
+          %li{}
+            %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS",class: (["assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
               ASSESSMENTS
           %li
-            %a{:href=>"#", :title=> "REPORTS"}
+            %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
               REPORTS
 
           - else
             %li
-              %a{:href=>companies_path(), :title=> "COMPANIES"}
+              %a{:href=>companies_path(), :title=> "COMPANIES",class: (["companies/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 COMPANIES
 
         %li
-          %a{:href=>help_adding_candidates_path(), :title=> "HELP"}
+          %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
             HELP
       .clr
     .clr
