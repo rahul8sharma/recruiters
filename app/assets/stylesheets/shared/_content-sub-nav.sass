@@ -1,37 +1,29 @@
 .content-sub-nav
   .menu
-    background: #fafafa
-    border: 1px solid #dddddd
+    background: transparent
+    border: 1px solid #cccccc
     float: left
-    min-width: 175px
-    font-size: 13px
-    font-weight: bold
+    min-width: 170px
+    font-size: 18px
     text-align: center
-    color: #484848
+    color: #bcbec0
     border-left: 1px solid #dddddd
-    border-bottom: 1px solid #dddddd
-    padding: 7px 0
-    padding-bottom: 9px
+    border-bottom: 0
+    padding: 8px 10px
     display: block
+    margin-left: -1px
 
-    &:hover, &.active
-      border-bottom: 3px solid #ff8308
-      background: #fff
-      padding-bottom: 7px
+    &:first-child
+      margin-left: 0
 
+    &:hover
+      color: $color-warning
+      text-decoration: none
     &.active
       position: relative
+      border: 1px solid $color-warning
+      border-bottom-color: #fff
+      border-bottom: 0
+      background: #fff
 
-      &:before
-        top: 100%
-        border: solid transparent
-        content: " "
-        height: 0
-        width: 0
-        position: absolute
-        pointer-events: none
-        border-color: rgba(255, 131, 8, 0)
-        border-top-color: #ff8308
-        border-width: 10px 16px
-        left: 50%
-        margin-left: -15px
+

@@ -26,6 +26,8 @@
     -ms-transition: background-color 600ms linear
     transition: background-color 600ms linear
     text-decoration: none
+  &:visited
+    outline: none
 
 
 // Active state
@@ -56,7 +58,7 @@
   line-height: normal
   +border-radius(5px)
 .btn-big
-  padding: 12px 25px
+  padding: 25px 45px
   font-size: $baseFontSize + 8px
   +border-radius(5px)
 .btn-large [class^="icon-"]
@@ -90,7 +92,7 @@
 
 // Warning appears are orange
 .btn-warning,  .btn-warning:hover
-  background: #f58220
+  background: $color-warning
   color: $white
   border: none
 .btn-warning:hover
@@ -136,7 +138,7 @@ button.btn, input[type="submit"].btn
 .btn-link
   border-color: transparent
   border-radius: 0 0 0 0
-  color: #0088CC
+  color: $color-warning
   cursor: pointer
   outline-none
   padding: 7px 15px
