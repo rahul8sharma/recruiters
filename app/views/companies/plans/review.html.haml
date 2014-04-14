@@ -1,0 +1,62 @@
+.package_review
+  .page-title 
+    Checkout and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider4
+  .span21.border-right-gray.large-text.first
+    .gray-dark.text-center 
+      Please review the details of the package that you selected
+    .divider2
+    .span10.margin-auto.gray-darker
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Package Name
+        .span3
+          Premium 
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Number of Assessments
+        .span3
+          100 
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Expiry date of the Package
+        .span3
+          28/12/2008 
+        .clr
+      .less-padding-all1.padding-lr1
+        .span6.first
+          Amount
+        .span3
+          &#8377; 5000.00
+        .clr
+    .divider4
+
+    .gray-dark.text-center
+      Clicking on proceed will allow you to buy the package
+    .divider2
+    .span12.margin-auto
+      %a.btn.btn-warning.inverse.big-text.pull-left{:href => "#", :title => "Change Package"}
+        Change Package
+      %button.btn.btn-warning.big-text.pull-right
+        Proceed
+      .clr
+
+
+  .span7.left-offset1.text-center
+    .gray-dark.big-text
+      Our Trusted Payment Partner
+    .divider1
+    = image_tag("plans/ccavenue.png")
+    .divider4
+    .gray-dark.big-text
+      Supported by
+    .divider1
+    = image_tag("plans/supported.png")
+
+  .clr
+        
+  
