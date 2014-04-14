@@ -12,9 +12,9 @@
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
     .large-text
-      .span4.first
+      .span5.first
         Trait
-      .span16.left-offset1
+      .span15.left-offset1
         Definition
       .span6.left-offset1
         Acceptable Score Range
@@ -26,9 +26,9 @@
         %li
           .divider1
           .extra-medium-text
-            .span4.first
+            .span5.first
               = factor_norm.factor.name
-            .span16.left-offset1
+            .span15.left-offset1
               = factor_norm.factor.definition
             .span6.left-offset1
               #{factor_norm.from_norm_bucket.name} - #{factor_norm.to_norm_bucket.name}
@@ -39,11 +39,12 @@
     - if @other_norms.empty?
       .divider1
     - else
-      .border-bottom-grayLighter.divider2
+      .divider2.border-bottom-grayLighter
+      .divider2
       .large-text
-        .span4.first
+        .span5.first
           Miscellaneous Trait
-        .span16.left-offset1
+        .span15.left-offset1
           Definition
         .span6.left-offset1
           Acceptable Score Range
@@ -55,9 +56,9 @@
           %li
             .divider1
             .extra-medium-text
-              .span4.first
+              .span5.first
                 = factor_norm.factor.name
-              .span16.left-offset1
+              .span15.left-offset1
                 = factor_norm.factor.definition
             .clr.left-offset1
             .divider1
