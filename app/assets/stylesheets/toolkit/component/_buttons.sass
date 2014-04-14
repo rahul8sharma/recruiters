@@ -73,11 +73,18 @@
 .btn-warning,  .btn-warning:hover
   background: $color-warning
   color: $white
-  border: none
   border: 1px solid $color-warning
 .btn-warning:hover
   background-color: #fff
   color: $color-warning
+.btn-warning.inverse
+  background-color: #fff
+  color: $color-warning
+  font-weight: normal
+  &:hover
+    background: $color-warning
+    color: $white
+
 
 // For Cross-browser
 // --------------------------------------------------
