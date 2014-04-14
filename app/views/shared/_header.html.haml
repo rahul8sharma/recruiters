@@ -30,14 +30,11 @@
         - if defined?(@company)
           - if current_user.type == "SuperAdmin"            
             %li
-              %a{:href=>companies_path(), :title=> "HOME"}
-                HOME
-            %li
               %a{:href=>companies_path(), :title=> "COMPANIES"}
                 COMPANIES
           - if current_user.type == "Admin"
             %li
-              %a{:href=>company_assessments_path(@company), :title=> "HOME"}
+              %a{:href=>home_company_path(@company), :title=> "HOME"}
                 HOME
           %li
             %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS"}
@@ -47,9 +44,6 @@
               REPORTS
 
           - else
-            %li
-              %a{:href=>companies_path(), :title=> "HOME"}
-                HOME
             %li
               %a{:href=>companies_path(), :title=> "COMPANIES"}
                 COMPANIES
