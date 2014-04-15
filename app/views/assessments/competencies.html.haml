@@ -7,7 +7,7 @@
     .page-title 
       %b Tests
   .inn.gray-gradient
-    = render :partial => "shared/test-flow-sub-nav"
+    = render :partial => "shared/navigation-flow-sub-nav"
     .divider1
     .description-section.medium-text.clearfix
       .span.first
@@ -32,7 +32,7 @@
     = form_for @assessment, :as => :assessment, :url => competencies_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .action
         .pull-left
-          %b.large-text Select the Competencies you would like to measure:
+          %b.big-text Select the Competencies you would like to measure:
         %button.pull-right.btn.btn-info
           Proceed
         .clearfix
