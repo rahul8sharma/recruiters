@@ -16,6 +16,15 @@ class CompaniesController < ApplicationController
   end
 
   def reports
+    @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+      :company_id => @company.id, 
+      :joins => :candidate_assessment_reports,
+      :include => [:candidate_assessment_reports, :candidate, :assessment]
+    ).where(
+      :query_options => { 
+        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED 
+      }, :page => params[:page], :per => 5
+    ).all
   end
 
   def home
