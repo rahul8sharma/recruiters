@@ -1,0 +1,102 @@
+.create-test.creat-test-show
+  .inn.first
+    .page-title
+      Benchmark #{@assessment.id} - #{@assessment.name}
+  .inn.gray-gradient
+    .pull-left
+      = render :partial => "shared/candidate-content-benchmark-sub-nav"
+    %a.pull-right{:href=>candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+      View All Candidates
+    .clr
+    .divider2
+
+    .candidate-details
+      %b.candidate-name.extra-medium-text
+        #{@candidate.name}
+      
+      .divider1
+      %ul.unstyled.clearfix
+        %li.no-margin
+          %b Email id:
+          #{ h @candidate.email}
+        %li
+          %b Contact no.:
+          #{ h @candidate.mobile, nil, :prefix => "+91-" }
+        %li.clr
+        %li.no-margin
+          %b Industry:
+          #{ h(@candidate.industry.name) rescue 'Not available' }
+        %li
+          %b Current Location:
+          #{ h(@candidate.location.name) rescue 'Not available' }
+        %li.clr
+        %li.no-margin
+          %b Current Functional area:
+          #{ h(@candidate.functional_area.name) rescue 'Not available' }
+        %li
+          %b Age:
+          #{ @candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "Not available" }
+        %li.clr
+        %li.no-margin
+          %b Experience in Current Company:
+          #{ h(@candidate.current_company_experience, nil, :suffix => " Years") }
+        %li
+          %b Gender:
+          = @candidate.gender.present? ? raw(t "gender.#{@candidate.gender}") : "Not available"
+        %li.clr
+        %li.no-margin
+          %b Total Work Experience:
+          #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
+        %li
+          %b Current CTC:
+          #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
+        %li.clr 
+        -#
+          %li
+            %b Marital Status:
+            = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
+        -#
+          %li
+            %b Current Company Name:
+            #{ h @candidate.current_company }
+        //%li
+        //%b Degree with Specialization:
+        //TODO
+
+        %li.no-margin
+          %b Number of Dependants:
+          #{ h @candidate.no_of_dependents }
+        %li.clr
+    .divider3
+    .candidate-report
+      %b.large-text
+        Reports
+      .divider1
+      .list-snippet-titles.clearfix
+        .span13.first
+          Test ID &amp; Name
+      %ul.unstyled
+        - @candidate_assessments.each do |candidate_assessment|
+          %li.list-snippet
+            .span13
+              %a.default-color{:href=> company_benchmark_path(:id => candidate_assessment.assessment.id, :company_id => @company.id), :title=>"TEST #{candidate_assessment.assessment_id}"} 
+                #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
+            .span5.first.lhs-border
+            - if candidate_assessment.candidate_assessment_reports.present?
+              - report = candidate_assessment.candidate_assessment_reports[0] 
+            .span3.lhs-border
+              - if report
+                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
+                  - if current_user.type == "SuperAdmin"
+                    - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                      - url =  company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => @candidate.id, :assessment_id => @assessment.id, :id => report.id)
+                      %a.underlined{:href => url, :title => "View Report", target: "_blank"}
+                        View Report
+                    - else
+                      Included in Benchmark  
+                  - else
+                    Included in Benchmark
+                - else
+                  Analysing Responses...  
+              - else
+                Pending          
