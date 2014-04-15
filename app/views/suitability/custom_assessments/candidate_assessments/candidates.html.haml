@@ -1,0 +1,91 @@
+.creat-test-show
+  .span15.page-title.first
+    .divider1
+    AID  #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send this Assessment
+  - if current_user.type == "SuperAdmin"  
+    %a.extra-medium-text.pull-right.line-height3{ :href=>home_company_path(@company), :title => "View Ready-to-Send Assessments" }
+      View Ready-to-Send Assessments
+  .clr
+  .divider2
+  = render :partial => "shared/candidate-content-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .extra-medium-text.line-height2.pull-left
+      %span
+        Tests Sent: 
+      %span #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
+        Tests Taken: 
+      %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
+    .filter-status.pull-right
+      = form_for :search, url: candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        - params[:search] ||= {}
+        .medium-text.muted.line-height2.pull-left Show Assessment takers with Status
+        %select.span3{name: "search[status]"}
+          - test_statuses.each do |status,name|  
+            %option{ value: status, selected: (params[:search][:status] == status) }
+              = name
+        .clr
+    .clr
+    .divider2
+    .list-snippet-titles.big-text.clearfix
+      .span3.first
+        = sort_link "ATID <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+        
+      .span7
+        = sort_link "Assessment Taker <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span10
+        = sort_link "Assessment Status <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .clr
+      .divider1
+    - if @candidates.empty?
+      .medium-text.alert
+        - if params[:search].present?
+          No results found!
+        - else
+          Test not sent to any candidate. To send this test, 
+          %a{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Send test" } Click here
+    - else    
+      %ul.unstyled
+        - @candidates.each do |candidate|
+          - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
+          - status = test_statuses[candidate_assessment.status]
+          - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
+            - report = candidate_assessment.candidate_assessment_reports[0] 
+            -# status = report_statuses[report.status]
+          %li.list-snippet
+            .divider1
+            .span3.first
+              %a.default-color{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} #{candidate.id}
+            .span7
+              %a.default-color{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
+                = h candidate.name
+            .span10
+              %a.default-color{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
+                = status
+                as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
+                //remember Hrs & Hr 
+            .span
+              - if report
+                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                  - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
+                  %a.underlined{:href => url, :title => "View Report", target: "_blank"}
+                    View Report
+                - else
+                  %i.icon-spinner.icon-spin 
+                  Generating report...  
+              - else 
+                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
+                  = status  
+                - else   
+                  %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                    %i.icon-time
+                    Send Reminder
+            .clr
+      .divider3
+    / .inn
+    /   .pagination.pull-right
+    /     = paginate @candidates
+    /     .clr

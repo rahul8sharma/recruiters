@@ -1,0 +1,54 @@
+= form_for assessment, :as => :assessment, :url => url, multipart: true, method: method, html: { class: "creat-test-form" } do |f|
+  = f.hidden_field :company_id, value: assessment.company_id
+ 
+  .divider1
+  .control-group
+    %label 
+      Select the Industry your Company belongs to
+    %select.first.span10{name: 'assessment[industry_id]', id: 'select_industry'}
+      %option{:value => ""}
+        Industry
+      - @industries.each do |id,industry|
+        %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
+          = industry.name
+
+    .clr
+  .control-group
+    %label 
+      Select the Department for which you are creating this Assessment
+    %select.first.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      %option{:value => ""}
+        Department
+      - @functional_areas.each do |id,functional_area|
+        %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
+          = functional_area.name
+    .clr
+  
+  .control-group
+    %label 
+      Select Experience Range of the Job Role you are creating this Assessment for
+    %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+      %option{:value => ""}
+        Experience
+      - @job_experiences.each do |id,job_experience|
+        %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
+          = job_experience.display_text      
+    .clr
+  .control-group
+    %label
+      Enter a Title for the Assessment 
+    = f.text_field :name, :class => "first span17", :placeholder => "(e.g. Senior Marketing Manager)"
+    .clr
+  .clr
+  .divider2
+  .action
+    .pull-left
+      - if current_user.type == "SuperAdmin"
+        %label 
+          %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+          Enable Training Requirements Report for this assessment
+    .pull-right  
+      - if current_user.type == "SuperAdmin"
+        %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
+      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }  
+      .clr

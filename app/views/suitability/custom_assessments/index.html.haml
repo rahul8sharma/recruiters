@@ -1,0 +1,88 @@
+.assessments-list
+  .span14.page-title.first
+    .divider1
+    Assessments
+  /.pagination.pull-right
+  /  = paginate @assessments 
+   
+  - if @assessments.empty?
+    .medium-text.alert.pull-left
+      No tests have been created. To create a test, 
+      %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.
+  / - else
+  /   .pull-left.line-height2.extra-medium-text
+  /     You may send an existing test from the list below:
+  - if can?(:create, "Suitability::CustomAssessment")    
+    %a.btn.btn-warning.big.big-text.pull-right.span.large-text{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+      Create Custom Assessment
+  .pull-right
+    %a.extra-medium-text.line-height3{:href=>home_company_path(@company), :title => "View Ready-to-Send Assessments"}
+      View Ready-to-Send Assessments
+  .clr
+  .divider2
+  - if @assessments.present?    
+    .list-snippet-titles.large-text.clearfix
+      .span2.first
+        %a{:href=>"#"}
+          AID
+          %i.icon-chevron-down.small-text.line-height1
+      .span4
+        %a{:href=>"#"}
+          Created On 
+          %i.icon-chevron-down.small-text.line-height1
+      .span7
+        %a{:href=>"#"}
+          Assessment Title
+          %i.icon-chevron-down.small-text.line-height1
+      .span4
+        View Details
+      .span5
+        %a{:href=>"#"}
+          Completed by
+          %i.icon-chevron-down.small-text.line-height1
+      .span3
+        %a{:href=>"#"}
+          Sent to 
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        Send Assessment 
+      .clr
+      .divider1          
+    %ul.unstyled
+      - @assessments.each do |assessment|
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
+          .span2.first
+            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
+          .span4
+            %a{:href => "#"} 
+              = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
+          .span7
+            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+              = assessment.name
+          .span3.text-center
+            %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
+              %i.icon-eye-open
+          .span3.text-center.left-offset1
+            - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
+            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
+          .span2.text-center.left-offset2
+            - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{sent_count}"}  #{sent_count}
+          .span4.text-center.left-offset1
+            %a{:href => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
+              %i.icon-envelope
+          .clr
+          .divider1
+  .divider2
+  .pull-right
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+        - @assessments.total_pages.times do |page|
+          %option{selected: params[:page].to_i == (page + 1),value:company_custom_assessments_path(@company, :page => page + 1), }
+            = page + 1
+      .clr
+  .clr    
+  

@@ -1,0 +1,64 @@
+.create-test
+  - if params[:candidates]
+    - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  - else
+    - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "creat-test-form" } do |f|
+    %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
+    - if params[:candidates]
+      %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
+      %input{:type => "hidden", name: "upload_type", value: "manual" }
+    - else
+      %input{:type => "hidden", name: "upload_type", value: "bulk" }
+      %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
+      %input{:type => "hidden", name: "s3_key", value: @s3_key }
+      %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id } 
+    .create-test.send-test-to-candidate
+      .inn.first
+        .page-title Test - #{@assessment.name}
+
+      .inn.gray-gradient
+        = render :partial => "shared/navigation-sub-nav"
+        .divider2
+        .email_recipients.medium-text
+          %b Notify the following email addresses on the completion of a test by a candidate:
+          %input{ type:'text', name: 'report_email_recipients', placeholder:' Enter email addresses separated by commas. Do not add candidate emails here.'}
+          - if current_user.type == "SuperAdmin"
+            %br
+            %br
+            %div{ style: "text-align:center;" }
+              %b OR
+            %br
+            %label{ for: "send_report_to_candidate", class: "font-normal" }
+              %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+              Send report to candidate
+        .divider2
+        - if params[:candidates]
+          .medium-text
+            %b Test will be sent to the following candidates:
+            (Please uncheck the candidates you don't wish to send the test to)
+          %ul.unstyled.clearfix.candidate-list-to-send
+            - params[:candidates].each do |id,candidate_data|
+              -  email = candidate_data[:email]
+              %li
+                %label{ class: "font-normal" }
+                  %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
+                  %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
+                  #{params[:candidates][id][:name]} &lt;#{email}&gt;
+        - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
+        - else
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+        %label.pull-left.invitation-sms.medium-text
+          Also send test invitations to candidates via SMS
+          %input{:type=>"checkbox", name: "send_sms"}
+        %label.pull-left.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+          Send default email
+          %input{:type=>"checkbox", name: "send_email", checked: true}
+        .pull-right
+          %a.span.line-height2{:href=> add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
+            Cancel
+          %button.btn.btn-info.span
+            Send
+        .clr
+
