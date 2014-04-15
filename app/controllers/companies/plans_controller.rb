@@ -5,6 +5,7 @@ class Companies::PlansController < ApplicationController
   end
 
   def payment_status
+  	@success = false
   end
 
   def contact
