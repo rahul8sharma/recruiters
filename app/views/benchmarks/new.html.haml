@@ -1,9 +1,0 @@
-.create-test
-  .inn.first
-    .page-title Create New Benchmark
-  .inn.gray-gradient
-    = render :partial => "shared/benchmark-flow-sub-nav"
-    .divider1
-    .extra-medium-text
-      %b Please provide the following information:
-    = render 'form', method: :post, url: company_benchmarks_path(:company_id => params[:company_id]), assessment: @assessment  
