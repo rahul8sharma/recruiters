@@ -188,6 +188,7 @@ Recruiters::Application.routes.draw do
 
   resources :subscriptions, :only => [:index] do
     collection do
+      post :payment_status, :as => :payment_status
       post :import
       get :manage
       get :destroy_all
@@ -198,6 +199,7 @@ Recruiters::Application.routes.draw do
 
   resources :locations, :only => [:index, :new] do
     collection do
+      get :get_locations
       post :import
       get :manage
       get :destroy_all

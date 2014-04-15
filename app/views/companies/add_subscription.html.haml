@@ -10,24 +10,46 @@
   .inn
     .page-title.text-center
       Please provide the following information
-  %form.add_subscription{name:"add_subscription"}
-
+  = form_for :subsciption, :url => Rails.application.config.vger["billing"]["url"] , :html => { :class => "add_subscription"}  do |f|
+    = f.hidden_field :billing_name, value: @company.name, :name => "billing_name"
+    = f.hidden_field :billing_address, value: @company.address, :name => "billing_address"
+    = f.hidden_field :billing_city, value: @company.city, :name => "billing_city"
+    = f.hidden_field :billing_state, value: @company.state, :name => "billing_state"
+    = f.hidden_field :billing_zip, value: @company.pincode, :name => "billing_zip"
+    = f.hidden_field :billing_country, value: @company.country, :name => "billing_country"
+    = f.hidden_field :billing_tel, value: @company.contact_person_mobile, :name => "billing_tel"
+    = f.hidden_field :billing_email, value: @company.admin[:email], :name => "billing_email"
+    
+    = f.hidden_field :delivery_name, value: @company.name, :name => "delivery_name"
+    = f.hidden_field :delivery_address, value: @company.address, :name => "delivery_address"
+    = f.hidden_field :delivery_city, value: @company.city, :name => "delivery_city"
+    = f.hidden_field :delivery_state, value: @company.state, :name => "delivery_state"
+    = f.hidden_field :delivery_zip, value: @company.pincode, :name => "delivery_zip"
+    = f.hidden_field :delivery_country, value: @company.country, :name => "delivery_country"
+    = f.hidden_field :delivery_tel, value: @company.contact_person_mobile, :name => "delivery_tel"
+    
+    = f.hidden_field :company_id, value: @company.id, :name => "merchant_param3"
+    = f.hidden_field :callback_url, value: @callback_url, :name => "merchant_param4"
+    = f.hidden_field :customer_id, value: @company.id, :name => "customer_id"
+    = f.hidden_field :order_id, value: Time.now.strftime("%Y%m%d%H%M%S"), :name => "order_id"
+    
+    
     .left-offset1.pull-left
       %label
         Number of Assessments:
-      %input{:type => "text", name:"number_of_assessments"}
+      = f.text_field :assessments_purchased, :name => "merchant_param1"
 
     .left-offset1.pull-left
       %label
         Expiry Date of Subscription
-      %input{:type => "date", country:"", name:"subscription_expiry_date"}
+      = f.text_field :valid_to, :name => "merchant_param2"
 
     .clr
     
     .left-offset1.pull-left
       %label
         Amount
-      %input{:type => "text", name:"amount" }
+      = f.text_field :price, :name => "amount"
 
     .clr
     
