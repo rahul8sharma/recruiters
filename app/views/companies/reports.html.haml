@@ -32,9 +32,9 @@
       %li.list-snippet.border-bottom-grayLighter
         .divider1
         .span3.first
-          - candidate_profile_url =  candidate_company_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id, :candidate_id => candidate_assessment.candidate_id)
+          - candidate_profile_url =  candidate_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id, :candidate_id => candidate_assessment.candidate_id)
 
-          - assessment_url = candidates_company_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id)
+          - assessment_url = candidates_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id)
 
           %a{:href=> assessment_url, :title => candidate_assessment.assessment_id}
             = candidate_assessment.assessment_id
@@ -50,7 +50,7 @@
             #{hdate(candidate_assessment.completed_at)}
         .span2.text-center          
           - report = candidate_assessment.candidate_assessment_reports.first
-          - url = company_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+          - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
           
           %a{:href=> url, :title => "Click to View Report"}
             %i.icon-file
