@@ -29,9 +29,6 @@
     .divider1          
   %ul.unstyled
     -@candidate_assessments.each do |candidate_assessment|
-      / %h2
-      /   = candidate_assessment.attributes
-      / - break
       %li.list-snippet.border-bottom-grayLighter
         .divider1
         .span3.first
@@ -70,6 +67,3 @@
           %option{selected: params[:page].to_i == (page + 1),value:reports_company_path(@company, :page => page + 1), }
             = page + 1
       .clr
-
-
-/ http://companies.jombaylocal.com/companies/2/tests/139/
