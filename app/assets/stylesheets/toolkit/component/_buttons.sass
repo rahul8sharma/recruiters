@@ -6,11 +6,8 @@
   // For input.btn
   font-size: $baseFontSize + 1px
   line-height: $baseLineHeight
-  color: $grayDark
   text-align: center
   vertical-align: middle
-  +buttonBackground($white, darken($white, 10%))
-  border-bottom-color: #bbb
   +border-radius(4px)
   cursor: pointer
   // Give IE7 some love
@@ -32,17 +29,16 @@
 
 
 // Active state
-.btn.active, .btn:active
+.btn.active, .btn:active, input.btn:focus
   background-image: none
   $shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05)
   +box-shadow($shadow)
-  background-color: darken($white, 10%)
-  background-color: darken($white, 15%) \9
+  background-color: $color-warning
   outline: 0
 
 // Disabled state
 .btn.disabled, .btn[disabled]
-  cursor: default
+  cursor: wait
   background-image: none
   background-color: darken($white, 10%)
   +opacity(0.65)
@@ -52,15 +48,17 @@
     border-color: darken($white, 10%)
     background-color: darken($white, 10%)
     color: #fff
-.btn.big.big-text
-  padding: 18px 40px
-.btn.big-text
+
+.btn.large-text.big
+  padding: 18px 40px 
+.btn.large-text
   padding: 14px 25px
 
-.btn.big.large-text
-  padding: 16px 36px 
-.btn.large-text
+.btn.big-text.big
+  padding: 16px 36px
+.btn.big-text
   padding: 12px 22px
+
 
 
 

@@ -18,13 +18,13 @@
         .factor-list
           .titles.clearfix
             .span7.first
-              .large-text
+              .big-text
                 Behavioral Trait
               .muted
                 Place the cursor on individual Traits below to see their definition
                 
             .span6.left-offset1
-              .large-text
+              .big-text
                 Expected Score Range
               .muted
                 Choose Minimum and Maximum score
@@ -47,9 +47,9 @@
             - aindex = aindex + 1
             = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
     .divider3
-    %button.pull-left.btn.btn-warning.big-text
+    %button.pull-left.btn.btn-warning.large-text
       Save and Close
-    %button.pull-right.btn.btn-warning.big-text
+    %button.pull-right.btn.btn-warning.large-text
       Proceed
     .clr
     .divider1
