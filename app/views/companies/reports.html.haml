@@ -28,32 +28,48 @@
     .clr
     .divider1          
   %ul.unstyled
-    -10.times do |index|
+    -@candidate_assessments.each do |candidate_assessment|
+      / %h2
+      /   = candidate_assessment.attributes
+      / - break
       %li.list-snippet.border-bottom-grayLighter
         .divider1
         .span3.first
-          %a{:href=> "#", :title => "#{index}"}
-            \#{index}
+          - candidate_profile_url =  candidate_company_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id, :candidate_id => candidate_assessment.candidate_id)
+
+          - assessment_url = candidates_company_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id)
+
+          %a{:href=> assessment_url, :title => candidate_assessment.assessment_id}
+            = candidate_assessment.assessment_id
         .span7
-          %a{:href => "#", :title => "Pranav D Shah"} 
-            Pranav D Shah
+          %a{:href => candidate_profile_url, :title => candidate_assessment.candidate.name} 
+            = candidate_assessment.candidate.name
         .span9
-          %a{:href=>"#", :title => "2612-Arts&Crafts-1-3"}
-            2612-Arts&Crafts-1-3
+          %a{:href=>assessment_url, :title => candidate_assessment.assessment.name}
+            = candidate_assessment.assessment.name
         .span7.left-offset1
-          %a{:href => "#", :title => "20:30 Hrs, 08/04/2014"}
-            20:30 Hrs, 08/04/2014
-        .span2.text-center
-          %a{:href=> "#", :title => "Click to View Report"}
+          %a{:href => "#", :title => candidate_assessment.completed_at}
+            #{htime(candidate_assessment.completed_at)} Hrs,
+            #{hdate(candidate_assessment.completed_at)}
+        .span2.text-center          
+          - report = candidate_assessment.candidate_assessment_reports.first
+          - url = company_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+          
+          %a{:href=> url, :title => "Click to View Report"}
             %i.icon-file
         
         .clr
         .divider1
   .divider1
   .pull-right
-    .muted.span.extra-medium-text.line-height2
-      Go to page
-    %select.span2
-      %option
-        1
-    .clr
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+        - @candidate_assessments.total_pages.times do |page|
+          %option{selected: params[:page].to_i == (page + 1),value:reports_company_path(@company, :page => page + 1), }
+            = page + 1
+      .clr
+
+
+/ http://companies.jombaylocal.com/companies/2/tests/139/
