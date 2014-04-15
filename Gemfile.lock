@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 1900a66a8d736e3f2c04740f66bf0afc1beba4a0
+  revision: 0fbb2d902c3f2770c2c3b626a14c5898b71a8d4f
   branch: develop
   specs:
     vger (0.0.1)
@@ -120,6 +120,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    json (1.8.1)
     json (1.8.1-java)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -127,8 +128,11 @@ GEM
     mime-types (1.25.1)
     multi_json (1.8.4)
     multipart-post (1.2.0)
+    nokogiri (1.5.11)
     nokogiri (1.5.11-java)
     polyglot (0.3.4)
+    puma (2.0.1)
+      rack (>= 1.1, < 2.0)
     puma (2.0.1-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
