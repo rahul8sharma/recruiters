@@ -1,0 +1,44 @@
+.payment_success
+  .page-title 
+    Checkout and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider4
+  .span15.margin-auto.text-center.extra-large-text
+    Congratulations! Your payment was successful
+  .divider4
+  .span12.margin-auto.big-text
+    .border-bottom-grayLighter.less-padding-all1.padding-lr2
+      .span7.first.gray-darker
+        Order ID
+      .span3
+        JOM-2812
+      .clr
+    .border-bottom-grayLighter.less-padding-all1.padding-lr2
+      .span7.first.gray-darker
+        Package Name
+      .span3
+        Premium
+      .clr
+    .border-bottom-grayLighter.less-padding-all1.padding-lr2
+      .span7.first.gray-darker
+        Number of Assessments
+      .span3
+        100
+      .clr
+    .border-bottom-grayLighter.less-padding-all1.padding-lr2
+      .span7.first.gray-darker
+        Expiry date of the Package
+      .span3
+        28/12/2008
+      .clr
+    .less-padding-all1.padding-lr2
+      .span7.first.gray-darker
+        Amount
+      .span3
+        &#8377; 5000.00
+      .clr
+    .divider3
+    .text-center
+      %a.btn.btn-warning.large-text{:href => "#", :title => "Start Using Jombay"}
+        Start Using Jombay  
