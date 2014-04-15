@@ -9,6 +9,10 @@ class PlansController < MasterDataController
     "import_from_google_drive"
   end
 
+  def index_columns
+    return [:name,:description,:validity_in_months,:price]
+  end
+
   def import_from_google_drive
     Vger::Resources::Plan\
       .import_from_google_drive(params[:import])
