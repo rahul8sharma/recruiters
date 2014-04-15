@@ -12,12 +12,12 @@
           %a{:title => "Walk-Ins", :href => company_walkin_groups_path(@company)}
             %span.icon-run
             Walk-Ins    
-        %li{ class: (["benchmarks/candidate_assessments","benchmarks"].include?(params[:controller]) ? 'active' : '') }
+        %li{ class: (["suitability/benchmarks/candidate_assessments","suitability/benchmarks"].include?(params[:controller]) ? 'active' : '') }
           %a{ :href=> company_benchmarks_path(@company), :title=>"Benchmarks"} 
             %span.icon-j-guy 
             Benchmarks
-      %li{ class: (["assessments/candidate_assessments","assessments/training_requirements_reports","assessments"].include?(params[:controller]) ? 'active' : '') }
-        %a{ :href=> company_assessments_path(@company), :title=>"Tests"} 
+      %li{ class: (["suitability/custom_assessments/candidate_assessments","suitability/custom_assessments/training_requirements_reports","suitability/custom_assessments"].include?(params[:controller]) ? 'active' : '') }
+        %a{ :href=> company_custom_assessments_path(@company), :title=>"Tests"} 
           %span.icon-pencil 
           Tests
       %li{ class: (["company_statistics"].include?(params[:controller]) ? 'active' : '') }

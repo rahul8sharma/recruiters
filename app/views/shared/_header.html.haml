@@ -37,7 +37,7 @@
               %a{:href=>home_company_path(@company), :title=> "HOME", class: (["companies/home"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 HOME
           %li{}
-            %a{:href=>company_assessments_path(@company), :title=> "ASSESSMENTS",class: (["assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+            %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
               ASSESSMENTS
           %li
             %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
