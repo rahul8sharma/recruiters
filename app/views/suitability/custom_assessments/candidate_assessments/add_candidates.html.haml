@@ -54,8 +54,9 @@
           .span8.big-text.left-offset1
             .span Assessment taker’s name
           .clr
+        .divider1  
         %ul.add-candidates.unstyled.clearfix
-          - 10.times do |index|
+          - 5.times do |index|
             = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
         .divider2
         .muted.left-offset2.first
