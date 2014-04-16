@@ -12,7 +12,7 @@
     - else
       .pull-left.line-height2.extra-medium-text
         You may send an existing Benchmark from the list below:
-    - if can?(:create, "Suitability::Assessment")    
+    - if can?(:create, "Suitability::CustomAssessment")    
       %a.btn.btn-info.pull-right{:href => new_company_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Benchmark"} 
         Create New Benchmark
     .clr

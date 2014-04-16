@@ -118,7 +118,7 @@ class TrainingRequirementGroupsController < ApplicationController
       params[:training_requirement] ||= {}
       params[:training_requirement][:company_id] = params[:company_id]
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.new(params[:training_requirement])
-      @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
+      @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
     end
   end
   

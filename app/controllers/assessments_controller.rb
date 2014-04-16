@@ -20,7 +20,7 @@ class AssessmentsController < ApplicationController
 
   
   def show
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
     @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include  => [:functional_area, :industry, :job_experience, :from_norm_bucket, :to_norm_bucket], :include => { :factor => { :methods => [:type, :direct_predictor_ids] } }).all.to_a
     
     direct_predictor_parent_ids = @assessment_factor_norms.collect{ |factor_norm| factor_norm.factor.direct_predictor_ids.present? ? factor_norm.factor_id : nil }.compact.uniq
@@ -51,7 +51,7 @@ class AssessmentsController < ApplicationController
           return
         end
         ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
-        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, { competency_order: ordered_competencies })
+        @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { competency_order: ordered_competencies })
         if @assessment.error_messages.blank?
           redirect_to competency_norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
         else
@@ -79,7 +79,7 @@ class AssessmentsController < ApplicationController
     get_norms
     if request.get?
       if params[:assessment]
-        @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+        @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, params[:assessment])
       end
     elsif request.put?  
       store_assessment_factor_norms
@@ -94,7 +94,7 @@ class AssessmentsController < ApplicationController
     get_styles
     if request.put?  
       params[:assessment] ||= {}
-      @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
         create_or_update_set
         redirect_to add_candidates_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
@@ -108,7 +108,7 @@ class AssessmentsController < ApplicationController
   
   # GET /assessments
   def index
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :assessable_id => params[:company_id], :assessable_type => "Company", :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 15)
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 15)
   end
   
   # GET /assessments/new
@@ -123,11 +123,11 @@ class AssessmentsController < ApplicationController
     #default_norm_bucket_ranges = get_default_norm_bucket_ranges
     respond_to do |format|
       if @assessment.valid? and @assessment.save
-        redirect_path = if @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::FIT
+        redirect_path = if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT
           norms_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-        elsif @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::COMPETENCY
+        elsif @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY
           competencies_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-        elsif  @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
+        elsif  @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
           norms_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         end
         format.html { redirect_to redirect_path }
@@ -145,24 +145,24 @@ class AssessmentsController < ApplicationController
   # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
       if(@assessment.company_id.to_i == params[:company_id].to_i)
       else
         redirect_to root_path, alert: "Page you are looking for doesn't exist."
       end
     else
-      @assessment = Vger::Resources::Suitability::Assessment.new(params[:assessment])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
-         Vger::Resources::Suitability::Assessment::AssessmentType::FIT
+         Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT
       elsif params[:competency].present?  
-        Vger::Resources::Suitability::Assessment::AssessmentType::COMPETENCY
+        Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY
       else
-        @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK
-        Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
+        @assessment.report_types << Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK
+        Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
       end
       if params[:enable_training_requirements_report].present?
-        @assessment.report_types << Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
+        @assessment.report_types << Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
       end
       @assessment.report_types.uniq!
       @assessment.assessment_type = assessment_type
@@ -391,9 +391,9 @@ class AssessmentsController < ApplicationController
           end
         end
       end
-      @assessment = Vger::Resources::Suitability::Assessment.save_existing(@assessment.id, params[:assessment])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
+        if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
           redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
         else
           redirect_to styles_company_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          

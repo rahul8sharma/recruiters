@@ -15,7 +15,7 @@ class Assessments::CandidateAssessmentsController < ApplicationController
         }
       }
     }
-    Vger::Resources::Suitability::Assessment.find(params[:id])\
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
       .export_candidate_reports(options)
     redirect_to candidates_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
@@ -161,7 +161,7 @@ class Assessments::CandidateAssessmentsController < ApplicationController
           end  
         end
       end
-      assessment = Vger::Resources::Suitability::Assessment.send_test_to_candidates(
+      assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_candidates(
         :id => @assessment.id, 
         :candidate_assessment_ids => candidate_assessments.map(&:id), 
         :send_sms => params[:send_sms],
@@ -171,7 +171,7 @@ class Assessments::CandidateAssessmentsController < ApplicationController
         flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         redirect_to candidates_url
       else
-        if @assessment.assessment_type == Vger::Resources::Suitability::Assessment::AssessmentType::BENCHMARK
+        if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
           flash[:notice] = "You have successfully sent the Benchmark!"
         else
           flash[:notice] = "Test was sent successfully!"
@@ -228,7 +228,7 @@ class Assessments::CandidateAssessmentsController < ApplicationController
   # fetches assessment if id is present in params
   # creates new assessment otherwise
   def get_assessment
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
     if(@assessment.company_id.to_i == params[:company_id].to_i)
     else
       redirect_to root_path, alert: "Page you are looking for doesn't exist."
