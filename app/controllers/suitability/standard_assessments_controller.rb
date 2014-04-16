@@ -59,7 +59,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
   
   # GET /assessments
   def index
-    @assessments = api_resource.where(:query_options => { :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 1)
+    @assessments = api_resource.where(:query_options => { :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 5)
   end
   
   # POST /assessments
