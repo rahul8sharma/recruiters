@@ -2,58 +2,57 @@
   .container
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
+      .divider1
     - if defined?(@company)  
       .span7.company_name
-        = @company.name  
-    .span19.pull-right
-      %ul#sub-nav.pull-right
-        %li
-          %a.setting{href: "#", title: "Account"}             
-          %ul
-            - if defined?(@company)
-              %li
-                %a{:href=>statistics_company_path(@company)} Usage
-              %li
-                %a{:href=>company_path(@company)} Settings
-              %li
-                %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
-              %li
-                %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
-              %li
-                %a{:href=>company_benchmarks_path(@company)} Benchmarks
-            %li
-              %a{href: "/logout"} Logout
-      %a.label.label-warning.label-small.pull-right{:href=>"#", :title=> "UPGRADE ACCOUNT"}
-        UPGRADE ACCOUNT
+        = @company.name 
 
-      %ul.navbar.pull-right.clearfix        
-        - if defined?(@company)
-          - if current_user.type == "SuperAdmin"            
-            %li
-              %a{:href=>companies_path(), :title=> "COMPANIES"}
-                COMPANIES
-          - if current_user.type == "Admin"
-            %li
-              %a{:href=>home_company_path(@company), :title=> "HOME", class: (["companies/home"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-                HOME
-          %li{}
-            %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-              ASSESSMENTS
+    - if current_user 
+      .span19.pull-right
+        %ul#sub-nav.pull-right
           %li
-            %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-              REPORTS
+            %a.setting{href: "#", title: "Account"}             
+            %ul
+              - if defined?(@company)
+                %li
+                  %a{:href=>statistics_company_path(@company)} Usage
+                %li
+                  %a{:href=>company_path(@company)} Settings
+                %li
+                  %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
+                %li
+                  %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
+                %li
+                  %a{:href=>company_benchmarks_path(@company)} Benchmarks
+              %li
+                %a{href: "/logout"} Logout
+        %a.label.label-warning.label-small.pull-right{:href=>"#", :title=> "UPGRADE ACCOUNT"}
+          UPGRADE ACCOUNT
 
-          - else
+        %ul.navbar.pull-right.clearfix        
+          - if defined?(@company)
+            - if current_user.type == "SuperAdmin"            
+              %li
+                %a{:href=>companies_path(), :title=> "COMPANIES"}
+                  COMPANIES
+            - else
+              %li
+                %a{:href=>home_company_path(@company), :title=> "HOME", class: (["companies/home"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                  HOME
             %li
-              %a{:href=>companies_path(), :title=> "COMPANIES",class: (["companies/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-                COMPANIES
+              %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                ASSESSMENTS
+            %li
+              %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                REPORTS
 
-        %li
-          %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-            HELP
+            - else
+              %li
+                %a{:href=>companies_path(), :title=> "COMPANIES",class: (["companies/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                  COMPANIES
+
+          %li
+            %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+              HELP
+        .clr
       .clr
-    .clr
-
-      
-/ %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
-/   Logout

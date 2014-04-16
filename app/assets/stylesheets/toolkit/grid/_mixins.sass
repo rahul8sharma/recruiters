@@ -127,6 +127,9 @@
 =gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $columns)
   margin-left: $gridColumnWidth * $columns + $gridGutterWidth * ($columns - 1) + $gridGutterWidth * 2 - $gridGutterWidth !important
 
+=gridSystemFirstRightOffset($gridColumnWidth, $gridGutterWidth, $columns)
+  margin-right: $gridColumnWidth * $columns + $gridGutterWidth * ($columns - 1) + $gridGutterWidth * 2 - $gridGutterWidth !important
+
 =gridSystemGridColumn($gridGutterWidth)
   float: left
   margin-left: $gridGutterWidth
@@ -166,6 +169,12 @@
   @for $i from 1 through $gridColumns - 1
     .right-offset#{$i}
       +gridSystemRightOffset($gridColumnWidth, $gridGutterWidth, $i)
+  @for $i from 1 through $gridColumns - 1
+    .left-offset#{$i}.first
+      +gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $i) 
+  @for $i from 1 through $gridColumns - 1
+    .right-offset#{$i}.last
+      +gridSystemFirstRightOffset($gridColumnWidth, $gridGutterWidth, $i) 
   //UI Related
   @for $i from 1 through 6
     .padding-all#{$i}
@@ -186,13 +195,12 @@
   @for $i from 1 through 6
     .line-height#{$i}
       line-height: $i * $baseLineHeight !important
-  @for $i from 1 through $gridColumns - 1
-    .left-offset#{$i}.first
-      +gridSystemFirstLeftOffset($gridColumnWidth, $gridGutterWidth, $i) 
   @for $i from 1 through 6
     .shifted-up#{$i}
-      margin-top: -#{$i}px   
-
+      margin-top: -#{$i}px 
+  @for $i from 1 through 7
+    .border-radius#{$i}
+      border-radius: #{$i}px
 // Fluid grid system
 // -------------------------
 =fluidGridSystemColumns($fluidGridGutterWidth, $fluidGridColumnWidth, $columns)
