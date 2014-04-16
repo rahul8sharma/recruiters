@@ -12,8 +12,9 @@
   visibility: hidden
 .first 
   margin-left: 0 !important
-.last:after 
-  clear: right
+.last
+  margin-right: 0
+
 .float-none
   float: none !important
 
@@ -32,14 +33,15 @@
 .white
   color: #fff
 .border-primary
-  border: 1px solid #dedede
+  border: 1px solid $grayLighter
 .border-warning
   border: 1px solid $color-warning
 .border-bottom-grayLighter
   border-bottom: 1px solid $grayLighter
 .border-right-gray
   border-right: 1px solid $grayLight
-
+.fw
+  width: 100%
 a.underlined
   text-decoration: underline
   &:hover
@@ -48,3 +50,4 @@ a.default-color
   color: $textColor
   &:hover
     color: $color-warning
+    
