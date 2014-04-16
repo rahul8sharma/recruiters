@@ -1,1 +1,80 @@
-review
+.package_review
+  .page-title 
+    Checkout and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider4
+  .span21.border-right-gray.large-text.first.less-padding-all1
+    .gray-darker.text-center 
+      Following contact information is required by our Payment Partner to make a purchase 
+    .divider2
+    %form.text-right
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          Company Address
+        %input.medium-text.span11.left-offset1{:type => "text"}
+        .clr
+
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          Country
+        %select.medium-text.span7.left-offset1
+          %option 1
+        .clr
+
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          State
+        %select.medium-text.span7.left-offset1
+          %option 1
+        .clr
+
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          City
+        %select.medium-text.span7.left-offset1
+          %option 1
+        .clr
+
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          Pin code
+        %input.medium-text.span7.left-offset1{:type => "text"}
+        .clr
+
+      .control-group
+        %label.span7.big-text.line-height2.gray-darker
+          Company Contact Person
+        %input.medium-text.span7.left-offset1{:type => "text"}
+        .clr
+
+      .control-group
+        %label.span7.big-text.gray-darker
+          Company Contact Person's contact number
+        %input.medium-text.span7.left-offset1{:type => "text"}
+        .clr
+
+      .divider2
+      %i.big-text.gray-dark.show.text-center
+        Stay assured that your contact information is strictly confidential and completely secure
+
+      .divider4
+
+      %button.btn.btn-warning.large-text.pull-right
+        Submit
+      .clr
+
+  .span7.left-offset1.text-center
+    .gray-dark.large-text
+      Our Trusted Payment Partner
+    .divider1
+    = image_tag("plans/ccavenue.png")
+    .divider4
+    .gray-dark.large-text
+      Supported by
+    .divider1
+    = image_tag("plans/supported.png")
+
+  .clr
+        
+  

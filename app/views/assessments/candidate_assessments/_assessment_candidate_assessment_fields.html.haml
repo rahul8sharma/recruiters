@@ -4,7 +4,7 @@
 
   .control-group
     .span2
-      .count.badge.badge-small
+      .count.badge.badge-small.inverse 
         = index
     %input.span9.medium-text.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (candidate[:name])}
     %input.span8.medium-text.left-offset1{name: "candidates[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (candidate[:email])}

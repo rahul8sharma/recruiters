@@ -1,1 +1,5 @@
-review
+-if @success
+  = render :partial => "payment_successful"
+-else
+  = render :partial => "payment_unsuccessful"
+
