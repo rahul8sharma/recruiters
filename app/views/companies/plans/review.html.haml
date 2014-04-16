@@ -13,25 +13,26 @@
         .span6.first
           Package Name
         .span3
-          Premium 
+          = @plan.name
         .clr
       .border-bottom-grayLighter.less-padding-all1.padding-lr1
         .span6.first
           Number of Assessments
         .span3
-          100 
+          = @plan.no_of_assessments
         .clr
       .border-bottom-grayLighter.less-padding-all1.padding-lr1
         .span6.first
           Expiry date of the Package
         .span3
-          28/12/2008 
+          #{hdate(Date.today + @plan.validity_in_months.months)}
         .clr
       .less-padding-all1.padding-lr1
         .span6.first
           Amount
         .span3
-          &#8377; 5000.00
+          &#8377; 
+          = @plan.price
         .clr
     .divider4
 
@@ -41,7 +42,7 @@
     .span12.margin-auto
       %a.btn.btn-warning.inverse.large-text.pull-left{:href => "#", :title => "Change Package"}
         Change Package
-      %button.btn.btn-warning.large-text.pull-right
+      %a.button.btn.btn-warning.large-text.pull-right{:href =>contact_plan_company_path(:id=>@company.id, :plan_id=> @plan.id), :title => "Proceed"}
         Proceed
       .clr
 
