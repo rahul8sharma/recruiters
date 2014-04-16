@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       when "SuperAdmin"
         params[:redirect_to] || companies_path
       when "Admin"
-        params[:redirect_to] || company_assessments_path(current_user.company_id)  
+        params[:redirect_to] || company_custom_assessments_path(current_user.company_id)  
       else
         params[:redirect_to] || root_path        
     end    
