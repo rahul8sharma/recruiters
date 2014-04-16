@@ -1,0 +1,86 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+  = javascript_include_tag 'sign_up'
+.sign-up
+  .container
+    .span19.first
+      .divider1
+      %strong.huge-text
+        Sign Up for your Free Trial
+      .divider1
+      .large-text
+        Get 5 Free Assessments. No Obligation. No Credit Card required.
+      .divider2
+      .border-primary.border-radius3.padding-all2
+        .span11.margin-auto
+          %form.extra-medium-text
+            .control-group
+              %input.fw{:type => "text", :placeholder => "Full Name"}
+            .control-group
+              %input.fw.pull-left{:type => "text", :placeholder => "Company Email"}
+              .info-tooltip-control.pull-left
+                .info-tooltip.gray-darker
+                  We encourage you to enter your company email address (not personal email address) for getting full access &amp; privileges
+                  .left-caret
+              .clr
+            .control-group
+              %input.fw{:type => "text", :placeholder => "Enter a password of your choice"}
+            .control-group
+              %input.fw.pull-left{:type => "text", :placeholder => "Contact Number"}
+              .info-tooltip-control.pull-left
+                .info-tooltip.gray-darker
+                  Required to ensure that nobody misuses your identity. Dont worry all information you provided is completely confidential
+                  .left-caret
+              .clr
+            .control-group
+              %input.fw{:type => "text", :title => "Sign to Jombay", :placeholder => "Company Name"}
+            .control-group
+              %select.fw.divider2
+                %option
+                  Country
+                %option
+                  India
+            %button.btn.btn-warning.large-text.fw
+              Sign Up
+            .divider2
+            .medium-text
+              By Clicking “Sign Up” above you agree to the 
+              %a.underlined{:href => "#", :title => "Jombay Terms and Conditions"}
+                Terms and Conditions
+        
+
+    .span9.left-offset2
+      .span4.text-center.pull-right.right-offset1.last
+        .extra-medium-text.gray-dark.line-height2
+          Already a user?
+        %a.btn.btn-warning.inverse.large-text{:href => "/login", :title => "Sign to Jombay"}
+          Sign In
+      .clr
+      .divider2
+      .gray-darker
+        .large-text
+          5 reasons you will love Jombay
+        .divider2
+        %ol.extra-medium-text
+          %li
+            Library of Ready-to-Send Assessments 
+            .divider1
+          %li
+            Create your own Custom Assessments
+            .divider1
+          %li
+            Send Assessments in less than 60 seconds
+            .divider1
+          %li
+            Intuitive Reports 
+            .divider1
+          %li
+            24X7 Customer Support
+            .divider1
+        .divider2
+        .large-text
+          Some of our happy customers
+        .divider2
+        = image_tag ("customers.png")
+    .clr
