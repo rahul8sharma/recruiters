@@ -34,27 +34,28 @@
               Send report to candidate
         .divider2
         - if params[:candidates]
-          .medium-text
-            %b Test will be sent to the following candidates:
-            (Please uncheck the candidates you don't wish to send the test to)
-          %ul.unstyled.clearfix.candidate-list-to-send
+          - if current_user.type == "SuperAdmin"
+            .medium-text
+              %b Test will be sent to the following candidates:
+              (Please uncheck the candidates you don't wish to send the test to)
+            %ul.unstyled.clearfix.candidate-list-to-send
+              - params[:candidates].each do |id,candidate_data|
+                -  email = candidate_data[:email]
+                %li
+                  %label{ class: "font-normal" }
+                    %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
+                    %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
+                    #{params[:candidates][id][:name]} &lt;#{email}&gt;
+            %label.pull-left.invitation-sms.medium-text
+              Also send test invitations to candidates via SMS
+              %input{:type=>"checkbox", name: "send_sms"}
+            %label.pull-left.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+              Send default email
+              %input{:type=>"checkbox", name: "send_email", checked: true}
+          - else          
             - params[:candidates].each do |id,candidate_data|
-              -  email = candidate_data[:email]
-              %li
-                %label{ class: "font-normal" }
-                  %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
-                  %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
-                  #{params[:candidates][id][:name]} &lt;#{email}&gt;
-        - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
-        - else
-          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
-        %label.pull-left.invitation-sms.medium-text
-          Also send test invitations to candidates via SMS
-          %input{:type=>"checkbox", name: "send_sms"}
-        %label.pull-left.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-          Send default email
-          %input{:type=>"checkbox", name: "send_email", checked: true}
+              %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true, style: "display:none;"}
+              %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
         .pull-right
           %a.span.line-height2{:href=> add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id), :title => "cancel"}
             Cancel

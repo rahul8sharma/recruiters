@@ -8,8 +8,8 @@
   /   View Instructions
   / .clr
   .select-candidate-type 
-  / - if current_user.type == "SuperAdmin"
-  /   = render :partial => "assessments/candidate_assessments/bulk_upload"
+    - if current_user.type == "SuperAdmin"
+      = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
   .margin-auto.span21
     .span12.first.left-offset1.big-text
       What is the purpose of assessing these candidates ?
@@ -17,7 +17,7 @@
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
         %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
-        .span.medium-text 
+        .span.medium-text{ class: checked ? 'checked': '' } 
           For Development 
           //add ".checked" e.g. %span.medium-text.checked
         %i.muted.span
@@ -27,7 +27,7 @@
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
         %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, checked: checked, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';"}
-        .span.medium-text 
+        .span.medium-text{ class: checked ? 'checked': '' }
           For Hiring 
           //add ".checked" e.g. %span.medium-text.checked
         %i.muted.span
@@ -36,31 +36,18 @@
       .clr 
     .clr 
     .divider1
+    - checked = (params[:upload_method] == "manual")
+    - if current_user.type == "SuperAdmin"
+      %label
+        %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+        %b.extra-medium-text{ class: checked ? 'checked': '' }
+          Add candidates manually: 
+      .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
-      - checked = (params[:upload_method] == "manual")
       %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
-        / - if current_user.type == "SuperAdmin"
-        /   %label
-        /     %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
-        /     %b.extra-medium-text Add candidates manually: 
-        /   .divider1
-        / .span6.left-offset1
-        /   %b.show Full name
-        /   (Required)
-        / .span6.first
-        /   %b.show Email id
-        /   (Required)
-        / .span4  
-        /   %b.show Mobile number
-        /   (Optional)
-        / .span5
-        /   %b.show Functional Area
-        /   (For existing employees only)
-        / .clr
-        / .divider1
         .left-offset2.first
           .span9.first.big-text
             Assessment taker’s name
