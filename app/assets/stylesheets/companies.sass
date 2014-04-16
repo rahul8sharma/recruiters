@@ -39,3 +39,31 @@
 
       i
         margin: 0 0 0 -40px
+.sign-up
+  .control-group
+    .info-tooltip-control
+      position: relative
+      width: 0
+      height: 36px
+      .info-tooltip
+        display: none
+        position: absolute
+        border: 1px solid $color-warning
+        border-radius: 4px
+        font-size: 12px
+        width: 280px
+        padding: 10px
+        z-index: 99999
+        background: #fff
+        left: 10px
+
+      .left-caret
+        background: image-url("left-caret.png") no-repeat center center
+        height: 10px
+        left: -10px
+        position: absolute
+        top: 44%
+        width: 16px
+    &.infoMassage
+      .info-tooltip-control
+        display: block
