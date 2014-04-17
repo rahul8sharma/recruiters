@@ -80,73 +80,84 @@ Recruiters::Application.routes.draw do
       end
     end
     
-    resources :benchmarks, :except => [:destroy] do
+    resources :benchmarks, :controller => "suitability/benchmarks", :except => [:destroy] do
       member do
-        get "norms" => "benchmarks#norms", :as => :norms
-        put "norms" => "benchmarks#norms", :as => :norms
+        get "norms" => "suitability/benchmarks#norms", :as => :norms
+        put "norms" => "suitability/benchmarks#norms", :as => :norms
 
-        get "competency_norms" => "benchmarks#competency_norms", :as => :competency_norms
-        put "competency_norms" => "benchmarks#competency_norms", :as => :competency_norms
-        get "competencies" => "benchmarks#competencies", :as => :competencies
-        put "competencies" => "benchmarks#competencies", :as => :competencies                    
+        get "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
+        put "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
+        get "competencies" => "suitability/benchmarks#competencies", :as => :competencies
+        put "competencies" => "suitability/benchmarks#competencies", :as => :competencies                    
 
-        get "styles" => "benchmarks#styles", :as => :styles
-        put "styles" => "benchmarks#styles", :as => :styles
+        get "styles" => "suitability/benchmarks#styles", :as => :styles
+        put "styles" => "suitability/benchmarks#styles", :as => :styles
         
-        get "download_benchmark_report" => "benchmarks#download_benchmark_report", :as => :download_benchmark_report
-        get "benchmark_report" => "assessment_reports#benchmark_report", :as => :benchmark_report
+        get "download_benchmark_report" => "suitability/benchmarks#download_benchmark_report", :as => :download_benchmark_report
+        get "benchmark_report" => "suitability/assessment_reports#benchmark_report", :as => :benchmark_report
         
-        get "candidates" => "benchmarks/candidate_assessments#candidates", :as => :candidates
-        get "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
-        put "candidates/add" => "benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
+        get "candidates" => "suitability/benchmarks/candidate_assessments#candidates", :as => :candidates
+        get "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
 
-        put "candidates/bulk_upload" => "benchmarks/candidate_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "benchmarks/candidate_assessments#email_reports", :as => :email_reports
+        put "candidates/bulk_upload" => "suitability/benchmarks/candidate_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "suitability/benchmarks/candidate_assessments#email_reports", :as => :email_reports
 
-        get "candidates/send-test" => "benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/bulk-send-test" => "benchmarks/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        get "candidates/:candidate_id/send-reminder" => "benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "benchmarks/candidate_assessments#candidate", :as => :candidate
+        get "candidates/send-test" => "suitability/benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "suitability/benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/bulk-send-test" => "suitability/benchmarks/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/:candidate_id/send-reminder" => "suitability/benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "suitability/benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "suitability/benchmarks/candidate_assessments#candidate", :as => :candidate
+      end
+      
+      resources :candidates, :except => [:destroy, :show] do
+        resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+          member do
+            get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
+            get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
+            get "manage" => "assessment_reports#manage", :as => :manage
+            put "manage" => "assessment_reports#manage", :as => :manage
+          end
+        end
       end
     end
-
-    resources :assessments, :path => "tests", :except => [:destroy] do
+    
+    resources :custom_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
-        get "norms" => "assessments#norms", :as => :norms
-        put "norms" => "assessments#norms", :as => :norms
+        get "norms" => "suitability/custom_assessments#norms", :as => :norms
+        put "norms" => "suitability/custom_assessments#norms", :as => :norms
 
-        get "reports" => "assessments#reports", :as => :reports
+        get "reports" => "suitability/custom_assessments#reports", :as => :reports
 
-        get "competency_norms" => "assessments#competency_norms", :as => :competency_norms
-        put "competency_norms" => "assessments#competency_norms", :as => :competency_norms
-        get "competencies" => "assessments#competencies", :as => :competencies
-        put "competencies" => "assessments#competencies", :as => :competencies                    
+        get "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
+        put "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
+        get "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
+        put "competencies" => "suitability/custom_assessments#competencies", :as => :competencies                    
 
-        get "styles" => "assessments#styles", :as => :styles
-        put "styles" => "assessments#styles", :as => :styles
+        get "styles" => "suitability/custom_assessments#styles", :as => :styles
+        put "styles" => "suitability/custom_assessments#styles", :as => :styles
         
-        get "enable_training_requirements_report" => "assessments/training_requirements_reports#enable_training_requirements_report", :as => :enable_training_requirements_report
+        get "enable_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#enable_training_requirements_report", :as => :enable_training_requirements_report
         
-        get "download_training_requirements_report" => "assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
+        get "download_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
         
-        get "training_requirements" => "assessments/training_requirements_reports#training_requirements", :as => :training_requirements
+        get "training_requirements" => "suitability/custom_assessments/training_requirements_reports#training_requirements", :as => :training_requirements
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
         
-        get "candidates" => "assessments/candidate_assessments#candidates", :as => :candidates
-        get "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
-        put "candidates/add" => "assessments/candidate_assessments#add_candidates", :as => :add_candidates
+        get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
+        get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
+        put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
 
-        put "candidates/bulk_upload" => "assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "assessments/candidate_assessments#email_reports", :as => :email_reports
+        put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
 
-        get "candidates/send-test" => "assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/bulk-send-test" => "assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        get "candidates/:candidate_id/send-reminder" => "assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "assessments/candidate_assessments#candidate", :as => :candidate
+        get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
+        put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
       end
       
       resources :candidates, :except => [:destroy, :show] do
@@ -169,6 +180,23 @@ Recruiters::Application.routes.draw do
         post 'import_from_google_drive'
         post 'export_to_google_drive'
       end
+    end
+  end
+  
+  resources :standard_assessments, :controller => "suitability/standard_assessments", :path => "standard-tests", :except => [:destroy] do
+    member do
+      get "norms" => "suitability/standard_assessments#norms", :as => :norms
+      put "norms" => "suitability/standard_assessments#norms", :as => :norms
+
+      get "reports" => "suitability/standard_assessments#reports", :as => :reports
+
+      get "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
+      put "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
+      get "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
+      put "competencies" => "suitability/standard_assessments#competencies", :as => :competencies                    
+
+      get "styles" => "suitability/standard_assessments#styles", :as => :styles
+      put "styles" => "suitability/standard_assessments#styles", :as => :styles
     end
   end
 
