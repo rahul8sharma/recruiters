@@ -1,48 +1,67 @@
-%div
-  .inn.first
-    .page-title.pull-left
-      Training Requirements
-    .pagination.pull-right
-      = paginate @training_requirement_groups
-  .inn.gray-gradient
-    - if @training_requirement_groups.empty?
-      .medium-text.alert.span13.first
-        No Training Requirements have been created. To create a Training Requirement, 
-        %a{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Training Requirement"} click here.
-    - if can?(:create, "Suitability::TrainingRequirementGroup")    
-      %a.btn.btn-info.pull-right{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
-        Create a new Training Requirements
-    .clr
+.assessments-list
+  .span9.page-title.first
     .divider1
-    - if @training_requirement_groups.present?    
-      .list-snippet-titles.medium-text.clearfix
-        .span2
-          ID
-        .span10
-          Title
-        .span5
-          Total Candidates
-        .span
-          Completed
-      %ul.unstyled
-        - @training_requirement_groups.each do |training_requirement_group|
-          %li.list-snippet
-            .span2
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
-                = training_requirement_group.id
-            .span10
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
-                = training_requirement_group.title
-            .span5.first.lhs-border
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
-                = training_requirement_group.total_candidates
-            .span.lhs-border
-              %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
-                = training_requirement_group.completed_candidates
-    .divider1         
-    %a.btn.btn-info.pull-right{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+    Training Requirements
+  //= paginate @training_requirement_groups
+  - if can?(:create, "Suitability::TrainingRequirementGroup")
+    %a.btn.btn-warning.big.big-text.pull-right.span.large-text{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
       Create a new Training Requirements
-    .clr
-  .inn
-    .pagination.pull-right
-      = paginate @training_requirement_groups
+
+  - if @training_requirement_groups.empty?
+    .medium-text.alert.span9.pull-right
+      No Training Requirements have been created. To create a Training Requirement, 
+      %a{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Training Requirement"} click here.
+  .clr
+  .divider2
+  - if @training_requirement_groups.present?    
+    .list-snippet-titles.large-text.clearfix
+      .span2.first
+        %a{:href=>"#"}
+          ID
+          %i.icon-chevron-down.small-text.line-height1
+      .span19
+        %a{:href=>"#"}
+          Title 
+          %i.icon-chevron-down.small-text.line-height1
+      .span5.text-center
+        %a{:href=>"#"}
+          Total Candidates
+          %i.icon-chevron-down.small-text.line-height1
+      .span3.text-center
+        %a{:href=>"#"}
+          Completed
+          %i.icon-chevron-down.small-text.line-height1
+      .clr
+      .divider1      
+    %ul
+      - @training_requirement_groups.each do |training_requirement_group|
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
+          .span2.first
+            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
+              = training_requirement_group.id
+          .span19
+            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
+              = training_requirement_group.title
+          .span5.text-center
+            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+              = training_requirement_group.total_candidates
+          .span3.text-center
+            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+              = training_requirement_group.completed_candidates
+          .clr
+          .divider1
+  .divider2
+  .pull-right
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2
+        %option
+          1
+      .clr
+  .clr    
+  
+  / .inn
+  /   .pagination.pull-right
+  /     = paginate @training_requirement_groups
