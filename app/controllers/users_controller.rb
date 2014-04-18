@@ -70,6 +70,15 @@ class UsersController < ApplicationController
     end
   end
   
+  def confirm
+    @user = Vger::Resources::User.confirm(:confirmation_token => params[:confirmation_token])
+    if @user.error_messages.present?
+      redirect_to(root_url, notice: "Invalid confirmation_token token")
+    else
+      redirect_to(login_path)
+    end
+  end
+  
   def activate
     if request.put?
       @user = Vger::Resources::User.reset_password_by_token(params[:user], :root => :user)
