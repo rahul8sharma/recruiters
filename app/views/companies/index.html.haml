@@ -1,41 +1,51 @@
-.inn.first
-  .page-title.pull-left
+.companies-list
+  .page-title
+    .divider1
     Companies
-  .pagination.pull-right
-    = paginate @companies
-.inn.gray-gradient
-  .companies-list
-    %ul.unstyled
-      - @companies.each do |company|
-        %li
-          .inn
-            .lhs.span13
-              %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
-                EMP#{company.company_code} - #{company.name}
-              //%br/
-              //%br/
-              //Account Manager Name
-              //%br/
-              //%br/
-              //manager@email.com
-            .rhs.span5
-              %a{:href => "#", :title =>"Test bought"}
-                Test bought: 
-                %sapn.extra-medium-text #{company.subscription.assessments_purchased rescue 0}
-              %br/
-              %br/
-              %a{:href => "#", :title =>"Test used"}
-                Valid till: 
-                %sapn.extra-medium-text #{ (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-" }
-              %br/
-            .text-center.span
-              //Validity
-              //.big-text
-              //  04
-              //Days 
-            
-            .clr
-            .divider1
-.inn
-  .pagination.pull-right
-    = paginate @companies
+  / .pagination.pull-right
+  /   = paginate @companies
+  .divider2
+  .list-snippet-titles.large-text.clearfix
+    .span3.first
+      %a{href: "#"}
+        EMP
+        %i.icon-chevron-down.small-text.line-height1
+    .span20
+      %a{href: "#"}
+        Company Title
+        %i.icon-chevron-down.small-text.line-height1
+    .span4.text-center
+      Test bought
+    .span3
+      Valid till
+    .clr
+    .divider1
+  %ul
+    - @companies.each do |company|
+      %li.list-snippet.border-bottom-grayLighter
+        .divider1
+        .span3.first
+          %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+            = company.company_code
+        .span20
+          %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+            = company.name
+        .span4.text-center
+          = company.subscription.assessments_purchased rescue 0
+        .span3
+          = (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-" 
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2
+        %option
+          1
+      .clr
+  .clr 
+        
+/ .pagination.pull-right
+/   = paginate @companies

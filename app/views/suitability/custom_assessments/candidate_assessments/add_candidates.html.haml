@@ -7,9 +7,6 @@
   / %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
   /   View Instructions
   / .clr
-  .select-candidate-type 
-    - if current_user.type == "SuperAdmin"
-      = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
   .margin-auto.span21
     .span12.first.left-offset1.big-text
       What is the purpose of assessing these candidates ?
@@ -35,6 +32,10 @@
         .clr
       .clr 
     .clr 
+    .divider3
+    .select-candidate-type 
+      - if current_user.type == "SuperAdmin"
+        = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
     .divider1
     - checked = (params[:upload_method] == "manual")
     - if current_user.type == "SuperAdmin"
@@ -59,16 +60,16 @@
           - 5.times do |index|
             = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
         .divider2
-        .muted.left-offset2.first
-          .big-text
-            Following is the Preview of the email that Assessment takers will receive.
-          .divider1   
-          - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-            = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
-          - else
-            = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
-        .divider2   
-        %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
-          Submit
-        .clr
+      .muted.left-offset2.first
+        .big-text
+          Following is the Preview of the email that Assessment takers will receive.
+        .divider1   
+        - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
+        - else
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+      .divider2   
+      %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
+        Submit
+      .clr
   .clr
