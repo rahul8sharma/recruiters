@@ -467,6 +467,8 @@ Recruiters::Application.routes.draw do
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
   
+  get "/users/confirmation", :to => "users#confirm", :as => :confirm
+  
   get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   put "/users/password/edit", :to => "users#update_password", :as => :update_password
   
@@ -494,7 +496,7 @@ Recruiters::Application.routes.draw do
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
   
-  get "/sign_up" => "signup#sign_up", :as => :sign_up
+  match "/sign_up" => "signup#sign_up", :as => :sign_up
   root :to => "users#login"
   
   mount JombayNotify::Engine => "/jombay-notify"
