@@ -1,47 +1,66 @@
 .company_profile
-  = render :partial => "shared/sub-nav"
-  .inn.first
-    .page-title
-      Settings
-  .inn.gray-gradient
-    = render :partial => "shared/settings-content-sub-nav"
-    .clr
-    .divider2
-
-    -#
-      .company_logo.pull-left
-        =# image_tag("image 110X75")
-
-    .span18.medium-text
-      .divider1
-      %b #{@company.name}
-      .divider1
-      %b 
-        = @company.company_code
-    .clr
+  .page-title
     .divider1
-    .span13.first.medium-text
-      %a.domain_name.default-color{:href => "#", :title => "Click Here to go SomeoneName's website"}
-        = h @company.website
-      .divider1
-      .hqcity
-        - if @hq_location
-          = @hq_location.address
-        - else
-          = h nil
-    .span8
-      %b 
-        = h @company.hq_address
-    .clr
-    .divider1
-    .description
-      %b Employer Description
-      %p 
-        = h(@company.description).html_safe
-    .clr
+    Settings
+    
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    .span19.margin-auto
+      %ul
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Company Name: 
+          .span8
+            #{@company.name}
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Company Code: 
+          .span8
+            #{@company.company_code}
+          .clr
+
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Company website URL: 
+          -if h @company.website
+            %a.span8{:href => "#{h @company.website}", :title => "Click Here to go #{h @company.website} website"}
+              = h @company.website
+          - else
+            Not available 
+          .clr
+
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Company Head Quarter Location:
+          .span8
+            - if @hq_location
+              = @hq_location.address
+            - else
+              = h nil
+          .clr
+
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Company Head Quarter Address:
+          .span8.do
+            = h @company.hq_address
+          .clr
+      .divider2
+      .description
+        .big-text
+          %b Employer Description
+        .divider1
+        %p.extra-medium-text 
+          = h(@company.description).html_safe
+      .clr
+      .divider2
       - if current_user.type == "SuperAdmin"
-        %a{href: edit_company_path(@company)}
+        %a.btn.btn-warning.inverse.large-text.pull-left{href: edit_company_path(@company)}
           Edit Company Profile
-        .clr
-        %a{href: add_subscription_company_path(@company.id)}
+        
+        %a.btn.btn-warning.large-text.pull-right{href: add_subscription_company_path(@company.id)}
           Add Subscription
+      .clr
