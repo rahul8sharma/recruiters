@@ -34,13 +34,13 @@
         %a{:href=>"#"}
           Assessment Title
           %i.icon-chevron-down.small-text.line-height1
-      .span4
+      .span3
         View Details
-      .span5
+      .span4.text-center
         %a{:href=>"#"}
           Completed by
           %i.icon-chevron-down.small-text.line-height1
-      .span3
+      .span2
         %a{:href=>"#"}
           Sent to 
           %i.icon-chevron-down.small-text.line-height1
@@ -59,11 +59,12 @@
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
           .span7
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+
               = assessment.name
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
               %i.icon-eye-open
-          .span3.text-center.left-offset1
+          .span4.text-center
             - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
           .span2.text-center.left-offset2
