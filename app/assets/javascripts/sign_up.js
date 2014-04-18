@@ -5,7 +5,7 @@ $( document ).ready(function() {
   
   $('.info-tooltip').css({
     top: - tooltipTopValue
-    });
+  });
  
   $('.control-group input[type="text"]').focus(function() {
     $(this).parent().find(".info-tooltip").fadeIn('slow');
