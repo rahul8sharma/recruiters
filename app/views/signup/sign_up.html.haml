@@ -14,33 +14,30 @@
       .divider2
       .border-primary.border-radius3.padding-all2
         .span11.margin-auto
-          %form.extra-medium-text
+          = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "extra-medium-text" }) do |f|
+            = f.fields_for :admin do |af|  
+              .control-group
+                = af.text_field :name, class: "fw", placeholder: "Full Name"
+              .control-group
+                = af.text_field :email, placeholder: "Company Email", class: "fw pull-left"
+                .info-tooltip-control.pull-left
+                  .info-tooltip.gray-darker
+                    We encourage you to enter your company email address (not personal email address) for getting full access &amp; privileges
+                    .left-caret
+                .clr
+              .control-group
+                = af.password_field :password, placeholder: "Enter a password of your choice", class: "fw"
+              .control-group
+                = af.text_field :mobile, placeholder: "Contact Number", class: "fw pull-left"
+                .info-tooltip-control.pull-left
+                  .info-tooltip.gray-darker
+                    Required to ensure that nobody misuses your identity. Dont worry all information you provided is completely confidential
+                    .left-caret
+                .clr
             .control-group
-              %input.fw{:type => "text", :placeholder => "Full Name"}
+              = f.text_field :name, title: "Sign to Jombay", placeholder: "Company Name", class: "fw"
             .control-group
-              %input.fw.pull-left{:type => "text", :placeholder => "Company Email"}
-              .info-tooltip-control.pull-left
-                .info-tooltip.gray-darker
-                  We encourage you to enter your company email address (not personal email address) for getting full access &amp; privileges
-                  .left-caret
-              .clr
-            .control-group
-              %input.fw{:type => "text", :placeholder => "Enter a password of your choice"}
-            .control-group
-              %input.fw.pull-left{:type => "text", :placeholder => "Contact Number"}
-              .info-tooltip-control.pull-left
-                .info-tooltip.gray-darker
-                  Required to ensure that nobody misuses your identity. Dont worry all information you provided is completely confidential
-                  .left-caret
-              .clr
-            .control-group
-              %input.fw{:type => "text", :title => "Sign to Jombay", :placeholder => "Company Name"}
-            .control-group
-              %select.fw.divider2
-                %option
-                  Country
-                %option
-                  India
+              = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw divider2" }
             %button.btn.btn-warning.large-text.fw
               Sign Up
             .divider2

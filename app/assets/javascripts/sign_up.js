@@ -13,5 +13,5 @@ $( document ).ready(function() {
   $('.control-group input[type="text"]').blur(function() {
     $(this).parent().find(".info-tooltip").fadeOut();
   });
-
+  
 });

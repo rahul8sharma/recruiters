@@ -3,70 +3,71 @@
   = javascript_include_tag "jquery_ujs"
 
 .company_profile
-  = render :partial => "shared/sub-nav"
-  .inn.first
-    .page-title
-      Settings
-  .inn.gray-gradient
-    = render :partial => "shared/settings-content-sub-nav"
-    .clr
+  .page-title
     .divider1
-  .inn
-    .page-title.text-center
+    Settings
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1
+    .extra-large-text.text-center
       Please provide the following information
-  = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { class: "edit_company_page" }) do |f|
-    .error
-      - @company.error_messages ||= []
-      - @company.error_messages.each do |message|
-        = message
-    = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
-    .left-offset1.pull-left
-      %label
-        Company Pan Card Number:
-      = f.text_field :pancard
+    .divider2
+    = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { :class => "edit_company_page text-right span15 margin-auto" }) do |f|
+      .error
+        - @company.error_messages ||= []
+        - @company.error_messages.each do |message|
+          = message
+      = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Company Pan Card Number:
+        = f.text_field :pancard, :class => "first span7 medium-text left-offset1"
+        .clr
 
-    .left-offset1.pull-left
-      %label
-        Country:
-      = f.select :country, @countries, { :prompt => "Select Country" }, { :id => "select_country" }
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Country:
+        = f.select :country, @countries, { :prompt => "Select Country" }, { :id => "select_country", :class => "first span7 medium-text left-offset1" }
+        .clr
 
-    .clr
-    .left-offset1.pull-left
-      %label
-        State:
-      = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state" }
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          State:
+        = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state", :class => "first span7 medium-text left-offset1" }
+        .clr
 
-    .left-offset1.pull-left
-      %label
-        City:
-      = f.select :city, {@company.city => @company.hq_location_id }, { :prompt => "Select City" }, { :id => "select_city" }
-    .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          City:
+        = f.select :city, {@company.city => @company.hq_location_id }, { :prompt => "Select City" }, { :id => "select_city", :class => "first span7 medium-text left-offset1" }
+        .clr
 
-    .left-offset1.pull-left
-      %label
-        Company Address:
-      = f.text_area :address, :rows => 5
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Company Address:
+        = f.text_area :address, :rows => 5, :class => "first span7 medium-text left-offset1"
+        .clr
 
-    .left-offset1.pull-left
-      %label
-        Pincode:
-      = f.text_field :pincode
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Pincode:
+        = f.text_field :pincode, :class => "first span7 medium-text left-offset1"
+        .clr
 
-    .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Contact Person's Name:
+        = f.text_field :contact_person, :class => "first span7 medium-text left-offset1"
+        .clr
 
-    .left-offset1.pull-left
-      %label
-        Contact Person's Name:
-      = f.text_field :contact_person
-
-    .left-offset1.pull-left
-      %label
-        Contact Person's Number:
-      = f.text_field :contact_person_mobile
-
-    .clr
-    
-    .form-action.pull-right
-      %button.btn.btn-info
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Contact Person's Number:
+        = f.text_field :contact_person_mobile, :class => "first span7 medium-text left-offset1"
+        .clr
+      
+      %button.btn.btn-warning.large-text.pull-right
         Submit
+      .clr
 = javascript_include_tag 'edit_company'        
