@@ -28,7 +28,6 @@ class CompaniesController < ApplicationController
   end
 
   def home
-    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:page => params[:page], :per => 10).all
   end
   
   
