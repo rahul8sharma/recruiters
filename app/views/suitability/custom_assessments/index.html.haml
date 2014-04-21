@@ -2,16 +2,6 @@
   .span14.page-title.first
     .divider1
     Assessments
-  /.pagination.pull-right
-  /  = paginate @assessments 
-   
-  - if @assessments.empty?
-    .medium-text.alert.pull-left
-      No tests have been created. To create a test, 
-      %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.
-  / - else
-  /   .pull-left.line-height2.extra-medium-text
-  /     You may send an existing test from the list below:
   - if can?(:create, "Suitability::CustomAssessment")    
     %a.btn.btn-warning.big.big-text.pull-right.span.large-text{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
       Create Custom Assessment
@@ -20,6 +10,11 @@
       View Ready-to-Send Assessments
   .clr
   .divider2
+  - if @assessments.empty?
+    .medium-text.alert.pull-left
+      No tests have been created. To create a test, 
+      %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
+    .divider2  
   - if @assessments.present?    
     .list-snippet-titles.large-text.clearfix
       .span2.first
@@ -76,14 +71,14 @@
           .clr
           .divider1
   .divider2
-  .pull-right
-    .muted.extra-medium-text
-      .span.line-height2
-        Go to Page
-      %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-        - @assessments.total_pages.times do |page|
-          %option{selected: params[:page].to_i == (page + 1),value:company_custom_assessments_path(@company, :page => page + 1), }
-            = page + 1
-      .clr
-  .clr    
-  
+  - if @assessments.present?
+    .pull-right
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+          - @assessments.total_pages.times do |page|
+            %option{selected: params[:page].to_i == (page + 1),value:company_custom_assessments_path(@company, :page => page + 1), }
+              = page + 1
+        .clr
+    .clr    
