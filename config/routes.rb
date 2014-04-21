@@ -21,6 +21,7 @@ Recruiters::Application.routes.draw do
     end
 
     member do
+      put "plans/:plan_id/upgrade_subscription" => "companies/plans#upgrade_subscription", :as => :upgrade_subscription
       get "plans/:plan_id/review" => "companies/plans#review", :as => :review_plan
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status

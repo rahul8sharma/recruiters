@@ -12,34 +12,21 @@
     .gray-darker.text-center 
       Following contact information is required by our Payment Partner to make a purchase 
     .divider2
-    = form_for :subsciption, :url => Rails.application.config.vger["billing"]["url"] , :html => { :class => "text-right"}  do |f|
-      = f.hidden_field :billing_name, value: @company.name, :name => "billing_name"
-      = f.hidden_field :billing_address, value: @company.address, :name => "billing_address"
-      = f.hidden_field :billing_city, value: @company.city, :name => "billing_city"
-      = f.hidden_field :billing_state, value: @company.state, :name => "billing_state"
-      = f.hidden_field :billing_zip, value: @company.pincode, :name => "billing_zip"
-      = f.hidden_field :billing_country, value: @company.country, :name => "billing_country"
-      = f.hidden_field :billing_tel, value: @company.contact_person_mobile, :name => "billing_tel"
-      = f.hidden_field :billing_email, value: @company.admin[:email], :name => "billing_email"
+    = form_for @company, :as => :company, :url => upgrade_subscription_company_path(@company, @plan), :html => { :class => "text-right"}  do |f|
 
-      = f.hidden_field :delivery_name, value: @company.name, :name => "delivery_name"
-      = f.hidden_field :delivery_address, value: @company.address, :name => "delivery_address"
-      = f.hidden_field :delivery_city, value: @company.city, :name => "delivery_city"
-      = f.hidden_field :delivery_state, value: @company.state, :name => "delivery_state"
-      = f.hidden_field :delivery_zip, value: @company.pincode, :name => "delivery_zip"
-      = f.hidden_field :delivery_country, value: @company.country, :name => "delivery_country"
-      = f.hidden_field :delivery_tel, value: @company.contact_person_mobile, :name => "delivery_tel"
+      = f.hidden_field :company_id, {value: @company.id, :name => "merchant_param3"}
+      = f.hidden_field :callback_url, {value: @redirect_url, :name => "merchant_param5"}
 
-      = f.hidden_field :company_id, value: @company.id, :name => "merchant_param3"
-      = f.hidden_field :callback_url, value: @callback_url, :name => "merchant_param4"
-
-      = f.hidden_field :customer_id, value: @company.id, :name => "customer_id"
-      = f.hidden_field :order_id, value: Time.now.strftime("%Y%m%d%H%M%S"), :name => "order_id"
-      = f.hidden_field :amount, value: @plan.price, :name => "amount"
+      = f.hidden_field :customer_id, {value: @company.id, :name => "customer_id"}
       
-      = f.hidden_field :no_of_assessments, value: @plan.no_of_assessments, :name => "merchant_param1"
+      = f.hidden_field :order_id, {value: Time.now.strftime("%Y%m%d%H%M%S"), :name => "order_id"}
+      = f.hidden_field :amount, {value: @plan.price, :name => "amount"}
       
-      = f.hidden_field :expiry_date_of_package, value: hdate(Date.today + @plan.validity_in_months.months), :name => "merchant_param2"
+      = f.hidden_field :no_of_assessments, {value: @plan.no_of_assessments, :name => "merchant_param1"}
+      
+      = f.hidden_field :expiry_date_of_package, {value: hdate(Date.today + @plan.validity_in_months.months), :name => "merchant_param2"}
+
+      = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
       
       .control-group
         %label.span7.big-text.line-height2.gray-darker
