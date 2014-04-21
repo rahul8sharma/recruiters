@@ -5,6 +5,60 @@
 @import shared/sub-nav
 @import shared/content-sub-nav
 @import shared/navigation-sub-nav
+.home
+  ul
+    li
+      float: left
+      color: $grayDarker
+  .info-list
+    .thumb1
+      background: image-url("home/info-list-thumb1.png") no-repeat center 0
+    .thumb2
+      background: image-url("home/info-list-thumb2.png") no-repeat center 0
+    .thumb3
+      background: image-url("home/info-list-thumb3.png") no-repeat center 0
+
+  .benefit-list
+    .thumb1
+      background: image-url("home/benefit-list-thumb1.png") no-repeat center 0
+    .thumb2
+      background: image-url("home/benefit-list-thumb2.png") no-repeat center 0
+    .thumb3
+      background: image-url("home/benefit-list-thumb3.png") no-repeat center 0
+    .thumb4
+      background: image-url("home/benefit-list-thumb4.png") no-repeat center 0
+
+
+  .assessment-list
+    li
+      width: 490px
+      padding: 10px
+      font-size: 16px
+      border: 1px solid $grayLighter  
+      border-radius: 2px
+      line-height: 16px
+      margin-bottom: 18px
+
+      &:nth-child(even)
+        float: right
+
+      &:first-child
+        a
+          color: $color-warning
+
+      a
+        color: $grayDarker
+
+        &:hover
+          color: $color-warning
+          text-decoration: none
+
+      [class^="icon-"], [class*=" icon-"]
+        line-height: 16px
+        font-size: 22px
+        margin: 0 15px
+      .icon-chevron-right
+        margin-right: 20px
 
 .list-snippet
   font-size: $extra-medium-text

@@ -1,2 +1,86 @@
-%h1
-  Standard Assessments
+.home
+  .alert.alert-info.fw
+    Welcome! You can start using one of ready-to-use assessments or create a test to suit your requirements!
+    %br/
+    You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
+    %a.close{:href => "#"}
+      CLOSE
+      %span.medium-text
+        x
+  .divider1
+
+  .page-title.pull-left
+    Ready-to-Send Assessments
+  %button.btn.btn-warning.big-text.pull-right
+    Create Custom Assessment
+  .clr
+
+  .divider1
+
+  .big-text
+    Choose the Assessment that comes close to the Job Role you want to measure.
+
+  .divider2
+
+  %ul.assessment-list.span28.margin-auto.clearfix
+    %li
+      %a.fw.span{:href => "#"}
+        .pull-left
+          Take the Assessment Yourself
+        .icon-chevron-right.pull-right
+
+    - 9.times do 
+      %li
+        %a.span7{:href => "#"}
+          Marketing Assessment
+        .pull-right
+          %a.icon-eye-open{:href => "#"}
+          %a.icon-file{:href => "#"}
+          %a.icon-envelope{:href => "#"}
+          .clr
+        .clr
+  .divider3
+  .info-list.span24.margin-auto.text-center
+    .huge-text
+      How it Works
+    .divider4
+    %ul.clearfix
+      %li.span8
+        .thumb1.divider5
+        .big-text
+          1. Choose Relevant Asessment
+      %li.span8
+        .thumb2.divider5
+        .big-text
+          2. See Assessment Details
+      %li.span7
+        .thumb3.divider5
+        .big-text
+          3. Send Assessment
+
+  .divider4.border-bottom-grayLighter
+  .divider2
+  
+  .benefit-list.span21.margin-auto.text-center
+    .huge-text
+      Benefits of Using Jombay
+    .divider4
+    %ul.clearfix
+      %li.span5
+        .thumb1.divider5
+        .big-text
+          Hire for the right Cultural Fit
+      %li.span5
+        .thumb2.divider5
+        .big-text
+          Reduce hiring errors
+      %li.span5
+        .thumb3.divider5
+        .big-text
+          Predict Attrition
+      %li.span5
+        .thumb4.divider5
+        .big-text
+          Identify Leadership Potential
+
+  .divider2
