@@ -2,25 +2,23 @@
   = stylesheet_link_tag "training_requirements_report"  
 
 .create-test.creat-test-show
-  .inn.first
-    .page-title.pull-left
-      Test #{@assessment.id} - #{@assessment.name}
-    %a.btn.pull-right{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
-      .link-color Send This Test
+  .page-title.pull-left
+    .divider1
+    Test #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send This Test
+  - if !@assessment.report_types.include?(Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT)
+    %a.extra-medium-text.pull-right.line-height3{:href => enable_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Enable Training Requirements Report for this test"}
+      Enable Training Requirements Report
+  - else
+    - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+      %a.extra-medium-text.pull-right.line-height3{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+        Download a PDF version of Training Requirements Report    
   .clr
-  .inn.gray-gradient
-    .pull-left
-      = render :partial => "shared/candidate-content-sub-nav"
-    .span10.pull-right.text-right
-      - if !@assessment.report_types.include?(Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT)
-        %a.btn.btn-info.pull-right{:href => enable_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Enable Training Requirements Report for this test"}
-          Enable Training Requirements Report
-      - else
-        - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
-          %a.pull-right{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
-            Download a PDF version of Training Requirements Report    
-    .clr
-    .divider2
+  .divider2
+  .clr
+  = render :partial => "shared/candidate-content-sub-nav"
+  .padding-all2.border-warning.shifted-up1
     - if @assessment.report_types.include?(Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT)
       - if @assessment_report && @assessment_report.report_data.present?
         .summary.padding-all1.clearfix

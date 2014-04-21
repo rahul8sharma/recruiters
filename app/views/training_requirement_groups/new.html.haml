@@ -2,52 +2,53 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-.new
+.training-requirement-new
   = form_for(:training_requirement, method: :post, url: company_training_requirement_groups_path(@company)) do |f|
     = f.hidden_field :company_id
-    .inn.first
-      .page-title.pull-left
+    .page-title
+      .divider1
+      Create Training Requirements
+    
+    .divider2
+    .navigation-sub-nav.clearfix.pull-left
+      .menu.active
+        .count 1 
         Create Training Requirements
-    .inn.gray-gradient
-      .pull-left
-        .navigation-sub-nav.clearfix.pull-left
-          .menu.active 1 &nbsp; Create Training Requirements
-      .pull-right
-        %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
       .clr
+    .clr
 
-      .divider1
-      = f.text_field :title, :placeholder => "Title for Training Requirement", :class => "padding-all1 span21 float-none first"
-      .divider1
-      %b.extra-medium-text
-        Please select tests to be added to the Training Requirements
+    .divider2
+    = f.text_field :title, :placeholder => "Title for Training Requirement", :class => "padding-all1 span21 float-none first"
+    .divider1
+    %b.extra-medium-text
+      Please select tests to be added to the Training Requirements
 
-      .divider2
+    .divider2
 
-      .list
-        %ul.unstyled.clearfix
-          %li.titles
-            .control-group
-              %b.pull-left Test
-              %b.pull-right Include in Training Requirements
-              .clr  
-          %li.titles
-            .control-group
-              %b.pull-left Test
-              %b.pull-right Include in Training Requirements
+    .list
+      %ul.unstyled.clearfix
+        %li.titles
+          .control-group
+            %b.pull-left Test
+            %b.pull-right Include in Training Requirements
+            .clr  
+        %li.titles
+          .control-group
+            %b.pull-left Test
+            %b.pull-right Include in Training Requirements
+            .clr
+        - @assessments.each do |assessment|
+          %li
+            -# add class ".checked" to ".control-group" when user clicks on checkbox
+            .control-group{ id: "control_group_#{assessment.id}" }
+              %label{ for: "chk_assessment_#{assessment.id}" }
+                = assessment.name
+              %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "training_requirement[assessment_hash][#{assessment.id}][enabled]", value: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] rescue 'false')}
+              %input{:type => "hidden", name: "training_requirement[assessment_hash][#{assessment.id}][name]", value: assessment.name}    
+              %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
               .clr
-          - @assessments.each do |assessment|
-            %li
-              -# add class ".checked" to ".control-group" when user clicks on checkbox
-              .control-group{ id: "control_group_#{assessment.id}" }
-                %label{ for: "chk_assessment_#{assessment.id}" }
-                  = assessment.name
-                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "training_requirement[assessment_hash][#{assessment.id}][enabled]", value: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] rescue 'false')}
-                %input{:type => "hidden", name: "training_requirement[assessment_hash][#{assessment.id}][name]", value: assessment.name}    
-                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (params[:training_requirement][:assessment_hash]["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
-                .clr
-        .pull-right
-          %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
-        .clr
-        
+      .divider2
+      %input.btn.btn-warning.pull-right.big-text{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
+      .clr
+      
 = javascript_include_tag 'walk_ins' 
