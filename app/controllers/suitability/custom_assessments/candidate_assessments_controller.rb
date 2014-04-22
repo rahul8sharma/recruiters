@@ -82,7 +82,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         render :action => :add_candidates and return
       end
       params[:candidates] = candidates
-      @company = Vger::Resources::Company.find(params[:company_id])
       render :action => :send_test_to_candidates
     end
   end
@@ -92,7 +91,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def send_reminder
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
-      @company = Vger::Resources::Company.find(params[:company_id])
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
     elsif request.put?
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
@@ -126,7 +124,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders send_test_to_candidates page
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
-    @company = Vger::Resources::Company.find(params[:company_id])
     if request.put?
       params[:candidates] ||= []
       candidate_assessments = []
@@ -213,7 +210,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders candidate info for selected assessment
   def candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
-    @company = Vger::Resources::Company.find @assessment.assessable_id
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
     }, :include => [:candidate_assessment_reports])
