@@ -100,4 +100,5 @@ class Companies::PlansController < ApplicationController
           redirect_to request.env['HTTP_REFERER']
       end
     end
+  end  
 end
