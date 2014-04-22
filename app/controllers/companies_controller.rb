@@ -28,6 +28,7 @@ class CompaniesController < ApplicationController
   end
 
   def home
+    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.all()
   end
   
   

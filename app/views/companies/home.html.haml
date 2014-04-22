@@ -1,9 +1,12 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
 .home
-  .alert.alert-info.fw
+  #flag.alert.alert-info.fw
     Welcome! You can start using one of ready-to-use assessments or create a test to suit your requirements!
     %br/
     You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
-    %a.close{:href => "#"}
+    %a.close{:href => "#", :id => "close"}
       CLOSE
       %span.medium-text
         x
@@ -28,17 +31,27 @@
         .pull-left
           Take the Assessment Yourself
         .icon-chevron-right.pull-right
-
-    - 9.times do 
-      %li
-        %a.span7{:href => "#"}
-          Marketing Assessment
-        .pull-right
-          %a.icon-eye-open{:href => "#"}
-          %a.icon-file{:href => "#"}
-          %a.icon-envelope{:href => "#"}
+    - if @standard_assessments.present?
+      -@standard_assessments.each do |standard_assessment|
+        / %h2
+        /   = standard_assessment.attributes
+        / -break
+        %li
+          %a.span7{:href => "#"}
+            = standard_assessment.name
+          .pull-right
+            %a.icon-eye-open{:href => norms_standard_assessment_path(:id => standard_assessment.id)}
+            %a.icon-file{:href => "#"}
+            %a.icon-envelope{:href => "#"}
+            .clr
           .clr
+    - else
+      %li
+        %a.span8{:href => "#"}
+          No Ready To Send Assessments Present
         .clr
+
+  
   .divider3
   .info-list.span24.margin-auto.text-center
     .huge-text
@@ -84,3 +97,9 @@
           Identify Leadership Potential
 
   .divider2
+
+:javascript
+  $("#close").on('click',function(){
+    $("#flag").hide(500);
+  })
+
