@@ -15,7 +15,7 @@
         #{@candidate.name}
       
       .divider1
-      %ul.unstyled.clearfix
+      %ul.clearfix
         %li.no-margin
           %b Email id:
           #{ h @candidate.email}
@@ -78,18 +78,18 @@
         .span8
           Recommendation
         
-      %ul.unstyled
+      %ul
         - @candidate_assessments.each do |candidate_assessment|
           %li.list-snippet
             .span13
-              %a.default-color{:href=> company_custom_assessment_path(:id => candidate_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"} 
+              %a{:href=> company_custom_assessment_path(:id => candidate_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"} 
                 #{@company.name}#{candidate_assessment.assessment.id} - #{candidate_assessment.assessment.name}
-            .span5.first.lhs-border
+            .span5.first
               - if candidate_assessment.candidate_stage != Vger::Resources::Candidate::Stage::EMPLOYED
                 = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
               - else
                 \-  
-            .span3.lhs-border
+            .span3
               - if candidate_assessment.overall_fitment_grade_id.present?
                 - report = candidate_assessment.candidate_assessment_reports[0] 
                 - if report and report.status == "uploaded"

@@ -40,20 +40,20 @@
         
       .clr
       .divider1
-    %ul.unstyled
+    %ul
       -@candidate_assessments.each do |candidate_assessment|
         %li.list-snippet
           .divider1
             - candidate_profile_url =  candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate_assessment.candidate_id)
 
           .span3.first
-            %a.default-color{:href=> candidate_profile_url, :title => candidate_assessment.id} 
+            %a{:href=> candidate_profile_url, :title => candidate_assessment.id} 
               = candidate_assessment.id 
           .span8            
-            %a.default-color{:href=> candidate_profile_url } 
+            %a{:href=> candidate_profile_url } 
               = candidate_assessment.candidate.name
           .span10
-            %a.default-color{:href=> candidate_profile_url, :title => candidate_assessment.completed_at}
+            %a{:href=> candidate_profile_url, :title => candidate_assessment.completed_at}
               Completed as of
               #{htime(candidate_assessment.completed_at)} Hrs,
 

@@ -25,7 +25,7 @@
       %label{ for: "checkbox_factor_#{index}" }
         %b= assessment_factor_norm.factor.name
     .pull-right
-      .span7.lhs-border{style: "display:none;"} 
+      .span7{style: "display:none;"} 
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), disabled: 'disabled', index: (index)}
         
         %select{name: norm_min_name, disabled: 'disabled', index: (index)}
@@ -50,7 +50,7 @@
                 = norm_bucket.name         
         
         .clr
-      //.span2.lhs-border
+      //.span2
       //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off"), disabled: 'disabled'}      
       //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?, disabled: 'disabled'}
 
@@ -68,7 +68,7 @@
       %label{ for: "checkbox_factor_#{index}" }
         %b= assessment_factor_norm.factor.name
     .pull-right
-      .span7.lhs-border{style: "display:none;"} 
+      .span7{style: "display:none;"} 
         //%input{name: (norm_min_name), class: 'white-box', type: 'text', value: (assessment_factor_norm.norm_min.to_f), index: (index)}
         %select{name: norm_min_name, index: (index)}
           - @norm_buckets.each do |norm_bucket|
@@ -90,7 +90,7 @@
                 = norm_bucket.name         
         
         .clr
-      // .span2.lhs-border
+      // .span2
       //%input{name: critical_field, type: 'hidden', id: "critical_#{index}", index: (index), value: (assessment_factor_norm.critical? ? "on" : "off")}      
       //%input{name: critical_checkbox_name, id: "critical_checkbox_#{index}", style: "float:right", type: 'checkbox', index: (index), checked: assessment_factor_norm.critical?}
   .clr

@@ -56,7 +56,7 @@
             .span Assessment taker’s email address
           .clr
         .divider1  
-        %ul.add-candidates.unstyled.clearfix
+        %ul.add-candidates.clearfix
           - 5.times do |index|
             = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
         .divider2
