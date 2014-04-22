@@ -477,6 +477,7 @@ Recruiters::Application.routes.draw do
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
   
+  get "/users/password/link_sent", :to => "users#link_sent", :as => :link_sent
   get "/users/confirmation", :to => "users#confirm", :as => :confirm
   
   get "/users/password/edit", :to => "users#reset_password", :as => :reset_password

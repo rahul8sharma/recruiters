@@ -33,6 +33,8 @@ class UsersController < ApplicationController
   # Refering to https://github.com/plataformatec/devise/issues/1955
   # devise doesn't check for blank new password
   # the workaround is to check the password in the params and render error if password is left blank
+  def link_sent
+  end
   def update_password_settings
     if params[:user][:password].blank?
       flash[:error] = "Password can't be blank."
