@@ -1,48 +1,50 @@
-%div
-  .inn.first
-    .page-title.pull-left
-      Walk-Ins
-    .pagination.pull-right
-      = paginate @walkin_groups
-  .inn.gray-gradient
-    - if @walkin_groups.empty?
-      .medium-text.alert.pull-left
-        No walk-ins have been created. To create a Walk-In, 
-        %a{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
-    - if can?(:create, "Suitability::WalkinGroup")    
-      %a.btn.btn-info.pull-right{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
-        Create a new Walk-In Index Page
-    .clr
+.walk-ins-list
+  .page-title.pull-left
     .divider1
-    - if @walkin_groups.present?    
-      .list-snippet-titles.medium-text.clearfix
-        .span3
-          Walk-In ID
-        .span10
-          Walk-In Index Page
-        .span5
-          Page Management
-        .span
-                     
-      %ul.unstyled
-        - @walkin_groups.each do |walkin_group|
-          %li.list-snippet
-            .span3
-              %a.default-color{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => walkin_group.id), :title =>  walkin_group.title} Walk In #{walkin_group.id}
-            .span10.first.lhs-border
-              %a.default-color{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => walkin_group.id), :title => walkin_group.title}  
-                = walkin_group.title
-            .span5.lhs-border
-              %a.underlined{:href=> edit_company_walkin_group_path(:company_id => @company.id, id: walkin_group.id), :title=> "title"}   
-                Manage
-            
-            .span.lhs-border
-              %a.underlined{:href => walkin_group.url, target: "_blank", :title => "Send This Test"}
-                Link  
-    .divider1         
-    %a.btn.btn-info.pull-right{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+    Walk-Ins
+  / .pagination.pull-right
+  /   = paginate @walkin_groups
+  - if can?(:create, "Suitability::WalkinGroup")    
+    %a.btn.btn-warning.big.big-text.span.pull-right.large-text{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
       Create a new Walk-In Index Page
-    .clr
-  .inn
-    .pagination.pull-right
-      = paginate @walkin_groups
+  
+  - if @walkin_groups.empty?
+    .medium-text.alert.pull-right
+      No walk-ins have been created. To create a Walk-In, 
+      %a{:href => new_company_walkin_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
+  .clr
+  .divider2
+
+  - if @walkin_groups.present?    
+    .list-snippet-titles.large-text.clearfix
+      .span5.first
+        %a{:href => "#"}
+          Walk-In ID
+          %i.icon-chevron-down.small-text.line-height1
+      .span10
+        %a{:href => "#"}
+          Walk-In Index Page
+          %i.icon-chevron-down.small-text.line-height1
+      .span8
+        Page Management
+    .divider1
+
+    %ul
+      - @walkin_groups.each do |walkin_group|
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
+          .span5.first
+            %a{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => walkin_group.id), :title =>  walkin_group.title} Walk In #{walkin_group.id}
+          .span10
+            %a{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => walkin_group.id), :title => walkin_group.title}  
+              = walkin_group.title
+          .span8
+            %a{:href=> edit_company_walkin_group_path(:company_id => @company.id, id: walkin_group.id), :title=> "title"}   
+              Manage
+          
+          .span
+            %a{:href => walkin_group.url, target: "_blank", :title => "Send This Test"}
+              Link  
+          .clr
+          .divider1         
+ 
