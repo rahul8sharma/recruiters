@@ -15,17 +15,14 @@
   - if @assessments.present?    
     .list-snippet-titles.large-text.clearfix
       .span2.first
-        %a{:href=>"#"}
-          AID
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "AID", standard_assessments_path, :id, params[:search]
+          
       .span4
-        %a{:href=>"#"}
-          Created On 
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "Created On", standard_assessments_path, :created_at, params[:search]
+          
       .span18
-        %a{:href=>"#"}
-          Assessment Title
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "Assessment Title", standard_assessments_path, :name, params[:search]
+          
       .span4
         View Details
       .clr
@@ -54,7 +51,7 @@
         Go to Page
       %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
         - @assessments.total_pages.times do |page|
-          %option{selected: params[:page].to_i == (page + 1), value: standard_assessments_path(@company, :page => page + 1), }
+          %option{selected: params[:page].to_i == (page + 1), value: standard_assessments_path(@company, params.merge(:page => page + 1)), }
             = page + 1
       .clr
   .clr   

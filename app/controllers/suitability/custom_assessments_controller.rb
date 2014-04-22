@@ -7,18 +7,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     Vger::Resources::Suitability::CustomAssessment
   end
   
-  def reports
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
-    :assessment_id => @assessment.id,
-    :joins => :candidate_assessment_reports,
-    :include => [:candidate_assessment_reports, :candidate],
-    :query_options => {
-      "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
-    },
-    :page => params[:page],
-    :per=>10).all
-  end
-
   def get_company
     methods = []
     if ["show","index", "training_requirements"].include? params[:action]
@@ -80,7 +68,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   # GET /assessments
   def index
-    @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 15)
+    order_by = params[:order_by] || "created_at"
+    order_type = params[:order_type] || "DESC"
+    @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
     redirect_to home_company_path(@company) if @assessments.empty?
   end
   

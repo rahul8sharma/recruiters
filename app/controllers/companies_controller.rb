@@ -16,10 +16,21 @@ class CompaniesController < ApplicationController
   end
 
   def reports
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+      else
+        order = "#{order} #{order_type}"
+    end
     @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
       :company_id => @company.id, 
-      :joins => :candidate_assessment_reports,
-      :include => [:candidate_assessment_reports, :candidate, :assessment]
+      :joins => [:candidate_assessment_reports, :candidate, :assessment],
+      :include => [:candidate_assessment_reports, :candidate, :assessment],
+      :order => order
     ).where(
       :query_options => { 
         "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED 
@@ -28,6 +39,7 @@ class CompaniesController < ApplicationController
   end
 
   def home
+    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.all()
   end
   
   
@@ -98,10 +110,12 @@ class CompaniesController < ApplicationController
 
   def get_companies
     methods = []
+    order_by = params[:order_by] || "created_at"
+    order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods.push :assessmentwise_statistics
     end
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
   end
   
   def get_countries

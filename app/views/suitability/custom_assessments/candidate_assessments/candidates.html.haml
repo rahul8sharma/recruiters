@@ -20,11 +20,11 @@
         Tests Taken: 
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
     .filter-status.pull-right
-      = form_for :search, url: candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+      = form_for :search, url: candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get, html: { id: "candidates_search_form" } do |f|
         - params[:search] ||= {}
         .medium-text.muted.line-height2.pull-left Show Assessment takers with Status
-        %select.span3{name: "search[status]"}
-          - test_statuses.each do |status,name|  
+        %select.span3{name: "search[status]", onchange: "document.getElementById('candidates_search_form').submit();"}
+          - test_status_options.each do |status,name|  
             %option{ value: status, selected: (params[:search][:status] == status) }
               = name
         .clr
@@ -32,12 +32,12 @@
     .divider2
     .list-snippet-titles.large-text.clearfix
       .span3.first
-        = sort_link "ATID <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+        = sort_link "ATID", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
         
       .span7
-        = sort_link "Assessment Taker <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+        = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span10
-        = sort_link "Assessment Status <i class= 'icon-chevron-down small-text line-height1'></i>", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+        = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .clr
       .divider1
     - if @candidates.empty?
@@ -85,7 +85,14 @@
                     Send Reminder
             .clr
       .divider3
-    / .inn
-    /   .pagination.pull-right
-    /     = paginate @candidates
-    /     .clr
+    - if @candidate_assessments.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @candidate_assessments.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1), value: candidates_company_custom_assessment_path(@company, @assessment, params.merge(:page => page + 1)), }
+                = page + 1
+          .clr
+      .clr
