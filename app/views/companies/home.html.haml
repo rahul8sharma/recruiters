@@ -33,16 +33,17 @@
         .icon-chevron-right.pull-right
     - if @standard_assessments.present?
       -@standard_assessments.each do |standard_assessment|
-        / %h2
-        /   = standard_assessment.attributes
-        / -break
         %li
-          %a.span7{:href => "#"}
+          %a.span7{:href => company_standard_assessment_path(@company,standard_assessment)}
             = standard_assessment.name
           .pull-right
-            %a.icon-eye-open{:href => norms_standard_assessment_path(:id => standard_assessment.id)}
-            %a.icon-file{:href => "#"}
-            %a.icon-envelope{:href => "#"}
+            %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment)}
+            - if standard_assessment.report_urls.present?
+              %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank"}
+            - else
+              %a.icon-file{:href => "#"}
+
+            %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment)}
             .clr
           .clr
     - else

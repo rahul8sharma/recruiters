@@ -1,0 +1,67 @@
+.trait-show
+  .span21.page-title.first
+    .divider1
+    AID #{standard_assessment.id} - #{standard_assessment.name}
+  .clr
+  .divider2
+  = render :partial => "shared/candidate-content-standard-sub-nav"
+
+  //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+  //  Edit Test
+  .padding-all2.border-warning.shifted-up1
+    .big-text
+      .span5.first
+        Trait
+      .span15.left-offset1
+        Definition
+      .span6.left-offset1
+        Acceptable Score Range
+    .clr
+    .divider1
+
+    %ul.unstyled.semi-muted
+      - assessment_factor_norms.each do |factor_norm|
+        %li
+          .divider1
+          .extra-medium-text
+            .span5.first
+              = factor_norm.factor.name
+            .span15.left-offset1
+              = factor_norm.factor.definition
+            .span6.left-offset1
+              #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
+            //.span
+            //  #{factor_norm.critical? ? "Yes":"No"}
+          .clr
+          .divider1
+    - if other_norms.empty?
+      .divider1
+    - else
+      .divider2.border-bottom-grayLighter
+      .divider2
+      .big-text
+        .span5.first
+          Miscellaneous Trait
+        .span15.left-offset1
+          Definition
+        //.span6.left-offset1
+        //  Acceptable Score Range
+      .clr
+      .divider1
+      
+      %ul.unstyled.semi-muted
+        - other_norms.each do |factor_norm|
+          %li
+            .divider1
+            .extra-medium-text
+              .span5.first
+                = factor_norm.factor.name
+              .span15.left-offset1
+                = factor_norm.factor.definition
+            .clr.left-offset1
+            .divider1
+    .divider1
+
+    //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+    //  Edit Test
+    //.clr
