@@ -81,6 +81,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   # GET /assessments
   def index
     @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "created_at DESC", :page => params[:page], :per => 15)
+    redirect_to home_company_path(@company) if @assessments.empty?
   end
   
   # POST /assessments
