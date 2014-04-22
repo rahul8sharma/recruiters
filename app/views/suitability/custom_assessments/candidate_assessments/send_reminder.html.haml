@@ -2,6 +2,6 @@
   .inn.first
     .page-title Send Reminder
   - if @candidate_assessment.candidate_stage == Vger::Resources::Candidate::Stage::CANDIDATE  
-    = render :partial => "assessments/candidate_assessments/reminder_mail_body_for_candidate"
+    = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_candidate"
   - else
-    = render :partial => "assessments/candidate_assessments/reminder_mail_body_for_employee"
+    = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_employee"

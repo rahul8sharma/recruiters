@@ -7,7 +7,7 @@ Hi <%= @report_hash[:candidate][:name] %>,
 
 </p>
 <p>
-  You can view your report at: <%= company_assessment_candidate_candidate_assessment_report_url(:company_id => @report_hash[:company][:id], :candidate_id => @report_hash[:candidate][:id], :assessment_id => @report_hash[:assessment][:id], :id => @report_hash[:id], :view_mode => "html")  %>.
+  You can view your report at: <%= company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report_hash[:company][:id], :candidate_id => @report_hash[:candidate][:id], :custom_assessment_id => @report_hash[:assessment][:id], :id => @report_hash[:id], :view_mode => "html")  %>.
 </p>
 <p>
   You may alternatively view the report by copy-pasting the link in your web browser's address bar and visiting the link or by logging into your Jombay Account.
