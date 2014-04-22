@@ -2,110 +2,109 @@
   background: #fbfbfb
   border: 1px solid #b9b9b9
   padding: 15px 10px
-.walk-ins
-  .new
-    b.extra-medium-text
-      padding: 0
-    .list
-      margin: auto
-      width: 850px
-    ul
-      height: 335px
-      overflow-y: scroll
-      li
-        padding: 10px 0 10px 0
-        float: left
+.new
+  b.extra-medium-text
+    padding: 0
+  .list
+    margin: auto
+    width: 850px
+  ul
+    height: 335px
+    overflow-y: scroll
+    li
+      padding: 10px 0 10px 0
+      float: left
 
-        &:nth-child(odd)
-          border-right: 1px dashed #cfcfcf
-          margin-right: 20px
-          padding-right: 20px
+      &:nth-child(odd)
+        border-right: 1px dashed #cfcfcf
+        margin-right: 20px
+        padding-right: 20px
 
-        &.titles
-          font-size: 14px
-          .control-group
-            border: 0
-            padding-top: 0
-            padding-bottom: 0
-            padding-right: 0
-            width: 367px
-            &:hover
-              background: none
-
+      &.titles
+        font-size: 14px
         .control-group
-          border: 1px solid #cfcfcf
-          padding: 10px 35px 10px 15px
-          width: 330px
+          border: 0
+          padding-top: 0
+          padding-bottom: 0
+          padding-right: 0
+          width: 367px
+          &:hover
+            background: none
 
+      .control-group
+        border: 1px solid #cfcfcf
+        padding: 10px 35px 10px 15px
+        width: 330px
+
+        &:hover, &.checked
+          background: #ffffcd
+          border-color: #f8f8d1
+        label, input
+          display: block
+          float: left
+        input
+          float: right
+        label
+          width: 310px
+.customize
+  .expire
+    min-width: 500px
+    background: #e5e5e5
+    border: 1px solid #cecece
+    padding: 7px 10px
+
+    select
+      border: 1px solid #cecece
+      border-radius: none
+      background: #fff
+      color: #b5b5b5
+      height: 35px
+      width: 70px
+      &.big
+        width: 90px
+
+
+  .list
+    ul
+      li
+        border-bottom: 1px dashed #cfcfcf
+        padding-top: 15px
+        &.titles
+          border: 0
+          .control-group
+            margin: 0
+        &:last-child
+          border: 0
+        .control-group
+          margin-bottom: 15px
+          .left-sec, .right-sec
+            float: left
+          .left-sec
+            width: 150px
+            text-align: center
+            margin-right: 15px
+          .right-sec
+            width: 680px
+          input[type="text"]
+            border: 1px solid #CFCFCF
+            border-radius: 0
+            padding: 10px
+            width: 660px
+          input[type="checkbox"]
+            margin-top: 13px
+
+        label
+          border: 1px solid #CFCFCF
+          padding: 10px 35px 10px 15px
+          display: block
+          
           &:hover, &.checked
             background: #ffffcd
             border-color: #f8f8d1
-          label, input
-            display: block
-            float: left
-          input
-            float: right
-          label
-            width: 310px
-  .customize
-    .expire
-      min-width: 500px
-      background: #e5e5e5
-      border: 1px solid #cecece
-      padding: 7px 10px
-
-      select
-        border: 1px solid #cecece
-        border-radius: none
-        background: #fff
-        color: #b5b5b5
-        height: 35px
-        width: 70px
-        &.big
-          width: 90px
-
-
-    .list
-      ul
-        li
-          border-bottom: 1px dashed #cfcfcf
-          padding-top: 15px
-          &.titles
-            border: 0
-            .control-group
-              margin: 0
-          &:last-child
-            border: 0
-          .control-group
-            margin-bottom: 15px
-            .left-sec, .right-sec
-              float: left
-            .left-sec
-              width: 150px
-              text-align: center
-              margin-right: 15px
-            .right-sec
-              width: 680px
-            input[type="text"]
-              border: 1px solid #CFCFCF
-              border-radius: 0
-              padding: 10px
-              width: 660px
-            input[type="checkbox"]
-              margin-top: 13px
-
-          label
-            border: 1px solid #CFCFCF
-            padding: 10px 35px 10px 15px
-            display: block
-            
-            &:hover, &.checked
-              background: #ffffcd
-              border-color: #f8f8d1
-  .edit
-    .expire-container
-      border-bottom: 1px dashed #cfcfcf
-      padding-bottom: 15px
-    .expire-btn
-      margin-top: 10px
-        
+.edit
+  .expire-container
+    border-bottom: 1px dashed #cfcfcf
+    padding-bottom: 15px
+  .expire-btn
+    margin-top: 10px
+      
