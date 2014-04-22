@@ -16,7 +16,7 @@
       .clr
     .border-bottom-grayLighter.less-padding-all1.padding-lr2
       .span7.first.gray-darker
-        Package Name
+        Package Type
       .span3
         = @plan.name
       .clr
@@ -28,13 +28,13 @@
       .clr
     .border-bottom-grayLighter.less-padding-all1.padding-lr2
       .span7.first.gray-darker
-        Expiry date of the Package
+        Package Expires on
       .span3
         #{hdate(Date.today + @plan.validity_in_months.months)}
       .clr
     .less-padding-all1.padding-lr2
       .span7.first.gray-darker
-        Amount
+        Amount Paid
       .span3
         &#8377;
         = @plan.price

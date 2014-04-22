@@ -15,7 +15,7 @@
     .clr
   .control-group
     %label 
-      Select the Department for which you are creating this Assessment
+      Select the Department (or Function) for which you are creating this Assessment
     %select.first.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       %option{:value => ""}
         Department
@@ -26,7 +26,7 @@
   
   .control-group
     %label 
-      Select Experience Range of the Job Role you are creating this Assessment for
+      Select Experience Range of the Job Role that you are creating this Assessment for
     %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       %option{:value => ""}
         Experience
