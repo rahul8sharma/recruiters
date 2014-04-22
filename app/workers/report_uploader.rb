@@ -26,7 +26,7 @@ class ReportUploader < AbstractController::Base
     patch ||= {}
     begin
       @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
-        :assessment_id => assessment_id,
+        :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :patch => patch,
@@ -81,7 +81,7 @@ class ReportUploader < AbstractController::Base
       feedback_html_save_path = File.join(Rails.root.to_s,'tmp',"feedback_#{html_file_id}")
 
       Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
-        :assessment_id => assessment_id,
+        :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
@@ -99,7 +99,7 @@ class ReportUploader < AbstractController::Base
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
       feedback_html_s3 = upload_file_to_s3(feedback_html_file_id,feedback_html_save_path)
       Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
-        :assessment_id => assessment_id,
+        :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :s3_keys => { :pdf => pdf_s3, :html => html_s3, :feedback => feedback_html_s3 },
@@ -126,7 +126,7 @@ class ReportUploader < AbstractController::Base
         retry
       else
         Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
-          :assessment_id => assessment_id,
+          :custom_assessment_id => assessment_id,
           :candidate_id => candidate_id,
           :company_id => company_id,
           :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::FAILED
@@ -136,7 +136,7 @@ class ReportUploader < AbstractController::Base
         :report => {
           :status => "Failed",
           :company_id => company_id,
-          :assessment_id => assessment_id,
+          :custom_assessment_id => assessment_id,
           :candidate_id => candidate_id,
           :report_id => report_id
         },
