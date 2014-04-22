@@ -52,16 +52,16 @@
           %li.list-snippet.border-bottom-grayLighter
             .divider1
             .span3.first
-              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
                 #{assessment.id}
             .span13
-              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
                 #{assessment.name}
             .span6.text-center
-              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
                 = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
             .span6.text-center
-              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
                 = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
             .clr
             .divider1

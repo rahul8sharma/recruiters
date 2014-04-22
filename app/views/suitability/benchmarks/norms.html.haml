@@ -51,7 +51,7 @@
               //.span2
               //  Critical
           .divider1
-          %ul.unstyled.factor-snippet
+          %ul.factor-snippet
             - norms[:factors].each_with_index do |assessment_factor_norm,index|
               - aindex = aindex + 1
               = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }

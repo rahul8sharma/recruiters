@@ -22,7 +22,7 @@
     %label
       %b= assessment_factor_norm.factor.name
   .pull-right
-    .span7.lhs-border
+    .span7
       %select{name: norm_min_name, index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id

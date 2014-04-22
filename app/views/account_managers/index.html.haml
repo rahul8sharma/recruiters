@@ -2,7 +2,7 @@
 - if can? :create, "AccountManager"
   = link_to "Add Account Managers", new_account_manager_path
   = link_to "Manage Account Managers", manage_account_managers_path    
-%ul.unstyled
+%ul
   - for account_manager in @account_managers do
     %li 
     =	account_manager.email

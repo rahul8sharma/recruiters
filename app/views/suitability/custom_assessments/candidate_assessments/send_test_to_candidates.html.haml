@@ -38,7 +38,7 @@
             .medium-text
               %b Test will be sent to the following candidates:
               (Please uncheck the candidates you don't wish to send the test to)
-            %ul.unstyled.clearfix.candidate-list-to-send
+            %ul.clearfix.candidate-list-to-send
               - params[:candidates].each do |id,candidate_data|
                 -  email = candidate_data[:email]
                 %li

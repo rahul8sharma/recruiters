@@ -2,7 +2,7 @@
   //.company-logo.pull-left
   //  = image_tag("http://placehold.it/36x26")
   .navigation.pull-right.clearfix
-    %ul.unstyled.clearfix
+    %ul.clearfix
       - if current_user.type == "SuperAdmin"
         %li{ class: (["training_requirement_groups"].include?(params[:controller]) ? 'active' : '') }
           %a{:title => "Training Requirements", :href => company_training_requirement_groups_path(@company)}

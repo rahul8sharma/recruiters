@@ -2,7 +2,7 @@
 - if can? :create, "Job"
   = link_to "Post jobs", new_job_path
   = link_to "Manage jobs", manage_jobs_path
-%ul.unstyled
+%ul
   - for job in @jobs do
     %a{:href => job_path(job)}
       %li 

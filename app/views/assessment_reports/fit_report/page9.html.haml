@@ -23,7 +23,7 @@
           Miscellaneous
     .clr
     .divider1
-    %ul.unstyled.clearfix.interview_guide_listing 
+    %ul.clearfix.interview_guide_listing 
       - post_assessment_guidelines.each do |factor_name, guide|
         %li
           - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')

@@ -38,16 +38,16 @@
         %li.list-snippet.border-bottom-grayLighter
           .divider1
           .span2.first
-            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
+            %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
               = training_requirement_group.id
           .span19
-            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
+            %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title =>  training_requirement_group.title}
               = training_requirement_group.title
           .span5.text-center
-            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+            %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
               = training_requirement_group.total_candidates
           .span3.text-center
-            %a.default-color{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
+            %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
               = training_requirement_group.completed_candidates
           .clr
           .divider1
