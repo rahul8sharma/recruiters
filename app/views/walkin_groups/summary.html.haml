@@ -1,12 +1,20 @@
-.inn.first
-  .page-title.pull-left
-    = @walkin_group.title
-.inn.gray-gradient
+.walk-ins-summary
+  .page-title
+    .divider1
+      = @walkin_group.title
+    .divider2
+      
   .pull-left
     .navigation-sub-nav.clearfix.pull-left
-      .menu 1 &nbsp; Create Page             
-      .menu 2 &nbsp; Customize           
-      .menu.active 3 &nbsp; Summary              
+      .menu
+        .count 1 
+        Create Page             
+      .menu
+        .count 2 
+        Customize           
+      .menu.active
+        .count 3 
+        Summary              
   .pull-right
     %span.span.medium-text.line-height2
       Page expires on:   
@@ -26,25 +34,34 @@
       %a{:href => @walkin_group.url, target: "_blank", :title => "URL to access Index page"}
         = @walkin_group.url
     .clr
-  .divider1       
-  .list-snippet-titles.clearfix
+  .divider2 
+
+  .list-snippet-titles.large-text.clearfix
     .span3.first
-      Test ID
+      %a{:href=>"#"}
+        AID
+        %i.icon-chevron-down.small-text.line-height1
     .span18
-      Test Name
+      %a{:href=>"#"}
+        Assessment Name
+        %i.icon-chevron-down.small-text.line-height1
+  .divider1
    
-  %ul.unstyled
+  %ul
     - @assessments.each do |assessment|
       - if @walkin_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
-        %li.list-snippet
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
           .span3.first
-            %a.default-color{:title => "", :href => "#"}
-              = "TEST #{assessment.id}"
-          .span18.lhs-border
-            %a.default-color{:title => "", :href => "#"}
+            %a{:title => "", :href => "#"}
+              =assessment.id
+          .span18
+            %a{:title => "", :href => "#"}
               = assessment.name
+          .clr
+          .divider1
       
-  .pull-right
-    %a.btn.btn-info.medium-text.span{:href => company_walkin_group_path(@company,@walkin_group), :title => "Submit Final List"}
-      Submit
+  .divider2
+  %a.btn.btn-warning.big-text.pull-right{:href => company_walkin_group_path(@company,@walkin_group), :title => "Submit Final List"}
+    Submit
   .clr
