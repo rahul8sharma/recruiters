@@ -93,4 +93,45 @@ label
       color: $default
       i
         color: $color-warning
+.enable-assessment-list
+  margin: auto
+  width: 850px
+  ul
+    height: 335px
+    overflow-y: scroll
+    li
+      padding: 10px 0 10px 0
+      float: left
+
+      &:nth-child(odd)
+        border-right: 1px dashed #cfcfcf
+        margin-right: 20px
+        padding-right: 20px
+
+      &.titles
+        font-size: 14px
+        .control-group
+          border: 0
+          padding-top: 0
+          padding-bottom: 0
+          padding-right: 0
+          width: 367px
+          &:hover
+            background: none
+
+      .control-group
+        border: 1px solid #cfcfcf
+        padding: 10px 35px 10px 15px
+        width: 330px
+
+        &:hover, &.checked
+          background: #ffffcd
+          border-color: #f8f8d1
+        label, input
+          display: block
+          float: left
+        input
+          float: right
+        label
+          width: 310px
 
