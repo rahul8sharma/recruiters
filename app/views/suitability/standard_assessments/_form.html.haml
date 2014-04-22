@@ -37,6 +37,11 @@
       Enter a Title for the Assessment 
     = f.text_field :name, :class => "first span17", :placeholder => "(e.g. Senior Marketing Manager)"
     .clr
+  .control-group
+    %label
+      Enter Sample Report Url
+    %input{:class => "first span17", :placeholder => "URL of the Sample PDF Report", name: "assessment[report_urls][pdf]"}
+    .clr
   .clr
   .divider2
   .action
