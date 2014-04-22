@@ -15,7 +15,7 @@
         Less Favorable
     .clr
     .divider1
-    %ul.unstyled.clearfix.interview_guide_listing 
+    %ul.clearfix.interview_guide_listing 
       - guidelines_for_candidate_manager.each do |factor_name, guide|
         %li
           - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')

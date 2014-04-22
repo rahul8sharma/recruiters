@@ -40,7 +40,7 @@
           Miscellaneous Factors that can also be measured
           = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
       .factors
-        %ul.unstyled.factor-snippet
+        %ul.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
             = render :partial => 'assessment_direct_predictor_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
       .divider2
