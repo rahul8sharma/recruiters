@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def forgot_password
-    
   end
   
   # redenr companies layout and header if user belongs to a company
@@ -30,11 +29,12 @@ class UsersController < ApplicationController
     end      
   end
   
+  def link_sent
+  end
+  
   # Refering to https://github.com/plataformatec/devise/issues/1955
   # devise doesn't check for blank new password
   # the workaround is to check the password in the params and render error if password is left blank
-  def link_sent
-  end
   def update_password_settings
     if params[:user][:password].blank?
       flash[:error] = "Password can't be blank."
@@ -54,8 +54,7 @@ class UsersController < ApplicationController
   def send_reset_password
     @user = Vger::Resources::User.send_reset_password_instructions(params[:user])
     if @user.error_messages && @user.error_messages.empty?
-      flash[:notice] = "Instructions to reset your password have been sent to #{params[:user][:email]}"
-      redirect_to login_path
+      render :action => :link_sent
     else
       flash[:error] = @user.error_messages.join("<br/>").html_safe
       redirect_to forgot_password_path

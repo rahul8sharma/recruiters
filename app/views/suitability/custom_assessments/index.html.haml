@@ -18,27 +18,19 @@
   - if @assessments.present?    
     .list-snippet-titles.large-text.clearfix
       .span2.first
-        %a{:href=>"#"}
-          AID
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "AID", company_custom_assessments_path(:company_id => params[:company_id]), :id, params[:search]
       .span4
-        %a{:href=>"#"}
-          Created On 
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "Created On", company_custom_assessments_path(:company_id => params[:company_id]), :created_at, params[:search]
       .span8
-        %a{:href=>"#"}
-          Assessment Title
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "Assessment Title", company_custom_assessments_path(:company_id => params[:company_id]), :name, params[:search]
       .span4
         View Details
       .span4
         %a{:href=>"#"}
           Completed by
-          %i.icon-chevron-down.small-text.line-height1
       .span3
         %a{:href=>"#"}
           Sent to 
-          %i.icon-chevron-down.small-text.line-height1
       .span5
         Send Assessment 
       .clr
@@ -78,7 +70,7 @@
           Go to Page
         %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
           - @assessments.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value:company_custom_assessments_path(@company, :page => page + 1), }
+            %option{selected: params[:page].to_i == (page + 1), value: company_custom_assessments_path(@company, params.merge(:page => page + 1)), }
               = page + 1
         .clr
-    .clr    
+    .clr

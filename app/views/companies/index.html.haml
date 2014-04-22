@@ -9,20 +9,16 @@
           Go to Page
         %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
           - @companies.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value:companies_path(@company, :page => page + 1), }
+            %option{selected: params[:page].to_i == (page + 1),value:companies_path(@company, params.merge(:page => page + 1)), }
               = page + 1
         .clr
   .clr
   .divider2
   .list-snippet-titles.large-text.clearfix
     .span3.first
-      %a{href: "#"}
-        EMP
-        %i.icon-chevron-down.small-text.line-height1
+      = sort_link "EMP", companies_path, "company_code::int", params[:search]
     .span20
-      %a{href: "#"}
-        Company Title
-        %i.icon-chevron-down.small-text.line-height1
+      = sort_link "Company Title", companies_path, :name, params[:search]
     .span4.text-center
       Test bought
     .span3
@@ -53,7 +49,7 @@
           Go to Page
         %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
           - @companies.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value:companies_path(@company, :page => page + 1), }
+            %option{selected: params[:page].to_i == (page + 1), value: companies_path(@company, params.merge(:page => page + 1)), }
               = page + 1
         .clr
   .clr 

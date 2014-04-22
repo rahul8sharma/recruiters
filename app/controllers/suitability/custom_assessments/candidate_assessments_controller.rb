@@ -207,6 +207,28 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
   
+  def reports
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+    end
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => @assessment.id,
+      :joins => [:candidate_assessment_reports, :candidate],
+      :include => [:candidate_assessment_reports, :candidate],
+      :query_options => {
+        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+      },
+      :order => order,
+      :page => params[:page],
+      :per=>10
+    ).all
+  end
+  
   # GET : renders candidate info for selected assessment
   def candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])

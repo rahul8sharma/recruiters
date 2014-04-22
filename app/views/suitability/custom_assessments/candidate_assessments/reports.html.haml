@@ -12,36 +12,18 @@
   = render :partial => "shared/candidate-content-sub-nav"
   .clr
   .padding-all2.border-warning.shifted-up1
-    
-    / .filter-status.pull-right
-    /   = form_for :search, url: candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
-    /     - params[:search] ||= {}
-    /     .medium-text.muted.line-height2.pull-left Show Assessment takers with Status
-    /     %select.span3{name: "search[status]"}
-    /       - test_statuses.each do |status,name|  
-    /         %option{ value: status, selected: (params[:search][:status] == status) }
-    /           = name
-    /     .clr
-    / .clr
-    /.divider2
     .list-snippet-titles.large-text.clearfix
       .span3.first
-        %a{:href => "#", :title => ""}
-          ATID 
-          %i.icon-chevron-down.small-text.line-height1 
+        = sort_link "ATID", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
       .span8
-        %a{:href => "#", :title => ""}
-          Assessment Taker 
-          %i.icon-chevron-down.small-text.line-height1 
+        = sort_link "Assessment Taker", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span10
         %a{:href => "#", :title => ""}
           Assessment Status 
-          %i.icon-chevron-down.small-text.line-height1 
-        
       .clr
       .divider1
     %ul.unstyled
-      -@candidate_assessments.each do |candidate_assessment|
+      - @candidate_assessments.each do |candidate_assessment|
         %li.list-snippet
           .divider1
             - candidate_profile_url =  candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate_assessment.candidate_id)
