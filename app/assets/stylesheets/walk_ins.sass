@@ -8,7 +8,8 @@
   .menu
     width: auto
     padding-right: 130px
-.customize
+
+.walk-ins-customize, .walk-ins-edit
   .expire
     min-width: 500px
     background: #e5e5e5
@@ -16,9 +17,6 @@
     padding: 7px 10px
 
     select
-      border: 1px solid #cecece
-      border-radius: none
-      background: #fff
       color: #b5b5b5
       height: 35px
       width: 70px
@@ -38,35 +36,22 @@
         &:last-child
           border: 0
         .control-group
-          margin-bottom: 15px
-          .left-sec, .right-sec
-            float: left
-          .left-sec
-            width: 150px
-            text-align: center
-            margin-right: 15px
-          .right-sec
-            width: 680px
-          input[type="text"]
-            border: 1px solid #CFCFCF
-            border-radius: 0
-            padding: 10px
-            width: 660px
           input[type="checkbox"]
             margin-top: 13px
 
         label
           border: 1px solid #CFCFCF
-          padding: 10px 35px 10px 15px
+          padding: 10px
           display: block
+          width: 96%
+          font-size: 16px
           
           &:hover, &.checked
             background: #ffffcd
             border-color: #f8f8d1
-.edit
+  .checked label, label.checked
+    color: #484848
+.walk-ins-edit
   .expire-container
     border-bottom: 1px dashed #cfcfcf
     padding-bottom: 15px
-  .expire-btn
-    margin-top: 10px
-      
