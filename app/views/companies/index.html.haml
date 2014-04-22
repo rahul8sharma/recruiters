@@ -16,7 +16,7 @@
   .divider2
   .list-snippet-titles.large-text.clearfix
     .span3.first
-      = sort_link "EMP", companies_path, :id, params[:search]
+      = sort_link "EMP", companies_path, "company_code::int", params[:search]
     .span20
       = sort_link "Company Title", companies_path, :name, params[:search]
     .span4.text-center
@@ -31,7 +31,7 @@
         .divider1
         .span3.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
-            = company.id
+            = company.company_code
         .span20
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.name
