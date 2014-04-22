@@ -26,8 +26,9 @@
       %a.extra-medium-text.line-height3{:href => company_walkin_group_path(@company, @walkin_group), :title => "Cancel"}
         Cancel
       %input.btn.btn-warning.big-text.left-offset1{:type => "Submit", :title => "Update", :name => "Update", value: "Update"}
+    .divider1
     .enable-assessment-list
-      %ul.unstyled.clearfix
+      %ul.clearfix
         %li.titles
           .control-group.extra-medium-text
             .span5.text-center.first
@@ -39,8 +40,8 @@
         - @assessments.each do |assessment|
           %li
             -# add class ".checked" to "<label>" when user clicks on checkbox/label
+            .divider1
             .control-group
-              .divider1
               .span5.first.text-center
                 %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: @walkin_group.assessment_hash["#{assessment.id}"]['enabled']}
                 %input{:type => "checkbox", :class => "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", id: "chk_assessment_#{assessment.id}", checked: @walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
