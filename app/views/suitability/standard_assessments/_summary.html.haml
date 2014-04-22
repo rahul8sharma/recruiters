@@ -3,6 +3,9 @@
     .divider1
     AID #{standard_assessment.id} - #{standard_assessment.name}
   .clr
+  - if(@company)
+    %a.btn.btn-warning.big-text.pull-right{:href => send_test_company_standard_assessment_path(@company,standard_assessment)}
+      Send Assessment
   .divider2
   = render :partial => "shared/candidate-content-standard-sub-nav"
 
