@@ -83,7 +83,9 @@ class Companies::PlansController < ApplicationController
       http = Net::HTTP.new(uri.host, uri.port)
         
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      
+      unless Rails.env.production?
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       request = Net::HTTP::Post.new(uri.request_uri)
       request.set_form_data(payment_params)
@@ -94,6 +96,8 @@ class Companies::PlansController < ApplicationController
       case (response.code.to_i)
         when 302
           redirect_to response["location"]
+        else
+          redirect_to request.env['HTTP_REFERER']
       end
     end
 end
