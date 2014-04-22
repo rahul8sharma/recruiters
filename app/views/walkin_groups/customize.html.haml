@@ -2,61 +2,67 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-.customize
+.walk-ins-customize
   = form_for :walkin_group, url: customize_company_walkin_group_path(@company, @walkin_group), method: :put do |f|
-    .inn.first
-      .page-title.pull-left
-        = @walkin_group.title
-    .inn.gray-gradient
-      .pull-left
-        .navigation-sub-nav.clearfix.pull-left
-          .menu 1 &nbsp; Create Page             
-          .menu.active 2 &nbsp; Customize           
-          .menu 3 &nbsp; Summary              
-      .pull-right
-        %input.btn.btn-info.medium-text.span{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
-      .clr
-
+    .page-title
       .divider1
+      = @walkin_group.title
+    .divider1
+
+    .navigation-sub-nav.clearfix.pull-left
+      .menu 
+        .count 1 
+        Create Page             
+      .menu 
+        .count 2  
+        Customize           
+      .menu 
+        .count 3 
+        Summary   
     
-      .expire
-        %b.show.line-height2.medium-text.pull-left
-          Expire page on (Date and Time): 
-          &nbsp;
-        = f.datetime_select :expires_on,  prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose year'}
-        .clr
-      .divider1
+    %input.btn.btn-warning.big-text.pull-right{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
+    .clr
 
-      .list
-        %ul.unstyled.clearfix
-          %li.titles
+    .divider2
+  
+    .expire
+      %b.show.line-height2.medium-text.pull-left
+        Expire page on (Date and Time): 
+        &nbsp;
+      = f.datetime_select :expires_on,  prompt: {day: 'Choose day', month: 'Choose month', year: 'Choose year'}
+      .clr
+    .divider1
+
+    .enable-assessment-list
+      %ul.clearfix
+        %li.titles
+          .control-group.extra-medium-text
+            .span5.text-center.first
+              %b Included
+            .span25
+              %b Selected Assessments
+            .clr  
+        - @assessments.each do |assessment|
+          %li
+            .divider1
             .control-group
-              .left-sec
-                %b Included
-              .right-sec
-                %b Selected Tests
-              .clr  
-          - @assessments.each do |assessment|
-            %li
-              -# add class ".checked" to "<label>" when user clicks on checkbox/label
-              .control-group
-                .left-sec
-                  %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: @walkin_group.assessment_hash["#{assessment.id}"]['enabled']}
-                  %input{:type => "checkbox", id: "chk_assessment_#{assessment.id}", class: "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", value: assessment.id, checked: @walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
-                .right-sec
-                  %label.checked{ id: "label_assessment_#{assessment.id}", for: "chk_assessment_#{assessment.id}" }
-                    = assessment.name
-                .clr
-              .control-group
-                .left-sec.line-height2
-                  Display Name (Optional):
-                .right-sec
-                  %input{:type => "hidden", name: "walkin_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
-                  %input{:type => "text", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Test. This name is displayed on the Index Page. If left blank, existing test title will be shown.", value: @walkin_group.assessment_hash["#{assessment.id}"]["display_text"]}
+              .span5.text-center.first
+                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: @walkin_group.assessment_hash["#{assessment.id}"]['enabled']}
+                %input{:type => "checkbox", id: "chk_assessment_#{assessment.id}", class: "assessment_checkbox", toggle_element: "#label_assessment_#{assessment.id}", value: assessment.id, checked: @walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true", assessment_id: assessment.id}
+              .span25
+                %label.checked{ id: "label_assessment_#{assessment.id}", for: "chk_assessment_#{assessment.id}" }
+                  = assessment.name
+              .clr
+            .control-group
+              .span5.medium-text.line-height2.first.text-
+                Display Name (Optional):
+              .span25
+                %input{:type => "hidden", name: "walkin_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
+                %input.fw{:type => "text", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Assessment. This name is displayed on the Index Page. If left blank, existing assessment title will be shown.", value: @walkin_group.assessment_hash["#{assessment.id}"]["display_text"]}
 
-                .clr
-        .pull-right
-          %input.btn.btn-info.medium-text.span{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
-        .clr
+              .clr
+      .divider2
+      %input.btn.btn-warning.big-text.pull-right{:type => "Submit", name: "Proceed", value: "Proceed", :title => "Proceed"}
+      .clr
         
 = javascript_include_tag "walk_ins"
