@@ -1,20 +1,16 @@
-.inn.first
+.walk-in-details
   .page-title.pull-left
+    .divider1
     = @walkin_group.title
-.inn.gray-gradient
-  .pull-left
-    .content-sub-nav.clearfix
-      %a.menu{:title => "Candidates", :href => company_walkin_group_path(@company, @walkin_group), :class => "active"}
-        Summary
-  .pull-right
-    %span.span.medium-text.line-height2
-      Page expires on:   
-      %b #{ htime @walkin_group.expires_on } hrs
-      %b 
-        \|  
-      %b #{ hdate @walkin_group.expires_on }
-    %a.btn.btn-info.medium-text.span{:href => edit_company_walkin_group_path(@company, @walkin_group), :title => "Edit Walk-In List"}
-      Edit
+  
+  %a.btn.btn-warning.pull-right.big-text.big.span{:href => edit_company_walkin_group_path(@company, @walkin_group), :title => "Edit Walk-In List"}
+    Edit
+  %span.extra-medium-text.pull-right.line-height3
+    Page expires on:   
+    %b #{ htime @walkin_group.expires_on } hrs
+    %b 
+      \|  
+    %b #{ hdate @walkin_group.expires_on }
   .clr
 
   .divider1
@@ -26,33 +22,46 @@
       %a{:href => @walkin_group.url, target: "_blank", :title => "URL to access Index page"}
         = @walkin_group.url
     .clr
-  .divider1       
-  .list-snippet-titles.clearfix
-    .span3.first
-      Test ID
-    .span13
-      Test Name
-    .span3
-      Tests Sent
-    .span
-      Tests Answered
-  %ul.unstyled
-    - @assessments.each do |assessment|
-      - if @walkin_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
-        %li.list-snippet
-          .span3.first
-            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
-              Test #{assessment.id}
-          .span13.lhs-border
-            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
-              #{assessment.name}
-          .span3.lhs-border
-            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
-              = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-          .span.lhs-border
-            %a.default-color{:title => "", :href => company_assessment_path(@company, assessment)}
-              = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
-  .pull-right
-    %a.btn.btn-info.medium-text.span{:href => edit_company_walkin_group_path(@company, @walkin_group), :title => "Edit Walk-In List"}
-      Edit
-  .clr
+  .divider2    
+  .content-sub-nav.clearfix
+    %a.menu{:title => "Candidates", :href => company_walkin_group_path(@company, @walkin_group), :class => "active"}
+      Summary   
+  .padding-all2.border-warning.shifted-up1
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        %a{:href=>"#"}
+          AID
+          %i.icon-chevron-down.small-text.line-height1
+      .span13
+        %a{:href=>"#"}
+          Assessment Name
+          %i.icon-chevron-down.small-text.line-height1
+      .span6.text-center
+        %a{:href=>"#"}
+          Assessments Sent
+          %i.icon-chevron-down.small-text.line-height1
+      .span6.text-center
+        %a{:href=>"#"}
+          Assessments Answered
+          %i.icon-chevron-down.small-text.line-height1
+      .clr
+    .divider1
+    %ul
+      - @assessments.each do |assessment|
+        - if @walkin_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
+          %li.list-snippet.border-bottom-grayLighter
+            .divider1
+            .span3.first
+              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+                #{assessment.id}
+            .span13
+              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+                #{assessment.name}
+            .span6.text-center
+              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+                = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+            .span6.text-center
+              %a.default-color{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+                = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
+            .clr
+            .divider1
