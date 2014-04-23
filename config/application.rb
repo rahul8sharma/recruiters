@@ -79,7 +79,7 @@ module Recruiters
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
     config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))
     
-    config.traits_range = YAML.load(File.read(Rails.root.join("config/validation.yml")))
+    config.validators = YAML.load(File.read(Rails.root.join("config/validation.yml")))
     
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'    

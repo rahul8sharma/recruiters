@@ -15,8 +15,8 @@
 
 jQuery(document).ready(function($) {
 
-    var traits_min = <%= Rails.application.config.traits_range["traits_range"]["min"] %>
-    var traits_max = <%= Rails.application.config.traits_range["traits_range"]["max"] %>
+    var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
+    var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
 
     console.log(traits_min)
     console.log(traits_max)

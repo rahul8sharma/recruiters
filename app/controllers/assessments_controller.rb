@@ -44,8 +44,8 @@ class AssessmentsController < ApplicationController
       end
     elsif request.put?
       
-      traits_range_min = Rails.application.config.traits_range["traits_range"]["min"]
-      traits_range_max = Rails.application.config.traits_range["traits_range"]["max"]
+      traits_range_min = Rails.application.config.validators["traits_range"]["min"]
+      traits_range_max = Rails.application.config.validators["traits_range"]["max"]
       
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].keys.size
       
