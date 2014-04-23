@@ -30,11 +30,11 @@ module Recruiters
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-    
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
-    
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
@@ -58,22 +58,23 @@ module Recruiters
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
-    
+
     # assets_precompile_enforcer module copied from https://github.com/ndbroadbent/assets_precompile_enforcer
     require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
     config.assets.original_precompile = config.assets.precompile.dup
     config.to_prepare { load 'config/assets_precompile.rb' }
     config.watchable_files << 'config/assets_precompile.rb'
     config.assets.enforce_precompile = true
-    
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
+    config.payments = YAML::load(File.open("#{Rails.root.to_s}/config/payments.yml"))
     config.reports = YAML::load(File.open("#{Rails.root.to_s}/config/reports.yml"))
     config.default_set = YAML::load(File.open("#{Rails.root.to_s}/config/default_set.yml"))["default_set"]
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
@@ -82,13 +83,13 @@ module Recruiters
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
-    
+
     hosts = YAML::load(File.open("#{Rails.root.to_s}/config/hosts.yml"))[Rails.env.to_s]
     config.action_mailer.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'] }
     config.action_controller.asset_host = "http://#{hosts['action_controller']['asset_host']}"
-    
+
     config.statistics = YAML::load(File.open("#{Rails.root.to_s}/config/statistics.yml"))["statistics"].symbolize_keys
-    
+
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
