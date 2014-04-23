@@ -43,20 +43,8 @@ class AssessmentsController < ApplicationController
         @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       end
     elsif request.put?
-      
-      traits_range_min = Rails.application.config.validators["traits_range"]["min"]
-      traits_range_max = Rails.application.config.validators["traits_range"]["max"]
-      
-      selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].keys.size
-      
-      if selected_traits_size >= traits_range_min && selected_traits_size <= traits_range_max
-        store_assessment_factor_norms
-        create_or_update_set
-      else
-        flash[:alert] = "Select traits within the range of #{traits_range_min} to #{traits_range_max}"
-        render :action => :norms
-      end
-    
+      store_assessment_factor_norms
+      create_or_update_set    
     end
   end
   
