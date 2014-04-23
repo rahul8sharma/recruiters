@@ -58,7 +58,7 @@ module Recruiters
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
-    
+    config.validators = YAML.load(File.read(Rails.root.join("config/validation.yml")))
     # assets_precompile_enforcer module copied from https://github.com/ndbroadbent/assets_precompile_enforcer
     require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
     config.assets.original_precompile = config.assets.precompile.dup
@@ -79,7 +79,7 @@ module Recruiters
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
     config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))
     
-    config.validators = YAML.load(File.read(Rails.root.join("config/validation.yml")))
+    
     
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'    
