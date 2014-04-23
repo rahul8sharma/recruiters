@@ -14,13 +14,8 @@
 */
 
 jQuery(document).ready(function($) {
-
-    var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
-    var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
-
     $("input[name='selected_factor']").removeAttr("disabled");
     $("input[name='selected_factor']").change(function() {
-        $("#trait_flag").attr('hidden', 'hidden');
         var index = $(this).attr("index");
         if ($(this).is(":checked")) {
             $("input:not(:checkbox)[index='" + index + "']").removeAttr("disabled");
@@ -43,17 +38,6 @@ jQuery(document).ready(function($) {
     /*
     Disable proceed btn on submit to avoid multiple post requests
   */
-    $('#edit_assessment').submit(function() {
-        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min) && $('input[name=selected_factor]:checked').length <= parseInt(traits_max)) {
-            $('#edit_assessment button').attr("disabled", "disabled");
-            return true;
-        } else {
-            $("#trait_flag").removeAttr('hidden');
-            return false;
-        }
-
-
-    });
 
     $("input[name='checkbox_critical']").change(function() {
         var index = $(this).attr("index");

@@ -58,3 +58,18 @@
     .divider1
 
 = javascript_include_tag 'norms'
+
+:javascript
+
+  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
+  var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
+
+    $('#edit_assessment').submit(function() {
+        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min) && $('input[name=selected_factor]:checked').length <= parseInt(traits_max)) {
+            $('#edit_assessment button').attr("disabled", "disabled");
+            return true;
+        } else {
+            $("#trait_flag").removeAttr('hidden');
+            return false;
+        }
+    });
