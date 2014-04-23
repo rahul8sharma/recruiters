@@ -43,8 +43,9 @@
                 -  email = candidate_data[:email]
                 %li
                   %label{ class: "font-normal" }
-                    %input{:type => "checkbox", name: "candidates[#{candidate_data[:id]}]", checked: true}
-                    %input{:type => "hidden", name: "candidate_names[#{id}][name]", value: params[:candidates][id][:name]}
+                    %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
+                    %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
+                    %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true}
                     #{params[:candidates][id][:name]} &lt;#{email}&gt;
             %label.pull-left.invitation-sms.medium-text
               Also send test invitations to candidates via SMS
