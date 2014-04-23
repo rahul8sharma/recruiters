@@ -3,9 +3,9 @@ require "uri"
 
 class Companies::PlansController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :get_plan
-  before_filter :get_company
-  before_filter :get_countries
+  before_filter :get_plan, :except => [:payment_status]
+  before_filter :get_company, :except => [:payment_status]
+  before_filter :get_countries, :except => [:payment_status]
 
 
   layout "companies"
