@@ -37,16 +37,16 @@ class AssessmentsController < ApplicationController
   # PUT : updates assessment and renders styles
   def norms
     get_norms
+    
     if request.get?
       if params[:assessment]
         @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       end
-    elsif request.put?  
+    elsif request.put?
       store_assessment_factor_norms
-      create_or_update_set
+      create_or_update_set    
     end
   end
-  
   
   
   # GET /assessments/new
