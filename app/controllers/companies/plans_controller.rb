@@ -30,6 +30,7 @@ class Companies::PlansController < ApplicationController
       get_company
       process_payment
     else
+      flash[:alert] = company.error_messages.join("<br/>").html_safe
       render :action => :contact
     end
   end
@@ -87,15 +88,15 @@ class Companies::PlansController < ApplicationController
       unless Rails.env.production?
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-      request = Net::HTTP::Post.new(uri.request_uri)
-      request.set_form_data(payment_params)
-      response = http.request(request)
+      post_request = Net::HTTP::Post.new(uri.request_uri)
+      post_request.set_form_data(payment_params)
+      post_response = http.request(post_request)
       
-      Rails.logger.debug(response.code)
+      Rails.logger.debug(post_response.code)
 
-      case (response.code.to_i)
+      case (post_response.code.to_i)
         when 302
-          redirect_to response["location"]
+          redirect_to post_response["location"]
         else
           redirect_to request.env['HTTP_REFERER']
       end
