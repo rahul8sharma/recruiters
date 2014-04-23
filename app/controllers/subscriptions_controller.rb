@@ -13,11 +13,14 @@ class SubscriptionsController < MasterDataController
   def payment_status
     subscription_data = {}
     if params[:order_status] == "Success"
+      # Retrieve the plan from merchant_param1
+      plan = Vger::Resources::Plan.find(params[:merchant_param1])
+
       subscription_data[:company_id] = params[:merchant_param3]
-      subscription_data[:assessments_purchased] = params[:merchant_param1]
+      subscription_data[:assessments_purchased] = plan.no_of_assessments
       subscription_data[:price] = params[:amount]
       subscription_data[:valid_from] = Time.now.strftime("%Y-%m-%d")
-      subscription_data[:valid_to] = params[:merchant_param2]
+      subscription_data[:valid_to] = (Date.today + plan.validity_in_months.months)
       subscription_data[:order_id] = params[:order_id]
       job_id = Vger::Resources::Subscription.create(subscription_data)
       render :status => :ok, :json => { :job_id => job_id }
