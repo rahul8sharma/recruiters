@@ -1,3 +1,58 @@
+@import toolkit/component/buttons
+.process_explanation
+  .thumb_holder
+    padding: 60px 10px
+    
+    &:hover
+      @for $i from 0 through 5
+        .thumb0#{$i}
+          background-position: -204px $i * - 105px - (1)
+      
+      [class*=content]
+        display: block
+
+      .down_carret
+        display: block
+
+    .down_carret
+      background: image-url("help/process_explanation/down_carret.png") no-repeat center center 
+      width: 55px
+      height: 30px
+      position: absolute
+      left: 70px
+      bottom: 30px
+      top: 128px
+      display: none
+
+    [class*=thumb]
+      background: image-url("help/process_explanation/process_explanation_thumbs.png") no-repeat 
+      width: 194px
+      height: 95px
+      cursor: pointer
+      position: relative
+
+
+    @for $i from 0 through 5
+      .thumb0#{$i}
+        background-position: 0 $i * - 105px - (1)
+
+    
+
+    @for $i from 0 through 5
+      .content0#{$i}
+        background: image-url("help/process_explanation/process_explanation_thumbs_0#{$i}.png") center center no-repeat
+        left: $i * - 218px - 60 
+    [class*=content]
+      height: 455px
+      width: 1017px
+      padding: 36px 90px
+      border: 1px solid $color-warning
+      border-radius: 5px
+      position: absolute
+      bottom: -590px
+      display: none
+      background-color: #fff
+
 .test_flow_intructions  
   padding: 18px 35px
   .section-title
