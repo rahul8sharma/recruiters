@@ -18,11 +18,9 @@ jQuery(document).ready(function($) {
     var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
     var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
 
-    console.log(traits_min)
-    console.log(traits_max)
-
     $("input[name='selected_factor']").removeAttr("disabled");
     $("input[name='selected_factor']").change(function() {
+        $("#trait_flag").attr('hidden', 'hidden');
         var index = $(this).attr("index");
         if ($(this).is(":checked")) {
             $("input:not(:checkbox)[index='" + index + "']").removeAttr("disabled");
