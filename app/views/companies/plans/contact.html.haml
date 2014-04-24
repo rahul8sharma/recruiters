@@ -13,7 +13,9 @@
       Following contact information is required by our Payment Partner to enable a purchase
     .divider2
     = form_for @company, :as => :company, :url => upgrade_subscription_company_path(@company, @plan), :html => { :class => "text-right"}  do |f|
-      = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
+      = f.hidden_field :hq_location_id, :id => "input_hq_location_id"      
+      - state_id = @hq_location ? @hq_location.parent_id : {}
+      %input{:type => "hidden", :name => "state_id", :value => state_id}      
       .control-group
         %label.span7.big-text.line-height2.gray-darker
           Company Address
@@ -27,7 +29,7 @@
       .control-group
         %label.span7.big-text.line-height2.gray-darker
           State
-        = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state" , :class => 'medium-text span7 left-offset1', required: true}
+        = f.select :state,{}, { :prompt => "Select State" }, { :id => "select_state" , :class => 'medium-text span7 left-offset1', required: true}
         .clr
       .control-group
         %label.span7.big-text.line-height2.gray-darker
