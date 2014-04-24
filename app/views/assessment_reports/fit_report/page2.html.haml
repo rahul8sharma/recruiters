@@ -7,9 +7,9 @@
     .instruction_container
       .instructions
         .instruction1.pull-left
-          Favorable: Traits 
+          Favorable Traits 
         .instruction2.less_favorable.pull-left
-          Less Favorable: Traits
+          Less Favorable Traits
         .clr
     .divider2
     .factors_container
@@ -25,3 +25,6 @@
         /   %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
         /     .wrapper{:style=>"margin-top: #{margin}px;"}
         /       = factor_name.gsub(" ","<br/>").html_safe
+      
+      %p.bottom-sec
+        Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
