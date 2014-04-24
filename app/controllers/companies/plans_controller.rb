@@ -6,7 +6,7 @@ class Companies::PlansController < ApplicationController
   before_filter :get_plan, :except => [:payment_status]
   before_filter :get_company
   before_filter :get_countries, :only => [:contact]
-  before_filter :get_hq_location
+  before_filter :get_hq_location, :only => [:contact]
 
 
   layout "companies"
