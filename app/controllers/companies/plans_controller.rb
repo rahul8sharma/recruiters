@@ -6,6 +6,7 @@ class Companies::PlansController < ApplicationController
   before_filter :get_plan, :except => [:payment_status]
   before_filter :get_company
   before_filter :get_countries, :only => [:contact]
+  before_filter :get_hq_location
 
 
   layout "companies"
@@ -68,6 +69,12 @@ class Companies::PlansController < ApplicationController
 
   def get_countries
     @countries =  Vger::Resources::Location.where(:query_options => { :location_type => "country" }).all.collect{|location| [location.name,location.id] }
+  end
+
+  def get_hq_location
+    if @company.hq_location_id?
+      @hq_location = Vger::Resources::Location.find(@company.hq_location_id, :include => [:parent])
+    end
   end
 
   def process_payment
