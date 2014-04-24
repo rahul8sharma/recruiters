@@ -1,0 +1,4 @@
+- @plans.each do |plan|
+  %br
+  %a{href: review_plan_company_path(params[:id], plan.id), title: "Buy"}
+    = plan.name
