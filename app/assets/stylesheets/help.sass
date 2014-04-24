@@ -31,17 +31,15 @@
       cursor: pointer
       position: relative
 
-
     @for $i from 0 through 5
       .thumb0#{$i}
-        background-position: 0 $i * - 105px - (1)
-
-    
+        background-position: 0 $i * - 105px - (1)    
 
     @for $i from 0 through 5
       .content0#{$i}
         background: image-url("help/process_explanation/process_explanation_thumbs_0#{$i}.png") center center no-repeat
-        left: $i * - 218px - 60 
+        left: $i * - 214px - 70 
+
     [class*=content]
       height: 455px
       width: 1017px

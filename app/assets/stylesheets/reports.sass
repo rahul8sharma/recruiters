@@ -67,18 +67,6 @@ body
     font-weight: bold
     color: #0c315e
     margin-bottom: 15px 
-  .responses
-    font-size: 19.5px
-    font-weight: bold
-    color: #484848
-    [class^="icon-"], [class*=" icon-"]
-      margin-right: 5px
-    .icon-spinner
-      display: inline-block
-    .score 
-      color: #042956
-    .blocks
-      margin-bottom: 10px
   .header
     background: image-url('report/blue-texture.png')
     padding: 15px 0 15px 30px 
@@ -115,251 +103,124 @@ body
   .overall_report
     padding: 18px 40px
     padding-right: 40px
-    .LieDetector
-      border: 1px solid #103543
-      margin: 0 auto 0 auto
-      padding: 10px 20px 10px 45px
-      background: image-url('report/lie-detector.png') no-repeat 10px center
-      p
-        font-size: 9px
-        color: #3a3a3a
-        b
-          color: #282828
-          font-size: 10px
-          span
-            color: #002836
     .visual
-      height: 520px
-      background: image-url('report/overall_hexagon_visual.png') no-repeat right top
-      position: relative
-
-    [class*="strength_"], [class*="title_"]
-      position: absolute
-      color: #002552
-      text-align: center
-      font-weight: bold
-    [class*="strength_"]
-      font-size: 17px
-      width: 82px
-    [class*="title_"]
-      font-size: 22px
-      width: 170px
-      text-align: right
-    .strength_job
-      left: 443px
-      top: 237px
-    .strength_team
-      left: 535px
-      top: 290px
-    .strength_company
-      left: 535px
-      top: 176px
-    .title_company
-      left: 300px
-      top: 53px
-    .title_job
-      left: 85px
-      top: 298px
-    .title_team
-      left: 328px
-      top: 435px
+      background: image-url('report/home_page_bg.png') no-repeat center center
+    .logo
+      width: 95px
+      height: 25px
+      background: image-url('report/logo.png') no-repeat center center
       
     .heading
       background: image-url('report/blue-texture.png')
-      margin: 0 0 90px -40px
       padding: 24px 45px
-      width: 535px
       color: #fff
       font-size: 17px 
       line-height: 25px
-      .user_name
-        font-size: 22px
-        font-weight: bold
-        line-height: 40px
-      .big-text
-        font-size: 30px
-        font-weight: bold
-        line-height: 30px
-    .logo
-      width: 135px
-      height: 35px
-      background: image-url('report/logo.png') no-repeat center center
-      margin-bottom: 75px
+      &.fw
+        width: 760px
     .sub-heading
       font-weight: bold
       color: #fff
       text-shadow: 1px 1px 1px #283d06
       background: image-url('report/orange-texture.png')
-      padding: 15px 10px 15px 35px
+      padding: 18px
       margin-bottom: 20px
       &.large-text
         font-size: 25px
       &.medium-text
         font-size: 20px
+      &.fw
+        width: 814px
 
   .blue_bg_heading
     background: #1db3c4
-    padding: 18px 12px
     color: #fff
-    font-size: 24px
-    margin-bottom: 15px
-  .blue_bg_heading.iconic
-    position: relative
-    max-width: 570px
-    padding: 20px 100px 20px 50px
-    line-height: 30px
-    .thumbnails 
-      position: absolute
-      left: 90%
-      top: -2px
-      width: 165px
-      height: 140px
-      background: image-url("report/hexagon-thumbnails.png") no-repeat
-      [class*="thumbnails_inn"]
-        background: image-url("report/thumbnails-inn.png") no-repeat center 21px
-        height: 140px
-      .thumbnails_inn2
-        background-position: center -133px
-      .thumbnails_inn3
-        background-position: center -281px
+    padding: 7px
 
   .factor_fit
     .instruction_container
-      position: relative
       .instructions  
-        position: absolute
         [class*=instruction]
-          padding: 10px 70px
+          padding: 5px 25px 5px 50px
           color: #969696
           font-weight: bold
           margin-bottom: 10px
-          font-size: 17px
           background: image-url("report/hexagon-small.png") no-repeat
         .instruction2
-          background-position: 0px -59px
-    .bottom_sec
-      margin: 0px 0 0 503px 
-      position: relative
-      [class*="title_"], [class*="strength_"]
-        position: absolute
-        color: #fff
-        font-size: 10.7px
-        font-weight: bold
-      [class*="strength_"]
-        top: 80px
-        width: 55px
-        text-align: center
-        color: #b6b6b6
-      [class*="title_"]
-        font-size: 12px
-      .title_1 
-        font-size: 17px
-        left: 7px
-        top: 118px
-        width: 128px
-        text-align: center
-      .strength_1
-        font-size: 13.5px
-        color: #082d5a
-        left: 69px
-        top: 178px
-      .title_2
-        left: 38px
-        top: 290px
-        width: 100px
-        text-align: center
-      .strength_2
-        left: 74px
-        top: 249px
-      .title_3
-        left: 140px
-        top: 254px
-        width: 100px
-        text-align: center
-      .strength_3
-        top: 218px
-        left: 131px
-      .indication
-        position: absolute
-        font-size: 16px
-        line-height: 19px
-        width: 380px
-        left: -410px
-        top: 287px
+          background-position: 0px -39px
 
     .factors_container
-      background: image-url("report/hexagon-bg.png") no-repeat 10px top
-      height: 870px
+      background: image-url("report/hexagon-bg.png") no-repeat center center
+      height: 500px
 
       .factors_list
         position: relative
         height: 520px
-
+      .bottom-sec
+        padding-left: 33px
+        font-size: 11px
+        background: image-url("report/home-bottom-hexagon.png") no-repeat 
+        line-height: 25px
       [class*="factor_"]
         position: absolute
-        width: 120px
+        width: 92px
         text-align: center
-        font-weight: bold
-        .wrapper
-          word-break: break-all
-          -ms-word-break: break-all
-          -webkit-word-break: break-all
-          font-size: 15px
-
+        font-weight: bold          
       .factor_1
-        left: 253px
-        top: 95px
+        left: 330px
+        top: 25px-(15)
       .factor_2
-        left: 144px
-        top: 164px
+        left: 420px
+        top: 75px-(15)
       .factor_3
-        left: 371px
-        top: 145px
+        left: 510px
+        top: 125px-(15)
       .factor_4
-        left: 261px
-        top: 223px
+        left: 515px
+        top: 225px-(15)
       .factor_5
-        left: 487px
-        top: 222px
+        left: 515px
+        top: 325px-(15)
       .factor_6
-        left: 146px
-        top: 280px
+        left: 430px
+        top: 375px-(15)
       .factor_7
-        left: 377px
-        top: 285px
+        left:  340px
+        top: 425px-(15)
       .factor_8
-        left: 262px
-        top: 354px
+        left: 255px
+        top: 380px-(15)
       .factor_9
-        left: 151px
-        top: 413px
+        left: 160px
+        top: 325px-(15)
       .factor_10
-        left: 268px
-        top: 482px
+        left: 155px 
+        top: 225px-(15)
       .factor_11
-        left: 380px
-        top: 413px
+        left: 155px
+        top: 130px -(15)
       .factor_12
-        left: 492px
-        top: 352px
+        left: 235px
+        top: 75px-(15)
       .factor_13
-        left: 493px
-        top: 480px
+        left: 330px
+        top: 130px-(15)
       .factor_14
-        left: 385px
-        top: 544px
+        left: 420px
+        top: 175px-(15)
       .factor_15
-        left: 478px
-        top: 90px
+        left: 422px
+        top: 275px-(15)
       .factor_16
-        left: 361px
-        top: 27px
+        left: 335px
+        top: 325px-(15)
       .factor_17
-        left: 30px
-        top: 227px
+        left: 245px
+        top: 280px   -(15)
       .factor_18
-        left: 36px
-        top: 350px      
+        left: 245px
+        top: 175px -(15)
+           
           
 
   .scores
@@ -368,18 +229,16 @@ body
     ul.scores_listing
       min-height: 700px
       li
-        border-bottom: 1px dotted #b1becd
-        padding-bottom: 5px
+        border-bottom: 1px dotted #b5c0cd
         &:last-child
           border: none
       .factor-name
         color: #092e5b
-        font-size: 17px
         font-weight: bold
         margin: 7px 0 10px 0
       .factor-description
-        font-size: 14px
-        line-height: 24px
+        font-size: 10px
+        color: #000
         margin: 0 0 0 50px
       .responses
         margin: 0 0 0 50px
@@ -414,23 +273,23 @@ body
 
       .lhs-sec
         padding-top: 18px
-        width: 473px
+        width: 500px
       .rhs-sec
         .slider
           position: relative
-          border: 2px solid #2b90ba
+          border: 1px solid #096b95
           width: 271px
           height: 15px
           margin-top: 28px
           .range
             height: 15px
-            background: #cfcfcf
+            background: #1db3c4
           .pointer
             background: image-url('report/scale-pointer-hexagon.png') no-repeat center center
             height: 35px
             width: 40px
             position: absolute
-            top: -11px
+            top: -10px
           @for $i from 0 through 5
             .position#{$i}
               left: $i * 55px - (20)
@@ -456,7 +315,7 @@ body
     background: image-url('report/scale-bg.png') no-repeat center bottom
     width: 340px
     height: 47px
-    margin: 15px 10px 0 0
+    margin: 15px -15px 0 0
     float: right
     .marker
       color: #36a3b2
@@ -474,9 +333,9 @@ body
       b
         margin-left: 10px
       .box
-        border: 2px solid #2b90ba
-        background: #cfcfcf
-        height: 20px
+        border: 2px solid #208ab7
+        background: #1db3c4
+        height: 15px
         width:  35px
       .left-offset1
         b
@@ -833,3 +692,5 @@ body
             .range
               background: #ff8308
               height: 15px
+.fw
+  margin-left: -40px
