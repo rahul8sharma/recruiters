@@ -20,9 +20,9 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Su
     @assessment.report_types.uniq!
     respond_to do |format|
       if Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { report_types: @assessment.report_types })
-        format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+        format.html { redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
       else
-        format.html { redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Could not enable training requirements report. Please try again." }
+        format.html { redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Could not enable training requirements report. Please try again." }
       end
     end
   end

@@ -125,7 +125,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
           from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
           to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
           if from_weight > to_weight
-            flash[:error] = "Upper Limit in the Desired/Acceptable Score Range must be of a greater value than the selected Lower Limit."
+            flash[:error] = "Upper Limit in the Expected Score Range must be of a greater value than the selected Lower Limit."
             return
           end
         end
