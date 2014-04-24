@@ -1,0 +1,84 @@
+.plans-details
+  [class*="section"]
+    margin-left: -1px
+    text-align: center
+    .currency
+      font-size: $medium-text
+      input[type="radio"].span
+        margin-left: 10px
+      .span
+        margin-left: 5px
+    .title
+      color: #fff
+      font-size: $extra-large-text
+    .cost
+      color: $color-warning
+      height: $baseLineHeight + 2
+    li
+      border: 1px solid $grayLighter
+      border-top: 0 none
+      padding: $baseLineHeight
+      color: $grayLight
+
+      [class^="icon-"], [class*=" icon-"]
+        font-size: $medium-text
+        height: 10px
+
+      &:first-child
+        border-top: 1px solid $grayLighter
+
+      &.purchase
+        padding: 0
+        border-color: $color-warning
+        border-top: 1px solid $color-warning
+        margin-top: -1px
+        a
+          padding: $baseLineHeight
+          display: block
+          &:hover
+            background: $color-warning
+            color: #fff
+            text-decoration: none
+  .section2, .section3, .section4
+    li
+      font-size: $extra-large-text
+    
+    &:hover
+      li.purchase
+        a
+          background: $color-warning
+          color: #fff
+  .section1
+    text-align: left
+    li, li.title
+      color: $grayDark
+  .section2
+    .title
+      background: lighten($color-warning, 18%)
+  .section3
+    .title
+      background: lighten($color-warning, 10%)
+  .section4
+    .title
+      background: $color-warning
+  .section5
+
+    li
+      padding: 0
+      &.title
+        padding: $baseLineHeight
+        border-color: $color-warning
+        color: $color-warning
+  .faq
+    .question
+      font-size: $big-text
+      color: $grayDarker
+      font-weight: bold
+      margin-bottom: $baseLineHeight * 2
+    .answer
+      font-size: $big-text
+      color: $grayDark
+      margin-bottom: $baseLineHeight * 2
+      li
+        padding: 3px 0
+
