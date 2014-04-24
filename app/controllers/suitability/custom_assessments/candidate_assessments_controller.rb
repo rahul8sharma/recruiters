@@ -47,7 +47,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
-        flash[:error] = "Please add at least one candidate to proceed."
+        flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
         render :action => :add_candidates and return
       end
       errors = {}
@@ -73,12 +73,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         end  
       end
       unless errors.values.flatten.empty?
-        flash[:error] = "Errors in provided data: <br/>".html_safe
-        flash[:error] += errors.map.with_index do |(candidate_name, candidate_errors), index| 
+        #flash[:error] = "Errors in provided data: <br/>".html_safe
+        flash[:error] = errors.map.with_index do |(candidate_name, candidate_errors), index| 
           if candidate_errors.present?
-            ["Candidate #{index + 1}: #{candidate_errors.join(", ")}"]
+            ["#{candidate_errors.join(", ")}"]
           end  
-        end.compact.join("<br/>").html_safe
+        end.compact.uniq.join("<br/>").html_safe
         render :action => :add_candidates and return
       end
       params[:candidates] = candidates
