@@ -21,7 +21,6 @@ vendor/cache
 config/hosts.yml
 config/jombay-notify.yml
 config/sidekiq
-config/sidekiq
 config/s3
 config/statistics.yml
 public/assets
