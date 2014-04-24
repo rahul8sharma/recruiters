@@ -180,10 +180,19 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+        #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+        if params[:save_and_close].present?
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          else
+            redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          end
         else
-          redirect_to styles_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          end
         end
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
