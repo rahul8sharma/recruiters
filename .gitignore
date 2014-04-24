@@ -14,6 +14,7 @@ log/*.log
 tmp
 config/database.yml
 config/vger.yml
+config/payments.yml
 vendor/cache
 .ruby-version
 .rvmrc

@@ -1,6 +1,6 @@
 Recruiters::Application.routes.draw do
   resources :candidates do
-    collection do 
+    collection do
       get "manage" => "candidates#manage", :as => :manage
       post 'export'
       post 'import'
@@ -19,7 +19,7 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
     end
-    
+
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
       member do
         get "send_test" => "companies/standard_assessments#send_test", :as => :send_test
@@ -27,6 +27,7 @@ Recruiters::Application.routes.draw do
     end
 
     member do
+      get "plans" => "companies/plans#index", :as => :plans
       put "plans/:plan_id/upgrade_subscription" => "companies/plans#upgrade_subscription", :as => :upgrade_subscription
       get "plans/:plan_id/review" => "companies/plans#review", :as => :review_plan
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
@@ -68,8 +69,8 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
-    resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do 
+
+    resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do
       member do
         get "summary" => "walkin_groups#summary", as: :summary
         put "summary" => "walkin_groups#summary", as: :summary
@@ -78,15 +79,15 @@ Recruiters::Application.routes.draw do
         get "expire" => "walkin_groups#expire", as: :expire
       end
     end
-    
-    resources :training_requirement_groups, path: "training-requirements", :controller => :training_requirement_groups do 
+
+    resources :training_requirement_groups, path: "training-requirements", :controller => :training_requirement_groups do
       member do
         get "training_requirements" => "training_requirement_groups#training_requirements", as: :training_requirements
         get "download_report" => "training_requirement_groups#download_report", as: :download_report
         get "training_requirements_report" => "training_requirement_groups#training_requirements_report", :as => :training_requirements_report
       end
     end
-    
+
     resources :benchmarks, :controller => "suitability/benchmarks", :except => [:destroy] do
       member do
         get "norms" => "suitability/benchmarks#norms", :as => :norms
@@ -95,14 +96,14 @@ Recruiters::Application.routes.draw do
         get "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
         put "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
         get "competencies" => "suitability/benchmarks#competencies", :as => :competencies
-        put "competencies" => "suitability/benchmarks#competencies", :as => :competencies                    
+        put "competencies" => "suitability/benchmarks#competencies", :as => :competencies
 
         get "styles" => "suitability/benchmarks#styles", :as => :styles
         put "styles" => "suitability/benchmarks#styles", :as => :styles
-        
+
         get "download_benchmark_report" => "suitability/benchmarks#download_benchmark_report", :as => :download_benchmark_report
         get "benchmark_report" => "suitability/assessment_reports#benchmark_report", :as => :benchmark_report
-        
+
         get "candidates" => "suitability/benchmarks/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
@@ -117,7 +118,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "suitability/benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/benchmarks/candidate_assessments#candidate", :as => :candidate
       end
-      
+
       resources :candidates, :except => [:destroy, :show] do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
@@ -129,7 +130,7 @@ Recruiters::Application.routes.draw do
         end
       end
     end
-    
+
     resources :custom_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
@@ -140,18 +141,18 @@ Recruiters::Application.routes.draw do
         get "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
         put "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
         get "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
-        put "competencies" => "suitability/custom_assessments#competencies", :as => :competencies                    
+        put "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
 
         get "styles" => "suitability/custom_assessments#styles", :as => :styles
         put "styles" => "suitability/custom_assessments#styles", :as => :styles
-        
+
         get "enable_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#enable_training_requirements_report", :as => :enable_training_requirements_report
-        
+
         get "download_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
-        
+
         get "training_requirements" => "suitability/custom_assessments/training_requirements_reports#training_requirements", :as => :training_requirements
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
-        
+
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
@@ -166,7 +167,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
       end
-      
+
       resources :candidates, :except => [:destroy, :show] do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
@@ -189,7 +190,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   resources :standard_assessments, :controller => "suitability/standard_assessments", :path => "standard-tests", :except => [:destroy] do
     member do
       get "norms" => "suitability/standard_assessments#norms", :as => :norms
@@ -200,7 +201,7 @@ Recruiters::Application.routes.draw do
       get "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
       put "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
       get "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
-      put "competencies" => "suitability/standard_assessments#competencies", :as => :competencies                    
+      put "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
 
       get "styles" => "suitability/standard_assessments#styles", :as => :styles
       put "styles" => "suitability/standard_assessments#styles", :as => :styles
@@ -270,7 +271,7 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
-  
+
   resources :degrees, :only => [:index, :new] do
     collection do
       post :import
@@ -309,8 +310,8 @@ Recruiters::Application.routes.draw do
         post :import_from_google_drive
       end
     end
-    
-    resources :candidate_assessment_report_feedbacks do 
+
+    resources :candidate_assessment_report_feedbacks do
       collection do
         get "thank-you" => "candidate_assessment_report_feedbacks#thank_you", :as => :thank_you_page
       end
@@ -373,7 +374,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :competencies, :only => [:index] do
       collection do
         get :manage
@@ -382,7 +383,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :competency_grades, :only => [:index] do
       collection do
         get :manage
@@ -400,7 +401,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :consistency_buckets, :only => [:index] do
       collection do
         get :manage
@@ -409,7 +410,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :overall_factor_score_buckets, :only => [:index] do
       collection do
         get :manage
@@ -418,7 +419,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :pattern_response_buckets, :only => [:index] do
       collection do
         get :manage
@@ -482,19 +483,19 @@ Recruiters::Application.routes.draw do
 
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
-  
+
   get "/users/password/link_sent", :to => "users#link_sent", :as => :link_sent
   get "/users/confirmation", :to => "users#confirm", :as => :confirm
-  
+
   get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
   put "/users/password/edit", :to => "users#update_password", :as => :update_password
-  
+
   get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
   post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
-  
+
   get "/users/activate", :to => "users#activate", :as => :activate_account
   put "/users/activate", :to => "users#activate"
-  
+
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
@@ -505,7 +506,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
-  
+
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
@@ -513,9 +514,9 @@ Recruiters::Application.routes.draw do
   get "/report-management", :to => "pages#report_management", :as => :report_management
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
-  
+
   match "/sign_up" => "signup#sign_up", :as => :sign_up
   root :to => "users#login"
-  
+
   mount JombayNotify::Engine => "/jombay-notify"
 end
