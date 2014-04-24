@@ -129,8 +129,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       params[:selected_candidates] ||= {}
       candidate_assessments = []
       failed_candidate_assessments = []
+      recipient = params[:report_email_recipients]
+      if recipient.blank?
+        flash[:error] = "Please enter valid email addresses for notification. Email addresses should be in the format 'abc@xyz.com'."
+        render :action => :send_test_to_candidates and return
+      end
       if params[:selected_candidates].empty?
-        @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
         flash[:error] = "Please select at least one candidate."
         render :action => :send_test_to_candidates and return
       end
@@ -140,12 +144,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           :candidate_id => candidate_id
         }).all[0]
         
-        recipient = ""
         if(params[:send_report_to_candidate])
           @candidate = Vger::Resources::Candidate.find(candidate_id)
           recipient = @candidate.email
-        elsif(params[:report_email_recipients].present?)
-          recipient = params[:report_email_recipients]
         end
         
         # create candidate_assessment if not present
@@ -166,7 +167,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         :send_email => params[:send_email]
       ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
-        flash[:alert] = "Cannot send test to #{failed_candidate_assessments.size} candidates. #{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         redirect_to candidates_url
       else
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
