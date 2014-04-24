@@ -2,57 +2,30 @@
   .overall_report
     .logo.pull-right
     .clr
-    .heading
-      .big-text
-        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
-      .user_name
-        = @report.report_hash[:candidate][:name]
+    .heading.fw
+      .extra-large-text
+        %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
       .span.first
         Assessment: 
       .span10
         = @report.report_hash[:assessment][:name]
       .clr
-      .date
-        %span Date: 
-        %span
-          = @report.report_hash[:completed_at]
-      .clr
+    .divider4
+    .text-right
+      .extra-large-text 
+        %b
+          = @report.report_hash[:candidate][:name]
+      Assessment Answered On: 
+      = @report.report_hash[:completed_at]
+
+    .divider5
 
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-    .sub-heading.medium-text.pull-right
+    .sub-heading.fw.medium-text.text-center
       #{@report.report_hash[:candidate][:name]}&#39;s #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["fitment_scores"]}
     .clr
-    .visual
-      .title_company
-        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["company_fit"]}
-      .strength_company
-        = @report.report_hash[:company_fit_grade]
-      .title_job
-        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
-      .strength_job
-        = @report.report_hash[:job_fit_grade]
-      .title_team
-        #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
-      .strength_team
-        = @report.report_hash[:team_fit_grade]
-    .responses
-      - if @report.report_hash[:consistency][:enabled]
-        .blocks
-          %i.icon-align-justify
-          Overall Reliability of Candidate's Responses: 
-          %span.score 
-            = @report.report_hash[:consistency][:bucket_name]
-      - if @report.report_hash[:reliability][:enabled]
-        .blocks
-          %div.icon-spinner 
-          Overall Consistency of Responses: 
-          %span.score 
-            = @report.report_hash[:reliability][:bucket_name]
-    .divider1
-    - if @report.report_hash[:enable_lie_detection] && @report.report_hash[:lie_detection][:bucket]
-      .LieDetector
-        %p
-          %b
-            Fake Good Impression:
-            %span #{@report.report_hash[:lie_detection][:bucket]}
-        %p #{@report.report_hash[:lie_detection][:description]}
+    .divider2
+
+    .visual.divider14
+
+    .divider4

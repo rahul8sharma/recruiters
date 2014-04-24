@@ -67,18 +67,6 @@ body
     font-weight: bold
     color: #0c315e
     margin-bottom: 15px 
-  .responses
-    font-size: 19.5px
-    font-weight: bold
-    color: #484848
-    [class^="icon-"], [class*=" icon-"]
-      margin-right: 5px
-    .icon-spinner
-      display: inline-block
-    .score 
-      color: #042956
-    .blocks
-      margin-bottom: 10px
   .header
     background: image-url('report/blue-texture.png')
     padding: 15px 0 15px 30px 
@@ -115,87 +103,30 @@ body
   .overall_report
     padding: 18px 40px
     padding-right: 40px
-    .LieDetector
-      border: 1px solid #103543
-      margin: 0 auto 0 auto
-      padding: 10px 20px 10px 45px
-      background: image-url('report/lie-detector.png') no-repeat 10px center
-      p
-        font-size: 9px
-        color: #3a3a3a
-        b
-          color: #282828
-          font-size: 10px
-          span
-            color: #002836
     .visual
-      height: 520px
-      background: image-url('report/overall_hexagon_visual.png') no-repeat right top
-      position: relative
-
-    [class*="strength_"], [class*="title_"]
-      position: absolute
-      color: #002552
-      text-align: center
-      font-weight: bold
-    [class*="strength_"]
-      font-size: 17px
-      width: 82px
-    [class*="title_"]
-      font-size: 22px
-      width: 170px
-      text-align: right
-    .strength_job
-      left: 443px
-      top: 237px
-    .strength_team
-      left: 535px
-      top: 290px
-    .strength_company
-      left: 535px
-      top: 176px
-    .title_company
-      left: 300px
-      top: 53px
-    .title_job
-      left: 85px
-      top: 298px
-    .title_team
-      left: 328px
-      top: 435px
+      background: image-url('report/home_page_bg.png') no-repeat center center
       
     .heading
       background: image-url('report/blue-texture.png')
-      margin: 0 0 90px -40px
       padding: 24px 45px
-      width: 535px
       color: #fff
       font-size: 17px 
       line-height: 25px
-      .user_name
-        font-size: 22px
-        font-weight: bold
-        line-height: 40px
-      .big-text
-        font-size: 30px
-        font-weight: bold
-        line-height: 30px
-    .logo
-      width: 135px
-      height: 35px
-      background: image-url('report/logo.png') no-repeat center center
-      margin-bottom: 75px
+      &.fw
+        width: 760px
     .sub-heading
       font-weight: bold
       color: #fff
       text-shadow: 1px 1px 1px #283d06
       background: image-url('report/orange-texture.png')
-      padding: 15px 10px 15px 35px
+      padding: 18px
       margin-bottom: 20px
       &.large-text
         font-size: 25px
       &.medium-text
         font-size: 20px
+      &.fw
+        width: 814px
 
   .blue_bg_heading
     background: #1db3c4
@@ -833,3 +764,5 @@ body
             .range
               background: #ff8308
               height: 15px
+.fw
+  margin-left: -40px

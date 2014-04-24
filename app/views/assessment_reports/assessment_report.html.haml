@@ -3,6 +3,8 @@
     
 
 
+= render :template => "assessment_reports/fit_report/page1"
+.page-break      
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
 - if @report.report_hash[:job_fit_scores].present?
   - job_fit_scores = @report.report_hash[:job_fit_scores]
