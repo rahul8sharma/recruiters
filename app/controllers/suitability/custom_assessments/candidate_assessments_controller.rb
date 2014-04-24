@@ -125,15 +125,16 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     if request.put?
-      params[:candidates] ||= []
+      params[:candidates] ||= {}
+      params[:selected_candidates] ||= {}
       candidate_assessments = []
       failed_candidate_assessments = []
-      if params[:candidates].empty?
+      if params[:selected_candidates].empty?
         @candidates = Vger::Resources::Candidate.where(:query_options => { :id => (params[:candidate_ids].split(",") rescue []) })
         flash[:error] = "Please select at least one candidate."
         render :action => :send_test_to_candidates and return
       end
-      params[:candidates].each do |candidate_id,on|
+      params[:selected_candidates].each do |candidate_id,on|
         candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
           :assessment_id => @assessment.id, 
           :candidate_id => candidate_id

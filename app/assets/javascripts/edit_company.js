@@ -16,11 +16,12 @@ $(document).ready(function(){
   function get_states_success(response) {
     $("#select_state").find("option").remove();
     $("#select_state").removeAttr("disabled");
-    $("#select_state").append("<option>Select State</option>");
+    $("#select_state").append("<option value=''>Select State</option>");
     for(var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i].attributes;
       $("#select_state").append("<option value='"+location.id+"'>"+location.name+"</option>");
     }
+    $("#select_state").attr("required","required");
   }
   
   function get_states_failed(response) {
@@ -28,12 +29,13 @@ $(document).ready(function(){
   
   function get_cities_success(response) {
     $("#select_city").find("option").remove();
-    $("#select_city").append("<option>Select City</option>");
+    $("#select_city").append("<option value=''>Select City</option>");
     $("#select_city").removeAttr("disabled");
     for(var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i].attributes;
       $("#select_city").append("<option value='"+location.id+"'>"+location.name+"</option>");
     }
+    $("#select_city").attr("required","required");
   }
   
   function get_cities_failed(response) {

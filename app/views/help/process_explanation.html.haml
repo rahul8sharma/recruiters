@@ -2,8 +2,9 @@
   .page-title.pull-left
     .divider1
     Custom Assessment: How it works
-  %a.btn.btn-warning.big.big-text.pull-right.large-text{:href => new_company_custom_assessment_path(:company_id =>current_user.company_id), :title => "Click Here To Create Custom Assessment"} 
-    Create Custom Assessment
+  - if current_user.type != "SuperAdmin"  
+    %a.btn.btn-warning.big.big-text.pull-right.large-text{:href => new_company_custom_assessment_path(:company_id => current_user.company_id), :title => "Click Here To Create Custom Assessment"} 
+      Create Custom Assessment
   .clr
   .span27.margin-auto
     - 5.times do |index|
@@ -12,7 +13,7 @@
           %div{:class => "content0#{index}"}
           .down_carret
     .clr
-  .divider13
+  .divider30
 
 
 

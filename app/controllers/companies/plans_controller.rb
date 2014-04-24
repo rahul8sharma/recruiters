@@ -51,6 +51,7 @@ class Companies::PlansController < ApplicationController
       get_company
       process_payment
     else
+      flash[:alert] = company.error_messages.join("<br/>").html_safe
       render :action => :contact
     end
   end
