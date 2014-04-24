@@ -47,11 +47,18 @@
             - aindex = aindex + 1
             = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
     .divider3
-    %button.pull-left.btn.btn-warning.inverse.large-text
+    %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
       Save and Close
-    %button.pull-right.btn.btn-warning.large-text
+    %button.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Save and Proceed"}
       Proceed
     .clr
     .divider1
 
 = javascript_include_tag 'norms'
+
+:javascript
+  
+  $('#edit_assessment').submit(function () {
+    $('#edit_assessment button').attr("disabled", "disabled");
+    return true;
+  });

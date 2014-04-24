@@ -41,7 +41,7 @@
       Clicking on Proceed will allow you to buy the Package
     .divider2
     .span12.margin-auto
-      %a.btn.btn-warning.inverse.large-text.pull-left{:href => "#", :title => "Change Package"}
+      %a.btn.btn-warning.inverse.large-text.pull-left{:href => plans_company_path(@company), :title => "Change Package"}
         Change Package
       %a.button.btn.btn-warning.large-text.pull-right{:href =>contact_plan_company_path(:id=>@company.id, :plan_id=> @plan.id), :title => "Proceed"}
         Proceed

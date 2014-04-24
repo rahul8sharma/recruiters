@@ -2,6 +2,9 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
+.alert.alert-info{:hidden => "hidden", :id => "trait_flag"}
+  %strong
+    Please select a norm
 .norms
   .page-title 
     #{@assessment.name}
@@ -47,11 +50,26 @@
             - aindex = aindex + 1
             = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
     .divider3
-    %button.pull-left.btn.btn-warning.inverse.large-text
+    %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
       Save and Close
-    %button.pull-right.btn.btn-warning.large-text
+    %button.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Save and Proceed"}
       Proceed
     .clr
     .divider1
 
 = javascript_include_tag 'norms'
+
+:javascript
+
+  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
+  var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
+
+    $('#edit_assessment').submit(function() {
+        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min) && $('input[name=selected_factor]:checked').length <= parseInt(traits_max)) {
+            $('#edit_assessment button').attr("disabled", "disabled");
+            return true;
+        } else {
+            $("#trait_flag").removeAttr('hidden');
+            return false;
+        }
+    });

@@ -132,10 +132,10 @@ class Suitability::StandardAssessmentsController < AssessmentsController
       end
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_standard_benchmark_path(:id => @assessment.id)          
+        if params[:save_and_close].present?
+          redirect_to standard_assessment_path(:id => @assessment.id)
         else
-          redirect_to styles_standard_assessment_path(:id => @assessment.id)          
+          redirect_to add_candidates_standard_assessment_path(:id => @assessment.id)          
         end
       else
         flash[:error] = @assessment.error_messages.join("<br/>")

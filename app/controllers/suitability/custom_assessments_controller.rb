@@ -17,6 +17,29 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
   
+  def norms
+    get_norms
+    
+    if request.get?
+      if params[:assessment]
+        @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      end
+    elsif request.put?
+      traits_range_min = Rails.application.config.validators["traits_range"]["min"]
+      traits_range_max = Rails.application.config.validators["traits_range"]["max"]      
+      selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].keys.size
+      
+      if selected_traits_size >= traits_range_min && selected_traits_size <= traits_range_max
+        store_assessment_factor_norms
+        create_or_update_set
+      else
+        flash[:alert] = "Select traits within the range of #{traits_range_min} to #{traits_range_max}"
+        render :action => :norms
+      end
+    
+    end
+  end
+
   def competencies
     @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
     @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
@@ -157,10 +180,19 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+        #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+        if params[:save_and_close].present?
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          else
+            redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          end
         else
-          redirect_to styles_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          end
         end
       else
         flash[:error] = @assessment.error_messages.join("<br/>")

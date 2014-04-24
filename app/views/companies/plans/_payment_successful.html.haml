@@ -1,5 +1,5 @@
 .payment_success
-  .page-title 
+  .page-title
     Check-out and Billing Information
   .divider1
   = render :partial => "shared/billing-navigation-sub-nav"
@@ -12,7 +12,7 @@
       .span7.first.gray-darker
         Order ID
       .span3
-        JOM-2812
+        = @payment_data[:order_id]
       .clr
     .border-bottom-grayLighter.less-padding-all1.padding-lr2
       .span7.first.gray-darker
@@ -42,4 +42,4 @@
     .divider3
     .text-center
       %a.btn.btn-warning.large-text{:href =>'/', :title => "Start Using Jombay"}
-        Start Using Jombay  
+        Start Using Jombay

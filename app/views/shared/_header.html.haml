@@ -26,8 +26,9 @@
                   %a{:href=>company_benchmarks_path(@company)} Benchmarks
               %li
                 %a{href: "/logout"} Logout
-        %a.label.label-warning.label-small.pull-right{:href=>"#", :title=> "UPGRADE ACCOUNT"}
-          UPGRADE ACCOUNT
+        - if defined?(@company)
+          %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
+            UPGRADE ACCOUNT
 
         %ul.navbar.pull-right.clearfix        
           - if defined?(@company)

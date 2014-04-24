@@ -1,5 +1,5 @@
 .payment_unsuccess
-  .page-title 
+  .page-title
     Check-out and Billing Information
   .divider1
   = render :partial => "shared/billing-navigation-sub-nav"
@@ -32,10 +32,10 @@
           &nbsp;
           &nbsp;
           You might be facing connectivity issues. Please check your internet connection.
-          .divider1 
+          .divider1
     .divider2
     .gray-dark.pull-left
       Please contact your bank, if the problem persists
-    %a.btn.btn-warning.large-text.pull-right{:href => review_plan_company_path(:id=>@company.id, :plan_id=> @plan.id), :title => "Start Using Jombay"}
+    %a.btn.btn-warning.large-text.pull-right{:href => review_plan_company_path(:id=>params[:id], :plan_id=> params[:plan_id), :title => "Start Using Jombay"}
       Try Again
     .clr
