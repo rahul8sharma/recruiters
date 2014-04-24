@@ -1,12 +1,12 @@
 .package_review
   .page-title 
-    Checkout and Billing Information
+    Check-out and Billing Information
   .divider1
   = render :partial => "shared/billing-navigation-sub-nav"
   .divider4
   .span21.border-right-gray.big-text.first
     .gray-dark.text-center 
-      Please review the details of the package that you selected
+      Please review the details of the Package that you selected
     .divider2
     .span10.margin-auto.gray-darker
       .border-bottom-grayLighter.less-padding-all1.padding-lr1
@@ -38,10 +38,10 @@
     .divider4
 
     .gray-dark.text-center
-      Clicking on proceed will allow you to buy the package
+      Clicking on Proceed will allow you to buy the Package
     .divider2
     .span12.margin-auto
-      %a.btn.btn-warning.inverse.large-text.pull-left{:href => "#", :title => "Change Package"}
+      %a.btn.btn-warning.inverse.large-text.pull-left{:href => plans_company_path(@company), :title => "Change Package"}
         Change Package
       %a.button.btn.btn-warning.large-text.pull-right{:href =>contact_plan_company_path(:id=>@company.id, :plan_id=> @plan.id), :title => "Proceed"}
         Proceed
