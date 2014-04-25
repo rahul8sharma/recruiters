@@ -76,7 +76,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         #flash[:error] = "Errors in provided data: <br/>".html_safe
         flash[:error] = errors.map.with_index do |(candidate_name, candidate_errors), index| 
           if candidate_errors.present?
-            ["#{candidate_errors.join(", ")}"]
+            ["#{candidate_errors.join("<br/>")}"]
           end  
         end.compact.uniq.join("<br/>").html_safe
         render :action => :add_candidates and return
