@@ -1,28 +1,19 @@
 :css
   .report .inner{margin-top:0px;} 
     
+- if @report.report_hash[:factor_scores].present?
+  - factor_scores = @report.report_hash[:factor_scores]
+  - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
+    - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/fit_report/page2"
+    .page-break      
+
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
-- if @report.report_hash[:job_fit_scores].present?
-  - job_fit_scores = @report.report_hash[:job_fit_scores]
-  - (0..job_fit_scores.keys.length-1).step(scores_step) do |step|  
-    - step_job_fit_scores = job_fit_scores.slice(*job_fit_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/fit_report/page5", :locals => { :job_fit_scores => step_job_fit_scores, :step => step }
-    .page-break      
-  
-
-- if @report.report_hash[:company_fit_scores].present?
-  - company_fit_scores = @report.report_hash[:company_fit_scores]
-  - (0..company_fit_scores.keys.length-1).step(scores_step) do |step|
-    - step_company_fit_scores = company_fit_scores.slice(*company_fit_scores.keys[step..(step+(scores_step - 1))])  
-    = render :template => "assessment_reports/fit_report/page6", :locals => { :company_fit_scores => step_company_fit_scores, :step => step }
-    .page-break      
-
-
-- if @report.report_hash[:team_fit_scores].present?
-  - team_fit_scores = @report.report_hash[:team_fit_scores]
-  - (0..team_fit_scores.keys.length-1).step(scores_step) do |step|  
-    - step_team_fit_scores = team_fit_scores.slice(*team_fit_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/fit_report/page7", :locals => { :team_fit_scores => step_team_fit_scores, :step => step }
+- if @report.report_hash[:factor_scores].present?
+  - factor_scores = @report.report_hash[:factor_scores]
+  - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
+    - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/fit_report/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break      
 
 = render :template => "assessment_reports/common_pages"
