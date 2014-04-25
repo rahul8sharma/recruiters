@@ -57,8 +57,8 @@ class AssessmentsController < ApplicationController
   protected
   # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
-    factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type]).all.to_a
-    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type]).all.to_a
+    factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
+    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
     @factors = Hash[factors.collect{|x| [x.id,x]}]
     @functional_areas = Hash[Vger::Resources::FunctionalArea.active.all.to_a.collect{|x| [x.id,x]}]
     @industries = Hash[Vger::Resources::Industry.active.all.to_a.collect{|x| [x.id,x]}]
@@ -71,61 +71,49 @@ class AssessmentsController < ApplicationController
   # creates job_assessment_factor_norm for each factor with default values   
   def get_norms
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
-    @fits = Vger::Resources::Suitability::Fit.all
     
     default_norm_bucket_ranges = get_default_norm_bucket_ranges
     
-    added_factors = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
-    added_factor_ids = added_factors.map(&:factor_id)
-    @factor_norms_by_fit = {}
-    @fits.each do |fit|
-      norms_by_fit = default_norm_bucket_ranges.select{|default_norm| fit.factor_ids.include? (default_norm.factor_id)}  
-      
-      assessment_factor_norms = added_factors.select{|assessment_norm| fit.factor_ids.include? (assessment_norm.factor_id)}
+    added_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
+    added_factor_norms_ids = added_factor_norms.map(&:factor_id)
+    
+    direct_predictor_parent_ids = @factors.collect{ |factor_id,factor| factor.direct_predictor_ids.present? ? factor_id : nil }.compact.uniq
 
-      factors_by_fit = @factors.select{|id,factor| fit.factor_ids.include? id }.values      
+    @factor_norms = []
+    @alarm_factor_norms = []
+    @factors.each do |factor_id, factor|
+      default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor_id}
       
-      factor_norms = 
-      
-      @factor_norms_by_fit[fit] = {
-        :factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'},
-        :alarm_factors => assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
-      }
-      
-      factors_by_fit.each do |factor|
-        default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor.id}
-        
+      if added_factor_norms_ids.include?(factor_id)
+        assessment_factor_norm = added_factor_norms.find{|factor_norm| factor_norm.factor_id == factor_id }
+      else
         assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
           :factor_id => factor.id,
           :functional_area_id => @assessment.functional_area_id,
           :industry_id => @assessment.industry_id,
           :job_experience_id => @assessment.job_experience_id
         )
-        
-        if default_norm_bucket_range
-          assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
-          assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
-        else
-          assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
-          assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
-        end
-        
-        # to avoid calls to API, set fa, industry and exp from already fetched data
-        assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
-        assessment_factor_norm.industry = @industries[@assessment.industry_id]
-        assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
-        assessment_factor_norm.factor = @factors[factor.id]
-        
-        unless added_factor_ids.include? factor.id
-          if assessment_factor_norm.factor.type == 'Suitability::AlarmFactor'
-            @factor_norms_by_fit[fit][:alarm_factors] << assessment_factor_norm  
-          else
-            @factor_norms_by_fit[fit][:factors] << assessment_factor_norm  
-          end
-        end
       end
-      factor_norms = @factor_norms_by_fit[fit][:factors]
-      @factor_norms_by_fit[fit][:factors] = fit.factor_ids.map{|factor_id| factor_norms.detect{|factor_norm| factor_norm.factor_id == factor_id }}.compact  
+      
+      if default_norm_bucket_range
+        assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
+        assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
+      else
+        assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
+        assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
+      end
+      
+      # to avoid calls to API, set fa, industry and exp from already fetched data
+      assessment_factor_norm.functional_area = @functional_areas[@assessment.functional_area_id]
+      assessment_factor_norm.industry = @industries[@assessment.industry_id]
+      assessment_factor_norm.job_experience = @job_experiences[@assessment.job_experience_id]
+      assessment_factor_norm.factor = factor
+      
+      if factor.type == 'Suitability::AlarmFactor'
+        @alarm_factor_norms << assessment_factor_norm  
+      elsif factor.type == 'Suitability::Factor' && !direct_predictor_parent_ids.include?(factor_id)
+        @factor_norms << assessment_factor_norm  
+      end
     end
   end
   

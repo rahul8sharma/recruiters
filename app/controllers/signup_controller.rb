@@ -11,7 +11,7 @@ class SignupController < ApplicationController
       @company = Vger::Resources::Company.create(company_attributes)
       if @company.error_messages.present?
         @company.admin = Vger::Resources::Admin.new(company_attributes[:admin_attributes])
-        flash[:notice] = @company.error_messages.join("<br/>").html_safe
+        flash[:error] = @company.error_messages.uniq.join("<br/>").html_safe
       else
         render :action => :sign_up_success
       end

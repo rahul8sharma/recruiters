@@ -18,12 +18,13 @@
                   %a{:href=>statistics_company_path(@company)} Usage
                 %li
                   %a{:href=>company_path(@company)} Settings
-                %li
-                  %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
-                %li
-                  %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
-                %li
-                  %a{:href=>company_benchmarks_path(@company)} Benchmarks
+                - if  is_superadmin?    
+                  %li
+                    %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
+                  %li
+                    %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
+                  %li
+                    %a{:href=>company_benchmarks_path(@company)} Benchmarks
               %li
                 %a{href: "/logout"} Logout
         - if defined?(@company)
@@ -32,7 +33,7 @@
 
         %ul.navbar.pull-right.clearfix        
           - if defined?(@company)
-            - if current_user.type == "SuperAdmin"            
+            - if current_user.type == "SuperAdmin"
               %li
                 %a{:href=>companies_path(), :title=> "COMPANIES"}
                   COMPANIES

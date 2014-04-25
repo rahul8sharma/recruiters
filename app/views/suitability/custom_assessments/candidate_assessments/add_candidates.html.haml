@@ -69,9 +69,8 @@
         - else
           = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
       .divider2   
-      %button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked }
+      %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_custom_assessment_path(@company,@assessment) }
         Add Assessment Takers Later
-
       %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
         Submit
       .clr
