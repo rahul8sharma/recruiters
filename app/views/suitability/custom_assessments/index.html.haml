@@ -3,7 +3,7 @@
     .divider1
     Assessments
   - if can?(:create, "Suitability::CustomAssessment")    
-    %a.btn.btn-warning.big.big-text.pull-right.span.large-text{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+    %a.btn.btn-warning.big.big-text.pull-right.span{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
       Create Custom Assessment
   .pull-right
     %a.extra-medium-text.line-height3{:href=>home_company_path(@company), :title => "View Ready-to-Send Assessments"}
