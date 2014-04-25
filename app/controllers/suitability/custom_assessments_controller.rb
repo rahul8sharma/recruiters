@@ -1,5 +1,6 @@
 class Suitability::CustomAssessmentsController < AssessmentsController
   before_filter :get_company
+  after_filter :set_cache_buster
 
   layout "tests"
   
@@ -25,6 +26,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       end
     elsif request.put?
+      params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       traits_range_min = Rails.application.config.validators["traits_range"]["min"]
       traits_range_max = Rails.application.config.validators["traits_range"]["max"]      
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.keys.size
@@ -166,7 +168,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
   
   def store_assessment_factor_norms
-    params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
     params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
       norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
       if factor_norms_attributes[:from_norm_bucket_id]
