@@ -1,10 +1,9 @@
 - checked = (params[:upload_method] == "bulk")
 .bulk-upload{class: "#{checked ? 'activated':'de-activated'}"}
-  
   %label
     %input{:type => "radio", :name => "upload_type", value: "bulk", :onClick => "window.location='#{request.path}?upload_method=bulk&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
     %b.extra-medium-text{ class: checked ? 'checked': '' }
-      Upload candidates in bulk:
+      Upload Assessment takers in bulk:
   .divider1
   = form_for :bulk_upload, url: bulk_upload_company_custom_assessment_path(company_id: @company.id, id: @assessment.id), method: :put do |f|
     %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
@@ -16,11 +15,12 @@
           ( File format supported: CSV )
         .divider1
         %a.underlined{:target => "_blank", :href => download_sample_csv_for_candidate_bulk_upload_path}
-          Download sample file for adding candidates
+          Download sample file for adding Assessment takers
       
     .left-offset1.pull-right
       .control-group
-        = f.select :functional_area_id, Hash[@functional_areas.collect{|x| [x.name,x.id]}], { prompt: "Select Functional Area" }, { disabled: (!checked || params[:candidate_stage] != Vger::Resources::Candidate::Stage::EMPLOYED) }
+        = f.select :functional_area_id, Hash[@functional_areas.collect{|x| [x.name,x.id]}], { prompt: "Select Functional Area"}, { disabled: (!checked || params[:candidate_stage] != Vger::Resources::Candidate::Stage::EMPLOYED), :class => "span8 first" }
+        .clr
         .help-text
           ( Select Functional Area for exisiting employees only )
         .divider1    

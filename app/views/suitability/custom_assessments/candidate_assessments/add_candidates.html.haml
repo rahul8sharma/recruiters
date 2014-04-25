@@ -1,15 +1,14 @@
-.create-test.add
-  
+.add
   .page-title #{@assessment.name}
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2
-  / %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
-  /   View Instructions
-  / .clr
+  -#%a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
+    -#View Instructions
+  .clr
   .margin-auto.span21
-    .span12.first.left-offset1.big-text
-      What is the purpose of assessing these candidates ?
+    .span13.first.left-offset1.big-text
+      What is the purpose of assessing these Assessment takers?
     .span
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
@@ -28,7 +27,7 @@
           For Hiring 
           //add ".checked" e.g. %span.medium-text.checked
         %i.muted.span
-          (Potential Candidates)
+          (Potential Assessment taker’s)
         .clr
       .clr 
     .clr 
@@ -42,7 +41,7 @@
       %label
         %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
         %b.extra-medium-text{ class: checked ? 'checked': '' }
-          Add candidates manually: 
+          Add Assessment takers manually: 
       .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
@@ -75,4 +74,3 @@
       %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
         Submit
       .clr
-  .clr
