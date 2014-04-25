@@ -20,24 +20,19 @@
           //.column.orange-bg{:style => "width: 20%"}
       .span13
         .large-text
-          %b Tests
+          %b Assessments
         .divider1
         .span6.first
           %span.icon-stop.darkBlue-bg
-          %span Total Tests Sent:  
+          %span Total Assessments Sent:  
           %b.large-text
             #{@company.assessment_statistics[:assessments_sent].to_i}
         .span
           %span.icon-stop.lightBlue-bg
-          %span Total Tests Answered:  
+          %span Total Assessments Answered:  
           %b.large-text
             #{@company.assessment_statistics[:assessments_completed].to_i}
-          //%br/
-          //%br/
-          //%span.icon-stop.orange-bg 
-          //%span Total Tests Remaining:  
-          //%span.large-text
-          //153
+          
       .clr
     .usage_list
       .divider1
@@ -45,11 +40,11 @@
         .span4
           Subscriptions
         .span3
-          Tests Bought
+          Assessments Bought
         .span3
-          Tests Sent
+          Assessments Sent
         .span3
-          Tests Answered
+          Assessments Answered
         .span3
           Activated Date        
         .span3
