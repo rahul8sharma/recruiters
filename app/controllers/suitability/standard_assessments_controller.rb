@@ -47,7 +47,6 @@ class Suitability::StandardAssessmentsController < AssessmentsController
       params[:assessment] ||= {}
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        create_or_update_set
         redirect_to standard_assessment_path(:id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -95,6 +94,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
     if params[:id].present?
       @assessment = api_resource.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
     else
+      params[:assessment] ||= {}
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
@@ -132,11 +132,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
       end
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if params[:save_and_close].present?
-          redirect_to standard_assessment_path(:id => @assessment.id)
-        else
-          redirect_to add_candidates_standard_assessment_path(:id => @assessment.id)          
-        end
+        redirect_to standard_assessment_path(:id => @assessment.id)
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
       end

@@ -27,7 +27,7 @@
 
   %ul.assessment-list.span28.margin-auto.clearfix
     %li
-      %a.fw.span{:href => "#"}
+      %a.fw.span{:href => (@candidate_assessment ? @candidate_assessment.url : "#"), target: "_blank"}
         .pull-left
           Take the Assessment Yourself
         .icon-chevron-right.pull-right

@@ -33,7 +33,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       
       if selected_traits_size >= traits_range_min && selected_traits_size <= traits_range_max
         store_assessment_factor_norms
-        create_or_update_set
       else
         if selected_traits_size < traits_range_min
           flash[:error] = "Please select at least #{traits_range_min} traits to create the assessment. You may choose a maximum of #{traits_range_max} traits."
@@ -85,7 +84,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       params[:assessment] ||= {}
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        create_or_update_set
         redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -100,7 +98,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
-    redirect_to home_company_path(@company) if @assessments.empty?
   end
   
   # POST /assessments
@@ -138,6 +135,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         redirect_to root_path, error: "Page you are looking for doesn't exist."
       end
     else
+      params[:assessment] ||= {}
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?

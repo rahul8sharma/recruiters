@@ -44,7 +44,6 @@ class AssessmentsController < ApplicationController
       end
     elsif request.put?
       store_assessment_factor_norms
-      create_or_update_set    
     end
   end
   
@@ -52,6 +51,8 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new
   # GET /assessments/new.json
   def new
+    @assessment.sets = []
+    @assessment.sets.push Vger::Resources::Suitability::Set.new
   end
 
   protected
@@ -233,20 +234,5 @@ class AssessmentsController < ApplicationController
                                     where(:query_options => query_options).all.to_a
     end
     default_norm_bucket_ranges       
-  end
-  
-  def create_or_update_set
-    set_params = Rails.application.config.default_set.merge(:assessment_id => @assessment.id)
-    sets = Vger::Resources::Suitability::Set.where(:assessment_id => @assessment.id, :query_options => { :name => Rails.application.config.default_set["name"] }).all.to_a
-    @assessment.item_ids ||= []
-    if !sets.present?
-      set_params.merge!(:end_index => @assessment.item_ids.count)
-      set_params.merge!(:page_size => params[:page_size]) if params[:page_size].present?
-      Vger::Resources::Suitability::Set.create(set_params)
-    else
-      set = sets.first
-      page_size = (params[:page_size].present? ? params[:page_size] : set_params["page_size"])
-      Vger::Resources::Suitability::Set.save_existing(set.id, assessment_id: @assessment.id, :end_index => @assessment.item_ids.count, :page_size => page_size)
-    end
   end
 end
