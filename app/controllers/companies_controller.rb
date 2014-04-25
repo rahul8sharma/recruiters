@@ -37,6 +37,15 @@ class CompaniesController < ApplicationController
       }, :page => params[:page], :per => 5
     ).all
   end
+  
+  def landing
+    count = Vger::Resources::Suitability::CustomAssessment.count(:query_options => { company_id: current_user.company_id })
+    if count <= 1
+      redirect_to home_company_path(current_user.company_id) 
+    else
+      redirect_to company_custom_assessments_path(current_user.company_id)  
+    end
+  end
 
   def home
     @standard_assessments = Vger::Resources::Suitability::StandardAssessment.all()

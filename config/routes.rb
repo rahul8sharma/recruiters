@@ -48,6 +48,7 @@ Recruiters::Application.routes.draw do
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       get "home" => "companies#home", :as => :home
+      get "landing" => "companies#landing", :as => :landing
     end
 
     resources :hiring_managers, :only => [:index, :new] do
