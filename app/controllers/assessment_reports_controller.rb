@@ -86,7 +86,7 @@ class AssessmentReportsController < ApplicationController
       }
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
-      #redirect_to assessment_report_company_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :assessment_id => params[:assessment_id], :patch => params[:report]) and return
+      # redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report]) and return
     end
     render :layout => "admin"
   end
@@ -105,6 +105,7 @@ class AssessmentReportsController < ApplicationController
   def assessment_report
     report_type = params[:report_type] || "fit"
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
+    Rails.logger.debug(@report.report_hash)
     @view_mode = params[:view_mode]
     request.format = "pdf" if @view_mode == "pdf"
     template = report_type == "fit" ? "assessment_report" : "competency_report"

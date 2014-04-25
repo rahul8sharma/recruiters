@@ -2,19 +2,19 @@
   .page-title
     .divider1
     Buy Jombay Assessments. Buying is instant.
-  
+
   .divider1
 
   .extra-large-text.gray-darker
     Honest Pricing. No Set-up fees. No Hidden Costs.
-  
+
   .divider4
 
   .big-text
     5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
-  
+
   .divider1
-    
+
   %ul.span7.section1
     %li.title
       Included
@@ -39,53 +39,24 @@
         .clr
       .clr
 
-  %ul.span6.section2
-    %li.title
-      Starter
-    %li
-      10
-    -3.times do
+  - @plans.each do |plan|
+    %ul.span6.section2
+      %li.title
+        = plan.name
       %li
-        .icon-ok
-    %li
-      1 Year
-    %li.cost
-      &#8377; 10000
-    %li.purchase
-      %a{:href => "#", :title => "Buy this Jombay Assessment"}
-        Buy
-
-  %ul.span6.section3
-    %li.title
-      Regular
-    %li
-      25
-    -3.times do
+        = plan.no_of_assessments
+      -3.times do
+        %li
+          .icon-ok
       %li
-        .icon-ok
-    %li
-      1 Year
-    %li.cost
-      &#8377; 23000
-    %li.purchase
-      %a{:href => "#", :title => "Buy this Jombay Assessment"}
-        Buy
-
-  %ul.span6.section4
-    %li.title
-      Scale-Up
-    %li
-      50
-    -3.times do
-      %li
-        .icon-ok
-    %li
-      1 Year
-    %li.cost
-      &#8377; 45000
-    %li.purchase
-      %a{:href => "#", :title => "Buy this Jombay Assessment"}
-        Buy
+        = plan.validity_in_months
+        Months
+      %li.cost
+        &#8377;
+        = plan.price
+      %li.purchase
+        %a{href: review_plan_company_path(params[:id], plan.id), :title => "Buy this Jombay Assessment"}
+          Buy
 
   %ul.span6.section5
     %li.title
@@ -103,10 +74,10 @@
   .divider2
 
   .border-warning.text-center.padding-all1.big-text
-    For Analytics Reports such as Talent Benchmarking, Training Needs Identification, Attrition Analysis, email us at pratik@jombay.com   
+    For Analytics Reports such as Talent Benchmarking, Training Needs Identification, Attrition Analysis, email us at pratik@jombay.com
   .divider1
   .extra-medium-text
-    Once you click on 'Buy', You will be taken to the Payment Gateway of our Trusted Partner. Please enter the Credit Card Information. It is safe & secured.         
+    Once you click on 'Buy', You will be taken to the Payment Gateway of our Trusted Partner. Please enter the Credit Card Information. It is safe & secured.
   .divider2.border-bottom-grayLighter
   .divider2
 
@@ -157,7 +128,7 @@
       %li
         Omani Rial
       %li
-        Bahraini Dinar  
+        Bahraini Dinar
     %ul.answer.pull-left.left-offset1
       %li
         UAE Dirham
@@ -183,7 +154,7 @@
       %li
         Bangladesh Taka
       %li
-        New Zealand Dollar 
+        New Zealand Dollar
     %ul.answer.pull-left.left-offset1
       %li
         Australian Dollar
@@ -203,7 +174,7 @@
       %li
         Saudi Riyal
       %li
-        South African Rand 
+        South African Rand
     .clr
 
 -#

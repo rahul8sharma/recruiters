@@ -1,5 +1,5 @@
 - if @report.report_hash[:direct_predictor_scores].present?
-  = render :template => "assessment_reports/fit_report/page8"
+  = render :template => "assessment_reports/fit_report/page4"
   .page-break      
 
 - guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
@@ -16,7 +16,7 @@
     
   - (0..ordered_guides.length-1).step(guides_step) do |step|    
     - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
-    = render :template => "assessment_reports/fit_report/page9", :locals => { :post_assessment_guidelines => step_post_assessment_guidelines, :step => step }
+    = render :template => "assessment_reports/fit_report/page5", :locals => { :post_assessment_guidelines => step_post_assessment_guidelines, :step => step }
     .page-break
   
 - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?
@@ -29,7 +29,7 @@
 
   - (0..ordered_guides.length-1).step(guides_step) do |step|
     - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
-    = render :template => "assessment_reports/fit_report/page10", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
+    = render :template => "assessment_reports/fit_report/page6", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
     .page-break              
   
 = render :partial => "shared/reports/about_us"

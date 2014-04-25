@@ -3,7 +3,7 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"))
     .pull-right{style: "margin-top: 10px;"}
-      = link_to "Go Back to Report", company_assessment_candidate_candidate_assessment_report_url(:company_id => params[:feedback][:company_id], :assessment_id => params[:feedback][:assessment_id], :candidate_id => params[:feedback][:candidate_id], :id => params[:feedback][:candidate_assessment_report_id], :view_mode => "html"), :class => "btn btn-info", :title => "Click here to view report again"
+      = link_to "Go Back to Report", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:feedback][:company_id], :custom_assessment_id => params[:feedback][:custom_assessment_id], :candidate_id => params[:feedback][:candidate_id], :id => params[:feedback][:candidate_assessment_report_id], :view_mode => "html"), :class => "btn btn-info", :title => "Click here to view report again"
     .clr
     
 
