@@ -11,7 +11,7 @@
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
 
 %li{ :id => "li_#{index}", class: "span15 item #{assessment_factor_norm.id.present? ? 'checked':''}" }
-  //please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
+  -#please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
   .divider
   - if assessment_factor_norm.norm_min.to_f.zero? && assessment_factor_norm.id.nil?
     - if assessment_factor_norm.id.present?
@@ -40,7 +40,6 @@
             %option{value: norm_bucket.id}
               = norm_bucket.name         
           
-      
       %select.span3{name: norm_max_name, disabled: 'disabled', index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
@@ -50,7 +49,7 @@
             %option{value: norm_bucket.id}
               = norm_bucket.name         
         
-        .clr
+      .clr
   - else
     - if assessment_factor_norm.id.present?
       %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_factor_norm.id, index: (index)}
@@ -67,7 +66,6 @@
         %p= assessment_factor_norm.factor.definition
         .down-caret
        
-      
     .left-offset1.pull-left
       %select.span3.first{name: norm_min_name, index: (index)}
         - @norm_buckets.each do |norm_bucket|

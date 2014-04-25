@@ -1,67 +1,57 @@
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
+.norms.benchmark
+  .page-title 
+    #{@assessment.name}
+  .divider1
+  = render :partial => "shared/benchmark-flow-sub-nav"
+  .divider2
 
-.create-test.norms
-  .inn.first
-    .page-title 
-      %b Benchmark Title: 
-      #{@assessment.name}
-  .inn.gray-gradient
-    = render :partial => "shared/benchmark-flow-sub-nav"
-    .divider1
-    .description-section.medium-text.clearfix
-      .span.first
-        %b Industry:  
-      .span4
-        #{@assessment.industry.name rescue '-'}
-      .span.left-offset1
-        %b Functional Area: 
-      .span4
-        #{@assessment.functional_area.name rescue '-'}
-      .span.left-offset1
-        %b Experience: 
-      .span4
-        #{@assessment.job_experience.display_text rescue '-'}
-    .clr
-      
-    = form_for @assessment, :as => :assessment, :url => norms_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
-      %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
-      %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
-      %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
-      .action
-        .pull-left
-          %b{ :style => "font-size:14px;" } Please select the behavioral factors that you would like to benchmark your Top Performers against:
-        %button.pull-right.btn.btn-info
-          Proceed
-        .clr
-      .factors
-        - aindex = 0
-        - @factor_norms_by_fit.each_with_index do |(fit,norms),fit_index|
+  = form_for @assessment, :as => :assessment, :url => norms_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+    %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
+    %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
+    %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
+    - 2.times do 
+      .span15.first
+        .factor-list
           .titles.clearfix
-            .span4.first
-              Factors for #{fit.name}
-            .span11
-              %input{:type=>"checkbox", id: "check_all_fit#{fit_index}"}
-              %label{ for: "check_all_fit#{fit_index}" }
-                Select All  
-            .pull-left
-              .span7.first
-              //  Expected Score Range 
-              //.span2
-              //  Critical
-          .divider1
-          %ul.factor-snippet
-            - norms[:factors].each_with_index do |assessment_factor_norm,index|
-              - aindex = aindex + 1
-              = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
-            - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
-              - aindex = aindex + 1
-              = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
-      .divider2
-      %button.pull-right.btn.btn-info
-        Proceed
-      .clr
-      .divider1
+            .span7.first
+              .big-text
+                Behavioral Trait
+              .muted
+                Place the cursor on individual Traits below to see their definition
+                
+            .span6.left-offset1
+              .big-text
+                Expected Score Range
+              .muted
+                Choose Minimum and Maximum score
+            .clr
+            .divider1 
+            .semi-muted
+              .left-offset8.first.span3
+                Minimum
+              .span3 
+                Maximum
+    .clr 
+    - aindex = 0
+    .factor-list
+      %ul.factor-snippet.clearfix
+        - @factor_norms_by_fit.each_with_index do |(fit,norms),fit_index|
+        
+          - norms[:factors].each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
+          - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
+            - aindex = aindex + 1
+            = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
+    .divider3
+    %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
+      Save and Close
+    %button.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Save and Proceed"}
+      Proceed
+    .clr
+    .divider1
 
 = javascript_include_tag 'norms'
