@@ -13,6 +13,7 @@ class SignupController < ApplicationController
         @company.admin = Vger::Resources::Admin.new(company_attributes[:admin_attributes])
         flash[:error] = @company.error_messages.uniq.join("<br/>").html_safe
       else
+        @company.setup({})
         render :action => :sign_up_success
       end
     else
