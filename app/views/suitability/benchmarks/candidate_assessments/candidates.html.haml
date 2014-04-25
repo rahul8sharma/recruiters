@@ -63,7 +63,7 @@
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr 
-            .span
+            .span7
               - if report
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
                   - if current_user.type == "SuperAdmin"
