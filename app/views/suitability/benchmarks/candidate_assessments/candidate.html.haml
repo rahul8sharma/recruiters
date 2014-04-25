@@ -1,5 +1,5 @@
 .candidate-details
-  .page-title.pull-left
+  .span22.first.page-title
     .divider1
     Benchmark #{@assessment.id} - #{@assessment.name}
 
@@ -8,8 +8,7 @@
   .clr
   .divider2
   = render :partial => "shared/candidate-content-benchmark-sub-nav"
-  .divider2
-  
+ 
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .span19.margin-auto
       %ul
@@ -61,7 +60,7 @@
             Experience in Current Company:
           .span8
             #{ h(@candidate.current_company_experience, nil, :suffix => " Years") }
-          .clr          
+          .clr        
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
             Gender:
@@ -108,11 +107,11 @@
             #{ h @candidate.no_of_dependents }
           .clr
 
-  .divider2
+  .divider1
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .page-title
       Reports
-    .divider1
+    .divider2
     .list-snippet-titles.large-text.clearfix
       .span3.first
         %a{:href => "#", :title => "Sort by assessment ID in ascending order"}
