@@ -14,10 +14,10 @@
           = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-info"
       - if @view_mode == "feedback"
         .email.pull-left
-          %input{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email"}
-        %button.submit-feedback.btn.btn-info.pull-left
+          %input{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email",:class =>"medium-text"}
+        %button.btn.btn-warning.inverse.pull-left
           Submit
-      = link_to "View Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
+      = link_to "View Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span"
       .clr
     .clr
 - if @view_mode == "html"
