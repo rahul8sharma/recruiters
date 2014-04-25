@@ -5,7 +5,7 @@
   .control-group
     %label 
       Select the Industry your Company belongs to
-    %select.first.span10{name: 'assessment[industry_id]', id: 'select_industry'}
+    %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
         Industry
       - @industries.each do |id,industry|
@@ -16,7 +16,7 @@
   .control-group
     %label 
       Select the Department (or Function) for which you are creating this Assessment
-    %select.first.span12{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+    %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       %option{:value => ""}
         Department
       - @functional_areas.each do |id,functional_area|
@@ -37,18 +37,17 @@
   .control-group
     %label
       Enter a Title for the Assessment 
-    = f.text_field :name, :class => "first span17", :placeholder => "(e.g. Senior Marketing Manager)"
+    = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
     .clr
   .clr
   .divider2
-  .action
-    .pull-left
-      - if current_user.type == "SuperAdmin"
-        %label 
-          %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-          Enable Training Requirements Report for this assessment
-    .pull-right  
-      - if current_user.type == "SuperAdmin"
-        %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
-      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }  
-      .clr
+  .pull-left
+    - if current_user.type == "SuperAdmin"
+      %label 
+        %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+        Enable Training Requirements Report for this assessment
+  .pull-right  
+    - if current_user.type == "SuperAdmin"
+      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
+    %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }  
+  .clr
