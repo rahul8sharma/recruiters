@@ -21,12 +21,7 @@ class ApplicationController < ActionController::Base
       when "SuperAdmin"
         params[:redirect_to] || companies_path
       when "Admin"
-        count = Vger::Resources::Suitability::CustomAssessment.count(:query_options => { company_id: current_user.company_id })
-        if count <= 1
-          params[:redirect_to] || home_company_path(current_user.company_id) 
-        else
-          params[:redirect_to] || company_custom_assessments_path(current_user.company_id)  
-        end
+        landing_company_path(current_user.company_id) 
       else
         params[:redirect_to] || root_path        
     end    
