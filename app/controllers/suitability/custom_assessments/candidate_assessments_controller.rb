@@ -7,7 +7,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   
   def email_reports
     options = {
-      :assessment => {
+      :custom_assessment => {
         :job_klass => "CandidateReportsExporter",
         :args => {
           :user_id => current_user.id,
