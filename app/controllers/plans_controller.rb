@@ -10,7 +10,7 @@ class PlansController < MasterDataController
   end
 
   def index_columns
-    return [:name,:description,:validity_in_months,:price]
+    return [:uid, :name,:description,:validity_in_months,:price]
   end
 
   def import_from_google_drive
@@ -21,7 +21,7 @@ class PlansController < MasterDataController
 
   def export_to_google_drive
     Vger::Resources::Plan\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name","no_of_assessments", "description", "price", "validity_in_months"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["uid","id","name","no_of_assessments", "description", "price", "validity_in_months"]))
     redirect_to manage_plans_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 end
