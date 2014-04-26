@@ -1,38 +1,41 @@
-.create-test.creat-test-show
-  .inn.first
-    .page-title.pull-left
-      Benchmark #{@assessment.id} - #{@assessment.name}
-    %a.btn.pull-right{ href: add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
-      .color-warning Send This Benchmark
-    - if current_user.type == "SuperAdmin"  
-      %a.pull-right{ href: email_reports_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
-        .color-warning Email Reports Summary 
+.candidate-list
+  .span15.page-title.first
+    .divider1
+    Benchmark #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send This Benchmark
+  - if current_user.type == "SuperAdmin"  
+    %a.extra-medium-text.pull-right.line-height3{ href: email_reports_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])}
+      Email Reports Summary 
   .clr
-  .inn.gray-gradient
-    .pull-left
-      = render :partial => "shared/candidate-content-benchmark-sub-nav"
-    .pagination.pull-right
-      = paginate @candidates
+  
+  .divider2
+  = render :partial => "shared/candidate-content-benchmark-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .filter-status.pull-right
+      = form_for :search, url: candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        - params[:search] ||= {}
+        .medium-text.muted.line-height2.pull-left 
+          Show Assessment takers with Status
+        %select.span3{name: "search[status]"}
+          - test_statuses.each do |status,name|  
+            %option{ value: status, selected: (params[:search][:status] == status) }
+              = name
+        .clr
     .clr
+
     .divider2
-    .list-snippet-titles.clearfix
-      .span2
-        = sort_link "ID", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
-      .span6
-        = sort_link "Candidate Name", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span
-        = sort_link "Status", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      .filter-status.pull-right
-        = form_for :search, url: candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
-          - params[:search] ||= {}
-          Filter by Status: 
-          %select{name: "search[status]"}
-            - test_statuses.each do |status,name|  
-              %option{ value: status, selected: (params[:search][:status] == status) }
-                = name
-          %button.btn.btn-link
-            Apply
+
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        = sort_link "ATID", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+      .span8
+        = sort_link "Assessment Taker", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span10
+        = sort_link "Assessment Status", candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .clr
+      .divider1
     - if @candidates.empty?
       .medium-text.alert
         - if params[:search].present?
@@ -49,38 +52,51 @@
             - report = candidate_assessment.candidate_assessment_reports[0] 
             -# status = report_statuses[report.status]
           %li.list-snippet
-            .span2
-              %a{:href=> candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"JOM#{candidate.id}"} JOM#{candidate.id}
-            .span6.first
-              %a{:href=> candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"Candidate1 Name"} 
+            .divider1
+            .span3.first
+              %a{:href=> candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} JOM#{candidate.id}
+            .span8
+              %a{:href=> candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.name}"} 
                 = h candidate.name
-            .span9
+            .span10
               %a{:href=> candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
-                //remember Hrs & Hr 
-            .span
+                -#remember Hrs & Hr 
+            .span7
               - if report
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
                   - if current_user.type == "SuperAdmin"
                     - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                       - url =  company_benchmark_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :benchmark_id => @assessment.id, :id => report.id)
-                      %a.underlined{:href => url, :title => "View Report", target: "_blank"}
+                      %a{:href => url, :title => "View Report", target: "_blank"}
                         View Report
                     - else
                       Included in Benchmark  
                   - else
                     Included in Benchmark
                 - else
+                  %i.icon-spinner.icon-spin 
                   Analysing Responses...
               - else 
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
                   = status  
                 - else   
-                  %a.underlined{:href => send_reminder_to_candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                  %a{:href => send_reminder_to_candidate_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                    %i.icon-time
                     Send Reminder
+
             .clr
-  .inn
-    .pagination.pull-right
-      = paginate @candidates
+      .divider3
+      
+    - if @candidate_assessments.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @candidate_assessments.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1), value: candidates_company_custom_assessment_path(@company, @assessment, params.merge(:page => page + 1)), }
+                = page + 1
+          .clr
       .clr

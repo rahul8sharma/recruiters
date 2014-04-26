@@ -1,49 +1,53 @@
-.create-test.norms.add
-  .inn.first
-    .page-title #{@assessment.name}
-  .inn.gray-gradient
-    = render :partial => "shared/benchmark-flow-sub-nav"
-    %a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
-      View Instructions
-    .clr
-    .divider1
+.add.benchmark
+  .page-title #{@assessment.name}
+  .divider1
+  = render :partial => "shared/benchmark-flow-sub-nav"
+  .divider2
+  -#%a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
+    -#View Instructions
+  .clr
+  .margin-auto.span21
+    .big-text
+      Please add your Top Performing Employees 
+    .divider3
     .select-candidate-type 
-      %b.span.show
-        Please add your Top Performing Employees
-        %br
-        %br
-      .clr 
+      - if current_user.type == "SuperAdmin"
+        = render :partial => "suitability/benchmarks/candidate_assessments/bulk_upload"
     .divider1
+    - checked = (params[:upload_method] == "manual")
     - if current_user.type == "SuperAdmin"
-      = render :partial => "suitability/benchmarks/candidate_assessments/bulk_upload"
+      %label
+        %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+        %b.extra-medium-text Add Top Performers manually: 
+      .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
-      - checked = (params[:upload_method] == "manual")
       %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
-        - if current_user.type == "SuperAdmin"
-          %label
-            %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
-            %b.extra-medium-text Add Top Performers manually: 
-          .divider1
-        .span6.left-offset1
-          %b.show Name
-          (Required)
-        .span6.first
-          %b.show Email id
-          (Required)
-        .span4  
-          %b.show Mobile number
-          (Optional)
-        .span5
-          %b.show Functional Area
-          (Optional)
-        .clr
-        .divider1
+        .left-offset2.first
+          .span9.first.big-text
+            Top Performer's name
+          .span8.big-text.left-offset1
+            .span Top Performer's email address
+          .clr
+        .divider1 
         %ul.add-candidates.clearfix
           - 5.times do |index|
             = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
-        %button.pull-right.btn.btn-info{ disabled: !checked }
-          Proceed
-        .clr
+        .divider2
+      .muted.left-offset2.first
+        .big-text
+          Following is the Preview of the email that Assessment takers will receive.
+        .divider1   
+        - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
+        - else
+          = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+      .divider2  
+      %button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked }
+        Add Assessment Takers Later
+
+      %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
+        Submit
+      .clr

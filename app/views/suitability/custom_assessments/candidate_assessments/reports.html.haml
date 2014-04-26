@@ -18,8 +18,9 @@
       .span8
         = sort_link "Assessment Taker", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span10
-        %a{:href => "#", :title => ""}
+        %a{:href => "#", :title => "Sort by Assessment Status in ascending order"}
           Assessment Status 
+          %i.icon-chevron-down.small-text.line-height1
       .clr
       .divider1
     %ul

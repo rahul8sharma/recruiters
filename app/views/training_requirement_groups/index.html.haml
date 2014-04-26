@@ -4,7 +4,7 @@
     Training Requirements
   //= paginate @training_requirement_groups
   - if can?(:create, "Suitability::TrainingRequirementGroup")
-    %a.btn.btn-warning.big.big-text.pull-right.span.large-text{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+    %a.btn.btn-warning.big.big-text.pull-right.span{:href => new_company_training_requirement_group_path(:company_id => params[:company_id]), :title => "Click Here To Create New Walk-In"} 
       Create a new Training Requirements
 
   - if @training_requirement_groups.empty?
