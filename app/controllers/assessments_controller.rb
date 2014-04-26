@@ -1,5 +1,6 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_assessment, :except => [:index]
   before_filter :get_meta_data, :only => [:new, :norms, :competency_norms]
   

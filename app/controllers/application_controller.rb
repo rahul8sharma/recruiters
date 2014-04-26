@@ -81,4 +81,9 @@ class ApplicationController < ActionController::Base
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
+  
+  def authorize_admin!(company_id)
+    return if is_superadmin?
+    redirect_to home_company_path(current_user.company_id) if company_id.to_i != current_user.company_id.to_i
+  end
 end
