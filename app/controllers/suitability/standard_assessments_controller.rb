@@ -1,7 +1,4 @@
 class Suitability::StandardAssessmentsController < AssessmentsController
-  before_filter :get_assessment, :except => [:index]
-  before_filter :get_meta_data, :only => [:new, :norms, :competency_norms]
-  
   layout "tests"
   
   def api_resource
@@ -63,6 +60,17 @@ class Suitability::StandardAssessmentsController < AssessmentsController
     @assessments = api_resource.where(:query_options => { :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 5)
   end
   
+  def update
+    @assessment = Vger::Resources::Suitability::StandardAssessment.save_existing(params[:id], params[:assessment])
+    if @assessment.error_messages.empty?
+      redirect_to norms_standard_assessment_path(@assessment)
+    else
+      get_meta_data
+      flash[:error] = @assessment.error_messages.join("<br/>") rescue ""
+      format.html { render action: "edit" }
+    end
+  end
+  
   # POST /assessments
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
@@ -80,7 +88,8 @@ class Suitability::StandardAssessmentsController < AssessmentsController
         format.html { redirect_to redirect_path }
       else
         get_meta_data
-        flash[:error] ||= @assessment.errors.values.flatten.join(",") rescue ""
+        add_set
+        flash[:error] = @assessment.error_messages.join("<br/>") rescue ""
         format.html { render action: "new" }
       end
     end
