@@ -2,6 +2,7 @@ class CompaniesController < ApplicationController
   layout "companies"
 
   before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:id]) }
   before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
   before_filter :get_companies, :only => [ :index ]
   before_filter :get_countries, :only => [ :edit, :update ]
@@ -53,7 +54,7 @@ class CompaniesController < ApplicationController
     @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
     if @custom_assessment
       admin_candidate_email = "#{current_user.email.split("@")[0]}+candidate@#{current_user.email.split("@")[1]}"
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:joins => [:candidate], :assessment_id => @custom_assessment.id, :query_options => { "candidates.email" => admin_candidate_email }, methods: [:url]).all.to_a.first
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:joins => [:candidate], :assessment_id => @custom_assessment.id, :query_options => { "candidates.email" => admin_candidate_email }, methods: [:url], :include => [:candidate_assessment_reports]).all.to_a.first
     end
   end
   
