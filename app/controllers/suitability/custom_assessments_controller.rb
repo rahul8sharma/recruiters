@@ -104,7 +104,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
   def create
-    #default_norm_bucket_ranges = get_default_norm_bucket_ranges
     respond_to do |format|
       if @assessment.valid? and @assessment.save
         redirect_path = if @assessment.assessment_type == api_resource::AssessmentType::FIT
@@ -117,7 +116,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         format.html { redirect_to redirect_path }
       else
         get_meta_data
-        flash[:error] ||= @assessment.error_messages.join("<br/>") rescue ""
+        add_set
+        flash[:error] = @assessment.error_messages.join("<br/>") rescue ""
         format.html { render action: "new" }
       end
     end
