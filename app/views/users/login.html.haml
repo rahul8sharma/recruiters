@@ -1,3 +1,7 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
 - content_for :notification_bar do
   = ""
 = render :partial => "shared/user-alerts"
@@ -34,3 +38,4 @@
 = render :partial => "shared/users/jombay-benefits"
 .clr
 
+= javascript_include_tag 'common'
