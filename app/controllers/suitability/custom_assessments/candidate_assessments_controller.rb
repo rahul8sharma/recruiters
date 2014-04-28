@@ -1,3 +1,4 @@
+include ValidationHelper
 class Suitability::CustomAssessments::CandidateAssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_assessment
@@ -129,11 +130,18 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       params[:selected_candidates] ||= {}
       candidate_assessments = []
       failed_candidate_assessments = []
+     
       recipient = params[:report_email_recipients]
-      if recipient.blank?
-        flash[:error] = "Please enter valid email addresses for notification. Email addresses should be in the format 'abc@xyz.com'."
-        render :action => :send_test_to_candidates and return
+     
+      recipeint_array = recipient.split(',')
+      
+      recipeint_array.each do |receiver|
+        if !validateEmail?(receiver)
+          flash[:error] = "Please enter valid email addresses for notification. Email addresses should be in the format 'abc@xyz.com'."
+          render :action => :send_test_to_candidates and return
+        end
       end
+      
       if params[:selected_candidates].empty?
         flash[:error] = "Please select at least one candidate."
         render :action => :send_test_to_candidates and return
