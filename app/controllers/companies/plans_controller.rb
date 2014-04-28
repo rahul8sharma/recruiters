@@ -3,6 +3,7 @@ require "uri"
 
 class Companies::PlansController < ApplicationController
   before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:id]) }
   before_filter :get_plan, :except => [:payment_status]
   before_filter :get_company
   before_filter :get_countries, :only => [:contact]
@@ -52,7 +53,8 @@ class Companies::PlansController < ApplicationController
       get_company
       process_payment
     else
-      flash[:alert] = company.error_messages.join("<br/>").html_safe
+      get_countries
+      flash[:error] = company.error_messages.uniq.join("<br/>").html_safe
       render :action => :contact
     end
   end

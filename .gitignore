@@ -23,6 +23,7 @@ config/jombay-notify.yml
 config/sidekiq
 config/s3
 config/statistics.yml
+config/vger.yml
 public/assets
 **.DS_Store
 *:Zone.Identifier

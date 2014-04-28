@@ -1,24 +1,83 @@
 = render partial: "shared/reports/report_header.html.haml"
 .inner
-  .factor_fit.report_content
+  .scores.favorable_factors
     .blue_bg_heading.text-center.big-text
-      Traits measured in this Assessment
+      Scores of Traits measured in this Assessment
+    .divider1
+
+    .indication.pull-left
+      .pull-left.box
+      .pull-left
+        %b Expected Score
+      .clr
+      .divider1
+      .pull-left.hexagon-icon.mid_favorable
+      .pull-left
+        %b Obtained Score
+      .clr
+
+    .scale.pull-left
+      .marker
+        %br/
+        Low
+      .marker
+        Below Average
+      .marker
+        %br/
+        Average
+      .marker
+        Above Average
+      .marker
+        %br/
+        High
+      .marker
+        Very High
+      .clr
+    .clr
     .divider2
-    .instruction_container
-      .instructions
-        .instruction1.pull-left
-          Favorable Traits 
-        .instruction2.less_favorable.pull-left
-          Less Favorable Traits
-        .clr
-    .divider2 
-    .factors_container
-      .factors_list
-        - @report.report_hash[:company_fit_scores].each_with_index do |(factor_name,factor_score),index|
-          - margin = factor_name.split(" ").size > 1 ? 15 : 30
-          %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            .wrapper{:style=>"margin-top: #{margin}px;"}
-              = factor_name.gsub(" ","<br/>").html_safe
-      
-      %p.bottom-sec
-        Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
+    %ul.clearfix.scores_listing.first
+      - factor_scores.each_with_index do |(factor_name,factor_score),index|
+        %li
+          .lhs-sec.pull-left
+            %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+            .span11
+              .factor-name
+                = factor_name
+          .rhs-sec.pull-left
+            .slider
+              - scale = factor_score[:scale]
+              .pointer{ class: "position#{scale[:position]}" }
+              -# Use position1, postion2...5. for pointer position
+              .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+              -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+
+          .clr
+          .factor-description
+            = factor_score[:description]
+          .divider1
+
+          - if @report.report_hash[:enable_factor_consistency]
+            .responses  
+              %i.icon-align-justify
+              Reliability of Candidate's Responses for this Factor:
+              %span.score 
+                = factor_score[:consistency_bucket]
+          .divider1
+          - if @view_mode == "feedback"
+            = fields_for :feedback do
+              .optional_feedback
+                .title
+                  Optional feedback on the score:
+                .options
+                  %label
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 0, checked: true}
+                    About Right
+                  %label
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 1}
+                    Should be more 
+                  %label.last
+                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: -1}
+                    Should be less 
+                .clr
+                .divider1

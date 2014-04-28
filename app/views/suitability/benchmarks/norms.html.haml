@@ -38,14 +38,11 @@
     - aindex = 0
     .factor-list
       %ul.factor-snippet.clearfix
-        - @factor_norms_by_fit.each_with_index do |(fit,norms),fit_index|
-        
-          - norms[:factors].each_with_index do |assessment_factor_norm,index|
-            - aindex = aindex + 1
-            = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }
-          - norms[:alarm_factors].each_with_index do |assessment_factor_norm,index|
-            - aindex = aindex + 1
-            = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex, fit_index: fit_index }    
+        - @factor_norms.each_with_index do |assessment_factor_norm,index|
+          = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => index }
+          - aindex += 1
+        - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
+          = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex+index }    
     .divider3
     %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
       Save and Close

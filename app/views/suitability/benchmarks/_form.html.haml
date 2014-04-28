@@ -1,6 +1,4 @@
 = form_for assessment, :as => :assessment, :url => url, multipart: true, method: method, html: { class: "creat-test-form" } do |f|
-  = f.hidden_field :assessable_type, value: assessment.assessable_type
-  = f.hidden_field :assessable_id, value: assessment.assessable_id
   = f.hidden_field :company_id, value: assessment.company_id
   .divider1
   .control-group
@@ -39,6 +37,19 @@
     %label
       Enter a Title for the Benchmark 
     = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
+    .clr
+  = f.fields_for :sets do |set_form|  
+    = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
+    = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
+    = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
+    - if !is_superadmin?
+      = set_form.hidden_field :page_size, value: Rails.application.config.default_set["page_size"]
+    - else
+      .control-group
+        %label
+          Page Size
+        = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span17"
+        .clr
   .clr
   .divider2
   .pull-right  

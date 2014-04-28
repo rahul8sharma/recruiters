@@ -1,7 +1,4 @@
 class Suitability::StandardAssessmentsController < AssessmentsController
-  before_filter :get_assessment, :except => [:index]
-  before_filter :get_meta_data, :only => [:new, :norms, :competency_norms]
-  
   layout "tests"
   
   def api_resource
@@ -47,7 +44,6 @@ class Suitability::StandardAssessmentsController < AssessmentsController
       params[:assessment] ||= {}
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        create_or_update_set
         redirect_to standard_assessment_path(:id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
@@ -62,6 +58,17 @@ class Suitability::StandardAssessmentsController < AssessmentsController
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     @assessments = api_resource.where(:query_options => { :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 5)
+  end
+  
+  def update
+    @assessment = Vger::Resources::Suitability::StandardAssessment.save_existing(params[:id], params[:assessment])
+    if @assessment.error_messages.empty?
+      redirect_to norms_standard_assessment_path(@assessment)
+    else
+      get_meta_data
+      flash[:error] = @assessment.error_messages.join("<br/>") rescue ""
+      format.html { render action: "edit" }
+    end
   end
   
   # POST /assessments
@@ -81,7 +88,8 @@ class Suitability::StandardAssessmentsController < AssessmentsController
         format.html { redirect_to redirect_path }
       else
         get_meta_data
-        flash[:error] ||= @assessment.errors.values.flatten.join(",") rescue ""
+        add_set
+        flash[:error] = @assessment.error_messages.join("<br/>") rescue ""
         format.html { render action: "new" }
       end
     end
@@ -95,6 +103,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
     if params[:id].present?
       @assessment = api_resource.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
     else
+      params[:assessment] ||= {}
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
@@ -132,11 +141,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
       end
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        if params[:save_and_close].present?
-          redirect_to standard_assessment_path(:id => @assessment.id)
-        else
-          redirect_to add_candidates_standard_assessment_path(:id => @assessment.id)          
-        end
+        redirect_to standard_assessment_path(:id => @assessment.id)
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
       end
