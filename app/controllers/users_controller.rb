@@ -76,7 +76,8 @@ class UsersController < ApplicationController
     if @user.error_messages.present?
       redirect_to(root_url, notice: "Invalid confirmation_token token")
     else
-      redirect_to(login_path)
+      sign_in(:auth_token => @user.authentication_token)
+      #redirect_to(login_path)
     end
   end
   
