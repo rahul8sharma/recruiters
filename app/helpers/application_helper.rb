@@ -65,6 +65,7 @@ module ApplicationHelper
     search_options ||= {}
     order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
     order_type_class = order_type == "ASC" ? "down" : "up"
+    order_type_class = "#{order_type_class} active" if(params[:order_by].to_s == order_by.to_s)    
     title = order_type == "ASC" ? "Sort by #{order_by.to_s} in ascending order" : "Sort by #{order_by.to_s} in descending order"
     final_url = "#{url}?order_by=#{order_by}&order_type=#{order_type}"
     search_options.each do |key,value|
