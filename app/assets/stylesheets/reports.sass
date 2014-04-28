@@ -414,70 +414,74 @@ body
 
       .lhs-sec
         padding-top: 18px
-        width: 470px
+        width: 500px
       .rhs-sec
         .slider
           position: relative
-          border: 2px solid #2b90ba
-          width: 264px
+          border: 1px solid #096b95
+          width: 271px
           height: 15px
           margin-top: 28px
           .range
             height: 15px
-            background: #cfcfcf
+            background: #CFCFCF
           .pointer
             background: image-url('report/scale-pointer-hexagon.png') no-repeat center center
             height: 35px
             width: 40px
             position: absolute
-            top: -11px
+            top: -10px
           @for $i from 0 through 5
             .position#{$i}
-              left: $i * 65px - (20)
+              left: $i * 55px - (20)
+          .position5
+            left: 250px
           
       .small
         font-size: 10px
       .wrap-inn
         padding: 30px 10px
 
-  @for $i from 0 through 3
+  @for $i from 0 through 4
     .offset#{$i}
-      margin-left: $i * 66px
-  .offset4
-    margin-left: 254px
-  @for $i from 0 through 3
+      margin-left: $i * 54px
+  .offset5
+    margin-left: 261px
+  @for $i from 0 through 4
     .width#{$i}
-      width: $i * 66px 
+      width: $i * 55px 
   .width0
     width: 10px
-  .width4
+  .width5
     width: 100%
   .scale
     background: image-url('report/scale-bg.png') no-repeat center bottom
     width: 340px
-    height: 50px
-    margin: 15px 10px 0 0
+    height: 47px
+    margin: 0 -15px 0 0
     float: right
     .marker
       color: #36a3b2
-      font-size: 12.25px
-      width: 56px
+      font-size: 12px
+      width: 44px
       text-align: center
       float: left
       line-height: 14px
       margin-left: 10px
   .favorable_factors
     .indication
-      font-size: 14px
-      line-height: 22px
-      margin-bottom: 10px
-      b
-        margin-left: 10px
+      font-size: 10px
+      line-height: 18px
+      m
+      .divider1
+        height: 10px
+      
       .box
-        border: 2px solid #2b90ba
+        border: 2px solid #1e88b8
         background: #cfcfcf
-        height: 20px
-        width:  35px
+        height: 15px
+        width:  30px
+        margin-right: 10px
       .left-offset1
         b
           line-height: 26px
@@ -577,7 +581,9 @@ body
       background: #ffffff
     .inner
       .scale
-        margin: 15px -20px 0 0
+        margin: 15px -10px 0 0
+    .slider
+      margin-right: 11px
     .scores 
       ul.scores_listing 
         min-height: 100px
