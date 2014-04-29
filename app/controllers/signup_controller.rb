@@ -1,6 +1,7 @@
 class SignupController < ApplicationController
   layout "companies"
   def sign_up
+    redirect_to after_sign_in_path_for and return if current_user
     @countries = Vger::Resources::Location.where(:query_options => { :location_type => Vger::Resources::Location::LocationType::COUNTRY }).all.to_a
     if request.post?
       company_attributes = params[:company]

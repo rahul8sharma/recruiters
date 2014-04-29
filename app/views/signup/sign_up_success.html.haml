@@ -21,7 +21,7 @@
     .text.span6.medium-text
       Go to your
       %br/
-      Someone@jombay.com 
+      = params[:company][:admin_attributes][:email]
       %br/
       email account
     = image_tag("users/signup_success_bg.png")
