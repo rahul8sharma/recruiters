@@ -10,7 +10,7 @@
 - critical_checkbox_name = "checkbox_critical"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
 
-%li{ :id => "li_#{index}", class: "span15 item #{assessment_factor_norm.id.present? ? 'checked':''}" }
+%li{ :id => "li_#{index}", class: "checked"}
   - if assessment_factor_norm.id.present?
     %input{name: (id_name), type: 'hidden', value: assessment_factor_norm.id, index: (index)}
   %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}  
