@@ -10,7 +10,7 @@
 - critical_checkbox_name = "checkbox_critical"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
 
-%li{ :id => "li_#{index}", class: "item checked" }
+%li{ :id => "li_#{index}", class: "checked"}
   - if assessment_factor_norm.id.present?
     %input{name: (id_name), type: 'hidden', value: assessment_factor_norm.id, index: (index)}
   %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}  
@@ -18,10 +18,13 @@
   %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, index: (index)}
   %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
   %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
-  .pull-left
-    %label
-      %b= assessment_factor_norm.factor.name
+  .span1.first
+    %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
+  .span6
+    %label{ for: "checkbox_factor_#{index}" }
+      = assessment_factor_norm.factor.name
+      %p
+        = assessment_factor_norm.factor.definition
+      .down-caret
   .clr
   .divider1
-  %p= assessment_factor_norm.factor.definition
-
