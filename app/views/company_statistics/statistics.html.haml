@@ -1,82 +1,84 @@
 .statistic
-  = render :partial => "shared/sub-nav"
-  .inn.first
-    .page-title
-      Usage
-  .inn.gray-gradient
-    .stat_graph
-      .span5
-        .graph
-          - total = @company.assessment_statistics[:assessments_purchased]
-          - assessments_sent = @company.assessment_statistics[:assessments_sent]
-          - assessments_completed = @company.assessment_statistics[:assessments_completed]
-          - sent_percentage = 0
-          - completed_percentage = 0
-          - if total != 0 && assessments_sent != 0
-            - sent_percentage = ((assessments_sent.to_i * 100) / total)
-            - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
-          .column.darkBlue-bg{:style => "width: 100%"}
-          .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-          //.column.orange-bg{:style => "width: 20%"}
-      .span13
-        .large-text
-          %b Assessments
+  .page-title
+    .divider1
+    Usage
+  .divider2
+  .stat_graph
+    .span5
+      .graph
+        - total = @company.assessment_statistics[:assessments_purchased]
+        - assessments_sent = @company.assessment_statistics[:assessments_sent]
+        - assessments_completed = @company.assessment_statistics[:assessments_completed]
+        - sent_percentage = 0
+        - completed_percentage = 0
+        - if total != 0 && assessments_sent != 0
+          - sent_percentage = ((assessments_sent.to_i * 100) / total)
+          - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
+        .column.darkBlue-bg{:style => "width: 100%"}
+        / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
+        .column.lightBlue-bg{:style => "width: 30%"}
+        //.column.orange-bg{:style => "width: 20%"}
+    .span13
+      .large-text
+        %b Assessments
+      .divider1
+      .span6.first
+        %span.icon-stop.darkBlue-bg
+        %span Total Assessments Sent:  
+        %b.large-text
+          #{@company.assessment_statistics[:assessments_sent].to_i}
+      .span
+        %span.icon-stop.lightBlue-bg
+        %span Total Assessments Answered:  
+        %b.large-text
+          #{@company.assessment_statistics[:assessments_completed].to_i}
+        
+    .clr
+  .divider3
+  .list-snippet-titles.large-text.clearfix
+    .span4
+      Subscriptions
+    .span6
+      Assessments Bought
+    .span5.text-center
+      Assessments Sent
+    .span6.text-center
+      Assessments Answered
+    .span4
+      Activated Date        
+    .span3
+      Valid Till
+    .span
+      Status
+    .clr
+    .divider1          
+
+  %ul
+    - @subscriptions.each_with_index do |subscription, index|
+      %li.list-snippet.border-bottom-grayLighter
         .divider1
-        .span6.first
-          %span.icon-stop.darkBlue-bg
-          %span Total Assessments Sent:  
-          %b.large-text
-            #{@company.assessment_statistics[:assessments_sent].to_i}
-        .span
-          %span.icon-stop.lightBlue-bg
-          %span Total Assessments Answered:  
-          %b.large-text
-            #{@company.assessment_statistics[:assessments_completed].to_i}
-          
-      .clr
-    .usage_list
-      .divider1
-      .head
         .span4
-          Subscriptions
+          Subscription #{@subscriptions.length - index}
+        .span6
+          %b #{subscription.assessments_purchased}
+        .span5.text-center
+          #{subscription.assessments_sent}
+        .span6.text-center
+          #{subscription.assessments_completed}
+        .span4
+          - valid_from = Date.parse(subscription.valid_from)
+          %b #{valid_from.strftime("%d/%m/%Y")}
         .span3
-          Assessments Bought
-        .span3
-          Assessments Sent
-        .span3
-          Assessments Answered
-        .span3
-          Activated Date        
-        .span3
-          Valid Till
-        .span
-          Status
+          - valid_to = Date.parse(subscription.valid_to)
+          %b #{valid_to.strftime("%d/%m/%Y")}
+        .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
+          #{(valid_to >= Date.today) ? "Active" : "Expired"}
+          //toggle btween :".success-text" and ".alert-text"
         .clr
-      .divider1
-      %ul
-        - @subscriptions.each_with_index do |subscription, index|
-          %li
-            .span4
-              Subscription #{@subscriptions.length - index}
-            .span3
-              %b #{subscription.assessments_purchased}
-            .span3
-              #{subscription.assessments_sent}
-            .span3
-              #{subscription.assessments_completed}
-            .span3
-              - valid_from = Date.parse(subscription.valid_from)
-              %b #{valid_from.strftime("%d/%m/%Y")}
-            .span3
-              - valid_to = Date.parse(subscription.valid_to)
-              %b #{valid_to.strftime("%d/%m/%Y")}
-            .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
-              #{(valid_to >= Date.today) ? "Active" : "Expired"}
-              //toggle btween :".success-text" and ".alert-text"
-            .clr
-            
-    .pull-right
-      = paginate @subscriptions            
-    .clr  
+        .divider1
+        
+  .pull-right
+    = paginate @subscriptions            
+  .clr  
 
 
