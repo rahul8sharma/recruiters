@@ -8,7 +8,7 @@ class Suitability::BenchmarksController < Suitability::CustomAssessmentsControll
       }, 
       :order => "created_at DESC", 
       :page => params[:page], 
-      :per => 15
+      :per => 10
     )
   end
   

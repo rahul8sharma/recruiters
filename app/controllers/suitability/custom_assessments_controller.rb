@@ -96,6 +96,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   # GET /assessments
   def index
     order_by = params[:order_by] || "created_at"
+    params[:order_by] ||= order_by
     order_type = params[:order_type] || "DESC"
     @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
   end
