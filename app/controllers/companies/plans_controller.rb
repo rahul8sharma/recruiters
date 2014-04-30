@@ -13,7 +13,7 @@ class Companies::PlansController < ApplicationController
   layout "companies"
 
   def index
-    @plans = Vger::Resources::Plan.all
+    @plans = Vger::Resources::Plan.where(:query_options => "price != 0").all
   end
 
   def review
