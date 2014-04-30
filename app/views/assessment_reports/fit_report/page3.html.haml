@@ -17,19 +17,9 @@
       .clr
 
     .scale.pull-left
-      .marker
-        %br/
-        Low
-      .marker
-        Below Average
-      .marker
-        Average Low
-      .marker
-        Average High
-      .marker
-        Above Average
-      .marker
-        High
+      - @norm_buckets.each do |norm_bucket|
+        .marker
+          = norm_bucket.name
       .clr
     .clr
     .divider2

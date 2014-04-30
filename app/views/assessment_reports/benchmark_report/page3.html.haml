@@ -14,19 +14,9 @@
           .range_list_title.pull-left
             Factor Names
           .scale.pull-right
-            .marker
-              %br/
-              Low
-            .marker
-              Below Average
-            .marker
-              Average Low
-            .marker
-              Average High
-            .marker
-              Above Average
-            .marker
-              High
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                = norm_bucket.name
             .clr
           .clr
         .clr
