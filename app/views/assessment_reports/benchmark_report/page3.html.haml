@@ -14,27 +14,16 @@
           .range_list_title.pull-left
             Factor Names
           .scale.pull-right
-            .marker
-              %br/
-              Low
-            .marker
-              Below Average
-            .marker
-              %br/
-              Average
-            .marker
-              Above Average
-            .marker
-              %br/
-              High
-            .marker
-              Very
-              High
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
             .clr
           .clr
         .clr
         %ul.range_list
-          -6.times do
+          - @norm_buckets.size.times do
             %li
               .span17
                 .factor_label

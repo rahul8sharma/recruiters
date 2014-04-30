@@ -104,6 +104,7 @@ class AssessmentReportsController < ApplicationController
 
   def assessment_report
     report_type = params[:report_type] || "fit"
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
     @view_mode = params[:view_mode]
     request.format = "pdf" if @view_mode == "pdf"
