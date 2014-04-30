@@ -57,9 +57,10 @@
               %a{:href=> root_path, :title=> "HOME"}
                 HOME      
 
-          %li
-            %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-              HELP
+          -#
+            %li
+              %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                HELP
         .clr
       .clr
     - else
@@ -73,7 +74,7 @@
               %a{:href=> "#", :title=> "Jombay Analytics"}
                 Analytics
           %li
-            %a{:href=>"#", :title=> "Jombay Help Number"}
+            %a{:title=> "Jombay Help Number"}
               .icon-phone-sign.large-text.line-height1.color-success.pull-left
               .pull-left +91 96733 35243
               .clr
