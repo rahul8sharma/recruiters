@@ -9,6 +9,7 @@
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - critical_checkbox_name = "checkbox_critical"
 - critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
+- checked =  (assessment_factor_norm.id.present? || assessment_factor_norm.selected)
 
 %li{ :id => "li_#{index}", class: "span15 item #{assessment_factor_norm.id.present? ? 'checked':''}" }
   -#please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
@@ -22,7 +23,7 @@
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
     .span1.first 
-      %input{name: "selected_factor", class: "check_factor", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
+      %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
     .span6
       %label{ for: "checkbox_factor_#{index}" }
         = assessment_factor_norm.factor.name
@@ -38,7 +39,7 @@
     %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
     .span1.first 
-      %input{name: "selected_factor", class: "check_factor", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}
+      %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
     .span6
       %label{ for: "checkbox_factor_#{index}" }
         = assessment_factor_norm.factor.name
