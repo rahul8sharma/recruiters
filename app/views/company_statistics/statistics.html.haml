@@ -16,7 +16,7 @@
           - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
         .column.darkBlue-bg{:style => "width: 100%"}
         / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-        .column.lightBlue-bg{:style => "width: 30%"}
+        .column.orange-bg{:style => "width: 30%"}
         //.column.orange-bg{:style => "width: 20%"}
     .span13
       .large-text
@@ -28,7 +28,7 @@
         %b.large-text
           #{@company.assessment_statistics[:assessments_sent].to_i}
       .span
-        %span.icon-stop.lightBlue-bg
+        %span.icon-stop.orange-bg
         %span Total Assessments Answered:  
         %b.large-text
           #{@company.assessment_statistics[:assessments_completed].to_i}
@@ -37,16 +37,16 @@
   .divider3
   .list-snippet-titles.large-text.clearfix
     .span4
-      Subscriptions
-    .span6
-      Assessments Bought
+      Packages
+    .span4
+      Package Size
     .span5.text-center
       Assessments Sent
     .span6.text-center
       Assessments Answered
     .span4
       Activated Date        
-    .span3
+    .span4
       Valid Till
     .span
       Status
@@ -58,17 +58,17 @@
       %li.list-snippet.border-bottom-grayLighter
         .divider1
         .span4
-          Subscription #{@subscriptions.length - index}
-        .span6.text-center
+          Package #{@subscriptions.length - index}
+        .span5.text-center
           %b #{subscription.assessments_purchased}
         .span5.text-center
           #{subscription.assessments_sent}
         .span6.text-center
           #{subscription.assessments_completed}
-        .span4
+        .span3
           - valid_from = Date.parse(subscription.valid_from)
           %b #{valid_from.strftime("%d/%m/%Y")}
-        .span3
+        .span4
           - valid_to = Date.parse(subscription.valid_to)
           %b #{valid_to.strftime("%d/%m/%Y")}
         .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
