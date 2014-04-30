@@ -49,8 +49,8 @@ class CompaniesController < ApplicationController
   end
 
   def home
-    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.all()
     standard_assessment_uid = Rails.application.config.signup[:standard_assessment_uid]  
+    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:query_options => "uid != '#{standard_assessment_uid}'").all
     @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
     if @custom_assessment
       admin_candidate_email = "#{current_user.email.split("@")[0]}+candidate@#{current_user.email.split("@")[1]}"
