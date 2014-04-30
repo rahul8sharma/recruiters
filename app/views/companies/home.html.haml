@@ -2,14 +2,16 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 .home
-  #flag.alert.alert-info.fw
-    Welcome! You can start using one of ready-to-use assessments or create a test to suit your requirements!
-    %br/
-    You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
-    %a.close{:href => "#", :id => "close"}
-      CLOSE
-      %span.medium-text
-        x
+  - if session[:show_home_page_message] != false
+    - session[:show_home_page_message] = false
+    #flag.alert.alert-info.fw
+      Welcome! You can start using one of ready-to-use assessments or create a test to suit your requirements!
+      %br/
+      You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
+      %a.close{:href => "#", :id => "close"}
+        CLOSE
+        %span.medium-text
+          x
   .divider1
 
   .page-title.pull-left
