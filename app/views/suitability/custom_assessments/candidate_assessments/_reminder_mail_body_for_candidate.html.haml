@@ -36,9 +36,15 @@
       %p 
         Best Regards,
         %br/
-        Prakhar Srivastava
+        - if ["SuperAdmin"].include? current_user.type
+          Prakhar Srivastava
+          %br
+          Jombay
+        - else
+          = current_user.name
+          %br/
+          #{@company.name}
         %br/
-        Jombay
     .clr
 
     = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
