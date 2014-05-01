@@ -17,21 +17,11 @@
       .clr
 
     .scale.pull-left
-      .marker
-        %br/
-        Low
-      .marker
-        Below Average
-      .marker
-        %br/
-        Average
-      .marker
-        Above Average
-      .marker
-        %br/
-        High
-      .marker
-        Very High
+      - @norm_buckets.each do |norm_bucket|
+        .marker
+          - if norm_bucket.name.split(" ").size == 1
+            %br/
+          = norm_bucket.name
       .clr
     .clr
     .divider2
