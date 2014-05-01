@@ -44,8 +44,9 @@
           Jombay
         - else
           = current_user.name
-          %br
-        %br 
+          %br/
+          #{@company.name}
+        %br/
     .clr 
    
     = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
