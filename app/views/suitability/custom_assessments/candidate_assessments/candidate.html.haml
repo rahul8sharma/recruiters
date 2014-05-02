@@ -133,6 +133,7 @@
           %i.icon-chevron-down.small-text.line-height1 
     %ul
       - @candidate_assessments.each do |candidate_assessment|
+        - report = candidate_assessment.candidate_assessment_reports[0] 
         %li.list-snippet
           .divider1
           .span3.first
@@ -148,15 +149,17 @@
             - else
               \-  
           .span5
-            - if candidate_assessment.overall_fitment_grade_id.present?
-              - report = candidate_assessment.candidate_assessment_reports[0] 
-              - if report and report.status == "uploaded"
-                - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => @candidate.id, :assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-                %a.color{:href=> url, :title=>"Click here to View Report", target: "_blank"}  
+            - if report
+              - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
+                %a{:href => url, :title => "View Report", target: "_blank"}
                   View Report
               - else
-                %i.icon-spinner.icon-spin
+                %i.icon-spinner.icon-spin 
                 Generating report...  
-            - else
-              Pending 
+            - else 
+              - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
+                Expired
+              - else
+                Pending
           .clr         
