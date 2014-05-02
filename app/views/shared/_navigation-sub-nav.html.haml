@@ -8,7 +8,7 @@
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) && (request.get? || flash[:error].present?)) ? "active" : "" }
     .count 3 
     Add Assessment Taker’s Details
-  .menu{ class: ([:add_candidates].include?(params[:action].to_sym) && request.put? && flash[:error].blank?) ? "active" : "" }
+  .menu{ class: ([:add_candidates].include?(params[:action].to_sym) && request.put? || flash[:error].present?) ? "active" : "" }
     .count 4 
     Confirm &amp; Send Assessment  
 .clr
