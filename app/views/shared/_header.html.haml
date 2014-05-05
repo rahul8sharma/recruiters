@@ -29,7 +29,7 @@
                 %a{href: "/logout"} Logout
         - if defined?(@company)
           %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
-            UPGRADE ACCOUNT
+            BUY PACKAGE
 
         %ul.navbar.pull-right.clearfix        
           - if defined?(@company)
@@ -57,8 +57,29 @@
               %a{:href=> root_path, :title=> "HOME"}
                 HOME      
 
-          %li
-            %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-              HELP
+          -#
+            %li
+              %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                HELP
         .clr
+      .clr
+    - else
+      .span19.pull-right
+        %ul.navbar.pull-right.clearfix        
+          -#
+            %li
+              %a{:href=> "#", :title=> "What differentiates Jombay?"}
+                What differentiates Jombay?
+            %li
+              %a{:href=> "#", :title=> "Jombay Analytics"}
+                Analytics
+          %li
+            %a{:title=> "Jombay Help Number"}
+              .icon-phone-sign.large-text.line-height1.color-success.pull-left
+              .pull-left +91 96733 35243
+              .clr
+          %li
+            %a{:href=> "/login", :title=> "Sign In to Jombay"}
+              %b.color-warning.extra-medium-text
+                Sign In
       .clr

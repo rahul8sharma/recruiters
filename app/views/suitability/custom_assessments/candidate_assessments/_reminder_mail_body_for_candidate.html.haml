@@ -1,16 +1,20 @@
-.inn.gray-gradient
-  .test-text-to-send
-    .title
+.gray-dark.margin-auto.span16
+  .test-text-to-send.medium-text
+    .extra-medium-text.span2.first
       To
-    .massage-body.test-title
+    .massage-body.italic.span13
       = @candidate.name
-    .title
+    .clr
+    .divider1
+    .extra-medium-text.span2.first
       Subject
-    .massage-body.subject
+    .massage-body.italic.span13
       #{@candidate.name}, you have not answered #{@company.name}'s Assessment.
-    .title
+    .clr
+    .divider1
+    .extra-medium-text.span2.first
       Message
-    .massage-body.massage
+    .massage-body.italic.span13
       %p 
         Hello #{@candidate.name},
       %p
@@ -32,13 +36,20 @@
       %p 
         Best Regards,
         %br/
-        Prakhar Srivastava
+        - if ["SuperAdmin"].include? current_user.type
+          Prakhar Srivastava
+          %br
+          Jombay
+        - else
+          = current_user.name
+          %br/
+          #{@company.name}
         %br/
-        Jombay
-    .pull-right
-      %a.span.line-height2{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
-        Cancel
-      = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'span' } do |f|
-        %button.btn.btn-info
-          Send
+    .clr
+
+    = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
+      %button.btn.btn-warning.large-text
+        Send
+    %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
+      Cancel
     .clr    

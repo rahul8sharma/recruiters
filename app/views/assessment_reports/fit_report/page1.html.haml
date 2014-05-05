@@ -21,9 +21,10 @@
 
     .divider5
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-    .sub-heading.fw.medium-text.text-center
-      #{@report.report_hash[:candidate][:name]}&#39;s #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["fitment_scores"]}
-      = @report.report_hash[:overall_score_bucket]
+    - if (@report.report_hash[:enable_recommendation])
+      .sub-heading.fw.medium-text.text-center
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket]
     .clr
     .divider2
 

@@ -130,10 +130,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       candidate_assessments = []
       failed_candidate_assessments = []
       recipient = params[:report_email_recipients]
-      if recipient.blank?
-        flash[:error] = "Please enter valid email addresses for notification. Email addresses should be in the format 'abc@xyz.com'."
-        render :action => :send_test_to_candidates and return
-      end
+      #if recipient.blank?
+      #  flash[:error] = "Please enter valid email addresses for notification. Email addresses should be in the format 'abc@xyz.com'."
+      #  render :action => :send_test_to_candidates and return
+      #end
       if params[:selected_candidates].empty?
         flash[:error] = "Please select at least one candidate."
         render :action => :send_test_to_candidates and return
@@ -167,8 +167,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         :send_email => params[:send_email]
       ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
-        flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
-        redirect_to candidates_url
+        #flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        #redirect_to candidates_url
+        flash[:error] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        render :action => :send_test_to_candidates and return
       else
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
           flash[:notice] = "You have successfully sent the Benchmark!"

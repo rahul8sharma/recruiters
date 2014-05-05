@@ -28,16 +28,16 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     elsif request.put?
       params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       traits_range_min = Rails.application.config.validators["traits_range"]["min"]
-      traits_range_max = Rails.application.config.validators["traits_range"]["max"]      
+      # traits_range_max = Rails.application.config.validators["traits_range"]["max"]      
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.keys.size
       
-      if selected_traits_size >= traits_range_min && selected_traits_size <= traits_range_max
+      if selected_traits_size >= traits_range_min
         store_assessment_factor_norms
       else
         if selected_traits_size < traits_range_min
-          flash[:error] = "Please select at least #{traits_range_min} traits to create the assessment. You may choose a maximum of #{traits_range_max} traits."
-        elsif selected_traits_size > traits_range_max
-          flash[:error] = "Maximum traits allowed in an assessment is 18 to ensure optimum assessment experience. Please deselect a few traits to Proceed."
+          flash[:error] = "Please select at least #{traits_range_min} traits to create the assessment."
+        # elsif selected_traits_size > traits_range_max
+        #   flash[:error] = "Maximum traits allowed in an assessment is 18 to ensure optimum assessment experience. Please deselect a few traits to Proceed."
         end
         render :action => :norms
       end
@@ -96,6 +96,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   # GET /assessments
   def index
     order_by = params[:order_by] || "created_at"
+    params[:order_by] ||= order_by
     order_type = params[:order_type] || "DESC"
     @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
   end
