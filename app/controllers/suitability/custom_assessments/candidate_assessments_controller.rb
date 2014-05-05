@@ -259,7 +259,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   
   def get_company
     methods = []
-    if params[:action] == "index"
+    if ["index", "candidates"].include?(params[:action])
       if Rails.application.config.statistics[:load_assessmentwise_statistics]
         methods << :assessmentwise_statistics
       end
