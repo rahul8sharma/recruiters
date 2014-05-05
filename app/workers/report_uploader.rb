@@ -32,6 +32,7 @@ class ReportUploader < AbstractController::Base
         :patch => patch,
         :methods => [ :report_hash ]
       )
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
 
       candidate_name = @report.report_hash[:candidate][:name]
       company_name = @report.report_hash[:company][:name]
