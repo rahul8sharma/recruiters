@@ -1,8 +1,11 @@
-.test-flow-sub-nav.clearfix.pull-left
+.navigation-sub-nav.clearfix.pull-left
   .menu{ class: [:new, :norms, :styles, :competencies, :competency_norms].include?(params[:action].to_sym) ? "active" : "" }
-    1 &nbsp; Create Benchmark
+    .count 1 
+    Create Benchmark
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.get?) ? "active" : "" }
-    2 &nbsp; Add Top Performer
+    .count 2
+    Add Top Performer
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.put?) ? "active" : "" }
-    3 &nbsp; Confirm &amp; Send     
+    .count 3 
+    Confirm &amp; Send     
 .clr

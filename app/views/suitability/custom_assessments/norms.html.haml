@@ -1,0 +1,73 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.alert.alert-info{:hidden => "hidden", :id => "trait_flag"}
+  %strong
+    Please select a norm
+.norms
+  .page-title 
+    #{@assessment.name}
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+      
+  = form_for @assessment, :as => :assessment, :url => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+    %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
+    %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
+    %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
+    - 2.times do 
+      .span15.first
+        .factor-list
+          .titles.clearfix
+            .span7.first
+              .big-text
+                Behavioral Trait
+              .muted
+                Place the cursor on individual Traits below to see their definition
+                
+            .span6.left-offset1
+              .big-text
+                Expected Score Range
+              .muted
+                Choose Minimum and Maximum score
+            .clr
+            .divider1 
+            .semi-muted
+              .left-offset8.first.span3
+                Minimum
+              .span3 
+                Maximum
+    .clr                
+    - aindex = 0
+    .factor-list
+      %ul.factor-snippet.clearfix
+        - @factor_norms.each_with_index do |assessment_factor_norm,index|
+          = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => index }
+          - aindex += 1
+        - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
+          = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex+index }    
+    .divider3
+    %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
+      Save and Close
+    %button.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Save and Proceed"}
+      Proceed
+    .clr
+    .divider1
+
+= javascript_include_tag 'norms'
+
+:javascript
+
+  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
+  var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
+
+    $('#edit_assessment').submit(function() {
+        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
+            $('#edit_assessment button').attr("disabled", "disabled");
+            return true;
+        } else {
+            $("#trait_flag").removeAttr('hidden');
+            return false;
+        }
+    });

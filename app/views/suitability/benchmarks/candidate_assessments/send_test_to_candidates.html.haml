@@ -1,0 +1,54 @@
+.page-title 
+  .divider1
+  Assessment - #{@assessment.name}
+.divider2
+= render :partial => "shared/navigation-sub-nav"
+.divider2
+.span18.margin-auto.text-center
+  - if params[:candidates]
+    - url = send_test_to_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])
+  - else
+    - url = bulk_send_test_to_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])  
+  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+    %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
+    - if params[:candidates]
+      %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
+      %input{:type => "hidden", name: "upload_type", value: "manual" }
+    - else
+      %input{:type => "hidden", name: "upload_type", value: "bulk" }
+      %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
+      %input{:type => "hidden", name: "s3_key", value: @s3_key }
+      %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
+    .big-text
+      Enter the email address of the people who should receive Reports
+    .divider1
+    %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+    .clr
+    - if current_user.type == "SuperAdmin"
+      .divider2
+      .text-center.large-text
+        %b OR
+      .divider2
+      %label{ for: "send_report_to_candidate", class: "font-normal" }
+        %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+        Send report to candidate
+    .clr
+    .divider3
+    - if params[:candidates]
+      - if current_user.type == "SuperAdmin"
+        .text-center
+          %label.invitation-sms.medium-text
+            Also send test invitations to candidates via SMS
+            %input{:type=>"checkbox", name: "send_sms"}
+          %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+            Send default email
+            %input{:type=>"checkbox", name: "send_email", checked: true}
+      - params[:candidates].each do |id,candidate_data|
+        %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
+        %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
+        %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
+    .divider1        
+    .text-center
+      %button.btn.btn-warning.large-text.big
+        Send Assessment
+

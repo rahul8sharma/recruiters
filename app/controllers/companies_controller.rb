@@ -2,6 +2,7 @@ class CompaniesController < ApplicationController
   layout "companies"
 
   before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:id]) }
   before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
   before_filter :get_companies, :only => [ :index ]
   before_filter :get_countries, :only => [ :edit, :update ]
@@ -14,6 +15,49 @@ class CompaniesController < ApplicationController
     api_resource.destroy_all
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
+
+  def reports
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+      else
+        order = "#{order} #{order_type}"
+    end
+    @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+      :company_id => @company.id, 
+      :joins => [:candidate_assessment_reports, :candidate, :assessment],
+      :include => [:candidate_assessment_reports, :candidate, :assessment],
+      :order => order
+    ).where(
+      :query_options => { 
+        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED 
+      }, :page => params[:page], :per => 5
+    ).all
+  end
+  
+  def landing
+    count = Vger::Resources::Suitability::CustomAssessment.count(:query_options => { company_id: current_user.company_id })
+    if count <= 1
+      redirect_to home_company_path(current_user.company_id) 
+    else
+      redirect_to company_custom_assessments_path(current_user.company_id)  
+    end
+  end
+
+  def home
+    standard_assessment_uid = Rails.application.config.signup[:standard_assessment_uid]  
+    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:query_options => "uid != '#{standard_assessment_uid}'").all
+    @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
+    if @custom_assessment
+      admin_candidate_email = "#{current_user.email.split("@")[0]}+candidate@#{current_user.email.split("@")[1]}"
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:joins => [:candidate], :assessment_id => @custom_assessment.id, :query_options => { "candidates.email" => admin_candidate_email }, methods: [:url], :include => [:candidate_assessment_reports]).all.to_a.first
+    end
+  end
+  
   
   def add_subscription
     if !@company.admin
@@ -82,14 +126,16 @@ class CompaniesController < ApplicationController
 
   def get_companies
     methods = []
+    order_by = params[:order_by] || "created_at"
+    order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods.push :assessmentwise_statistics
     end
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
   end
   
   def get_countries
-    @countries =  Vger::Resources::Location.where(:query_options => { :location_type => "country" }).all.collect{|location| [location.name,location.id] }
+    @countries =  Vger::Resources::Location.where(:query_options => { :location_type => Vger::Resources::Location::LocationType::COUNTRY }).all.collect{|location| [location.name,location.id] }
   end
 end
 

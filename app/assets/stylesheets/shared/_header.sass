@@ -1,30 +1,100 @@
+@import toolkit/grid/core-set
+ul
+  list-style: none
+  margin: 0
 #header
+  background: #fff
+  border-bottom: 1px solid #ccc
   width: 100%
-  height: 55px
-  background: #002b3a
-  color: #fff
-  font-size: 14px
-  a
-    color: #fff
-    font-size: 14px
-  .companies 
-    font-weight: bold
-    padding: 0 18px
-    line-height: 55px
-  .userName
-    padding: 10px
-    margin: 7px 0 0 20px
+  .container 
+    height: 57px
   .logo
-    margin: 13px 0 0 0
-    float: left
-  .logout
-    margin-left: 10px
+    margin-top: 14px
+
+  .label
+    margin-top: 15px
+
   .company_name
-    font-size: 18px
-    font-weight: bold
-    padding: 0 0 0 15px
-    border-left: 2px solid #fff
-    color: #fff
-    line-height: 18px
-    margin: 19px 0 0 20px
-    
+    font-size: 20px
+    line-height: 21px
+    color: #808285
+    border-left: 1px solid #ccc
+    padding: 18px 0 18px 10px
+  .navbar
+    border-left: 1px solid #ccc
+    padding: 0 13px
+    margin-top: 1px
+
+    li
+      float: left
+
+      a
+        padding: 18px 4px
+        margin: 0 9px
+        display: block
+        color: #414042
+        border-bottom: 3px solid transparent
+
+        &:hover, &.active
+          color: $color-warning
+          border-bottom: 3px solid $color-warning
+          text-decoration: none
+
+  #sub-nav
+    position: relative
+    z-index: 5
+    margin: 10px 0 0 25px
+    > li
+      padding-bottom: 10px
+    .setting
+      width: 45px
+      height: 20px
+      border-readius: 3px
+      border: 1px solid #ccc
+      background: image-url("caret-arrow.png") no-repeat center 5px  #fff
+      &:hover
+        color: #fff
+        background-color: #ccc
+        background-position: center -23px
+    li
+      float: left
+      position: relative
+
+    a
+      display: block
+      padding: 5px 5px 5px 10px
+      background-color: #fff
+      color: #414042
+      text-decoration: none
+      font-size: 10px
+      line-height: 10px
+      white-space: nowrap
+
+    ul
+      background: #fff
+      padding: 5px 0
+      margin-top: 3px
+      border: 1px solid #ccc
+      list-style: none
+      position: absolute
+      display: none
+      li
+        float: none
+
+    li:hover
+      ul
+        display: block
+        right: 0
+      .setting
+        color: #fff
+        background-color: #ccc
+        background-position: center -23px
+      ul
+        min-height: 30px
+        a
+          text-decoration: none
+          min-width: 100px
+        li a:hover
+          background: $color-warning
+          color: #fff
+@import  toolkit/component/badges

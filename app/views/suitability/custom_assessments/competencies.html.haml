@@ -1,0 +1,130 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.competencies
+  .page-title 
+    #{@assessment.name}
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+
+  = form_for @assessment, :as => :assessment, :url => competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+    .norms
+      - 2.times do 
+        .span15.first
+          .factor-list
+            .titles.clearfix
+              .span10.first
+                .big-text
+                  Custom Competencies
+                .muted
+                  Place the cursor on individual Competencies below to see their Triats
+                  
+              .span3.left-offset1
+                .big-text
+                  Order
+                .muted
+                  Choose Order
+              .clr
+              .divider1 
+      .clr 
+     
+      - all_competency_index = 0
+      - all_competency_count = @local_competencies.count + @global_competencies.count
+      - if !@local_competencies.present? 
+        .alert No custom competencies present for the company
+      - else
+        -#
+          .global_selector
+            %input{:type=>"checkbox", checked: ((@local_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_local"}
+            %label{ for: "check_all_local" }
+              Select All
+        .factor-list
+          %ul.factor-snippet.clearfix
+            - @local_competencies.each do |competency|
+              %li.span15
+                .divider
+                .span1.first
+                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
+                .span9
+                  %label{:for=>"competency_#{competency.id}"}
+                    = competency.name
+                    %p
+                      = competency.factor_names.join(", ")
+                    .down-caret
+                .left-offset1.pull-left    
+                  %select.span3.first{name: "assessment[competency_order][#{competency.id}]"}  
+                    - all_competency_count.times do |index|
+                      - selected = @assessment.competency_order.index(competency.id)
+                      - selected = all_competency_index if !selected
+                      %option{value: index, selected: index==selected}
+                        = index+1
+                  .clr      
+                .clr 
+                .divider1
+              - all_competency_index+=1     
+          .clr
+        .divider3
+        %button.pull-right.btn.btn-warning.large-text
+          Proceed
+        .clr
+    .divider3
+    .norms
+      - 2.times do 
+        .span15.first
+          .factor-list
+            .titles.clearfix
+              .span10.first
+                .big-text
+                  Standard Competencies
+                .muted
+                  Place the cursor on individual Competencies below to see their Triats
+                  
+              .span3.left-offset1
+                .big-text
+                  Order
+                .muted
+                  Choose Order
+              .clr
+              .divider1 
+      .clr 
+      - if !@global_competencies.present? 
+        .alert No standard competencies present
+      - else 
+        -#
+          .global_selector
+            %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
+            %label{:for => "check_all_global"}
+              Select All
+        .factor-list
+          %ul.factor-snippet.clearfix
+            - @global_competencies.each do |competency|
+              %li.span15
+                .divider
+                .span1.first
+                  %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
+                .span9
+                  %label{:for=>"competency_#{competency.id}"}
+                    = competency.name
+                    %p
+                      = competency.factor_names.join(", ")
+                    .down-caret
+                .left-offset1.pull-left    
+                  %select.span3.first{name: "assessment[competency_order][#{competency.id}]"}  
+                    - all_competency_count.times do |index|
+                      - selected = @assessment.competency_order.index(competency.id)
+                      - selected = all_competency_index if !selected
+                      %option{value: index, selected: index==selected}
+                        = index+1
+                  .clr
+                .clr
+                .divider1
+              - all_competency_index+=1    
+          .clr
+        .divider3
+        %button.pull-right.btn.btn-warning.large-text
+          Proceed
+        .clr
+= javascript_include_tag 'competencies'
+

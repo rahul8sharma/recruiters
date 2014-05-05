@@ -1,28 +1,33 @@
-.create-test.creat-test-show
-  .inn.first
-    .page-title.pull-left
-      = @training_requirement_group.title
-  .clr
-  .inn.gray-gradient
-    .pull-left
-      .content-sub-nav.clearfix
-        %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""),:href => company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
-          Summary
-        %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
-          Training Requirements
-    .clr
+.training_requirements_details
+  .page-title
+    .divider1
+    = @training_requirement_group.title
+  .divider2
+  .content-sub-nav.clearfix
+    %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""),:href => company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
+      Summary
+    %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
+      Training Requirements
+  .padding-all2.border-warning.shifted-up1
+    .list-snippet-titles.large-text.clearfix
+      .span4.first
+        %a{href: "#", title: "Sort by assessment  ID in ascending order"}
+          AID
+          %i.icon-chevron-down.small-text.line-height1
+      .span14.first
+        %a{href: "#", title: "Sort by assessment Name in ascending order"}
+          Assessment Name
+          %i.icon-chevron-down.small-text.line-height1
+
+    .divider1
+    %ul.selected-factors
+      - @training_requirement_group.assessment_hash.each do |assessment_id, assessment_data|
+        %li.list-snippet.border-bottom-grayLighter
+          .divider1
+          .selected-factors-title.clearfix
+            .span4.first
+              = assessment_id
+            .span14
+              = assessment_data[:name]
+          .divider1
     .divider2
-    .first
-      %b.span2.medium-text
-        Test ID
-      %b.span14.medium-text
-        Test Name
-      .clr.divider1
-      %ul.unstyled.selected-factors
-        - @training_requirement_group.assessment_hash.each do |assessment_id, assessment_data|
-          %li
-            .selected-factors-title.clearfix
-              .span2
-                = "TEST#{assessment_id}"
-              .span14.lhs-border
-                = assessment_data[:name]

@@ -62,17 +62,31 @@ module ApplicationHelper
   # helper for rendering a sort link
   # this helper returns a link tag with an up/down css background image
   def sort_link(label,url,order_by,search_options={})
+    search_options ||= {}
     order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
     order_type_class = order_type == "ASC" ? "down" : "up"
+    order_type_class = "#{order_type_class} active" if(params[:order_by].to_s == order_by.to_s)    
     title = order_type == "ASC" ? "Sort by #{order_by.to_s} in ascending order" : "Sort by #{order_by.to_s} in descending order"
     final_url = "#{url}?order_by=#{order_by}&order_type=#{order_type}"
     search_options.each do |key,value|
       final_url = "#{final_url}&search[#{key}]=#{value}"
     end    
-    link_to "#{label}".html_safe, final_url, :title => title, :class => order_type_class
+    link_to "#{label} <i class= 'icon-chevron-#{order_type_class} small-text line-height1'></i>".html_safe, final_url, :title => title, :class => order_type_class
   end
   
   def test_statuses
+    {
+      "" => "All",
+      "sent" => "Pending",
+      "started" => "Started",
+      "completed" => "Completed",
+      "ready_for_scoring" => "Completed",
+      "scored" => "Completed",
+      "expired" => "Expired"
+    }
+  end
+  
+  def test_status_options
     {
       "" => "All",
       "sent" => "Pending",

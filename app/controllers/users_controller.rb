@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def forgot_password
-    
   end
   
   # redenr companies layout and header if user belongs to a company
@@ -28,6 +27,9 @@ class UsersController < ApplicationController
       @company = Vger::Resources::Company.find(current_user.company_id)
       render :layout => "companies"
     end      
+  end
+  
+  def link_sent
   end
   
   # Refering to https://github.com/plataformatec/devise/issues/1955
@@ -52,8 +54,7 @@ class UsersController < ApplicationController
   def send_reset_password
     @user = Vger::Resources::User.send_reset_password_instructions(params[:user])
     if @user.error_messages && @user.error_messages.empty?
-      flash[:notice] = "Instructions to reset your password have been sent to #{params[:user][:email]}"
-      redirect_to login_path
+      render :action => :link_sent
     else
       flash[:error] = @user.error_messages.join("<br/>").html_safe
       redirect_to forgot_password_path
@@ -61,12 +62,22 @@ class UsersController < ApplicationController
   end
   
   def reset_password
+    @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
     if params[:activate]
-      @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
       if !@user
         redirect_to(root_url, notice: "Invalid reset password token")  and return
       end
       render :action => :activate 
+    end
+  end
+  
+  def confirm
+    @user = Vger::Resources::User.confirm(:confirmation_token => params[:confirmation_token])
+    if @user.error_messages.present?
+      redirect_to(root_url, notice: "Invalid confirmation_token token")
+    else
+      sign_in(:auth_token => @user.authentication_token)
+      #redirect_to(login_path)
     end
   end
   

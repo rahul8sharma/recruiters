@@ -1,0 +1,8 @@
+.new.benchmark
+  .page-title
+    Create New Benchmark
+    %span.sub-page-title.medium-text ( takes less than a minute )
+  .divider1
+  = render :partial => "shared/benchmark-flow-sub-nav"
+  .divider2
+  = render 'form', method: :post, url: company_benchmarks_path(:company_id => params[:company_id]), assessment: @assessment  

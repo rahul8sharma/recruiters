@@ -1,23 +1,37 @@
-%b.large-text
-  Log In
-.divider2
 - content_for :notification_bar do
   = ""
 = render :partial => "shared/user-alerts"
+.divider5
+.span16.left-offset1
+  .page-title 
+    Sign In to your Jombay Account
+  .divider2
+  .span12.border-primary.first
+    = form_for(:user, :url => login_path) do |f|
+      %input{name: "redirect_to", value: params[:redirect_to], type: "hidden"}
+      .divider2
+      .span8.margin-auto.extra-medium-text
+        .control-group
+          = f.text_field :email, :placeholder => "Email ID", :class => "fw"
+        .control-group
+          = f.password_field :password, :placeholder => "Password", :class => "fw"
 
-%div
-  = form_for(:user, :url => login_path) do |f|
-    %input{name: "redirect_to", value: params[:redirect_to], type: "hidden"}
-    = f.text_field :email, :placeholder => "Email ID"
-    = f.password_field :password, :placeholder => "Password"
-    .pull-left
-      = f.check_box :remember_password
-      = f.label "Remember me", :for => "user_remember_password"
-    .pull-right
-      %a.default-color{:href=> forgot_password_path, :title=>"Forgot Password?"}
-        Forgot Password?
-    .clr
-    .divider1
-    = f.submit "Login", :class=>"medium-text btn btn-info pull-right"
+        .control-group
+          = f.check_box :remember_password, :class => "pull-left"
+          = f.label "Remember me", :for => "user_remember_password", :class => "gray-dark span"
+          .clr
+
+        .divider1
+        %a.gray-dark.pull-left.line-height3{:href=> forgot_password_path, :title=>"Forgot Password"}
+          Forgot Password?
+        %button.large-text.btn.btn-warning.pull-right{:title=>"Log In To Jombay!"}
+          Login
+        .clr
+      .clr
+      .divider2
     .clr
 
+= render :partial => "shared/users/jombay-benefits"
+.clr
+
+= javascript_include_tag 'common'

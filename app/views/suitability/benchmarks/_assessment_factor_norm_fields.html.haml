@@ -1,0 +1,88 @@
+- id_name = "assessment[job_assessment_factor_norms_attributes][#{index}][id]"
+- destroy_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
+- factor_name = "assessment[job_assessment_factor_norms_attributes][#{index}][factor_id]"
+- fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
+- industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
+- exp_name = "assessment[job_assessment_factor_norms_attributes][#{index}][job_experience_id]"
+- norm_min_name = "assessment[job_assessment_factor_norms_attributes][#{index}][from_norm_bucket_id]"
+- norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][to_norm_bucket_id]"
+- check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
+- critical_checkbox_name = "checkbox_critical"
+- critical_field = "assessment[job_assessment_factor_norms_attributes][#{index}][critical]"
+- checked =  (assessment_factor_norm.id.present? || assessment_factor_norm.selected)
+
+%li{ :id => "li_#{index}", class: "span15 item #{checked ? 'checked':''}" }
+  .divider
+  - if assessment_factor_norm.norm_min.to_f.zero? && assessment_factor_norm.id.nil?
+    - if assessment_factor_norm.id.present?
+      %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_factor_norm.id, index: (index), disabled: 'disabled'}
+    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: assessment_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, disabled: 'disabled', index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
+    .span1.first
+      %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
+    .span6
+      %label{ for: "checkbox_factor_#{index}" }
+        = assessment_factor_norm.factor.name
+        %p
+          = assessment_factor_norm.factor.definition
+        .down-caret
+    .left-offset1.pull-left
+      %select.span3.first{name: norm_min_name, disabled: 'disabled', index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+        
+      %select.span3{name: norm_max_name, disabled: 'disabled', index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+      
+      .clr
+  - else
+    - if assessment_factor_norm.id.present?
+      %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_factor_norm.id, index: (index)}
+    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: assessment_factor_norm.functional_area_id, index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: assessment_factor_norm.industry_id, index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
+    %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
+    .span1.first
+      %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
+    .span6
+      %label{ for: "checkbox_factor_#{index}" }
+        = assessment_factor_norm.factor.name
+        %p= assessment_factor_norm.factor.definition
+        .down-caret
+    .left-offset1.pull-left
+      %select.span3.first{name: norm_min_name, index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+      %select.span3{name: norm_max_name, index: (index)}
+        - @norm_buckets.each do |norm_bucket|
+          - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
+            %option{value: norm_bucket.id, selected:'selected'}
+              = norm_bucket.name         
+          - else
+            %option{value: norm_bucket.id}
+              = norm_bucket.name         
+      
+      .clr
+  .clr
+  .divider1
+ 

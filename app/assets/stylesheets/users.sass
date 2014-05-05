@@ -1,94 +1,14 @@
 @import toolkit/component/buttons
 @import toolkit/component/alerts
-#nav
-  background: #002B3A
-  padding: 10px 0
-  position: relative
-  width: 100%
-  h1
-    font-size: 13px
-    line-height: 18px
-  a
-    color: #c5d3d7
-    font-size: 12px
-    padding: 10px
-    display: block
-    font-weight: bold
-    &.btn
-      &.btn-warning
-        color: #fff
-        &:hover
-          color: #fff
-      color: #002b3a
-      padding: 5px 10px
-      margin: 3px 10px 0 10px
-      &:hover
-        color: #002b3a
-        padding: 5px 10px
-        margin: 3px 10px 0 10px
-    &:hover
-      text-decoration: none
-      color: #fff
-  li.active a
-    color: #002B3A
-    font-weight: bold
-    color: #fff
-    &:hover
-      cursor: default
-      text-decoration: none
-      color: #fff
-  ul
-    margin: 0
-  li
-    float: left
-    a.login
-      margin-left: 5px
-      &:hover
-        margin-left: 5px
-    &:last-child
-      padding-right: 0
-  .header-menu
-    float: right
-  .navbar-inner.container
-    background: transparent
-    padding: 0 35px
-    width: 900px
-  #logo
-    float: left
-    min-width: 230px
-    a.logo-image
-      background: image-url("jombay-logo.png") no-repeat 0 center
-      display: block
-      text-indent: -100000px
-      width: 112px
-      float: left
-    .hiring
-      width: 95px
-      height: 37px
-      background: image-url("hiring.png") no-repeat center center
-      display: block
-      float: left
-      padding: 0
-.users-content
-  background: image-url("users/users-content-bg.png") repeat-x #fff
-  min-height: 400px
-  padding-top: 1px
+@import toolkit/component/forms
 
-  .box
-    width: 420px
-    margin: 135px auto 0 auto
-    padding: 25px 40px
+.container.user-flow
+  background: image-url('users/user-flow-bg.png') no-repeat center 0
+  background-size: 100%
+
+  form
     background: #fff
-    box-shadow: 0 0 3px #dbdbdb
-    border: 1px solid #dbdbdb
-
-
-    input[type="text"], input[type="password"]
-      height: 36px
-      font-size: 15px
-      line-height: 36px
-      border: 1px solid #d8d8d8
-      padding: 0 10px
-      margin: 0 0 18px 0
-      width: 95%
+  .sent-icon
+    height: 122px
+    background: image-url('users/link-sent.png') no-repeat center center
 

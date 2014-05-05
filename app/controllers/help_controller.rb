@@ -3,6 +3,9 @@ class HelpController < ApplicationController
   before_filter :authenticate_user!
   def adding_candidates
   end
+
+  def process_explanation
+  end
   
   def download_sample_csv_for_candidate_bulk_upload
     file_path = Rails.application.assets['candidates_bulk_upload.csv'].pathname

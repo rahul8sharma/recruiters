@@ -20,12 +20,12 @@ class WalkinGroupsController < ApplicationController
   end
   
   def new
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"], order: ["created_at DESC"]).all
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(:company_id => @company.id, :expires_on => Time.now + 24.hours)
   end
   
   def create
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"]).all
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"]).all
     params[:walkin_group][:assessment_hash].reject!{|assessment_id, assessment_data| assessment_data["enabled"] != "true" }
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(params[:walkin_group])
     if @walkin_group.assessment_hash.present? && @walkin_group.save
@@ -76,7 +76,7 @@ class WalkinGroupsController < ApplicationController
   def get_walkin_group  
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.find(params[:id], methods: [:url])
     @walkin_group.expires_on = DateTime.parse(@walkin_group.expires_on) if @walkin_group.expires_on.present?
-    @assessments = Vger::Resources::Suitability::Assessment.where(:query_options => { 
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { 
                       company_id: @company.id, 
                       id: @walkin_group.assessment_hash.keys
                     }, 

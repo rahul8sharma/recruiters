@@ -1,9 +1,8 @@
-.create-test
-  .inn.first
-    .page-title Create New Test
-  .inn.gray-gradient
-    = render :partial => "shared/test-flow-sub-nav"
-    .divider1
-    .extra-medium-text
-      %b Please provide the following information:
-    = render 'form', method: :post, url: company_assessments_path(:company_id => params[:company_id]), assessment: @assessment  
+.new
+  .page-title 
+    Create Custom Assessment 
+    %span.sub-page-title.medium-text ( takes less than a minute )
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+  = render 'form', method: :post, url: company_assessments_path(:company_id => params[:company_id]), assessment: @assessment  

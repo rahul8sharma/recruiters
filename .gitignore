@@ -9,14 +9,21 @@
 
 # Ignore the default SQLite database.
 db/*.sqlite3
-
 # Ignore all logfiles and tempfiles.
 log/*.log
 tmp
 config/database.yml
+config/vger.yml
+config/payments.yml
 vendor/cache
 .ruby-version
 .rvmrc
+config/hosts.yml
+config/jombay-notify.yml
+config/sidekiq
+config/s3
+config/statistics.yml
+config/vger.yml
 public/assets
 **.DS_Store
 *:Zone.Identifier

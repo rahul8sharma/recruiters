@@ -1,0 +1,39 @@
+.sign_up_success
+  .page-title.text-center
+    .divider1
+    Thank you for choosing Jombay. Your account has been created! 
+
+  .divider2
+  .left-offset4
+    %p.gray-dark.extra-medium-text
+      We hope you will enjoy your free trial. You can now create Behavioral Assessments, and send it to your potential hire or existing employee. See how Jombay can help you to reduce errors in hiring, or identifying potential in your team. 
+      %br/
+      We think you are going to love it!
+    
+    .divider2
+
+    %p.gray-dark.extra-medium-text
+      An email has been sent to your inbox. Quick steps to activate your account are listed below.
+
+    .divider2
+
+  .image_visual.span24.text-center.margin-auto
+    .text.span6.medium-text
+      Go to your
+      %br/
+      = params[:company][:admin_attributes][:email]
+      %br/
+      email account
+    = image_tag("users/signup_success_bg.png")
+
+  .divider3
+
+  .span1.huge-text.left-offset4
+    %i.icon-warning-sign.color-warning
+  .span20.gray-dark
+    .extra-medium-text
+      Be sure to check your "Junk" folder just in case it was flagged as spam. If you don't receive the activation email within the next 5 minutes, please contact customer support and we'll help set up your account.
+      .divider1       
+      %a{:href => "mailto:pratik@jombay.com"} 
+        Customer Support
+  .clr

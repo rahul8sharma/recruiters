@@ -4,10 +4,10 @@ class AssessmentReportsController < ApplicationController
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
   
   def training_requirements_report
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
                             assessment_id: params[:id], 
-                            report_type: Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT,
+                            report_type: Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
                             status: Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
                           }).all.to_a.first
     if !@assessment_report
@@ -43,7 +43,7 @@ class AssessmentReportsController < ApplicationController
   end
   
   def benchmark_report
-    @assessment = Vger::Resources::Suitability::Assessment.find(params[:id], methods: [:benchmark_report])
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], methods: [:benchmark_report])
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     @report = @assessment.benchmark_report
     if request.format == "application/pdf"
@@ -86,7 +86,7 @@ class AssessmentReportsController < ApplicationController
       }
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
-      #redirect_to assessment_report_company_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :assessment_id => params[:assessment_id], :patch => params[:report]) and return
+      # redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report]) and return
     end
     render :layout => "admin"
   end
@@ -106,6 +106,7 @@ class AssessmentReportsController < ApplicationController
     report_type = params[:report_type] || "fit"
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
+    Rails.logger.debug(@report.report_hash)
     @view_mode = params[:view_mode]
     request.format = "pdf" if @view_mode == "pdf"
     template = report_type == "fit" ? "assessment_report" : "competency_report"

@@ -1,0 +1,41 @@
+.payment_unsuccess
+  .page-title
+    Check-out and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider2
+  .text-center.extra-large-text
+    %i.icon-warning-sign.color-warning
+    Sorry! Your payment has failed!
+  .divider2
+  .span20.margin-auto.extra-medium-text
+    .border-warning
+      .large-text.gray-darker
+        A few reasons that may cause this:
+      .divider2
+      %ul.gray-dark
+        %li
+          %i.icon-warning-sign.color-warning
+          &nbsp;
+          &nbsp;
+          The payment details entered by you might have some errors.
+          .divider1
+        %li
+          %i.icon-warning-sign.color-warning
+          &nbsp;
+          &nbsp;
+          Your card might not have enough credit to make the payment. Contact your bank to get a clarification or try using another card.
+          .divider1
+
+        %li
+          %i.icon-warning-sign.color-warning
+          &nbsp;
+          &nbsp;
+          You might be facing connectivity issues. Please check your internet connection.
+          .divider1
+    .divider2
+    .gray-dark.pull-left
+      Please contact your bank, if the problem persists
+    %a.btn.btn-warning.large-text.pull-right{:href => review_plan_company_path(:id=>params[:id], :plan_id=> params[:plan_id]), :title => "Start Using Jombay"}
+      Try Again
+    .clr

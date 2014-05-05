@@ -1,0 +1,14 @@
+.navigation-sub-nav.clearfix.pull-left
+  .menu{ class: ["review"].include?(params[:action]) ? "active" : "" }
+    .count 1 
+    Review Package
+  .menu{ class: (["contact"].include?(params[:action]) and request.get?) ? "active" : "" }
+    .count 2 
+    Enter Contact Information
+  .menu{ class: ([:add_candidates].include?(params[:action].to_sym) and request.put?) ? "active" : "" }
+    .count 3 
+    Enter Payment Information
+  .menu{ class: (["payment_status"].include?(params[:action]) and request.put?) ? "active" : "" }
+    .count 4 
+    Get Confirmation
+.clr

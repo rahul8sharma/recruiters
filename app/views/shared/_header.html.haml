@@ -2,24 +2,84 @@
   .container
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
+      .divider1
     - if defined?(@company)  
-      .span9.company_name
-        = @company.name  
-    .span10.navbar.pull-right
-      .navigations.clearfix
-        - if current_user  
-          %a.userName.logout.pull-right{:href => logout_path, :title => "Logout"}
-            Logout
-          .userName.pull-right
-            %b #{h current_user.name, "-"} 
-            \| 
-            #{current_user.type} 
-            / %span.icon-caret-down
-        - else
-          %a.userName.logout.pull-right{:href => login_path, :title => "Login"}
-            Login
-        - if current_user.type == "SuperAdmin"
-          %a.userName.pull-right{:href => companies_path, :title => "Companies" }
-            Companies
-            / %span.icon-caret-down
-    .clr
+      .span7.company_name
+        = @company.name 
+
+    - if current_user 
+      .span19.pull-right
+        %ul#sub-nav.pull-right
+          %li
+            %a.setting{href: "#", title: "Account"}             
+            %ul
+              - if defined?(@company)
+                %li
+                  %a{:href=>statistics_company_path(@company)} Usage
+                %li
+                  %a{:href=>company_path(@company)} Settings
+                - if  is_superadmin?    
+                  %li
+                    %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
+                  %li
+                    %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
+                  %li
+                    %a{:href=>company_benchmarks_path(@company)} Benchmarks
+              %li
+                %a{href: "/logout"} Logout
+        - if defined?(@company)
+          %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
+            BUY PACKAGE
+
+        %ul.navbar.pull-right.clearfix        
+          - if defined?(@company)
+            - if current_user.type == "SuperAdmin"
+              %li
+                %a{:href=>companies_path(), :title=> "COMPANIES"}
+                  COMPANIES
+            - else
+              %li
+                %a{:href=>home_company_path(@company), :title=> "HOME", class: (["companies/home"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                  HOME
+            %li
+              %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                ASSESSMENTS
+            %li
+              %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                REPORTS
+
+          - elsif current_user.type == "SuperAdmin" 
+            %li
+              %a{:href=>companies_path(), :title=> "COMPANIES",class: (["companies/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                COMPANIES
+          - else
+            %li
+              %a{:href=> root_path, :title=> "HOME"}
+                HOME      
+
+          -#
+            %li
+              %a{:href=>help_adding_candidates_path(), :title=> "HELP",class: (["help/adding_candidates"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                HELP
+        .clr
+      .clr
+    - else
+      .span19.pull-right
+        %ul.navbar.pull-right.clearfix        
+          -#
+            %li
+              %a{:href=> "#", :title=> "What differentiates Jombay?"}
+                What differentiates Jombay?
+            %li
+              %a{:href=> "#", :title=> "Jombay Analytics"}
+                Analytics
+          %li
+            %a{:title=> "Jombay Help Number"}
+              .icon-phone-sign.large-text.line-height1.color-success.pull-left
+              .pull-left +91 96733 35243
+              .clr
+          %li
+            %a{:href=> "/login", :title=> "Sign In to Jombay"}
+              %b.color-warning.extra-medium-text
+                Sign In
+      .clr

@@ -2,54 +2,59 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-.new
+.walk-ins-new
   = form_for(:walkin_group, method: :post, url: company_walkin_groups_path(@company)) do |f|
     = f.hidden_field :company_id
     = f.hidden_field :expires_on
-    .inn.first
-      .page-title.pull-left
-        Create Walk-In Index Page
-    .inn.gray-gradient
-      .pull-left
-        .test-flow-sub-nav.clearfix.pull-left
-          .menu.active 1 &nbsp; Create Page             
-          .menu 2 &nbsp; Customize           
-          .menu 3 &nbsp; Summary              
-      .pull-right
-        %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
+    .page-title
+      .divider1
+      Create Walk-In Index Page
+    .divider2
+    .navigation-sub-nav.clearfix.pull-left
+      .menu.active
+        .count 1 
+        Create Page 
+      .menu            
+        .count 2 
+        Customize 
+      .menu          
+        .count 3
+        Summary              
       .clr
+    .clr
 
-      .divider1
-      = f.text_field :title, :placeholder => "Title for Index Page", :class => "padding-all1 span21 float-none first"
-      .divider1
-      %b.extra-medium-text
-        Please select tests to be added to the Index Page
+    .divider2
 
-      .divider2
+    = f.text_field :title, :placeholder => "Title for Index Page", :class => "padding-all1 span21 float-none first"
+    .divider1
+    %b.extra-medium-text
+      Please select tests to be added to the Index Page
 
-      .list
-        %ul.unstyled.clearfix
-          %li.titles
-            .control-group
-              %b.pull-left Test
-              %b.pull-right Include in Page
-              .clr  
-          %li.titles
-            .control-group
-              %b.pull-left Test
-              %b.pull-right Include in Page
+    .divider2
+
+    .enable-assessment-list
+      %ul.clearfix
+        %li.titles
+          .control-group
+            %b.pull-left Assessment
+            %b.pull-right Include in Page
+            .clr  
+        %li.titles
+          .control-group
+            %b.pull-left Assessment
+            %b.pull-right Include in Page
+            .clr
+        - @assessments.each do |assessment|
+          %li
+            -# add class ".checked" to ".control-group" when user clicks on checkbox
+            .control-group{ id: "control_group_#{assessment.id}" }
+              %label{ for: "chk_assessment_#{assessment.id}" }
+                = assessment.name
+              %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}  
+              %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
               .clr
-          - @assessments.each do |assessment|
-            %li
-              -# add class ".checked" to ".control-group" when user clicks on checkbox
-              .control-group{ id: "control_group_#{assessment.id}" }
-                %label{ for: "chk_assessment_#{assessment.id}" }
-                  = assessment.name
-                %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}  
-                %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
-                .clr
-        .pull-right
-          %input.btn.btn-info.medium-text.span{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
-        .clr
+      .divider2
+      %input.btn.btn-warning.pull-right.big-text{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
+      .clr
         
 = javascript_include_tag 'walk_ins' 

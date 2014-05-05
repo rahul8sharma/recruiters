@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       when "SuperAdmin"
         params[:redirect_to] || companies_path
       when "Admin"
-        params[:redirect_to] || company_assessments_path(current_user.company_id)  
+        landing_company_path(current_user.company_id) 
       else
         params[:redirect_to] || root_path        
     end    
@@ -74,5 +74,16 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You are not authorized to access this page."
       redirect_to root_url and return
     end 
+  end
+  
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+  
+  def authorize_admin!(company_id)
+    return if is_superadmin?
+    redirect_to home_company_path(current_user.company_id) if company_id.to_i != current_user.company_id.to_i
   end
 end

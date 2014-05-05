@@ -21,7 +21,7 @@ pdf:
   benchmark_factor_scores_step: 3
   competency_factors_step: 3
   competency_step: 3
-  scores_step: 4
+  scores_step: 5
   guides_step: 8
   training_requirements_report:
     scores_step: 6
@@ -33,7 +33,7 @@ candidate:
   team_fit: "Personal Effectiveness"
 employee:
   fitment_scores: "Scores"
-  report_title: "Employee Assessment Report"
+  report_title: "Assessment Report"
   job_role_fit: "Job Sync"
   company_fit: "People Skills"
   team_fit: "Personal Effectiveness"

@@ -1,13 +1,28 @@
 @import grid/core-set
 @import typography/awesome-font
+.small-text
+  font-size: $small-text 
+  line-height: $small-text + 2
 .medium-text
-  font-size: 14px
+  font-size: $medium-text 
+  line-height: $medium-text + 2
 .extra-medium-text
-  font-size: 16px
+  font-size: $extra-medium-text 
+  line-height: $extra-medium-text + 2
 .large-text
-  font-size: 18px
+  font-size: $large-text 
+  line-height: $large-text + 2
+
 .big-text
-  font-size: 24px
+  font-size: $big-text
+  line-height: $big-text + 2
+.extra-large-text
+  font-size: $extra-large-text 
+  line-height: $extra-large-text + 2
+.huge-text 
+  font-size: $huge-text  
+  line-height: $huge-text + 2
+
 .font-normal
   font-weight: normal !important
 .italic
@@ -83,7 +98,7 @@ h6
 .page-header
   padding-bottom: $baseLineHeight - 1
   margin: $baseLineHeight 0
-  border-bottom: 1px solid $grayLighter
+  border-bottom: 1px solid $grayLight
 
 .page-header h1
   line-height: 1
@@ -99,11 +114,9 @@ ul, ol
 ul ul, ul ol, ol ol, ol ul
   margin-bottom: 0
 
-ul
-  list-style: disc
-
 ol
-  list-style: decimal
+  list-style: decimal inside
+  margin: 0
 
 li
   line-height: $baseLineHeight
@@ -111,7 +124,8 @@ li
 ul.unstyled, ol.unstyled
   margin-left: 0
   list-style: none
-
+ul.disc
+  list-style: disc inside
 // Description Lists
 dl
   margin-bottom: $baseLineHeight
@@ -141,7 +155,8 @@ em
 
 .muted
   color: $grayLight
-
+.semi-muted
+  color: #58595b
 // Abbreviations and acronyms
 abbr
   font-size: 90%
@@ -153,7 +168,7 @@ abbr
 blockquote
   padding: 0 0 0 15px
   margin: 0 0 $baseLineHeight
-  border-left: 5px solid $grayLighter
+  border-left: 5px solid $grayLight
   p
     margin-bottom: 0
     +font-shorthand(16px, 300, $baseLineHeight * 1.25)
@@ -169,7 +184,7 @@ blockquote
     padding-left: 0
     padding-right: 15px
     border-left: 0
-    border-right: 5px solid $grayLighter
+    border-right: 5px solid $grayLight
     p, small
       text-align: right
 

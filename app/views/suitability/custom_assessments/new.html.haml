@@ -1,0 +1,8 @@
+.new
+  .page-title 
+    Create Custom Assessment 
+    %span.sub-page-title.medium-text ( takes less than a minute )
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+  = render 'form', method: :post, url: company_custom_assessments_path(:company_id => params[:company_id]), assessment: @assessment  

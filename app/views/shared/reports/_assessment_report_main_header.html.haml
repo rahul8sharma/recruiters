@@ -1,6 +1,6 @@
 #header
   .container
-    .logo
+    .logo.pull-left
       - if @view_mode == "html"
         = link_to(image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}"), Rails.application.config.action_controller.asset_host)
       - else
@@ -9,3 +9,5 @@
     .pull-right{style: "margin-top: 10px;"}
       = yield :report_link
     .clr
+- if @view_mode == "html"
+  .divider3

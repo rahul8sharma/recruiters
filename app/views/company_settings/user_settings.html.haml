@@ -10,44 +10,48 @@
           \| 
           = link_to "NO", user_settings_company_path(@company)
         .clr  
-.user-list
-  = render :partial => "shared/sub-nav"
-  .inn.first
-    .page-title
-      Settings
-  .inn.gray-gradient
-    = render :partial => "shared/settings-content-sub-nav"
-    = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
-      .pull-right.medium-text
-        %button.btn.btn-info.show.span
-          Remove Users
-        %a.btn.btn-info.span.show{ href: add_users_company_path(@company) }
-          Add New User
-        .clr
-      .clr
-      .divider2
-
-      .list-snippet-titles.clearfix
-        .span1.first
-          &nbsp;
-        .span3
+.company_profile
+  .page-title.pull-left
+    .divider1
+    Settings
+  .pull-right
+    %button.btn.btn-warning.inverse.large-text.pull-left
+      Remove Users
+    %a.btn.btn-warning.large-text.span{ href: add_users_company_path(@company) }
+      Add New User
+    .clr
+  .clr
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
+  = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
+    .padding-all2.border-warning.shifted-up1
+      .list-snippet-titles.large-text.clearfix
+        %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
           User ID
-        .span6
+          %i.icon-chevron-down.small-text.line-height1
+        %a.span10{:href => "#", :title => "Name"}
           Name
-        .span8
+          %i.icon-chevron-down.small-text.line-height1
+        .span10
           Email id
-        .span
+        %a.span{:href => "#", :title => "Date Added"}
           Date Added
-      %ul.unstyled
+          %i.icon-chevron-down.small-text.line-height1
+        .clr
+        .divider1
+      %ul
         - @users.each do |user|
-          %li.list-snippet
+          %li.list-snippet.border-bottom-grayLighter
+            .divider1
             .span1.first
               %input{:type => "checkbox", name: "users[#{user.id}]", checked: (params[:users].keys.include?(user.id.to_s))}
             .span3
               JOM#{user.id}
-            .span6.first.lhs-border
+            .span10
               = user.name
-            .span8.lhs-border
+            .span10
               = user.email
-            .span.lhs-border
+            .span
               = hdate user.created_at
+            .clr
+            .divider1

@@ -33,7 +33,7 @@ class SidekiqController < ApplicationController
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
-                    :report_type => Vger::Resources::Suitability::Assessment::ReportType::TRAINING_REQUIREMENT
+                    :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                   }).all.to_a
     job_ids = []
     assessment_reports.each do |assessment_report|
@@ -65,7 +65,7 @@ class SidekiqController < ApplicationController
   def upload_benchmark_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
-                    :report_type => Vger::Resources::Suitability::Assessment::ReportType::BENCHMARK
+                    :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK
                   }).all.to_a
     job_ids = []
     assessment_reports.each do |assessment_report|
@@ -80,7 +80,7 @@ class SidekiqController < ApplicationController
 
   def regenerate_reports
     if params[:args][:assessment_id].present? && params[:args][:email].present?
-      assessment = Vger::Resources::Suitability::Assessment.regenerate_reports(params)
+      assessment = Vger::Resources::Suitability::CustomAssessment.regenerate_reports(params)
       render :json => { :status => "Job Started", :job_id => assessment.job_id }
     else
       redirect_to report_management_path, alert: "Please specify email and assessment_id."

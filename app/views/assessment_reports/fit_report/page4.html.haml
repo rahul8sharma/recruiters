@@ -1,37 +1,27 @@
 = render partial: "shared/reports/report_header.html.haml"
 .inner
-  .factor_fit.report_content
-    .blue_bg_heading.iconic.pull-left
-      Factors measured under 
-      %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
-      .thumbnails
-        .thumbnails_inn2
+  .scores.miscellaneous_factors
+    .blue_bg_heading.text-center.big-text
+      Miscellaneous Factors
+    .divider2
+    .left-offset6.pull-left.extra-medium-text
+      %b Measured
+    .left-offset1.pull-left.extra-medium-text
+      %b Preferred
     .clr
-    .instruction_container
-      .instructions
-        .instruction1
-          Favorable 
-        .instruction2.less_favorable
-          Less Favorable 
-    .factors_container
-      .factors_list
-        - @report.report_hash[:team_fit_scores].each_with_index do |(factor_name,factor_score),index|
-          - margin = factor_name.split(" ").size > 1 ? 15 : 30
-          %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            .wrapper{:style=>"margin-top: #{margin}px;"}
-              = factor_name.gsub(" ","<br/>").html_safe
-      .bottom_sec
-        .title_1
-          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["team_fit"]}
-        .strength_1
-          = @report.report_hash[:team_fit_grade]
-        .title_2
-          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["job_role_fit"]}
-        .strength_2
-          = @report.report_hash[:job_fit_grade]
-        .title_3
-          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["company_fit"]}
-        .strength_3
-          = @report.report_hash[:company_fit_grade]
-        .indication
-          Empty Hexagons represent behavioural factors that are not included in the scope of this Assessment
+    .divider1
+    %ul.miscellaneous_listing
+      - @report.report_hash[:direct_predictor_scores].each do |factor_name,factor_score|
+        %li
+          .span1.first.hexagon-icon.mid_favorable
+          //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+          .span4.mid_favorable.pull-left
+            %b.extra-medium-text #{factor_score[:parent_name]}
+          .measured.pull-left.medium-text
+            = factor_score[:direct_predictors].join(",<br/>").html_safe
+          .preferred.pull-left
+            %b.mid_favorable.extra-medium-text
+              = factor_name
+          .description.pull-left
+            = factor_score[:description]
+          .clr

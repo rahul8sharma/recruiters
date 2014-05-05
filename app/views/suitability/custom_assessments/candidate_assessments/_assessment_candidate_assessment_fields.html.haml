@@ -1,0 +1,12 @@
+- checked = (params[:upload_method] == "manual")
+%li
+  %input{name: "candidates[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
+
+  .control-group
+    .span2
+      .count.badge.badge-small.inverse 
+        = index
+    %input.span9.medium-text.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (candidate[:name])}
+    %input.span8.medium-text.left-offset1{name: "candidates[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (candidate[:email])}
+    / %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", disabled: !checked, type: "text", placeholder: "Mobile Number", value: (candidate[:mobile])}
+    .clr

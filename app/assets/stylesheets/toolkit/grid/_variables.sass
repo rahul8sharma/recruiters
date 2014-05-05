@@ -1,15 +1,26 @@
 // Links
-$linkColor: #0088cc 
-$linkColorHover: darken($linkColor, 15%) 
+$color-warning: #f58220
+$color-success: #28be9b
+$linkColorHover: darken($color-warning, 15%) 
 
 // Grays
 $black: black 
-$grayDarker: #222222 
-$grayDark: #333333 
-$gray: #484848 
-$grayLight: #999999 
-$grayLighter: #eeeeee 
 $white: white 
+$default: #414042 
+$grayDarker: #58595b 
+$grayDark: #808285 
+$grayLight: #bdbec1 
+$grayLighter: #e3e3e3
+
+//font Sizes
+$small-text: 10px
+$medium-text: 14px
+$extra-medium-text: 16px
+$big-text: 18px
+$large-text: 20px
+$extra-large-text: 24px
+$huge-text: 30px
+
 
 
 // Accent colors
@@ -26,10 +37,10 @@ $purple: #7a43b6
 $baseFontSize: 12px 
 $baseFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif 
 $baseLineHeight: 18px 
-$textColor: $gray 
+$textColor: $default
 
 // Buttons
-$primaryButtonBackground: $linkColor 
+$primaryButtonBackground: $color-warning
 
 // COMPONENT VARIABLES
 // --------------------------------------------------
@@ -48,7 +59,7 @@ $zindexModal: 1050
 $placeholderText: $grayLight 
 
 // HR border color
-$hrBorder: $grayLighter 
+$hrBorder: $grayLight
 
 // Navbar
 $navbarHeight: 40px 
@@ -61,7 +72,7 @@ $navbarLinkColor: $grayLight
 $navbarLinkColorHover: $white 
 
 // Form states and alerts
-$warningText: #c09853 
+$warningText: $color-warning
 $warningBackground: #fcf8e3 
 $warningBorder: darken(adjust-hue($warningBackground, -10), 3%) 
 
@@ -80,8 +91,8 @@ $infoBorder: darken(adjust-hue($infoBackground, -10), 7%)
 // GRID
 // --------------------------------------------------
 
-// 940px grid
-$gridColumns: 24 
+//1190px grid
+$gridColumns: 30
 $gridColumnWidth: 30px 
 $gridGutterWidth: 10px 
 $gridRowWidth: $gridColumns * $gridColumnWidth + $gridGutterWidth * ($gridColumns - 1) 

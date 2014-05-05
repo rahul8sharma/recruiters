@@ -1,29 +1,25 @@
 = render partial: "shared/reports/report_header.html.haml"
+
 .inner
   .scores.favorable_factors
-    .blue_bg_heading
+    .blue_bg_heading.text-center.big-text
       - if @view_mode == "html"
-        Scores of Factors measured under different 
-        %b Competencies 
+        Scores of Factors measured under different Competencies 
       - else
         Factor wise scores per competency  
-      .thumbnails
-        .thumbnails_inn3
-    .clr
+    .divider2 
     .indication.pull-left
       .pull-left.box
       .pull-left
-        %b Desired/Acceptable Score
+        %b Expected Score
       .clr
       .divider1
-
       .pull-left.hexagon-icon.mid_favorable
-      .pull-left{:style => "line-height: 32px"}
+      .pull-left
         %b Obtained Score
-
       .clr
-
-    .scale
+      
+    .scale.pull-left
       - @norm_buckets.each do |norm_bucket|
         .marker
           - if norm_bucket.name.split(" ").size == 1
@@ -31,7 +27,7 @@
           = norm_bucket.name
       .clr
     .clr
-    .divider1
+    .divider2
     - if @view_mode == "html"
       - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
         - if competency_data[:factor_scores].present?

@@ -1,0 +1,63 @@
+.report-list
+  .span14.page-title.first
+    .divider1
+    Reports
+  .clr
+
+  .divider2
+  .list-snippet-titles.large-text.clearfix
+    .span3.first
+      = sort_link "ATID", reports_company_path(@company), :id, params[:search]
+    .span7
+      = sort_link "Assessment Taker", reports_company_path(@company), :name, params[:search]
+    .span9
+      = sort_link "Assessment Title", reports_company_path(@company), "suitability_custom_assessments.name", params[:search]
+    .span7.left-offset1
+      = sort_link "Completed On", reports_company_path(@company), :completed_at, params[:search]
+    .span2
+      %a{:href=>"#"}
+        Report
+    .clr
+    .divider1          
+  %ul
+    -@candidate_assessments.each do |candidate_assessment|
+      %li.list-snippet.border-bottom-grayLighter
+        .divider1
+        .span3.first
+          - candidate_profile_url =  candidate_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id, :candidate_id => candidate_assessment.candidate_id)
+
+          - assessment_url = candidates_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id)
+
+          %a{:href=> assessment_url, :title => candidate_assessment.assessment_id}
+            = candidate_assessment.assessment_id
+        .span7
+          %a{:href => candidate_profile_url, :title => candidate_assessment.candidate.name} 
+            = candidate_assessment.candidate.name
+        .span9
+          %a{:href=>assessment_url, :title => candidate_assessment.assessment.name}
+            = candidate_assessment.assessment.name
+        .span7.left-offset1
+          %a{:href => "#", :title => candidate_assessment.completed_at}
+            #{htime(candidate_assessment.completed_at)} Hrs,
+            #{hdate(candidate_assessment.completed_at)}
+        .span2.text-center          
+          - report = candidate_assessment.candidate_assessment_reports.first
+          - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+          
+          %a{:href=> url, :title => "Click to View Report"}
+            %i.icon-file
+        
+        .clr
+        .divider1
+  .divider1
+  .pull-right
+    - if (@candidate_assessments.present?)
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+          - @candidate_assessments.total_pages.times do |page|
+            %option{selected: params[:page].to_i == (page + 1),value:reports_company_path(@company, params.merge(:page => page + 1)), }
+              = page + 1
+        .clr
+  .clr      

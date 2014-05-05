@@ -23,7 +23,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
-      @assessment = Vger::Resources::Suitability::Assessment.find(assessment_id, methods: [ :training_requirements_report ])
+      @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id, methods: [ :training_requirements_report ])
       @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
       @assessment_report.report_data = @assessment.training_requirements_report
       return if !@assessment_report.report_data[:factor_scores].present?

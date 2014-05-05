@@ -1,0 +1,184 @@
+.plans-details
+  .page-title
+    .divider1
+    Buy Jombay Assessments. Buying is instant.
+
+  .divider1
+
+  .extra-large-text.gray-darker
+    Honest Pricing. No Set-up fees. No Hidden Costs.
+
+  .divider4
+
+  .big-text
+    5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
+
+  .divider1
+
+  %ul.span7.section1
+    %li.title
+      Included
+    %li
+      Standard Assessment Reports
+    %li
+      Email Invitations to Assessment Takers
+    %li
+      Interview/Development Guides
+    %li
+      Custom Assessments
+    %li
+      Validity
+    %li.price-selection
+      .pull-left
+        Price
+      .currency.pull-left.left-offset1
+        %input.span{:type => "radio", :name => "currency"}
+        .span &#8377;
+        %input.span{:type => "radio", :name => "currency"}
+        .span &#36;
+        .clr
+      .clr
+
+  - @plans.each_with_index do |plan,index|
+    %ul.span6{ class: "section#{index+2}" }
+      %li.title
+        = plan.name
+      %li
+        = plan.no_of_assessments
+      -3.times do
+        %li
+          .icon-ok
+      %li
+        = plan.validity_in_months
+        Months
+      %li.cost
+        &#8377;
+        = plan.price
+      %li.purchase
+        %a{href: review_plan_company_path(params[:id], plan.id), :title => "Buy this Jombay Assessment"}
+          Buy
+
+  %ul.span6.section5
+    %li.title
+      Custom Package
+    %li.big-text
+      .divider7
+      Call +91-96733-35243
+      %br/
+      or
+      %br/
+      email pratik@jombay.com
+      .divider8
+  .clr
+
+  .divider2
+
+  .border-warning.text-center.padding-all1.big-text
+    For Analytics Reports such as Talent Benchmarking, Training Needs Identification, Attrition Analysis, email us at pratik@jombay.com
+  .divider1
+  .extra-medium-text
+    Once you click on 'Buy', You will be taken to the Payment Gateway of our Trusted Partner. Please enter the Credit Card Information. It is safe & secured.
+  .divider2.border-bottom-grayLighter
+  .divider2
+
+  .extra-large-text
+    FAQs
+
+  .divider2
+
+  .faq
+    .question
+      What methods of payment do you accept?
+
+    %ul.answer
+      %li
+        Major Credit Cards
+      %li
+        All MasterCard / Visa / Maestro / RuPay Debit Cards
+      %li
+        Net Banking
+      %li
+        Cash Cards
+      %li
+        Mobile Payment
+      %li
+        Multi Bank EMI
+
+    .question
+      Can I change or cancel plans at any time?﻿
+
+    %ul.answer
+      %li
+        You don't have to worry about recursive charges!
+      %li
+        You pay only when buying a package.
+
+    .question
+      Which currencies do you support?
+
+    %ul.answer.pull-left
+      %li
+        Indian Rupee
+      %li
+        Singapore Dollar
+      %li
+        Pound Sterling
+      %li
+        American Dollar
+      %li
+        Omani Rial
+      %li
+        Bahraini Dinar
+    %ul.answer.pull-left.left-offset1
+      %li
+        UAE Dirham
+      %li
+        Euro
+      %li
+        Canadian Dollar
+      %li
+        Swiss Franc
+      %li
+        Baht
+      %li
+        Sri Lankan Rupee
+    %ul.answer.pull-left.left-offset1
+      %li
+        Malaysian Ringgit
+      %li
+        Qatari Riyal
+      %li
+        Hong Kong Dollar
+      %li
+        Kuwaiti Dinar
+      %li
+        Bangladesh Taka
+      %li
+        New Zealand Dollar
+    %ul.answer.pull-left.left-offset1
+      %li
+        Australian Dollar
+      %li
+        Nepalese Rupee
+      %li
+        Chinese Yuan Renminbi
+      %li
+        Japanese Yen
+      %li
+        Kenyan Shilling
+      %li
+        Mauritius Rupee
+    %ul.answer.pull-left.left-offset1
+      %li
+        Philippine Peso
+      %li
+        Saudi Riyal
+      %li
+        South African Rand
+    .clr
+
+-#
+  - @plans.each do |plan|
+    %br
+    %a{href: review_plan_company_path(params[:id], plan.id), title: "Buy"}
+      = plan.name

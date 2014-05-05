@@ -1,0 +1,34 @@
+development: &dev
+  api:
+    url : "http://api.internal.ur-nl.com:6080"
+    app_name : "recruiters"
+    password : "JIT987"
+  billing:
+    url: "https://www.billing.ur-nl.com/staging_internal/public/process_payment/"
+
+test: &test
+  <<: *dev
+
+staging:
+  api:
+    url : "http://api.ur-nl.com"
+    app_name : "recruiters"
+    password : "JIT987"
+  billing:
+    url: "https://www.billing.ur-nl.com/public/process_payment/"
+
+staging_internal:
+  api:
+    url : "http://api.internal.ur-nl.com:6080"
+    app_name : "recruiters"
+    password : "JIT987"
+  billing:
+    url: "https://www.billing.ur-nl.com/staging_internal/public/process_payment/"
+
+production:
+  api:
+    url : "http://api.jombay.com"
+    app_name : "recruiters"
+    password : "JIT987"
+  billing:
+    url: "https://www.billing.jombay.com/public/process_payment/"

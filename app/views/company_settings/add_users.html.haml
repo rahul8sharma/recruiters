@@ -22,7 +22,7 @@
         %b.right Email ID
       .divider1
 
-      %ul.unstyled.add-users-listing
+      %ul.add-users-listing
         - 10.times do |index|
           - candidate = params[:users].to_a[index][1] rescue {}
           %li.clearfix

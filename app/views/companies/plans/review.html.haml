@@ -1,0 +1,64 @@
+.package_review
+  .page-title 
+    Check-out and Billing Information
+  .divider1
+  = render :partial => "shared/billing-navigation-sub-nav"
+  .divider4
+  .span21.border-right-gray.big-text.first
+    .gray-dark.text-center 
+      Please review the details of the Package that you selected
+    .divider2
+    .span10.margin-auto.gray-darker
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Package Type
+        .span3
+          = @plan.name
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Number of Assessments
+        .span3
+          = @plan.no_of_assessments
+        .clr
+      .border-bottom-grayLighter.less-padding-all1.padding-lr1
+        .span6.first
+          Package Validity
+        .span3
+          6 Months
+          //#{hdate(Date.today + @plan.validity_in_months.months)}
+        .clr
+      .less-padding-all1.padding-lr1
+        .span6.first
+          Package Cost
+        .span3
+          &#8377; 
+          = @plan.price
+        .clr
+    .divider4
+
+    .gray-dark.text-center
+      Clicking on Proceed will allow you to buy the Package
+    .divider2
+    .span12.margin-auto
+      %a.btn.btn-warning.inverse.large-text.pull-left{:href => plans_company_path(@company), :title => "Change Package"}
+        Change Package
+      %a.button.btn.btn-warning.large-text.pull-right{:href =>contact_plan_company_path(:id=>@company.id, :plan_id=> @plan.id), :title => "Proceed"}
+        Proceed
+      .clr
+
+
+  .span7.left-offset1.text-center
+    .gray-dark.large-text
+      Our Trusted Payment Partner
+    .divider1
+    = image_tag("plans/ccavenue.png")
+    .divider4
+    .gray-dark.large-text
+      Supported by
+    .divider1
+    = image_tag("plans/supported.png")
+
+  .clr
+        
+  
