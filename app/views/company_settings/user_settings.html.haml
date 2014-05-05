@@ -2,7 +2,6 @@
   = content_for :alert do
     .alert.alert-error.large-text.line-height2
       %b
-        %a.close{"data-dismiss" => "alert", :type => "button"} ×
         .pull-left
           Are you sure you want to remove these Users  
         .pull-right
@@ -11,19 +10,19 @@
           = link_to "NO", user_settings_company_path(@company)
         .clr  
 .company_profile
-  .page-title.pull-left
-    .divider1
-    Settings
-  .pull-right
-    %button.btn.btn-warning.inverse.large-text.pull-left
-      Remove Users
-    %a.btn.btn-warning.large-text.span{ href: add_users_company_path(@company) }
-      Add New User
-    .clr
-  .clr
-  .divider2
-  = render :partial => "shared/settings-content-sub-nav"
   = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
+    .page-title.pull-left
+      .divider1
+      Settings
+    .pull-right
+      %button.btn.btn-warning.inverse.large-text.pull-left
+        Remove Users
+      %a.btn.btn-warning.large-text.span{ href: add_users_company_path(@company) }
+        Add New User
+      .clr
+    .clr
+    .divider2
+    = render :partial => "shared/settings-content-sub-nav"
     .padding-all2.border-warning.shifted-up1
       .list-snippet-titles.large-text.clearfix
         %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
