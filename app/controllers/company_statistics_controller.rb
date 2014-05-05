@@ -1,5 +1,6 @@
 class CompanyStatisticsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:id]) }
 
   layout "companies"
 

@@ -39,8 +39,8 @@
         .clr
       .clr
 
-  - @plans.each do |plan|
-    %ul.span6.section2
+  - @plans.each_with_index do |plan,index|
+    %ul.span6{ class: "section#{index+2}" }
       %li.title
         = plan.name
       %li

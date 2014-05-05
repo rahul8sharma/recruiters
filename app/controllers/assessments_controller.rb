@@ -74,6 +74,11 @@ class AssessmentsController < ApplicationController
   # fetches default_norm_bucket_ranges for the assessment's FA, Industry and Exp
   # creates job_assessment_factor_norm for each factor with default values   
   def get_norms
+    params[:assessment] ||= {}
+    params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
+    
+    selected_factors = Hash[params[:assessment][:job_assessment_factor_norms_attributes].values.map{|factor_norm_attributes| [factor_norm_attributes[:factor_id].to_i,factor_norm_attributes] }]
+    
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
     
     default_norm_bucket_ranges = get_default_norm_bucket_ranges
@@ -95,11 +100,15 @@ class AssessmentsController < ApplicationController
           :factor_id => factor.id,
           :functional_area_id => @assessment.functional_area_id,
           :industry_id => @assessment.industry_id,
-          :job_experience_id => @assessment.job_experience_id
+          :job_experience_id => @assessment.job_experience_id,
+          :selected => selected_factors.keys.include?(factor_id)
         )
       end
-      
-      if default_norm_bucket_range
+      if assessment_factor_norm.id.present?
+      elsif selected_factors.keys.include?(factor_id)
+        assessment_factor_norm.from_norm_bucket_id = selected_factors[factor_id][:from_norm_bucket_id].to_i
+        assessment_factor_norm.to_norm_bucket_id = selected_factors[factor_id][:to_norm_bucket_id].to_i
+      elsif default_norm_bucket_range
         assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
         assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
       else

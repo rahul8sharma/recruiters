@@ -54,14 +54,14 @@
       No benchmarks have been created. To create a Benchmarks, 
       %a{:href => new_company_benchmark_path(:company_id => params[:company_id]), :title => "Click Here To Create New Benchmark"} click here. 
   .divider2 
-  .pull-right
-    .muted.extra-medium-text
-      .span.line-height2
-        Go to Page
-                
-      %select.span2
-        %option 1
-    
-    -#
-      .pagination.pull-right
-        = paginate @assessments
+  - if !@assessments.empty?
+    .pull-right
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+          - @assessments.total_pages.times do |page|
+            %option{selected: params[:page].to_i == (page + 1),value:company_benchmarks_path(@company, params.merge(:page => page + 1)), }
+              = page + 1
+        .clr
+  .clr      

@@ -63,7 +63,7 @@
   var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
 
     $('#edit_assessment').submit(function() {
-        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min) && $('input[name=selected_factor]:checked').length <= parseInt(traits_max)) {
+        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
             $('#edit_assessment button').attr("disabled", "disabled");
             return true;
         } else {
