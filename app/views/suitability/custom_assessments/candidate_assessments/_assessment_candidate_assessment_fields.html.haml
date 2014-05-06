@@ -1,7 +1,7 @@
 - checked = (params[:upload_method] == "manual")
 %li
   %input{name: "candidates[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
-  - klass = (candidate[:name].blank? ^ candidate[:email].blank?) ? "error" : ""
+  - klass = @errors.keys.include?((index-1).to_s) ? "error" : ""
   .control-group{ class: klass }
     .span2
       .count.badge.badge-small.inverse 
