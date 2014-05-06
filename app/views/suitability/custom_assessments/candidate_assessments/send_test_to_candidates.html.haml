@@ -34,15 +34,15 @@
         Send report to candidate
     .clr
     .divider3
+    - if current_user.type == "SuperAdmin"
+      .text-center
+        %label.invitation-sms.medium-text
+          Also send test invitations to candidates via SMS
+          %input{:type=>"checkbox", name: "send_sms"}
+        %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+          Send default email
+          %input{:type=>"checkbox", name: "send_email", checked: true}
     - if params[:candidates]
-      - if current_user.type == "SuperAdmin"
-        .text-center
-          %label.invitation-sms.medium-text
-            Also send test invitations to candidates via SMS
-            %input{:type=>"checkbox", name: "send_sms"}
-          %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-            Send default email
-            %input{:type=>"checkbox", name: "send_email", checked: true}
       - params[:candidates].each do |id,candidate_data|
         %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
         %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
