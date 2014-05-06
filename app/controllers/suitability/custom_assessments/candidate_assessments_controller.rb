@@ -43,7 +43,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     params[:upload_method] ||= "manual"
-    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
+    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a      
+    assessment_factor_norms = @assessment.job_assessment_factor_norms.all.to_a
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
@@ -83,6 +84,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
       params[:candidates] = candidates
       render :action => :send_test_to_candidates
+    else
+      if assessment_factor_norms.size <= 1
+        flash[:error] = "You need to select traits before sending an assessment. Please select traits from below."
+        redirect_to norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      end
     end
   end
   
