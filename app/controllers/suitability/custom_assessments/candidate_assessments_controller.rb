@@ -40,22 +40,22 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def add_candidates
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
-    params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
+    #params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     params[:upload_method] ||= "manual"
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
+    @errors = {}
     if request.put?
       candidates = {}
       if params[:candidates].empty? 
         flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
         render :action => :add_candidates and return
       end
-      errors = {}
       params[:candidates].each do |key,candidate_data|
         if candidate_data[:email].present?
           candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
         end
-        errors[candidate_data[:name]] ||= []
+        @errors[key] ||= []
         if candidate
           candidate_data[:id] = candidate.id
           candidates[candidate.id] = candidate_data
@@ -65,16 +65,16 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         else
           candidate = Vger::Resources::Candidate.create(candidate_data)
           if candidate.error_messages.present?
-            errors[candidate_data[:name]] |= candidate.error_messages
+            @errors[key] |= candidate.error_messages
           else
             candidate_data[:id] = candidate.id
             candidates[candidate.id] = candidate_data
           end
         end  
       end
-      unless errors.values.flatten.empty?
+      unless @errors.values.flatten.empty?
         #flash[:error] = "Errors in provided data: <br/>".html_safe
-        flash[:error] = errors.map.with_index do |(candidate_name, candidate_errors), index| 
+        flash[:error] = @errors.map.with_index do |(candidate_name, candidate_errors), index| 
           if candidate_errors.present?
             ["#{candidate_errors.join("<br/>")}"]
           end  
