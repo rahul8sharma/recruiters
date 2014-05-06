@@ -22,37 +22,8 @@
     .divider1
 
     %ul.semi-muted
-      - @assessment_factor_norms.each do |factor_norm|
-        %li
-          .divider1
-          .extra-medium-text
-            .span5.first
-              = factor_norm.factor.name
-            .span15.left-offset1
-              = factor_norm.factor.definition
-            .span6.left-offset1
-              #{@norm_buckets[factor_norm.from_norm_bucket_id].name} - #{@norm_buckets[factor_norm.to_norm_bucket_id].name}
-            //.span
-            //  #{factor_norm.critical? ? "Yes":"No"}
-          .clr
-          .divider1
-    - if @other_norms.empty?
-      .divider1
-    - else
-      .divider2.border-bottom-grayLighter
-      .divider2
-      .big-text
-        .span5.first
-          Miscellaneous Trait
-        .span15.left-offset1
-          Definition
-        //.span6.left-offset1
-        //  Expected Score Range
-      .clr
-      .divider1
-      
-      %ul.semi-muted
-        - @other_norms.each do |factor_norm|
+      - if @assessment_factor_norms.present?
+        - @assessment_factor_norms.each do |factor_norm|
           %li
             .divider1
             .extra-medium-text
@@ -60,8 +31,42 @@
                 = factor_norm.factor.name
               .span15.left-offset1
                 = factor_norm.factor.definition
-            .clr.left-offset1
+              .span6.left-offset1
+                #{@norm_buckets[factor_norm.from_norm_bucket_id].name} - #{@norm_buckets[factor_norm.to_norm_bucket_id].name}
+              //.span
+              //  #{factor_norm.critical? ? "Yes":"No"}
+            .clr
             .divider1
+      - if @other_norms.empty?
+        .divider1
+      - else
+        .divider2.border-bottom-grayLighter
+        .divider2
+        .big-text
+          .span5.first
+            Miscellaneous Trait
+          .span15.left-offset1
+            Definition
+          //.span6.left-offset1
+          //  Expected Score Range
+        .clr
+        .divider1
+        
+        %ul.semi-muted
+          - @other_norms.each do |factor_norm|
+            %li
+              .divider1
+              .extra-medium-text
+                .span5.first
+                  = factor_norm.factor.name
+                .span15.left-offset1
+                  = factor_norm.factor.definition
+              .clr.left-offset1
+              .divider1
+    - else
+      .medium-text.alert
+        You have not added traits. To add traits to this assessment.
+        %a{ href: norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Add Traits" } Click here
     .divider1
 
     //%a.btn.btn-warning.pull-right{:href => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
