@@ -117,6 +117,7 @@ class Companies::PlansController < ApplicationController
 
     unless Rails.env.production?
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    end
 
       http_request = Net::HTTP::Post.new(uri.request_uri)
       http_request.set_form_data(payment_params)
@@ -131,6 +132,5 @@ class Companies::PlansController < ApplicationController
         Rails.logger.debug http_response.body
         redirect_to request.referer
       end
-    end
   end
 end
