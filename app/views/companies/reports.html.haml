@@ -52,7 +52,7 @@
     - else
       .alert
         No reports available! This can happen if no assessments have been completely answered or if reports are still being generated. You can send assessments or reminders by visiting the 
-        %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}Assessments
+        %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",}Assessments
         tab.
   .divider1
   .pull-right
