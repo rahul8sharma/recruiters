@@ -20,7 +20,9 @@
       %input{:type => "hidden", name: "s3_key", value: @s3_key }
       %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
     .big-text
-      Enter the email address of the people who should receive Reports
+      Enter the email address of the people who should receive the Assessment Reports 
+      .medium-text
+        (after the Assessment is completed by the Assessment Taker).
     .divider1
     %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
     .clr
@@ -34,15 +36,18 @@
         Send report to candidate
     .clr
     .divider3
+    - if current_user.type == "SuperAdmin"
+      .text-center
+        %label.invitation-sms.medium-text
+          Also send test invitations to candidates via SMS
+          %input{:type=>"checkbox", name: "send_sms"}
+        %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+          Send default email
+          %input{:type=>"checkbox", name: "send_email", checked: true}
+    - else
+      %input{:type=>"checkbox", name: "send_email", checked: true, style: "display:none"}      
+      %input{:type=>"checkbox", name: "send_sms", checked: false, style: "display:none"}
     - if params[:candidates]
-      - if current_user.type == "SuperAdmin"
-        .text-center
-          %label.invitation-sms.medium-text
-            Also send test invitations to candidates via SMS
-            %input{:type=>"checkbox", name: "send_sms"}
-          %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-            Send default email
-            %input{:type=>"checkbox", name: "send_email", checked: true}
       - params[:candidates].each do |id,candidate_data|
         %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
         %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}

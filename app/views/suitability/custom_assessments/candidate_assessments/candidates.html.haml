@@ -78,7 +78,10 @@
                   %i.icon-spinner.icon-spin 
                   Generating report...  
               - else 
-                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
+                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::READY_FOR_SCORING
+                  %i.icon-spinner.icon-spin 
+                  Generating report...  
+                - elsif candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
                   = status  
                 - else   
                   %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}

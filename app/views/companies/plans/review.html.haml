@@ -25,7 +25,7 @@
         .span6.first
           Package Validity
         .span3
-          6 Months
+          #{@plan.validity_in_months} Months
           //#{hdate(Date.today + @plan.validity_in_months.months)}
         .clr
       .less-padding-all1.padding-lr1
