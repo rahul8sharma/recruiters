@@ -42,9 +42,9 @@ class CompaniesController < ApplicationController
   def landing
     count = Vger::Resources::Suitability::CustomAssessment.count(:query_options => { company_id: current_user.company_id })
     if count <= 1
-      redirect_to home_company_path(current_user.company_id) 
+      redirect_to home_company_path(current_user.company_id), notice: flash[:notice]
     else
-      redirect_to company_custom_assessments_path(current_user.company_id)  
+      redirect_to company_custom_assessments_path(current_user.company_id), notice: flash[:notice]
     end
   end
 
