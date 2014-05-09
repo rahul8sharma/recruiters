@@ -18,15 +18,7 @@
   .divider2
   = render :partial => "shared/settings-content-sub-nav"
   = form_for @company, :as => :company, url: remove_users_company_path(@company), method: :put do |f|
-    .pull-right
-      %button.btn.btn-warning.inverse.big-text.pull-left
-        Remove Users
-      %a.btn.btn-warning.big-text.span{ href: add_users_company_path(@company) }
-        Add New User
-      .clr
-    .clr
-    .divider2
-    = render :partial => "shared/settings-content-sub-nav"
+    
     .padding-all2.border-warning.shifted-up1
       .pull-right
         %button.btn.btn-warning.inverse.big-text.pull-left
