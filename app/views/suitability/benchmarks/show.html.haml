@@ -18,45 +18,51 @@
       Download a PDF version of the Benchmark Report
   .clr
   .divider2
-  .summary.padding-all1.clearfix
-    .span
-      %b.show.pull-left 
-        Industry: 
-      .span6
-        Hr finance
-    .span
-      %b.show.pull-left 
-        Functional Area: 
-      .span6
-        Office boy
-    .span
-      %b.show.span
-        Experience Level: 
-      .span 
-        expert
-  .divider1
-  .pull-left.medium-text
-    Results last updated: 28/12/20045
-  .pull-right.text-right
-    %b.medium-text Sent: 
-    %b.large-text 0
-    %span.left-offset1
-      %b.medium-text Taken: 
+  - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+    .summary.padding-all1.clearfix
+      .span
+        %b.show.pull-left 
+          Industry: 
+        .span6
+          Hr finance
+      .span
+        %b.show.pull-left 
+          Functional Area: 
+        .span6
+          Office boy
+      .span
+        %b.show.span
+          Experience Level: 
+        .span 
+          expert
+    .divider1
+    .pull-left.medium-text
+      Results last updated: 28/12/20045
+    .pull-right.text-right
+      %b.medium-text Sent: 
       %b.large-text 0
-  .clr.divider1
-  .medium-text 
-    %b Selected Factors
-  .divider1
-  %div
-    %ul.selected-factors
-      %li.clearfix
-        .pull-left.span9.first
-          .selected-factors-title.clearfix
-            = factor_name
-          .description
-            = factor_scores[:factor_definition]
-        .pull-right
-          = render :partial=> "shared/reports/benchmarks/factor_benchkmark", :locals=>{:benchmarks=>factor_scores}
-        .clr.divider1
-  .divider1
+      %span.left-offset1
+        %b.medium-text Taken: 
+        %b.large-text 0
+    .clr.divider1
+    .medium-text 
+      %b Selected Factors
+    .divider1
+    %div
+      %ul.selected-factors
+        - @assessment_report.report_data[:factor_benchmarks].each_pair do |factor_name, factor_scores|
+          %li.clearfix
+            .pull-left.span9.first
+              .selected-factors-title.clearfix
+                = factor_name
+              .description
+                = factor_scores[:factor_definition]
+            .pull-right
+              = render :partial=> "shared/reports/benchmarks/factor_benchkmark", :locals=>{:benchmarks=>factor_scores}
+            .clr.divider1
+    .divider1
+  - else
+    .alert-info.padding-all1
+      %b{ class: "medium-text", style: "color: black;" }
+        Benchmark calculation is in progress.   
   
