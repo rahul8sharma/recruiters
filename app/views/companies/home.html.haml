@@ -46,13 +46,13 @@
           %a.span7{:href => company_standard_assessment_path(@company,standard_assessment)}
             = standard_assessment.name
           .pull-right
-            %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment)}
+            %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment), :title => "View Details"}
             - if standard_assessment.report_urls.present?
-              %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank"}
+              %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank",:title => "View Report"}
             - else
-              %a.icon-file{:href => "#"}
+              %a.icon-file{:href => "#", :title => "View Report"}
 
-            %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment)}
+            %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment), :title => "Send Assessment"}
             .clr
           .clr
     - else
