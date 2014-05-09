@@ -14,7 +14,7 @@
   = render :partial => "shared/candidate-content-benchmark-sub-nav"
   
   .pull-right
-    %a{:class=>"extra-medium-text line-height3", :href=>"#"}
+    %a{:class=>"extra-medium-text line-height3", :href=> download_benchmark_report_company_benchmark_path(:id => params[:id],:company_id => params[:company_id], format: "pdf"), target: "_blank"}
       Download a PDF version of the Benchmark Report
   .clr
   .divider2
