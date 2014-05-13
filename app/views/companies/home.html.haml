@@ -50,7 +50,7 @@
             - if standard_assessment.report_urls.present?
               %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank",:title => "View Sample Report'"}
             - else
-              %a.icon-file{:href => "#", :title => "View Sample Report'"}
+              %a.icon-file{:href => "#", :title => "View Sample Report"}
 
             %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment), :title => "Send Assessment"}
             .clr
