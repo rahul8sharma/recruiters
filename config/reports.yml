@@ -27,7 +27,7 @@ pdf:
     scores_step: 6
 candidate:
   fitment_scores: "Fitment Scores"
-  report_title: "Suitability Assessment Report"
+  report_title: "Assessment Report"
   job_role_fit: "Job Sync"
   company_fit: "People Skills"
   team_fit: "Personal Effectiveness"
