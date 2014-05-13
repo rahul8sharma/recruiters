@@ -2,6 +2,7 @@
   .overall_report
     .logo.pull-right
     .clr
+    .divider3
     .heading
       .big-text
         #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
@@ -18,6 +19,7 @@
           = @report.report_hash[:completed_at]
       .clr
 
+    .divider2
     = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     .divider3
     .responses
