@@ -4,73 +4,75 @@
     Usage
   .divider2
   .stat_graph
-    .span5
-      .graph
-        - total = @company.assessment_statistics[:assessments_purchased]
-        - assessments_sent = @company.assessment_statistics[:assessments_sent]
-        - assessments_completed = @company.assessment_statistics[:assessments_completed]
-        - sent_percentage = 0
-        - completed_percentage = 0
-        - if total != 0 && assessments_sent != 0
-          - sent_percentage = ((assessments_sent.to_i * 100) / total)
-          - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
-        .column.darkBlue-bg{:style => "width: 100%"}
-        / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-        .column.orange-bg{:style => "width: 30%"}
-        //.column.orange-bg{:style => "width: 20%"}
-    .span13
-      .large-text
-        %b Assessments
-      .divider1
-      .span6.first
-        %span.icon-stop.darkBlue-bg
-        %span Total Assessments Sent:  
-        %b.large-text
-          #{@company.assessment_statistics[:assessments_sent].to_i}
-      .span
-        %span.icon-stop.orange-bg
-        %span Total Assessments Answered:  
-        %b.large-text
-          #{@company.assessment_statistics[:assessments_completed].to_i}
-        
+    .lhs.pull-left
+      %b.extra-medium-text
+        Remaining Assessments in Active Packages: 30
+    .rhs.pull-left
+      .span5.first
+        .graph
+          - total = @company.assessment_statistics[:assessments_purchased]
+          - assessments_sent = @company.assessment_statistics[:assessments_sent]
+          - assessments_completed = @company.assessment_statistics[:assessments_completed]
+          - sent_percentage = 0
+          - completed_percentage = 0
+          - if total != 0 && assessments_sent != 0
+            - sent_percentage = ((assessments_sent.to_i * 100) / total)
+            - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
+          .column.darkBlue-bg{:style => "width: 100%"}
+          / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
+          .column.orange-bg{:style => "width: 30%"}
+          //.column.orange-bg{:style => "width: 20%"}
+      .span14.medium-text.gray-darker
+        .span.stop.darkBlue-bg 
+        .span 
+          Total Assessments Sent:  
+          %b
+            #{@company.assessment_statistics[:assessments_sent].to_i}
+        .span.stop.orange-bg.left-offset1
+        .span 
+          Total Assessments Answered:  
+          %b
+            #{@company.assessment_statistics[:assessments_completed].to_i}
+          
+        .clr
+      .clr
     .clr
   .divider3
   .list-snippet-titles.large-text.clearfix
-    .span4
+    .span4.first
       Packages
-    .span4
+    .span5
       Package Size
-    .span5.text-center
+    .span3
       Assessments Sent
-    .span6.text-center
+    .span3.left-offset2
       Assessments Answered
-    .span4
+    .span5.left-offset2
       Activated Date        
     .span4
       Valid Till
     .span
       Status
     .clr
-    .divider1          
+    .divider2          
 
   %ul
     - @subscriptions.each_with_index do |subscription, index|
       %li.list-snippet.border-bottom-grayLighter
-        .divider1
-        .span4
+        .span4.first
           Package #{@subscriptions.length - index}
-        .span5.text-center
-          %b #{subscription.assessments_purchased}
-        .span5.text-center
-          #{subscription.assessments_sent}
-        .span6.text-center
-          #{subscription.assessments_completed}
+        .span5
+          #{subscription.assessments_purchased}
         .span3
+          #{subscription.assessments_sent}
+        .span3.left-offset2
+          #{subscription.assessments_completed}
+        .span5.left-offset2
           - valid_from = Date.parse(subscription.valid_from)
-          %b #{valid_from.strftime("%d/%m/%Y")}
+          #{valid_from.strftime("%d/%m/%Y")}
         .span4
           - valid_to = Date.parse(subscription.valid_to)
-          %b #{valid_to.strftime("%d/%m/%Y")}
+          #{valid_to.strftime("%d/%m/%Y")}
         .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
           #{(valid_to >= Date.today) ? "Active" : "Expired"}
           //toggle btween :".success-text" and ".alert-text"
@@ -78,7 +80,11 @@
         .divider1
         
   .pull-right
-    = paginate @subscriptions            
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2 
+        %option 1         
   .clr  
 
 
