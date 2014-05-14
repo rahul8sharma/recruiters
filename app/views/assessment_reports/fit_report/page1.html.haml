@@ -20,7 +20,7 @@
       = @report.report_hash[:completed_at]
 
     .divider5
-    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+    / = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     / - if (@report.report_hash[:enable_recommendation])
     /   .sub-heading.fw.medium-text.text-center
     /     Aggregate Score: 
