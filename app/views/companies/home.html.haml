@@ -28,18 +28,18 @@
   .divider2
 
   %ul.assessment-list.span28.margin-auto.clearfix
-    %li
-      - url = "#"
-      - if @candidate_assessment
-        - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
-        - if report && report.status == "uploaded"
-          - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-        - else    
-          - url = @candidate_assessment.url
-      %a.fw.span{:href => url, target: "_blank"}
-        .pull-left
-          Quick Self Assessment
-        .icon-chevron-right.pull-right
+    - if @candidate_assessment
+      - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+      - if report && report.status == "uploaded"
+        - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+      - else    
+        - url = @candidate_assessment.url
+    - if url.present?
+      %li
+        %a.fw.span{:href => url, target: "_blank"}
+          .pull-left
+            Quick Self Assessment
+          .icon-chevron-right.pull-right    
     - if @standard_assessments.present?
       -@standard_assessments.each do |standard_assessment|
         %li
@@ -50,7 +50,7 @@
             - if standard_assessment.report_urls.present?
               %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank",:title => "View Sample Report'"}
             - else
-              %a.icon-file{:href => "#", :title => "View Sample Report'"}
+              %a.icon-file{:href => "#", :title => "View Sample Report"}
 
             %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment), :title => "Send Assessment"}
             .clr
