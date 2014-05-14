@@ -3,10 +3,10 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
       .divider1
-    - if defined?(@company)  
-      .span7.company_name{:title => "#{@company.name}"}
-        = truncate @company.name, :length   => 28
     - if current_user 
+      - if defined?(@company)  
+        .span7.company_name{:title => "#{@company.name}"}
+          = truncate @company.name, :length   => 28
       .span19.pull-right
         %ul#sub-nav.pull-right
           %li
