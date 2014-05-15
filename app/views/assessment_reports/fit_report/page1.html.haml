@@ -21,17 +21,10 @@
 
     .divider5
     / = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-<<<<<<< HEAD
     / - if (@report.report_hash[:enable_recommendation])
     /   .sub-heading.fw.medium-text.text-center
     /     Aggregate Score: 
     /     = @report.report_hash[:overall_score_bucket]
-=======
-    - if (@report.report_hash[:enable_recommendation])
-      .sub-heading.fw.medium-text.text-center
-        Aggregate Score: 
-        = @report.report_hash[:overall_score_bucket]
->>>>>>> hotfix-1.22.3
     .clr
     .divider2
 
