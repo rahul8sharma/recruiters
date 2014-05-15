@@ -3,11 +3,10 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), "/")
       .divider1
-    - if defined?(@company)  
-      .span7.company_name
-        = @company.name 
-
     - if current_user 
+      - if defined?(@company)  
+        .span7.company_name{:title => "#{@company.name}"}
+          = truncate @company.name, :length   => 28
       .span19.pull-right
         %ul#sub-nav.pull-right
           %li
@@ -31,7 +30,7 @@
           %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
             BUY PACKAGE
 
-        %ul.navbar.pull-right.clearfix        
+        %ul.navbar.pull-right.clearfix
           - if defined?(@company)
             - if current_user.type == "SuperAdmin"
               %li
@@ -73,11 +72,12 @@
             %li
               %a{:href=> "#", :title=> "Jombay Analytics"}
                 Analytics
-          %li
-            %a{:title=> "Jombay Help Number"}
-              .icon-phone-sign.large-text.line-height1.color-success.pull-left
-              .pull-left +91 96733 35243
-              .clr
+          -#
+            %li
+              %a{:title=> "Jombay Help Number"}
+                .icon-phone-sign.large-text.line-height1.color-success.pull-left
+                .pull-left +91 96733 35243
+                .clr
           %li
             %a{:href=> "/login", :title=> "Sign In to Jombay"}
               %b.color-warning.extra-medium-text

@@ -1,39 +1,44 @@
-.add-user
-  = render :partial => "shared/sub-nav"
-  .inn.first
-    .page-title
-      Settings
-  .inn.gray-gradient
-    .pull-left.sub-nav
-      = render :partial => "shared/settings-content-sub-nav"
-    .clr
-    .divider2
-    = form_for @company, :as => :company, :url => add_users_company_path(@company), method: :put do |f|
-      .large-text.pull-left
-        Add New User
-      .pull-right.medium-text.actions
-        %a.line-height2.show.span{:href => user_settings_company_path(@company)}
-          Cancel&nbsp;
-        %input{ class: "button btn btn-info span show", type: "submit", value: "Add" }
-        .clr
-      .clr
-      .clearfix
-        %b.left Full Name
-        %b.right Email ID
-      .divider1
+.company_add_user 
+  .page-title
+    .divider1
+    Settings
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
 
-      %ul.add-users-listing
-        - 10.times do |index|
-          - candidate = params[:users].to_a[index][1] rescue {}
-          %li.clearfix
-            .sr-no
-              #{index+1}
-            %input.left{:type => "hidden", name: "users[#{index}][company_id]", value: @company.id}  
-            %input.left{:type => "text", name: "users[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
-            %input.right{:type => "text", name: "users[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
-      .pull-right.medium-text.actions
-        %a.line-height2.show.span{:href => user_settings_company_path(@company)}
-          Cancel&nbsp;
-        %input{ class: "button btn btn-info span show", type: "submit", value: "Add" }
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    = form_for @company, :as => :company, :url => add_users_company_path(@company), method: :put do |f|
+      .span21.margin-auto
+        .pull-right.medium-text.actions
+          %a.extra-medium-text.line-height3{:title=>"View Ready-to-Send Assessments", :href => user_settings_company_path(@company)}
+            Cancel&nbsp;
+          %button{ class: "btn btn-warning big-text right-offset1 last"}
+            Add
         .clr
-      .clr
+        .divider2
+        .left-offset2.first
+          .span9.first.big-text
+            Full Name
+          .span8.big-text.left-offset1.first
+            Email ID
+          .clr
+        .divider1 
+
+        %ul.add-users-listing
+          - 10.times do |index|
+            - candidate = params[:users].to_a[index][1] rescue {}
+            %li.clearfix
+              .control-group
+                .span2.first
+                  .count.badge.badge-small.inverse
+                    #{index+1}
+                %input{:type => "hidden", name: "users[#{index}][company_id]", value: @company.id}  
+                %input.span9.medium-text.first{:type => "text", name: "users[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
+                %input.span8.medium-text.left-offset1.first{:type => "text", name: "users[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
+                .clr
+        .divider2
+        .pull-right.medium-text
+          %a.extra-medium-text.line-height3{:title=>"View Ready-to-Send Assessments", :href => user_settings_company_path(@company)}
+            Cancel&nbsp;
+          %button{ class: "btn btn-warning big-text right-offset1 last"}
+            Add
+        .clr

@@ -4,17 +4,17 @@
   = javascript_include_tag 'sign_up'
 .sign-up
   .container
-    .span19.first
+    .span17.first
       .divider1
       %strong.huge-text
         Sign Up for your Free Trial
       .divider1
-      .large-text
+      .big-text
         Get 5 Assessments for Free. No Obligation. No Credit Card required.
-      .divider2
+      .divider1
       .border-primary.border-radius3.padding-all2
         .span11.margin-auto
-          = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "extra-medium-text" }) do |f|
+          = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "" }) do |f|
             = f.fields_for :admin do |af|  
               .control-group
                 = af.text_field :name, class: "fw", placeholder: "Full Name", required: true
@@ -31,35 +31,35 @@
                 = af.text_field :mobile, placeholder: "Contact Number", class: "fw pull-left", required: true
                 .info-tooltip-control.pull-left
                   .info-tooltip.gray-darker
-                    Required to ensure that nobody misuses your identity. Dont worry all information you provided is completely confidential
+                    Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
                     .left-caret
                 .clr
             .control-group
               = f.text_field :name, title: "Sign to Jombay", placeholder: "Company Name", class: "fw", required: true
             .control-group
-              = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw divider2", required: true }
+              = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true }
             %button.btn.btn-warning.large-text.fw
               Sign Up
-            .divider2
-            .medium-text
+            .divider1
+            .text-center.default-text
               By Clicking “Sign Up” above you agree to the 
-              %a.underlined{:href => "#", :title => "Jombay Terms and Conditions"}
+              %a.underlined{:href => "http://products.jombay.com/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
                 Terms and Conditions
         
 
     .span9.left-offset2
-      .span4.text-center.pull-right.right-offset1.last
-        .extra-medium-text.gray-dark.line-height2
-          Already a user?
-        %a.btn.btn-warning.inverse.large-text{:href => "/login", :title => "Sign to Jombay"}
-          Sign In
+      .divider1
+      .extra-medium-text.gray-dark.line-height2
+        Already a user?
+        %a{:href => "/login", :title => "Sign In to Jombay"}
+          %b Sign In
       .clr
       .divider2
       .gray-darker
-        .large-text
+        .big-text
           5 reasons you will love Jombay
-        .divider2
-        %ol.extra-medium-text
+        .divider1
+        %ol.medium-text
           %li
             Library of Ready-to-Send Assessments 
             .divider1
@@ -76,8 +76,8 @@
             24X7 Customer Support
             .divider1
         .divider2
-        .large-text
+        .big-text
           Some of our happy customers
-        .divider2
+        .divider1
         = image_tag ("customers.png")
     .clr

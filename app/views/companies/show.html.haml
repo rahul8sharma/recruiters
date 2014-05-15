@@ -9,58 +9,68 @@
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .span19.margin-auto
       %ul
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
             Company Name: 
-          .span8
+          .span7
             #{@company.name}
           .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-barcode
             Company Code: 
-          .span8
+          .span7
             #{@company.company_code}
           .clr
 
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-globe 
             Company website URL: 
           -if h @company.website
-            %a.span8{:href => "#{h @company.website}", :title => "Click Here to go #{h @company.website} website"}
+            %a.span7{:href => "#{h @company.website}", :title => "Click Here to go #{h @company.website} website"}
               = h @company.website
           - else
             Not available 
           .clr
 
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-home
             Company Head Quarter Location:
-          .span8
+          .span7
             - if @hq_location
               = @hq_location.address
             - else
               = h nil
           .clr
 
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-map-marker 
             Company Head Quarter Address:
-          .span8.do
+          .span7
             = h @company.hq_address
           .clr
       .divider2
-      .description
-        .big-text
-          %b Employer Description
+      .description.padding-all1
+        .extra-large-text
+          About
+          #{@company.name}
         .divider1
-        %p.extra-medium-text 
+        %p.medium-text 
           = h(@company.description).html_safe
       .clr
       .divider2
       - if current_user.type == "SuperAdmin"
-        %a.btn.btn-warning.inverse.large-text.pull-left{href: edit_company_path(@company)}
-          Edit Company Profile
+        %a.btn.btn-warning.inverse.big-text.pull-left{href: edit_company_path(@company)}
+          %b Edit Company Profile
         
-        %a.btn.btn-warning.large-text.pull-right{href: add_subscription_company_path(@company.id)}
+        %a.btn.btn-warning.big-text.pull-right{href: add_subscription_company_path(@company.id)}
           Add Subscription
       .clr
+      .divider4
+.divider4
+
+
