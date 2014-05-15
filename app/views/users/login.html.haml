@@ -1,7 +1,7 @@
 - content_for :notification_bar do
   = ""
 = render :partial => "shared/user-alerts"
-.divider5
+.divider2
 .span16.left-offset1
   .page-title 
     Sign In to your Jombay Account
@@ -10,7 +10,7 @@
     = form_for(:user, :url => login_path) do |f|
       %input{name: "redirect_to", value: params[:redirect_to], type: "hidden"}
       .divider2
-      .span8.margin-auto.extra-medium-text
+      .span8.margin-auto.medium-text
         .control-group
           = f.text_field :email, :placeholder => "Email ID", :class => "fw"
         .control-group
@@ -22,7 +22,7 @@
           .clr
 
         .divider1
-        %a.gray-dark.pull-left.line-height3{:href=> forgot_password_path, :title=>"Forgot Password"}
+        %a.gray-dark.pull-left.line-height2{:href=> forgot_password_path, :title=>"Forgot Password"}
           Forgot Password?
         %button.large-text.btn.btn-warning.pull-right{:title=>"Log In To Jombay!"}
           Login

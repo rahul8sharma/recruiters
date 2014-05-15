@@ -11,7 +11,7 @@
     .pull-right{style: "margin-top: 10px;"}
       - if @view_mode == "html"
         - if @report.report_hash[:enable_feedback]
-          = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-info"
+          = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-info"
       - if @view_mode == "feedback"
         .email.pull-left
           %input{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email",:class =>"medium-text"}
