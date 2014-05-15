@@ -18,7 +18,7 @@
           = @report.report_hash[:completed_at]
       .clr
 
-    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+    / = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
     .divider3
     .responses
       - if @report.report_hash[:consistency][:enabled]
