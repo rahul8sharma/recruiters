@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     if @user.error_messages && @user.error_messages.empty?
       render :action => :link_sent
     else
-      flash[:error] = @user.error_messages
+      flash[:error] = @user.error_messages.join("<br/>").html_safe
       redirect_to forgot_password_path
     end
   end
