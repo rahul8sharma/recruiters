@@ -12,7 +12,7 @@
   //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
-    .big-text
+    .extra-medium-text
       .span5.first
         Trait
       .span15.left-offset1
@@ -28,7 +28,8 @@
           .divider1
           .extra-medium-text
             .span5.first
-              = factor_norm.factor.name
+              %strong
+                = factor_norm.factor.name
             .span15.left-offset1
               = factor_norm.factor.definition
             .span6.left-offset1
@@ -56,7 +57,7 @@
         - other_norms.each do |factor_norm|
           %li
             .divider1
-            .extra-medium-text
+            .medium-text
               .span5.first
                 = factor_norm.factor.name
               .span15.left-offset1

@@ -16,6 +16,7 @@
 
   .page-title.pull-left
     Ready-to-Send Assessments
+  %a.icon-question-sign.large-text{:href=>"#how-it-works", :title=>"How it Works?"}
   %a.button.btn.btn-warning.big-text.pull-right{href: new_company_custom_assessment_path(@company)}
     Create Custom Assessment
   .clr
@@ -43,7 +44,7 @@
     - if @standard_assessments.present?
       -@standard_assessments.each do |standard_assessment|
         %li
-          %a.span7{:href => company_standard_assessment_path(@company,standard_assessment)}
+          %a.span7.medium-text{:href => company_standard_assessment_path(@company,standard_assessment)}
             = standard_assessment.name
           .pull-right
             %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment), :title => "View Assessment Details"}
@@ -62,48 +63,48 @@
         .clr
 
   
-  .divider3
-  .info-list.span24.margin-auto.text-center
-    .huge-text
+  .divider2
+  #how-it-works.info-list.span24.margin-auto.text-center
+    .extra-large-text
       How it Works
     .divider4
     %ul.clearfix
       %li.span8
         .thumb1.divider5
-        .big-text
+        .extra-medium-text
           1. Choose Relevant Asessment
       %li.span8
         .thumb2.divider5
-        .big-text
+        .extra-medium-text
           2. See Assessment Details
       %li.span7
         .thumb3.divider5
-        .big-text
+        .extra-medium-text
           3. Send Assessment
 
   .divider4.border-bottom-grayLighter
   .divider2
   
   .benefit-list.span21.margin-auto.text-center
-    .huge-text
+    .extra-large-text
       Benefits of Using Jombay
     .divider4
     %ul.clearfix
       %li.span5
         .thumb1.divider5
-        .big-text
+        .extra-medium-text
           Hire for the right Cultural Fit
       %li.span5
         .thumb2.divider5
-        .big-text
+        .extra-medium-text
           Reduce hiring errors
       %li.span5
         .thumb3.divider5
-        .big-text
+        .extra-medium-text
           Predict Attrition
       %li.span5
         .thumb4.divider5
-        .big-text
+        .extra-medium-text
           Identify Leadership Potential
 
   .divider2

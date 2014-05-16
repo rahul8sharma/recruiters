@@ -11,7 +11,7 @@
         %ul#sub-nav.pull-right
           %li
             %a.setting{href: "#", title: "Account"}             
-            %ul
+            %ul.medium-text
               - if defined?(@company)
                 %li
                   %a{:href=>statistics_company_path(@company)} Usage
