@@ -1,10 +1,9 @@
 .process_explanation
-  .page-title.pull-left
-    .divider1
-    Custom Assessment: How it works
-  - if current_user.type != "SuperAdmin"  
-    %a.btn.btn-warning.big.big-text.pull-right.large-text{:href => new_company_custom_assessment_path(:company_id => current_user.company_id), :title => "Click Here To Create Custom Assessment"} 
-      Create Custom Assessment
+  / .page-title.pull-left
+  /   Custom Assessment: How it works
+  / - if current_user.type != "SuperAdmin"  
+  /   %a.btn.btn-warning.big.big-text.pull-right.large-text{:href => new_company_custom_assessment_path(:company_id => current_user.company_id), :title => "Click Here To Create Custom Assessment"} 
+  /     Create Custom Assessment
   .clr
   .span27.margin-auto
     - 5.times do |index|
@@ -13,6 +12,11 @@
           %div{:class => "content0#{index}"}
           .down_carret
     .clr
+    .divider5
+    .huge-text.text-center
+      Steps to create Custom Assessments.
+      %br
+      Place your cursor over individual icons to see explanation of each step.    
   .divider30
 
 
