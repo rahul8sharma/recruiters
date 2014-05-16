@@ -16,7 +16,7 @@
 
   .page-title.pull-left
     Ready-to-Send Assessments
-  / .icon-question-sign
+  %a.icon-question-sign.large-text{:href=>"#how-it-works", :title=>"How it Works?"}
   %a.button.btn.btn-warning.big-text.pull-right{href: new_company_custom_assessment_path(@company)}
     Create Custom Assessment
   .clr
@@ -64,7 +64,7 @@
 
   
   .divider2
-  .info-list.span24.margin-auto.text-center
+  #how-it-works.info-list.span24.margin-auto.text-center
     .extra-large-text
       How it Works
     .divider4
