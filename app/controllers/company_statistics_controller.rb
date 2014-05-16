@@ -12,7 +12,7 @@ class CompanyStatisticsController < ApplicationController
   protected
 
   def get_company
-    methods = []
+    methods = [:unlocked_invites_count]
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end  
