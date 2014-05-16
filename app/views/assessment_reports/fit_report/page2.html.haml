@@ -3,7 +3,7 @@
   .factor_fit.report_content
     .blue_bg_heading.text-center.big-text
       Traits measured in this Assessment
-    .divider2
+    .divider1
     .instruction_container
       .instructions
         .instruction1.pull-left
@@ -11,14 +11,14 @@
         .instruction2.less_favorable.pull-left
           Less Favorable Traits
         .clr
-    .divider2
+    .divider1
     .factors_container
-      .factors_list
+      .factors_list         
         - @report.report_hash[:factor_scores].each_with_index do |(factor_name,factor_score),index|
           - margin = factor_name.split(" ").size > 1 ? 15 : 30
           %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             .wrapper{:style=>"margin-top: #{margin}px;"}
               = factor_name.gsub(" ","<br/>").html_safe
-    .divider1
+    .divider2
     %p.bottom-sec
       Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment

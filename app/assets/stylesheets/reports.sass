@@ -162,78 +162,42 @@ body
       font-weight: bold          
     .factors_container
       background: image-url("report/hexagon-bg.png") no-repeat center center
-      height: 557px
+      height: 570px
 
       .factors_list
         position: relative
         height: 557px
-      .factor_1
-        left: 330px
-        top: 25px-(15)
-      .factor_2
-        left: 420px
-        top: 75px-(15)
-      .factor_3
-        left: 510px
-        top: 125px-(15)
-      .factor_4
-        left: 515px
-        top: 225px-(15)
-      .factor_5
-        left: 515px
-        top: 325px-(15)
-      .factor_6
-        left: 430px
-        top: 375px-(15)
-      .factor_7
-        left:  340px
-        top: 425px-(15)
-      .factor_8
-        left: 255px
-        top: 380px-(15)
-      .factor_9
-        left: 160px
-        top: 325px-(15)
-      .factor_10
-        left: 155px 
-        top: 225px-(15)
-      .factor_11
-        left: 155px
-        top: 130px -(15)
-      .factor_12
-        left: 235px
-        top: 75px-(15)
-      .factor_13
-        left: 330px
-        top: 130px-(15)
-      .factor_14
-        left: 420px
-        top: 175px-(15)
-      .factor_15
-        left: 422px
-        top: 275px-(15)
-      .factor_16
-        left: 335px
-        top: 325px-(15)
-      .factor_17
-        left: 245px
-        top: 280px   -(15)
-      .factor_18
-        left: 245px
-        top: 175px -(15)
-      .factor_19
-        left: 165px
-        top: 415px 
-      .factor_20
-        left: 255px
-        top: 465px
-      .factor_21
-        left: 430px
-        top: 467px
-      .factor_22
-        left: 515px
-        top: 415px
-           
+        line-height: 15px
+      @for $i from 1 through 5
+        .factor_#{$i}
+          left: 170px
+          top: $i * 95px -(38) 
+
+      @for $i from 6 through 11
+        .factor_#{$i}
+          left: 250px
+          top: ($i -(5)) * 95px -(86) 
+
+      @for $i from 12 through 13
+        .factor_#{$i}
+          left: 332px
+          top: ($i -(11)) * 95px -(38) 
+
+      @for $i from 14 through 15
+        .factor_#{$i}
+          left: 332px
+          top: (($i -(11)) * 95px -(38) ) + 95
+
+      @for $i from 16 through 21
+        .factor_#{$i}
+          left: 415px
+          top: ($i -(15)) * 95px -(86) 
+
+      @for $i from 22 through 26
+        .factor_#{$i}
+          left: 495px
+          top: ($i -(21)) * 95px -(38) 
+
   .scores
     padding: 18px 30px
     min-height: 900px
