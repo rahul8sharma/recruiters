@@ -19,6 +19,6 @@
           %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             .wrapper{:style=>"margin-top: #{margin}px;"}
               = factor_name.gsub(" ","<br/>").html_safe
-      
-      %p.bottom-sec
-        Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment
+    .divider1
+    %p.bottom-sec
+      Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment
