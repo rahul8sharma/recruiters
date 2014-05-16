@@ -1,5 +1,8 @@
 .add
-  .page-title #{@assessment.name}
+  .page-title.pull-left #{@assessment.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Assessment Takers to this Assessment?"}
+    Need help in adding Assessment Takers?
+  .clr
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2

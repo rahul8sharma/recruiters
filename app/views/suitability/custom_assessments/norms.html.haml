@@ -6,8 +6,11 @@
   %strong
     Please select a norm
 .norms
-  .page-title 
+  .page-title.pull-left
     #{@assessment.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in creating a Custom Assessment?"}
+    Need help in creating a Custom Assessment?
+  .clr
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2
