@@ -197,7 +197,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     order_type = params[:order_type] || "ASC"
     case order
       when "default"
-        order = "candidates.created_at DESC"
+        order = "suitability_candidate_assessments.completed_at DESC"
       when "id"
         order = "candidates.id #{order_type}"
       when "name"
