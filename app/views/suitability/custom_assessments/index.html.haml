@@ -12,11 +12,11 @@
   .divider2
   - if @assessments.empty?
     .medium-text.alert.pull-left
-      No tests have been created. To create a test, 
+      No assessments have been created. To create an assessments, 
       %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
     .divider2  
   - if @assessments.present?    
-    .list-snippet-titles.large-text.clearfix
+    .list-snippet-titles.extra-medium-text.clearfix
       .span2.first
         = sort_link "AID", company_custom_assessments_path(:company_id => params[:company_id]), :id, params[:search]
       .span4
@@ -37,7 +37,7 @@
       .divider1          
     %ul
       - @assessments.each do |assessment|
-        %li.list-snippet.border-bottom-grayLighter
+        %li.list-snippet.border-bottom-grayLighter.medium-text
           .divider1
           .span2.first
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
