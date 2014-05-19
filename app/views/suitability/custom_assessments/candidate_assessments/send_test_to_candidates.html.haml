@@ -19,10 +19,10 @@
       %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
       %input{:type => "hidden", name: "s3_key", value: @s3_key }
       %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
-    .big-text
-      Enter the email address of the people who should receive the Assessment Reports 
+    .extra-medium-text
+      Optional: Enter the email addresses of the people who should receive the Assessment Reports
       .medium-text
-        (after the Assessment is completed by the Assessment Taker).
+        (after the Assessment is completed by the Assessment Taker)
     .divider1
     %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
     .clr

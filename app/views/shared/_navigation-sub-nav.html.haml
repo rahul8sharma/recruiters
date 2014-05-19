@@ -1,5 +1,5 @@
 .navigation-sub-nav.clearfix.pull-left
-  .menu{ class: [:new].include?(params[:action].to_sym) ? "active" : "" }
+  .menu{ class: [:new, :create, :update].include?(params[:action].to_sym) ? "active" : "" }
     .count 1 
     Enter Job Role Details
   .menu{ class: ([:norms, :styles, :competencies, :competency_norms].include?(params[:action].to_sym)) ? "active" : "" }
@@ -7,7 +7,7 @@
     Choose Behavioral Traits
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) && (request.get? || flash[:error].present?)) ? "active" : "" }
     .count 3 
-    Add Assessment Taker’s Details
+    Add Assessment Takers Details
   .menu{ class: ([:add_candidates].include?(params[:action].to_sym) && request.put? || flash[:error].present?) ? "active" : "" }
     .count 4 
     Confirm &amp; Send Assessment  

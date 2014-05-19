@@ -1,34 +1,35 @@
 .plans-details
   .page-title
     .divider1
-    Buy Jombay Assessments. Buying is instant.
+    .big-text
+      Buy Jombay Assessments. Buying is instant.
 
   .divider1
 
-  .extra-large-text.gray-darker
+  .big-text.gray-darker
     Honest Pricing. No Set-up fees. No Hidden Costs.
 
-  .divider4
+  .divider2
 
-  .big-text
+  .extra-medium-text
     5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
 
   .divider1
 
-  %ul.span7.section1
+  %ul.span8.section1
     %li.title
       Included
-    %li
+    %li.medium-text
       Standard Assessment Reports
-    %li
+    %li.medium-text
       Email Invitations to Assessment Takers
-    %li
+    %li.medium-text
       Interview/Development Guides
-    %li
+    %li.medium-text
       Custom Assessments
-    %li
+    %li.medium-text
       Validity
-    %li.price-selection
+    %li.price-selection.medium-text
       .pull-left
         Price
       -#
@@ -41,40 +42,40 @@
       .clr
 
   - @plans.each_with_index do |plan,index|
-    %ul.span6{ class: "section#{index+2}" }
+    %ul.span5{ class: "section#{index+2}" }
       %li.title
         = plan.name
-      %li
+      %li.medium-text
         = plan.no_of_assessments
       -3.times do
-        %li
+        %li.medium-text
           .icon-ok
-      %li
+      %li.medium-text
         = plan.validity_in_months
         Months
       %li.cost
         &#8377;
         = plan.price
-      %li.purchase
-        %a{href: review_plan_company_path(params[:id], plan.id), :title => "Buy this Jombay Assessment"}
+      %li.purchase.medium-text
+        %a{href: review_plan_company_path(params[:id], plan.id), :title => "Buy this Package"}
           Buy
 
   %ul.span6.section5
     %li.title
       Custom Package
-    %li.big-text
+    %li.large-text
       .divider7
       Call +91-96733-35243
       %br/
       or
       %br/
       email pratik@jombay.com
-      .divider8
+      .divider6.custom-height
   .clr
 
   .divider2
 
-  .border-warning.text-center.padding-all1.big-text
+  .border-warning.text-center.padding-all1.extra-medium-text
     For Analytics Reports such as Talent Benchmarking, Training Needs Identification, Attrition Analysis, email us at pratik@jombay.com
   .divider1
   .extra-medium-text
