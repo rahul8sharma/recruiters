@@ -12,7 +12,7 @@
   .divider2
   - if @assessments.empty?
     .medium-text.alert.pull-left
-      No tests have been created. To create a test, 
+      No assessments have been created. To create an assessments, 
       %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
     .divider2  
   - if @assessments.present?    
