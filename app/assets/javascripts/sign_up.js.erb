@@ -1,0 +1,59 @@
+$( document ).ready(function() {
+  var tooltipParentHeight= $('.info-tooltip-control').innerHeight();
+  var tooltipHeight= $('.info-tooltip').outerHeight();
+  var tooltipTopValue= (tooltipHeight/2) - (tooltipParentHeight/2);
+  var blockedDomains = <%= Rails.application.config.validators["restricted_domains"] %>
+  var flag = false;
+
+  console.log(blockedDomains)
+  
+  $('.info-tooltip').css({
+    top: - tooltipTopValue
+    });
+ 
+  $('.control-group input[type="text"]').focus(function() {
+    $(this).parent().find(".info-tooltip").fadeIn('slow');
+  });
+  $('.control-group input[type="text"]').blur(function() {
+    $(this).parent().find(".info-tooltip").fadeOut();
+  });
+
+
+  $("#new_company").on("submit", function(){ 
+    email = $('input[id=company_admin_attributes_email]').val();
+    domain = $('input[id=company_admin_attributes_email]').val().split('@');
+    flag = false;
+    var isValid = isEmailValid(email);
+    if(isValid)
+      {
+        for(i=0;i<parseInt(blockedDomains.length);i++)
+          {
+          console.log(blockedDomains[i])
+          if(domain[1] == blockedDomains[i])
+            {
+              $('#error').html("Please use your company email address to Sign-Up!");
+              $('.alert.alert-error').removeAttr('hidden'); 
+              flag = true;
+              break;
+            }
+          }
+
+        if (flag){
+          return false;
+        }else{
+          return true;
+        }
+      }
+    else
+      {
+        $('#error').html("Please enter your email id in the formal abc@xyz.com");
+        $('.alert.alert-error').removeAttr('hidden');
+        return false;
+      }
+  });
+
+  function isEmailValid(emailAdress) {
+    var EMAIL_REGEXP = new RegExp('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$', 'i');
+    return EMAIL_REGEXP.test(emailAdress)
+  }  
+});
