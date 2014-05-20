@@ -2,8 +2,10 @@ $( document ).ready(function() {
   var tooltipParentHeight= $('.info-tooltip-control').innerHeight();
   var tooltipHeight= $('.info-tooltip').outerHeight();
   var tooltipTopValue= (tooltipHeight/2) - (tooltipParentHeight/2);
-  var blockedDomains = <%= Rails.application.config.validators["restricted_domains"] %>
   var flag = false;
+  
+  var blockedDomains = "<%= Rails.application.config.validators["restricted_domain"] %>"
+
   $('.info-tooltip').css({
     top: - tooltipTopValue
     });
@@ -18,29 +20,23 @@ $( document ).ready(function() {
 
   $("#new_company").on("submit", function(){ 
     email = $('input[id=company_admin_attributes_email]').val();
-    domain = $('input[id=company_admin_attributes_email]').val().split('@');
-    flag = false;
     var isValid = isEmailValid(email);
-    if(isValid)
-      {
-        for(i=0;i<parseInt(blockedDomains.length);i++)
-          {
-          if(domain[1] == blockedDomains[i])
-            {
-              $('#error').html("Please use your company email address to Sign-Up!");
-              $('.alert.alert-error').removeAttr('hidden'); 
-              flag = true;
-              break;
-            }
-          }          
-        return !flag;
+    var domain_regexp = new RegExp($('input[id=company_admin_attributes_email]').val().split('@')[1]);    
+    flag = false;
+    
+    if(isValid){
+      if(domain_regexp.test(blockedDomains)){
+        $('#error').html("Please use your company email address to Sign-Up!");
+        $('.alert.alert-error').removeAttr('hidden'); 
+        flag = true;
       }
-    else
-      {
-        $('#error').html("Please enter your email id in the formal abc@xyz.com");
-        $('.alert.alert-error').removeAttr('hidden');
-        return false;
-      }
+      return !flag;
+    }else{
+      $('#error').html("Please enter your email id in the formal abc@xyz.com");
+      $('.alert.alert-error').removeAttr('hidden');
+      return false;
+    }
+  
   });
 
   function isEmailValid(emailAdress) {
