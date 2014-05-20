@@ -32,13 +32,8 @@ $( document ).ready(function() {
               flag = true;
               break;
             }
-          }
-
-        if (flag){
-          return false;
-        }else{
-          return true;
-        }
+          }          
+        return !flag;
       }
     else
       {
