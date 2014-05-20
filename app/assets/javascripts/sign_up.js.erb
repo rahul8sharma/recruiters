@@ -4,9 +4,6 @@ $( document ).ready(function() {
   var tooltipTopValue= (tooltipHeight/2) - (tooltipParentHeight/2);
   var blockedDomains = <%= Rails.application.config.validators["restricted_domains"] %>
   var flag = false;
-
-  console.log(blockedDomains)
-  
   $('.info-tooltip').css({
     top: - tooltipTopValue
     });
@@ -28,7 +25,6 @@ $( document ).ready(function() {
       {
         for(i=0;i<parseInt(blockedDomains.length);i++)
           {
-          console.log(blockedDomains[i])
           if(domain[1] == blockedDomains[i])
             {
               $('#error').html("Please use your company email address to Sign-Up!");
