@@ -4,7 +4,7 @@ $( document ).ready(function() {
   var tooltipTopValue= (tooltipHeight/2) - (tooltipParentHeight/2);
   var flag = false;
   
-  var blockedDomains = "<%= Rails.application.config.validators["restricted_domain"] %>"
+  var blockedDomains = "<%= Rails.application.config.validators["restricted_domains"] %>"
 
   $('.info-tooltip').css({
     top: - tooltipTopValue
