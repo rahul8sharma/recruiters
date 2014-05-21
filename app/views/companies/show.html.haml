@@ -54,14 +54,14 @@
             = h @company.hq_address
           .clr
       .divider2
-      .description.padding-all1
-        .extra-large-text
-          About
-          #{@company.name}
-        .divider1
-        %p.medium-text 
-          = h(@company.description).html_safe
-      .clr
+      / .description.padding-all1
+      /   .extra-large-text
+      /     About
+      /     #{@company.name}
+      /   .divider1
+      /   %p.medium-text 
+      /     = h(@company.description).html_safe
+      / .clr
       .divider2
       - if current_user.type == "SuperAdmin"
         %a.btn.btn-warning.inverse.big-text.pull-left{href: edit_company_path(@company)}
