@@ -37,7 +37,7 @@
         = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
         .divider3
     - else
-      .alert-info.padding-all1
+      .alert-info.alert
         %b{ class: "medium-text", style: "color: black;" }
           - if @training_requirement_group.total_candidates == 0
             Training Requirements are enabled. Page will be updated on sufficient responses.

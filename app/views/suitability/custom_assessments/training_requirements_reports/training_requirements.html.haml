@@ -55,17 +55,17 @@
           = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
           .divider3
       - else
-        .alert-info.padding-all1.text-center
+        .alert-info.alert
           - sent = @company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0
-          %b{ class: "medium-text", style: "color: black;" }
+          %span{ class: "medium-text", style: "color: black;" }
             - if sent == 0
               Training Requirements are enabled for this assessment. Page will be updated on sufficient responses.
             - else
               %i.icon-spinner.icon-spin
               Training Requirements calculation is in progress.
     - else
-      .alert-info.padding-all1
-        %b{ class: "medium-text", style: "color: black;" }
+      .alert-info.alert
+        %span{ class: "medium-text", style: "color: black;" }
           Training Requirements calculation hasn't been enabled for this test. Please use the button above or to enable it 
           %a{:href => enable_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
             click here 
