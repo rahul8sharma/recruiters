@@ -91,7 +91,7 @@ p{
   margin: 0 9px;
   padding: 18px 4px;
   padding-left: 30px; 
-  background: url("/data/workspace/recruiters/public/images/home/icon-phone.png") no-repeat 0 center;
+  background: url("/images/home/icon-phone.png") no-repeat 0 center;
 
 }
 #header .company_name {
@@ -132,23 +132,23 @@ p{
   font-size: 18px;
 }
 .icon-01{
-  background: url("/data/workspace/recruiters/public/images/error/icon-01.png") no-repeat 0 center;
+  background: url("/images/error/icon-01.png") no-repeat 0 center;
 }
 
 .icon-02{
-  background: url("/data/workspace/recruiters/public/images/error/icon-02.png") no-repeat 0 center;
+  background: url("/images/error/icon-02.png") no-repeat 0 center;
 }
 
 .icon-03{
-  background: url("/data/workspace/recruiters/public/images/error/icon-03.png") no-repeat 0 center;
+  background: url("/images/error/icon-03.png") no-repeat 0 center;
 }
 
 .icon-home{
-  background: url("/data/workspace/recruiters/public/images/error/icon-home.png") no-repeat 0 center;
+  background: url("/images/error/icon-home.png") no-repeat 0 center;
 }
 
 .icon-envelop{
-  background: url("/data/workspace/recruiters/public/images/error/icon-envelop.png") no-repeat 0 center;
+  background: url("/images/error/icon-envelop.png") no-repeat 0 center;
 }
 
 .content strong{
