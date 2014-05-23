@@ -74,6 +74,38 @@ class CompaniesController < ApplicationController
   end
 
   def index
+    @remaining_invitations = Vger::Resources::Invitation.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id),
+        :status => "unlocked"
+      },
+      :group_by => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    
+    @invitations = Vger::Resources::Invitation.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :group_by => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    
+    @subscriptions = Vger::Resources::Subscription.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :group_by => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    @active_subscriptions = Vger::Resources::Subscription.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :scopes => { :active => nil },
+      :group_by => [ :company_id ], 
+      :select => [ :company_id ]
+    )
   end
 
   def edit
@@ -125,13 +157,14 @@ class CompaniesController < ApplicationController
   end
 
   def get_companies
-    methods = []
+    methods = [:assessment_statistics]
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods.push :assessmentwise_statistics
     end
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @active_subscription 
   end
   
   def get_countries
