@@ -1,15 +1,14 @@
 - if params[:users].present?
   = content_for :alert do
-    .alert.alert-error.large-text.line-height2
-      %b
-        %a{"data-dismiss" => "alert", :type => "button"}
-        .pull-left
-          Are you sure you want to remove these Users  
-        .pull-right
-          = link_to "YES",confirm_remove_users_company_path(@company, :user_ids => params[:users].keys.join("|"))
-          \| 
-          = link_to "NO", user_settings_company_path(@company)
-        .clr  
+    .alert.alert-error
+      %a{"data-dismiss" => "alert", :type => "button"}
+      .pull-left
+        Are you sure you want to remove these Users  
+      .pull-right
+        = link_to "YES",confirm_remove_users_company_path(@company, :user_ids => params[:users].keys.join("|"))
+        \| 
+        = link_to "NO", user_settings_company_path(@company)
+      .clr  
 .company_user_setting
   .page-title
     .divider1

@@ -35,10 +35,9 @@
       = @assessment_factor_norms.select{|factor_norm| factor_norm.factor.type != "Suitability::LieDetector" }.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
-      .alert.alert-info.padding-all1.text-center
-        %b.extra-medium-text
-          Miscellaneous Factors that can also be measured
-          = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
+      .alert.alert-info
+        Miscellaneous Factors that can also be measured
+        = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
       .factors
         %ul.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
