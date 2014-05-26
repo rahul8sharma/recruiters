@@ -17,14 +17,16 @@
   .list-snippet-titles.medium-text.clearfix
     .span2.first
       = sort_link "EMP", companies_path, "company_code::int", params[:search]
-    .span8
+    .span5
       = sort_link "Company Title", companies_path, :name, params[:search]
     .span3.first
       = sort_link "Created On", companies_path, "created_at", params[:search]
     .span3.first
-      = "No Of Assessments"
+      No Of Assessments
     .span3.first
-      = "Assessments Sent"
+      Assessments Sent
+    .span3.first
+      Assessments Completed
     .span3.first
       Total Packages
     .span3.first
@@ -42,7 +44,7 @@
         .span2.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.company_code
-        .span8
+        .span5
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.name
         .span3.first
@@ -54,6 +56,9 @@
         .span3.first
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
             = company.assessment_statistics[:assessments_sent]
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = company.assessment_statistics[:assessments_completed]
         .span3.first
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
             = h @subscriptions[company.id.to_s]
