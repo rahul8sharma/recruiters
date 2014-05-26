@@ -14,14 +14,24 @@
         .clr
   .clr
   .divider2
-  .list-snippet-titles.large-text.clearfix
-    .span3.first
+  .list-snippet-titles.medium-text.clearfix
+    .span2.first
       = sort_link "EMP", companies_path, "company_code::int", params[:search]
-    .span20
+    .span8
       = sort_link "Company Title", companies_path, :name, params[:search]
-    .span4.text-center
-      Test bought
-    .span3
+    .span3.first
+      = sort_link "Created On", companies_path, "created_at", params[:search]
+    .span3.first
+      = "No Of Assessments"
+    .span3.first
+      = "Assessments Sent"
+    .span3.first
+      Total Packages
+    .span3.first
+      Active Packages
+    .span3.first
+      Assessments Remaining
+    .span3.first
       Valid till
     .clr
     .divider1
@@ -29,15 +39,31 @@
     - @companies.each do |company|
       %li.list-snippet.border-bottom-grayLighter
         .divider1
-        .span3.first
+        .span2.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.company_code
-        .span20
+        .span8
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.name
-        .span4.text-center
-          = company.subscription.assessments_purchased rescue 0
-        .span3
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = hdate company.created_at
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = h @invitations[company.id.to_s],0
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = company.assessment_statistics[:assessments_sent]
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = h @subscriptions[company.id.to_s]
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = h @active_subscriptions[company.id.to_s], 0
+        .span3.first
+          %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
+            = h @remaining_invitations[company.id.to_s], 0
+        .span3.first
           = (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-" 
         .clr
         .divider1
