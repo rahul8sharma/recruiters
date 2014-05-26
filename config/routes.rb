@@ -7,6 +7,7 @@ Recruiters::Application.routes.draw do
       post 'export_validation_progress'
       post 'export_candidate_responses'
       post 'export_candidate_reports'
+      post 'export_candidate_report_urls'
       get :destroy_all
     end
   end
@@ -18,6 +19,7 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
+      post :export_companies
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do

@@ -46,6 +46,12 @@ class CandidatesController < ApplicationController
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
   
+  def export_candidate_report_urls
+    Vger::Resources::Candidate\
+      .export_candidate_report_urls(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
   def index
     @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10)
     render :layout => "admin"
