@@ -79,7 +79,7 @@ class CompaniesController < ApplicationController
         :company_id => @companies.map(&:id),
         :status => "unlocked"
       },
-      :group_by => [ :company_id ], 
+      :group => [ :company_id ], 
       :select => [ :company_id ]
     )
     
@@ -87,7 +87,7 @@ class CompaniesController < ApplicationController
       :query_options => {
         :company_id => @companies.map(&:id)
       },
-      :group_by => [ :company_id ], 
+      :group => [ :company_id ], 
       :select => [ :company_id ]
     )
     
@@ -95,7 +95,7 @@ class CompaniesController < ApplicationController
       :query_options => {
         :company_id => @companies.map(&:id)
       },
-      :group_by => [ :company_id ], 
+      :group => [ :company_id ], 
       :select => [ :company_id ]
     )
     @active_subscriptions = Vger::Resources::Subscription.group_count(
@@ -103,7 +103,7 @@ class CompaniesController < ApplicationController
         :company_id => @companies.map(&:id)
       },
       :scopes => { :active => nil },
-      :group_by => [ :company_id ], 
+      :group => [ :company_id ], 
       :select => [ :company_id ]
     )
   end
