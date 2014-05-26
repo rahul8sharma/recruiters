@@ -136,6 +136,12 @@ class CompaniesController < ApplicationController
       .export_to_google_drive(params[:export].merge(:columns => ["id","name","company_code", "website", "hq_address", "enable_recommendation", "enable_lie_detection", "enable_factor_consistency", "enable_response_reliability", "enable_overall_consistency", "enable_feedback"]))
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+  
+  def export_companies
+    Vger::Resources::Company\
+      .export_companies(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 
   def show
     if @company.hq_location_id
