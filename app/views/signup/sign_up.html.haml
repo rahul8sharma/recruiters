@@ -1,7 +1,9 @@
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
-  = javascript_include_tag 'sign_up'
+
+.alert.alert-error{:hidden =>"hidden"}
+  %strong{:id=>"error"}
 .sign-up
   .container
     .span17.first
@@ -22,7 +24,7 @@
                 = af.text_field :email, placeholder: "Company Email", class: "fw pull-left", required: true
                 .info-tooltip-control.pull-left
                   .info-tooltip.gray-darker
-                    We encourage you to enter your company email address (not personal email address) for getting full access &amp; privileges
+                    We encourage you to enter your company email address (not personal email address) for getting full access & privileges. Personal email address is only recommended if your company blocks external emails to your company email account.
                     .left-caret
                 .clr
               .control-group
@@ -38,12 +40,12 @@
               = f.text_field :name, title: "Sign to Jombay", placeholder: "Company Name", class: "fw", required: true
             .control-group
               = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true }
-            %button.btn.btn-warning.large-text.fw
+            %button.btn.btn-warning.large-text.fw{:id => "sign-up"}
               Sign Up
             .divider1
             .text-center.default-text
               By Clicking “Sign Up” above you agree to the 
-              %a.underlined{:href => "http://products.jombay.com/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
+              %a.underlined{:href => "/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
                 Terms and Conditions
         
 
@@ -81,3 +83,5 @@
         .divider1
         = image_tag ("customers.png")
     .clr
+
+= javascript_include_tag 'sign_up'

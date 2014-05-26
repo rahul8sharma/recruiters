@@ -11,7 +11,7 @@
   .clr
   .divider2
   - if @assessments.empty?
-    .medium-text.alert.pull-left
+    .alert.pull-left
       No assessments have been created. To create an assessments, 
       %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
     .divider2  

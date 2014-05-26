@@ -1,5 +1,5 @@
 body {
-  color: #333333;
+  color: #000;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   line-height: 18px;
@@ -123,121 +123,74 @@ p{
     text-decoration: none;
 }
 
-.btn {
-  -moz-border-bottom-colors: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  background-color: #F5F5F5;
-  background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
-  background-repeat: repeat-x;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #B3B3B3;
-  border-image: none;
-  border-radius: 4px 4px 4px 4px;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 0;
-  padding: 4px 12px;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  vertical-align: middle;
-}
-.btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
-  background-color: #E6E6E6;
-  color: #333333;
-}
 
-.btn:hover, .btn:focus {
-  background-position: 0 -15px;
-  color: #333333;
-  text-decoration: none;
-  transition: background-position 0.1s linear 0s;
-}
-.btn:focus {
-    outline: thin dotted #333333;
-    outline-offset: -2px;
-}
-.btn.active, .btn:active {
-    background-image: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    outline: 0 none;
-}
-.btn.disabled, .btn[disabled] {
-    background-image: none;
-    box-shadow: none;
-    cursor: default;
-    opacity: 0.65;
-}
-
-.btn-warning {
-    background-color: #FAA732;
-    background-image: linear-gradient(to bottom, #FBB450, #F89406);
-    background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
-    background-color: #F89406;
-    color: #FFFFFF;
-}
-
-.content{
-  background: #fff;
-  padding: 30px 335px 50px  50px;
-  background: url("/images/error/error_icon.png") no-repeat 680px 120px;
-}
 .title{
   font-size: 30px;
-  line-height: 35px;
+  margin-top: 40px
 }
-.sub-title{
-  margin-bottom: 40px;
+.error-pages{
+  font-size: 18px;
 }
-.instructions{
-  font-size: 13px;
-  margin: 0 0 0 15px;
+.icon-01{
+  background: url("/images/error/icon-01.png") no-repeat 0 center;
 }
-.instructions a {
-  margin-top: 40px;
-  color: #333;
+
+.icon-02{
+  background: url("/images/error/icon-02.png") no-repeat 0 center;
+}
+
+.icon-03{
+  background: url("/images/error/icon-03.png") no-repeat 0 center;
+}
+
+.icon-home{
+  background: url("/images/error/icon-home.png") no-repeat 0 center;
+}
+
+.icon-envelop{
+  background: url("/images/error/icon-envelop.png") no-repeat 0 center;
+}
+
+.content strong{
   display: block;
 }
-.instructions span{
-  display: block;
-}
-.instructions .caption{
-  color: #0da1cc;
-  font-size: 14px;
+.content-title{
+  font-size: 24px;
   font-weight: bold;
 }
-
-[class^="icon"]{
-  color: red;
+.content{
+  background-color: #28b29b;
+  padding: 30px 0;
+  color: #fff;
+  margin: 40px 0;
+}
+.content  .lhs{
   float: left;
-  height: 35px;
-  width: 35px;
-  border-radius: 5px;
-  margin-right: 10px;
-  background: url("/images/error/icons.png") no-repeat center center #0da1cc;
+  width: 70%;
 }
-.icon1{
-  background-position: 0px 0px;
+.content  .rhs{
+  float: right;
+  font-size: 28px;
+  color: #28b29b;
+  background: #fff;
+  border-radius: 50%;
+  width: 21%;
+  text-align: center;
+  padding: 70px 0;
+  line-height: 55px;
 }
- 
-.icon2{
-  background-position: 0px -42px;
+.rhs div{
+  font-size: 83px;
+}
+.content a{
+  margin: 30px 0;
+  padding-left: 80px;
+  text-decoration: none;
+  display: block;
+  color: #fff;
+  line-height: 30px
 }
 
-.icon3{
-  background-position: 0px -84px;
-}
 .footer{
   background: #28b29b;
   padding: 18px 0;
