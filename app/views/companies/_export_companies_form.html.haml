@@ -1,0 +1,11 @@
+= form_for :company, url: export_companies_companies_path, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Download companies statistics
+    = f.fields_for "args" do |af|
+      %p
+        Notification Email : 
+        = af.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = f.submit 'Download Companies'
