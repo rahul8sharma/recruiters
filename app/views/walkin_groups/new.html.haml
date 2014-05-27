@@ -24,8 +24,14 @@
     .clr
 
     .divider2
-
-    = f.text_field :title, :placeholder => "Title for Index Page", :class => "padding-all1 span21 float-none first"
+    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+      = f.text_field :title, :placeholder => "Title for Index Page", :class => "padding-all1 span21 float-none first"
+    
+    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+      %label.ie.large-text.line-height3.pull-left
+        Title for Index Page
+      = f.text_field :title, :class => "padding-all1 span21"
+      .clr
     .divider1
     %b.extra-medium-text
       Please select tests to be added to the Index Page
