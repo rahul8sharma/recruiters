@@ -65,8 +65,9 @@ jQuery(document).ready(function($) {
   });
 
   // To check the number of traits selected//
-  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);
-  var approximate_time = traits_selected_counter * 30; //total time in seconds
+  var approximate_time_per_factor = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
+  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);  
+  var approximate_time = traits_selected_counter * approximate_time_per_factor; //total time in seconds
   var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
   var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
   
