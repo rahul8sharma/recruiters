@@ -15,6 +15,15 @@ class Companies::StandardAssessmentsController < ApplicationController
     @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - lie_detector_norms
     @other_norms = direct_predictor_norms
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.to_a.map{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+    
+    standard_assessment_uid = Rails.application.config.signup[:standard_assessment_uid]  
+    if @standard_assessment.uid == standard_assessment_uid
+      @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
+      if @custom_assessment
+        admin_candidate_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
+        @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:joins => [:candidate], :assessment_id => @custom_assessment.id, :query_options => { "candidates.email" => admin_candidate_email }, methods: [:url], :include => [:candidate_assessment_reports]).all.to_a.first
+      end
+    end  
   end
   
   def send_test
