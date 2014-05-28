@@ -238,9 +238,11 @@
   $("#close").on('click',function(){
     $("#flag").hide(500);
   })
+
   $('.scroll').click(function(){
     $('html, body').animate({
-        scrollTop: $( $.attr(this, 'href') ).offset().top
+        scrollTop: $( $.attr(this, 'href') ).offset().top - 37
     }, 500);
     return false;
   });
+
