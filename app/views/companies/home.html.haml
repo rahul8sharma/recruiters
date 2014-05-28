@@ -1,3 +1,11 @@
+- url = nil
+- if @candidate_assessment
+  - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+  - if report && report.status == "uploaded"
+    - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+  - else    
+    - url = @candidate_assessment.url
+
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
@@ -13,26 +21,29 @@
         %span.medium-text
           x
   .divider1
-
-  .extra-large-text.text-center
-    %b Test Yourself 
-    %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}
-  .divider1
-  .text-center.padding-all1.border-grayLighter.gray-darker.or
-    %a.btn.btn-warning.big-text{:href => "#", :title => "Start My Self-Assessmenent Now"}
-      Start My Self-Assessmenent Now
+  - if !report
+    .extra-large-text.text-center
+      %b Test Yourself 
+      %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}
     .divider1
-    .extra-medium-text
-      You can take a Quick assessment to trial out Jombay. 
-      %a{:href => "#", :title => "What will I be measured on?"}
-        What will I be measured on?
-      .or-bottom.big-text
-        OR
-    .divider1
-  .divider3
+    .text-center.padding-all1.border-grayLighter.gray-darker.or
+      - if url.present?
+        %a.btn.btn-warning.big-text{:href => url, :title => "Start My Self-Assessmenent Now", target: "_blank"}
+          Start My Self-Assessmenent Now
+      - else
+        Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.    
+      .divider1
+      .extra-medium-text
+        You can take a Quick assessment to trial out Jombay. 
+        %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
+          What will I be measured on?
+        .or-bottom.big-text
+          OR
+      .divider1
+    .divider3
 
-  .extra-large-text.text-center
-    %b Test Others
+    .extra-large-text.text-center
+      %b Test Others
   .divider1
   .border-grayLighter.gray-darker
     .divider1
@@ -47,18 +58,6 @@
         .divider2
 
       %ul.assessment-list.span10.margin-auto.clearfix
-        - if @candidate_assessment
-          - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
-          - if report && report.status == "uploaded"
-            - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-          - else    
-            - url = @candidate_assessment.url
-        - if url.present?
-          %li
-            %a.fw.span{:href => url, target: "_blank"}
-              .pull-left
-                Quick Self Assessment
-              .icon-chevron-right.pull-right    
         - if @standard_assessments.present?
           -@standard_assessments.each do |standard_assessment|
             %li
@@ -81,18 +80,20 @@
             .clr
         
       .span10.margin-auto
-        %a.medium-text{:href => "#", :title => "Click Here to See More Pre-built Assessments"}
-          See More Pre-built Assessments
+        - if params[:show_more_standard_tests].blank?
+          %a.medium-text{:href => home_company_path(:id => params[:id], :show_more_standard_tests => true), :title => "Click Here to See More Pre-built Assessments"}
+            See More Pre-built Assessments
+            
       .divider1
       .text-center
         %i.icon-eye-open.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "#", :title => "View Assessment Details"} 
+        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "View Assessment Details"} 
           View Assessment Details
         %i.icon-file.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "#", :title => "View Sample Report"} 
+        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "View Sample Report"} 
           View Sample Report
         %i.icon-envelope.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "#", :title => "Send Assessment"} 
+        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "Send Assessment"} 
           Send Assessment
         .clr
 
