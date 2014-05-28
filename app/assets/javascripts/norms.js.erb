@@ -66,30 +66,16 @@ jQuery(document).ready(function($) {
 
   // To check the number of traits selected//
   var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);
-  var approximate_time = traits_selected_counter * 30; //total time in seconds
-  var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-  var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-  
-  $("#traits-counter").html(traits_selected_counter);
-  $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
-
+  $("#traits_counter").html(traits_selected_counter);
   $('input[name="selected_factor"]').on("change",function(){
     if($(this).is(":checked")){
       traits_selected_counter += 1;
-      approximate_time = traits_selected_counter * 30;
-      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(approximate_time_min+" mins : "+approximate_time_sec+" sec");
+      $("#traits_counter").html(traits_selected_counter);
     }
     else
     {
       traits_selected_counter -= 1;
-      approximate_time = traits_selected_counter * 30;
-      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
+      $("#traits_counter").html(traits_selected_counter);
     }
   });
 
