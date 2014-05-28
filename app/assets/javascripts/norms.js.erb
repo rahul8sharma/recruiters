@@ -65,17 +65,32 @@ jQuery(document).ready(function($) {
   });
 
   // To check the number of traits selected//
-  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);
-  $("#traits_counter").html(traits_selected_counter);
+  var approximate_time_per_factor = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
+  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);  
+  var approximate_time = traits_selected_counter * approximate_time_per_factor; //total time in seconds
+  var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+  var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+  
+  $("#traits-counter").html(traits_selected_counter);
+  $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
+
   $('input[name="selected_factor"]').on("change",function(){
     if($(this).is(":checked")){
       traits_selected_counter += 1;
-      $("#traits_counter").html(traits_selected_counter);
+      approximate_time = traits_selected_counter * 30;
+      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+      $("#traits-counter").html(traits_selected_counter);
+      $("#approximate-time").html(approximate_time_min+" mins : "+approximate_time_sec+" sec");
     }
     else
     {
       traits_selected_counter -= 1;
-      $("#traits_counter").html(traits_selected_counter);
+      approximate_time = traits_selected_counter * 30;
+      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+      $("#traits-counter").html(traits_selected_counter);
+      $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
     }
   });
 
