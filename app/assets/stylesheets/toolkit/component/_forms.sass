@@ -14,6 +14,9 @@ input[type="text"], input[type="password"]
   font-size: 14px
   &.fw
     width: 97%
+  &.lfw
+    width: 78%
+    float: right
 
 
 
@@ -45,6 +48,11 @@ label
   display: block
   color: $grayDark
   cursor: pointer
+  &.ie
+    float: left
+    line-height: 32px
+    cursor: default 
+    font-size: 14px
 .form-horizontal label
   cursor: default
 // Inputs, Textareas, Selects
@@ -126,6 +134,10 @@ select
   vertical-align: middle
   // default input width + 10px of padding that doesn't get applied
   background-color: $white
+
+  &.lfw
+    width: 79.5%
+    float: right
 
 // Make multiple select elements height not fixed
 select[multiple], select[size]

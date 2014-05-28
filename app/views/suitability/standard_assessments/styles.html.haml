@@ -47,8 +47,7 @@
         = label_tag :page_size
         = text_field_tag :page_size, "", :style => "width:100px;"
         .divider2
-      %button.pull-right.btn.btn-info.left-offset1
-        Proceed
+      %input.pull-right.btn.btn-info.left-offset1{:type => "submit", :value => "Proceed"}
       - if @assessment.assessment_type == "fit"
         - back_url = norms_standard_assessment_path(:id => @assessment.id)
       - else
