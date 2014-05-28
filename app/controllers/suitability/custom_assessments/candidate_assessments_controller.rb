@@ -150,15 +150,21 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           :candidate_id => candidate_id
         }).all[0]
         
-        if(params[:send_report_to_candidate])
-          @candidate = Vger::Resources::Candidate.find(candidate_id)
-          recipient = @candidate.email
-        end
+        assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
+        @candidate = Vger::Resources::Candidate.find(candidate_id)
+        recipient = @candidate.email if params[:send_report_to_candidate]
         
+        recipient_regex = Regexp.new(recipient)
+        if @candidate.email =~ recipient_regex
+          assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
+        end
+        options = {
+          :assessment_taker_type => assessment_taker_type
+        }
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient) 
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient, :options => options) 
           if candidate_assessment.error_messages.present?
             failed_candidate_assessments << candidate_assessment
           else
