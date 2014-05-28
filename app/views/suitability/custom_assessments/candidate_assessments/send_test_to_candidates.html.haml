@@ -24,8 +24,14 @@
       .medium-text
         (after the Assessment is completed by the Assessment Taker)
     .divider1
-    %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
-    .clr
+    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'report_email_recipients'}
+      .clr
+      .ie
+        Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+      .clr
     - if current_user.type == "SuperAdmin"
       .divider2
       .text-center.large-text
@@ -54,6 +60,5 @@
         %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
     .divider1        
     .text-center
-      %button.btn.btn-warning.large-text.big
-        Send Assessment
+      %input.btn.btn-warning.large-text.big{:type => "submit", :value => "Send Assessment"}
 

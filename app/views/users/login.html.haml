@@ -12,9 +12,19 @@
       .divider2
       .span8.margin-auto.medium-text
         .control-group
-          = f.text_field :email, :placeholder => "Email ID", :class => "fw"
+          = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+            %label.ie Email ID
+            = f.text_field :email, :class => "lfw"
+            .clr
+          = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+            = f.text_field :email, :placeholder => "Email ID", :class => "fw"
         .control-group
-          = f.password_field :password, :placeholder => "Password", :class => "fw"
+          = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+            %label.ie Password
+            = f.password_field :password, :class => "lfw"
+            .clr
+          = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+            = f.password_field :password, :placeholder => "Password", :class => "fw"
 
         .control-group
           = f.check_box :remember_password, :class => "pull-left"
@@ -24,8 +34,7 @@
         .divider1
         %a.gray-dark.pull-left.line-height2{:href=> forgot_password_path, :title=>"Forgot Password"}
           Forgot Password?
-        %button.large-text.btn.btn-warning.pull-right{:title=>"Log In To Jombay!"}
-          Login
+        %input.large-text.btn.btn-warning.pull-right{:title=>"Log In To Jombay!", :type =>"submit", :value => "Login"}/
         .clr
       .clr
       .divider2

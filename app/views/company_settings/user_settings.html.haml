@@ -20,8 +20,8 @@
     
     .padding-all2.border-warning.shifted-up1
       .pull-right
-        %button.btn.btn-warning.inverse.big-text.pull-left
-          Remove Users
+        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Users"}
+          
         %a.btn.btn-warning.big-text.span{ href: add_users_company_path(@company) }
           Add New User
         .clr
