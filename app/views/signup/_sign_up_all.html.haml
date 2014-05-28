@@ -23,7 +23,7 @@
       = f.text_field :name, title: "Sign to Jombay", placeholder: "Company Name", class: "fw", required: true
     .control-group
       = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true }
-    %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up"}
+    %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
     .divider1
     .text-center.default-text
       By Clicking “Sign Up” above you agree to the 
