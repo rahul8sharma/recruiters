@@ -55,7 +55,7 @@
           = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
           .divider3
       - else
-        .alert-info.alert
+        .alert-info.alert.text-center
           - sent = @company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0
           %span{ class: "medium-text", style: "color: black;" }
             - if sent == 0
