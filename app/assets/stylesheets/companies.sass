@@ -11,43 +11,38 @@
 .home
   ul
     li
-      float: left
       color: $grayDarker
   .info-list
-    .thumb1
-      background: image-url("home/info-list-thumb1.png") no-repeat center 0
-    .thumb2
-      background: image-url("home/info-list-thumb2.png") no-repeat center 0
-    .thumb3
-      background: image-url("home/info-list-thumb3.png") no-repeat center 0
-
-  .benefit-list
-    .thumb1
-      background: image-url("home/benefit-list-thumb1.png") no-repeat center 0
-    .thumb2
-      background: image-url("home/benefit-list-thumb2.png") no-repeat center 0
-    .thumb3
-      background: image-url("home/benefit-list-thumb3.png") no-repeat center 0
-    .thumb4
-      background: image-url("home/benefit-list-thumb4.png") no-repeat center 0
-
+    li
+      float: left
+      margin-left: 37px
+      &:first-child
+        margin-left: 0
+    .visual01
+      background: image-url("home/visual01.png") no-repeat center 0
+    .visual02
+      background: image-url("home/visual02.png") no-repeat center 0
+      width: 266px
+    .pencil
+      background: image-url("home/pencil.png") no-repeat center 0
+    .file
+      background: image-url("home/file.png") no-repeat center 0
+    .envelop
+      background: image-url("home/envelop.png") no-repeat center 0
+    .group
+      background: image-url("home/group.png") no-repeat center 0
+    .tick
+      background: image-url("home/tick.png") no-repeat center 0
 
   .assessment-list
     li
-      width: 490px
+      width: 370px
       padding: 10px
       font-size: 16px
       border: 1px solid $grayLighter  
       border-radius: 2px
       line-height: 16px
       margin-bottom: 18px
-
-      &:nth-child(even)
-        float: right
-
-      &:first-child
-        a
-          color: $color-warning
 
       a
         color: $grayDarker
@@ -56,12 +51,17 @@
           color: $color-warning
           text-decoration: none
 
+
       [class^="icon-"], [class*=" icon-"]
         line-height: 16px
         font-size: 18px
         margin: 0 15px
       .icon-chevron-right
         margin-right: 20px
+  a
+    &:hover
+      color: $color-warning
+      text-decoration: none
 
 .list-snippet
   font-size: $extra-medium-text
