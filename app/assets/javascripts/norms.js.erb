@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
     $(".check_factor").trigger("change");
   });
 
-  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
+  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>;
   $('#edit_assessment').submit(function() {
       if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
           $('#edit_assessment button').attr("disabled", "disabled");
