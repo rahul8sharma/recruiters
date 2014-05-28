@@ -52,4 +52,31 @@ jQuery(document).ready(function($) {
     $(".check_factor").prop("checked", $(this).is(":checked"));
     $(".check_factor").trigger("change");
   });
+
+  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>;
+  $('#edit_assessment').submit(function() {
+      if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
+          $('#edit_assessment button').attr("disabled", "disabled");
+          return true;
+      } else {
+          $("#trait_flag").removeAttr('hidden');
+          return false;
+      }
+  });
+
+  // To check the number of traits selected//
+  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);
+  $("#traits_counter").html(traits_selected_counter);
+  $('input[name="selected_factor"]').on("change",function(){
+    if($(this).is(":checked")){
+      traits_selected_counter += 1;
+      $("#traits_counter").html(traits_selected_counter);
+    }
+    else
+    {
+      traits_selected_counter -= 1;
+      $("#traits_counter").html(traits_selected_counter);
+    }
+  });
+
 });

@@ -2,11 +2,15 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-.alert.alert-info{:hidden => "hidden", :id => "trait_flag"}
-  Please select a norm
+.alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
+  Please select atleast 10 traits
 .norms
   .page-title.pull-left
     #{@assessment.name}
+    / .span5
+    /   Traits Selected
+    /   %h4.medium-text.pull-right{:id => "traits_counter"}
+
   %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in creating a Custom Assessment?"}
     Need help in creating a Custom Assessment?
   .clr
@@ -57,19 +61,4 @@
     .clr
     .divider1
 
-= javascript_include_tag 'norms'
-
-:javascript
-
-  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>
-  var traits_max = <%= Rails.application.config.validators["traits_range"]["max"] %>
-
-    $('#edit_assessment').submit(function() {
-        if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
-            $('#edit_assessment button').attr("disabled", "disabled");
-            return true;
-        } else {
-            $("#trait_flag").removeAttr('hidden');
-            return false;
-        }
-    });
+= javascript_include_tag 'norms'  
