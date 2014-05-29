@@ -9,7 +9,7 @@
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
-.home#top
+.home
   - if session[:show_home_page_message] != false
     - session[:show_home_page_message] = false
     #flag.alert.alert-info.fw
@@ -127,7 +127,7 @@
         .big-text
           .pull-left
             Test Yourself
-          %a.pull-right.default.scroll{:href => "#top", :title => "Click Here to Scroll Top"}
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
             Go to Top
           .clr
           .divider2
@@ -152,7 +152,7 @@
         .big-text
           .pull-left
             Use Pre-built Assessments
-          %a.pull-right.default.scroll{:href => "#top", :title => "Click Here to Scroll Top"}
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
             Go to Top
           .clr
           .divider2
@@ -193,7 +193,7 @@
         .big-text
           .pull-left
             Create you own Assessment
-          %a.pull-right.default.scroll{:href => "#top", :title => "Click Here to Scroll Top"}
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
             Go to Top
           .clr
           .divider2
