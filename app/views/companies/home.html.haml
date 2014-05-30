@@ -34,9 +34,10 @@
         Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.    
       .divider1
       .extra-medium-text
-        You can take a Quick assessment to trial out Jombay. 
-        %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
-          What will I be measured on?
+        - if @custom_assessment
+          You can take a Quick assessment to trial out Jombay. 
+          %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
+            What will I be measured on?
         .or-bottom.big-text
           OR
       .divider1
