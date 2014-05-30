@@ -18,7 +18,7 @@
         = af.password_field :password, class: "lfw", required: true
         .clr
       .control-group
-        %label.ie Contact Number (including country/area code)
+        %label.ie Contact Number
         .info-tooltip-control.pull-right
           .info-tooltip.gray-darker
             Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
@@ -34,10 +34,9 @@
       = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true }
       .clr
     .divider1
-    %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value =>"Sign Up and Get Started!", :id => "sign-up"}
-    .text-center.default-text.pull-left
-      .divider1
+    %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
+    .divider1
+    .text-center.default-text
       By Signing Up, you agree to
       %a.underlined{:href => "/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
         Terms and Conditions
-    .clr
