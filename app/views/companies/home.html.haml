@@ -225,6 +225,27 @@
             Reports section
 
   .divider3
+= surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+  :css
+    .home .info-list .visual01 {
+      width: 300px;
+    }
+    .home .info-list .pencil {
+      width: 186px;
+    }
+    .home .info-list .file {
+      width: 265px;
+    }
+    .home .info-list .envelop {
+      width: 146px;
+    }
+    .home .info-list .group {
+      width: 137px;
+    }
+    .home .info-list .tick {
+      width: 207px;
+    }
+
 
 :javascript
   $("#close").on('click',function(){
