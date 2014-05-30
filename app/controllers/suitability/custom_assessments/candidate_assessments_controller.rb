@@ -153,10 +153,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
         @candidate = Vger::Resources::Candidate.find(candidate_id)
         recipient = @candidate.email if params[:send_report_to_candidate]
-        
-        recipient_regex = Regexp.new(recipient)
-        if @candidate.email =~ recipient_regex
-          assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
+        if recipient.present?
+          recipient_regex = Regexp.new(recipient)
+          if @candidate.email =~ recipient_regex
+            assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
+          end
         end
         options = {
           :assessment_taker_type => assessment_taker_type
