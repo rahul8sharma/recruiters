@@ -21,7 +21,7 @@ $( document ).ready(function() {
   $("#new_company").on("submit", function(){ 
     email = $('input[id=company_admin_attributes_email]').val();
     var isValid = isEmailValid(email);
-    var domain_regexp = new RegExp($('input[id=company_admin_attributes_email]').val().split('@')[1]);    
+    var domain_regexp = new RegExp(";"+$('input[id=company_admin_attributes_email]').val().split('@')[1]+";");    
     flag = false;
     
     if(isValid){
