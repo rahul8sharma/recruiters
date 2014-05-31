@@ -7,6 +7,5 @@
   %input{type: "password", :name => "user[password]", :placeholder => "New Password"}
   %input{type: "password", :name => "user[password_confirmation]", :placeholder => "Confirm Password"}
   %input{type: "hidden", name: "user[reset_password_token]", value: params[:reset_password_token]}
-  %button.btn.btn-info.pull-right
-    Activate
+  %input.btn.btn-info.pull-right{:type => "submit", :value => "Activate"}
   .clr

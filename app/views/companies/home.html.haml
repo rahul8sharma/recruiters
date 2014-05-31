@@ -1,116 +1,258 @@
+- url = nil
+- if @candidate_assessment
+  - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+  - if report && report.status == "uploaded"
+    - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+  - else    
+    - url = @candidate_assessment.url
+
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 .home
-  - if session[:show_home_page_message] != false
-    - session[:show_home_page_message] = false
-    #flag.alert.alert-info.fw
-      Welcome! You can start using one of the Ready-to-Use assessments or create a Custom Assessment to suit your requirements!
-      %br/
-      You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
-      %a.close{:href => "#", :id => "close"}
-        CLOSE
-        %span.medium-text
-          x
   .divider1
+  - if !report
+    .extra-large-text.text-center
+      %b Test Yourself 
+      %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}
+    .divider1
+    .text-center.padding-all1.border-grayLighter.gray-darker.or
+      - if url.present?
+        %a.btn.btn-warning.big-text{:href => url, :title => "Start My Self-Assessmenent Now", target: "_blank"}
+          Start My Self-Assessmenent Now
+      - else
+        Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.    
+      .divider1
+      .extra-medium-text
+        - if @custom_assessment
+          You can take a Quick assessment to trial out Jombay. 
+          %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
+            What will I be measured on?
+        .or-bottom.big-text
+          OR
+      .divider1
+    .divider3
 
-  .page-title.pull-left
-    Ready-to-Send Assessments
-  %a.icon-question-sign.large-text{:href=>"#how-it-works", :title=>"How it Works?"}
-  %a.button.btn.btn-warning.big-text.pull-right{href: new_company_custom_assessment_path(@company)}
-    Create Custom Assessment
-  .clr
-
+    .extra-large-text.text-center
+      %b Test Others
   .divider1
+  .border-grayLighter.gray-darker
+    .divider1
+    .span14.first.padding-all1.border-right-grayLighter.or
+      .text-center
+        .big-text.default
+          Use Pre-built Assessments
+          %a.icon-question-sign.large-text.scroll{:href=>"#section02", :title=>"Go to - Use Pre-built Assessments Section"}
+        .divider1
+        .medium-text
+          Choose the Assessment that comes close to the Job Role you want to measure.
+        .divider2
 
-  .big-text
-    Choose the Assessment that comes close to the Job Role you want to measure.
+      %ul.assessment-list.span10.margin-auto.clearfix
+        - if @standard_assessments.present?
+          -@standard_assessments.each do |standard_assessment|
+            %li
+              %a.span5.medium-text{:href => company_standard_assessment_path(@company,standard_assessment)}
+                = standard_assessment.name
+              .pull-right
+                %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment), :title => "View Assessment Details"}
+                - if standard_assessment.report_urls.present?
+                  %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank",:title => "View Sample Report"}
+                - else
+                  %a.icon-file{:href => "#", :title => "View Sample Report"}
 
-  .divider2
-
-  %ul.assessment-list.span28.margin-auto.clearfix
-    - if @candidate_assessment
-      - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
-      - if report && report.status == "uploaded"
-        - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-      - else    
-        - url = @candidate_assessment.url
-    - if url.present?
-      %li
-        %a.fw.span{:href => url, target: "_blank"}
-          .pull-left
-            Quick Self Assessment
-          .icon-chevron-right.pull-right    
-    - if @standard_assessments.present?
-      -@standard_assessments.each do |standard_assessment|
-        %li
-          %a.span7.medium-text{:href => company_standard_assessment_path(@company,standard_assessment)}
-            = standard_assessment.name
-          .pull-right
-            %a.icon-eye-open{:href => company_standard_assessment_path(@company,standard_assessment), :title => "View Assessment Details"}
-            - if standard_assessment.report_urls.present?
-              %a.icon-file{:href => standard_assessment.report_urls["pdf"], :target => "_blank",:title => "View Sample Report'"}
-            - else
-              %a.icon-file{:href => "#", :title => "View Sample Report"}
-
-            %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment), :title => "Send Assessment"}
+                %a.icon-envelope{:href => send_test_company_standard_assessment_path(@company,standard_assessment), :title => "Send Assessment"}
+                .clr
+              .clr
+        - else
+          %li
+            %a.span8
+              No Ready To Send Assessments Present
             .clr
-          .clr
-    - else
-      %li
-        %a.span8{:href => "#"}
-          No Ready To Send Assessments Present
+        
+      .span10.margin-auto
+        - if params[:show_more_standard_tests].blank?
+          %a.medium-text{:href => home_company_path(:id => params[:id], :show_more_standard_tests => true), :title => "Click Here to See More Pre-built Assessments"}
+            See More Pre-built Assessments
+            
+      .divider1
+      .text-center
+        %i.icon-eye-open.span.big-text.float-none
+        %span.gray-light.medium-text.float-none{:title => "View Assessment Details"} 
+          View Assessment Details
+        %i.icon-file.span.big-text.float-none
+        %span.gray-light.medium-text.float-none{:title => "View Sample Report"} 
+          View Sample Report
+        %i.icon-envelope.span.big-text.float-none
+        %span.gray-light.medium-text.float-none{:title => "Send Assessment"} 
+          Send Assessment
         .clr
 
+      .or-right.big-text
+        OR
+
+    .span14.first.padding-all1
+      .text-center
+        .big-text.default
+          Create your own Assessment
+          %a.icon-question-sign.large-text.scroll{:href=>"#section03", :title=>"Go to- Create your own Assessment Section"}
+        .divider2
+        %a.btn.btn-warning.big-text{href: new_company_custom_assessment_path(@company)}
+          Create Custom Assessment
+  
+      .divider1
+      .span13.margin-auto.text-justify.medium-text
+        You can create a custom assessment to suit your needs by selecting the Jombay traits of your choice. Custom assessments can be sent to both Existing Employees or Potential Hires
+      .divider2
+    .clr
+    .divider1
   
   .divider2
-  #how-it-works.info-list.span24.margin-auto.text-center
-    .extra-large-text
-      How it Works
+  #how-it-works.info-list.text-center
+    .extra-large-text.text-center
+      %b
+        How it Works
     .divider4
-    %ul.clearfix
-      %li.span8
-        .thumb1.divider5
-        .extra-medium-text
-          1. Choose Relevant Asessment
-      %li.span8
-        .thumb2.divider5
-        .extra-medium-text
-          2. See Assessment Details
-      %li.span7
-        .thumb3.divider5
-        .extra-medium-text
-          3. Send Assessment
+    #section01
+      .left-offset1
+        .big-text
+          .pull-left
+            Test Yourself
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
+            Go to Top
+          .clr
+          .divider2
+      %ul.clearfix.span21.margin-auto
+        %li
+          .visual01.divider5
+          .extra-medium-text
+            1. Click on “Start my self-assessment now”
+        %li
+          .pencil.divider5
+          .extra-medium-text
+            2. Answer the assessment
+        %li
+          .file.divider5
+          .extra-medium-text
+            3. View Report under Reports section
+      .divider3.border-bottom-grayLighter
 
-  .divider4.border-bottom-grayLighter
-  .divider2
-  
-  .benefit-list.span21.margin-auto.text-center
-    .extra-large-text
-      Benefits of Using Jombay
-    .divider4
-    %ul.clearfix
-      %li.span5
-        .thumb1.divider5
-        .extra-medium-text
-          Hire for the right Cultural Fit
-      %li.span5
-        .thumb2.divider5
-        .extra-medium-text
-          Reduce hiring errors
-      %li.span5
-        .thumb3.divider5
-        .extra-medium-text
-          Predict Attrition
-      %li.span5
-        .thumb4.divider5
-        .extra-medium-text
-          Identify Leadership Potential
+    .divider2
+    #section02
+      .left-offset1
+        .big-text
+          .pull-left
+            Use Pre-built Assessments
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
+            Go to Top
+          .clr
+          .divider2
+      %ul.clearfix.span26.margin-auto
+        %li
+          .visual02.divider5
+          .extra-medium-text
+            1. Choose a Pre-built 
+            %br/
+            Assessment
+        %li
+          .group.divider5
+          .extra-medium-text
+            2. Add Assessment
+            %br/
+            Taker’s Details
+        %li
+          .envelop.divider5
+          .extra-medium-text
+            3. Send Assessment
+        %li
+          .pencil.divider5
+          .extra-medium-text
+            4. Assessment taker
+            %br/
+            answers the Assessment
+        %li
+          .file.divider5
+          .extra-medium-text
+            5. View Report under
+            %br/
+            Reports section
 
-  .divider2
+      .divider3.border-bottom-grayLighter
+    .divider2
+    #section03
+      .left-offset1
+        .big-text
+          .pull-left
+            Create your own Assessment
+          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
+            Go to Top
+          .clr
+          .divider2
+      %ul.clearfix.span30.margin-auto
+        %li
+          .pencil.divider5
+          .extra-medium-text
+            1. Enter Details of the Job
+            %br/
+            Role to be Assessed
+        %li
+          .tick.divider5
+          .extra-medium-text
+            2. Chooose Behavioral Traits
+            %br/
+            You Want to Measure
+        %li
+          .group.divider5
+          .extra-medium-text
+            3. Add Assessment
+            %br/
+            Taker’s Details
+        %li
+          .envelop.divider5
+          .extra-medium-text
+            4. Send Assessment
+        %li
+          .pencil.divider5
+          .extra-medium-text
+            5. Assessment taker
+            %br/
+            answers the Assessment
+        %li
+          .file.divider5
+          .extra-medium-text
+            6. View Report under
+            %br/
+            Reports section
 
+  .divider3
+= surround '<!--[if IE]><style type="text/css">'.html_safe, '</style><![endif]-->'.html_safe do
+  :sass
+    .home .info-list
+      .visual01
+        width: 300px
+      .pencil
+        width: 170px
+      .file
+        width: 150px
+      .envelop
+        width: 146px
+      .group
+        width: 137px
+      .tick
+        width: 207px
+
+      #section01 
+        .file
+          width: 263px
 :javascript
   $("#close").on('click',function(){
     $("#flag").hide(500);
   })
+
+  $('.scroll').click(function(){
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top - 37
+    }, 500);
+    return false;
+  });
 

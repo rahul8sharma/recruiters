@@ -35,10 +35,9 @@
       = @assessment_factor_norms.select{|factor_norm| factor_norm.factor.type != "Suitability::LieDetector" }.collect{|x| "\"#{x.factor.name}\"" }.join(", ")
       .divider2
       .action
-      .alert.alert-info.padding-all1.text-center
-        %b.extra-medium-text
-          Miscellaneous Factors that can also be measured
-          = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
+      .alert.alert-info
+        Miscellaneous Factors that can also be measured
+        = " - You may select one or more to measure." if @job_assessment_factor_norms.size > 1
       .factors
         %ul.factor-snippet
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
@@ -48,8 +47,7 @@
         = label_tag :page_size
         = text_field_tag :page_size, "", :style => "width:100px;"
         .divider2
-      %button.pull-right.btn.btn-info.left-offset1
-        Proceed
+      %input.pull-right.btn.btn-info.left-offset1{:type => "submit", :value => "Proceed"}
       - if @assessment.assessment_type == "fit"
         - back_url = norms_standard_assessment_path(:id => @assessment.id)
       - else

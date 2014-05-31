@@ -1,9 +1,11 @@
 .trait-show
-  .span21.page-title.first
+  .span15.page-title.first
     .divider1
     AID #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send this Assessment
+  %a.extra-medium-text.pull-right.line-height3{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+    Create New Custom Assessment
   .clr
   .divider2
   = render :partial => "shared/candidate-content-sub-nav"
@@ -65,7 +67,7 @@
                 .clr.left-offset1
                 .divider1
       - else
-        .medium-text.alert
+        .alert.medium-text
           You have not added traits. To add traits to this assessment.
           %a{ href: norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Add Traits" } Click here
     .divider1

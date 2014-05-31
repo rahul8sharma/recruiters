@@ -50,8 +50,7 @@
     .clr 
    
     = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
-      %button.btn.btn-warning.large-text
-        Send
+      %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
     %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
       Cancel
     .clr

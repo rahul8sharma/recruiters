@@ -58,7 +58,14 @@
                 Display Name (Optional):
               .span25
                 %input{:type => "hidden", name: "walkin_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}
-                %input.fw{:type => "text", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Assessment. This name is displayed on the Index Page. If left blank, existing assessment title will be shown.", value: @walkin_group.assessment_hash["#{assessment.id}"]["display_text"]}
+                = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+                  %input.fw{:type => "text", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", value: @walkin_group.assessment_hash["#{assessment.id}"]["display_text"]}
+                  .ie
+                    Enter Display Name for the Assessment. This name is displayed on the Index Page. If left blank, existing assessment title will be shown.
+                  
+                = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+                  %input.fw{:type => "text", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", :placeholder => "Enter Display Name for the Assessment. This name is displayed on the Index Page. If left blank, existing assessment title will be shown.", value: @walkin_group.assessment_hash["#{assessment.id}"]["display_text"]}
+
 
               .clr
       .divider2

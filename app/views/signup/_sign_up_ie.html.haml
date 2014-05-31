@@ -1,0 +1,42 @@
+.span14.margin-auto
+  = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "" }) do |f|
+    = f.fields_for :admin do |af|  
+      .control-group
+        %label.ie  Full Name
+        = af.text_field :name, class: "lfw", required: true
+        .clr
+      .control-group
+        %label.ie Company Email
+        .info-tooltip-control.pull-right
+          .info-tooltip.gray-darker
+            We encourage you to enter your company email address (not personal email address) for getting full access & privileges.
+            .left-caret
+        = af.text_field :email, class: "lfw", required: true
+        .clr
+      .control-group
+        %label.ie Password
+        = af.password_field :password, class: "lfw", required: true
+        .clr
+      .control-group
+        %label.ie Contact Number
+        .info-tooltip-control.pull-right
+          .info-tooltip.gray-darker
+            Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
+            .left-caret
+        = af.text_field :mobile, class: "lfw", required: true
+        .clr
+    .control-group
+      %label.ie Company Name
+      = f.text_field :name, title: "Sign to Jombay", class: "lfw", required: true
+      .clr
+    .control-group
+      %label.ie Select Location
+      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true }
+      .clr
+    .divider1
+    %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
+    .divider1
+    .text-center.default-text
+      By Signing Up, you agree to
+      %a.underlined{:href => "/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
+        Terms and Conditions

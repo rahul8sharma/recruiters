@@ -22,10 +22,16 @@
   margin-left: auto !important
   margin-right: auto !important
   float: none !important
+.default
+  color: $default
 .gray-dark
   color: $grayDark
 .gray-darker
   color: $grayDarker
+.gray-light
+  color: $grayLight
+.gray-lighter
+  color: $grayLighter
 .color-warning
   color: $color-warning
 .color-success
@@ -34,6 +40,8 @@
   border-radius: 50%
 .white
   color: #fff
+.default
+  color: $default
 .border-primary
   border: 1px solid $grayLighter
 .border-warning
@@ -42,6 +50,8 @@
   border-top: 1px solid $grayLighter
 .border-bottom-grayLighter
   border-bottom: 1px solid $grayLighter
+.border-right-grayLighter
+  border-right: 1px solid $grayLighter
 .border-grayLighter
   border: 1px solid $grayLighter
 .border-right-gray
@@ -49,7 +59,7 @@
 .no-border
   border: none
 .fw
-  width: 100%
+  width: 100% !important
 a.underlined
   text-decoration: underline
   &:hover
@@ -66,4 +76,19 @@ a.default-color
 .de-activated
   cursor: not-allowed
   color: $grayLighter
+.or
+  position: relative
+
+  [class*="or"]
+    position: absolute
+    line-height: 25px
+    background: #fff
+    padding: 0 7px
+  .or-right
+    top: 49%
+    right: -20px
+  .or-bottom
+    left: 48.5%
+    bottom: -14px
+
     

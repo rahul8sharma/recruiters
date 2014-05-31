@@ -12,7 +12,7 @@
   font-size: $extra-medium-text 
   line-height: $extra-medium-text + 2
 .large-text
-  font-size: $large-text 
+  font-size: $large-text !important
   line-height: $large-text + 2
 
 .big-text
@@ -37,6 +37,8 @@
   text-align: left !important
 .text-right
   text-align: right !important
+.text-justify
+  text-align: justify !important
 p
   margin: 0 0 $baseLineHeight / 2
   font-family: $baseFontFamily
@@ -151,7 +153,7 @@ hr
 
 // Emphasis
 strong
-  font-weight: bold
+  font-weight: 200
 
 em
   font-style: italic

@@ -300,24 +300,33 @@ body
         padding-top: 18px
         width: 500px
       .rhs-sec
+        .visual
+          background: image-url('report/slider-bg.png') no-repeat center 0
+          position: absolute
+          width: 272px
+          height: 22px
+          top: -14px
         .slider
           position: relative
           border: 1px solid #096b95
           width: 271px
-          height: 15px
+          height: 7px
           margin-top: 28px
           .range
-            height: 15px
+            height: 7px
             background: #1db3c4
           .pointer
             background: image-url('report/scale-pointer-hexagon.png') no-repeat center center
             height: 35px
             width: 40px
             position: absolute
-            top: -10px
+            top: -14px
+            z-index: 1000
           @for $i from 0 through 5
             .position#{$i}
               left: $i * 55px - (20)
+          .position5
+            left: 250px
           
       .small
         font-size: 10px

@@ -50,7 +50,11 @@ class CompaniesController < ApplicationController
 
   def home
     standard_assessment_uid = Rails.application.config.signup[:standard_assessment_uid]  
-    @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:query_options => "uid != '#{standard_assessment_uid}'").all
+    if params[:show_more_standard_tests]
+      @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:query_options => "uid != '#{standard_assessment_uid}'").all
+    else
+      @standard_assessments = Vger::Resources::Suitability::StandardAssessment.where(:query_options => "uid != '#{standard_assessment_uid}'", :page => 1, :per => 6).all
+    end
     @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
     if @custom_assessment
       admin_candidate_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
@@ -74,6 +78,38 @@ class CompaniesController < ApplicationController
   end
 
   def index
+    @remaining_invitations = Vger::Resources::Invitation.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id),
+        :status => "unlocked"
+      },
+      :group => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    
+    @invitations = Vger::Resources::Invitation.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :group => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    
+    @subscriptions = Vger::Resources::Subscription.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :group => [ :company_id ], 
+      :select => [ :company_id ]
+    )
+    @active_subscriptions = Vger::Resources::Subscription.group_count(
+      :query_options => {
+        :company_id => @companies.map(&:id)
+      },
+      :scopes => { :active => nil },
+      :group => [ :company_id ], 
+      :select => [ :company_id ]
+    )
   end
 
   def edit
@@ -104,6 +140,12 @@ class CompaniesController < ApplicationController
       .export_to_google_drive(params[:export].merge(:columns => ["id","name","company_code", "website", "hq_address", "enable_recommendation", "enable_lie_detection", "enable_factor_consistency", "enable_response_reliability", "enable_overall_consistency", "enable_feedback"]))
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+  
+  def export_companies
+    Vger::Resources::Company\
+      .export_companies(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 
   def show
     if @company.hq_location_id
@@ -125,13 +167,14 @@ class CompaniesController < ApplicationController
   end
 
   def get_companies
-    methods = []
+    methods = [:assessment_statistics]
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods.push :assessmentwise_statistics
     end
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 5, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @active_subscription 
   end
   
   def get_countries

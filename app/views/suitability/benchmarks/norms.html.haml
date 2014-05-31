@@ -47,9 +47,8 @@
         - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
           = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex+index }    
     .divider3
-    %button.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close"}
-      Save and Close
-    %button.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Save and Proceed"}
+    %input.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close", type: "submit"}
+    %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", value: "Proceed", type: "submit"}
       Proceed
     .clr
     .divider1

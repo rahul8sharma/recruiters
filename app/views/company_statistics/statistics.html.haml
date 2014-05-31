@@ -5,7 +5,7 @@
   .divider2
   .stat_graph
     .lhs.pull-left
-      %b.extra-medium-text
+      %b.medium-text
         Remaining Assessments in Active Packages: #{@company.unlocked_invites_count}
     .rhs.pull-left
       .span5.first
@@ -18,10 +18,10 @@
           - if total != 0 && assessments_sent != 0
             - sent_percentage = ((assessments_sent.to_i * 100) / total)
             - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
-          .column.darkBlue-bg{:style => "width: 100%"}
-          / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-          .column.orange-bg{:style => "width: 30%"}
-          //.column.orange-bg{:style => "width: 20%"}
+            .column.darkBlue-bg{:style => "width: 100%"}
+            / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
+            .column.orange-bg{:style => "width: #{completed_percentage}%"}
+            //.column.orange-bg{:style => "width: 20%"}
       .span14.medium-text.gray-darker
         .span.stop.darkBlue-bg 
         .span 
@@ -75,7 +75,7 @@
           #{valid_to.strftime("%d/%m/%Y")}
         .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
           #{(valid_to >= Date.today) ? "Active" : "Expired"}
-          //toggle btween :".success-text" and ".alert-text"
+          -#toggle btween :".success-text" and ".alert-text"
         .clr
         .divider1
         

@@ -45,9 +45,8 @@
         - else
           = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
       .divider2  
-      %button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked }
-        Add Assessment Takers Later
+      %input.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, type: "submit", value: "Add Assessment Takers Later"}
 
-      %button.pull-right.btn.btn-warning.large-text{ disabled: !checked }
-        Submit
+      %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
+        
       .clr
