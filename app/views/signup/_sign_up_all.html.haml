@@ -7,13 +7,13 @@
         = af.text_field :email, placeholder: "Company Email", class: "fw pull-left", required: true
         .info-tooltip-control.pull-left
           .info-tooltip.gray-darker
-            We encourage you to enter your company email address (not personal email address) for getting full access & privileges. Personal email address is only recommended if your company blocks external emails to your company email account.
+            We encourage you to enter your company email address (not personal email address) for getting full access & privileges.
             .left-caret
         .clr
       .control-group
         = af.password_field :password, placeholder: "Enter a password of your choice", class: "fw", required: true
       .control-group
-        = af.text_field :mobile, placeholder: "Contact Number", class: "fw pull-left", required: true
+        = af.text_field :mobile, placeholder: "Contact Number (including country/area code)", class: "fw pull-left", required: true
         .info-tooltip-control.pull-left
           .info-tooltip.gray-darker
             Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
@@ -26,6 +26,6 @@
     %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
     .divider1
     .text-center.default-text
-      By Clicking “Sign Up” above you agree to the 
+      By Signing Up, you agree to
       %a.underlined{:href => "/terms-and-conditions/", :target=>"_blank", :title => "Jombay Terms and Conditions"}
         Terms and Conditions

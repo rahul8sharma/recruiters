@@ -17,7 +17,8 @@ html
   font-size: 100%
   -webkit-text-size-adjust: 100%
   -ms-text-size-adjust: 100%
-
+strong, b
+  font-weight: 200
 strong, a
   display: inline-block
 // Focus states
@@ -45,8 +46,14 @@ sub
 img
   max-width: 100%
   height: auto
-  border: 0
+  border: 0 none
   -ms-interpolation-mode: bicubic
+a 
+  outline: none
+  &:focus
+    outline: none
+  img
+    border: 0 none
 
 // Font size in all browsers, margin changes, misc consistency
 button, input, select, textarea

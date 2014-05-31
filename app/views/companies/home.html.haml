@@ -10,16 +10,6 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 .home
-  - if session[:show_home_page_message] != false
-    - session[:show_home_page_message] = false
-    #flag.alert.alert-info.fw
-      Welcome! You can start using one of the Ready-to-Use assessments or create a Custom Assessment to suit your requirements!
-      %br/
-      You can use these assessments to measure behavior of your existing employee or potential hire that you are making.
-      %a.close{:href => "#", :id => "close"}
-        CLOSE
-        %span.medium-text
-          x
   .divider1
   - if !report
     .extra-large-text.text-center
@@ -34,9 +24,10 @@
         Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.    
       .divider1
       .extra-medium-text
-        You can take a Quick assessment to trial out Jombay. 
-        %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
-          What will I be measured on?
+        - if @custom_assessment
+          You can take a Quick assessment to trial out Jombay. 
+          %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
+            What will I be measured on?
         .or-bottom.big-text
           OR
       .divider1
@@ -87,13 +78,13 @@
       .divider1
       .text-center
         %i.icon-eye-open.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "View Assessment Details"} 
+        %span.gray-light.medium-text.float-none{:title => "View Assessment Details"} 
           View Assessment Details
         %i.icon-file.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "View Sample Report"} 
+        %span.gray-light.medium-text.float-none{:title => "View Sample Report"} 
           View Sample Report
         %i.icon-envelope.span.big-text.float-none
-        %a.span.gray-light.medium-text.float-none{:href => "javascript:void(0);", :title => "Send Assessment"} 
+        %span.gray-light.medium-text.float-none{:title => "Send Assessment"} 
           Send Assessment
         .clr
 
@@ -192,7 +183,7 @@
       .left-offset1
         .big-text
           .pull-left
-            Create you own Assessment
+            Create your own Assessment
           %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
             Go to Top
           .clr
@@ -234,7 +225,25 @@
             Reports section
 
   .divider3
+= surround '<!--[if IE]><style type="text/css">'.html_safe, '</style><![endif]-->'.html_safe do
+  :sass
+    .home .info-list
+      .visual01
+        width: 300px
+      .pencil
+        width: 170px
+      .file
+        width: 150px
+      .envelop
+        width: 146px
+      .group
+        width: 137px
+      .tick
+        width: 207px
 
+      #section01 
+        .file
+          width: 263px
 :javascript
   $("#close").on('click',function(){
     $("#flag").hide(500);
