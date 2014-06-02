@@ -71,8 +71,8 @@ jQuery(document).ready(function($) {
   var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
   var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
   
-  $("#traits-counter").html(traits_selected_counter);
-  $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
+  $("#traits-counter").html(pad(traits_selected_counter));
+  $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
   
   textHighlighter(traits_selected_counter);
 
@@ -82,8 +82,8 @@ jQuery(document).ready(function($) {
       approximate_time = traits_selected_counter * approximate_time_per_factor;
       approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
       approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(approximate_time_min+" mins : "+approximate_time_sec+" sec");
+      $("#traits-counter").html(pad(traits_selected_counter));
+      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
       textHighlighter(traits_selected_counter);
     }
     else
@@ -92,8 +92,8 @@ jQuery(document).ready(function($) {
       approximate_time = traits_selected_counter * approximate_time_per_factor;
       approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
       approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(approximate_time_min+" min : "+approximate_time_sec+" sec");
+      $("#traits-counter").html(pad(traits_selected_counter));
+      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
       textHighlighter(traits_selected_counter);
     }
   });
@@ -113,15 +113,15 @@ jQuery(document).ready(function($) {
 
   function textHighlighter(counter)
   {
-    if(counter < 10 || counter > 26){
+    var lower_limit = <%= Rails.application.config.validators["traits_range"]["min"] %>;
+    var upper_limit = <%= Rails.application.config.validators["traits_range"]["max"] %>;
+    
+    if(counter < lower_limit || counter > upper_limit){
       $("#traits-counter").addClass("color-stop");
       $("#label_counter").addClass("color-stop");
-
       $("#traits-counter").removeClass("color-warning");
-      $("#approximate-time").removeClass("color-warning");
     }else{
       $("#traits-counter").addClass("color-warning");
-
       $("#traits-counter").removeClass("color-stop");
       $("#label_counter").removeClass("color-stop");
     }

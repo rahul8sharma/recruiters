@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
-  Please select at least 10 traits
+  Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits).
 .norms
   .page-title.pull-left
     #{@assessment.name}
@@ -27,7 +27,7 @@
       %i.icon-time
       %span
         Approximate assessment duration:
-      %span#approximate-time
+      %span#approximate-time.color-warning
         /some counter
     .clr
   .clr
