@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
-  Please select atleast 10 traits
+  Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits).
 .norms
   .page-title.pull-left
     #{@assessment.name}
@@ -13,18 +13,20 @@
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2
-  .span18.pull-left.big-text
-    Please select a minimum of 10 traits to create this assessment. Upto 26 can be selected.
+  .span18.pull-left.extra-medium-text
+    Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits)
   .pull-right.medium-text
     %div
       %i.icon-ok-sign
-      Number of traits selected:
-      %span#traits-counter.color-warning
+      %span#label_counter
+        Number of traits selected:
+      %span#traits-counter
         / some counter
     .divider1
     %div
       %i.icon-time
-      Approximate assessment duration:
+      %span
+        Approximate assessment duration:
       %span#approximate-time.color-warning
         /some counter
     .clr

@@ -28,11 +28,12 @@
           .span10.gray-dark
             %i.icon-globe 
             Company website URL: 
-          -if h @company.website
-            %a.span7{:href => "#{h @company.website}", :title => "Click Here to go #{h @company.website} website"}
-              = h @company.website
+          -if @company.website
+            %a.span7{:href => "#{h @company.website}", :title => "Click Here to go #{@company.website} website"}
+              = @company.website
           - else
-            Not available 
+            .span7
+              Not Available
           .clr
 
         %li.padding-all1.big-text

@@ -67,34 +67,64 @@ jQuery(document).ready(function($) {
   // To check the number of traits selected//
   var approximate_time_per_factor = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
   var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);  
-  $("#traits-counter").html(traits_selected_counter);
-  $("#approximate-time").html(pad(traits_selected_counter * (approximate_time_per_factor/60))+" minutes");
+  var approximate_time = traits_selected_counter * approximate_time_per_factor; //total time in seconds
+  var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+  var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+  
+  $("#traits-counter").html(pad(traits_selected_counter));
+  $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
+  
+  textHighlighter(traits_selected_counter);
 
   $('input[name="selected_factor"]').on("change",function(){
     if($(this).is(":checked")){
       traits_selected_counter += 1;
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(pad(traits_selected_counter * (approximate_time_per_factor/60))+" minutes");
+      approximate_time = traits_selected_counter * approximate_time_per_factor;
+      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+      $("#traits-counter").html(pad(traits_selected_counter));
+      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
+      textHighlighter(traits_selected_counter);
     }
     else
     {
       traits_selected_counter -= 1;
-      $("#traits-counter").html(traits_selected_counter);
-      $("#approximate-time").html(pad(traits_selected_counter * (approximate_time_per_factor/60))+" minutes");
+      approximate_time = traits_selected_counter * approximate_time_per_factor;
+      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+      $("#traits-counter").html(pad(traits_selected_counter));
+      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
+      textHighlighter(traits_selected_counter);
     }
   });
 
   function pad(val)
   {
-      var valString = val + "";
-      if(valString.length < 2)
-      {
-          return "0" + valString;
-      }
-      else
-      {
-          return valString;
-      }
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+        return "0" + valString;
+    }
+    else
+    {
+        return valString;
+    }
+  }
+
+  function textHighlighter(counter)
+  {
+    var lower_limit = <%= Rails.application.config.validators["traits_range"]["min"] %>;
+    var upper_limit = <%= Rails.application.config.validators["traits_range"]["max"] %>;
+    
+    if(counter < lower_limit || counter > upper_limit){
+      $("#traits-counter").addClass("color-stop");
+      $("#label_counter").addClass("color-stop");
+      $("#traits-counter").removeClass("color-warning");
+    }else{
+      $("#traits-counter").addClass("color-warning");
+      $("#traits-counter").removeClass("color-stop");
+      $("#label_counter").removeClass("color-stop");
+    }
   }
 
 });
