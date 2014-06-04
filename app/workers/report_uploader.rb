@@ -25,13 +25,32 @@ class ReportUploader < AbstractController::Base
     candidate_id = report_data["candidate_id"]
     patch ||= {}
     begin
-      @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
+      puts "Getting Report #{report_id}"
+      @report = Vger::Resources::Suitability::CandidateAssessmentReport.where(
         :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :patch => patch,
-        :methods => [ :report_hash ]
+        :methods => [ :report_hash ],
+        :query_options => { 
+          :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED,
+          :id => report_id
+        }
+      ).all.first
+      
+      if !@report
+        puts "Report #{report_id} is being uploaded already..."
+        return 
+      end
+      
+      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+        :custom_assessment_id => assessment_id,
+        :candidate_id => candidate_id,
+        :company_id => company_id,
+        :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
       )
+      
+      
       @norm_buckets = Vger::Resources::Suitability::NormBucket.all
 
       candidate_name = @report.report_hash[:candidate][:name]
@@ -82,12 +101,6 @@ class ReportUploader < AbstractController::Base
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
       feedback_html_save_path = File.join(Rails.root.to_s,'tmp',"feedback_#{html_file_id}")
 
-      Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
-        :custom_assessment_id => assessment_id,
-        :candidate_id => candidate_id,
-        :company_id => company_id,
-        :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
-      )
       File.open(html_save_path, 'wb') do |file|
         file << html
       end

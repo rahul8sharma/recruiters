@@ -3,19 +3,21 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :only => [ :password_settings ]
   
   def login
-    redirect_to after_sign_in_path_for if current_user
     if request.post?
       begin
         sign_in(params[:user])
+        redirect_user
       rescue Faraday::Unauthorized => e
         flash[:error] = e.response[:body][:data][:error]
       end
     else
+      redirect_user
     end
   end
   
   def logout
     sign_out()
+    redirect_to after_sign_out_path and return
   end
 
   def forgot_password
@@ -44,6 +46,7 @@ class UsersController < ApplicationController
       if @user.error_messages && @user.error_messages.empty?
         flash[:notice] = "Password settings saved successfully."
         sign_in(:auth_token => @user.authentication_token)
+        redirect_user
       else
         flash[:error] = @user.error_messages.join("<br/>").html_safe
         redirect_to password_settings_path
@@ -64,10 +67,15 @@ class UsersController < ApplicationController
   
   def reset_password
     @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
-    if params[:activate]
-      if !@user
-        redirect_to(root_url, notice: "Invalid reset password token")  and return
+    if !@user
+      if params[:activate]
+        flash[:error] = "Activation link has expired."
+      else
+        flash[:error] = "Reset password link has expired."
       end
+      redirect_to(root_url) and return
+    end
+    if params[:activate]
       render :action => :activate 
     end
   end
@@ -75,10 +83,11 @@ class UsersController < ApplicationController
   def confirm
     @user = Vger::Resources::User.confirm(:confirmation_token => params[:confirmation_token])
     if @user.error_messages.present?
-      redirect_to(root_url, notice: "Invalid confirmation_token token")
+      flash[:error] = "Oops! Your verification link has already been used or has expired. If you have not yet verified your email address, please email us at contact@jombay.com and we'll help you set-up your account!"
+      redirect_to(root_url)
     else
       sign_in(:auth_token => @user.authentication_token)
-      #redirect_to(login_path)
+      redirect_user
     end
   end
   
@@ -88,6 +97,7 @@ class UsersController < ApplicationController
       if @user.error_messages && @user.error_messages.empty?
         flash[:notice] = "#{@user.name}, Your account has been successfully activated!"
         sign_in(:auth_token => @user.authentication_token)
+        redirect_user
       else
         flash[:error] = @user.error_messages.join("<br/>").html_safe
         redirect_to activate_account_path(:reset_password_token => params[:user][:reset_password_token])
@@ -102,9 +112,25 @@ class UsersController < ApplicationController
     if @user.error_messages && @user.error_messages.empty?
       flash[:notice] = "Password was reset successfully!"
       sign_in(:auth_token => @user.authentication_token)
+      redirect_user
     else
       flash[:error] = @user.error_messages.join("<br/>").html_safe
       redirect_to reset_password_path(:reset_password_token => params[:user][:reset_password_token])
+    end
+  end
+  
+  protected
+  
+  def redirect_user
+    if current_user 
+      if current_user.type == "Candidate"
+        flash.clear
+        flash[:error] = "You are not authorized to access this page."
+        sign_out
+        redirect_to root_path
+      else
+        redirect_to after_sign_in_path_for, :notice => flash[:notice]
+      end
     end
   end
 end
