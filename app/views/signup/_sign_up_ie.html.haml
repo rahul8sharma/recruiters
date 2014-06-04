@@ -3,7 +3,7 @@
     = f.fields_for :admin do |af|  
       .control-group
         %label.ie  Full Name
-        = af.text_field :name, class: "lfw",title:"Enter your full name", required: true
+        = af.text_field :name, class: "lfw",title:"Enter your full name", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
         .clr
       .control-group
         %label.ie Company Email
@@ -11,11 +11,11 @@
           .info-tooltip.gray-darker
             We encourage you to enter your company email address (not personal email address) for getting full access & privileges.
             .left-caret
-        = af.text_field :email, class: "lfw",title:"Enter your company email", required: true
+        = af.text_field :email, class: "lfw",title:"Enter your company email", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
         .clr
       .control-group
         %label.ie Password
-        = af.password_field :password, class: "lfw",title:"Enter a password of your choice", required: true
+        = af.password_field :password, class: "lfw",title:"Enter a password of your choice", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
         .clr
       .control-group
         %label.ie Contact Number
@@ -23,15 +23,15 @@
           .info-tooltip.gray-darker
             Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
             .left-caret
-        = af.text_field :mobile, class: "lfw",title:"Provide your mobile number", required: true
+        = af.text_field :mobile, class: "lfw",title:"Provide your mobile number", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
         .clr
     .control-group
       %label.ie Company Name
-      = f.text_field :name, title: "Provide your company name", class: "lfw", required: true
+      = f.text_field :name, title: "Provide your company name", class: "lfw", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
       .clr
     .control-group
       %label.ie Select Location
-      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true }
+      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true, oninvalid: "this.setCustomValidity('Please select a country')" }
       .clr
     .divider1
     %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
