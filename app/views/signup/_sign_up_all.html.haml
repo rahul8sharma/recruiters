@@ -20,9 +20,9 @@
             .left-caret
         .clr
     .control-group
-      = f.text_field :name, title: "Sign to Jombay", placeholder: "Company Name", class: "fw", required: true
+      = f.text_field :name, title: "Provide a company name", placeholder: "Company Name", class: "fw", required: true
     .control-group
-      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true }
+      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true, title:"Please select a country from the list", oninvalid:"this.setCustomValidity('This field is mandatory')" }
     %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
     .divider1
     .text-center.default-text

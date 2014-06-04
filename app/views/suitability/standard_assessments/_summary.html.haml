@@ -27,7 +27,7 @@
   //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
-    .extra-medium-text
+    .extra-medium-text.font-bold
       .span5.first
         Trait
       .span15.left-offset1
@@ -35,7 +35,7 @@
       .span6.left-offset1
         Expected Score Range
     .clr
-    .divider1
+    .divider1.border-bottom-grayLighter
 
     %ul.unstyled.semi-muted
       - assessment_factor_norms.each do |factor_norm|
@@ -43,12 +43,13 @@
           .divider1
           .extra-medium-text
             .span5.first
-              %strong
+              .font-bold
                 = factor_norm.factor.name
             .span15.left-offset1
               = factor_norm.factor.definition
             .span6.left-offset1
-              #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
+              %i
+                #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
             //.span
             //  #{factor_norm.critical? ? "Yes":"No"}
           .clr
