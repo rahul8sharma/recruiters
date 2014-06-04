@@ -1,7 +1,11 @@
+- logo_url = "/"
+- target = "_self"
+- logo_url = Rails.application.config.hosts["products.jombay.com"] if !current_user
+- target = "_blank" if !current_user
 #header
   .container
     .logo.pull-left
-      = link_to(image_tag("jombay-logo.png"), "/")
+      = link_to(image_tag("jombay-logo.png"), logo_url, :target=> target)
       .divider1
     - if current_user 
       - if defined?(@company)  
