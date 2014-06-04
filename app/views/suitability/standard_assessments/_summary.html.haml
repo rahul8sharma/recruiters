@@ -24,10 +24,11 @@
       Click here to create a New Custom Assessment
   = render :partial => "shared/candidate-content-standard-sub-nav"
 
-  //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
-  //  Edit Test
+  -#
+    %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+      Edit Test
   .padding-all2.border-warning.shifted-up1
-    .extra-medium-text.font-bold
+    .extra-medium-text
       .span5.first
         Trait
       .span15.left-offset1
@@ -35,7 +36,7 @@
       .span6.left-offset1
         Expected Score Range
     .clr
-    .divider1.border-bottom-grayLighter
+    .divider1
 
     %ul.unstyled.semi-muted
       - assessment_factor_norms.each do |factor_norm|
@@ -43,15 +44,15 @@
           .divider1
           .extra-medium-text
             .span5.first
-              .font-bold
+              %strong
                 = factor_norm.factor.name
             .span15.left-offset1
               = factor_norm.factor.definition
             .span6.left-offset1
-              %i
-                #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
-            //.span
-            //  #{factor_norm.critical? ? "Yes":"No"}
+              #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
+            -#
+              .span
+                #{factor_norm.critical? ? "Yes":"No"}
           .clr
           .divider1
     - if other_norms.empty?
@@ -64,8 +65,9 @@
           Miscellaneous Trait
         .span15.left-offset1
           Definition
-        //.span6.left-offset1
-        //  Expected Score Range
+        -#
+          .span6.left-offset1
+            Expected Score Range
       .clr
       .divider1
       
@@ -83,6 +85,7 @@
             .divider1
     .divider1
 
-    //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
-    //  Edit Test
-    //.clr
+    -# 
+      %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+        Edit Test
+      .clr
