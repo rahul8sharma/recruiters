@@ -28,14 +28,64 @@
     %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
       Edit Test
   .padding-all2.border-warning.shifted-up1
-    .divider2
-    .factors_container
-      .factors_list
-        - 48.times do |index|
-          %div{:class=>"factor_#{index+1}"}
-            -# Prashant Please Add classes favorable' : 'less_favorable' to above DIV(.factor1 wala)
-            .wrapper{:style=>"margin-top: 30px;"} 
-              -# for .wrapper- margin refer fit-report/page2.html.haml  {:style=>"margin-top: #{margin}px;"} I think its 30px for signle line
-              Assertiveness
-    .divider2
-        
+    .extra-medium-text
+      .span5.first
+        Trait
+      .span15.left-offset1
+        Definition
+      .span6.left-offset1
+        Expected Score Range
+    .clr
+    .divider1
+
+    %ul.unstyled.semi-muted
+      - assessment_factor_norms.each do |factor_norm|
+        %li
+          .divider1
+          .extra-medium-text
+            .span5.first
+              %strong
+                = factor_norm.factor.name
+            .span15.left-offset1
+              = factor_norm.factor.definition
+            .span6.left-offset1
+              #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
+            -#
+              .span
+                #{factor_norm.critical? ? "Yes":"No"}
+          .clr
+          .divider1
+    - if other_norms.empty?
+      .divider1
+    - else
+      .divider2.border-bottom-grayLighter
+      .divider2
+      .big-text
+        .span5.first
+          Miscellaneous Trait
+        .span15.left-offset1
+          Definition
+        -#
+          .span6.left-offset1
+            Expected Score Range
+      .clr
+      .divider1
+      
+      %ul.unstyled.semi-muted
+        - other_norms.each do |factor_norm|
+          %li
+            .divider1
+            .medium-text
+              .span5.first
+                %strong
+                  = factor_norm.factor.name
+              .span15.left-offset1
+                = factor_norm.factor.definition
+            .clr.left-offset1
+            .divider1
+    .divider1
+
+    -# 
+      %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+        Edit Test
+      .clr

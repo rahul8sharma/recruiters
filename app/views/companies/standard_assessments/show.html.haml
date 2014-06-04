@@ -1,1 +1,40 @@
-= render :partial => "suitability/standard_assessments/summary", :locals => {:standard_assessment => @standard_assessment, :assessment_factor_norms => @assessment_factor_norms, :other_norms=>@other_norms ,:norm_buckets=>@norm_buckets}
+- url = nil
+- if @candidate_assessment
+  - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+  - if report && report.status == "uploaded"
+    - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+  - else    
+    - url = @candidate_assessment.url
+    
+.trait-show
+  .span21.page-title.first
+    AID #{standard_assessment.id} - #{standard_assessment.name}
+  - if(@company)
+    - if url.present?
+      %a.btn.btn-warning.big-text.pull-right{:href => url, target: "_blank"}
+        Start My Self-Assessmenent Now
+    - else
+      %a.btn.btn-warning.big-text.pull-right{:href => send_test_company_standard_assessment_path(@company,standard_assessment)}
+        Send Assessment
+          
+  .divider5
+  .span18.pull-right.big-text
+    Are you looking to measure other traits?
+    %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click here to create a New Custom Assessment"}
+      Click here to create a New Custom Assessment
+  = render :partial => "shared/candidate-content-standard-sub-nav"
+
+  -#
+    %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+      Edit Test
+  .padding-all2.border-warning.shifted-up1
+    .divider2
+    .factors_container
+      .factors_list
+        - 48.times do |index|
+          %div{:class=>"factor_#{index+1}"}
+            -# Prashant Please Add classes favorable' : 'less_favorable' to above DIV(.factor1 wala)
+            .wrapper{:style=>"margin-top: 30px;"} 
+              -# for .wrapper- margin refer fit-report/page2.html.haml  {:style=>"margin-top: #{margin}px;"} I think its 30px for signle line
+              Assertiveness
+    .divider2
