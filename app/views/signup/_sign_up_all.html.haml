@@ -2,27 +2,27 @@
   = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "" }) do |f|
     = f.fields_for :admin do |af|  
       .control-group
-        = af.text_field :name, class: "fw", placeholder: "Full Name", title:"Enter your full name", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
+        = af.text_field :name, class: "fw", placeholder: "Full Name", required: true
       .control-group
-        = af.text_field :email, title:"Enter your company email" ,placeholder: "Company Email", class: "fw pull-left", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
+        = af.text_field :email, placeholder: "Company Email", class: "fw pull-left", required: true
         .info-tooltip-control.pull-left
           .info-tooltip.gray-darker
             We encourage you to enter your company email address (not personal email address) for getting full access & privileges.
             .left-caret
         .clr
       .control-group
-        = af.password_field :password, title:"Enter a password of your choice" , placeholder: "Enter a password of your choice", class: "fw", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
+        = af.password_field :password, placeholder: "Enter a password of your choice", class: "fw", required: true
       .control-group
-        = af.text_field :mobile, title:"Provide your Contact Number" ,placeholder: "Contact Number (including country/area code)", class: "fw pull-left", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
+        = af.text_field :mobile, placeholder: "Contact Number (including country/area code)", class: "fw pull-left", required: true
         .info-tooltip-control.pull-left
           .info-tooltip.gray-darker
             Required to ensure that nobody misused your identity. Don't worry all information you provide is completely confidential
             .left-caret
         .clr
     .control-group
-      = f.text_field :name, title: "Provide your company name", placeholder: "Company Name", class: "fw", required: true, oninvalid: "this.setCustomValidity('This field is mandatory')"
+      = f.text_field :name, title: "Provide a company name", placeholder: "Company Name", class: "fw", required: true
     .control-group
-      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true, oninvalid: "this.setCustomValidity('Please select a country')" }
+      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "fw", required: true, title:"Please select a country from the list", oninvalid:"this.setCustomValidity('This field is mandatory')" }
     %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
     .divider1
     .text-center.default-text
