@@ -13,15 +13,15 @@
   //%a.btn.btn-warning.pull-right{:href => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
-    .extra-medium-text
+    .big-text.font-bold
       .span5.first
-        Trait
+        Traits (#{@assessment_factor_norms.count})
       .span15.left-offset1
         Definition
       .span6.left-offset1
         Expected Score Range
     .clr
-    .divider1
+    .divider1.border-bottom-grayLighter
 
     %ul.semi-muted
       - if @assessment_factor_norms.present?
@@ -30,12 +30,13 @@
             .divider1
             .medium-text
               .span5.first
-                %strong
+                .font-bold
                   = factor_norm.factor.name
               .span15.left-offset1
                 = factor_norm.factor.definition
               .span6.left-offset1
-                #{@norm_buckets[factor_norm.from_norm_bucket_id].name} - #{@norm_buckets[factor_norm.to_norm_bucket_id].name}
+                %i
+                  #{@norm_buckets[factor_norm.from_norm_bucket_id].name} - #{@norm_buckets[factor_norm.to_norm_bucket_id].name}
               //.span
               //  #{factor_norm.critical? ? "Yes":"No"}
             .clr
@@ -46,8 +47,8 @@
           .divider2.border-bottom-grayLighter
           .divider2
           .big-text
-            .span5.first
-              Miscellaneous Trait
+            .span6.first
+              Miscellaneous Traits (#{@other_norms.count})
             .span15.left-offset1
               Definition
             //.span6.left-offset1
@@ -60,8 +61,9 @@
               %li
                 .divider1
                 .medium-text
-                  .span5.first
-                    = factor_norm.factor.name
+                  .span6.first
+                    .font-bold
+                      = factor_norm.factor.name
                   .span15.left-offset1
                     = factor_norm.factor.definition
                 .clr.left-offset1

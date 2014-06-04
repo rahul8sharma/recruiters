@@ -1,21 +1,14 @@
 .plans-details
   .page-title
     .divider1
-    .big-text
-      Buy Jombay Assessments. Buying is instant.
-
-  .divider1
-
-  .big-text.gray-darker
+    .extra-large-text.text-center.color-warning
+      Buy Jombay Assessments
+  .extra-medium-text.gray-darker.text-center
     Honest Pricing. No Set-up fees. No Hidden Costs.
-
-  .divider2
-
-  .extra-medium-text
-    5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
-
   .divider1
-
+  .extra-medium-text.text-center.muted
+    5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
+  .divider1
   %ul.span8.section1
     %li.title
       Included
@@ -45,7 +38,7 @@
     %ul.span5{ class: "section#{index+2}" }
       %li.title
         = plan.name
-      %li.medium-text
+      %li.medium-text.font-bold
         = plan.no_of_assessments
       -3.times do
         %li.medium-text

@@ -15,6 +15,7 @@
             - scale = factor_score[:scale]
             .pointer{ class: "position#{scale[:position]}" }
             -#Use position1, postion2...5. for pointer position
+            .visual
             .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
             -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
         .clr
