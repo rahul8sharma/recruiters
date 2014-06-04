@@ -1,6 +1,8 @@
 - logo_url = "/"
-- logo_url = Rails.application.config.hosts["products.jombay.com"] if !current_user
-- target = "_blank" if !current_user
+- target = "_self"
+- if !current_user
+  - logo_url = Rails.application.config.hosts["products.jombay.com"]
+  - target = "_blank"
 #header
   .container
     .logo.pull-left
