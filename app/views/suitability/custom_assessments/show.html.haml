@@ -14,66 +14,58 @@
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
     .big-text.font-bold
-      .span5.first
-        Traits (#{@assessment_factor_norms.count})
-      .span15.left-offset1
-        Definition
-      .span6.left-offset1
+      .pull-left
+        Trait and Definition
+     
+      .pull-right.span7.first.text-center
         Expected Score Range
+      .clr
+    .scale.pull-right
+      .marker
+        %br/
+        Low
+      .marker
+        Below Average
+      .marker
+        Average Low
+      .marker
+        Average High
+      .marker
+        Above Average
+      .marker
+        %br/
+        High
+      .clr
     .clr
-    .divider1.border-bottom-grayLighter
 
-    %ul.semi-muted
+    %ul.clearfix.scores_listing.first
       - if @assessment_factor_norms.present?
         - @assessment_factor_norms.each do |factor_norm|
           %li
-            .divider1
-            .medium-text
-              .span5.first
-                .font-bold
-                  = factor_norm.factor.name
-              .span15.left-offset1
+            .lhs-sec.span20.first
+              .factor-name
+                = factor_norm.factor.name
+              .factor-description
                 = factor_norm.factor.definition
-              .span6.left-offset1
-                %i
-                  #{@norm_buckets[factor_norm.from_norm_bucket_id].name} - #{@norm_buckets[factor_norm.to_norm_bucket_id].name}
-              //.span
-              //  #{factor_norm.critical? ? "Yes":"No"}
-            .clr
-            .divider1
-        - if @other_norms.empty?
-          .divider1
-        - else
-          .divider2.border-bottom-grayLighter
-          .divider2
-          .big-text
-            .span6.first
-              Miscellaneous Traits (#{@other_norms.count})
-            .span15.left-offset1
-              Definition
-            //.span6.left-offset1
-            //  Expected Score Range
-          .clr
-          .divider1
-          
-          %ul.semi-muted
-            - @other_norms.each do |factor_norm|
-              %li
-                .divider1
-                .medium-text
-                  .span6.first
-                    .font-bold
-                      = factor_norm.factor.name
-                  .span15.left-offset1
-                    = factor_norm.factor.definition
-                .clr.left-offset1
-                .divider1
-      - else
-        .alert.medium-text
-          You have not added traits. To add traits to this assessment.
-          %a{ href: norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Add Traits" } Click here
-    .divider1
+            .rhs-sec.pull-right
+              .marker-set
+                .marker
+                  %br/
+                  Low
+                .marker
+                  Below Average
+                .marker
+                  Average (Low)
+                .marker.show
+                  Average (High)
+                .marker
+                  Above Average
+                .marker
+                  %br/
+                  High
+                .clr
+              .slider
+                .visual
+                .range{ class: "offset0  width5" }
 
-    //%a.btn.btn-warning.pull-right{:href => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
-    //  Edit Test
-    //.clr
+            .clr
