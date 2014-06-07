@@ -24,8 +24,9 @@
       Click here to create a New Custom Assessment
   = render :partial => "shared/candidate-content-standard-sub-nav"
 
-  //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
-  //  Edit Test
+  -#
+    %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+      Edit Test
   .padding-all2.border-warning.shifted-up1
     .extra-medium-text
       .span5.first
@@ -49,8 +50,9 @@
               = factor_norm.factor.definition
             .span6.left-offset1
               #{norm_buckets[factor_norm.from_norm_bucket_id].name} - #{norm_buckets[factor_norm.to_norm_bucket_id].name}
-            //.span
-            //  #{factor_norm.critical? ? "Yes":"No"}
+            -#
+              .span
+                #{factor_norm.critical? ? "Yes":"No"}
           .clr
           .divider1
     - if other_norms.empty?
@@ -63,8 +65,9 @@
           Miscellaneous Trait
         .span15.left-offset1
           Definition
-        //.span6.left-offset1
-        //  Expected Score Range
+        -#
+          .span6.left-offset1
+            Expected Score Range
       .clr
       .divider1
       
@@ -82,6 +85,7 @@
             .divider1
     .divider1
 
-    //%a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
-    //  Edit Test
-    //.clr
+    -# 
+      %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}
+        Edit Test
+      .clr
