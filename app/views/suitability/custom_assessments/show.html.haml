@@ -21,26 +21,21 @@
         Expected Score Range
       .clr
     .scale.pull-right
-      .marker
-        %br/
-        Low
-      .marker
-        Below Average
-      .marker
-        Average Low
-      .marker
-        Average High
-      .marker
-        Above Average
-      .marker
-        %br/
-        High
+      - @norm_buckets.values.each do |norm_bucket|
+        .marker
+          -  if norm_bucket.name.split(" ").size == 1
+            %br/
+          = norm_bucket.name
       .clr
     .clr
 
     %ul.clearfix.scores_listing.first
       - if @assessment_factor_norms.present?
         - @assessment_factor_norms.each do |factor_norm|
+          - to_norm_bucket = @norm_buckets[factor_norm.to_norm_bucket_id]
+          - from_norm_bucket = @norm_buckets[factor_norm.from_norm_bucket_id]
+          - width = to_norm_bucket.weight - from_norm_bucket.weight
+          - offset = from_norm_bucket.weight - 1
           %li
             .lhs-sec.span20.first
               .factor-name
@@ -49,23 +44,14 @@
                 = factor_norm.factor.definition
             .rhs-sec.pull-right
               .marker-set
-                .marker
-                  %br/
-                  Low
-                .marker
-                  Below Average
-                .marker
-                  Average (Low)
-                .marker.show
-                  Average (High)
-                .marker
-                  Above Average
-                .marker
-                  %br/
-                  High
+                - @norm_buckets.values.each do |norm_bucket|
+                  .marker{ class: (factor_norm.from_norm_bucket_id == norm_bucket.id || factor_norm.to_norm_bucket_id == norm_bucket.id) ? "show" : "" }
+                    -  if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
                 .clr
               .slider
                 .visual
-                .range{ class: "offset0  width5" }
+                .range{ class: "offset#{offset}  width#{width}" }
 
             .clr
