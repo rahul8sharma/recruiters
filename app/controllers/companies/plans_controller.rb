@@ -24,16 +24,12 @@ class Companies::PlansController < ApplicationController
       params[:data],
       Rails.application.config.payments['encryption_key']
     )
-    @payment_data = @payment_data.split('&').map do |key_value|
-      key_value.split('=')
-    end.inject({}) do | hash, injected |
-      hash.merge!(injected[0].to_sym => injected[1])
-    end
 
+    @payment_data = JSON.parse(@payment_data)
     subscription_data = {}
-    if @payment_data[:order_status] == "Success"
-      # Retrieve the plan from merchant_param1
-      @plan = Vger::Resources::Plan.find(@payment_data[:merchant_param1])
+    if @payment_data["TxStatus"] == "SUCCESS"
+      # Retrieve the plan from custom parameter planID
+      @plan = Vger::Resources::Plan.find(@payment_data["planID"])
       @success = true
     else
       @success = false
@@ -107,10 +103,10 @@ class Companies::PlansController < ApplicationController
     Rails.logger.debug(uri)
     http = Net::HTTP.new(uri.host, uri.port)
 
-    http.use_ssl = true
+    #http.use_ssl = true
 
     unless Rails.env.production?
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+     # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
       http_request = Net::HTTP::Post.new(uri.request_uri)

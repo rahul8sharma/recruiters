@@ -15,23 +15,18 @@ class SubscriptionsController < MasterDataController
                                         params[:data],
                                         Rails.application.config.payments['encryption_key']
                                       )
-    payment_data = payment_data.split('&').map do |key_value|
-                            key_value.split('=')
-                          end.inject({}) do | hash, injected |
-                            hash.merge!(injected[0].to_sym => injected[1])
-                          end
-
+    payment_data = JSON.parse(payment_data)
     subscription_data = {}
-    if payment_data[:order_status] == "Success"
-      # Retrieve the plan from merchant_param1
-      plan = Vger::Resources::Plan.find(payment_data[:merchant_param1])
+    if payment_data["TxStatus"] == "SUCCESS"
+      # Retrieve the plan from custom parameter planID
+      plan = Vger::Resources::Plan.find(payment_data["planID"])
 
-      subscription_data[:company_id] = payment_data[:merchant_param3]
+      subscription_data[:company_id] = payment_data["companyID"]
       subscription_data[:assessments_purchased] = plan.no_of_assessments
-      subscription_data[:price] = payment_data[:amount]
+      subscription_data[:price] = payment_data["amount"]
       subscription_data[:valid_from] = Time.now.strftime("%Y-%m-%d")
       subscription_data[:valid_to] = (Date.today + plan.validity_in_months.months)
-      subscription_data[:order_id] = payment_data[:order_id]
+      subscription_data[:order_id] = payment_data["TxId"]
       job_id = Vger::Resources::Subscription.create(subscription_data)
       render :status => :ok, :json => { :job_id => job_id }
     else

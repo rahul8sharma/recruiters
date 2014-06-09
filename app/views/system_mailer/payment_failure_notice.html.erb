@@ -1,9 +1,9 @@
 Hello,
 <p>
   <b>
-    Company ID <%= @order_data[:merchant_param3] %>
+    Company ID <%= @order_data["companyID"] %>
   </b>'s 
-    payment of amount <%= @order_data[:amount] %> has failed for some reason! They were trying to buy <%= @order_data[:merchant_param1] %> assessments. 
+    payment of amount <%= @order_data["amount"] %> has failed for some reason! They were trying to buy plan ID: <%= @order_data["planID"] %>. 
 </p>
 <p>
   Parameters received from Payment Gateway are
