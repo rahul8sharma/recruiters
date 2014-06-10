@@ -90,7 +90,7 @@ class Companies::PlansController < ApplicationController
       :email => @company.admin[:email],
 
       :planID => @plan.id,
-      :encFName => Rails.application.config.payments['application_id'],
+      :appName => Rails.application.config.payments['application_id'],
       :companyID => @company.id,
       :callbackURL => payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token]),
       :redirectURL => payment_status_company_url(:auth_token => RequestStore.store[:auth_token],:id=>@company.id, :plan_id=> @plan.id),
