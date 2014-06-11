@@ -26,19 +26,15 @@ class ReportUploader < AbstractController::Base
     patch ||= {}
     begin
       puts "Getting Report #{report_id}"
-      @report = Vger::Resources::Suitability::CandidateAssessmentReport.where(
+      @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
         :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :patch => patch,
-        :methods => [ :report_hash ],
-        :query_options => { 
-          :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED,
-          :id => report_id
-        }
-      ).all.first
+        :methods => [ :report_hash ]
+      )
       
-      if !@report
+      if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
         puts "Report #{report_id} is being uploaded already..."
         return 
       end
