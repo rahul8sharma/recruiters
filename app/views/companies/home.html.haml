@@ -100,9 +100,9 @@
         / back to top
         %p#back-top
           %a{:href =>"#header"}
-            %span.extra-medium-text.font-bold
+            %span.medium-text.font-bold
               %i.icon-chevron-up
-              Back to Top
+              Top
         / back to top
         %a.btn.btn-warning.big-text{href: new_company_custom_assessment_path(@company)}
           Create Custom Assessment
@@ -245,36 +245,10 @@
       #section01 
         .file
           width: 263px
+
+= javascript_include_tag 'common'  
+
 :javascript
   $("#close").on('click',function(){
     $("#flag").hide(500);
   })
-
-  $('.scroll').click(function(){
-    $('html, body').animate({
-        scrollTop: $( $.attr(this, 'href') ).offset().top - 37
-    }, 500);
-    return false;
-  });
-
-  $(document).ready(function(){
-    // hide #back-top first
-    $("#back-top").hide();
-    // fade in #back-top
-    $(function () {
-      $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-          $('#back-top').fadeIn();
-        } else {
-          $('#back-top').fadeOut();
-        }
-      });
-      // scroll body to 0px on click
-      $('#back-top a').click(function () {
-        $('body,html').animate({
-          scrollTop: 0
-        }, 400);
-        return false;
-      });
-    });
-  });
