@@ -77,4 +77,13 @@
     .divider1
   = render :partial => "suitability/scale-indicates"
 
-= javascript_include_tag 'norms'  
+  / back to top
+  %p#back-top.pull-right
+    %a{:href =>"#header"}
+      %span.medium-text.font-bold
+        %i.icon-chevron-up
+        Top
+  / back to top
+
+= javascript_include_tag 'norms'
+= javascript_include_tag 'common'    
