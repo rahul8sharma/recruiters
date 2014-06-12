@@ -51,6 +51,7 @@
             .span6.left-offset1
               .big-text
                 Expected Score Range
+                %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
               .muted
                 Choose Minimum and Maximum score
             .clr
@@ -74,5 +75,15 @@
     %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
     .clr
     .divider1
+  = render :partial => "suitability/scale-indicates"
 
-= javascript_include_tag 'norms'  
+  / back to top
+  %p#back-top.pull-right
+    %a{:href =>"#header"}
+      %span.medium-text.font-bold
+        %i.icon-chevron-up
+        Top
+  / back to top
+
+= javascript_include_tag 'norms'
+= javascript_include_tag 'common'    

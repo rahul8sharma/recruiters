@@ -97,6 +97,13 @@
           Create your own Assessment
           %a.icon-question-sign.large-text.scroll{:href=>"#section03", :title=>"Go to- Create your own Assessment Section"}
         .divider2
+        / back to top
+        %p#back-top
+          %a{:href =>"#header"}
+            %span.medium-text.font-bold
+              %i.icon-chevron-up
+              Top
+        / back to top
         %a.btn.btn-warning.big-text{href: new_company_custom_assessment_path(@company)}
           Create Custom Assessment
   
@@ -118,8 +125,6 @@
         .big-text
           .pull-left
             Test Yourself
-          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
-            Go to Top
           .clr
           .divider2
       %ul.clearfix.span21.margin-auto
@@ -143,8 +148,6 @@
         .big-text
           .pull-left
             Use Pre-built Assessments
-          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
-            Go to Top
           .clr
           .divider2
       %ul.clearfix.span26.margin-auto
@@ -184,8 +187,6 @@
         .big-text
           .pull-left
             Create your own Assessment
-          %a.pull-right.default.scroll{:href => "#header", :title => "Click Here to Scroll Top"}
-            Go to Top
           .clr
           .divider2
       %ul.clearfix.span30.margin-auto
@@ -244,15 +245,10 @@
       #section01 
         .file
           width: 263px
+
+= javascript_include_tag 'common'  
+
 :javascript
   $("#close").on('click',function(){
     $("#flag").hide(500);
   })
-
-  $('.scroll').click(function(){
-    $('html, body').animate({
-        scrollTop: $( $.attr(this, 'href') ).offset().top - 37
-    }, 500);
-    return false;
-  });
-
