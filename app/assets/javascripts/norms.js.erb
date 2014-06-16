@@ -131,4 +131,15 @@ jQuery(document).ready(function($) {
     }, 500);
     return false;
   });
+
+  function placeHeader(){ 
+    var $table  = $('#info_bar');  
+    var $header = $('#info'); 
+    if ($table.offset().top <= $(window).scrollTop()) {
+      $header.offset({top: $(window).scrollTop()});
+    } else { 
+      $header.offset({top: $table.offset().top}); 
+    }    
+  }
+  $(window).scroll(placeHeader);  
 });
