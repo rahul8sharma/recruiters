@@ -38,6 +38,7 @@
     %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
     %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
     %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
+    %input{type: 'hidden', name: 'user', value: current_user.type}
     - 2.times do 
       .span15.first
         .factor-list
