@@ -1,0 +1,27 @@
+= render partial: "shared/reports/pdf/report_header.pdf.haml"
+.inner
+  .scores.miscellaneous_factors
+    .blue_bg_heading.text-center.big-text
+      Miscellaneous Factors
+    .divider2
+    .left-offset6.pull-left.extra-medium-text
+      %b Measured
+    .left-offset1.pull-left.extra-medium-text
+      %b Preferred
+    .clr
+    .divider1
+    %ul.miscellaneous_listing
+      - @report.report_hash[:direct_predictor_scores].each do |factor_name,factor_score|
+        %li
+          .span1.first.hexagon-icon.mid_favorable
+          //use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+          .span4.mid_favorable.pull-left
+            %b.extra-medium-text #{factor_score[:parent_name]}
+          .measured.pull-left.medium-text
+            = factor_score[:direct_predictors].join(",<br/>").html_safe
+          .preferred.pull-left
+            %b.mid_favorable.extra-medium-text
+              = factor_name
+          .description.pull-left
+            = factor_score[:description]
+          .clr

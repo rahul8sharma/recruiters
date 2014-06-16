@@ -1,8 +1,12 @@
-= render partial: "shared/reports/report_header.html.haml"
+= render partial: "shared/reports/html/report_header.html.haml"
 .inner
   .scores.interview_guide 
     .blue_bg_heading.text-center.big-text
-      Guidelines for Assessment Taker&#39;s Manager
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate
+        %b Interview Questions
+      - else
+        Development Guide for the Assessment Taker
+      =# "(continued)" if step != 0      
     .indication.pull-right
       .hexagon-icon.favorable.pull-left
       .pull-left.extra-medium-text
@@ -10,10 +14,14 @@
       .hexagon-icon.less_favorable.pull-left
       .pull-left.extra-medium-text
         Less Favorable
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate  
+        .hexagon-icon.mid_favorable.pull-left
+        .pull-left.extra-medium-text
+          Miscellaneous
     .clr
     .divider1
     %ul.clearfix.interview_guide_listing 
-      - guidelines_for_candidate_manager.each do |factor_name, guide|
+      - post_assessment_guidelines.each do |factor_name, guide|
         %li
           - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
           .span1.first.que-no.hexagon-icon{ class: klass }
