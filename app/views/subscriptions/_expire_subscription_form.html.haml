@@ -1,0 +1,12 @@
+= form_tag expire_subscription_subscriptions_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Expire Subscription
+    %p
+      Company ID: 
+      = text_field_tag "company_id"
+    %p
+      Subscription ID: 
+      = text_field_tag "subscription_id"
+    .actions
+      = submit_tag 'Expire Subscription', :confirm => "Are you sure?"
