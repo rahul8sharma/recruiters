@@ -54,8 +54,7 @@ jQuery(document).ready(function($) {
   });
   
   //- -validation for norms range ---//
-  var user_type = $('input[name="user"]').val()
-  if (user_type == "SuperAdmin"){
+  if ($('input[name="user"]').val() == "SuperAdmin"){
     var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["min"] %>);  
     var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["max"] %>);  
   }else{
@@ -77,14 +76,7 @@ jQuery(document).ready(function($) {
   //--- To check the number of traits selected ----//
   var approximate_time_per_factor = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
   var traits_selected_counter = $('input[name="selected_factor"]:checked').length;  
-  var approximate_time = traits_selected_counter * approximate_time_per_factor; //total time in seconds
-  var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-  var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-  
-  $("#traits-counter").html(pad(traits_selected_counter));
-  $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
-  
-  textHighlighter(traits_selected_counter);
+  timer(traits_selected_counter);
 
   $('input[name="selected_factor"]').on("change",function(){
     if($(this).is(":checked")){
@@ -139,4 +131,15 @@ jQuery(document).ready(function($) {
     }, 500);
     return false;
   });
+
+  function placeHeader(){ 
+    var $table  = $('#info_bar');  
+    var $header = $('#info'); 
+    if ($table.offset().top <= $(window).scrollTop()) {
+      $header.offset({top: $(window).scrollTop()});
+    } else { 
+      $header.offset({top: $table.offset().top}); 
+    }    
+  }
+  $(window).scroll(placeHeader);  
 });
