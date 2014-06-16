@@ -168,6 +168,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   def store_assessment_factor_norms
     params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
+      params[:assessment][:job_assessment_factor_norms_attributes][index][:functional_area_id] = params[:assessment][:functional_area_id]
+      params[:assessment][:job_assessment_factor_norms_attributes][index][:industry_id] = params[:assessment][:industry_id]
+      params[:assessment][:job_assessment_factor_norms_attributes][index][:job_experience_id] = params[:assessment][:job_experience_id]
       norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
       if factor_norms_attributes[:from_norm_bucket_id]
         from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight

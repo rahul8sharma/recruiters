@@ -1,5 +1,6 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_superadmin, :only => [:edit,:update]
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_assessment, :except => [:index]
   before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
@@ -56,6 +57,17 @@ class AssessmentsController < ApplicationController
   end
   
   def edit
+  end
+  
+  def update
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    if @assessment.error_messages.present?
+      flash[:error] = @assessment.error_messages.join("<br/>").html_safe
+      redirect_to edit_company_custom_assessment_path(@company,@assessment)
+    else
+      flash[:notice] = "Assessment updated successfully!"
+      redirect_to company_custom_assessment_path(@company,@assessment)
+    end
   end
 
   protected

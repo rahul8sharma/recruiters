@@ -1,0 +1,17 @@
+%table
+  %tr
+    %td{width: "30%"} Candidate ID:
+    %td
+      = @candidate.id
+  %tr
+    %td{width: "30%"} Candidate Name:
+    %td
+      = @candidate.name
+  %tr
+    %td{width: "30%"} Assessment ID:
+    %td
+      = params[:assessment_id]
+  %tr
+    %td Assessment Url
+    %td      
+      = link_to @candidate_assessment.url, @candidate_assessment.url, :target => "_blank"

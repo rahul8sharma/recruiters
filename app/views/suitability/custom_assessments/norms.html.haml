@@ -35,9 +35,6 @@
   .divider2
 
   = form_for @assessment, :as => :assessment, :url => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
-    %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
-    %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
-    %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
     %input{type: 'hidden', name: 'user', value: current_user.type}
     - 2.times do 
       .span15.first
@@ -75,7 +72,6 @@
     %input.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close" , type: "submit"}
     %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
     .clr
-    .divider1
   = render :partial => "suitability/scale-indicates"
 
   / back to top

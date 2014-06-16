@@ -1,7 +1,6 @@
 %h1 Edit company assessment
-
-= render 'form', method: :put, url: company_assessment_path(:company_id => params[:company_id], @assessment.id), :assessment => @assessment
-%br
-%br
-%br
-= link_to 'Back', company_assessment_path(:company_id => params[:company_id], @assessment.id)
+= form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
+  .divider1
+  %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
+  .clr
