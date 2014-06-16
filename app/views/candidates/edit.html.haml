@@ -1,0 +1,104 @@
+.candidate_profile
+  .page-title
+    .divider1
+    Edit Candidate
+  .divider2
+  .padding-all2.border-warning.shifted-up1
+    .divider2
+    = form_for(@candidate, :as => :candidate, url: candidate_path(@candidate), method: :put, html: { :class => "edit_candidate_page text-right span15 margin-auto" }) do |f|
+      .error
+        - @candidate.error_messages ||= []
+        - @candidate.error_messages.each do |message|
+          = message
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Name:
+        = f.text_field :name, :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Email:
+        = f.text_field :email, :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Alternate Email:
+        = f.text_field :alternate_email, :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Mobile:
+        = f.text_field :mobile, :class => "first span7 medium-text left-offset1"
+        .clr  
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Age:
+        = f.select :age, [*16..90], {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Gender:
+        = f.select :gender, { "Male" => "m", "Female" => "f", "Other" => "o" }, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Marital Status:
+        = f.select :marital_status, { "Single" => "s", "Married" => "m", "Divorced" => "d" }, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Functional Area:
+        = f.select :functional_area_id, @functional_areas, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Industry:
+        = f.select :industry_id, @industries, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr              
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Current Company:
+        = f.text_field :current_company, :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Current Designation:
+        = f.text_field :current_designation, :class => "first span7 medium-text left-offset1"
+        .clr                  
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Current CTC:
+        = f.text_field :current_ctc, :class => "first span7 medium-text left-offset1"
+        .clr                  
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Companies worked for:
+        = f.select :companies_worked_for, [*0..20], {}, { :class => "first span7 medium-text left-offset1" }
+        .clr                    
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Total Experience:
+        = f.select :total_experience, [*0..30], {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Current Company Experience:
+        = f.select :current_company_experience, [*0..30], {}, { :class => "first span7 medium-text left-offset1" }
+        .clr                  
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Degree:
+        = f.select :degree_id, @degrees, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          No of dependents:
+        = f.select :no_of_dependents, [*0..20],{}, {:class => "first span7 medium-text left-offset1"}
+        .clr                                          
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
+          Current Location:
+        = f.select :location_id, @locations, {}, { :class => "first span7 medium-text left-offset1" }
+        .clr                    
+      %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
+      .clr
