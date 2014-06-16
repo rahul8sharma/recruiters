@@ -35,9 +35,12 @@
   .divider2
 
   = form_for @assessment, :as => :assessment, :url => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
-    %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
-    %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
-    %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
+    - if is_superadmin?
+      = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
+    - else      
+      %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
+      %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
+      %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
     - 2.times do 
       .span15.first
         .factor-list
