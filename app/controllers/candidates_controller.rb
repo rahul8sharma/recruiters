@@ -1,7 +1,8 @@
 class CandidatesController < ApplicationController
   layout "candidates"
   before_filter :authenticate_user!
-  before_filter :check_superadmin, :except => [:show]
+  before_filter :check_superadmin
+  before_filter :get_master_data, :only => [:edit]
 
   def api_resource
     Vger::Resources::Candidate
@@ -58,11 +59,98 @@ class CandidatesController < ApplicationController
   end
 
   def show
+    @candidate = Vger::Resources::Candidate.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
+  end
+  
+  def update
+    @candidate = Vger::Resources::Candidate.save_existing(params[:id],params[:candidate])
+    if @candidate.error_messages.present?
+      render :action => :edit
+    else
+      redirect_to candidate_path(@candidate)
+    end
+  end
+  
+  def edit
+    @candidate = Vger::Resources::Candidate.find(params[:id])
+  end
+  
+  def assessment_link
+    @candidate = Vger::Resources::Candidate.find(params[:id])
+    @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => params[:assessment_id],
+      :query_options => {
+        :candidate_id => params[:id]
+      },
+      :methods => [:url]
+    ).all.first
+    if @candidate_assessment
+    else
+      flash[:error] = "Candidate Assessment not found."
+      redirect_to candidate_path(params[:id])
+    end
+  end
+  
+  def generate_assessment_link
+    redirect_to assessment_link_candidate_path(params[:id],params[:assessment_id])
+  end
+  
+  def deactivate_assessment_link
+    @candidate = Vger::Resources::Candidate.find(params[:id])
+    @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => params[:assessment_id],
+      :query_options => {
+        :candidate_id => params[:id]
+      },
+      :methods => [:url]
+    ).all.first
+    if @candidate_assessment
+      @invitation = Vger::Resources::Invitation.save_existing(@candidate_assessment.invitation_id, :status => Vger::Resources::Invitation::Status::EXPIRED)
+      if @invitation.error_messages.present?
+        flash[:error] = @invitation.error_messages.join("<br/>").html_safe
+        redirect_to candidate_path(params[:id])
+      else
+        flash[:notice] = "Candidate Assessment Link deactivated successfully."
+        redirect_to candidate_path(params[:id])
+      end
+    else
+      flash[:error] = "Candidate Assessment not found."
+      redirect_to candidate_path(params[:id])
+    end
+  end
+  
+  def update_candidate_stage
+    @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => params[:assessment_id],
+      :query_options => {
+        :candidate_id => params[:id]
+      },
+      :methods => [:url]
+    ).all.first
+    if @candidate_assessment
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.save_existing(@candidate_assessment.id, 
+        :assessment_id => params[:assessment_id],
+        :candidate_stage => params[:candidate_stage]
+      )
+      if @candidate_assessment.error_messages.present?
+        flash[:error] = @candidate_assessment.error_messages.join("<br/>").html_safe
+        redirect_to candidate_path(params[:id])
+      else
+        flash[:notice] = "Candidate type successfully updated to '#{params[:candidate_stage]}'."
+        redirect_to candidate_path(params[:id])
+      end
+    else
+      flash[:error] = "Candidate Assessment not found."
+      redirect_to candidate_path(params[:id])
+    end
   end
 
-  def upload_bulk
-  end
-
-  def upload_single
+  protected
+  
+  def get_master_data
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.map{|functional_area| [functional_area.name,functional_area.id] }]
+    @industries = Hash[Vger::Resources::Industry.all.map{|industry| [industry.name,industry.id] }]
+    @locations = Hash[Vger::Resources::Location.where(:query_options => { :location_type => "city" }).all.map{|location| [location.name,location.id] }]
+    @degrees = Hash[Vger::Resources::Degree.all.map{|degree| [degree.name,degree.id] }]
   end
 end
