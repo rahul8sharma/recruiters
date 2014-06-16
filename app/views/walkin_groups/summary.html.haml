@@ -41,10 +41,22 @@
       %a{:href=>"#"}
         AID
         %i.icon-chevron-down.small-text.line-height1
-    .span18
+    .span12
       %a{:href=>"#"}
         Assessment Name
-        %i.icon-chevron-down.small-text.line-height1
+        %i.small-text.line-height1
+    .span4
+      %a{:href=>"#"}
+        Send Report
+        %i.small-text.line-height1
+    .span4
+      %a{:href=>"#"}
+        Send Email/Sms
+        %i.small-text.line-height1
+    .span4
+      %a{:href=>"#"}
+        Candidate Type
+        %i.small-text.line-height1                            
   .divider1
    
   %ul
@@ -55,9 +67,18 @@
           .span3.first
             %a{:title => "", :href => "#"}
               =assessment.id
-          .span18
+          .span12
             %a{:title => "", :href => "#"}
               = assessment.name
+          .span4
+            %a{:title => "Send Report to candidate", :href => "#"}
+              = @walkin_group.assessment_hash[assessment.id.to_s]["send_report_to_candidate"] ? "Yes" : "No"
+          .span4
+            %a{:title => "Send Assessment Link Email or SMS", :href => "#"}
+              = @walkin_group.assessment_hash[assessment.id.to_s]["send_assessment_link_email_or_sms"] ? "Yes" : "No"
+          .span4
+            %a{:title => "Candidate Type", :href => "#"}
+              = @walkin_group.assessment_hash[assessment.id.to_s]["candidate_stage"]
           .clr
           .divider1
       
