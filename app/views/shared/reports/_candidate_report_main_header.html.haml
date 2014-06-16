@@ -2,7 +2,7 @@
   .container
     .logo.pull-left.pull-left
       - if ["html","feedback"].include?(@view_mode)
-        = link_to(image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}"), Rails.application.config.action_controller.asset_host)
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
       - else
         = link_to(wicked_pdf_image_tag("jombay-logo.png"), "/")
     - if @view_mode == "feedback"
