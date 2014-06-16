@@ -1,5 +1,11 @@
 Recruiters::Application.routes.draw do
   resources :candidates do
+    member do
+      match 'generate_assessment_link', :as => :generate_assessment_link
+      match 'deactivate_assessment_link', :as => :deactivate_assessment_link
+      get 'assessment_link/:assessment_id' => :assessment_link, :as => :assessment_link
+      match 'update_candidate_stage', :as => :update_candidate_stage
+    end
     collection do
       get "manage" => "candidates#manage", :as => :manage
       post 'export'
