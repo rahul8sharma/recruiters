@@ -7,13 +7,14 @@ Recruiters::Application.routes.draw do
       match 'update_candidate_stage', :as => :update_candidate_stage
     end
     collection do
-      get "manage" => "candidates#manage", :as => :manage
-      post 'export'
-      post 'import'
-      post 'export_validation_progress'
-      post 'export_candidate_responses'
-      post 'export_candidate_reports'
-      post 'export_candidate_report_urls'
+      get "manage" => "candidates_management#manage", :as => :manage
+      post "update_candidate_assessments" => "candidates_management#update_candidate_assessments", :as => :update_candidate_assessments
+      post 'export' => "candidates_management#export"
+      post 'import' => "candidates_management#import"
+      post 'export_validation_progress' => "candidates_management#export_validation_progress"
+      post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
+      post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
+      post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
       get :destroy_all
     end
   end
