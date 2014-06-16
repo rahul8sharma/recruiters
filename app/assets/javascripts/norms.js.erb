@@ -52,21 +52,31 @@ jQuery(document).ready(function($) {
     $(".check_factor").prop("checked", $(this).is(":checked"));
     $(".check_factor").trigger("change");
   });
-
-  var traits_min = <%= Rails.application.config.validators["traits_range"]["min"] %>;
+  
+  //- -validation for norms range ---//
+  var user_type = $('input[name="user"]').val()
+  if (user_type == "SuperAdmin"){
+    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["min"] %>);  
+    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["max"] %>);  
+  }else{
+    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["min"] %>);  
+    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["max"] %>);  
+  }
+  //--form submission
   $('#edit_assessment').submit(function() {
-      if ($('input[name=selected_factor]:checked').length >= parseInt(traits_min)) {
-          $('#edit_assessment button').attr("disabled", "disabled");
+      if ($('input[name=selected_factor]:checked').length >= traits_min && $('input[name=selected_factor]:checked').length <= traits_max) {
+          $('#edit_assessment input[type="submit"]').attr("disabled", "disabled");
           return true;
       } else {
           $("#trait_flag").removeAttr('hidden');
           return false;
       }
   });
+  //- -validation for norms range ---//
 
-  // To check the number of traits selected//
+  //--- To check the number of traits selected ----//
   var approximate_time_per_factor = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
-  var traits_selected_counter = parseInt($('input[name="selected_factor"]:checked').length);  
+  var traits_selected_counter = $('input[name="selected_factor"]:checked').length;  
   var approximate_time = traits_selected_counter * approximate_time_per_factor; //total time in seconds
   var approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
   var approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
@@ -78,43 +88,27 @@ jQuery(document).ready(function($) {
 
   $('input[name="selected_factor"]').on("change",function(){
     if($(this).is(":checked")){
-      traits_selected_counter += 1;
-      approximate_time = traits_selected_counter * approximate_time_per_factor;
-      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(pad(traits_selected_counter));
-      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
-      textHighlighter(traits_selected_counter);
-    }
-    else
-    {
-      traits_selected_counter -= 1;
-      approximate_time = traits_selected_counter * approximate_time_per_factor;
-      approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
-      approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
-      $("#traits-counter").html(pad(traits_selected_counter));
-      $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
-      textHighlighter(traits_selected_counter);
+      timer(1);//function to iterate the timer
+    }else{
+      timer(-1);//function to iterate the timer
     }
   });
-
+  //--- To check the number of traits selected ----//
   function pad(val)
   {
     var valString = val + "";
     if(valString.length < 2)
     {
-        return "0" + valString;
-    }
-    else
-    {
-        return valString;
+      return "0" + valString;
+    }else{
+      return valString;
     }
   }
 
   function textHighlighter(counter)
   {
-    var lower_limit = <%= Rails.application.config.validators["traits_range"]["min"] %>;
-    var upper_limit = <%= Rails.application.config.validators["traits_range"]["max"] %>;
+    var lower_limit = traits_min;
+    var upper_limit = traits_max;
     
     if(counter < lower_limit || counter > upper_limit){
       $("#traits-counter").addClass("color-stop");
@@ -125,6 +119,17 @@ jQuery(document).ready(function($) {
       $("#traits-counter").removeClass("color-stop");
       $("#label_counter").removeClass("color-stop");
     }
+  }
+
+  // increments the timer
+  function timer(iterator){
+    traits_selected_counter += iterator;
+    approximate_time = traits_selected_counter * approximate_time_per_factor;
+    approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+    approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+    $("#traits-counter").html(pad(traits_selected_counter));
+    $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
+    textHighlighter(traits_selected_counter);
   }
 
 
