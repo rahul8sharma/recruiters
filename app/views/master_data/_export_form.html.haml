@@ -26,11 +26,20 @@
           %select{ name: "export[filters][job_experience_id][]", multiple: true, size: 10 }    
             - controller.send("select_job_experience_id").each do |name, id|
               %option{ value: id }
-                = name          
+                = name
+          Factors :
+          %select{ name: "export[filters][factor_id][]", multiple: true, size: 10 }    
+            - controller.send("select_factor_id").each do |name, id|
+              %option{ value: id }
+                = name                          
 
+      %p
+        %label
+          Override with Jombay Generator If Present?
+        = f.check_box :override
       %p
         Notification Email : 
         = f.text_field :email, :value => "product@jombay.com"
     .actions
-      = submit_tag "Download #{controller.resource_name.humanize}"
+      = submit_tag "Download #{controller.resource_name.humanize}", :confirm => "Are you sure?"
 
