@@ -1,0 +1,10 @@
+%div
+  Name:
+  = @competency.name
+%div
+  Active:
+  = @competency.active
+%div
+  = link_to "Edit", edit_suitability_competency_path(@competency)
+  \|
+  = link_to "Back", suitability_competencies_path

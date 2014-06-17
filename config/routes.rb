@@ -386,7 +386,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :competencies, :only => [:index] do
+    resources :competencies do
       collection do
         get :manage
         get :destroy_all
@@ -468,7 +468,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :factors, :only => [:index, :new, :show] do
+    resources :factors do
       collection do
         post :import
         get :manage
