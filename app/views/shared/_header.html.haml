@@ -10,9 +10,9 @@
       .divider1
     - if current_user 
       - if defined?(@company)  
-        .span7.company_name{:title => "#{@company.name}"}
+        .span8.company_name{:title => "#{@company.name}"}
           = truncate @company.name, :length   => 28
-      .span19.pull-right
+      .span18.pull-right
         %ul#sub-nav.pull-right
           %li
             %a.setting{href: "#", title: "Account"}             
