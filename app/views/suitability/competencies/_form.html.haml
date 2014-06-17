@@ -1,0 +1,6 @@
+= form_for @competency, :as => :competency, :url => suitability_competency_path(@competency), method: :put do |f|
+  .field
+    = f.label :active
+    = f.check_box :active
+  .actions
+    = f.submit 'Update'
