@@ -31,11 +31,30 @@
           %select{ name: "export[filters][factor_id][]", multiple: true, size: 10 }    
             - controller.send("select_factor_id").each do |name, id|
               %option{ value: id }
-                = name                          
+                = name  
+                
+      %br
+      %br
+      %p          
+        Generator Industry :
+        %select{ name: "export[generator_industry_id]", style: "width:200px" }    
+          - controller.send("select_industry_id").each do |name, id|
+            %option{ value: id, selected: (name == "Jombay Generator") }
+              = name      
+        Generator Functional Area :
+        %select{ name: "export[generator_functional_area_id]", style: "width:200px" }    
+          - controller.send("select_functional_area_id").each do |name, id|
+            %option{ value: id, selected: (name == "Jombay Generator") }
+              = name
+        Generator Job Experiences :
+        %select{ name: "export[generator_job_experience_id]", style: "width:200px" }    
+          - controller.send("select_job_experience_id").each do |name, id|
+            %option{ value: id, selected: (name == "Jombay Generator") }
+              = name
 
       %p
         %label
-          Override with Jombay Generator If Present?
+          Override with Generator If Present?
         = f.check_box :override
       %p
         Notification Email : 
