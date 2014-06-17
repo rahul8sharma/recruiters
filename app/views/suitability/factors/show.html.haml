@@ -8,6 +8,8 @@
   
 = link_to "Add Item", new_suitability_item_path(item_type: "Suitability::Item", :item => { :factor_id => @factor.id })
 \|
+= link_to "Edit", edit_suitability_factor_path(@factor)
+\|
 = link_to "Back", suitability_factors_path
 
 %div
