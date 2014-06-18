@@ -80,10 +80,10 @@ module Recruiters
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
     config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))
     config.signup = YAML.load(File.read(Rails.root.join("config/signup.yml"))).symbolize_keys
-    
-    
+
+
     config.action_controller.default_url_options = { :trailing_slash => true }
-    config.time_zone = 'Mumbai'    
+    config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
 
@@ -97,5 +97,11 @@ module Recruiters
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
+
+    # Redis configuration for redis driven app configuration
+    config.redis_driven_configuration = YAML::load(
+                    File.open(
+                        "#{Rails.root.to_s}/config/redis_driven_configuration.yml"
+                            ))
   end
 end

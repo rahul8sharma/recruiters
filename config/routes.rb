@@ -526,6 +526,8 @@ Recruiters::Application.routes.draw do
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
 
+  resources :global_configurations
+
   match "/sign_up" => "signup#sign_up", :as => :sign_up
   root :to => "users#login"
 
