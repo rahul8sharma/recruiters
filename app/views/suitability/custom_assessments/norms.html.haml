@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
-  Please select a minimum of #{Rails.application.config.validators["traits_range"][current_user.type]["min"]} trait(s) to create this assessment (You can select maximum #{@factor_norms.count} traits).
+  Please select a minimum of #{Rails.application.config.validators["traits_range"][current_user.type]["min"]} trait(s) to create this assessment (You can select maximum #{Rails.application.config.validators["traits_range"][current_user.type]["max"]} traits).
 .norms
   .page-title.pull-left
     #{@assessment.name}
