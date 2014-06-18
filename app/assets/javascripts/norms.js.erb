@@ -68,6 +68,7 @@ jQuery(document).ready(function($) {
           return true;
       } else {
           $("#trait_flag").removeAttr('hidden');
+          scroller('#trait_flag');
           return false;
       }
   });
@@ -86,6 +87,13 @@ jQuery(document).ready(function($) {
     }
   });
   //--- To check the number of traits selected ----//
+
+  $('.scroll').on('click', function(){
+    scroller('#scale_description');
+  });
+
+  $(window).scroll(placeHeader);
+  
   function pad(val)
   {
     var valString = val + "";
@@ -113,7 +121,6 @@ jQuery(document).ready(function($) {
     }
   }
 
-  // increments the timer
   function timer(iterator){
     traits_selected_counter += iterator;
     approximate_time = traits_selected_counter * approximate_time_per_factor;
@@ -122,15 +129,14 @@ jQuery(document).ready(function($) {
     $("#traits-counter").html(pad(traits_selected_counter));
     $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
     textHighlighter(traits_selected_counter);
-  }
+  }  
 
-
-  $('.scroll').click(function(){
+  function scroller(target){
     $('html, body').animate({
-        scrollTop: $( $.attr(this, 'href') ).offset().top - 37
+      scrollTop: $(target).offset().top - 37
     }, 500);
     return false;
-  });
+  }
 
   function placeHeader(){ 
     var $table  = $('#info_bar');  
@@ -141,5 +147,5 @@ jQuery(document).ready(function($) {
       $header.offset({top: $table.offset().top}); 
     }    
   }
-  $(window).scroll(placeHeader);  
+    
 });
