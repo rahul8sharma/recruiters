@@ -1,3 +1,17 @@
 %h1 All Candidates
 - if can? :create, "Candidate"
   = link_to "Manage Candidates", manage_candidates_path
+%table{width: "100%"}
+  %th{width: "10%"} ID
+  %th{width: "40%"} Name
+  %th{width: "40%"} Email
+  %th{width: "10%"} 
+  - @candidates.each do |candidate|
+    %tr
+      %td 
+        = link_to candidate.id, candidate_path(candidate)
+      %td #{candidate.name}
+      %td #{candidate.email}
+      %td 
+        = link_to "Edit", edit_candidate_path(candidate)
+= paginate(@candidates)        

@@ -1,8 +1,8 @@
 class StagingMailInterceptor
   def self.delivering_email(message)
     dont_intercept_mails_from = [
-                                 "sysadmin@jombay.com",
-                                 "errors@jombay.com"
+                                 "Jombay <sysadmin@jombay.com>",
+                                 "Jombay <errors@jombay.com>"
                                 ]
     unless dont_intercept_mails_from.include?(message.from.first)
       #Intercept

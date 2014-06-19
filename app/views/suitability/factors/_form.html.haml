@@ -1,4 +1,6 @@
-= form_tag import_suitability_factors_path, multipart: true, :method => :post do
-  = file_field_tag :file
+= form_for @factor, :as => :factor, :url => suitability_factor_path(@factor), method: :put do |f|
+  .field
+    = f.label :active
+    = f.check_box :active
   .actions
-    = submit_tag 'Upload Suitability Factors'
+    = f.submit 'Update'

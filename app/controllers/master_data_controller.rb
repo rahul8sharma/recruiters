@@ -45,6 +45,10 @@ class MasterDataController < ApplicationController
   end
 
   def export_to_google_drive
+    if params[:export][:folder][:url].blank?
+      flash[:error] = "Please enter a valid google drive folder url!"
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
     params[:export][:filters] ||= {}
     params[:export][:filters][:functional_area_id] ||= nil
     params[:export][:filters][:job_experience_id] ||= nil

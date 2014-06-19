@@ -71,10 +71,10 @@
           - valid_from = Date.parse(subscription.valid_from)
           #{valid_from.strftime("%d/%m/%Y")}
         .span4
-          - valid_to = Date.parse(subscription.valid_to)
+          - valid_to = DateTime.parse(subscription.valid_to)
           #{valid_to.strftime("%d/%m/%Y")}
-        .span{ class: (valid_to >= Date.today) ? "success-text" : "alert-text" }
-          #{(valid_to >= Date.today) ? "Active" : "Expired"}
+        .span{ class: (valid_to > Time.now) ? "success-text" : "alert-text" }
+          #{(valid_to > Time.now) ? "Active" : "Expired"}
           -#toggle btween :".success-text" and ".alert-text"
         .clr
         .divider1

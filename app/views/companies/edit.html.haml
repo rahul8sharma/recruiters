@@ -21,6 +21,11 @@
       = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
       .control-group
         %label.span7.first.big-text.line-height2.gray-darker
+          Company Name:
+        = f.text_field :name, :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span7.first.big-text.line-height2.gray-darker
           Company Pan Card Number:
         = f.text_field :pancard, :class => "first span7 medium-text left-offset1"
         .clr

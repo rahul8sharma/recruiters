@@ -60,9 +60,28 @@
                     Enter Display Name for the Assessments. This name is displayed on the Index Page. If left blank, existing assessments title will be shown.
                 = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
                   %input.fw{:type => "text", :placeholder => "Enter Display Name for the Assessments. This name is displayed on the Index Page. If left blank, existing assessments title will be shown.", name: "walkin_group[assessment_hash][#{assessment.id}][display_text]", value: @walkin_group.assessment_hash["#{assessment.id}"]['display_text']}
-
-
               .clr
+            .control-group
+              .span5.medium-text.line-height2.first.text-center
+                Set Candidate Type
+              .span25
+                %select{name: "walkin_group[assessment_hash][#{assessment.id}][candidate_stage]", value: @walkin_group.assessment_hash["#{assessment.id}"]['candidate_stage']}
+                  - Vger::Resources::Candidate::STAGES.each do |candidate_stage|
+                    %option{value: candidate_stage}
+                      = candidate_stage
+              .clr
+            .control-group
+              .span5.medium-text.line-height2.first.text-center
+                Send Report to Candidate
+              .span25
+                %input{type: "checkbox", name: "walkin_group[assessment_hash][#{assessment.id}][send_report_to_candidate]", checked: @walkin_group.assessment_hash["#{assessment.id}"]['send_report_to_candidate']}
+              .clr
+            .control-group
+              .span5.medium-text.line-height2.first.text-center
+                Send Assessment Link Email/SMS to Candidate
+              .span25
+                %input{type: "checkbox", name: "walkin_group[assessment_hash][#{assessment.id}][send_assessment_link_email_or_sms]", checked: @walkin_group.assessment_hash["#{assessment.id}"]['send_assessment_link_email_or_sms']}
+              .clr      
       .divider2
       .text-right
         %a.extra-medium-text.line-height3{:href => company_walkin_group_path(@company, @walkin_group), :title => "Cancel"}
