@@ -1,0 +1,34 @@
+.inner
+  .scores.favorable_factors
+    .blue_bg_heading.text-center.big-text
+      - if @view_mode == "html"
+        Scores of Traits measured under different Competencies 
+      - else
+        Factor wise scores per competency  
+    .divider2 
+    .indication.pull-left
+      .pull-left.box
+      .pull-left
+        %b Expected Score
+      .clr
+      .divider1
+      .pull-left.hexagon-icon.mid_favorable
+      .pull-left
+        %b Obtained Score
+      .clr
+      
+    .scale.pull-left
+      - @norm_buckets.each do |norm_bucket|
+        .marker
+          - if norm_bucket.name.split(" ").size == 1
+            %br/
+          = norm_bucket.name
+      .clr
+    .clr
+    .divider2
+    - if @view_mode == "html"
+      - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
+        - if competency_data[:factor_scores].present?
+          = render :template => "assessment_reports/competency_report/html/competency", :locals => { competency_name: competency_name, competency_data: competency_data, factor_scores: competency_data[:factor_scores], step: 0 }
+    - else
+      = render :template => "assessment_reports/competency_report/html/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
