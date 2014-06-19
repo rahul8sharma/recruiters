@@ -1,31 +1,37 @@
-.inner
-  .scores.favorable_factors
-    .blue_bg_heading.text-center.big-text
+.section03
+  .divider2
+  .scores.container
+    .title
       - if @view_mode == "html"
         Scores of Traits measured under different Competencies 
       - else
-        Factor wise scores per competency  
-    .divider2 
-    .indication.pull-left
-      .pull-left.box
-      .pull-left
-        %b Expected Score
-      .clr
-      .divider1
-      .pull-left.hexagon-icon.mid_favorable
-      .pull-left
-        %b Obtained Score
-      .clr
-      
-    .scale.pull-left
-      - @norm_buckets.each do |norm_bucket|
-        .marker
-          - if norm_bucket.name.split(" ").size == 1
-            %br/
-          = norm_bucket.name
-      .clr
-    .clr
+        Factor wise scores per competency 
     .divider2
+    .instruction_container.pull-left
+      .instructions
+        .box.pull-left
+          .box-icon.pull-left
+          .box-title.pull-left Expected Score
+          .clr
+        .instruction1.pull-left
+          Favorable Traits 
+        .instruction2.less_favorable.pull-left
+          Less Favorable Traits
+        .clr
+    .scale
+      .line
+      .marker-container
+        - @norm_buckets.each do |norm_bucket|
+          .marker
+            .arrow
+            .marker-info
+              Some text here
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
+            = norm_bucket.name
+        .clr
+    .clr
+    .divider4
     - if @view_mode == "html"
       - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
         - if competency_data[:factor_scores].present?

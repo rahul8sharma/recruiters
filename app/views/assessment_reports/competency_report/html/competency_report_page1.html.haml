@@ -15,7 +15,7 @@
       .divider1
       Assessment Answered On: 
       = @report.report_hash[:completed_at]
-  .divider2
+    .divider2
 .overview 
   .top-triangle
   .container
@@ -91,5 +91,4 @@
               Less Favorable
             .clr
         .clr
-        - competency_scores.each do |competency_name,competency_data|
-          = render :partial => "assessment_reports/competency_report/html/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+        

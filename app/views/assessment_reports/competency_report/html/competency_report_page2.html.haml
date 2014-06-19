@@ -1,17 +1,35 @@
-.inner
-  .overall_report
-    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-    .competency_container
-      .sub-heading.medium-text.pull-left
-        Competencies/Values Measured
-        %span (contd.)
-      .instruction_container.pull-right
-        .instructions
-          .instruction1.pull-left
-            Favorable 
-          .instruction2.pull-left.less_favorable
-            Less Favorable
-          .clr
-      .clr
-      - competency_scores.each do |competency_name,competency_data|
-        = render :partial => "assessment_reports/competency_report/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+.section02
+  .divider2
+  .scores.container
+    .title
+      Competencies/Values Measured
+    .divider2
+    .instruction_container
+      .instructions
+        .instruction1.pull-left
+          Favorable Traits 
+        .instruction2.less_favorable.pull-left
+          Less Favorable Traits
+        .clr
+    .divider3
+    
+    - competency_scores.each do |competency_name,competency_data|
+      = render :partial => "assessment_reports/competency_report/html/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+-#
+  .inner
+    .overall_report
+      = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+      .competency_container
+        .sub-heading.medium-text.pull-left
+          Competencies/Values Measured
+          %span (contd.)
+        .instruction_container.pull-right
+          .instructions
+            .instruction1.pull-left
+              Favorable 
+            .instruction2.pull-left.less_favorable
+              Less Favorable
+            .clr
+        .clr
+        - competency_scores.each do |competency_name,competency_data|
+          = render :partial => "assessment_reports/competency_report/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
