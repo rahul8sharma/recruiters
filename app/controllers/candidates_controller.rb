@@ -14,7 +14,11 @@ class CandidatesController < ApplicationController
   end
 
   def index
-    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10)
+    params[:order_by] ||= "id"
+    params[:order_type] ||= "ASC"
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
+    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10, :query_options => params[:search], :order => "#{params[:order_by]} #{params[:order_type]}")
     render :layout => "admin"
   end
 

@@ -7,6 +7,7 @@ class MasterDataController < ApplicationController
 
   def index
     params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
     @objects = api_resource.where(
       :query_options => params[:search], 
       :methods => index_columns,
