@@ -7,18 +7,21 @@
 .pagination.pull-right
   = paginate @objects
 .clr  
-
-%table
-  %tr
-    - controller.index_columns.each do |column|
-      %th
-        = column.to_s.humanize
-  - @objects.each do |object|
-    %tr 
+%fieldset
+  %legend
+    Results  
+  %table
+    %tr
       - controller.index_columns.each do |column|
-        %td
-          = object.send(column)
-
+        %th
+          = column.to_s.humanize
+    - @objects.each do |object|
+      %tr 
+        - controller.index_columns.each do |column|
+          %td
+            = object.send(column)
+%br
+%br
 .pagination.pull-right
   = paginate @objects
 .clr   
