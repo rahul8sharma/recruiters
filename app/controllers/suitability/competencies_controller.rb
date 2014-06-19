@@ -11,6 +11,13 @@ class Suitability::CompetenciesController < MasterDataController
     [:id, :uid, :name, :company_ids, :factor_names, :active]
   end
   
+  def search_columns
+    [
+      :id,
+      :name
+    ]
+  end
+  
   def edit
     @competency = api_resource.find(params[:id], :root => :competency)
     respond_to do |format|
