@@ -13,6 +13,12 @@
               = page + 1
         .clr
   .clr
+  .search
+    = form_for :search, url: companies_path, method: :get do |f|
+      .field
+        = f.text_field :id, :placeholder => "Company ID"
+        = f.text_field :name, :placeholder => "Company Name"
+        = f.submit "Search"  
   .divider2
   .list-snippet-titles.medium-text.clearfix
     .span2.first
