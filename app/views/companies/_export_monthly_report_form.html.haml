@@ -1,0 +1,17 @@
+= form_for :company, url: export_monthly_report_companies_path, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Download monthly report
+    = f.fields_for "args" do |af|
+      %p
+        Notification Email : 
+        = af.text_field :email, :value => "product@jombay.com"
+      %p
+        Company Ids (Keep Blank to export all): 
+        = af.text_field :company_ids, :value => ""
+      %p
+        Months : 
+        = af.text_field :months, :value => 1
+
+    .actions
+      = f.submit 'Download Companies'

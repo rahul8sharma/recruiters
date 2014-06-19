@@ -146,6 +146,12 @@ class CompaniesController < ApplicationController
       .export_companies(params[:company])
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+  
+  def export_monthly_report
+    Vger::Resources::Company\
+      .export_monthly_report(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 
   def show
     if @company.hq_location_id
