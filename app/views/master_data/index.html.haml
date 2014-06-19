@@ -1,7 +1,8 @@
 %h1 #{controller.resource_name.humanize}
 
 = link_to "Manage #{controller.resource_name.humanize}", controller.manage_path
-
+%br
+%br
 = render :partial => "master_data/search"
 
 .pagination.pull-right
