@@ -99,9 +99,14 @@ module Recruiters
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
 
     # Redis configuration for redis driven app configuration
-    config.redis_driven_configuration = YAML::load(
+    redis_configuration = YAML::load(
                     File.open(
                         "#{Rails.root.to_s}/config/redis_driven_configuration.yml"
                             ))
+
+    config.configuration_server = Redis.new host: redis_configuration['host'],
+                                            port: redis_configuration['port'],
+                                            db: redis_configuration['db'],
+                                            driver: :celluloid
   end
 end

@@ -60,10 +60,6 @@ class ConfigurationController < ApplicationController
   end
 
   def redis_server
-    redis_configuration = Rails.application.config.redis_driven_configuration
-    Redis.new host: redis_configuration['host'],
-      port: redis_configuration['port'],
-      db: redis_configuration['db'],
-      driver: :celluloid
+    Rails.application.config.configuration_server
   end
 end
