@@ -1,0 +1,9 @@
+%br/
+= render :partial => "master_data/#{controller.import_from}"
+%br/
+= render :partial => "master_data/export_form"
+%br/
+= render :partial => "subscriptions/expire_subscription_form"
+%br/
+= link_to 'Back', controller.index_path
+= link_to 'Destroy All', controller.destroy_all_path

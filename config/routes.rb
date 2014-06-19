@@ -1,13 +1,20 @@
 Recruiters::Application.routes.draw do
   resources :candidates do
+    member do
+      match 'generate_assessment_link' => "candidates_management#generate_assessment_link", :as => :generate_assessment_link
+      match 'deactivate_assessment_link' => "candidates_management#deactivate_assessment_link", :as => :deactivate_assessment_link
+      get 'assessment_link/:assessment_id' => "candidates_management#assessment_link", :as => :assessment_link
+      match 'update_candidate_stage' => "candidates_management#update_candidate_stage", :as => :update_candidate_stage
+    end
     collection do
-      get "manage" => "candidates#manage", :as => :manage
-      post 'export'
-      post 'import'
-      post 'export_validation_progress'
-      post 'export_candidate_responses'
-      post 'export_candidate_reports'
-      post 'export_candidate_report_urls'
+      get "manage" => "candidates_management#manage", :as => :manage
+      post "update_candidate_assessments" => "candidates_management#update_candidate_assessments", :as => :update_candidate_assessments
+      post 'export' => "candidates_management#export"
+      post 'import' => "candidates_management#import"
+      post 'export_validation_progress' => "candidates_management#export_validation_progress"
+      post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
+      post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
+      post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
       get :destroy_all
     end
   end
@@ -235,6 +242,7 @@ Recruiters::Application.routes.draw do
 
   resources :subscriptions, :only => [:index] do
     collection do
+      post :expire_subscription, :as => :expire_subscription
       post :payment_status, :as => :payment_status
       post :import
       get :manage

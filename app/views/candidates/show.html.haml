@@ -1,80 +1,123 @@
-.create-test.creat-test-show
-  .inn.first
-    .page-title
-      Test ID - Test Title
-  .inn.gray-gradient
+.candidate_profile
+  .page-title
+    .divider1
+    Candidate Details
+  .divider2
+  .padding-all2.border-warning.shifted-up1
+    %table
+      %tr
+        %td{width: "30%"} Name:
+        %td
+          = @candidate.name
+      %tr
+        %td Email:
+        %td
+          = @candidate.email
+      %tr
+        %td Alternate Email:
+        %td
+          = @candidate.alternate_email
+      %tr
+        %td Mobile:
+        %td
+          = @candidate.mobile
+      %tr
+        %td Age:
+        %td
+          = @candidate.age
+      %tr
+        %td Gender:
+        %td
+          = @candidate.gender
+      %tr
+        %td Marital Status:
+        %td
+          = @candidate.marital_status
+      %tr
+        %td Companies worked for:
+        %td
+          = @candidate.companies_worked_for
+      %tr
+        %td Current Company:
+        %td
+          = @candidate.current_company
+      %tr
+        %td Total Experience:
+        %td
+          = @candidate.total_experience
+      %tr
+        %td Current Company Experience:
+        %td
+          = @candidate.current_company_experience
+      %tr
+        %td Current CTC:
+        %td
+          = @candidate.current_ctc
+      %tr
+        %td Current Designation:
+        %td
+          = @candidate.current_designation
+      %tr
+        %td Industry:
+        %td
+          = @candidate.industry.name rescue "-"
+      %tr
+        %td Functional area:
+        %td
+          = @candidate.functional_area.name rescue "-"
+      %tr
+        %td Degree with Specialization:
+        %td
+          = @candidate.degree.name rescue "-"
+      %tr
+        %td Current Location:
+        %td
+          = @candidate.location.name rescue "-"
+      %tr
+        %td Number of Dependants:
+        %td
+          = @candidate.no_of_dependents
+    %br      
+    %br
+    .span8.generate_link.pull-left
+      %b
+        Generate Assessment Link
+      %br  
+      = form_tag generate_assessment_link_candidate_path(@candidate) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group  
+          = submit_tag "Generate Assessment Link"  
+    .span8.deactivate_link.pull-left
+      %b
+        Deactivate Assessment Link
+      %br  
+      = form_tag deactivate_assessment_link_candidate_path(@candidate) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group  
+          = submit_tag "Deactivate Assessment Link"        
     .pull-left
-      = render :partial => "shared/candidate-content-sub-nav"
-    .clr
-    .divider2
-
-    .candidate-details
-      %b Name: 
-      Candidate FullName
-      .divider1
-      %ul.clearfix
-        %li
-          %b Email id:
-          something@id.com
-        %li
-          %b Current Company Name:
-          Something
-        %li
-          %b Contact no.:
-          8936746596
-        %li
-          %b Industry:
-          Something
-        %li
-          %b Current Location:
-          Something
-        %li
-          %b Current Functional area:
-          Something
-        %li
-          %b Age:
-          25
-        %li
-          %b Experience in Current Company:
-          YY/MM
-        %li
-          %b Gender:
-          Something
-        %li
-          %b Total Work Experience:
-          YY/MM
-        %li
-          %b Marital Status:
-          Something
-        %li
-          %b Current CTC:
-          5.5 Lakhs
-        %li
-          %b Degree with Specialization:
-          Something
-        %li
-          %b Number of Dependants:
-          4
-    .divider3
-    .candidate-report
-      .big-text
-        Reports
-      .divider2
-      .list-snippet-titles.clearfix
-        .span13.first
-          Test ID &amp; Name
-        .span8
-          Recommendation
-        
-      %ul
-        - 8.times do
-          %li.list-snippet
-            .span13
-              %a{:href=> "#", :title=>"TEST043"} 
-                IBM8303 - Test title will come here i couldbe anything
-            .span5.first
-              Highly recommended
-            .span3
-              %a{:href=> "#", :title=>"Click here to View Report"}  
-                View Report
-   
+      %b
+        Update Candidate Type
+      %br  
+      = form_tag update_candidate_stage_candidate_path(@candidate) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group
+          %label Candidate Type:
+          = select_tag :candidate_stage, options_for_select(Vger::Resources::Candidate::STAGES)
+          .clr
+        .control-group  
+          = submit_tag "Update Candidate Stage"             
+    .clr      
+  .divider3
+  = link_to "Back", candidates_path
+  \|
+  = link_to "Edit", edit_candidate_path(@candidate)

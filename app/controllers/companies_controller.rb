@@ -119,7 +119,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Vger::Resources::Company.save_existing(@company.id, params[:company].except(:city, :state, :country))
     if @company.error_messages.blank?
-      redirect_to add_subscription_company_path(@company), notice: "Company details updated successfully!"
+      redirect_to company_path(@company), notice: "Company details updated successfully!"
     else
       render :action => :edit
     end
