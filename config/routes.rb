@@ -27,6 +27,7 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
       post :export_companies
+      post :export_monthly_report
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
