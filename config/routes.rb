@@ -526,7 +526,11 @@ Recruiters::Application.routes.draw do
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
 
-  resources :global_configurations
+  resources :global_configurations do
+    collection do
+      post :update_fallback_strategy
+    end
+  end
 
   match "/sign_up" => "signup#sign_up", :as => :sign_up
   root :to => "users#login"
