@@ -10,7 +10,10 @@
         - controller.search_columns.each do |column|
           .field.pull-left
             = f.label column.to_sym
-            = f.select column.to_sym, controller.send("select_#{column.to_s}"), { }, { style: "width:200px;" }
+            - if controller.respond_to?("select_#{column.to_s}".to_sym)
+              = f.select column.to_sym, controller.send("select_#{column.to_s}"), { }, { style: "width:200px;" }
+            - else
+              = f.text_field column.to_sym  
         .field.pull-left
           = f.submit :search
         .clr
