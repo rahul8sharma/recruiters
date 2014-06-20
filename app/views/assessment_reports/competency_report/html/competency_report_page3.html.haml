@@ -25,7 +25,7 @@
           .marker
             .arrow
             .marker-info
-              Some text here
+              = norm_bucket.description
             - if norm_bucket.name.split(" ").size == 1
               %br/
             = norm_bucket.name

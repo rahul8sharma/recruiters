@@ -23,7 +23,7 @@
           .marker
             .arrow
             .marker-info
-              Some text here
+              = norm_bucket.description
             - if norm_bucket.name.split(" ").size == 1
               %br/
             = norm_bucket.name
@@ -42,7 +42,7 @@
               .factor-name.pull-left
                 = factor_name
                 .info
-                  Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+                  = factor_score[:description] == "-" ? "- <br/><br/>".html_safe : factor_score[:description]
                 .arrow
               .clr
           .rhs-sec.pull-right
@@ -51,7 +51,7 @@
               .pointer{ class: "position#{scale[:position]}" }
                 -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
                 .score-indicater
-                  norm_bucket name
+                  = factor_score[:norm_bucket]
                 .arrow
               .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
               -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)

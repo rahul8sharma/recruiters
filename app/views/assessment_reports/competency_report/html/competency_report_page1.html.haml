@@ -24,71 +24,14 @@
       .overview-title.pull-left
         Overview of Competencies / Values Measured
       %ul.competency-list.pull-left
-        -6.times do
+        - competency_scores.each do |competency_name, competency_score|
           %li
             .competency-name.span15
               .padding-all1
-                People Management
+                = competency_name
             .competency-value.span6
               .padding-all1
-                Above Average
+                = competency_score[:grade]
             .clr
       .clr
     .divider1
--# old code for future ref
-  .inner{ style: "margin-top:0px;" }
-    .overall_report
-      .logo.pull-right
-      .clr
-      .divider3
-      .heading
-        .big-text
-          #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
-        .user_name
-          = @report.report_hash[:candidate][:name]
-        .span.first
-          Assessment: 
-        .span10
-          = @report.report_hash[:assessment][:name]
-        .clr
-        .date
-          %span Date: 
-          %span
-            = @report.report_hash[:completed_at]
-        .clr
-
-      .divider2
-      / = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
-      .divider3
-      .responses
-        - if @report.report_hash[:consistency][:enabled]
-          .blocks
-            %i.icon-align-justify
-            Overall Reliability of Candidate's Responses: 
-            %span.score 
-              = @report.report_hash[:consistency][:bucket_name]
-        - if @report.report_hash[:reliability][:enabled]
-          .blocks
-            %div.icon-spinner 
-            Overall Consistency of Responses: 
-            %span.score 
-              = @report.report_hash[:reliability][:bucket_name]
-      .divider3
-      -#
-        %p.competency-description
-          - if @report.report_hash[:candidate_stage] == "employee"
-            This report is built on Custom Competency Frameworks unique to a company. Along with Competency scores, this report also classifies behavioral factors as Favorable or Less Favorable and provides detailed score descriptions on them. Also included is a Development Guide for Employees and Guidelines for their managers.
-          - else
-            This report is built on Custom Competency Frameworks unique to a company. Along with Competency scores, this report also classifies behavioral factors as Favorable or Less Favorable and provides detailed score descriptions on them. Also included is a comprehensive list of Interview Questions.
-      .competency_container
-        .sub-heading.medium-text.pull-left
-          Competencies/Values Measured
-        .instruction_container.pull-right
-          .instructions
-            .instruction1.pull-left
-              Favorable 
-            .instruction2.pull-left.less_favorable
-              Less Favorable
-            .clr
-        .clr
-        
