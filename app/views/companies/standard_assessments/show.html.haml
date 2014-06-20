@@ -30,10 +30,10 @@
   .padding-all2.border-warning.shifted-up1
     .divider2
     .factors_container
-      .factors_list
+      .factors_list.container
         - @assessment_factor_norms.each_with_index do |factor_norm,index|
           %div{:class=>"factor_#{index+1}"}
-            .wrapper{:style=>"margin-top: 30px;"} 
+            .text-wrap{:style=>"margin-top: 30px;"} 
               -# for .wrapper- margin refer fit-report/page2.html.haml  {:style=>"margin-top: #{margin}px;"} I think its 30px for signle line
               = factor_norm.factor.name
     .divider2
