@@ -117,12 +117,12 @@ class AssessmentReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/_report_footer.html.haml",
-            layout: "layouts/candidate_reports" 
+            template: "shared/reports/pdf/_report_footer.pdf.haml",
+            layout: "layouts/candidate_reports.pdf.haml" 
           }
         },           
-        template: "assessment_reports/#{template}.html.haml", 
-        layout: "layouts/candidate_reports.html.haml", 
+        template: "assessment_reports/#{template}.pdf.haml", 
+        layout: "layouts/candidate_reports.pdf.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
