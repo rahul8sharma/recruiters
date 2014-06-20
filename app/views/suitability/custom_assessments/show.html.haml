@@ -13,7 +13,7 @@
   //%a.btn.btn-warning.pull-right{:href => norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
   //  Edit Test
   .padding-all2.border-warning.shifted-up1
-    - if (@norms_buckets.present?)
+    - if (@assessment_factor_norms.present?)
       .big-text.font-bold
         .pull-left
           Traits Measured: #{@assessment_factor_norms.count}
@@ -28,35 +28,34 @@
               %br/
             = norm_bucket.name
         .clr
-      - else
-        .alert.medium-text
-          You have not added any traits to this assessment. To add traits to this asssessment
-          %a{ href: norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Add Traits" } Click here
       .clr
+      %ul.clearfix.scores_listing.first
+        - if @assessment_factor_norms.present?
+          - @assessment_factor_norms.each do |factor_norm|
+            - to_norm_bucket = @norm_buckets[factor_norm.to_norm_bucket_id]
+            - from_norm_bucket = @norm_buckets[factor_norm.from_norm_bucket_id]
+            - width = to_norm_bucket.weight - from_norm_bucket.weight
+            - offset = from_norm_bucket.weight - 1
+            %li
+              .lhs-sec.span20.first
+                .factor-name
+                  = factor_norm.factor.name
+                .factor-description
+                  = factor_norm.factor.definition
+              .rhs-sec.pull-right
+                .marker-set
+                  - @norm_buckets.values.each do |norm_bucket|
+                    .marker{ class: (factor_norm.from_norm_bucket_id == norm_bucket.id || factor_norm.to_norm_bucket_id == norm_bucket.id) ? "show" : "" }
+                      -  if norm_bucket.name.split(" ").size == 1
+                        %br/
+                      = norm_bucket.name
+                  .clr
+                .slider
+                  .visual
+                  .range{ class: "offset#{offset}  width#{width}" }
 
-    %ul.clearfix.scores_listing.first
-      - if @assessment_factor_norms.present?
-        - @assessment_factor_norms.each do |factor_norm|
-          - to_norm_bucket = @norm_buckets[factor_norm.to_norm_bucket_id]
-          - from_norm_bucket = @norm_buckets[factor_norm.from_norm_bucket_id]
-          - width = to_norm_bucket.weight - from_norm_bucket.weight
-          - offset = from_norm_bucket.weight - 1
-          %li
-            .lhs-sec.span20.first
-              .factor-name
-                = factor_norm.factor.name
-              .factor-description
-                = factor_norm.factor.definition
-            .rhs-sec.pull-right
-              .marker-set
-                - @norm_buckets.values.each do |norm_bucket|
-                  .marker{ class: (factor_norm.from_norm_bucket_id == norm_bucket.id || factor_norm.to_norm_bucket_id == norm_bucket.id) ? "show" : "" }
-                    -  if norm_bucket.name.split(" ").size == 1
-                      %br/
-                    = norm_bucket.name
-                .clr
-              .slider
-                .visual
-                .range{ class: "offset#{offset}  width#{width}" }
-
-            .clr
+              .clr
+    - else
+      .alert.medium-text
+        You have not added any traits to this assessment. To add traits to this asssessment
+        %a{ href: norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Add Traits" } Click here
