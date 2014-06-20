@@ -15,11 +15,11 @@
   .page-break 
   - (0..rest_competency_scores.length-1).step(competency_step) do |step|    
     - step_competency_scores = Hash[rest_competency_scores[step..(step+(competency_step - 1))]]
-    = render :template => "assessment_reports/pdf/competency_report/competency_report_page2", :locals => { competency_scores: step_competency_scores }
+    = render :template => "assessment_reports/competency_report/pdf/competency_report_page2", :locals => { competency_scores: step_competency_scores }
     .page-break
   .page-break 
   - if @view_mode == "html"
-    = render :template => "assessment_reports/pdf/competency_report/competency_report_page3"
+    = render :template => "assessment_reports/competency_report/pdf/competency_report_page3"
   - else
     - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
       - if competency_data[:factor_scores].present?
