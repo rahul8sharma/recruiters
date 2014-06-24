@@ -10,7 +10,7 @@ $(document).ready(function() {
     //-- Back to top --//
     $('.scroll').click(function(){
       $('html, body').animate({
-          scrollTop: $( $.attr(this, 'href') ).offset().top - 37
+          scrollTop: $( $.attr(this, 'href') ).offset().top - 30
       }, 500);
       return false;
     });

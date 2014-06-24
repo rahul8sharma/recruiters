@@ -1,3 +1,6 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
 .header-container
   #header
     .container
@@ -9,19 +12,19 @@
         %ul#nav.clearfix.pull-left
           %li.left
           %li
-            %a{:href => "#overview"}
+            %a.scroll{:href => "#overview", :title => "Overview"}
               Overview
           %li
-            %a{:href => "#traits"}
+            %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
               Traits
           %li
-            %a{:href => "#scores"}
+            %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
               Scores
           %li
-            %a{:href => "#developement_guide"}
+            %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
               Developement Guide
           %li
-            %a{:href => "#manager_guideline"}
+            %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
               Manager Guideline
           %li.right
         = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
@@ -53,3 +56,5 @@
         .clr
       .clr
 .divider3
+
+= javascript_include_tag 'common'  
