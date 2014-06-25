@@ -1,0 +1,35 @@
+#developement_guide.section05
+  .divider2
+  .scores.container.interview_guide
+    .title.pull-left
+      - if @report.report_hash[:candidate_stage].to_sym == :candidate
+        Interview Questions
+      - else
+        Development Guide for the Assessment Taker
+      =# "(continued)" if step != 0  
+    .instruction_container.pull-right
+      .instructions
+        .instruction1.pull-left
+          Favorable Traits 
+        .instruction2.less_favorable.pull-left
+          Less Favorable Traits
+        .clr    
+    
+        - if @report.report_hash[:candidate_stage].to_sym == :candidate  
+          .hexagon-icon.mid_favorable.pull-left
+          .pull-left.extra-medium-text
+            Miscellaneous
+    .clr
+    .divider1
+
+    %ul.clearfix.scores_listing.interview_guide_listing
+      - post_assessment_guidelines.each do |factor_name, guide|
+        %li
+          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+          .span1.first.hexagon-icon{ class: klass }
+          .factor-name.span4
+            = factor_name
+          .factor-description.span22.left-offset1
+            = guide[:body]
+          .clr
+    .divider2

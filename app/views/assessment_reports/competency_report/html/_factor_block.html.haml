@@ -1,0 +1,16 @@
+.competency-container
+  .heading.pull-left{ title: competency_name }
+    = competency_name.to_s[0..50]
+  .heading.pull-right
+    = competency_data[:grade]
+  .clr
+   
+  .factors_container
+    .factors_list  
+      - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
+        - margin = factor_name.split(" ").size > 1 ? 15 : 30
+        %div{:class=>"factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
+          .text-wrap{:style=>"margin-top: #{margin}px;"}
+            = factor_name.gsub(" ","<br/>").html_safe
+      -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
+.divider1  

@@ -1,0 +1,63 @@
+.frame
+  .heading
+    #{competency_name} #{(step > 0 ? "(continued)":"")}: 
+    #{competency_data[:grade]}
+  %ul.clearfix.scores_listing.first
+    - factor_scores.each do |factor_name, factor_score|
+      %li
+        .divider1
+
+        .lhs-sec.pull-left
+          %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
+          -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
+          .span17.first
+            .factor-name.pull-left
+              = factor_name
+              .info
+                = factor_score[:description]
+              .arrow
+            .clr
+
+        .rhs-sec.pull-right
+          .slider
+            - scale = factor_score[:scale]
+            .pointer{ class: "position#{scale[:position]}" }
+              -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+              .score-indicater
+                = factor_score[:norm_bucket]
+              .arrow
+            .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+            -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+
+        .clr
+        .divider1
+        .factor-description
+          = factor_score[:description]
+
+        - if @report.report_hash[:enable_factor_consistency]
+          .divider1
+          .responses  
+            %i.icon-align-justify
+            Reliability of Candidate's Responses for this Factor:
+            %span.score 
+              = factor_score[:consistency_bucket]
+
+        - if @view_mode == "feedback"
+          = fields_for :feedback do
+            .divider2
+            .optional-feedback
+              .feedback-title
+                Optional feedback on the score:
+              .options.span
+                %label
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 0, checked: true}
+                  About Right
+                %label
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 1}
+                  Should be more 
+                %label.last
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: -1}
+                  Should be less 
+              .clr
+     
+.divider1

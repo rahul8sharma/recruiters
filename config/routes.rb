@@ -27,6 +27,7 @@ Recruiters::Application.routes.draw do
       post 'import_from_google_drive'
       post 'export_to_google_drive'
       post :export_companies
+      post :export_monthly_report
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
@@ -386,7 +387,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :competencies, :only => [:index] do
+    resources :competencies do
       collection do
         get :manage
         get :destroy_all
@@ -468,7 +469,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :factors, :only => [:index, :new, :show] do
+    resources :factors do
       collection do
         post :import
         get :manage

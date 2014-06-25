@@ -1,0 +1,591 @@
+@import toolkit/typography/awesome-font
+@import toolkit/component/buttons
+@import shared/header
+@import shared/reports/about_us_html
+
+
+$favorable_color: #82d23f  
+$less_favorable_color: #ffc000 
+$mid_favorable_color: #062b58
+
+.header-container, .feedback-container
+  position: relative
+  
+#header
+  position: fixed
+  z-index: 9999  
+  #nav
+    margin: 20px 0 0 0
+    li
+      float: left
+      background: #f4f4f4
+      height: 37px
+      min-width: 34px
+
+      &.left
+        background: image-url('report/html/nav-left.png') no-repeat transparent
+      &.right
+        background: image-url('report/html/nav-right.png') no-repeat transparent
+      a
+        line-height: 37px
+        color: $grayDark
+        padding: 0 10px
+        font-size: $medium-text
+
+        &:hover
+          color: $color-warning
+          text-decoration: none
+  .print-btn
+    padding: 0 15px
+    font-size: 12px
+    line-height: 20px
+    margin-top: 25px
+
+#feedback
+  position: fixed
+  z-index: 9999
+  width: 100%
+  top: 58px
+  input[type="text"]
+    width: 265px
+    border-radius: 2px
+    border: 1px solid #ccc
+    margin-left: 15px
+  input[type="submit"]
+    padding: 2px 15px
+    line-height: 20px
+    font-size: 12px
+    border-radius: 1px
+
+  @media screen and (-webkit-min-device-pixel-ratio:0)
+    input[type="submit"]
+      padding: 0 15px !important
+    .fields
+      padding-top: 6px !important
+    .submit-feedback
+      padding-top: 2px !important
+      padding-bottom: 1px !important
+
+  .submit-feedback
+    padding: 0 20px
+    font-size: 12px
+    padding-bottom: 1px
+  .inner
+    width: 570px
+    float: right
+
+  .fields
+    background: #fff
+    padding: 7px
+  .left, .right
+    float: left
+    height: 35px
+    width: 33px
+  .left
+    background: image-url('report/html/feedback-left.png') no-repeat transparent
+  .right
+    background: image-url('report/html/feedback-right.png') no-repeat transparent
+
+.report
+  @import shared/reports/scale_html
+  @import shared/reports/traits_hexagon_html
+  ul
+    margin: 0
+  .instruction_container
+    .box
+      padding: 7px 0
+      .box-icon
+        background: #79d5ff 
+        width: 50px
+        height: 18px
+      .box-title
+        color: $grayDark
+        font-size: $big-text
+        margin: 0 20px
+
+    .instructions  
+      [class*=instruction]
+        padding: 7px 25px 7px 40px
+        color: $grayDark
+        margin-bottom: 10px
+        background: image-url("report/html/hexagon-small.png") no-repeat
+        font-size: $big-text
+      .instruction2
+        background-position: 0px -43px
+  .section01
+    background: #28b29b
+    color: #fff
+    .overall_report
+      background: image-url('report/html/overall_report_bg.png') no-repeat right 0 
+    .user-name
+      font-size: 30px
+    .final-score
+      background: $color-warning
+      padding: 0 50px
+      margin-left: -50px
+      line-height: 54px
+      width: 550px
+      font-size: 30px
+  .title
+    font-size: 30px
+    color: $color-info
+  .section02
+    background: #fbfbfb
+    .trait_fit
+      background: image-url('report/html/trait_fit.png') no-repeat 0 120px
+      .bottom-sec
+        padding-left: 40px
+        font-size: 14px
+        background: image-url("report/html/home-bottom-hexagon.png") no-repeat 
+        line-height: 40px
+        width: 640px
+        margin: auto
+      
+  .section03,
+  .section05
+    border-bottom: 1px dashed #28b29b
+  .section05
+    background: image-url('report/html/trait-section-hexagon-bg.png') center 18px repeat-x 
+  .scores
+    padding: 18px 0
+    ul.scores_listing
+      li
+        border-top: 1px dashed #ccc
+        padding: 40px
+        padding-right: 0
+        color: #000
+
+        &:first-child
+          border: none
+        .hexagon-icon
+          background: image-url('report/html/trait-score-hexagon.png') no-repeat 
+          width: 35px
+          height: 33px
+          &.less-favorable
+            background-position: 0px -53px
+          &.mid-favorable
+            background-position: 0px -166px
+      .factor-name
+        font-weight: 700
+        margin: 7px 0 0px 0
+        font-size: 18px
+        position: relative
+        line-height: 23px
+        .info
+          width: 365px
+          padding: 5px 12px
+          font-size: $medium-text
+          border-radius: 2px
+          border: 1px solid #1b7daa
+          position: absolute
+          right: -412px
+          font-weight: 200
+          background: #fff
+          top: -10px
+          display: none
+        .arrow
+          display: none
+          background: image-url('report/html/trait-info-arrow.png') no-repeat 
+          position: absolute
+          right: -23px
+          width: 19px
+          height: 30px
+          top: 0
+
+        &:hover
+          cursor: default
+          color: #1b7daa 
+          .arrow, .info
+            display: block
+      .factor-description
+        font-size: 18px
+        line-height: 24px
+        margin: 0 0 0 35px
+      .responses
+        margin: 0 0 0 35px
+        font-weight: normal
+        font-size: 16px
+        .score
+          color: #272727
+          font-weight: 700
+      .optional-feedback
+        .feedback-title
+          font-size: 12px
+          line-height: 37px
+          float: left
+          margin: 0 0 0 35px
+          padding: 0 10px
+          border: 1px solid #ccc
+          border-radius: 2px
+        .options
+          border-radius: 2px
+          padding: 10px 25px
+          border: 1px solid #ddd
+
+          label
+            font-size: 14px
+            cursor: pointer
+            margin-right: 20px
+            color: $color-warning
+            font-size
+            &.last
+              margin: 0
+          input
+            margin-right: 6px
+
+      .lhs-sec
+        padding-top: 18px
+        
+      .rhs-sec
+        .slider
+          position: relative
+          border: 1px solid #ccc
+          width: 400px
+          height: 13px
+          margin: 33px 18px 0 0
+          .range
+            height: 100%
+            background: #79d5ff
+          .pointer
+            background: image-url('report/html/scale-pointer-hexagon.png') no-repeat center 0 
+            height: 33px
+            width: 30px
+            position: absolute
+            top: -11px
+            z-index: 1000
+            .score-indicater
+              position: absolute
+              bottom: 41px
+              left: -38px
+              font-size: 12px
+              text-align: center
+              padding: 7px
+              border: 1px solid #82d23f
+              border-radius: 2px
+              background: #fff
+              width: 90px
+            .arrow
+              width: 30px
+              height: 12px
+              background: image-url('report/html/score-indicater-arrow.png') no-repeat center 0
+              position: absolute
+              top: -10px
+            &.less-favorable
+              background-position: 0px -43px
+              .score-indicater
+                border-color: #fdc206
+              .arrow
+                background-position: center -22px
+
+          @for $i from 0 through 5
+            .position#{$i}
+              left: $i * 80px - (15)
+
+    &.interview_guide
+      .title
+        margin-left: 40px
+      .scores_listing.interview_guide_listing
+        li
+          padding: 30px 0 30px 40px
+          .factor-name:hover
+            color: #000
+
+
+  @for $i from 0 through 4
+    .offset#{$i}
+      margin-left: $i * 80px
+  @for $i from 0 through 4
+    .width#{$i}
+      width: $i * 80px 
+  .width0
+    width: 10px
+  .width5
+    width: 100%
+
+  
+  .favorable
+    color: $favorable_color  
+  .less_favorable
+    color: $less_favorable_color
+  .mid_favorable
+    color: $mid_favorable_color
+  .favorable_bg
+    background: $favorable_color  
+  .less_favorable_bg
+    background: $less_favorable_color
+
+ 
+  .competency_report
+    .section02
+      background: #fff
+      border-bottom: 1px dashed #28B29B
+    .overview 
+      background: #3cd3ba
+      background: image-url('report/html/competency/overview-bottom-triangle.png') #3cd3ba no-repeat right bottom
+      position: relative
+      color: #fff
+      .top-triangle
+        position: absolute
+        top: 0
+        left: 0
+        width: 500px
+        height: 157px
+        background: image-url('report/html/competency/overview-top-triangle.png') no-repeat
+      .content
+        background: image-url('report/html/blue-transparent.png')
+        padding: 30px 45px
+
+        .overview-title
+          font-size: 30px
+          padding-right: 12px
+          margin-top: 160px
+          line-height: 37px
+          width: 250px
+          text-align: center
+        .competency-list
+          border-left: 1px solid #6faba1
+          margin: 0
+          li
+            margin-top: 18px
+            &:first-child
+              margin-top: 0
+          .competency-name
+            border: 1px solid #6faba1
+            font-size: 14px
+            line-height: 16px
+          .competency-value
+            margin-left: 0
+            font-size: 18px
+            background: image-url('report/html/white-transparent.png')
+            font-weight: 700
+            text-align: center
+    .heading
+      background: #28b29b
+      line-height: 35px
+      font-size: 24px
+      color: #fff
+      padding: 0 30px
+    .competency-container
+      border: 2px solid #28b29b
+      background: image-url('report/html/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+    .factors_list
+      position: relative
+      background: image-url('report/html/competency/competency-hexagon-bg.png') no-repeat center center
+      min-height: 370px
+      .factor_1
+        left: 530px
+        top: 90px
+      .factor_2
+        top: 200px
+      .factor_3
+        left: 465px
+        top: 200px
+      .factor_4
+        top: 90px
+      .factor_5
+        top: 200px
+      .factor_6
+        left: 660px
+        top: 90px
+      .factor_7
+        left: 275px
+        top: 90px
+      .factor_8
+        left: 785px
+        top: 90px
+      .factor_9
+        top: 200px
+      .factor_10
+        left: 850px
+        top: 200px
+      .factor_11
+        left: 215px
+        top: 200px
+      .factor_12
+        left: 275px
+        top: 295px
+      .factor_13
+        top: 295px
+        left: 405px
+      .factor_14
+        top: 295px
+        left: 530px
+      .factor_15
+        top: 295px
+        left: 660px
+      .factor_16
+        top: 295px
+        left: 785px
+
+    .frame
+      border: 2px solid #28b29b
+     
+    .competency-description
+      font-size: 14px
+      line-height: 20px
+      min-height: 125px
+      padding: 0px 15px 0px 170px
+      background: image-url('report/competency-description-icon.png') 0 center no-repeat
+      margin:  20px 25px 20px 25px
+
+    .competency_block
+      font-weight: 700
+      margin-bottom: 30px
+      float: left
+      &:nth-child(even)
+        float: right
+
+      .competency 
+        background: #1aadc0
+        color: #fff
+        font-size: 16px
+        text-shadow: 1px 1px 1px #053014
+        padding: 13px
+        width: 180px
+        float: left
+        line-height: 22px
+        height: 44px
+
+      .score
+        background: image-url('report/competency_big_hexagon.png') no-repeat
+        height: 70px
+        width: 82px
+        text-align: center 
+        color: #949494
+        float: left
+        line-height: 15px
+    .heading
+      margin-bottom: 0
+    .sub-heading
+      margin-bottom: 10px
+      padding: 15px 20px
+      max-width: 445px
+
+      span
+        font-weight: normal
+        font-size: 90%
+  
+   
+  .notification
+    background: #dceaf8
+    padding: 18px
+    font-size: 15.5px
+    margin-top: 0px
+    text-align: center
+    .star
+      color: #ff0000
+  .benchmark_report
+    .blue_bg_heading
+      font-size: 20px
+    .overall_report
+      .heading
+        padding: 20px 42px
+        margin-bottom: 42px
+        .big-text
+          font-size: 42px
+          line-height: 60px
+      .visual
+        height: auto
+        min-height: 250px
+        background: image-url('report/benchmark/visual.png') no-repeat
+        padding: 0 0 0 330px
+        .sub-heading
+          position: relative
+          font-size: 16px
+          text-shadow: none
+          padding: 9px 10px
+          padding-right: 15px
+          .candate_count
+            position: absolute
+            right: -45px
+            top: -1px
+            line-height: 57px
+            height: 57px
+            width: 65px
+            background: image-url('report/candidate_count.png') no-repeat
+            text-align: center
+            color: #1a1c28
+            font-size: 25px
+
+        p
+          font-size: 16px
+          line-height: 20px
+          margin-bottom: 18px
+    .candidate_factor
+      border: 5px solid #ff8308
+      .sub-heading
+        font-size: 19px
+        padding: 15px 10px
+
+      ul
+        margin: 0 12px
+        .badge
+          line-height: 30px
+          width: 195px
+          float: left
+          margin: 9px
+          padding: 0 10px
+          list-style: none
+          color: #052634
+          font-size: 15px
+          font-weight: 700
+          background: #d2f0f3
+    .graph_section
+      border: 1px solid #cccccc
+      padding: 15px 25px 
+      margin-bottom: 20px
+      .factor_title
+        color: #092e5b  
+        font-size: 17px
+        font-weight: 700
+        line-height: 26px
+        margin-bottom: 5px
+      .factor_description
+        font-size: 14px
+        line-height: 18px
+        width: 220px
+    .benchmark_assessment_range
+      .indication
+        padding: 15px 35px
+        border: 1px solid #a1a1a1
+        font-size: 14px 
+        font-weight: 700
+        line-height: 18px
+        .box
+          background: #ff8308 
+          border: 2px solid #dadbdb
+          width: 35px
+          height: 18px
+      .range_title
+        font-size: 17px
+        font-weight: 700
+        color: #092e5b
+      .range_list_title
+        font-size: 20px 
+        font-weight: 700
+        margin-top: 35px
+      .scale
+      ul.range_list
+        margin: 0
+        list-style: none
+        li
+          border-bottom: 2px dotted #b1becd
+          padding: 25px 0 
+          .factor_label
+            background: #ceeef2
+            font-size: 20px 
+            font-weight: 700
+            padding: 7px 10px 
+            width: 190px
+            float: left
+          .slider 
+            border: 2px solid #2B90BA
+            height: 15px
+            margin-top: 7px
+            width: 264px
+            float: right
+            .range
+              background: #ff8308
+              height: 15px
+.fw
+  margin-left: -40px

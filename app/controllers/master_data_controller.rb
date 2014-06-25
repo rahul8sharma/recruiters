@@ -7,6 +7,7 @@ class MasterDataController < ApplicationController
 
   def index
     params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
     @objects = api_resource.where(
       :query_options => params[:search], 
       :methods => index_columns,
@@ -45,6 +46,10 @@ class MasterDataController < ApplicationController
   end
 
   def export_to_google_drive
+    if params[:export][:folder][:url].blank?
+      flash[:error] = "Please enter a valid google drive folder url!"
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
     params[:export][:filters] ||= {}
     params[:export][:filters][:functional_area_id] ||= nil
     params[:export][:filters][:job_experience_id] ||= nil

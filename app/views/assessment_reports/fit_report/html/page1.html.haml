@@ -1,0 +1,18 @@
+#overview.section01
+  .overall_report.container
+    .divider3
+    .user-name
+      = @report.report_hash[:candidate][:name]
+    .clr
+    .divider6
+    .final-score
+      Aggregate Score: 
+      = @report.report_hash[:overall_score_bucket][:name]
+    .divider8
+    .extra-medium-text
+      Assessment: 
+      = @report.report_hash[:assessment][:name]
+      .divider1
+      Assessment Answered On: 
+      = @report.report_hash[:completed_at]
+    .divider2

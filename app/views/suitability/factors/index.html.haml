@@ -28,6 +28,8 @@
       Active
     %th
       Factor Order
+    %th
+      Edit
     
   - @factors.each do |factor|
     %tr
@@ -46,7 +48,9 @@
       %td
         = factor.active
       %td
-        = factor.factor_order  
+        = factor.factor_order
+      %td
+        = link_to "Edit", edit_suitability_factor_path(factor)
 .pagination.pull-right
   = paginate @factors
 .clr

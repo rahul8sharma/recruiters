@@ -14,4 +14,11 @@ class FunctionalAreasController < MasterDataController
       :name
     ]
   end
+  
+  def search_columns
+    [
+      :id,
+      :name
+    ]
+  end
 end

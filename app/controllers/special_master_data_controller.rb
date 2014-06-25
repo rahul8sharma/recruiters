@@ -3,7 +3,8 @@ class SpecialMasterDataController < MasterDataController
     [
       :industry_id,
       :functional_area_id, 
-      :job_experience_id
+      :job_experience_id,
+      :factor_id
     ]
   end
   
@@ -23,5 +24,11 @@ class SpecialMasterDataController < MasterDataController
     job_experiences = [ ["Global",""] ]
     job_experiences |= Vger::Resources::JobExperience.all.to_a.collect{|job_exp| [job_exp.display_text, job_exp.id] }
     Hash[job_experiences]
+  end
+  
+  def select_factor_id
+    factors = [ ["Global",""] ]
+    factors |= Vger::Resources::Suitability::Factor.all.to_a.collect{|factor| [factor.name, factor.id] }
+    Hash[factors]
   end
 end

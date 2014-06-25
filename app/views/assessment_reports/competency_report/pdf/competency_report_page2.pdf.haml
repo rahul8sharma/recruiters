@@ -1,7 +1,7 @@
-= render partial: "shared/reports/report_header.html.haml"
+= render partial: "shared/reports/pdf/report_header"
 .inner
   .overall_report
-    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation"
+    = render :partial => "assessment_reports/#{@report.report_hash[:candidate_stage].to_s}/recommendation.html.haml"
     .competency_container
       .sub-heading.medium-text.pull-left
         Competencies/Values Measured
@@ -15,4 +15,4 @@
           .clr
       .clr
       - competency_scores.each do |competency_name,competency_data|
-        = render :partial => "assessment_reports/competency_report/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+        = render :partial => "assessment_reports/competency_report/pdf/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }

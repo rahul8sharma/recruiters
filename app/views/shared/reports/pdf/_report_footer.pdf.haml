@@ -1,0 +1,18 @@
+- force ||= false
+- navigation ||= true
+- last_page ||= false
+- if @view_mode != "html" || force
+  .footer.clearfix
+    - if @view_mode != "html" && navigation
+      .medium-text.pull-left
+        .current-page
+          1
+      .left-offset1.pull-left
+        Private &amp; Confidential
+    - else    
+      .pull-left
+        Private &amp; Confidential
+    .medium-text.pull-right 
+      &copy; Jombay  
+- if @view_mode == "html" && !last_page     
+  %hr

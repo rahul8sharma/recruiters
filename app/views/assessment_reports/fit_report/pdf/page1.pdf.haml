@@ -23,7 +23,7 @@
     - if (@report.report_hash[:enable_recommendation])
       .sub-heading.fw.medium-text.text-center
         Aggregate Score: 
-        = @report.report_hash[:overall_score_bucket]
+        = @report.report_hash[:overall_score_bucket][:name]
     .clr
     .divider2
 

@@ -9,4 +9,8 @@
     = yield :body
     = yield :javascripts
     -# Block for page javascript.  Custom page js goes here.
-    = yield :custom_javascripts
+    / LeadSquared Tracking Code Start
+    %script{src: "http://web.mxradon.com/t/Tracker.js", type: "text/javascript"}
+    :javascript
+      pidTracker('2249');
+    / LeadSquared Tracking Code End

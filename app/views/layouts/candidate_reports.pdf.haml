@@ -1,0 +1,24 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "reports_pdf"
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+
+- content_for :body do
+  - if @view_mode == "feedback"
+    = form_for(:feedback, :url => suitability_candidate_assessment_report_feedbacks_url(:host => Rails.application.config.action_mailer.default_url_options[:host]), :method => :post, :html => { :onsubmit => "return checkEmail();" }) do |f|
+      = f.hidden_field :candidate_assessment_id, value: @report.report_hash[:candidate_assessment_id]
+      = f.hidden_field :candidate_assessment_report_id, value: @report.report_hash[:id]
+      = f.hidden_field :custom_assessment_id, value: @report.report_hash[:assessment][:id]
+      = f.hidden_field :company_id, value: @report.report_hash[:company][:id]
+      = f.hidden_field :candidate_id, value: @report.report_hash[:candidate][:id]
+      = render :partial => "shared/reports/candidate_report_main_header"
+      .report
+        = yield 
+  - else
+    - if @view_mode == "html"
+      = render :partial => "shared/reports/candidate_report_main_header"
+    .report
+      = yield 
+      
+= render :file => 'layouts/haml'
