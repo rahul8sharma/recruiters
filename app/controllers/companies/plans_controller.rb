@@ -103,10 +103,10 @@ class Companies::PlansController < ApplicationController
     Rails.logger.debug(uri)
     http = Net::HTTP.new(uri.host, uri.port)
 
-    #http.use_ssl = true
+    http.use_ssl = true
 
     unless Rails.env.production?
-     # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
       http_request = Net::HTTP::Post.new(uri.request_uri)
