@@ -10,6 +10,14 @@ class Suitability::ItemsController < MasterDataController
     [:id, :factor_id, :body, :item_order]
   end
   
+  def search_columns
+    [
+      :id,
+      :factor_id,
+      :body
+    ]
+  end
+  
   def import_from
     "import_from_google_drive"
   end

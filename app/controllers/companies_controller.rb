@@ -119,7 +119,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Vger::Resources::Company.save_existing(@company.id, params[:company].except(:city, :state, :country))
     if @company.error_messages.blank?
-      redirect_to add_subscription_company_path(@company), notice: "Company details updated successfully!"
+      redirect_to company_path(@company), notice: "Company details updated successfully!"
     else
       render :action => :edit
     end
@@ -146,6 +146,12 @@ class CompaniesController < ApplicationController
       .export_companies(params[:company])
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+  
+  def export_monthly_report
+    Vger::Resources::Company\
+      .export_monthly_report(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 
   def show
     if @company.hq_location_id
@@ -168,12 +174,14 @@ class CompaniesController < ApplicationController
 
   def get_companies
     methods = [:assessment_statistics]
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods.push :assessmentwise_statistics
     end
-    @companies = Vger::Resources::Company.where(:page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(:query_options => params[:search], :page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
     @active_subscription 
   end
   

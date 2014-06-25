@@ -1,24 +1,60 @@
-#header
-  .container
-    .logo.pull-left.pull-left
-      - if ["html","feedback"].include?(@view_mode)
-        = link_to(image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}"), Rails.application.config.action_controller.asset_host)
-      - else
-        = link_to(wicked_pdf_image_tag("jombay-logo.png"), "/")
-    - if @view_mode == "feedback"
-      .feedback-title.pull-left
-        Report Feedback
-    .pull-right{style: "margin-top: 10px;"}
-      - if @view_mode == "html"
-        - if @report.report_hash[:enable_feedback]
-          = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-info"
-      - if @view_mode == "feedback"
-        .email.pull-left
-          %input{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email",:class =>"medium-text"}
-        %input.btn.btn-warning.inverse.pull-left{:type => "submit", :value => "Submit"}
-      = link_to "View Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span"
-      .clr
-    .clr
-- if @view_mode == "html"
-  .divider3
+- content_for :jquery do
+  = wicked_pdf_javascript_include_tag "jquery"
+  = wicked_pdf_javascript_include_tag "jquery_ujs"
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+      .big-text.gray-dark.padding-all1.pull-left
+        = @report.report_hash[:candidate][:name][0..30]
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href => "#overview", :title => "Overview"}
+              Overview
+          %li
+            %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
+              Traits
+          %li
+            %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
+              Scores
+          %li
+            %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
+              Developement Guide
+          %li
+            %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
+              Manager Guideline
+          %li.right
+        = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
+        .clr
 
+.feedback-container
+  #feedback
+    .container
+      .inner
+        .pull-right
+          .left
+          .fields.pull-left
+            - if @view_mode == "html"
+              = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-warning inverse"
+            - if @view_mode == "feedback"
+              .medium-text.color-warning.pull-left
+                Report Feedback
+              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+                .pull-left
+                  %label.pull-left Email ID
+                  %input.span4{:type => "text"}
+                  .clr
+              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+                %input.pull-left{:type => "text", :placeholder => "Enter Email ID to confirm feedback"}
+              %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
+              .clr
+          .right
+          .clr
+        .clr
+      .clr
+.divider3
+
+= wicked_pdf_javascript_include_tag 'common'  

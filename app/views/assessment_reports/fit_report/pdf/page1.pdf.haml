@@ -1,0 +1,32 @@
+.inner{ style: "margin-top:0px;" }
+  .overall_report
+    .logo.pull-right
+    .clr
+    .divider3
+    .heading.fw
+      .extra-large-text
+        %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
+      .span.first
+        Assessment: 
+      .span10
+        = @report.report_hash[:assessment][:name]
+      .clr
+    .divider4
+    .text-right
+      .extra-large-text 
+        %b
+          = @report.report_hash[:candidate][:name]
+      Assessment Answered On: 
+      = @report.report_hash[:completed_at]
+
+    .divider5
+    - if (@report.report_hash[:enable_recommendation])
+      .sub-heading.fw.medium-text.text-center
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket][:name]
+    .clr
+    .divider2
+
+    .visual.divider14
+
+    .divider4

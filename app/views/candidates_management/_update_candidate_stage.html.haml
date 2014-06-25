@@ -1,0 +1,13 @@
+= form_tag update_candidate_assessments_candidates_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Update Candidate Type
+    %p
+      Assessment ID : 
+      = text_field_tag :assessment_id
+    %p
+      Candidate Stage : 
+      = select_tag :candidate_stage, options_for_select(Vger::Resources::Candidate::STAGES)
+      
+  .actions
+    = submit_tag 'Update All Candidates'

@@ -26,19 +26,15 @@ class ReportUploader < AbstractController::Base
     patch ||= {}
     begin
       puts "Getting Report #{report_id}"
-      @report = Vger::Resources::Suitability::CandidateAssessmentReport.where(
+      @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
         :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
         :patch => patch,
-        :methods => [ :report_hash ],
-        :query_options => { 
-          :status => Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED,
-          :id => report_id
-        }
-      ).all.first
+        :methods => [ :report_hash ]
+      )
       
-      if !@report
+      if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
         puts "Report #{report_id} is being uploaded already..."
         return 
       end
@@ -74,7 +70,7 @@ class ReportUploader < AbstractController::Base
       
       @view_mode = "feedback"
       feedback_html = render_to_string(
-         template: "assessment_reports/#{template}",
+         template: "assessment_reports/#{template}.html.haml",
          layout: "layouts/candidate_reports",
          handlers: [ :haml ]
       )
@@ -82,14 +78,14 @@ class ReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/#{template}",
-          layout: "layouts/candidate_reports.html.haml",
+          "assessment_reports/#{template}.pdf.haml",
+          layout: "layouts/candidate_reports.pdf.haml",
           handlers: [ :haml ],
-          formats: [:html]
+          formats: [:pdf]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
-          :content => render_to_string("shared/reports/_report_footer.html.haml",layout: "layouts/candidate_reports.html.haml")
+          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/candidate_reports.pdf.haml")
         }
       )
 
@@ -136,6 +132,7 @@ class ReportUploader < AbstractController::Base
       end
     rescue Exception => e
       Rails.logger.debug e.message
+      puts e.message
       tries = tries + 1
       if tries < 5
         retry

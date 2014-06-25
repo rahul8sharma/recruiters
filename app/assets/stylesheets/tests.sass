@@ -4,6 +4,7 @@
 @import toolkit/component/forms
 @import shared/content-sub-nav
 @import shared/navigation-sub-nav
+@import shared/reports/scale_pdf.sass
 
 .checked
   label
@@ -28,6 +29,17 @@ label
     .menu
       width: 200px
 .norms
+  .scale-indicates
+    p
+      font-size: $medium-text
+      margin-bottom: $baseLineHeight
+      color: $grayDarker
+    a:hover  
+      text-decoration: none  
+  .visual
+    background: image-url("jit/norms_bg.png") no-repeat center center
+    height: 320px
+    width: 100%
   .divider
     width: 30px
     display: none
@@ -149,3 +161,107 @@ label
             width: 310px
 
 
+ul.scores_listing
+  min-height: 700px
+  li
+    padding: 18px 0
+    border-top: 1px solid #e3e3e3
+    &:first-child
+      border: none
+  .factor-name
+    color: #092e5b
+    font-weight: 700
+    font-size: 16px
+  .factor-description
+    font-size: 16px
+    line-height: 22px
+
+  .rhs-sec
+    width: 273px
+    .marker-set
+      margin-left: -35px
+      width: 324px
+    .marker
+      visibility: hidden
+      color: #58595b
+      float: left
+      font-size: 10px
+      line-height: 14px
+      margin-left: 10px
+      text-align: center
+      width: 44px
+      &.show
+        visibility: visible
+    .visual
+      background: image-url('report/slider-bg-notitle.png') no-repeat center 0
+      position: absolute
+      width: 272px
+      height: 22px
+      top: -14px
+    .slider
+      position: relative
+      border: 1px solid #096b95
+      width: 271px
+      height: 7px
+      margin-top: 4px
+      .range
+        height: 7px
+        background: #1db3c4
+      
+    @for $i from 0 through 4
+      .offset#{$i}
+        margin-left: $i * 54px
+    .offset5
+      margin-left: 261px
+    @for $i from 0 through 4
+      .width#{$i}
+        width: $i * 55px 
+    .width0
+      width: 10px
+    .width5
+      width: 100%
+
+.scale
+  margin-right: -35px
+
+
+//----------//
+#back-top
+  position: fixed
+  bottom: 30px
+  right: -50px
+
+#back-top a
+  display: block
+  text-align: center
+  font: 11px/100% Arial, Helvetica, sans-serif
+  text-transform: uppercase
+  text-decoration: none
+  color: #bbb
+
+  /* transition */
+  -webkit-transition: 1s
+  -moz-transition: 1s
+  transition: 1s
+
+#back-top a:hover
+  color: #000
+
+
+/* arrow icon (span tag) */
+#back-top span
+  width: 150px
+  padding: 10px
+  display: block
+  margin-bottom: 25px
+  color : $color-warning
+  /* transition */
+  -webkit-transition: 1s
+  -moz-transition: 1s
+  transition: 1s
+
+#info
+  z-index: 9999
+.content
+  padding: 10px
+  background-color: white

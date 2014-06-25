@@ -16,6 +16,15 @@ class LocationsController < MasterDataController
     ]
   end
   
+  def search_columns
+    [
+      :id,
+      :name,
+      :location_type,
+      :parent_id
+    ]
+  end
+  
   def get_locations
     @locations = Vger::Resources::Location.where(:order => [:name],:query_options => params[:search]).all.to_a
     respond_to do |format|

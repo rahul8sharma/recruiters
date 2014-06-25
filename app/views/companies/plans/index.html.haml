@@ -1,17 +1,14 @@
 .plans-details
   .page-title
-    .divider1
     .extra-large-text.text-center.color-warning
-      Buy Jombay Assessments
+      Buy Jombay Assessments. Buying is instant.
+  .divider1
   .extra-medium-text.gray-darker.text-center
     Honest Pricing. No Set-up fees. No Hidden Costs.
   .divider1
-  .extra-medium-text.text-center.muted
-    5 Assessments are free with a Jombay Account. If you want more, please choose one of the packages below
-  .divider1
-  %ul.span8.section1
-    %li.title
-      Included
+  %ul.section1
+    %li.info
+      5 Assessments are free with a Jombay Account. If you want more, please choose one of these packages.
     %li.medium-text
       Standard Assessment Reports
     %li.medium-text
@@ -22,48 +19,39 @@
       Custom Assessments
     %li.medium-text
       Validity
-    %li.price-selection.medium-text
-      .pull-left
-        Price
-      -#
-        .currency.pull-left.left-offset1
-          %input.span{:type => "radio", :name => "currency"}
-          .span &#8377;
-          %input.span{:type => "radio", :name => "currency"}
-          .span &#36;
-          .clr
-      .clr
 
   - @plans.each_with_index do |plan,index|
-    %ul.span5{ class: "section#{index+2}" }
+    %ul{ class: "section#{index+2}" }
       %li.title
         = plan.name
-      %li.medium-text.font-bold
+        .cost 
+          %b &#8377; 
+          = plan.price
+      %li
         = plan.no_of_assessments
       -3.times do
-        %li.medium-text
+        %li
           .icon-ok
-      %li.medium-text
+      %li
         = plan.validity_in_months
         Months
-      %li.cost
-        &#8377;
-        = plan.price
       %li.purchase.medium-text
         %a{href: review_plan_company_path(params[:id], plan.id), :title => "Buy this Package"}
           Buy
 
-  %ul.span6.section5
+  %ul.section5
     %li.title
-      Custom Package
-    %li.large-text
-      .divider7
+      CUSTOM PACKAGE
+      .cost
+        Contact Us
+    %li.big-text
+      .divider5
       Call +91-96733-35243
       %br/
       or
       %br/
       email pratik@jombay.com
-      .divider6.custom-height
+      .divider5
   .clr
 
   .divider2
