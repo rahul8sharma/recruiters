@@ -77,7 +77,7 @@ class Companies::PlansController < ApplicationController
 
   def process_payment
     payment_params = {
-      :merchantTxnId => Time.now.strftime("%Y%m%d%H%M%S"),
+      :merchantTxnId => "J"+Time.now.strftime("%Y%m%d%H%M%S"),
       :orderAmount => @plan.price,
       :currency => "INR",
       :billing_name => @company.name,
@@ -103,10 +103,10 @@ class Companies::PlansController < ApplicationController
     Rails.logger.debug(uri)
     http = Net::HTTP.new(uri.host, uri.port)
 
-    http.use_ssl = true
+    #http.use_ssl = true
 
     unless Rails.env.production?
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+     # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
       http_request = Net::HTTP::Post.new(uri.request_uri)
