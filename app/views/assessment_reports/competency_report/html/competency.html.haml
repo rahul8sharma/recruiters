@@ -21,7 +21,7 @@
         .rhs-sec.pull-right
           .slider
             - scale = factor_score[:scale]
-            .pointer{ class: "position#{scale[:position]}" }
+            .pointer{ class: "position#{scale[:position]} #{scale[:position] < 2 ? 'less-favorable' : ''}" }
               -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
               .score-indicater
                 = factor_score[:norm_bucket]
