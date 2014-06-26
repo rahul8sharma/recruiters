@@ -1,0 +1,13 @@
+= form_tag(send("#{controller_name}_path"), method: 'post') do
+  %div
+    Key:&nbsp;
+    %input{type: 'text', name: 'key', placeholder: 'Type key'}
+
+  %div
+    Value:&nbsp;
+    %textarea{name: 'value', placeholder: 'Type value (could be json)'}
+  %input{type: 'submit', value: 'Create'}
+
+%div
+  %a{href: send("#{controller_name}_path")}
+    Back

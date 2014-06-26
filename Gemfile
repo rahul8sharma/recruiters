@@ -33,6 +33,8 @@ gem 'sidekiq', '2.12.1'
 
 gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :branch => "develop"
 
+gem 'celluloid-redis'
+
 platform :ruby do
 	group :development do
 		gem 'better_errors','0.8.0'

@@ -1,0 +1,12 @@
+%h2
+  = params[:id]
+
+%div
+  = @value
+
+%div
+  %a{href: send("edit_#{controller_name.singularize}_path", params[:id])}
+    Edit
+  &nbsp;|&nbsp;
+  %a{href: send("#{controller_name}_path")}
+    Back

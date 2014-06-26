@@ -1,0 +1,32 @@
+- @value = @value.blank? ? {} : JSON.parse(@value)
+- @strategies_count = (@value || []).size
+:javascript
+  var strategiesCount=#{@strategies_count};
+%h2
+  Fallback Strategy for Factor Norms, PAGL and FNBD
+%br
+%br
+
+= form_tag global_configurations_path, method: 'POST' do
+  %input{type: 'hidden', name: 'key', value: 'fallback_strategy'}
+  %input{type: 'hidden', name: 'value'}
+  %input{type: 'submit', value: 'Clear All'}
+
+%br
+= form_tag update_fallback_strategy_global_configurations_path, method: 'POST', name: 'PostStrategies' do
+  %div.StrategiesContainer
+    = render partial: 'global_configurations/fallback_strategy/strategy_selection', collection: @value, as: :strategy, locals: {disabled: false}
+  %div
+    %a{href: '#', name: 'AddStrategy'}
+      Add a strategy
+  %div
+    %input{type: 'submit', value: 'Submit'}
+
+%div.strategy{style: "display: none;"}
+  = render partial: 'global_configurations/fallback_strategy/strategy_selection', locals: {strategy: nil, strategy_counter: @strategies_count, disabled: false}
+
+%div
+  %a{href: global_configuration_path(:fallback_strategy)}
+    Back
+- content_for :custom_javascripts do
+  = javascript_include_tag 'global_configurations/fallback_strategy'
