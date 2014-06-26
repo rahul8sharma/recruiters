@@ -48,7 +48,8 @@
           .rhs-sec.pull-right
             .slider
               - scale = factor_score[:scale]
-              .pointer{ class: "position#{scale[:position]}" }
+              - low_scale_limit = Rails.application.config.reports["low_scale_limit"]
+              .pointer{ class: "position#{scale[:position]} #{scale[:position] <= low_scale_limit ? 'less-favorable' : ''}" }
                 -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
                 .score-indicater
                   = factor_score[:norm_bucket]
