@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "users"
   before_filter :authenticate_user!, :only => [ :password_settings ]
-  
+
   def login
     if request.post?
       begin
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       redirect_user
     end
   end
-  
+
   def logout
     sign_out()
     redirect_to after_sign_out_path and return
@@ -22,24 +22,27 @@ class UsersController < ApplicationController
 
   def forgot_password
   end
-  
+
   # redenr companies layout and header if user belongs to a company
   def password_settings
     if current_user.respond_to?(:company_id) && current_user.company_id.present?
       @company = Vger::Resources::Company.find(current_user.company_id)
       render :layout => "companies"
-    end      
+    end
   end
-  
+
   def link_sent
   end
-  
+
   # Refering to https://github.com/plataformatec/devise/issues/1955
   # devise doesn't check for blank new password
   # the workaround is to check the password in the params and render error if password is left blank
   def update_password_settings
     if params[:user][:password].blank?
       flash[:error] = "Password can't be blank."
+      redirect_to password_settings_path
+    elsif params[:user][:password]!=params[:user][:password_confirmation]
+      flash[:error] = "Password and Confirm Password don't match."
       redirect_to password_settings_path
     else
       @user = Vger::Resources::User.update_password(params[:user])
@@ -53,7 +56,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def send_reset_password
     @user = Vger::Resources::User.send_reset_password_instructions(params[:user])
     if @user.error_messages && @user.error_messages.empty?
@@ -64,9 +67,9 @@ class UsersController < ApplicationController
       redirect_to forgot_password_path
     end
   end
-  
+
   def reset_password
-    @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
+    @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]
     if !@user
       if params[:activate]
         flash[:error] = "Activation link has expired."
@@ -76,10 +79,10 @@ class UsersController < ApplicationController
       redirect_to(root_url) and return
     end
     if params[:activate]
-      render :action => :activate 
+      render :action => :activate
     end
   end
-  
+
   def confirm
     @user = Vger::Resources::User.confirm(:confirmation_token => params[:confirmation_token])
     if @user.error_messages.present?
@@ -90,7 +93,7 @@ class UsersController < ApplicationController
       redirect_user
     end
   end
-  
+
   def activate
     if request.put?
       @user = Vger::Resources::User.reset_password_by_token(params[:user], :root => :user)
@@ -102,11 +105,11 @@ class UsersController < ApplicationController
         flash[:error] = @user.error_messages.join("<br/>").html_safe
         redirect_to activate_account_path(:reset_password_token => params[:user][:reset_password_token])
       end
-    else  
-      @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]  
+    else
+      @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]
     end
   end
-  
+
   def update_password
     @user = Vger::Resources::User.reset_password_by_token(params[:user])
     if @user.error_messages && @user.error_messages.empty?
@@ -118,11 +121,11 @@ class UsersController < ApplicationController
       redirect_to reset_password_path(:reset_password_token => params[:user][:reset_password_token])
     end
   end
-  
+
   protected
-  
+
   def redirect_user
-    if current_user 
+    if current_user
       if current_user.type == "Candidate"
         flash.clear
         flash[:error] = "You are not authorized to access this page."
