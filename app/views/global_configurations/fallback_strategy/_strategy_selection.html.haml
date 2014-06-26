@@ -1,0 +1,5 @@
+- strategy = get_strategy_tuple(strategy)
+- strategy.each_pair do |key, value|
+  %input{type: 'checkbox', name: "values[#{strategy_counter}][#{key}]", value: (value==1 ? value : ''), checked: (value == 1 ? 'checked' : nil), disabled: (!!disabled ? true : nil)}
+  = key
+%br
