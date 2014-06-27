@@ -22,7 +22,7 @@
               Scores
           %li
             %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
-              = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Developement Guide"
+              = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Development Guide"
           - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?    
             %li
               %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
