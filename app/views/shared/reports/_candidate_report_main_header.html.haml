@@ -39,7 +39,8 @@
           .left
           .fields.pull-left
             - if @view_mode == "html"
-              = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-warning inverse"
+              - if @report.report_hash[:enable_feedback]
+                = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-warning inverse"
             - if @view_mode == "feedback"
               .medium-text.color-warning.pull-left
                 Report Feedback
