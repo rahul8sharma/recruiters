@@ -52,16 +52,17 @@ class AssessmentReportsController < ApplicationController
       @view_mode = "html"
     end
     respond_to do |format|
-      format.html { render :template => "assessment_reports/benchmark_report" }
+      format.html { render :template => "assessment_reports/benchmark_report", 
+        layout: "layouts/benchmark_report.html.haml"}
       format.pdf { 
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/_report_footer.html.haml"
+            template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },           
         template: "assessment_reports/benchmark_report.html.haml", 
-        layout: "layouts/assessment_reports.html.haml", 
+        layout: "layouts/benchmark_report.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
