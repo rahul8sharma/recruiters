@@ -9,6 +9,11 @@
   :css
     .training_requirements_report .inner{margin-top:0px;min-height:800px}     
     .about_us {margin-top:100px;} 
+    
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", download_report_company_training_requirement_group_url(:company_id => @training_requirement_group.company_id, :id => @training_requirement_group.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
+    
 
 
 = render :template => "assessment_group_reports/training_requirements_report/page1"
@@ -23,11 +28,11 @@
     = render :template => "assessment_group_reports/training_requirements_report/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break  
 
-= render :partial => "shared/reports/about_us"
+= render :partial => "shared/reports/pdf/about_us.pdf.haml"
 .page-break
 
-= render :partial => "shared/reports/legal_disclaimer"
+= render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
 .page-break
 
 - if @view_mode == "html"
-  = render :partial => "shared/reports/report_footer", :locals => { :force => true, :last_page => true }
+  = render :partial => "shared/reports/pdf/report_footer.pdf.haml", :locals => { :force => true, :last_page => true }

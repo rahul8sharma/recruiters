@@ -1,6 +1,5 @@
 - content_for :stylesheets do
-  = wicked_pdf_stylesheet_link_tag "training_requirements_report"  
-    
+  = wicked_pdf_stylesheet_link_tag "training_requirements_report"      
 - if @view_mode == "html"
   :css
     .training_requirements_report .inner{margin-top:80px;} 
@@ -9,6 +8,10 @@
   :css
     .training_requirements_report .inner{margin-top:0px;min-height:800px}     
     .about_us {margin-top:100px;} 
+
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
 
 
 = render :template => "assessment_reports/training_requirements_report/page1"
@@ -23,11 +26,11 @@
     = render :template => "assessment_reports/training_requirements_report/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break  
 
-= render :partial => "shared/reports/pdf/about_us"
+= render :partial => "shared/reports/pdf/about_us.pdf.haml"
 .page-break
 
-= render :partial => "shared/reports/pdf/legal_disclaimer"
+= render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
 .page-break
 
 - if @view_mode == "html"
-  = render :partial => "shared/reports/pdf/report_footer", :locals => { :force => true, :last_page => true }
+  = render :partial => "shared/reports/pdf/report_footer.pdf.haml", :locals => { :force => true, :last_page => true }

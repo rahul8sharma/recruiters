@@ -39,11 +39,11 @@
 -#
   .page-break
         
-= render :partial => "shared/reports/pdf/about_us"
+= render :partial => "shared/reports/pdf/about_us.pdf.haml"
 .page-break
 
-= render :partial => "shared/reports/pdf/legal_disclaimer"
+= render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
 .page-break
 
 - if @view_mode == "html"
-  = render :partial => "shared/reports/pdf/report_footer", :locals => { :force => true, :last_page => true }
+  = render :partial => "shared/reports/pdf/report_footer.pdf.haml", :locals => { :force => true, :last_page => true }

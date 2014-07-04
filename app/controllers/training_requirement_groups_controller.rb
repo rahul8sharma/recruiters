@@ -91,17 +91,17 @@ class TrainingRequirementGroupsController < ApplicationController
     respond_to do |format|
       format.html { 
         render template: "assessment_group_reports/training_requirements_report",
-               layout: "reports"
+               layout: "training_requirements_report.html.haml"
       }
       format.pdf { 
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/_report_footer.html.haml"
+            template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },           
         template: "assessment_group_reports/training_requirements_report.html.haml", 
-        layout: "layouts/reports.html.haml", 
+        layout: "layouts/training_requirements_report.html.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],
