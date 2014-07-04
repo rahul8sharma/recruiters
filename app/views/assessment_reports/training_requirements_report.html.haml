@@ -9,6 +9,10 @@
     .training_requirements_report .inner{margin-top:0px;min-height:800px}     
     .about_us {margin-top:100px;} 
 
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
+
 
 = render :template => "assessment_reports/training_requirements_report/page1"
 .page-break
