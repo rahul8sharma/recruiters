@@ -1,0 +1,14 @@
+- @value = @value.blank? ? {} : JSON.parse(@value)
+- @strategies_count = (@value || []).size
+%h2
+  = params[:id]
+
+%div
+  = render partial: 'global_configurations/fallback_strategy/strategy_selection', collection: @value, as: :strategy, locals: {disabled: true}
+
+%div
+  %a{href: send("edit_#{controller_name.singularize}_path", params[:id])}
+    Edit
+  &nbsp;|&nbsp;
+  %a{href: send("#{controller_name}_path")}
+    Back

@@ -1,0 +1,24 @@
+= render partial: "shared/reports/pdf/report_header.pdf.haml"
+.inner
+  .scores.interview_guide 
+    .blue_bg_heading.text-center.big-text
+      Guidelines for Assessment Taker&#39;s Manager
+    .indication.pull-right
+      .hexagon-icon.favorable.pull-left
+      .pull-left.extra-medium-text
+        Favorable
+      .hexagon-icon.less_favorable.pull-left
+      .pull-left.extra-medium-text
+        Less Favorable
+    .clr
+    .divider1
+    %ul.clearfix.interview_guide_listing 
+      - guidelines_for_candidate_manager.each do |factor_name, guide|
+        %li
+          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+          .span1.first.que-no.hexagon-icon{ class: klass }
+          .factor-name.pull-left
+            = factor_name
+          .description.pull-left
+            = guide[:body]
+          .clr

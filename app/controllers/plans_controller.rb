@@ -12,6 +12,13 @@ class PlansController < MasterDataController
   def index_columns
     return [:uid, :name,:description,:validity_in_months,:price]
   end
+  
+  def search_columns
+    [
+      :id,
+      :name
+    ]
+  end
 
   def import_from_google_drive
     Vger::Resources::Plan\

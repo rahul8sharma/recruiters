@@ -8,6 +8,6 @@ class Suitability::NormBucketsController < MasterDataController
   end
   
   def index_columns
-    [:id, :uid, :name, :weight]
+    [:id, :uid, :name, :weight, :description]
   end
 end

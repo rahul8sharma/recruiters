@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 8d28a7e0402327fa28dbe1808948f920ccd4fbc5
+  revision: 6e6bd2eee213328f0a05f39fbc4b5ec3ff4a624a
   branch: develop
   specs:
     vger (0.0.1)
@@ -92,6 +92,12 @@ GEM
     builder (3.0.4)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    celluloid-io (0.15.0)
+      celluloid (>= 0.15.0)
+      nio4r (>= 0.5.0)
+    celluloid-redis (0.0.2)
+      celluloid-io (>= 0.13.0.pre)
+      redis
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -127,6 +133,7 @@ GEM
     mime-types (1.25.1)
     multi_json (1.8.4)
     multipart-post (1.2.0)
+    nio4r (1.0.0-java)
     nokogiri (1.5.11-java)
     polyglot (0.3.4)
     puma (2.0.1-java)
@@ -203,6 +210,7 @@ DEPENDENCIES
   better_errors (= 0.8.0)
   binding_of_caller (= 0.7.1)
   bootstrap-sass (= 2.3.1.0)
+  celluloid-redis
   exception_notification!
   faraday!
   faraday_middleware (= 0.9.0)

@@ -1,4 +1,6 @@
 = form_for :report, url: manage_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id]), method: :put do |f|
+  = hidden_field_tag "view_mode", "html"
+  - @report.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
   %div
     %b Company: 
     #{@report.report_hash["company"]["name"]}
@@ -11,6 +13,12 @@
   %div
     %b Send Report Email:
     = select_tag "report[send_report]", options_for_select(["No","Yes"])
+  %div
+    = f.fields_for :overall_scores do |overall_scores_form|
+      - overall_scores_form.object = OpenStruct.new()
+      - overall_scores_form.object.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
+      %b Overall Score:
+      = f.select :overall_factor_score_bucket_id, @overall_factor_score_buckets, {}, {}
   %br  
   %br
   - if @report.report_hash["assessment"]["assessment_type"] == "fit"

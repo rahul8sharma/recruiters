@@ -72,6 +72,7 @@ class AssessmentReportsController < ApplicationController
   
   def manage
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
+    @overall_factor_score_buckets = Hash[Vger::Resources::Suitability::OverallFactorScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
     @fitment_grades["N/A"] = "N/A"
     @fitment_grades["Blank"] = ""
@@ -86,7 +87,7 @@ class AssessmentReportsController < ApplicationController
       }
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
-      # redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report]) and return
+      #redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
     end
     render :layout => "admin"
   end
@@ -117,12 +118,12 @@ class AssessmentReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/_report_footer.html.haml",
-            layout: "layouts/candidate_reports" 
+            template: "shared/reports/pdf/_report_footer.pdf.haml",
+            layout: "layouts/candidate_reports.pdf.haml" 
           }
         },           
-        template: "assessment_reports/#{template}.html.haml", 
-        layout: "layouts/candidate_reports.html.haml", 
+        template: "assessment_reports/#{template}.pdf.haml", 
+        layout: "layouts/candidate_reports.pdf.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:html],

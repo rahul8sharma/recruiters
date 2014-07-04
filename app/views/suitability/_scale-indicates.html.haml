@@ -12,28 +12,10 @@
   .extra-large-text.text-center
     %b Help Section: Meaning of Trait Scores on Scale 
   .divider2
-  %p
-    %b.font-bold Low 
-    on the scale indicates that the individual possesses or exhibits minimum amount of the trait measured
+  - @norm_buckets.each_with_index do |norm_bucket,index|
+    %p
+      = "#{index+1}. "
+      = norm_bucket.description
 
-  %p
-    %b.font-bold Below Average
-    on the scale indicates that the individual possesses or exhibits the traits measured, lesser than the Average but not as minimal as Low score on the scale
-
-  %p
-    %b.font-bold Average (Low) 
-    on the scale indicates that the individual possesses or exhibits average behavior of the trait measured, but lies on the lower side of the mean
-
-  %p
-    %b.font-bold Average (High) 
-    on the scale indicates that the individual possesses or exhibits average behavior of the trait measured, but lies on the higher side of the mean
-
-  %p
-    %b.font-bold Above Average
-    on the scale indicates that the individual possesses or exhibits the traits measured, more than the Average, but lesser than High score on the scale
-
-  %p
-    %b.font-bold High 
-    on the scale indicates that the individual possesses or exhibits higher amount of the trait measured than most of the population
   .divider2 
   .clr

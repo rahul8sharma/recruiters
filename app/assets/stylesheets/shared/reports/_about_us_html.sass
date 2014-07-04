@@ -1,0 +1,92 @@
+.report
+  position: relative
+  .about-us, .legal_disclaimer
+    .content
+      padding: 15px 30px
+      background: image-url('report/html/blue-transparent.png')
+    .header
+      height: 40px
+      background: #28b29b
+      margin-top: -1px
+      .container
+        position: relative
+      .icon
+        background: image-url('report/html/about-us/jombay-logo-icon.png') no-repeat 0 center
+        height: 86px
+        width: 76px
+        position: absolute
+        top: -23px
+        left: 40px
+      .title
+        color: #fff
+        font-size: 24px 
+        margin-left: 120px
+        line-height: 40px
+        .logo
+          background: image-url('report/html/about-us/jombay-logo.png') no-repeat 0 center
+          height: 40px
+  .about-us
+    ul
+      margin: 0
+    p
+      color: #fff
+      font-size: 20px
+      line-height: 25px
+    .about-us-top-triangle
+      background: image-url('report/html/about-us/about-us-top-triangle.png') #3cd3ba no-repeat right top
+    .about-us-bottom-triangle
+      background: image-url('report/html/about-us/about-us-bottom-triangle.png') no-repeat left bottom
+    
+    [class*="feature"]
+      min-height: 85px
+      padding: 25px 0 0 130px
+      text-align: justify
+      margin-top: 65px
+
+      &:first-child
+        margin-top: 0
+
+    @for $i from 1 through 5
+      .feature0#{$i}
+        background: image-url('report/html/about-us/feature0#{$i}.png') no-repeat 
+    .sub-title
+      font-size: 30px
+      text-align: center
+      padding: 0
+      color: #fff
+      margin-top: 65px
+      
+  .contact_section
+    color: #fff
+    font-size: 16px
+
+    a
+      display: block
+      font-weight: 700
+    .inn
+      padding-left: 130px
+      background: image-url('report/html/about-us/contact.png') no-repeat 
+    .caption  
+      font-size: 24px
+      font-weight: 700
+    .home-page-redirect
+      a
+        padding-left: 25px
+        background: image-url('report/html/about-us/globe.png') no-repeat 
+        font-size: 20px
+        color: #fff
+        font-weight: 200
+        float: right
+  .legal_disclaimer
+    p
+      font-size: 18px
+      line-height: 23px
+      color: #000
+      margin: 0 0 25px 35px
+
+.footer
+  background: #28b29b
+  color: #fff
+  font-size: 18px
+  padding: 18px 0
+  width: 100%

@@ -15,6 +15,7 @@ tmp
 config/database.yml
 config/vger.yml
 config/payments.yml
+config/redis_driven_configuration.yml
 vendor/cache
 .ruby-version
 .rvmrc

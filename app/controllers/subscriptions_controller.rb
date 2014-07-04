@@ -68,4 +68,12 @@ class SubscriptionsController < MasterDataController
       :valid_to
     ]
   end
+  
+  def search_columns
+    [
+      :id,
+      :assessments_purchased,
+      :company_id
+    ]
+  end
 end

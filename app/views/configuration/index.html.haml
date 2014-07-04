@@ -1,0 +1,22 @@
+%table
+  %tr
+    %th
+      Key
+    %th
+      Value
+  - @configuration.each_pair do |key, value|
+    %tr
+      %td
+        = key
+      %td
+        = value
+      %td
+        %a{href: send("#{controller_name.singularize}_path", key)}
+          View
+      %td
+        %a{href: send("edit_#{controller_name.singularize}_path", key)}
+          Edit
+
+%div
+  %a{href: send("new_#{controller_name.singularize}_path")}
+    Add

@@ -1,17 +1,40 @@
 %h1 All Candidates
 - if can? :create, "Candidate"
   = link_to "Manage Candidates", manage_candidates_path
-%table{width: "100%"}
-  %th{width: "10%"} ID
-  %th{width: "40%"} Name
-  %th{width: "40%"} Email
-  %th{width: "10%"} 
-  - @candidates.each do |candidate|
-    %tr
-      %td 
-        = link_to candidate.id, candidate_path(candidate)
-      %td #{candidate.name}
-      %td #{candidate.email}
-      %td 
-        = link_to "Edit", edit_candidate_path(candidate)
-= paginate(@candidates)        
+.search
+  = form_for :search, url: candidates_path, method: :get do |f|
+    %fieldset
+      %legend
+        Search
+      .field
+        %label ID
+        = f.text_field :id
+      .field
+        %label Email
+        = f.text_field :email    
+      .field
+        = f.submit "Search"
+%br        
+%br
+.table        
+  %fieldset
+    %legend
+      Candidates List
+    %table{width: "100%"}
+      %th{width: "10%"}
+        = sort_link "ID", candidates_path, :id, params[:search]
+      %th{width: "40%"} 
+        = sort_link "Name", candidates_path, :name, params[:search]
+      %th{width: "40%"}
+        = sort_link "Email", candidates_path, :email, params[:search]
+      %th{width: "10%"} 
+      - @candidates.each do |candidate|
+        %tr
+          %td 
+            = link_to candidate.id, candidate_path(candidate)
+          %td #{candidate.name}
+          %td #{candidate.email}
+          %td 
+            = link_to "Edit", edit_candidate_path(candidate)
+  %br          
+  = paginate(@candidates)                  

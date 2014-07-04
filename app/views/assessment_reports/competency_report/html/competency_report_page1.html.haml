@@ -1,0 +1,38 @@
+#overview.section01
+  .overall_report.container
+    .divider3
+    .user-name
+      = @report.report_hash[:candidate][:name]
+    .clr
+    .divider6
+    -#
+      .final-score
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket]
+    .divider8
+    .extra-medium-text
+      Assessment: 
+      = @report.report_hash[:assessment][:name]
+      .divider1
+      Assessment Answered On: 
+      = @report.report_hash[:completed_at]
+    .divider2
+.overview 
+  .top-triangle
+  .container
+    .divider1
+    .content
+      .overview-title.pull-left
+        Overview of Competencies / Values Measured
+      %ul.competency-list.pull-left
+        - competency_scores.each do |competency_name, competency_score|
+          %li
+            .competency-name.span15
+              .padding-all1
+                = competency_name
+            .competency-value.span6
+              .padding-all1
+                = competency_score[:grade]
+            .clr
+      .clr
+    .divider1
