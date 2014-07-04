@@ -53,8 +53,8 @@ class BenchmarkReportUploader < AbstractController::Base
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
-          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-            layout: "layouts/benchmark_report.html.haml")
+          content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
+          layout: "layouts/benchmark_report.html.haml")
         }
       )
       
