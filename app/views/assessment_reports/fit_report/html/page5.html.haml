@@ -11,7 +11,7 @@
       .instructions
         .instruction1.pull-left
           Favorable Traits 
-        .instruction2.less_favorable.pull-left
+        .instruction2.pull-left
           Less Favorable Traits
         .clr    
     
@@ -25,7 +25,7 @@
     %ul.clearfix.scores_listing.interview_guide_listing
       - post_assessment_guidelines.each do |factor_name, guide|
         %li
-          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less-favorable')
           .span1.first.hexagon-icon{ class: klass }
           .factor-name.span4
             = factor_name
