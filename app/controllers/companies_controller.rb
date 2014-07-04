@@ -81,7 +81,7 @@ class CompaniesController < ApplicationController
     @remaining_invitations = Vger::Resources::Invitation.group_count(
       :query_options => {
         :company_id => @companies.map(&:id),
-        :status => "unlocked"
+        :status => Vger::Resources::Invitation::Status::UNLOCKED
       },
       :group => [ :company_id ], 
       :select => [ :company_id ]

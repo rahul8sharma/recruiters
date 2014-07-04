@@ -61,7 +61,7 @@ $mid_favorable_color: #062b58
     input[type="submit"]
       padding: 0 15px !important
     .fields
-      padding-top: 6px !important
+      padding-top: 5px !important
     .submit-feedback
       padding-top: 2px !important
       padding-bottom: 1px !important
@@ -77,14 +77,15 @@ $mid_favorable_color: #062b58
   .fields
     background: #fff
     padding: 7px
+    border-bottom: 1px solid #ccc
   .left, .right
     float: left
     height: 35px
-    width: 33px
+    width: 29px
   .left
     background: image-url('report/html/feedback-left.png') no-repeat transparent
   .right
-    background: image-url('report/html/feedback-right.png') no-repeat transparent
+    background: image-url('report/html/feedback-right.png') no-repeat transparent -5px 0
 
 .report
   @import shared/reports/scale_html
@@ -173,6 +174,7 @@ $mid_favorable_color: #062b58
         line-height: 23px
         .info
           width: 365px
+          min-height: 38px
           padding: 5px 12px
           font-size: $medium-text
           border-radius: 2px

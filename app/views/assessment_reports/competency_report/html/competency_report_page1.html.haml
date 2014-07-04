@@ -5,9 +5,10 @@
       = @report.report_hash[:candidate][:name]
     .clr
     .divider6
-    .final-score
-      Aggregate Score: 
-      = @report.report_hash[:overall_score_bucket]
+    -#
+      .final-score
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket]
     .divider8
     .extra-medium-text
       Assessment: 
