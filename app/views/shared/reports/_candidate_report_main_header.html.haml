@@ -20,13 +20,14 @@
           %li
             %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
               Scores
-          %li
-            %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
-              = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Development Guide"
-          - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?    
+          - if @report.report_hash[:enable_post_assessment_guidelines]    
             %li
-              %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
-                Manager Guidelines
+              %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
+                = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Development Guide"
+            - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?    
+              %li
+                %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
+                  Manager Guidelines
           %li.right
         = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
         .clr
