@@ -41,6 +41,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     #params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
+    # params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     params[:upload_method] ||= "manual"
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     @errors = {}
