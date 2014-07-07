@@ -18,6 +18,9 @@
         = sort_link "Assessment Taker", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span10
         Assessment Status 
+      .span
+        %a.pull-right{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), style: "line-height: 34px;margin-right: 10px;" }
+          .link-color Email Reports Summary   
       .clr
       .divider1
     %ul
