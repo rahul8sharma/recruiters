@@ -17,7 +17,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     }
     Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
       .export_candidate_reports(options)
-    redirect_to candidates_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
+    redirect_to reports_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
 
   def bulk_upload
@@ -286,5 +286,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   
   def add_candidates_url
     add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+  
+  def reports_url
+    reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 end
