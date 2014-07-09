@@ -29,6 +29,8 @@
     %th
       Factor Order
     %th
+      Companies
+    %th
       Edit
     
   - @factors.each do |factor|
@@ -37,10 +39,10 @@
         = factor.id
       %td{ width: "5%" }
         = factor.uid rescue 'Not Found'
-      %td{ width: "20%" }
+      %td{ width: "15%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
-      %td{ width: "50%" }
+      %td{ width: "40%" }
         = factor.definition
       %td
         - if factor.parent_id
@@ -49,6 +51,8 @@
         = factor.active
       %td
         = factor.factor_order
+      %td
+        = factor.company_names
       %td
         = link_to "Edit", edit_suitability_factor_path(factor)
 .pagination.pull-right

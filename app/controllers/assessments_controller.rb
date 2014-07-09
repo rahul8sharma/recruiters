@@ -4,6 +4,7 @@ class AssessmentsController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_assessment, :except => [:index]
   before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
+  before_filter :get_factors, :only => [:norms, :competency_norms]
   before_filter :add_set, :only => [:new]
   
   layout "tests"
@@ -40,11 +41,10 @@ class AssessmentsController < ApplicationController
   # PUT : updates assessment and renders styles
   def norms
     get_norms
-    
     if request.get?
-      if params[:assessment]
-        @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-      end
+      #if params[:assessment]
+      #  @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      #end
     elsif request.put?
       store_assessment_factor_norms
     end
@@ -73,12 +73,16 @@ class AssessmentsController < ApplicationController
   protected
   # fetches meta data for new assessment and adding norms to existing assessment 
   def get_meta_data
-    factors = Vger::Resources::Suitability::Factor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
-    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
-    @factors = Hash[factors.collect{|x| [x.id,x]}]
     @functional_areas = Hash[Vger::Resources::FunctionalArea.active.all.to_a.collect{|x| [x.id,x]}]
     @industries = Hash[Vger::Resources::Industry.active.all.to_a.collect{|x| [x.id,x]}]
     @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
+  end
+  
+  def get_factors
+    factors = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
+    factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_id], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies]).all.to_a
+    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
+    @factors = Hash[factors.sort_by{|factor| factor.name.to_s }.collect{|x| [x.id,x]}]
   end
   
   # fetches default factor norms
