@@ -173,13 +173,13 @@ class CompaniesController < ApplicationController
   end
 
   def get_companies
-    methods = [:assessment_statistics]
+    methods = []
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
-      methods.push :assessmentwise_statistics
+      methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
     @companies = Vger::Resources::Company.where(:query_options => params[:search], :page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
     @active_subscription 
