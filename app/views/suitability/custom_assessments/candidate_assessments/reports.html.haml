@@ -11,7 +11,7 @@
   = render :partial => "shared/candidate-content-sub-nav"
   .clr
   .padding-all2.border-warning.shifted-up1
-    .list-snippet-titles.extra-medium-text.clearfix
+    .list-snippet-titles.extra-medium-text.clearfix.pull-left
       .span3.first
         = sort_link "ATID", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
       .span8
@@ -19,7 +19,10 @@
       .span10
         Assessment Status 
       .clr
-      .divider1
+    %a.label.label-warning.label-small.medium-text.pull-right{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
+      Email Reports Summary   
+    .clr
+    .divider1
     %ul
       - if (@candidate_assessments.present?)
         - @candidate_assessments.each do |candidate_assessment|

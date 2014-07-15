@@ -13,6 +13,21 @@ class Suitability::ItemGroupsController < ApplicationController
   layout "admin"
 
   def import_from_google_drive
+    
+    #unless params[:item_group][:file]
+    #  flash[:notice] = "Please select a zip file."
+    #  redirect_to request.env['HTTP_REFERER'] and return
+    #end
+    if params[:zip]
+      now = Time.now
+      s3_bucket_name = "suitability_items_images"
+      s3_key = "items_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      data = params[:zip].read
+      S3Utils.upload(s3_bucket_name, s3_key, data)
+      params[:item_group][:zip_file] ||= {}
+      params[:item_group][:zip_file][:s3_zip_bucket] = s3_bucket_name
+      params[:item_group][:zip_file][:s3_zip_key] = s3_key
+    end
     errors = Vger::Resources::Suitability::ItemGroup.import_from_google_drive(params[:item_group])
     redirect_to manage_suitability_item_groups_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end

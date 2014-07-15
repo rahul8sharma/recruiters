@@ -137,7 +137,7 @@ class CompaniesController < ApplicationController
 
   def export_to_google_drive
     Vger::Resources::Company\
-      .export_to_google_drive(params[:export].merge(:columns => ["id","name","company_code", "website", "hq_address", "enable_recommendation", "enable_lie_detection", "enable_factor_consistency", "enable_response_reliability", "enable_overall_consistency", "enable_feedback"]))
+      .export_to_google_drive(params[:export].merge(:columns => ["id","name","company_code", "website", "hq_address"]))
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
   
@@ -173,13 +173,13 @@ class CompaniesController < ApplicationController
   end
 
   def get_companies
-    methods = [:assessment_statistics]
+    methods = []
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
-      methods.push :assessmentwise_statistics
+      methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
     @companies = Vger::Resources::Company.where(:query_options => params[:search], :page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
     @active_subscription 

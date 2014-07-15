@@ -1,4 +1,4 @@
-= form_for :item_group, :url => import_from_google_drive_suitability_item_groups_path, :method => :post do |f|
+= form_for :item_group, :url => import_from_google_drive_suitability_item_groups_path, html: { multipart: true }, :method => :post do |f|
   %fieldset
     %legend
       Import Suitability Items
@@ -10,6 +10,11 @@
     = f.fields_for :file do |ff|
       File
       = ff.text_field "url", value: ""
+    %br
+    %br  
+    = f.fields_for :zip_file do |ff|
+      Image Zip
+      = file_field_tag "zip"
     %br
     %br
     Notifier Email

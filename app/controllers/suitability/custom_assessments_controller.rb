@@ -20,11 +20,10 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   def norms
     get_norms
-    
     if request.get?
-      if params[:assessment]
-        @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-      end
+      #if params[:assessment]
+      #  @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      #end
     elsif request.put?
       params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       traits_range = Rails.application.config.validators["traits_range"][current_user.type]
