@@ -61,10 +61,10 @@
             = h @invitations[company.id.to_s],0
         .span3.first
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
-            = company.assessment_statistics[:assessments_sent]
+            = company.assessment_statistics[:assessments_sent] rescue '-'
         .span3.first
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
-            = company.assessment_statistics[:assessments_completed]
+            = company.assessment_statistics[:assessments_completed] rescue '-'
         .span3.first
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
             = h @subscriptions[company.id.to_s]
