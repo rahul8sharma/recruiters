@@ -21,7 +21,7 @@ gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessabl
 
 gem 'her', '0.6.8'
 
-gem 'vger', :git => "git@github.com:vatsala/vger.git", :branch => "mutualfund_recommendation"
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 
 gem 'faraday_middleware','0.9.0'
 gem 'awesome_print','1.1.0'
