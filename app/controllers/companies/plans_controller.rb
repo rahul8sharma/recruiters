@@ -80,7 +80,7 @@ class Companies::PlansController < ApplicationController
       :merchantTxnId => "J"+Time.now.strftime("%Y%m%d%H%M%S"),
       :orderAmount => @plan.price,
       :currency => "INR",
-      :billing_name => @company.name,
+      :billing_name => @company.admin.name,
       :addressStreet1 => @company.address,
       :addressCity => @company.city,
       :addressState => @company.state,
@@ -97,7 +97,7 @@ class Companies::PlansController < ApplicationController
 
     }
     Rails.logger.debug(payment_params)
-    
+
     uri = URI.parse(Rails.application.config.vger["billing"]["url"])
     Rails.logger.debug("billing URL is")
     Rails.logger.debug(uri)
