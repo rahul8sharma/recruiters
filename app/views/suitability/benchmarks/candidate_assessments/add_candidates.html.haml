@@ -6,8 +6,35 @@
   -#%a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
     -#View Instructions
   .clr
+  - params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
   .margin-auto.span21
-    .big-text
+    .span11.first.left-offset1.extra-medium-text
+      What is the purpose of assessing these Assessment takers?
+    .span
+      %label
+        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
+        .span.medium-text{ class: checked ? 'checked': '' } 
+          For Development 
+          //add ".checked" e.g. %span.medium-text.checked
+        %i.muted.span
+          (Existing Employees)
+        .clr
+      .divider1
+      %label
+        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';", checked: checked}
+        .span.medium-text{ class: checked ? 'checked': '' }
+          For Hiring 
+          //add ".checked" e.g. %span.medium-text.checked
+        %i.muted.span
+          (Potential Employees)
+        .clr
+      .clr
+    .clr
+    
+    .divider3
+    .big-text.text-center
       Please add your Top Performing Employees 
     .divider3
     .select-candidate-type 
