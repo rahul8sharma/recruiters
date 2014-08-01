@@ -24,16 +24,12 @@ class Companies::PlansController < ApplicationController
       params[:data],
       Rails.application.config.payments['encryption_key']
     )
-    @payment_data = @payment_data.split('&').map do |key_value|
-      key_value.split('=')
-    end.inject({}) do | hash, injected |
-      hash.merge!(injected[0].to_sym => injected[1])
-    end
 
+    @payment_data = JSON.parse(@payment_data)
     subscription_data = {}
-    if @payment_data[:order_status] == "Success"
-      # Retrieve the plan from merchant_param1
-      @plan = Vger::Resources::Plan.find(@payment_data[:merchant_param1])
+    if @payment_data["TxStatus"] == "SUCCESS"
+      # Retrieve the plan from custom parameter planID
+      @plan = Vger::Resources::Plan.find(@payment_data["planID"])
       @success = true
     else
       @success = false
@@ -81,36 +77,30 @@ class Companies::PlansController < ApplicationController
 
   def process_payment
     payment_params = {
-      :billing_name => @company.name,
-      :billing_address => @company.address,
-      :billing_city => @company.city,
-      :billing_state => @company.state,
-      :billing_zip => @company.pincode,
-      :billing_country => @company.country,
-      :billing_tel => @company.contact_person_mobile,
-      :billing_email => @company.admin[:email],
+      :merchantTxnId => "J"+Time.now.strftime("%Y%m%d%H%M%S"),
+      :orderAmount => @plan.price,
+      :currency => "INR",
+      :billing_name => @company.admin.name,
+      :addressStreet1 => @company.address,
+      :addressCity => @company.city,
+      :addressState => @company.state,
+      :addressZip => @company.pincode,
+      :addressCountry => @company.country,
+      :phoneNumber => @company.contact_person_mobile,
+      :email => @company.admin[:email],
 
-      :merchant_param1 => @plan.id,
-      :merchant_param2 => Rails.application.config.payments['application_id'],
-      :merchant_param3 => @company.id,
-      :merchant_param4 => payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token]),
-      :merchant_param5 => payment_status_company_url(:auth_token => RequestStore.store[:auth_token],:id=>@company.id, :plan_id=> @plan.id),
+      :planID => @plan.id,
+      :appName => Rails.application.config.payments['application_id'],
+      :companyID => @company.id,
+      :callbackURL => payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token]),
+      :redirectURL => payment_status_company_url(:auth_token => RequestStore.store[:auth_token],:id=>@company.id, :plan_id=> @plan.id),
 
-      :customer_id => @company.id,
-      :order_id => Time.now.strftime("%Y%m%d%H%M%S"),
-      :amount => @plan.price,
-
-      :delivery_name => @company.name,
-      :delivery_address => @company.address,
-      :delivery_city => @company.city,
-      :delivery_state => @company.state,
-      :delivery_zip => @company.pincode,
-      :delivery_country => @company.country,
-      :delivery_tel => @company.contact_person_mobile
     }
     Rails.logger.debug(payment_params)
 
     uri = URI.parse(Rails.application.config.vger["billing"]["url"])
+    Rails.logger.debug("billing URL is")
+    Rails.logger.debug(uri)
     http = Net::HTTP.new(uri.host, uri.port)
 
     http.use_ssl = true

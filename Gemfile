@@ -11,7 +11,7 @@ gem 'haml-rails', '0.3.4'
 gem 'jquery-rails', '2.2.1'
 gem 'rails-backbone','0.7.2'
 
-gem 'puma','2.0.1'
+gem 'puma','2.9.0'
 
 gem 'kaminari', :github => "amatsuda/kaminari", :branch => "master", :ref => "c7c88c576786"
 
