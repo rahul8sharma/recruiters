@@ -8,7 +8,7 @@
   .divider1
   = render :partial => "shared/billing-navigation-sub-nav"
   .divider4
-  .span21.border-right-gray.large-text.first.less-padding-all1
+  .span21.borderright-gray.large-text.first.less-padding-all1
     .gray-darker.text-center 
       Following contact information is required by our Payment Partner to enable a purchase
     .divider2
@@ -57,18 +57,18 @@
       .divider4
       %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
       .clr
+  -#
+    .span7.left-offset1.text-center
+      .gray-dark.large-text
+        Our Trusted Payment Partner
+      .divider1
+      = image_tag("plans/ccavenue.png")
+      .divider4
+      .gray-dark.large-text
+        Supported by
+      .divider1
+      = image_tag("plans/supported.png")
 
-  .span7.left-offset1.text-center
-    .gray-dark.large-text
-      Our Trusted Payment Partner
-    .divider1
-    = image_tag("plans/ccavenue.png")
-    .divider4
-    .gray-dark.large-text
-      Supported by
-    .divider1
-    = image_tag("plans/supported.png")
-
-  .clr
+    .clr
 
 = javascript_include_tag 'edit_company' 

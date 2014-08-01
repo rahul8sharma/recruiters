@@ -27,7 +27,7 @@ class SidekiqController < ApplicationController
       }
       ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end
-    render :json => { :status => "Job Started", :reports => reports }
+    render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
   
   def upload_training_requirements_reports

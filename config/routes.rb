@@ -263,6 +263,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
+
   resources :locations, :only => [:index, :new] do
     collection do
       get :get_locations
@@ -489,6 +490,18 @@ Recruiters::Application.routes.draw do
           post 'import_via_s3'
           post 'export_to_google_drive'
         end
+      end
+    end
+  end
+
+  namespace :finance do
+    resources :mutual_funds,:only => [:index] do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
       end
     end
   end
