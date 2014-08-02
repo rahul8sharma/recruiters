@@ -3,9 +3,10 @@
     .divider6
     .user-name.pull-left
       = @report.report_hash[:candidate][:name]
-    .final-score.pull-right
-      Aggregate Score: 
-      = @report.report_hash[:overall_score_bucket][:name]
+    - if (@report.report_hash[:enable_recommendation])
+      .final-score.pull-right
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket][:name]
     .clr
     .divider3
     .extra-medium-text
