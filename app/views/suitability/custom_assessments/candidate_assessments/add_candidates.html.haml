@@ -12,7 +12,7 @@
   .margin-auto.span21
     .span11.first.left-offset1.extra-medium-text
       What is the purpose of assessing these Assessment takers?
-    .span
+    .span8
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
         %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
