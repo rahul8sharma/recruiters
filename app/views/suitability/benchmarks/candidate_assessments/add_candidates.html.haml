@@ -14,7 +14,7 @@
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
         %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
-        #employee
+        #employee.checked
           .span.medium-text
             For Development 
             //add ".checked" e.g. %span.medium-text.checked
@@ -80,8 +80,5 @@
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
         
       .clr
-
-:javascript  
-  document.getElementById('employee').setAttribute('class', 'checked');
 
 = javascript_include_tag 'add_candidates'
