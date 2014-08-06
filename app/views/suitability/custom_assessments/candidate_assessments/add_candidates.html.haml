@@ -79,12 +79,4 @@
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
       .clr
 
-:javascript
-  function getCandidateType(type){    
-    document.getElementById('candidate_stage').value = type;
-    (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
-  }
-  function addClass(addTo, removeFrom){
-    document.getElementById(addTo).style["color"] = '#f58220';
-    document.getElementById(removeFrom).style["color"] = '#808285';
-  }
+= javascript_include_tag 'add_candidates'

@@ -82,12 +82,6 @@
       .clr
 
 :javascript  
-  document.getElementById('employee').style["color"] = '#f58220';
-  function getCandidateType(type){    
-    document.getElementById('candidate_stage').value = type;
-    (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
-  }
-  function addClass(addTo, removeFrom){
-    document.getElementById(addTo).style["color"] = '#f58220';
-    document.getElementById(removeFrom).removeAttribute('style');
-  }
+  document.getElementById('employee').setAttribute('class', 'checked');
+
+= javascript_include_tag 'add_candidates'
