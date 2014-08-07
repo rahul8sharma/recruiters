@@ -1,0 +1,17 @@
+= form_tag import_candidate_scores_candidates_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Import Candidate Scores
+    = fields_for "import" do |f|
+      %p
+        = f.label :assessment_id
+        = f.text_field :assessment_id
+      %p
+        Zipped CSV File
+        = f.file_field "file"
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = submit_tag "Import Scores"
