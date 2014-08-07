@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 93b16ce5bd65b3b52488d5ef9b960ca474ee80e9
+  revision: 37f423e0e6ef25da132c2b1ced5210c2798f7e28
   branch: develop
   specs:
     vger (0.0.1)
@@ -139,6 +139,8 @@ GEM
     nokogiri (1.5.11)
     nokogiri (1.5.11-java)
     polyglot (0.3.4)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     puma (2.9.0-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)

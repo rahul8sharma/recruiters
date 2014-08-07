@@ -5,19 +5,20 @@
       = @report.report_hash[:candidate][:name]
     .clr
     .divider6
-    -#
-      .final-score
-        Aggregate Score: 
-        = @report.report_hash[:overall_score_bucket]
+    - if (@report.report_hash[:enable_aggregate_competency_score])
+      .final-score.pull-right
+        Aggregate Score:
+        = @report.report_hash[:aggregate_competency_score_bucket][:name]
+
     .divider8
     .extra-medium-text
-      Assessment: 
+      Assessment:
       = @report.report_hash[:assessment][:name]
       .divider1
-      Assessment Answered On: 
+      Assessment Answered On:
       = @report.report_hash[:completed_at]
     .divider2
-.overview 
+.overview
   .top-triangle
   .container
     .divider1
