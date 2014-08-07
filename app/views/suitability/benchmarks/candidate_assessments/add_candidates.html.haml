@@ -10,26 +10,28 @@
   .margin-auto.span21
     .span11.first.left-offset1.extra-medium-text
       What is the purpose of assessing these Assessment takers?
-    .span
+    .span8
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
-        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::EMPLOYED}';", checked: checked}
-        .span.medium-text{ class: checked ? 'checked': '' } 
-          For Development 
-          //add ".checked" e.g. %span.medium-text.checked
-        %i.muted.span
-          (Existing Employees)
-        .clr
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
+        #employee.checked
+          .span.medium-text
+            For Development 
+            //add ".checked" e.g. %span.medium-text.checked
+          %i.muted.span
+            (Existing Employees)
+          .clr
       .divider1
       %label
         - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
-        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "window.location='#{request.path}?upload_method=#{params[:upload_method]}&candidate_stage=#{Vger::Resources::Candidate::Stage::CANDIDATE}';", checked: checked}
-        .span.medium-text{ class: checked ? 'checked': '' }
-          For Hiring 
-          //add ".checked" e.g. %span.medium-text.checked
-        %i.muted.span
-          (Potential Employees)
-        .clr
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::CANDIDATE}');", checked: checked}
+        #candidate
+          .span.medium-text
+            For Hiring 
+            //add ".checked" e.g. %span.medium-text.checked
+          %i.muted.span
+            (Potential Employees)
+          .clr
       .clr
     .clr
     
@@ -51,6 +53,7 @@
       .divider1
       %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
+      %input{ id:"candidate_stage", type: "hidden", value: "employee", name: "candidate_stage" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         .left-offset2.first
           .span9.first.big-text
@@ -77,3 +80,4 @@
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
         
       .clr
+= javascript_include_tag 'add_candidates'

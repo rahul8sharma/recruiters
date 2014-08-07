@@ -1,0 +1,9 @@
+function getCandidateType(type){    
+  document.getElementById('candidate_stage').value = type;
+  (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
+}
+
+function addClass(addTo, removeFrom){
+  document.getElementById(addTo).setAttribute('class', 'checked');
+  document.getElementById(removeFrom).removeAttribute('class', 'checked');
+}
