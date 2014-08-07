@@ -27,15 +27,12 @@ class MasterDataController < ApplicationController
   end
   
   def import_via_s3
-    s3_bucket_name = 'master_data'
-    s3_key = 'default_factor_norm_ranges.csv.zip'
-    
     unless params[:import][:file]
       flash[:notice] = "Please select a zip file."
       redirect_to request.env['HTTP_REFERER'] and return
     end
     data = params[:import][:file].read
-    S3Utils.upload(s3_bucket_name, s3_key, data)
+    S3Utils.upload(self.s3_bucket_name, self.s3_key, data)
 
     api_resource\
       .import_from_s3(:file => {
@@ -88,6 +85,14 @@ class MasterDataController < ApplicationController
   
   def import_from
     "import_via_s3"
+  end
+  
+  def s3_bucket_name
+    "master_data"
+  end
+  
+  def s3_key
+    "master_data.csv.zip"
   end
   
   def search_columns
