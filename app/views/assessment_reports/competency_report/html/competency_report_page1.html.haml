@@ -5,10 +5,10 @@
       = @report.report_hash[:candidate][:name]
     .clr
     .divider6
-
-    .final-score.pull-right
-      Aggregate Score:
-      = @report.report_hash[:aggregate_competency_score_bucket][:name]
+    - if (@report.report_hash[:enable_aggregate_competency_score])
+      .final-score.pull-right
+        Aggregate Score:
+        = @report.report_hash[:aggregate_competency_score_bucket][:name]
 
     .divider8
     .extra-medium-text
