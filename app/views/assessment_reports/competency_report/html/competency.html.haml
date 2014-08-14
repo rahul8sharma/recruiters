@@ -1,8 +1,9 @@
 .frame
   .heading.pull-left
-    #{competency_name} #{(step > 0 ? "(continued)":"")}: 
+    #{competency_name} #{(step > 0 ? "(continued)":"")}
+  .heading.pull-right 
     #{competency_data[:grade]}
-  .clr  
+  .clr 
   %ul.clearfix.scores_listing.first
     - factor_scores.each do |factor_name, factor_score|
       %li
