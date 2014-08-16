@@ -1,4 +1,6 @@
 Recruiters::Application.routes.draw do
+  get "mrf/new"
+
   resources :candidates do
     member do
       match 'generate_assessment_link' => "candidates_management#generate_assessment_link", :as => :generate_assessment_link
@@ -312,6 +314,12 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
+    end
+  end
+
+  resources :mrf, :controller => "mrf/assessments", :path => "360" do
+    member do
+      
     end
   end
 
