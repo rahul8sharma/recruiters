@@ -319,7 +319,23 @@ Recruiters::Application.routes.draw do
 
   resources :mrf, :controller => "mrf/assessments", :path => "360" do
     member do
-      
+      get "360/add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+      put "360/add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+
+      get "360/:id/add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+      put "360/:id/add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+
+      get "360/:id/candidates" => "mrf/assessments#candidates", :as => :candidates
+      put "360/:id/candidates" => "mrf/assessments#candidates", :as => :candidates
+
+      get "360/:id/details" => "mrf/assessments#details", :as => :details
+      put "360/:id/details" => "mrf/assessments#details", :as => :details
+
+      get "360/home" => "mrf/assessments#home", :as => :home
+      put "360/home" => "mrf/assessments#home", :as => :home
+
+      get "360/:id/traits" => "mrf/assessments#traits", :as => :traits
+      put "360/:id/traits" => "mrf/assessments#traits", :as => :traits
     end
   end
 
