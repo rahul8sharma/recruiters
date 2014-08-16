@@ -51,6 +51,9 @@
             %li
               %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 REPORTS
+            %li
+              %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+                360 DEGREE
 
           - elsif current_user.type == "SuperAdmin" 
             %li
