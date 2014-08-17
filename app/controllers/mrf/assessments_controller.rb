@@ -1,5 +1,8 @@
 class Mrf::AssessmentsController < ApplicationController
   def index
+  end 
+
+  def new
   end
 
   def add_stakeholders
