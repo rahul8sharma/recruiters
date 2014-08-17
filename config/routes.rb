@@ -319,6 +319,10 @@ Recruiters::Application.routes.draw do
     collection do
       get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
       post "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+
+      get "home" => "mrf/assessments#home", :as => :home
+      put "home" => "mrf/assessments#home", :as => :home
+
     end
 
     member do
@@ -330,9 +334,6 @@ Recruiters::Application.routes.draw do
 
       get "details" => "mrf/assessments#details", :as => :details
       put "details" => "mrf/assessments#details", :as => :details
-
-      get "home" => "mrf/assessment#home", :as => :home
-      put "home" => "mrf/assessment#home", :as => :home
 
       get "traits" => "mrf/assessments#traits", :as => :traits
       put "traits" => "mrf/assessments#traits", :as => :traits
