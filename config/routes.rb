@@ -315,6 +315,30 @@ Recruiters::Application.routes.draw do
     end
   end
 
+  resources :mrf, :controller => "mrf/assessments", :path => "360" do
+    collection do
+      get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+      post "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+    end
+
+    member do
+      get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+      put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+
+      get "candidates" => "mrf/assessments#candidates", :as => :candidates
+      put "candidates" => "mrf/assessments#candidates", :as => :candidates
+
+      get "details" => "mrf/assessments#details", :as => :details
+      put "details" => "mrf/assessments#details", :as => :details
+
+      get "home" => "mrf/assessment#home", :as => :home
+      put "home" => "mrf/assessment#home", :as => :home
+
+      get "traits" => "mrf/assessments#traits", :as => :traits
+      put "traits" => "mrf/assessments#traits", :as => :traits
+    end
+  end
+
   namespace :suitability do
     resources :item_groups do
       collection do
