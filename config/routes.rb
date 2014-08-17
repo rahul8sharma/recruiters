@@ -318,24 +318,26 @@ Recruiters::Application.routes.draw do
   end
 
   resources :mrf, :controller => "mrf/assessments", :path => "360" do
+    collection do
+      get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+      post "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+    end
+
     member do
-      get "360/add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
-      put "360/add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+      get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+      put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
-      get "360/:id/add_traits" => "mrf/assessments#add_traits", :as => :add_traits
-      put "360/:id/add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+      get "candidates" => "mrf/assessments#candidates", :as => :candidates
+      put "candidates" => "mrf/assessments#candidates", :as => :candidates
 
-      get "360/:id/candidates" => "mrf/assessments#candidates", :as => :candidates
-      put "360/:id/candidates" => "mrf/assessments#candidates", :as => :candidates
+      get "details" => "mrf/assessments#details", :as => :details
+      put "details" => "mrf/assessments#details", :as => :details
 
-      get "360/:id/details" => "mrf/assessments#details", :as => :details
-      put "360/:id/details" => "mrf/assessments#details", :as => :details
+      get "home" => "mrf/assessment#home", :as => :home
+      put "home" => "mrf/assessment#home", :as => :home
 
-      get "360/home" => "mrf/assessments#home", :as => :home
-      put "360/home" => "mrf/assessments#home", :as => :home
-
-      get "360/:id/traits" => "mrf/assessments#traits", :as => :traits
-      put "360/:id/traits" => "mrf/assessments#traits", :as => :traits
+      get "traits" => "mrf/assessments#traits", :as => :traits
+      put "traits" => "mrf/assessments#traits", :as => :traits
     end
   end
 
