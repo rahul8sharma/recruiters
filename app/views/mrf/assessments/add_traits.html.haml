@@ -1,1 +1,54 @@
-%h1 Mrf#Add traits
+.trait-show
+  .span15.page-title.first
+    .divider1
+    AID 1234 360 Assessment
+  %a.btn.btn-warning.pull-right.big-text.big.span{:href => '#'}
+    Create a new 360 Profiling Exercise
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+
+  .padding-all2.border-warning.shifted-up1
+    .big-text
+      .pull-left.font-bold
+        Traits Measured: 31
+      .pull-right.span15.first
+        .span
+          .span.marker.orange-bg
+          Traits Present in the included assessment : Assessment Name
+        .span
+          .span.marker.blue-bg
+          Traits Present in Only this 360 Profiling Exercise
+
+      .clr
+    .divider2
+    %ul.clearfix.scores_listing.first
+      %li
+        .lhs-sec.span20.first
+          .factor-name
+            Assertivness
+          .factor-description
+            Some Defintion
+        .clr
+      %li
+        .lhs-sec.span20.first
+          .factor-name
+            Assertivness
+          .factor-description
+            Some Defintion
+        .clr
+      %li
+        .lhs-sec.span20.first
+          .factor-name
+            Assertivness
+          .factor-description
+            Some Defintion
+        .clr
+      %li
+        .lhs-sec.span20.first
+          .factor-name
+            Assertivness
+          .factor-description
+            Some Defintion
+        .clr
