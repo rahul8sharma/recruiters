@@ -1,6 +1,4 @@
 Recruiters::Application.routes.draw do
-  get "mrf/new"
-
   resources :candidates do
     member do
       match 'generate_assessment_link' => "candidates_management#generate_assessment_link", :as => :generate_assessment_link
