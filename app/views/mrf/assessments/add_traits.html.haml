@@ -1,12 +1,19 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
 .container  
   .span14.page-title.first.huge-text
-    360&#176; Exercise Title
+    = @assessment.name
   .clr.divider1
   .extra-medium-text.pull-left
     .pull-left
       Assessment Included: 
-    .span11 
-      AID 711 - Arts & Crafts
+    .span11
+      - if @custom_assessment
+        AID #{@custom_assessment.id} - #{@custom_assessment.name}
+      - else
+        -
     .clr
   .medium-text.pull-right
     .span6
@@ -30,22 +37,19 @@
     Please select a minimum of 10 traits to create this assessment. Up to 26 can be selected. Traits present in the included assessment are marked in orange and cannot be deselected.
   .divider2
 
-
-  %ul.add-360-traits-listing
-    -10.times do 
-      %li
-        -4.times do
-          .trait-name.span7
-            %label
-              -# add classes ".color-warning" and "color-info" for orange and blue text
-              .trait-info
-                Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
-              .arrow
-              %input{:type=>"checkbox"}
-              Planning & Prioritization
-        .clr
-        .divider1
-  .divider3
-  %input.btn.btn-info.large-text.bold.pull-right{:type=>"button", :value=>"Proceed"}
-  .clr
+  = form_for @assessment, as: :assessment, url: add_traits_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    %ul.add-360-traits-listing
+      = f.hidden_field :company_id
+      - index = 0
+      - @assessment_traits.each_slice(4) do |slice|
+        %li
+          - slice.each do |assessment_trait|
+            = render partial: 'assessment_trait_fields', locals: { assessment_trait: assessment_trait, index: index }
+            - index += 1    
+          .clr
+          .divider1
+    .divider3
+    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+    .clr
   .divider2
+= javascript_include_tag 'add_traits'
