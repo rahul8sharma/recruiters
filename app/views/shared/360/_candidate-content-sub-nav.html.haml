@@ -1,7 +1,7 @@
 .content-sub-nav.clearfix
   %a.menu{:href => "#"}
     Statistics
-  %a.menu{:href => "#", class: (["traits"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["traits"].include?(params[:action]) ? "active" : "")}
     Traits Included
-  %a.menu{:href => "#"}
+  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : "")}
     Candidates
