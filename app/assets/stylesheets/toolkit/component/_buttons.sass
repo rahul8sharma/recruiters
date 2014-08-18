@@ -30,12 +30,17 @@
 
 
 // Active state
-.btn.active, .btn:active, input.btn:focus
+.btn-warniing.active, .btn-warning:active, input.btn-warning:focus
   $shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05)
   +box-shadow($shadow)
   outline: 0
   border-color: $color-warning
 
+.btn-info.active, .btn-info:active, input.btn-info:focus
+  $shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05)
+  +box-shadow($shadow)
+  outline: 0
+  border-color: $color-info
 // Disabled state
 .btn.disabled, .btn[disabled]
   cursor: wait
@@ -55,7 +60,8 @@
   padding: 8px 25px
 .btn.large-text.fw
   padding: 14px 25px
-
+.btn.bold
+  font-weight: 600
 .btn.big-text.big
   padding: 12px 36px
 .btn.big-text
@@ -85,7 +91,25 @@
     background: $color-warning
     color: $white
 
+.btn-info.active
+  color: rgba(255, 255, 255, 0.75)
 
+
+// info appears are Blue
+.btn-info,  .btn-info:hover
+  background: $color-info
+  color: $white
+  border: 1px solid $color-info
+.btn-info:hover
+  background-color: #fff
+  color: $color-info
+.btn-info.inverse
+  background-color: #fff
+  color: $color-info
+  font-weight: normal
+  &:hover
+    background: $color-info
+    color: $white
 // For Cross-browser
 // --------------------------------------------------
 

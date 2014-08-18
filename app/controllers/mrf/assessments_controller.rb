@@ -1,6 +1,9 @@
 class Mrf::AssessmentsController < ApplicationController
-  layout "mrf"
+  layout 'mrf'
   def index
+  end 
+
+  def new
   end
 
   def add_stakeholders

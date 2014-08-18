@@ -1,0 +1,51 @@
+.container  
+  .span14.page-title.first.huge-text
+    360º Exercise Title
+  .clr.divider1
+  .extra-medium-text.pull-left
+    .pull-left
+      Assessment Included: 
+    .span11 
+      AID 711 - Arts & Crafts
+    .clr
+  .medium-text.pull-right
+    .span6
+      %i.icon-ok-sign
+      Number of Traits Selected: 
+      %span.color-warning 1
+    .span
+      %i.icon-time
+      Approximate feedback duration: 
+      %span.color-warning 1 min : 30 sec
+    .clr
+
+
+  .clr
+  .divider2.border-bottom-grayLighter
+  .divider2
+  .extra-large-text.text-center
+    Please select the Traits to be included in this 360º Profiling Exercise
+  .divider1
+  .span16.extra-medium-text.margin-auto.text-justify
+    Please select a minimum of 10 traits to create this assessment. Up to 26 can be selected. Traits present in the included assessment are marked in orange and cannot be deselected.
+  .divider2
+
+
+  %ul.add-360-traits-listing
+    -10.times do 
+      %li
+        -4.times do
+          .trait-name.span7
+            %label
+              -# add classes ".color-warning" and "color-info" for orange and blue text
+              .trait-info
+                Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+              .arrow
+              %input{:type=>"checkbox"}
+              Planning & Prioritization
+        .clr
+        .divider1
+  .divider3
+  %input.btn.btn-info.large-text.bold.pull-right{:type=>"button", :value=>"Proceed"}
+  .clr
+  .divider2
