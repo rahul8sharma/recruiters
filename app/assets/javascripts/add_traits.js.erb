@@ -1,0 +1,138 @@
+/*
+  This javascript is added to add_traits page while creating MRF assessment
+  Checkboxes to select traits are disabled by default.
+  On document ready  
+  enable all checkboxes for traits
+  Add change even on checkboxes to select trait
+  On checked, enable all input tags under that trait_norm
+  On Uncheck, if trait_norm is new then disable all input tags under that trait_norm, else mark as destroy
+  Also toggle checked class for span tag for that trait
+*/
+
+jQuery(document).ready(function($) {
+  $(".assessment_trait").attr("disabled","disabled");
+  $(".check_trait").change(function() {
+    var index = $(this).attr("index");
+    if ($(this).is(":checked")) {
+      $("input:not(:checkbox)[index='" + index + "']").removeAttr("disabled");
+      if($("#trait_type_" + index).val() == "Mrf::Trait") {
+          $("#label_" + index).addClass("color-info");
+        } else {
+          $("#label_" + index).addClass("color-warning");
+        }
+    } else {
+      var id = $("#id_" + index).val();
+      if (id != null && id != "") {
+        $("#destroy_" + index).val(true);
+      } else {
+        $("input:not(:checkbox)[index='" + index + "']").attr("disabled", 'disabled');
+        if($("#trait_type_" + index).val() == "Mrf::Trait") {
+          $("#label_" + index).removeClass("color-info");
+        } else {
+          $("#label_" + index).removeClass("color-warning");
+        }
+      }
+    }
+  });
+
+  /*
+    Disable proceed btn on submit to avoid multiple post requests
+  */
+
+  //- -validation for add_traits range ---//
+  if ($('input[name="user"]').val() == "SuperAdmin"){
+    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["min"] %>);  
+    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["max"] %>);  
+  }else{
+    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["min"] %>);  
+    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["max"] %>);  
+  }
+  //--form submission
+  $('#edit_assessment').submit(function() {
+    if ($('input[name=selected_trait]:checked').length >= traits_min && $('input[name=selected_trait]:checked').length <= traits_max) {
+      $('#edit_assessment input[type="submit"]').attr("disabled", "disabled");
+      return true;
+    } else {
+      $("#trait_flag").removeAttr('hidden');
+      scroller('#trait_flag');
+      return false;
+    }
+  });
+  //- -validation for add_traits range ---//
+
+  //--- To check the number of traits selected ----//
+  var counter = 0;
+  var approximate_time_per_trait = <%= Rails.application.config.validators["approx_time_per_trait"]%>;
+  var traits_selected_counter = $('input[name="selected_trait"]:checked').length;  
+  timer(traits_selected_counter);
+
+  $('input[name="selected_trait"]').on("change",function(){
+    if($(this).is(":checked")){
+      timer(1);//function to iterate the timer
+    }else{
+      timer(-1);//function to iterate the timer
+    }
+  });
+  //--- To check the number of traits selected ----//
+
+  $('.scroll').on('click', function(){
+    scroller('#scale_description');
+  });
+
+  //$(window).scroll(placeHeader);
+  
+  function pad(val)
+  {
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+      return "0" + valString;
+    }else{
+      return valString;
+    }
+  }
+
+  function textHighlighter(counter)
+  {
+    var lower_limit = traits_min;
+    var upper_limit = traits_max;
+    
+    if(counter < lower_limit || counter > upper_limit){
+      $("#traits-counter").addClass("color-stop");
+      $("#label_counter").addClass("color-stop");
+      $("#traits-counter").removeClass("color-warning");
+    }else{
+      $("#traits-counter").addClass("color-warning");
+      $("#traits-counter").removeClass("color-stop");
+      $("#label_counter").removeClass("color-stop");
+    }
+  }
+
+  function timer(iterator){
+    counter += iterator;
+    approximate_time = counter * approximate_time_per_trait;
+    approximate_time_sec = approximate_time % 60; // 120sec % 60sec = 0seconds
+    approximate_time_min = parseInt(approximate_time / 60); // 120sec / 60 = 2mins
+    $("#traits-counter").html(pad(counter));
+    $("#approximate-time").html(pad(approximate_time_min)+" min : "+pad(approximate_time_sec)+" sec");
+    textHighlighter(counter);
+  }  
+
+  function scroller(target){
+    $('html, body').animate({
+      scrollTop: $(target).offset().top - 37
+    }, 500);
+    return false;
+  }
+
+  function placeHeader(){ 
+    var $table  = $('#info_bar');  
+    var $header = $('#info'); 
+    if ($table.offset().top <= $(window).scrollTop()) {
+      $header.offset({top: $(window).scrollTop()});
+    } else { 
+      $header.offset({top: $table.offset().top}); 
+    }    
+  }
+    
+});
