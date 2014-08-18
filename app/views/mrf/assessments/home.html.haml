@@ -1,47 +1,57 @@
-.assessments-list
+.profiling-exercises-list
   .span14.page-title.first
     .divider1
     360 Profiling Exercises
-  %a.btn.btn-info.big.big-text.pull-right.span{:href =>"#", :title => "Click Here To Create Custom Assessment"} 
+  %a.btn.btn-info.big.big-text.pull-right.bold.span{:href =>"#", :title => "Click Here To Create Custom Assessment"} 
     Create a new 360 Profiling Exercises
   .clr
   .divider2
-  .list-snippet-titles.extra-medium-text.clearfix
-    .span2.first
-      AID
+  .list-snippet-titles.big-text.clearfix
+    .span3.first
+      %a{:href => "#", :title => "360 ID"}
+        360ID
+        %i.icon-chevron-down.small-text.line-height1
     .span4
-      Created On
-    .span7
-      Title
-    .span4
-      Candidates
-    .span4
+      %a{:href => "#", :title => "Created On"}
+        Created On
+        %i.icon-chevron-down.small-text.line-height1
+    .span8
+      %a{:href => "#", :title => "Profiling Exercises Title "}
+        Title
+        %i.icon-chevron-down.small-text.line-height1
+    .span3.text-center
+      %a{:href => "#", :title => "Candidates"}
+        Candidates
+        %i.icon-chevron-down.small-text.line-height1
+    .span4.text-center
       Stakeholders
-    .span4
+    .span5.text-center
       Responses From
-    .span5
+    .span3.text-center
       Add More
     .clr
-    .divider1          
+    .divider2          
     %ul
-      %li.list-snippet.border-bottom-grayLighter.medium-text
-        .divider1
-        .span2.first
-          123
-        .span4
-          12/3/12
-        .span7
-          Name
-        .span3.text-center
-          1
-        .span3.text-center.left-offset1
-          4
-        .span2.text-center.left-offset1
-          7
-        .span4.text-center.left-offset1
-          .icon-plus-sign
-        .clr
-        .divider1
+      -10.times do
+        %li.list-snippet.border-top-grayLighter.extra-medium-text
+          .divider1
+          .span3.first
+            %a{:href => "#", :title => "360ID"}
+              123
+          .span4
+            12/3/12
+          .span8
+            %a{:href => "#", :title => "360ID"}
+              Profiling Exercises Title  
+          .span3.text-center
+            1
+          .span4.text-center
+            4
+          .span5.text-center
+            7
+          .span3.text-center
+            %a.icon-plus-sign.large-text{:href => "#", :title => "Add more"}
+          .clr
   .divider2
 .pull-right
   .muted.extra-medium-text
