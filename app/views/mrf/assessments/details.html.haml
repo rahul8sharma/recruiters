@@ -1,1 +1,69 @@
-%h1 Mrf#Details
+.details-mrf
+  .span18.huge-text.first
+    .divider1
+    AID 1234 360 Assessment
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
+    Create a new 360º Profiling Exercise 
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+
+  .padding-all2.border-warning.shifted-up1
+    .pull-left.extra-medium-text
+      .span5.first
+        Total Candidates: 50
+      .span5.first
+        Traits Included: 24
+      .clr.divider1
+      .pull-left
+        Assessment Included: 
+      .span14 name
+      .clr
+    %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
+      Add Candidates / Stakeholders
+    .clr.divider2
+    %table.extra-medium-text{:width => "710", :align => "center", cellpadding: "0", :cellspacing => "0"}
+      %tbody
+        %tr.color-info.heading
+          %td 
+            Stakeholders
+          %td 
+            Invited
+          %td 
+            Responded
+          %td 
+            Status
+          %td 
+            Reminders
+        -5.times do 
+          %tr
+            %td 
+              Manager
+            %td 
+              2
+            %td 
+              2
+            %td 
+              Completed
+            %td 
+              %a.default{:href => "#", :title => "Send reminder"}
+                Send reminder
+        %tr.font-bold
+          %td 
+            Manager
+          %td 
+            2
+          %td 
+            2
+          %td 
+            Completed
+          %td 
+            %a{:href => "#", :title => "Send Reminder to all pending"} 
+              Send Reminder to all pending
+    .divider1
+    .extra-medium-text.margin-auto{:style => "width: 710px"}
+      Self Ratings: Enabled for some candidates - 
+      %a{:href => "#", :title => "Enable for all?"}
+        Enable for all?
+    .divider2
