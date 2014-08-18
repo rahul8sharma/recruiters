@@ -337,6 +337,12 @@ Recruiters::Application.routes.draw do
 
       get "traits" => "mrf/assessments#traits", :as => :traits
       put "traits" => "mrf/assessments#traits", :as => :traits
+
+      get ":candidate_id/statistics" => "mrf/assessments/candidate_assessments#statistics", :as => :statistics
+      put ":candidate_id/statistics" => "mrf/assessments/candidate_assessments#statistics", :as => :statistics
+
+      get ":candidate_id/stakeholder" => "mrf/assessments/candidate_assessments#stakeholder", :as => :stakeholder
+      put ":candidate_id/stakeholder" => "mrf/assessments/candidate_assessments#stakeholder", :as => :stakeholder
     end
   end
 
