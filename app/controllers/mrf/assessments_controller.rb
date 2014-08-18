@@ -1,4 +1,5 @@
 class Mrf::AssessmentsController < ApplicationController
+  layout "mrf"
   def index
   end
 
