@@ -55,7 +55,7 @@ input[type="text"]
           background: image-url("down-caret.png") no-repeat
         .trait-info
           border: 1px solid $color-warning
-.profiling-exercises-list 
+.profiling-exercises-list, .candidate-mrf-show 
   .list-snippet-titles
     a:hover i
       color: $color-info
@@ -65,3 +65,23 @@ input[type="text"]
 
     &:first-child
       border: 0 none
+
+.details-mrf
+  table
+    border: 1px solid #e3e3e3 
+   
+    tr
+
+      &:nth-child(odd)
+        background: #fbfbfb
+      &:first-child
+        td
+          border-top: 0 none
+    td
+      border-left: 1px solid #e3e3e3 
+      border-top: 1px solid #e3e3e3 
+      padding: 18px
+      text-align: center
+      &:first-child
+        
+        border-left: 0 none

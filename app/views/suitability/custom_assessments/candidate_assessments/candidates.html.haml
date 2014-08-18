@@ -40,7 +40,7 @@
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .pull-right
         %a.label.label-info.label-small.pull-right{:href=>"#"}
-          %b REQUEST 360º PROFILING OF ALL CANDIDATES
+          %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
       .clr
       .divider1
     - if @candidates.empty?
@@ -92,7 +92,7 @@
                     Send Reminder
             .span.pull-right
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
-                Request 360º Profiling
+                Request 360&#176; Profiling
             .clr
       .divider3
     - if @candidate_assessments.present?

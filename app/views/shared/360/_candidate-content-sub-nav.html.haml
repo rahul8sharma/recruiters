@@ -1,5 +1,5 @@
 .content-sub-nav.clearfix
-  %a.menu
+  %a.menu{class: (["details"].include?(params[:action]) ? "active" : "")}
     Statistics
   %a.menu{class: (["traits"].include?(params[:action]) ? "active" : "")}
     Traits Included
