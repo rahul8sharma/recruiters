@@ -1,1 +1,71 @@
-%h1 statistics
+.details-mrf
+  .span15.huge-text.first
+    .divider1
+    AID 1234 360 Assessment
+  .span7.pull-right.medium-text
+    %a{:href => '#'}
+      Return to 360&#176; Profiling Exercise Details
+    .divider1
+    %a.btn.btn-info.big-text.big.bold{:href => '#'}
+      Add Stakeholders
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-details-sub-nav"
+
+
+  .padding-all2.border-warning.shifted-up1
+    .pull-left.extra-medium-text
+      .span10.first
+        <360ID> Name Of Exercise
+      .clr.divider1
+      .pull-left
+        %i.icon-file
+        360 Report For Pranav Shah :
+        %a{:href =>'#', :title =>'View'}
+          View
+      .clr
+    .clr.divider2
+    %table.extra-medium-text{:width => "710", :align => "center", cellpadding: "0", :cellspacing => "0"}
+      %tbody
+        %tr.color-info.heading
+          %td 
+            Stakeholders
+          %td 
+            Invited
+          %td 
+            Responded
+          %td 
+            Status
+          %td 
+            Reminders
+        -5.times do 
+          %tr
+            %td 
+              Manager
+            %td 
+              2
+            %td 
+              2
+            %td 
+              Completed
+            %td 
+              %a.default{:href => "#", :title => "Send reminder"}
+                Send reminder
+        %tr.font-bold
+          %td 
+            Manager
+          %td 
+            2
+          %td 
+            2
+          %td 
+            Completed
+          %td 
+            %a{:href => "#", :title => "Send Reminder to all pending"} 
+              Send Reminder to all pending
+    .divider1
+    .extra-medium-text.margin-auto{:style => "width: 710px"}
+      Self Ratings: Currently Disabled - 
+      %a{:href => "#", :title => "Enable for all?"}
+        Enable?
+    .divider2
