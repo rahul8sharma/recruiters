@@ -36,8 +36,11 @@
         
       .span8
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span10
+      .span9
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .pull-right
+        %a.label.label-info.label-small.pull-right{:href=>"#"}
+          %b REQUEST 360º PROFILING OF ALL CANDIDATES
       .clr
       .divider1
     - if @candidates.empty?
@@ -62,16 +65,17 @@
             .span8
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
                 = h candidate.name
-            .span10
+            .span9
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr 
-            .span
+            .span4
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
                   %a{:href => url, :title => "View Report", target: "_blank"}
+                    %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"} 
                     View Report
                 - else
                   %i.icon-spinner.icon-spin 
@@ -86,6 +90,9 @@
                   %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                     %i.icon-time
                     Send Reminder
+            .span.pull-right
+              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
+                Request 360º Profiling
             .clr
       .divider3
     - if @candidate_assessments.present?
