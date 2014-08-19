@@ -208,8 +208,8 @@ Recruiters::Application.routes.draw do
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
-        get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :statistics
-        get ":candidate_id/stakeholder" => "mrf/assessments/candidate_feedback#stakeholders", :as => :stakeholder
+        get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
+        get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
       end
     end
 
