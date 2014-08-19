@@ -3,6 +3,6 @@ class Mrf::Assessments::CandidateAssessmentsController < ApplicationController
   def statistics
   end
 
-  def stakeholder
+  def stakeholders
   end
 end
