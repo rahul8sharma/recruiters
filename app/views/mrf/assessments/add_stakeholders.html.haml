@@ -1,1 +1,103 @@
-%h1 Mrf#Add stakeholder
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.span25.huge-text.page-title
+  < Page Title >
+  .divider1
+.span25.extra-medium-text
+  < Help Text >
+  .divider2
+.span30
+  .extra-medium-text.color-info
+    %input{:name =>'bulkupload', :type =>'radio', :value => 'radio'}
+    < Bulk Addition Text >
+  .divider2
+  
+  .span25.first.left-offset4.extra-medium-text
+    .bulk-upload
+      %form
+        .span.left-offset1.pull-left
+          .control-group
+            .span6.extra-medium-text.pull-left
+              .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
+                %input{ :type => "file"}
+              .span.default-text
+                (File format supported: CSV)
+            .span14.extra-medium-text
+              %a{:target => "_blank", :href => '#'}
+                Download Sample File for adding Candidates and Stakeholders
+  .divider4
+  .span7.pull-right.medium-text
+    %a.btn.btn-info.big-text.big.font-bold{:href => '#'}
+      Send Invitations
+  .clr  
+  
+  .divider2.border-bottom-grayLighter    
+
+
+.span30
+  .divider2
+  %form
+    .extra-medium-text.color-info
+      %input{:name =>'bulkupload', :type =>'radio', :value => 'radio'}
+      < Manual Addition Text >
+    .divider2
+    %div
+      %ul.add-candidates.clearfix
+        %li
+          .control-group
+            .span14.extra-medium-text.pull-left
+              .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
+                Candidate Name
+              %span
+                %input.span9.medium-text{type: "text", placeholder: "Name"}
+              .clr
+            .span14.extra-medium-text
+              .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
+                Candidate Email
+              %span
+                %input.span9.medium-text{type: "text", placeholder: "Name"}
+              .clr
+    .divider2
+
+    .extra-medium-text
+      < Stakeholders For Candidates >
+    
+    .divider1
+
+    %div{class: 'activated'}
+      .left-offset1.first
+        .span8.first.extra-medium-text
+          Name
+        .span8.extra-medium-text.left-offset1
+          Email ID
+        .span8.extra-medium-text.left-offset1
+          Role
+        .clr
+      .divider1
+      %ul.add-candidates.clearfix
+        - 10.times do |index|
+          %li
+            .control-group
+              .span1
+                .count.badge.badge-small.inverse 
+                  = index + 1
+              %input.span8.medium-text{type: "text", placeholder: "Star Lord"}
+              %input.span8.medium-text.left-offset1{type: "text", placeholder: "starlord@guardians.com"}
+              %select.span8.medium-text.left-offset1
+                %option
+                %option
+                  Sr. Manager
+                %option
+                  Manager
+              .clr
+
+      .left-offset25.color-info.extra-medium-text
+        + Add More
+      .divider2
+
+      %input.pull-left.btn.btn-info.large-text.font-bold{name: "send_invitaions", value: "Send Invitations and Add More" , type: "submit"}
+      %input.pull-right.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+      .clr
+
