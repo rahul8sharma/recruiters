@@ -178,7 +178,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
       end
-
+      
       resources :candidates, :except => [:destroy, :show] do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
@@ -188,6 +188,28 @@ Recruiters::Application.routes.draw do
             put "manage" => "assessment_reports#manage", :as => :manage
           end
         end
+      end
+    end
+    
+    resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
+      collection do
+        get "home" => "mrf/assessments#home", :as => :home
+        put "home" => "mrf/assessments#home", :as => :home
+      end
+
+      member do
+        get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+        put "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
+
+        get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+        put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+
+        get "candidates" => "mrf/assessments#candidates", :as => :candidates
+
+        get "details" => "mrf/assessments#details", :as => :details
+        get "traits" => "mrf/assessments#traits", :as => :traits
+        get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :statistics
+        get ":candidate_id/stakeholder" => "mrf/assessments/candidate_feedback#stakeholders", :as => :stakeholder
       end
     end
 
@@ -312,37 +334,6 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
-    end
-  end
-
-  resources :mrf, :controller => "mrf/assessments", :path => "360" do
-    collection do
-      get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
-      post "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
-
-      get "home" => "mrf/assessments#home", :as => :home
-      put "home" => "mrf/assessments#home", :as => :home
-
-    end
-
-    member do
-      get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
-      put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
-
-      get "candidates" => "mrf/assessments#candidates", :as => :candidates
-      put "candidates" => "mrf/assessments#candidates", :as => :candidates
-
-      get "details" => "mrf/assessments#details", :as => :details
-      put "details" => "mrf/assessments#details", :as => :details
-
-      get "traits" => "mrf/assessments#traits", :as => :traits
-      put "traits" => "mrf/assessments#traits", :as => :traits
-
-      get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :statistics
-      put ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :statistics
-
-      get ":candidate_id/stakeholder" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
-      put ":candidate_id/stakeholder" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
     end
   end
 

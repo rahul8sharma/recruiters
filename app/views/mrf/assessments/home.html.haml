@@ -2,8 +2,8 @@
   .span14.page-title.first
     .divider1
     360&#176; Profiling Exercises
-  %a.btn.btn-info.big.big-text.pull-right.bold.span{:href =>"#", :title => "Click Here To Create Custom Assessment"} 
-    Create a new 360 Profiling Exercises
+  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_mrf_assessment_path(@company), :title => "Click Here To Create Custom Assessment"} 
+    Create a new 360&#176; Profiling Exercises
   .clr
   .divider2
   .list-snippet-titles.big-text.clearfix
@@ -32,26 +32,25 @@
     .clr
     .divider2          
     %ul
-      -10.times do
-        %li.list-snippet.border-top-grayLighter.extra-medium-text
+      - @assessments.each do |assessment|
+        %li.list-snippet.border-top-grayLighter.extra.medium-text
           .divider1
           .span3.first
-            %a{:href => "#", :title => "360ID"}
-              123
+            = assessment.id
           .span4
-            12/3/12
+            = hdate assessment.created_at
           .span8
-            %a{:href => "#", :title => "360ID"}
-              Profiling Exercises Title  
+            = assessment.name
           .span3.text-center
-            1
+            = assessment.feedbacks.map(&:candidate_id).uniq.count
           .span4.text-center
-            4
+            = 2
           .span5.text-center
-            7
+            = 3
           .span3.text-center
             %a.icon-plus-sign.large-text{:href => "#", :title => "Add more"}
           .clr
+          .divider1
   .divider2
 .pull-right
   .muted.extra-medium-text
