@@ -198,9 +198,6 @@ Recruiters::Application.routes.draw do
       end
 
       member do
-        get "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
-        put "add_stakeholders" => "mrf/assessments#add_stakeholders", :as => :add_stakeholders
-
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
@@ -208,8 +205,13 @@ Recruiters::Application.routes.draw do
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
+
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
+
+        get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
+        put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
+
       end
     end
 
