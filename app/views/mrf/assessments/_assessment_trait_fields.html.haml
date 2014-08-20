@@ -9,9 +9,7 @@
   %label{id: "label_#{index}", class: "#{checked ? klass : ''}"}
     .trait-info
       = assessment_trait.trait.definition
-    - if !assessment_trait.assessment_trait
-      - if assessment_trait.id.present?
-        %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index), disabled: 'disabled'}
+    - if !assessment_trait.assessment_trait && !assessment_trait.id.present?
       %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
       %input{name: (trait_id), type: 'hidden', value: assessment_trait.trait_id, disabled: 'disabled', index: (index)}
       %input{name: (trait_type), id: "trait_type_#{index}", type: 'hidden', value: assessment_trait.trait_type, disabled: 'disabled', index: (index)}
