@@ -339,6 +339,28 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
+  
+  namespace :mrf do
+    resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+      resources :options do
+      end
+    end
+  end
 
   namespace :suitability do
     resources :item_groups do
