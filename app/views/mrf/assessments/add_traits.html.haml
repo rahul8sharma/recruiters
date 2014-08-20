@@ -19,11 +19,11 @@
     .span6
       %i.icon-ok-sign
       Number of Traits Selected: 
-      %span.color-warning 1
-    .span
+      %span.color-warning{:id => 'traits-counter'}
+    .span{:hidden =>'hidden'}
       %i.icon-time
       Approximate feedback duration: 
-      %span.color-warning 1 min : 30 sec
+      %span.color-warning{:id => 'approximate-time'}
     .clr
 
 
