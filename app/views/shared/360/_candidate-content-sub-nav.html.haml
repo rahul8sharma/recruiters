@@ -1,7 +1,7 @@
 .content-sub-nav.clearfix
-  %a.menu{class: (["details"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["details"].include?(params[:action]) ? "active" : ""), href: details_company_mrf_assessment_path(@company,@assessment)}
     Statistics
-  %a.menu{class: (["traits"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["traits"].include?(params[:action]) ? "active" : ""), href: traits_company_mrf_assessment_path(@company,@assessment)}
     Traits Included
-  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : ""), href: candidates_company_mrf_assessment_path(@company,@assessment)}
     Candidates

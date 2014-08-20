@@ -1,6 +1,6 @@
 .content-sub-nav.clearfix
-  %a.menu{class: (["statistics"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["statistics"].include?(params[:action]) ? "active" : ""), href: candidate_statistics_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id)}
     Statistics
-  %a.menu{class: (["stakeholders"].include?(params[:action]) ? "active" : "")}
+  %a.menu{class: (["stakeholders"].include?(params[:action]) ? "active" : ""), href: candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id)}
     Stakeholders
 
