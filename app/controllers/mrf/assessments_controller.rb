@@ -19,7 +19,11 @@ class Mrf::AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
-      redirect_to add_traits_company_mrf_assessment_path(@company,@assessment)
+      if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
+        redirect_to add_traits_company_mrf_assessment_path(@company,@assessment)
+      else
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company,@assessment) and return
+      end
     else
       get_custom_assessments
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
@@ -31,26 +35,43 @@ class Mrf::AssessmentsController < ApplicationController
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
         Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
-        redirect_to candidates_company_mrf_assessment_path(@company,@assessment) and return
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company,@assessment) and return
       else
       end
     end
     get_traits
   end
   
-  def add_candidates
+  def candidates
+    @feedbacks = @assessment.feedbacks.to_a
+    if @feedbacks.present?
+      @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.map(&:candidate_id).uniq }).to_a.collect{|candidate| [candidate.id,candidate] }]
+      @reports = Hash[Vger::Resources::Mrf::Report.where(query_options: { candidate_id: @feedbacks.map(&:candidate_id).uniq, assessment_id: @assessment.id }).to_a.collect{|report| [report.candidate_id,report] }]
+    else
+      @candidates = {}
+      @reports = {}
+    end
   end
 
   def details
+    get_custom_assessment
+    @feedbacks = @assessment.feedbacks.to_a.group_by{|feedback| feedback.role }
   end
 
   def traits
+    get_custom_assessment
   end
   
   protected
   
   def get_custom_assessments
     @custom_assessments = Vger::Resources::Suitability::CustomAssessment.where(company_id: params[:company_id], query_options: { company_id: params[:company_id] }, order_by: "created_at DESC").all.to_a
+  end
+  
+  def get_custom_assessment
+    if @assessment.custom_assessment_id.present?
+      @custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(@assessment.custom_assessment_id)
+    end
   end
   
   def get_company
@@ -76,10 +97,8 @@ class Mrf::AssessmentsController < ApplicationController
     added_assessment_traits = Hash[@assessment.assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_type}-#{assessment_trait.trait_id}",assessment_trait] }]
     @assessment_traits = []
     custom_assessment_factors = []
-    if @assessment.custom_assessment_id
-      @custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(@assessment.custom_assessment_id)
-      custom_assessment_factors = Vger::Resources::Suitability::Job::AssessmentFactorNorm.where(:custom_assessment_id => @assessment.custom_assessment_id, select: :factor_id).all.to_a.map(&:factor_id)
-    end
+    get_custom_assessment
+    custom_assessment_factors = Vger::Resources::Suitability::Job::AssessmentFactorNorm.where(:custom_assessment_id => @assessment.custom_assessment_id, select: :factor_id).all.to_a.map(&:factor_id) if @custom_assessment
     @traits.each do |trait|
       trait_type = trait.class.name.gsub('Vger::Resources::','')
       @assessment_trait = added_assessment_traits["#{trait_type}-#{trait.id}"]

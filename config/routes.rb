@@ -211,6 +211,7 @@ Recruiters::Application.routes.draw do
 
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
+        put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
 
       end
     end
@@ -336,6 +337,28 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
+    end
+  end
+  
+  namespace :mrf do
+    resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+      resources :options do
+      end
     end
   end
 
@@ -569,6 +592,7 @@ Recruiters::Application.routes.draw do
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
+  get "/download_sample_csv_for_mrf_bulk_upload", :to => "help#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
   get "/report-management", :to => "pages#report_management", :as => :report_management
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report

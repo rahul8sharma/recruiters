@@ -1,0 +1,36 @@
+%h3 All Mrf Traits : Showing #{params[:type]}
+- if can? :create, "Mrf::Trait"
+  = link_to "Manage Mrf Traits", manage_mrf_traits_path
+.pagination.pull-right
+  = paginate @traits
+.clr
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Company
+    %th
+      Edit
+    
+  - @traits.each do |trait|
+    %tr
+      %td{ width: "5%" }
+        = trait.id
+      %td{ width: "15%" }
+        %a{ href: mrf_trait_path(:id => "#{trait.id}") }
+          = trait.name
+      %td{ width: "40%" }
+        = trait.definition
+      %td
+        = trait.company_id
+      %td
+        = link_to "Edit", edit_mrf_trait_path(trait)
+.pagination.pull-right
+  = paginate @traits
+.clr
+

@@ -1,7 +1,7 @@
 .trait-show
   .span18.huge-text.first
     .divider1
-    AID 1234 360 Assessment
+    AID #{@assessment.id} #{@assessment.name}
   %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
     Create a new 360&#176; Profiling Exercise
   .clr
@@ -12,11 +12,11 @@
   .padding-all2.border-warning.shifted-up1
     .big-text
       .extra-large-text.pull-left
-        Traits Measured: 31
+        Traits Measured: #{@assessment.assessment_traits.size}
       .pull-right.extra-medium-text
         .span.marker.orange-bg
-        .span 
-          Traits Present in the included assessment : Assessment Name
+        .span{title: (@custom_assessment ? @custom_assessment.name : "")}
+          Traits Present in the included assessment : #{@custom_assessment ? @custom_assessment.name : "-"}
           -#need to truncate "assessment name"
         .clr.divider1
         .span.marker.blue-bg
@@ -26,13 +26,20 @@
       .clr
     .divider1
     %ul.clearfix.scores_listing.first
-      -10.times do 
+      - @assessment.assessment_traits.each do |assessment_trait|
         %li
           .extra-medium-text
-            .color-info.font-bold
-              -#in some case, replace ""color-info" to "color-warning"
-              Assertivness
-            .factor-description
-              Some Defintion
+            - if assessment_trait.trait.attributes["factor"]
+              .color-warning.font-bold
+                -#in some case, replace ""color-info" to "color-warning"
+                = assessment_trait.trait.attributes["factor"]["name"]
+              .factor-description
+                = assessment_trait.trait.attributes["factor"]["definition"]
+            - else
+              .color-info.font-bold
+                -#in some case, replace ""color-info" to "color-warning"
+                = assessment_trait.trait.attributes["trait"]["name"]
+              .factor-description
+                = assessment_trait.trait.attributes["trait"]["definition"]
           .clr
     .divider2     

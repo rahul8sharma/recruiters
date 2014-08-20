@@ -36,11 +36,11 @@
         %li.list-snippet.border-top-grayLighter.extra.medium-text
           .divider1
           .span3.first
-            = assessment.id
+            = link_to assessment.id, details_company_mrf_assessment_path(@company,assessment)
           .span4
-            = hdate assessment.created_at
+            = link_to hdate(assessment.created_at), details_company_mrf_assessment_path(@company,assessment)
           .span8
-            = assessment.name
+            = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
           .span3.text-center
             = assessment.feedbacks.map(&:candidate_id).uniq.count
           .span4.text-center

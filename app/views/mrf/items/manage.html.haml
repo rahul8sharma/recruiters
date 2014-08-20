@@ -1,0 +1,25 @@
+= form_for :item, :url => import_from_google_drive_mrf_items_path, html: { multipart: true }, :method => :post do |f|
+  %fieldset
+    %legend
+      Import Mrf Items
+    %br
+    %br
+    = f.fields_for :file do |ff|
+      File
+      = ff.text_field "url", value: ""
+    %br
+    %br
+    Company
+    = f.text_field :company_id
+    %br
+    %br
+    Notifier Email
+    = f.email_field :email, value: "product@jombay.com"
+    %br
+    %br
+    .actions
+      = submit_tag 'Import Mrf Items'
+%br
+= link_to 'Back', mrf_items_path     
+\|
+= link_to 'Destroy All', destroy_all_mrf_items_path

@@ -1,7 +1,7 @@
 .candidate-mrf-show
   .span15.huge-text.first
     .divider1
-    AID 1234 360 Assessment
+    AID #{@assessment.id} #{@assessment.name}
   %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
     Create a new 360&#176; Profiling Exercise
   .clr
@@ -31,16 +31,16 @@
       .clr
       .divider1          
       %ul
-        -10.times do
+        - @candidates.each do |candidate_id, candidate|
           %li.list-snippet.extra-medium-text
             .divider1
             .span3.first
               %a{:href => "#", :title => "360ID"}
-                123
+                = candidate_id
             .span10
-              Guardians Of Galaxy
+              = candidate.name
             .span5
-              Partially Complete
+              = @reports[candidate_id] ? @reports[candidate_id].status : "Partially Completed"
             .span5
               %a{:href => "#", :title => "View Report"}
                 %i.icon-file
