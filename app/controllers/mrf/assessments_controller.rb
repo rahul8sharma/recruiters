@@ -31,9 +31,6 @@ class Mrf::AssessmentsController < ApplicationController
     end
   end
 
-  def add_stakeholders
-  end
-
   def add_traits
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
