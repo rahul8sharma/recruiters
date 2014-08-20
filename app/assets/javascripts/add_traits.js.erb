@@ -34,7 +34,6 @@ jQuery(document).ready(function($) {
       }
     }
   });
-  $(window).scroll(placeHeader);
   var trait_counter = 0;
   var traits_selected_counter = $('input[name="selected_trait"]:checked').length;
   counter(traits_selected_counter);
@@ -62,15 +61,4 @@ jQuery(document).ready(function($) {
       return valString;
     }
   }
-  
-  function placeHeader(){ 
-    var $table  = $('#info_bar');  
-    var $header = $('#info'); 
-    if ($table.offset().top <= $(window).scrollTop()) {
-      $header.offset({top: $(window).scrollTop()});
-    } else { 
-      $header.offset({top: $table.offset().top}); 
-    }    
-  }
-
 });
