@@ -1,0 +1,11 @@
+%h3 Mrf Factor #{@trait.id}
+%p
+  %b Name:
+  = @trait.name
+  %br
+  %b Definition:
+  = @trait.definition
+  
+= link_to "Edit", edit_mrf_trait_path(@trait)
+\|
+= link_to "Back", mrf_traits_path
