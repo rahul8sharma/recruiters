@@ -1,0 +1,15 @@
+.trait-name.span7{ :id => "span_#{index}" }
+  %label{id: "label_#{index}"}
+    .trait-info
+      %span.font-bold
+        ATID =
+      %span
+        = candidate.id
+      %br/
+      %span.font-bold
+        Email = 
+      %span
+        = candidate.email
+    .arrow
+    %input{name: "#{candidate.name}", class: "check_trait", type: 'checkbox', id: "checkbox_trait_#{index}", index: (index)}
+    = candidate.name

@@ -13,6 +13,18 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
   
   def select_candidates
+    if request.get?
+      get_custom_assessment
+      @candidates = Vger::Resources::Candidate.where(
+      joins: :candidate_assessments, 
+      query_options: { 
+        "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
+      }, 
+      select: [:name, :email, "candidates.id"], 
+      page: params[:page], 
+      per: 44
+    ).all.to_a
+    end
   end
 
   def add_stakeholders
