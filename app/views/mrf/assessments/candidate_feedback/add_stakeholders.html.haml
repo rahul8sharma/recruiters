@@ -53,7 +53,7 @@
 
 .span30{ class: manual_addition_text.nil? ? 'hide':'' }
   .divider2
-  %form
+  = form_for @assessment, as: :assessment, url: add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), method: :put do |f|
     .extra-medium-text.color-info
       = manual_addition_text
     .divider2
@@ -65,13 +65,13 @@
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
                 Candidate Name
               %span
-                %input.span9.medium-text{type: "text", placeholder: "Name"}
+                %input.span9.medium-text{type: "text", placeholder: "Name", name: "candidate[name]", value: params[:candidate][:name] }
               .clr
             .span14.extra-medium-text
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
                 Candidate Email
               %span
-                %input.span9.medium-text{type: "text", placeholder: "Name"}
+                %input.span9.medium-text{type: "text", placeholder: "Email", name: "candidate[email]", value: params[:candidate][:email] }
               .clr
     .divider2
 
@@ -97,21 +97,21 @@
               .span1
                 .count.badge.badge-small.inverse 
                   = index + 1
-              %input.span8.medium-text{type: "text", placeholder: "Star Lord"}
-              %input.span8.medium-text.left-offset1{type: "text", placeholder: "starlord@guardians.com"}
-              %select.span8.medium-text.left-offset1
-                %option
-                %option
-                  Sr. Manager
-                %option
-                  Manager
+              %input.span8.medium-text{type: "text", placeholder: "Star Lord", name: "stakeholders[#{index}][name]", value: params[:stakeholders][index.to_s][:name] }
+              %input.span8.medium-text.left-offset1{type: "text", placeholder: "starlord@guardians.com", name: "stakeholders[#{index}][email]", value: params[:stakeholders][index.to_s][:email]}
+              %select.span8.medium-text.left-offset1{ name: "stakeholders[#{index}][role]" }
+                %option{ value: nil }
+                  Select Role
+                - Vger::Resources::Mrf::Feedback::ROLES.each do |role|
+                  %option{ value: role, selected: (params[:stakeholders][index.to_s][:role] == role) }
+                    = role.titleize
               .clr
 
       %a.left-offset25.color-info.extra-medium-text{ class: manual_addition_text.nil? ? 'hide' : '' }
         + Add More
       .divider2
 
-      %input.pull-left.btn.btn-info.large-text.font-bold{name: "send_invitaions", value: "Send Invitations and Add More", type: "submit"}
+      %input.pull-left.btn.btn-info.large-text.font-bold{name: "send_and_add_more", value: "Send Invitations and Add More", type: "submit"}
       %input.pull-right.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
       .clr
 
