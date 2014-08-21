@@ -208,7 +208,10 @@ Recruiters::Application.routes.draw do
 
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
-
+        
+        get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
