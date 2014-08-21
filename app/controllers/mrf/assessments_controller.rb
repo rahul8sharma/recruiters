@@ -20,9 +20,11 @@ class Mrf::AssessmentsController < ApplicationController
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
       if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
-        redirect_to add_traits_company_mrf_assessment_path(@company,@assessment)
-      else
-        redirect_to add_stakeholders_company_mrf_assessment_path(@company,@assessment) and return
+        redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+      elsif @assessment.custom_assessment_id.present?
+        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      else  
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
       end
     else
       get_custom_assessments
@@ -34,8 +36,12 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
-        Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
-        redirect_to add_stakeholders_company_mrf_assessment_path(@company,@assessment) and return
+        @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
+        if @assessment.custom_assessment_id.present?
+          redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        else  
+          redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        end
       else
       end
     end
