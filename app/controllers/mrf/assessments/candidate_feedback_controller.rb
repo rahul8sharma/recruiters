@@ -11,8 +11,67 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def stakeholders
   end
+  
+  def select_candidates
+  end
 
   def add_stakeholders
+    params[:candidate] ||= {}
+    params[:stakeholders] ||= {}
+    10.times do |index|
+      params[:stakeholders][index.to_s] ||= {}
+    end
+    if request.put?
+      if params[:candidate][:email].present?
+        candidate = Vger::Resources::Candidate.where(query_options: { email: params[:candidate][:email] }).all.to_a.first
+      end
+      if !candidate
+        candidate = Vger::Resources::Candidate.create(params[:candidate])
+        if !candidate.error_messages.empty?
+          flash[:error] = candidate.error_messages.join("<br/>").html_safe
+          return
+        end
+      end
+      stakeholders = params[:stakeholders].select{|index,stakeholder| stakeholder[:email].present? and stakeholder[:name].present? }
+      if stakeholders.empty?
+        flash[:error] = "Please add atleast 1 stakeholder"
+        return
+      end
+      stakeholders.each do |index, stakeholder|
+        feedback = Vger::Resources::Mrf::Feedback.where(:company_id => @company.id, :assessment_id => @assessment.id, query_options: { 
+          email: stakeholder[:email], 
+          assessment_id: @assessment.id, 
+          role: stakeholder[:role], 
+          candidate_id: candidate.id 
+        }).all.to_a.first
+        if !feedback
+          feedback = Vger::Resources::Mrf::Feedback.create(
+            company_id: @company.id,
+            email: stakeholder[:email],
+            name: stakeholder[:name],
+            assessment_id: @assessment.id, 
+            role: stakeholder[:role], 
+            candidate_id: candidate.id,
+            last_item_index: -1,
+            status: Vger::Resources::Mrf::Feedback::Status::NEW
+          )
+          if !feedback.error_messages.empty?
+            flash[:error] = feedback.error_messages.join("<br/>").html_safe
+            return
+          end  
+        end
+      end
+      flash[:notice] = "Invitations sent to stakeholders"
+      if params[:send_and_add_more].present?
+        params[:candidate] = {}
+        params[:stakeholders] = {}
+        10.times do |index|
+          params[:stakeholders][index.to_s] = {}
+        end
+      else
+        redirect_to candidates_company_mrf_assessment_path(@company.id, @assessment.id)
+      end
+    end
     get_custom_assessment
   end
   
