@@ -28,22 +28,24 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
   end
 
-  def get_candidates
-    @candidates = Vger::Resources::Candidate.where(
-    joins: :candidate_assessments, 
-    query_options: { 
-      "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
-    }, 
-    select: [:name, :email, "candidates.id"], 
-    page: params[:page], 
-    per: 44
-    ).all.to_a     
-  end
+
   
+  def download_sample_csv_for_mrf_bulk_upload
+    get_custom_assessment
+    if @custom_assessment
+      get_candidates
+      # genrate CSV and send
+    else
+      file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
+      send_file(file_path,
+        :filename => "sample_csv_for_bulk_upload.csv")
+    end
+  end
+
   def add_stakeholders
     params[:candidate] ||= {}
     params[:stakeholders] ||= {}
-    params[:candidate_ids] = params[:candidate_ids].to_s.split('')
+    params[:candidate_ids] = params[:candidate_ids].to_s.split('|')
     10.times do |index|
       params[:stakeholders][index.to_s] ||= {}
     end
@@ -167,4 +169,17 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       @custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(@assessment.custom_assessment_id)
     end
   end
+
+  def get_candidates
+    @candidates = Vger::Resources::Candidate.where(
+    joins: :candidate_assessments, 
+    query_options: { 
+      "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
+    }, 
+    select: [:name, :email, "candidates.id"], 
+    page: params[:page], 
+    per: 44
+    ).all.to_a     
+  end
+
 end
