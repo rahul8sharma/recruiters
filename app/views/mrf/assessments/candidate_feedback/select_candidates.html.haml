@@ -1,1 +1,46 @@
-Select Candidates Page
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+.container
+  #info_bar
+    #info.content
+      .span14.page-title.first.huge-text
+        = @assessment.name
+      .clr.divider1
+      .extra-medium-text.pull-left
+        .pull-left
+          Assessment Included: 
+        .span11
+          - if @custom_assessment
+            AID #{@custom_assessment.id} - #{@custom_assessment.name}
+          - else
+            -
+        .clr
+.divider2.border-bottom-grayLighter
+.container
+  .divider1
+  .extra-large-text.text-center
+    Please select the Candidates to be included in this 360&#176; Profiling Exercise
+  .span16.extra-medium-text.margin-auto.text-justify
+    Additional Candidates can be included before sending out invitations for this exercise
+  .divider2
+  = form_for @assessment, as: :assessment, url: select_candidates_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    .allign-center.text-center
+      %a.btn.btn-info.large-text.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, :include_all => true)}
+        Include All Candidates and Proceed
+    .divider2
+    %ul.add-360-traits-listing
+      = f.hidden_field :company_id
+      - index = 0
+      - @candidates.each_slice(4) do |slice|
+        %li
+          - slice.each do |candidate|
+            = render partial: 'candidate_fields', locals: { candidate: candidate, index: index }
+            - index += 1    
+          .clr
+          .divider1
+    .divider3
+    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed", :id => 'include_Selected'}
+    .clr
+  .divider2
+= javascript_include_tag 'add_traits'

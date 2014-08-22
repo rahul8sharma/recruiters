@@ -12,10 +12,4 @@ class HelpController < ApplicationController
     send_file(file_path,
       :filename => "bulk_upload_sample.csv")
   end
-  
-  def download_sample_csv_for_mrf_bulk_upload
-    file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
-    send_file(file_path,
-      :filename => "sample_csv_for_bulk_upload.csv")
-  end
 end

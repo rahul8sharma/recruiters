@@ -1,23 +1,25 @@
 - params[:candidate_ids] ||= []
-- if params[:candidate_ids].size == 0
-  - page_title = "Add Candidates & Stakeholders"  
-  - help_text = "You can use either one of the two methods of adding candidates and stakeholders - in bulk via file upload or manually by entering details in the text fields. Only one method of upload is used by the system at a time."  
-  - bulk_addition_text = "Add candidates and stake in bulk via file upload"
-  - manual_addition_text = "Add a single candidate for 360º Profiling"
-  - stakeholders_text = "Please add stakeholders who will provide feedback for the added candidate"
+- if params[:candidate_ids].size > 1  || params[:include_all]
+  - page_title = "Add Stakeholders for Candidates in #{@custom_assessment.name}"
+  - help_text = "Please add stakeholders for all candidates, in bulk via file upload."
+  - bulk_addition_text = "Add stakeholders for candidates in #{@custom_assessment.name} in bulk. More candidates and their stakeholders can also be added using this method."
+  - manual_addition_text = nil
+  - stakeholders_text = nil
 - elsif  params[:candidate_ids].size == 1
   - @candidate = Vger::Resources::Candidate.find(params[:candidate_ids].first)
+  - params[:candidate][:name] = @candidate.name
+  - params[:candidate][:email] = @candidate.email
   - page_title = "Add Stakeholders for #{@candidate.name}"  
   - help_text = "You can use either one of the two methods to add stakeholders for #{@candidate.name} - in bulk via file upload or manually by entering details in the text fields. Only one method of upload is used by the system at a time."
   - bulk_addition_text = "Add stakeholders for #{@candidate.name} in bulk. More candidates and their stakeholders can also be added using this method."
   - manual_addition_text = "Add Stakeholders for #{@candidate.name}"
   - stakeholders_text = ""
 - else
-  - page_title = "Add Stakeholders for Candidates in #{@custom_assessment.name}"
-  - help_text = "Please add stakeholders for all candidates, in bulk via file upload."
-  - bulk_addition_text = "Add stakeholders for candidates in #{@custom_assessment.name} in bulk. More candidates and their stakeholders can also be added using this method."
-  - manual_addition_text = nil
-  - stakeholders_text = nil
+  - page_title = "Add Candidates & Stakeholders"  
+  - help_text = "You can use either one of the two methods of adding candidates and stakeholders - in bulk via file upload or manually by entering details in the text fields. Only one method of upload is used by the system at a time."  
+  - bulk_addition_text = "Add candidates and stake in bulk via file upload"
+  - manual_addition_text = "Add a single candidate for 360º Profiling"
+  - stakeholders_text = "Please add stakeholders who will provide feedback for the added candidate"
 
 .span25.huge-text.page-title
   = page_title
@@ -41,7 +43,7 @@
               .span.default-text
                 (File format supported: CSV)
             .span14.extra-medium-text
-              %a{:target => "_blank", :href => download_sample_csv_for_mrf_bulk_upload_path}
+              %a{:target => "_blank", :href => download_sample_csv_for_mrf_bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id)}
                 Download Sample File for adding Candidates and Stakeholders
     .divider4
     .span7.pull-right.medium-text
