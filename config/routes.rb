@@ -178,7 +178,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
       end
-      
+
       resources :candidates, :except => [:destroy, :show] do
         resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
@@ -190,7 +190,7 @@ Recruiters::Application.routes.draw do
         end
       end
     end
-    
+
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
       collection do
         get "home" => "mrf/assessments#home", :as => :home
@@ -339,7 +339,7 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
-  
+
   namespace :mrf do
     resources :traits do
       collection do
@@ -349,7 +349,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :items do
       collection do
         get :manage
@@ -358,6 +358,24 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
       resources :options do
+      end
+    end
+
+    resources :trait_score_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :competency_score_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
       end
     end
   end
