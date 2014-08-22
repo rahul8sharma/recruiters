@@ -24,10 +24,11 @@
   .span16.extra-medium-text.margin-auto.text-justify
     Additional Candidates can be included before sending out invitations for this exercise
   .divider2
-  .allign-center.text-center
-    %input.btn.btn-info.large-text.bold{:type=>"submit", :value=>"Include All Candidates and Proceed"}
-  .divider2
   = form_for @assessment, as: :assessment, url: select_candidates_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    .allign-center.text-center
+      %a.btn.btn-info.large-text.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, :include_all => true)}
+        Include All Candidates and Proceed
+    .divider2
     %ul.add-360-traits-listing
       = f.hidden_field :company_id
       - index = 0
@@ -39,7 +40,7 @@
           .clr
           .divider1
     .divider3
-    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed", :id => 'include_Selected'}
     .clr
   .divider2
 = javascript_include_tag 'add_traits'

@@ -37,7 +37,6 @@ jQuery(document).ready(function($) {
   var trait_counter = 0;
   var traits_selected_counter = $('input[name="selected_trait"]:checked').length;
   counter(traits_selected_counter);
-
   $('input[name="selected_trait"]').on("change",function(){
     if($(this).is(":checked")){
       counter(1);

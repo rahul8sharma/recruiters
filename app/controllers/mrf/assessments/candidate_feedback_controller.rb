@@ -13,23 +13,30 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
   
   def select_candidates
-    if request.get?
-      get_custom_assessment
-      @candidates = Vger::Resources::Candidate.where(
-      joins: :candidate_assessments, 
-      query_options: { 
-        "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
-      }, 
-      select: [:name, :email, "candidates.id"], 
-      page: params[:page], 
-      per: 44
+    get_custom_assessment
+    @candidates = Vger::Resources::Candidate.where(
+    joins: :candidate_assessments, 
+    query_options: { 
+      "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
+    }, 
+    select: [:name, :email, "candidates.id"], 
+    page: params[:page], 
+    per: 44
     ).all.to_a
+    if request.put?
+      if params[:candidate_ids].nil? || params[:candidate_ids].keys.size == 0
+        flash[:error] = "Please add atleast 1 candidate"
+        render :action => :select_candidates
+      else
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, :candidate_ids => params[:candidate_ids].keys.join("|")) and return
+      end
     end
   end
 
   def add_stakeholders
     params[:candidate] ||= {}
     params[:stakeholders] ||= {}
+    params[:candidate_ids] = params[:candidate_ids].to_s.split('')
     10.times do |index|
       params[:stakeholders][index.to_s] ||= {}
     end

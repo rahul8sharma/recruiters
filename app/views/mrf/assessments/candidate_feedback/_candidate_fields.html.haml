@@ -11,5 +11,5 @@
       %span
         = candidate.email
     .arrow
-    %input{name: "#{candidate.name}", class: "check_trait", type: 'checkbox', id: "checkbox_trait_#{index}", index: (index)}
+    %input{name: "candidate_ids[#{candidate.id}]", class: "check_trait", type: 'checkbox', id: "checkbox_trait_#{index}", index: (index)}
     = candidate.name
