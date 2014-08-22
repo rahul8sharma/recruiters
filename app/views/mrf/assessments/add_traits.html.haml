@@ -2,34 +2,35 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-.container  
-  .span14.page-title.first.huge-text
-    = @assessment.name
-  .clr.divider1
-  .extra-medium-text.pull-left
-    .pull-left
-      Assessment Included: 
-    .span11
-      - if @custom_assessment
-        AID #{@custom_assessment.id} - #{@custom_assessment.name}
-      - else
-        -
-    .clr
-  .medium-text.pull-right
-    .span6
-      %i.icon-ok-sign
-      Number of Traits Selected: 
-      %span.color-warning 1
-    .span
-      %i.icon-time
-      Approximate feedback duration: 
-      %span.color-warning 1 min : 30 sec
-    .clr
+.container
+  #info_bar
+    #info.content
+      .span14.page-title.first.huge-text
+        = @assessment.name
+      .clr.divider1
+      .extra-medium-text.pull-left
+        .pull-left
+          Assessment Included: 
+        .span11
+          - if @custom_assessment
+            AID #{@custom_assessment.id} - #{@custom_assessment.name}
+          - else
+            -
+        .clr
+      .medium-text.pull-right
+        .span6
+          %i.icon-ok-sign
+          Number of Traits Selected: 
+          %span.color-warning{:id => 'traits-counter'}
+        .span{:hidden =>'hidden'}
+          %i.icon-time
+          Approximate feedback duration: 
+          %span.color-warning{:id => 'approximate-time'}
+        .clr
+      .divider3.border-bottom-grayLighter
 
-
-  .clr
-  .divider2.border-bottom-grayLighter
   .divider2
+.container
   .extra-large-text.text-center
     Please select the Traits to be included in this 360&#176; Profiling Exercise
   .divider1

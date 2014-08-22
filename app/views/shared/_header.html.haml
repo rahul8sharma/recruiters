@@ -49,7 +49,7 @@
               %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 ASSESSMENTS
             %li
-              %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments"].include?("#{params[:controller]}") ? "active" : "")}
+              %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments","mrf/assessments/candidate_feedback"].include?("#{params[:controller]}") ? "active" : "")}
                 360 DEGREE
             %li
               %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}

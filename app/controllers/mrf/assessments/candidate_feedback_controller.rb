@@ -11,8 +11,95 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def stakeholders
   end
+  
+  def select_candidates
+    if request.get?
+      get_custom_assessment
+      get_candidates
+    else
+      if params[:candidate_ids].nil? || params[:candidate_ids].keys.size == 0
+        get_custom_assessment
+        get_candidates
+        flash[:error] = "Please add atleast 1 candidate"
+        render :action => :select_candidates
+      else
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, :candidate_ids => params[:candidate_ids].keys.join("|")) and return
+      end      
+    end
+  end
+
+
+  
+  def download_sample_csv_for_mrf_bulk_upload
+    get_custom_assessment
+    if @custom_assessment
+      get_candidates
+      # genrate CSV and send
+    else
+      file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
+      send_file(file_path,
+        :filename => "sample_csv_for_bulk_upload.csv")
+    end
+  end
 
   def add_stakeholders
+    params[:candidate] ||= {}
+    params[:stakeholders] ||= {}
+    params[:candidate_ids] = params[:candidate_ids].to_s.split('|')
+    10.times do |index|
+      params[:stakeholders][index.to_s] ||= {}
+    end
+    if request.put?
+      if params[:candidate][:email].present?
+        candidate = Vger::Resources::Candidate.where(query_options: { email: params[:candidate][:email] }).all.to_a.first
+      end
+      if !candidate
+        candidate = Vger::Resources::Candidate.create(params[:candidate])
+        if !candidate.error_messages.empty?
+          flash[:error] = candidate.error_messages.join("<br/>").html_safe
+          return
+        end
+      end
+      stakeholders = params[:stakeholders].select{|index,stakeholder| stakeholder[:email].present? and stakeholder[:name].present? }
+      if stakeholders.empty?
+        flash[:error] = "Please add atleast 1 stakeholder"
+        return
+      end
+      stakeholders.each do |index, stakeholder|
+        feedback = Vger::Resources::Mrf::Feedback.where(:company_id => @company.id, :assessment_id => @assessment.id, query_options: { 
+          email: stakeholder[:email], 
+          assessment_id: @assessment.id, 
+          role: stakeholder[:role], 
+          candidate_id: candidate.id 
+        }).all.to_a.first
+        if !feedback
+          feedback = Vger::Resources::Mrf::Feedback.create(
+            company_id: @company.id,
+            email: stakeholder[:email],
+            name: stakeholder[:name],
+            assessment_id: @assessment.id, 
+            role: stakeholder[:role], 
+            candidate_id: candidate.id,
+            last_item_index: -1,
+            status: Vger::Resources::Mrf::Feedback::Status::NEW
+          )
+          if !feedback.error_messages.empty?
+            flash[:error] = feedback.error_messages.join("<br/>").html_safe
+            return
+          end  
+        end
+      end
+      flash[:notice] = "Invitations sent to stakeholders"
+      if params[:send_and_add_more].present?
+        params[:candidate] = {}
+        params[:stakeholders] = {}
+        10.times do |index|
+          params[:stakeholders][index.to_s] = {}
+        end
+      else
+        redirect_to candidates_company_mrf_assessment_path(@company.id, @assessment.id)
+      end
+    end
     get_custom_assessment
   end
   
@@ -82,4 +169,17 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       @custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(@assessment.custom_assessment_id)
     end
   end
+
+  def get_candidates
+    @candidates = Vger::Resources::Candidate.where(
+    joins: :candidate_assessments, 
+    query_options: { 
+      "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
+    }, 
+    select: [:name, :email, "candidates.id"], 
+    page: params[:page], 
+    per: 44
+    ).all.to_a     
+  end
+
 end
