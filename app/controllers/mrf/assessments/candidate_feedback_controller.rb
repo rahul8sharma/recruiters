@@ -13,7 +13,22 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
   
   def select_candidates
-    get_custom_assessment
+    if request.get?
+      get_custom_assessment
+      get_candidates
+    else
+      if params[:candidate_ids].nil? || params[:candidate_ids].keys.size == 0
+        get_custom_assessment
+        get_candidates
+        flash[:error] = "Please add atleast 1 candidate"
+        render :action => :select_candidates
+      else
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, :candidate_ids => params[:candidate_ids].keys.join("|")) and return
+      end      
+    end
+  end
+
+  def get_candidates
     @candidates = Vger::Resources::Candidate.where(
     joins: :candidate_assessments, 
     query_options: { 
@@ -22,17 +37,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     select: [:name, :email, "candidates.id"], 
     page: params[:page], 
     per: 44
-    ).all.to_a
-    if request.put?
-      if params[:candidate_ids].nil? || params[:candidate_ids].keys.size == 0
-        flash[:error] = "Please add atleast 1 candidate"
-        render :action => :select_candidates
-      else
-        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, :candidate_ids => params[:candidate_ids].keys.join("|")) and return
-      end
-    end
+    ).all.to_a     
   end
-
+  
   def add_stakeholders
     params[:candidate] ||= {}
     params[:stakeholders] ||= {}
