@@ -1,3 +1,5 @@
+require 'csv'
+require 'fileutils'
 class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_admin!(params[:company_id]) }
@@ -28,26 +30,37 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
   end
 
-
-  
   def download_sample_csv_for_mrf_bulk_upload
-    get_custom_assessment
-    if @custom_assessment
-      get_candidates
-      # genrate CSV and send
-    else
-      file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
-      send_file(file_path,
+    # To be re looked in next release
+    #get_custom_assessment
+    #if @custom_assessment
+    #  get_candidates(10000)
+    #  target = Rails.root.join("tmp/bulk_upload_#{@assessment.id}.csv")
+    #  source = Rails.application.assets['mrf_bulk_upload_template.csv'].pathname.to_s
+    #  FileUtils.cp(source,target)
+    #  csv = CSV.open(target, "a") do |csv|
+    #    @candidates.each do |candidate|
+    #      arr = [candidate.name,candidate.email]
+    #      csv << arr
+    #    end
+    #  end
+    #  File.open(target,"r") do |f|
+    #    send_data(f.read,type: "text/csv",:filename => "sample_csv_for_bulk_upload_#{@assessment.id}.csv")
+    #  end  
+    #  File.delete target  
+    #else
+    file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
+    send_file(file_path,
         :filename => "sample_csv_for_bulk_upload.csv")
-    end
+    #end
   end
 
   def add_stakeholders
     params[:candidate] ||= {}
-    params[:stakeholders] ||= {}
+    params[:feedbacks] ||= {}
     params[:candidate_ids] = params[:candidate_ids].to_s.split('|')
     10.times do |index|
-      params[:stakeholders][index.to_s] ||= {}
+      params[:feedbacks][index.to_s] ||= {}
     end
     if request.put?
       if params[:candidate][:email].present?
@@ -60,43 +73,53 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
           return
         end
       end
-      stakeholders = params[:stakeholders].select{|index,stakeholder| stakeholder[:email].present? and stakeholder[:name].present? }
-      if stakeholders.empty?
+      feedbacks = params[:feedbacks].select{|index,feedback_hash| feedback_hash[:email].present? and feedback_hash[:name].present? }
+      if feedbacks.empty?
         flash[:error] = "Please add atleast 1 stakeholder"
         return
       end
-      stakeholders.each do |index, stakeholder|
-        feedback = Vger::Resources::Mrf::Feedback.where(:company_id => @company.id, :assessment_id => @assessment.id, query_options: { 
-          email: stakeholder[:email], 
-          assessment_id: @assessment.id, 
-          role: stakeholder[:role], 
-          candidate_id: candidate.id 
-        }).all.to_a.first
-        if !feedback
-          feedback = Vger::Resources::Mrf::Feedback.create(
-            company_id: @company.id,
-            email: stakeholder[:email],
-            name: stakeholder[:name],
+      feedbacks.each do |index, feedback_hash|
+        feedback = nil
+        stakeholder = Vger::Resources::Stakeholder.where(query_options: { email: feedback_hash[:email] }).all.to_a.first
+        if stakeholder
+          feedback = Vger::Resources::Mrf::Feedback.where(:company_id => @company.id, :assessment_id => @assessment.id, query_options: { 
+            stakeholder_id: stakeholder.id,
             assessment_id: @assessment.id, 
-            role: stakeholder[:role], 
-            candidate_id: candidate.id,
-            last_item_index: -1,
-            status: Vger::Resources::Mrf::Feedback::Status::NEW
-          )
-          if !feedback.error_messages.empty?
-            flash[:error] = feedback.error_messages.join("<br/>").html_safe
+            role: feedback_hash[:role], 
+            candidate_id: candidate.id 
+          }).all.to_a.first
+        end
+        if !feedback
+          stakeholder = Vger::Resources::Stakeholder.create(email: feedback_hash[:email], name: feedback_hash[:name]) if !stakeholder
+          if !stakeholder.error_messages.present?
+            feedback = Vger::Resources::Mrf::Feedback.create(
+              stakeholder_id: stakeholder.id,
+              company_id: @company.id,
+              assessment_id: @assessment.id, 
+              role: feedback_hash[:role], 
+              candidate_id: candidate.id,
+              last_item_index: -1,
+              status: Vger::Resources::Mrf::Feedback::Status::NEW
+            )
+            if !feedback.error_messages.empty?
+              flash[:error] = feedback.error_messages.join("<br/>").html_safe
+              return
+            end
+          else
+            flash[:error] = stakeholder.error_messages.join("<br/>").html_safe
             return
-          end  
+          end    
         end
       end
       flash[:notice] = "Invitations sent to stakeholders"
       if params[:send_and_add_more].present?
         params[:candidate] = {}
-        params[:stakeholders] = {}
+        params[:feedbacks] = {}
         10.times do |index|
-          params[:stakeholders][index.to_s] = {}
+          params[:feedbacks][index.to_s] = {}
         end
       else
+        Vger::Resources::Mrf::Assessment.send_invitations(company_id: @company.id, id: @assessment.id)
         redirect_to candidates_company_mrf_assessment_path(@company.id, @assessment.id)
       end
     end
@@ -170,15 +193,15 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
   end
 
-  def get_candidates
+  def get_candidates(per=44)
     @candidates = Vger::Resources::Candidate.where(
-    joins: :candidate_assessments, 
-    query_options: { 
-      "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
-    }, 
-    select: [:name, :email, "candidates.id"], 
-    page: params[:page], 
-    per: 44
+      joins: :candidate_assessments, 
+      query_options: { 
+        "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
+      }, 
+      select: [:name, :email, "candidates.id"], 
+      page: params[:page] || 1, 
+      per: per
     ).all.to_a     
   end
 
