@@ -9,6 +9,11 @@ class Mrf::ItemsController < MasterDataController
     @items = Vger::Resources::Mrf::Item.where(:page => params[:page], :per => 10, :order => "updated_at DESC")
   end
   
+  def import_from_google_drive
+    errors = Vger::Resources::Mrf::Item.import_from_google_drive(params[:item])
+    redirect_to manage_mrf_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+  end
+  
   # GET /items/:id
   # GET /items/:id.json
   def show
