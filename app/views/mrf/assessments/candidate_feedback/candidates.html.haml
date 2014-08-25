@@ -1,0 +1,60 @@
+.candidate-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
+    Create a new 360&#176; Profiling Exercise
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      .span3.first
+        %a{:href => "#", :title => "360 ID"}
+          360&#176;CID
+          %i.icon-chevron-down.small-text.line-height1
+      .span10
+        %a{:href => "#", :title => "Created On"}
+          Candidates
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        %a{:href => "#", :title => "Profiling Exercises Title "}
+          360&#176; Status
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        %a{:href => "#", :title => "Candidates"}
+          Reports
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        Remind Stakeholders
+      .clr
+      .divider1          
+      %ul
+        - @candidates.each do |candidate_id, candidate|
+          %li.list-snippet.extra-medium-text
+            .divider1
+            .span3.first
+              %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate_id), :title => "360ID"}
+                = candidate_id
+            .span10
+              = candidate.name
+            .span5
+              = @stakeholder_assessments[@feedbacks[candidate_id].first.stakeholder_assessment_id].first.status.titleize
+            .span5
+              %a{:href => "#", :title => "View Report"}
+                %i.icon-file
+                View Report
+            .span5
+              %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate_id }), :title => "Send Reminders"}
+                Send Reminders
+            .clr
+    .divider2
+    .pull-right
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2
+          %option 01
+        .clr
+    .clr
