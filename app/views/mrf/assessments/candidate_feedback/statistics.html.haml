@@ -1,12 +1,12 @@
 .details-mrf
   .span15.huge-text.first
     .divider1
-    AID 1234 360 Assessment
+    #{@candidate.id} - #{@candidate.name}
   .span7.pull-right.medium-text
-    %a{:href => '#'}
+    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
       Return to 360&#176; Profiling Exercise Details
     .divider1
-    %a.btn.btn-info.big-text.big.bold{:href => '#'}
+    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
       Add Stakeholders
   .clr
   .divider2
@@ -16,11 +16,11 @@
   .padding-all2.border-warning.shifted-up1
     .pull-left.extra-medium-text
       .span10.first
-        <360ID> Name Of Exercise
+        #{@assessment.id} - #{@assessment.name}
       .clr.divider1
       .pull-left
         %i.icon-file
-        360 Report For Pranav Shah :
+        360 Report For #{@candidate.name} :
         %a{:href =>'#', :title =>'View'}
           View
       .clr
@@ -38,34 +38,38 @@
             Status
           %td 
             Reminders
-        -5.times do 
+        - @feedbacks.each do |role,role_feedbacks|
           %tr
             %td 
-              Manager
+              = role.titleize
             %td 
-              2
+              = role_feedbacks.size
             %td 
-              2
+              - completed_feedbacks = role_feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)}
+              = completed_feedbacks.size
             %td 
-              Completed
+              = completed_feedbacks.size == role_feedbacks.size ? "Completed" : "Partially Complete"
             %td 
-              %a.default{:href => "#", :title => "Send reminder"}
+              %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, role: role }), :title => "Send reminder"}
                 Send reminder
         %tr.font-bold
           %td 
-            Manager
+            Total
           %td 
-            2
+            = @feedbacks.size
           %td 
-            2
+            - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)}
+            = completed_feedbacks.size
           %td 
-            Completed
+            = completed_feedbacks.size == @feedbacks.values.flatten.size ? "Completed" : "Partially Complete"
           %td 
-            %a{:href => "#", :title => "Send Reminder to all pending"} 
+            %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id }), :title => "Send Reminder to all pending"} 
               Send Reminder to all pending
     .divider1
-    .extra-medium-text.margin-auto{:style => "width: 710px"}
-      Self Ratings: Currently Disabled - 
-      %a{:href => "#", :title => "Enable for all?"}
-        Enable?
-    .divider2
+    - self_feedback = @feedbacks.values.flatten.detect{|feedback| feedback.role == Vger::Resources::Mrf::Feedback::Role::SELF }
+    - if !self_feedback
+      .extra-medium-text.margin-auto{:style => "width: 710px"}
+        Self Ratings: Currently Disabled - 
+        %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id, candidate_id: @candidate.id), :title => "Enable for all?"}
+          Enable?
+      .divider2
