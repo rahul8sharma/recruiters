@@ -99,8 +99,8 @@
               .span1
                 .count.badge.badge-small.inverse 
                   = index + 1
-              %input.span8.medium-text{type: "text", placeholder: "Star Lord", name: "feedbacks[#{index}][name]", value: params[:feedbacks][index.to_s][:name] }
-              %input.span8.medium-text.left-offset1{type: "text", placeholder: "starlord@guardians.com", name: "feedbacks[#{index}][email]", value: params[:feedbacks][index.to_s][:email]}
+              %input.span8.medium-text{type: "text", placeholder: "Full Name", name: "feedbacks[#{index}][name]", value: params[:feedbacks][index.to_s][:name] }
+              %input.span8.medium-text.left-offset1{type: "text", placeholder: "example@example.com", name: "feedbacks[#{index}][email]", value: params[:feedbacks][index.to_s][:email]}
               %select.span8.medium-text.left-offset1{ name: "feedbacks[#{index}][role]" }
                 %option{ value: "" }
                   Select Role
@@ -108,9 +108,6 @@
                   %option{ value: role, selected: (params[:feedbacks][index.to_s][:role] == role) }
                     = role.titleize
               .clr
-
-      %a.left-offset25.color-info.extra-medium-text{ class: manual_addition_text.nil? ? 'hide' : '' }
-        + Add More
       .divider2
 
       %input.pull-left.btn.btn-info.large-text.font-bold{name: "send_and_add_more", value: "Send Invitations and Add More", type: "submit"}
