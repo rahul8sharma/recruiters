@@ -7,7 +7,7 @@ class Mrf::AssessmentsController < ApplicationController
   layout 'mrf'
   
   def home
-    @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], page: params[:page], per: 10).all.to_a
+    @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: "created_at DESC", page: params[:page], per: 10).all.to_a
   end 
 
   def new
@@ -48,20 +48,26 @@ class Mrf::AssessmentsController < ApplicationController
     get_traits
   end
   
-  def candidates
-    @feedbacks = @assessment.feedbacks.to_a
-    if @feedbacks.present?
-      @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.map(&:candidate_id).uniq }).to_a.collect{|candidate| [candidate.id,candidate] }]
-      @reports = Hash[Vger::Resources::Mrf::Report.where(query_options: { candidate_id: @feedbacks.map(&:candidate_id).uniq, assessment_id: @assessment.id }).to_a.collect{|report| [report.candidate_id,report] }]
-    else
-      @candidates = {}
-      @reports = {}
-    end
-  end
-
   def details
     get_custom_assessment
-    @feedbacks = @assessment.feedbacks.to_a.group_by{|feedback| feedback.role }
+    @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
+      company_id: @company.id,
+      assessment_id: @assessment.id
+    ).all.to_a
+    @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
+    @feedbacks = Vger::Resources::Mrf::Feedback.where(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      query_options: {
+        stakeholder_assessment_id: @stakeholder_assessments.keys
+      }
+    ).all.to_a
+    @feedbacks = @feedbacks.group_by{|feedback| feedback.role }
+    if @feedbacks.present?
+      @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.keys }).to_a.collect{|candidate| [candidate.id,candidate] }]
+    else
+      @candidates = {}
+    end
   end
 
   def traits
@@ -110,7 +116,7 @@ class Mrf::AssessmentsController < ApplicationController
       @assessment_trait = added_assessment_traits["#{trait_type}-#{trait.id}"]
       @assessment_trait ||= Vger::Resources::Mrf::AssessmentTrait.new({ trait_type: trait_type, trait_id: trait.id, assessment_id: @assessment.id })
       @assessment_trait.trait = trait
-      @assessment_trait.assessment_trait = custom_assessment_factors.include?(trait.id)
+      @assessment_trait.assessment_trait = custom_assessment_factors.include?(trait.id) && !trait.is_a?(Vger::Resources::Mrf::Trait)
       @assessment_traits.push @assessment_trait
     end
   end

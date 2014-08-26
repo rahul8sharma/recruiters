@@ -1,7 +1,7 @@
 .candidate-mrf-show
   .span15.huge-text.first
     .divider1
-    AID #{@assessment.id} #{@assessment.name}
+    #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
     Create a new 360&#176; Profiling Exercise
   .clr
@@ -35,18 +35,18 @@
           %li.list-snippet.extra-medium-text
             .divider1
             .span3.first
-              %a{:href => "#", :title => "360ID"}
+              %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate_id), :title => "360ID"}
                 = candidate_id
             .span10
               = candidate.name
             .span5
-              = @reports[candidate_id] ? @reports[candidate_id].status : "Partially Completed"
+              = @stakeholder_assessments[@feedbacks[candidate_id].first.stakeholder_assessment_id].first.status.titleize
             .span5
               %a{:href => "#", :title => "View Report"}
                 %i.icon-file
                 View Report
             .span5
-              %a{:href => "#", :title => "Send Reminders"}
+              %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate_id }), :title => "Send Reminders"}
                 Send Reminders
             .clr
     .divider2

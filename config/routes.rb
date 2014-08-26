@@ -201,22 +201,24 @@ Recruiters::Application.routes.draw do
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
-        get "candidates" => "mrf/assessments#candidates", :as => :candidates
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
 
+        get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
         
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+
         
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
-
+        get "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
+        get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
       end
     end
 
