@@ -1,12 +1,12 @@
 .candidate-mrf-show
   .span15.huge-text.first
     .divider1
-    AID 1234 360 Assessment
+    #{@candidate.id} - #{@candidate.name}
   .span7.pull-right.medium-text
-    %a{:href => '#'}
+    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
       Return to 360&#176; Profiling Exercise Details
     .divider1
-    %a.btn.btn-info.big-text.big.bold{:href => '#'}
+    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
       Add Stakeholders
   .clr
   .divider2
@@ -35,22 +35,21 @@
       .clr
       .divider1          
       %ul
-        -10.times do
+        - @feedbacks.each do |feedback|
+          - stakeholder = @stakeholder_assessments[feedback.stakeholder_assessment_id].first.stakeholder
           %li.list-snippet.extra-medium-text
             .divider1
             .span3.first
-              %a{:href => "#", :title => "360ID"}
-                123
+              = feedback.id
             .span10
-              Prashant
+              = stakeholder.name
             .span5
-              Super Manager
+              = feedback.role.titleize
             .span5
-              %a{:href => "#", :title => "View Report"}
-                Partially Complete
+              = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
             .span5
-              %a{:href => "#", :title => "Send Reminders"}
-                Send Reminders
+              %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
+                Send Reminder
             .clr
     .divider2
     .pull-right
