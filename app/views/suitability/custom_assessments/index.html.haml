@@ -34,11 +34,10 @@
       .span5
         Send Assessment 
       .clr
-      .divider1          
+      .divider2          
     %ul
       - @assessments.each do |assessment|
         %li.list-snippet.border-bottom-grayLighter.medium-text
-          .divider1
           .span2.first
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
           .span4
@@ -46,7 +45,6 @@
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
           .span8
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
-
               = assessment.name
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
