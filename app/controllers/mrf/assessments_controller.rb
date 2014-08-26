@@ -7,7 +7,7 @@ class Mrf::AssessmentsController < ApplicationController
   layout 'mrf'
   
   def home
-    @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], page: params[:page], per: 10).all
+    @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: "created_at DESC", page: params[:page], per: 10).all
   end 
 
   def new
