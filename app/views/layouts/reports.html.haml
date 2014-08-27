@@ -2,10 +2,12 @@
   = stylesheet_link_tag "reports_html"
 - content_for :main_header do
   = render :partial => "shared/360/mrf_report_header"
+- content_for :footer do
+  = render :partial => "shared/360/footer"
   
 - content_for :content do
 
-  .report
+  .report.mrf
     = yield
 
 = render :file => 'layouts/jit'
