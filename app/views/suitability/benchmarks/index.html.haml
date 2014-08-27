@@ -25,12 +25,11 @@
       .span 
         Send Benchmark  
       .clr
-      .divider1
+      .divider2
 
     %ul
       - @assessments.each do |assessment|
         %li.list-snippet.border-bottom-grayLighter
-          .divider1
           .span5.first
             %a{:href=> candidates_company_benchmark_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} 
               #{assessment.id}
