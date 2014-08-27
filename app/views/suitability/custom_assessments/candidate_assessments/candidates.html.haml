@@ -39,7 +39,7 @@
       .span9
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .pull-right
-        %a.label.label-info.label-small.pull-right{:href=>"#"}
+        %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
           %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
       .clr
       .divider1
@@ -91,7 +91,7 @@
                     %i.icon-time
                     Send Reminder
             .span.pull-right
-              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
+              %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"} 
                 Request 360&#176; Profiling
             .clr
       .divider3

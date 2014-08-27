@@ -42,7 +42,7 @@
               .span10
                 = candidate.name
               .span5
-                = @reports[candidate_id] ? @reports[candidate_id].status : "Partially Completed"
+                = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate_id].last.status) ? "Completed" : "Partially Completed"
               .span5
                 %a{:href => "#", :title => "View Report"}
                   %i.icon-file

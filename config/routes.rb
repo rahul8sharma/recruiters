@@ -193,6 +193,7 @@ Recruiters::Application.routes.draw do
 
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
       collection do
+        get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
         get "home" => "mrf/assessments#home", :as => :home
         put "home" => "mrf/assessments#home", :as => :home
       end
@@ -606,6 +607,7 @@ Recruiters::Application.routes.draw do
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
+  get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"

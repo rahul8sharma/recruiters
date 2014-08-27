@@ -42,7 +42,7 @@
           .span8
             = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
           .span3.text-center
-            = assessment.feedbacks.map(&:candidate_id).uniq.count
+            = 3
           .span4.text-center
             = 2
           .span5.text-center
