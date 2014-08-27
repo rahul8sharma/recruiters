@@ -124,12 +124,16 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       params[:feedbacks][index.to_s] ||= {}
     end
     if request.put?
-      candidate = get_or_create_candidate
-      return if !candidate
       feedbacks = params[:feedbacks].select{|index,feedback_hash| feedback_hash[:email].present? and feedback_hash[:name].present? }
-      if feedbacks.empty?
+      if feedbacks.empty? && !params[:send].present?
         flash[:error] = "Please add atleast 1 stakeholder"
         return
+      end
+      candidate = get_or_create_candidate
+      if !params[:send].present?
+        return if !candidate
+      else
+        flash.clear
       end
       feedbacks.each do |index, feedback_hash|
         feedback = nil

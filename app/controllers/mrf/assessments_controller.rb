@@ -14,8 +14,44 @@ class Mrf::AssessmentsController < ApplicationController
     get_custom_assessments
   end
   
+  def create_for_assessment
+    name = ""
+    custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:assessment_id])
+    if params[:candidate_id].present?
+      candidate = Vger::Resources::Candidate.find(params[:candidate_id])
+      name = "360 Degree Profiling for #{candidate.name} under assessment #{custom_assessment.name}"
+    else
+      name = "360 Degree Profiling for all Assessment Takers under assessment #{custom_assessment.name}"
+    end
+    assessment = Vger::Resources::Mrf::Assessment.where(company_id: @company.id, :query_options => {name: name, company_id: @company.id }).all.last
+    if assessment
+      redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,assessment.id)
+    else
+      attributes = {
+        name: name,
+        company_id: @company.id,
+        custom_assessment_id: custom_assessment.id,
+        configuration: {
+          :use_competencies => custom_assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY
+        }
+      }
+      @assessment = Vger::Resources::Mrf::Assessment.new(attributes)
+      if @assessment.save
+        flash[:notice] = "360 Degree feedback created successfully!"
+        redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+      else
+        get_custom_assessments
+        flash[:error] = @assessment.error_messages.join("<br/>").html_safe
+        render action: :new
+      end
+    end  
+  end
+  
   def create
     params[:assessment][:company_id] = @company.id
+    params[:assessment][:configuration] = {
+      :use_competencies => params[:use_competencies].present?
+    }
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
