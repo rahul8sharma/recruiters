@@ -1,9 +1,11 @@
 - content_for :stylesheets do
-  = stylesheet_link_tag "companies"
+  = stylesheet_link_tag "reports_html"
+- content_for :main_header do
+  = render :partial => "shared/360/mrf_report_header"
+  
 - content_for :content do
 
-  .container
-    Layout File
-  
+  .report
     = yield
+
 = render :file => 'layouts/jit'

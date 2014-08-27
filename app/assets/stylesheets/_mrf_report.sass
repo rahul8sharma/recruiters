@@ -1,0 +1,114 @@
+.frame.mrf
+  background:  image-url('report/html/mrf/mrf_scores_listing_bg.png') no-repeat 97% 97%
+
+.frame.mrf.gray-bg
+  background-color:  #fbfbfb
+.mrf_scores_listing.first
+  li
+    padding: 0 0 0 47px
+    border-top: 1px dashed #ccc
+
+    &:first-child
+      border: none
+  .rounded
+    width: 10px 
+    height: 10px
+  .left-sec
+    .rounded
+      background: #28b29b
+    .title
+      color: #000
+      font-size: 20px
+      font-weight: 700
+  .rating-slider
+    .marker
+      position: relative
+      background:  image-url('report/html/mrf/marker-disk.png') no-repeat center center
+      height: 20px
+      width: 20px
+      margin-left: 110px
+      float: left
+      text-align: center
+
+      &:first-child
+        margin-left: 0
+      &.mrf-rating.self-rating
+        background:  image-url('report/html/mrf/marker-hexagon-combo.png') no-repeat center center
+          
+      [class*="arrow"]
+        position: absolute
+        width: 20px
+        height: 15px
+        z-index: 9999
+        display: none
+      .mrf-result
+        display: none
+        position: absolute
+        width: 185px
+        left: -85px
+        border: 1px solid #28b29b
+        bottom: 31px
+        border-radius: 3px
+        background: #fff
+        padding: 2px
+        .left
+          float: left
+          background: image-url('report/html/mrf/rating-ring.png') no-repeat center 5px #28b29b
+          width: 91px
+          padding: 35px 0 0 0
+          color: #fff
+
+        .right
+          width: 91px
+          float: right
+          padding: 20px 0 0 0
+        
+      .self-result  
+        display: none
+        position: absolute
+        width: 185px
+        left: -85px
+        border: 1px solid #3da5bf
+        bottom: 31px
+        border-radius: 3px
+        padding: 2px
+        .left
+          float: left
+          width: 91px
+          background: #fff
+          padding: 20px 0 0 0
+
+        .right
+          padding: 35px 0 0 0
+          color: #fff
+          background: image-url('report/html/mrf/user-icon.png') no-repeat center 5px #3da5bf
+          width: 91px
+          float: right
+        
+
+
+    .marker.mrf-rating
+      background:  image-url('report/html/mrf/marker-hexagon-green.png') no-repeat center center
+
+      .arrow-mrf-result
+        display: block
+        top: -15px
+        background:  image-url('report/html/mrf/mrf-rating-arrow.png') no-repeat center center
+      .mrf-result
+        background: #fff
+        display: block
+       
+    .marker.self-rating
+      background:  image-url('report/html/mrf/marker-hexagon-blue.png') no-repeat center center
+      .arrow-self-result
+        display: block
+        top: 20px
+        background:  image-url('report/html/mrf/self-rating-arrow.png') no-repeat center center
+        
+      .self-result  
+        display: block  
+        bottom: auto
+        top: 32px 
+        background: #fff
+
+

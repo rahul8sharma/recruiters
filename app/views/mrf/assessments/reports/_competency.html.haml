@@ -1,0 +1,46 @@
+.frame.mrf.gray-bg
+  .heading.pull-left
+    People Management
+  .heading.pull-right 
+    Competency's 360° Rating: Average
+  .clr 
+  %ul.mrf_scores_listing.first
+    - 3.times do 
+      %li
+        .divider4
+        .span8.left-sec.first.right-offset1
+          .rounded.pull-left
+          .span7.pull-right
+            .title
+              Adaptability
+            .divider1
+            .discription.medium-text
+              Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+          .clr
+        .span17.right-sec.left-offset1
+          .rating-slider
+            -6.times do
+              .marker
+                -#add/remove ".mrf-rating" and ".self-rating" to ".marker" or else if both add both classes like this ".marker.mrf-rating.self-rating" 
+                .arrow-mrf-result
+                .arrow-self-result
+
+                .mrf-result
+                  .left
+                    360 Rating
+                  .right
+                    Average (High)
+                  .clr
+                .self-result
+                  .left
+                    Above Average
+                  .right
+                    Self Rating
+                  .clr
+            .clr
+        .clr
+
+        .divider4
+
+   
+.divider1
