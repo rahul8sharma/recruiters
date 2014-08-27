@@ -43,7 +43,7 @@
             %td 
               = feedbacks.size
             %td 
-              = completed_feedbacks = feedbacks.select{|feedback| feedback.status == Vger::Resources::Mrf::Feedback::Status::COMPLETED }
+              - completed_feedbacks = feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
               = completed_feedbacks.size
             %td 
               = completed_feedbacks.size == feedbacks.size ? "Completed" : "Pending"
@@ -56,7 +56,7 @@
           %td 
             = @feedbacks.values.flatten.size
           %td 
-            = completed_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.status == Vger::Resources::Mrf::Feedback::Status::COMPLETED }
+            - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
             = completed_feedbacks.size
           %td 
             Completed
