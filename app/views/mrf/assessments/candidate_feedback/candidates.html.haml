@@ -37,10 +37,11 @@
             %li.list-snippet.extra-medium-text
               .divider1
               .span3.first
-                %a{:href => "#", :title => "360ID"}
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate_id), :title => candidate_id}
                   = candidate_id
               .span10
-                = candidate.name
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate_id), :title => candidate_id}
+                  = candidate.name
               .span5
                 = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate_id].last.status) ? "Completed" : "Partially Completed"
               .span5
@@ -48,8 +49,11 @@
                   %i.icon-file
                   View Report
               .span5
-                %a{:href => "#", :title => "Send Reminders"}
-                  Send Reminders
+                - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate_id].last.status)
+                  %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate_id }), :title => "Send Reminders"}
+                    Send Reminders
+                - else
+                  = "-"    
               .clr
       - else
         .alert.medium-text.text-center
