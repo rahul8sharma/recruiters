@@ -42,11 +42,11 @@
           .span8
             = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
           .span3.text-center
-            = 3
+            = @candidate_counts[assessment.id.to_s] || 0
           .span4.text-center
-            = 2
+            = @stakeholder_counts[assessment.id.to_s] || 0
           .span5.text-center
-            = 3
+            = @completed_counts[assessment.id.to_s] || 0
           .span3.text-center
             %a.icon-plus-sign.large-text{:href => add_stakeholders_company_mrf_assessment_path(@company.id, assessment.id), :title => "Add more"}
           .clr

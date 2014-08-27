@@ -6,7 +6,7 @@
     %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
       Return to 360&#176; Profiling Exercise Details
     .divider1
-    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
+    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, candidate_ids: @candidate.id)}
       Add Stakeholders
   .clr
   .divider2
@@ -48,8 +48,11 @@
             .span5
               = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
             .span5
-              %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
-                Send Reminder
+              - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
+                  Send Reminder
+              - else
+                = "-"
             .clr
     .divider2
     .pull-right
