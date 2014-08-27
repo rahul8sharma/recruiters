@@ -8,6 +8,9 @@ class Mrf::AssessmentsController < ApplicationController
   
   def home
     @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: "created_at DESC", page: params[:page], per: 10).all
+    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, page: params[:page], per: 10)
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, page: params[:page], per: 10)
+    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses }, page: params[:page], per: 10)
   end 
 
   def new

@@ -43,26 +43,32 @@
             %td 
               = feedbacks.size
             %td 
-              = completed_feedbacks = feedbacks.select{|feedback| feedback.status == Vger::Resources::Mrf::Feedback::Status::COMPLETED }
+              - completed_feedbacks = feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
               = completed_feedbacks.size
             %td 
               = completed_feedbacks.size == feedbacks.size ? "Completed" : "Pending"
-            %td 
-              %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { role: role }), :title => "Send reminder"}
-                Send reminder
+            %td
+              - if completed_feedbacks.size != feedbacks.size 
+                %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { role: role }), :title => "Send reminder"}
+                  Send reminder
+              - else
+                = "-"                  
         %tr.font-bold
           %td 
             Total
           %td 
             = @feedbacks.values.flatten.size
           %td 
-            = completed_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.status == Vger::Resources::Mrf::Feedback::Status::COMPLETED }
+            - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
             = completed_feedbacks.size
           %td 
-            Completed
+            = completed_feedbacks.size == @feedbacks.values.flatten.size ? "Completed" : "Pending"
           %td 
-            %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Send Reminder to all pending"} 
-              Send Reminder to all pending
+            - if completed_feedbacks.size != @feedbacks.values.flatten.size
+              %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Send Reminder to all pending"} 
+                Send Reminder to all pending
+            - else
+              = "-"    
     .divider1
     - total_candidates = @feedbacks.values.flatten.map(&:candidate_id).uniq.count
     - self_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.role == Vger::Resources::Mrf::Feedback::Role::SELF }
