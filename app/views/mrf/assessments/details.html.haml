@@ -64,8 +64,11 @@
             %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Send Reminder to all pending"} 
               Send Reminder to all pending
     .divider1
-    .extra-medium-text.margin-auto{:style => "width: 710px"}
-      Self Ratings: Enabled for some candidates - 
-      %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Enable for all?"}
-        Enable for all?
+    - total_candidates = @feedbacks.values.flatten.map(&:candidate_id).uniq.count
+    - self_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.role == Vger::Resources::Mrf::Feedback::Role::SELF }
+    - if self_feedbacks.count != total_candidates
+      .extra-medium-text.margin-auto{:style => "width: 710px"}
+        Self Ratings: Enabled for some candidates - 
+        %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Enable for all?"}
+          Enable for all?
     .divider2
