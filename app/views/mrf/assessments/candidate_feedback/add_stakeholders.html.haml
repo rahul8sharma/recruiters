@@ -39,7 +39,7 @@
             .span6.extra-medium-text.pull-left
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
               = fields_for :bulk_upload do |ff|
-                = ff.file_field :file
+                = ff.file_field(:file, accept: '.csv')
               .span.default-text
                 (File format supported: CSV)
             .span14.extra-medium-text
