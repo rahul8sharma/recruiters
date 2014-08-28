@@ -1,7 +1,6 @@
 = form_for :report, url: manage_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id]), method: :put do |f|
   = hidden_field_tag "view_mode", "html"
   - @report.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
-  - @report.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
   %div
     %b Company:
     #{@report.report_hash["company"]["name"]}
@@ -43,7 +42,7 @@
                   = factor_form.select "norm_bucket_id", @norm_buckets, {}, {}
 
   - else
-
+    - @report.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
     %div
     = f.fields_for :aggregate_scores do |aggregate_scores_form|
       - aggregate_scores_form.object = OpenStruct.new()
