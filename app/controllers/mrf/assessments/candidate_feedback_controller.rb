@@ -55,24 +55,32 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
   
   def candidates
-    @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
-      company_id: @company.id,
-      assessment_id: @assessment.id
-    ).all.to_a
-    @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
-    @feedbacks = Vger::Resources::Mrf::Feedback.where(
-      company_id: @company.id,
-      assessment_id: @assessment.id,
+    @candidates = Vger::Resources::Candidate.where(
+      joins: { :feedbacks => :stakeholder_assessment },
       query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.keys
-      }
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      },
+      page: params[:page],
+      per: 10
     ).all.to_a
-    @feedbacks = @feedbacks.group_by{|feedback| feedback.candidate_id }
-    if @feedbacks.present?
-      @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.keys }).to_a.collect{|candidate| [candidate.id,candidate] }]
-    else
-      @candidates = {}
-    end
+    #@stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
+    #  company_id: @company.id,
+    #  assessment_id: @assessment.id
+    #).all.to_a
+    #@stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
+    #@feedbacks = Vger::Resources::Mrf::Feedback.where(
+    #  company_id: @company.id,
+    #  assessment_id: @assessment.id,
+    #  query_options: {
+    #    stakeholder_assessment_id: @stakeholder_assessments.keys
+    #  }
+    #).all.to_a
+    #@feedbacks = @feedbacks.group_by{|feedback| feedback.candidate_id }
+    #if @feedbacks.present?
+    #  @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.keys }).to_a.collect{|candidate| [candidate.id,candidate] }]
+    #else
+    #  @candidates = {}
+    #end
   end
   
   def select_candidates
