@@ -1,0 +1,29 @@
+
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+
+        = image_tag(asset_path("jombay-logo.png"))
+      .big-text.gray-dark.padding-all1.pull-left
+        Sreelakshmi  Venugopal
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href => "#overview", :title => "Overview"}
+              Overview
+          %li
+            %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
+              Traits
+          %li
+            %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
+              Scores
+          %li
+            %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
+              Data Points      
+          %li
+            %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
+              Summary
+          %li.right
+       
