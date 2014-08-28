@@ -30,14 +30,15 @@ class ReportUploader < AbstractController::Base
         :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
-        :patch => patch,
-        :methods => [ :report_hash ]
+        :patch => patch
       )
       
-      if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
-        puts "Report #{report_id} is being uploaded already..."
-        return 
-      end
+      @report.report_hash = @report.report_data
+      
+      #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
+      #  puts "Report #{report_id} is being uploaded already..."
+      #  return 
+      #end
       
       Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
         :custom_assessment_id => assessment_id,
