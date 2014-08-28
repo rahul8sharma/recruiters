@@ -42,7 +42,6 @@
               .span10
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.name
-                  = candidate.email
               .span5
                 = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status) ? "Completed" : "Partially Completed"
               .span5
@@ -64,7 +63,9 @@
       .muted.extra-medium-text
         .span.line-height2
           Go to Page
-        %select.span2
-          %option 01
+        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+          - @candidates.total_pages.times do |page|
+            %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)), }
+              = page + 1
         .clr
     .clr
