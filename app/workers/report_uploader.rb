@@ -65,14 +65,16 @@ class ReportUploader < AbstractController::Base
       html = render_to_string(
          template: "assessment_reports/#{template}",
          layout: "layouts/candidate_reports",
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         formats: [ :html ]
       )
       
       @view_mode = "feedback"
       feedback_html = render_to_string(
          template: "assessment_reports/#{template}.html.haml",
          layout: "layouts/candidate_reports",
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         formats: [ :html ]
       )
 
       @view_mode = "pdf"
