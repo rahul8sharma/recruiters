@@ -79,7 +79,8 @@ class AssessmentReportsController < ApplicationController
     @fitment_grades["Blank"] = ""
     @competency_grades = Hash[Vger::Resources::Suitability::CompetencyGrade.all.collect{|x| [x.name, x.name]}]
     @aggregate_competency_score_buckets = Hash[Vger::Resources::Suitability::AggregateCompetencyScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :candidate_id, :company_id, :report_hash ]))
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :candidate_id, :company_id ]))
+    @report.report_hash = @report.report_data
     if request.put?
       report_data = {
         :id => @report.id,
@@ -108,7 +109,8 @@ class AssessmentReportsController < ApplicationController
   def assessment_report
     report_type = params[:report_type] || "fit"
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type , :methods => [ :report_hash ]))
+    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
+    @report.report_hash = @report.report_data
     Rails.logger.debug(@report.report_hash)
     @view_mode = params[:view_mode]
     request.format = "pdf" if @view_mode == "pdf"
