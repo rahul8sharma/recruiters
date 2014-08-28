@@ -17,6 +17,7 @@ class ReportUploader < AbstractController::Base
 
   def perform(report_data, auth_token, patch = {})
     tries = 0
+    patch ||= {}
     report_data = HashWithIndifferentAccess.new report_data
     RequestStore.store[:auth_token] = auth_token
     report_id = report_data["id"]
@@ -26,14 +27,17 @@ class ReportUploader < AbstractController::Base
     patch ||= {}
     begin
       puts "Getting Report #{report_id}"
+      methods = []
+      methods = [:report_hash] if !patch.empty?
       @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
         :custom_assessment_id => assessment_id,
         :candidate_id => candidate_id,
         :company_id => company_id,
-        :patch => patch
+        :patch => patch,
+        :methods => methods
       )
       
-      @report.report_hash = @report.report_data
+      @report.report_hash = @report.report_data if patch.empty?
       
       #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
       #  puts "Report #{report_id} is being uploaded already..."
