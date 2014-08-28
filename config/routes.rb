@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Recruiters::Application.routes.draw do
   resources :candidates do
     member do
@@ -633,4 +635,5 @@ Recruiters::Application.routes.draw do
   root :to => "users#login"
 
   mount JombayNotify::Engine => "/jombay-notify"
+  mount Sidekiq::Web => '/sidekiq'
 end
