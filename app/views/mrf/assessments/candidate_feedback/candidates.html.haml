@@ -24,7 +24,7 @@
             360&#176; Status
             %i.icon-chevron-down.small-text.line-height1
         .span5
-          %a{:href => "#", :title => "Candidates"}
+          %a{:href => '#', :title => "Candidates"}
             Reports
             %i.icon-chevron-down.small-text.line-height1
         .span5
@@ -45,7 +45,7 @@
               .span5
                 = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate_id].last.status) ? "Completed" : "Partially Completed"
               .span5
-                %a{:href => "#", :title => "View Report"}
+                %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id), :title => "View Report", :target => '_blank'}
                   %i.icon-file
                   View Report
               .span5

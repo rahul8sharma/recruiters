@@ -3,19 +3,19 @@
   .scores.container
     .title.pull-left
       Traits with 360 Degree Scores 
-    
     .scale.mrf.pull-right.left-offset1
       .line
       .marker-container
-        - 6.times do 
+        - @norm_buckets.each do |norm_bucket|
           .marker
             .arrow
             .marker-info
-              abcd abcd ddfdf abcd abcd ddfdf abcd abcd ddfdf abcd abcd ddfdf 
-            
-            Above average
-          
+              = norm_bucket.description
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
+            = norm_bucket.name
       .clr
     .clr
     .divider3
-    = render :partial => "mrf/assessments/reports/competency"
+    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+      = render :partial => "mrf/assessments/reports/competency", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
