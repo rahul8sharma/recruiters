@@ -59,7 +59,7 @@
           %td 
             Total
           %td 
-            = @feedbacks.size
+            = @feedbacks.values.flatten.size
           %td 
             - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)}
             = completed_feedbacks.size

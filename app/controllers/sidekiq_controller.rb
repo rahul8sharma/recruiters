@@ -16,6 +16,8 @@ class SidekiqController < ApplicationController
       :query_options => {
         :status =>  Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED
       },
+      :page => params[:page],
+      :per => 25,
       :methods => [
                     :assessment_id,
                     :candidate_id,

@@ -29,6 +29,8 @@ gem 'request_store','1.0.5'
 #gem 'roo'
 gem "exception_notification", :github => "pmahoney/exception_notification", :branch => "jruby", :ref => "5ac9f405fd53ee"
 gem 'aws-sdk', '1.14.1'
+gem 'slim', "2.0.0"
+gem 'sinatra', '1.3.6', :require => nil
 gem 'sidekiq', '2.12.1'
 
 gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :branch => "develop"
