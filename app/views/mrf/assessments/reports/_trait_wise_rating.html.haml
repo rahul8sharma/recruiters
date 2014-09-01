@@ -50,17 +50,17 @@
     .caption.text-center
       Average Rating by Stakeholders
     .divider3
-    -3.times do 
+    - trait_score[:role_wise_scores].each do |role_wise_name, role_wise_score|
       .stakeholders-rating-snippet
         .stakeholders-name.pull-left
-          Managers
+          = role_wise_name.titleize
         .stakeholders-rating-slider.pull-left 
-          -6.times do 
-            .marker
+          -@norm_buckets.each_with_index do |norm_bucket|
+            .marker{:class => norm_bucket.name == role_wise_score[:bucket] ? 'active' : '' }
               -# add ".active" to ".marker"
               .arrow
               .score
-                Above average
+                = norm_bucket.name
           .clr
         .clr
         .divider3

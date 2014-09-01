@@ -20,13 +20,13 @@
               .right
                 Completed by
               .clr
-            - 5.times do
+            - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
               %li.list
                 .left
-                  Manager
+                  = feedback_name.titleize
                 .middle
-                  28
+                  = feedback_stats[:sent]
                 .right
-                  12
+                  = feedback_stats[:completed]
                 .clr
         .divider2
