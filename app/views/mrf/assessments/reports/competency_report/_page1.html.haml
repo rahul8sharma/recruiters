@@ -4,12 +4,12 @@
     .user-name.pull-left
       = @report.report_data[:candidate][:name]
     .final-score.pull-right
-      360° Profiling Report
+      360&#176; Profiling Report
     .clr
 
     .divider3
     .extra-medium-text
-      360° Profiling: 
+      360&#176; Profiling: 
       = @report.report_data[:assessment][:name]
       .divider1
       Report Generated On: 
@@ -28,7 +28,7 @@
               .competency-name.title.pull-left
                 Competency
               .competency-value.title.pull-right
-                360° Rating
+                360&#176; Rating
               .clr
             - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
               %li
