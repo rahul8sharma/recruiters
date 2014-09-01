@@ -12,7 +12,8 @@
       360° Profiling: 
       = @report.report_data[:assessment][:name]
       .divider1
-      Report Generated On: 10/06/2014(!)
+      Report Generated On: 
+      = hdate(@report.report_data[:generated_at])
     .divider2
 .overview
   .top-triangle
