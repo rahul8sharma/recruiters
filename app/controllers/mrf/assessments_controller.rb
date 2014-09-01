@@ -8,9 +8,9 @@ class Mrf::AssessmentsController < ApplicationController
   
   def home
     @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: "created_at DESC", page: params[:page], per: 10).all
-    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, page: params[:page], per: 10)
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, page: params[:page], per: 10)
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses }, page: params[:page], per: 10)
+    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
+    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses }, page: params[:page], per: 10)
   end 
 
   def new
@@ -94,19 +94,18 @@ class Mrf::AssessmentsController < ApplicationController
       assessment_id: @assessment.id
     ).all.to_a
     @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
-    @feedbacks = Vger::Resources::Mrf::Feedback.where(
-      company_id: @company.id,
-      assessment_id: @assessment.id,
-      query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.keys
-      }
-    ).all.to_a
-    @feedbacks = @feedbacks.group_by{|feedback| feedback.role }
-    if @feedbacks.present?
-      @candidates = Hash[Vger::Resources::Candidate.where(query_options: { id: @feedbacks.keys }).to_a.collect{|candidate| [candidate.id,candidate] }]
+    if @stakeholder_assessments.present?
+      @feedbacks = Vger::Resources::Mrf::Feedback.where(
+        company_id: @company.id,
+        assessment_id: @assessment.id,
+        query_options: {
+          stakeholder_assessment_id: @stakeholder_assessments.keys
+        }
+      ).all.to_a
+      @feedbacks = @feedbacks.group_by{|feedback| feedback.role }
     else
-      @candidates = {}
-    end
+      @feedbacks = {}
+    end  
   end
 
   def traits
