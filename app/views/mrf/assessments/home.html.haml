@@ -3,61 +3,58 @@
     .divider1
     360&#176; Profiling Exercises
   %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_mrf_assessment_path(@company), :title => "Click Here To Create Custom Assessment"} 
-    Create a new 360&#176; Profiling Exercises
+    Create a new 360&#176; Profiling Exercise
   .clr
   .divider2
   .list-snippet-titles.big-text.clearfix
-    .span3.first
-      %a{:href => "#", :title => "360 ID"}
-        360&#176; ID
-        %i.icon-chevron-down.small-text.line-height1
-    .span4
-      %a{:href => "#", :title => "Created On"}
-        Created On
-        %i.icon-chevron-down.small-text.line-height1
-    .span8
-      %a{:href => "#", :title => "Profiling Exercises Title "}
-        Title
-        %i.icon-chevron-down.small-text.line-height1
-    .span3.text-center
-      %a{:href => "#", :title => "Candidates"}
+    - if @assessments.present?
+      .span3.first
+        = sort_link "360&#176; ID", home_company_mrf_assessments_path(:company_id => params[:company_id]), :id, params[:search]
+      .span4
+        = sort_link "Created On", home_company_mrf_assessments_path(:company_id => params[:company_id]), :created_at, params[:search]
+      .span8
+        = sort_link "Title", home_company_mrf_assessments_path(:company_id => params[:company_id]), :name, params[:search]
+      .span3.text-center
         Candidates
-        %i.icon-chevron-down.small-text.line-height1
-    .span4.text-center
-      Stakeholders
-    .span5.text-center
-      Responses From
-    .span3.text-center
-      Add More
-    .clr
-    .divider2          
-    %ul
-      - @assessments.each do |assessment|
-        %li.list-snippet.border-top-grayLighter.extra.medium-text
-          .divider1
-          .span3.first
-            = link_to assessment.id, details_company_mrf_assessment_path(@company,assessment)
-          .span4
-            = link_to hdate(assessment.created_at), details_company_mrf_assessment_path(@company,assessment)
-          .span8
-            = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
-          .span3.text-center
-            = @candidate_counts[assessment.id.to_s] || 0
-          .span4.text-center
-            = @stakeholder_counts[assessment.id.to_s] || 0
-          .span5.text-center
-            = @completed_counts[assessment.id.to_s] || 0
-          .span3.text-center
-            %a.icon-plus-sign.large-text{:href => add_stakeholders_company_mrf_assessment_path(@company.id, assessment.id), :title => "Add more"}
-          .clr
+      .span4.text-center
+        Stakeholders
+      .span5.text-center
+        Responses From
+      .span3.text-center
+        Add More
+      .clr
+      .divider2          
+      %ul
+        - @assessments.each do |assessment|
+          %li.list-snippet.border-top-grayLighter.extra.medium-text
+            .divider1
+            .span3.first
+              = link_to assessment.id, details_company_mrf_assessment_path(@company,assessment)
+            .span4
+              = link_to hdate(assessment.created_at), details_company_mrf_assessment_path(@company,assessment)
+            .span8
+              = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
+            .span3.text-center
+              = @candidate_counts[assessment.id.to_s] || 0
+            .span4.text-center
+              = @stakeholder_counts[assessment.id.to_s] || 0
+            .span5.text-center
+              = @completed_counts[assessment.id.to_s] || 0
+            .span3.text-center
+              %a.icon-plus-sign.large-text{:href => add_stakeholders_company_mrf_assessment_path(@company.id, assessment.id), :title => "Add more"}
+            .clr
+    - else
+      .alert.medium-text.text-center
+        No 360 Degree Profiling Exercises present. 
   .divider2
-.pull-right
-  .muted.extra-medium-text
-    .span.line-height2
-      Go to Page
-    %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-      - @assessments.total_pages.times do |page|
-        %option{selected: params[:page].to_i == (page + 1),value: home_company_mrf_assessments_path(@company, params.merge(:page => page + 1)), }
-          = page + 1
-    .clr
-.clr
+- if @assessments.present?
+  .pull-right
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+        - @assessments.total_pages.times do |page|
+          %option{selected: params[:page].to_i == (page + 1),value: home_company_mrf_assessments_path(@company, params.merge(:page => page + 1)), }
+            = page + 1
+      .clr
+  .clr

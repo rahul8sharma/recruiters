@@ -15,32 +15,25 @@
   .padding-all2.border-warning.shifted-up1    
     .list-snippet-titles.big-text.clearfix
       .span3.first
-        %a{:href => "#", :title => "360 ID"}
-          360&#176;CID
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "ID", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
       .span10
-        %a{:href => "#", :title => "Created On"}
-          Stakeholders
-          %i.icon-chevron-down.small-text.line-height1
+        = sort_link "Stakeholder", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
       .span5
-        %a{:href => "#", :title => "Profiling Exercises Title "}
-          Stakeholders Role
-          %i.icon-chevron-down.small-text.line-height1
+        Stakeholders Role
       .span5
-        %a{:href => "#", :title => "Candidates"}
-          Response Status
-          %i.icon-chevron-down.small-text.line-height1
+        Response Status
       .span5
         Send Reminder
       .clr
       .divider1          
       %ul
-        - @feedbacks.each do |feedback|
-          - stakeholder = @stakeholder_assessments[feedback.stakeholder_assessment_id].first.stakeholder
+        - @stakeholders.each do |stakeholder|
+          - stakeholder_assessment = @stakeholder_assessments[stakeholder.id].first
+          - feedback = @feedbacks[stakeholder_assessment.id].first
           %li.list-snippet.extra-medium-text
             .divider1
             .span3.first
-              = feedback.id
+              = stakeholder.id
             .span10
               = stakeholder.name
             .span5
@@ -55,11 +48,14 @@
                 = "-"
             .clr
     .divider2
-    .pull-right
-      .muted.extra-medium-text
-        .span.line-height2
-          Go to Page
-        %select.span2
-          %option 01
-        .clr
-    .clr
+    - if @stakeholders.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @stakeholders.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1), value: candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, { :page => params[:page].to_i + 1 }) }
+                = page + 1
+          .clr
+      .clr
