@@ -38,9 +38,10 @@
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span9
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      .pull-right
-        %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
-          %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
+      - if is_superadmin?  
+        .pull-right
+          %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
+            %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
       .clr
       .divider1
     - if @candidates.empty?
@@ -90,9 +91,10 @@
                   %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                     %i.icon-time
                     Send Reminder
-            .span.pull-right
-              %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"} 
-                Request 360&#176; Profiling
+            - if is_superadmin?        
+              .span.pull-right
+                %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"} 
+                  Request 360&#176; Profiling
             .clr
       .divider3
     - if @candidate_assessments.present?
