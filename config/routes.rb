@@ -215,7 +215,7 @@ Recruiters::Application.routes.draw do
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
 
-        get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#report", :as => :reports
+        get "candidates/:candidate_id/report" => "mrf/assessments/reports#report", :as => :report
         
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders

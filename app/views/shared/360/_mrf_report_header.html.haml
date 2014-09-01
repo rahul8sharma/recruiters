@@ -3,10 +3,9 @@
   #header
     .container
       .logo.pull-left.pull-left
-
         = image_tag(asset_path("jombay-logo.png"))
       .big-text.gray-dark.padding-all1.pull-left
-        Sreelakshmi  Venugopal
+        = @report.report_data[:candidate][:name]
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left

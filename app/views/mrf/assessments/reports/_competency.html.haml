@@ -1,30 +1,44 @@
 .frame.mrf.gray-bg
   .heading.pull-left
-    People Management
+    = competency_name
   .heading.pull-right 
-    Competency's 360° Rating: Average
+    Competency's 360° Rating: 
+    = competency_scores[:score][:bucket]
   .clr 
   %ul.mrf_scores_listing
-    - 3.times do 
+    - competency_scores[:trait_scores].each_with_index do |trait_score, index|
       %li
         .divider4
         .span8.left-sec.first.right-offset1
           .rounded.pull-left
           .span7.pull-right
             .title
-              Adaptability
+              = trait_score[:trait][:name]
             .divider1
             .discription.medium-text
-              Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+              = trait_score[:trait][:definition]
           .clr
         .span17.right-sec.left-offset1
           .rating-slider
-            -6.times do
-              .marker
-                -#add/remove ".mrf-rating" and ".self-rating" to ".marker" or else if both add both classes like this ".marker.mrf-rating.self-rating" 
+            -@norm_buckets.each_with_index do |norm_bucket, index|
+              - self_rating_index = ''
+              - mrf_rating_index = ''
+              - klass = ''
+              - if norm_bucket.name == trait_score[:average_score_self][:bucket]
+                - self_rating_index = index
+              - if norm_bucket.name == trait_score[:average_score_excluding_self][:bucket]
+                - mrf_rating_index = index
+              
+              - if index == self_rating_index && index != mrf_rating_index
+                - klass = 'self-rating'
+              - if index == mrf_rating_index && index != self_rating_index
+                - klass = 'mrf-rating'
+              - if index == mrf_rating_index && index == self_rating_index
+                - klass = 'self-rating mrf-rating'
+   
+              .marker{:class => klass}
                 .arrow-mrf-result
                 .arrow-self-result
-
                 .mrf-result
                   .left
                     360 Rating
@@ -39,8 +53,5 @@
                   .clr
             .clr
         .clr
-
         .divider4
-
-   
 .divider1

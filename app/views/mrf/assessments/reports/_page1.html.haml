@@ -2,16 +2,18 @@
   .overall_report.container
     .divider6
     .user-name.pull-left
-      chandrakant
+      = @report.report_data[:candidate][:name]
     .final-score.pull-right
       360° Profiling Report
     .clr
 
     .divider3
     .extra-medium-text
-      360° Profiling: 360 Title
+      360° Profiling: 
+      = @report.report_data[:assessment][:name]
       .divider1
-      Report Generated On: 10/06/2014
+      Report Generated On: 
+      = hdate(@report.report_data[:generated_at])
     .divider2
 .overview
   .top-triangle
@@ -28,12 +30,12 @@
               .competency-value.title.pull-right
                 360° Rating
               .clr
-            - 5.times do 
+            - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
               %li
                 .competency-name.pull-left
-                  Situation Management 
+                  = competency_name
                 .competency-value.pull-right
-                  Above Average
+                  = competency_scores[:score][:bucket]
                 .clr
           .clr
         .divider2
