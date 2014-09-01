@@ -1,0 +1,8 @@
+#developement_guide.section03
+  .divider1
+  .scores.container
+    .title
+      Data Points about 360 Degree Scores 
+    .divider2
+    = render :partial => "mrf/assessments/reports/fit_report/fit_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}    
+    = render :partial => "mrf/assessments/reports/fit_report/page_4_all_individual", :locals => {:trait_score => @report.report_data[:trait_scores]}
