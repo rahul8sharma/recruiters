@@ -36,22 +36,45 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       }
     })
     @feedbacks = @feedbacks.group_by(&:role)
+    @report = Vger::Resources::Mrf::Report.where(
+      query_options: {
+        assessment_id: @assessment.id,
+        candidate_id: @candidate.id
+      },
+      select: ["id","candidate_id","status"]
+    ).all.last
   end
 
   def stakeholders
+    order_by = params[:order_by] || "stakeholders.id"
+    order_type = params[:order_type] || "ASC"
+    order = "#{order_by} #{order_type}"
+    @stakeholders = Vger::Resources::Stakeholder.where(
+      joins: {:stakeholder_assessments => :feedbacks },
+      query_options: {
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+        "mrf_feedbacks.candidate_id" => @candidate.id
+      },
+      order: order,
+      per: 10,
+      page: params[:page]
+    )
     @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
       company_id: @company.id,
-      assessment_id: @assessment.id
-    )
-    @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
+      assessment_id: @assessment.id,
+      query_options: {
+        "stakeholder_id" => @stakeholders.map(&:id),
+        "assessment_id" => @assessment.id
+      }
+    ).all.group_by{|stakeholder_assessment| stakeholder_assessment.stakeholder_id }
     @feedbacks = Vger::Resources::Mrf::Feedback.where({
       company_id: @company.id,
       assessment_id: @assessment.id,
       query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.keys,
+        stakeholder_assessment_id: @stakeholder_assessments.values.flatten.map(&:id),
         candidate_id: @candidate.id
       }
-    })
+    }).all.to_a.group_by{|feedback| feedback.stakeholder_assessment_id }
   end
   
   def candidates

@@ -62,7 +62,7 @@
             Go to Page
           %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
             - @candidates.total_pages.times do |page|
-              %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)), }
+              %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)) }
                 = page + 1
           .clr
       .clr
