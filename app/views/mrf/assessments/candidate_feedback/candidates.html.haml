@@ -12,21 +12,13 @@
     .list-snippet-titles.big-text.clearfix
       - if @candidates.present?
         .span3.first
-          %a{:href => "#", :title => "360 ID"}
-            360&#176;CID
-            %i.icon-chevron-down.small-text.line-height1
+          = sort_link "360&#176;CID", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.id", params[:search]
         .span10
-          %a{:href => "#", :title => "Created On"}
-            Candidates
-            %i.icon-chevron-down.small-text.line-height1
+          = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
         .span5
-          %a{:href => "#", :title => "Profiling Exercises Title "}
-            360&#176; Status
-            %i.icon-chevron-down.small-text.line-height1
+          360&#176; Status
         .span5
-          %a{:href => '#', :title => "Candidates"}
-            Reports
-            %i.icon-chevron-down.small-text.line-height1
+          Reports
         .span5
           Remind Stakeholders
         .clr
@@ -45,9 +37,13 @@
               .span5
                 = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status) ? "Completed" : "Partially Completed"
               .span5
-                %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id), :title => "View Report", :target => '_blank'}
+                - if @reports[candidate.id].size > 0 && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
+                  %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id), :title => "View Report", :target => '_blank'}
                   %i.icon-file
                   View Report
+                - else
+                  %i.icon-spinner.icon-spin 
+                  Generating Report...
               .span5
                 - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status)
                   %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}
@@ -59,13 +55,14 @@
         .alert.medium-text.text-center
           No candidates present
     .divider2
-    .pull-right
-      .muted.extra-medium-text
-        .span.line-height2
-          Go to Page
-        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-          - @candidates.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)), }
-              = page + 1
-        .clr
-    .clr
+    - if @candidates.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @candidates.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)), }
+                = page + 1
+          .clr
+      .clr

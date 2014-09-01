@@ -55,12 +55,16 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
   
   def candidates
+    order_by = params[:order_by] || "candidates.id"
+    order_type = params[:order_type] || "ASC"
+    order = "#{order_by} #{order_type}"
     @candidates = Vger::Resources::Candidate.where(
       joins: { :feedbacks => :stakeholder_assessment },
       query_options: {
         "mrf_stakeholder_assessments.assessment_id" => @assessment.id
       },
-      select: "distinct(candidates.id),name,email",
+      select: "distinct(candidates.id),candidates.name,email",
+      order: order,
       page: params[:page],
       per: 10
     ).all
@@ -73,6 +77,13 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         "mrf_stakeholder_assessments.assessment_id" => @assessment.id
       }
     ).all.to_a
+    @reports = Vger::Resources::Mrf::Report.where(
+      query_options: {
+        assessment_id: @assessment.id,
+        candidate_id: @candidates.map(&:id)
+      },
+      select: ["id","candidate_id","status"]
+    ).all.to_a.group_by{|report| report.candidate_id }
     @feedbacks = @feedbacks.group_by{|feedback| feedback.candidate_id }
   end
   
