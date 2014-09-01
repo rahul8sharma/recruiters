@@ -10,7 +10,7 @@
           .marker
             .arrow
             .marker-info
-              = norm_bucket.description
+              = norm_bucket.description rescue "-" 
             - if norm_bucket.name.split(" ").size == 1
               %br/
             = norm_bucket.name
