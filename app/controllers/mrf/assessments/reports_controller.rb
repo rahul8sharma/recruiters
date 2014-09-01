@@ -17,7 +17,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
       template = 'fit_report'
     end
     respond_to do |format|
-      format.html { render :template => "mrf/assessments/reports/fit_report" }
+      format.html { render :template => "mrf/assessments/reports/#{template}" }
     end
   end
 
