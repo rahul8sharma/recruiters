@@ -1,0 +1,20 @@
+#scores.section03
+  .divider1
+  .scores.container
+    .span9.line-height2.title.pull-left
+      Scores of traits measured with 360&#176; Assessment
+    .scale.mrf.pull-right.left-offset1
+      .line
+      .marker-container
+        - @norm_buckets.each do |norm_bucket|
+          .marker
+            .arrow
+            .marker-info
+              = norm_bucket.description rescue "-" 
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
+            = norm_bucket.name
+      .clr
+    .clr
+    .divider3
+    = render :partial => "mrf/assessments/reports/fit_report/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}

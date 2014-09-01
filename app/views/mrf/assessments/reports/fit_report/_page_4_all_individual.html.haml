@@ -1,0 +1,9 @@
+.frame.gray-bg
+  .clr 
+  .divider1
+  %ul.mrf_data_points_listing
+    - @report.report_data[:trait_scores].each do |trait_score, index|
+      = render :partial => "mrf/assessments/reports/fit_report/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index}
+    .divider1
+.divider1
+

@@ -1,0 +1,16 @@
+.competency-container.mrf
+  .heading.pull-left
+    = competency_name
+  .heading.pull-right
+    360° Rating: 
+    = competency_scores[:score][:bucket]
+  .clr
+   
+  .factors_container
+    .factors_list  
+      - competency_scores[:trait_scores].each_with_index do |trait_score, index|
+        %div{:class=>"factor_#{index+1} "}
+          .text-wrap{:style=>"margin-top: 30px;"}
+            = trait_score[:trait][:name]
+      -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
+.divider1  
