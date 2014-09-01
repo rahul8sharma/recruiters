@@ -14,28 +14,28 @@
             .left
               Maximum Rating
             .right
-              Average (High)
+              = @report.report_data[:max_score_excluding_self][:bucket]
             .clr
 
           .trait_rating.min
             .left
               Minimum Rating
             .right
-              Average (High)
+              = @report.report_data[:min_score_excluding_self][:bucket]
             .clr
 
           .trait_rating.self
             .left
               Self Rating
             .right
-              Average (High)
+              = @report.report_data[:average_score_self][:bucket]
             .clr
 
           .trait_rating.score
             .left
               Assessment Rating
             .right
-              Average (High)
+              = @report.report_data[:assessment_rating]
             .clr
 
           .divider1
