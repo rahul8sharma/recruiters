@@ -133,7 +133,7 @@ class Mrf::AssessmentsController < ApplicationController
   
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {:assessment_traits => { methods: [:trait] } })
+      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {:assessment_traits => { include: [:trait] } })
     else
       @assessment = Vger::Resources::Mrf::Assessment.new
     end
