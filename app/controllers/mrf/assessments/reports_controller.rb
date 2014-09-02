@@ -7,7 +7,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     report_type = params[:report_type] || "fit_report"  
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
   
-    @report = Vger::Resources::Mrf::Report.where(:query_options =>{:candidate_id => params[:candidate_id], :assessment_id => params[:id]}).all.to_a.first  
+    @report = Vger::Resources::Mrf::Report.find(params[:report_id])
   
     Rails.logger.debug(@report.report_data)
     
@@ -19,6 +19,12 @@ class Mrf::Assessments::ReportsController < ApplicationController
     respond_to do |format|
       format.html { render :template => "mrf/assessments/reports/#{template}" }
     end
+  end
+
+  def s3_report
+    report = Vger::Resources::Mrf::Report.find(params[:report_id], params)
+    url = S3Utils.get_url(report.html_bucket, report.html_key)
+    redirect_to url
   end
 
   protected
