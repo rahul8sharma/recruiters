@@ -3,7 +3,7 @@
   #header
     .container
       .logo.pull-left.pull-left
-        = image_tag(asset_path("jombay-logo.png"))
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
       .big-text.gray-dark.padding-all1.pull-left
         = @report.report_data[:candidate][:name]
       .pull-right

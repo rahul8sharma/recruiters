@@ -35,15 +35,22 @@
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.name
               .span5
-                = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status) ? "Completed" : "Partially Completed"
+                - if @feedbacks[candidate.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  }
+                  Completed
+                - elsif @feedbacks[candidate.id].none?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  } 
+                  Pending
+                - else
+                  Partially Completed
               .span5
                 - if @reports[candidate.id].present? && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
-                  %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id), :title => "View Report", :target => '_blank'}
-                  %i.icon-file
-                  View Report
-                - else
+                  %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id, @reports[candidate.id].last.id), :title => "View Report", :target => '_blank'}
+                    %i.icon-file
+                    View Report
+                - elsif @reports[candidate.id].present?
                   %i.icon-spinner.icon-spin 
                   Generating Report...
+                - else
+                  = "-"
               .span5
                 - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status)
                   %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}

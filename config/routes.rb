@@ -215,7 +215,8 @@ Recruiters::Application.routes.draw do
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
 
-        get "candidates/:candidate_id/report" => "mrf/assessments/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
         
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
@@ -611,6 +612,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"

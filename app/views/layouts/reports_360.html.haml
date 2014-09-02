@@ -1,13 +1,12 @@
 - content_for :stylesheets do
-  = stylesheet_link_tag "reports_html"
-- content_for :main_header do
-  = render :partial => "shared/360/mrf_report_header"
-- content_for :footer do
-  = render :partial => "shared/360/footer"
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "reports_html"
+  = wicked_pdf_stylesheet_link_tag "shared"
   
-- content_for :content do
-
+- content_for :body do
+  = render :partial => "shared/360/mrf_report_header"
   .report.mrf
     = yield
+    = render :partial => "shared/360/footer"  
 
-= render :file => 'layouts/jit'
+= render :file => 'layouts/haml'

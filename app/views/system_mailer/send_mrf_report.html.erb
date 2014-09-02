@@ -1,0 +1,23 @@
+Hi, 
+<p>
+  360 Degree Report is ready for <%= @report_data[:candidate][:id] %> <%=@report_data[:candidate][:name] %>
+</p>
+<p>
+  Report URL: 
+  <%= s3_report_company_mrf_assessment_path(:company_id => @report_data[:company][:id], :id => @report_data[:assessment][:id],:candidate_id => @report_data[:candidate][:id], :report_id => @report_id, :view_mode => "html")
+    %>
+</p>
+<p>
+  You may alternatively view the report by copy-pasting the link in your web browser's address bar and visiting the link or by logging into your Jombay Account. 
+</p>
+<p>
+  If you face any technical difficulties or have any queries please feel free to reach us at 
+  <a href="mailto:prakhar@jombay.com" title="For any queries Mail to Prakhar"> 
+    prakhar@jombay.com. 
+  </a>  
+  You can also call us at 
+  <b>+91 87960 29607</b>
+</p>
+Best regards,<br/>
+Prakhar Srivastava<br/>
+Jombay
