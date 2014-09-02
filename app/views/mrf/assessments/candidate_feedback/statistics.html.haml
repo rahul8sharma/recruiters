@@ -22,9 +22,9 @@
         %i.icon-file
         360 Report For #{@candidate.name} :
         - if @report && @report.status == Vger::Resources::Mrf::Report::Status::UPLOADED
-          %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id), :title => "View Report", :target => '_blank'}
-          %i.icon-file
-          View
+          %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id, @report.id), :title => "View Report", :target => '_blank'}
+            %i.icon-file
+            View
         - else
           %i.icon-spinner.icon-spin 
           Generating Report...  
