@@ -5,7 +5,8 @@ class Mrf::TraitsController < MasterDataController
 
   def index
     params[:type] ||= "Mrf::Trait"
-    @traits = "Vger::Resources::#{params[:type]}".constantize.where(
+    @traits = Vger::Resources::Mrf::Trait.where(
+      :methods => [:company_ids],
       :page => params[:page], 
       :per => 50, 
       :root => :trait

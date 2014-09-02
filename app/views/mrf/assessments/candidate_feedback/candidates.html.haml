@@ -37,7 +37,7 @@
               .span5
                 = Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status) ? "Completed" : "Partially Completed"
               .span5
-                - if @reports[candidate.id].size > 0 && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
+                - if @reports[candidate.id].present? && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
                   %a{:href => report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id), :title => "View Report", :target => '_blank'}
                   %i.icon-file
                   View Report

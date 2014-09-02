@@ -140,9 +140,13 @@ class Mrf::AssessmentsController < ApplicationController
   end
   
   def get_traits
-    @traits = Vger::Resources::Suitability::Factor.where(query_options: { type: "Suitability::Factor", active: true }, methods: [:direct_predictor_ids]).all.to_a
+    @traits = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids], :root => :factor).all.to_a
+    @traits |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_id], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies], :root => :factor).all.to_a
+  
     @traits = @traits.select{|trait| trait.direct_predictor_ids.blank? }
-    @traits |= Vger::Resources::Mrf::Trait.where(query_options: { company_id: @company.id }).all.to_a
+    
+    @traits |= Vger::Resources::Mrf::Trait.where(:scopes => { :global => nil }).all.to_a
+    @traits |= Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
     get_assessment_traits
   end
   
