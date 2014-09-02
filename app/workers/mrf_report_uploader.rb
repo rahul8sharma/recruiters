@@ -22,7 +22,7 @@ class MrfReportUploader < AbstractController::Base
     RequestStore.store[:auth_token] = auth_token
     report_id = report_data["id"]
 
-    # begin
+    begin
       puts "Getting Report #{report_id}"
       @report = Vger::Resources::Mrf::Report.find(report_id)   
       
@@ -67,27 +67,27 @@ class MrfReportUploader < AbstractController::Base
       JombayNotify::Email.create_from_mail(SystemMailer.send_mrf_report(@report.id, @report.report_data), "send_mrf_report")
   
     
-    # rescue Exception => e
-    #   Rails.logger.debug e.message
-    #   puts e.message
-    #   tries = tries + 1
-    #   if tries < 5
-    #     retry
-    #   else
-    #     Vger::Resources::Mrf::Report.save_existing(report_id,
-    #       :status => Vger::Resources::Mrf::Report::Status::FAILED
-    #     )
-    #   end
-    #   JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report #{report_id}",{
-    #     :report => {
-    #       :status => "Failed",
-    #       :report_id => report_id
-    #     },
-    #     :errors => {
-    #       :backtrace => [e.message] + e.backtrace[0..20]
-    #     }
-    #   }), "notify_report_status")
-    # end
+    rescue Exception => e
+      Rails.logger.debug e.message
+      puts e.message
+      tries = tries + 1
+      if tries < 5
+        retry
+      else
+        Vger::Resources::Mrf::Report.save_existing(report_id,
+          :status => Vger::Resources::Mrf::Report::Status::FAILED
+        )
+      end
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report #{report_id}",{
+        :report => {
+          :status => "Failed",
+          :report_id => report_id
+        },
+        :errors => {
+          :backtrace => [e.message] + e.backtrace[0..20]
+        }
+      }), "notify_report_status")
+    end
   end
 
   def upload_file_to_s3(file_id,file_path)
