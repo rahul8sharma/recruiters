@@ -166,7 +166,6 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       end
 
       stakeholder_emails = feedbacks.collect{|index, feedback_hash| feedback_hash[:email]}
-      Rails.logger.ap(stakeholder_emails)
       if stakeholder_emails.size != stakeholder_emails.uniq.size
         flash[:error] = "Multiple Stakeholders cannot share an email address. Please enter a unique email address for each Stakeholder!"
         return

@@ -59,7 +59,7 @@ class Mrf::AssessmentsController < ApplicationController
       :use_competencies => params[:use_competencies].present?
     }
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
-      flash[:error] = "Select a custom assessment!"
+      flash[:error] = "Please choose the assessment this 360º Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the 'Build 360 Degree from Scratch with New Traits' option."
       get_custom_assessments
       render action: :new and return
     end
