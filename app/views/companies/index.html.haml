@@ -42,11 +42,10 @@
     .span3.first
       Valid till
     .clr
-    .divider1
+    .divider2
   %ul
     - @companies.each do |company|
       %li.list-snippet.border-bottom-grayLighter
-        .divider1
         .span2.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.company_code

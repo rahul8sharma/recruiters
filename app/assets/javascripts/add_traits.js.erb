@@ -1,0 +1,63 @@
+/*
+  This javascript is added to add_traits page while creating MRF assessment
+  Checkboxes to select traits are disabled by default.
+  On document ready  
+  enable all checkboxes for traits
+  Add change even on checkboxes to select trait
+  On checked, enable all input tags under that trait_norm
+  On Uncheck, if trait_norm is new then disable all input tags under that trait_norm, else mark as destroy
+  Also toggle checked class for span tag for that trait
+*/
+
+jQuery(document).ready(function($) {
+  $(".assessment_trait").attr("disabled","disabled");
+  $(".check_trait").change(function() {
+    var index = $(this).attr("index");
+    if ($(this).is(":checked")) {
+      $("input:not(:checkbox)[index='" + index + "']").removeAttr("disabled");
+      if($("#trait_type_" + index).val() == "Mrf::Trait") {
+          $("#label_" + index).addClass("color-info");
+        } else {
+          $("#label_" + index).addClass("color-warning");
+        }
+    } else {
+      var id = $("#id_" + index).val();
+      if (id != null && id != "") {
+        $("#destroy_" + index).val(true);
+      } else {
+        $("input:not(:checkbox)[index='" + index + "']").attr("disabled", 'disabled');
+        if($("#trait_type_" + index).val() == "Mrf::Trait") {
+          $("#label_" + index).removeClass("color-info");
+        } else {
+          $("#label_" + index).removeClass("color-warning");
+        }
+      }
+    }
+  });
+  var trait_counter = 0;
+  var traits_selected_counter = $('input[name="selected_trait"]:checked').length;
+  counter(traits_selected_counter);
+  $('input[name="selected_trait"]').on("change",function(){
+    if($(this).is(":checked")){
+      counter(1);
+    }else{
+      counter(-1);
+    }
+  });
+
+  function counter(iterator){
+    trait_counter += iterator;
+    $("#traits-counter").html(pad(trait_counter));
+  }  
+  
+  function pad(val)
+  {
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+      return "0" + valString;
+    }else{
+      return valString;
+    }
+  }
+});

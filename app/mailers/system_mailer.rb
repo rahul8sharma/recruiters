@@ -20,6 +20,14 @@ class SystemMailer < ActionMailer::Base
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
 
+  def send_mrf_report(report_id, report_data)
+    @report_id = report_id
+    @report_data = report_data
+    subject = "360 Degree Report ready for #{report_data[:candidate][:id]} #{report_data[:candidate][:name]} "
+    to = report_data[:report_email_recipients].present? ? report_data[:report_email_recipients] : "engineering@jombay.com"
+    mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
+  end
+
   def send_report_to_candidate(report_hash)
     @report_hash = report_hash
     subject = "#{report_hash[:candidate][:name]}, your psychometric report by Jombay is ready!"

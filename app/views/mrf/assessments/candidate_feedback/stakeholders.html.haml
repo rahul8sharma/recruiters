@@ -1,0 +1,61 @@
+.candidate-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@candidate.id} - #{@candidate.name}
+  .span7.pull-right.medium-text
+    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
+      Return to 360&#176; Profiling Exercise Details
+    .divider1
+    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, candidate_ids: @candidate.id)}
+      Add Stakeholders
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-details-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      .span3.first
+        = sort_link "ID", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
+      .span10
+        = sort_link "Stakeholder", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
+      .span5
+        Stakeholders Role
+      .span5
+        Response Status
+      .span5
+        Send Reminder
+      .clr
+      .divider1          
+      %ul
+        - @stakeholders.each do |stakeholder|
+          - stakeholder_assessment = @stakeholder_assessments[stakeholder.id].first
+          - feedback = @feedbacks[stakeholder_assessment.id].first
+          %li.list-snippet.extra-medium-text
+            .divider1
+            .span3.first
+              = stakeholder.id
+            .span10
+              = stakeholder.name
+            .span5
+              = feedback.role.titleize
+            .span5
+              = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
+            .span5
+              - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
+                  Send Reminder
+              - else
+                = "-"
+            .clr
+    .divider2
+    - if @stakeholders.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @stakeholders.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1), value: candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, { :page => params[:page].to_i + 1 }) }
+                = page + 1
+          .clr
+      .clr

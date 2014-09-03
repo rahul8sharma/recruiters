@@ -1,0 +1,50 @@
+.container  
+  .span14.page-title.first
+    Create a new 360&#176; Profiling Exercise
+  .clr.divider2
+  = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company) do |f|
+    .border-primary
+      .padding-all2.border-bottom-grayLighter
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2 
+            Enter a title for this 360&#176; Exercise
+          %input.span20.pull-right{:type => "text", name: "assessment[name]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this 360 Degree Exercise", name: "assessment[name]"}
+        .clr
+      .hw.border-right-gray.pull-left
+        .span10.margin-auto
+          .divider3
+          .big-text
+            Choose an existing assessment to run the 360&#176;
+          .divider1
+          %select.fw{name: "assessment[custom_assessment_id]"}
+            %option{value: ''} Choose assessment
+            - @custom_assessments.each do |custom_assessment|
+              %option{ value: custom_assessment.id }
+                = custom_assessment.name
+          .divider1
+          %label.big-text.default
+            %input{:type=>"checkbox",name: "include_additional_traits"}
+            Include Additional Traits
+          .divider1
+          - if is_superadmin?
+            %label.big-text.default
+              %input{:type=>"checkbox",name: "use_competencies"}
+              Use competencies
+            .divider1
+          %p.medium-text.text-justify
+            If you wish to use an existing assessment to build the 360&#176; Profiling around, choose this option. You may include additional Traits not present in the assessment by enabling the 'Include Additional Traits' option.
+          .divider2
+          %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+          .clr
+          .divider2
+      .hw.pull-right
+        .span11.margin-auto
+          .divider7
+          %input.big-text.btn-link.color-info{type: "submit", value: "Build 360 Degree from Scratch with New Traits"}
+          .divider1 
+          %p.medium-text.text-justify
+            If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.
+      .clr

@@ -1,0 +1,45 @@
+.trait-show
+  .span18.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
+    Create a new 360&#176; Profiling Exercise
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+
+  .padding-all2.border-warning.shifted-up1
+    .big-text
+      .extra-large-text.pull-left
+        Traits Measured: #{@assessment.assessment_traits.size}
+      .pull-right.extra-medium-text
+        .span.marker.orange-bg
+        .span{title: (@custom_assessment ? @custom_assessment.name : "")}
+          Traits Present in the included assessment : #{@custom_assessment ? @custom_assessment.name : "-"}
+          -#need to truncate "assessment name"
+        .clr.divider1
+        .span.marker.blue-bg
+        .span
+          Traits Present in Only this 360 Profiling Exercise
+
+      .clr
+    .divider1
+    %ul.clearfix.scores_listing.first
+      - @assessment.assessment_traits.each do |assessment_trait|
+        %li
+          .extra-medium-text
+            - if assessment_trait.trait.attributes["factor"]
+              .color-warning.font-bold
+                -#in some case, replace ""color-info" to "color-warning"
+                = assessment_trait.trait.attributes["factor"]["name"]
+              .factor-description
+                = assessment_trait.trait.attributes["factor"]["definition"]
+            - else
+              .color-info.font-bold
+                -#in some case, replace ""color-info" to "color-warning"
+                = assessment_trait.trait.name
+              .factor-description
+                = assessment_trait.trait.definition
+          .clr
+    .divider2     

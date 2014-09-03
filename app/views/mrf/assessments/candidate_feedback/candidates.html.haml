@@ -1,0 +1,75 @@
+.candidate-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
+    Create a new 360&#176; Profiling Exercise
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      - if @candidates.present?
+        .span3.first
+          = sort_link "360&#176;CID", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.id", params[:search]
+        .span10
+          = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
+        .span5
+          360&#176; Status
+        .span5
+          Reports
+        .span5
+          Remind Stakeholders
+        .clr
+        .divider1          
+
+        %ul
+          - @candidates.each do |candidate|
+            %li.list-snippet.extra-medium-text
+              .divider1
+              .span3.first
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.id
+              .span10
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.name
+              .span5
+                - if @feedbacks[candidate.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  }
+                  Completed
+                - elsif @feedbacks[candidate.id].none?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  } 
+                  Pending
+                - else
+                  Partially Completed
+              .span5
+                - if @reports[candidate.id].present? && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
+                  %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id, @reports[candidate.id].last.id), :title => "View Report", :target => '_blank'}
+                    %i.icon-file
+                    View Report
+                - elsif @reports[candidate.id].present?
+                  %i.icon-spinner.icon-spin 
+                  Generating Report...
+                - else
+                  = "-"
+              .span5
+                - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status)
+                  %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}
+                    Send Reminders
+                - else
+                  = "-"    
+              .clr
+      - else
+        .alert.medium-text.text-center
+          No candidates present
+    .divider2
+    - if @candidates.present?
+      .pull-right
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @candidates.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1),value: candidates_company_mrf_assessment_path(@company.id, @assessment.id, params.merge(:page => page + 1)) }
+                = page + 1
+          .clr
+      .clr

@@ -2,13 +2,13 @@
   = hidden_field_tag "view_mode", "html"
   - @report.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
   %div
-    %b Company: 
+    %b Company:
     #{@report.report_hash["company"]["name"]}
-  %div  
-    %b Candidate: 
+  %div
+    %b Candidate:
     #{@report.report_hash["candidate"]["name"]}
   %div
-    %b Assessment: 
+    %b Assessment:
     #{@report.report_hash["assessment"]["name"]}
   %div
     %b Send Report Email:
@@ -19,7 +19,7 @@
       - overall_scores_form.object.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
       %b Overall Score:
       = f.select :overall_factor_score_bucket_id, @overall_factor_score_buckets, {}, {}
-  %br  
+  %br
   %br
   - if @report.report_hash["assessment"]["assessment_type"] == "fit"
     = f.fields_for :factor_scores do |factor_scores_form|
@@ -35,33 +35,41 @@
               %td #{factor_name}
               %td #{factor_score["norm_bucket"]}
               %td #{factor_score["pass"]}
-              = factor_scores_form.fields_for factor_score["factor_id"].to_s.to_sym do |factor_form| 
+              = factor_scores_form.fields_for factor_score["factor_id"].to_s.to_sym do |factor_form|
                 - factor_form.object = OpenStruct.new(factor_score)
                 - factor_form.object.norm_bucket_id = @norm_buckets[factor_form.object.norm_bucket]
-                %td 
+                %td
                   = factor_form.select "norm_bucket_id", @norm_buckets, {}, {}
-  
+
   - else
+    - @report.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
+    %div
+    = f.fields_for :aggregate_scores do |aggregate_scores_form|
+      - aggregate_scores_form.object = OpenStruct.new()
+      - aggregate_scores_form.object.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
+      %b Aggregate Competency Score :
+      = f.select :aggregate_competency_score_bucket_id, @aggregate_competency_score_buckets, {}, {}
+    %br
     %b Competency Grades
     %table
       %tr
         %th Competency
         %th Grade
         %th Required Grade
-      = f.fields_for :competency_grades do |competency_form|  
+      = f.fields_for :competency_grades do |competency_form|
         - competency_form.object = OpenStruct.new
         - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
           - eval("competency_form.object.grade_#{competency_data[:id]} = competency_data[:grade]")
           %tr
             %td #{competency_name}
             %td #{competency_data[:grade]}
-            %td 
+            %td
               = competency_form.select "grade_#{competency_data[:id]}", @competency_grades, {}, {}
     = f.fields_for :factor_scores do |factor_scores_form|
       %div
         - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
           %br
-          %br  
+          %br
           %div
             %b #{competency_name}
             %table
@@ -75,9 +83,9 @@
                   %td #{factor_name}
                   %td #{factor_score["norm_bucket"]}
                   %td #{factor_score["pass"]}
-                  = factor_scores_form.fields_for factor_score["factor_id"].to_s.to_sym do |factor_form| 
+                  = factor_scores_form.fields_for factor_score["factor_id"].to_s.to_sym do |factor_form|
                     - factor_form.object = OpenStruct.new(factor_score)
                     - factor_form.object.norm_bucket_id = @norm_buckets[factor_form.object.norm_bucket]
-                    %td 
-                      = factor_form.select "norm_bucket_id", @norm_buckets, {}, {}                      
-  = f.submit "Modify"                  
+                    %td
+                      = factor_form.select "norm_bucket_id", @norm_buckets, {}, {}
+  = f.submit "Modify"
