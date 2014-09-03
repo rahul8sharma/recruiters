@@ -74,7 +74,7 @@
     - self_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.role == Vger::Resources::Mrf::Feedback::Role::SELF }
     - if self_feedbacks.count != total_candidates
       .extra-medium-text.margin-auto{:style => "width: 710px"}
-        Self Ratings: Enabled for some candidates - 
+        Self Ratings: Not Enabled For #{total_candidates - self_feedbacks.count} candidates.
         %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Enable for all?"}
           Enable for all?
     .divider2
