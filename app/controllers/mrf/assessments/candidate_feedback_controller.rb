@@ -17,7 +17,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   
   def enable_self_ratings
     Vger::Resources::Mrf::Assessment.enable_self_ratings(company_id: @company.id, id: @assessment.id, candidate_id: params[:candidate_id])
-    flash[:notice] = "Self ratings enabled."
+    flash[:notice] = "Self Ratings will be enabled shortly. Please refresh this page in some time to see updated statuses."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
 
