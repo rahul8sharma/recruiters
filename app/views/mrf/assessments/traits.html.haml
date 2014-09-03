@@ -22,24 +22,16 @@
         .span.marker.blue-bg
         .span
           Traits Present in Only this 360 Profiling Exercise
-
       .clr
     .divider1
     %ul.clearfix.scores_listing.first
       - @assessment.assessment_traits.each do |assessment_trait|
         %li
           .extra-medium-text
-            - if assessment_trait.trait.attributes["factor"]
-              .color-warning.font-bold
-                -#in some case, replace ""color-info" to "color-warning"
-                = assessment_trait.trait.attributes["factor"]["name"]
-              .factor-description
-                = assessment_trait.trait.attributes["factor"]["definition"]
-            - else
-              .color-info.font-bold
-                -#in some case, replace ""color-info" to "color-warning"
-                = assessment_trait.trait.name
-              .factor-description
-                = assessment_trait.trait.definition
+            .font-bold{:class => "#{assessment_trait.trait_type == 'Mrf::Trait'? 'color-info' : 'color-warning'}"}
+              -#in some case, replace ""color-info" to "color-warning"
+              = assessment_trait.trait.name
+            .factor-description
+              = assessment_trait.trait.definition
           .clr
     .divider2     
