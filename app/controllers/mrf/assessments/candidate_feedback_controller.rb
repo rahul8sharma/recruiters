@@ -164,6 +164,11 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         flash[:error] = "Please add atleast 1 stakeholder"
         return
       end
+      stakeholder_emails = params[:feedbacks].collect{|index, feedback_hash| feedback_hash[:email]}
+      if stakeholder_emails.size != stakeholder_emails.uniq.size
+        flash[:error] = "Multiple Stakeholders cannot share an email address. Please enter a unique email address for each Stakeholder!"
+        return
+      end
       candidate = get_or_create_candidate  
       return if !candidate
 
