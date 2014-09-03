@@ -58,13 +58,19 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:configuration] = {
       :use_competencies => params[:use_competencies].present?
     }
+    if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
+      flash[:error] = "Select a custom assessment!"
+      get_custom_assessments
+      render action: :new and return
+    end
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
       if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
         redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+      
       elsif @assessment.custom_assessment_id.present?
-        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return      
       else  
         redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
       end
