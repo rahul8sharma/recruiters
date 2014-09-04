@@ -136,6 +136,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     else
       params[:assessment] ||= {}
+      params[:assessment][:is_jombay_pearson_test] = params[:is_jombay_pearson_test].present?
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
