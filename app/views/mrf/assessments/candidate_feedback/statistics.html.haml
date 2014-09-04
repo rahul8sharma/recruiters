@@ -20,14 +20,16 @@
       .clr.divider1
       .pull-left
         %i.icon-file
-        360 Report For #{@candidate.name} :
+        360 Report For #{@candidate.name}:
         - if @report && @report.status == Vger::Resources::Mrf::Report::Status::UPLOADED
           %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id, @report.id), :title => "View Report", :target => '_blank'}
             %i.icon-file
             View
-        - else
+        - elsif @report
           %i.icon-spinner.icon-spin 
           Generating Report...  
+        - else
+          Pending
       .clr
     .clr.divider2
     %table.extra-medium-text{:width => "710", :align => "center", cellpadding: "0", :cellspacing => "0"}
@@ -53,7 +55,9 @@
               - completed_feedbacks = role_feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)}
               = completed_feedbacks.size
             %td 
-              = completed_feedbacks.size == role_feedbacks.size ? "Completed" : "Partially Complete"
+              - total = role_feedbacks.size
+              - pending = total - completed_feedbacks.size
+              = pending == 0 ? "Completed" : (pending < total) ? "Partially Complete" : "Pending"
             %td
               - if completed_feedbacks.size != role_feedbacks.size 
                 %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, role: role }), :title => "Send reminder"}
@@ -69,7 +73,9 @@
             - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)}
             = completed_feedbacks.size
           %td 
-            = completed_feedbacks.size == @feedbacks.values.flatten.size ? "Completed" : "Partially Complete"
+            - total = @feedbacks.values.flatten.size
+            - pending = total - completed_feedbacks.size
+            = pending == 0 ? "Completed" : (pending < total) ? "Partially Complete" : "Pending"
           %td
             - if completed_feedbacks.size != @feedbacks.values.flatten.size 
               %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id }), :title => "Send Reminder to all pending"} 
