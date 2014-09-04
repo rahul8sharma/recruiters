@@ -2,7 +2,7 @@
   .span18.huge-text.first
     .divider1
     #{@assessment.id} - #{@assessment.name}
-  %a.btn.btn-info.pull-right.big-text.big.bold{:href => '#'}
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_mrf_assessment_path(@company)}
     Create a new 360&#176; Profiling Exercise
   .clr
   .divider2
@@ -12,7 +12,7 @@
   .padding-all2.border-warning.shifted-up1
     .big-text
       .extra-large-text.pull-left
-        Traits Measured: #{@assessment.assessment_traits.size}
+        Traits Measured:#{@assessment.assessment_traits.size}
       .pull-right.extra-medium-text
         .span.marker.orange-bg
         .span{title: (@custom_assessment ? @custom_assessment.name : "")}
