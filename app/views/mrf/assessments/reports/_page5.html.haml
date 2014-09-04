@@ -29,4 +29,12 @@
                 .right
                   = feedback_stats[:completed]
                 .clr
+            %li.list
+              .left
+                Total
+              .middle
+                = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
+              .right
+                = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
+              .clr   
         .divider2
