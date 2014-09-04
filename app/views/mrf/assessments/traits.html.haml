@@ -16,7 +16,7 @@
       .pull-right.extra-medium-text
         .span.marker.orange-bg
         .span{title: (@custom_assessment ? @custom_assessment.name : "")}
-          Traits Present in the included assessment : #{@custom_assessment ? @custom_assessment.name : "-"}
+          Traits Present in the included assessment: #{@custom_assessment ? @custom_assessment.name.truncate(50) : "-"}
           -#need to truncate "assessment name"
         .clr.divider1
         .span.marker.blue-bg
