@@ -12,23 +12,14 @@
   .padding-all2.border-warning.shifted-up1
     .big-text
       .extra-large-text.pull-left
-        Traits Measured:#{@assessment.assessment_traits.size}
-      .pull-right.extra-medium-text
-        .span.marker.orange-bg
-        .span{title: (@custom_assessment ? @custom_assessment.name : "")}
-          Traits Present in the included assessment:#{@custom_assessment ? @custom_assessment.name : "-"}
-          -#need to truncate "assessment name"
-        .clr.divider1
-        .span.marker.blue-bg
-        .span
-          Traits Present in Only this 360 Profiling Exercise
+        Traits Included: #{@assessment.assessment_traits.size}
       .clr
     .divider1
     %ul.clearfix.scores_listing.first
       - @assessment.assessment_traits.each do |assessment_trait|
         %li
           .extra-medium-text
-            .font-bold{:class => "#{assessment_trait.trait_type == 'Mrf::Trait'? 'color-info' : 'color-warning'}"}
+            .font-bold
               -#in some case, replace ""color-info" to "color-warning"
               = assessment_trait.trait.name
             .factor-description
