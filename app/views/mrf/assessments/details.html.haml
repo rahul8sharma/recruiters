@@ -46,7 +46,8 @@
               - completed_feedbacks = feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
               = completed_feedbacks.size
             %td 
-              = completed_feedbacks.size == feedbacks.size ? "Completed" : "Pending"
+              - pending = feedbacks.size - completed_feedbacks.size
+              = pending == 0 ? "Completed" : (pending < feedbacks.size) ? "Partially Complete" : "Pending"
             %td
               - if completed_feedbacks.size != feedbacks.size 
                 %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { role: role }), :title => "Send reminder"}
@@ -62,7 +63,8 @@
             - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
             = completed_feedbacks.size
           %td 
-            = completed_feedbacks.size == @feedbacks.values.flatten.size ? "Completed" : "Pending"
+            - pending = @feedbacks.values.flatten.size - completed_feedbacks.size
+            = pending == 0 ? "Completed" : (pending < @feedbacks.values.flatten.size) ? "Partially Complete" : "Pending"
           %td 
             - if completed_feedbacks.size != @feedbacks.values.flatten.size
               %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Send Reminder to all pending"} 
