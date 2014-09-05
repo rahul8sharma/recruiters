@@ -30,7 +30,7 @@ class MrfReportUploader < AbstractController::Base
         :status => Vger::Resources::Mrf::Report::Status::UPLOADING
       )
       
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
 
       template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 
