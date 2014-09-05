@@ -44,7 +44,7 @@ class AssessmentReportsController < ApplicationController
 
   def benchmark_report
     @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], methods: [:benchmark_report])
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
     @report = @assessment.benchmark_report
     if request.format == "application/pdf"
       @view_mode = "pdf"
@@ -72,7 +72,7 @@ class AssessmentReportsController < ApplicationController
   end
 
   def manage
-    @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.collect{|x| [x.name, x.id.to_s]}]
+    @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.collect{|x| [x.name, x.id.to_s]}]
     @overall_factor_score_buckets = Hash[Vger::Resources::Suitability::OverallFactorScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @fitment_grades = Hash[Vger::Resources::Suitability::FitmentGrade.all.collect{|x| [x.name, x.name]}]
     @fitment_grades["N/A"] = "N/A"
@@ -108,7 +108,7 @@ class AssessmentReportsController < ApplicationController
 
   def assessment_report
     report_type = params[:report_type] || "fit"
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
     @report.report_hash = @report.report_data
     Rails.logger.debug(@report.report_hash)

@@ -9,9 +9,9 @@
   background-color: #a7a9ac
   border-radius: 50%
 .label-small, .badge-small
-  font-size: 10px
+  font-size: 11px
   padding: 7px
-  line-height: 10px
+  line-height: 11px
 .badge-small
   line-height: 18px
   width: 18px
@@ -38,4 +38,16 @@
     color: $color-warning
     border: 1px solid $color-warning
 
+.label-info, .badge-info
+  background-color: $color-info
+  color: #fff
+  border: 1px solid $color-info
+.label-info[href], .badge-info[href]
+  background-color: $color-info
+  color: #fff
+  &:hover
+    text-decoration: none
+    background-color: #fff
+    color: $color-info
+    border: 1px solid $color-info
 

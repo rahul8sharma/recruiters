@@ -1,0 +1,56 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.container
+  #info_bar
+    #info.content
+      .span14.page-title.first.huge-text
+        = @assessment.name
+      .clr.divider1
+      .extra-medium-text.pull-left
+        .pull-left
+          Assessment Included: 
+        .span11
+          - if @custom_assessment
+            AID #{@custom_assessment.id} - #{@custom_assessment.name}
+          - else
+            None
+        .clr
+      .medium-text.pull-right
+        .span6
+          %i.icon-ok-sign
+          Number of Traits Selected: 
+          %span.color-warning{:id => 'traits-counter'}
+        .span{:hidden =>'hidden'}
+          %i.icon-time
+          Approximate feedback duration: 
+          %span.color-warning{:id => 'approximate-time'}
+        .clr
+      .divider3.border-bottom-grayLighter
+
+  .divider2
+.container
+  .extra-large-text.text-center
+    Please select the Traits to be included in this 360&#176; Profiling Exercise
+  .divider1
+  .span16.extra-medium-text.margin-auto.text-justify
+    Please select a minimum of 10 traits to create this assessment. Up to 26 can be selected. Traits present in the included assessment are marked in orange and cannot be deselected.
+  .divider2
+
+  = form_for @assessment, as: :assessment, url: add_traits_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    %ul.add-360-traits-listing
+      = f.hidden_field :company_id
+      - index = 0
+      - @assessment_traits.each_slice(4) do |slice|
+        %li
+          - slice.each do |assessment_trait|
+            = render partial: 'assessment_trait_fields', locals: { assessment_trait: assessment_trait, index: index }
+            - index += 1    
+          .clr
+          .divider1
+    .divider3
+    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+    .clr
+  .divider2
+= javascript_include_tag 'add_traits'

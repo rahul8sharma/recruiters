@@ -1,0 +1,16 @@
+#overview.section01
+  .overall_report.container
+    .divider6
+    .user-name.pull-left
+      = @report.report_data[:candidate][:name]
+    .final-score.pull-right
+      360&#176; Profiling Report
+    .clr
+    .divider3
+    .extra-medium-text
+      Assessment: 
+      = @report.report_data[:assessment][:name]
+      .divider1
+      Assessment Answered On: 
+      = hdate(@report.report_data[:generated_at])
+    .divider2

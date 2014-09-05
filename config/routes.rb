@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Recruiters::Application.routes.draw do
   resources :candidates do
     member do
@@ -191,6 +193,40 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
+      collection do
+        get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
+        get "home" => "mrf/assessments#home", :as => :home
+        put "home" => "mrf/assessments#home", :as => :home
+      end
+
+      member do
+        get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+        put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+
+
+        get "details" => "mrf/assessments#details", :as => :details
+        get "traits" => "mrf/assessments#traits", :as => :traits
+
+        get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
+        get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
+        get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
+        
+        get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+
+        get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
+        
+        get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
+        put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
+        put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
+        get "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
+        get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
+      end
+    end
+
     resources :jobs, :only => [:show, :index, :new] do
       collection do
         get :manage
@@ -312,6 +348,46 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post 'import_from_google_drive'
       post 'export_to_google_drive'
+    end
+  end
+
+  namespace :mrf do
+    resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+      resources :options do
+      end
+    end
+
+    resources :trait_score_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :competency_score_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
     end
   end
 
@@ -534,7 +610,9 @@ Recruiters::Application.routes.draw do
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
+  get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
@@ -559,4 +637,5 @@ Recruiters::Application.routes.draw do
   root :to => "users#login"
 
   mount JombayNotify::Engine => "/jombay-notify"
+  mount Sidekiq::Web => '/sidekiq'
 end

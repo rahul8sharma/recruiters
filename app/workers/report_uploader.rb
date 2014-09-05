@@ -52,11 +52,10 @@ class ReportUploader < AbstractController::Base
       )
       
       
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
 
       candidate_name = @report.report_hash[:candidate][:name]
       company_name = @report.report_hash[:company][:name]
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
 
       template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 
@@ -70,14 +69,16 @@ class ReportUploader < AbstractController::Base
       html = render_to_string(
          template: "assessment_reports/#{template}",
          layout: "layouts/candidate_reports",
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         formats: [ :html ]
       )
       
       @view_mode = "feedback"
       feedback_html = render_to_string(
          template: "assessment_reports/#{template}.html.haml",
          layout: "layouts/candidate_reports",
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         formats: [ :html ]
       )
 
       @view_mode = "pdf"

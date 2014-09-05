@@ -1,0 +1,75 @@
+.frame.mrf.gray-bg
+  .heading.pull-left
+    All Competencies 
+  .clr 
+  .divider1
+  %ul.mrf_data_points_listing
+    %li
+      .left_sec
+        .caption
+          All Traits
+        .divider2
+        .content
+          .trait_rating.max
+            .left
+              Maximum Rating
+            .right
+              = @report.report_data[:max_score_excluding_self][:bucket]
+            .clr
+
+          .trait_rating.min
+            .left
+              Minimum Rating
+            .right
+              = @report.report_data[:min_score_excluding_self][:bucket]
+            .clr
+
+          .trait_rating.self
+            .left
+              Self Rating
+            .right
+              = @report.report_data[:average_score_self][:bucket]
+            .clr
+
+          .trait_rating.score
+            .left
+              Assessment Score
+            .right
+              = @report.report_data[:assessment_rating]
+            .clr
+
+          .divider1
+
+          .overall_average
+            %p.big-text
+              Overall Average
+            .divider1
+            .snippet.including
+              Including Self Rating: #{@report.report_data[:average_score_including_self][:bucket]}
+            .divider1
+            .snippet.excluding
+              Excluding Self Rating: #{@report.report_data[:average_score_excluding_self][:bucket]}
+            .divider1
+
+      .right-sec.span17
+        .caption.text-center
+          Average Rating by Stakeholders
+        .divider3
+        - role_wise_scores.each do |role_name, role_wise_score|
+          .stakeholders-rating-snippet
+            .stakeholders-name.pull-left
+              = role_name.titleize
+            .stakeholders-rating-slider.pull-left 
+              -@norm_buckets.each_with_index do |norm_bucket|
+                .marker{:class => norm_bucket.name == role_wise_score[:bucket] ? 'active' : '' }
+                  -# add ".active" to ".marker"
+                  .arrow
+                  .score
+                    = norm_bucket.name
+              .clr
+            .clr
+            .divider3
+
+      .clr
+.divider1
+

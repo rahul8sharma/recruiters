@@ -10,7 +10,7 @@
     %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
     .left-offset1.pull-left
       .control-group
-        = f.file_field :file, disabled: !checked
+        = f.file_field(:file, disabled: !checked, accept: '.csv')
         .help-text
           ( File format supported: CSV )
         .divider1

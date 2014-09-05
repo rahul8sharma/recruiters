@@ -25,12 +25,11 @@
           %i.icon-chevron-down.small-text.line-height1
       .span8
         Page Management
-    .divider1
+    .divider2
 
     %ul
       - @walkin_groups.each do |walkin_group|
         %li.list-snippet.border-bottom-grayLighter
-          .divider1
           .span5.first
             %a{:href=> company_walkin_group_path(:company_id => params[:company_id], :id => walkin_group.id), :title =>  walkin_group.title} Walk In #{walkin_group.id}
           .span10

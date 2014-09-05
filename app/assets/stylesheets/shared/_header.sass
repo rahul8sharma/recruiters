@@ -13,7 +13,7 @@ ul
 
   .label
     margin-top: 15px
-    font-size: $baseFontSize
+    font-weight: 600
 
   .company_name
     font-size: 18px
@@ -41,6 +41,10 @@ ul
           color: $color-warning
           border-bottom: 3px solid $color-warning
           text-decoration: none
+      .mrf
+        &:hover, &.active
+          color: $color-info
+          border-bottom: 3px solid $color-info
 
   #sub-nav
     position: relative

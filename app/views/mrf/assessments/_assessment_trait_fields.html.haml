@@ -1,0 +1,27 @@
+- id_name = "assessment[assessment_traits_attributes][#{index}][id]"
+- destroy_name = "assessment[assessment_traits_attributes][#{index}][_destroy]"
+- trait_id = "assessment[assessment_traits_attributes][#{index}][trait_id]"
+- trait_type = "assessment[assessment_traits_attributes][#{index}][trait_type]"
+- check_name = "assessment[assessment_traits_attributes][#{index}][_destroy]"
+- checked =  assessment_trait.id.present? || assessment_trait.assessment_trait
+- klass = assessment_trait.trait_type == "Mrf::Trait" ? 'color-info' : 'color-warning'
+.trait-name.span7{ :id => "span_#{index}" }
+  %label{id: "label_#{index}", class: "#{checked ? klass : ''}", for: "checkbox_trait_#{index}"}
+    .trait-info
+      = assessment_trait.trait.definition
+    - if !assessment_trait.assessment_trait && !assessment_trait.id.present?
+      %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
+      %input{name: (trait_id), type: 'hidden', value: assessment_trait.trait_id, disabled: 'disabled', index: (index)}
+      %input{name: (trait_type), id: "trait_type_#{index}", type: 'hidden', value: assessment_trait.trait_type, disabled: 'disabled', index: (index)}
+      .arrow
+      %input{name: "selected_trait", class: "#{assessment_trait.assessment_trait ? 'assessment_trait':'check_trait'}", type: 'checkbox', id: "checkbox_trait_#{index}", index: (index), checked: checked}
+      = assessment_trait.trait.name
+    - else
+      - if assessment_trait.id.present?
+        %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index)}
+      %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
+      %input{name: (trait_id), type: 'hidden', value: assessment_trait.trait_id, index: (index)}
+      %input{name: (trait_type), id: "trait_type_#{index}", type: 'hidden', value: assessment_trait.trait_type, index: (index)}
+      .arrow
+      %input{name: "selected_trait", class: "#{assessment_trait.assessment_trait ? 'assessment_trait':'check_trait'}", type: 'checkbox', id: "checkbox_trait_#{index}", index: (index), checked: checked}
+      = assessment_trait.trait.name

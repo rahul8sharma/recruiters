@@ -3,7 +3,6 @@
 @import shared/header
 @import shared/reports/about_us_html
 
-
 $favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
@@ -339,6 +338,20 @@ $mid_favorable_color: #062b58
         .competency-list
           margin: 0
           width: 100%
+          &.mrf
+            li
+              padding: 0
+              .competency-name
+                padding-left: 40px
+                width: 75%
+              .competency-value
+                width: 20%
+              .competency-value,
+              .competency-name
+                line-height: 52px
+              &:nth-child(odd)
+                .competency-value
+                  background: #fbfbfb
           li
             padding: 16px 30px
             &:nth-child(even)
@@ -353,6 +366,12 @@ $mid_favorable_color: #062b58
             font-weight: 700
             text-align: center
             width: 17%
+          .competency-name,
+          .competency-value
+            &.title
+              color: #28b29b
+              font-weight: 700
+              font-size: 18px
     .heading
       background: #28b29b
       line-height: 37px
@@ -362,6 +381,10 @@ $mid_favorable_color: #062b58
     .competency-container
       border: 2px solid #28b29b
       background: image-url('report/html/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+      &.mrf
+        .factors_list
+          background-image: image-url('report/html/mrf/competency-hexagon-bg.png')
+
     .factors_list
       position: relative
       background: image-url('report/html/competency/competency-hexagon-bg.png') no-repeat center center
@@ -558,7 +581,6 @@ $mid_favorable_color: #062b58
         font-size: 20px 
         font-weight: 700
         margin-top: 35px
-      .scale
       ul.range_list
         margin: 0
         list-style: none
@@ -583,3 +605,6 @@ $mid_favorable_color: #062b58
               height: 15px
 .fw
   margin-left: -40px
+
+@import mrf_report
+
