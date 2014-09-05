@@ -6,7 +6,7 @@
     = competency_scores[:score][:bucket]
   .clr 
   %ul.mrf_scores_listing
-    - competency_scores[:trait_scores].each_with_index do |trait_score, index|
+    - competency_scores[:trait_scores].each do |trait_score|
       %li
         .divider4
         .span8.left-sec.first.right-offset1
@@ -43,11 +43,11 @@
                   .left
                     360 Rating
                   .right
-                    Average (High)
+                    = norm_bucket.name
                   .clr
                 .self-result
                   .left
-                    Above Average
+                    = norm_bucket.name
                   .right
                     Self Rating
                   .clr
