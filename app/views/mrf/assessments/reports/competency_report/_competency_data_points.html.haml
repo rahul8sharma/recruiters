@@ -45,10 +45,10 @@
               Overall Average
             .divider1
             .snippet.including
-              Including Self Rating: Average
+              Including Self Rating: #{@report.report_data[:average_score_including_self][:bucket]}
             .divider1
             .snippet.excluding
-              Excluding Self Rating: Average
+              Excluding Self Rating: #{@report.report_data[:average_score_excluding_self][:bucket]}
             .divider1
 
       .right-sec.span17

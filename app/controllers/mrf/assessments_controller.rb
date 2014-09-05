@@ -11,9 +11,9 @@ class Mrf::AssessmentsController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
-    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses }, page: params[:page], per: 10)
+    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
+    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses })
   end 
 
   def new
