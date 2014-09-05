@@ -13,7 +13,7 @@
         .clr
       .span17.right-sec.left-offset1
         .rating-slider
-          -@norm_buckets.each_with_index do |norm_bucket, index|   
+          - @norm_buckets.each_with_index do |norm_bucket, index|   
             - self_rating_index = ''
             - mrf_rating_index = ''
             - klass = ''
@@ -36,11 +36,11 @@
                 .left
                   360 Rating
                 .right
-                  Average (High)
+                  = norm_bucket.name
                 .clr
               .self-result
                 .left
-                  Above Average
+                  = norm_bucket.name
                 .right
                   Self Rating
                 .clr
