@@ -1,7 +1,8 @@
 .inner{ style: "margin-top:0px;" }
   .overall_report
-    .pull-left
-      %img.pull-right{:src => "http://placehold.it/120x30"}
+    - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+      .pull-left
+        %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
     .logo.pull-right
     .clr
     .divider3
