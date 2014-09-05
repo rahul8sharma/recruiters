@@ -37,13 +37,13 @@
           %p.medium-text.text-justify
             If you wish to use an existing assessment to build the 360&#176; Profiling around, choose this option. You may include additional Traits not present in the assessment by enabling the 'Include Additional Traits' option.
           .divider2
-          %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+          %input.btn.btn-info.large-text.bold.pull-right{:name=>"build_from_existing",:type=>"submit", :value=>"Proceed"}
           .clr
           .divider2
       .hw.pull-right
         .span11.margin-auto
           .divider7
-          %input.big-text.btn-link.color-info{type: "submit", value: "Build 360 Degree from Scratch with New Traits"}
+          %input.big-text.btn-link.color-info{:name => "build_from_scratch", type: "submit", value: "Build 360 Degree from Scratch with New Traits"}
           .divider1 
           %p.medium-text.text-justify
             If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.

@@ -17,7 +17,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   
   def enable_self_ratings
     Vger::Resources::Mrf::Assessment.enable_self_ratings(company_id: @company.id, id: @assessment.id, candidate_id: params[:candidate_id])
-    flash[:notice] = "Self ratings enabled."
+    flash[:notice] = "Self Ratings will be enabled shortly. Please refresh this page in some time to see updated statuses."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
 
@@ -160,16 +160,20 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     if request.put?
       feedbacks = params[:feedbacks].select{|index,feedback_hash| feedback_hash[:email].present? and feedback_hash[:name].present? }
-      if feedbacks.empty? && !params[:send].present?
+      if feedbacks.empty?
         flash[:error] = "Please add atleast 1 stakeholder"
         return
       end
-      candidate = get_or_create_candidate
-      if !params[:send].present?
-        return if !candidate
-      else
-        flash.clear
+
+      stakeholder_emails = feedbacks.collect{|index, feedback_hash| feedback_hash[:email]}
+      if stakeholder_emails.size != stakeholder_emails.uniq.size
+        flash[:error] = "Multiple Stakeholders cannot share an email address. Please enter a unique email address for each Stakeholder!"
+        return
       end
+      
+      candidate = get_or_create_candidate  
+      return if !candidate
+
       feedbacks.each do |index, feedback_hash|
         feedback = nil
         stakeholder = get_or_create_stakeholder(feedback_hash)
