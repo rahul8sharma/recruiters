@@ -109,8 +109,16 @@
                     = role.titleize
               .clr
       .divider2
-
-      %input.pull-left.btn.btn-info.large-text.font-bold{name: "send_and_add_more", value: "Send Invitations and Add More", type: "submit"}
-      %input.pull-right.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+      .span.pull-left
+        %a.big-text{:href => home_company_mrf_assessments_path(@company.id)}
+          Add Candidates/Stakeholders Later
+      .span.pull-right.boxed
+        .span.medium-text.pull-left
+          %label.line-height2
+            %input{name: "send_and_add_more", type: "checkbox", value: "send_and_add_more"}
+            Invite More After Sending
+        .span.pull-right
+          %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+        .clr
       .clr
 

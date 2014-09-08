@@ -38,7 +38,6 @@ class ReportUploader < AbstractController::Base
       )
       
       @report.report_hash = @report.report_data if patch.empty?
-      
       #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
       #  puts "Report #{report_id} is being uploaded already..."
       #  return 
@@ -52,11 +51,10 @@ class ReportUploader < AbstractController::Base
       )
       
       
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
 
       candidate_name = @report.report_hash[:candidate][:name]
       company_name = @report.report_hash[:company][:name]
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.all
 
       template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 

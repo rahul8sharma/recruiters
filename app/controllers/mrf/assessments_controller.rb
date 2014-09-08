@@ -11,9 +11,9 @@ class Mrf::AssessmentsController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
-    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) }, page: params[:page], per: 10)
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses }, page: params[:page], per: 10)
+    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
+    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses })
   end 
 
   def new
@@ -58,13 +58,19 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:configuration] = {
       :use_competencies => params[:use_competencies].present?
     }
+    if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
+      flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."
+      get_custom_assessments
+      render action: :new and return
+    end
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
       if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
         redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+      
       elsif @assessment.custom_assessment_id.present?
-        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return      
       else  
         redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
       end

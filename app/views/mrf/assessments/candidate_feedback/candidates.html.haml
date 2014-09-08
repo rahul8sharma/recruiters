@@ -40,7 +40,7 @@
                 - elsif @feedbacks[candidate.id].none?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  } 
                   Pending
                 - else
-                  Partially Completed
+                  Partially Complete
               .span5
                 - if @reports[candidate.id].present? && @reports[candidate.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
                   %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, candidate.id, @reports[candidate.id].last.id), :title => "View Report", :target => '_blank'}

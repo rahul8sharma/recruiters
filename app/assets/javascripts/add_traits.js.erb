@@ -15,22 +15,14 @@ jQuery(document).ready(function($) {
     var index = $(this).attr("index");
     if ($(this).is(":checked")) {
       $("input:not(:checkbox)[index='" + index + "']").removeAttr("disabled");
-      if($("#trait_type_" + index).val() == "Mrf::Trait") {
-          $("#label_" + index).addClass("color-info");
-        } else {
-          $("#label_" + index).addClass("color-warning");
-        }
+      $("#label_" + index).toggleClass("color-info");
     } else {
       var id = $("#id_" + index).val();
       if (id != null && id != "") {
         $("#destroy_" + index).val(true);
       } else {
         $("input:not(:checkbox)[index='" + index + "']").attr("disabled", 'disabled');
-        if($("#trait_type_" + index).val() == "Mrf::Trait") {
-          $("#label_" + index).removeClass("color-info");
-        } else {
-          $("#label_" + index).removeClass("color-warning");
-        }
+        $("#label_" + index).toggleClass("color-info");
       }
     }
   });
