@@ -27,12 +27,17 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_url and return
     end
-    data = params[:bulk_upload][:file].read
-    S3Utils.upload(s3_bucket_name, s3_key, data)
-    @s3_bucket = s3_bucket_name
-    @s3_key = s3_key
-    @functional_area_id = params[:bulk_upload][:functional_area_id]
-    render :action => :send_test_to_candidates
+    if params[:candidate_stage].empty?
+      flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
+      redirect_to add_candidates_url and return
+    else
+      data = params[:bulk_upload][:file].read
+      S3Utils.upload(s3_bucket_name, s3_key, data)
+      @s3_bucket = s3_bucket_name
+      @s3_key = s3_key
+      @functional_area_id = params[:bulk_upload][:functional_area_id]
+      render :action => :send_test_to_candidates
+    end
   end
   
   # GET : renders form to add candidates
