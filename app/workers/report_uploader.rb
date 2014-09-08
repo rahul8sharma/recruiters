@@ -38,7 +38,6 @@ class ReportUploader < AbstractController::Base
       )
       
       @report.report_hash = @report.report_data if patch.empty?
-      
       #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
       #  puts "Report #{report_id} is being uploaded already..."
       #  return 

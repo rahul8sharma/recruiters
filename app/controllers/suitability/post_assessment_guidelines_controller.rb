@@ -15,4 +15,8 @@ class Suitability::PostAssessmentGuidelinesController < SpecialMasterDataControl
       :norm_bucket_id
     ]
   end
+  
+  def s3_key
+    "post_assessment_guidelines.csv.zip"
+  end
 end

@@ -6,6 +6,9 @@
       %label 
         %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
         Enable Training Requirements Report for this assessment
+      %label 
+        %input{ type: "checkbox", name: "is_jombay_pearson_test", id: "is_jombay_pearson_test"  }
+        Is Jombay Pearson Test?  
   .pull-right  
     - if current_user.type == "SuperAdmin"
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
