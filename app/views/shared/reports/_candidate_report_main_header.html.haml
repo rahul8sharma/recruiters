@@ -30,7 +30,10 @@
                   Manager Guidelines
           %li.right
         = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
-        .clr
+        - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+          .span
+            %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
+          .clr
 - if @report.report_hash[:enable_feedback]
   .feedback-container
     #feedback
@@ -59,5 +62,4 @@
           .clr
         .clr
 .divider3
-
 = wicked_pdf_javascript_include_tag 'common'  
