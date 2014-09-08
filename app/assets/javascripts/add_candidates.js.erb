@@ -1,5 +1,6 @@
 function getCandidateType(type){    
   document.getElementById('candidate_stage').value = type;
+  document.getElementById('candidate_stage_bulk').value = type;
   (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
 }
 
