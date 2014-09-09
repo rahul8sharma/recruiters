@@ -93,7 +93,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
-        params[:part_two] = true
+        params[:send_test_to_candidates] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
       end
@@ -143,7 +143,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders send_test_to_candidates page
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
-    params[:part_two] = true
+    params[:send_test_to_candidates] = true
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
