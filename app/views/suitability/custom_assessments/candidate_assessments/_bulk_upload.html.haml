@@ -1,12 +1,12 @@
 - checked = (params[:upload_method] == "bulk")
 .bulk-upload{class: "#{checked ? 'activated':'de-activated'}"}
   %label
-    %input{:type => "radio", :name => "upload_type", value: "bulk", :onClick => "window.location='#{request.path}?upload_method=bulk&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
+    %input{:id=> "upload_type", :type => "radio", :name => "upload_type", value: "bulk", :onClick => "window.location='#{request.path}?upload_method=bulk&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
     %b.extra-medium-text{ class: checked ? 'checked': '' }
       Upload Assessment takers in bulk:
   .divider1
   = form_for :bulk_upload, url: bulk_upload_company_custom_assessment_path(company_id: @company.id, id: @assessment.id), method: :put do |f|
-    %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+    %input{ id:"candidate_stage_bulk", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
     %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
     .left-offset1.pull-left
       .control-group
