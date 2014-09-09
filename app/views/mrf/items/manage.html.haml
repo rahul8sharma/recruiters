@@ -16,6 +16,11 @@
     .actions
       = submit_tag 'Import Mrf Items'
 %br
+
+%br/
+= render :partial => "master_data/export_form"
+
+
 = link_to 'Back', mrf_items_path     
 \|
 = link_to 'Destroy All', destroy_all_mrf_items_path
