@@ -12,6 +12,7 @@
     %th Role
     %th Trait Type
     %th Trait ID
+    %th Active
     %th Edit
   - @items.each do |item|
     %tr 
@@ -25,7 +26,9 @@
         = item.trait_type
       %td{ width: "10%" }
         = item.trait_id
-      %td{ width: "30%" }
+      %td{ width: "10%" }
+        = item.active
+      %td{ width: "20%" }
         = link_to "Edit", edit_mrf_item_path(item.id)  
       
 .pagination.pull-right        
