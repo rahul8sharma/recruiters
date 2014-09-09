@@ -22,7 +22,10 @@
       .clr
     %a.btn.btn-info.pull-right.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
       Add Candidates / Stakeholders
-    .clr.divider2
+    .clr
+    %a.pull-right{:href => export_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id)}
+      Export 360 Degree Urls  
+    .clr.divider2  
     %table.extra-medium-text{:width => "710", :align => "center", cellpadding: "0", :cellspacing => "0"}
       %tbody
         %tr.color-info.heading
