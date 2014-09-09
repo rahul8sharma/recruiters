@@ -43,7 +43,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders form to add candidates
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
-    params[:part_two] = ''
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     #params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
