@@ -1,9 +1,12 @@
 function getCandidateType(type){    
   document.getElementById('candidate_stage').value = type;
   document.getElementById('candidate_stage_bulk').value = type;
+  document.getElementById('bulk_upload_functional_area_id').setAttribute('disabled', 'disabled');
   (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
+  if(type == 'employee' && document.getElementById('upload_type').checked){
+    document.getElementById('bulk_upload_functional_area_id').removeAttribute('disabled');
+  }
 }
-
 function addClass(addTo, removeFrom){
   document.getElementById(addTo).setAttribute('class', 'checked');
   document.getElementById(removeFrom).removeAttribute('class', 'checked');

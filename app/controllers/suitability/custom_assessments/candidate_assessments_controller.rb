@@ -43,6 +43,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders form to add candidates
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
+    params[:part_two] = ''
     params[:candidates] ||= {}
     params[:candidates].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     #params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
@@ -61,6 +62,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
           render :action => :add_candidates and return
         end
+        
         params[:candidates].each do |key,candidate_data|
           if candidate_data[:email].present?
             candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
@@ -82,6 +84,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
             end
           end  
         end
+
         unless @errors.values.flatten.empty?
           #flash[:error] = "Errors in provided data: <br/>".html_safe
           flash[:error] = @errors.map.with_index do |(candidate_name, candidate_errors), index| 
@@ -91,6 +94,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
+        params[:part_two] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
       end
@@ -140,6 +144,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders send_test_to_candidates page
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
+    params[:part_two] = "Some Value"
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
