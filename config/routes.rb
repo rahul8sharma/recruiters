@@ -17,6 +17,7 @@ Recruiters::Application.routes.draw do
       post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
       post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
       post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
+      post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
       get :destroy_all
     end
   end

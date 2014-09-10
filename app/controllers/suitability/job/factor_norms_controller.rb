@@ -14,4 +14,12 @@ class Suitability::Job::FactorNormsController < SpecialMasterDataController
       :norm_max
     ]
   end
+  
+  def s3_bucket_name
+    "master_data"
+  end
+  
+  def s3_key
+    "factor_norms.csv.zip"
+  end
 end
