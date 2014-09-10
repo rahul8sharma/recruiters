@@ -7,8 +7,9 @@ class Mrf::Assessments::ReportsController < ApplicationController
     report_type = params[:report_type] || "fit_report"  
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
   
-    @report = Vger::Resources::Mrf::Report.find(params[:report_id])
-  
+    @report = Vger::Resources::Mrf::Report.find(params[:report_id]) 
+    @report.report_hash = @report.report_data
+
     if @assessment.configuration[:use_competencies]
       template = 'competency_report'
     else
