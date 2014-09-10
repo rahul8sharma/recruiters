@@ -46,9 +46,9 @@
           .span8.info-block
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
-            .info
-              Competency Based
-              -# or "Plain Assessment"
+            - if current_user.type == "SuperAdmin"
+              .info  
+                = assessment.assessment_type.titleize + ' Based'
             .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
