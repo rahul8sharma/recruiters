@@ -26,6 +26,8 @@ class MrfReportUploader < AbstractController::Base
       puts "Getting Report #{report_id}"
       @report = Vger::Resources::Mrf::Report.find(report_id)   
       
+      @report.report_hash = @report.report_data
+      
       Vger::Resources::Mrf::Report.save_existing(report_id,
         :status => Vger::Resources::Mrf::Report::Status::UPLOADING
       )
