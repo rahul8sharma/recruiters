@@ -14,14 +14,8 @@
         .instruction2.pull-left
           Less Favorable Traits
         .clr    
-    
-        - if @report.report_hash[:candidate_stage].to_sym == :candidate  
-          .hexagon-icon.mid_favorable.pull-left
-          .pull-left.extra-medium-text
-            Miscellaneous
     .clr
     .divider1
-
     %ul.clearfix.scores_listing.interview_guide_listing
       - post_assessment_guidelines.each do |factor_name, guide|
         %li
