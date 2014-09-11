@@ -30,6 +30,16 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     flash[:notice] = "360 Degree urls for pending stakeholders will be generated and emailed soon."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
+  
+  def export_report_urls
+    options = {
+      email: "product@jombay.com",
+      assessment_id: @assessment.id
+    }
+    Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
+    flash[:notice] = "360 Degree report urls for candidates will be generated and emailed soon."
+    redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+  end
 
   def statistics
     get_custom_assessment
