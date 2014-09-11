@@ -225,6 +225,7 @@ Recruiters::Application.routes.draw do
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
+        get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
       end
     end
