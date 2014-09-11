@@ -21,6 +21,10 @@ class Mrf::TraitsController < MasterDataController
   # GET /traits/:id.json
   def show
     @trait = api_resource.find(params[:id], :root => :trait)
+    @items = Vger::Resources::Mrf::Item.where(query_options: {
+      trait_type: "Mrf::Trait",
+      trait_id: @trait.id
+    }).all.to_a
     respond_to do |format|
       format.html # new.html.erb
     end
