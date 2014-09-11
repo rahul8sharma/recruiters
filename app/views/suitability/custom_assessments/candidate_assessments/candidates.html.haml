@@ -69,7 +69,7 @@
               - if current_user.type == "SuperAdmin"
                 .info
                   = candidate_assessment.candidate_stage.titleize
-              .arrow
+                .arrow
             .span9
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status

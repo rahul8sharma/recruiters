@@ -49,7 +49,7 @@
             - if current_user.type == "SuperAdmin"
               .info  
                 = assessment.assessment_type.titleize + ' Based'
-            .arrow
+              .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
               %i.icon-eye-open
