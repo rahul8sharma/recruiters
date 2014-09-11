@@ -5,7 +5,11 @@
   %br
   %b Definition:
   = @trait.definition
-  
+%br  
 = link_to "Edit", edit_mrf_trait_path(@trait)
 \|
 = link_to "Back", mrf_traits_path
+%br
+%br
+%h3 Items
+= render partial: 'mrf/items/index', locals: { items: @items }
