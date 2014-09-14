@@ -14,7 +14,8 @@
         = f.check_box :started, {}, "true"
       %p
         = f.label "Send SMS"
-        = f.check_box :send_sms, {}, "true"
+        %input{:type=>"checkbox", name: "send_sms"}
+
 
       %p
         Notification Email :

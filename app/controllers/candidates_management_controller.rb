@@ -46,13 +46,10 @@ class CandidatesManagementController < ApplicationController
 
   def resend_invitations_to_candidates
     status_params = {:pending=>params[:candidate][:args][:pending],:started=>params[:candidate][:args][:started]}
-    puts "#{params}"
-    puts "#{params[:candidate][:args][:pending]}"
-    puts "#{params[:candidate][:args][:send_sms]}"
     assessment = Vger::Resources::Suitability::CustomAssessment.resend_test_to_candidates(
-        :id => params[:assessment_id],
+        :id => params[:candidate][:args][:assessment_id],
         :status => status_params,
-        :send_sms => params[:candidate][:args][:send_sms],
+        :send_sms => params[:send_sms],
         :send_email => true
       )
     redirect_to manage_candidates_path, notice: "Invitation Emails are queued. Reminder Status email should arrive soon."
