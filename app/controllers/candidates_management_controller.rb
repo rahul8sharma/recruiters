@@ -7,43 +7,58 @@ class CandidatesManagementController < ApplicationController
   def manage
     render :layout => "admin"
   end
-  
+
   def import
     Vger::Resources::Candidate\
       .import_from_google_drive(params[:import])
     redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
 	end
-  
+
   def export
     Vger::Resources::Candidate\
       .export_to_google_drive(params[:export].merge(:columns => [:email, :authentication_token]))
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def export_validation_progress
     Vger::Resources::Candidate\
       .export_validation_progress(params[:candidate])
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def export_candidate_responses
     Vger::Resources::Candidate\
       .export_candidate_responses(params[:candidate])
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def export_candidate_reports
     Vger::Resources::Candidate\
       .export_candidate_reports(params[:candidate])
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def export_candidate_report_urls
     Vger::Resources::Candidate\
       .export_candidate_report_urls(params[:candidate])
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
+  def resend_invitations_to_candidates
+    status_params = {:pending=>params[:candidate][:args][:pending],:started=>params[:candidate][:args][:started]}
+    puts "#{params}"
+    puts "#{params[:candidate][:args][:pending]}"
+    puts "#{params[:candidate][:args][:send_sms]}"
+    assessment = Vger::Resources::Suitability::CustomAssessment.resend_test_to_candidates(
+        :id => params[:assessment_id],
+        :status => status_params,
+        :send_sms => params[:candidate][:args][:send_sms],
+        :send_email => true
+      )
+    redirect_to manage_candidates_path, notice: "Invitation Emails are queued. Reminder Status email should arrive soon."
+  end
+
+
   def import_candidate_scores
     unless params[:import][:file]
       flash[:notice] = "Please select a zip file."
@@ -61,7 +76,7 @@ class CandidatesManagementController < ApplicationController
                       }, :assessment_id => params[:import][:assessment_id], :override_overall_scores => params[:import][:override_overall_scores], :email => params[:import][:email])
     redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the export is complete."
   end
-  
+
   def assessment_link
     @candidate = Vger::Resources::Candidate.find(params[:id])
     @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
@@ -77,11 +92,11 @@ class CandidatesManagementController < ApplicationController
       redirect_to candidate_path(params[:id])
     end
   end
-  
+
   def generate_assessment_link
     redirect_to assessment_link_candidate_path(params[:id],params[:assessment_id])
   end
-  
+
   def deactivate_assessment_link
     @candidate = Vger::Resources::Candidate.find(params[:id])
     @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
@@ -105,7 +120,7 @@ class CandidatesManagementController < ApplicationController
       redirect_to candidate_path(params[:id])
     end
   end
-  
+
   def update_candidate_stage
     @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
       :assessment_id => params[:assessment_id],
@@ -115,7 +130,7 @@ class CandidatesManagementController < ApplicationController
       :methods => [:url]
     ).all.first
     if @candidate_assessment
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.save_existing(@candidate_assessment.id, 
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.save_existing(@candidate_assessment.id,
         :assessment_id => params[:assessment_id],
         :candidate_stage => params[:candidate_stage]
       )
@@ -131,7 +146,7 @@ class CandidatesManagementController < ApplicationController
       redirect_to candidate_path(params[:id])
     end
   end
-  
+
   def update_candidate_assessments
     if params[:assessment_id].blank?
       flash[:error] = "Please select proper Assessment ID"
@@ -143,7 +158,7 @@ class CandidatesManagementController < ApplicationController
   end
 
   protected
-  
+
   def get_master_data
     @functional_areas = Hash[Vger::Resources::FunctionalArea.all.map{|functional_area| [functional_area.name,functional_area.id] }]
     @industries = Hash[Vger::Resources::Industry.all.map{|industry| [industry.name,industry.id] }]
