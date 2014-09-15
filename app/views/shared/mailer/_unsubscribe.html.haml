@@ -5,6 +5,6 @@
 
 .p
   If you wish to opt-out of communications from #{company_name} via Jombay, please 
-  %a{ :href => 'http://assessment.jombay.com/unsubscribe', :target => '_blank'}
+  %a{ :href => "#{Rails.application.config.domain['assessment_url']}/unsubscribe", :target => '_blank'}
     click here to unsubscribe. 
   Please note that doing so may lead to you missing​ communication affecting job/appraisal/development/other opportunities.

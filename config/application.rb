@@ -65,6 +65,8 @@ module Recruiters
     config.to_prepare { load 'config/assets_precompile.rb' }
     config.watchable_files << 'config/assets_precompile.rb'
     config.assets.enforce_precompile = true
+    
+    config.domain = YAML::load(File.open("#{Rails.root.to_s}/config/domains.yml"))[Rails.env.to_s]
 
     # Enable the asset pipeline
     config.assets.enabled = true
