@@ -1,5 +1,10 @@
+- if @report_hash[:company].present? && @report_hash[:company][:name].present?
+  - company_name = @report_hash[:company][:name]
+- else
+  - company_name = 'Employer'
+
 .p
-  If you wish to opt-out of communications from Employers via Jombay, please 
+  If you wish to opt-out of communications from #{company_name} via Jombay, please 
   %a{ :href => 'http://assessment.jombay.com/unsubscribe', :target => '_blank'}
     click here to unsubscribe. 
   Please note that doing so may lead to you missing​ communication affecting job/appraisal/development/other opportunities.
