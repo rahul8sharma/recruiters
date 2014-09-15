@@ -1,0 +1,8 @@
+development: &dev
+  assessment_url : "http://validation.jombaylocal.com"
+  feedback_url: "http://360.jombaylocal.com"
+production: &prod
+  assessment_url : "http://validation.jombaylocal.com" 
+  feedback_url: "http://360.jombaylocal.com" 
+test: &test
+  <<: *dev
