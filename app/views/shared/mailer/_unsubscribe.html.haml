@@ -1,4 +1,4 @@
-- if @report_hash[:company].present? && @report_hash[:company][:name].present?
+- if @report_hash.present? && @report_hash[:company].present? && @report_hash[:company][:name].present?
   - company_name = @report_hash[:company][:name]
 - else
   - company_name = 'Employer'
