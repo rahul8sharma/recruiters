@@ -7,14 +7,12 @@
         Assessment ID :
         = f.text_field :assessment_id
       %p
-        = f.label :pending_candidates
-        = f.check_box :pending, {}, "true"
+        = f.label "Pending Candidates"
+        %input{:type => "checkbox", :name => "pending", value: "pending"}
       %p
-        = f.label "Candidates who have started"
-        = f.check_box :started, {}, "true"
-      %p
-        = f.label "Send SMS"
-        %input{:type=>"checkbox", name: "send_sms"}
+        = f.label "Candidates who have started the test"
+        %input{:type => "checkbox", :name => "started", value: "started"}
+
 
 
       %p
