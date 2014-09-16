@@ -1,8 +1,8 @@
 #scores.section03
   .divider1
   .scores.container
-    .title.pull-left
-      Traits with 360 Degree Scores 
+    .span10.title.pull-left.line-height2
+      Competencies with 360&#176; Scores 
     .scale.mrf.pull-right.left-offset1
       .line
       .marker-container
@@ -17,5 +17,8 @@
       .clr
     .clr
     .divider3
-    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-      = render :partial => "mrf/assessments/reports/competency_report/competency", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+    .frame.mrf.gray-bg
+      %ul.mrf_scores_listing
+        - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+          = render :partial => "mrf/assessments/reports/competency_report/competencies_aggregated.html", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+    .divider2
