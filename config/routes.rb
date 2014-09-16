@@ -179,6 +179,7 @@ Recruiters::Application.routes.draw do
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        put "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates", :as => :send_reminder_to_pending_candidates
         get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate

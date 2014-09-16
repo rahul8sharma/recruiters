@@ -2,9 +2,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   before_filter :authenticate_user!
   before_filter :get_assessment
   before_filter :get_company
-  
+
   layout "tests"
-  
+
   def email_reports
     options = {
       :custom_assessment => {
@@ -39,7 +39,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       render :action => :send_test_to_candidates
     end
   end
-  
+
   # GET : renders form to add candidates
   # PUT : creates candidates and renders send_test_to_candidates
   def add_candidates
@@ -55,13 +55,13 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
         render :action => :add_candidates and return
-      else        
+      else
         candidates = {}
-        if params[:candidates].empty? 
+        if params[:candidates].empty?
           flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
           render :action => :add_candidates and return
         end
-        
+
         params[:candidates].each do |key,candidate_data|
           if candidate_data[:email].present?
             candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
@@ -81,15 +81,15 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
               candidate_data[:id] = candidate.id
               candidates[candidate.id] = candidate_data
             end
-          end  
+          end
         end
 
         unless @errors.values.flatten.empty?
           #flash[:error] = "Errors in provided data: <br/>".html_safe
-          flash[:error] = @errors.map.with_index do |(candidate_name, candidate_errors), index| 
+          flash[:error] = @errors.map.with_index do |(candidate_name, candidate_errors), index|
             if candidate_errors.present?
               ["#{candidate_errors.join("<br/>")}"]
-            end  
+            end
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
@@ -104,7 +104,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
     end
   end
-  
+
   # GET : renders send_reminder page
   # PUT : sends reminder and redirects to candidates list for current assessment
   def send_reminder
@@ -115,16 +115,16 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
       flash[:notice] = "Reminder was sent successfully!"
       redirect_to candidates_url
-    end  
+    end
   end
-  
+
   def bulk_send_test_to_candidates
     Vger::Resources::Candidate\
       .import_from_s3_files(:email => current_user.email,
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
-                    :report_email_recipients => params[:report_email_recipients], 
+                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:send_sms],
                     :send_email => params[:send_email],
@@ -136,10 +136,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to candidates_url, 
+    redirect_to candidates_url,
                 notice: "Candidates upload in progress. Candidate Listings will be updated and assessment will be sent to the candidates as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
-  
+
   # GET : renders send_test_to_candidates page
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
@@ -159,11 +159,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         render :action => :send_test_to_candidates and return
       end
       params[:selected_candidates].each do |candidate_id,on|
-        candidate_assessment = @assessment.candidate_assessments.where(:query_options => { 
-          :assessment_id => @assessment.id, 
+        candidate_assessment = @assessment.candidate_assessments.where(:query_options => {
+          :assessment_id => @assessment.id,
           :candidate_id => candidate_id
         }).all[0]
-        
+
         assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
         @candidate = Vger::Resources::Candidate.find(candidate_id)
         recipient = @candidate.email if params[:send_report_to_candidate]
@@ -179,17 +179,17 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient, :options => options) 
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient, :options => options)
           if candidate_assessment.error_messages.present?
             failed_candidate_assessments << candidate_assessment
           else
-            candidate_assessments.push candidate_assessment 
-          end  
+            candidate_assessments.push candidate_assessment
+          end
         end
       end
       assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_candidates(
-        :id => @assessment.id, 
-        :candidate_assessment_ids => candidate_assessments.map(&:id), 
+        :id => @assessment.id,
+        :candidate_assessment_ids => candidate_assessments.map(&:id),
         :send_sms => params[:send_sms],
         :send_email => params[:send_email]
       ) if candidate_assessments.present?
@@ -208,7 +208,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
     end
   end
-  
+
   # GET : renders list of candidates
   # checks for order_by params and sets ordering accordingly
   # checks for search params and adds query options accordingly
@@ -232,12 +232,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
-    end    
+    end
     @candidate_assessments = scope
-    @candidates = @candidate_assessments.map(&:candidate)    
+    @candidates = @candidate_assessments.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
-  
+
   def reports
     order = params[:order_by] || "completed_at"
     order_type = params[:order_type] || "DESC"
@@ -259,7 +259,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       :per=>10
     ).all
   end
-  
+
   # GET : renders candidate info for selected assessment
   def candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
@@ -267,13 +267,18 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       :candidate_id => @candidate.id
     }, :include => [:candidate_assessment_reports])
   end
-  
+
+  def send_reminder_to_pending_candidates
+    assessment = Vger::Resources::Suitability::CustomAssessment.send_reminder_to_pending_candidates(
+        :id => params[:assessment_id])
+  end
+
   def send_reminder_to_candidate_url
     send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
   end
-  
+
   protected
-  
+
   # fetches assessment if id is present in params
   # creates new assessment otherwise
   def get_assessment
@@ -283,7 +288,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       redirect_to root_path, alert: "Page you are looking for doesn't exist."
     end
   end
-  
+
   def get_company
     methods = []
     if ["index", "candidates"].include?(params[:action])
@@ -293,15 +298,15 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
-  
+
   def candidates_url
     candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
-  
+
   def add_candidates_url
     add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
-  
+
   def reports_url
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
