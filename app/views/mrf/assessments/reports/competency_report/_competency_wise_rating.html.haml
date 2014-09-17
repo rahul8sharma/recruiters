@@ -11,14 +11,14 @@
             .left
               Self Rating
             .right
-              XXXX
+              = competency_scores[:average_score_self][:bucket] rescue 'NA'
             .clr
 
           .trait_rating.score
             .left
               Assessment Score
             .right
-              XXXX
+              = competency_scores[:assessment_rating] rescue 'NA'
             .clr
 
           .divider1
@@ -28,24 +28,25 @@
               Overall Average
             .divider1
             .snippet.including
-              Including Self Rating: XXXX
+              Including Self Rating: 
+              = competency_scores[:average_score_including_self][:bucket] rescue 'NA'
             .divider1
             .snippet.excluding
-              Excluding Self Rating: XXXX
+              Excluding Self Rating:
+              = competency_scores[:score][:bucket] rescue 'NA'
             .divider1
 
       .right-sec.span17
         .caption.text-center
           Average Rating by Stakeholders
         .divider3
-        - 5.times do |index|
+        - competency_scores[:role_wise_scores].each do |role_name, role_wise_score|
           .stakeholders-rating-snippet
             .stakeholders-name.pull-left
-              XXXX
+              = role_name.titleize
             .stakeholders-rating-slider.pull-left 
               -@norm_buckets.each_with_index do |norm_bucket|
-                .marker{}
-                  -# add ".active" to ".marker"
+                .marker{:class => norm_bucket.name == role_wise_score[:bucket] ? 'active' : '' }
                   .arrow
                   .score
                     = norm_bucket.name
@@ -55,4 +56,3 @@
 
       .clr
 .divider1
-

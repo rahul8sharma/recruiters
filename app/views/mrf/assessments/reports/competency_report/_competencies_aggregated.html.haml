@@ -13,17 +13,17 @@
         - self_rating_index = ''
         - mrf_rating_index = ''
         - klass = ''
-        / - if norm_bucket.name == trait_score[:average_score_self][:bucket]
-        /   - self_rating_index = index
+        - if norm_bucket.name == competency_scores[:average_score_self][:bucket]
+          - self_rating_index = index
         - if norm_bucket.name == competency_scores[:score][:bucket]
           - mrf_rating_index = index
         
-        / - if index == self_rating_index && index != mrf_rating_index
-        /   - klass = 'self-rating'
+        - if index == self_rating_index && index != mrf_rating_index
+          - klass = 'self-rating'
         - if index == mrf_rating_index && index != self_rating_index
           - klass = 'mrf-rating'
-        / - if index == mrf_rating_index && index == self_rating_index
-        /   - klass = 'self-rating mrf-rating'
+        - if index == mrf_rating_index && index == self_rating_index
+          - klass = 'self-rating mrf-rating'
 
         .marker{:class => klass}
           .arrow-mrf-result
