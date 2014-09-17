@@ -1,33 +1,35 @@
 .inner{ style: "margin-top:0px;" }
   .overall_report
+    .logo.pull-left
     - if @report.report_hash[:assessment][:is_jombay_pearson_test]
-      .pull-left
-        %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
-    .logo.pull-right
+      .pull-right
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}")
     .clr
-    .divider3
-    .heading.fw
-      .extra-large-text
-        %b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
+    .divider30
+    
+    .huge-text
+      = @report.report_hash[:candidate][:name]
+    .divider2
+    -# if (@report.report_hash[:enable_recommendation])
+    .heading.fw.extra-large-text
+      %b
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket][:name]
+    .divider5
+    .large-text
       .span.first
         Assessment: 
       .span10
         = @report.report_hash[:assessment][:name]
       .clr
-    .divider4
-    .text-right
-      .extra-large-text 
-        %b
-          = @report.report_hash[:candidate][:name]
+      .divider2
       Assessment Answered On: 
       = @report.report_hash[:completed_at]
 
+      
+    -#%b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
+
     .divider5
-    - if (@report.report_hash[:enable_recommendation])
-      .sub-heading.fw.medium-text.text-center
-        Aggregate Score: 
-        = @report.report_hash[:overall_score_bucket][:name]
-    .clr
     .divider2
 
     .visual.divider14

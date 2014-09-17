@@ -1,52 +1,62 @@
 = render partial: "shared/reports/pdf/report_header.pdf.haml"
 .inner
   .scores.favorable_factors
-    .blue_bg_heading.text-center.big-text
-      Scores of Traits measured in this Assessment
     .divider1
-
-    .indication.pull-left
-      .pull-left.box
-      .pull-left
-        %b Expected Score
-      .clr
+    .pull-left
+      .blue_heading.large-text
+        Scores of Traits measured in this Assessment
       .divider1
-      .pull-left.hexagon-icon.mid_favorable
-      .pull-left
-        %b Obtained Score
-      .clr
+      .instruction_container
+        .box.pull-left
+          .box-icon.pull-left
+          .box-title.pull-left
+            Expected Score
+          .clr
 
-    .scale.pull-left
-      - @norm_buckets.each do |norm_bucket|
-        .marker
-          - if norm_bucket.name.split(" ").size == 1
-            %br/
-          = norm_bucket.name
-      .clr
+        .instructions.pull-left
+          .instruction1.pull-left
+            Favorable Traits 
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+   
+    .pull-right
+      .divider1
+      .scale
+        .line
+        .marker-container
+          - @norm_buckets.each do |norm_bucket|
+            .marker
+              - if norm_bucket.name.split(" ").size == 1
+                %br/
+              = norm_bucket.name
+          .clr
     .clr
-    .divider2
+
     %ul.clearfix.scores_listing.first
       - factor_scores.each_with_index do |(factor_name,factor_score),index|
         %li
           .lhs-sec.pull-left
-            %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-            .span11
+            .span.first
               .factor-name
                 = factor_name
-          .rhs-sec.pull-left
+          .rhs-sec.pull-right
             .slider
               - scale = factor_score[:scale]
-              .pointer{ class: "position#{scale[:position]}" }
-              -# Use position1, postion2...5. for pointer position
-              .visual
+              .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
+
+                -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+                .score-indicater
+                  = factor_score[:norm_bucket]
+                .arrow
               .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
               -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-
           .clr
+          .divider1
           .factor-description
             = factor_score[:description]
-          .divider1
 
           - if @report.report_hash[:enable_factor_consistency]
             .responses  
@@ -55,7 +65,7 @@
               %span.score 
                 = factor_score[:consistency_bucket]
           .divider1
-          - if @view_mode == "feedback"
+          -# if @view_mode == "feedback"
             = fields_for :feedback do
               .optional_feedback
                 .title

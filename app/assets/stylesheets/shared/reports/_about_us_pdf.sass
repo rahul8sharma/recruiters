@@ -1,108 +1,107 @@
+.common-bottom-trangle
+  background: image-url('report/pdf/common-bottom-trangle.png') no-repeat 0 bottom
+.common-top-trangle
+  background: image-url('report/pdf/common-top-trangle.png') no-repeat right top
 .report
+  ul
+    margin: 0
+  .content
+    padding: 18px
+    border: 1px solid #9b9da0
+    background: #fff
   .about-us, .legal_disclaimer
-    min-height: 760px
-    .content
-      padding: 0 30px
+    .inner
+      padding: 40px
+      width: auto
+      padding-bottom: 18px
     .header
-      background: image-url('report/blue-texture.png') 
-      padding: 10px 30px
-      .icon
-        background: image-url('report/jombay-logo-icon.png') no-repeat 0 0
-        height: 72px
-        width: 85px
-        float: left
+      background: #26b19a 
+      padding: 0 70px
+      height: 25px
+      line-height: 25px
+      position: relative
+      color: #fff
       .title
+        margin-left: 52px
+      .icon
+        background: image-url('report/pdf/j-logo-symbol.png') no-repeat 0 0
+        height: 55px
+        width: 50px
         float: left
-        color: #fff
-        font-weight: 700
-        font-size: 28px 
-        line-height: 72px
-        padding: 0 0 0 25px
+        position: absolute
+        top: -15px
   .legal_disclaimer
     margin-top: 0px
+    color: #000
     p
-      font-size: 14px
-      line-height: 25px
+      font-size: 12px
+      line-height: 16px
   .about-us
     margin-top: 0px
-    .header
-      .title
+    .title
+      background: image-url('report/pdf/about-logo.png') no-repeat 0 center
+      height: 100%
+      width: 50%
     ul
-      margin: 0
       li
-        &.sub-title
-          font-size: 18px
-          text-align: center
-          background: #eef2f2
-          line-height: 35px
-          margin: 15px 0
-          color: #000
-      li[class*="feature"]
+        padding: 18px 0 18px 90px
         list-style: none
-        padding-top: 15px
+        &.sub-title
+          color: $color-warning
+          font-weight: 700
+          text-align: center
+          font-size: $big-text
+          padding-top: 0
+      li[class*="feature"]
         p
-          font-size: 12px
+          font-size: 14px
           line-height: 25px
+          text-align: justify
 
-          &.title
-            font-size: 17px
-            font-weight: 700
     [class*="feature"]
-      min-height: 90px
+      min-height: 80px
       text-align: justify
 
 
     .feature01
-      background: image-url('report/about-us/feature01.png') no-repeat  right 20px
-      padding-right: 180px
+      background: image-url('report/pdf/about-thumb1.png') no-repeat 
     .feature02
-      background: image-url('report/about-us/feature02.png') no-repeat 0 20px
-      padding-left: 80px
-      
+      background: image-url('report/pdf/about-thumb2.png') no-repeat 
     .feature03
-      background: image-url('report/about-us/feature03.png') no-repeat right 20px
-      padding-right: 80px
-      
+      background: image-url('report/pdf/about-thumb3.png') no-repeat
     .feature04
-      background: image-url('report/about-us/feature04.png') no-repeat 0 20px
-      padding-left: 80px
-      
+      background: image-url('report/pdf/about-thumb4.png') no-repeat
     .feature05
-      background: image-url('report/about-us/feature05.png') no-repeat right 20px
-      padding-right: 80px
+      background: image-url('report/pdf/about-thumb5.png') no-repeat
       
   .contact_section
-    border-top: 1px solid #a7a9ac
-    padding: 25px 0
-    font-size: 12px
-    .inn
-      width: 640px
-      margin: auto
+    .content
+      padding-left: 75px
+      background: image-url('report/pdf/about-contact.png') no-repeat 18px 18px #fff
+      margin: 0 40px
     .title
-      font-size: 14px
-      padding: 55px 0 0 0
       color: $color-warning
+      font-weight: 700
+      font-size: $extra-medium-text
+    li
+      padding-left: 50px 
       float: left
-      background: image-url('report/about-us/contact.png') no-repeat center 0
+      margin-top: 10px
+      &:first-child
+        padding: 0
 
-    ul
-      background: #fff
-      margin: 0
-      float: left
-      li
-        float: left
-        margin: 0 0 18px 40px 
-        min-width: 120px
-        &.clr
-          width: auto
-          margin: 0
-
-    a
-      display: block
+      a
+        display: block  
+        font-weight: 700
   .company-summary
-    padding: 0px 0px 0px 0px
+    padding: 0
+    .content
+      margin: 0 40px
     .company-badge
       font-size: 18px
       text-align: center
       background: #eef2f2
       padding: 15px 0
+    p
+      font-size: $medium-text
+      text-align: justify
