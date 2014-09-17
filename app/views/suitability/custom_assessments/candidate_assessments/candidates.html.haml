@@ -4,7 +4,7 @@
     AID #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send this Assessment
-  %a.extra-medium-text.pull-right.line-height3{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+  %a.extra-medium-text.pull-right.line-height3{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"}
     Create New Custom Assessment
   .clr
   .divider2
@@ -13,18 +13,23 @@
   .padding-all2.border-warning.shifted-up1
     .extra-medium-text.line-height2.pull-left
       %span
-        Assessments Sent: 
+        Assessments Sent:
       %span #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
       %span.left-offset1
-        Assessments Taken: 
+        Assessments Taken:
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
+      %span
+        - if current_user.type == "SuperAdmin"
+          %a{:href=> send_reminder_to_pending_candidates_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} Send Reminder to all pending
+
+
     .filter-status.pull-right
       = form_for :search, url: candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get, html: { id: "candidates_search_form" } do |f|
         - params[:search] ||= {}
-        .medium-text.muted.line-height2.pull-left 
+        .medium-text.muted.line-height2.pull-left
           Show Assessment takers with Status
         %select.span3{name: "search[status]", onchange: "document.getElementById('candidates_search_form').submit();"}
-          - test_status_options.each do |status,name|  
+          - test_status_options.each do |status,name|
             %option{ value: status, selected: (params[:search][:status] == status) }
               = name
         .clr
@@ -33,12 +38,12 @@
     .list-snippet-titles.extra-medium-text.clearfix
       .span3.first
         = sort_link "ATID", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
-        
+
       .span8
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span9
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      - if is_superadmin?  
+      - if is_superadmin?
         .pull-right
           %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
             %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
@@ -49,22 +54,22 @@
         - if params[:search].present?
           No results found!
         - else
-          Assessment not sent to any Assessment Takers. To send this Assessment, 
+          Assessment not sent to any Assessment Takers. To send this Assessment,
           %a{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), title: "Send Assessment" } Click here
-    - else    
+    - else
       %ul
         - @candidates.each do |candidate|
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
           - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
-            - report = candidate_assessment.candidate_assessment_reports[0] 
+            - report = candidate_assessment.candidate_assessment_reports[0]
             -# status = report_statuses[report.status]
           %li.list-snippet.medium-text
             .divider1
             .span3.first
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} #{candidate.id}
             .span8.info-block
-              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"} 
+              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"}
                 = h candidate.name
               - if current_user.type == "SuperAdmin"
                 .info
@@ -74,30 +79,30 @@
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
-                -#remember Hrs & Hr 
+                -#remember Hrs & Hr
             .span4
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
                   %a{:href => url, :title => "View Report", target: "_blank"}
-                    %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"} 
+                    %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
                     View Report
                 - else
-                  %i.icon-spinner.icon-spin 
-                  Generating report...  
-              - else 
+                  %i.icon-spinner.icon-spin
+                  Generating report...
+              - else
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::READY_FOR_SCORING
-                  %i.icon-spinner.icon-spin 
-                  Generating report...  
+                  %i.icon-spinner.icon-spin
+                  Generating report...
                 - elsif candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
-                  = status  
-                - else   
+                  = status
+                - else
                   %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                     %i.icon-time
                     Send Reminder
-            - if is_superadmin?        
+            - if is_superadmin?
               .span.pull-right
-                %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"} 
+                %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"}
                   Request 360&#176; Profiling
             .clr
       .divider3

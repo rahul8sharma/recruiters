@@ -270,7 +270,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def send_reminder_to_pending_candidates
     assessment = Vger::Resources::Suitability::CustomAssessment.send_reminder_to_pending_candidates(
-        :id => params[:assessment_id])
+        :id =>@assessment.id)
+    flash[:notice] = "Emails are queued"
+    redirect_to candidates_url
   end
 
   def send_reminder_to_candidate_url
