@@ -20,7 +20,7 @@
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
       %span
         - if current_user.type == "SuperAdmin"
-          %a{:href=> send_reminder_to_pending_candidates_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} Send Reminder to all pending
+          %a{:href=> send_reminder_to_pending_candidates_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} Send Reminder to all pending candidates
 
 
     .filter-status.pull-right
