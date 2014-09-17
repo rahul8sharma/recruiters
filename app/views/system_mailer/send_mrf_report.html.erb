@@ -1,10 +1,10 @@
 Hi, 
 <p>
-  360 Degree Report is ready for <%= @report_data[:candidate][:id] %> <%=@report_data[:candidate][:name] %>
+  360 Degree Report is ready for <%= @report_hash[:candidate][:id] %> <%=@report_hash[:candidate][:name] %>
 </p>
 <p>
   Report URL: 
-  <%= s3_report_company_mrf_assessment_url(:company_id => @report_data[:company][:id], :id => @report_data[:assessment][:id],:candidate_id => @report_data[:candidate][:id], :report_id => @report_id, :view_mode => "html")
+  <%= s3_report_company_mrf_assessment_url(:company_id => @report_hash[:company][:id], :id => @report_hash[:assessment][:id],:candidate_id => @report_hash[:candidate][:id], :report_id => @report_id, :view_mode => "html")
     %>
 </p>
 <p>
@@ -21,3 +21,7 @@ Hi,
 Best regards,<br/>
 Prakhar Srivastava<br/>
 Jombay
+
+<br/>
+<br/>
+<%= render :partial => 'shared/mailer/footer' %>

@@ -20,6 +20,7 @@ vendor/cache
 .ruby-version
 .rvmrc
 config/hosts.yml
+config/domains.yml
 config/jombay-notify.yml
 config/sidekiq
 config/s3

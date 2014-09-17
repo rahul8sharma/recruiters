@@ -237,6 +237,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
+                    :send_invitations => params[:send_invitations],
                     :worksheets => [{
                       :file => "BulkUpload.csv",
                       :bucket => @s3_bucket,
