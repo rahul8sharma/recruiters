@@ -27,12 +27,17 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_url and return
     end
-    data = params[:bulk_upload][:file].read
-    S3Utils.upload(s3_bucket_name, s3_key, data)
-    @s3_bucket = s3_bucket_name
-    @s3_key = s3_key
-    @functional_area_id = params[:bulk_upload][:functional_area_id]
-    render :action => :send_test_to_candidates
+    if params[:candidate_stage].empty?
+      flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
+      redirect_to add_candidates_url and return
+    else
+      data = params[:bulk_upload][:file].read
+      S3Utils.upload(s3_bucket_name, s3_key, data)
+      @s3_bucket = s3_bucket_name
+      @s3_key = s3_key
+      @functional_area_id = params[:bulk_upload][:functional_area_id]
+      render :action => :send_test_to_candidates
+    end
   end
   
   # GET : renders form to add candidates
@@ -56,6 +61,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
           render :action => :add_candidates and return
         end
+        
         params[:candidates].each do |key,candidate_data|
           if candidate_data[:email].present?
             candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
@@ -77,6 +83,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
             end
           end  
         end
+
         unless @errors.values.flatten.empty?
           #flash[:error] = "Errors in provided data: <br/>".html_safe
           flash[:error] = @errors.map.with_index do |(candidate_name, candidate_errors), index| 
@@ -86,6 +93,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
+        params[:send_test_to_candidates] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
       end
@@ -135,6 +143,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # GET : renders send_test_to_candidates page
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
+    params[:send_test_to_candidates] = true
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}

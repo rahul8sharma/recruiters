@@ -11,10 +11,10 @@
 = link_to "Edit", edit_suitability_factor_path(@factor)
 \|
 = link_to "Back", suitability_factors_path
-
+%br
+%br
 %div
-  %h3
-    Items added for this factor
+  %h3 Suitability Items
     
 %table
   %tr
@@ -31,7 +31,7 @@
     %th
       Order
     %th
-  - Vger::Resources::Suitability::Item.where(:query_options => { :factor_id => @factor.id }).all.each do |item|
+  - @suitability_items.each do |item|
     %tr 
       %td{ width: "5%" }
         = link_to item.id, suitability_item_path(item.id)
@@ -48,4 +48,7 @@
         = item.item_order
       %td
         = link_to "Edit", edit_suitability_item_path(item.id)
-        
+%br
+%br
+%h3 360 Degree Items
+= render partial: 'mrf/items/index', locals: { items: @mrf_items }

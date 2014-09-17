@@ -7,7 +7,7 @@ class SidekiqController < ApplicationController
   end
   
   def generate_mrf_scores
-    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=MrfScorer")
+    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
     render :json => { :status => "Job Started" }
   end
 

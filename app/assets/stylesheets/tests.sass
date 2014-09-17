@@ -101,6 +101,31 @@ label
   font-size: $extra-medium-text
   margin: 0 0 18px 0
   color: $grayDarker
+  .info-block
+    position: relative
+    .info
+      position: absolute
+      background: #fff
+      border: 1px solid $color-warning
+      padding: 7px 0
+      text-align: center
+      border-radius: 3px
+      width: 150px
+      left: -2px
+      bottom: 27px
+      display: none
+    .arrow
+      position: absolute
+      background: image-url('down-caret.png') no-repeat
+      width: 17px
+      height: 10px
+      left: 5px
+      bottom: 18px
+      display: none
+    &:hover
+      .arrow, .info
+        display: block
+
   a
     display: block
     color: $grayDarker

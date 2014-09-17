@@ -5,29 +5,7 @@
 .pagination.pull-right        
   = paginate @items    
 .clr
-%table
-  %tr
-    %th Id
-    %th Body
-    %th Role
-    %th Trait Type
-    %th Trait ID
-    %th Edit
-  - @items.each do |item|
-    %tr 
-      %td{ width: "5%" }
-        = link_to item.id, mrf_item_path(item.id)
-      %td{ width: "30%" }
-        = link_to item.body, mrf_item_path(item.id)
-      %td{ width: "10%" }
-        = item.role
-      %td{ width: "10%" }
-        = item.trait_type
-      %td{ width: "10%" }
-        = item.trait_id
-      %td{ width: "30%" }
-        = link_to "Edit", edit_mrf_item_path(item.id)  
-      
+= render partial: 'index', locals: { items: @items }
 .pagination.pull-right        
   = paginate @items    
 .clr

@@ -31,6 +31,13 @@ class Suitability::FactorsController < MasterDataController
   # GET /factors/:id.json
   def show
     @factor = api_resource.find(params[:id], :root => :factor)
+    @suitability_items = Vger::Resources::Suitability::Item.where(:query_options => { 
+      :factor_id => @factor.id 
+    }).all.to_a
+    @mrf_items = Vger::Resources::Mrf::Item.where(query_options: {
+      trait_type: @factor.class.name.gsub("Vger::Resources::",""),
+      trait_id: @factor.id
+    }).all.to_a
     respond_to do |format|
       format.html # new.html.erb
     end

@@ -20,6 +20,26 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     flash[:notice] = "Self Ratings will be enabled shortly. Please refresh this page in some time to see updated statuses."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
+  
+  def export_feedback_urls
+    options = {
+      email: "product@jombay.com",
+      assessment_id: @assessment.id
+    }
+    Vger::Resources::Mrf::Assessment.export_feedback_urls(company_id: @company.id, id: @assessment.id, options: options)
+    flash[:notice] = "360 Degree urls for pending stakeholders will be generated and emailed soon."
+    redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+  end
+  
+  def export_report_urls
+    options = {
+      email: "product@jombay.com",
+      assessment_id: @assessment.id
+    }
+    Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
+    flash[:notice] = "360 Degree report urls for candidates will be generated and emailed soon."
+    redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+  end
 
   def statistics
     get_custom_assessment
@@ -184,7 +204,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         return if !feedback
       end
       flash[:notice] = "Invitations sent to stakeholders"
-      Vger::Resources::Mrf::Assessment.send_invitations(company_id: @company.id, id: @assessment.id)
+      if params[:send_invitations]
+        Vger::Resources::Mrf::Assessment.send_invitations(company_id: @company.id, id: @assessment.id)
+      end
       if params[:send_and_add_more].present?
         params[:candidate] = {}
         params[:feedbacks] = {}
@@ -215,6 +237,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
+                    :send_invitations => params[:send_invitations],
                     :worksheets => [{
                       :file => "BulkUpload.csv",
                       :bucket => @s3_bucket,

@@ -47,6 +47,11 @@
                 Download Sample File for adding Candidates and Stakeholders
     .divider4
     .span7.pull-right.medium-text
+      - if is_superadmin?
+        .span.medium-text
+          %label.line-height2
+            %input{name: "send_invitations", type: "checkbox", checked: "checked"}
+            Send Email Invitations 
       %input.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Send Invitations" }
     .clr  
   
@@ -113,6 +118,11 @@
         %a.big-text{:href => home_company_mrf_assessments_path(@company.id)}
           Add Candidates/Stakeholders Later
       .span.pull-right.boxed
+        - if is_superadmin?
+          .span.medium-text.pull-left
+            %label.line-height2
+              %input{name: "send_invitations", type: "checkbox", checked: "checked"}
+              Send Email Invitations 
         .span.medium-text.pull-left
           %label.line-height2
             %input{name: "send_and_add_more", type: "checkbox", value: "send_and_add_more"}
