@@ -4,9 +4,10 @@
     .title
       Data Points on 360&#176; Scores of Competencies
     .divider2
-    = render :partial => "mrf/assessments/reports/competency_report/competency_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}
+    - if @report.report_data[:mrf_report_data_pts_competencies_avg]
+      = render :partial => "mrf/assessments/reports/competency_report/competency_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}
     
-    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-      = render :partial => "mrf/assessments/reports/competency_report/competency_wise_rating", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
-
+    - if @report.report_data[:mrf_report_data_pts_competencies]
+      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/competency_wise_rating", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
     .divider2
