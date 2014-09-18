@@ -4,15 +4,19 @@
 - if @view_mode != "html" || force
   .footer.clearfix
     - if @view_mode != "html" && navigation
-      .medium-text.pull-left
-        .current-page
-          1
+      .current-page.pull-left
+        1
       .left-offset1.pull-left
         Private &amp; Confidential
+
+      .pull-right 
+        &copy; Jombay 
+
     - else    
       .pull-left
         Private &amp; Confidential
-    .medium-text.pull-right 
-      &copy; Jombay  
+      .pull-right 
+        &copy; Jombay 
+    .clr 
 - if @view_mode == "html" && !last_page     
   %hr

@@ -3,18 +3,18 @@
     .logo.pull-left
     - if @report.report_hash[:assessment][:is_jombay_pearson_test]
       .pull-right
-        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}")
+        = wicked_pdf_image_tag ('report/pdf/talent-lens.png')
     .clr
     .divider30
     
     .huge-text
       = @report.report_hash[:candidate][:name]
     .divider2
-    -# if (@report.report_hash[:enable_recommendation])
-    .heading.fw.extra-large-text
-      %b
-        Aggregate Score: 
-        = @report.report_hash[:overall_score_bucket][:name]
+    - if (@report.report_hash[:enable_recommendation])
+      .heading.fw.extra-large-text
+        %b
+          Aggregate Score: 
+          = @report.report_hash[:overall_score_bucket][:name]
     .divider5
     .large-text
       .span.first
@@ -27,11 +27,4 @@
       = @report.report_hash[:completed_at]
 
       
-    -#%b #{Rails.application.config.reports["#{@report.report_hash[:candidate_stage]}"]["report_title"]}
 
-    .divider5
-    .divider2
-
-    .visual.divider14
-
-    .divider4
