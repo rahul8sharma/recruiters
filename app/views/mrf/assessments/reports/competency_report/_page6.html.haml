@@ -1,0 +1,10 @@
+-if @report.report_data[:mrf_report_data_pts_traits]
+  #developement_guide.section03
+    .divider1
+    .scores.container
+      .title
+        Data Points on 360&#176; Scores of Traits
+      .divider2    
+      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/page_4_all_individual", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+      .divider2

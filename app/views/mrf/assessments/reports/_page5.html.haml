@@ -1,40 +1,41 @@
-.container#manager_guideline
-  .divider2
-  .title
-    Summary of 360 Degree Feedback
-  .divider2
-.overview
-  .top-triangle
-    .bottom-triangle
-      .container
-        .feedback-stats
-          .divider2
-          .caption
-            Feedback Stats
-          %ul
-            %li.head
-              .left
-                Feedback from
-              .middle
-                Requests to
-              .right
-                Completed by
-              .clr
-            - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
+- if @report.report_data[:mrf_report_360_feedback_stats]
+  .container#manager_guideline
+    .divider2
+    .title
+      Summary of 360 Degree Feedback
+    .divider2
+  .overview
+    .top-triangle
+      .bottom-triangle
+        .container
+          .feedback-stats
+            .divider2
+            .caption
+              Feedback Stats
+            %ul
+              %li.head
+                .left
+                  Feedback from
+                .middle
+                  Requests to
+                .right
+                  Completed by
+                .clr
+              - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
+                %li.list
+                  .left
+                    = feedback_name.titleize
+                  .middle
+                    = feedback_stats[:sent]
+                  .right
+                    = feedback_stats[:completed]
+                  .clr
               %li.list
                 .left
-                  = feedback_name.titleize
+                  Total
                 .middle
-                  = feedback_stats[:sent]
+                  = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
                 .right
-                  = feedback_stats[:completed]
-                .clr
-            %li.list
-              .left
-                Total
-              .middle
-                = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
-              .right
-                = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
-              .clr   
-        .divider2
+                  = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
+                .clr   
+          .divider2

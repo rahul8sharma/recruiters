@@ -1,8 +1,9 @@
-#traits.section02
-  .divider2
-  .scores.container
-    .title
-      Competencies Measured
+-if @report.report_data[:mrf_report_competencies_measured]
+  #traits.section02
     .divider2
-    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-      = render :partial => "mrf/assessments/reports/competency_report/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+    .scores.container
+      .title
+        Competencies Measured
+      .divider2
+      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
