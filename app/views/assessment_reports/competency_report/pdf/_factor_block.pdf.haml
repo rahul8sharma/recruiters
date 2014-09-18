@@ -7,12 +7,7 @@
    
   .factors_container
     .factors_list  
-      - 19.times do |index|
-        .less_favorable{:class=> "factor_#{index+1}"}
-          .text-wrap{:style=>"margin-top: 18px;"}
-            #{index+1}
-             
-      -# competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
+      - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
         - margin = factor_name.split(" ").size > 1 ? 9 : 18
         %div{:class=>"factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
           .text-wrap{:style=>"margin-top: #{margin}px;"}
