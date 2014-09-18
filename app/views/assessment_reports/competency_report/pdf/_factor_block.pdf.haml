@@ -1,13 +1,21 @@
-.factor-block
-  .factor-header
-    .title-block.pull-left{ title: competency_name }
-      = competency_name.to_s[0..50]
-    .score-block.pull-right
-      = competency_data[:grade]
-    .clr
-  .visual 
-    - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
-      - margin_top = factor_name.split(" ").size > 1 ? 0 : 15
-      %div{:class=>"factor#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}", style: "margin-top:#{margin_top}px;"}
-        = factor_name
-    -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.  
+.competency-container
+  .heading.pull-left{ title: competency_name }
+    = competency_name.to_s[0..50]
+  .heading.pull-right
+    = competency_data[:grade]
+  .clr
+   
+  .factors_container
+    .factors_list  
+      - 19.times do |index|
+        .less_favorable{:class=> "factor_#{index+1}"}
+          .text-wrap{:style=>"margin-top: 18px;"}
+            #{index+1}
+             
+      -# competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
+        - margin = factor_name.split(" ").size > 1 ? 9 : 18
+        %div{:class=>"factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
+          .text-wrap{:style=>"margin-top: #{margin}px;"}
+            = factor_name.gsub(" ","<br/>").html_safe
+      -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
+.divider2  

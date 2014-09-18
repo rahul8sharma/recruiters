@@ -38,6 +38,8 @@ body
 .report
   width: $width
   margin: 0 auto
+  .factors_container
+    position: relative
   .favorable
     color: $favorable_color  
   .less_favorable
@@ -83,14 +85,14 @@ body
     .hexagon_small
       width: 25px
       height: 25px
+  .j-logo
+    width: 200px
+    height: 45px
+    background: image-url('report/pdf/j-logo.png') no-repeat center center
   .overall_report
     padding: 18px 40px
     padding-right: 40px
     background: image-url('report/pdf/overall_bg.png') no-repeat right top
-    .logo
-      width: 200px
-      height: 45px
-      background: image-url('report/pdf/j-logo.png') no-repeat center center
       
     .heading
       background: #f58220
@@ -99,6 +101,12 @@ body
       line-height: 25px
       &.fw
         width: 760px
+      &.comptency
+        background: #f58220
+        padding: 10px 45px
+        color: #fff
+        line-height: 25px
+
     .sub-heading
       font-weight: 700
       color: #fff
@@ -353,89 +361,150 @@ body
     padding: 10px 25px 
     position: relative
     margin-top: 10px
+
   .competency_report
-    .competency_container
-      border: 3px solid #ff8308
-      padding-bottom: 10px
-      background: #ffffff
-    .inner
-      .scale
-        margin: 15px -20px 0 0
+    .section02
+      background: #fff
+      border-bottom: 1px dashed #28B29B
+    .overall_report
+      min-height: 1100px
+    .overview 
+      background: image-url('report/pdf/competency/overview_bg.png') no-repeat 
+      min-height: 1100px
+      .inner
+        padding: 18px 40px
+        width: auto
+      .content
+        background: #fff
+        border: 1px dashed #28b29b
+        padding: 0
+
+        .overview-title
+          border-bottom: 1px dashed #28b29b
+          font-size: $extra-medium-text
+          color: $color-warning
+          padding: 10px 0 
+        .left
+          padding-left: 18px
+          float: left
+        .right
+          width: 110px
+          float: right
+        .competency-list
+          margin: 0
+          width: 100%
+         
+          li
+            padding: 15px 0
+            color: #000
+            &:nth-child(even)
+              background: #f8f8f8
+          .competency-name
+            width: 625px
+            padding-left: 18px
+            float: left
+          .competency-value
+            margin-left: 0
+            font-weight: 700
+            width: 110px
+            float: right
+          .competency-name,
+          .competency-value
+            &.title
+              color: #28b29b
+              font-weight: 700
+              font-size: 18px
+
+    .heading
+      background: #28b29b
+      line-height: 24px
+      font-size: $extra-medium-text
+      color: #fff
+      padding: 0 10px
+    .competency-container
+      border: 2px solid #28b29b
+      background: image-url('report/pdf/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+
+    .factors_list
+      position: relative
+      background: image-url('report/pdf/competency/competency-hexagon-bg.png') no-repeat center center
+      min-height: 240px
+
+      [class*="factor_"]
+        font-size: 10px
+        line-height: 12px
+        height: 50px
+        position: absolute
+        text-align: center
+        width: 80px
+      .factor_1
+        left: 348px
+        top: 60px
+      .factor_2
+        left: 390px
+        top: 130px
+      .factor_3
+        left: 307px
+        top: 130px
+      .factor_4
+        top: 130px
+        left: 225px
+      .factor_5
+        left: 265px
+        top: 60px
+      .factor_6
+        left: 430px
+        top: 60px
+      .factor_7
+        left: 472px
+        top: 130px
+      .factor_8
+        left: 142px
+        top: 130px
+      .factor_9
+        left: 183px
+        top: 60px
+      .factor_10
+        left: 515px
+        top: 60px
+      .factor_11
+        left: 555px
+        top: 130px
+      .factor_12
+        left: 60px
+        top: 130px
+      .factor_13
+        left: 100px
+        top: 60px
+      .factor_14
+        left: 595px
+        top: 60px
+      .factor_15
+        top: 130px
+        left: 640px
+      .factor_16
+        left: 225px
+        top: -12px
+      .factor_17
+        left: 307px
+        top: -12px
+      .factor_18
+        left: 390px
+        top: -12px
+      .factor_19
+        left: 432px
+        top: -12px
+    .frame
+      border: 2px solid #28b29b
+     
     .scores 
       ul.scores_listing 
-        min-height: 100px
-        .lhs-sec
-          width: 455px
-    .frame
-      border: 4px solid #1db3c4
-      padding: 0 10px
-      position: relative
-      margin-top: 25px
-      .frame-title
-        position: absolute
-        background: #1db3c4
-        font-size: 20px
-        color: #fff
-        padding: 7px 10px
-        top: -33px
-        left: -4px
-    .competency-description
-      font-size: 14px
-      line-height: 20px
-      min-height: 125px
-      padding: 0px 15px 0px 170px
-      background: image-url('report/competency-description-icon.png') 0 center no-repeat
-      margin:  20px 25px 20px 25px
-    .instruction_container
-      .instructions  
-        margin-right: 7px
-        [class*=instruction]
-          padding: 7px 10px 7px 55px
-          color: #969696
-          font-weight: 700
-          margin-top: 8px
-          font-size: 12px
-          background: image-url("report/competency-hexagon-small.png") no-repeat
-        .instruction2
-          background-position: 0px -32px
-          text-decoration: underline
+        li 
+          .hexagon-icon
+            margin-left: 25px
+          .factor-description
+            margin-left: 50px
 
-    .competency_block
-      font-weight: 700
-      margin-bottom: 30px
-      float: left
-      &:nth-child(even)
-        float: right
-
-      .competency 
-        background: #1aadc0
-        color: #fff
-        font-size: 16px
-        text-shadow: 1px 1px 1px #053014
-        padding: 13px
-        width: 180px
-        float: left
-        line-height: 22px
-        height: 44px
-
-      .score
-        background: image-url('report/competency_big_hexagon.png') no-repeat
-        height: 70px
-        width: 82px
-        text-align: center 
-        color: #949494
-        float: left
-        line-height: 15px
-    .heading
-      margin-bottom: 0
-    .sub-heading
-      margin-bottom: 10px
-      padding: 15px 20px
-      max-width: 445px
-
-      span
-        font-weight: normal
-        font-size: 90%
   .factor-block
     margin: 5px 15px 0 15px
     .factor-header
