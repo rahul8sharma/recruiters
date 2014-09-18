@@ -47,6 +47,11 @@
                 Download Sample File for adding Candidates and Stakeholders
     .divider4
     .span7.pull-right.medium-text
+      - if is_superadmin?
+        .span.medium-text
+          %label.line-height2
+            %input{name: "send_invitations", type: "checkbox", checked: "checked"}
+            Send Email Invitations 
       %input.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Send Invitations" }
     .clr  
   

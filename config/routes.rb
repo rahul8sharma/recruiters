@@ -621,6 +621,8 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
   get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
+  get "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports", :as => :regenerate_mrf_reports
+  put "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports"
 
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates

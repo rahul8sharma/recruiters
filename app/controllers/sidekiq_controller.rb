@@ -114,4 +114,13 @@ class SidekiqController < ApplicationController
       redirect_to report_management_path, alert: "Please specify email and assessment_id."
     end
   end
+  
+  def regenerate_mrf_reports
+    if params[:args][:assessment_id].present? && params[:args][:email].present?
+      assessment = Vger::Resources::Mrf::Assessment.regenerate_reports(company_id: params[:args][:company_id], :args => params[:args])
+      render :json => { :status => "Job Started", :job_id => assessment.job_id }
+    else
+      redirect_to report_management_path, alert: "Please specify email and assessment_id."
+    end
+  end
 end
