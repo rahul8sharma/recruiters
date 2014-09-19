@@ -18,9 +18,17 @@
           %li
             %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
               Scores
-          %li
-            %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
-              Data Points      
+          
+          - if @report.report_data[:assessment][:use_competencies] && (@report.report_data[:mrf_report_data_pts_competencies] || @report.report_data[:mrf_report_data_pts_competencies_avg])
+            %li
+              %a.scroll{:href => "#developement_guide_competencies", :title => "Development Guide for the Assessment Taker"}
+                Data Points For Competencies
+          
+          - if @report.report_data[:mrf_report_data_pts_traits]
+            %li
+              %a.scroll{:href => "#developement_guide_traits", :title => "Development Guide for the Assessment Taker"}
+                Data Points For Traits                
+          
           %li
             %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
               Summary
