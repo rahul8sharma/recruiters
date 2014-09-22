@@ -1,13 +1,13 @@
 class Mrf::Assessments::ReportsController < ApplicationController
-  before_filter :get_company
-  before_filter :get_assessment
+  before_filter :get_company, except: [:s3_report]
+  before_filter :get_assessment, except: [:s3_report]
   layout "reports_360"
   
   def report
     report_type = params[:report_type] || "fit_report"  
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
   
-    @report = Vger::Resources::Mrf::Report.find(params[:report_id]) 
+    @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
 
     if @assessment.configuration[:use_competencies]
