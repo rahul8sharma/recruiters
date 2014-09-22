@@ -54,7 +54,7 @@ class SidekiqController < ApplicationController
         :candidate_id => report.candidate_id,
         :company_id => report.assessment.company_id
       }
-      MrfReportUploader.new.perform(report_data, RequestStore.store[:auth_token], params[:patch])
+      MrfReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }  
   end
