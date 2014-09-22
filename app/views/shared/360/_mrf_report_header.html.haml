@@ -29,9 +29,10 @@
               %a.scroll{:href => "#developement_guide_traits", :title => "Development Guide for the Assessment Taker"}
                 Data Points For Traits                
           
-          %li
-            %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
-              Summary
+          - if @report.report_data[:mrf_report_360_feedback_stats]
+            %li
+              %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
+                Summary
           %li.right
 
 = wicked_pdf_javascript_include_tag 'common'
