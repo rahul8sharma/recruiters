@@ -34,7 +34,7 @@
                 %b Integrated Talent Analytics: 
                 Jombay provides you actionable insights through Analytics reports around Benchmarking of Talent, Training Needs Identifications, Attrition Analysis among others.
 
-        - if @report && @report.report_hash && @report.report_hash[:assessment][:is_jombay_pearson_test]
+        - if @report && @report.report_hash && @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:is_jombay_pearson_test]
           .divider1
           .content.company-summary
             .company-badge
