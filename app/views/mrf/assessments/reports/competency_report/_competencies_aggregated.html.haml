@@ -1,0 +1,46 @@
+%li
+  .divider4
+  .span8.left-sec.first.right-offset1
+    .rounded.pull-left
+    .span7.pull-right
+      .title
+        = competency_name
+      .divider1
+    .clr
+  .span17.right-sec.left-offset1
+    .rating-slider
+      -@norm_buckets.each_with_index do |norm_bucket, index|
+        - self_rating_index = ''
+        - mrf_rating_index = ''
+        - klass = ''
+        - if norm_bucket.name == competency_scores[:average_score_self][:bucket]
+          - self_rating_index = index
+        - if norm_bucket.name == competency_scores[:score][:bucket]
+          - mrf_rating_index = index
+        
+        - if index == self_rating_index && index != mrf_rating_index
+          - klass = 'self-rating'
+        - if index == mrf_rating_index && index != self_rating_index
+          - klass = 'mrf-rating'
+        - if index == mrf_rating_index && index == self_rating_index
+          - klass = 'self-rating mrf-rating'
+
+        .marker{:class => klass}
+          .arrow-mrf-result
+          .arrow-self-result
+          .mrf-result
+            .left
+              360 Rating
+            .right
+              = norm_bucket.name
+            .clr
+          .self-result
+            .left
+              = norm_bucket.name
+            .right
+              Self Rating
+            .clr
+      .clr
+  .clr
+  .divider4
+.divider1

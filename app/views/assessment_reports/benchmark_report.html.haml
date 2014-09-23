@@ -38,12 +38,13 @@
 =# render :template => "assessment_reports/benchmark_report/page3"
 -#
   .page-break
-        
-= render :partial => "shared/reports/pdf/about_us.pdf.haml"
-.page-break
+.common-top-trangle
+  .common-bottom-trangle        
+    = render :partial => "shared/reports/pdf/about_us.pdf.haml"
+    .page-break
 
-= render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
-.page-break
+    = render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
+    .page-break
 
 - if @view_mode == "html"
   = render :partial => "shared/reports/pdf/report_footer.pdf.haml", :locals => { :force => true, :last_page => true }

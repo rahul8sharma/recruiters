@@ -11,6 +11,7 @@
         = f.text_field :email, :value => ""
     .actions
       = submit_tag 'Regenerate report'
+%br
       
 = form_tag manage_report_path, :method => :put do |f|
   %fieldset
@@ -46,3 +47,22 @@
         = f.text_field :assessment_id, :value => ""
       .actions
         = submit_tag 'Modify norms'      
+   
+%br
+        
+= form_tag regenerate_mrf_reports_path, :method => :put do
+  %fieldset
+    %legend 
+      %strong Regenerate MRF Reports for assessment
+    = fields_for "args" do |f|
+      %p
+        Company ID :
+        = f.text_field :company_id, :value => ""
+      %p
+        Assessment :
+        = f.text_field :assessment_id, :value => ""
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => ""
+    .actions
+      = submit_tag 'Regenerate MRF Reports'

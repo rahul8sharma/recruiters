@@ -7,7 +7,7 @@
 $favorable_color: #82d23f  
 $less_favorable_color: #ffc000 
 $mid_favorable_color: #062b58
-$width: 850px
+$width: 840px
 
 body  
   position: relative
@@ -38,6 +38,8 @@ body
 .report
   width: $width
   margin: 0 auto
+  .factors_container
+    position: relative
   .favorable
     color: $favorable_color  
   .less_favorable
@@ -51,11 +53,9 @@ body
     background: $less_favorable_color
 
   .inner
-    background: image-url('report/body-bg.png') no-repeat #fff
     margin: 0 auto
     width: $width
   .report_content
-    min-height: 700px
     padding: 25px 45px
   .dashed_border
     border-bottom: 1px dashed #b2b2b2
@@ -69,56 +69,44 @@ body
     color: #0c315e
     margin-bottom: 15px 
   .header
-    background: image-url('report/blue-texture.png')
-    padding: 15px 0 15px 30px 
+    padding: 10px 25px
     color: #fff
-    .date
-      font-size: 14px
-      line-height: 22px
-    .right-side
-      font-size: 15.5px
-      line-height: 22px
-      max-width: 420px
-      .pull-left.span
-        width: 210px
-    .left-side, .right-side
-      padding: 0 10px 0 15px
-      float: left
-    .left-side
-      border-right: 2px solid #fff
-      max-width: 430px
-      word-break: break-all
-      -ms-word-break: break-all
-      -webkit-word-break: break-all
+    background: #42b59f
+    position: relative
     .logo
-      float: left
+      position: absolute
       width: 55px
+      bottom: -16px
     .user_name
-      font-size: 22px
+      font-size: 18px
       font-weight: 700
       line-height: 26px
       
     .hexagon_small
       width: 25px
       height: 25px
+  .j-logo
+    width: 200px
+    height: 45px
+    background: image-url('report/pdf/j-logo.png') no-repeat center center
   .overall_report
     padding: 18px 40px
     padding-right: 40px
-    .visual
-      background: image-url('report/home_page_bg.png') no-repeat center center
-    .logo
-      width: 95px
-      height: 25px
-      background: image-url('report/logo.png') no-repeat center center
+    background: image-url('report/pdf/overall_bg.png') no-repeat right top
       
     .heading
-      background: image-url('report/blue-texture.png')
-      padding: 24px 45px
+      background: #f58220
+      padding: 10px 45px
       color: #fff
-      font-size: 17px 
       line-height: 25px
       &.fw
         width: 760px
+      &.comptency
+        background: #f58220
+        padding: 10px 45px
+        color: #fff
+        line-height: 25px
+
     .sub-heading
       font-weight: 700
       color: #fff
@@ -133,74 +121,97 @@ body
       &.fw
         width: 814px
 
-  .blue_bg_heading
-    background: #1db3c4
-    color: #fff
-    padding: 7px
+  .blue_heading
+    color: #1c7dab
 
+  .instruction_container
+    .box 
+      padding-top: 5px
+      .box-icon
+        background: #79D5FF
+        height: 10px
+        width: 30px
+        margin-top: 4px
+      .box-title
+        color: #808285
+        margin-left: 10px
+
+    .instructions  
+      [class*=instruction]
+        padding: 5px 0px 5px 30px
+        color: $grayDark
+        margin-bottom: 10px
+        background: image-url("report/pdf/small-hexagon-fav.png") no-repeat
+        margin-left: 15px
+      .instruction2
+        background: image-url("report/pdf/small-hexagon-lessfav.png") no-repeat
   .factor_fit
-    .instruction_container
-      .instructions  
-        [class*=instruction]
-          padding: 5px 25px 5px 50px
-          color: #969696
-          font-weight: 700
-          margin-bottom: 10px
-          background: image-url("report/hexagon-small.png") no-repeat
-        .instruction2
-          background-position: 0px -39px
+    background: #fcfcfd
 
     .bottom-sec
-      padding-left: 33px
-      font-size: 11px
-      background: image-url("report/home-bottom-hexagon.png") no-repeat 
-      line-height: 25px
+      padding-left: 55px
+      font-size: 16px
+      background: image-url("report/pdf/home-bottom-hexagon.png") no-repeat 
+      line-height: 45px
+      color: #000
     @import shared/reports/traits_hexagon_pdf
 
   .scores
     padding: 18px 30px
-    min-height: 900px
     ul.scores_listing
-      min-height: 700px
       li
-        border-bottom: 1px dotted #b5c0cd
-        &:last-child
-          border: none
-      .factor-name
-        color: #092e5b
-        font-weight: 700
-        margin: 7px 0 10px 0
-        font-size: 17px
-      .factor-description
-        font-size: 14.7px
+        border-top: 1px dashed #ccc
+        padding: 16px 0
         color: #000
-        margin: 0 0 0 50px
+
+        &:first-child
+          border: none
+        .hexagon-icon
+          background: image-url('report/pdf/trait-score-hexagon.png') no-repeat 
+          width: 30px
+          height: 28px
+          float: left
+
+          &.less-favorable
+            background-position: 0px -50px
+          &.mid-favorable
+            background-position: 0px -166px
+      .factor-name
+        font-weight: 700
+        font-size: 14px
+        line-height: 28px
+        
+      .factor-description
+        font-size: 14px
+        line-height: 18px
+        margin: 0 0 0 35px
       .responses
-        margin: 0 0 0 50px
+        margin: 15px 0 0 35px
         font-weight: normal
-        font-size: 14.20px
+        font-size: 14px
         .score
           color: #272727
           font-weight: 700
-      .optional_feedback
-        .title
-          background: #D1F0F3
-          font-weight: 700
-          text-align: center
-          font-size: 14px
-          line-height: 28px
+      .optional-feedback
+        .feedback-title
+          font-size: 12px
+          line-height: 37px
           float: left
-          margin: 14px 0 0 50px
-          width: 280px
+          margin: 0 0 0 35px
+          padding: 0 10px
+          border: 1px solid #ccc
+          border-radius: 2px
         .options
-          float: right
-          padding: 18px 20px
+          border-radius: 2px
+          padding: 10px 25px
           border: 1px solid #ddd
 
           label
             font-size: 14px
             cursor: pointer
             margin-right: 20px
+            color: $color-warning
+            font-size
             &.last
               margin: 0
           input
@@ -208,53 +219,62 @@ body
 
       .lhs-sec
         padding-top: 18px
-        width: 500px
+        
       .rhs-sec
-        .visual
-          background: image-url('report/slider-bg.png') no-repeat center 0
-          position: absolute
-          width: 272px
-          height: 22px
-          top: -14px
         .slider
           position: relative
-          border: 1px solid #096b95
-          width: 271px
-          height: 7px
-          margin-top: 28px
+          border: 1px solid #ccc
+          width: 250px
+          height: 10px
+          margin: 25px 5px 0 0
           .range
-            height: 7px
-            background: #1db3c4
+            height: 100%
+            background: #79d5ff
           .pointer
-            background: image-url('report/scale-pointer-hexagon.png') no-repeat center center
-            height: 35px
-            width: 40px
+            background: image-url('report/pdf/scale-pointer-hexagon.png') no-repeat center 0 
+            height: 33px
+            width: 30px
             position: absolute
-            top: -14px
+            top: -7px
             z-index: 1000
+            .score-indicater
+              position: absolute
+              bottom: 36px
+              left: -23px
+              font-size: 10px
+              text-align: center
+              border: 1px solid #82d23f
+              border-radius: 2px
+              background: #fff
+              width: 80px
+            .arrow
+              width: 30px
+              height: 7px
+              background: image-url('report/pdf/score-indicater-arrow.png') no-repeat center -27px
+              position: absolute
+              top: -4px
+            &.less-favorable
+              background-position: center -44px
+              .score-indicater
+                border-color: #fdc206
+              .arrow
+                background-position: center -1px
+
           @for $i from 0 through 5
             .position#{$i}
-              left: $i * 55px - (20)
-          .position5
-            left: 250px
-          
-      .small
-        font-size: 10px
-      .wrap-inn
-        padding: 30px 10px
+              left: $i * 50px - (15)
 
   @for $i from 0 through 4
     .offset#{$i}
-      margin-left: $i * 54px
-  .offset5
-    margin-left: 261px
+      margin-left: $i * 50px
   @for $i from 0 through 4
     .width#{$i}
-      width: $i * 55px 
+      width: $i * 50px 
   .width0
     width: 10px
   .width5
     width: 100%
+
   @import shared/reports/scale_pdf.sass
   .favorable_factors
     .indication
@@ -268,17 +288,15 @@ body
         background: #1db3c4
         height: 15px
         width:  35px
-      .left-offset1
-        b
-          line-height: 26px
   .hexagon-icon
-    background: image-url('report/hexagon-icon.png') no-repeat 
-    width: 40px
-    height: 32px
+    background: image-url('report/pdf/hexagon-icon.png') no-repeat 
+    width: 30px
+    height: 30px
+    float: left
   .hexagon-icon.favorable
     background-position: 0px 0px
   .hexagon-icon.less_favorable
-    background-position: 0px -83px
+    background-position: 0px -45px
   .hexagon-icon.mid_favorable
     background-position: 0px -166px
 
@@ -288,9 +306,6 @@ body
       font-size: 18px
       font-weeight: bold
       color: #fff
-  .interview_guide, .miscellaneous_factors, .disclaimer
-    .blue_bg_heading
-      text-shadow: 1px 1px 1px #0c5836
   .miscellaneous_factors
     .miscellaneous_listing
       .extra-medium-text
@@ -315,36 +330,23 @@ body
           font-size: 14.7px
 
   .interview_guide 
-    .indication
-      color: #969696
-      font-size: 11px
-      font-weight: 700
-      margin-top: 15px
-      .extra-medium-text
-        line-height: 27px
-        font-size: 15px
-      .hexagon-icon
-        margin-left: 15px
+    background: image-url("report/pdf/interview_guide_bg.png") no-repeat 25px 20px
     .interview_guide_listing
+      margin: 0
       li
+        font-size: $medium-text
         border-bottom: 1px dotted #cccccc
-        margin: 0 0 20px 0
-        padding: 0 0 10px 0
+        color: #000
         &:last-child
           border: none
       .factor-name
-        width: 140px
-        padding: 0 10px 
+        width: 100px
+        padding: 5px 25px 0 0 
         font-weight: 700
-        color: #042956
-        font-size: 17px
-        line-height: 27px
+        line-height: 17px
       .description
-        font-size: 14.10px
-        border-left: 2px solid #cccccc
-        padding: 0 0 0 10px
-        width: 530px
-        line-height: 18px
+        width: 605px
+        line-height: 15px
   .disclaimer
     .blue_bg_heading.logo
       background: image-url('report/disclaimer-logo.png') no-repeat 96px center #1db3c4
@@ -354,95 +356,154 @@ body
       line-height: 22px
   .footer
     color: #fff
-    background: #002735
-    font-size: 17px
-    padding: 15px 45px 
+    background: #43b6a0
+    font-size: 10px
+    padding: 10px 25px 
     position: relative
-    .medium-text
-      font-size: 19.80px
+    margin-top: 10px
+
   .competency_report
-    .competency_container
-      border: 3px solid #ff8308
-      padding-bottom: 10px
-      background: #ffffff
-    .inner
-      .scale
-        margin: 15px -20px 0 0
+    .section02
+      background: #fff
+    .overall_report
+      min-height: 1120px
+    .overview 
+      background: image-url('report/pdf/competency/overview_bg.png') no-repeat 
+      min-height: 1152px
+      .inner
+        padding: 18px 40px
+        width: auto
+      .content
+        background: #fff
+        border: 1px dashed #28b29b
+        padding: 0
+
+        .overview-title
+          border-bottom: 1px dashed #28b29b
+          font-size: $extra-medium-text
+          color: $color-warning
+          padding: 10px 0 
+        .left
+          padding-left: 18px
+          float: left
+        .right
+          width: 110px
+          float: right
+        .competency-list
+          margin: 0
+          width: 100%
+         
+          li
+            padding: 15px 0
+            color: #000
+            &:nth-child(even)
+              background: #f8f8f8
+          .competency-name
+            width: 625px
+            padding-left: 18px
+            float: left
+          .competency-value
+            margin-left: 0
+            font-weight: 700
+            width: 110px
+            float: right
+          .competency-name,
+          .competency-value
+            &.title
+              color: #28b29b
+              font-weight: 700
+              font-size: 18px
+
+    .heading
+      background: #28b29b
+      line-height: 24px
+      font-size: $extra-medium-text
+      color: #fff
+      padding: 0 10px
+    .competency-container
+      border: 2px solid #28b29b
+      background: image-url('report/pdf/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+
+    .factors_list
+      position: relative
+      background: image-url('report/pdf/competency/competency-hexagon-bg.png') no-repeat center center
+      min-height: 240px
+
+      [class*="factor_"]
+        font-size: 10px
+        line-height: 12px
+        height: 50px
+        position: absolute
+        text-align: center
+        width: 80px
+      .factor_1
+        left: 348px
+        top: 60px
+      .factor_2
+        left: 390px
+        top: 130px
+      .factor_3
+        left: 307px
+        top: 130px
+      .factor_4
+        top: 130px
+        left: 225px
+      .factor_5
+        left: 265px
+        top: 60px
+      .factor_6
+        left: 430px
+        top: 60px
+      .factor_7
+        left: 472px
+        top: 130px
+      .factor_8
+        left: 142px
+        top: 130px
+      .factor_9
+        left: 183px
+        top: 60px
+      .factor_10
+        left: 515px
+        top: 60px
+      .factor_11
+        left: 555px
+        top: 130px
+      .factor_12
+        left: 60px
+        top: 130px
+      .factor_13
+        left: 100px
+        top: 60px
+      .factor_14
+        left: 595px
+        top: 60px
+      .factor_15
+        top: 130px
+        left: 640px
+      .factor_16
+        left: 225px
+        top: -12px
+      .factor_17
+        left: 307px
+        top: -12px
+      .factor_18
+        left: 390px
+        top: -12px
+      .factor_19
+        left: 432px
+        top: -12px
+    .frame
+      border: 2px solid #28b29b
+     
     .scores 
       ul.scores_listing 
-        min-height: 100px
-        .lhs-sec
-          width: 455px
-    .frame
-      border: 4px solid #1db3c4
-      padding: 0 10px
-      position: relative
-      margin-top: 25px
-      .frame-title
-        position: absolute
-        background: #1db3c4
-        font-size: 20px
-        color: #fff
-        padding: 7px 10px
-        top: -33px
-        left: -4px
-    .competency-description
-      font-size: 14px
-      line-height: 20px
-      min-height: 125px
-      padding: 0px 15px 0px 170px
-      background: image-url('report/competency-description-icon.png') 0 center no-repeat
-      margin:  20px 25px 20px 25px
-    .instruction_container
-      .instructions  
-        margin-right: 7px
-        [class*=instruction]
-          padding: 7px 10px 7px 55px
-          color: #969696
-          font-weight: 700
-          margin-top: 8px
-          font-size: 12px
-          background: image-url("report/competency-hexagon-small.png") no-repeat
-        .instruction2
-          background-position: 0px -32px
-          text-decoration: underline
+        li 
+          .hexagon-icon
+            margin-left: 25px
+          .factor-description
+            margin-left: 50px
 
-    .competency_block
-      font-weight: 700
-      margin-bottom: 30px
-      float: left
-      &:nth-child(even)
-        float: right
-
-      .competency 
-        background: #1aadc0
-        color: #fff
-        font-size: 16px
-        text-shadow: 1px 1px 1px #053014
-        padding: 13px
-        width: 180px
-        float: left
-        line-height: 22px
-        height: 44px
-
-      .score
-        background: image-url('report/competency_big_hexagon.png') no-repeat
-        height: 70px
-        width: 82px
-        text-align: center 
-        color: #949494
-        float: left
-        line-height: 15px
-    .heading
-      margin-bottom: 0
-    .sub-heading
-      margin-bottom: 10px
-      padding: 15px 20px
-      max-width: 445px
-
-      span
-        font-weight: normal
-        font-size: 90%
   .factor-block
     margin: 5px 15px 0 15px
     .factor-header

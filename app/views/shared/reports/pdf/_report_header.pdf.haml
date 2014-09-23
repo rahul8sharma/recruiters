@@ -1,19 +1,10 @@
-- if @view_mode == "pdf"
-  .header.clearfix
-    .logo
-      - if @view_mode == "html"
-        = image_tag ('report/jombay-logo-icon.png')
-      - else
-        = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
-    .left-side
-      .user_name
-        = @report.report_hash[:candidate][:name]
-      .date
-        Assessment Date: #{@report.report_hash[:completed_at]}
-    .right-side
-      .pull-left
-        Assessment Name: 
-      .pull-left
-        = @report.report_hash[:assessment][:name]
-      .clr
+.header.clearfix
+  .logo
+    = wicked_pdf_image_tag ('report/pdf/jombay-logo-icon.png')
+  .text-right
+    .user_name
+      = @report.report_hash[:candidate][:name]
+    .medium-text
+      Assessment: 
+      = @report.report_hash[:assessment][:name]
 

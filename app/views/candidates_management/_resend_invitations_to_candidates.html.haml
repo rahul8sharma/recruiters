@@ -1,0 +1,23 @@
+= form_for :candidate, url: resend_invitations_to_candidates_candidates_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend
+      %strong Resend Invitation Emails to Pending Candidates
+    = f.fields_for "args" do |f|
+      %p
+        Assessment ID :
+        = f.text_field :assessment_id
+      %p
+        = f.label "Pending Candidates"
+        %input{:type => "checkbox", :name => "pending", value: "pending"}
+      %p
+        = f.label "Candidates who have started the test"
+        %input{:type => "checkbox", :name => "started", value: "started"}
+
+
+
+      %p
+        Notification Email :
+        = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Send Emails'
