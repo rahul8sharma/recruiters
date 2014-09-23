@@ -1,16 +1,16 @@
 - if @view_mode != "html"
-  .header.clearfix
-    .logo
-      - if @view_mode == "html"
-        = image_tag ('report/jombay-logo-icon.png')
-      - else
-        = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
-    .left-side
-    .right-side
-      .big-text
-        %b Tips on Areas of Improvement
-      .pull-left
-        Assessment Name:
-        = @assessment.name
-      .clr
+  .training_requirements_report_header
+    .header.clearfix
+      .logo
+        - if @view_mode == "html"
+          = image_tag ('report/jombay-logo-icon.png')
+        - else
+          = wicked_pdf_image_tag ('report/jombay-logo-icon.png')
+      .right-side.pull-right
+        .big-text
+          %b Tips on Areas of Improvement
+        .pull-left
+          Assessment Name:
+          = @assessment.name
+        .clr
 
