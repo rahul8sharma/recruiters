@@ -24,7 +24,7 @@ pdf:
   scores_step: 5
   guides_step: 8
   training_requirements_report:
-    scores_step: 5
+    scores_step: 6
 candidate:
   fitment_scores: "Fitment Scores"
   report_title: "Assessment Report"
