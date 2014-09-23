@@ -1,0 +1,22 @@
+= form_for :assessment, url: mrf_export_scores_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Download 360 Scores
+    %p
+      Company ID : 
+      = f.text_field :company_id
+    %p
+      Assessment ID : 
+      = f.text_field :assessment_id
+      
+    = f.fields_for "folder" do |f|
+      %p
+        Google Drive Folder Url : 
+        = f.text_field "url"
+
+    %p
+      Notification Email : 
+      = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Download'
