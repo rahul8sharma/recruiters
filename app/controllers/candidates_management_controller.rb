@@ -57,15 +57,11 @@ class CandidatesManagementController < ApplicationController
   end
 
   def send_360_invitations_to_candidates
-    mrf_assessment =Vger::Resources::Mrf::Assessment.find(
-          :id => params[:candidate][:args][:mrf_assessment_id],
-          :company_id=>params[:candidate][:args][:company_id]
-          )
-    Vger::Resources::Mrf::Assessment.send_invitations(
+    Vger::Resources::Mrf::Assessment.resend_invitations(
         company_id: params[:candidate][:args][:company_id],
         id: params[:candidate][:args][:mrf_assessment_id],
         )
-    Vger::Resources::Mrf::Assessment.send_reminders(
+    Vger::Resources::Mrf::Assessment.send_invitations(
       company_id: params[:candidate][:args][:company_id],
       id: params[:candidate][:args][:mrf_assessment_id])
 
