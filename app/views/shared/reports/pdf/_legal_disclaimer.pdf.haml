@@ -1,5 +1,5 @@
-- if @report.report_hash[:assessment][:is_jombay_pearson_test]
-  = render :partial => "assessment_reports/fit_report/pdf/contact_section"
+- if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:is_jombay_pearson_test]
+  = render :partial => "shared/reports/pdf/contact_section.pdf.haml"
 .divider2
 .legal_disclaimer
   .header
