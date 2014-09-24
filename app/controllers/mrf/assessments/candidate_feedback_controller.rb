@@ -372,7 +372,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         assessment_id: @assessment.id, 
         role: feedback_hash[:role], 
         candidate_id: candidate.id,
-        status: Vger::Resources::Mrf::Feedback::Status::NEW
+        status: Vger::Resources::Mrf::Feedback::Status::PENDING
       )
       if !feedback.error_messages.empty?
         flash[:error] = feedback.error_messages.join("<br/>").html_safe
