@@ -88,12 +88,33 @@ class Mrf::AssessmentsController < ApplicationController
         if @assessment.custom_assessment_id.present?
           redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
         else  
-          redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+          redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
         end
       else
       end
     end
     get_traits
+  end
+  
+  def add_subjective_items
+    if request.put?
+      if params[:subjective_items]
+        configuration = @assessment.configuration || {}
+        configuration[:subjective_items] = {}
+        params[:subjective_items].each do |subjective_item_id, subjective_item_options|  
+          configuration[:subjective_items][subjective_item_id] = { :compulsory => subjective_item_options[:compulsory].present? }
+        end
+        @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, configuration: configuration });
+      end
+      redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+    else
+      @assessment.configuration ||= {}
+      @assessment.configuration["subjective_items"] ||= {}
+      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.all.to_a
+      @subjective_items.each do |subjective_item|
+        @assessment.configuration["subjective_items"][subjective_item.id.to_s] ||= {}
+      end
+    end
   end
   
   def details
