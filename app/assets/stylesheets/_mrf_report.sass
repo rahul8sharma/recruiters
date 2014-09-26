@@ -31,6 +31,7 @@
       margin-left: 110px
       float: left
       text-align: center
+      z-index: 999
 
       &:first-child
         margin-left: 0
@@ -112,6 +113,20 @@
         bottom: auto
         top: 32px 
         background: #fff
+    &.mrf-benchmark-ranges
+      position: relative
+      .line
+        height: 1px
+        border-top: 2px solid #ff0000
+        position: absolute
+        top: 9px
+        left: 10px
+
+        @for $i from 0 through 5
+          &.width#{$i}
+            width: $i * 130px 
+          &.position#{$i}
+            left: $i * 130px + 10
 
 
 .mrf_data_points_listing
