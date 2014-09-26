@@ -340,11 +340,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.create(
         company_id: @company.id,
         assessment_id: @assessment.id, 
-        stakeholder_id: stakeholder.id,
-        last_item_indices: {
-          "self" => -1,
-          "other" => -1
-        }
+        stakeholder_id: stakeholder.id
       ) 
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
