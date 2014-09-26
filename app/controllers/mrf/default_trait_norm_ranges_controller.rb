@@ -1,6 +1,6 @@
 class Mrf::DefaultTraitNormRangesController < MasterDataController
 
-  def api_resource
+    def api_resource
       Vger::Resources::Mrf::DefaultTraitNormRange
     end
 

@@ -1,6 +1,6 @@
 class Mrf::DefaultCompetencyNormRangesController < MasterDataController
 
-  def api_resource
+    def api_resource
       Vger::Resources::Mrf::DefaultCompetencyNormRange
     end
 
