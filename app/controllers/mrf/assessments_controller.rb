@@ -96,7 +96,7 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits_range
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
     if request.put?
-      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
+      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id))
       redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
   end

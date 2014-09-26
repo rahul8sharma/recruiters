@@ -6,9 +6,7 @@
   .page-title.pull-left
     #{@assessment.name}
   .divider4
-  / %h2
-  /   = @assessment.assessment_traits[0].attributes
-  = form_for @assessment, :as => :assessment, :url => add_traits_range_company_mrf_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  = form_for @assessment, :as => :assessment, :url => add_traits_range_company_mrf_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :put do |f|
     - 2.times do 
       .span15.first
         .factor-list
@@ -36,6 +34,5 @@
         - @assessment.assessment_traits.each_with_index do |assessment_trait, index|
           = render :partial => 'shared/360/mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
     .divider3
-    %input.pull-left.btn.btn-info.inverse.large-text{name: "save_and_close", value: "Save and Close" , type: "submit"}
     %input.pull-right.btn.btn-info.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
     .clr
