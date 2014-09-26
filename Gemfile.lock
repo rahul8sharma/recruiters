@@ -40,7 +40,7 @@ GIT
 GIT
   remote: git@github.com:yournextleap/vger.git
   revision: 46f018ae901e95b6b04cd44113c5bf07a52902a3
-  branch: subjective-items
+  branch: develop
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
