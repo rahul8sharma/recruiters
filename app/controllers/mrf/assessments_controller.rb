@@ -85,7 +85,6 @@ class Mrf::AssessmentsController < ApplicationController
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
-        # redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
         redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
         flash[:error] = 'Please select traits to create this Feedback Exercise!'
@@ -95,7 +94,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def add_traits_range
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
     if request.put?
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
       redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
