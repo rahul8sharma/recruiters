@@ -1,0 +1,21 @@
+- norm_min_name = "assessment[assessment_trait][#{assessment_trait.id}][from_norm_bucket_id]"
+- norm_max_name = "assessment[assessment_trait][#{assessment_trait.id}][to_norm_bucket_id]"
+%li.span15
+  .divider
+  .span6
+    %label{:for => "checkbox_factor_#{assessment_trait.id}"}
+      = assessment_trait.trait.name
+      %p
+        = assessment_trait.trait.definition
+      .down-caret
+  .left-offset1.pull-left
+    %select.span3.first{name: norm_min_name, index: "#{assessment_trait.id}"}
+      - @norm_buckets.each do |norm_bucket|
+        %option{value: norm_bucket.id}
+          = norm_bucket.name         
+    %select.span3{name: norm_max_name, index: "#{assessment_trait.id}"}
+      - @norm_buckets.each do |norm_bucket|
+        %option{value: norm_bucket.id}
+          = norm_bucket.name         
+    .clr
+    .divider1

@@ -209,6 +209,9 @@ Recruiters::Application.routes.draw do
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
+        get "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+        put "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
