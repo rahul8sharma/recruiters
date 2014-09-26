@@ -219,6 +219,9 @@ Recruiters::Application.routes.draw do
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        
+        get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
+        put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
 
         get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
@@ -363,6 +366,15 @@ Recruiters::Application.routes.draw do
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
 
     resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :subjective_items do
       collection do
         get :manage
         get :destroy_all
