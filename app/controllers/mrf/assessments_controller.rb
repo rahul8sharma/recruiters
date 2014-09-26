@@ -85,11 +85,7 @@ class Mrf::AssessmentsController < ApplicationController
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
-        if @assessment.custom_assessment_id.present?
-          redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        else  
-          redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        end
+        redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
       end
     end
@@ -106,7 +102,11 @@ class Mrf::AssessmentsController < ApplicationController
         end
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, configuration: configuration });
       end
-      redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      if @assessment.custom_assessment_id
+        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      else
+        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      end
     else
       @assessment.configuration ||= {}
       @assessment.configuration["subjective_items"] ||= {}
