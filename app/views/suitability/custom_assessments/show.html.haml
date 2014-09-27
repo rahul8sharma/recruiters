@@ -21,13 +21,16 @@
         .pull-right.span7.first.text-center
           Expected Score Range
         .clr
+      .divider1
       .scale.pull-right
-        - @norm_buckets.values.each do |norm_bucket|
-          .marker
-            -  if norm_bucket.name.split(" ").size == 1
-              %br/
-            = norm_bucket.name
-        .clr
+        .line
+        .marker-container
+          - @norm_buckets.values.each do |norm_bucket|
+            .marker
+              - if norm_bucket.name.split(" ").size == 1
+                %br/
+              = norm_bucket.name
+          .clr
       .clr
       %ul.clearfix.scores_listing.first
         - if @assessment_factor_norms.present?
