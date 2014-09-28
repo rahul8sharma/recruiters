@@ -9,7 +9,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
   
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
-
+    
     if @assessment.configuration[:use_competencies]
       template = 'competency_report'
     else

@@ -51,7 +51,11 @@
                   .score
                     = norm_bucket.name
               .clr
-              .alert.alert-error
+              - klass = ''
+              -@norm_buckets.each_with_index do |norm_bucket|
+                - if norm_bucket.name == role_wise_score[:bucket]
+                  - klass = 'hide'
+              .alert.alert-error{:class => klass}
                 No Responses Yet
             .clr
             .divider3
