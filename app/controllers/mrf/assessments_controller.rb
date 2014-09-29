@@ -132,7 +132,7 @@ class Mrf::AssessmentsController < ApplicationController
     else
       @assessment.configuration ||= {}
       @assessment.configuration["subjective_items"] ||= {}
-      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.all.to_a
+      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.active.all.to_a
       @subjective_items.each do |subjective_item|
         @assessment.configuration["subjective_items"][subjective_item.id.to_s] ||= {}
       end
