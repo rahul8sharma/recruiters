@@ -12,15 +12,10 @@
     %select.span3.first{name: norm_min_name, index: "#{assessment_trait.id}"}
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id}
-          = norm_bucket.name
+          = norm_bucket.name         
     %select.span3{name: norm_max_name, index: "#{assessment_trait.id}"}
       - @norm_buckets.each do |norm_bucket|
-        - if norm_bucket.id == assessment_trait.to_norm_bucket_id
-          %option{value: norm_bucket.id , selected: 'selected'}
-            = norm_bucket.name
-        - else
-          %option{value: norm_bucket.id}
-            = norm_bucket.name
-
+        %option{value: norm_bucket.id}
+          = norm_bucket.name         
     .clr
     .divider1
