@@ -109,7 +109,6 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits_range
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
     if request.put?
-      puts "#{params}"
       params[:assessment][:assessment_traits_attributes] ||= {}
       params[:assessment][:assessment_traits_attributes].each do |id,assessment_trait|
         params[:assessment][:assessment_traits_attributes][id] = assessment_trait.reverse_merge({
