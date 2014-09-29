@@ -33,11 +33,13 @@
       = render :template => "assessment_reports/fit_report/pdf/page6", :locals => { :guidelines_for_candidate_manager => step_candidate_manager_guidelines, :step => step }
       .page-break              
   
-= render :partial => "shared/reports/pdf/about_us"
-.page-break
+.common-top-trangle
+  .common-bottom-trangle 
+    = render :partial => "shared/reports/pdf/about_us"
+    .page-break
 
-= render :partial => "shared/reports/pdf/legal_disclaimer"
-.page-break
+    = render :partial => "shared/reports/pdf/legal_disclaimer"
+    .page-break
 
 
 - if @view_mode != "pdf"

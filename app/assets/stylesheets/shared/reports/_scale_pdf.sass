@@ -1,14 +1,36 @@
 .scale
-  background: image-url('report/scale-bg.png') no-repeat center bottom
-  width: 340px
-  height: 47px
-  margin: 15px -15px 0 0
   float: right
+  height: 52px
+  position: relative
+  width: 255px
+  .line
+    border-top: 1px solid #3AAFE5
+    bottom: 8px
+    height: 1px
+    left: 0
+    position: absolute
+    width: 250px
+  .marker-container
+    left: -27px
+    position: absolute
+    width: 305px
   .marker
-    color: #36a3b2
-    font-size: 11px
-    width: 44px
-    text-align: center
+    background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
+    color: #1B7DAA
     float: left
-    line-height: 14px
-    margin-left: 10px
+    font-size: 10px
+    height: 50px
+    line-height: 17px
+    text-align: center
+    width: 50px
+.trait-show
+  .scale
+    width: 336px
+    margin-right: -67px !important
+    .marker
+      margin: 0 0px !important
+      width: 53px
+    .line
+      width: 266px
+    .marker-container
+      width: 330px

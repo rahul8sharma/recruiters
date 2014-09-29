@@ -39,6 +39,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       html = render_to_string(
          template: "assessment_reports/training_requirements_report.html.haml", 
          layout: "layouts/training_requirements_report.html.haml", 
+         formats: [:html],
          handlers: [ :haml ]
       )
       

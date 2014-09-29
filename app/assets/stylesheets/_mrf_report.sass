@@ -31,6 +31,7 @@
       margin-left: 110px
       float: left
       text-align: center
+      z-index: 999
 
       &:first-child
         margin-left: 0
@@ -112,6 +113,30 @@
         bottom: auto
         top: 32px 
         background: #fff
+    &.mrf-benchmark-ranges
+      position: relative
+      .line
+        height: 1px
+        border-top: 2px solid #ff0000
+        position: absolute
+        top: 9px
+        left: 10px
+
+        @for $i from 0 through 5
+          &.width#{$i}
+            width: $i * 130px 
+          &.position#{$i}
+            left: $i * 130px + 10
+.mrf-benchmark-ranges-block
+  border: 1px dashed #c2c2c2
+  font-size: 16px
+  padding: 0 18px
+  line-height: 35px
+  .line
+    height: 1px
+    border-top: 2px solid #ff0000
+    width: 50px
+    margin: 16px 0 0 18px
 
 
 .mrf_data_points_listing
@@ -199,6 +224,18 @@
         margin-top: 30px
         background:  image-url('report/html/mrf/stakeholders-rating-line.png') no-repeat center center
         width: 390px
+        position: relative
+        .alert
+          position: absolute
+          width: 375px
+          left: 5px
+          top: -33px
+          z-index: 99
+          text-align: center
+          border-radius: 2px
+          background: #f2dedf
+          border: 1px solid #efc1c4
+          color: #ba4965
         .marker
           position: relative
           background:  image-url('report/html/mrf/marker-disk.png') no-repeat center center
@@ -207,6 +244,7 @@
           margin-left: 54px
           float: left
           text-align: center
+          z-index: 999
           &.active
             background:  image-url('report/html/mrf/marker-hexagon-blue.png') no-repeat center center
             .arrow, .score

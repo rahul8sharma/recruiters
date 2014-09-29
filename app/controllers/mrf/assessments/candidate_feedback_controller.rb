@@ -340,11 +340,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.create(
         company_id: @company.id,
         assessment_id: @assessment.id, 
-        stakeholder_id: stakeholder.id,
-        last_item_indices: {
-          "self" => -1,
-          "other" => -1
-        }
+        stakeholder_id: stakeholder.id
       ) 
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
@@ -372,7 +368,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         assessment_id: @assessment.id, 
         role: feedback_hash[:role], 
         candidate_id: candidate.id,
-        status: Vger::Resources::Mrf::Feedback::Status::NEW
+        status: Vger::Resources::Mrf::Feedback::Status::PENDING
       )
       if !feedback.error_messages.empty?
         flash[:error] = feedback.error_messages.join("<br/>").html_safe

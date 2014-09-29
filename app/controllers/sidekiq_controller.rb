@@ -42,15 +42,17 @@ class SidekiqController < ApplicationController
       :query_options => {
         :status =>  Vger::Resources::Mrf::Report::Status::SCORED
       },
+      :include => [:assessment],
       :page => params[:page],
       :per => 25
     ).all.to_a
     
-    # Vger::Resources::Mrf::Report.where(:query_options =>{:candidate_id => params[:candidate_id], :assessment_id => params[:id]})
-    
     reports.each do |report|
       report_data = {
-        :id => report.id
+        :id => report.id,
+        :assessment_id => report.assessment_id,
+        :candidate_id => report.candidate_id,
+        :company_id => report.assessment.company_id
       }
       MrfReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end

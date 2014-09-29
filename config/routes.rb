@@ -17,7 +17,10 @@ Recruiters::Application.routes.draw do
       post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
       post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
       post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
+      post 'resend_invitations_to_candidates' => "candidates_management#resend_invitations_to_candidates"
+      post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
       post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
+
       get :destroy_all
     end
   end
@@ -170,13 +173,14 @@ Recruiters::Application.routes.draw do
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
-
+        get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
 
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+
         get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
@@ -205,6 +209,9 @@ Recruiters::Application.routes.draw do
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
+        get "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+        put "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
@@ -212,13 +219,16 @@ Recruiters::Application.routes.draw do
         get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
-        
+
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        
+        get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
+        put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
 
         get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
-        
+
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
@@ -355,7 +365,19 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :mrf do
+    get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
+    post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
+
     resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :subjective_items do
       collection do
         get :manage
         get :destroy_all
@@ -392,6 +414,34 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
+
+    resources :norm_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :default_trait_norm_ranges, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :default_competency_norm_ranges, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
   end
 
   namespace :suitability do

@@ -1,0 +1,65 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.container
+  #info_bar
+    #info.content
+      .span14.page-title.first.huge-text
+        = @assessment.name
+      .clr.divider1
+      .extra-medium-text.pull-left
+        .pull-left
+          Assessment Included: 
+        .span11
+          - if @custom_assessment
+            AID #{@custom_assessment.id} - #{@custom_assessment.name}
+          - else
+            None
+        .clr
+      .medium-text.pull-right
+        .span6
+          %i.icon-ok-sign
+          Number of Traits Selected: 
+          %span.color-warning{:id => 'traits-counter'}
+        .span{:hidden =>'hidden'}
+          %i.icon-time
+          Approximate feedback duration: 
+          %span.color-warning{:id => 'approximate-time'}
+        .clr
+      .divider3.border-bottom-grayLighter
+
+  .divider2
+.container
+  .extra-large-text.text-center
+    Please select the Subjective Questions to be included in this 360&#176; Profiling Exercise
+  .divider1
+  .span16.extra-medium-text.margin-auto.text-justify
+  .divider2
+
+  = form_for @assessment, as: :assessment, url: add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    %ul.add-360-traits-listing
+      = f.hidden_field :company_id
+      - index = 0
+      - @subjective_items.each do |subjective_item|
+        %li
+          - index += 1    
+          %input{ name: "subjective_items[#{subjective_item.id}][included]", 
+            type: "checkbox", 
+            id: "subjective_item_#{subjective_item.id}",
+            checked: @assessment.configuration["subjective_items"][subjective_item.id.to_s].present? }
+          %label{ for: "subjective_item_#{subjective_item.id}" }
+            = subjective_item.body
+          %input{ name: "subjective_items[#{subjective_item.id}][compulsory]", 
+            type: "checkbox", 
+            id: "subjective_item_compulsory_#{subjective_item.id}",
+            checked: @assessment.configuration["subjective_items"][subjective_item.id.to_s][:compulsory] }
+          %label{ for: "subjective_item_compulsory_#{subjective_item.id}" }
+            Compulsory  
+        .clr
+      .divider1
+    .divider3
+    %input.btn.btn-info.large-text.bold.pull-right{:type=>"submit", :value=>"Proceed"}
+    .clr
+  .divider2
+= javascript_include_tag 'add_traits'
