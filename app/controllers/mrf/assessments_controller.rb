@@ -71,7 +71,12 @@ class Mrf::AssessmentsController < ApplicationController
         redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
 
       elsif @assessment.custom_assessment_id.present?
-        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        if params[:add_traits_range].present?
+          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        else
+          redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        end
+
       else
         redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
       end
@@ -105,7 +110,11 @@ class Mrf::AssessmentsController < ApplicationController
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
 
     if request.put?
-      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id))
+      request_hash = {
+        "id" => @assessment.id,
+        "assessment_traits_attributes" => params[:assessment][:assessment_trait]
+      }
+      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, request_hash.merge(company_id: @company.id))
       redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
   end
