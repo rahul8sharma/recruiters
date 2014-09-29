@@ -32,7 +32,7 @@
     .factor-list
       %ul.factor-snippet.clearfix
         - @assessment.assessment_traits.each_with_index do |assessment_trait, index|
-          = render :partial => 'shared/360/mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
+          = render :partial => 'mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
     .divider3
     %input.pull-right.btn.btn-info.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
     .clr
