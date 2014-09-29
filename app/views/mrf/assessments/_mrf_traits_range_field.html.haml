@@ -16,16 +16,14 @@
       %input.pull-left{ type: "checkbox", 
         name: enable_comment_name, 
         id: enable_comment_name, 
-        checked: assessment_trait.enable_comment,
-        value: 1 }
+        checked: assessment_trait.enable_comment }
         Enable Comment?
     .clr  
     %label.pull-left{ for: comment_compulsory_name }
       %input.pull-left{ type: "checkbox", 
         name: comment_compulsory_name, 
         id: comment_compulsory_name, 
-        checked: assessment_trait.comment_compulsory,
-        value: 1 }
+        checked: assessment_trait.comment_compulsory }
       Compulsory?  
   .left-offset1.pull-left
     %select.span3.first{name: norm_min_name, index: "#{assessment_trait.id}"}

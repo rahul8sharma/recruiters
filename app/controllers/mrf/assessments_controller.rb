@@ -109,6 +109,13 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits_range
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
     if request.put?
+      params[:assessment][:assessment_traits_attributes] ||= {}
+      params[:assessment][:assessment_traits_attributes].each do |id,assessment_trait|
+        params[:assessment][:assessment_traits_attributes][id] = assessment_trait.reverse_merge({
+          enable_comment: false,
+          comment_compulsory: false
+        })
+      end
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id))
       redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
@@ -132,7 +139,7 @@ class Mrf::AssessmentsController < ApplicationController
     else
       @assessment.configuration ||= {}
       @assessment.configuration["subjective_items"] ||= {}
-      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.all.to_a
+      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.active.all.to_a
       @subjective_items.each do |subjective_item|
         @assessment.configuration["subjective_items"][subjective_item.id.to_s] ||= {}
       end
