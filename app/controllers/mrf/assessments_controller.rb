@@ -109,6 +109,7 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits_range
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
     if request.put?
+      puts "#{params}"
       params[:assessment][:assessment_traits_attributes] ||= {}
       params[:assessment][:assessment_traits_attributes].each do |id,assessment_trait|
         params[:assessment][:assessment_traits_attributes][id] = assessment_trait.reverse_merge({
@@ -189,7 +190,10 @@ class Mrf::AssessmentsController < ApplicationController
 
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {:assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] } })
+      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {
+                    :assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] },
+                    :assessment_competencies => { include: [:competency], methods:[:from_norm_bucket_name,:to_norm_bucket_name] }
+                    })
     else
       @assessment = Vger::Resources::Mrf::Assessment.new
     end
