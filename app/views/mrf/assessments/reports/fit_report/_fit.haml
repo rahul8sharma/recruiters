@@ -45,9 +45,10 @@
                   Self Rating
                 .clr
           .clr
-          - from = trait_score[:trait][:from_norm_bucket][:id]
-          - to = trait_score[:trait][:to_norm_bucket][:id] - trait_score[:trait][:from_norm_bucket][:id]
-          .line{:class => "position#{from} width#{to}"}
+          - from = @norm_buckets_by_id[trait_score[:trait][:from_norm_bucket][:id]]
+          - to = @norm_buckets_by_id[trait_score[:trait][:to_norm_bucket][:id]]
+          - width = to.weight - from.weight
+          .line{:class => "position#{from} width#{width}"}
       .clr
       .divider5
 .divider1

@@ -42,9 +42,10 @@
               Self Rating
             .clr
       .clr
-      - from = competency_scores[:from_norm_bucket][:id]
-      - to = competency_scores[:to_norm_bucket][:id] - competency_scores[:from_norm_bucket][:id]
-      .line{:class => "position#{from} width#{to}"}
+      - from = @norm_buckets_by_id[competency_scores[:from_norm_bucket][:id]]
+      - to = @norm_buckets_by_id[competency_scores[:to_norm_bucket][:id]]
+      - width = to.weight - from.weight
+      .line{:class => "position#{from} width#{width}"}
   .clr
   .divider4
 .divider1
