@@ -21,7 +21,7 @@
             .muted
               Choose Minimum and Maximum score
         .divider2
-        
+
           .left-offset7
             .span6.semi-muted
               Minimum
@@ -33,7 +33,7 @@
         - @assessment.assessment_traits.each_with_index do |assessment_trait, index|
           = render :partial => 'mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
     .divider3
-    - if @assessment.assessment_competencies
+    - if !@assessment.assessment_competencies.empty?
       .span15.first
         .factor-list
           .titles.clearfix
