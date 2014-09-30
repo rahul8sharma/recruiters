@@ -7,47 +7,46 @@
     #{@assessment.name}
   .divider4
   = form_for @assessment, :as => :assessment, :url => add_traits_range_company_mrf_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :put do |f|
-    - 2.times do
+    .span.first
+      .factor-list
+        .titles.clearfix
+          .span6.first
+            .big-text
+              Behavioral Trait
+            .muted
+              Place the cursor on individual Traits below to see their definition
+          .span6.left-offset1
+            .big-text
+              Expected Score Range
+            .muted
+              Choose Minimum and Maximum score
+        .divider2
+        
+          .left-offset7
+            .span6.semi-muted
+              Minimum
+            .span3.semi-muted.text-center
+              Maximum
+    .clr
+    .factor-list
+      %ul.clearfix
+        - @assessment.assessment_traits.each_with_index do |assessment_trait, index|
+          = render :partial => 'mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
+    .divider3
+    - if @assessment.assessment_competencies
       .span15.first
         .factor-list
           .titles.clearfix
             .span7.first
               .big-text
-                Behavioral Trait
-              .muted
-                Place the cursor on individual Traits below to see their definition
-            .span6.left-offset1
-              .big-text
-                Expected Score Range
-              .muted
-                Choose Minimum and Maximum score
-            .clr
-            .divider1
-            .semi-muted
-              .left-offset8.first.span3
-                Minimum
-              .span3
-                Maximum
-    .clr
-    .factor-list
-      %ul.factor-snippet.clearfix
-        - @assessment.assessment_traits.each_with_index do |assessment_trait, index|
-          = render :partial => 'mrf_traits_range_field', :locals =>{:assessment_trait => assessment_trait, :index => index}
-    .divider3
-    .span15.first
+                Competencies
+      .clr
+      .divider1
       .factor-list
-        .titles.clearfix
-          .span7.first
-            .big-text
-              Competencies
-    .clr
-    .factor-list
-      %ul.factor-snippet.clearfix
-        - @assessment.assessment_competencies.each_with_index do |assessment_competency, index|
-          = render :partial => 'mrf_competencies_range_field', :locals =>{:assessment_competency => assessment_competency, :index => index}
+        %ul.clearfix
+          - @assessment.assessment_competencies.each_with_index do |assessment_competency, index|
+            = render :partial => 'mrf_competencies_range_field', :locals =>{:assessment_competency => assessment_competency, :index => index}
 
     .divider3
-
-
     %input.pull-right.btn.btn-info.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
     .clr
