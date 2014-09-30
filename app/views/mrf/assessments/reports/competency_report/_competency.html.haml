@@ -52,8 +52,9 @@
                     Self Rating
                   .clr
             .clr
-            .line.position1.width1
-            -#By default I have added this classes but change class indes as follows - add classes ".position0/1/2/3/4 and  "width0/1/2/3/4/5"
+            - from = trait_score[:trait][:from_norm_bucket][:id]
+            - to = trait_score[:trait][:to_norm_bucket][:id] - trait_score[:trait][:from_norm_bucket][:id]
+            .line{:class => "position#{from} width#{to}"}
         .clr
         .divider4
 .divider1

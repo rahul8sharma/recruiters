@@ -122,11 +122,11 @@
         top: 9px
         left: 10px
 
-        @for $i from 0 through 5
+        @for $i from 1 through 6
           &.width#{$i}
-            width: $i * 130px 
+            width: $i * 130px
           &.position#{$i}
-            left: $i * 130px + 10
+            left: $i * 130px + 10 - (130)
 .mrf-benchmark-ranges-block
   border: 1px dashed #c2c2c2
   font-size: 16px
