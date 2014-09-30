@@ -67,19 +67,7 @@ class Mrf::AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
-      if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
-        redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
-
-      elsif @assessment.custom_assessment_id.present?
-        if params[:add_traits_range].present?
-          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        else
-          redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        end
-
-      else
-        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
-      end
+      redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
     else
       get_custom_assessments
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
@@ -93,12 +81,7 @@ class Mrf::AssessmentsController < ApplicationController
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
         configuration = @assessment.configuration || {}
         configuration = HashWithIndifferentAccess.new(configuration)
-        if configuration[:set_ranges]
-          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        else
-          redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        end
-
+        redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
         flash[:error] = 'Please select traits to create this Feedback Exercise!'
       end
