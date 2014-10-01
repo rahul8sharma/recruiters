@@ -57,7 +57,7 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:company_id] = @company.id
     params[:assessment][:configuration] = {
       :use_competencies => params[:use_competencies].present?,
-      :set_ranges => params[:add_traits_range].present?
+      :set_ranges => params[:set_ranges].present?
     }
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
       flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."
