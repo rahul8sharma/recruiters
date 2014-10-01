@@ -45,10 +45,13 @@
                   Self Rating
                 .clr
           .clr
-          - from = @norm_buckets_by_id[trait_score[:trait][:from_norm_bucket][:id]]
-          - to = @norm_buckets_by_id[trait_score[:trait][:to_norm_bucket][:id]]
-          - width = to.weight - from.weight
-          .line{:class => "position#{from} width#{width}"}
+          - if @report.report_data[:assessment][:set_ranges]
+            - from = @norm_buckets_by_id[trait_score[:trait][:from_norm_bucket][:id]]
+            - to = @norm_buckets_by_id[trait_score[:trait][:to_norm_bucket][:id]]
+            - width = to.weight - from.weight
+            .line{:class => "position#{from.weight} width#{width}"}
+          - else
+            .line
       .clr
       .divider5
 .divider1
