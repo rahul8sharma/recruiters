@@ -31,13 +31,13 @@
       .clr
     .control-group
       %label.ie Select Location
-      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true, title:"Please select a country from the list", oninvalid:"this.setCustomValidity('This field is mandatory')"  }
+      = f.select :country, @countries.map(&:name), { prompt: "Country" }, { class: "lfw", required: true, title:"Please select a country from the list", oninvalid:"this.setCustomValidity('This field is mandatory')",oninput: "setCustomValidity('')"}
       .clr
     .control-group
       %label.ie Select Purpose
       - f.object.purpose = ''
       - options = ["To know my psychometric profile","To try psychometric assessments for my organization"]
-      = f.select :purpose, options, { prompt: "I want to use Jombay for" }, { class: "fw", required: true, title:"Please select a purpose from the list", :oninvalid => "this.setCustomValidity('This field is mandatory')"}
+      = f.select :purpose, options, { prompt: "I want to use Jombay for" }, { class: "fw", required: true, title:"Please select a purpose from the list", :oninvalid => "this.setCustomValidity('This field is mandatory')",oninput: "setCustomValidity('')"}
     .divider1
     %input.btn.btn-warning.large-text.fw{:id => "sign-up", :type => "submit", :value => "Sign Up and Get Started!"}
     .divider1

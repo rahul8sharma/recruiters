@@ -60,13 +60,22 @@
             .stakeholders-name.pull-left
               = role_name.titleize
             .stakeholders-rating-slider.pull-left 
+              - klass = ''
               -@norm_buckets.each_with_index do |norm_bucket|
-                .marker{:class => norm_bucket.name == role_wise_score[:bucket] ? 'active' : '' }
-                  -# add ".active" to ".marker"
-                  .arrow
-                  .score
-                    = norm_bucket.name
+                - if norm_bucket.name == role_wise_score[:bucket]
+                  - klass = 'hide'
+                  .marker{:class => 'active'}
+                    .arrow
+                    .score
+                      = norm_bucket.name
+                - else
+                  .marker
+                    .arrow
+                    .score
+                      = norm_bucket.name
               .clr
+              .alert.alert-error{:class => klass}
+                No Responses Yet
             .clr
             .divider3
 

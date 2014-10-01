@@ -18,10 +18,13 @@
     %ul.clearfix.scores_listing.first
       - @assessment.assessment_traits.each do |assessment_trait|
         %li
-          .extra-medium-text
-            .font-bold
+          .lhs-sec.span20.first
+            .factor-name
               = assessment_trait.trait.name
+              (#{assessment_trait.from_norm_bucket_name} - #{assessment_trait.to_norm_bucket_name})
+              / = assessment_trait.from_norm_bucket_id
             .factor-description
               = assessment_trait.trait.definition
-          .clr
+              / = assessment_trait.from_norm_bucket_id
+          .divider2
     .divider2     

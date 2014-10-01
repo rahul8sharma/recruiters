@@ -65,15 +65,16 @@ class SidekiqController < ApplicationController
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                   }).all.to_a
-    job_ids = []
+    job_ids = {}
     assessment_reports.each do |assessment_report|
       report_data = {
         :assessment_id => assessment_report.assessment_id,
         :assessment_report_id => assessment_report.id
       }
-      job_ids << TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      job_ids[assessment_report.assessment_id] = assessment_report.id
+      TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
-    render :json => { :status => "Job Started", :job_ids => job_ids }
+    render :json => { :status => "Job Started", :report_ids => job_ids }
   end
   
   def upload_training_requirement_groups_reports
@@ -81,13 +82,14 @@ class SidekiqController < ApplicationController
                     :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                   }).all.to_a
-    job_ids = []
+    job_ids = {}
     training_requirement_group_reports.each do |training_requirement_group_report|
       report_data = {
         :training_requirement_group_id => training_requirement_group_report.assessment_group_id,
         :training_requirement_group_report_id => training_requirement_group_report.id
       }
-      job_ids << TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      job_ids[training_requirement_group_report.assessment_group_id] = training_requirement_group_report.id
+      TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end

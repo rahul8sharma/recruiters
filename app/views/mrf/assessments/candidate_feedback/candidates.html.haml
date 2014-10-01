@@ -52,7 +52,7 @@
                 - else
                   = "-"
               .span5
-                - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(@feedbacks[candidate.id].last.status)
+                - if !@feedbacks[candidate.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
                   %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}
                     Send Reminders
                 - else

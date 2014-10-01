@@ -2,8 +2,16 @@
   #scores.section03
     .divider1
     .scores.container
-      .span10.title.pull-left.line-height2
-        Competencies with 360&#176; Scores 
+      .span10
+        .title.line-height2
+          Competencies with 360&#176; Scores 
+        .divider1
+        .mrf-benchmark-ranges-block.pull-left
+          .pull-left
+            Industry Benchmark
+          .line.pull-left
+          .clr
+        .clr
       .scale.mrf.pull-right.left-offset1
         .line
         .marker-container
@@ -17,9 +25,9 @@
               = norm_bucket.name
         .clr
       .clr
-      .divider3
+      .divider1
       .frame.mrf.gray-bg
         %ul.mrf_scores_listing
           - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-            = render :partial => "mrf/assessments/reports/competency_report/competencies_aggregated.html", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+            = render :partial => "mrf/assessments/reports/competency_report/competencies_aggregated.html", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
       .divider2
