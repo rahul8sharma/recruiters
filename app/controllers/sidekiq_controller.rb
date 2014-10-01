@@ -82,13 +82,14 @@ class SidekiqController < ApplicationController
                     :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                   }).all.to_a
-    job_ids = []
+    job_ids = {}
     training_requirement_group_reports.each do |training_requirement_group_report|
       report_data = {
         :training_requirement_group_id => training_requirement_group_report.assessment_group_id,
         :training_requirement_group_report_id => training_requirement_group_report.id
       }
-      job_ids << TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      job_ids[training_requirement_group_report.assessment_group_id] = training_requirement_group_report.id
+      TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end
