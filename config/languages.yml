@@ -1,10 +1,4 @@
 languages:
-  english:
-    name: "English"
-    code: "en"
-  hindi:
-    name: "Hindi"
-    code: "hi"
-  marathi:
-    name: "Marathi"
-    code: "mr"  
+  en: "English"
+  hi: "Hindi"
+  mr: "Marathi"
