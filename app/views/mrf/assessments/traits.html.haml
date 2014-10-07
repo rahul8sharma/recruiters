@@ -7,14 +7,6 @@
   .clr
   .divider2
   = render :partial => "shared/360/candidate-content-sub-nav"
-
-
-  / .padding-all2.border-warning.shifted-up1
-  /   .big-text
-  /     .extra-large-text.pull-left
-  /       Traits Included: #{@assessment.assessment_traits.size}
-  /     .clr
-  /   .divider1
   .padding-all2.border-warning.shifted-up1
     - if (@assessment.assessment_traits.present?)
       .big-text.font-bold
