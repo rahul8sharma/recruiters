@@ -179,7 +179,15 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
-          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(:assessment_id => @assessment.id, :candidate_id => candidate_id, :candidate_stage => params[:candidate_stage], :responses_count => 0, :report_email_recipients => recipient, :options => options)
+          candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(
+            :assessment_id => @assessment.id, 
+            :candidate_id => candidate_id, 
+            :candidate_stage => params[:candidate_stage], 
+            :responses_count => 0, 
+            :report_email_recipients => recipient, 
+            :options => options,
+            :language => @assessment.language
+          )
           if candidate_assessment.error_messages.present?
             failed_candidate_assessments << candidate_assessment
           else
