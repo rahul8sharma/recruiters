@@ -54,7 +54,7 @@
       %td
         = factor.company_names
       %td
-        = link_to "Edit", edit_suitability_factor_path(factor)
+        = link_to "Edit", edit_suitability_factor_path(factor.id)
 .pagination.pull-right
   = paginate @factors
 .clr
