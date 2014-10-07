@@ -152,6 +152,8 @@ class Mrf::AssessmentsController < ApplicationController
 
   def traits
     get_custom_assessment
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
   protected
