@@ -9,9 +9,6 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Su
                             }
                           ).all.first
     @report_data = @assessment_report.report_data if @assessment_report
-    respond_to do |format|
-      format.html
-    end
   end
   
   def enable_training_requirements_report
