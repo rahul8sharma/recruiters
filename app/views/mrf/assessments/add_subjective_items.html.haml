@@ -16,25 +16,53 @@
   .span16.extra-medium-text.margin-auto
   .divider2
   = form_for @assessment, as: :assessment, url: add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+    .extra-large-text.text-center
+      Other Subjective Questions
+    .divider1
     %ul.big-text
       = f.hidden_field :company_id
       - index = 0
-      - @subjective_items.each do |subjective_item|
+      - @subjective_items_other.each do |subjective_item|
         %li.less-padding-all1
           - index += 1    
           .span18
-            %input.pull-left{ name: "subjective_items[#{subjective_item.id}][included]", 
+            %input.pull-left{ name: "subjective_items_other[#{subjective_item.id}][included]", 
               type: "checkbox", 
               id: "subjective_item_#{subjective_item.id}",
-              checked: @assessment.configuration["subjective_items"][subjective_item.id.to_s].present? }
+              checked: @assessment.configuration["subjective_items_other"][subjective_item.id.to_s].present? }
             %label.left-offset1.pull-left{ for: "subjective_item_#{subjective_item.id}" }
               = subjective_item.body
             .clr
           .span5
-            %input.pull-left{ name: "subjective_items[#{subjective_item.id}][compulsory]", 
+            %input.pull-left{ name: "subjective_items_other[#{subjective_item.id}][compulsory]", 
               type: "checkbox", 
               id: "subjective_item_compulsory_#{subjective_item.id}",
-              checked: @assessment.configuration["subjective_items"][subjective_item.id.to_s][:compulsory] }
+              checked: @assessment.configuration["subjective_items_other"][subjective_item.id.to_s][:compulsory] }
+            %label.pull-left.left-offset1{ for: "subjective_item_compulsory_#{subjective_item.id}" }
+              Compulsory  
+            .clr
+          .clr
+      .divider1
+      .extra-large-text.text-center
+        Self Subjective Questions
+      .divider1
+      - index = 0
+      - @subjective_items_self.each do |subjective_item|
+        %li.less-padding-all1
+          - index += 1    
+          .span18
+            %input.pull-left{ name: "subjective_items_self[#{subjective_item.id}][included]", 
+              type: "checkbox", 
+              id: "subjective_item_#{subjective_item.id}",
+              checked: @assessment.configuration["subjective_items_self"][subjective_item.id.to_s].present? }
+            %label.left-offset1.pull-left{ for: "subjective_item_#{subjective_item.id}" }
+              = subjective_item.body
+            .clr
+          .span5
+            %input.pull-left{ name: "subjective_items_self[#{subjective_item.id}][compulsory]", 
+              type: "checkbox", 
+              id: "subjective_item_compulsory_#{subjective_item.id}",
+              checked: @assessment.configuration["subjective_items_self"][subjective_item.id.to_s][:compulsory] }
             %label.pull-left.left-offset1{ for: "subjective_item_compulsory_#{subjective_item.id}" }
               Compulsory  
             .clr
