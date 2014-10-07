@@ -7,14 +7,15 @@
       360&#176; Profiling Report
     .clr
     .divider1
-    - completed_count = 0
-    - sent_count = 0
-    - Hash[@report.report_data[:feedback_stats]].each do |role, status|
-      - completed_count += status[:completed]
-      - sent_count += status[:sent]
-    .completion-status.pull-right
-      Completion Status: #{completed_count} out of #{sent_count}
-    .clr
+    - if @report.report_data[:mrf_report_show_completion_status]
+      - completed_count = 0
+      - sent_count = 0
+      - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+        - completed_count += status[:completed]
+        - sent_count += status[:sent]
+      .completion-status.pull-right
+        Completion Status: #{completed_count} out of #{sent_count}
+      .clr
     .divider3
     .extra-medium-text
       Assessment: 
