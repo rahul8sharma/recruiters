@@ -45,8 +45,13 @@
                   Self Rating
                 .clr
           .clr
-          .line.position1.width1
-          -#By default I have added this classes but change class indes as follows - add classes ".position0/1/2/3/4 and  "width0/1/2/3/4/5"
+          - if @report.report_data[:assessment][:set_ranges]
+            - from = @norm_buckets_by_id[trait_score[:trait][:from_norm_bucket][:id]]
+            - to = @norm_buckets_by_id[trait_score[:trait][:to_norm_bucket][:id]]
+            - width = to.weight - from.weight
+            .line{:class => "position#{from.weight} width#{width}"}
+          - else
+            .line
       .clr
       .divider5
 .divider1

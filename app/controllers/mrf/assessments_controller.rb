@@ -57,7 +57,7 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:company_id] = @company.id
     params[:assessment][:configuration] = {
       :use_competencies => params[:use_competencies].present?,
-      :set_ranges => params[:add_traits_range].present?
+      :set_ranges => params[:set_ranges].present?
     }
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
       flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."
@@ -67,19 +67,7 @@ class Mrf::AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
-      if params[:include_additional_traits].present? || @assessment.custom_assessment_id.nil?
-        redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
-
-      elsif @assessment.custom_assessment_id.present?
-        if params[:add_traits_range].present?
-          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        else
-          redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        end
-
-      else
-        redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
-      end
+      redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
     else
       get_custom_assessments
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
@@ -93,12 +81,7 @@ class Mrf::AssessmentsController < ApplicationController
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
         configuration = @assessment.configuration || {}
         configuration = HashWithIndifferentAccess.new(configuration)
-        if configuration[:set_ranges]
-          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        else
-          redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
-        end
-
+        redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
         flash[:error] = 'Please select traits to create this Feedback Exercise!'
       end
@@ -169,6 +152,8 @@ class Mrf::AssessmentsController < ApplicationController
 
   def traits
     get_custom_assessment
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
   protected
@@ -189,7 +174,10 @@ class Mrf::AssessmentsController < ApplicationController
 
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {:assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] } })
+      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {
+                    :assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] },
+                    :assessment_competencies => { include: [:competency], methods:[:from_norm_bucket_name,:to_norm_bucket_name] }
+                    })
     else
       @assessment = Vger::Resources::Mrf::Assessment.new
     end
