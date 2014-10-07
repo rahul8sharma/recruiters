@@ -56,12 +56,12 @@
     %label 
       Select the Language for the Assessment
     %select.span10.first{name: 'assessment[language]', id: 'select_language'}
-      - Rails.application.config.languages.each do |key, language|
-        %option{:value => (language['code']), selected: (assessment.language == language['code'])}
-          = language['name']
+      - Rails.application.config.languages.each do |code, language|
+        %option{:value => code, selected: (assessment.language == code)}
+          = language
 
     .clr
 - else
-  = f.hidden_field :language, value: Rails.application.config.languages['english']['code']
+  = f.hidden_field :language, value: 'en'
 
 .divider2
