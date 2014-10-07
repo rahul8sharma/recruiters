@@ -51,4 +51,17 @@
         .clr
     
 .clr
+- if is_superadmin?
+  .control-group
+    %label 
+      Select the Language for the Assessment
+    %select.span10.first{name: 'assessment[language]', id: 'select_language'}
+      - Rails.application.config.languages.each do |code, language|
+        %option{:value => code, selected: (assessment.language == code)}
+          = language
+
+    .clr
+- else
+  = f.hidden_field :language, value: 'en'
+
 .divider2
