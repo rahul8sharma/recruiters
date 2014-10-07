@@ -8,32 +8,32 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   before_filter :get_candidate, only: [:statistics, :stakeholders]
 
   layout 'mrf'
-  
+
   def send_reminder
     Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
     flash[:notice] = "Reminders sent successfully."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
-  
+
   def enable_self_ratings
     Vger::Resources::Mrf::Assessment.enable_self_ratings(company_id: @company.id, id: @assessment.id, candidate_id: params[:candidate_id])
     flash[:notice] = "Self Ratings will be enabled shortly. Please refresh this page in some time to see updated statuses."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
-  
+
   def export_feedback_urls
     options = {
-      email: "product@jombay.com",
+      email: Rails.application.config.emails[:jit_recipients],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_feedback_urls(company_id: @company.id, id: @assessment.id, options: options)
     flash[:notice] = "360 Degree urls for pending stakeholders will be generated and emailed soon."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
-  
+
   def export_report_urls
     options = {
-      email: "product@jombay.com",
+      email: Rails.application.config.emails[:jit_recipients],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
@@ -96,7 +96,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       }
     }).all.to_a.group_by{|feedback| feedback.stakeholder_assessment_id }
   end
-  
+
   def candidates
     order_by = params[:order_by] || "candidates.id"
     order_type = params[:order_type] || "ASC"
@@ -129,7 +129,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     ).all.to_a.group_by{|report| report.candidate_id }
     @feedbacks = @feedbacks.group_by{|feedback| feedback.candidate_id }
   end
-  
+
   def select_candidates
     if request.get?
       get_custom_assessment
@@ -142,7 +142,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         render :action => :select_candidates
       else
         redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, :candidate_ids => params[:candidate_ids].keys.join("|")) and return
-      end      
+      end
     end
   end
 
@@ -162,8 +162,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     #  end
     #  File.open(target,"r") do |f|
     #    send_data(f.read,type: "text/csv",:filename => "sample_csv_for_bulk_upload_#{@assessment.id}.csv")
-    #  end  
-    #  File.delete target  
+    #  end
+    #  File.delete target
     #else
     file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
     send_file(file_path,
@@ -190,8 +190,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         flash[:error] = "Multiple Stakeholders cannot share an email address. Please enter a unique email address for each Stakeholder!"
         return
       end
-      
-      candidate = get_or_create_candidate  
+
+      candidate = get_or_create_candidate
       return if !candidate
 
       feedbacks.each do |index, feedback_hash|
@@ -219,7 +219,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     get_custom_assessment
   end
-  
+
   def bulk_upload
     s3_bucket_name = "bulk_upload_mrf_candidates_#{Rails.env.to_s}"
     s3_key = "mrf_candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
@@ -245,13 +245,13 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                           :key => @s3_key
                         }]
                        )
-        redirect_to details_company_mrf_assessment_url(@company.id,@assessment.id), 
+        redirect_to details_company_mrf_assessment_url(@company.id,@assessment.id),
                     notice: "Bulk upload in progress."
         #render :action => :preview
       end
     end
   end
-  
+
   def bulk_send_invitations
     Vger::Resources::Mf::Feedback\
       .import_from_s3_files(:email => current_user.email,
@@ -264,15 +264,15 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to company_mrf_assessment_url(@company.id,@assessment.id), 
+    redirect_to company_mrf_assessment_url(@company.id,@assessment.id),
                 notice: "Bulk upload in progress."
   end
-  
+
   def preview
   end
 
-  protected  
-  
+  protected
+
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
   end
@@ -293,14 +293,14 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def get_candidates(per=44)
     @candidates = Vger::Resources::Candidate.where(
-      joins: :candidate_assessments, 
-      query_options: { 
+      joins: :candidate_assessments,
+      query_options: {
         "suitability_candidate_assessments.assessment_id" => @assessment.custom_assessment_id
-      }, 
-      select: [:name, :email, "candidates.id"], 
-      page: params[:page] || 1, 
+      },
+      select: [:name, :email, "candidates.id"],
+      page: params[:page] || 1,
       per: per
-    ).all.to_a     
+    ).all.to_a
   end
 
   def get_or_create_candidate
@@ -317,59 +317,59 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     return candidate
   end
-  
+
   def get_or_create_stakeholder(feedback_hash)
     stakeholder = Vger::Resources::Stakeholder.where(query_options: { email: feedback_hash[:email] }).all.to_a.first
     if !stakeholder
-      stakeholder = Vger::Resources::Stakeholder.create(email: feedback_hash[:email], name: feedback_hash[:name]) 
+      stakeholder = Vger::Resources::Stakeholder.create(email: feedback_hash[:email], name: feedback_hash[:name])
       if !stakeholder.error_messages.empty?
         flash[:error] = stakeholder.error_messages.join("<br/>").html_safe
         return nil
       end
-    end  
+    end
     return stakeholder
   end
-  
+
   def get_or_create_stakeholder_assessment(stakeholder)
     stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.where(
-      company_id: @company.id, 
+      company_id: @company.id,
       assessment_id: @assessment.id,
-      query_options: { 
-        assessment_id: @assessment.id, 
-        stakeholder_id: stakeholder.id 
+      query_options: {
+        assessment_id: @assessment.id,
+        stakeholder_id: stakeholder.id
       }
     ).all.to_a.first
     if !stakeholder_assessment
       stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.create(
         company_id: @company.id,
-        assessment_id: @assessment.id, 
+        assessment_id: @assessment.id,
         stakeholder_id: stakeholder.id
-      ) 
+      )
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
         return nil
       end
-    end  
+    end
     return stakeholder_assessment
   end
-  
+
   def get_or_create_feedback(stakeholder_assessment,candidate,feedback_hash)
     feedback = Vger::Resources::Mrf::Feedback.where(
-      company_id: @company.id, 
-      assessment_id: @assessment.id, 
+      company_id: @company.id,
+      assessment_id: @assessment.id,
       stakeholder_assessment_id: stakeholder_assessment.id,
-      query_options: { 
+      query_options: {
         stakeholder_assessment_id: stakeholder_assessment.id,
-        role: feedback_hash[:role], 
-        candidate_id: candidate.id 
+        role: feedback_hash[:role],
+        candidate_id: candidate.id
       }
     ).all.to_a.first
     if !feedback
       feedback = Vger::Resources::Mrf::Feedback.create(
         stakeholder_assessment_id: stakeholder_assessment.id,
         company_id: @company.id,
-        assessment_id: @assessment.id, 
-        role: feedback_hash[:role], 
+        assessment_id: @assessment.id,
+        role: feedback_hash[:role],
         candidate_id: candidate.id,
         status: Vger::Resources::Mrf::Feedback::Status::PENDING
       )
@@ -380,7 +380,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     return feedback
   end
-  
+
   def get_candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
   end
