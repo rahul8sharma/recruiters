@@ -185,9 +185,39 @@
             text-align: center
 
       .caption
+        position: relative
         font-size: 24px
         padding-left: 40px
         color: #000
+
+        &:hover
+          color: $color-warning
+          cursor: pointer
+          .info, .arrow
+            display: block
+        .info
+          display: none
+          position: absolute
+          color: #808285
+          font-size: $medium-text
+          line-height: 20px
+          border: 1px solid $color-warning
+          border-radius: 4px
+          padding: 7px 15px
+          width: 380px
+          top: 29px
+          background: #fff
+
+        .arrow
+          display: none
+          position: absolute
+          background: image-url('report/html/mrf/warning-up-arrow.png') no-repeat center center
+          width: 22px
+          height: 11px
+          left: 60px
+          top: 20px
+          z-index: 9999
+
       .overall_average
         padding: 18px 35px
         background: #fff
@@ -350,3 +380,110 @@
       border: 1px dashed #28b29b
   .mrf_data_points_listing li
     border-color: #ccc
+.report
+  .stakeholder-comments
+    border-bottom: 1px dashed #28B29B
+    li
+      margin-bottom: 18px
+    .sub-tiltle
+      font-size: 24px
+      color: #28b29b
+    .trait-name, .question
+      position: relative
+      color: #000
+      cursor: pointer
+      &:hover
+        color: $color-warning
+        .info, .arrow
+          display: block
+      .info
+        background: #FFF
+        border: 1px solid #F58220
+        border-radius: 4px 4px 4px 4px
+        color: #808285
+        display: none
+        font-size: 14px
+        font-weight: 200
+        line-height: 20px
+        padding: 7px 15px
+        position: absolute
+        top: 32px
+        left: 0
+        width: 380px
+        z-index: 999
+      .arrow
+        background: image-url("report/html/mrf/warning-up-arrow.png") no-repeat center center 
+        display: none
+        height: 11px
+        left: 20px
+        position: absolute
+        top: 23px
+        width: 22px
+        z-index: 9999
+    .trait-comment-heading
+      font-size: 20px
+      line-height: 27px
+      font-weight: 700
+      color: #000
+    .trait-comment-sub-heading
+      font-size: 14px
+      color: #000
+    .bottom-trangle
+      background: image-url('report/html/mrf/mrf-comments-bottom-trangle.png') no-repeat right bottom
+      
+    .stakeholder
+      color: #595959
+      font-size: 16px 
+      font-weight: 700
+      text-align: center
+      padding-top: 55px
+      background: image-url('report/html/mrf/stakeholder-icon.png') no-repeat center 0
+    .frame
+      background: image-url('report/html/mrf/stakeholder-comment-frame-bg.png') no-repeat 20px 20px 
+      border-width: 1px
+      padding: 18px 40px
+    .comment-box
+      position: relative
+      padding: 15px 25px 
+      line-height: 15px
+      color: #fff
+      background: #28b29b
+      .arrow  
+        background: image-url('report/html/mrf/comment-box-arrow.png') no-repeat
+        width: 33px
+        height: 15px
+        position: absolute
+        left: -30px
+        top: 0
+        z-index: 11
+    .no-responses
+      background: image-url('report/html/mrf/mrf-no-response-icon.png') no-repeat
+      min-height: 60px
+      padding: 13px 0 0 70px
+      .box
+        border: 1px solid #28b29b
+        border-radius: 4px
+        background: #fff
+        padding: 5px 
+        color: $color-warning
+        font-size: 18px
+        text-align: center
+    &.responses
+      .frame
+        border-color: #6ea6bf
+      .question
+        font-size: 18px
+      .comment-box
+        background: #6ea6bf
+        .arrow
+          background-image: image-url('report/html/mrf/responses-comment-box-arrow.png')
+      .bottom-trangle
+        background-image: image-url('report/html/mrf/responses-mrf-comments-bottom-trangle.png')
+      .frame
+        background-image: image-url('report/html/mrf/responses-stakeholder-comment-frame-bg.png')
+      .no-responses
+        background-image: image-url('report/html/mrf/responses-mrf-no-response-icon.png')
+        .box
+          border-color: #6ea6bf
+        
+
