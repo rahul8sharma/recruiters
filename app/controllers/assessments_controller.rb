@@ -66,7 +66,7 @@ class AssessmentsController < ApplicationController
       redirect_to edit_company_custom_assessment_path(@company,@assessment)
     else
       flash[:notice] = "Assessment updated successfully!"
-      redirect_to edit_company_custom_assessment_path_assessment_path(@company,@assessment)
+      redirect_to company_custom_assessment_path(@company,@assessment)
     end
   end
 
