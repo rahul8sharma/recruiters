@@ -2,10 +2,12 @@
   = stylesheet_link_tag "training_requirements_report"  
 
 .create-test.creat-test-show
+  .divider1
   .inn.first
     .page-title.pull-left
       #{@training_requirement_group.title}
   .clr
+  .divider2
   .inn.gray-gradient
     .pull-left
       .content-sub-nav.clearfix
@@ -18,29 +20,23 @@
         %a.pull-right{:href => download_report_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
           Download a PDF version of Training Requirements Report
     .clr
-    .divider2
-    - if @training_requirement_group_report && @training_requirement_group_report.report_data.present?
-      .pull-left.medium-text
-        Results last updated: #{htime @training_requirement_group_report.updated_at} Hrs, #{hdate @training_requirement_group_report.updated_at}
-      .pull-right.text-right
-        %b.medium-text Sent: 
-        %b.large-text #{@training_requirement_group.total_candidates}
-        %span.left-offset1
-          %b.medium-text Taken: 
-          %b.large-text #{@training_requirement_group.completed_candidates}
-      .clr.divider1
-      - factor_scores = @training_requirement_group_report.report_data[:factor_scores]
-      - factor_scores = Hash[factor_scores.keys[0..9].map{|key| [key,factor_scores[key]] }]
-      .training_requirements_report
-        = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: factor_scores }
-        .divider1  
-        = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
-        .divider3
-    - else
-      .alert-info.alert.text-center
-        %b{ class: "medium-text", style: "color: black;" }
-          - if @training_requirement_group.total_candidates == 0
-            Training Requirements are enabled. Page will be updated on sufficient responses.
+    .padding-all2.border-warning.shifted-up1
+      %ul
+        %li
+          .divider1
+          - if @training_requirement_group_report && @training_requirement_group_report.report_data.present?
+            .span10.extra-medium-text.first
+              Training requirements Report
+            .span
+              %a.extra-medium-text{:href => download_report_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :format => :html), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+                %i.icon-file              
+                View Report
           - else
-            %i.icon-spinner.icon-spin
-            Training Requirements calculation is in progress.
+            .alert-info.alert.text-center
+              %b{ class: "medium-text", style: "color: black;" }
+                - if @training_requirement_group.total_candidates == 0
+                  Training Requirements are enabled. Page will be updated on sufficient responses.
+                - else
+                  %i.icon-spinner.icon-spin
+                  Training Requirements calculation is in progress.
+        .divider2
