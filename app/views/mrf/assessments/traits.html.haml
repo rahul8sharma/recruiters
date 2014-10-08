@@ -7,21 +7,48 @@
   .clr
   .divider2
   = render :partial => "shared/360/candidate-content-sub-nav"
-
-
   .padding-all2.border-warning.shifted-up1
-    .big-text
-      .extra-large-text.pull-left
-        Traits Included: #{@assessment.assessment_traits.size}
-      .clr
-    .divider1
-    %ul.clearfix.scores_listing.first
-      - @assessment.assessment_traits.each do |assessment_trait|
-        %li
-          .extra-medium-text
-            .font-bold
-              = assessment_trait.trait.name
-            .factor-description
-              = assessment_trait.trait.definition
+    - if (@assessment.assessment_traits.present?)
+      .big-text.font-bold
+        .pull-left
+          Traits Measured: #{@assessment.assessment_traits.size}
+       
+        .pull-right.span7.first.text-center
+          Expected Score Range
+        .clr
+      .divider1
+      .scale.pull-right
+        .line
+        .marker-container
+          - @norm_buckets.each do |norm_bucket|
+            .marker
+              = norm_bucket.name
           .clr
-    .divider2     
+      .clr
+      %ul.clearfix.scores_listing.first
+        - @assessment.assessment_traits.each do |assessment_trait|
+          - from = @norm_buckets_by_id[assessment_trait.from_norm_bucket_id]
+          - to = @norm_buckets_by_id[assessment_trait.to_norm_bucket_id]
+          - width = (to.weight - from.weight)
+          %li
+            .lhs-sec.span20.first
+              .factor-name
+                = assessment_trait.trait.name
+                / (#{assessment_trait.from_norm_bucket_name} - #{assessment_trait.to_norm_bucket_name})
+                / = assessment_trait.from_norm_bucket_id
+              .factor-description
+                = assessment_trait.trait.definition
+                / = assessment_trait.from_norm_bucket_id
+            .rhs-sec.pull-right
+              .marker-set
+                - @norm_buckets.each do |norm_bucket|
+                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show" : "" }
+                    = norm_bucket.name
+                .clr
+              .slider
+                .visual
+                .range{ class: "offset#{from.weight-1}  width#{width}" }
+                .clr
+            .divider2
+      .divider2
+

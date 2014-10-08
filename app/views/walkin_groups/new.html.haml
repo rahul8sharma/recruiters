@@ -12,14 +12,14 @@
     .divider2
     .navigation-sub-nav.clearfix.pull-left
       .menu.active
-        .count 1 
-        Create Page 
-      .menu            
-        .count 2 
-        Customize 
-      .menu          
+        .count 1
+        Create Page
+      .menu
+        .count 2
+        Customize
+      .menu
         .count 3
-        Summary              
+        Summary
       .clr
     .clr
 
@@ -29,7 +29,7 @@
         Title for Index Page
       = f.text_field :title, :class => "padding-all1 span21"
       .clr
-    
+
     = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
       = f.text_field :title, :placeholder => "Title for Index Page", :class => "padding-all1 span21 float-none first"
     .divider1
@@ -44,7 +44,7 @@
           .control-group
             %b.pull-left Assessment
             %b.pull-right Include in Page
-            .clr  
+            .clr
         %li.titles
           .control-group
             %b.pull-left Assessment
@@ -55,12 +55,15 @@
             -# add class ".checked" to ".control-group" when user clicks on checkbox
             .control-group{ id: "control_group_#{assessment.id}" }
               %label{ for: "chk_assessment_#{assessment.id}" }
+                AID
+                = assessment.id
+                ||
                 = assessment.name
-              %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}  
+              %input{:type => "hidden", id: "enable_assessment_#{assessment.id}", name: "walkin_group[assessment_hash][#{assessment.id}][enabled]", value: "false"}
               %input{:type => "checkbox", class: "assessment_checkbox", toggle_element: "#control_group_#{assessment.id}", checked: (@walkin_group.assessment_hash["#{assessment.id}"]['enabled'] == "true" rescue false), value: assessment.id, id: "chk_assessment_#{assessment.id}", assessment_id: assessment.id}
               .clr
       .divider2
       %input.btn.btn-warning.pull-right.big-text{:title => "Proceed", type: "submit", name: "Proceed", value: "Proceed"}
       .clr
-        
-= javascript_include_tag 'walk_ins' 
+
+= javascript_include_tag 'walk_ins'

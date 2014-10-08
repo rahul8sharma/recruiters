@@ -4,14 +4,16 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def index
-    params[:type] ||= "Suitability::Factor"
-    @factors = "Vger::Resources::#{params[:type]}".constantize.where(
+    @factors = Vger::Resources::Suitability::Factor.where(
       :page => params[:page], 
       :per => 50, 
       :include => [:parent], 
       :methods => [:type, :company_names],
       :order => [:factor_order],
-      :root => :factor
+      :root => :factor,
+      :query_options => {
+        type: params[:type] || "Suitability::Factor"
+      }
     ).all
   end
   

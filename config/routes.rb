@@ -209,6 +209,9 @@ Recruiters::Application.routes.draw do
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
+        get "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+        put "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
@@ -364,7 +367,7 @@ Recruiters::Application.routes.draw do
   namespace :mrf do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
-    
+
     resources :traits do
       collection do
         get :manage
@@ -411,6 +414,34 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
+
+    resources :norm_buckets, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :default_trait_norm_ranges, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
+    resources :default_competency_norm_ranges, :only => [:index] do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+
   end
 
   namespace :suitability do

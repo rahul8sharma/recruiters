@@ -65,8 +65,10 @@ module Recruiters
     config.to_prepare { load 'config/assets_precompile.rb' }
     config.watchable_files << 'config/assets_precompile.rb'
     config.assets.enforce_precompile = true
-    
+
     config.domain = YAML::load(File.open("#{Rails.root.to_s}/config/domains.yml"))[Rails.env.to_s]
+
+    config.languages = YAML::load(File.open("#{Rails.root.to_s}/config/languages.yml"))['languages']
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -82,6 +84,7 @@ module Recruiters
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
     config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))
     config.signup = YAML.load(File.read(Rails.root.join("config/signup.yml"))).symbolize_keys
+    config.emails = YAML.load(File.read(Rails.root.join("config/emails.yml"))).with_indifferent_access
 
 
     config.action_controller.default_url_options = { :trailing_slash => true }
