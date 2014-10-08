@@ -1,5 +1,10 @@
 - content_for :stylesheets do
-  = wicked_pdf_stylesheet_link_tag "training_requirements_report"      
+  = stylesheet_link_tag "training_requirements"
+
+- content_for :javascripts do
+  = javascript_include_tag "pie.min"      
+  = javascript_include_tag 'plotPie'
+
 - if @view_mode == "html"
   :css
     .training_requirements_report .inner{margin-top:80px;} 
@@ -13,21 +18,11 @@
   - if @view_mode == "html"
     = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
 
-
 = render :template => "assessment_reports/training_requirements_report/page1"
 .page-break
-
-- all_factor_scores = @report_data[:factor_scores]
-- factor_scores = Hash[all_factor_scores.keys[0..9].map{|key| [key,all_factor_scores[key]] }]
-- scores_step = Rails.application.config.reports[@view_mode]["training_requirements_report"]["scores_step"]
-- if factor_scores.present?
-  - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
-    - step_factor_scores = factor_scores.slice(*all_factor_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/training_requirements_report/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
-    .page-break  
+= render :template => "assessment_reports/training_requirements_report/page2"
+.page-break  
 = render :partial => "assessment_reports/training_requirements_report/page3"
 .page-break  
-
 = render :partial => "shared/reports/html/about_us.html.haml"
 = render :partial => "shared/reports/html/legal_disclaimer.html.haml"
-
