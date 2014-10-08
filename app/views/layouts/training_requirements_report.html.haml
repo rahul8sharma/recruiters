@@ -3,13 +3,13 @@
   = wicked_pdf_javascript_include_tag "http://web.mxradon.com/t/Tracker.js"
   = wicked_pdf_javascript_include_tag "shared/leadsquared.js"
 - content_for :stylesheets do
-  = wicked_pdf_stylesheet_link_tag "reports_pdf"
+  = wicked_pdf_stylesheet_link_tag "reports_html"
   = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
 
 - content_for :body do
   - if @view_mode == "html" 
-    = render :partial => "shared/reports/assessment_report_main_header"
-  .report
+    = render :partial => "shared/reports/training_requirements_report_main_header"
+  .report.training_requirements_report
     = yield 
       
 = render :file => 'layouts/haml'
