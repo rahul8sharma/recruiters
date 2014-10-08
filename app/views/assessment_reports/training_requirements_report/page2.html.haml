@@ -1,9 +1,32 @@
-= render :partial => "shared/reports/training_requirements_report_header"
-.benchmark_report.training_requirements_report
-  .inner
-    .overall_report
-      = render :partial => "shared/reports/training_requirements/factor_scores", :locals => { :factor_scores => factor_scores }
-      .divider1
-      .notification
-        Factor scores are measured relative to Industry standards for this job role and experience level
-        %span.star *
+#trait-score
+  .container
+    .divider2
+    .title.pull-left
+      Top Training Needs
+    .pull-left
+      .score-indicator
+        .indicator.less-favorable
+          Candidates with Less Favorable scores
+        .indicator.favorable
+          Candidates with Favorable scores
+        .clr
+    .clr
+    .divider3
+
+  %ul.training-need-list
+    -2.times do
+      %li
+        .container
+          -5.times do |index|
+            .snippet
+              .trait-title
+                Emotional Control
+              .divider1
+              .pie-visual
+                %canvas{:id => "myCanvas#{index}", :width => "130", :height => "130", :style => "border: 1px solid black"}
+
+              .divider1
+              .score
+                100% Less Favorable
+          .clr
+

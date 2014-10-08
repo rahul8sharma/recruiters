@@ -1,0 +1,21 @@
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag ('report/jombay-logo.png')
+      .big-text.gray-dark.padding-all1.pull-left
+        Training Requirements 
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href => "#overview", :title => "Overview"}
+              Overview
+          %li
+            %a.scroll{:href => "#Details", :title => "Details"}
+              Details
+          %li.right
+        %a.btn.btn-warning.span.print-btn{:href =>"#", :style=> " visibility: hidden;"} Printable PDF
+        
+        .clr
+      .clr

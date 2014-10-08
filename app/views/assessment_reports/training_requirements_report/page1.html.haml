@@ -1,40 +1,18 @@
-.benchmark_report.training_requirements_report
-  .inner{ style: "margin-top:0px;" }
-    .overall_report
-      .logo.pull-right
-      .clr
-      .divider3
-      .heading
-        .big-text
-          Training Requirements 
-          .medium-text 
-            Report Summary
-        .span.first
-          Assessment Name: 
-        .span9
-          #{@assessment.name}
-        .clr
-
-      .visual
-        %p This report helps you identify training needs of the candidates who have taken the above mentioned assessment.
-
-
-        %p It consolidates areas of improvement for all candidates.
-
-        %p Listed below are the factors measured in the assessment alongside the percentage of candidates who did not score in the desired or favorable range for each of the measured factor. 
-
-        %p Subsequent pages include training guide and more details for each factor.
- 
-
-        .sub-heading.pull-left
-          No. of Candidates 
-          %br/
-          Assessed
-          .candate_count
-            #{@report_data[:no_of_candidates_assessed]}
-        .clr
-        .divider1
-      = render :partial => "shared/reports/training_requirements/h_graph", locals: { factor_scores: @assessment_report.report_data[:factor_scores] }
+#overview.section01
+  .overall_report.container
+    .divider12
+    .final-score.pull-right
+      Training Requirements Report
+    .clr
+    .divider3
+    .extra-medium-text
+      Report Generated On: 10/06/2014
+      .divider1
+      Assessment Included: 
+      #{@assessment.name}
+      .divider1
+      Total Candidates Assessed: 90
+    .divider2
 
 
 
