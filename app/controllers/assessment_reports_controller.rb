@@ -4,6 +4,7 @@ class AssessmentReportsController < ApplicationController
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
 
   def training_requirements_report
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all   
     @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
                             assessment_id: params[:id],

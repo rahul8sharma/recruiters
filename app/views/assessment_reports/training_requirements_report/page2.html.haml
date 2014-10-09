@@ -12,21 +12,21 @@
         .clr
     .clr
     .divider3
+  
 
   %ul.training-need-list
-    -2.times do
+    - @report_data[:factor_scores].keys.each_slice(5) do |factor_names|
+      - factor_scores = @report_data[:factor_scores].slice(*factor_names)
       %li
         .container
-          -5.times do |index|
+          - factor_scores.each_with_index do |(factor_name,factor_score), index|
             .snippet
               .trait-title
-                Emotional Control
+                = factor_name
               .divider1
               .pie-visual
-                %canvas{:id => "myCanvas#{index}", :width => "130", :height => "130", :style => "border: 1px solid black"}
-
+                %canvas{:id =>"pie_section1_#{index}", :width => "130", :height => "130","data-plot" => factor_score[:percentage_candidates]}
               .divider1
               .score
-                100% Less Favorable
+                #{factor_score[:percentage_candidates]}% Less Favourble
           .clr
-

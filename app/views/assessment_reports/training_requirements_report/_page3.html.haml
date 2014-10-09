@@ -1,4 +1,4 @@
-#trait-score
+#details
   .container
     .divider2
     .title
@@ -20,62 +20,41 @@
     .scale.pull-right
       .line
       .marker-container
-        -6.times do 
+        -@norm_buckets.each do |norm_bucket|
           .marker
             .arrow
             .marker-info
-              Low on the scale indicates that the individual possesses or exhibits minimum amount of the trait measured
+              = norm_bucket.description
             %br/
-            -#remove %br if score text widin 2 lines ie. average high etc
-            Low
+            = norm_bucket.name
         .clr
     .clr
     .divider1
-   
   %ul.improvement-tips-list
-    - 5.times do |index|
+    - @report_data[:factor_scores].each_with_index do |(factor_name, factor_score), index|
       %li
         .container
           .trait-name.span10.first
             .divider2
-            Emotional Control 
+            = factor_name
           .pie-snippet.span6
             .divider1
             .left
-              28%
+              - left = 100 - factor_score[:percentage_candidates]
+              #{left}%
             .pie-visual 
-              %canvas{:id => "myCanvas#{index}", :width => "70", :height => "70", :style => "border: 1px solid black"} 
+              %canvas{:id => "pie_section2_#{index}", :width => "70", :height => "70", "data-plot" => factor_score[:percentage_candidates]} 
             .right.favorable
-              12%
+              #{factor_score[:percentage_candidates]}%
           .rating-slider.pull-right
-            .marker
-              .arrow
-              .score
-                Low
-            .marker
-              .arrow
-              .score
-                Below Average
-            .marker
-              .arrow
-              .score
-                Average (Low)
-            .active.marker
-              .arrow
-              .score
-                Average (High)
-            .marker
-              .arrow
-              .score
-                Above Average
-            .marker
-              .arrow
-              .score
-                High
+            - @norm_buckets.each do |norm_bucket|
+              .marker{:class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': ''}
+                .arrow
+                .score
+                  = norm_bucket.name
             .clr
-           
           .clr
           .divider1
           %p
-            You may want to discuss with them alternative ways of dealing with highly emotional situations. It could help them learn how to manage their emotions better.
+            #{factor_score[:tip]}
   .divider2
