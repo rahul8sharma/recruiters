@@ -8,10 +8,10 @@
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
           %label.pull-left.big-text.line-height2
             Enter a title for this 360&#176; Exercise
-          %input.span20.pull-right{:type => "text", :value => "#{@assessment.name}", name: "assessment[name]"}
+          %input.span20.pull-right{:type => "text", :value => "#{@assessment.name}", name: "assessment[name]", required: true}
 
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-          %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]"}
+          %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]", required: true}
         .clr
       .hw.pull-left
 
