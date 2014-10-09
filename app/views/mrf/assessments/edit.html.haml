@@ -1,0 +1,22 @@
+.container
+  .span14.page-title.first
+  %h1 Edit a 360&#176; Profiling Exercise
+  .clr.divider2
+  = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put do |f|
+    .border-primary
+      .padding-all2
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2
+            Enter a title for this 360&#176; Exercise
+          %input.span20.pull-right{:type => "text", :value => "#{@assessment.name}", name: "assessment[name]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]"}
+        .clr
+      .hw.pull-left
+
+        %input.btn.btn-info.large-text.bold.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
+        .clr
+        .divider2
+
+      .clr

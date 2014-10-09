@@ -20,6 +20,14 @@ class Mrf::AssessmentsController < ApplicationController
     get_custom_assessments
   end
 
+  def edit
+  end
+
+  def update
+    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, name: params[:assessment][:name] });
+    redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
+  end
+
   def create_for_assessment
     name = ""
     custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:assessment_id])
@@ -224,4 +232,5 @@ class Mrf::AssessmentsController < ApplicationController
       @assessment_traits.push @assessment_trait
     end
   end
+
 end
