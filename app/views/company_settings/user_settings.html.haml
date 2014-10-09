@@ -24,19 +24,19 @@
 
         %a.btn.btn-warning.big-text.span{ href: add_users_company_path(@company) }
           Add New User
-        .clr
+        .clrco
       .clr
       .divider3
       .list-snippet-titles.big-text.clearfix
         %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
           User ID
           %i.icon-chevron-down.small-text.line-height1
-        %a.span8{:href => "#", :title => "Name"}
+        %a.span6{:href => "#", :title => "Name"}
           Name
           %i.icon-chevron-down.small-text.line-height1
-        .span8
+        .span6
           Email id
-        %a.span{:href => "#", :title => "Date Added"}
+        %a.span4{:href => "#", :title => "Date Added"}
           Date Added
           %i.icon-chevron-down.small-text.line-height1
         %a.span{:href => "#", :title => "Activation Status"}
@@ -50,15 +50,18 @@
               %input{:type => "checkbox", name: "users[#{user.id}]", checked: (params[:users].keys.include?(user.id.to_s))}
             .span3
               #{user.id}
-            .span8
+            .span6
               = user.name
-            .span8
+            .span6
               = user.email
-            .span
+            .span4
               = hdate user.created_at
             .span
               - if(user.reset_password_token == nil)
                 Activated
+              - else
+                %a{:href => reset_password_url(:reset_password_token => user.reset_password_token, :activate => true)}
+                  Activate Now
             .clr
             .divider1
       .divider2
