@@ -28,9 +28,20 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       @report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
       @report.report_data = @assessment.training_requirements_report
       @report.report_hash = @report.report_data
-      return if !@report.report_data[:factor_scores].present?
+      if !@report.report_data[:factor_scores].present?
+        Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
+          :status      => Vger::Resources::Suitability::AssessmentReport::Status::FAILED,
+        )
+        JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("TRR Report Uploader","Failed to upload training_requirements report for Assessment with ID #{assessment_id} due to insufficient data.",{
+          :report => {
+            :status => "Failed",
+            :assessment_id => assessment_id
+          }
+        }), "notify_report_status")
+        return
+      end
       @report_data = @assessment.training_requirements_report
-      @report_data["company_id"] = @assessment.company_id
+      @report_data[:company_id] = @assessment.company_id
       
       @view_mode = "html"
       
