@@ -64,12 +64,13 @@ class SidekiqController < ApplicationController
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
-                  }).all.to_a
+                  }, methods: [:company_id]).all.to_a
     job_ids = {}
     assessment_reports.each do |assessment_report|
       report_data = {
         :assessment_id => assessment_report.assessment_id,
-        :assessment_report_id => assessment_report.id
+        :assessment_report_id => assessment_report.id,
+        :company_id => assessment_report.company_id
       }
       job_ids[assessment_report.assessment_id] = assessment_report.id
       TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
@@ -81,12 +82,13 @@ class SidekiqController < ApplicationController
     training_requirement_group_reports = Vger::Resources::Suitability::AssessmentGroupReport.where(:query_options => { 
                     :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW, 
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
-                  }).all.to_a
+                  }, methods: [:company_id]).all.to_a
     job_ids = {}
     training_requirement_group_reports.each do |training_requirement_group_report|
       report_data = {
         :training_requirement_group_id => training_requirement_group_report.assessment_group_id,
-        :training_requirement_group_report_id => training_requirement_group_report.id
+        :training_requirement_group_report_id => training_requirement_group_report.id,
+        :company_id => training_requirement_group_report.company_id
       }
       job_ids[training_requirement_group_report.assessment_group_id] = training_requirement_group_report.id
       TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
