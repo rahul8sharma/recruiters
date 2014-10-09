@@ -20,18 +20,19 @@ class CompanySettingsController < ApplicationController
 
   def competencies
   end
-  
+
   def create_competencies
-  end  
+  end
 
   def competency
   end
-  
+
   def user_settings
     params[:users] ||= {}
-    @users = Vger::Resources::Admin.where(:query_options => {:company_id => @company.id}, :page => params[:page], :per => 10).all
+    @users = Vger::Resources::Admin.where(:query_options => {:company_id => @company.id}, :page => params[:page],
+      :per => 10,methods: [:reset_password_token]).all
   end
-  
+
   def remove_users
     params[:users] ||= {}
     @users = Vger::Resources::Admin.where(:query_options => {:company_id => @company.id}, :page => params[:page], :per => 10).all
@@ -41,7 +42,7 @@ class CompanySettingsController < ApplicationController
     end
     render :action => :user_settings
   end
-  
+
   def confirm_remove_users
     params[:user_ids].split("|").each do |user_id,on|
       Vger::Resources::Admin.destroy_existing(user_id)
@@ -49,7 +50,7 @@ class CompanySettingsController < ApplicationController
     flash[:notice] = "Users removed successfully."
     redirect_to user_settings_company_path(@company)
   end
-  
+
   def add_users
     if request.put?
       users = {}
@@ -57,7 +58,7 @@ class CompanySettingsController < ApplicationController
       params[:users] ||= {}
       params[:users].reject!{|key,data| data[:email].blank? && data[:name].blank?}
       params[:users] = Hash[params[:users].collect{|key,data| [data[:email], data] }]
-      if params[:users].empty? 
+      if params[:users].empty?
         flash[:error] = "Please add at least one user to proceed."
         render :action => :add_users and return
       end
@@ -79,7 +80,7 @@ class CompanySettingsController < ApplicationController
             user_data[:id] = user.id
             users[user.id] = user_data
           end
-        end  
+        end
         unless errors.empty?
           flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
           render :action => :add_users and return
@@ -90,7 +91,7 @@ class CompanySettingsController < ApplicationController
     else
     end
   end
-  
+
   protected
 
   def get_company
