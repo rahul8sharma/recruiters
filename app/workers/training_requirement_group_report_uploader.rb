@@ -27,9 +27,20 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id, methods: [ :training_requirements_report ])
       @report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
       @report.report_data = @training_requirement_group.training_requirements_report
-      return if !@report.report_data[:factor_scores].present?
+      if !@report.report_data[:factor_scores].present?  
+        Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
+          :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
+        )
+        JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("TR Group Report Uploader","Failed to upload training requirements group report for Assessment Group with ID #{report_data[:training_requirement_group_id]} due to insufficient data.",{
+          :report => {
+            :status => "Failed",
+            :training_requirement_id => training_requirement_group_report_id
+          }
+        }), "notify_report_status")
+        return 
+      end
       @report_data = @report.report_data
-      @report_data["company_id"] = @training_requirement_group.company_id
+      @report_data[:company_id] = @training_requirement_group.company_id
       @report.report_hash = @report.report_data
     
       @view_mode = "html"
