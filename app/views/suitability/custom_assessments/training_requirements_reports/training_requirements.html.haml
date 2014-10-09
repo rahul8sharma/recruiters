@@ -1,6 +1,3 @@
-- content_for :stylesheets do
-  = stylesheet_link_tag "training_requirements_report"  
-
 .create-test.creat-test-show
   .page-title.pull-left
     .divider1
@@ -29,6 +26,10 @@
             %a.extra-medium-text{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :html), :title => "Download Training Requirements Report as PDF", target: "_blank"}
               %i.icon-file              
               View Report
+        - else
+          .alert-info.alert.text-center
+            %i.icon-spinner.icon-spin
+            Training Requirements calculation is in progress.     
       - else
         .alert-info.alert
           %span{ class: "medium-text", style: "color: black;" }

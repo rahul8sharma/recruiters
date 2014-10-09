@@ -23,12 +23,14 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a  
       @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id, methods: [ :training_requirements_report ])
-      @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-      @assessment_report.report_data = @assessment.training_requirements_report
-      return if !@assessment_report.report_data[:factor_scores].present?
+      @report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
+      @report.report_data = @assessment.training_requirements_report
+      @report.report_hash = @report.report_data
+      return if !@report.report_data[:factor_scores].present?
       @report_data = @assessment.training_requirements_report
-      report_data["company_id"] = @assessment.company_id
+      @report_data["company_id"] = @assessment.company_id
       
       @view_mode = "html"
       
