@@ -107,6 +107,8 @@ class Mrf::AssessmentsController < ApplicationController
   def add_subjective_items
     if request.put?
       if params[:subjective_items_self] || params[:subjective_items_other]
+        params[:subjective_items_self] ||= {}
+        params[:subjective_items_other] ||= {}
         configuration = @assessment.configuration || {}
         configuration[:subjective_items_other] = {}
         configuration[:subjective_items_self] = {}
