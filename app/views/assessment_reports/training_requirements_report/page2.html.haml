@@ -16,7 +16,7 @@
 
   %ul.training-need-list
     - counter = 0
-    - limiter = Rails.application.config.validators["graph_limiter_on_training_requiremnt_report"]
+    - limiter = Rails.application.config.reports["html"]["graph_limiter_on_training_requirement_report"]
     - @report_data[:factor_scores].keys.each_slice(5) do |factor_names|
       - factor_scores = @report_data[:factor_scores].slice(*factor_names)
       %li
