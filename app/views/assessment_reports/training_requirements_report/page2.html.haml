@@ -15,18 +15,22 @@
   
 
   %ul.training-need-list
+    - counter = 0
+    - limiter = Rails.application.config.validators["graph_limiter_on_training_requiremnt_report"]
     - @report_data[:factor_scores].keys.each_slice(5) do |factor_names|
       - factor_scores = @report_data[:factor_scores].slice(*factor_names)
       %li
         .container
           - factor_scores.each_with_index do |(factor_name,factor_score), index|
-            .snippet
-              .trait-title
-                = factor_name
-              .divider1
-              .pie-visual
-                %canvas{:id =>"pie_section1_#{index}", :width => "130", :height => "130","data-plot" => factor_score[:percentage_candidates]}
-              .divider1
-              .score
-                #{factor_score[:percentage_candidates]}% Less Favourble
+            - counter = counter + 1
+            - if counter <= limiter
+              .snippet
+                .trait-title
+                  = factor_name
+                .divider1
+                .pie-visual
+                  %canvas{:width => "130", :height => "130","data-plot" => factor_score[:percentage_candidates]}
+                .divider1
+                .score
+                  #{factor_score[:percentage_candidates]}% Less Favourble
           .clr
