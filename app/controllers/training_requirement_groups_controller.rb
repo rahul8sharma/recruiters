@@ -100,9 +100,9 @@ class TrainingRequirementGroupsController < ApplicationController
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/pdf/_report_footer.pdf.haml"
+            template: "shared/reports/html/_report_footer.html.haml"
           }
-        },           
+        },
         template: "assessment_group_reports/training_requirements_report.html.haml", 
         layout: "layouts/training_requirements_report.html.haml", 
         handlers: [ :haml ], 
