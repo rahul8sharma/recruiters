@@ -2,7 +2,7 @@
   #header
     .container
       .logo.pull-left.pull-left
-        = image_tag ('report/jombay-logo.png')
+        = image_tag ("#{Rails.application.config.action_controller.asset_host}/#{asset_path('jombay-logo.png')}")
       .big-text.gray-dark.padding-all1.pull-left
         Training Requirements 
       .pull-right
@@ -12,7 +12,7 @@
             %a.scroll{:href => "#overview", :title => "Overview"}
               Overview
           %li
-            %a.scroll{:href => "#Details", :title => "Details"}
+            %a.scroll{:href => "#details", :title => "Details"}
               Details
           %li.right
         %a.btn.btn-warning.span.print-btn{:href =>"#", :style=> " visibility: hidden;"} Printable PDF

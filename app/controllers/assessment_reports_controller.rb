@@ -4,6 +4,7 @@ class AssessmentReportsController < ApplicationController
   before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
 
   def training_requirements_report
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all   
     @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
                             assessment_id: params[:id],
@@ -32,11 +33,11 @@ class AssessmentReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        template: "assessment_reports/training_requirements_report.html.haml",
-        layout: "layouts/training_requirements_report.html.haml",
+        template: "assessment_reports/training_requirements_report.pdf.haml",
+        layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
+        formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
     end

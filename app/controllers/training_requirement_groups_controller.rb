@@ -71,18 +71,21 @@ class TrainingRequirementGroupsController < ApplicationController
   end 
   
   def training_requirements_report
-    @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.where(
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a  
+    @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
                               :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
                               :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
                             }
                           ).all.first
-    if !@training_requirement_group_report
+    if !@report
       redirect_to company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), alert: "Training Requirement Report not found!"
       return
     end
-    @report_data = @training_requirement_group_report.report_data
+    @report_data = @report.report_data
+    @report_data["company_id"] = @training_requirement_group.company_id
+    @report.report_hash = @report.report_data
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  
@@ -99,12 +102,12 @@ class TrainingRequirementGroupsController < ApplicationController
           :html => {
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
-        },           
-        template: "assessment_group_reports/training_requirements_report.html.haml", 
-        layout: "layouts/training_requirements_report.html.haml", 
+        },
+        template: "assessment_group_reports/training_requirements_report.pdf.haml", 
+        layout: "layouts/training_requirements_report.pdf.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
+        formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
     end
