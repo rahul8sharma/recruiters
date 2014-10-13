@@ -8,9 +8,13 @@
     .extra-medium-text
       Report Generated On: #{hdate(Date.today)}
       .divider1
-      Assessments Included: 
-      #{@report_data[:assessment_names].to_a.join(', ')}
+      Assessment Included: 
+      #{@report_data[:assessment_name]}
       .divider1
       Total Candidates Assessed: 
       #{@report_data[:no_of_candidates_assessed]}
     .divider2
+
+
+
+      

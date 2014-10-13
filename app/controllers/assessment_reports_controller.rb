@@ -33,11 +33,11 @@ class AssessmentReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        template: "assessment_reports/training_requirements_report.html.haml",
-        layout: "layouts/training_requirements_report.html.haml",
+        template: "assessment_reports/training_requirements_report.pdf.haml",
+        layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
+        formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
     end
