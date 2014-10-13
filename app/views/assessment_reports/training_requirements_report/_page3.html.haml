@@ -1,0 +1,62 @@
+#details
+  .container
+    .divider2
+    .title
+      Tips on Areas of Improvement
+    .divider2
+    .pull-left
+      .divider2
+      .score-indicator
+        .indicator.less-favorable.first
+          Candidates with Less Favorable scores
+        .indicator.favorable
+          Candidates with Favorable scores
+        .clr
+        .divider1
+        .indicator.mid-favorable.first
+          Most frequent score amongst less favourable scores
+        .clr
+    
+    .scale.pull-right
+      .line
+      .marker-container
+        -@norm_buckets.each do |norm_bucket|
+          .marker
+            .arrow
+            .marker-info
+              = norm_bucket.description
+            %br/
+            = norm_bucket.name
+        .clr
+    .clr
+    .divider1
+  %ul.improvement-tips-list
+    - limiter = Rails.application.config.reports["html"]["graph_limiter_on_training_requirement_report"]
+    - @report_data[:factor_scores].each_with_index do |(factor_name, factor_score), index|
+      - if (index + 1) <= limiter
+        %li
+          .container
+            .trait-name.span10.first
+              .divider2
+              = factor_name
+            .pie-snippet.span6
+              .divider1
+              .left
+                - left = 100 - factor_score[:percentage_candidates]
+                #{left}%
+              .pie-visual 
+                %canvas{:width => "70", :height => "70", "data-plot" => factor_score[:percentage_candidates]} 
+              .right.favorable
+                #{factor_score[:percentage_candidates]}%
+            .rating-slider.pull-right
+              - @norm_buckets.each do |norm_bucket|
+                .marker{:class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': ''}
+                  .arrow
+                  .score
+                    = norm_bucket.name
+              .clr
+            .clr
+            .divider1
+            %p
+              #{factor_score[:tip]}
+  .divider2

@@ -16,13 +16,15 @@
     .list-snippet-titles.big-text.clearfix
       .span3.first
         = sort_link "ID", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
-      .span10
-        = sort_link "Stakeholder", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
       .span5
-        Stakeholders Role
+        = sort_link "Stakeholder", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
+      .span6
+        Email Id
+      .span5
+        Role
       .span5
         Response Status
-      .span5
+      .span4
         Send Reminder
       .clr
       .divider1          
@@ -34,13 +36,15 @@
             .divider1
             .span3.first
               = stakeholder.id
-            .span10
+            .span5
               = stakeholder.name
+            .span6
+              = stakeholder.email
             .span5
               = feedback.role.titleize
             .span5
               = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
-            .span5
+            .span4.text-center
               - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
                 %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: @candidate.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
                   Send Reminder

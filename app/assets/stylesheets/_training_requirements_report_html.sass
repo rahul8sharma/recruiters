@@ -1,0 +1,141 @@
+$color-warning: #fdc206
+.report.training_requirements_report
+  .section01 
+    .final-score
+      background: #f58220 !important
+    .overall_report
+      background-position: 25px 100px
+  .title
+    color: #000
+    line-height: 40px
+ 
+  .score-indicator
+    .indicator
+      background: image-url("report/html/training_requirements_report/score-indicator-hexagon.png") no-repeat
+      padding: 0 0 0 40px
+      font-size: 16px
+      line-height: 35px
+      float: left
+      margin-left: 45px
+      color: $default
+
+      &.favorable
+        background-position: 0px -55px
+      &.mid-favorable
+        background-position: 0px -110px
+  .training-need-list
+    li
+      padding: 30px 0
+      border-bottom: 1px solid #e3e3e3
+
+      &:nth-child(even)
+        background: #fbfbfb
+      .snippet
+        width: 200px
+        margin-left: 45px
+        float: left
+        text-align: center
+        &:first-child
+          margin: 0
+        .trait-title
+          font-size: 18px
+          color: #000
+          font-weight: 700
+          min-height: 45px
+        .pie-visual
+          height: 130px
+          width: 140px
+          margin: auto
+
+        .score
+          font-size: 18px
+          color: $color-warning
+          font-weight: 700
+  .scale
+    .line
+      border-color: #bcbec0
+    .marker-container 
+      .marker
+        background-image: image-url("report/html/training_requirements_report/scale-hexagon.png")
+        color: #366378
+        &:hover
+          background-image: image-url("report/html/training_requirements_report/scale-hexagon-hover.png")
+
+        .marker-info
+          border-color: #bcbec0
+        .arrow
+          background-image: image-url("report/html/training_requirements_report/scale-marker-arrow.png")
+  .improvement-tips-list
+    li
+      padding: 30px 0 18px 0
+      border-top: 1px dashed #b2b2b2
+
+      &:nth-child(even)
+        background: #f6f6f6
+
+      p
+        background: image-url("report/html/training_requirements_report/tip.png") no-repeat
+        font-size: 16px
+        padding-left: 55px
+        margin: 0
+        min-height: 25px
+      .trait-name
+        font-size: 18px
+        font-weight: 700
+        padding-top: 7px
+      .pie-snippet
+        .left
+          color: $color-warning
+        .left, .right
+          float: left
+          font-size: 24px
+          font-weight: 700
+          line-height: 70px
+        .pie-visual
+          width: 70px
+          height: 70px
+          float: left 
+          margin: 0 15px
+      .rating-slider
+        background: image-url("report/html/training_requirements_report/rating-slider-line.png") no-repeat center center
+        margin-top: 30px
+        position: relative
+        width: 432px
+
+        .marker
+          background: image-url("report/html/training_requirements_report/marker-disk.png") no-repeat center center
+          float: left
+          height: 30px
+          margin-left: 53px
+          position: relative
+          text-align: center
+          width: 27px
+          z-index: 999
+
+          &:first-child
+            margin: 0
+          &.active
+            background: image-url("report/html/training_requirements_report/marker-hexagon-blue.png") no-repeat center center 
+            .score, .arrow
+              display: block
+
+        .arrow
+          background: image-url("report/html/training_requirements_report/rating-slider-arrow.png") no-repeat center center           
+          display: none
+          height: 12px
+          left: -1px
+          position: absolute
+          top: -13px
+          width: 27px 
+          z-index: 9999
+        .score
+          background: none repeat scroll 0 0 #FFF
+          border: 1px solid #366378
+          border-radius: 2px
+          display: none
+          left: -33px
+          padding: 5px 0
+          position: absolute
+          text-align: center
+          top: -40px
+          width: 90px

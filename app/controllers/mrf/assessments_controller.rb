@@ -20,6 +20,14 @@ class Mrf::AssessmentsController < ApplicationController
     get_custom_assessments
   end
 
+  def edit
+  end
+
+  def update
+    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, name: params[:assessment][:name] });
+    redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
+  end
+
   def create_for_assessment
     name = ""
     custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:assessment_id])
@@ -106,11 +114,17 @@ class Mrf::AssessmentsController < ApplicationController
 
   def add_subjective_items
     if request.put?
-      if params[:subjective_items]
+      if params[:subjective_items_self] || params[:subjective_items_other]
+        params[:subjective_items_self] ||= {}
+        params[:subjective_items_other] ||= {}
         configuration = @assessment.configuration || {}
-        configuration[:subjective_items] = {}
-        params[:subjective_items].each do |subjective_item_id, subjective_item_options|
-          configuration[:subjective_items][subjective_item_id] = { :compulsory => subjective_item_options[:compulsory].present? }
+        configuration[:subjective_items_other] = {}
+        configuration[:subjective_items_self] = {}
+        params[:subjective_items_other].each do |subjective_item_id, subjective_item_options|
+          configuration[:subjective_items_other][subjective_item_id] = { :compulsory => subjective_item_options[:compulsory].present? }
+        end
+        params[:subjective_items_self].each do |subjective_item_id, subjective_item_options|
+          configuration[:subjective_items_self][subjective_item_id] = { :compulsory => subjective_item_options[:compulsory].present? }
         end
         @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, configuration: configuration });
       end
@@ -121,10 +135,21 @@ class Mrf::AssessmentsController < ApplicationController
       end
     else
       @assessment.configuration ||= {}
-      @assessment.configuration["subjective_items"] ||= {}
-      @subjective_items = Vger::Resources::Mrf::SubjectiveItem.active.all.to_a
-      @subjective_items.each do |subjective_item|
-        @assessment.configuration["subjective_items"][subjective_item.id.to_s] ||= {}
+      @assessment.configuration["subjective_items_other"] ||= {}
+      @assessment.configuration["subjective_items_self"] ||= {}
+      @subjective_items_other = Vger::Resources::Mrf::SubjectiveItem\
+                                  .active({
+                                    role: Vger::Resources::Mrf::Feedback.other_roles
+                                  }).all.to_a
+      @subjective_items_other.each do |subjective_item|
+        @assessment.configuration["subjective_items_other"][subjective_item.id.to_s] ||= {}
+      end
+      @subjective_items_self = Vger::Resources::Mrf::SubjectiveItem\
+                                  .active({
+                                    role: Vger::Resources::Mrf::Feedback::Role::SELF
+                                  }).all.to_a
+      @subjective_items_self.each do |subjective_item|
+        @assessment.configuration["subjective_items_self"][subjective_item.id.to_s] ||= {}
       end
     end
   end
@@ -152,6 +177,8 @@ class Mrf::AssessmentsController < ApplicationController
 
   def traits
     get_custom_assessment
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
   protected
@@ -207,4 +234,5 @@ class Mrf::AssessmentsController < ApplicationController
       @assessment_traits.push @assessment_trait
     end
   end
+
 end
