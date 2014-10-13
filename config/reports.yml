@@ -7,6 +7,7 @@ html:
   competency_factors_step: 1000
   training_requirements_report:
     scores_step: 10000
+  graph_limiter_on_training_requirement_report: 10
 feedback:
   benchmark_factor_names_step: 1000
   benchmark_factor_scores_step: 1000
@@ -25,6 +26,7 @@ pdf:
   guides_step: 8
   training_requirements_report:
     scores_step: 6
+  graph_limiter_on_training_requirement_report: 10
 candidate:
   fitment_scores: "Fitment Scores"
   report_title: "Assessment Report"
