@@ -18,11 +18,11 @@
   - if @view_mode == "html"
     = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
 
-= render :template => "assessment_reports/training_requirements_report/page1"
+= render :template => "assessment_reports/training_requirements_report/html/page1"
 .page-break
-= render :template => "assessment_reports/training_requirements_report/page2"
+= render :template => "assessment_reports/training_requirements_report/html/page2"
 .page-break  
-= render :partial => "assessment_reports/training_requirements_report/page3"
+= render :partial => "assessment_reports/training_requirements_report/html/page3"
 .page-break  
 = render :partial => "shared/reports/html/about_us.html.haml"
 = render :partial => "shared/reports/html/legal_disclaimer.html.haml"
