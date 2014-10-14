@@ -118,25 +118,38 @@ class AssessmentReportsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
     @report.report_hash = @report.report_data
-    @view_mode = params[:view_mode]
-    request.format = "pdf" if @view_mode == "pdf"
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
+    end
     template = report_type == "fit" ? "assessment_report" : "competency_report"
+    template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
+    layout = @view_mode == "html" ? "candidate_reports.html.haml" : "candidate_reports.pdf.haml"
     @page = 1
     respond_to do |format|
-      format.html { render :template => "assessment_reports/#{template}" }
+      format.html { 
+        render template: "assessment_reports/#{template}", 
+               layout: "layouts/#{layout}", 
+               formats: [:pdf, :html]
+      }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
             template: "shared/reports/pdf/_report_footer.pdf.haml",
-            layout: "layouts/candidate_reports.pdf.haml"
+            layout: "layouts/#{layout}"
           }
         },
-        template: "assessment_reports/#{template}.pdf.haml",
-        layout: "layouts/candidate_reports.pdf.haml",
+        template: "assessment_reports/#{template}",
+        layout: "layouts/#{layout}",
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
+        formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
     end
