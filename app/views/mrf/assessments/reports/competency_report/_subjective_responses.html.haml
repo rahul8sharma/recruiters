@@ -1,0 +1,24 @@
+.bottom-trangle
+  .frame
+    .question
+      = subjective_response_value[:body]
+      .info
+        This question was about the trait Risk Taking. ​Response to question was ​#{ subjective_response_value[:compulsory] == true ? 'Mandatory' : 'Optional'}
+      .arrow
+    .divider2
+    -if !subjective_response_value[:role_wise_subjective_responses].present?
+      .no-responses
+        .box
+          No Responses
+      .divider3
+    - else
+      %ul
+        - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
+          %li
+            .stakeholder.span3.first
+              = role
+            .comment-box.span23.pull-right
+              = role_wise_response[:response]
+              .arrow
+            .clr
+.divider2
