@@ -24,6 +24,9 @@
 = render :template => "assessment_reports/training_requirements_report/pdf/page2"
 .page-break  
 = render :template => "assessment_reports/training_requirements_report/pdf/page3"
-.page-break  
-= render :partial => "shared/reports/pdf/about_us.pdf.haml"
-= render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
+.page-break
+.common-top-trangle
+  .common-bottom-trangle 
+
+    = render :partial => "shared/reports/pdf/about_us.pdf.haml"
+    = render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"

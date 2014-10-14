@@ -1,16 +1,21 @@
 #overview.section01
-  .overall_report.container
-    .divider12
-    .final-score.pull-right
-      Training Requirements Report
-    .clr
-    .divider3
-    .extra-medium-text
-      Report Generated On: #{hdate(Date.today)}
-      .divider1
+  .divider2
+  .logo
+  .divider25
+  .pie
+  .divider2
+  %h1.pull-left
+    Training Requirements Report
+  .clr
+  .divider2
+  .large-text
+    .pull-left
       Assessments Included: 
+    .assessment_names.pull-left
       #{@report_data[:assessment_names].to_a.join(', ')}
-      .divider1
-      Total Candidates Assessed: 
-      #{@report_data[:no_of_candidates_assessed]}
-    .divider2
+    .clr
+    %br/
+    %br/
+    Total Candidates Assessed: 
+    #{@report_data[:no_of_candidates_assessed]}
+  .divider2

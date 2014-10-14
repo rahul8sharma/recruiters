@@ -1,84 +1,183 @@
+= bg($image)
+  background: image-url('report/pdf/training_requirements/#{$image}.png') no-repeat
+
 .training_requirements_report
-  .overall_report
-    background: none !important
-  .small-text
-    font-size: 28px
-    line-height: 30px
-  .graph
-    padding-left: 110px
-    border: 2px solid #f27a00
-  .tips_listing
-    list-style: none
-    margin: 0
-    background: image-url("report/training_requirements_report/list_score_bg.png") repeat-y 400px 0
+  .section01
+    .large-text
+      margin-left: 35px
+    h1
+      font-size: 35px
+      color: #000
+      padding: 18px 35px
+      border-top: 1px dashed #7f7f7f
+      border-bottom: 1px dashed #7f7f7f
+    .logo
+      width: 200px
+      height: 50px
+      margin-left: 35px
+      +bg(logo)
+    .pie
+      width: 510px
+      height: 110px
+      margin-left: 35px
+      +bg(pie)
+  .trr_header
+    position: relative
+    background: #42b59f
+    padding: 10px 18px
+    color: #fff
+    .logo-icon
+      position: absolute
+      width: 65px
+      height: 75px
+      +bg(logo-icon)
+  .score-indicator
+    margin-left: 25px
+    .indicator
+      padding-left: 30px
+      line-height: 22px
+      float: left
+      margin-left: 25px
+      &.less-favorable  
+        +bg(less-fav-hexagon)
+        text-decoration: underline
+      &.favorable
+        +bg(fav-hexagon)
+        color: #414142
+      &.mid-favorable
+        +bg(mid-fav-hexagon)
+  .assessment_names
+    width: 500px
+    padding-left: 15px
+  .title
+    margin-left: 18px
+    color: #000
+  .training-need-list
     li
-      border-bottom: 2px dotted #b1becd
-      padding: 10px 0 10px 45px
-      &:last-child
-        border: none
-      &.list_header
-        border: none
-        padding-top: 0
-    .title
-      font-size: 14px
-      font-weight: 700
-      color: #092e5b
-      margin-top: 0px
-    .list_header
-      .title
-        font-size: 22.5px
-        color: #032230
-        margin-top: 35px
-      .list_score
-        color: #fff
-        font-size: 15.5px
+      padding: 25px 45px
+      border-bottom: 1px solid #e3e3e3
+
+      &:nth-child(even)
+        background: #fbfbfb
+      .snippet
+        width: 219px
+        margin-left: 45px
+        float: left
+        text-align: center
+        line-height: 23px
+        &:first-child
+          margin: 0
+        .trait-title
+          font-size: 20px
+          color: #000
+          font-weight: 700
+          width: 190px
+          text-align: left
+        .count
+          +bg(count-bg)
+          width: 23px 
+          height: 23px 
+          line-height: 23px
+          text-align: center
+          color: #fff
+          margin-right: 5px
+        .pie-visual
+          height: 130px
+          width: 140px
+          margin: auto
+
+        .score
+          font-size: 18px
+          color: #fdc206
+          font-weight: 700
+  .scale
+    .line
+      border-color: #bcbec0
+    .marker-container 
+      .marker
+        +bg(scale-hexagon)
+        background-position: center bottom
+        color: #366378
+  #details
+    .scale
+      margin: 15px 0 0 0
+  .improvement-tips-list
+    li
+      padding: 18px 25px
+      border-top: 1px dashed #b2b2b2
+
+      &:nth-child(even)
+        background: #f6f6f6
+
+      p
+        +bg(tip)
+        font-size: 12px
+        padding-left: 45px
+        margin: 0
+        min-height: 25px
+      .trait-name
+        font-size: 16px
         font-weight: 700
-        text-align: center
-        padding: 12px 0
-        background: image-url("report/orange-texture.png")
-        min-height: 10px
-      .list_candidate_score
-        margin: 10px 0 0 12px
-        padding: 0
+        padding-top: 7px
+      .pie-snippet
+        .left
+          color: #fdc206
+        .left, .right
+          float: left
+          font-size: 15px
+          font-weight: 700
+          line-height: 70px
+        .pie-visual
+          width: 57px
+          height: 57px
+          float: left 
+          margin: 0 10px
+      .rating-slider
+        +bg(rating-slider-line)
+        background-position: center center
+        margin-top: 30px
+        position: relative
+        width: 280px
 
-    .lhs
-      width: 345px
-      float: left
-    .list_candidate_score
-      width: 10px
-      text-align: center
-      font-size: 15.5px 
-      font-weight: 700
-      float: left
-      width: 140px
-      padding: 32px 0 0 0
-      color: #032331
-    .list_score
-      width: 155px 
-      min-height: 100px
-      float: left
-      margin-left: 10px
+        .marker
+          +bg(marker-disk)
+          background-position: center center           
+          float: left
+          height: 30px
+          margin-left: 23px
+          position: relative
+          text-align: center
+          width: 27px
+          z-index: 999
 
-      .score_icon
-        background: image-url("report/candidate_count.png") no-repeat
-        color: #1A1C28
-        font-size: 18px
-        height: 57px
-        line-height: 58px
-        text-align: center
-        width: 65px
-        margin: 15px auto 0 
-    .factor_description
-      background: image-url('report/training_requirements_report/tip.png') 5px 5px no-repeat
-      font-size: 12.75px
-      line-height: 15px
-      padding-left: 35px
-      min-height: 25px
-      margin-top: 5px
+          &:first-child
+            margin: 0
+          &.active
+            +bg(marker-hexagon-blue)
+            background-position: center center           
+            .score, .arrow
+              display: block
 
-.create-test
-  .training_requirements_report
-    .tips_listing
-      background: image-url("report/training_requirements_report/list_score_bg.png") repeat-y 805px 0
-      .lhs
-        width: 750px
+        .arrow
+          +bg(rating-slider-arrow)
+          background-position: center center           
+          display: none
+          height: 12px
+          left: -1px
+          position: absolute
+          top: -5px
+          width: 27px 
+          z-index: 9999
+        .score
+          background: none repeat scroll 0 0 #FFF
+          border: 1px solid #c5cdd5
+          border-radius: 2px
+          display: none
+          left: -19px
+          position: absolute
+          text-align: center
+          top: -20px
+          width: 60px
+          font-size: 8px
+  .common-bottom-trangle
+    background-position: center 1007px
