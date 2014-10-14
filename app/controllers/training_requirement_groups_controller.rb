@@ -86,15 +86,22 @@ class TrainingRequirementGroupsController < ApplicationController
     @report_data = @report.report_data
     @report_data["company_id"] = @training_requirement_group.company_id
     @report.report_hash = @report.report_data
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
-    else  
-      @view_mode = "html"
+    
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
     end
+    template = @view_mode == "pdf"  ? "training_requirements_report.pdf.haml" : "training_requirements_report.html.haml"
     respond_to do |format|
       format.html { 
-        render template: "assessment_group_reports/training_requirements_report",
-               layout: "training_requirements_report.html.haml"
+        render template: "assessment_group_reports/#{template}",
+               layout: "#{template}",
+               formats: [:pdf, :html]
       }
       format.pdf { 
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
