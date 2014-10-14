@@ -41,12 +41,12 @@
           .pie-snippet.span6
             .divider1
             .left
-              - left = 100 - factor_score[:percentage_candidates]
+              - left = factor_score[:percentage_candidates]
               #{left}%
             .pie-visual 
-              %canvas{:width => "70", :height => "70", "data-plot" => factor_score[:percentage_candidates]} 
+              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 70px;height: 70px;" }
             .right.favorable
-              #{factor_score[:percentage_candidates]}%
+              #{100 - factor_score[:percentage_candidates]}%
           .rating-slider.pull-right
             - @norm_buckets.each do |norm_bucket|
               .marker{:class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': ''}

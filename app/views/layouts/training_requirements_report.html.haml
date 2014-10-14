@@ -8,7 +8,7 @@
 
 - content_for :body do
   - if @view_mode == "html" 
-    = render :partial => "shared/reports/training_requirements_report_main_header"
+    = render :partial => "shared/reports/training_requirements_report_main_header.html.haml"
   .report.training_requirements_report
     = yield 
       

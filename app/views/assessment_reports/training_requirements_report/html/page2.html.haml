@@ -27,7 +27,7 @@
                 = factor_name
               .divider1
               .pie-visual
-                %canvas{:width => "130", :height => "130","data-plot" => factor_score[:percentage_candidates]}
+                .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 150px;height: 150px;" }
               .divider1
               .score
                 #{factor_score[:percentage_candidates]}% Less Favourable

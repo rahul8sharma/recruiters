@@ -2,8 +2,10 @@
   = wicked_pdf_stylesheet_link_tag "training_requirements"
 
 - content_for :javascripts do
-  = wicked_pdf_javascript_include_tag "pie.min"      
-  = wicked_pdf_javascript_include_tag 'plotPie'
+  = wicked_pdf_javascript_include_tag "jquery"
+  = wicked_pdf_javascript_include_tag "jquery_ujs"
+  = wicked_pdf_javascript_include_tag 'highcharts-custom'
+  = wicked_pdf_javascript_include_tag 'trr-pie'
 
 - if @view_mode == "html"
   :css

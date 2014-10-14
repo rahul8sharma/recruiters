@@ -52,7 +52,8 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       html = render_to_string(
          template: "assessment_group_reports/training_requirements_report", 
          layout: "layouts/training_requirements_report.html.haml", 
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         formats: [:html]
       )
       
       @view_mode = "pdf"
