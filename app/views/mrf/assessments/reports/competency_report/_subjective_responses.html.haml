@@ -3,7 +3,8 @@
     .question
       = subjective_response_value[:body]
       .info
-        This question was about the trait Risk Taking. ​Response to question was ​#{ subjective_response_value[:compulsory] == true ? 'Mandatory' : 'Optional'}
+        = subjective_response_value[:trait_name] ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
+        = subjective_response_value[:compulsory] ? '​Response to question was Mandatory' : 'Response to question was Optional'
       .arrow
     .divider2
     -if !subjective_response_value[:role_wise_subjective_responses].present?
