@@ -19,7 +19,7 @@
             .stakeholder.span3.first
               = role
             .comment-box.span23.pull-right
-              = role_wise_response[:response]
+              = role_wise_response[:response] ? role_wise_response[:response] : 'No Responses'
               .arrow
             .clr
 .divider2
