@@ -16,15 +16,21 @@ class AssessmentReportsController < ApplicationController
       return
     end
     @report_data = @assessment_report.report_data
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
     else
-      @view_mode = "html"
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
     end
+    template = @view_mode == "pdf"  ? "training_requirements_report.pdf.haml" : "training_requirements_report.html.haml"
     respond_to do |format|
       format.html {
-        render template: "assessment_reports/training_requirements_report",
-               layout: "layouts/training_requirements_report.html.haml"
+        render template: "assessment_reports/#{template}",
+               layout: "layouts/#{template}",
+               formats: [:pdf, :html]
       }
       format.pdf {
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
@@ -112,7 +118,6 @@ class AssessmentReportsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
     @report.report_hash = @report.report_data
-    Rails.logger.debug(@report.report_hash)
     @view_mode = params[:view_mode]
     request.format = "pdf" if @view_mode == "pdf"
     template = report_type == "fit" ? "assessment_report" : "competency_report"
