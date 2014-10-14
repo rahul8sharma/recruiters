@@ -4,5 +4,5 @@
     .big-text.font-bold
       Training Requirements Report
     .medium-text 
-      Assessment Included: Multiple Assessments
+      Assessment Included: #{@report_data[:assessment_name].present? ? @report_data[:assessment_name] : "Multiple Assessments" }
   .clr
