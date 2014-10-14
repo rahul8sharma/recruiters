@@ -15,7 +15,7 @@
             %a.scroll{:href => "#details", :title => "Details"}
               Details
           %li.right
-        %a.btn.btn-warning.span.print-btn{:href =>"#", :style=> " visibility: hidden;"} Printable PDF
+        = yield :report_link
         
         .clr
       .clr
