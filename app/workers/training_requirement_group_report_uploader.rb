@@ -58,15 +58,15 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_group_reports/training_requirements_report", 
-          layout: "layouts/training_requirements_report.html.haml", 
+          "assessment_group_reports/training_requirements_report.pdf.haml", 
+          layout: "layouts/training_requirements_report.pdf.haml", 
           handlers: [ :haml ],
-          formats: [:html]
+          formats: [:pdf]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
           content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-          layout: "layouts/training_requirements_report.html.haml")
+          layout: "layouts/training_requirements_report.pdf.haml")
         }
       )
       
