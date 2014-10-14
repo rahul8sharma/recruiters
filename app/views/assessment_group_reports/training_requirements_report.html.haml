@@ -21,9 +21,22 @@
 
 = render :template => "assessment_group_reports/training_requirements_report/html/page1"
 .page-break
-= render :template => "assessment_reports/training_requirements_report/html/page2"
-.page-break  
-= render :template => "assessment_reports/training_requirements_report/html/page3"
-.page-break  
+
+- limiter = Rails.application.config.reports["html"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
+- scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["pie_charts_step"]
+
+- factor_scores = @report_data[:factor_scores].select{|key,value| @report_data[:factor_scores].keys[0..limiter-1].include?(key) }
+- (0..factor_scores.keys.length-1).step(scores_step) do |step|
+  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+  = render :template => "assessment_reports/training_requirements_report/html/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
+  .page-break  
+  
+  
+- scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["scores_step"]
+- (0..factor_scores.keys.length-1).step(scores_step) do |step|
+  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+  = render :template => "assessment_reports/training_requirements_report/html/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
+  .page-break 
+
 = render :partial => "shared/reports/html/about_us.html.haml"
 = render :partial => "shared/reports/html/legal_disclaimer.html.haml"
