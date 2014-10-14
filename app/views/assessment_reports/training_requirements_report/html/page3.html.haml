@@ -25,7 +25,8 @@
             .arrow
             .marker-info
               = norm_bucket.description
-            %br/
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
             = norm_bucket.name
         .clr
     .clr
