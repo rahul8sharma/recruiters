@@ -32,7 +32,7 @@
                   .stakeholder.span3.first
                     = role_name.titleize
                   .comment-box.span23.pull-right.medium-text.line-height1
-                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : '' }.join{"; "}
+                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
                     .arrow
                   .clr
           - else
