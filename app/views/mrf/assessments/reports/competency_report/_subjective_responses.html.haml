@@ -12,7 +12,7 @@
         - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
           %li
             .stakeholder.span3.first
-              = role
+              = role.titleize
             .comment-box.span23.pull-right
               = role_wise_response[:response] ? role_wise_response[:response] : 'No Responses'
               .arrow
