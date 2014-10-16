@@ -27,9 +27,8 @@
             .trait-title.pull-left
               = factor_name
             .clr
-            .divider1
             .pie-visual
-              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 150px;height: 150px;" }
+              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 100px;height: 100px;" }
             .divider1
             .score
               #{factor_score[:percentage_candidates]}% Less Favourable
