@@ -1,44 +1,90 @@
-.alert-text
-  color: #DA1E1E
-.success-text
-  color: #12B61D
-.statistic
-  .stat_graph
-    border: 1px solid #e3e3e3
-    .stop
-      height: 12px
-      width: 30px
-  .lhs
-    padding: 30px 10px
-    border-right: 1px solid #e3e3e3
-  .rhs
-    padding: 18px 24px 
-    padding-right: 10px
-    width: 765px
-
-    .span14
-      padding: 13px 0
-      float: right
-    
+$darkBlue: #002939
+.color-darkBlue
+  color: $darkBlue
+.usage
+  .label
+    padding: 0 10px
+    line-height: 19px
+  .sub-title
+    color: #bcbec0
+  .bg-warning
+    background: $color-warning
+  .bg-darkBlue
+    background: $darkBlue
+  .overall_stat_graph
+    .column
+      height: 15px
+      margin-top: 2px
   .graph
-    border-left: 2px solid #ccc
-    padding: 0 0 0 2px
-    width: 190px
-  .column
-    height: 18px
-    margin-bottom: 3px
-  .green-bg
-    background: #6AB724
-    color: #6AB724
-  .yellow-bg
-    background: #FAC934
-    color: #FAC934
-  .orange-bg
-    background: #f58220
-    color: #f58220
-  .darkBlue-bg
-    background: #002939
-    color: #002939
-  .lightBlue-bg
-    background: #6680BF
-    color: #6680BF
+    border-bottom: 1px solid #e3e3e3
+    .snippet
+      width: 198px
+      float: left
+      text-align: center
+    .upper-sec
+      padding-bottom: 1px
+      background: image-url("border-dot.png") repeat-x 0 bottom
+      .graph-columns
+        height: 80px
+        width: 34px
+        margin: auto
+        position: relative
+        .column
+          width: 15px
+          margin: 0 0 0 1px 
+          bottom: 0
+          position: absolute
+          &:nth-child(even)
+            left: 17px
+    .bottom-sec
+      .snippet
+        background: image-url("border-dot.png") repeat-y center 0
+
+        .extra-medium-text
+          line-height: 22px
+        .extra-medium-text, b, br, span
+          background: #fff
+        span
+          color: $grayDarker
+  .usage-details-list
+    border: 1px solid #e3e3e3
+
+    li
+      &.headings
+        [class*="span"]
+          min-height: 37px
+          padding: 10px 0
+      &:first-child
+        border-bottom: 1px solid #e3e3e3
+
+      &:nth-child(odd)
+        background: #f8f8f8
+
+      [class*="span"]
+        margin-left: 0
+        padding: 18px 0
+        text-align: center
+        border-left: 1px solid #e3e3e3
+        width: 168px
+
+        &:first-child
+          border: 0 none
+      .status
+        div
+          padding-left: 20px
+          margin-left: 25px
+          background: image-url("usage-status-icon.png") no-repeat
+          text-align: left
+
+          &.deactivated
+            background-position: 0px 0px
+            color: #6d6e71
+          &.exhausted
+            background-position: 0px -36px
+            color: $color-warning
+          &.active
+            background-position: 0px -73px
+            color: #69ba09
+          &.expired
+            background-position: 0px -110px
+            color: #dd0909

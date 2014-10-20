@@ -1,94 +1,179 @@
-.statistic
+.usage
   .page-title
     .divider1
     Usage
   .divider2
-  .stat_graph
-    .lhs.pull-left
-      %b.medium-text
-        Remaining Usable Assessments: #{@company.unlocked_invites_count}
-    .rhs.pull-left
-      .span5.first
-        .graph
-          - total = @company.assessment_statistics[:assessments_purchased]
-          - assessments_sent = @company.assessment_statistics[:assessments_sent]
-          - assessments_completed = @company.assessment_statistics[:assessments_completed]
-          - sent_percentage = 0
-          - completed_percentage = 0
-          - if total != 0 && assessments_sent != 0
-            - sent_percentage = ((assessments_sent.to_i * 100) / total)
-            - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
-            .column.darkBlue-bg{:style => "width: 100%"}
-            / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-            .column.orange-bg{:style => "width: #{completed_percentage}%"}
-            //.column.orange-bg{:style => "width: 20%"}
-      .span14.medium-text.gray-darker
-        .span.stop.darkBlue-bg 
-        .span 
-          Total Assessments Sent:  
-          %b
-            #{@company.assessment_statistics[:assessments_sent].to_i}
-        .span.stop.orange-bg.left-offset1
-        .span 
-          Total Assessments Answered:  
-          %b
-            #{@company.assessment_statistics[:assessments_completed].to_i}
-          
-        .clr
-      .clr
-    .clr
-  .divider3
-  .list-snippet-titles.large-text.clearfix
-    .span4.first
-      Packages
-    .span5
-      Package Size
+  .overall_stat_graph
+    .span2.extra-medium-text.text-right.first
+      OVERALL USAGE
     .span3
-      Assessments Sent
-    .span3.left-offset2
-      Assessments Answered
-    .span5.left-offset2
-      Activated Date        
-    .span4
-      Valid Till
-    .span
-      Status
-    .clr
-    .divider2          
+      - total = @company.assessment_statistics[:assessments_purchased]
+      - assessments_sent = @company.assessment_statistics[:assessments_sent]
+      - assessments_completed = @company.assessment_statistics[:assessments_completed]
+      - sent_percentage = 0
+      - completed_percentage = 0
+      - if total != 0 && assessments_sent != 0
+        - sent_percentage = ((assessments_sent.to_i * 100) / total)
+        - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
+        .column.bg-darkBlue{:style => "width: 100%"}
+        / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
+        .column.bg-warning{:style => "width: #{completed_percentage}%"}
+        //.column.orange-bg{:style => "width: 20%"}
 
-  %ul
-    - @subscriptions.each_with_index do |subscription, index|
-      %li.list-snippet.border-bottom-grayLighter
-        .span4.first
-          Package #{@subscriptions.length - index}
-        .span5
-          #{subscription.assessments_purchased}
-        .span3
-          #{subscription.assessments_sent}
-        .span3.left-offset2
-          #{subscription.assessments_completed}
-        .span5.left-offset2
-          - valid_from = Date.parse(subscription.valid_from)
-          #{valid_from.strftime("%d/%m/%Y")}
+   
+    
+    .span.gray-darker
+      Assessments Sent:  
+      %b.color-darkBlue
+        #{@company.assessment_statistics[:assessments_sent].to_i}
+      %br/
+      Assessments Answered:  
+      %b.color-warning
+        #{@company.assessment_statistics[:assessments_completed].to_i}
+
+    %a.label.label-warning.label-small.pull-right{:href=>"#"}
+      Email Overall Usage Summary
+    .clr
+
+
+  .divider1
+  .sub-title.extra-large-text.text-center
+    Assessment usage in the past 6 months 
+  .divider3
+
+  .graph
+    .upper-sec
+      -6.times do
+        .snippet
+          .graph-columns
+            .column.bg-darkBlue{:style=>"height: 50%"}
+            .column.bg-warning{:style=>"height: 30%"}
+      .clr
+    .bottom-sec
+      -6.times do
+        .snippet
+          .divider1
+          .extra-medium-text
+            September 2014 
+          .divider2
+          %span
+            Sent: 
+          %b.color-darkBlue
+            22
+          %br
+          %span
+            Answered:   
+          %b.color-warning
+            14
+      .clr
+    .divider2
+  .divider1
+
+  %b.extra-medium-text
+    Remaining Usable Assessments: 31
+  .divider1
+
+  %ul.usage-details-list.extra-medium-text
+    %li.headings
+      .span4
+        Package ID
+      .span4
+        Assessments in Package
+      .span4
+        Assessments Sent
+      .span4
+        Assessments Answered
+      .span4
+        Package Activation
+      .span4
+        Package Expiry
+      .span4
+        Status
+      .clr
+    -5.times do
+      %li
         .span4
-          - valid_to = DateTime.parse(subscription.valid_to)
-          #{valid_to.strftime("%d/%m/%Y")}
-        .span{ class: (valid_to > Time.now) ? "success-text" : "alert-text" }
-          #{(valid_to > Time.now) ? "Active" : "Expired"}
-          -#toggle btween :".success-text" and ".alert-text"
+          0001
+        .span4
+          200
+        .span4
+          3
+        .span4
+          3
+        .span4
+          28/12/2008
+        .span4
+          28/12/2008
+        .span4.status
+          %div.deactivated
+            -# add classes .deactivated, .exhausted, .active, .expired 
+            Deactivated
         .clr
-        .divider1
-        
+  .divider3
+
   .pull-right
-    - if (@subscriptions.present?)
-      .muted.extra-medium-text
-        .span.line-height2
-          Go to Page
-        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-          - @subscriptions.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value: statistics_company_path(@company, params.merge(:page => page + 1)), }
-              = page + 1
-        .clr       
-  .clr  
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page
+      %select.span2
+        %option
+          1
+        %option
+          2
+      .clr
+
+  -# use below old code for ref
+    .list-snippet-titles.large-text.clearfix
+      .span4.first
+        Packages
+      .span5
+        Package Size
+      .span3
+        Assessments Sent
+      .span3.left-offset2
+        Assessments Answered
+      .span5.left-offset2
+        Activated Date        
+      .span4
+        Valid Till
+      .span
+        Status
+      .clr
+      .divider2          
+
+    %ul
+      - @subscriptions.each_with_index do |subscription, index|
+        %li.list-snippet.border-bottom-grayLighter
+          .span4.first
+            Package #{@subscriptions.length - index}
+          .span5
+            #{subscription.assessments_purchased}
+          .span3
+            #{subscription.assessments_sent}
+          .span3.left-offset2
+            #{subscription.assessments_completed}
+          .span5.left-offset2
+            - valid_from = Date.parse(subscription.valid_from)
+            #{valid_from.strftime("%d/%m/%Y")}
+          .span4
+            - valid_to = DateTime.parse(subscription.valid_to)
+            #{valid_to.strftime("%d/%m/%Y")}
+          .span{ class: (valid_to > Time.now) ? "success-text" : "alert-text" }
+            #{(valid_to > Time.now) ? "Active" : "Expired"}
+            -#toggle btween :".success-text" and ".alert-text"
+          .clr
+          .divider1
+          
+    .pull-right
+      - if (@subscriptions.present?)
+        .muted.extra-medium-text
+          .span.line-height2
+            Go to Page
+          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+            - @subscriptions.total_pages.times do |page|
+              %option{selected: params[:page].to_i == (page + 1),value: statistics_company_path(@company, params.merge(:page => page + 1)), }
+                = page + 1
+          .clr       
+    .clr  
 
 
