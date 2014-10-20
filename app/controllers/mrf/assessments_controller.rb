@@ -60,7 +60,7 @@ class Mrf::AssessmentsController < ApplicationController
         }
       }
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, configuration: configuration });
-    redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
+      redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
     get_trait_wise_items
   end
