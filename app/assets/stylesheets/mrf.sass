@@ -89,3 +89,95 @@ input[type="text"]
       &:first-child
         
         border-left: 0 none
+.order_enable_items
+  .page-title
+    font-size: 30px
+  .alert.alert-error
+    color: $default
+    background: #fcd9bc
+    border: none
+    font-size: 16px
+    text-align: center
+  .list
+    padding: 0 0 18px 0
+    margin-bottom: 36px
+    .headings  
+      border-bottom: 1px solid #d7d7d7
+      font-size: 20px
+      padding: 18px
+    select
+      width: 75px
+    label
+      color: $default
+    .info
+      position: absolute
+      border: 1px solid $color-info
+      border-radius: 4px
+      display: none
+      z-index: 999
+      background: #fff
+    .arrow
+      z-index: 9999
+      position: absolute
+      display: none
+    .title
+      font-size: 24px
+      font-weight: 700
+      span
+        position: relative
+        cursor: pointer
+        .info
+          color: #808285
+          line-height: 16px
+          padding: 5px 7px
+          font-size: 12px
+          color: #808285
+          font-weight: 200
+          width: 210px
+          top: 12px
+          right: -240px
+        .arrow
+          background: image-url("enable_items_trait_arrow.png") no-repeat
+          width: 17px
+          height: 17px
+          top: 12px
+          right: -17px
+
+        &:hover
+          .arrow, .info
+            display: block
+    .items
+      padding: 18px
+      font-size: 16px
+      border-bottom: 1px solid #d7d7d7
+
+      &:nth-child(odd)
+        background: #fbfbfb
+
+      &.error
+        background: #fcd9bc
+
+      .item
+        position: relative
+
+        ul
+          list-style: decimal
+          padding-left: 21px
+        .info
+          width: 500px
+          left: 19px
+          top: 27px
+          padding: 7px 24px 
+          font-size: 14px
+          line-height: 17px
+        .arrow
+          background: image-url("enable_item_arrow.png") no-repeat
+          width: 17px 
+          height: 15px
+          top: 18px
+          left: 19px
+
+        &:hover
+          .arrow, .info
+            display: block
+

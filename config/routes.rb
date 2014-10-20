@@ -224,6 +224,8 @@ Recruiters::Application.routes.draw do
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
 
+
+        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
         put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
 
