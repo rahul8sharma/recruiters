@@ -1,40 +1,8 @@
 .stakeholder-comments
   .container
     .divider2
-    
     .title
       Stakeholder Comments on Traits under various Competencies
     .divider2
-    .sub-tiltle
-      Comments on Traits under People Management
-    
-    .divider2
-    -2.times do
-      .bottom-trangle
-        .frame
-          .trait-comment-heading
-            Comments on 
-            %span.trait-name
-              People Understanding
-              .info
-                Trait present under the competency ‘People Management’ 
-              .arrow
-          .trait-comment-sub-heading
-            Comments were Mandatory
-          
-          .divider2
-          -#if no response then only enable this HAML code
-            .no-responses
-              .box
-                No Responses
-            .divider3
-          %ul
-            -5.times do
-              %li
-                .stakeholder.span3.first
-                  Manager
-                .comment-box.span23.pull-right
-                  comment text comment text comment text comment text comment text comment text comment text comment text comment text comment text comment text comment text comment text comment text 
-                  .arrow
-                .clr
-      .divider2
+    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+      = render :partial => "mrf/assessments/reports/competency_report/comments_on_traits", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
