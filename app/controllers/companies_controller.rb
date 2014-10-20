@@ -1,11 +1,11 @@
 class CompaniesController < ApplicationController
   layout "companies"
 
-  before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:id]) }
-  before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
-  before_filter :get_companies, :only => [ :index ]
-  before_filter :get_countries, :only => [ :edit, :update ]
+  #before_filter :authenticate_user!
+  #before_filter { authorize_admin!(params[:id]) }
+  #before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
+  #before_filter :get_companies, :only => [ :index ]
+  #before_filter :get_countries, :only => [ :edit, :update ]
 
   def api_resource
     Vger::Resources::Company
@@ -14,6 +14,9 @@ class CompaniesController < ApplicationController
   def destroy_all
     api_resource.destroy_all
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
+  end
+  
+  def candidates_search
   end
 
   def reports

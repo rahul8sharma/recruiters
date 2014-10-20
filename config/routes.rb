@@ -49,6 +49,7 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
+      get "candidates_search" => "companies#candidates_search", :as => :candidates_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
