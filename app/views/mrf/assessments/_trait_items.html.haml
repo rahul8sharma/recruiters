@@ -1,0 +1,23 @@
+.list
+  .title
+    Trait: 
+    %span.color-info
+      = trait.name
+      .info
+        = trait.definition
+      .arrow
+  .divider2
+  %ul
+    %li.headings
+      .span12
+        Items
+      .span4
+        Enable Item
+      .span5
+        Enable Comment
+      .span5
+        Comment Compulsory
+      .span
+        Item Order
+      .clr
+    = render partial: "mrf_items", locals: { items: items, total_index: total_index, total_items: total_items, role: role, selected_items: selected_items, assessment_trait: assessment_trait }
