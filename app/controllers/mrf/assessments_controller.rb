@@ -20,6 +20,9 @@ class Mrf::AssessmentsController < ApplicationController
     get_custom_assessments
   end
 
+  def order_enable_items
+  end
+  
   def edit
   end
 
