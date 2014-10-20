@@ -1,0 +1,54 @@
+.order_enable_items
+  .page-title 
+    360º Exercise Title
+  .divider1
+  .alert.alert-error
+    Please select at least one item for each Trait to proceed!
+  .divider1
+
+  -3.times do 
+    .list
+      .title
+        Trait: 
+        %span.color-info
+          Customer Satisfaction
+          .info
+            Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+          .arrow
+      .divider2
+      %ul
+        %li.headings
+          .span18
+            Items
+          .span4
+            Item Type
+          .span4
+            Enable Item
+          .span
+            Item Order
+          .clr
+        -5.times do |index|
+          %li.items
+            -# toggle ".error" class to ".items"
+            .span18.item
+              #{index+1}.  Pays minute attention to details while completing a task   
+              .info
+                %b Options under the item
+                .divider1
+                %ul
+                  %li I never shy away from expressing my opinion
+                  %li When I have to share negative feedback ..
+              .arrow
+            .span4
+              Plain 
+            .span4
+              %label
+                %input{:type=>"checkbox"}
+                Enable
+            .span
+              %select
+                %option
+                  1
+            .clr
+  %input.btn.btn-info.large-text.pull-right{:type => "submit", :value => "Proceed"}
+  .clr
