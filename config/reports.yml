@@ -28,7 +28,7 @@ pdf:
   training_requirements_report:
     scores_step: 4
     graph_limiter_on_training_requirement_report: 10
-    pie_charts_step: 9
+    pie_charts_step: 10
 candidate:
   fitment_scores: "Fitment Scores"
   report_title: "Assessment Report"

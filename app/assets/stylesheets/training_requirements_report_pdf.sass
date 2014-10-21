@@ -21,6 +21,7 @@
       width: 510px
       height: 110px
       margin-left: 35px
+      background-size: 510px 110px
       +bg(pie)
   .trr_header
     position: relative
@@ -69,10 +70,10 @@
         &:first-child
           margin: 0
         .trait-title
-          font-size: 20px
+          font-size: 16px
           color: #000
-          font-weight: 700
           width: 190px
+          min-height: 50px
           text-align: left
         .count
           +bg(count-bg)
@@ -83,12 +84,12 @@
           color: #fff
           margin-right: 5px
         .pie-visual
-          height: 130px
-          width: 140px
+          height: 100px
+          width: 110px
           margin: auto
 
         .score
-          font-size: 18px
+          font-size: 16px
           color: #fdc206
           font-weight: 700
   .scale
@@ -139,6 +140,7 @@
         margin-top: 30px
         position: relative
         width: 280px
+        background-size: 250px 1px
 
         .marker
           +bg(marker-disk)

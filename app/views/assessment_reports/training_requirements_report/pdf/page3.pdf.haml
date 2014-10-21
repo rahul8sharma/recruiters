@@ -38,7 +38,7 @@
           .divider1
           .left
             - left = factor_score[:percentage_candidates]
-            #{left}%
+            %u #{left}%
           .pie-visual 
             .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 70px;height: 70px;" }
           .right.favorable
