@@ -8,23 +8,23 @@ class CompanyStatisticsController < ApplicationController
 
   def statistics
   end
-  
+
   protected
 
   def get_company
-    methods = [:unlocked_invites_count]
+    methods = [:unlocked_invites_count,:recent_usage_statistics]
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
-    end  
+    end
     @company = Vger::Resources::Company.find(params[:id], :methods => methods)
     @company.assessment_statistics ||= {}
     @subscriptions = Vger::Resources::Subscription.where(
-      :query_options => { 
-        :company_id => @company.id 
-      }, 
+      :query_options => {
+        :company_id => @company.id
+      },
       :order => ["valid_to DESC"],
       :methods => [:assessments_sent,:assessments_completed],
-      :page => params[:page], 
+      :page => params[:page],
       :per => 5
     )
   end
