@@ -9,15 +9,20 @@
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left
-          %li
-            %a.scroll{:href => "#overview", :title => "Overview"}
-              Overview
-          %li
-            %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
-              Traits
-          %li
-            %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
-              Scores
+          
+          - if @report.report_data[:plain_mrf_report_cover] || @report.report_data[:mrf_report_cover]
+            %li
+              %a.scroll{:href => "#overview", :title => "Overview"}
+                Overview
+          
+          - if @report.report_data[:plain_mrf_traits_overview] || @report.report_data[:mrf_report_competencies_measured]
+            %li 
+              %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
+                Traits
+          - if @report.report_data[:plain_mrf_report_traits_self_360] || @report.report_data[:mrf_report_competency_self_360]
+            %li
+              %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
+                Scores
           
           - if @report.report_data[:assessment][:use_competencies] && (@report.report_data[:mrf_report_data_pts_competencies] || @report.report_data[:mrf_report_data_pts_competencies_avg])
             %li
