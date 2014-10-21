@@ -39,16 +39,16 @@
         %li.list-snippet.extra-medium-text
           .divider1
           .span3.first
-            %a{:href => "#", :title => candidate.id} 
+            %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.id} 
               = candidate.id
           .span7.info-block
-            %a{:href => "#", :title => candidate.name}
+            %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.name}
               = candidate.name
           .span7
-            %a{:href => "#", :title => ""}
+            %a{:href => company_custom_assessment_path(:company_id => @company.id, :id => assessment.id), :title => assessment.name}
               = assessment.name
           .span8
-            %a.down{:href => "#", :title => ""}
+            %a.down{:href => "javascript:void(0);", :title => ""}
               = test_statuses[candidate_assessment.status]
               - time = test_statuses[candidate_assessment.status] == "Completed" ? candidate_assessment.completed_at : candidate_assessment.updated_at
               as of #{htime(time)} Hrs, #{hdate(time)}
@@ -61,16 +61,16 @@
                   %i.icon-file
                   View Report
               - else
-                %a{:href => "#", :title => "Generating Report..."}
+                %a{:href => "javascript:void(0);", :title => "Generating Report..."}
                   %i.icon-spinner.icon-spin 
                     Generating Report...      
             - else
               - if test_statuses[candidate_assessment.status] == "Expired"
-                %a{:href => "#", :title => "Expired"}
+                %a{:href => "javascript:void(0);", :title => "Expired"}
                   %i.icon-time
                   Expired
               - else  
-                %a{:href => "#", :title => "Send Reminder"}
+                %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => "Send Reminder"}
                   %i.icon-time
                   Send Reminder    
           .clr
