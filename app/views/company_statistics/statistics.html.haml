@@ -76,7 +76,7 @@
 
   %ul.usage-details-list.extra-medium-text
     %li.headings
-      .span4
+      .span2
         Package ID
       .span4
         Assessments in Package
@@ -93,7 +93,7 @@
       .clr
     - @subscriptions.each_with_index do |subscription, index|
       %li
-        .span4
+        .span2
           #{subscription.id}
         .span4
           #{subscription.assessments_purchased}
@@ -105,78 +105,35 @@
           - valid_from = Date.parse(subscription.valid_from)
           #{valid_from.strftime("%d/%m/%Y")}
         .span4
-          - valid_to = Date.parse(subscription.valid_to)
+          - valid_to = DateTime.parse(subscription.valid_to)
           #{valid_to.strftime("%d/%m/%Y")}
         .span4.status
-          %div.deactivated
+          - status_class = ""
+          - if (valid_to < Time.now)
+            - status_class = "expired"
+          - elsif (valid_to > Time.now) && @company.unlocked_invites_count == 0
+            - status_class = "exhausted"
+          - else
+            - status_class = "active"
+          %div{ class: "#{status_class} " }
             -# add classes .deactivated, .exhausted, .active, .expired
-            Deactivated
+            - if (status_class == "expired")
+              - status_class = 'inactive'
+            #{status_class.titleize}
         .clr
   .divider3
 
   .pull-right
-    .muted.extra-medium-text
-      .span.line-height2
-        Go to Page
-      %select.span2
-        %option
-          1
-        %option
-          2
-      .clr
+    - if (@subscriptions.present?)
+      .muted.extra-medium-text
+        .span.line-height2
+          Go to Page
+        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+          - @subscriptions.total_pages.times do |page|
+            %option{selected: params[:page].to_i == (page + 1),value: statistics_company_path(@company, params.merge(:page => page + 1)), }
+              = page + 1
+        .clr
+  .clr
 
-  -# use below old code for ref
-    .list-snippet-titles.large-text.clearfix
-      .span4.first
-        Packages
-      .span5
-        Package Size
-      .span3
-        Assessments Sent
-      .span3.left-offset2
-        Assessments Answered
-      .span5.left-offset2
-        Activated Date
-      .span4
-        Valid Till
-      .span
-        Status
-      .clr
-      .divider2
-
-    %ul
-      - @subscriptions.each_with_index do |subscription, index|
-        %li.list-snippet.border-bottom-grayLighter
-          .span4.first
-            Package #{@subscriptions.length - index}
-          .span5
-            #{subscription.assessments_purchased}
-          .span3
-            #{subscription.assessments_sent}
-          .span3.left-offset2
-            #{subscription.assessments_completed}
-          .span5.left-offset2
-            - valid_from = Date.parse(subscription.valid_from)
-            #{valid_from.strftime("%d/%m/%Y")}
-          .span4
-            - valid_to = DateTime.parse(subscription.valid_to)
-            #{valid_to.strftime("%d/%m/%Y")}
-          .span{ class: (valid_to > Time.now) ? "success-text" : "alert-text" }
-            #{(valid_to > Time.now) ? "Active" : "Expired"}
-            -#toggle btween :".success-text" and ".alert-text"
-          .clr
-          .divider1
-
-    .pull-right
-      - if (@subscriptions.present?)
-        .muted.extra-medium-text
-          .span.line-height2
-            Go to Page
-          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-            - @subscriptions.total_pages.times do |page|
-              %option{selected: params[:page].to_i == (page + 1),value: statistics_company_path(@company, params.merge(:page => page + 1)), }
-                = page + 1
-          .clr
-    .clr
 
 
