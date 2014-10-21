@@ -31,7 +31,7 @@
       %b.color-warning
         #{@company.assessment_statistics[:assessments_completed].to_i}
 
-    %a.label.label-warning.label-small.pull-right{:href=>"#"}
+    %a.label.label-warning.label-small.pull-right{:href=> email_usage_stats_company_path(@company.id)}
       Email Overall Usage Summary
     .clr
 

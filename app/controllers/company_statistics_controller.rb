@@ -9,6 +9,21 @@ class CompanyStatisticsController < ApplicationController
   def statistics
   end
 
+  def email_usage_stats
+     options = {
+      :company_usage_stats => {
+        :job_klass => "CompanyUsageStatsExporter",
+        :args => {
+          :user_id => current_user.id,
+          :company_id => @company.id
+        }
+      }
+    }
+    Vger::Resources::Company.find(params[:id])\
+      .export_usage_stats(options)
+    redirect_to statistics_company_url(@company), notice: "Overall Usage Summary will be generated and emailed to #{current_user.email}."
+  end
+
   protected
 
   def get_company

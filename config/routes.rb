@@ -53,6 +53,7 @@ Recruiters::Application.routes.draw do
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
+      get "email_usage_stats" => "company_statistics#email_usage_stats", :as => :email_usage_stats
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
       get "settings/user_settings" => "company_settings#user_settings", :as => :user_settings
