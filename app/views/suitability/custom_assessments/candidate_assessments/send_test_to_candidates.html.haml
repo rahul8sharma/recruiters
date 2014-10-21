@@ -3,7 +3,7 @@
   Assessment - #{@assessment.name}
 .divider2
 = render :partial => "shared/navigation-sub-nav"
-.divider2
+.divider3
 
 .send-assessment
   %select.span8
@@ -30,9 +30,9 @@
     %input.span17.first{ type:'text', name: 'report_email_recipients'}
     .clr
     .ie.extra-medium-text
-      Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+      Email addresses seperated by commas. Do not add candidate email address here.
   = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-    %input.span17.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+    %input.span17.first{ type:'text', name: 'report_email_recipients', placeholder:"Email addresses seperated by commas. Do not add candidate email address here."}
     
   %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send Assessment"}
   .clr
@@ -48,6 +48,8 @@
     %input{:type=>"checkbox", name: "send_email", checked: true}
     Send default email
   .clr
+
+
 -#for future ref(this is old code)
   .span18.margin-auto.text-center
     - if params[:candidates]
