@@ -6,7 +6,7 @@
 .divider3
 
 .send-assessment
-  %select.span8
+  %select.span8.left-offset1
     %option
       Choose Email Template
   .email-template.pull-left
@@ -21,24 +21,24 @@
   .clr
   .divider2.border-bottom-grayLighter
   .divider2
-  .span17.text-center.extra-medium-text
+  .span17.text-center.extra-medium-text.left-offset1
     Optional: Enter the email addresses of the people who should receive the Assessment Reports
     (after the Assessment is completed by the Assessment Taker)
     .divider1
   .clr
   = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-    %input.span17.first{ type:'text', name: 'report_email_recipients'}
+    %input.span17.left-offset1{ type:'text', name: 'report_email_recipients'}
     .clr
-    .ie.extra-medium-text
+    .ie.extra-medium-text.left-offset1
       Email addresses seperated by commas. Do not add candidate email address here.
   = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-    %input.span17.first{ type:'text', name: 'report_email_recipients', placeholder:"Email addresses seperated by commas. Do not add candidate email address here."}
+    %input.span17.left-offset1{ type:'text', name: 'report_email_recipients', placeholder:"Email addresses seperated by commas. Do not add candidate email address here."}
     
-  %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send Assessment"}
+  %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
   .clr
 
-  .divider2
-  %label.medium-text.pull-left{ for: "send_report_to_candidate", class: "font-normal" }
+  .divider1
+  %label.medium-text.pull-left.left-offset1{ for: "send_report_to_candidate", class: "font-normal" }
     %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
     Send report to candidate
   %label.medium-text.pull-left.left-offset1
