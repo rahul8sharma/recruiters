@@ -177,6 +177,7 @@ Recruiters::Application.routes.draw do
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
+        get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
 
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
@@ -223,10 +224,10 @@ Recruiters::Application.routes.draw do
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
-        
         get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         put "order_enable_items" => "mrf/assessments#order_enable_items"
 
+        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
         put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
 
@@ -380,7 +381,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :subjective_items do
       collection do
         get :manage
