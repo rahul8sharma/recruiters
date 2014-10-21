@@ -5,7 +5,7 @@
   .divider1
   %ul.mrf_data_points_listing
     - competency_scores[:trait_scores].each_with_index do |trait_score, index|
-      = render :partial => "mrf/assessments/reports/competency_report/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index}
+      = render :partial => "mrf/assessments/reports/competency_report/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index, :competency_name => competency_name }
     .divider1
 .divider1
 

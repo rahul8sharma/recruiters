@@ -10,11 +10,11 @@
         %span.trait-name
           = trait[:trait][:name]
           .info
-            Trait present under the competency #{competency_name}
+            Trait present under the competency "#{competency_name}"
           .arrow
       .trait-comment-sub-heading
         - if trait[:comments_compulsory] == true
-          Comments were Mandatory      
+          Comments were Mandatory
         - else
           Comments were Optional
       .divider2
@@ -25,15 +25,19 @@
         .divider3
       - else
         %ul
-          - trait[:comments].each do |role_name, role_wise_comment|
-            %li
-              .stakeholder.span3.first
-                = role_name.titleize
-              .comment-box.span23.pull-right.medium-text.line-height1
-                - if role_wise_comment.present?
-                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Responses' }.join{"; "}
-                - else
-                  No Responses
-                .arrow
-              .clr
+          - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+            - trait[:comments].each do |role_name, role_wise_comment|
+              - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                %li
+                  .stakeholder.span3.first
+                    = role_name.titleize
+                  .comment-box.span23.pull-right.medium-text.line-height1
+                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+                    .arrow
+                  .clr
+          - else
+            .no-responses
+              .box
+                No Responses
+            .divider3
   .divider2

@@ -18,7 +18,7 @@
 
 - content_for :report_link do
   - if @view_mode == "html"
-    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", style: "margin: 20px 0;"
+    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", style: "padding: 2px 6px 2px 6px;"
 
 = render :template => "assessment_reports/training_requirements_report/html/page1"
 .page-break
