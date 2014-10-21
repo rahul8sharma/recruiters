@@ -45,9 +45,11 @@ class CompaniesController < ApplicationController
         order: order,
         per: 10
       ).all
-    else
+    elsif params[:search].present?
       @candidate_assessments = []
       flash[:error] = "Please enter an Assessment Taker's name or email address to search!"
+    else
+      @candidate_assessments = []
     end
   end
 
