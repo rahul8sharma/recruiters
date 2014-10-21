@@ -21,6 +21,48 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def order_enable_items
+    params[:selected_items_other] ||= {}
+    params[:selected_items_self] ||= {}
+    @selected_items_other = params[:selected_items_other]
+    @selected_items_self = params[:selected_items_self]
+    if request.put?
+      other_item_orders = @selected_items_other.values.flatten.collect{|item_data| item_data[:order] } 
+      if other_item_orders.size != other_item_orders.uniq.size
+        flash[:error] = "Orders for other items is not unique. Please make sure that you have unique order for all the other items."
+        get_trait_wise_items
+        return
+      end
+      self_item_orders = @selected_items_self.values.flatten.collect{|item_data| item_data[:order] } 
+      if self_item_orders.size != self_item_orders.uniq.size
+        flash[:error] = "Orders for self items is not unique. Please make sure that you have unique order for all the self items."
+        get_trait_wise_items  
+        return
+      end
+      @selected_items_other = @selected_items_other.select{|item_id, item_data| item_data[:type].present? }
+      @selected_items_other = Hash[@selected_items_other.sort_by{|item_id, item_data| item_data[:order].to_i }]
+      @selected_items_self = @selected_items_self.select{|item_id, item_data| item_data[:type].present? }
+      @selected_items_self = Hash[@selected_items_self.sort_by{|item_id, item_data| item_data[:order].to_i }]
+      configuration = @assessment.configuration || {}
+      configuration[:items_self] = @selected_items_self.collect{ |item_id,item_data|
+        {
+          id: item_id,
+          type: item_data[:type].split("Vger::Resources::").last,
+          enable_comment: item_data[:enable_comment].present?,
+          comment_compulsory: item_data[:comment_compulsory].present?
+        }
+      }
+      configuration[:items_other] = @selected_items_other.collect{ |item_id,item_data|
+        {
+          id: item_id,
+          type: item_data[:type].split("Vger::Resources::").last,
+          enable_comment: item_data[:enable_comment].present?,
+          comment_compulsory: item_data[:comment_compulsory].present?
+        }
+      }
+      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, configuration: configuration });
+      redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
+    end
+    get_trait_wise_items
   end
   
   def edit
@@ -220,6 +262,21 @@ class Mrf::AssessmentsController < ApplicationController
     @traits |= Vger::Resources::Mrf::Trait.where(:scopes => { :global => nil }).all.to_a
     @traits |= Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
     get_assessment_traits
+  end
+  
+  def get_trait_wise_items
+    @assessment_traits = Hash[@assessment.assessment_traits\
+                                .collect{|assessment_trait| 
+                                  [assessment_trait.trait, assessment_trait] 
+                                }]
+    @trait_wise_items = {}
+    @assessment.assessment_traits.each do |assessment_trait|
+      @trait_wise_items[assessment_trait.trait] = Vger::Resources::Mrf::Item.where(query_options: {
+        active: true,
+        trait_type: assessment_trait.trait_type,
+        trait_id: assessment_trait.trait_id
+      }, include: [:options])
+    end
   end
 
   def get_assessment_traits

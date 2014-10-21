@@ -9,5 +9,8 @@
   .field
     = f.label :active
     = f.check_box :active
+  .field
+    = f.label :role
+    = f.select :role, Vger::Resources::Mrf::Feedback::ROLES
   .actions
     = submit_tag 'Submit'

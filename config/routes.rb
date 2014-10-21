@@ -49,6 +49,7 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
+      get "candidates_search" => "companies#candidates_search", :as => :candidates_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
@@ -223,7 +224,8 @@ Recruiters::Application.routes.draw do
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
-
+        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
+        put "order_enable_items" => "mrf/assessments#order_enable_items"
 
         get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
