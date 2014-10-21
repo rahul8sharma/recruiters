@@ -56,7 +56,7 @@
               %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 REPORTS
             %li
-              %a.search-menu{:href=>"#", :title=> "Search"}
+              %a.search-menu{:href=>candidates_search_company_path(@company), :title=> "Search"}
                 
 
           - elsif current_user.type == "SuperAdmin"

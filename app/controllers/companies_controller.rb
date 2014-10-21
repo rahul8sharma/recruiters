@@ -1,11 +1,11 @@
 class CompaniesController < ApplicationController
   layout "companies"
 
-  #before_filter :authenticate_user!
-  #before_filter { authorize_admin!(params[:id]) }
-  #before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
-  #before_filter :get_companies, :only => [ :index ]
-  #before_filter :get_countries, :only => [ :edit, :update ]
+  before_filter :authenticate_user!
+  before_filter { authorize_admin!(params[:id]) }
+  before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
+  before_filter :get_companies, :only => [ :index ]
+  before_filter :get_countries, :only => [ :edit, :update ]
 
   def api_resource
     Vger::Resources::Company
@@ -17,6 +17,38 @@ class CompaniesController < ApplicationController
   end
   
   def candidates_search
+    params[:search] ||= {}
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+      when "assessment_name"
+        order = "suitability_custom_assessments.name #{order_type}"
+      when "status"
+        order = "suitability_candidate_assessments.status #{order_type}"
+      else
+        order = "#{order} #{order_type}"
+    end
+    if params[:search][:candidate_name_or_email].present?
+      @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+        company_id: @company.id,
+        query_options: {
+          "suitability_custom_assessments.company_id" => @company.id
+        },
+        scopes: { :candidate_email_or_name_like => params[:search][:candidate_name_or_email] },
+        joins: [ :assessment, :candidate  ],
+        include: [:candidate, :assessment, :candidate_assessment_reports],
+        page: params[:page],
+        order: order,
+        per: 10
+      ).all
+    else
+      @candidate_assessments = []
+      flash[:error] = "Please enter an Assessment Taker's name or email address to search!"
+    end
   end
 
   def reports
