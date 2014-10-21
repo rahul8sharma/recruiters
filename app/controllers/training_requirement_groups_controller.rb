@@ -1,7 +1,7 @@
 class TrainingRequirementGroupsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:company_id]) }
-  before_filter :get_company
+  before_filter :authenticate_user!, except: [:download_report]
+  before_filter(except: [:download_report])  { authorize_admin!(params[:company_id]) }
+  before_filter :get_company, except: [:download_report]
   before_filter :get_training_requirement_group, :except => [:index]
   
   layout "training_requirement_groups"
@@ -86,15 +86,22 @@ class TrainingRequirementGroupsController < ApplicationController
     @report_data = @report.report_data
     @report_data["company_id"] = @training_requirement_group.company_id
     @report.report_hash = @report.report_data
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
-    else  
-      @view_mode = "html"
+    
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
     end
+    template = @view_mode == "pdf"  ? "training_requirements_report.pdf.haml" : "training_requirements_report.html.haml"
     respond_to do |format|
       format.html { 
-        render template: "assessment_group_reports/training_requirements_report",
-               layout: "training_requirements_report.html.haml"
+        render template: "assessment_group_reports/#{template}",
+               layout: "#{template}",
+               formats: [:pdf, :html]
       }
       format.pdf { 
         render pdf: "training_requirements_report_#{params[:id]}.pdf",
@@ -102,12 +109,12 @@ class TrainingRequirementGroupsController < ApplicationController
           :html => {
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
-        },           
-        template: "assessment_group_reports/training_requirements_report.html.haml", 
-        layout: "layouts/training_requirements_report.html.haml", 
+        },
+        template: "assessment_group_reports/training_requirements_report.pdf.haml", 
+        layout: "layouts/training_requirements_report.pdf.haml", 
         handlers: [ :haml ], 
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:html],
+        formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
     end

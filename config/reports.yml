@@ -7,7 +7,8 @@ html:
   competency_factors_step: 1000
   training_requirements_report:
     scores_step: 10000
-  graph_limiter_on_training_requirement_report: 10
+    graph_limiter_on_training_requirement_report: 10
+    pie_charts_step: 1000
 feedback:
   benchmark_factor_names_step: 1000
   benchmark_factor_scores_step: 1000
@@ -25,8 +26,9 @@ pdf:
   scores_step: 5
   guides_step: 8
   training_requirements_report:
-    scores_step: 6
-  graph_limiter_on_training_requirement_report: 10
+    scores_step: 4
+    graph_limiter_on_training_requirement_report: 10
+    pie_charts_step: 10
 candidate:
   fitment_scores: "Fitment Scores"
   report_title: "Assessment Report"

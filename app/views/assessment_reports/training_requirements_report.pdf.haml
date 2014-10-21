@@ -1,0 +1,46 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "training_requirements"
+
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "jquery"
+  = wicked_pdf_javascript_include_tag "jquery_ujs"
+  = wicked_pdf_javascript_include_tag 'highcharts-custom'
+  = wicked_pdf_javascript_include_tag 'trr-pie'
+
+- if @view_mode == "html"
+  :css
+    .training_requirements_report .inner{margin-top:80px;} 
+    .about_us {margin-top:0px;} 
+- else
+  :css
+    .training_requirements_report .inner{margin-top:0px;min-height:800px}     
+    .about_us {margin-top:100px;} 
+
+- content_for :report_link do
+  - if @view_mode == "html"
+    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning"
+
+= render :template => "assessment_reports/training_requirements_report/pdf/page1"
+.page-break
+
+- limiter = Rails.application.config.reports["pdf"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
+- scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["pie_charts_step"]
+
+- factor_scores = @report_data[:factor_scores].select{|key,value| @report_data[:factor_scores].keys[0..limiter-1].include?(key) }
+- (0..factor_scores.keys.length-1).step(scores_step) do |step|
+  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+  = render :template => "assessment_reports/training_requirements_report/pdf/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
+  .page-break  
+  
+  
+- scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["scores_step"]
+- (0..factor_scores.keys.length-1).step(scores_step) do |step|
+  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+  = render :template => "assessment_reports/training_requirements_report/pdf/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
+  .page-break 
+    
+.common-top-trangle
+  .common-bottom-trangle 
+    = render :partial => "shared/reports/pdf/about_us.pdf.haml"
+    .page-break   
+    = render :partial => "shared/reports/pdf/legal_disclaimer.pdf.haml"
