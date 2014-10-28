@@ -18,9 +18,9 @@
       %span.left-offset1
         Assessments Taken:
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
-      %span
-        - if current_user.type == "SuperAdmin"
-          %a{:href=> send_reminder_to_pending_candidates_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} Send Reminder to all pending candidates
+      %span.left-offset1
+        %a.label.label-warning.label-small.medium-text{:href=> email_assessment_status_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Email Status Summary"} Email Status Summary
+
 
 
     .filter-status.pull-right

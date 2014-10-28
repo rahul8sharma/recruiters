@@ -8,23 +8,23 @@
     .logo.pull-left
       = link_to(image_tag("jombay-logo.png"), logo_url, :target=> target)
       .divider1
-    - if current_user 
-      - if defined?(@company)  
+    - if current_user
+      - if defined?(@company)
         .span8.company_name{:title => "#{@company.name}"}
           = truncate @company.name, :length   => 28
       .span18.pull-right
         %ul#sub-nav.pull-right
           %li
-            %a.setting{href: "#", title: "Account"}             
+            %a.setting{href: "#", title: "Account"}
             %ul.medium-text
               - if defined?(@company)
                 %li
                   %a{:href=>statistics_company_path(@company)} Usage
                 %li
                   %a{:href=>company_path(@company)} Settings
-                - if  is_superadmin?    
+                - if  is_superadmin?
                   %li
-                    %a{:href=>company_training_requirement_groups_path(@company)} Traning Requirements
+                    %a{:href=>company_training_requirement_groups_path(@company)} Training Requirements
                   %li
                     %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
                   %li
@@ -55,15 +55,18 @@
             %li
               %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 REPORTS
+            %li
+              %a.search-menu{:href=>candidates_search_company_path(@company), :title=> "Search"}
+                
 
-          - elsif current_user.type == "SuperAdmin" 
+          - elsif current_user.type == "SuperAdmin"
             %li
               %a{:href=>companies_path(), :title=> "COMPANIES",class: (["companies/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 COMPANIES
           - else
             %li
               %a{:href=> root_path, :title=> "HOME"}
-                HOME      
+                HOME
 
           -#
             %li
@@ -73,7 +76,7 @@
       .clr
     - else
       .span19.pull-right
-        %ul.navbar.pull-right.clearfix        
+        %ul.navbar.pull-right.clearfix
           -#
             %li
               %a{:href=> "#", :title=> "What differentiates Jombay?"}

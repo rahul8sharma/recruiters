@@ -1,84 +1,134 @@
-.statistic
+.usage
   .page-title
     .divider1
     Usage
   .divider2
-  .stat_graph
-    .lhs.pull-left
-      %b.medium-text
-        Remaining Usable Assessments: #{@company.unlocked_invites_count}
-    .rhs.pull-left
-      .span5.first
-        .graph
-          - total = @company.assessment_statistics[:assessments_purchased]
-          - assessments_sent = @company.assessment_statistics[:assessments_sent]
-          - assessments_completed = @company.assessment_statistics[:assessments_completed]
-          - sent_percentage = 0
-          - completed_percentage = 0
-          - if total != 0 && assessments_sent != 0
-            - sent_percentage = ((assessments_sent.to_i * 100) / total)
-            - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
-            .column.darkBlue-bg{:style => "width: 100%"}
-            / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
-            .column.orange-bg{:style => "width: #{completed_percentage}%"}
-            //.column.orange-bg{:style => "width: 20%"}
-      .span14.medium-text.gray-darker
-        .span.stop.darkBlue-bg 
-        .span 
-          Total Assessments Sent:  
-          %b
-            #{@company.assessment_statistics[:assessments_sent].to_i}
-        .span.stop.orange-bg.left-offset1
-        .span 
-          Total Assessments Answered:  
-          %b
-            #{@company.assessment_statistics[:assessments_completed].to_i}
-          
-        .clr
-      .clr
-    .clr
-  .divider3
-  .list-snippet-titles.large-text.clearfix
-    .span4.first
-      Packages
-    .span5
-      Package Size
+  .overall_stat_graph
+    .span2.extra-medium-text.text-right.first
+      OVERALL USAGE
     .span3
-      Assessments Sent
-    .span3.left-offset2
-      Assessments Answered
-    .span5.left-offset2
-      Activated Date        
-    .span4
-      Valid Till
-    .span
-      Status
-    .clr
-    .divider2          
+      - total = @company.assessment_statistics[:assessments_purchased]
+      - assessments_sent = @company.assessment_statistics[:assessments_sent]
+      - assessments_completed = @company.assessment_statistics[:assessments_completed]
+      - sent_percentage = 0
+      - completed_percentage = 0
+      - if total != 0 && assessments_sent != 0
+        - sent_percentage = ((assessments_sent.to_i * 100) / total)
+        - completed_percentage = ((assessments_completed.to_i * 100) / assessments_sent)
+        .column.bg-darkBlue{:style => "width: 100%"}
+        / .column.lightBlue-bg{:style => "width: #{completed_percentage}%"}
+        .column.bg-warning{:style => "width: #{completed_percentage}%"}
+        //.column.orange-bg{:style => "width: 20%"}
 
-  %ul
+
+
+    .span.gray-darker
+      Assessments Sent:
+      %b.color-darkBlue
+        #{@company.assessment_statistics[:assessments_sent].to_i}
+      %br/
+      Assessments Answered:
+      %b.color-warning
+        #{@company.assessment_statistics[:assessments_completed].to_i}
+
+    %a.label.label-warning.label-small.pull-right{:href=> email_usage_stats_company_path(@company.id)}
+      Email Overall Usage Summary
+    .clr
+
+
+  .divider1
+  .sub-title.extra-large-text.text-center
+    Assessment usage in the past 6 months
+  .divider3
+
+  .graph
+    .upper-sec
+      - max_sent = @company.recent_usage_statistics.values.map {|usage_data| usage_data[:assessments_sent].to_i}.max
+      - @company.recent_usage_statistics.each do |month_year,stats|
+        .snippet
+          .graph-columns
+            - if(stats[:assessments_completed] == max_sent)
+              - sent_percentage = 100
+            - else
+              - sent_percentage = (stats[:assessments_sent].to_i * 100) / max_sent
+            - abs_answered_percentage = ((stats[:assessments_completed].to_i * 100) / stats[:assessments_sent].to_i)
+            - answered_percentage = (abs_answered_percentage.to_f / 100) * (sent_percentage)
+            .column.bg-darkBlue{:style=>"height: #{sent_percentage}%"}
+            .column.bg-warning{:style=>"height: #{answered_percentage}%"}
+      .clr
+    .bottom-sec
+      - @company.recent_usage_statistics.each do |month_year,stats|
+        .snippet
+          .divider1
+          .extra-medium-text
+            #{month_year}
+          .divider2
+          %span
+            Sent:
+          %b.color-darkBlue
+            #{stats[:assessments_sent]}
+          %br
+          %span
+            Answered:
+          %b.color-warning
+            #{stats[:assessments_completed]}
+      .clr
+    .divider2
+  .divider1
+
+  %b.extra-medium-text
+    Remaining Usable Assessments: #{@company.unlocked_invites_count}
+  .divider1
+
+  %ul.usage-details-list.extra-medium-text
+    %li.headings
+      .span2
+        Package ID
+      .span4
+        Assessments in Package
+      .span4
+        Assessments Sent
+      .span4
+        Assessments Answered
+      .span4
+        Package Activation
+      .span4
+        Package Expiry
+      .span4
+        Status
+      .clr
     - @subscriptions.each_with_index do |subscription, index|
-      %li.list-snippet.border-bottom-grayLighter
-        .span4.first
-          Package #{@subscriptions.length - index}
-        .span5
+      %li
+        .span2
+          #{subscription.id}
+        .span4
           #{subscription.assessments_purchased}
-        .span3
+        .span4
           #{subscription.assessments_sent}
-        .span3.left-offset2
+        .span4
           #{subscription.assessments_completed}
-        .span5.left-offset2
+        .span4
           - valid_from = Date.parse(subscription.valid_from)
           #{valid_from.strftime("%d/%m/%Y")}
         .span4
           - valid_to = DateTime.parse(subscription.valid_to)
           #{valid_to.strftime("%d/%m/%Y")}
-        .span{ class: (valid_to > Time.now) ? "success-text" : "alert-text" }
-          #{(valid_to > Time.now) ? "Active" : "Expired"}
-          -#toggle btween :".success-text" and ".alert-text"
+        .span4.status
+          - status_class = ""
+          - if (valid_to < Time.now)
+            - status_class = "expired"
+          - elsif (valid_to > Time.now) && @company.unlocked_invites_count == 0
+            - status_class = "exhausted"
+          - else
+            - status_class = "active"
+          %div{ class: "#{status_class} " }
+            -# add classes .deactivated, .exhausted, .active, .expired
+            - if (status_class == "expired")
+              - status_class = 'inactive'
+            #{status_class.titleize}
         .clr
-        .divider1
-        
+  .divider3
+
   .pull-right
     - if (@subscriptions.present?)
       .muted.extra-medium-text
@@ -88,7 +138,8 @@
           - @subscriptions.total_pages.times do |page|
             %option{selected: params[:page].to_i == (page + 1),value: statistics_company_path(@company, params.merge(:page => page + 1)), }
               = page + 1
-        .clr       
-  .clr  
+        .clr
+  .clr
+
 
 

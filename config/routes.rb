@@ -49,9 +49,11 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
+      get "candidates_search" => "companies#candidates_search", :as => :candidates_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
+      get "email_usage_stats" => "company_statistics#email_usage_stats", :as => :email_usage_stats
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
       get "settings/user_settings" => "company_settings#user_settings", :as => :user_settings
@@ -176,6 +178,7 @@ Recruiters::Application.routes.draw do
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
+        get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
 
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
@@ -222,7 +225,10 @@ Recruiters::Application.routes.draw do
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
-        
+        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
+        put "order_enable_items" => "mrf/assessments#order_enable_items"
+
+        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
         put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
 
@@ -376,7 +382,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :subjective_items do
       collection do
         get :manage

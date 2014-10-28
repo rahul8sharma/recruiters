@@ -15,6 +15,43 @@ class CompaniesController < ApplicationController
     api_resource.destroy_all
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
+  
+  def candidates_search
+    params[:search] ||= {}
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+      when "assessment_name"
+        order = "suitability_custom_assessments.name #{order_type}"
+      when "status"
+        order = "suitability_candidate_assessments.status #{order_type}"
+      else
+        order = "#{order} #{order_type}"
+    end
+    if params[:search][:candidate_name_or_email].present?
+      @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+        company_id: @company.id,
+        query_options: {
+          "suitability_custom_assessments.company_id" => @company.id
+        },
+        scopes: { :candidate_email_or_name_like => params[:search][:candidate_name_or_email] },
+        joins: [ :assessment, :candidate  ],
+        include: [:candidate, :assessment, :candidate_assessment_reports],
+        page: params[:page],
+        order: order,
+        per: 10
+      ).all
+    elsif params[:search].present?
+      @candidate_assessments = []
+      flash[:error] = "Please enter an Assessment Taker's name or email address to search!"
+    else
+      @candidate_assessments = []
+    end
+  end
 
   def reports
     order = params[:order_by] || "completed_at"

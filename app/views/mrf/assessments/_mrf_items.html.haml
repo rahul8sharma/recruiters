@@ -1,0 +1,35 @@
+- items.each_with_index do |item, item_index|
+  %li.items{ class: @error_items.include?(item.id.to_s) ? "error" : "" }
+    -# toggle ".error" class to ".items"
+    .span12.item
+      #{item_index+1}. #{item.body}
+      .info
+        %b Options under the item
+        .divider1
+        %ul
+          - item.options.each do |option|
+            %li #{option.body}
+      .arrow
+    .span4
+      %label
+        - enabled = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:type].present? : true
+        %input{:type=>"checkbox", checked: enabled, name: "selected_items_#{role}[#{item.id}][type]", value: "#{item.class.name}"}
+        Enable
+    .span5
+      %label
+        - enable_comment = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:enable_comment].present? : assessment_trait.enable_comment
+        %input{:type=>"checkbox", checked: enable_comment, name: "selected_items_#{role}[#{item.id}][enable_comment]"}
+        Enable Comment
+    .span5
+      %label
+        - comment_compulsory = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:comment_compulsory].present? : assessment_trait.comment_compulsory
+        %input{:type=>"checkbox", checked: comment_compulsory, name: "selected_items_#{role}[#{item.id}][comment_compulsory]"}
+        Comment Compulsory
+    .span
+      %select{ name: "selected_items_#{role}[#{item.id}][order]" }
+        - order = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:order].to_i : total_index
+        - total_items.times do |option_index|
+          %option{ selected: order == option_index, value: option_index }
+            = option_index+1
+    .clr
+  - total_index += 1

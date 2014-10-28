@@ -1,11 +1,16 @@
 .content-sub-nav.clearfix
   %a.menu{ class: (["candidate","candidates"].include?(params[:action]) ? "active" : ""),:href => candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
-    Assessment Takers     
+    Assessment Takers
   %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Measured Traits"}
     Measured Traits
   %a.menu{ class: (["reports"].include?(params[:action]) ? "active" : ""), :href => reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Reports"}
     Reports
 
-  - if current_user.type == "SuperAdmin"  
+  - if current_user.type == "SuperAdmin"
     %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
       Training Requirements
+
+  - if current_user.type == "SuperAdmin"
+    %a.label-warning.label-small.medium-text.pull-right{:href=> send_reminder_to_pending_candidates_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} Send Reminder to all pending candidates
+
+

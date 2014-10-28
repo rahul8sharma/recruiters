@@ -20,6 +20,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     redirect_to reports_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
 
+
+
   def bulk_upload
     s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
@@ -180,11 +182,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
           candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(
-            :assessment_id => @assessment.id, 
-            :candidate_id => candidate_id, 
-            :candidate_stage => params[:candidate_stage], 
-            :responses_count => 0, 
-            :report_email_recipients => recipient, 
+            :assessment_id => @assessment.id,
+            :candidate_id => candidate_id,
+            :candidate_stage => params[:candidate_stage],
+            :responses_count => 0,
+            :report_email_recipients => recipient,
             :options => options,
             :language => @assessment.language
           )
@@ -281,6 +283,21 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         :id =>@assessment.id)
     flash[:notice] = "Emails are queued"
     redirect_to candidates_url
+  end
+
+  def email_assessment_status
+     options = {
+      :custom_assessment => {
+        :job_klass => "AssessmentStatusExporter",
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
+      .export_assessment_status(options)
+    redirect_to candidates_url, notice: "Status Summary will be generated and emailed to #{current_user.email}."
   end
 
   def send_reminder_to_candidate_url
