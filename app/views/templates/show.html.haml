@@ -1,0 +1,25 @@
+%h2
+  Showing details of #{resource_name.singularize.titleize} - #{@resource.id}
+%table{ cellspacing: 5, cellpadding: 5 }
+  %tr
+    %td 
+      %h4 Name:
+    %td #{@resource.name}
+  %tr
+    %td 
+      %h4 Category:
+    %td #{@resource.category}  
+  %tr
+    %td
+      %h4 Preview:
+    - template_variables = @resource.body.scan(/\<\$(.*?)\$\>/).flatten.map(&:to_i)  
+    - body = @resource.body
+    - template_variables.each do |template_variable|
+      - body.gsub!("<$#{template_variable}$>","&lt;#{Vger::Resources::TemplateVariable.find(template_variable).name}&gt;")
+    %td 
+      %i #{body.html_safe}
+        
+.links
+  = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)
+  \|
+  = link_to "Back", send("#{resource_name}_path")
