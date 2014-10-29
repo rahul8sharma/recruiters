@@ -14,6 +14,7 @@ class TemplatesController < MasterDataController
     [
       :id,
       :name,
+      :company_id,
       :category,
       :body
     ]
@@ -22,6 +23,7 @@ class TemplatesController < MasterDataController
   def search_columns
     [
       :id,
+      :company_id,
       :name,
       :category
     ]

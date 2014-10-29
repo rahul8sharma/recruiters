@@ -28,11 +28,7 @@
       %option{ value: "" }
         Choose Email Template
       - @templates.each do |template|
-        - template_variables = template.body.scan(/\<\$(.*?)\$\>/).flatten.map(&:to_i)  
-        - body = template.body
-        - template_variables.each do |template_variable|
-          - body.gsub!("<$#{template_variable}$>","&lt;#{Vger::Resources::TemplateVariable.find(template_variable).name}&gt;")
-        %option{value: template.id, body: body}
+        %option{value: template.id, body: template.preview_body}
           = template.name
     .email-template.pull-left{ class: @templates.empty? ? 'span18 margin-auto no-border':'' }
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template

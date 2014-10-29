@@ -20,9 +20,10 @@
   %form
     %h3
       Template Variables (Click on a template variable to add it to the template body)
-    %ol
-      - @template_variables.each do |template_variable|    
+    %ul
+      - @template_variables.sort_by(&:id).each_with_index do |template_variable,index|    
         %li{ title: template_variable.value }
+          = template_variable.id
           = link_to template_variable.name, "#", template_variable_name: template_variable.id, class: "template_variable_link"
         
 .clr        
