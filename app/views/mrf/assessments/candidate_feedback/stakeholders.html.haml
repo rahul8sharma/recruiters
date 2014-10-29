@@ -53,6 +53,5 @@
             .clr
     .divider2
     .pull-right
-      - if @stakeholders.present?
-        = render :partial => "shared/pagination", :locals => { :objects => @stakeholders}
+      = render :partial => "shared/pagination", :locals => { :objects => @stakeholders}
     .clr

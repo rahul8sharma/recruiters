@@ -55,6 +55,5 @@
 
     .divider2
     .pull-right
-      - if (@candidate_assessments.present?)
-        = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+      = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
     .clr

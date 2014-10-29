@@ -63,6 +63,5 @@
           No candidates present
     .divider2
     .pull-right
-      - if @candidates.present?
-        = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+      = render :partial => "shared/pagination", :locals => { :objects => @candidates}
     .clr
