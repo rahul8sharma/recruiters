@@ -55,13 +55,5 @@
 
     .divider2
     .pull-right
-      - if (@candidate_assessments.present?)
-        .muted.extra-medium-text
-          .span.line-height2
-            Go to Page
-          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-            - @candidate_assessments.total_pages.times do |page|
-              %option{selected: params[:page].to_i == (page + 1),value:reports_company_custom_assessment_path(@company, @assessment, :page => page + 1), }
-                = page + 1
-          .clr
+      = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
     .clr
