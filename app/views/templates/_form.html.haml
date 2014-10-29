@@ -1,0 +1,31 @@
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+.pull-left
+  = form_for @resource, as: resource_name.singularize, url: url do |f|
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label :company_id
+      = f.text_field :company_id
+    .field
+      = f.label :category
+      = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES
+    .field
+      = f.label :body
+      = f.text_area :body, id: "template_body"
+    .action
+      = f.submit  
+    
+.pull-left
+  %form
+    %h3
+      Template Variables (Click on a template variable to add it to the template body)
+    %ul
+      - @template_variables.sort_by(&:id).each_with_index do |template_variable,index|    
+        %li{ title: template_variable.value }
+          = template_variable.id
+          = link_to template_variable.name, "#", template_variable_name: template_variable.id, class: "template_variable_link"
+        
+.clr        
+- content_for :javascripts do
+  = javascript_include_tag 'template'

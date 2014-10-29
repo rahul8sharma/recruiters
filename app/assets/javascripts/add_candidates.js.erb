@@ -11,3 +11,15 @@ function addClass(addTo, removeFrom){
   document.getElementById(addTo).setAttribute('class', 'checked');
   document.getElementById(removeFrom).removeAttribute('class', 'checked');
 }
+
+function selectTemplate() {
+  var body = $("#select_template").find(":selected").attr("body");
+  if(body) {
+    $(".default-email").hide();
+    $(".custom-email").show();
+    $(".email-body").html("<i>"+body+"</i>");
+  } else {
+    $(".custom-email").hide();
+    $(".default-email").show();
+  }
+}

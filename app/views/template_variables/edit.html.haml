@@ -1,0 +1,8 @@
+%fieldset
+  %legend
+    Edit Template Variable #{@resource.id}
+  = render "form"  
+.links
+  = link_to "Show", send("#{resource_name.singularize}_path",@resource)  
+  \|
+  = link_to "Back", send("#{resource_name}_path")  

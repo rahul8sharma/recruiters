@@ -1,0 +1,6 @@
+%fieldset
+  %legend
+    Create new #{resource_name.singularize.titleize}
+  = render "form"  
+.links
+  = link_to "Back", send("#{resource_name}_path")  
