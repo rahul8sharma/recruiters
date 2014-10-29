@@ -4,95 +4,89 @@
   .divider2
   %form{ url: candidates_search_company_path(@company), method: :get }
     %input.search-field{type: "text",
-                       placeholder: "Assessment Taker Name or Email id", 
+                       placeholder: "Assessment Taker Name or Email id",
                        name: "search[candidate_name_or_email]",
                        value: params[:search][:candidate_name_or_email]}
     .search-btn
       %input{:type=>"submit", :value => ""}
     .span.info-text.line-height2
-      Please enter an Assessment Taker's name or email address and press a button to search
+      Please enter an Assessment Taker's name or email address and press the button to search
     .clr
 
   .divider2
-  - if @candidate_assessments.present?
-    .big-text
-      Showing results for “#{params[:search][:candidate_name_or_email]}”
-    
-    .divider2
-    
-    .list-snippet-titles.big-text.clearfix
-      .span3.first
-        = sort_link "ATID", candidates_search_company_path(@company), "id", params[:search]
-      .span7
-        = sort_link "Assessment Taker", candidates_search_company_path(@company), "name", params[:search]
-      .span7
-        = sort_link "Assessment Title", candidates_search_company_path(@company), "assessment_name", params[:search]
-      .span8
-        = sort_link "Assessment Status", candidates_search_company_path(@company), "status", params[:search]
-      .span  
-      .clr
-      .divider1
-    %ul
-      - @candidate_assessments.each do |candidate_assessment|
-        - candidate = candidate_assessment.candidate
-        - assessment = candidate_assessment.assessment
-        %li.list-snippet.extra-medium-text
-          .divider1
-          .span3.first
-            %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.id} 
-              = candidate.id
-          .span7.info-block
-            %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.name}
-              = candidate.name
-          .span7
-            %a{:href => company_custom_assessment_path(:company_id => @company.id, :id => assessment.id), :title => assessment.name}
-              = assessment.name
-          .span8
-            %a.down{:href => "javascript:void(0);", :title => ""}
-              = test_statuses[candidate_assessment.status]
-              - time = test_statuses[candidate_assessment.status] == "Completed" ? candidate_assessment.completed_at : candidate_assessment.updated_at
-              as of #{htime(time)} Hrs, #{hdate(time)}
-          .span
-            - if test_statuses[candidate_assessment.status] == "Completed"
-              - report = candidate_assessment.candidate_assessment_reports.first
-              - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
-                - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => candidate.id, :custom_assessment_id => assessment.id, :id => report.id, :view_mode => "html")
-                %a{href: url, title: "View Report", target: "_blank"}
-                  %i.icon-file
-                  View Report
-              - else
-                %a{:href => "javascript:void(0);", :title => "Generating Report..."}
-                  %i.icon-spinner.icon-spin 
-                  Generating Report...      
-            - else
-              - if test_statuses[candidate_assessment.status] == "Expired"
-                %a{:href => "javascript:void(0);", :title => "Expired"}
-                  %i.icon-time
-                  Expired
-              - else  
-                %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => "Send Reminder"}
-                  %i.icon-time
-                  Send Reminder    
-          .clr
-      .divider2
-      .pull-right
-        .muted.extra-medium-text
-          .span.line-height2
-            Go to Page
-          %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-            - @candidate_assessments.total_pages.times do |page|
-              %option{selected: params[:page].to_i == (page + 1), value: candidates_search_company_path(@company, params.merge(:page => page + 1)), }
-                = page + 1
-          .clr
-      .clr
+  - if params[:search][:candidate_name_or_email].present?
+    - if @candidate_assessments.present?
+      .big-text
+        Showing results for “#{params[:search][:candidate_name_or_email]}”
 
-  - else
-    .big-text
-      Your search - "#{params[:search][:candidate_name_or_email]}" - did not match any Assessment Takers
       .divider2
-      Suggestions:
-      .divider2
-      %ul.styled
-        %li If searching using name, please ensure correct spelling
-        %li If searching using email ID, please use a valid email address associated with an assessment, without any spaces
-        %li Type the name or email ID - avoid copying & pasting from another source
+
+      .list-snippet-titles.big-text.clearfix
+        .span3.first
+          = sort_link "ATID", candidates_search_company_path(@company), "id", params[:search]
+        .span7
+          = sort_link "Assessment Taker", candidates_search_company_path(@company), "name", params[:search]
+        .span7
+          = sort_link "Assessment Title", candidates_search_company_path(@company), "assessment_name", params[:search]
+        .span8
+          = sort_link "Assessment Status", candidates_search_company_path(@company), "status", params[:search]
+        .span
+        .clr
+        .divider1
+      %ul
+        - @candidate_assessments.each do |candidate_assessment|
+          - candidate = candidate_assessment.candidate
+          - assessment = candidate_assessment.assessment
+          %li.list-snippet.extra-medium-text
+            .divider1
+            .span3.first
+              %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.id}
+                = candidate.id
+            .span7.info-block
+              %a{:href => candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => candidate.name}
+                = candidate.name
+            .span7
+              %a{:href => company_custom_assessment_path(:company_id => @company.id, :id => assessment.id), :title => assessment.name}
+                = assessment.name
+            .span8
+              %a.down{:href => "javascript:void(0);", :title => ""}
+                = test_statuses[candidate_assessment.status]
+                - time = test_statuses[candidate_assessment.status] == "Completed" ? candidate_assessment.completed_at : candidate_assessment.updated_at
+                as of #{htime(time)} Hrs, #{hdate(time)}
+            .span
+              - if test_statuses[candidate_assessment.status] == "Completed"
+                - report = candidate_assessment.candidate_assessment_reports.first
+                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                  - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => candidate.id, :custom_assessment_id => assessment.id, :id => report.id, :view_mode => "html")
+                  %a{href: url, title: "View Report", target: "_blank"}
+                    %i.icon-file
+                    View Report
+                - else
+                  %a{:href => "javascript:void(0);", :title => "Generating Report..."}
+                    %i.icon-spinner.icon-spin
+                    Generating Report...
+              - else
+                - if test_statuses[candidate_assessment.status] == "Expired"
+                  %a{:href => "javascript:void(0);", :title => "Expired"}
+                    %i.icon-time
+                    Expired
+                - else
+                  %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :candidate_id => candidate.id), :title => "Send Reminder"}
+                    %i.icon-time
+                    Send Reminder
+            .clr
+        .divider2
+        .pull-right
+          = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+        .clr
+
+    - else
+      .big-text
+        Your search - "#{params[:search][:candidate_name_or_email]}" - did not match any Assessment Takers
+        .divider2
+        Suggestions:
+        .divider2
+        %ul.styled
+          %li If searching using name, please ensure correct spelling
+          %li If searching using email ID, please use a valid email address associated with an assessment, without any spaces
+          %li Type the name or email ID - avoid copying & pasting from another source
