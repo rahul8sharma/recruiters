@@ -1,5 +1,5 @@
 - items.each_with_index do |item, item_index|
-  %li.items
+  %li.items{ class: @error_items.include?(item.id.to_s) ? "error" : "" }
     -# toggle ".error" class to ".items"
     .span12.item
       #{item_index+1}. #{item.body}

@@ -25,7 +25,23 @@ class Mrf::AssessmentsController < ApplicationController
     params[:selected_items_self] ||= {}
     @selected_items_other = params[:selected_items_other]
     @selected_items_self = params[:selected_items_self]
+    @error_items = []
     if request.put?
+      @selected_items_other = @selected_items_other.select{|item_id, item_data| item_data[:type].present? }
+      @selected_items_other = Hash[@selected_items_other.sort_by{|item_id, item_data| item_data[:order].to_i }]
+      @selected_items_self = @selected_items_self.select{|item_id, item_data| item_data[:type].present? }
+      @selected_items_self = Hash[@selected_items_self.sort_by{|item_id, item_data| item_data[:order].to_i }]
+      
+      @error_items = @selected_items_other\
+                              .group_by{|item_id, item_data| item_data[:order] }\
+                              .select{|key,values| values.size > 1 }\
+                              .values.collect{|v| v[0][0] }
+      @error_items |= @selected_items_self\
+                              .group_by{|item_id, item_data| item_data[:order] }\
+                              .select{|key,values| values.size > 1 }\
+                              .values.collect{|v| v[0][0] }
+      
+      
       other_item_orders = @selected_items_other.values.flatten.collect{|item_data| item_data[:order] } 
       if other_item_orders.size != other_item_orders.uniq.size
         flash[:error] = "Orders for other items is not unique. Please make sure that you have unique order for all the other items."
@@ -38,10 +54,6 @@ class Mrf::AssessmentsController < ApplicationController
         get_trait_wise_items  
         return
       end
-      @selected_items_other = @selected_items_other.select{|item_id, item_data| item_data[:type].present? }
-      @selected_items_other = Hash[@selected_items_other.sort_by{|item_id, item_data| item_data[:order].to_i }]
-      @selected_items_self = @selected_items_self.select{|item_id, item_data| item_data[:type].present? }
-      @selected_items_self = Hash[@selected_items_self.sort_by{|item_id, item_data| item_data[:order].to_i }]
       configuration = @assessment.configuration || {}
       configuration[:items_self] = @selected_items_self.collect{ |item_id,item_data|
         {
