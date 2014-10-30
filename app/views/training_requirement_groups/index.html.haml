@@ -53,13 +53,5 @@
           .divider1
     .divider2
   .pull-right
-    - if (@training_requirement_groups.present?)
-      .muted.extra-medium-text
-        .span.line-height2
-          Go to Page
-        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-          - @training_requirement_groups.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1),value:company_training_requirement_groups_path(@company, params.merge(:page => page + 1)), }
-              = page + 1
-        .clr
+    = render :partial => "shared/pagination", :locals => { :objects => @training_requirement_groups}
   .clr      

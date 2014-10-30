@@ -1,0 +1,12 @@
+- if (objects.present?)
+  .muted.extra-medium-text
+    .span.line-height2
+      Go to Page
+    - url = request.path
+    .span
+      %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
+        - objects.total_pages.times do |page|
+          - page_url = url + "?"+request.query_parameters.merge(:page => page + 1).to_query
+          %option{selected: params[:page].to_i == (page + 1), value: page_url, }
+            = page + 1
+    .clr
