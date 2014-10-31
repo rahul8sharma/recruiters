@@ -380,6 +380,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
+
   namespace :mrf do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
@@ -668,6 +669,13 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+
+
+  get "/trr/manage", :to => "suitability/custom_assessments/training_requirements_reports_management#manage", :as => :trr_manage
+  post "/trr/manage/export_assessment_trr_candidates", :to =>  "suitability/custom_assessments/training_requirements_reports_management#export_assessment_trr_candidates", :as => :export_assessment_trr_candidates
+  post "/trr/manage/export_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#export_group_trr_candidates", :as => :export_group_trr_candidates
+  post "/trr/manage/import_assessment_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_assessment_trr_candidates", :as => :import_assessment_trr_candidates
+  post "/trr/manage/import_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_group_trr_candidates", :as => :import_group_trr_candidates
 
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout

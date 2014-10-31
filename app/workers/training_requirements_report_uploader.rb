@@ -1,6 +1,6 @@
 class TrainingRequirementsReportUploader < AbstractController::Base
   include Sidekiq::Worker
-  
+
   include AbstractController::Rendering
   include AbstractController::Helpers
   include AbstractController::Translation
@@ -9,7 +9,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
   helper ApplicationHelper
   helper ReportsHelper
   self.view_paths = "app/views"
-  
+
   def perform(report_data, auth_token, patch = {})
     report_data = HashWithIndifferentAccess.new report_data
     Rails.logger.debug "************* #{report_data} ******************"
@@ -23,10 +23,10 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       :status => "success"
     }
     begin
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a  
-      @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id, methods: [ :training_requirements_report ])
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a
+      @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id)
       @report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
-      @report.report_data = @assessment.training_requirements_report
+
       @report.report_hash = @report.report_data
       if !@report.report_data[:factor_scores].present?
         Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
@@ -40,27 +40,27 @@ class TrainingRequirementsReportUploader < AbstractController::Base
         }), "notify_report_status")
         return
       end
-      @report_data = @assessment.training_requirements_report
+      @report_data = @report.report_data
       @report_data[:company_id] = @assessment.company_id
-      
+
       @view_mode = "html"
-      
+
       Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
         :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING,
       )
-      
+
       html = render_to_string(
-         template: "assessment_reports/training_requirements_report.html.haml", 
-         layout: "layouts/training_requirements_report.html.haml", 
+         template: "assessment_reports/training_requirements_report.html.haml",
+         layout: "layouts/training_requirements_report.html.haml",
          formats: [:html],
          handlers: [ :haml ]
       )
-      
+
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/training_requirements_report.pdf.haml", 
-          layout: "layouts/training_requirements_report.pdf.haml", 
+          "assessment_reports/training_requirements_report.pdf.haml",
+          layout: "layouts/training_requirements_report.pdf.haml",
           handlers: [ :haml ],
           formats: [:pdf]
         ),
@@ -70,13 +70,13 @@ class TrainingRequirementsReportUploader < AbstractController::Base
           layout: "layouts/training_requirements_report.pdf.haml")
         }
       )
-      
+
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       pdf_file_id = "training_requirements_report_assessment_#{@assessment.id}.pdf"
       html_file_id = "training_requirements_report_assessment_#{@assessment.id}.html"
       pdf_save_path = Rails.root.join('tmp',"#{pdf_file_id}")
       html_save_path = Rails.root.join('tmp',"#{html_file_id}")
-      
+
       File.open(html_save_path, 'wb') do |file|
         file << html
       end
@@ -87,21 +87,20 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
       File.delete(pdf_save_path)
       File.delete(html_save_path)
-      
-      
+
+
       # Update report_urls hash for assessment
       pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.pdf")
       html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.html")
-      
+
       Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
         :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
         :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
         :pdf_key     => "training_requirements_report_assessment_#{@assessment.id}.pdf",
         :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
-        :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html",
-        :report_data => @report_data
+        :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html"
       )
-      
+
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
         JombayNotify::Email.create_from_mail(SystemMailer.send_training_requirements_report(report_data), "send_report")
@@ -125,9 +124,9 @@ class TrainingRequirementsReportUploader < AbstractController::Base
           :backtrace => [e.message] + e.backtrace[0..20]
         }
       }), "notify_report_status")
-    end 
+    end
   end
-  
+
   def upload_file_to_s3(file_id,file_path)
     File.open(file_path,"r") do |file|
       Rails.logger.debug "Uploading #{file_id} to s3 ........."
