@@ -69,7 +69,7 @@ Recruiters::Application.routes.draw do
       get "landing" => "companies#landing", :as => :landing
     end
 
-    resources :hiring_managers, :only => [:index, :new] do
+    resources :hiring_managers do
       collection do
         post :import
         get 'assign_jobs' => "hiring_managers#assign_jobs_form", :as => :assign_jobs_form
@@ -79,7 +79,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :admins, :only => [:index, :new] do
+    resources :admins do
       collection do
         get :manage
         get :destroy_all
@@ -246,7 +246,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :jobs, :only => [:show, :index, :new] do
+    resources :jobs do
       collection do
         get :manage
         get :destroy_all
@@ -274,7 +274,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :account_managers, :only => [:index, :new] do
+  resources :account_managers do
     collection do
       post :import
       get 'assign_jobs' => "account_managers#assign_jobs_form", :as => :assign_jobs_form
@@ -285,8 +285,28 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
+  
+  resources :templates do
+    collection do
+      post :import
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+    end
+  end
+  
+  resources :template_variables do
+    collection do
+      post :import
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+    end
+  end
 
-  resources :functional_areas, :only => [:index, :new] do
+  resources :functional_areas do
     collection do
       post :import
       get :manage
@@ -319,7 +339,7 @@ Recruiters::Application.routes.draw do
   end
 
 
-  resources :locations, :only => [:index, :new] do
+  resources :locations do
     collection do
       get :get_locations
       post :import
@@ -330,7 +350,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :industries, :only => [:index, :new] do
+  resources :industries do
     collection do
       post :import
       get :manage
@@ -340,7 +360,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :degrees, :only => [:index, :new] do
+  resources :degrees do
     collection do
       post :import
       get :manage
@@ -350,17 +370,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :job_experiences, :only => [:index, :new] do
-    collection do
-      post :import
-      get :manage
-      get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
-    end
-  end
-
-  resources :locations, :only => [:index, :new] do
+  resources :job_experiences do
     collection do
       post :import
       get :manage
@@ -404,7 +414,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :trait_score_buckets, :only => [:index] do
+    resources :trait_score_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -413,7 +423,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :competency_score_buckets, :only => [:index] do
+    resources :competency_score_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -422,7 +432,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :norm_buckets, :only => [:index] do
+    resources :norm_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -431,7 +441,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :default_trait_norm_ranges, :only => [:index] do
+    resources :default_trait_norm_ranges do
       collection do
         get :manage
         get :destroy_all
@@ -440,7 +450,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :default_competency_norm_ranges, :only => [:index] do
+    resources :default_competency_norm_ranges do
       collection do
         get :manage
         get :destroy_all
@@ -478,7 +488,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :factor_norm_bucket_descriptions, :only => [:index] do
+    resources :factor_norm_bucket_descriptions do
       collection do
         get :manage
         get :destroy_all
@@ -488,7 +498,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :default_factor_norm_ranges, :only => [:index] do
+    resources :default_factor_norm_ranges do
       collection do
         get :manage
         get :destroy_all
@@ -497,7 +507,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :fitment_grade_mappings, :only => [:index] do
+    resources :fitment_grade_mappings do
       collection do
         get :manage
         get :destroy_all
@@ -506,7 +516,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :fitment_grades, :only => [:index] do
+    resources :fitment_grade do
       collection do
         get :manage
         get :destroy_all
@@ -515,7 +525,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :fits, :only => [:index] do
+    resources :fits do
       collection do
         get :manage
         get :destroy_all
@@ -533,7 +543,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :competency_grades, :only => [:index] do
+    resources :competency_grades do
       collection do
         get :manage
         get :destroy_all
@@ -542,7 +552,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :norm_buckets, :only => [:index] do
+    resources :norm_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -551,7 +561,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :consistency_buckets, :only => [:index] do
+    resources :consistency_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -560,7 +570,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :overall_factor_score_buckets, :only => [:index] do
+    resources :overall_factor_score_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -569,7 +579,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :aggregate_competency_score_buckets, :only => [:index] do
+    resources :aggregate_competency_score_buckets do
       collection do
         get :manage
         get :destroy_all
@@ -578,7 +588,16 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :pattern_response_buckets, :only => [:index] do
+    resources :pattern_response_buckets do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post 'export_to_google_drive'
+      end
+    end
+    
+    resources :fitment_grades do
       collection do
         get :manage
         get :destroy_all
@@ -587,7 +606,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :overall_fitment_grades, :only => [:index] do
+    resources :overall_fitment_grades do
       collection do
         get :manage
         get :destroy_all
@@ -596,7 +615,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :post_assessment_guidelines, :only => [:index] do
+    resources :post_assessment_guidelines do
       collection do
         get :manage
         get :destroy_all
@@ -606,7 +625,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :recommendations, :only => [:index] do
+    resources :recommendations do
       collection do
         get :manage
         get :destroy_all
@@ -626,7 +645,7 @@ Recruiters::Application.routes.draw do
     end
 
     namespace :job do
-      resources :factor_norms, :only => [ :index ] do
+      resources :factor_norms do
         collection do
           post :import
           get :edit
@@ -640,7 +659,7 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :finance do
-    resources :mutual_funds,:only => [:index] do
+    resources :mutual_funds do
       collection do
         post :import
         get :manage

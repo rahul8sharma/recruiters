@@ -65,14 +65,6 @@
           .clr
           .divider1
   .divider2
-  - if @assessments.present?
-    .pull-right
-      .muted.extra-medium-text
-        .span.line-height2
-          Go to Page
-        %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-          - @assessments.total_pages.times do |page|
-            %option{selected: params[:page].to_i == (page + 1), value: company_custom_assessments_path(@company, params.merge(:page => page + 1)), }
-              = page + 1
-        .clr
-    .clr
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @assessments}
+  .clr
