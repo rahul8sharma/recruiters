@@ -6,10 +6,9 @@
       TRR ID :
       = f.text_field :assessment_group_id
 
-    = f.fields_for "folder" do |f|
-      %p
-        Google Drive Folder Url :
-        = f.text_field "url"
+    %p
+      Google Spreadsheet Url :
+      = f.text_field "url"
 
     %p
       Notification Email :
