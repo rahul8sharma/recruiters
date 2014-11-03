@@ -24,8 +24,9 @@
     %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
   .send-assessment
     .span8.left-offset1
-      .big-text.line-height2
-        Choose Email Template
+      - if @templates.size > 1
+        .big-text.line-height2
+          Choose Email Template
       %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
         -# add this class when template isnt availble "hide" to %select
         - @templates.each do |template|
