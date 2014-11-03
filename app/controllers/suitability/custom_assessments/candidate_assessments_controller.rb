@@ -135,6 +135,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
+                      :template_id => params[:template_id].to_i,
                       :file => "BulkUpload.csv",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
