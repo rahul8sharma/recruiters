@@ -23,14 +23,15 @@
     %input{:type => "hidden", name: "s3_key", value: @s3_key }
     %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
   .send-assessment
-    %select.span8.left-offset1{ id: "select_template", name: "template_id", class: @templates.empty? ? 'hide':'', onchange: "selectTemplate()" }
-      -# add this class when template isnt availble "hide" to %select
-      %option{ value: "" }
+    .span8.left-offset1
+      .big-text.line-height2
         Choose Email Template
-      - @templates.each do |template|
-        %option{value: template.id, body: template.preview_body}
-          = template.name
-    .email-template.pull-left{ class: @templates.empty? ? 'span18 margin-auto no-border':'' }
+      %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+        -# add this class when template isnt availble "hide" to %select
+        - @templates.each do |template|
+          %option{value: template.id, body: template.preview_body}
+            = template.name
+    .email-template.pull-left{ class: (@templates.size <= 1 ? 'span18 margin-auto no-border':'') }
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
       .gray-dark
         .span17
@@ -50,10 +51,25 @@
               .massage-body.italic.span15.medium-text.email-body
 
           .default-email
-            - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-              = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
-            - else
-              = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+            .test-text-to-send
+              %span.extra-medium-text.span2.first.show
+                Subject
+              .massage-body.italic.span15.medium-text
+                &lt;Assessment Taker's Name&gt;, #{@company.name} has chosen you to write an Assessment
+              .clr
+              .divider1
+              %span.extra-medium-text.span2.first.show
+                Message
+              .massage-body.italic.span15.medium-text
+                - template = @templates[0]
+                - if template
+                  = template.preview_body.html_safe
+                - else
+                  - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
+                  - else
+                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+              .clr                    
     .clr
     .divider2.border-bottom-grayLighter
     .divider2
