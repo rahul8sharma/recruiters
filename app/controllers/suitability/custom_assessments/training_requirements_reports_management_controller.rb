@@ -20,20 +20,14 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
   end
 
   def import_assessment_trr_candidates
-    unless params[:assessment][:url]
-      flash[:notice] = "Please provide a Spreadsheet URL"
-      redirect_to request.env['HTTP_REFERER'] and return
-    end
+
     Vger::Resources::Suitability::CustomAssessment.find(params[:assessment][:id])\
       .import_assessment_trr_candidates(params[:assessment])
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def import_group_trr_candidates
-    unless params[:assessment][:url]
-      flash[:notice] = "Please provide a Spreadsheet URL"
-      redirect_to request.env['HTTP_REFERER'] and return
-    end
+
     Vger::Resources::Suitability::TrainingRequirementGroup.find(params[:assessment][:assessment_group_id]).import_group_trr_candidates(params[:assessment])
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
