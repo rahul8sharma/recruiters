@@ -38,6 +38,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = s3_bucket_name
       @s3_key = s3_key
       @functional_area_id = params[:bulk_upload][:functional_area_id]
+      get_templates
       render :action => :send_test_to_candidates
     end
   end
@@ -341,7 +342,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
   
-  def get_templates
+  def get_templates 
     category = case params[:candidate_stage]
     when Vger::Resources::Candidate::Stage::CANDIDATE
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
