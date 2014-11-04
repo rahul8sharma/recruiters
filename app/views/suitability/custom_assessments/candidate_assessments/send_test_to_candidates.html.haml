@@ -3,62 +3,165 @@
   Assessment - #{@assessment.name}
 .divider2
 = render :partial => "shared/navigation-sub-nav"
-.divider2
-.span18.margin-auto.text-center
+.divider3
+- if params[:candidates]
+  - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+- else
+  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+= form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+  %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:candidates]
-    - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
+    %input{:type => "hidden", name: "upload_type", value: "manual" }
+    - params[:candidates].each do |id,candidate_data|
+      %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
+      %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
+      %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
   - else
-    - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
-  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
-    %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
-    - if params[:candidates]
-      %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
-      %input{:type => "hidden", name: "upload_type", value: "manual" }
-    - else
-      %input{:type => "hidden", name: "upload_type", value: "bulk" }
-      %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
-      %input{:type => "hidden", name: "s3_key", value: @s3_key }
-      %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
-    .extra-medium-text
-      Optional: Enter the email addresses of the people who should receive the Assessment Reports
-      .medium-text
-        (after the Assessment is completed by the Assessment Taker)
-    .divider1
-    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-      %input.span18.first{ type:'text', name: 'report_email_recipients'}
-      .clr
-      .ie
-        Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
-    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-      %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
-      .clr
-    - if current_user.type == "SuperAdmin"
-      .divider2
-      .text-center.large-text
-        %b OR
-      .divider2
-      %label{ for: "send_report_to_candidate", class: "font-normal" }
-        %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
-        Send report to candidate
-    .clr
-    .divider3
-    - if current_user.type == "SuperAdmin"
-      .text-center
-        %label.invitation-sms.medium-text
-          Also send test invitations to candidates via SMS
-          %input{:type=>"checkbox", name: "send_sms"}
-        %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-          Send default email
-          %input{:type=>"checkbox", name: "send_email", checked: true}
-    - else
-      %input{:type=>"checkbox", name: "send_email", checked: true, style: "display:none"}      
-      %input{:type=>"checkbox", name: "send_sms", checked: false, style: "display:none"}
-    - if params[:candidates]
-      - params[:candidates].each do |id,candidate_data|
-        %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
-        %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
-        %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
-    .divider1        
-    .text-center
-      %input.btn.btn-warning.large-text.big{:type => "submit", :value => "Send Assessment"}
+    %input{:type => "hidden", name: "upload_type", value: "bulk" }
+    %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
+    %input{:type => "hidden", name: "s3_key", value: @s3_key }
+    %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
+  .send-assessment
+    .span8.left-offset1
+      - if @templates.size > 1
+        .big-text.line-height2
+          Choose Email Template
+      %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+        -# add this class when template isnt availble "hide" to %select
+        - @templates.each do |template|
+          %option{value: template.id, body: template.preview_body}
+            = template.name
+    .email-template.pull-left{ class: (@templates.size <= 1 ? 'span18 margin-auto no-border':'') }
+      -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
+      .gray-dark
+        .span17
+          .large-text
+            Following is the Preview of the email that Assessment takers will receive.
+          .divider1   
+          .custom-email.hide
+            .test-text-to-send
+              %span.extra-medium-text.span2.first.show
+                Subject
+              .massage-body.italic.span15.medium-text
+                &lt;Assessment Taker's Name&gt;, #{@company.name} has chosen you to write an Assessment
+              .clr
+              .divider1
+              %span.extra-medium-text.span2.first.show
+                Message
+              .massage-body.italic.span15.medium-text.email-body
 
+          .default-email
+            .test-text-to-send
+              %span.extra-medium-text.span2.first.show
+                Subject
+              .massage-body.italic.span15.medium-text
+                &lt;Assessment Taker's Name&gt;, #{@company.name} has chosen you to write an Assessment
+              .clr
+              .divider1
+              %span.extra-medium-text.span2.first.show
+                Message
+              .massage-body.italic.span15.medium-text
+                - template = @templates[0]
+                - if template
+                  = template.preview_body.html_safe
+                - else
+                  - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
+                  - else
+                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+              .clr                    
+    .clr
+    .divider2.border-bottom-grayLighter
+    .divider2
+    .span17.text-center.extra-medium-text.left-offset1
+      Optional: Enter the email addresses of the people who should receive the Assessment Reports
+      (after the Assessment is completed by the Assessment Taker)
+      .divider1
+    .clr
+    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+      %input.span17.left-offset1{ type:'text', name: 'report_email_recipients'}
+      .clr
+      .ie.extra-medium-text.left-offset1
+        Email addresses seperated by commas. Do not add candidate email address here.
+    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+      %input.span17.left-offset1{ type:'text', name: 'report_email_recipients', placeholder:"Email addresses seperated by commas. Do not add candidate email address here."}
+      
+    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
+    .clr
+
+    .divider1
+    %label.medium-text.pull-left.left-offset1{ for: "send_report_to_candidate", class: "font-normal" }
+      %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+      Send report to candidate
+    %label.medium-text.pull-left.left-offset1
+      %input{:type=>"checkbox", name: "send_sms"}
+      Also send test invitations to candidates via SMS
+    %label.medium-text.pull-left.left-offset1{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+      %input{:type=>"checkbox", name: "send_email", checked: true}
+      Send default email
+    .clr
+
+
+-#for future ref(this is old code)
+  .span18.margin-auto.text-center
+    - if params[:candidates]
+      - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    - else
+      - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+    = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+      %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
+      - if params[:candidates]
+        %input{:type => "hidden", name: "candidate_ids", value: params[:candidates].keys.join(",") }
+        %input{:type => "hidden", name: "upload_type", value: "manual" }
+      - else
+        %input{:type => "hidden", name: "upload_type", value: "bulk" }
+        %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
+        %input{:type => "hidden", name: "s3_key", value: @s3_key }
+        %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
+      .extra-medium-text
+        Optional: Enter the email addresses of the people who should receive the Assessment Reports
+        .medium-text
+          (after the Assessment is completed by the Assessment Taker)
+      .divider1
+      = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+        %input.span18.first{ type:'text', name: 'report_email_recipients'}
+        .clr
+        .ie
+          Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+      = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+        %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+        .clr
+      - if current_user.type == "SuperAdmin"
+        .divider2
+        .text-center.large-text
+          %b OR
+        .divider2
+        %label{ for: "send_report_to_candidate", class: "font-normal" }
+          %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+          Send report to candidate
+      .clr
+      .divider3
+      - if current_user.type == "SuperAdmin"
+        .text-center
+          %label.invitation-sms.medium-text
+            Also send test invitations to candidates via SMS
+            %input{:type=>"checkbox", name: "send_sms"}
+          %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+            Send default email
+            %input{:type=>"checkbox", name: "send_email", checked: true}
+      - else
+        %input{:type=>"checkbox", name: "send_email", checked: true, style: "display:none"}      
+        %input{:type=>"checkbox", name: "send_sms", checked: false, style: "display:none"}
+      - if params[:candidates]
+        - params[:candidates].each do |id,candidate_data|
+          %input{:type => "checkbox", name: "selected_candidates[#{id}]", checked: true, style: "display:none;"}
+          %input{:type => "hidden", name: "candidates[#{id}][name]", value: candidate_data[:name]}
+          %input{:type => "hidden", name: "candidates[#{id}][email]", value: candidate_data[:email]}
+      .divider1        
+      .text-center
+        %input.btn.btn-warning.large-text.big{:type => "submit", :value => "Send Assessment"}
+
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
+= javascript_include_tag 'add_candidates'

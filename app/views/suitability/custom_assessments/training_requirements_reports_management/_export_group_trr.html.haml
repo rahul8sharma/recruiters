@@ -1,0 +1,19 @@
+= form_for :assessment, url: export_group_trr_candidates_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend
+      %strong Export Candidate List(Multiple Assessments - Group TRR)
+    %p
+      TRR ID :
+      = f.text_field :assessment_group_id
+
+    = f.fields_for "folder" do |f|
+      %p
+        Google Drive Folder Url :
+        = f.text_field "url"
+
+    %p
+      Notification Email :
+      = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Download Candidate List'

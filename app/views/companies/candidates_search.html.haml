@@ -77,14 +77,7 @@
             .clr
         .divider2
         .pull-right
-          .muted.extra-medium-text
-            .span.line-height2
-              Go to Page
-            %select.span2{onchange:"location = this.options[this.selectedIndex].value;"}
-              - @candidate_assessments.total_pages.times do |page|
-                %option{selected: params[:page].to_i == (page + 1), value: candidates_search_company_path(@company, params.merge(:page => page + 1)), }
-                  = page + 1
-            .clr
+          = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
         .clr
 
     - else

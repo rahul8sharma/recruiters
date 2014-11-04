@@ -17,6 +17,7 @@ jQuery(function () {
         colors: ["#82D23F","#FDC206"],
         plotOptions: {
           pie: {
+            animation: false,
             allowPointSelect: false,
             cursor: 'pointer',
             dataLabels: {

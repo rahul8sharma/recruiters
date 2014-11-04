@@ -1,0 +1,18 @@
+= form_for :assessment, url: import_group_trr_candidates_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend
+      %strong Import Candidate List(Multiple Assessments - Group TRR)
+    %p
+      TRR ID :
+      = f.text_field :assessment_group_id
+
+    %p
+      Google Spreadsheet Url :
+      = f.text_field "url"
+
+    %p
+      Notification Email :
+      = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Regenerate TRR'

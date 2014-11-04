@@ -2,6 +2,40 @@ class MasterDataController < ApplicationController
   before_filter :authenticate_user!
   layout "admin"
   
+  helper_method :resource_name
+  helper_method :index_columns
+  
+  def new
+    @resource = api_resource.new
+  end
+  
+  def create
+    @resource = api_resource.create(params[resource_name.singularize])
+    if @resource.error_messages && @resource.error_messages.present?
+      render :action => :new
+    else
+      redirect_to self.send("#{resource_name.singularize}_path",@resource)
+    end
+  end
+  
+  def show
+    @resource = api_resource.find(params[:id])
+  end
+  
+  def edit
+    @resource = api_resource.find(params[:id])
+  end
+  
+  def update
+    @resource = api_resource.save_existing(params[:id], params[resource_name.singularize])
+    if @resource.error_messages && @resource.error_messages.present?
+      render :action => :edit
+    else
+      redirect_to self.send("#{resource_name.singularize}_path",@resource)
+    end
+  end
+  
+  
   def manage
   end
 

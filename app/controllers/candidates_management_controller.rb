@@ -84,7 +84,7 @@ class CandidatesManagementController < ApplicationController
                         :bucket => s3_bucket_name,
                         :key => s3_key
                       }, :assessment_id => params[:import][:assessment_id], :override_overall_scores => params[:import][:override_overall_scores], :email => params[:import][:email])
-    redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the export is complete."
+    redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def assessment_link

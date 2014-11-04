@@ -25,7 +25,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def bulk_upload
     s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
-    unless params[:bulk_upload][:file]
+    if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_url and return
     end
@@ -38,6 +38,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = s3_bucket_name
       @s3_key = s3_key
       @functional_area_id = params[:bulk_upload][:functional_area_id]
+      get_templates
       render :action => :send_test_to_candidates
     end
   end
@@ -50,8 +51,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     #params[:candidates] = Hash[params[:candidates].collect{|key,data| [data[:email], data] }]
     # params[:candidate_stage] ||= Vger::Resources::Candidate::Stage::EMPLOYED
     params[:upload_method] ||= "manual"
-    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     @errors = {}
+    @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     assessment_factor_norms = @assessment.job_assessment_factor_norms.all.to_a
     if request.put?
       if params[:candidate_stage].empty?
@@ -95,6 +96,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
+        get_templates
         params[:send_test_to_candidates] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
@@ -133,6 +135,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
+                      :template_id => params[:template_id].present? ? params[:template_id].to_i : nil, 
                       :file => "BulkUpload.csv",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
@@ -178,6 +181,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         options = {
           :assessment_taker_type => assessment_taker_type
         }
+        options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
@@ -207,6 +211,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         #flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         #redirect_to candidates_url
         flash[:error] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
+        get_templates
         render :action => :send_test_to_candidates and return
       else
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
@@ -336,5 +341,25 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def reports_url
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+  
+  def get_templates 
+    category = case params[:candidate_stage]
+    when Vger::Resources::Candidate::Stage::CANDIDATE
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
+    when Vger::Resources::Candidate::Stage::EMPLOYED
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+    end
+    
+    @templates = Vger::Resources::Template\
+                  .where(query_options: { 
+                    company_id: @company.id,
+                    category: category
+                  }).all.to_a
+    @templates |= Vger::Resources::Template\
+                  .where(query_options: { 
+                    company_id: nil,
+                    category: category
+                  }).all.to_a
   end
 end
