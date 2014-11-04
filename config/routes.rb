@@ -65,6 +65,7 @@ Recruiters::Application.routes.draw do
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
+      put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
       get "landing" => "companies#landing", :as => :landing
     end
