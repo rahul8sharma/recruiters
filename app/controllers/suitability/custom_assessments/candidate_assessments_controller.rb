@@ -25,7 +25,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def bulk_upload
     s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
-    unless params[:bulk_upload][:file]
+    if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_url and return
     end
@@ -38,6 +38,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = s3_bucket_name
       @s3_key = s3_key
       @functional_area_id = params[:bulk_upload][:functional_area_id]
+      get_templates
       render :action => :send_test_to_candidates
     end
   end
@@ -134,6 +135,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
+                      :template_id => params[:template_id].present? ? params[:template_id].to_i : nil, 
                       :file => "BulkUpload.csv",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
@@ -341,7 +343,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
   
-  def get_templates
+  def get_templates 
     category = case params[:candidate_stage]
     when Vger::Resources::Candidate::Stage::CANDIDATE
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
