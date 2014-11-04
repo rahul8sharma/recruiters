@@ -10,10 +10,18 @@
       %h4 Category:
     %td #{@resource.category}  
   %tr
+    %td 
+      %h4 From:
+    %td #{@resource.preview(:from).html_safe}  
+  %tr
+    %td 
+      %h4 Subject:
+    %td #{@resource.preview(:subject).html_safe}
+  %tr
     %td
       %h4 Preview:
     %td 
-      %i #{@resource.preview_body.html_safe}
+      %i #{@resource.preview(:body).html_safe}
         
 .links
   = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)
