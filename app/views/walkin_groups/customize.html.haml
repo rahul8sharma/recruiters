@@ -75,7 +75,7 @@
                   %select{name: "walkin_group[assessment_hash][#{assessment.id}][candidate_stage]", value: @walkin_group.assessment_hash["#{assessment.id}"]['candidate_stage']}
                     - Vger::Resources::Candidate::STAGES.each do |candidate_stage|
                       %option{value: candidate_stage}
-                        = candidate_stage
+                        = candidate_stage.titleize
               .clr
               .control-group
                 .span5.medium-text.line-height2.first.text-center
