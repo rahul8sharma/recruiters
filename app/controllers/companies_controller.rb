@@ -122,7 +122,7 @@ class CompaniesController < ApplicationController
         added_by_superadmin: true
       }
       job_id = Vger::Resources::Subscription.create(subscription_data)
-      flash[:notice] = "Subscription is being added. You should receive an email when the subscription get added to the system."
+      flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
       redirect_to company_path(@company)
     end  
   end
