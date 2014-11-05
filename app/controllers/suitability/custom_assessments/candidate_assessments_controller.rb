@@ -109,6 +109,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     end
   end
 
+  def add_candidates_bulk
+  end
+
+
   # GET : renders send_reminder page
   # PUT : sends reminder and redirects to candidates list for current assessment
   def send_reminder
@@ -135,7 +139,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
-                      :template_id => params[:template_id].present? ? params[:template_id].to_i : nil, 
+                      :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
                       :file => "BulkUpload.csv",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
@@ -342,22 +346,22 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def reports_url
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
-  
-  def get_templates 
+
+  def get_templates
     category = case params[:candidate_stage]
     when Vger::Resources::Candidate::Stage::CANDIDATE
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
     when Vger::Resources::Candidate::Stage::EMPLOYED
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
     end
-    
+
     @templates = Vger::Resources::Template\
-                  .where(query_options: { 
+                  .where(query_options: {
                     company_id: @company.id,
                     category: category
                   }).all.to_a
     @templates |= Vger::Resources::Template\
-                  .where(query_options: { 
+                  .where(query_options: {
                     company_id: nil,
                     category: category
                   }).all.to_a
