@@ -182,8 +182,13 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     end
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-    if @assessment.error_messages.blank?
+    # TODO
+    # This is a bad workaround to allow superadmin to proceed even if items are not available
+    # Need a better way to manage this 
+    allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superadmin?
+    if @assessment.error_messages.blank? || allowed
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+      flash[:error] = @assessment.error_messages.join("<br/>")
       if params[:save_and_close].present?
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
           redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
