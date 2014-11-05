@@ -18,7 +18,7 @@
       #employee
         -#toggle class ".checked" to "#employee"
         .title.span.extra-medium-text.default
-          For Development 
+          For Development
         %i.muted.span.medium-text
           (Existing Employees)
         .clr
@@ -29,21 +29,21 @@
       #candidate
         -#toggle class ".checked" to "#candidate"
         .title.span.extra-medium-text.default
-          For Hiring 
+          For Hiring
         %i.muted.span.medium-text
           (Potential Candidates)
         .clr
-    .clr 
+    .clr
 
-  %a.label.label-warning.label-small.pull-left{:href => "#", :title => "USE BULK UPLOAD"}
+  %a.label.label-warning.label-small.pull-left{:href => add_candidates_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
     %b USE BULK UPLOAD
-  .clr 
+  .clr
 
   .divider1
 
   .margin-auto.span22
     -#Bulk Upload old code
-      .select-candidate-type 
+      .select-candidate-type
         - if current_user.type == "SuperAdmin"
           = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
       .divider1
@@ -52,7 +52,7 @@
       %label
         %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
         %b.extra-medium-text{ class: checked ? 'checked': '' }
-          Add Assessment takers manually: 
+          Add Assessment takers manually:
       .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
@@ -68,9 +68,9 @@
           .clr
         %ul.add-candidates.clearfix
           - 10.times do |index|
-            = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
+            = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
         .divider2
-      
+
       %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_custom_assessment_path(@company,@assessment) }
         Add Assessment Takers Later
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
