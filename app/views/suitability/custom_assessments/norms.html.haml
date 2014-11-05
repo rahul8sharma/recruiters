@@ -41,6 +41,8 @@
     %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
     %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
     %input{type: 'hidden', name: 'user', value: current_user.type}
+    - if current_user.type != "SuperAdmin"
+      = f.hidden_field :validate_items, value: "on"
     - 2.times do 
       .span15.first
         .factor-list
