@@ -29,7 +29,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
     end
-    if !params[:candidate_stage].present? || params[:candidate_stage].empty?
+    if !params[:candidate_stage].present?
       flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id) and return
     else
