@@ -6,3 +6,80 @@
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2
+
+  %a.medium-text.pull-right{:href => "#", :title => "Return to Manual Addition of Assessment Takers"}
+    Return to Manual Addition of Assessment Takers
+  .clr
+
+  .bulk-upload
+    .bulk-upload-snippet
+      .heading  
+        .pull-left
+          Add Assessment takers in bulk 
+        .clr
+      .divider2
+
+      .left-sec.span15
+        .inner
+          .divider2
+          .fileUpload.disabled
+            %span Choose File
+            %input#uploadBtn.upload{:type => "file"}/
+          %input#uploadFile{:disabled => "disabled", :placeholder => "Choose File"}/
+          .clr
+
+          .help-text
+            File format supported: CSV
+          .divider1
+
+          %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_candidate_bulk_upload_path}
+            Download sample file for adding Assessment takers
+          .divider2
+      .right-sec.left-offset1.span13
+        .big-text
+          What is the purpose of assessing these assessment takers?
+        .divider2 
+        .purpose.left-offset1
+          %label
+            %input.span1{:type => "radio"}/
+            #employee
+              -#toggle class ".checked" to "#employee"
+              .title.span.extra-medium-text
+                For Development
+              %i.muted.span.medium-text
+                (Existing Employees)
+              .clr
+          .divider1
+          %label
+            %input.span1{:type => "radio"}/
+            #candidate
+              -#toggle class ".checked" to "#candidate"
+              .title.span.extra-medium-text
+                For Hiring 
+              %i.muted.span.medium-text
+                (Potential Candidates)
+              .clr
+      .clr
+
+      .divider2
+
+    %a.medium-text.view-instruction{:href => "#", :title => "View Instructions"}
+      View Instructions
+
+    .divider2
+
+    %input.btn.btn-warning.large-text.bold.pull-right{:type => "submit", :value => "Proceed" }
+    .clr
+
+    .divider3
+
+    .bulk-upload-instructions
+      = image_tag("bulk-upload/bulk-upload-instructions.jpg")
+
+
+:javascript
+  document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+  };
+
+  

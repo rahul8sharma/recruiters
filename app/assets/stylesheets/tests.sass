@@ -327,4 +327,84 @@ ul.scores_listing
 
 .boxed
   border: 1px solid rgba(192, 179, 179, 0.65)
-  padding: 5px 5px 5px 5px
+  padding: 5px
+.bulk-upload
+  .view-instruction
+    background: image-url("bulk-upload/view-instruction-icon.png") right center no-repeat
+    padding: 10px 0 
+    padding-right: 20px
+    line-height: 15px
+  .bulk-upload-snippet
+    border: 1px solid #2c2c2c
+    .heading
+      background: #2c2c2c
+      .pull-left 
+        background: image-url("bulk-upload/upload-icon.png") right 3px no-repeat
+        font-size: 20px
+        font-weight: 700
+        line-height: 36px
+        padding: 0 15px
+        padding-right: 30px
+        color: #fff
+
+    .left-sec 
+      border-right: 1px solid #2c2c2c
+      .help-text
+        line-height: 20px
+      .inner
+        width: 70%
+        margin: auto
+      .fileUpload.disabled
+        background: #bcbec0
+        border-radius: 0
+        font-size: 18px
+        font-weight: 700
+        padding: 10px 12px
+        color: #fff
+        margin: 0
+        float: left
+        &:hover
+          color: #fff
+          background: $color-warning
+      #uploadFile
+        float: left
+        height: 30px
+        border-left: 0 none
+        width: 260px
+        border-color: #bcbec0
+      .fileUpload
+        position: relative
+        overflow: hidden
+        margin: 10px
+
+      .fileUpload 
+        input.upload
+          position: absolute
+          top: 0
+          right: 0
+          margin: 0
+          padding: 0
+          font-size: 20px
+          cursor: pointer
+          opacity: 0
+          filter: alpha(opacity=0)
+
+    .right-sec
+      label
+        color: $default
+.purpose
+  .checked
+    .title
+      color: $color-warning
+.add-candidates
+  .purpose
+    border-right: 1px solid #e3e3e3
+    padding-right: 15px
+    margin-right: 30px
+  .label
+    margin-top: 15px
+
+  input.btn[type="submit"]
+    margin-right: 25px
+
+
