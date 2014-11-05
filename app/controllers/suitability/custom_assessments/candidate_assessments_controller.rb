@@ -27,11 +27,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
-      redirect_to add_candidates_url and return
+      redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
     end
-    if params[:candidate_stage].empty?
+    if !params[:candidate_stage].present? || params[:candidate_stage].empty?
       flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
-      redirect_to add_candidates_url and return
+      redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id) and return
     else
       data = params[:bulk_upload][:file].read
       S3Utils.upload(s3_bucket_name, s3_key, data)
@@ -110,6 +110,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def add_candidates_bulk
+
   end
 
 
