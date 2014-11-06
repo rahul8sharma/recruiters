@@ -115,7 +115,7 @@
     .clr
 
     .divider1
-    %div{style: "display:#{current_user.type != 'SuperAdmin' ? 'block': 'none'}"}
+    %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
       %label.medium-text.pull-left.left-offset1{ :for => "send_report_to_candidate", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
         Send report to candidate

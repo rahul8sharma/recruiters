@@ -18,21 +18,17 @@
             Add Assessment takers in bulk
           .clr
         .divider2
-
         .left-sec.span15
           .inner
             .divider2
-
             .fileUpload.disabled
               %span Choose File
               = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.csv'
             %input#uploadFile{ :placeholder => "Choose File", :disabled => true}
             .clr
-
             .help-text
               File format supported: CSV
             .divider1
-
             %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_candidate_bulk_upload_path}
               Download sample file for adding Assessment takers
             .divider2
@@ -64,7 +60,13 @@
                 .clr
         .clr
         .divider2
-
+        / back to top
+        %p#back-top
+          %a{:href =>"#header"}
+            %span.medium-text.font-bold
+              %i.icon-chevron-up
+              Top
+        / back to top
       %a.medium-text.view-instruction.scroll{:href => "#bulk-upload-instructions", :title => "View Instructions"}
         View Instructions
       .divider2
