@@ -26,7 +26,7 @@
             .fileUpload.disabled
               %span Choose File
               = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.csv'
-            %input#uploadFile{ :placeholder => "Choose File"}
+            %input#uploadFile{ :placeholder => "Choose File", :disabled => true}
             .clr
 
             .help-text
@@ -63,22 +63,18 @@
                   (Potential Candidates)
                 .clr
         .clr
-
         .divider2
 
-      %a.medium-text.view-instruction{:href => "#", :title => "View Instructions"}
+      %a.medium-text.view-instruction.scroll{:href => "#bulk-upload-instructions", :title => "View Instructions"}
         View Instructions
-
       .divider2
-
       %input.btn.btn-warning.large-text.bold.pull-right{:type => "submit", :value => "Proceed" }
       .clr
-
       .divider3
-
-      .bulk-upload-instructions
+      #bulk-upload-instructions.bulk-upload-instructions
         = image_tag("bulk-upload/bulk-upload-instructions.jpg")
 
+= javascript_include_tag 'common'  
 
 :javascript
   document.getElementById("uploadBtn").onchange = function () {
