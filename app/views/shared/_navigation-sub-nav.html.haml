@@ -8,7 +8,7 @@
   .menu{ class: (([:add_candidates].include?(params[:action].to_sym) || [:add_candidates_bulk].include?(params[:action].to_sym)) && (request.get? || flash[:error].present?)) ? "active" : "" }
     .count 3
     Add Assessment Taker Details
-  .menu{ class: (params[:send_test_to_candidates].present? && request.put?) ? "active" : "" }
+  .menu{ class: (params[:bulk_upload].present? || params[:send_test_to_candidates].present?) ? "active" : "" }
     .count 4
     Confirm &amp; Send Assessment
 .clr
