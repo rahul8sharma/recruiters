@@ -215,18 +215,46 @@ class Mrf::AssessmentsController < ApplicationController
     get_custom_assessment
     @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
       company_id: @company.id,
-      assessment_id: @assessment.id
+      assessment_id: @assessment.id,
+      select: [:id]
     ).all.to_a
-    @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
+    @stakeholder_assessments = @stakeholder_assessments.map(&:id)
     if @stakeholder_assessments.present?
-      @feedbacks = Vger::Resources::Mrf::Feedback.where(
+      @feedbacks = Vger::Resources::Mrf::Feedback.group_count(
         company_id: @company.id,
         assessment_id: @assessment.id,
         query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments.keys
+          stakeholder_assessment_id: @stakeholder_assessments
+        },
+        group: ["role"]
+      )
+      @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
+        company_id: @company.id,
+        assessment_id: @assessment.id,
+        query_options: {
+          stakeholder_assessment_id: @stakeholder_assessments,
+          status: Vger::Resources::Mrf::Feedback.completed_statuses
+        },
+        group: ["role"]
+      )
+
+      @self_feedbacks = Vger::Resources::Mrf::Feedback.count(
+        company_id: @company.id,
+        assessment_id: @assessment.id,
+        query_options: {
+          stakeholder_assessment_id: @stakeholder_assessments,
+          role: Vger::Resources::Mrf::Feedback::Role::SELF
         }
-      ).all.to_a
-      @feedbacks = @feedbacks.group_by{|feedback| feedback.role }
+      )
+      
+      @total_candidates = Vger::Resources::Mrf::Feedback.count(
+        company_id: @company.id,
+        assessment_id: @assessment.id,
+        query_options: {
+          stakeholder_assessment_id: @stakeholder_assessments
+        },
+        select: ["distinct(candidate_id)"]
+      )
     else
       @feedbacks = {}
     end
