@@ -12,7 +12,7 @@
   .padding-all2.border-warning.shifted-up1
     .pull-left.extra-medium-text
       .span5.first
-        Total Candidates: #{@feedbacks.values.flatten.map(&:candidate_id).uniq.size}
+        Total Candidates: #{@total_candidates}
       .span5.first
         Traits Included: #{@assessment.assessment_traits.size}
       .clr.divider1
@@ -44,20 +44,19 @@
             Status
           %td 
             Reminders
-        - @feedbacks.each do |role,feedbacks|
+        - @feedbacks.each do |role,count|
           %tr
             %td 
               = role.titleize
             %td 
-              = feedbacks.size
+              = count
             %td 
-              - completed_feedbacks = feedbacks.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
-              = completed_feedbacks.size
+              = @completed_feedbacks[role].to_i
             %td 
-              - pending = feedbacks.size - completed_feedbacks.size
-              = pending == 0 ? "Completed" : (pending < feedbacks.size) ? "Partially Complete" : "Pending"
+              - pending = (count - @completed_feedbacks[role].to_i).to_i
+              = pending == 0 ? "Completed" : (pending < count) ? "Partially Complete" : "Pending"
             %td
-              - if completed_feedbacks.size != feedbacks.size 
+              - if @completed_feedbacks[role] != count
                 %a.default{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { role: role }), :title => "Send reminder"}
                   Send reminder
               - else
@@ -66,25 +65,25 @@
           %td 
             Total
           %td 
-            = @feedbacks.values.flatten.size
+            = @feedbacks.values.sum
           %td 
-            - completed_feedbacks = @feedbacks.values.flatten.select{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
-            = completed_feedbacks.size
+            = @completed_feedbacks.values.sum
           %td 
-            - pending = @feedbacks.values.flatten.size - completed_feedbacks.size
-            = pending == 0 ? "Completed" : (pending < @feedbacks.values.flatten.size) ? "Partially Complete" : "Pending"
+            - pending = @feedbacks.values.sum - @completed_feedbacks.values.sum
+            = pending == 0 ? "Completed" : (pending < @feedbacks.values.sum) ? "Partially Complete" : "Pending"
           %td 
-            - if completed_feedbacks.size != @feedbacks.values.flatten.size
+            - if @completed_feedbacks.values.sum != @feedbacks.values.sum
               %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Send Reminder to all pending"} 
                 Send Reminder to all pending
             - else
               = "-"    
     .divider1
-    - total_candidates = @feedbacks.values.flatten.map(&:candidate_id).uniq.count
-    - self_feedbacks = @feedbacks.values.flatten.select{|feedback| feedback.role == Vger::Resources::Mrf::Feedback::Role::SELF }
-    - if self_feedbacks.count != total_candidates
+    - if @self_feedbacks != @total_candidates
       .extra-medium-text.margin-auto{:style => "width: 710px"}
-        Self Ratings: Not Enabled For #{total_candidates - self_feedbacks.count} candidates.
+        Self Ratings: Not Enabled For #{@total_candidates - @self_feedbacks} candidates.
         %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Enable for all?"}
           Enable for all?
+    - else
+      .extra-medium-text.margin-auto{:style => "width: 710px"}
+        Self Ratings: Enabled For All #{@total_candidates} candidates.
     .divider2
