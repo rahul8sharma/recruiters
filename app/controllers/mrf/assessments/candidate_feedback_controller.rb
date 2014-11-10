@@ -45,15 +45,12 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def statistics
     get_custom_assessment
-    @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
-      company_id: @company.id,
-      assessment_id: @assessment.id
-    )
     @feedbacks = Vger::Resources::Mrf::Feedback.group_count({
       company_id: @company.id,
       assessment_id: @assessment.id,
+      joins: [:stakeholder_assessment],
       query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.map(&:id),
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
         candidate_id: @candidate.id
       },
       group: ["role"]
@@ -61,8 +58,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count({
       company_id: @company.id,
       assessment_id: @assessment.id,
+      joins: [:stakeholder_assessment],
       query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.map(&:id),
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
         candidate_id: @candidate.id,
         status: Vger::Resources::Mrf::Feedback.completed_statuses
       },
@@ -71,8 +69,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     @self_feedback = Vger::Resources::Mrf::Feedback.where({
       company_id: @company.id,
       assessment_id: @assessment.id,
+      joins: [:stakeholder_assessment],
       query_options: {
-        stakeholder_assessment_id: @stakeholder_assessments.map(&:id),
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
         candidate_id: @candidate.id,
         role: Vger::Resources::Mrf::Feedback::Role::SELF
       }

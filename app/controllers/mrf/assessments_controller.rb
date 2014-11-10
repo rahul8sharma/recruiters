@@ -213,51 +213,45 @@ class Mrf::AssessmentsController < ApplicationController
 
   def details
     get_custom_assessment
-    @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
+    @feedbacks = Vger::Resources::Mrf::Feedback.group_count(
       company_id: @company.id,
       assessment_id: @assessment.id,
-      select: [:id]
-    ).all.to_a
-    @stakeholder_assessments = @stakeholder_assessments.map(&:id)
-    if @stakeholder_assessments.present?
-      @feedbacks = Vger::Resources::Mrf::Feedback.group_count(
-        company_id: @company.id,
-        assessment_id: @assessment.id,
-        query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments
-        },
-        group: ["role"]
-      )
-      @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
-        company_id: @company.id,
-        assessment_id: @assessment.id,
-        query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments,
-          status: Vger::Resources::Mrf::Feedback.completed_statuses
-        },
-        group: ["role"]
-      )
+      group: ["role"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
+    @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      group: ["role"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
 
-      @self_feedbacks = Vger::Resources::Mrf::Feedback.count(
-        company_id: @company.id,
-        assessment_id: @assessment.id,
-        query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments,
-          role: Vger::Resources::Mrf::Feedback::Role::SELF
-        }
-      )
-      
-      @total_candidates = Vger::Resources::Mrf::Feedback.count(
-        company_id: @company.id,
-        assessment_id: @assessment.id,
-        query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments
-        },
-        select: ["distinct(candidate_id)"]
-      )
-    else
-      @feedbacks = {}
-    end
+    @self_feedbacks = Vger::Resources::Mrf::Feedback.count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      joins: [:stakeholder_assessment],
+      query_options: {
+        role: Vger::Resources::Mrf::Feedback::Role::SELF,
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
+    
+    @total_candidates = Vger::Resources::Mrf::Feedback.count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      select: ["distinct(candidate_id)"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
   end
 
   def traits
