@@ -12,6 +12,7 @@ class MasterDataController < ApplicationController
   def create
     @resource = api_resource.create(params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?
+      flash[:error] = @resource.error_messages.join("<br/>").html_safe
       render :action => :new
     else
       redirect_to self.send("#{resource_name.singularize}_path",@resource)
@@ -29,6 +30,7 @@ class MasterDataController < ApplicationController
   def update
     @resource = api_resource.save_existing(params[:id], params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?
+      flash[:error] = @resource.error_messages.join("<br/>").html_safe
       render :action => :edit
     else
       redirect_to self.send("#{resource_name.singularize}_path",@resource)

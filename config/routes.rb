@@ -65,6 +65,7 @@ Recruiters::Application.routes.draw do
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
+      put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
       get "landing" => "companies#landing", :as => :landing
     end
@@ -175,6 +176,7 @@ Recruiters::Application.routes.draw do
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
+        get "candidates/add_bulk" => "suitability/custom_assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
@@ -285,7 +287,7 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
-  
+
   resources :templates do
     collection do
       post :import
@@ -295,7 +297,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
-  
+
   resources :template_variables do
     collection do
       post :import
@@ -596,7 +598,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :fitment_grades do
       collection do
         get :manage

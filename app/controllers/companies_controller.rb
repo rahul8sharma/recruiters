@@ -101,17 +101,30 @@ class CompaniesController < ApplicationController
   
   
   def add_subscription
-    if !@company.admin
-      flash[:error] = "Admin account is not created for #{@company.name}. Please create admin acoount before adding a subscription." 
-      redirect_to company_path(@company)
-    end
-    @callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
+    #if !@company.admin
+    #  flash[:error] = "Admin account is not created for #{@company.name}. Please create admin acoount before adding a subscription." 
+    #  redirect_to company_path(@company)
+    #end
+    #@callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
     # @redirect_url = payment_status_subscriptions_url
     # the post request to this route will come in via :
     # from the add subscription form on the subscription view
     # code to generate URL for the billing app
     # believed route to this action via line 36 of routes.rb
     # actual route to this action via line 199 of routes.rb
+    if request.put?
+      subscription_data = {
+        company_id: @company.id,
+        assessments_purchased: params[:merchant_param1],
+        price: params[:amount],
+        valid_from: Time.now.strftime("%d/%m/%Y"),
+        valid_to: params[:merchant_param2],
+        added_by_superadmin: true
+      }
+      job_id = Vger::Resources::Subscription.create(subscription_data)
+      flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
+      redirect_to company_path(@company)
+    end  
   end
 
   def index

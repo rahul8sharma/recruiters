@@ -10,7 +10,8 @@
     .extra-large-text.text-center
       Please provide the following information
     .divider2
-    = form_for :subsciption, :url => Rails.application.config.vger["billing"]["url"] , :html => { :class => "add_subscription text-right span14 margin-auto"}  do |f|
+    = form_for :subsciption, :url => add_subscription_company_path(@company), method: :put, :html => { :class => "add_subscription text-right span14 margin-auto"}  do |f|
+      =# Rails.application.config.vger["billing"]["url"]
       = f.hidden_field :billing_name, value: @company.name, :name => "billing_name"
       = f.hidden_field :billing_address, value: @company.address, :name => "billing_address"
       = f.hidden_field :billing_city, value: @company.city, :name => "billing_city"

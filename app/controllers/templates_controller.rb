@@ -16,6 +16,8 @@ class TemplatesController < MasterDataController
       :name,
       :company_id,
       :category,
+      :from,
+      :subject,
       :body
     ]
   end

@@ -1,4 +1,4 @@
-.add
+.add-candidates
   .page-title.pull-left #{@assessment.name}
   %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Assessment Takers to this Assessment?"}
     Need help in adding Assessment Takers?
@@ -9,44 +9,50 @@
   -#%a.underlined.pull-right{:href => help_adding_candidates_path, :target => "_blank"}
     -#View Instructions
   .clr
-  .margin-auto.span21
-    .span11.first.left-offset1.extra-medium-text
-      What is the purpose of assessing these Assessment takers?
-    .span8
-      %label
-        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
-        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
-        #employee
-          .span.medium-text
-            For Development 
-            //add ".checked" e.g. %span.medium-text.checked
-          %i.muted.span
-            (Existing Employees)
-          .clr
+  .span15.first.big-text.text-center
+    What is the purpose of assessing these assessment takers?
+  .purpose.span8
+    %label
+      - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
+      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
+      #employee
+        -#toggle class ".checked" to "#employee"
+        .title.span.extra-medium-text.default
+          For Development
+        %i.muted.span.medium-text
+          (Existing Employees)
+        .clr
+    .divider1
+    %label
+      - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
+      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::CANDIDATE}');", checked: checked}
+      #candidate
+        -#toggle class ".checked" to "#candidate"
+        .title.span.extra-medium-text.default
+          For Hiring
+        %i.muted.span.medium-text
+          (Potential Candidates)
+        .clr
+    .clr
+
+  %a.label.label-warning.label-small.pull-left{:href => add_candidates_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+    %b USE BULK UPLOAD
+  .clr
+
+  .divider1
+
+  .margin-auto.span22
+    -#Bulk Upload old code
+      .select-candidate-type
+        - if current_user.type == "SuperAdmin"
+          = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
       .divider1
-      %label
-        - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
-        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::CANDIDATE}');", checked: checked}
-        #candidate
-          .span.medium-text
-            For Hiring 
-            //add ".checked" e.g. %span.medium-text.checked
-          %i.muted.span
-            (Potential Employees)
-          .clr
-      .clr 
-    .clr 
-    .divider1
-    .select-candidate-type 
-      - if current_user.type == "SuperAdmin"
-        = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
-    .divider1
     - checked = (params[:upload_method] == "manual")
-    - if current_user.type == "SuperAdmin"
+    -# if current_user.type == "SuperAdmin"
       %label
         %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
         %b.extra-medium-text{ class: checked ? 'checked': '' }
-          Add Assessment takers manually: 
+          Add Assessment takers manually:
       .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
@@ -62,9 +68,9 @@
           .clr
         %ul.add-candidates.clearfix
           - 10.times do |index|
-            = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) } 
+            = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
         .divider2
-      
+
       %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_custom_assessment_path(@company,@assessment) }
         Add Assessment Takers Later
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
