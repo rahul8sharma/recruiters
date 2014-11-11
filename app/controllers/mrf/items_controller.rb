@@ -1,4 +1,4 @@
-class Mrf::ItemsController < MasterDataController
+  class Mrf::ItemsController < MasterDataController
   before_filter :authenticate_user!
 
   def api_resource
@@ -8,12 +8,12 @@ class Mrf::ItemsController < MasterDataController
   def index
     @items = Vger::Resources::Mrf::Item.where(:page => params[:page], :per => 10, :order => "updated_at DESC")
   end
-  
-  def import_from_google_drive
-    errors = Vger::Resources::Mrf::Item.import_from_google_drive(params[:item])
+
+  def import_with_options_from_google_drive
+    errors = Vger::Resources::Mrf::Item.import_with_options_from_google_drive(params[:item])
     redirect_to manage_mrf_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
-  
+
   # GET /items/:id
   # GET /items/:id.json
   def show
@@ -22,7 +22,7 @@ class Mrf::ItemsController < MasterDataController
       format.html
     end
   end
-  
+
   # GET /items/:id
   # GET /items/:id.json
   def edit
@@ -46,7 +46,7 @@ class Mrf::ItemsController < MasterDataController
       end
     end
   end
-  
+
   def import_from
     "import_from_google_drive"
   end
