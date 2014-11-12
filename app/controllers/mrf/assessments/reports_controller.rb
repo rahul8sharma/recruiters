@@ -48,7 +48,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
       }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
-        template: "mrf/assessments/reports/#{template}",
+        template: template,
         layout: layout
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
