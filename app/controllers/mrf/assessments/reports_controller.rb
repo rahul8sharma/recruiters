@@ -12,6 +12,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
     if @assessment.configuration[:use_competencies]
       if params[:view_mode]
         @view_mode = params[:view_mode]
+        template = "competency_report.html.haml"
+        layout = "layouts/reports_360.html.haml"
       else
         if request.format == "application/pdf"
           @view_mode = "pdf"
@@ -26,6 +28,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
     else
       if params[:view_mode]
         @view_mode = params[:view_mode]
+        template = "fit_report.html.haml"
+        layout = "layouts/reports_360.html.haml"
       else
         if request.format == "application/pdf"
           @view_mode = "pdf"
@@ -48,8 +52,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
       }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
-        template: template,
-        layout: layout
+        template: "mrf/assessments/reports/#{template}",
+        layout: layout,
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         formats: [:pdf],
