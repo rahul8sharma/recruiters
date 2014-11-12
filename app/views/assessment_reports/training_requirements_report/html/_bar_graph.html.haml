@@ -1,0 +1,14 @@
+%ul.training-need-bar-graph
+  - counter = step
+  - factor_scores.each_with_index do |(factor_name,factor_score), index|
+    - counter = counter + 1
+    %li
+      .container
+        .trait-title
+          = factor_name
+        .score
+          #{factor_score[:percentage_candidates]}% Less Favourable
+        .bar-graph
+          .bar{:style=>"width: #{factor_score[:percentage_candidates]}%;"}
+        .clr
+.divider2
