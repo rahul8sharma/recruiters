@@ -1,4 +1,4 @@
-  class Mrf::ItemsController < MasterDataController
+class Mrf::ItemsController < MasterDataController
   before_filter :authenticate_user!
 
   def api_resource
