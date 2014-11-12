@@ -35,7 +35,7 @@ class MrfReportUploader < AbstractController::Base
       @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
       @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
 
-      template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
+      @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 
       report_status = {
         :errors => [],
@@ -45,12 +45,24 @@ class MrfReportUploader < AbstractController::Base
       
       @view_mode = "html"
       html = render_to_string(
-         template: "mrf/assessments/reports/#{template}",
-         layout: "layouts/reports_360",
+         template: "mrf/assessments/reports/#{template}.html.haml",
+         layout: "layouts/reports_360.html.haml",
          handlers: [ :haml ],
          formats: [ :html ]
       )
       
+      @view_mode = "pdf"
+      pdf = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          "assessment_reports/#{template}.pdf.haml",
+          layout: "layouts/reports_360.pdf.haml",
+          handlers: [ :haml ],
+          formats: [:pdf]
+        ),
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" }
+      )
+
+
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       html_file_id = "mrf_report_#{@report.id}.html"      
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
