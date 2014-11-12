@@ -1,7 +1,7 @@
-= form_for :item, :url => import_from_google_drive_mrf_items_path, html: { multipart: true }, :method => :post do |f|
+= form_for :item, :url => import_with_options_from_google_drive_mrf_items_path, html: { multipart: true }, :method => :post do |f|
   %fieldset
     %legend
-      Import Mrf Items
+      Import NEW Mrf Items alongwith Options
     %br
     %br
     = f.fields_for :file do |ff|
@@ -20,7 +20,9 @@
 %br/
 = render :partial => "master_data/export_form"
 
+%br/
+= render :partial => "master_data/import_from_google_drive"
 
-= link_to 'Back', mrf_items_path     
+= link_to 'Back', mrf_items_path
 \|
 = link_to 'Destroy All', destroy_all_mrf_items_path
