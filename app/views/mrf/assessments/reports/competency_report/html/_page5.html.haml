@@ -2,8 +2,8 @@
   #scores.section03
     .divider1
     .scores.container
-      .span10.line-height2.title.pull-left
-        Scores of Traits measured with 360&#176; Assessment
+      .span10.title.pull-left
+        Traits with 360&#176; Scores 
       .scale.mrf.pull-right.left-offset1
         .line
         .marker-container
@@ -18,4 +18,5 @@
         .clr
       .clr
       .divider3
-      = render :partial => "mrf/assessments/reports/fit_report/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}
+      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/html/competency", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
