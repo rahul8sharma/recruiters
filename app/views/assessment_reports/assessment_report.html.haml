@@ -16,6 +16,7 @@
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
     = render :template => "assessment_reports/fit_report/html/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
+    = render :template => "assessment_reports/fit_report/html/scores_of_functional_traits", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break      
 
 = render :template => "assessment_reports/common_pages"
