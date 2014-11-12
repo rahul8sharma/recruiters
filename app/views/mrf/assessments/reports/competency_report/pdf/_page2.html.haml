@@ -6,4 +6,4 @@
         Competencies Measured
       .divider2
       - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-        = render :partial => "mrf/assessments/reports/competency_report/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
