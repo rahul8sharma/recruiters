@@ -7,4 +7,4 @@
       .divider2
       .divider2
       - @report.report_data[:subjective_responses_others].each do |subjective_response_key, subjective_response_value|
-        = render :partial => "mrf/assessments/reports/competency_report/subjective_responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value}
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/subjective_responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value}

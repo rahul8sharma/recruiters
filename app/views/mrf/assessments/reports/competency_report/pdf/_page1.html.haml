@@ -1,0 +1,51 @@
+#overview.section01
+  .overall_report.container
+    .divider6
+    .user-name.pull-left
+      = @report.report_data[:candidate][:name]
+    .final-score.pull-right
+      360&#176; Profiling Report
+    .clr
+    .divider1
+    - if @report.report_data[:mrf_report_show_completion_status]
+      - completed_count = 0
+      - sent_count = 0
+      - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+        - completed_count += status[:completed]
+        - sent_count += status[:sent]
+      .completion-status.pull-right
+        Completion Status: #{completed_count} out of #{sent_count}
+      .clr
+    .divider3
+    .extra-medium-text
+      360&#176; Profiling: 
+      = @report.report_data[:assessment][:name]
+      .divider1
+      Report Generated On: 
+      = hdate(@report.report_data[:generated_at])
+    .divider2
+-if @report.report_data[:mrf_report_cover]
+  .overview
+    .top-triangle
+      .bottom-triangle
+        .container
+          .divider2
+          .content
+            .overview-title
+              Ratings Overview of Competencies / Values Measured
+            %ul.competency-list.mrf.pull-left
+              %li
+                .competency-name.title.pull-left
+                  Competency
+                .competency-value.title.pull-right
+                  360&#176; Rating
+                .clr
+              - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+                %li
+                  .competency-name.pull-left
+                    = competency_name
+                  .competency-value.pull-right
+                    = competency_scores[:score][:bucket]
+                  .clr
+            .clr
+          .divider2
