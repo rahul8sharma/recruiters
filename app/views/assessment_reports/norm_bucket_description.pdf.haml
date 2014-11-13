@@ -1,34 +1,24 @@
 = render partial: "shared/reports/pdf/report_header.pdf.haml"
 .norm_bucket_descrption.overview
-  - if @report.report_hash[:enable_norm_bucket_description_page]
-    .divider1
-    .inner
-      .blue_heading.large-text
-        Explanation of Jombay Scores
-    %ul
-      -6.times do
-        %li
-          .scale
-            .line
-            .marker-container
+  .divider1
+  .inner
+    .blue_heading.large-text
+      Explanation of Jombay Scores
+  %ul
+    - @norm_buckets.each do |norm_bucket1|
+      %li
+        .scale
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket2|
               -# add ".active" clases to ".marker"
-              .marker
-                %br/
-                Low
-              .marker
-                Below Average
-              .marker
-                Average (Low)
-              .marker
-                Average (High)
-              .marker
-                Above Average
-              .marker
-                %br/
-                High
-              .clr
-              .divider1
-          .description.default.span8.pull-right
+              .marker{ class: norm_bucket1 == norm_bucket2 ? 'active' : '' }
+                - if norm_bucket2.name.split(" ").size == 1
+                  %br/
+                = norm_bucket2.name
+            .clr
             .divider1
-            Above Average on the scale indicates that the individual possesses or exhibits the traits measured, more than the Average, but lesser than High score on the scale 
-          .clr
+        .description.default.span8.pull-right
+          .divider1
+          = norm_bucket1.description
+        .clr
