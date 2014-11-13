@@ -1,8 +1,37 @@
-- if @report.report_hash[:enable_norm_bucket_description_page]
-  #traits.section02
-    .container
-      - @norm_buckets.each do |norm_bucket|
-        %h2
-          = norm_bucket.name
-        %h4
-          = norm_bucket.description
+.norm_bucket_descrption
+  - if @report.report_hash[:enable_norm_bucket_description_page]
+    #traits.section02
+      .container
+        .divider2
+        .title
+          Explanation of Jombay Scores
+      .divider1
+      %ul
+        -6.times do
+          %li
+            .container
+              .scale
+                .line
+                .marker-container
+                  -# add ".active" clases to ".marker"
+                  .marker
+                    %br/
+                    Low
+                  .marker
+                    Below Average
+                  .marker
+                    Average (Low)
+                  .marker
+                    Average (High)
+                  .marker
+                    Above Average
+                  .marker
+                    %br/
+                    High
+                  .clr
+                  .divider1
+              .description.default.big-text.span13.pull-right
+                .divider1
+                Above Average on the scale indicates that the individual possesses or exhibits the traits measured, more than the Average, but lesser than High score on the scale 
+              .clr
+              

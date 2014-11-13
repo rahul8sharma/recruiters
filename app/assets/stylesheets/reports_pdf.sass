@@ -695,3 +695,42 @@ body
     width: 100%
 .fw
   margin-left: -40px
+
+.report
+  .norm_bucket_descrption
+    .inner
+      padding-left: 30px !important
+    li
+      border-bottom: 1px dashed #ccc
+      padding: 20px 30px 
+      &:nth-child(even)
+        background: #f8f8f8
+
+      .scale 
+        float: left
+        width: 335px
+        .line
+          bottom: -6px
+          border-color: #ccc
+          width: 340px
+        .marker-container 
+          width: 665px
+          .marker
+            font-size: 13px
+            line-height: 16px
+            height: 65px
+            width: 67px
+            color: #ccc
+            background: image-url('report/pdf/competency/scale-hexagon.png') no-repeat center bottom
+            &:hover
+              background: image-url('report/pdf/competency/scale-hexagon.png') no-repeat center bottom
+            &.active
+              color: #3aafe5
+              background: image-url('report/pdf/competency/scale-hexagon-active.png') no-repeat center bottom
+      .description
+        line-height: 14px
+
+
+
+
+
