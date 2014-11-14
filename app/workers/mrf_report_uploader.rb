@@ -35,7 +35,7 @@ class MrfReportUploader < AbstractController::Base
       @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
       @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
 
-      @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
+      template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 
       report_status = {
         :errors => [],
