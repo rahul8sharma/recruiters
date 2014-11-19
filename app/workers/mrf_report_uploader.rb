@@ -45,27 +45,51 @@ class MrfReportUploader < AbstractController::Base
       
       @view_mode = "html"
       html = render_to_string(
-         template: "mrf/assessments/reports/#{template}",
-         layout: "layouts/reports_360",
+         template: "mrf/assessments/reports/#{template}.html.haml",
+         layout: "layouts/reports_360.html.haml",
          handlers: [ :haml ],
          formats: [ :html ]
       )
       
+      # @view_mode = "pdf"
+      # pdf = WickedPdf.new.pdf_from_string(
+      #   render_to_string(
+      #     "assessment_reports/#{template}.pdf.haml",
+      #     layout: "layouts/reports_360.pdf.haml",
+      #     handlers: [ :haml ],
+      #     formats: [:pdf]
+      #   ),
+      #   margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" }
+      # )
+
+
       FileUtils.mkdir_p(Rails.root.join("tmp"))
       html_file_id = "mrf_report_#{@report.id}.html"      
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
+      # pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
+      # pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
+
       File.open(html_save_path, 'wb') do |file|
         file << html
       end
+      # File.open(pdf_save_path, 'wb') do |file|
+      #   file << pdf
+      # end
+      
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
+      # pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
   
       Vger::Resources::Mrf::Report.save_existing(report_id,
         :html_key => html_s3[:key],
+        # :pdf_key => pdf_s3[:key],
         :html_bucket => html_s3[:bucket],
+        # :pdf_bucket => pdf_s3[:bucket],
         :status => Vger::Resources::Mrf::Report::Status::UPLOADED
       )
+      
       File.delete(html_save_path)
+      File.delete(pdf_save_path)
      
       JombayNotify::Email.create_from_mail(SystemMailer.send_mrf_report(@report.id, @report.report_data), "send_mrf_report")
   

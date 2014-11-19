@@ -8,29 +8,30 @@
         .left
           Maximum Rating
         .right
-          = trait_score[:max_score_excluding_self][:bucket]
+          = trait_score[:max_score_excluding_self][:bucket] ? trait_score[:max_score_excluding_self][:bucket] : 'Waiting For Responses'
         .clr
 
       .trait_rating.min
         .left
           Minimum Rating
         .right
-          = trait_score[:min_score_excluding_self][:bucket]
+          = trait_score[:min_score_excluding_self][:bucket] ? trait_score[:min_score_excluding_self][:bucket] : 'Waiting For Responses'
         .clr
 
       .trait_rating.self
         .left
           Self Rating
         .right
-          = trait_score[:average_score_self][:bucket]
+          = trait_score[:average_score_self][:bucket] ? trait_score[:average_score_self][:bucket] : 'Waiting For Responses'
         .clr
 
-      .trait_rating.score
-        .left
-          Assessment Score
-        .right
-          = trait_score[:assessment_rating] rescue "-"
-        .clr
+      - if trait_score[:assessment_rating]
+        .trait_rating.score
+          .left
+            Assessment Score
+          .right
+            = trait_score[:assessment_rating] rescue "-"
+          .clr
       .divider1
 
       .overall_average
