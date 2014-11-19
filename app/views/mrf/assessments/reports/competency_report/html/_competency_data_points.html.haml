@@ -14,29 +14,30 @@
             .left
               Maximum Rating
             .right
-              = @report.report_data[:max_score_excluding_self][:bucket]
+              = @report.report_data[:max_score_excluding_self][:bucket] ? @report.report_data[:max_score_excluding_self][:bucket] : 'Waiting For Responses'
             .clr
 
           .trait_rating.min
             .left
               Minimum Rating
             .right
-              = @report.report_data[:min_score_excluding_self][:bucket]
+              = @report.report_data[:min_score_excluding_self][:bucket] ? @report.report_data[:min_score_excluding_self][:bucket] : 'Waiting For Responses'
             .clr
 
           .trait_rating.self
             .left
               Self Rating
             .right
-              = @report.report_data[:average_score_self][:bucket]
+              = @report.report_data[:average_score_self][:bucket] ? @report.report_data[:average_score_self][:bucket] : 'Waiting For Responses'
             .clr
 
-          .trait_rating.score
-            .left
-              Assessment Score
-            .right
-              = @report.report_data[:assessment_rating]
-            .clr
+          - if @report.report_data[:assessment_rating]
+            .trait_rating.score
+              .left
+                Assessment Score
+              .right
+                = @report.report_data[:assessment_rating]
+              .clr
 
           .divider1
 
