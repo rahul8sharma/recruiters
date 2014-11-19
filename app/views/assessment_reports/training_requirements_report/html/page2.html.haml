@@ -13,22 +13,7 @@
     .clr
     .divider3
   
+  = render :partial => "assessment_reports/training_requirements_report/html/bar_graph", :locals => { :factor_scores => factor_scores, :step => step }
+  = render :partial => "assessment_reports/training_requirements_report/html/pie_chart", :locals => { :factor_scores => factor_scores, :step => step }
 
-  %ul.training-need-list
-    - counter = step
-    - factor_scores.keys.each_slice(5) do |factor_names|
-      - factor_scores = @report_data[:factor_scores].slice(*factor_names)
-      %li
-        .container
-          - factor_scores.each_with_index do |(factor_name,factor_score), index|
-            - counter = counter + 1
-            .snippet
-              .trait-title
-                = factor_name
-              .divider1
-              .pie-visual
-                .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 150px;height: 150px;" }
-              .divider1
-              .score
-                #{factor_score[:percentage_candidates]}% Less Favourable
-          .clr
+ 
