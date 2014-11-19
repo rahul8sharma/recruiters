@@ -34,36 +34,5 @@
           %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
           .clr
 
-        -#
-          = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
-          - if @report.report_hash[:assessment][:is_jombay_pearson_test]
-            .span
-              %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
-            .clr
--#
-  .feedback-container
-    #feedback
-      .container
-        .inner
-          .pull-right
-            .left
-            .fields.pull-left
-              
-              .medium-text.color-warning.pull-left
-                Report Feedback
-              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-                .pull-left
-                  %label.pull-left Email ID
-                  %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
-                  .clr
-              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-                %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback"}
-    
-              %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
-              .clr
-            .right
-            .clr
-          .clr
-        .clr
 .divider3
 = wicked_pdf_javascript_include_tag 'common'  
