@@ -7,47 +7,32 @@
       .logo.pull-left.pull-left
         = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
       .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:candidate][:name] }
-        = @report.report_hash[:candidate][:name].truncate(30)
+        = @report.report_hash[:candidate][:name].truncate(28)
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left
           %li
-            %a.scroll{:href => "#guidelines", :title => "Overview"}
-              Guidelines
+            %a.scroll{:href => "#guidelines", :title => " Guide to giving Feedback "}
+              Guide to giving Feedback      
           %li
-            %a.scroll{:href => "#scores", :title => "Traits Measured in this Assessment"}
-              Scores
+            %a.scroll{:href => "#scores", :title => "Scores on Traits"}
+              Scores on Traits
           %li.right
-        = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
-        - if @report.report_hash[:assessment][:is_jombay_pearson_test]
-          .span
-            %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
-          .clr
-.feedback-container
-  #feedback
-    .container
-      .inner
-        .pull-right
-          .left
-          .fields.pull-left
-            - if @view_mode == "html"
-              = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-warning inverse"
-            - if @view_mode == "feedback"
-              .medium-text.color-warning.pull-left
-                Report Feedback
-              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-                .pull-left
-                  %label.pull-left Email ID
-                  %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
-                  .clr
-              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-                %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email"}
-    
-              %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
+        .pull-left.feedback-email-form.error
+          -# Toggel ".error" upon error - at above Line
+          .divider1
+            .error-message
+              Email ID is needed to confirm feedback. Please enter it below & click Submit.
+          = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+            .ie.pull-left
+              %label.pull-left Email ID
+              %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
               .clr
-          .right
+          = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email"}
+
+          %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
           .clr
-        .clr
-      .clr
+
 .divider3
 = wicked_pdf_javascript_include_tag 'common'  

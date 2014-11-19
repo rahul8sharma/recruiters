@@ -6,7 +6,6 @@
 
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]    
 
-
 - if @report.report_hash[:factor_scores].present?
   = render :template => "assessment_reports/fit_report/pdf/page2"
   .page-break      
