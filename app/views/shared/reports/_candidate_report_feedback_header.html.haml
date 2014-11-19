@@ -29,7 +29,7 @@
               %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
               .clr
           = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback"}
+            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback" :id => "feedback_email"}
 
           %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
           .clr
