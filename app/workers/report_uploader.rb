@@ -74,8 +74,8 @@ class ReportUploader < AbstractController::Base
       
       @view_mode = "feedback"
       feedback_html = render_to_string(
-         template: "assessment_reports/#{template}.html.haml",
-         layout: "layouts/candidate_reports",
+         template: "assessment_reports/assessment_report_feedback.html.haml",
+         layout: "layouts/feedback_reports.html.haml",
          handlers: [ :haml ],
          formats: [ :html ]
       )

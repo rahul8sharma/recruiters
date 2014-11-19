@@ -33,14 +33,17 @@
     (Max Score of options which will be added for this item)
   .field
     = f.label :active
-    = f.check_box :active  
+    = f.check_box :active
+  .field
+    = f.label :help_text
+    = f.text_field :help_text
   .field
     = f.label :order
-    = f.text_field :item_order  
+    = f.text_field :item_order
   - if item_type == 'Suitability::ImageItem'
     .field
       = f.label :image_url
       = f.text_field :image_url
-      
+
   .actions
     = submit_tag 'Submit'
