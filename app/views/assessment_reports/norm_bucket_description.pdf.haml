@@ -1,8 +1,0 @@
-- if @report.report_hash[:enable_norm_bucket_description_page]
-  #traits.section02
-    .container
-      - @norm_buckets.each do |norm_bucket|
-        %h2
-          = norm_bucket.name
-        %h4
-          = norm_bucket.description
