@@ -127,9 +127,23 @@ class AssessmentReportsController < ApplicationController
         @view_mode = "html"
       end
     end
-    template = report_type == "fit" ? "assessment_report" : "competency_report"
+    template = nil
+    case report_type
+      when "fit"
+        template = "assessment_report"
+      when "competency"  
+        template = "competency_report"
+    end    
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
-    layout = @view_mode == "html" ? "candidate_reports.html.haml" : "candidate_reports.pdf.haml"
+    case @view_mode
+      when "html" 
+        layout = "candidate_reports.html.haml"
+      when "pdf"
+        layout  = "candidate_reports.pdf.haml"
+      when "feedback"  
+        layout  = "feedback_reports.html.haml"
+        template = "assessment_report_feedback.html.haml"
+    end    
     @page = 1
     respond_to do |format|
       format.html { 
