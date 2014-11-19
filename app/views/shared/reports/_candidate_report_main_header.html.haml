@@ -34,32 +34,13 @@
           .span
             %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
           .clr
-- if @report.report_hash[:enable_feedback]
-  .feedback-container
-    #feedback
-      .container
-        .inner
-          .pull-right
-            .left
-            .fields.pull-left
-              - if @view_mode == "html"
-                = link_to "Submit Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "submit-feedback btn btn-warning inverse"
-              - if @view_mode == "feedback"
-                .medium-text.color-warning.pull-left
-                  Report Feedback
-                = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-                  .pull-left
-                    %label.pull-left Email ID
-                    %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
-                    .clr
-                = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-                  %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email"}
-      
-                %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
-                .clr
-            .right
-            .clr
-          .clr
-        .clr
+.give-feedback
+  .give-feedback-inner
+    .main-heading
+      Give Report Feedback for 
+      #{@report.report_hash[:candidate][:name]}
+    %a.give-feedback-btn.btn.btn-info{:href => "#"}
+      Give Feedback
+    .clr
 .divider3
 = wicked_pdf_javascript_include_tag 'common'  
