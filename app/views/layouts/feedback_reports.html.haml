@@ -14,6 +14,6 @@
     = f.hidden_field :company_id, value: @report.report_hash[:company][:id]
     = f.hidden_field :candidate_id, value: @report.report_hash[:candidate][:id]
     = render :partial => "shared/reports/candidate_report_feedback_header"
-    .report
+    .report.feedback_report
       = yield 
 = render :file => 'layouts/haml'

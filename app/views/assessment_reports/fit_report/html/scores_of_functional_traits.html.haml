@@ -64,20 +64,3 @@
               Reliability of Candidate's Responses for this Factor:
               %span.score 
                 = factor_score[:consistency_bucket]
-          - if @view_mode == "feedback"
-            = fields_for :feedback do
-              .divider2
-              .optional-feedback
-                .feedback-title
-                  Optional feedback on the score:
-                .options.span
-                  %label
-                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 0, checked: true}
-                    About Right
-                  %label
-                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 1}
-                    Should be more 
-                  %label.last
-                    %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: -1}
-                    Should be less 
-                .clr

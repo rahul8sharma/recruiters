@@ -40,24 +40,28 @@ $mid_favorable_color: #062b58
     font-size: 12px
     line-height: 20px
     margin-top: 25px
-
-#feedback
-  position: fixed
-  z-index: 9999
-  width: 100%
-  top: 58px
+.feedback-email-form
+  margin: 25px 0 0 15px
   input[type="text"]
     width: 265px
     border-radius: 2px
     border: 1px solid #ccc
-    margin-left: 15px
+    padding: 3px 30px 
+    line-height: 20px
+    font-size: 12px
   input[type="submit"]
     padding: 2px 15px
     line-height: 20px
     font-size: 12px
     border-radius: 1px
+  .ie
+    input[type="text"]
+      width: 200px 
+      padding: 3px 10px
 
   @media screen and (-webkit-min-device-pixel-ratio:0)
+    input[type="text"]
+      padding: 0 30px !important
     input[type="submit"]
       padding: 0 15px !important
     .fields
@@ -86,7 +90,41 @@ $mid_favorable_color: #062b58
     background: image-url('report/html/feedback-left.png') no-repeat transparent
   .right
     background: image-url('report/html/feedback-right.png') no-repeat transparent -5px 0
-
+.feedback_report
+  #spotlight
+    color: #fff
+    font-size: 30px
+    line-height: 36px 
+    background: #28b29b
+    .feedback_spotlight_title
+      padding: 90px 0 
+      background: image-url('report/html/feedback/feedback_spotlight_bg.png') no-repeat 0px 50px 
+      padding-left: 170px
+  #guidelines
+    border-bottom: 1px dashed #e3e3e3
+    .guidelines
+      background: image-url('report/html/feedback/feedback-report-guideline-bg.jpg') no-repeat center center
+      min-height: 1100px
+      padding-left: 440px
+      .scale
+        float: none
+  .optional-feedback
+    border: 1px dashed #ccc
+    padding: 10px 0
+    .feedback-title
+      font-size: 18px
+      line-height: 40px
+      text-align: right
+      font-weight: 700
+    
+    label
+      border: 1px dashed #ccc
+      font-size: 14px
+      cursor: pointer
+      text-align: center
+      padding: 10px 0
+      input
+        margin-right: 6px
 .report
   @import shared/reports/scale_html
   @import shared/reports/traits_hexagon_html
@@ -215,31 +253,6 @@ $mid_favorable_color: #062b58
         .score
           color: #272727
           font-weight: 700
-      .optional-feedback
-        .feedback-title
-          font-size: 12px
-          line-height: 37px
-          float: left
-          margin: 0 0 0 35px
-          padding: 0 10px
-          border: 1px solid #ccc
-          border-radius: 2px
-        .options
-          border-radius: 2px
-          padding: 10px 25px
-          border: 1px solid #ddd
-
-          label
-            font-size: 14px
-            cursor: pointer
-            margin-right: 20px
-            color: $color-warning
-            font-size
-            &.last
-              margin: 0
-          input
-            margin-right: 6px
-
       .lhs-sec
         padding-top: 18px
         
