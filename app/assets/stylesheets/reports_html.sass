@@ -41,7 +41,17 @@ $mid_favorable_color: #062b58
     line-height: 20px
     margin-top: 25px
 .feedback-email-form
-  margin: 25px 0 0 15px
+  margin: 7px 0 0 15px
+  .error-message
+    display: none
+  &.error
+    input[type="text"]
+      border-color: #ff0000
+    .error-message
+      color: #ff0000
+      font-size: 12px
+      display: block
+
   input[type="text"]
     width: 265px
     border-radius: 2px

@@ -18,7 +18,11 @@
             %a.scroll{:href => "#scores", :title => "Scores on Traits"}
               Scores on Traits
           %li.right
-        .pull-left.feedback-email-form
+        .pull-left.feedback-email-form.error
+          -# Toggel ".error" upon error - at above Line
+          .divider1
+            .error-message
+              Email ID is needed to confirm feedback. Please enter it below & click Submit.
           = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
             .ie.pull-left
               %label.pull-left Email ID
