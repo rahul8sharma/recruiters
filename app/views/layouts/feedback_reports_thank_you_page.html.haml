@@ -1,5 +1,6 @@
-- content_for :stylesheets do
-  = stylesheet_link_tag "feedback"
-- content_for :main_header do
-  = render :partial => "shared/reports/candidate_report_feedback_thank_you_page_header"
-= render :file => 'layouts/base'
+.feeadback-thank-you
+  - content_for :stylesheets do
+    = stylesheet_link_tag "feedback"
+  - content_for :main_header do
+    = render :partial => "shared/reports/candidate_report_feedback_thank_you_page_header"
+  = render :file => 'layouts/base'

@@ -41,8 +41,6 @@
         Give Report Feedback for 
         #{@report.report_hash[:candidate][:name]}
       = link_to "Give Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "give-feedback-btn btn btn-info"
-
-
       
       .clr
   .divider3
