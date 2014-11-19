@@ -4,6 +4,21 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   before_filter :get_company
 
   layout "tests"
+  
+  def export_feedback_scores
+    options = {
+      :custom_assessment => {
+        :job_klass => "FeedbackScoresExporter",
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
+      .export_feedbacks_scores(options)
+    redirect_to reports_url, notice: "Feedback scores will be generated and emailed to #{current_user.email}."
+  end
 
   def email_reports
     options = {
