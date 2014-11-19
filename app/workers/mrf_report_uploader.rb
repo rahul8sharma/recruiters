@@ -67,18 +67,18 @@ class MrfReportUploader < AbstractController::Base
       html_file_id = "mrf_report_#{@report.id}.html"      
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
-      pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
-      pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
+      # pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
+      # pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
       File.open(html_save_path, 'wb') do |file|
         file << html
       end
-      File.open(pdf_save_path, 'wb') do |file|
-        file << pdf
-      end
+      # File.open(pdf_save_path, 'wb') do |file|
+      #   file << pdf
+      # end
       
       html_s3 = upload_file_to_s3(html_file_id,html_save_path)
-      pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
+      # pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
   
       Vger::Resources::Mrf::Report.save_existing(report_id,
         :html_key => html_s3[:key],
