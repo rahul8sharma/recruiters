@@ -34,13 +34,16 @@
           .span
             %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
           .clr
-.give-feedback
-  .give-feedback-inner
-    .main-heading
-      Give Report Feedback for 
-      #{@report.report_hash[:candidate][:name]}
-    %a.give-feedback-btn.btn.btn-info{:href => "#"}
-      Give Feedback
-    .clr
-.divider3
+- if @report.report_hash[:enable_feedback]
+  .give-feedback
+    .give-feedback-inner
+      .main-heading
+        Give Report Feedback for 
+        #{@report.report_hash[:candidate][:name]}
+      = link_to "Give Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "give-feedback-btn btn btn-info"
+
+
+      
+      .clr
+  .divider3
 = wicked_pdf_javascript_include_tag 'common'  
