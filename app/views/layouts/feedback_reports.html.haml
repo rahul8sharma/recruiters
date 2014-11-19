@@ -1,6 +1,19 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"
+  = wicked_pdf_javascript_include_tag "http://web.mxradon.com/t/Tracker.js"
+  = wicked_pdf_javascript_include_tag "shared/leadsquared.js"
 - content_for :stylesheets do
-  = stylesheet_link_tag "feedback"
-- content_for :main_header do
-  = render :partial => "shared/reports/candidate_report_feedback_header"
-  
-= render :file => 'layouts/base'
+  = wicked_pdf_stylesheet_link_tag "reports_html"
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+
+- content_for :body do
+  = form_for(:feedback, :url => suitability_candidate_assessment_report_feedbacks_url(:host => Rails.application.config.action_mailer.default_url_options[:host]), :method => :post, :html => { :onsubmit => "return checkEmail();" }) do |f|
+    = f.hidden_field :candidate_assessment_id, value: @report.report_hash[:candidate_assessment_id]
+    = f.hidden_field :candidate_assessment_report_id, value: @report.report_hash[:id]
+    = f.hidden_field :custom_assessment_id, value: @report.report_hash[:assessment][:id]
+    = f.hidden_field :company_id, value: @report.report_hash[:company][:id]
+    = f.hidden_field :candidate_id, value: @report.report_hash[:candidate][:id]
+    = render :partial => "shared/reports/candidate_report_feedback_header"
+    .report
+      = yield 
+= render :file => 'layouts/haml'
