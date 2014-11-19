@@ -82,7 +82,9 @@ class MrfReportUploader < AbstractController::Base
   
       Vger::Resources::Mrf::Report.save_existing(report_id,
         :html_key => html_s3[:key],
+        :pdf_key => pdf_s3[:key],
         :html_bucket => html_s3[:bucket],
+        :pdf_bucket => pdf_s3[:bucket],
         :status => Vger::Resources::Mrf::Report::Status::UPLOADED
       )
       
