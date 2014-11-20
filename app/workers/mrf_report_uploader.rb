@@ -89,7 +89,7 @@ class MrfReportUploader < AbstractController::Base
       )
       
       File.delete(html_save_path)
-      File.delete(pdf_save_path)
+      # File.delete(pdf_save_path)
      
       JombayNotify::Email.create_from_mail(SystemMailer.send_mrf_report(@report.id, @report.report_data), "send_mrf_report")
   
