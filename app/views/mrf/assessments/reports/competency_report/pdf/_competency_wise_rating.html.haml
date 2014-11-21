@@ -1,0 +1,68 @@
+.frame.mrf.gray-bg
+  .heading.pull-left
+    #{competency_name} : #{competency_scores[:score][:bucket]}
+  .clr 
+  .divider1
+  %ul.mrf_data_points_listing
+    %li
+      .left_sec
+        .content
+          .trait_rating.self
+            .left
+              Self Rating
+            .right
+              = competency_scores[:average_score_self][:bucket] rescue 'NA'
+            .clr
+
+          .trait_rating.score
+            .left
+              Assessment Score
+            .right
+              = competency_scores[:assessment_rating] rescue 'NA'
+            .clr
+
+          .divider1
+
+          .overall_average
+            %p.big-text
+              Overall Average
+            .divider1
+            .snippet.including
+              Including Self Rating: 
+              = competency_scores[:average_score_including_self][:bucket] rescue 'NA'
+            .divider1
+            .snippet.excluding
+              Excluding Self Rating:
+              = competency_scores[:score][:bucket] rescue 'NA'
+            .divider1
+
+      .right-sec.span17
+        .caption.text-center
+          Average Rating by Stakeholders
+        .divider3
+        - competency_scores[:role_wise_scores].each do |role_name, role_wise_score|
+          .stakeholders-rating-snippet
+            .stakeholders-name.pull-left
+              = role_name.titleize
+            .stakeholders-rating-slider.pull-left 
+              - klass = ''
+              -@norm_buckets.each_with_index do |norm_bucket|
+                - if norm_bucket.name == role_wise_score[:bucket]
+                  - klass = 'hide'
+                  .marker{:class => 'active'}
+                    .arrow
+                    .score
+                      = norm_bucket.name
+                - else
+                  .marker
+                    .arrow
+                    .score
+                      = norm_bucket.name
+              .clr
+              .alert.alert-error{:class => klass}
+                No Responses Yet
+            .clr
+            .divider3
+
+      .clr
+.divider1

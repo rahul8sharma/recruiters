@@ -1,0 +1,25 @@
+:css
+  .report .inner{margin-top:0px;} 
+
+= render :template => "assessment_reports/fit_report/feedback/spotlight"
+.page-break
+
+= render :template => "assessment_reports/fit_report/feedback/guidelines"
+.page-break
+
+-factor_score = Hash.new
+- if @report.report_hash[:assessment][:assessment_type] == 'competency'
+  - @report.report_hash[:competency_scores].each do |competency_name, competency_values|
+    - competency_values[:factor_scores].each do |factor_name, score|
+      - factor_score[factor_name] = score
+- else
+  - factor_score = @report.report_hash[:factor_scores]
+
+= render :template => "assessment_reports/fit_report/feedback/factor_scores", :locals => { :factor_scores => factor_score }
+.page-break      
+
+= render :partial => "shared/reports/html/about_us"
+.page-break
+
+= render :partial => "shared/reports/html/legal_disclaimer"
+.page-break

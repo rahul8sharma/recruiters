@@ -3,11 +3,11 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   after_filter :set_cache_buster
 
   layout "tests"
-  
+
   def api_resource
     Vger::Resources::Suitability::CustomAssessment
   end
-  
+
   def get_company
     methods = []
     if ["show","index", "training_requirements"].include? params[:action]
@@ -17,7 +17,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
-  
+
   def norms
     get_norms
     if request.get?
@@ -28,8 +28,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
       traits_range = Rails.application.config.validators["traits_range"][current_user.type]
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.keys.size
-      
-      
+
+
       if selected_traits_size >= traits_range["min"] && selected_traits_size <= traits_range["max"]
         store_assessment_factor_norms
       else
@@ -40,7 +40,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         end
         render :action => :norms
       end
-    
+
     end
   end
 
@@ -66,20 +66,20 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
         @assessment = api_resource.save_existing(@assessment.id, { competency_order: ordered_competencies })
         if @assessment.error_messages.blank?
-          redirect_to competency_norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          redirect_to competency_norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         else
           flash[:error] = @assessment.error_messages.join("<br/>")
         end
-      end  
+      end
     end
   end
-  
+
   # fetches styles data
   # GET : renders styles
   # PUT : updates assessment and redirects to add_candidates
   def styles
     get_styles
-    if request.put?  
+    if request.put?
       params[:assessment] ||= {}
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
@@ -89,9 +89,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         @assessment.error_messages.flatten!
         flash[:error] = @assessment.error_messages.join("<br/>")
       end
-    end  
+    end
   end
-  
+
   # GET /assessments
   def index
     order_by = params[:order_by] || "created_at"
@@ -99,7 +99,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     order_type = params[:order_type] || "DESC"
     @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
   end
-  
+
   # POST /assessments
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
@@ -122,9 +122,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     end
   end
-  
+
   protected
-  
+
   # fetches assessment if id is present in params
   # creates new assessment otherwise
   def get_assessment
@@ -137,11 +137,12 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     else
       params[:assessment] ||= {}
       params[:assessment][:is_jombay_pearson_test] = params[:is_jombay_pearson_test].present?
+      params[:assessment][:show_help_text] = params[:show_help_text].present?
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
          api_resource::AssessmentType::FIT
-      elsif params[:competency].present?  
+      elsif params[:competency].present?
         api_resource::AssessmentType::COMPETENCY
       else
         @assessment.report_types << api_resource::ReportType::BENCHMARK
@@ -155,7 +156,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       @assessment.company_id = params[:company_id]
     end
   end
-  
+
   def get_company
     methods = []
     if ["show","index", "training_requirements"].include? params[:action]
@@ -165,7 +166,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
-  
+
   def store_assessment_factor_norms
     params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
       params[:assessment][:job_assessment_factor_norms_attributes][index][:functional_area_id] = params[:assessment][:functional_area_id]
@@ -184,22 +185,22 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     # TODO
     # This is a bad workaround to allow superadmin to proceed even if items are not available
-    # Need a better way to manage this 
+    # Need a better way to manage this
     allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superadmin?
     if @assessment.error_messages.blank? || allowed
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
       flash[:error] = @assessment.error_messages.join("<br/>")
       if params[:save_and_close].present?
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
-          redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         end
       else
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)          
+          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
-          redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)          
+          redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         end
       end
     else

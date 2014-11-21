@@ -1,0 +1,28 @@
+-if @report.report_data[:plain_mrf_report_cover]
+  #overview.section01
+    .overall_report.container
+      .divider6
+      .user-name.pull-left
+        = @report.report_data[:candidate][:name]
+      .final-score.pull-right
+        360&#176; Profiling Report
+      .clr
+      .divider1
+      - if @report.report_data[:mrf_report_show_completion_status]
+        - completed_count = 0
+        - sent_count = 0
+        - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+          - completed_count += status[:completed]
+          - sent_count += status[:sent]
+        .completion-status.pull-right
+          Completion Status: #{completed_count} out of #{sent_count}
+        .clr
+      .divider3
+      .extra-medium-text
+        Assessment: 
+        = @report.report_data[:assessment][:name]
+        .divider1
+        Assessment Answered On: 
+        = hdate(@report.report_data[:generated_at])
+      .divider2
+.divider1

@@ -213,23 +213,45 @@ class Mrf::AssessmentsController < ApplicationController
 
   def details
     get_custom_assessment
-    @stakeholder_assessments = Vger::Resources::Mrf::StakeholderAssessment.where(
+    @feedbacks = Vger::Resources::Mrf::Feedback.group_count(
       company_id: @company.id,
-      assessment_id: @assessment.id
-    ).all.to_a
-    @stakeholder_assessments = @stakeholder_assessments.group_by(&:id)
-    if @stakeholder_assessments.present?
-      @feedbacks = Vger::Resources::Mrf::Feedback.where(
-        company_id: @company.id,
-        assessment_id: @assessment.id,
-        query_options: {
-          stakeholder_assessment_id: @stakeholder_assessments.keys
-        }
-      ).all.to_a
-      @feedbacks = @feedbacks.group_by{|feedback| feedback.role }
-    else
-      @feedbacks = {}
-    end
+      assessment_id: @assessment.id,
+      group: ["role"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
+    @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      group: ["role"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
+
+    @self_feedbacks = Vger::Resources::Mrf::Feedback.count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      joins: [:stakeholder_assessment],
+      query_options: {
+        role: Vger::Resources::Mrf::Feedback::Role::SELF,
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
+    
+    @total_candidates = Vger::Resources::Mrf::Feedback.count(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      select: ["distinct(candidate_id)"],
+      joins: [:stakeholder_assessment],
+      query_options: {
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+      }
+    )
   end
 
   def traits
