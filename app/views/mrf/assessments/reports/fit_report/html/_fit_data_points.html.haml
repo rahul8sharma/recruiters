@@ -27,7 +27,7 @@
             = @report.report_data[:average_score_self][:bucket] ? @report.report_data[:average_score_self][:bucket] : 'Waiting For Responses'
           .clr
 
-        - if trait_score[:assessment_rating]
+        - if @report.report_data[:assessment_rating]
           .trait_rating.score
             .left
               Assessment Score

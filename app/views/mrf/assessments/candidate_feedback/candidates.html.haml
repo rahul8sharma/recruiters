@@ -13,9 +13,11 @@
       - if @candidates.present?
         .span3.first
           = sort_link "360&#176;CID", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.id", params[:search]
-        .span10
-          = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
         .span5
+          = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
+        .span6
+          Email-ID
+        .span4
           360&#176; Status
         .span5
           Reports
@@ -31,10 +33,13 @@
               .span3.first
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.id
-              .span10
+              .span5
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.name
-              .span5
+              .span6
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.email
+              .span4
                 - if @feedbacks[candidate.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  }
                   Completed
                 - elsif @feedbacks[candidate.id].none?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  } 

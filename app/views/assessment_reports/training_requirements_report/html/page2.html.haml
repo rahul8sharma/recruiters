@@ -12,8 +12,9 @@
         .clr
     .clr
     .divider3
-  
-  = render :partial => "assessment_reports/training_requirements_report/html/bar_graph", :locals => { :factor_scores => factor_scores, :step => step }
-  = render :partial => "assessment_reports/training_requirements_report/html/pie_chart", :locals => { :factor_scores => factor_scores, :step => step }
 
- 
+  - if @report_data[:trr_graph] == "bar"
+    = render :partial => "assessment_reports/training_requirements_report/html/bar_graph", :locals => { :factor_scores => factor_scores, :step => step }
+  - else
+    = render :partial => "assessment_reports/training_requirements_report/html/pie_chart", :locals => { :factor_scores => factor_scores, :step => step }
+
