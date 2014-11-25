@@ -22,7 +22,8 @@ class AssessmentsController < ApplicationController
     alarm_factor_norms = @assessment_factor_norms.select{ |factor_norm| factor_norm.factor.type == "Suitability::AlarmFactor" }.uniq
     @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - lie_detector_norms
     @other_norms = direct_predictor_norms
-    @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.all.to_a.map{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+        
+    @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all.to_a.map{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
   def competency_norms
