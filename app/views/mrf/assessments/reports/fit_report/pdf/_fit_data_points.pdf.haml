@@ -1,10 +1,11 @@
-.divider1
 %ul.mrf_data_points_listing
   %li
+    .divider2
+
     .left_sec
       .caption
         Average Rating across all Traits
-      .divider2
+      .divider1
       .content
         .trait_rating.max
           .left
@@ -37,19 +38,16 @@
         .divider1
 
         .overall_average
-          %p.big-text
+          %p
             Overall Average
-          .divider1
           .snippet.including
             Including Self Rating: 
             = @report.report_data[:average_score_including_self][:bucket]
-          .divider1
           .snippet.excluding
             Excluding Self Rating:
             = @report.report_data[:average_score_excluding_self][:bucket]
-          .divider1
 
-    .right-sec.span17
+    .right-sec.span12
       .caption.text-center
         Average Rating by Stakeholders across all Traits
       .divider3
@@ -78,5 +76,5 @@
           .divider3
 
     .clr
-.divider1
+    .divider2
 

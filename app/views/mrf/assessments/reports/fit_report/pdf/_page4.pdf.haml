@@ -1,9 +1,9 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:plain_mrf_report_data_pts_traits]
   #developement_guide_traits.section03
     .divider1
-    .scores.container
-      .title
+    .scores
+      .blue_heading.large-text
         Data Points about 360&#176; Scores 
-      .divider2
       = render :partial => "mrf/assessments/reports/fit_report/pdf/fit_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}    
       = render :partial => "mrf/assessments/reports/fit_report/pdf/page_4_all_individual", :locals => {:trait_score => @report.report_data[:trait_scores]}
