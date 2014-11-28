@@ -1,0 +1,10 @@
+.header.clearfix
+  .logo
+    = wicked_pdf_image_tag ('report/pdf/jombay-logo-icon.png')
+  .text-right
+    .user_name
+      = @report.report_hash[:candidate][:name]
+    .medium-text
+      360&#176; Profiling: 
+      = @report.report_hash[:assessment][:name]
+

@@ -1,0 +1,55 @@
+.overall_report
+  .divider3
+  .j-logo.pull-left
+  - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+    .pull-right
+      = wicked_pdf_image_tag ('report/pdf/talent-lens.png')
+  .clr
+  .divider30
+  
+  .huge-text
+    = @report.report_hash[:candidate][:name]
+  .divider2
+  - if (@report.report_hash[:enable_recommendation])
+    .heading.fw.extra-large-text.comptency
+      %b
+        Aggregate Score: 
+        = @report.report_hash[:overall_score_bucket][:name]
+  .divider5
+  .large-text
+    .span.first
+      Assessment: 
+    .span10
+      = @report.report_hash[:assessment][:name]
+    .clr
+    .divider2
+    Assessment Answered On: 
+    = @report.report_hash[:completed_at]
+.overview
+  .inner{ style: "margin-top:0px;" }
+    .j-logo
+    .divider4
+
+    .large-text
+      = @report.report_hash[:candidate][:name]
+    .divider1
+
+    .content
+      .overview-title
+        .left
+          Competencies
+        .right
+          Scores
+        .clr
+
+      %ul.competency-list.pull-left
+        - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+          %li
+            .competency-name
+              = competency_name
+            .competency-value
+              = competency_scores[:score][:bucket]
+            .clr
+      .clr
+    .divider2
+ 

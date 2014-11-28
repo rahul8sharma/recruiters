@@ -1,0 +1,35 @@
+.bottom-trangle
+  .frame.boxed-comments
+    .trait-comment-heading
+      Comments on 
+      %span.trait-name
+        = trait_scores[:trait][:name]
+    .trait-comment-sub-heading
+      - if trait_scores[:comments_compulsory] == true
+        Comments were Mandatory
+      - else
+        Comments were Optional
+    .divider2
+    - if !trait_scores[:comments].present?
+      .no-responses
+        .box
+          No Responses
+      .divider3
+    - else
+      %ul
+        - if trait_scores[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+          - trait_scores[:comments].each do |role_name, role_wise_comment|
+            - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+              %li
+                .stakeholder.span3.first
+                  = role_name.titleize
+                .comment-box.span23.pull-right.medium-text.line-height1
+                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+                  .arrow
+                .clr
+        - else
+          .no-responses
+            .box
+              No Responses
+          .divider3
+.divider2

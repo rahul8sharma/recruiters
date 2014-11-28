@@ -1,0 +1,38 @@
+.overall_report
+  .divider1
+  .j-logo.pull-left
+  - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+    .pull-right
+      = wicked_pdf_image_tag ('report/pdf/talent-lens.png')
+  .clr
+  .divider28
+  
+  .huge-text.left-offset1
+    = @report.report_hash[:candidate][:name]
+
+  .divider1
+  .banner
+    .banner-heading
+      360&#176;
+    .banner-sub-heading.pull-left
+      Profiling Report
+    .pull-right
+      Completion Status: 4 out of 4
+    .clr
+  .divider2
+  .extra-large-text
+    .span.left-offset1
+      360&#176; Profiling: 
+    .span13
+      = @report.report_hash[:assessment][:name]
+    .clr
+    .divider2
+
+    .span.left-offset1
+      Report Generated On: 
+    .span
+      = @report.report_hash[:completed_at]
+      -# date
+    .clr
+
+

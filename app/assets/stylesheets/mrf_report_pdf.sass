@@ -1,0 +1,192 @@
+$image-path: report/pdf/mrf
+.report.mrf
+  border: 1px solid #ddd
+  .overall_report
+    color: #002b3a
+  .scale 
+    width: 380px
+    .marker
+      background: image-url("#{$image-path}/scale-hexagon.png") no-repeat scroll center bottom rgba(0, 0, 0, 0)
+      color: #414142
+      font-size: 12px
+      line-height: 15px
+      width: 72px
+    .marker-container
+      width: 435px 
+    .line
+      width: 365px 
+      border-color: #707175
+      left: 5px
+  .banner
+    color: #fff
+    background: #f58220
+    font-size: 18px
+    border-bottom: 7px solid #002b3a
+    box-shadow: 0 1px 0 #cac1b4
+    padding: 18px 30px 18px 90px
+    width: 720px
+    margin-left: -40px
+    .banner-heading
+      font-size: 120px
+      line-height: 127px
+      text-shadow: 8px 0px 0px #d36a28
+    .banner-sub-heading
+      font-size: 28px
+      line-height: 35px
+
+  .factor_fit 
+    background: none
+    .factors_container
+      background: image-url("#{$image-path}/hexagon-bg.png") center center no-repeat
+      
+      [class*="factor_"]
+        font-weight: 200
+        line-height: 17px
+
+
+
+.mrf_scores_listing
+  li
+    border-top: 1px dotted #f1f1f1
+
+    &:first-child
+      border: none
+  .rounded
+    width: 10px 
+    height: 10px
+  .left-sec
+    .rounded
+      background: #28b29b
+    .title
+      color: #000
+      font-weight: 700
+      margin-bottom: 10px
+  .rating-slider
+    background:  image-url('#{$image-path}/rating-slider-line.png') no-repeat center center
+    margin-top: 30px 
+    width: 380px
+    .marker
+      position: relative
+      background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
+      height: 20px
+      width: 20px
+      margin-left: 52px
+      float: left
+      text-align: center
+      z-index: 999
+
+      &:first-child
+        margin-left: 0
+      &.mrf-rating.self-rating
+        background:  image-url('#{$image-path}/marker-hexagon-combo.png') no-repeat center center
+          
+      [class*="arrow"]
+        position: absolute
+        width: 20px
+        height: 15px
+        z-index: 9999
+        display: none
+      .mrf-result, .self-result
+        display: none
+        position: absolute
+        width: 105px
+        left: -44px
+        border-radius: 1px
+        background: #fff
+        padding: 1px
+        font-size: 7px
+        bottom: 22px
+
+        .left
+          width: 51px
+          float: left
+        .right
+          width: 51px
+          float: right
+      .mrf-result
+        border: 1px solid #28b29b
+        .left
+          background: image-url('#{$image-path}/rating-ring.png') no-repeat center 2px #28b29b
+          padding: 15px 0 0 0
+          color: #fff
+
+        .right
+          padding: 8px 0 0 0
+          background: #fff
+        
+      .self-result  
+        border: 1px solid #3da5bf
+
+        .left
+          background: #fff
+          padding: 8px 0 0 0
+
+        .right
+          padding: 15px 0 0 0
+          color: #fff
+          background: image-url('#{$image-path}/user-icon.png') no-repeat center 5px #3da5bf
+        
+
+
+    .marker.mrf-rating
+      background:  image-url('#{$image-path}/marker-hexagon-green.png') no-repeat center center
+
+      .arrow-mrf-result
+        display: block
+        top: -8px
+        background:  image-url('#{$image-path}/mrf-rating-arrow.png') no-repeat center center
+      .mrf-result
+        background: #fff
+        display: block
+       
+    .marker.self-rating
+      background:  image-url('#{$image-path}/marker-hexagon-blue.png') no-repeat center center
+      .arrow-self-result
+        display: block
+        top: 13px
+        background:  image-url('#{$image-path}/self-rating-arrow.png') no-repeat center center
+        
+      .self-result  
+        display: block  
+        bottom: auto
+        top: 23px
+        background: #fff
+    &.mrf-benchmark-ranges
+      position: relative
+      .line
+        height: 1px
+        border-top: 2px solid #ea2a2f
+        position: absolute
+        top: 9px
+        left: 10px
+
+        @for $i from 1 through 5
+          &.width#{$i}
+            width: $i * 72px
+          &.position#{$i}
+            left: $i * 72px + 7 - (72)
+.mrf-benchmark-ranges-block
+  border: 1px dashed #c2c2c2
+  font-size: 14px
+  padding: 0 13px
+  line-height: 25px
+  .line
+    height: 1px
+    border-top: 2px solid #ea2a2f
+    width: 25px
+    margin: 10px 0 0 15px
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .competency_report
+

@@ -1,0 +1,27 @@
+- if @report.report_data[:mrf_report_traits_self_360]
+  #scores.section03
+    .divider1
+    .scores
+      .span7.first.pull-left
+        .blue_heading.large-text
+          Scores of Traits measured with 360&#176; Assessment
+        .divider1
+        .mrf-benchmark-ranges-block.pull-left
+          .pull-left
+            Industry Benchmark
+          .line.pull-left
+          .clr
+        .clr
+      .scale.mrf.pull-right.right-offset1
+        .line
+        .marker-container
+          - @norm_buckets.each do |norm_bucket|
+            .marker
+              .arrow
+              - if norm_bucket.name.split(" ").size == 1
+                %br/
+              = norm_bucket.name
+        .clr
+      .clr
+      .divider3
+      = render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}

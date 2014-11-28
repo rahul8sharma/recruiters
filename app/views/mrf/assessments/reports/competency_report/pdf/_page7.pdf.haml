@@ -1,0 +1,9 @@
+- if @report.report_data[:mrf_report_show_trait_comments] && @report.report_data[:comments_enabled]
+  .stakeholder-comments
+    .container
+      .divider2
+      .title
+        Stakeholder Comments on Traits under various Competencies
+      .divider2
+      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/comments_on_traits", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
