@@ -1,10 +1,23 @@
 .mrf_report.fit
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page1"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page2"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page3"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page4"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_comments"
   = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_all"
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page5"
-  = render :partial => "shared/reports/pdf/about_us"
-  = render :partial => "shared/reports/pdf/legal_disclaimer"
+  
+  .common-top-trangle
+    .common-bottom-trangle 
+      = render :partial => "shared/reports/pdf/about_us"
+      .page-break
+
+      = render :partial => "shared/reports/pdf/legal_disclaimer"
+      .page-break
+
+
+ 
