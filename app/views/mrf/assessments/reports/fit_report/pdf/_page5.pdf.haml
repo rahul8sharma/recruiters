@@ -1,0 +1,37 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
+- if @report.report_data[:mrf_report_360_feedback_stats] || @report.report_data[:plain_mrf_report_360_feedback_stats]
+  .divider3
+  .feedback-stats
+    .stats
+      .blue_heading.text-center
+        Summary of 360&#176; Feedback
+      .divider3
+      .caption
+        Feedback Stats
+      %ul
+        %li.head
+          .left
+            Feedback from
+          .middle
+            Requests to
+          .right
+            Completed by
+          .clr
+        - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
+          %li.list
+            .left
+              = feedback_name.titleize
+            .middle
+              = feedback_stats[:sent]
+            .right
+              = feedback_stats[:completed]
+            .clr
+        %li.list
+          .left
+            Total
+          .middle
+            = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
+          .right
+            = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
+          .clr   
+    .divider2

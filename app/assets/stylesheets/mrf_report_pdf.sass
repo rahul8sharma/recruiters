@@ -1,0 +1,377 @@
+$image-path: report/pdf/mrf
+.report.mrf
+  border: 1px solid #ddd
+  .overall_report
+    color: #002b3a
+  .scale 
+    width: 380px
+    .marker
+      background: image-url("#{$image-path}/scale-hexagon.png") no-repeat scroll center bottom rgba(0, 0, 0, 0)
+      color: #414142
+      font-size: 12px
+      line-height: 15px
+      width: 72px
+    .marker-container
+      width: 435px 
+    .line
+      width: 365px 
+      border-color: #707175
+      left: 5px
+  .banner
+    color: #fff
+    background: #f58220
+    font-size: 18px
+    border-bottom: 7px solid #002b3a
+    box-shadow: 0 1px 0 #cac1b4
+    padding: 18px 30px 18px 90px
+    width: 720px
+    margin-left: -40px
+    .banner-heading
+      font-size: 120px
+      line-height: 127px
+      text-shadow: 8px 0px 0px #d36a28
+    .banner-sub-heading
+      font-size: 28px
+      line-height: 35px
+
+  .factor_fit 
+    background: none
+    .factors_container
+      background: image-url("#{$image-path}/hexagon-bg.png") center center no-repeat
+      
+      [class*="factor_"]
+        font-weight: 200
+        line-height: 17px
+
+
+
+.mrf_scores_listing
+  li
+    border-top: 1px dotted #f1f1f1
+
+    &:first-child
+      border: none
+  .rounded
+    width: 10px 
+    height: 10px
+  .left-sec
+    .rounded
+      background: #28b29b
+    .title
+      color: #000
+      font-weight: 700
+      margin-bottom: 10px
+  .rating-slider
+    background:  image-url('#{$image-path}/rating-slider-line.png') no-repeat center center
+    margin-top: 30px 
+    width: 380px
+    .marker
+      position: relative
+      background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
+      height: 20px
+      width: 20px
+      margin-left: 52px
+      float: left
+      text-align: center
+      z-index: 999
+
+      &:first-child
+        margin-left: 0
+      &.mrf-rating.self-rating
+        background:  image-url('#{$image-path}/marker-hexagon-combo.png') no-repeat center center
+          
+      [class*="arrow"]
+        position: absolute
+        width: 20px
+        height: 15px
+        z-index: 9999
+        display: none
+      .mrf-result, .self-result
+        display: none
+        position: absolute
+        width: 105px
+        left: -44px
+        border-radius: 1px
+        background: #fff
+        padding: 1px
+        font-size: 7px
+        bottom: 22px
+
+        .left
+          width: 51px
+          float: left
+        .right
+          width: 51px
+          float: right
+      .mrf-result
+        border: 1px solid #28b29b
+        .left
+          background: image-url('#{$image-path}/rating-ring.png') no-repeat center 2px #28b29b
+          padding: 15px 0 0 0
+          color: #fff
+
+        .right
+          padding: 8px 0 0 0
+          background: #fff
+        
+      .self-result  
+        border: 1px solid #3da5bf
+
+        .left
+          background: #fff
+          padding: 8px 0 0 0
+
+        .right
+          padding: 15px 0 0 0
+          color: #fff
+          background: image-url('#{$image-path}/user-icon.png') no-repeat center 5px #3da5bf
+        
+
+
+    .marker.mrf-rating
+      background:  image-url('#{$image-path}/marker-hexagon-green.png') no-repeat center center
+
+      .arrow-mrf-result
+        display: block
+        top: -8px
+        background:  image-url('#{$image-path}/mrf-rating-arrow.png') no-repeat center center
+      .mrf-result
+        background: #fff
+        display: block
+       
+    .marker.self-rating
+      background:  image-url('#{$image-path}/marker-hexagon-blue.png') no-repeat center center
+      .arrow-self-result
+        display: block
+        top: 13px
+        background:  image-url('#{$image-path}/self-rating-arrow.png') no-repeat center center
+        
+      .self-result  
+        display: block  
+        bottom: auto
+        top: 23px
+        background: #fff
+    &.mrf-benchmark-ranges
+      position: relative
+      .line
+        height: 1px
+        border-top: 2px solid #ea2a2f
+        position: absolute
+        top: 9px
+        left: 10px
+
+        @for $i from 1 through 5
+          &.width#{$i}
+            width: $i * 72px
+          &.position#{$i}
+            left: $i * 72px + 7 - (72)
+.mrf-benchmark-ranges-block
+  border: 1px dashed #c2c2c2
+  font-size: 14px
+  padding: 0 13px
+  line-height: 25px
+  .line
+    height: 1px
+    border-top: 2px solid #ea2a2f
+    width: 25px
+    margin: 10px 0 0 15px
+
+.mrf_data_points_listing
+  li
+    border-top: 1px dashed #e5e5e6
+    &:first-child
+      border: none
+    .left_sec
+      float: left
+      .content
+        border-width: 0 
+        border-right: 1px solid #ccc
+        padding: 25px
+        padding-left: 0
+        .trait_rating
+          font-size: 11px
+          padding: 1px
+          border: 1px solid #e3e3e3
+          border-radius: 3px
+          margin-bottom: 18px
+          line-height: 25px
+          background: #fbfbfb
+
+          &.max
+            .left
+              background: image-url('#{$image-path}/max.png') no-repeat 5px center #abed74
+          &.min
+            .left
+              background: image-url('#{$image-path}/min.png') no-repeat 5px center #ffcf36
+          &.self
+            .left
+              background: image-url('#{$image-path}/self.png') no-repeat 5px center #6ea6bf
+          &.score
+            .left
+              background: image-url('#{$image-path}/score.png') no-repeat 5px center #28b29b
+
+          .left, .right
+            width: 115px
+            border-radius: 2px
+          .left
+            width: 120px
+            padding-left: 25px
+            float: left
+            color: #fff
+          .right
+            float: right
+            text-align: center
+
+      .caption
+        font-size: 16px
+        color: #000
+      .overall_average
+        padding: 10px 25px
+        background: #fff
+        border: 1px solid #e3e3e3
+        p
+          width: 125px
+          border: 1px dashed #28b29b
+          line-height: 23px
+          text-align: center
+          margin: auto
+          margin-bottom: 10px
+        .snippet
+          margin-bottom: 10px
+          padding: 0 0 0 32px
+          font-size: 10px
+          line-height: 25px
+          color: #fff
+          width: 185px
+          &.including
+            background: image-url('#{$image-path}/including.png') no-repeat 7px center #28b29b
+          &.excluding
+            background: image-url('#{$image-path}/excluding.png') no-repeat 7px center #28b29b
+    .right-sec
+      float: right
+      .caption
+        font-size: 16px
+        color: #000
+      .stakeholders-name
+        width: 100px
+        line-height: 26px
+        margin-right: 50px
+        text-align: center
+        color: #fff
+        background: #6ea5be
+        border-radius: 1px
+        font-size: 12px
+      .stakeholders-rating-slider
+        margin-top: 10px
+        background:  image-url('#{$image-path}/stakeholders-rating-line.png') no-repeat 9px center
+        width: 285px
+        position: relative
+        .alert
+          position: absolute
+          width: 260px
+          left: 5px
+          top: -33px
+          z-index: 99
+          text-align: center
+          border-radius: 2px
+          background: #f2dedf
+          border: 1px solid #efc1c4
+          color: #ba4965
+        .marker
+          position: relative
+          background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
+          height: 20px
+          width: 20px
+          margin-left: 31px
+          float: left
+          text-align: center
+          z-index: 999
+          &.active
+            background:  image-url('#{$image-path}/marker-hexagon-blue.png') no-repeat center center
+            .arrow, .score
+              display: block
+          &:first-child
+            margin: 0
+        .arrow
+          background: image-url('#{$image-path}/stakeholders-rating-arrow.png') no-repeat 
+          width: 22px 
+          height: 14px
+          position: absolute
+          display: none
+          top: -13px 
+          left: -1px
+          z-index: 9999
+        .score
+          display: none
+          position: absolute
+          width: 100px
+          padding: 3px 0
+          text-align: center
+          border: 1px solid #6ea6bf
+          border-radius: 2px
+          line-height: 19px
+          top: -38px
+          left: -44px
+          background: #fff
+
+.feedback-stats
+  background: image-url("#{$image-path}/feedback-stats-bg.png") no-repeat center 30px
+  min-height: 770px
+  .stats
+    width: 670px
+    margin: auto
+    .blue_heading
+      font-size: 30px
+      color: #24b29a
+
+    .caption
+      background: #f58220
+      margin-bottom: 10px
+      line-height: 34px
+      color: #fff
+      text-align: center
+      font-size: 20px
+    ul
+      background: #fff
+      border: 1px dashed #24b29a
+      
+      li
+        .middle, .right
+          text-align: center
+        .left, .middle, .right
+          border-right: 1px solid #24b29a
+          float: left
+        .left
+          width: 165px
+          padding-left: 55px
+        .middle
+          width: 221px
+        .right
+          border-right: none
+          width: 221px
+        &:nth-child(even)
+          background: #e4f4f7
+
+      li.head
+        border-bottom: 1px dashed #28b29b
+        font-size: 16px
+        color: #fff
+        padding: 7px 0
+        line-height: 23px
+        background: #24b29a
+        .left, .middle, .right
+          border-color: #fff
+      li.list
+        color: #000
+        line-height: 35px
+
+
+
+
+
+
+
+
+
+  .competency_report
+

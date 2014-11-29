@@ -29,5 +29,5 @@
       .frame.mrf.gray-bg
         %ul.mrf_scores_listing
           - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-            = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_aggregated.html", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+            = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_aggregated", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
       .divider2

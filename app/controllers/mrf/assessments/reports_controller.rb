@@ -9,40 +9,21 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
     
-    if @assessment.configuration[:use_competencies]
-      if params[:view_mode]
-        @view_mode = params[:view_mode]
-        template = "competency_report.html.haml"
-        layout = "layouts/reports_360.html.haml"
-      else
-        if request.format == "application/pdf"
-          @view_mode = "pdf"
-          template = "competency_report.pdf.haml"
-          layout = "layouts/reports_360.pdf.html"
-        else  
-          @view_mode = "html"
-          template = "competency_report.html.haml"
-          layout = "layouts/reports_360.html.haml"
-        end
-      end
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
     else
-      if params[:view_mode]
-        @view_mode = params[:view_mode]
-        template = "fit_report.html.haml"
-        layout = "layouts/reports_360.html.haml"
-      else
-        if request.format == "application/pdf"
-          @view_mode = "pdf"
-          template = "fit_report.pdf.haml"
-          layout = "layouts/reports_360.pdf.haml"
-        else  
-          @view_mode = "html"
-          template = "fit_report.html.haml"
-          layout = "layouts/reports_360.html.haml"
-        end
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
       end
     end
-
+    if @report.report_data[:use_competencies]
+      template = "competency_report.#{@view_mode}.haml"
+    else
+      template = "fit_report.#{@view_mode}.haml" 
+    end  
+    layout = "layouts/reports_360.#{@view_mode}.haml"
     @page = 1
     respond_to do |format|
       format.html { 
