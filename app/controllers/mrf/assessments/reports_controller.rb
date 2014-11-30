@@ -4,7 +4,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
   
   def report
     report_type = params[:report_type] || "fit_report"  
-    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    get_norm_buckets
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
@@ -69,6 +69,20 @@ class Mrf::Assessments::ReportsController < ApplicationController
   end
 
   protected
+  
+  def get_norm_buckets
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
+                      order: "weight ASC", query_options: {
+                        company_id: @company.id
+                      }).all
+    
+    if @norm_buckets.empty?
+      @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
+                      order: "weight ASC", query_options: {
+                        company_id: nil
+                      }).all
+    end
+  end
 
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
