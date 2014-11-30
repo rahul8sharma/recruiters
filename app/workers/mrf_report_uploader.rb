@@ -34,7 +34,7 @@ class MrfReportUploader < AbstractController::Base
       
       @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
                       order: "weight ASC", query_options: {
-                        company_id: @company.id
+                        company_id: report_data[:company_id]
                       }).all
     
       if @norm_buckets.empty?
