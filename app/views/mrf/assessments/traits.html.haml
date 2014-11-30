@@ -21,7 +21,7 @@
         .line
         .marker-container
           - @norm_buckets.each do |norm_bucket|
-            .marker
+            .marker{class: "marker#{@norm_buckets.size}"}
               = norm_bucket.name
           .clr
       .clr
@@ -42,7 +42,7 @@
             .rhs-sec.pull-right
               .marker-set
                 - @norm_buckets.each do |norm_bucket|
-                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show" : "" }
+                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show marker#{@norm_buckets.size}" : "marker#{@norm_buckets.size}" }
                     = norm_bucket.name
                 .clr
               .slider
