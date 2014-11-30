@@ -8,7 +8,6 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
-    
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -18,7 +17,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
         @view_mode = "html"
       end
     end
-    if @report.report_data[:use_competencies]
+    if @report.report_data[:assessment][:use_competencies]
       template = "competency_report.#{@view_mode}.haml"
     else
       template = "fit_report.#{@view_mode}.haml" 
