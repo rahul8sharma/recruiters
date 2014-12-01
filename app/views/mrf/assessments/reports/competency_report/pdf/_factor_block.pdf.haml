@@ -9,8 +9,9 @@
   .factors_container
     .factors_list  
       - competency_scores[:trait_scores].each_with_index do |trait_score, index|
+        - margin = trait_score[:trait][:name].split(" ").size > 1 ? 15 : 18
         %div{:class=>"factor_#{index+1} "}
-          .text-wrap{:style=>"margin-top: 30px;"}
+          .text-wrap{:style=>"margin-top: #{margin}px;"}
             = trait_score[:trait][:name].gsub(" ","<br/>").html_safe
       -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 .divider1  

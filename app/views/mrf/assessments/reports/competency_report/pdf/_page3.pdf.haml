@@ -1,10 +1,11 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:mrf_report_competency_self_360]
   #scores.section03
     .divider1
-    .scores.container
-      .span10
-        .title.line-height2
-          Competencies with 360&#176; Scores 
+    .scores
+      .span6.first.pull-left
+        .blue_heading.extra-large-text
+          Competencies with 360&#176; Scores
         .divider1
         .mrf-benchmark-ranges-block.pull-left
           .pull-left
@@ -12,19 +13,24 @@
           .line.pull-left
           .clr
         .clr
-      .scale.mrf.pull-right.left-offset1
+      .scale.mrf.pull-right.right-offset1
         .line
         .marker-container
           - @norm_buckets.each do |norm_bucket|
             .marker
               .arrow
-              .marker-info
-                = norm_bucket.description rescue "-" 
               - if norm_bucket.name.split(" ").size == 1
                 %br/
               = norm_bucket.name
         .clr
       .clr
+      .divider3
+      -#= render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}
+
+
+
+
+
       .divider1
       .frame.mrf.gray-bg
         %ul.mrf_scores_listing
