@@ -18,20 +18,14 @@
         .marker-container
           - @norm_buckets.each do |norm_bucket|
             .marker
-              .arrow
               - if norm_bucket.name.split(" ").size == 1
                 %br/
               = norm_bucket.name
         .clr
       .clr
-      .divider3
+      .divider1
       -#= render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}
 
-
-
-
-
-      .divider1
       .frame.mrf.gray-bg
         %ul.mrf_scores_listing
           - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
