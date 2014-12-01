@@ -5,7 +5,7 @@
       .span10.title.pull-left
         Traits with 360&#176; Scores 
       .scale.mrf.pull-right.left-offset1
-        .line
+        .line{:class => "line#{@norm_buckets.size}"}
         .marker-container
           - @norm_buckets.each do |norm_bucket|
             .marker

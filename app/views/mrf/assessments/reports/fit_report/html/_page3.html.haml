@@ -5,7 +5,7 @@
       .span10.line-height2.title.pull-left
         Scores of Traits measured with 360&#176; Assessment
       .scale.mrf.pull-right.left-offset1
-        .line
+        .line{ class: "line#{@norm_buckets.size}" }
         .marker-container
           - @norm_buckets.each do |norm_bucket|
             .marker
