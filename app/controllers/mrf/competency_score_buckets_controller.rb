@@ -8,6 +8,6 @@ class Mrf::CompetencyScoreBucketsController < MasterDataController
   end
 
   def index_columns
-    [:id, :uid, :name, :min_val, :max_val]
+    [:id, :uid, :name, :min_val, :max_val, :company_id]
   end
 end
