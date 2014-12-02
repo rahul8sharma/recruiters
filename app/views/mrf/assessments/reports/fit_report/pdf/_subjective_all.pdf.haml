@@ -1,10 +1,9 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:plain_mrf_report_show_subjective_responses] && @report.report_data[:subjective_responses_enabled]
   .stakeholder-comments.responses
-    .container
-      .divider2    
-      .title
-        Responses to Other Questions
-      .divider2
-      .divider2
-      - @report.report_data[:subjective_responses_others].each do |subjective_response_key, subjective_response_value|
-        = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value}
+    .divider2
+    .blue_heading.extra-large-text
+      Responses to Other Questions
+    .divider1
+    - @report.report_data[:subjective_responses_others].each do |subjective_response_key, subjective_response_value|
+      = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value}

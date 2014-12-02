@@ -1,8 +1,9 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:mrf_report_data_pts_competencies_avg] || @report.report_data[:mrf_report_data_pts_competencies]
   #developement_guide_competencies.section03
     .divider1
-    .scores.container
-      .title
+    .scores
+      .blue_heading.extra-large-text
         Data Points on 360&#176; Scores of Competencies
       .divider2
       - if @report.report_data[:mrf_report_data_pts_competencies_avg]
