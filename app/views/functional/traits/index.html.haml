@@ -1,0 +1,36 @@
+%h3 All Mrf Traits : Showing #{params[:type]}
+- if can? :create, "Functional::Trait"
+  = link_to "Manage Functional Traits", manage_functional_traits_path
+.pagination.pull-right
+  = paginate @traits
+.clr
+%table
+  %tr
+    %th
+      ID
+    %th
+      Name
+    %th
+      Definition
+    %th
+      Company Ids
+    %th
+      Edit
+
+  - @traits.each do |trait|
+    %tr
+      %td{ width: "5%" }
+        = trait.id
+      %td{ width: "15%" }
+        %a{ href: functional_trait_path(:id => "#{trait.id}") }
+          = trait.name
+      %td{ width: "40%" }
+        = trait.definition
+      %td
+        = trait.company_ids
+      %td
+        = link_to "Edit", edit_functional_trait_path(trait)
+.pagination.pull-right
+  = paginate @traits
+.clr
+

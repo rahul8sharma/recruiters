@@ -1,0 +1,36 @@
+%h3 Item #{@item.id}
+%p
+  %b Body:
+  = @item.body
+  %br
+= link_to "Edit", edit_functional_item_path(params[:id])
+\|
+= link_to "Back", functional_items_path()
+
+
+%br
+%br
+%div
+  %h3
+    Options added for this item
+    %br
+%table
+  %tr
+    %th
+      ID
+    %th
+      Body
+    %th
+      Score
+    %th
+      Order
+  - @item.options.each do |option|
+    %tr
+      %td
+        = option.id
+      %td
+        = option.body
+      %td
+        = option.score
+      %td
+        = option.option_order
