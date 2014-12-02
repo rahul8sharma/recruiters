@@ -80,6 +80,8 @@ Recruiters::Application.routes.draw do
       end
     end
 
+
+
     resources :admins do
       collection do
         get :manage
@@ -416,7 +418,26 @@ Recruiters::Application.routes.draw do
     end
   end
 
+  resources :objective_items do
+    collection do
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+      post :import_with_options_from_google_drive
+    end
+    resources :objective_options do
+    end
+  end
 
+  resources :subjective_items do
+    collection do
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+    end
+  end
 
   namespace :mrf do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
