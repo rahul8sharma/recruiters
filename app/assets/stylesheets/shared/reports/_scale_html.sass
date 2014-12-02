@@ -75,4 +75,6 @@
 
         &:hover
           background: image-url('report/html/mrf/scale-hexagon-hover.png') no-repeat center bottom
-
+    @for $i from 2 through 5      
+      .line#{$i}
+        width: $i * 125px - (115)
