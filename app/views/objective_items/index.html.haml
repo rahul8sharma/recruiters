@@ -1,6 +1,6 @@
 %h1 All Items / Item Groups
-- if can? :create, "Suitability::Item"
-  = link_to "Manage Mrf Items", manage_mrf_items_path
+- if can? :create, "ObjectiveItem"
+  = link_to "Manage Objective Items", manage_objective_items_path
 
 .pagination.pull-right
   = paginate @items
