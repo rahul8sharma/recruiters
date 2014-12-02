@@ -1,6 +1,5 @@
 $image-path: report/pdf/mrf
 .report.mrf
-  border: 1px solid #ddd
   .overall_report
     color: #002b3a
   .scale 
@@ -366,6 +365,8 @@ $image-path: report/pdf/mrf
         li.list
           color: #000
           line-height: 35px
+        li.total
+          font-weight: 700
 
   .competency_report
     .mrf_rating_competency_overview
@@ -512,7 +513,75 @@ $image-path: report/pdf/mrf
             .stakeholders-name
               margin-right: 30px
 
+  .stakeholder-comments
+    padding: 18px 30px
+    border-bottom: 1px dashed #28B29B
+    li
+      margin-bottom: 18px
+    .sub-tiltle
+      color: #28b29b
+    .trait-name, .question, .trait-comment-sub-heading
+      color: #000
 
+    .trait-comment-heading
+      font-weight: 700
+      color: #000
+    .bottom-trangle
+      background: image-url('#{$image-path}/mrf-comments-bottom-trangle.png') no-repeat right bottom
+      
+    .stakeholder
+      color: #595959
+      font-weight: 700
+      text-align: center
+      padding-top: 36px
+      background: image-url('#{$image-path}/stakeholder-icon.png') no-repeat center 0
+    .frame
+      background: image-url('#{$image-path}/stakeholder-comment-frame-bg.png') no-repeat 20px 20px 
+      border: 1px solid #28B29B
+      padding: 20px 25px
+    .boxed-comments
+      border: 1px solid #28b29b
+    .comment-box
+      position: relative
+      padding: 10px 15px 
+      line-height: 13px
+      font-size: 10px
+      color: #fff
+      background: #28b29b
+      .arrow  
+        background: image-url('#{$image-path}/comment-box-arrow.png') no-repeat
+        width: 23px
+        height: 15px
+        position: absolute
+        left: -20px
+        top: 0
+        z-index: 11
+    .no-responses
+      background: image-url('#{$image-path}/mrf-no-response-icon.png') no-repeat
+      min-height: 40px
+      padding: 5px 0 0 40px
+      .box
+        border: 1px solid #28b29b
+        border-radius: 2px
+        background: #fff
+        color: #F58220
+        text-align: center
+        line-height: 22px
+    &.responses
+      .frame
+        border: 1px solid #6ea6bf
+      .comment-box
+        background: #6ea6bf
+        .arrow
+          background-image: image-url('#{$image-path}/responses-comment-box-arrow.png')
+      .bottom-trangle
+        background-image: image-url('#{$image-path}/responses-mrf-comments-bottom-trangle.png')
+      .frame
+        background-image: image-url('#{$image-path}/responses-stakeholder-comment-frame-bg.png')
+      .no-responses
+        background-image: image-url('#{$image-path}/responses-mrf-no-response-icon.png')
+        .box
+          border-color: #6ea6bf
 
 
 

@@ -21,15 +21,16 @@
           - trait_scores[:comments].each do |role_name, role_wise_comment|
             - if role_wise_comment.any?{ |comment| comment[:comment].present? }
               %li
-                .stakeholder.span3.first
+                .stakeholder.span2.first
                   = role_name.titleize
-                .comment-box.span23.pull-right.medium-text.line-height1
+                .comment-box.span15.pull-right.medium-text.line-height1
                   = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
                   .arrow
                 .clr
         - else
-          .no-responses
-            .box
-              No Responses
-          .divider3
+          %li
+            .no-responses
+              .box
+                No Responses
+            .divider1
 .divider2
