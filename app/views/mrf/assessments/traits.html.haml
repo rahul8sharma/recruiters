@@ -1,4 +1,4 @@
-.trait-show
+.trait-show.mrf
   .span18.huge-text.first
     .divider1
     #{@assessment.id} - #{@assessment.name}
@@ -19,11 +19,12 @@
       .divider1
       .scale.pull-right
         .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              = norm_bucket.name
-          .clr
+        - @norm_buckets.each_with_index do |norm_bucket,index|
+          - marker_left = (271/(@norm_buckets.size-1)) * index - 7.5
+          .m{style: "margin-left:#{marker_left}px"}
+            .hexagon
+              .bucket-name
+                = norm_bucket.name
       .clr
       %ul.clearfix.scores_listing.first
         - @assessment.assessment_traits.each do |assessment_trait|
@@ -42,12 +43,18 @@
             .rhs-sec.pull-right
               .marker-set
                 - @norm_buckets.each do |norm_bucket|
-                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show" : "" }
+                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show marker#{@norm_buckets.size}" : "marker#{@norm_buckets.size}" }
                     = norm_bucket.name
                 .clr
               .slider
-                .visual
-                .range{ class: "offset#{from.weight-1}  width#{width}" }
+                - window = 271/(@norm_buckets.size-1)
+                .vi
+                  - (@norm_buckets.size - 2).times do |index|
+                    - left = window + index * window
+                    %div{ style: "position:absolute;height:3px;width:3px;background:black;border-radius:50%;left: #{left}px;top:2px;" }
+                - range_width = width * window + 3
+                - offset = (from.weight-1) * window
+                .range{ style: "margin-left: #{offset}px;width:#{range_width}px" }
                 .clr
             .divider2
       .divider2

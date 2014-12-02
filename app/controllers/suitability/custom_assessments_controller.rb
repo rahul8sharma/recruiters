@@ -168,6 +168,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
 
   def store_assessment_factor_norms
+    params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
     params[:assessment][:job_assessment_factor_norms_attributes].each do |index, factor_norms_attributes|
       params[:assessment][:job_assessment_factor_norms_attributes][index][:functional_area_id] = params[:assessment][:functional_area_id]
       params[:assessment][:job_assessment_factor_norms_attributes][index][:industry_id] = params[:assessment][:industry_id]

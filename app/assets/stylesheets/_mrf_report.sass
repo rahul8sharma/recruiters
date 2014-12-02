@@ -115,18 +115,30 @@
         background: #fff
     &.mrf-benchmark-ranges
       position: relative
+      @for $i from 2 through 5      
+        &.width#{$i}
+          width: $i * 125px - (110)
+      &.width4
+        width: 395px    
+      &.width5
+        width: 525px
       .line
         height: 1px
         border-top: 2px solid #ff0000
         position: absolute
         top: 9px
         left: 10px
-
         @for $i from 1 through 6
           &.width#{$i}
             width: $i * 130px
           &.position#{$i}
             left: $i * 130px + 10 - (130)
+            
+.benchmark-ranges-markers
+  @for $i from 2 through 5      
+    &.width#{$i}
+      width: $i * 125px - (80)
+      margin-left: -4px
 .mrf-benchmark-ranges-block
   border: 1px dashed #c2c2c2
   font-size: 16px
@@ -255,6 +267,12 @@
         background:  image-url('report/html/mrf/stakeholders-rating-line.png') no-repeat center center
         width: 390px
         position: relative
+        @for $i from 2 through 5
+          &.width#{$i}
+            width: $i * 75px - (75)
+        .stakeholders-rating-markers
+          width: 390px
+          margin-left: -5px
         .alert
           position: absolute
           width: 375px
@@ -266,6 +284,11 @@
           background: #f2dedf
           border: 1px solid #efc1c4
           color: #ba4965
+          @for $i from 3 through 5
+            &.width#{$i}
+              width: $i * 75px - (80)
+          &.width2
+            width: 145px
         .marker
           position: relative
           background:  image-url('report/html/mrf/marker-disk.png') no-repeat center center

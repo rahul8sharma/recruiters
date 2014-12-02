@@ -155,7 +155,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def add_traits_range
-    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    get_norm_buckets
     if request.put?
       params[:assessment][:assessment_traits_attributes] ||= {}
       params[:assessment][:assessment_traits_attributes].each do |id,assessment_trait|
@@ -256,11 +256,25 @@ class Mrf::AssessmentsController < ApplicationController
 
   def traits
     get_custom_assessment
-    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(order: "weight ASC").all
+    get_norm_buckets
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
   protected
+  
+  def get_norm_buckets
+    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
+                      order: "weight ASC", query_options: {
+                        company_id: @company.id
+                      }).all
+    
+    if @norm_buckets.empty?
+      @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
+                      order: "weight ASC", query_options: {
+                        company_id: nil
+                      }).all
+    end
+  end
 
   def get_custom_assessments
     @custom_assessments = Vger::Resources::Suitability::CustomAssessment.where(company_id: params[:company_id], query_options: { company_id: params[:company_id] }, order_by: "created_at DESC").all.to_a
