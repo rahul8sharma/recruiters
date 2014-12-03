@@ -5,6 +5,27 @@
     #{competency_data[:grade]}
   .clr 
   %ul.clearfix.scores_listing.first
+    %li
+      .divider1
+      .lhs-sec.pull-left
+        .span1.first.hexagon-icon.favorable
+        .span17.first
+          .factor-name.pull-left.star
+            Sample Trait name
+            .info
+              Tendency to take organized and planned approach to work 
+            .arrow
+          .clr
+      .rhs-sec.pull-right
+        .slider
+          .pointer.position4
+            .score-indicater
+              Above Average
+            .arrow
+          .offset3.range.width2
+      .clr
+      .divider1
+
     - factor_scores.each do |factor_name, factor_score|
       %li
         .divider1
@@ -14,7 +35,7 @@
           -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
           .span17.first
             .factor-name.pull-left
-              = factor_name
+              = factor_name 
               .info
                 = factor_score[:factor_definition]
               .arrow
@@ -43,5 +64,5 @@
             Reliability of Candidate's Responses for this Factor:
             %span.score 
               = factor_score[:consistency_bucket]
-     
+
 .divider1
