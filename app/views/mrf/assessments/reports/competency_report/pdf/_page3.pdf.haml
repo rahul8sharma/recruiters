@@ -16,11 +16,14 @@
       .scale.mrf.pull-right.right-offset1
         .line
         .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
+          - margin_left = (365/(@norm_buckets.size-1)) - 2
+          - @norm_buckets.each_with_index do |norm_bucket,index|
+            .marker{style: "margin-left: #{margin_left}px"}
+              .hexagon
+                .bucket-name
+                  - if norm_bucket.name.split(" ").size == 1
+                    %br/
+                  = norm_bucket.name
         .clr
       .clr
       .divider1

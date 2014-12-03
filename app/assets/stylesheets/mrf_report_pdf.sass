@@ -5,13 +5,25 @@ $image-path: report/pdf/mrf
   .scale 
     width: 380px
     .marker
-      background: image-url("#{$image-path}/scale-hexagon.png") no-repeat scroll center bottom rgba(0, 0, 0, 0)
-      color: #414142
-      font-size: 12px
-      line-height: 15px
-      width: 72px
+      width: auto
+      background: none
+      .hexagon
+        top: 35px
+        position: absolute
+        background: image-url("#{$image-path}/scale-hexagon.png") no-repeat
+        height: 15px
+        width: 13px
+        .bucket-name
+          position: absolute
+          width: 53px
+          bottom: 25px
+          text-align: center
+          left: -20px
+      &:first-child
+        margin-left: 0 !important    
     .marker-container
       width: 435px 
+      left: 4px
     .line
       width: 365px 
       border-color: #707175
@@ -75,7 +87,7 @@ $image-path: report/pdf/mrf
         z-index: 999
 
         &:first-child
-          margin-left: 0
+          margin-left: 0 !important
         &.mrf-rating.self-rating
           background:  image-url('#{$image-path}/marker-hexagon-combo.png') no-repeat center center
             
