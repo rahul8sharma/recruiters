@@ -1,0 +1,15 @@
+- if @report.report_data[:plain_mrf_report_data_pts_traits]
+  - @report.report_data[:trait_scores].each_slice(2) do |trait_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    #developement_guide_traits.section03
+      .divider1
+      .scores
+        .blue_heading.large-text
+          Data Points about 360&#176; Scores 
+        .divider1
+        %ul.mrf_data_points_listing
+          - trait_scores.each do |trait_score, index|
+            = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index}
+        .divider1
+    .page-break
+

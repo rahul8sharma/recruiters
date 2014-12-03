@@ -2,41 +2,40 @@
   Comments on Traits under
   = competency_name
 .divider2
-- competency_scores[:trait_scores].each do |trait|
-  .bottom-trangle
-    .frame
-      .trait-comment-heading.medium-text
-        Comments on
-        %span.trait-name
-          = trait[:trait][:name]
-          
-      .trait-comment-sub-heading
-        - if trait[:comments_compulsory] == true
-          Comments were Mandatory
-        - else
-          Comments were Optional
-      .divider2
-      - if !trait[:comments].present?
-        .no-responses
-          .box
-            No Responses
-        .divider1
+.bottom-trangle
+  .frame
+    .trait-comment-heading.medium-text
+      Comments on
+      %span.trait-name
+        = trait_scores[:trait][:name]
+        
+    .trait-comment-sub-heading
+      - if trait_scores[:comments_compulsory] == true
+        Comments were Mandatory
       - else
-        %ul
-          - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
-            - trait[:comments].each do |role_name, role_wise_comment|
-              - if role_wise_comment.any?{ |comment| comment[:comment].present? }
-                %li
-                  .stakeholder.span2.first
-                    = role_name.titleize
-                  .comment-box.span15.pull-right
-                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-                    .arrow
-                  .clr
-          - else
-            %li
-              .no-responses
-                .box
-                  No Responses
-              .divider1
-  .divider1
+        Comments were Optional
+    .divider2
+    - if !trait_scores[:comments].present?
+      .no-responses
+        .box
+          No Responses
+      .divider1
+    - else
+      %ul
+        - if trait_scores[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+          - trait_scores[:comments].each do |role_name, role_wise_comment|
+            - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+              %li
+                .stakeholder.span2.first
+                  = role_name.titleize
+                .comment-box.span15.pull-right
+                  = role_wise_comment.map { |comment| comment[:comment] }.compact.join("; ")
+                  .arrow
+                .clr
+        - else
+          %li
+            .no-responses
+              .box
+                No Responses
+            .divider1
+.divider1
