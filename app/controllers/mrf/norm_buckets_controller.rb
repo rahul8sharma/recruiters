@@ -8,7 +8,7 @@ class Mrf::NormBucketsController < MasterDataController
   end
 
   def index_columns
-    [:id,:uid,:name,:description,:weight]
+    [:id,:uid,:name,:description,:weight,:company_id]
   end
 
 end
