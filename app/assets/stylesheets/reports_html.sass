@@ -71,7 +71,7 @@ $mid_favorable_color: #062b58
       border-color: #ff0000
     .error-message
       color: #ff0000
-      font-size: 12px
+      font-size: 11.5px
       display: block
 
   input[type="text"]
@@ -129,17 +129,14 @@ $mid_favorable_color: #062b58
     line-height: 36px 
     background: #28b29b
     .feedback_spotlight_title
-      padding: 90px 0 
-      background: image-url('report/html/feedback/feedback_spotlight_bg.png') no-repeat 0px 50px 
-      padding-left: 170px
+      padding: 30px 0 
+      text-align: center
   #guidelines
     border-bottom: 1px dashed #e3e3e3
     .guidelines
       background: image-url('report/html/feedback/feedback-report-guideline-bg.jpg') no-repeat center center
-      min-height: 1100px
+      min-height: 880px
       padding-left: 440px
-      .scale
-        float: none
   .optional-feedback
     border: 1px dashed #ccc
     padding: 10px 0
@@ -150,7 +147,7 @@ $mid_favorable_color: #062b58
       font-weight: 700
     
     label
-      border: 1px dashed #ccc
+      border: 1px dashed $color-warning
       font-size: 14px
       cursor: pointer
       text-align: center
@@ -247,6 +244,11 @@ $mid_favorable_color: #062b58
         font-size: 18px
         position: relative
         line-height: 23px
+        &.star
+          color: #9c823b
+          padding-right: 30px
+          background: image-url('report/html/competency/star.png') no-repeat right 0
+
         .info
           width: 365px
           min-height: 38px
@@ -368,6 +370,12 @@ $mid_favorable_color: #062b58
 
  
   .competency_report
+    .functional-traits-title
+      font-size: 18px 
+      color: #808285
+      line-height: 25px
+      padding-left: 30px
+      background: image-url('report/html/competency/star.png') no-repeat 0 0
     .section02
       background: #fff
       border-bottom: 1px dashed #28B29B
@@ -655,6 +663,70 @@ $mid_favorable_color: #062b58
             .range
               background: #ff8308
               height: 15px
+  .functional-questions
+    border-bottom: 1px dashed #28b29b
+    font-size: 18px
+    line-height: 25px
+    color: #000
+    .frame
+      padding-top: 10px
+    .label
+      border-radius: 6px
+      padding: 0  25px
+      line-height: 20px
+      font-size: 14px
+    .attachment-info
+      background: #28B29B
+      padding-left: 50px
+      line-height: 38px
+      color: #fff
+    .instruction-box
+      .user, .correct, .incorrect
+        font-weight: 700
+        text-align: center
+        padding: 15px 0
+      .user
+        background: #f8f8f8
+      .correct
+        background: #ebffed
+        color: #53bf36
+      .incorrect
+        background: #ffeeee
+        color: #ff0000
+    .correct-responses
+      background: #28b29b
+      border: 1px dashed #086556
+      font-weight: 700
+      text-align: center
+      padding: 10px 0
+      color: #fff
+    .responses-result
+      height: 45px
+      width: 42px
+      float: left
+      margin-top: 45px
+      background: image-url("report/pdf/competency/result-sign.png") no-repeat
+      &.incorrect
+        background-position: 0px -54px
+    ul.options
+      list-style: lower-alpha inside none
+    ul.options-response
+      li
+        padding: 10px 0
+        padding-left: 165px
+        .icon-edit
+          visibility: hidden
+        &.correct, &.incorrect
+          .icon-edit
+            visibility: visible
+        &.correct
+          color: #54bf36
+        &.incorrect
+          color: #ff0000
+        &:nth-child(odd)
+          background: #f8f8f8
+
+
 .fw
   margin-left: -40px
 
