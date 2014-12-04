@@ -1,0 +1,87 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
+  Please select a minimum of #{Rails.application.config.validators["traits_range"][current_user.type]["min"]} trait(s) to create this assessment (You can select maximum #{Rails.application.config.validators["traits_range"][current_user.type]["max"]} traits).
+.norms
+  .page-title.pull-left
+    #{@assessment.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in creating a Custom Assessment?"}
+    Need help in creating a Custom Assessment?
+  .clr
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider1
+  #info_bar.extra-medium-text
+    #info
+      .content
+        .pull-left
+          Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits)
+        .pull-right
+          %i.icon-ok-sign
+          %span#label_counter
+            Number of traits selected:
+          %span#traits-counter
+            / some counter
+          .divider1
+          %i.icon-time
+          %span
+            Approximate assessment duration:
+          %span#approximate-time.color-warning
+            /some counter
+        .clr
+        .divider1
+      .border-bottom-grayLighter
+  .divider2
+
+
+  = form_for @assessment, :as => :assessment, :url => functional_traits_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+    %input{type: 'hidden', name: 'user', value: current_user.type}
+    - if current_user.type != "SuperAdmin"
+      = f.hidden_field :validate_items, value: "on"
+    - 2.times do
+      .span15.first
+        .factor-list
+          .titles.clearfix
+            .span7.first
+              .big-text
+                Functional Trait
+              .muted
+                Place the cursor on individual Traits below to see their definition
+
+            .span6.left-offset1
+              .big-text
+                Expected Score Range
+                %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
+              .muted
+                Choose Minimum and Maximum score
+            .clr
+            .divider1
+            .semi-muted
+              .left-offset8.first.span3
+                Minimum
+              .span3
+                Maximum
+    .clr
+    - aindex = 0
+    .factor-list
+      %ul.factor-snippet.clearfix
+        - @functional_assessment_traits.each_with_index do |assessment_trait,index|
+          = render :partial => 'functional_assessment_trait_fields', :locals => { :assessment_trait => assessment_trait, :index => index }
+    .divider3
+    %input.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close" , type: "submit"}
+    %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
+    .clr
+
+
+  / back to top
+  %p#back-top.pull-right
+    %a{:href =>"#header"}
+      %span.medium-text.font-bold
+        %i.icon-chevron-up
+        Top
+  / back to top
+
+= javascript_include_tag 'norms'
+= javascript_include_tag 'common'

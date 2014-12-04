@@ -18,6 +18,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
 
+
+
   def norms
     get_norms
     if request.get?
@@ -42,6 +44,56 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
 
     end
+  end
+
+  def functional_traits
+    get_functional_traits
+
+    if request.get?
+
+    elsif request.put?
+      # Create the AssessmentTrait Objects and take the user to the next page
+      params[:assessment][:functional_assessment_trait_attributes] ||= {}
+      params[:assessment][:functional_assessment_trait_attributes].each do |index, factor_norms_attributes|
+      norm_buckets_by_id = Hash[@functional_norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+      if factor_norms_attributes[:from_norm_bucket_id]
+        from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
+        to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
+        if from_weight > to_weight
+          flash[:error] = "Upper Limit in the Expected Score Range must be of a greater value than the selected Lower Limit."
+          return
+        end
+      end
+    end
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    # TODO
+    # This is a bad workaround to allow superadmin to proceed even if items are not available
+    # Need a better way to manage this
+
+    if @assessment.error_messages.blank?
+      #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+      flash[:error] = @assessment.error_messages.join("<br/>")
+      if params[:save_and_close].present?
+        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+          redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+        end
+      else
+        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+        end
+      end
+    else
+      flash[:error] = @assessment.error_messages.join("<br/>")
+      return
+    end
+
+      redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+    end
+
   end
 
   def competencies
@@ -201,7 +253,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
           redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
-          redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
         end
       end
     else
