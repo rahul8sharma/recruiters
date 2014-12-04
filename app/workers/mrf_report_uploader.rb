@@ -64,14 +64,14 @@ class MrfReportUploader < AbstractController::Base
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/#{template}.pdf.haml",
+          "mrf/assessments/reports/#{template}.pdf.haml",
           layout: "layouts/reports_360.pdf.haml",
           handlers: [ :haml ],
           formats: [:pdf]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
-          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/candidate_reports.pdf.haml")
+          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/reports_360.pdf.haml")
         }
       )
 
@@ -80,7 +80,7 @@ class MrfReportUploader < AbstractController::Base
       html_file_id = "mrf_report_#{@report.id}.html"      
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
-      pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
+      pdf_file_id = "mrf_report_#{@report.id}.pdf"
       pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
       File.open(html_save_path, 'wb') do |file|
@@ -118,7 +118,7 @@ class MrfReportUploader < AbstractController::Base
           :status => Vger::Resources::Mrf::Report::Status::FAILED
         )
       end
-      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report #{report_id}",{
+      JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report {report_id}",{
         :report => {
           :status => "Failed",
           :report_id => report_id
