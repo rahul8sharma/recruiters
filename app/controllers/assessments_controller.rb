@@ -22,7 +22,7 @@ class AssessmentsController < ApplicationController
     alarm_factor_norms = @assessment_factor_norms.select{ |factor_norm| factor_norm.factor.type == "Suitability::AlarmFactor" }.uniq
     @assessment_factor_norms = @assessment_factor_norms - direct_predictor_norms - lie_detector_norms
     @other_norms = direct_predictor_norms
-        
+
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all.to_a.map{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
 
@@ -148,6 +148,30 @@ class AssessmentsController < ApplicationController
       end
     end
   end
+
+  def get_functional_traits
+    @functional_traits = Vger::Resources::Functional::Trait.where(:scopes => { :global => nil }).all.to_a
+    @functional_traits |= Vger::Resources::Functional::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
+    @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
+    get_functional_assessment_traits
+  end
+
+  def get_functional_assessment_traits
+    #Routing error on API, needs fixing
+    #added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
+    @functional_assessment_traits = []
+
+    @functional_traits.each do |trait|
+      #@functional_assessment_trait = added_assessment_traits["#{trait.id}"]
+      @functional_assessment_trait = Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
+             assessment_type: "Suitability::CustomAssessment" })
+      Rails.logger.debug("Trait Name is #{trait.name}")
+      Rails.logger.debug("Functional AT id - #{@functional_assessment_trait.trait_id}")
+      @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
+      @functional_assessment_traits.push @functional_assessment_trait
+    end
+  end
+
 
   # fetches default factor norms
   # fetches norm buckets for dropdowns
