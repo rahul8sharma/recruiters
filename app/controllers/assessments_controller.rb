@@ -155,23 +155,7 @@ class AssessmentsController < ApplicationController
     @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
     @objective_items = Vger::Resources::ObjectiveItem.active.all.to_a
     @subjective_items = Vger::Resources::SubjectiveItem.active.all.to_a
-    get_functional_assessment_traits
   end
-
-  def get_functional_assessment_traits
-    #Routing error on API, needs fixing
-    #added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
-    @functional_assessment_traits = []
-
-    @functional_traits.each do |trait|
-      #@functional_assessment_trait = added_assessment_traits["#{trait.id}"]
-      @functional_assessment_trait = Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
-             assessment_type: "Assessment" })
-      @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
-      @functional_assessment_traits.push @functional_assessment_trait
-    end
-  end
-
 
   # fetches default factor norms
   # fetches norm buckets for dropdowns

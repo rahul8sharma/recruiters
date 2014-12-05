@@ -45,9 +45,24 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
     end
   end
+  def get_functional_assessment_traits
+    #Routing error on API, needs fixing
+    #added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
+    @functional_assessment_traits = []
+
+    @functional_traits.each do |trait|
+      #@functional_assessment_trait = added_assessment_traits["#{trait.id}"]
+      @functional_assessment_trait = Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
+             assessment_type: "Suitability::CustomAssessment" })
+      @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
+      @functional_assessment_traits.push @functional_assessment_trait
+    end
+  end
 
   def functional_traits
     get_functional_traits
+    get_functional_assessment_traits
+
     if request.put?
       params[:assessment][:include_functional_traits_in_aggregate_scores] = params[:include_functional_traits_in_aggregate_scores].present?
       params[:assessment][:functional_assessment_traits_attributes] ||= {}
@@ -62,22 +77,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
           end
         end
       end
-      configuration = @assessment.configuration || {}
       #@assessment.other_subjective_items =
-
-
-      # configuration[:objective_items] = @selected_items_objective.collect{ |item_id,item_data|
-      #   {
-      #     id: item_id,
-      #     type: item_data[:type].split("Vger::Resources::").last
-      #   }
-      # }
-      # configuration[:subjective_items] = @selected_items_subjective.collect{ |item_id,item_data|
-      #   {
-      #     id: item_id,
-      #     type: item_data[:type].split("Vger::Resources::").last
-      #   }
-      # }
 
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       # This is a bad workaround to allow superadmin to proceed even if items are not available
