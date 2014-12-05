@@ -1,11 +1,11 @@
-- id_name = "assessment[functional_assessment_trait_attributes][#{index}][id]"
-- destroy_name = "assessment[functional_assessment_trait_attributes][#{index}][_destroy]"
-- functional_trait_name = "assessment[functional_assessment_trait_attributes][#{index}][functional_trait_id]"
-- norm_min_name = "assessment[functional_assessment_trait_attributes][#{index}][from_norm_bucket_id]"
-- norm_max_name = "assessment[functional_assessment_trait_attributes][#{index}][to_norm_bucket_id]"
-- check_name = "assessment[functional_assessment_trait_attributes][#{index}][_destroy]"
+- id_name = "assessment[functional_assessment_traits_attributes][#{index}][id]"
+- destroy_name = "assessment[functional_assessment_traits_attributes][#{index}][_destroy]"
+- functional_trait_name = "assessment[functional_assessment_traits_attributes][#{index}][trait_id]"
+- norm_min_name = "assessment[functional_assessment_traits_attributes][#{index}][from_norm_bucket_id]"
+- norm_max_name = "assessment[functional_assessment_traits_attributes][#{index}][to_norm_bucket_id]"
+- check_name = "assessment[functional_assessment_traits_attributes][#{index}][_destroy]"
 - critical_checkbox_name = "checkbox_critical"
-- critical_field = "assessment[functional_assessment_trait_attributes][#{index}][critical]"
+- critical_field = "assessment[functional_assessment_traits_attributes][#{index}][critical]"
 - checked =  (assessment_trait.id.present? || assessment_trait.selected)
 %li{ :id => "li_#{index}", class: "span15 item #{checked ? 'checked':''}" }
   .divider
