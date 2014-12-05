@@ -84,7 +84,7 @@
         %li.less-padding-all
           - index += 1
           .span18
-            %input.pull-left{ name: "objective_items[#{objective_item.id}][included]",
+            %input.pull-left{ name: "assessment[other_objective_items][#{objective_item.id}][included]",
               type: "checkbox",
               id: "objective_item_#{objective_item.id}" }
             %label.left-offset1.pull-left{ for: "objective_item_#{objective_item.id}" }
@@ -100,7 +100,7 @@
         %li.less-padding-all
           - index += 1
           .span18
-            %input.pull-left{ name: "subjective_items[#{subjective_item.id}][included]",
+            %input.pull-left{ name: "assessment[other_subjective_items][#{subjective_item.id}][included]",
               type: "checkbox",
               id: "subjective_item_#{subjective_item.id}" }
             %label.left-offset1.pull-left{ for: "subjective_item_#{subjective_item.id}" }
