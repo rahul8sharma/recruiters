@@ -1,6 +1,8 @@
 - id_name = "assessment[functional_assessment_traits_attributes][#{index}][id]"
 - destroy_name = "assessment[functional_assessment_traits_attributes][#{index}][_destroy]"
 - functional_trait_name = "assessment[functional_assessment_traits_attributes][#{index}][trait_id]"
+- assessment_id_name = "assessment[functional_assessment_traits_attributes][#{index}][assessment_id]"
+- assessment_type_name = "assessment[functional_assessment_traits_attributes][#{index}][assessment_type]"
 - norm_min_name = "assessment[functional_assessment_traits_attributes][#{index}][from_norm_bucket_id]"
 - norm_max_name = "assessment[functional_assessment_traits_attributes][#{index}][to_norm_bucket_id]"
 - check_name = "assessment[functional_assessment_traits_attributes][#{index}][_destroy]"
@@ -9,11 +11,12 @@
 - checked =  (assessment_trait.id.present? || assessment_trait.selected)
 %li{ :id => "li_#{index}", class: "span15 item #{checked ? 'checked':''}" }
   .divider
-  - if !checked
-    - if assessment_trait.id.present?
-      %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index), disabled: 'disabled'}
+  - if checked
+    %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index), disabled: 'disabled'}
     %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
     %input{name: (functional_trait_name), type: 'hidden', value: assessment_trait.trait_id, disabled: 'disabled', index: (index)}
+    %input{name: (assessment_id_name), type: 'hidden', value: assessment_trait.assessment_id, disabled: 'disabled', index: (index)}
+    %input{name: (assessment_type_name), type: 'hidden', value: assessment_trait.assessment_type, disabled: 'disabled', index: (index)}
     .span1.first
       %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
     .span6
@@ -22,7 +25,6 @@
         %p
           = assessment_trait.trait.definition
         .down-caret
-
     .left-offset1.pull-left
       %select.span3.first{name: norm_min_name, disabled: 'disabled', index: (index)}
         - @functional_norm_buckets.each do |norm_bucket|
@@ -41,23 +43,23 @@
           - else
             %option{value: norm_bucket.id}
               = norm_bucket.name
-
       .clr
   - else
-    - if assessment_trait.id.present?
-      %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index)}
-    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
-    %input{name: (functional_trait_name), type: 'hidden', value: assessment_trait.trait_id, index: (index)}
+    %input{name: (id_name), id: "id_#{index}", type: 'hidden', value: assessment_trait.id, index: (index), disabled: 'disabled'}
+    %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}
+    %input{name: (functional_trait_name), type: 'hidden', value: assessment_trait.trait_id, disabled: 'disabled', index: (index)}
+    %input{name: (assessment_id_name), type: 'hidden', value: assessment_trait.assessment_id, disabled: 'disabled', index: (index)}
+    %input{name: (assessment_type_name), type: 'hidden', value: assessment_trait.assessment_type, disabled: 'disabled', index: (index)}
     .span1.first
       %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
     .span6
       %label{ for: "checkbox_factor_#{index}" }
         = assessment_trait.trait.name
-        %p= assessment_trait.trait.definition
+        %p
+          = assessment_trait.trait.definition
         .down-caret
-
     .left-offset1.pull-left
-      %select.span3.first{name: norm_min_name, index: (index)}
+      %select.span3.first{name: norm_min_name, disabled: 'disabled', index: (index)}
         - @functional_norm_buckets.each do |norm_bucket|
           - if assessment_trait.from_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
@@ -65,7 +67,8 @@
           - else
             %option{value: norm_bucket.id}
               = norm_bucket.name
-      %select.span3{name: norm_max_name, index: (index)}
+
+      %select.span3{name: norm_max_name, disabled: 'disabled', index: (index)}
         - @functional_norm_buckets.each do |norm_bucket|
           - if assessment_trait.to_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
@@ -73,7 +76,7 @@
           - else
             %option{value: norm_bucket.id}
               = norm_bucket.name
-
       .clr
+
   .clr
   .divider1
