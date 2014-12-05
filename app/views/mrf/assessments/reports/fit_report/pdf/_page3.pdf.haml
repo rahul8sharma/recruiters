@@ -1,5 +1,5 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:mrf_report_traits_self_360]
+  = render partial: "shared/360/mrf_report_header.pdf.haml"
   #scores.section03
     .divider1
     .scores
@@ -15,14 +15,15 @@
         .clr
       .scale.mrf.pull-right.right-offset1
         .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              .arrow
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
+        - margin_left = (365/(@norm_buckets.size-1))
+        - @norm_buckets.each_with_index do |norm_bucket,index|
+          .marker{style: "margin-left: #{index==0?0:margin_left}px"}
+            .hexagon
+              .bucket-name
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
         .clr
       .clr
       .divider3
-      = render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}
+      = render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => trait_scores}

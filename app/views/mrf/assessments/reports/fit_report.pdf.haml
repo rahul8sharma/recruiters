@@ -3,9 +3,12 @@
   .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page2"
   .page-break
-  = render :partial => "mrf/assessments/reports/fit_report/pdf/page3"
-  .page-break
+  - @report.report_data[:trait_scores].each_slice(4) do |trait_scores|
+    = render :partial => "mrf/assessments/reports/fit_report/pdf/page3", locals: { trait_scores: trait_scores }
+    .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page4"
+  .page-break
+  = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_wise_ratings"
   .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_comments"
   .page-break

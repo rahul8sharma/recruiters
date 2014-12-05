@@ -1,11 +1,19 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
--if @report.report_data[:mrf_report_data_pts_traits]
-  #developement_guide_traits.section03
-    .divider1
-    .scores
-      .blue_heading.extra-large-text
-        Data Points on 360&#176; Scores of Competencies
-      .divider2
-      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/page_4_all_individual", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
-      .divider2
+- if @report.report_data[:mrf_report_data_pts_traits]
+  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+    - competency_scores[:trait_scores].each_with_index do |trait_score,index|
+      = render partial: "shared/360/mrf_report_header.pdf.haml"
+      #developement_guide_traits.section03
+        .divider1
+        .scores
+          .blue_heading.extra-large-text
+            Data Points on 360&#176; Scores of Competencies
+          .divider2
+          .frame.mrf.gray-bg
+            .heading.pull-left
+              #{competency_name }: #{competency_scores[:score][:bucket]}
+            .clr 
+            .divider1
+            %ul.mrf_data_points_listing
+              = render :partial => "mrf/assessments/reports/competency_report/pdf/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index, :competency_name => competency_name }
+          .divider1
+      .page-break

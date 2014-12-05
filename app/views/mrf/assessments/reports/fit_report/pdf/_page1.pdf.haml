@@ -31,8 +31,7 @@
     .span.left-offset1
       Report Generated On: 
     .span
-      = @report.report_hash[:completed_at]
-      -# date
+      = hdate @report.report_hash[:generated_at]
     .clr
 
 

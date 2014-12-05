@@ -1,17 +1,30 @@
 $image-path: report/pdf/mrf
 .report.mrf
   .overall_report
+    min-height: 500px
     color: #002b3a
   .scale 
     width: 380px
     .marker
-      background: image-url("#{$image-path}/scale-hexagon.png") no-repeat scroll center bottom rgba(0, 0, 0, 0)
-      color: #414142
-      font-size: 12px
-      line-height: 15px
-      width: 72px
+      width: auto
+      background: none
+      .hexagon
+        top: 35px
+        position: absolute
+        background: image-url("#{$image-path}/scale-hexagon.png") no-repeat
+        height: 15px
+        width: 13px
+        .bucket-name
+          position: absolute
+          width: 53px
+          bottom: 25px
+          text-align: center
+          left: -20px
+      &:first-child
+        margin-left: 0 !important    
     .marker-container
       width: 435px 
+      left: 4px
     .line
       width: 365px 
       border-color: #707175
@@ -64,6 +77,8 @@ $image-path: report/pdf/mrf
       background:  image-url('#{$image-path}/rating-slider-line.png') no-repeat center center
       margin-top: 30px 
       width: 380px
+      .rating-marker-container
+        width: 400px
       .marker
         position: relative
         background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
@@ -75,7 +90,7 @@ $image-path: report/pdf/mrf
         z-index: 999
 
         &:first-child
-          margin-left: 0
+          margin-left: 0 !important
         &.mrf-rating.self-rating
           background:  image-url('#{$image-path}/marker-hexagon-combo.png') no-repeat center center
             
@@ -88,7 +103,7 @@ $image-path: report/pdf/mrf
         .mrf-result, .self-result
           display: none
           position: absolute
-          width: 105px
+          width: 128px
           left: -44px
           border-radius: 1px
           background: #fff
@@ -97,10 +112,10 @@ $image-path: report/pdf/mrf
           bottom: 22px
 
           .left
-            width: 51px
+            width: 60px
             float: left
           .right
-            width: 51px
+            width: 60px
             float: right
         .mrf-result
           border: 1px solid #28b29b
@@ -183,9 +198,9 @@ $image-path: report/pdf/mrf
       .left_sec
         float: left
         .content
-          border-width: 0 
-          border-right: 1px solid #ccc
-          padding: 25px
+          border-width: 0px !important
+          border-right: 1px solid #ccc !important
+          padding: 20px 20px 10px 20px
           padding-left: 0
           .trait_rating
             font-size: 11px
@@ -225,7 +240,7 @@ $image-path: report/pdf/mrf
           font-size: 16px
           color: #000
         .overall_average
-          padding: 10px 25px
+          padding: 10px 15px
           background: #fff
           border: 1px solid #e3e3e3
           p
@@ -241,7 +256,7 @@ $image-path: report/pdf/mrf
             font-size: 10px
             line-height: 25px
             color: #fff
-            width: 185px
+            width: 200px
             &.including
               background: image-url('#{$image-path}/including.png') no-repeat 7px center #28b29b
             &.excluding
@@ -265,6 +280,8 @@ $image-path: report/pdf/mrf
           background:  image-url('#{$image-path}/stakeholders-rating-line.png') no-repeat 9px center
           width: 285px
           position: relative
+          .stakeholders-rating-marker-container
+            width: 305px
           .alert
             position: absolute
             width: 260px
@@ -290,7 +307,7 @@ $image-path: report/pdf/mrf
               .arrow, .score
                 display: block
             &:first-child
-              margin: 0
+              margin: 0 !important
           .arrow
             background: image-url('#{$image-path}/stakeholders-rating-arrow.png') no-repeat 
             width: 22px 

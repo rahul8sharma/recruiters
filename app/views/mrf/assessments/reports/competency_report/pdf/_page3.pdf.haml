@@ -1,33 +1,36 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
 - if @report.report_data[:mrf_report_competency_self_360]
-  #scores.section03
-    .divider1
-    .scores
-      .span6.first.pull-left
-        .blue_heading.extra-large-text
-          Competencies with 360&#176; Scores
-        .divider1
-        .mrf-benchmark-ranges-block.pull-left
-          .pull-left
-            Industry Benchmark
-          .line.pull-left
+  - @report.report_data[:competency_scores].each_slice(4) do |step_competency_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    #scores.section03
+      .divider1
+      .scores
+        .span6.first.pull-left
+          .blue_heading.extra-large-text
+            Competencies with 360&#176; Scores
+          .divider1
+          .mrf-benchmark-ranges-block.pull-left
+            .pull-left
+              Industry Benchmark
+            .line.pull-left
+            .clr
+          .clr
+        .scale.mrf.pull-right.right-offset1
+          .line
+          .marker-container
+            - margin_left = (365/(@norm_buckets.size-1)) - 2
+            - @norm_buckets.each_with_index do |norm_bucket,index|
+              .marker{style: "margin-left: #{margin_left}px"}
+                .hexagon
+                  .bucket-name
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
           .clr
         .clr
-      .scale.mrf.pull-right.right-offset1
-        .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
-        .clr
-      .clr
-      .divider1
-      -#= render :partial => "mrf/assessments/reports/fit_report/pdf/fit", :locals => {:trait_scores => @report.report_data[:trait_scores]}
-
-      .frame.mrf.gray-bg
-        %ul.mrf_scores_listing
-          - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-            = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_aggregated", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
-      .divider2
+        .divider1
+        .frame.mrf.gray-bg
+          %ul.mrf_scores_listing
+            - step_competency_scores.each do |competency_name, competency_scores|
+              = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_aggregated", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+        .divider2
+    .page-break

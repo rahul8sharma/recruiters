@@ -1,0 +1,13 @@
+- if @report.report_data[:mrf_report_data_pts_competencies_avg] || @report.report_data[:mrf_report_data_pts_competencies]
+  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    #developement_guide_competencies.section03
+      .divider1
+      .scores
+        .blue_heading.extra-large-text
+          Data Points on 360&#176; Scores of Competencies
+        .divider2
+        - if @report.report_data[:mrf_report_data_pts_competencies]
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_wise_rating", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+        .divider2
+    .page-break        

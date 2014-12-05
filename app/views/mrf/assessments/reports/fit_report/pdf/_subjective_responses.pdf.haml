@@ -7,18 +7,16 @@
       = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
     .divider2
     - if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
-
       %ul
-        - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
+        - step_responses.each do |role_wise_response|
           %li
-            - role_wise_response.each do |comments|
-              .stakeholder.span2.first
-                = role.titleize
-              .comment-box.span15.pull-right
-                = comments
-                .arrow
-              .clr
-              .divider1
+            .stakeholder.span2.first
+              = role.titleize
+            .comment-box.span15.pull-right
+              = role_wise_response
+              .arrow
+            .clr
+            .divider1
 
               
     - else
