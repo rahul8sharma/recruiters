@@ -47,6 +47,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
   def get_functional_assessment_traits
     added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
+
     @functional_assessment_traits = []
     @functional_traits.each do |trait|
       @functional_assessment_trait = added_assessment_traits["#{trait.id}"]
@@ -62,6 +63,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     get_functional_assessment_traits
 
     if request.put?
+      params[:assessment] ||= {}
       params[:assessment][:include_functional_traits_in_aggregate_scores] = params[:include_functional_traits_in_aggregate_scores].present?
       params[:assessment][:functional_assessment_traits_attributes] ||= {}
       params[:assessment][:functional_assessment_traits_attributes].each do |index, factor_norms_attributes|
@@ -75,8 +77,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
           end
         end
       end
-      @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys
-      @assessment.other_objective_items = params[:assessment][:other_objective_items].keys
+      @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
+      @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
 
 
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
@@ -101,8 +103,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         flash[:error] = @assessment.error_messages.join("<br/>")
         redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
       end
-    else
-
     end
 
   end
