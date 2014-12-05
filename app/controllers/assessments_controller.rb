@@ -153,6 +153,8 @@ class AssessmentsController < ApplicationController
     @functional_traits = Vger::Resources::Functional::Trait.where(:scopes => { :global => nil }).all.to_a
     @functional_traits |= Vger::Resources::Functional::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
     @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
+    @objective_items = Vger::Resources::ObjectiveItem.active.all.to_a
+    @subjective_items = Vger::Resources::SubjectiveItem.active.all.to_a
     get_functional_assessment_traits
   end
 
@@ -164,9 +166,7 @@ class AssessmentsController < ApplicationController
     @functional_traits.each do |trait|
       #@functional_assessment_trait = added_assessment_traits["#{trait.id}"]
       @functional_assessment_trait = Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
-             assessment_type: "Suitability::CustomAssessment" })
-      Rails.logger.debug("Trait Name is #{trait.name}")
-      Rails.logger.debug("Functional AT id - #{@functional_assessment_trait.trait_id}")
+             assessment_type: "Assessment" })
       @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
       @functional_assessment_traits.push @functional_assessment_trait
     end
