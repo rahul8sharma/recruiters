@@ -398,6 +398,15 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :trait_score_buckets do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
 
     resources :norm_buckets do
       collection do
