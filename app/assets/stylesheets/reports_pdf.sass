@@ -691,15 +691,18 @@ body
               height: 15px
   .functional-questions
     border-bottom: 1px dashed #28b29b
-    font-size: 18px
-    line-height: 25px
+    font-size: 13px
+    line-height: 20px
     color: #000
+    .title
+      padding: 0 0 0 40px
+      font-size: 20px
     .frame
       padding-top: 10px
     .label
       border-radius: 6px
       padding: 0  25px
-      line-height: 20px
+      line-height: 18px
       font-size: 14px
     .attachment-info
       background: #28B29B
@@ -707,10 +710,11 @@ body
       line-height: 38px
       color: #fff
     .instruction-box
+      padding: 0 0 0 40px
       .user, .correct, .incorrect
         font-weight: 700
         text-align: center
-        padding: 15px 0
+        padding: 10px 0
       .user
         background: #f8f8f8
       .correct
@@ -726,6 +730,7 @@ body
       text-align: center
       padding: 10px 0
       color: #fff
+      margin: 0 0 0 40px
     .responses-result
       height: 45px
       width: 42px
@@ -735,7 +740,11 @@ body
       &.incorrect
         background-position: 0px -54px
     ul.options
-      list-style: lower-alpha inside none
+      list-style: lower-alpha outside none
+      margin-left: 20px
+      li
+        margin-bottom: 7px
+        padding-right: 20px
     ul.options-response
       li
         padding: 10px 0
