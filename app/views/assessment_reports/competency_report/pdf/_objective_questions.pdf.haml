@@ -15,11 +15,11 @@
         Red indicates incorrect response
       .clr
     .divider1
-    .correct-responses.span8.first
+    .correct-responses.span6
       Correct Responses: #{@report.report_data[:objective_score].to_f.round(2)}%
     .clr
 
-    .divider3
+    .divider2
     - objective_items.each do |item_id, item_data|
       .frame
         .label.label-warning.pull-left.left-offset1
