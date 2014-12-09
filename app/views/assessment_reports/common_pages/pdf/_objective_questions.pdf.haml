@@ -1,0 +1,54 @@
+- if @report.report_data[:objective_items].present?
+  - @report.report_data[:objective_items].each_slice(1) do |objective_items|
+    .functional-questions.objective
+      .divider2
+      .title
+        Responses to Other Objective Questions
+      .divider1
+
+      .instruction-box
+        .user.span8.first
+          %i.icon-edit
+          Options selected by #{@report.report_data[:candidate][:name].to_s[0..15]}
+        .correct.span6
+          Green indicates correct response
+        .incorrect.span6
+          Red indicates incorrect response
+        .clr
+      .divider1
+      .correct-responses.span8.first
+        Correct Responses: #{@report.report_data[:objective_score].to_f.round(2)}%
+      .clr
+
+      .divider3
+      - objective_items.each do |item_id, item_data|
+        .frame
+          .label.label-warning.pull-left.left-offset1
+            Question
+          .span14
+            .question
+              = item_data[:item][:body].html_safe
+            .divider1
+            %ul.options
+              - item_data[:options].each do |option_id, option_data|
+                %li #{option_data[:body]}
+          .responses-result{ class: (item_data[:response][:score] == 1 ? 'correct' : 'incorrect') }
+          .clr
+          .divider1
+          .label.label-warning.pull-left.left-offset1 
+            Options and response
+          .clr
+          .divider1
+          %ul.options-response
+            - item_data[:options].each do |option_id,option_data|
+              - cklass = (option_data[:score] == 1) ? 'correct' : ''
+              - iklass = option_id.to_i == item_data[:response][:id].to_i ? 'incorrect' : ''
+              %li{ class: "#{iklass} #{cklass}" }
+                %i.icon-edit 
+                = option_data[:body]
+          - if item_data[:trait].present?
+            .attachment-info
+              This question is attached to the trait “#{item_data[:trait]}”
+        .divider1
+    .divider1
+    .page-break  

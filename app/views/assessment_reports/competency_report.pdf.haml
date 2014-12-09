@@ -26,5 +26,8 @@
           - factor_scores = competency_data[:factor_scores].select{|key,value| step_keys.include?(key) }
           = render :template => "assessment_reports/competency_report/pdf/competency_report_page3", :locals => { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
           .page-break 
-      
+  = render :partial => "assessment_reports/common_pages/pdf/objective_questions"
+  .page-break
+  = render :partial => "assessment_reports/common_pages/pdf/subjective_questions"      
+  .page-break
 = render :template => "assessment_reports/common_pages"

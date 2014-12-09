@@ -11,7 +11,7 @@
           .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
           .span.first
-            .factor-name
+            .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
               = factor_name
         .rhs-sec.pull-right
           .slider
@@ -29,7 +29,7 @@
         .factor-description
           = factor_score[:description]
 
-        - if @report.report_hash[:enable_factor_consistency]
+        - if @report.report_hash[:enable_factor_consistency] && factor_score[:type] != 'Functional::Trait'
           .responses  
             %i.icon-align-justify
             Reliability of Candidate's Responses for this Factor:
