@@ -1,0 +1,58 @@
+- if @report.report_data[:functional_trait_scores].present?
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  - @report.report_data[:functional_trait_scores].each_slice(5) do |functional_trait_scores|
+    #scores.section03
+      .divider2
+      .scores
+        .title
+          Scores of Functional Traits
+        .divider1
+        .instruction_container.pull-left
+          .instructions
+            .box.pull-left
+              .box-icon.pull-left
+              .box-title.pull-left Expected Score
+              .clr
+            .instruction1.pull-left
+              Favorable Traits 
+            .instruction2.less_favorable.pull-left
+              Less Favorable Traits
+            .clr
+
+        .scale
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
+            .clr
+        .clr
+        .divider4
+        %ul.clearfix.scores_listing.first
+          - functional_trait_scores.each_with_index do |(factor_name,factor_score),index|
+          
+            %li
+              .lhs-sec.pull-left
+                %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
+                -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
+                .span17.first
+                  .factor-name.pull-left
+                    = factor_name
+                    .info
+                      = factor_score[:factor_definition]
+                    .arrow
+                  .clr
+              .rhs-sec.pull-right
+                .slider
+                  - scale = factor_score[:scale]
+                  .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
+                    -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+                    .score-indicater
+                      = factor_score[:norm_bucket]
+                    .arrow
+                  .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+                  -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+              .clr
+    .page-break            

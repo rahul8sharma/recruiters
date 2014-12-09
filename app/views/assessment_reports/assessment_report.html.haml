@@ -15,7 +15,12 @@
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
     = render :template => "assessment_reports/fit_report/html/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
-    -#= render :template => "assessment_reports/fit_report/html/scores_of_functional_traits", :locals => { :factor_scores => step_factor_scores, :step => step }
-    .page-break      
+  
+- if @report.report_hash[:functional_trait_scores].present?  
+  = render :template => "assessment_reports/fit_report/html/scores_of_functional_traits"
+  .page-break
+
+= render :partial => "assessment_reports/common_pages/html/objective_questions"
+= render :partial => "assessment_reports/common_pages/html/subjective_questions"
 
 = render :template => "assessment_reports/common_pages"
