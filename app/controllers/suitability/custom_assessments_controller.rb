@@ -74,14 +74,14 @@ class Suitability::CustomAssessmentsController < AssessmentsController
           if from_weight >= to_weight
             flash[:error] = "Upper Limit in the Expected Score Range must be of a greater value than the selected Lower Limit."
           return
+          else
+            @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
+            @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
+            @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
           end
         end
       end
-      @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
-      @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
 
-
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       # This is a bad workaround to allow superadmin to proceed even if items are not available
       # Need a better way to manage this
       if @assessment.error_messages.blank?
