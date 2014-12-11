@@ -39,8 +39,8 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 5ec8a83a7e6a0cb57677b632c91b883f4e0ca97e
-  branch: develop
+  revision: 5a2a05d180f55f40b3084638211d48f5185d817e
+  branch: engagement-models
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
