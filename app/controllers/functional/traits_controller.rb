@@ -45,7 +45,7 @@ class Functional::TraitsController < MasterDataController
   end
 
   def index_columns
-    [:id, :name]
+    [:id, :name, :active]
   end
 
   def import_from
