@@ -531,6 +531,45 @@ Recruiters::Application.routes.draw do
     end
 
   end
+  
+  namespace :engagement  do
+    resources :facets do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :factors do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :elements do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
+  end  
 
   namespace :suitability do
     resources :item_groups do
