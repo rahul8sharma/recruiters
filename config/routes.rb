@@ -254,6 +254,29 @@ Recruiters::Application.routes.draw do
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
       end
     end
+    
+    resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
+      collection do
+        get "home" => "engagement/surveys#home", :as => :home
+        put "home" => "engagement/surveys#home", :as => :home
+      end
+
+      member do
+        get "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+        put "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+
+        get "details" => "engagement/surveys#details", :as => :details
+        get "elements" => "engagement/surveys#elements", :as => :elements
+
+        get "candidates" => "engagement/surveys/candidates#candidates", :as => :candidates
+
+        get "candidates/:candidate_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "engagement/surveys/reports#s3_report", :as => :s3_report
+
+        put "bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_engagement_bulk_upload", :to => "mrf/surveys/candidates#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
+      end
+    end
 
     resources :jobs do
       collection do

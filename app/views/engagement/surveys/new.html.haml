@@ -1,0 +1,19 @@
+.container  
+  .span14.page-title.first
+    Create a new Engagement Survey
+  .clr.divider2
+  = form_for :survey, as: :survey, url: company_engagement_surveys_path(@company) do |f|
+    .border-primary
+      .padding-all2.border-bottom-grayLighter
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2 
+            Enter a title for this Engagement Survey
+          %input.span20.pull-right{:type => "text", name: "survey[name]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this Engagement Survey", name: "survey[name]"}
+        .clr
+        .divider2
+        %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
+        .clr
+      .clr

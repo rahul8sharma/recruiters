@@ -1,0 +1,31 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+= form_for @survey, :as => :survey, :url => add_elements_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  %ul
+    - index = 0
+    - @facets.each do |facet|
+      %li
+        %h2
+          = facet.name
+        %ul
+          - @factors[facet.id].each do |factor|
+            %li
+              %h4
+                = factor.name
+              %ul  
+              - @survey_elements[factor.id] ||= []
+              - @survey_elements[factor.id].each do |survey_element|
+                %li
+                  %h6
+                    %label 
+                      %input{ type: "checkbox", "data-index" => index, class: "survey_element", checked: survey_element.is_selected }
+                      #{survey_element.element.name}
+                    %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][_destroy]", value: false, id: "destroy_#{index}", disabled: !survey_element.is_selected }
+                    %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][id]", id: "id_#{index}", value: survey_element.id, disabled: !survey_element.is_selected }
+                    %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][survey_id]", disabled: !survey_element.is_selected, value: @survey.id }
+                    %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][element_id]", disabled: !survey_element.is_selected, value: survey_element.element_id }
+                    - index = index + 1
+  = f.submit "Proceed"
+= javascript_include_tag "engagement/elements"                  
+
