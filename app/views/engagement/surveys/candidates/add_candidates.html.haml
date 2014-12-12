@@ -1,0 +1,47 @@
+.add-candidates
+  .page-title.pull-left #{@survey.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Survey Takers to this Survey?"}
+    Need help in adding Survey Takers?
+  .clr
+  .divider1
+  =# render :partial => "shared/navigation-sub-nav"
+  .divider2
+  .clr
+  %a.label.label-warning.label-small.pull-left{:href => add_candidates_bulk_company_engagement_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+    %b USE BULK UPLOAD
+  .clr
+
+  .divider1
+
+  .margin-auto.span22
+    -#Bulk Upload old code
+      .select-candidate-type
+        - if current_user.type == "SuperAdmin"
+          = render :partial => "engagement/surveys/candidates/bulk_upload"
+      .divider1
+    - checked = (params[:upload_method] == "manual")
+    -# if current_user.type == "SuperAdmin"
+      %label
+        %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual'", :checked => checked}
+        %b.extra-medium-text{ class: checked ? 'checked': '' }
+          Add Candidates manually:
+      .divider1
+    = form_for @survey, :as => :survey, :url => add_candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+      .divider1
+      %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
+      %div{class: "#{checked ? 'activated':'de-activated'}"}
+        .left-offset2.first
+          .span9.first.big-text
+            Survey taker’s name
+          .span8.big-text.left-offset1
+            .span Survey taker’s email address
+          .clr
+        %ul.add-candidates.clearfix
+          - 10.times do |index|
+            = render :partial => "engagement/surveys/candidates/candidate_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
+        .divider2
+
+      %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_engagement_survey_path(@company,@survey) }
+        Add Survey Takers Later
+      %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
+      .clr

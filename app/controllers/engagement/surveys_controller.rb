@@ -15,7 +15,7 @@ class Engagement::SurveysController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @surveys = Vger::Resources::Engagement::Survey.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
-    @candidates_counts = Vger::Resources::Candidate.group_count(group: "engagement_candidate_surveys.survey_id", joins: :engagement_candidate_surveys, query_options: { 
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "engagement_candidate_surveys.survey_id", joins: :engagement_candidate_surveys, query_options: { 
       "engagement_candidate_surveys.survey_id" => @surveys.map(&:id) 
     })
     @completed_counts = Vger::Resources::Candidate.group_count(group: "engagement_candidate_surveys.survey_id", joins: :engagement_candidate_surveys, query_options: { 
@@ -29,7 +29,6 @@ class Engagement::SurveysController < ApplicationController
   
   def create
     params[:survey][:company_id] = @company.id
-    params[:survey][:configuration] = {}
     @survey = Vger::Resources::Engagement::Survey.new(params[:survey])
     if @survey.save
       flash[:notice] = "Engagement Survey created successfully!"
@@ -47,12 +46,21 @@ class Engagement::SurveysController < ApplicationController
       @survey = Vger::Resources::Engagement::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
         flash[:notice] = "Engagement Survey created successfully!"
-        redirect_to add_elements_company_engagement_survey_path(@company.id,@survey.id)
+        redirect_to add_candidates_company_engagement_survey_path(@company.id,@survey.id)
       else
         flash[:error] = @survey.error_messages.join("<br/>").html_safe
         render action: :new
       end
     end  
+  end
+  
+  def details
+    @total_candidates = Vger::Resources::Engagement::CandidateSurvey.count({
+      survey_id: @survey.id
+    })
+  end
+  
+  def elements
   end
   
   protected

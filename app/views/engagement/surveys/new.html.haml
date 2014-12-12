@@ -14,6 +14,15 @@
           %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this Engagement Survey", name: "survey[name]"}
         .clr
         .divider2
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2 
+            Page size
+          %input.span20.pull-right{:type => "text", name: "survey[page_size]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Page size", name: "survey[page_size]"}
+        .clr
+        .divider2
         %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
         .clr
       .clr

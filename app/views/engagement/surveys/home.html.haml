@@ -33,7 +33,7 @@
             .span8
               = link_to survey.name, details_company_engagement_survey_path(@company,survey)
             .span3.text-center
-              =# @candidate_counts[survey.id.to_s] || 0
+              = @candidate_counts[survey.id.to_s] || 0
             .span5.text-center
               = @completed_counts[survey.id.to_s] || 0
             .span3.text-center

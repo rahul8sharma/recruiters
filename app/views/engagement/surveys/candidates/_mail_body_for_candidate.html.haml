@@ -1,0 +1,29 @@
+%p
+  Hello &lt;Assessment Taker's Name&gt;,
+%p
+  #{@company.name} has arranged for you to complete a Survey.
+%p
+  To proceed, please click the web-link listed below or visit it by copy-pasting the URL into your web browser's address bar.
+%p
+  URL: &lt;Candidate specific url&gt;
+%p
+  If you face any technical difficulties or have any queries please feel free to reach us at  
+  %a.muted{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"}
+    prakhar@jombay.com.  
+  %br
+  You can also call us at +91 87960 29607
+ 
+%p
+  Best Regards, 
+  %br/
+  - if ["SuperAdmin"].include? current_user.type
+    Prakhar Srivastava
+    %br
+    Jombay
+  - else
+    = current_user.name
+    %br/
+    #{@company.name}
+  %br/
+%p
+  P.S.: If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in between.
