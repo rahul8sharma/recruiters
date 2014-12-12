@@ -150,8 +150,15 @@ class AssessmentsController < ApplicationController
   end
 
   def get_functional_traits
-    @functional_traits = Vger::Resources::Functional::Trait.where(:scopes => { :global => nil }).all.to_a
-    @functional_traits |= Vger::Resources::Functional::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
+    if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY
+      @functional_traits = Vger::Resources::Functional::Trait.where(:query_options => {"functional_traits_suitability_competencies.competency_id" => @assessment.competency_ids},
+                          :joins => [:competencies]).all.to_a
+    else
+      @functional_traits = Vger::Resources::Functional::Trait.where(:scopes => { :global => nil }).all.to_a
+      @functional_traits |= Vger::Resources::Functional::Trait.where(:query_options => {"companies_functional_traits.company_id" => params[:company_id]}, :joins => [:companies]).all.to_a
+    end
+
+
     @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
     @objective_items = Vger::Resources::ObjectiveItem.active.all.to_a
     @subjective_items = Vger::Resources::SubjectiveItem.active.all.to_a

@@ -54,6 +54,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       @functional_assessment_trait ||= Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
              assessment_type: "Suitability::CustomAssessment" })
       @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
+      @functional_assessment_trait.from_norm_bucket_id = @functional_norm_buckets.first.id
+      @functional_assessment_trait.to_norm_bucket_id = @functional_norm_buckets.last.id
       @functional_assessment_traits.push @functional_assessment_trait
     end
   end
@@ -73,15 +75,17 @@ class Suitability::CustomAssessmentsController < AssessmentsController
           to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
           if from_weight >= to_weight
             flash[:error] = "Upper Limit in the Expected Score Range must be of a greater value than the selected Lower Limit."
-          return
+            return
+          else
+            @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
+            @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
+            @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
           end
         end
       end
-      @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
-      @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
 
 
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+
       # This is a bad workaround to allow superadmin to proceed even if items are not available
       # Need a better way to manage this
       if @assessment.error_messages.blank?
