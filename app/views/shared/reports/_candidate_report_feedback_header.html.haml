@@ -13,7 +13,7 @@
           %li.left
           %li
             %a.scroll{:href => "#guidelines", :title => " Guide to giving Feedback "}
-              Guide to giving Feedback      
+              Guide to giving Feedback
           %li
             %a.scroll{:href => "#scores", :title => "Scores on Traits"}
               Scores on Traits
@@ -25,14 +25,14 @@
               Your Email ID is needed to confirm feedback. Please enter it below & click Submit.
           = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
             .ie.pull-left
-              %label.pull-left Email ID
+              %label.pull-left Last Step: Enter Email ID to confirm feedback
               %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
               .clr
           = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter Email ID to confirm feedback", :id => "feedback_email"}
+            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Last Step: Enter Email ID to confirm feedback", :id => "feedback_email"}
 
           %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
           .clr
 
 .divider3
-= wicked_pdf_javascript_include_tag 'common'  
+= wicked_pdf_javascript_include_tag 'common'
