@@ -75,7 +75,7 @@
                 - elsif candidate_survey.status == Vger::Resources::Engagement::CandidateSurvey::Status::SCORED
                   = status
                 - else
-                  %a{:href => send_reminder_to_candidate_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
+                  %a{:href => send_reminder_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                     %i.icon-time
                     Send Reminder
             .clr

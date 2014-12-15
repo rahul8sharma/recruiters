@@ -47,7 +47,8 @@
         %br/
     .clr
 
-    = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
+    = form_for @survey, as: :survey, url: controller.send_reminder_company_engagement_survey_path(@company.id, @survey.id), method: :put, html: { class: 'pull-right span' } do |f|
+      %input{:type => "hidden", name: "candidate_survey_id", :value => @candidate_survey.id}
       %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
     %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
       Cancel

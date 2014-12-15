@@ -3,8 +3,4 @@
     .divider1
     Send Reminder
   .divider3
-
-  - if @candidate_assessment.candidate_stage == Vger::Resources::Candidate::Stage::CANDIDATE  
-    = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_candidate"
-  - else
-    = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_employee"
+  = render :partial => "engagement/surveys/candidates/reminder_mail_body_for_candidate"

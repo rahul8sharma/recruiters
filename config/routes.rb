@@ -283,8 +283,8 @@ Recruiters::Application.routes.draw do
         put "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
         put "candidates/bulk-send-test" => "engagement/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
 
-        get "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder_to_candidate
+        get "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder
+        put "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder"
         get "candidates/:candidate_id" => "engagement/surveys/candidates#candidate", :as => :candidate
 
         get "candidates/:candidate_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report

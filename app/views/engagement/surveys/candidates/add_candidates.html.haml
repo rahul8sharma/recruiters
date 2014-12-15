@@ -41,7 +41,7 @@
             = render :partial => "engagement/surveys/candidates/candidate_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
         .divider2
 
-      %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_engagement_survey_path(@company,@survey) }
+      %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: details_company_engagement_survey_path(@company,@survey) }
         Add Survey Takers Later
       %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
       .clr
