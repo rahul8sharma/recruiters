@@ -93,12 +93,12 @@ class Engagement::Surveys::CandidatesController < ApplicationController
     elsif request.put?
       @candidate_survey = Vger::Resources::Engagement::CandidateSurvey.send_reminder(params.merge(:survey_id => params[:id], :id => params[:candidate_survey_id]))
       flash[:notice] = "Reminder was sent successfully!"
-      redirect_to candidates_url
+      redirect_to candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id])
     end
   end
 
   def bulk_send_survey_to_candidates
-    Vger::Resources::Candidate\
+    Vger::Resources::Engagement::CandidateSurvey\
       .import_from_s3_files(:email => current_user.email,
                     :survey_id => @survey.id,
                     :sender_type => current_user.type,
@@ -108,15 +108,13 @@ class Engagement::Surveys::CandidatesController < ApplicationController
                     :send_sms => params[:send_sms],
                     :send_email => params[:send_email],
                     :worksheets => [{
-                      :functional_area_id => params[:functional_area_id],
-                      :candidate_stage => params[:candidate_stage],
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
                       :file => "BulkUpload.csv",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to candidates_url,
+    redirect_to candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]),
                 notice: "Candidates upload in progress. Candidate Listings will be updated and survey will be sent to the candidates as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
 
@@ -174,7 +172,6 @@ class Engagement::Surveys::CandidatesController < ApplicationController
       ) if candidate_surveys.present?
       if failed_candidate_surveys.present?
         #flash[:error] = "Cannot send test to #{failed_candidate_surveys.size} candidates.#{failed_candidate_surveys.first.error_messages.join('<br/>')}"
-        #redirect_to candidates_url
         flash[:error] = "#{failed_candidate_surveys.first.error_messages.join('<br/>')}"
         get_templates
         render :action => :send_survey_to_candidates and return
