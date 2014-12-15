@@ -3,12 +3,20 @@
     .divider6
     .user-name.pull-left
       = @report.report_hash[:candidate][:name]
-    
+
     - if (@report.report_hash[:enable_aggregate_competency_score])
       .pull-right
         .final-score
           Aggregate Score:
           = @report.report_hash[:aggregate_competency_score_bucket][:name]
+        .divider1
+        - if (@report.report_hash[:functional_items].present?)
+          - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
+            .text-center.pull-right
+              Aggregate Score includes Functional Trait scores
+          - else
+            .text-center.pull-right
+              Aggregate Score excludes Functional Trait scores
     .clr
 
     .divider3
