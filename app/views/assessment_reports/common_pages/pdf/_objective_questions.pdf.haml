@@ -43,9 +43,9 @@
             - item_data[:options].each do |option_id,option_data|
               - cklass = (option_data[:score] == 1) ? 'correct' : ''
               - iklass = option_id.to_i == item_data[:response][:id].to_i ? 'incorrect' : ''
-              - iconklass = option_id.to_i == item_data[:response][:id].to_i ? '' : 'visibility:hidden'
+              - iconstyle = option_id.to_i == item_data[:response][:id].to_i ? '' : 'visibility:hidden'
               %li{ class: "#{iklass} #{cklass}" }
-                %i.icon-edit{:style => "#{iconklass}"}
+                %i.icon-edit{:style => "#{iconstyle}"}
                 = option_data[:body]
           - if item_data[:trait].present?
             .attachment-info
