@@ -33,30 +33,3 @@
     .divider2
     Assessment Answered On:
     = @report.report_hash[:completed_at]
-.overview
-  .inner{ style: "margin-top:0px;" }
-    .j-logo
-    .divider4
-
-    .large-text
-      = @report.report_hash[:candidate][:name]
-    .divider1
-
-    .content
-      .overview-title
-        .left
-          Competencies
-        .right
-          Scores
-        .clr
-
-      %ul.competency-list.pull-left
-        - competency_scores.each do |competency_name, competency_score|
-          %li
-            .competency-name
-              = competency_name
-            .competency-value
-              = competency_score[:grade]
-            .clr
-      .clr
-    .divider2
