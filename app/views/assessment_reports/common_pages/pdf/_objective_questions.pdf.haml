@@ -1,5 +1,6 @@
 - if @report.report_data[:objective_items].present?
   - @report.report_data[:objective_items].each_slice(1) do |objective_items|
+    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .functional-questions.objective
       .divider2
       .title
