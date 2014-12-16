@@ -6,24 +6,32 @@
       = wicked_pdf_image_tag ('report/pdf/talent-lens.png')
   .clr
   .divider30
-  
+
   .huge-text
     = @report.report_hash[:candidate][:name]
   .divider2
   - if (@report.report_hash[:enable_recommendation])
     .heading.fw.extra-large-text.comptency
       %b
-        Aggregate Score: 
+        Aggregate Score:
         = @report.report_hash[:overall_score_bucket][:name]
+
+    - if (@report.report_hash[:functional_items].present?)
+      - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
+        .text-center.pull-left
+          Aggregate Score includes Functional Trait scores
+      - else
+        .text-center.pull-left
+          Aggregate Score excludes Functional Trait scores
   .divider5
   .large-text
     .span.first
-      Assessment: 
+      Assessment:
     .span10
       = @report.report_hash[:assessment][:name]
     .clr
     .divider2
-    Assessment Answered On: 
+    Assessment Answered On:
     = @report.report_hash[:completed_at]
 .overview
   .inner{ style: "margin-top:0px;" }
