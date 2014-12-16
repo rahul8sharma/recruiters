@@ -35,7 +35,7 @@
           .responses-result{ class: (item_data[:response][:score] == 1 ? 'correct' : 'incorrect') }
           .clr
           .divider1
-          .label.label-warning.pull-left.left-offset1 
+          .label.label-warning.pull-left.left-offset1
             Options and response
           .clr
           .divider1
@@ -43,12 +43,13 @@
             - item_data[:options].each do |option_id,option_data|
               - cklass = (option_data[:score] == 1) ? 'correct' : ''
               - iklass = option_id.to_i == item_data[:response][:id].to_i ? 'incorrect' : ''
+              - iconstyle = option_id.to_i == item_data[:response][:id].to_i ? '' : 'visibility:hidden'
               %li{ class: "#{iklass} #{cklass}" }
-                %i.icon-edit 
+                %i.icon-edit{:style => "#{iconstyle}"}
                 = option_data[:body]
           - if item_data[:trait].present?
             .attachment-info
               This question is attached to the trait “#{item_data[:trait]}”
         .divider1
     .divider1
-    .page-break  
+    .page-break
