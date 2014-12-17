@@ -254,6 +254,46 @@ Recruiters::Application.routes.draw do
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
       end
     end
+    
+    resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
+      collection do
+        get "home" => "engagement/surveys#home", :as => :home
+        put "home" => "engagement/surveys#home", :as => :home
+      end
+
+      member do
+        get "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+        put "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+
+        get "details" => "engagement/surveys#details", :as => :details
+        get "elements" => "engagement/surveys#elements", :as => :elements
+
+        get "candidates" => "engagement/surveys/candidates#candidates", :as => :candidates
+        get "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
+        put "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
+        get "candidates/add_bulk" => "engagement/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
+        get "candidates/send-reminder-to-pending" =>"engagement/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
+        put "candidates/bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "engagement/surveys/candidates#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "engagement/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+
+        get "email_assessment_status" => "engagement/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+
+        get "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/bulk-send-test" => "engagement/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+
+        get "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder
+        put "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder"
+        get "candidates/:candidate_id" => "engagement/surveys/candidates#candidate", :as => :candidate
+
+        get "candidates/:candidate_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "engagement/surveys/reports#s3_report", :as => :s3_report
+
+        put "bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
+      end
+    end
 
     resources :jobs do
       collection do

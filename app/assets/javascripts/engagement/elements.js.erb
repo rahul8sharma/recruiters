@@ -1,0 +1,18 @@
+jQuery(document).ready(function($) {
+  $(".survey_element").removeAttr("disabled");
+  $(".survey_element").change(function() {
+    var index = $(this).data("index");
+    if ($(this).is(":checked")) {
+      $(".survey_element_input_"+index).removeAttr("disabled");
+      $("#li_" + index).addClass("checked");
+    } else {
+      var id = $("#id_" + index).val();
+      if (id != null && id != "") {
+        $("#destroy_" + index).val(true);
+      } else {
+        $(".survey_element_input_"+index).attr("disabled","disabled");
+        $("#li_" + index).removeClass("checked");
+      }
+    }
+  });
+});

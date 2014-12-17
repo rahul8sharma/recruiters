@@ -1,0 +1,48 @@
+.profiling-exercises-list
+  .span14.page-title.first
+    .divider1
+    Engagement Surveys
+  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_engagement_survey_path(@company), :title => "Click Here To Create a New Engagement Survey"} 
+    Create a new Engagement Survey
+  .clr
+  .divider2
+  .list-snippet-titles.big-text.clearfix
+    - if @surveys.present?
+      .span3.first
+        = sort_link "Survey ID", home_company_engagement_surveys_path(:company_id => params[:company_id]), :id, params[:search]
+      .span4
+        = sort_link "Created On", home_company_engagement_surveys_path(:company_id => params[:company_id]), :created_at, params[:search]
+      .span8
+        = sort_link "Title", home_company_engagement_surveys_path(:company_id => params[:company_id]), :name, params[:search]
+      .span3.text-center
+        Candidates
+      .span5.text-center
+        Responses From
+      .span3.text-center
+        Add More
+      .clr
+      .divider2          
+      %ul
+        - @surveys.each do |survey|
+          %li.list-snippet.border-top-grayLighter.extra.medium-text
+            .divider1
+            .span3.first
+              = link_to survey.id, details_company_engagement_survey_path(@company,survey)
+            .span4
+              = link_to hdate(survey.created_at), details_company_engagement_survey_path(@company,survey)
+            .span8
+              = link_to survey.name, details_company_engagement_survey_path(@company,survey)
+            .span3.text-center
+              = @candidate_counts[survey.id.to_s] || 0
+            .span5.text-center
+              = @completed_counts[survey.id.to_s] || 0
+            .span3.text-center
+              %a.icon-plus-sign.large-text{:href => add_candidates_company_engagement_survey_path(@company.id, survey.id), :title => "Add Candidates"}
+            .clr
+    - else
+      .alert.medium-text.text-center
+        No Engagement Surveys present. 
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @surveys}
+  .clr

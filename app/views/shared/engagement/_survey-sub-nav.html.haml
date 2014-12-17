@@ -1,0 +1,7 @@
+.content-sub-nav.clearfix
+  %a.menu{class: (["details"].include?(params[:action]) ? "active" : ""), href: details_company_engagement_survey_path(@company,@survey)}
+    Statistics
+  %a.menu{class: (["elements"].include?(params[:action]) ? "active" : ""), href: elements_company_engagement_survey_path(@company,@survey)}
+    Elements Included
+  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : ""), href: candidates_company_engagement_survey_path(@company,@survey)}
+    Candidates
