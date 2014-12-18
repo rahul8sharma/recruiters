@@ -18,6 +18,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
 
+
+
   def norms
     get_norms
     if request.get?
@@ -42,6 +44,71 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
 
     end
+  end
+  def get_functional_assessment_traits
+    added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
+
+    @functional_assessment_traits = []
+    @functional_traits.each do |trait|
+      @functional_assessment_trait = added_assessment_traits["#{trait.id}"]
+      @functional_assessment_trait ||= Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
+             assessment_type: "Suitability::CustomAssessment" })
+      @functional_assessment_trait.selected = @functional_assessment_trait.id.present?
+      @functional_assessment_trait.from_norm_bucket_id = @functional_norm_buckets.first.id
+      @functional_assessment_trait.to_norm_bucket_id = @functional_norm_buckets.last.id
+      @functional_assessment_traits.push @functional_assessment_trait
+    end
+  end
+
+  def functional_traits
+    get_functional_traits
+    get_functional_assessment_traits
+
+    if request.put?
+      params[:assessment] ||= {}
+      params[:assessment][:include_functional_traits_in_aggregate_scores] = params[:include_functional_traits_in_aggregate_scores].present?
+      params[:assessment][:functional_assessment_traits_attributes] ||= {}
+      params[:assessment][:functional_assessment_traits_attributes].each do |index, factor_norms_attributes|
+        norm_buckets_by_id = Hash[@functional_norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+        if factor_norms_attributes[:from_norm_bucket_id]
+          from_weight = norm_buckets_by_id[factor_norms_attributes[:from_norm_bucket_id].to_i].weight
+          to_weight = norm_buckets_by_id[factor_norms_attributes[:to_norm_bucket_id].to_i].weight
+          if from_weight >= to_weight
+            flash[:error] = "Upper Limit in the Expected Score Range must be of a greater value than the selected Lower Limit."
+            return
+          end
+        end
+      end
+      @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
+      @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+
+
+
+
+      # This is a bad workaround to allow superadmin to proceed even if items are not available
+      # Need a better way to manage this
+      if @assessment.error_messages.blank?
+
+        if params[:save_and_close].present?
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+          else
+            redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          end
+        else
+          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+            redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+          end
+        end
+      else
+        flash[:error] = @assessment.error_messages.join("<br/>")
+        redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+      end
+    end
+
   end
 
   def competencies
@@ -201,7 +268,11 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
           redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
-          redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          if is_superadmin?
+            redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          end
         end
       end
     else

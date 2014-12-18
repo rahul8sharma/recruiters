@@ -4,7 +4,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   before_filter :get_company
 
   layout "tests"
-  
+
   def export_feedback_scores
     options = {
       :custom_assessment => {
@@ -69,6 +69,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @errors = {}
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     assessment_factor_norms = @assessment.job_assessment_factor_norms.all.to_a
+    functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
+    add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
     if request.put?
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
@@ -117,7 +119,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         render :action => :send_test_to_candidates
       end
     else
-      if assessment_factor_norms.size <= 1
+      if !add_candidates_allow
         flash[:error] = "You need to select traits before sending an assessment. Please select traits from below."
         redirect_to norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
       end

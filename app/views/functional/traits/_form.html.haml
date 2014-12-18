@@ -1,0 +1,9 @@
+= form_for @trait, :as => :trait, :url => functional_trait_path(@trait), method: :put do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :active
+    = f.check_box :active
+  .actions
+    = f.submit 'Update'

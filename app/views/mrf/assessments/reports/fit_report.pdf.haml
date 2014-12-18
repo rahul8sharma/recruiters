@@ -1,9 +1,29 @@
 .mrf_report.fit
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page1"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page2"
-  = render :partial => "mrf/assessments/reports/fit_report/pdf/page3"
+  .page-break
+  - @report.report_data[:trait_scores].each_slice(4) do |trait_scores|
+    = render :partial => "mrf/assessments/reports/fit_report/pdf/page3", locals: { trait_scores: trait_scores }
+    .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page4"
+  .page-break
+  = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_wise_ratings"
+  .page-break
+  = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_comments"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_all"
+  .page-break
   = render :partial => "mrf/assessments/reports/fit_report/pdf/page5"
-  = render :partial => "shared/reports/html/about_us"
-  = render :partial => "shared/reports/html/legal_disclaimer"
+  .page-break
+  
+  .common-top-trangle
+    .common-bottom-trangle 
+      = render :partial => "shared/reports/pdf/about_us"
+      .page-break
+
+      = render :partial => "shared/reports/pdf/legal_disclaimer"
+      .page-break
+
+
+ 

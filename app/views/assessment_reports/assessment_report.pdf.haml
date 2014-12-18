@@ -17,4 +17,13 @@
     = render :template => "assessment_reports/fit_report/pdf/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
     .page-break      
 
+- if @report.report_hash[:functional_trait_scores].present?  
+  = render :template => "assessment_reports/fit_report/pdf/scores_of_functional_traits"
+  .page-break    
+    
+= render :partial => "assessment_reports/common_pages/pdf/objective_questions"
+.page-break
+= render :partial => "assessment_reports/common_pages/pdf/subjective_questions"      
+.page-break
+
 = render :template => "assessment_reports/common_pages"

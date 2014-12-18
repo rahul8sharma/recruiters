@@ -1,0 +1,15 @@
+%h3 Functional Trait #{@trait.id}
+%p
+  %b Name:
+  = @trait.name
+  %br
+  %b Definition:
+  = @trait.definition
+%br
+= link_to "Edit", edit_functional_trait_path(@trait)
+\|
+= link_to "Back", functional_traits_path
+%br
+%br
+%h3 Items
+= render partial: 'functional/items/index', locals: { items: @items }

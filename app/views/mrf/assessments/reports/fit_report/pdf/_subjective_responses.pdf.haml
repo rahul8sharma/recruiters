@@ -1,0 +1,28 @@
+.bottom-trangle
+  .frame
+    .question.medium-text
+      = subjective_response_value[:body]
+    .info
+      = subjective_response_value[:trait_name] ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
+      = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
+    .divider2
+    - if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
+      %ul
+        - step_responses.each do |role_wise_response|
+          %li
+            .stakeholder.span2.first
+              = role.titleize
+            .comment-box.span15.pull-right
+              = role_wise_response
+              .arrow
+            .clr
+            .divider1
+
+              
+    - else
+      %li
+        .no-responses
+          .box
+            No Responses
+        .divider3
+.divider1

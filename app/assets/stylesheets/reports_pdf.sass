@@ -180,6 +180,10 @@ body
         font-weight: 700
         font-size: 14px
         line-height: 28px
+        &.star
+          color: #9c823b
+          padding-right: 30px
+          background: image-url('report/html/competency/star.png') no-repeat right 0
         
       .factor-description
         font-size: 14px
@@ -366,10 +370,10 @@ body
     .section02
       background: #fff
     .overall_report
-      min-height: 1120px
+      min-height: 1100px
     .overview 
       background: image-url('report/pdf/competency/overview_bg.png') no-repeat 
-      min-height: 1145px
+      min-height: 1100px
       .inner
         padding: 18px 40px
         width: auto
@@ -685,6 +689,77 @@ body
             .range
               background: #ff8308
               height: 15px
+  .functional-questions
+    border-bottom: 1px dashed #28b29b
+    font-size: 13px
+    line-height: 20px
+    color: #000
+    .title
+      padding: 0 0 0 40px
+      font-size: 20px
+    .frame
+      padding-top: 10px
+    .label
+      border-radius: 6px
+      padding: 0  25px
+      line-height: 18px
+      font-size: 14px
+    .attachment-info
+      background: #28B29B
+      padding-left: 50px
+      line-height: 38px
+      color: #fff
+    .instruction-box
+      padding: 0 0 0 40px
+      .user, .correct, .incorrect
+        font-weight: 700
+        text-align: center
+        padding: 10px 0
+      .user
+        background: #f8f8f8
+      .correct
+        background: #ebffed
+        color: #53bf36
+      .incorrect
+        background: #ffeeee
+        color: #ff0000
+    .correct-responses
+      background: #28b29b
+      border: 1px dashed #086556
+      font-weight: 700
+      text-align: center
+      padding: 10px 0
+      color: #fff
+      margin: 0 0 0 40px
+    .responses-result
+      height: 45px
+      width: 42px
+      float: left
+      margin-top: 45px
+      background: image-url("report/pdf/competency/result-sign.png") no-repeat
+      &.incorrect
+        background-position: 0px -54px
+    ul.options
+      list-style: lower-alpha outside none
+      margin-left: 20px
+      li
+        margin-bottom: 7px
+        padding-right: 20px
+    ul.options-response
+      li
+        padding: 10px 0
+        padding-left: 165px
+        .icon-edit
+          visibility: hidden
+        &.correct, &.incorrect
+          .icon-edit
+            visibility: visible
+        &.correct
+          color: #54bf36 !important
+        &.incorrect
+          color: #ff0000
+        &:nth-child(odd)
+          background: #f8f8f8              
 .training_requirements_report_header
   .header
     .logo

@@ -1,5 +1,4 @@
 = render partial: "shared/reports/pdf/report_header.pdf.haml"
-
 .inner
   .scores.favorable_factors
     .divider1
@@ -14,7 +13,8 @@
           .instruction2.less_favorable.pull-left
             Less Favorable Traits
           .clr
-   
+      .functional-traits-title
+        Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)   
     .pull-right
       .divider1
       .scale

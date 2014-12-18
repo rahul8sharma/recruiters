@@ -1,0 +1,11 @@
+%h1 All Items / Item Groups
+- if can? :create, "Functional::Item"
+  = link_to "Manage Functional Items", manage_functional_items_path
+
+.pagination.pull-right
+  = paginate @items
+.clr
+= render partial: 'index', locals: { items: @items }
+.pagination.pull-right
+  = paginate @items
+.clr

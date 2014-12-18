@@ -11,10 +11,9 @@
 
         .lhs-sec.pull-left
           %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
-          -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
           .span17.first
-            .factor-name.pull-left
-              = factor_name
+            .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+              = factor_name 
               .info
                 = factor_score[:factor_definition]
               .arrow
@@ -35,13 +34,12 @@
         .divider1
         .factor-description
           = factor_score[:description]
-
-        - if @report.report_hash[:enable_factor_consistency]
+        - if @report.report_hash[:enable_factor_consistency] && factor_score[:type] != 'Functional::Trait'
           .divider1
           .responses  
             %i.icon-align-justify
             Reliability of Candidate's Responses for this Factor:
             %span.score 
               = factor_score[:consistency_bucket]
-     
+
 .divider1
