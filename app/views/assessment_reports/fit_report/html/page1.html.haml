@@ -5,14 +5,23 @@
       = @report.report_hash[:candidate][:name]
     - if (@report.report_hash[:enable_recommendation])
       .final-score.pull-right
-        Aggregate Score: 
+        Aggregate Score:
         = @report.report_hash[:overall_score_bucket][:name]
+      .divider4
+      - if (@report.report_hash[:functional_items].present?)
+        - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
+          .text-center.pull-right
+            Aggregate Score includes Functional Trait scores
+        - else
+          .text-center.pull-right
+            Aggregate Score excludes Functional Trait scores
+
     .clr
     .divider3
     .extra-medium-text
-      Assessment: 
+      Assessment:
       = @report.report_hash[:assessment][:name]
       .divider1
-      Assessment Answered On: 
+      Assessment Answered On:
       = @report.report_hash[:completed_at]
     .divider2

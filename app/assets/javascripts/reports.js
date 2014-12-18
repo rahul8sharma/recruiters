@@ -20,7 +20,9 @@ function checkEmail(e){
   if(validateEmail(email)) {
     return true;
   }else {
-    alert("Please enter a valid email address.");
+    var d = document.getElementsByClassName('feedback-email-form')[0];
+    d.className = d.className + " error";
+    //alert("Please enter a valid email address.");
     return false;
   }
 }

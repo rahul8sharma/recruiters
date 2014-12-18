@@ -1,5 +1,6 @@
 - if @report.report_data[:objective_items].present?
   - @report.report_data[:objective_items].each_slice(1) do |objective_items|
+    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .functional-questions.objective
       .divider2
       .title
@@ -16,11 +17,11 @@
           Red indicates incorrect response
         .clr
       .divider1
-      .correct-responses.span8.first
+      .correct-responses.span6
         Correct Responses: #{@report.report_data[:objective_score].to_f.round(2)}%
       .clr
 
-      .divider3
+      .divider2
       - objective_items.each do |item_id, item_data|
         .frame
           .label.label-warning.pull-left.left-offset1
@@ -35,7 +36,7 @@
           .responses-result{ class: (item_data[:response][:score] == 1 ? 'correct' : 'incorrect') }
           .clr
           .divider1
-          .label.label-warning.pull-left.left-offset1 
+          .label.label-warning.pull-left.left-offset1
             Options and response
           .clr
           .divider1
@@ -43,12 +44,13 @@
             - item_data[:options].each do |option_id,option_data|
               - cklass = (option_data[:score] == 1) ? 'correct' : ''
               - iklass = option_id.to_i == item_data[:response][:id].to_i ? 'incorrect' : ''
+              - iconstyle = option_id.to_i == item_data[:response][:id].to_i ? '' : 'visibility:hidden'
               %li{ class: "#{iklass} #{cklass}" }
-                %i.icon-edit 
+                %i.icon-edit{:style => "#{iconstyle}"}
                 = option_data[:body]
           - if item_data[:trait].present?
             .attachment-info
               This question is attached to the trait “#{item_data[:trait]}”
         .divider1
     .divider1
-    .page-break  
+    .page-break

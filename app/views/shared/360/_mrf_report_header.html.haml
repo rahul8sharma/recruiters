@@ -39,6 +39,6 @@
               %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
                 Summary
           %li.right
-        = link_to "Printable PDF", s3_report_company_mrf_assessment_path(@report.report_data[:company][:id], @report.report_data[:assessment][:id], @report.report_data[:candidate][:id], @report.id, :format => :pdf), :class => "btn btn-warning span print-btn", target: :_blank
+        = link_to "Printable PDF", s3_report_company_mrf_assessment_url(@report.report_data[:company][:id], @report.report_data[:assessment][:id], @report.report_data[:candidate][:id], @report.id, :format => :pdf, :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", target: :_blank
 = wicked_pdf_javascript_include_tag 'common'
        
