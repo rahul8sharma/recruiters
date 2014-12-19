@@ -1,0 +1,13 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "reports_pdf"
+  = wicked_pdf_stylesheet_link_tag "engagement_report_pdf"
+  = wicked_pdf_stylesheet_link_tag "shared"
+  
+- content_for :body do
+  .report.engagement
+    = yield
+
+= render :file => 'layouts/haml'
