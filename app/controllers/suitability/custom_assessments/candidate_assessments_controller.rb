@@ -193,7 +193,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
         assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
         @candidate = Vger::Resources::Candidate.find(candidate_id)
-        recipient = @candidate.email if params[:send_report_to_candidate]
+        recipient << ","+@candidate.email if params[:send_report_to_candidate]
         if recipient.present?
           email_regex = Regexp.new(Regexp.escape(@candidate.email))
           if recipient =~ email_regex
