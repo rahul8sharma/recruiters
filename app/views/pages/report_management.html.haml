@@ -1,23 +1,26 @@
 = form_tag regenerate_reports_path, :method => :put do
   %fieldset
-    %legend 
+    %legend
       %strong Regenerate report for assessment
     = fields_for "args" do |f|
       %p
         Assessment :
         = f.text_field :assessment_id, :value => ""
       %p
-        Notification Email : 
+        Notification Email :
         = f.text_field :email, :value => ""
+      %p
+        Notify Recepients :
+        = f.check_box :notify_recipients
     .actions
       = submit_tag 'Regenerate report'
 %br
-      
+
 = form_tag manage_report_path, :method => :put do |f|
   %fieldset
-    %legend 
+    %legend
       %strong Manage report for assessment
-    = fields_for "assessment" do |f|    
+    = fields_for "assessment" do |f|
       %p
         Company ID :
         = f.text_field :company_id, :value => ""
@@ -26,19 +29,19 @@
         = f.text_field :assessment_id, :value => ""
       %p
         Candidate ID :
-        = f.text_field :candidate_id, :value => ""  
+        = f.text_field :candidate_id, :value => ""
       %p
         Report ID :
         = f.text_field :report_id, :value => ""
-      = submit_tag 'Manage report'      
+      = submit_tag 'Manage report'
 
 %br
-      
+
 = form_tag modify_norms_path, :method => :put do |f|
   %fieldset
-    %legend 
+    %legend
       %strong Modify norms for assessment
-    = fields_for "assessment" do |f|  
+    = fields_for "assessment" do |f|
       %p
         Company ID :
         = f.text_field :company_id, :value => ""
@@ -46,13 +49,13 @@
         Assessment :
         = f.text_field :assessment_id, :value => ""
       .actions
-        = submit_tag 'Modify norms'      
-   
+        = submit_tag 'Modify norms'
+
 %br
-        
+
 = form_tag regenerate_mrf_reports_path, :method => :put do
   %fieldset
-    %legend 
+    %legend
       %strong Regenerate MRF Reports for assessment
     = fields_for "args" do |f|
       %p
@@ -62,7 +65,7 @@
         Assessment :
         = f.text_field :assessment_id, :value => ""
       %p
-        Notification Email : 
+        Notification Email :
         = f.text_field :email, :value => ""
     .actions
       = submit_tag 'Regenerate MRF Reports'
