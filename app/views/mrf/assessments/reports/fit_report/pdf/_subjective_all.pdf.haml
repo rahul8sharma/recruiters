@@ -10,3 +10,16 @@
           .divider1
           = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
         .page-break
+  - @report.report_data[:subjective_responses_self].each do |subjective_response_key, subjective_response_value|
+    - subjective_response_value[:role_wise_subjective_responses].each do |role,responses|
+      = render partial: "shared/360/mrf_report_header.pdf.haml"
+      - responses.each_slice(7) do |step_responses|
+        .stakeholder-comments.responses
+          .divider2
+          .blue_heading.extra-large-text
+            Responses to Other Questions
+          .divider1
+          = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
+        .page-break
+
+
