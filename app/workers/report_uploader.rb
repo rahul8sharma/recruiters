@@ -127,14 +127,15 @@ class ReportUploader < AbstractController::Base
       patch["send_report"] ||= "Yes"
       if patch["send_report"] == "Yes"
         #Execute this line Unless report_notify is set to false
-        puts "Regenerated - #{@report.report_hash[:regenerated]}"
+        puts "Regenerated at - #{@report.report_hash[:regenerated_at]}"
         puts "Regenerate Notify - #{@report.report_hash[:regenerate_notify]}"
-        unless @report.report_hash[:regenerated] && !@report.report_hash[:regenerate_notify]
+        unless @report.report_hash[:regenerated_at] && !@report.report_hash[:regenerate_notify]
           # if report_email_recipients is same as candidate email
           # use send_report_to_candidate template
           # else use send_report template
           puts "Sending Report"
-          if @report.report_hash[:report_email_recipients] == @report.report_hash[:candidate][:email]
+          report_email_recipients = @report.report_hash[:report_email_recipients].split(',')
+          if report_email_recipients.include? @report.report_hash[:candidate][:email]
             JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_candidate(@report.report_hash), "send_report_to_candidate")
           else
             JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
