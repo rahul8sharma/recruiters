@@ -200,7 +200,7 @@ class Engagement::Surveys::CandidatesController < ApplicationController
         column = "engagement_candidate_surveys.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, engagement_candidate_surveys.updated_at #{order_type}"
     end
-    scope = Vger::Resources::Engagement::CandidateSurvey.where(:survey_id => @survey.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => [:candidate], :methods => [:report])
+    scope = Vger::Resources::Engagement::CandidateSurvey.where(:survey_id => @survey.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => [:candidate])
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
@@ -209,6 +209,9 @@ class Engagement::Surveys::CandidatesController < ApplicationController
     @candidate_surveys = scope
     @candidates = @candidate_surveys.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_surveys.total_count).page(params[:page]).per(10)
+    @reports = Vger::Resources::Engagement::Report.where(query_options: {
+      :candidate_survey_id => @candidate_surveys.map(&:id)
+    }).all.to_a.group_by{|report| report.candidate_survey_id }
   end
   
   protected
