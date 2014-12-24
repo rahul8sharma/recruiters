@@ -1,0 +1,61 @@
+.spotlight
+  .container
+    .divider3
+    .headings
+      .huge-text
+        .pull-left
+          Sreelakshmi Venugopal
+        .pull-right
+          .color-warning
+            Employee Engagement Report
+          .extra-medium-text
+            Survey Answered On: 10/06/2014
+        .clr
+      .divider1
+
+    .divider2
+    
+    .overall_score
+      .extra-large-text.text-center
+        Overall Engagement Score
+      .divider2
+      = render :partial =>"overall_score"
+    
+.overall_score.depth
+  .container
+    .divider2
+    .huge-text
+      Engagement Scores: In-Depth
+    .divider2
+    .extra-large-text.text-center
+      Overall Engagement Score
+    .divider2
+    = render :partial =>"overall_score_depth"
+
+-5.times do |index| 
+  .detail_score
+    .container
+      .divider2
+      .extra-large-text.text-center
+        Details: 
+        %b Organizational Belongingness
+      .divider2
+      .score-chart
+        = render :partial =>"score_level_01"
+        = render :partial =>"score_level_02_type_0#{index+1}"
+
+
+.areas_of_concern
+  .container
+    .heading
+      Top Areas of Concern
+    .snippet_01
+      Openness to Feedback
+    .snippet_02
+      Value Alignment
+    .snippet_03
+      Openness to Feedback
+    .snippet_04
+      Top Areas of Concern
+    .snippet_05
+      Value Alignment
