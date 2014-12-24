@@ -34,6 +34,13 @@ class SystemMailer < ActionMailer::Base
     to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
+  
+  def send_report_to_manager(report_hash)
+    @report_hash = report_hash
+    subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
+    to = report_hash[:report_receiver][:email]
+    mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
+  end
 
   def send_benchmark_report(report_hash)
     @report_hash = report_hash
