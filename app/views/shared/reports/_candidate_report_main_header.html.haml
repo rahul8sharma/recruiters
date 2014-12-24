@@ -14,17 +14,20 @@
           %li
             %a.scroll{:href => "#overview", :title => "Overview"}
               Overview
-          %li
-            %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
-              Traits
-          %li
-            %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
-              Scores
-          - if @report.report_hash[:enable_post_assessment_guidelines]    
+          - if @report.report_data[:hexagons_page_plain] || @report.report_data[:hexagons_page_competency]
             %li
-              %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
-                = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Development Guide"
-            - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present?    
+              %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
+                Traits
+          - if @report.report_data[:trait_scores_plain] || @report.report_data[:trait_scores_competency]
+            %li
+              %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
+                Scores
+          - if @report.report_hash[:enable_post_assessment_guidelines]
+            - if @report.report_hash[:development_guide_candidate] || @report.report_hash[:interview_guide]
+              %li
+                %a.scroll{:href => "#developement_guide", :title => "Development Guide for the Assessment Taker"}
+                  = @report.report_hash[:candidate_stage].to_sym == :candidate ? "Interview Guide" : "Development Guide"
+            - if @report.report_hash[:candidate_stage].to_sym != :candidate && @report.report_hash[:guidelines_for_candidate_manager].present? && @report.report_hash[:development_guide_manager]
               %li
                 %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
                   Manager Guidelines
@@ -38,10 +41,10 @@
   .give-feedback
     .give-feedback-inner
       .main-heading
-        Give Report Feedback for 
+        Give Report Feedback for
         #{@report.report_hash[:candidate][:name]}
       = link_to "Give Feedback", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "html", :view_mode => "feedback", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "give-feedback-btn btn btn-info"
-      
+
       .clr
   .divider3
-= wicked_pdf_javascript_include_tag 'common'  
+= wicked_pdf_javascript_include_tag 'common'

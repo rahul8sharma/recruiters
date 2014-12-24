@@ -1,32 +1,33 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.inner
-  .scores.favorable_factors
-    .divider1
-    .span8.first
-      .blue_heading.large-text
-        Scores of Factors measured under different Competencies
+- if @report.report_hash[:trait_scores_competency]
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .inner
+    .scores.favorable_factors
       .divider1
-      .instruction_container
-        .instructions
-          .instruction1.pull-left.first
-            Favorable Traits 
-          .instruction2.less_favorable.pull-left
-            Less Favorable Traits
-          .clr
-      .functional-traits-title
-        Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)   
-    .pull-right
-      .divider1
-      .scale
-        .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
-          .clr
-    .clr
-    .divider2
-   
-    = render :template => "assessment_reports/competency_report/pdf/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
+      .span8.first
+        .blue_heading.large-text
+          Scores of Factors measured under different Competencies
+        .divider1
+        .instruction_container
+          .instructions
+            .instruction1.pull-left.first
+              Favorable Traits
+            .instruction2.less_favorable.pull-left
+              Less Favorable Traits
+            .clr
+        .functional-traits-title
+          Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
+      .pull-right
+        .divider1
+        .scale
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
+            .clr
+      .clr
+      .divider2
+
+      = render :template => "assessment_reports/competency_report/pdf/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
