@@ -1,30 +1,31 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.inner
-  .scores.interview_guide 
-    .divider1
-    .blue_heading.large-text.pull-left
-      - if @report.report_hash[:candidate_stage].to_sym == :candidate
-        Interview Questions
-      - else
-        Development Guide for the Assessment Taker
-      =# "(continued)" if step != 0      
-    .instruction_container.pull-right
-      .instructions
-        .instruction1.pull-left
-          Favorable Traits 
-        .instruction2.less_favorable.pull-left
-          Less Favorable Traits
-        .clr
-    .clr
-    %ul.clearfix.interview_guide_listing 
-      - post_assessment_guidelines.each do |factor_name, guide|
-        %li
-          .divider1
-          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
-          .que-no.hexagon-icon{ class: klass }
-          .factor-name.pull-left
-            = factor_name
-          .description.pull-left
-            = guide[:body]
+- if @report.report_hash[:enable_post_assessment_guidelines] && (@report.report_hash[:development_guide_candidate] || @report.report_hash[:interview_guide])
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .inner
+    .scores.interview_guide
+      .divider1
+      .blue_heading.large-text.pull-left
+        - if @report.report_hash[:candidate_stage].to_sym == :candidate
+          Interview Questions
+        - else
+          Development Guide for the Assessment Taker
+        =# "(continued)" if step != 0
+      .instruction_container.pull-right
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
           .clr
-          .divider1
+      .clr
+      %ul.clearfix.interview_guide_listing
+        - post_assessment_guidelines.each do |factor_name, guide|
+          %li
+            .divider1
+            - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+            .que-no.hexagon-icon{ class: klass }
+            .factor-name.pull-left
+              = factor_name
+            .description.pull-left
+              = guide[:body]
+            .clr
+            .divider1

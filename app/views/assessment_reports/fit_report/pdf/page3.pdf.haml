@@ -1,68 +1,68 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.inner
-  .scores.favorable_factors
-    .divider1
-    .pull-left
-      .blue_heading.large-text
-        Scores of Traits measured in this Assessment
+-if @report.report_data[:trait_scores_plain]
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .inner
+    .scores.favorable_factors
       .divider1
-      .instruction_container
-        .box.pull-left
-          .box-icon.pull-left
-          .box-title.pull-left
-            Expected Score
-          .clr
+      .pull-left
+        .blue_heading.large-text
+          Scores of Traits measured in this Assessment
+        .divider1
+        .instruction_container
+          .box.pull-left
+            .box-icon.pull-left
+            .box-title.pull-left
+              Expected Score
+            .clr
 
-        .instructions.pull-left
-          .instruction1.pull-left
-            Favorable Traits 
-          .instruction2.less_favorable.pull-left
-            Less Favorable Traits
-          .clr
-   
-    .pull-right
-      .divider1
-      .scale
-        .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
-          .clr
-    .clr
+          .instructions.pull-left
+            .instruction1.pull-left
+              Favorable Traits
+            .instruction2.less_favorable.pull-left
+              Less Favorable Traits
+            .clr
 
-    %ul.clearfix.scores_listing.first
-      - factor_scores.each_with_index do |(factor_name,factor_score),index|
-        %li
-          .lhs-sec.pull-left
-            .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-            .span.first
-              .factor-name
-                = factor_name
-          .rhs-sec.pull-right
-            .slider
-              - scale = factor_score[:scale]
-              .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
+      .pull-right
+        .divider1
+        .scale
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
+            .clr
+      .clr
 
-                -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
-                .score-indicater
-                  = factor_score[:norm_bucket]
-                .arrow
-              .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
-              -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-          .clr
-          .divider1
-          .factor-description
-            = factor_score[:description]
+      %ul.clearfix.scores_listing.first
+        - factor_scores.each_with_index do |(factor_name,factor_score),index|
+          %li
+            .lhs-sec.pull-left
+              .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+              -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+              .span.first
+                .factor-name
+                  = factor_name
+            .rhs-sec.pull-right
+              .slider
+                - scale = factor_score[:scale]
+                .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
 
-          - if @report.report_hash[:enable_factor_consistency]
-            .responses  
-              %i.icon-align-justify
-              Reliability of Candidate's Responses for this Factor:
-              %span.score 
-                = factor_score[:consistency_bucket]
-          .divider1
-          
+                  -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+                  .score-indicater
+                    = factor_score[:norm_bucket]
+                  .arrow
+                .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+                -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+            .clr
+            .divider1
+            .factor-description
+              = factor_score[:description]
+
+            - if @report.report_hash[:enable_factor_consistency]
+              .responses
+                %i.icon-align-justify
+                Reliability of Candidate's Responses for this Factor:
+                %span.score
+                  = factor_score[:consistency_bucket]
+            .divider1

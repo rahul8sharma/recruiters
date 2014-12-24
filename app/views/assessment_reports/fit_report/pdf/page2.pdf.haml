@@ -1,27 +1,28 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.inner
-  .factor_fit.report_content
-    .divider1
-    .blue_heading.large-text.pull-left
-      Traits measured in this Assessment
-    
-    .instruction_container.pull-left
-      .instructions
-        .instruction1.pull-left
-          Favorable Traits 
-        .instruction2.less_favorable.pull-left
-          Less Favorable Traits
-        .clr
-    .clr
-    .divider1
-    .factors_container
-      .factors_list 
-        - @report.report_hash[:factor_scores].each_with_index do |(factor_name,factor_score),index|
-          - margin = factor_name.split(" ").size > 1 ? 15 : 30
-          %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            .wrapper{:style=>"margin-top: #{margin}px;"}
-              = factor_name.gsub(" ","<br/>").html_safe
-    .divider3
-    %p.bottom-sec
-      Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment
-    .divider1
+-if @report.report_data[:hexagons_page_plain]
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .inner
+    .factor_fit.report_content
+      .divider1
+      .blue_heading.large-text.pull-left
+        Traits measured in this Assessment
+
+      .instruction_container.pull-left
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+      .clr
+      .divider1
+      .factors_container
+        .factors_list
+          - @report.report_hash[:factor_scores].each_with_index do |(factor_name,factor_score),index|
+            - margin = factor_name.split(" ").size > 1 ? 15 : 30
+            %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+              .wrapper{:style=>"margin-top: #{margin}px;"}
+                = factor_name.gsub(" ","<br/>").html_safe
+      .divider3
+      %p.bottom-sec
+        Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment
+      .divider1

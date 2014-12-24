@@ -1,19 +1,20 @@
-= render partial: "shared/reports/pdf/report_header"
+-if @report.report_data[:hexagons_page_competency]
+  = render partial: "shared/reports/pdf/report_header"
 
-#traits.section02
-  .divider1
-  .scores
-    .blue_heading.large-text.pull-left
-      Competencies Measured
-    .instruction_container.pull-left
-      .instructions
-        .instruction1.pull-left
-          Favorable Traits 
-        .instruction2.less_favorable.pull-left
-          Less Favorable Traits
-        .clr
-    .clr
-    .divider2
-    
-    - competency_scores.each do |competency_name,competency_data|
-      = render :partial => "assessment_reports/competency_report/pdf/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+  #traits.section02
+    .divider1
+    .scores
+      .blue_heading.large-text.pull-left
+        Competencies Measured
+      .instruction_container.pull-left
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+      .clr
+      .divider2
+
+      - competency_scores.each do |competency_name,competency_data|
+        = render :partial => "assessment_reports/competency_report/pdf/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }

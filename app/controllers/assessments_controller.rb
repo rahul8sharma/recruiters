@@ -61,12 +61,13 @@ class AssessmentsController < ApplicationController
   end
 
   def update
+    params[:assessment][:is_jombay_pearson_test] = params[:is_jombay_pearson_test].present?
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.present?
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
       redirect_to edit_company_custom_assessment_path(@company,@assessment)
     else
-      flash[:notice] = "Assessment updated successfully!"
+      flash[:notice] = "Assessment updated successfully! Please regenerate reports for the changes to reflect in them"
       redirect_to company_custom_assessment_path(@company,@assessment)
     end
   end

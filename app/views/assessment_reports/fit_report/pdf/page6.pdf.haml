@@ -1,27 +1,28 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.inner
-  .scores.interview_guide 
-    .divider1
-    .blue_heading.large-text.pull-left
-      Guidelines for Assessment Taker&#39;s Manager
-    .instruction_container.pull-right
-      .instructions
-        .instruction1.pull-left
-          Favorable Traits 
-        .instruction2.less_favorable.pull-left
-          Less Favorable Traits
-        .clr
-    .clr
-    .divider1
-    %ul.clearfix.interview_guide_listing 
-      - guidelines_for_candidate_manager.each do |factor_name, guide|
-        %li
-          .divider1
-          - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
-          .que-no.hexagon-icon{ class: klass }
-          .factor-name.pull-left
-            = factor_name
-          .description.pull-left
-            = guide[:body]
+- if @report.report_hash[:enable_post_assessment_guidelines] && @report.report_hash[:development_guide_manager]
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .inner
+    .scores.interview_guide
+      .divider1
+      .blue_heading.large-text.pull-left
+        Guidelines for Assessment Taker&#39;s Manager
+      .instruction_container.pull-right
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
           .clr
-          .divider1
+      .clr
+      .divider1
+      %ul.clearfix.interview_guide_listing
+        - guidelines_for_candidate_manager.each do |factor_name, guide|
+          %li
+            .divider1
+            - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
+            .que-no.hexagon-icon{ class: klass }
+            .factor-name.pull-left
+              = factor_name
+            .description.pull-left
+              = guide[:body]
+            .clr
+            .divider1
