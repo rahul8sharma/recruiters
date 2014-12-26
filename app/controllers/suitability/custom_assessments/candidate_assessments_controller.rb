@@ -150,10 +150,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
-                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
-                    :send_sms => params[:send_sms],
-                    :send_email => params[:send_email],
+                    :send_sms => params[:options][:send_sms],
+                    :send_email => params[:options][:send_email],
+                    :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
+                    :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?,
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
@@ -204,7 +205,13 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end
         end
         options = {
-          :assessment_taker_type => assessment_taker_type
+          :assessment_taker_type => assessment_taker_type,
+          :report_link_receiver_name => params[:options][:manager_name],
+          :report_link_receiver_email => params[:options][:manager_email],
+          :assessment_link_receiver_name => params[:options][:manager_name],
+          :assessment_link_receiver_email => params[:options][:manager_email],
+          :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
+          :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?
         }
         options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
         # create candidate_assessment if not present
@@ -229,8 +236,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_candidates(
         :id => @assessment.id,
         :candidate_assessment_ids => candidate_assessments.map(&:id),
-        :send_sms => params[:send_sms],
-        :send_email => params[:send_email]
+        :options => params[:options]
       ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
         #flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
