@@ -4,13 +4,15 @@
     Need help in adding Survey Takers?
   .clr
   .divider1
-  =# render :partial => "shared/navigation-sub-nav"
-  .divider2
+  = render :partial => "shared/navigation-sub-nav"
+  .divider1
   .clr
-  %a.label.label-warning.label-small.pull-left{:href => add_candidates_bulk_company_engagement_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
-    %b USE BULK UPLOAD
-  .clr
-
+  .text-center
+    %a.label.label-warning.label-small{:href => add_candidates_bulk_company_engagement_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+      %b USE BULK UPLOAD
+    .divider1
+    .big-text
+      OR
   .divider1
 
   .margin-auto.span22
@@ -36,6 +38,7 @@
           .span8.big-text.left-offset1
             .span Survey taker’s email address
           .clr
+          .divider1
         %ul.add-candidates.clearfix
           - 10.times do |index|
             = render :partial => "engagement/surveys/candidates/candidate_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
