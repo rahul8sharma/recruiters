@@ -1,10 +1,13 @@
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
+
 = form_for @survey, :as => :survey, :url => add_elements_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
   .order_enable_items
     .page-title
       = @survey.name
+    .divider2
+    = render :partial => "shared/engagement/navigation-sub-nav"
     .divider2
     - index = 0
     - @facets.each do |facet|

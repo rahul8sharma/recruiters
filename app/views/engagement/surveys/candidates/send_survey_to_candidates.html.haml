@@ -2,7 +2,7 @@
   .divider1
   Survey - #{@survey.name}
 .divider2
-= render :partial => "shared/navigation-sub-nav"
+= render :partial => "shared/engagement/navigation-sub-nav"
 .divider3
 - if params[:candidates]
   - url = send_survey_to_candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id])
