@@ -5,7 +5,7 @@ class SidekiqController < ApplicationController
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
     render :json => { :status => "Job Started" }
   end
-  
+
   def generate_mrf_scores
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
     render :json => { :status => "Job Started" }
@@ -46,7 +46,7 @@ class SidekiqController < ApplicationController
       :page => params[:page],
       :per => 25
     ).all.to_a
-    
+
     reports.each do |report|
       report_data = {
         :id => report.id,
@@ -56,13 +56,38 @@ class SidekiqController < ApplicationController
       }
       MrfReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end
-    render :json => { :status => "Job Started", :reports => reports.map(&:id) }  
+    render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
 
-  
+  def upload_engagement_reports
+    reports = Vger::Resources::Engagement::Report.where(
+      :query_options => {
+        :status => Vger::Resources::Engagement::Report::Status::SCORED
+      },
+      :include =>[:survey],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+    Rails.logger.debug("Reports are #{reports.first.survey}")
+
+    reports.each do |report|
+      Rails.logger.debug("Report id is #{report.survey["name"]}")
+      report_data = {
+        :id => report.id,
+        :survey_id => report.survey.id,
+        :candidate_id => report.candidate_id,
+        :company_id => report.survey.company_id
+
+      }
+      EngagementReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+    end
+    render :json => { :status => "Job Started",:reports => reports.map(&:id)}
+  end
+
+
   def upload_training_requirements_reports
-    assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
+    assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -77,10 +102,10 @@ class SidekiqController < ApplicationController
     end
     render :json => { :status => "Job Started", :report_ids => job_ids }
   end
-  
+
   def upload_training_requirement_groups_reports
-    training_requirement_group_reports = Vger::Resources::Suitability::AssessmentGroupReport.where(:query_options => { 
-                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW, 
+    training_requirement_group_reports = Vger::Resources::Suitability::AssessmentGroupReport.where(:query_options => {
+                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW,
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -97,8 +122,8 @@ class SidekiqController < ApplicationController
   end
 
   def upload_benchmark_reports
-    assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => { 
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW, 
+    assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK
                   }).all.to_a
     job_ids = []
@@ -120,7 +145,7 @@ class SidekiqController < ApplicationController
       redirect_to report_management_path, alert: "Please specify email and assessment_id."
     end
   end
-  
+
   def regenerate_mrf_reports
     if params[:args][:assessment_id].present? && params[:args][:email].present?
       assessment = Vger::Resources::Mrf::Assessment.regenerate_reports(company_id: params[:args][:company_id], :args => params[:args])
