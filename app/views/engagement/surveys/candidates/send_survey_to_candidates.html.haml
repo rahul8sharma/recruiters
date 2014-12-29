@@ -2,7 +2,7 @@
   .divider1
   Survey - #{@survey.name}
 .divider2
-= render :partial => "shared/navigation-sub-nav"
+= render :partial => "shared/engagement/navigation-sub-nav"
 .divider3
 - if params[:candidates]
   - url = send_survey_to_candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id])
@@ -94,21 +94,22 @@
               .clr                    
     .clr
     .divider2.border-bottom-grayLighter
-    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Survey"}
-    .clr
+    .divider2
+    %input.btn.btn-warning.large-text.pull-right.right-offset2{:type => "submit", :value => "Send Survey"}
 
-    .divider1
-    %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-      %label.medium-text.pull-left.left-offset1{ :for => "send_report_to_candidate", :class => "font-normal"}
-        %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
-        Send report to candidate
-      %label.medium-text.pull-left.left-offset1{:for =>"send_sms"}
-        %input{:type=>"checkbox", name: "send_sms"}
-        Also send survey invitations to candidates via SMS
+    %div.pull-left{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+      -#
+        %label.medium-text.pull-left.left-offset1{ :for => "send_report_to_candidate", :class => "font-normal"}
+          %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
+          Send report to candidate
+        %label.medium-text.pull-left.left-offset1{:for =>"send_sms"}
+          %input{:type=>"checkbox", name: "send_sms"}
+          Also send survey invitations to candidates via SMS
       %label.medium-text.pull-left.left-offset1{:for =>"send_email"}
         %input{:type=>"checkbox", name: "send_email", checked: true}
         Send default email
       .clr
+    .clr
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
 = javascript_include_tag 'add_candidates'
