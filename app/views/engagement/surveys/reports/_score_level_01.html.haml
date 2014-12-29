@@ -2,17 +2,17 @@
 .level_01
   .margin_square
   .average_score
-    40%
-  - 5.times do|index|
+    = "#{@report.report_data[:overall_score].to_i.to_s}%"
+
+  - @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
     %div{:class => "score_#{index} active"}
-      #{index}%
+      - score = score_hash["score"]
+      = "#{score.to_i.to_s}%"
       .trait_name
-        Organizational Leadership
-    
-  .grid
-  .grid
-  .grid
-  .grid
+        = facet_name
+
+  - (@report.report_data[:facet_scores].size-1).times do
+    .grid
   .clr
   .divider9
 
