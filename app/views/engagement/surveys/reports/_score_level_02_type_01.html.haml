@@ -1,22 +1,23 @@
 .level_02.type_01
   .column
-    - 6.times do|index|
+    - score_hash.each_with_index do |(factor_name, factor_score_hash),index|
       .score_container
-        .score
-          #{index}%
+        .score.less_favourable
+          = "#{factor_score_hash["score"].to_i.to_s}%"
         .sub_trait_name
-          Organizational Leadership
+          = factor_name
         .grid
         .right
-          - 6.times do
+          - factor_score_hash[:element_scores].each_with_index do |(element_name, element_score),index|
             .sub_score_container.pull-left
               .grid
-              .score
-                34%
+              - less_favorable_klass = element_score.to_i < 40 ? "less_favorable" : ""
+              %div{:class => "score #{less_favorable_klass}"}
+                = "#{element_score.to_i.to_s}%"
               .trait_name
-                Alignment of Personal Values/ Beliefs with the org
+                = element_name
           .clr
-      
+
   .clr
   .divider5
 

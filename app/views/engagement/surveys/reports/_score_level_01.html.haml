@@ -1,12 +1,17 @@
 .divider3
 .level_01
   .margin_square
-  .average_score
+  - less_favorable_klass = @report.report_data[:overall_score].to_i < 40 ? "less_favorable" : ""
+  %div{:class => "average_score #{less_favorable_klass}"}
     = "#{@report.report_data[:overall_score].to_i.to_s}%"
 
   - @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
-    %div{:class => "score_#{index} active"}
-      - score = score_hash["score"]
+    - active_klass = "active"
+    - if facet_index.present? && index != facet_index
+      - active_klass = ""
+    - score = score_hash["score"]
+    - less_favorable_klass = (score.to_i < 40 && active_klass == "active") ? "less_favorable" : ""
+    %div{:class => "score_#{index} #{active_klass} #{less_favorable_klass}"}
       = "#{score.to_i.to_s}%"
       .trait_name
         = facet_name

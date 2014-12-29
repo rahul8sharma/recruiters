@@ -1,12 +1,14 @@
 .level_02
-  - 5.times do|index|
+  - @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
     .column.pull-left
-      - 5.times do|index|
+      - score_hash[:factor_scores].each_with_index do |(factor_name, factor_score_hash),index|
+        - score = factor_score_hash["score"]
+        - less_favorable_klass = score.to_i < 40 ? "less_favorable" : ""
         .score_container
-          .score
-            #{index}%
+          %div{:class => "score #{less_favorable_klass}"}
+            = "#{factor_score_hash["score"]}%"
           .sub_trait_name
-            Organizational Leadership
+            = factor_name
           .grid
   .clr
   .divider4

@@ -15,14 +15,15 @@
         .clr
       .divider1
 
+    #overview
     .divider2
-
     .overall_score
       .extra-large-text.text-center
         Overall Engagement Score
       .divider2
       = render :partial =>"overall_score"
 
+#indepth
 .overall_score.depth
   .container
     .divider2
@@ -34,30 +35,27 @@
     .divider2
     = render :partial =>"overall_score_depth"
 
--5.times do |index|
+#details
+- @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
   .detail_score
     .container
       .divider2
       .extra-large-text.text-center
         Details:
-        %b Organizational Belongingness
+        %b
+          = facet_name
       .divider2
       .score-chart
-        = render :partial =>"score_level_01"
-        = render :partial =>"score_level_02_type_0#{index+1}"
+        = render :partial =>"score_level_01", :locals => {:facet_index => index}
+        = render :partial =>"score_level_02_type_0#{index+1}", :locals =>{ :score_hash => score_hash["factor_scores"]}
 
 
+
+#areas_of_concern
 .areas_of_concern
   .container
     .heading
       Top Areas of Concern
-    .snippet_01
-      Openness to Feedback
-    .snippet_02
-      Value Alignment
-    .snippet_03
-      Openness to Feedback
-    .snippet_04
-      Top Areas of Concern
-    .snippet_05
-      Value Alignment
+    - @report.report_data[:top_areas_of_concern].each_with_index do |concern,index|
+      %div{:class => "snippet_0#{index+1}"}
+        = concern
