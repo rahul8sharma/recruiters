@@ -137,10 +137,15 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      params[:send_reminder_test_to_candidates] = true
+      get_templates
     elsif request.put?
+      Rails.logger.debug("****************************")
+      Rails.logger.debug("Params are #{params}")
+      Rails.logger.debug("****************************")
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
       flash[:notice] = "Reminder was sent successfully!"
-      redirect_to candidates_url
+      redirect_to send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
     end
   end
 
@@ -375,6 +380,18 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     when Vger::Resources::Candidate::Stage::EMPLOYED
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
     end
+    if params[:send_reminder_test_to_candidates] == true
+      candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).all.first
+      category = case candidate_assessment.candidate_stage
+      when Vger::Resources::Candidate::Stage::CANDIDATE
+        Rails.logger.debug("#{Vger::Resources::Candidate::Stage::CANDIDATE} - found")
+        Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
+      when Vger::Resources::Candidate::Stage::EMPLOYED
+        Rails.logger.debug("#{Vger::Resources::Candidate::Stage::EMPLOYED} - found")
+        Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+      end
+    end
+    Rails.logger.debug("template category is #{category}")
 
     @templates = Vger::Resources::Template\
                   .where(query_options: {
