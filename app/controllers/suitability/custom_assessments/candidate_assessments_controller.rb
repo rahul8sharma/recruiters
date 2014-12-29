@@ -53,7 +53,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = s3_bucket_name
       @s3_key = s3_key
       @functional_area_id = params[:bulk_upload][:functional_area_id]
-      get_templates
+      get_templates(params[:candidate_stage])
       render :action => :send_test_to_candidates
     end
   end
@@ -113,7 +113,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
-        get_templates
+        get_templates(params[:candidate_stage])
         params[:send_test_to_candidates] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
@@ -137,8 +137,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      get_templates(@candidate_assessment.candidate_stage, true)
     elsif request.put?
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :candidate_assessment_id => @candidate_assessment.id, :template_id => params[:template_id]))
       flash[:notice] = "Reminder was sent successfully!"
       redirect_to candidates_url
     end
@@ -150,10 +152,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
-                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
-                    :send_sms => params[:send_sms],
-                    :send_email => params[:send_email],
+                    :send_sms => params[:options][:send_sms],
+                    :send_email => params[:options][:send_email],
+                    :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
+                    :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?,
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :candidate_stage => params[:candidate_stage],
@@ -204,7 +207,13 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end
         end
         options = {
-          :assessment_taker_type => assessment_taker_type
+          :assessment_taker_type => assessment_taker_type,
+          :report_link_receiver_name => params[:options][:manager_name],
+          :report_link_receiver_email => params[:options][:manager_email],
+          :assessment_link_receiver_name => params[:options][:manager_name],
+          :assessment_link_receiver_email => params[:options][:manager_email],
+          :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
+          :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?
         }
         options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
         # create candidate_assessment if not present
@@ -229,8 +238,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_candidates(
         :id => @assessment.id,
         :candidate_assessment_ids => candidate_assessments.map(&:id),
-        :send_sms => params[:send_sms],
-        :send_email => params[:send_email]
+        :options => params[:options]
       ) if candidate_assessments.present?
       if failed_candidate_assessments.present?
         #flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
@@ -368,14 +376,24 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
-  def get_templates
-    category = case params[:candidate_stage]
-    when Vger::Resources::Candidate::Stage::CANDIDATE
-      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
-    when Vger::Resources::Candidate::Stage::EMPLOYED
-      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+  def get_templates(candidate_stage, reminder = false)
+    category = ""
+    if reminder
+      candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).all.first
+      category = case candidate_assessment.candidate_stage
+        when Vger::Resources::Candidate::Stage::CANDIDATE
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
+        when Vger::Resources::Candidate::Stage::EMPLOYED
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+        end
+    else
+      case candidate_stage
+        when Vger::Resources::Candidate::Stage::CANDIDATE
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
+        when Vger::Resources::Candidate::Stage::EMPLOYED
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+      end
     end
-
     @templates = Vger::Resources::Template\
                   .where(query_options: {
                     company_id: @company.id,

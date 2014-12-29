@@ -2,6 +2,8 @@
   .span14.page-title.first
     Create a new Engagement Survey
   .clr.divider2
+  = render :partial => "shared/engagement/navigation-sub-nav"
+  .divider2
   = form_for :survey, as: :survey, url: company_engagement_surveys_path(@company) do |f|
     .border-primary
       .padding-all2.border-bottom-grayLighter
