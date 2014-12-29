@@ -4,23 +4,25 @@
     .headings
       .huge-text
         .pull-left
-          Sreelakshmi Venugopal
+          = @report.report_data[:candidate][:name]
+
         .pull-right
           .color-warning
             Employee Engagement Report
           .extra-medium-text
-            Survey Answered On: 10/06/2014
+            Survey Answered On:
+            = hdate(@report.report_data[:completed_at])
         .clr
       .divider1
 
     .divider2
-    
+
     .overall_score
       .extra-large-text.text-center
         Overall Engagement Score
       .divider2
       = render :partial =>"overall_score"
-    
+
 .overall_score.depth
   .container
     .divider2
@@ -32,12 +34,12 @@
     .divider2
     = render :partial =>"overall_score_depth"
 
--5.times do |index| 
+-5.times do |index|
   .detail_score
     .container
       .divider2
       .extra-large-text.text-center
-        Details: 
+        Details:
         %b Organizational Belongingness
       .divider2
       .score-chart
