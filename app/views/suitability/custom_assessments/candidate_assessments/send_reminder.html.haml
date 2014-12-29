@@ -53,13 +53,13 @@
                   - else
                     = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_employee"
             .clr
+            .divider2
+            = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
+              %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
+            %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
+              Cancel
+            .clr
     .clr
-    .divider3
-    .pull-right.span
-      %input.btn.btn-warning.large-text.big{:type => "submit", :value => "Send"}
-
-
-
 
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'

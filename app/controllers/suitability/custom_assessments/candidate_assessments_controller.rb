@@ -53,7 +53,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = s3_bucket_name
       @s3_key = s3_key
       @functional_area_id = params[:bulk_upload][:functional_area_id]
-      get_templates
+      get_templates(params[:candidate_stage])
       render :action => :send_test_to_candidates
     end
   end
@@ -113,7 +113,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           end.compact.uniq.join("<br/>").html_safe
           render :action => :add_candidates and return
         end
-        get_templates
+        get_templates(params[:candidate_stage])
         params[:send_test_to_candidates] = true
         params[:candidates] = candidates
         render :action => :send_test_to_candidates
@@ -137,15 +137,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
       @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
-      params[:send_reminder_test_to_candidates] = true
-      get_templates
+      get_templates(@candidate_assessment.candidate_stage, true)
     elsif request.put?
-      Rails.logger.debug("****************************")
-      Rails.logger.debug("Params are #{params}")
-      Rails.logger.debug("****************************")
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :id => params[:candidate_assessment_id]))
+      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      Vger::Resources::Suitability::CandidateAssessment.send_reminder(params.merge(:assessment_id => params[:id], :candidate_assessment_id => @candidate_assessment.id, :template_id => params[:template_id]))
       flash[:notice] = "Reminder was sent successfully!"
-      redirect_to send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+      redirect_to candidates_url
     end
   end
 
@@ -379,26 +376,24 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
-  def get_templates
-    category = case params[:candidate_stage]
-    when Vger::Resources::Candidate::Stage::CANDIDATE
-      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
-    when Vger::Resources::Candidate::Stage::EMPLOYED
-      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
-    end
-    if params[:send_reminder_test_to_candidates] == true
+  def get_templates(candidate_stage, reminder = false)
+    category = ""
+    if reminder
       candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).all.first
       category = case candidate_assessment.candidate_stage
-      when Vger::Resources::Candidate::Stage::CANDIDATE
-        Rails.logger.debug("#{Vger::Resources::Candidate::Stage::CANDIDATE} - found")
-        Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
-      when Vger::Resources::Candidate::Stage::EMPLOYED
-        Rails.logger.debug("#{Vger::Resources::Candidate::Stage::EMPLOYED} - found")
-        Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+        when Vger::Resources::Candidate::Stage::CANDIDATE
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
+        when Vger::Resources::Candidate::Stage::EMPLOYED
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+        end
+    else
+      case candidate_stage
+        when Vger::Resources::Candidate::Stage::CANDIDATE
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
+        when Vger::Resources::Candidate::Stage::EMPLOYED
+          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
       end
     end
-    Rails.logger.debug("template category is #{category}")
-
     @templates = Vger::Resources::Template\
                   .where(query_options: {
                     company_id: @company.id,
