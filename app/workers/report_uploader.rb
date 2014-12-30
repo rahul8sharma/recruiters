@@ -134,7 +134,7 @@ class ReportUploader < AbstractController::Base
           # use send_report_to_candidate template
           # else use send_report template
           puts "Sending Report"
-          report_email_recipients = @report.report_hash[:report_email_recipients].split(',')
+          report_email_recipients = @report.report_hash[:report_email_recipients].to_s.split(',')
           if report_email_recipients.include? @report.report_hash[:candidate][:email]
             JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_candidate(@report.report_hash), "send_report_to_candidate")
           else
