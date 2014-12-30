@@ -11,7 +11,7 @@
           - factor_score_hash[:element_scores].each_with_index do |(element_name, element_score),index|
             .sub_score_container.pull-right
               .grid
-              - less_favorable_klass = element_score.to_i < 40 ? "less_favorable" : ""
+              - less_favorable_klass = element_score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
               %div{:class => "score #{less_favorable_klass}"}
                 = "#{element_score.to_i.to_s}%"
               .trait_name

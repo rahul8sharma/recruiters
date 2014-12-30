@@ -10,7 +10,7 @@
     - if facet_index.present? && index != facet_index
       - active_klass = ""
     - score = score_hash["score"]
-    - less_favorable_klass = (score.to_i < 40 && active_klass == "active") ? "less_favorable" : ""
+    - less_favorable_klass = (score.to_i < Rails.configuration.reports["engagement_report"]["less_favorable_score"] && active_klass == "active") ? "less_favorable" : ""
     %div{:class => "score_#{index} #{active_klass} #{less_favorable_klass}"}
       = "#{score.to_i.to_s}%"
       .trait_name
