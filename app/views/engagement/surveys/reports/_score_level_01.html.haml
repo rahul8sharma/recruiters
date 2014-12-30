@@ -1,7 +1,7 @@
 .divider3
 .level_01
   .margin_square
-  - less_favorable_klass = @report.report_data[:overall_score].to_i < 40 ? "less_favorable" : ""
+  - less_favorable_klass = @report.report_data[:overall_score].to_i < Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
   %div{:class => "average_score #{less_favorable_klass}"}
     = "#{@report.report_data[:overall_score].to_i.to_s}%"
 
