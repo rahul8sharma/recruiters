@@ -21,7 +21,7 @@
       .extra-large-text.text-center
         Overall Engagement Score
       .divider2
-      = render :partial =>"overall_score"
+      = render :partial =>"engagement/surveys/reports/overall_score"
 
 #indepth
 .overall_score.depth
@@ -33,7 +33,7 @@
     .extra-large-text.text-center
       Overall Engagement Score
     .divider2
-    = render :partial =>"overall_score_depth"
+    = render :partial =>"engagement/surveys/reports/overall_score_depth"
 
 #details
 - @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
@@ -46,8 +46,8 @@
           = facet_name
       .divider2
       .score-chart
-        = render :partial =>"score_level_01", :locals => {:facet_index => index}
-        = render :partial =>"score_level_02_type_0#{index+1}", :locals =>{ :score_hash => score_hash["factor_scores"]}
+        = render :partial =>"engagement/surveys/reports/score_level_01", :locals => {:facet_index => index}
+        = render :partial =>"engagement/surveys/reports/score_level_02_type_0#{index+1}", :locals =>{ :score_hash => score_hash["factor_scores"]}
 
 
 

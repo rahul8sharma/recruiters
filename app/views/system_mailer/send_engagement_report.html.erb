@@ -4,7 +4,7 @@ Hi,
 </p>
 <p>
   Report URL:
-  <%= s3_report_company_engagement_surveys_url(:company_id => @report_hash[:company][:id], :id => @report_hash[:survey][:id],:candidate_id => @report_hash[:candidate][:id], :report_id => @report_id, :view_mode => "html")
+  <%= s3_report_company_engagement_survey_url(:company_id => @report_hash[:company_id], :id => @report_hash[:survey_id],:candidate_id => @report_hash[:candidate_id], :report_id => @report_hash[:report_id], :view_mode => "html")
     %>
 </p>
 <p>

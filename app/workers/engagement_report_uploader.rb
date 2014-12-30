@@ -49,6 +49,11 @@ class EngagementReportUploader < AbstractController::Base
 
       candidate_name = @report.report_hash[:candidate][:name]
       company_name = @report.report_hash[:company][:name]
+      @report.report_hash[:company_id] = company_id
+      @report.report_hash[:survey_id] = survey_id
+      @report.report_hash[:candidate_id] = candidate_id
+      @report.report_hash[:report_id] = @report.id
+
 
     #   template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
 
@@ -88,7 +93,7 @@ class EngagementReportUploader < AbstractController::Base
       )
 
       File.delete(html_save_path)
-      JombayNotify::Email.create_from_mail(SystemMailer.send_engagement_report(@report.id, @report.report_data), "send_engagement_report")
+      JombayNotify::Email.create_from_mail(SystemMailer.send_engagement_report(@report.id, @report.report_hash), "send_engagement_report")
     rescue Exception => e
       Rails.logger.debug e.message
       puts e.message
