@@ -1,18 +1,23 @@
 .divider3
 .level_01
   .margin_square
-  .average_score
-    40%
-  - 5.times do|index|
-    %div{:class => "score_#{index} active"}
-      #{index}%
+  - less_favorable_klass = @report.report_data[:overall_score].to_i < Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+  %div{:class => "average_score #{less_favorable_klass}"}
+    = "#{@report.report_data[:overall_score].to_i.to_s}%"
+
+  - @report.report_data[:facet_scores].each_with_index do |(facet_name, score_hash),index|
+    - active_klass = "active"
+    - if facet_index.present? && index != facet_index
+      - active_klass = ""
+    - score = score_hash["score"]
+    - less_favorable_klass = (score.to_i < Rails.configuration.reports["engagement_report"]["less_favorable_score"] && active_klass == "active") ? "less_favorable" : ""
+    %div{:class => "score_#{index} #{active_klass} #{less_favorable_klass}"}
+      = "#{score.to_i.to_s}%"
       .trait_name
-        Organizational Leadership
-    
-  .grid
-  .grid
-  .grid
-  .grid
+        = facet_name
+
+  - (@report.report_data[:facet_scores].size-1).times do
+    .grid
   .clr
   .divider9
 

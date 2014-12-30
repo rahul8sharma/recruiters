@@ -10,7 +10,7 @@ body
   height: 57px
 #header
   position: fixed
-  z-index: 9999  
+  z-index: 9999
   #nav
     margin: 20px 0 0 0
     li
@@ -66,8 +66,8 @@ body
         color: #e28357
 .detail_score
   border-bottom: 1px dashed #939598
-  .score-chart 
-    .level_01 
+  .score-chart
+    .level_01
       .average_score
         background-position: -2px -125px
       [class^="score"]
@@ -79,23 +79,25 @@ body
           .trait_name
             border-bottom: 1px solid #000
             color: #53C530
+          &.less_favorable
+            background-position: -2px -174px
         &.less_favorable
           .trait_name
             color: #e28357
       .trait_name
         color: #bcbec0
         font-weight: 700
-    .level_02 
-      .score_container 
-        .score  
-          background: image-url('report/html/engagement/l2_01_score_bg.png') no-repeat -3px -2px 
+    .level_02
+      .score_container
+        .score
+          background: image-url('report/html/engagement/l2_01_score_bg.png') no-repeat -3px -2px
           &.less_favorable
             background-position: -3px -72px
 
 .score-chart
   .level_01
     position: relative
-    width: 910px 
+    width: 910px
     margin: auto
     color: #fff
     .trait_name
@@ -148,8 +150,8 @@ body
 
       &.less_favorable
         background-position: -2px -174px
-    
-    @for $i from 0 through 5 
+
+    @for $i from 0 through 5
       .score_#{$i}
         left: $i * 226px - (36)
   .level_02
@@ -165,14 +167,16 @@ body
       height: 150px
       &:first-child
         height: 100px
+        .grid
+          height: 100px
       .score
         background: image-url('report/html/engagement/l2_score_bg.png') no-repeat -3px -2px
-        width: 55px 
+        width: 55px
         height: 55px
         margin: auto
         color: #fff
         font-size: 16px
-        line-height: 55px 
+        line-height: 55px
         text-align: center
         z-index: 500
         position: absolute
