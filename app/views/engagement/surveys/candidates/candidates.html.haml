@@ -60,7 +60,7 @@
             .span4
               - if report
                 - if report.status == Vger::Resources::Engagement::Report::Status::UPLOADED
-                  - url =  company_engagement_survey_candidate_candidate_survey_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :engagement_survey_id => @survey.id, :id => report.id, :view_mode => "html")
+                  - url =  s3_report_company_engagement_survey_path(:company_id => params[:company_id], :candidate_id => candidate.id, :report_id => report.id, :view_mode => "html")
                   %a{:href => url, :title => "View Report", target: "_blank"}
                     %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
                     View Report
