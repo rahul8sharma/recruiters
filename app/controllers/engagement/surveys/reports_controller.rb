@@ -3,7 +3,6 @@ class Engagement::Surveys::ReportsController < ApplicationController
   before_filter :get_survey, except: [:s3_report]
 
   def report
-    report_type = params[:report_type] || "fit_report"
     @candidate_survey = Vger::Resources::Engagement::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
     params[:survey_id] = params[:id]
     params[:candidate_survey_id] = @candidate_survey.id
