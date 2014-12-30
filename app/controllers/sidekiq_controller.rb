@@ -68,10 +68,9 @@ class SidekiqController < ApplicationController
       :page => params[:page],
       :per => 25
     ).all.to_a
-    Rails.logger.debug("Reports are #{reports.first.survey}")
+
 
     reports.each do |report|
-      Rails.logger.debug("Report id is #{report.survey["name"]}")
       report_data = {
         :id => report.id,
         :survey_id => report.survey.id,
