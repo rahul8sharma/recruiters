@@ -59,3 +59,6 @@
     - @report.report_data[:top_areas_of_concern].each_with_index do |concern,index|
       %div{:class => "snippet_0#{index+1}"}
         = concern
+
+= render :partial => "shared/reports/html/about_us"
+= render :partial => "shared/reports/html/legal_disclaimer"
