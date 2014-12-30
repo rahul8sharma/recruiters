@@ -51,6 +51,10 @@
               %a{:href => url, :title => "View Report", target: "_blank"}
                 %i.icon-file              
                 View Report
+                - if is_superadmin?
+                  - if candidate_assessment.options[:link_used]
+                    - url_params = CGI::parse(candidate_assessment.options[:link_used])
+                    = "(Manager Link Used)" if url_params["cc"].present?
             .clr
       - else
         .alert.medium-text

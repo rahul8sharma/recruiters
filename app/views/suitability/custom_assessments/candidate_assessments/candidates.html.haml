@@ -87,6 +87,10 @@
                   %a{:href => url, :title => "View Report", target: "_blank"}
                     %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
                     View Report
+                    - if is_superadmin?
+                      - if candidate_assessment.options[:link_used]
+                        - url_params = CGI::parse(candidate_assessment.options[:link_used])
+                        = "(Manager Link Used)" if url_params["cc"].present?
                 - else
                   %i.icon-spinner.icon-spin
                   Generating report...
