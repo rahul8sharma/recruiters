@@ -254,7 +254,7 @@ Recruiters::Application.routes.draw do
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
       end
     end
-    
+
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
       collection do
         get "home" => "engagement/surveys#home", :as => :home
@@ -438,7 +438,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :trait_score_buckets do
       collection do
         get :manage
@@ -571,7 +571,7 @@ Recruiters::Application.routes.draw do
     end
 
   end
-  
+
   namespace :engagement  do
     resources :facets do
       collection do
@@ -581,7 +581,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :factors do
       collection do
         get :manage
@@ -590,7 +590,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :elements do
       collection do
         get :manage
@@ -599,7 +599,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :items do
       collection do
         get :manage
@@ -609,7 +609,7 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
-  end  
+  end
 
   namespace :suitability do
     resources :item_groups do
@@ -849,6 +849,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
+  match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"

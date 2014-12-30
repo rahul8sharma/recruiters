@@ -9,17 +9,17 @@
         %ul#nav.clearfix.pull-left
           %li.left
           %li
-            %a{:href=>"#"}
+            %a.scroll{:href=>"#overview",:title => "Overview"}
               Overview
           %li
-            %a{:href=>"#"}
+            %a.scroll{:href=>"#indepth", :title => "In Depth"}
               In Depth
           %li
-            %a{:href=>"#"}
+            %a.scroll{:href=>"#details", :title => "Details"}
               Details
           %li
-            %a{:href=>"#"}
+            %a.scroll{:href=>"#areas_of_concern", :title => "Top Areas of Concern"}
               Top Concerns
           %li.right
 = wicked_pdf_javascript_include_tag 'common'
-       
+
