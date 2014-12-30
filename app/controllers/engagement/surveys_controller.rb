@@ -14,7 +14,7 @@ class Engagement::SurveysController < ApplicationController
     order_by = params[:order_by] || "engagement_surveys.created_at"
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
-    @surveys = Vger::Resources::Engagement::Survey.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
+    @surveys = Vger::Resources::Engagement::Survey.where(query_options: {company_id: params[:company_id]}, order: order, page: params[:page], per: 10).all
     @candidate_counts = Vger::Resources::Candidate.group_count(group: "engagement_candidate_surveys.survey_id", joins: :engagement_candidate_surveys, query_options: { 
       "engagement_candidate_surveys.survey_id" => @surveys.map(&:id) 
     })
