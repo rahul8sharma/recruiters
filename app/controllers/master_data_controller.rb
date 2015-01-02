@@ -96,7 +96,7 @@ class MasterDataController < ApplicationController
   end
   
   def manage_path
-    self.send("manage_#{resource_name}_path")
+    self.send("manage_#{resource_name}_path") if self.respond_to?("manage_#{resource_name}_path")
   end
   
   def destroy_all_path

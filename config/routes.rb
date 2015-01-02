@@ -819,6 +819,11 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  namespace :form_builder do
+    resources :defined_forms
+    resources :factual_information_forms
+  end
 
 
   get "/trr/manage", :to => "suitability/custom_assessments/training_requirements_reports_management#manage", :as => :trr_manage
