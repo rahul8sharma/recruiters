@@ -6,7 +6,7 @@
         - less_favorable_klass = score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
         .score_container
           %div{:class => "score #{less_favorable_klass}"}
-            = "#{factor_score_hash["score"]}%"
+            = "#{score.to_i.to_s}%"
           .sub_trait_name
             = factor_name
           .grid
