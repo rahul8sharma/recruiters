@@ -1,4 +1,4 @@
-.defined_field.pull-left{ id: "new_fields_#{f.object.id}" }
+.defined_field.pull-left{ id: "new_fields_#{f.object.id}", style: "border: 1px solid #fff;padding:10px;" }
   - if f.object.id.present?
     = f.hidden_field :id, value: f.object.id
   .field

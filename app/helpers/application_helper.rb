@@ -7,7 +7,7 @@ module ApplicationHelper
       obj = builder.object
       render("#{parent_klass.to_s.gsub('Vger::Resources','').underscore.pluralize}/"+association.to_s.singularize + "_fields", :f => builder, :options => options)
     end
-    link_to_function(name, raw("#{callback}(\"#{append_to_selector}\", \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "add_fields", :content => "#{fields}", :object_id => "#{obj.id}", :style => options[:style])
+    link_to_function(name, raw("#{callback}(\"#{append_to_selector}\", \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "add_fields #{options[:class]}", :content => "#{fields}", :object_id => "#{obj.id}", :style => options[:style])
   end
   
   # renders a form

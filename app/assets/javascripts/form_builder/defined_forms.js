@@ -1,5 +1,5 @@
 function addField(selector, association, content){
-  $(selector).prepend(content);
+  $(selector).append(content);
   var randomId = Math.floor(Math.random(1000)*10000);
   $("#new_fields_").find("input, select, textarea").each(function(){
     var name = $(this).attr("name");

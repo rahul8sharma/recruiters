@@ -1,0 +1,25 @@
+.defined-form
+  %h2
+    Showing details of #{resource_name.singularize.titleize} - #{@resource.id}
+  .pull-left
+    %table{ cellspacing: 5, cellpadding: 5 }
+      - index_columns.each do |index_column|
+        %tr
+          %td 
+            %h4
+              #{index_column.to_s.titleize}:
+          %td #{@resource.send(index_column).to_s}
+  .pull-left{ style: "border: 1px solid #ccc;padding:10px;" }
+    %h4 #{@resource.name}
+    %br
+    - defined_fields = Vger::Resources::FormBuilder::DefinedField.where(query_options: {defined_form_id: @resource.id}, :order => "field_order ASC").all.to_a
+    - defined_fields.each do |defined_field|
+      = "#{defined_field.label}&nbsp;&nbsp;&nbsp;&nbsp;".html_safe
+      = render_defined_field(defined_field)
+      .divider1
+  .clr
+.divider2          
+.links
+  = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)
+  \|
+  = link_to "Back", send("#{resource_name}_path")
