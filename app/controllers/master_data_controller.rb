@@ -4,6 +4,8 @@ class MasterDataController < ApplicationController
   
   helper_method :resource_name
   helper_method :index_columns
+  helper_method :resource_path
+  helper_method :index_path
   
   def new
     @resource = api_resource.new
@@ -93,6 +95,10 @@ class MasterDataController < ApplicationController
   
   def index_path
     self.send("#{resource_name}_path")
+  end
+  
+  def resource_path(resource)
+    self.send("#{resource_name.singularize}_path",resource)
   end
   
   def manage_path
