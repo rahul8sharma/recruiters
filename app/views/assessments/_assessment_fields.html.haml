@@ -62,6 +62,14 @@
           = language
 
     .clr
+  .control-group
+    %label
+      Select Custom Factual Information Form
+    %select.span10.first{ name: "defined_form_id" }
+      - @defined_forms.each do |defined_form|
+        %option{ value: defined_form.id }
+          = defined_form.name
+    .clr
 - else
   = f.hidden_field :language, value: 'en'
 - if params[:action] == "edit"
