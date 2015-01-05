@@ -820,6 +820,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
+  get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
   get "/trr/manage", :to => "suitability/custom_assessments/training_requirements_reports_management#manage", :as => :trr_manage
   post "/trr/manage/export_assessment_trr_candidates", :to =>  "suitability/custom_assessments/training_requirements_reports_management#export_assessment_trr_candidates", :as => :export_assessment_trr_candidates
