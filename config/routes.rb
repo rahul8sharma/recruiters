@@ -819,6 +819,11 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  namespace :form_builder do
+    resources :defined_forms
+    resources :factual_information_forms
+  end
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 

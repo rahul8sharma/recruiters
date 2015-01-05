@@ -1,0 +1,23 @@
+- @resource.defined_fields = Vger::Resources::FormBuilder::DefinedField.where(query_options: {defined_form_id: @resource.id}, order: "field_order ASC").all.to_a
+= javascript_include_tag "form_builder/defined_forms"
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+= form_for @resource, as: resource_name.singularize, url: url do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :company_id
+    = f.text_field :company_id
+  .field
+    = f.label :active
+    = f.check_box :active
+  #fields    
+    - @resource.defined_fields.each do |defined_field|
+      = f.fields_for("defined_fields", defined_field, :index => defined_field.id) do |df|
+        = render :partial => "defined_field_fields", locals: {:f => df}
+  .clr      
+  .field  
+    = link_to_add_fields("Add Field", "#fields",f, "Vger::Resources::FormBuilder::DefinedForm", "Vger::Resources::FormBuilder::DefinedField", :defined_fields, "addField",{ class: "btn btn-info" })
+  .action.field
+    = f.submit "Submit", class: "btn btn-info"
+    
