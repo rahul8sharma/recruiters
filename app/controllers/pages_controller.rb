@@ -1,22 +1,30 @@
 class PagesController < ApplicationController
   before_filter :authenticate_user!
   layout 'admin'
-  
+
   def home
   end
-  
+
   def report_management
   end
-  
+
+  def report_generator
+    if request.post?
+    end
+
+
+  end
+
+
   def manage_report
     redirect_to manage_company_assessment_candidate_candidate_assessment_report_url(
-      :id => params[:assessment][:report_id], 
-      :company_id => params[:assessment][:company_id], 
+      :id => params[:assessment][:report_id],
+      :company_id => params[:assessment][:company_id],
       :candidate_id => params[:assessment][:candidate_id],
       :assessment_id => params[:assessment][:assessment_id]
     )
   end
-  
+
   def modify_norms
     if params[:assessment][:assessment_id].present? && params[:assessment][:company_id].present?
 	    assessment_id = params[:assessment][:assessment_id]
@@ -29,6 +37,6 @@ class PagesController < ApplicationController
       end
     else
       redirect_to report_management_path, alert: "Please specify correct company id and assessment_id"
-    end  
+    end
   end
 end

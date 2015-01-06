@@ -819,7 +819,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :form_builder do
     resources :defined_forms
     resources :factual_information_forms
@@ -868,6 +868,8 @@ Recruiters::Application.routes.draw do
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
   get "/report-management", :to => "pages#report_management", :as => :report_management
+  get "/report-generator", :to => "pages#report_generator", :as => :report_generator
+  put "/report-generator", :to => "pages#report_generator", :as => :report_generator
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
 

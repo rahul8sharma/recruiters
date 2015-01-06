@@ -1,0 +1,45 @@
+= fields_for "report" do |f|
+  %p
+    %label.field
+      Candidate Name
+    = f.text_field :candidate_name
+  %p
+    %label.field
+      Candidate Email
+    = f.text_field :candidate_email
+  %p
+    %label.field
+      Candidate Type
+    = f.select :candidate_type, Vger::Resources::Candidate::STAGES - ["manager"]
+  %p
+    %label.field
+      Assessment
+    = f.radio_button :assessment, 'new'
+    = f.label :assessment_new, "New Assessment"
+    = f.radio_button :assessment, 'existing'
+    = f.label :assessment_existing, "Existing Assessment"
+  %p#assessment-fields
+    %fieldset#new-assessment{ style: "display:none;"}
+      %legend
+        %strong
+          New Assessment
+      = fields_for "assessment" do |f|
+        %p
+          Company ID :
+          = f.text_field :company_id, :value => ""
+        %p
+          Assessment ID :
+          = f.text_field :assessment_name, :value => ""
+        %p
+          Assessment Type:
+          = f.select :assessment_type, Vger::Resources::Suitability::CustomAssessment::ASSESSMENT_TYPES
+
+
+
+
+
+
+
+
+
+= javascript_include_tag 'report_generator'
