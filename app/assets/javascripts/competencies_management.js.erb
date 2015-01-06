@@ -1,0 +1,69 @@
+function jsonRequest(url, dataHash, success_callback_function, failure_callback_function) {
+  $.ajax(url, {
+    type: 'GET',
+    data: dataHash,
+    dataType: 'json',
+    success: function(response) {
+        success_callback_function(response);
+    },
+    error: function(response) {
+        failure_callback_function(response);
+    }
+  });
+}
+
+$(document).ready(function(){
+  function get_factors_success(response) {
+    console.log(response.factors);
+    $("#traits .suitability").append("<ul>");
+
+    for (var i = 0; i < response.factors.length; i++) {
+        var factor = response.factors[i].attributes;
+        var id = "competencies[factor]["+i+"]["+factor.id+"]";
+        $("#traits .suitability .trait-list").append("<li>"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + factor.name + "</li>");
+    }
+    $("#traits .suitability").append("</ul>");
+  }
+
+  function get_mrf_traits_success(response){
+    console.log(response.traits);
+
+    for (var i = 0; i < response.traits.length; i++) {
+        var factor = response.traits[i].attributes;
+        var id = "competencies[mrf_trait]["+i+"]["+factor.id+"]";
+        $("#traits .mrf .trait-list").append("<li>"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + factor.name + "</li>");
+    }
+
+
+  }
+
+  function get_functional_traits_success(response){
+    console.log(response.traits);
+
+    for (var i = 0; i < response.traits.length; i++) {
+        var factor = response.traits[i].attributes;
+        var id = "competencies[functional_trait]["+i+"]["+factor.id+"]";
+        $("#traits .functional .trait-list").append("<li>"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + factor.name + "</li>");
+    }
+
+  }
+
+  function get_factors_failure(response){
+    console.log(response);
+  }
+  $(".load_traits").on("click",function(){
+    var company_ids = $("#company_ids").val();
+    var hash = {
+          "company_ids": company_ids
+        }
+    jsonRequest("/suitability/factors/get_factors", hash, get_factors_success, get_factors_failure);
+    jsonRequest("/mrf/traits/get_traits",hash,get_mrf_traits_success,get_factors_failure);
+    jsonRequest("/functional/traits/get_traits",hash,get_functional_traits_success,get_factors_failure);
+  })
+});

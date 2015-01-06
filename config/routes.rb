@@ -432,6 +432,7 @@ Recruiters::Application.routes.draw do
   namespace :functional do
     resources :traits do
       collection do
+        get :get_traits
         get :manage
         get :destroy_all
         post :import_from_google_drive
@@ -497,6 +498,7 @@ Recruiters::Application.routes.draw do
 
     resources :traits do
       collection do
+        get :get_traits
         get :manage
         get :destroy_all
         post :import_from_google_drive
@@ -786,6 +788,7 @@ Recruiters::Application.routes.draw do
 
     resources :factors do
       collection do
+        get :get_factors
         post :import
         get :manage
         get :destroy_all
@@ -819,7 +822,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :form_builder do
     resources :defined_forms
     resources :factual_information_forms

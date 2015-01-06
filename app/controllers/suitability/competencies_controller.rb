@@ -6,32 +6,54 @@ class Suitability::CompetenciesController < MasterDataController
   def import_from
     "import_from_google_drive"
   end
-  
+
   def index_columns
     [:id, :uid, :name, :company_ids, :factor_names, :active]
   end
-  
+
   def search_columns
     [
       :id,
       :name
     ]
   end
-  
+
+  def new
+    params[:competency] ||= {}
+    @competency = Vger::Resources::Suitability::Competency.new
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  # POST /suitability/competencies
+  # POST /suitabilty/competencies.json
+  # POST creates competency
+  def create
+    Rails.logger.debug("Create Competency params are #{params}")
+    factor_ids = params[:competency][:factor].collect { |index,factor_hash| factor_hash.keys}
+    mrf_trait_ids = params[:competency][:mrf_trait].collect { |index, factor_hash| factor_hash.keys}
+    functional_trait_ids = params[:competency][:functional_trait].collect { |index, factor_hash| factor_hash.keys}
+    params[:competency][:factor] = factor_ids
+    params[:competency][:mrf_trait] = mrf_trait_ids
+    params[:competency][:functional_trait] = functional_trait_ids
+    Vger::Resources::Suitability::Competency.create_competency(params[:competency])
+  end
+
   def edit
     @competency = api_resource.find(params[:id], :root => :competency)
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def show
     @competency = api_resource.find(params[:id], :root => :competency)
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def update
     @competency = api_resource.save_existing(params[:id], params[:competency])
     respond_to do |format|

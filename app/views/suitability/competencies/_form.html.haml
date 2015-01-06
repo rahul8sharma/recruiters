@@ -1,6 +1,31 @@
-= form_for @competency, :as => :competency, :url => suitability_competency_path(@competency), method: :put do |f|
+- url = @competency.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+- button = @competency.id.present? ? 'Update' : 'Create New Competency'
+= form_for "competency", :as => :competency, :url => url, method: :post do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
   .field
     = f.label :active
     = f.check_box :active
+  %label
+    Company IDs
+    %input{:id => 'company_ids', :type =>'text', :name => "company_id"}
+  %div{:class => "load_traits"}
+    %a{:href => "#"}
+      Load Traits
+  #traits
+    .suitability
+      %h3.field Suitability Factors
+      %br
+      %ul.trait-list
+    .mrf
+      %h3.field MRF Traits
+      %br
+      %ul.trait-list
+    .functional
+      %h3.field Functional Traits
+      %br
+      %ul.trait-list
+
   .actions
-    = f.submit 'Update'
+    = f.submit button

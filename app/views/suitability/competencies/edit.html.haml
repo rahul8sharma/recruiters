@@ -1,5 +1,5 @@
 %h1 Edit suitability competency
-
-= render 'form'
+- Rails.logger.debug("#{@competency.name}")
+= render 'form',  method: :post, url: suitability_competencies_path(), competency: @competency
 
 = link_to 'Back', suitability_competencies_path

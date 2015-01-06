@@ -7,12 +7,12 @@ class Mrf::TraitsController < MasterDataController
     params[:type] ||= "Mrf::Trait"
     @traits = Vger::Resources::Mrf::Trait.where(
       :methods => [:company_ids],
-      :page => params[:page], 
-      :per => 50, 
+      :page => params[:page],
+      :per => 50,
       :root => :trait
     ).all
   end
-  
+
   def import_from
     "import_from_google_drive"
   end
@@ -29,14 +29,14 @@ class Mrf::TraitsController < MasterDataController
       format.html # new.html.erb
     end
   end
-  
+
   def edit
     @trait = api_resource.find(params[:id], :root => :trait)
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def update
     @trait = api_resource.save_existing(params[:id], params[:trait])
     respond_to do |format|
@@ -48,4 +48,14 @@ class Mrf::TraitsController < MasterDataController
       end
     end
   end
+
+  def get_traits
+    Rails.logger.debug("Company IDs are #{params[:company_ids]}")
+    factors = Vger::Resources::Mrf::Trait.where(:query_options => {}, :scopes => { :global => nil }).all.to_a
+    factors |= Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_ids]},  :joins => [:companies]).all.to_a
+    respond_to do |format|
+      format.json{ render :json => { :traits => factors } }
+    end
+  end
+
 end

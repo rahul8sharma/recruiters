@@ -4,7 +4,7 @@ assets.paths << "#{Rails.root}/app/assets/files"
 assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 assets.precompile += %w(toolkit/main-layout.css)
 assets.precompile += %w(admin.css)
-assets.precompile += %w(application.js jquery.js jquery_ujs.js admin.js reports.js norms.js functional_traits.js styles.js edit_company.js common.js global_configurations/fallback_strategy.js shared/leadsquared.js add_candidates.js add_traits.js pie.min.js plotPie.js)
+assets.precompile += %w(application.js jquery.js jquery_ujs.js admin.js reports.js norms.js functional_traits.js styles.js ajax.js edit_company.js common.js global_configurations/fallback_strategy.js shared/leadsquared.js add_candidates.js add_traits.js pie.min.js plotPie.js)
 assets.precompile += %w(highcharts-custom.js trr-pie.js template.js)
 assets.precompile += %w(competencies_management.js)
 assets.precompile += %w(shared.css)

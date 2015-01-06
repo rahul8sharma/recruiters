@@ -1,0 +1,10 @@
+%h3 Create new suitability competency
+
+
+#competencies
+= render 'form', method: :post, url: suitability_competencies_path(), competency: @competency
+
+= javascript_include_tag 'competencies_management'
+
+
+= link_to 'Back', suitability_competencies_path

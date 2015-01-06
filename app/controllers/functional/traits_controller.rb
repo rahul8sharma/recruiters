@@ -52,5 +52,14 @@ class Functional::TraitsController < MasterDataController
     "import_from_google_drive"
   end
 
+  def get_traits
+    Rails.logger.debug("Functional Traits Company IDs are #{params[:company_ids]}")
+    factors = Vger::Resources::Functional::Trait.where(:query_options => {}, :scopes => { :global => nil }).all.to_a
+    factors |= Vger::Resources::Functional::Trait.where(:query_options => {"companies_functional_traits.company_id" => params[:company_ids]},  :joins => [:companies]).all.to_a
+    respond_to do |format|
+      format.json{ render :json => { :traits => factors } }
+    end
+  end
+
 
 end
