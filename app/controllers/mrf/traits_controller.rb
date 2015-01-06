@@ -50,7 +50,6 @@ class Mrf::TraitsController < MasterDataController
   end
 
   def get_traits
-    Rails.logger.debug("Company IDs are #{params[:company_ids]}")
     factors = Vger::Resources::Mrf::Trait.where(:query_options => {}, :scopes => { :global => nil }).all.to_a
     factors |= Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_ids]},  :joins => [:companies]).all.to_a
     respond_to do |format|

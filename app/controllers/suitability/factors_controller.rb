@@ -65,7 +65,6 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def get_factors
-    Rails.logger.debug("Company IDs are #{params[:company_ids]}")
     factors = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true,:type=>"Suitability::Factor"}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
     factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_ids], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies]).all.to_a
 
