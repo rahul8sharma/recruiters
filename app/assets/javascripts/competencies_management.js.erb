@@ -19,7 +19,7 @@ $(document).ready(function(){
 
     for (var i = 0; i < response.factors.length; i++) {
         var factor = response.factors[i].attributes;
-        var id = "competencies[factor]["+i+"]["+factor.id+"]";
+        var id = "competency[factor]["+i+"]["+factor.id+"]";
         $("#traits .suitability .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        var id = "competencies[mrf_trait]["+i+"]["+factor.id+"]";
+        var id = "competency[mrf_trait]["+i+"]["+factor.id+"]";
         $("#traits .mrf .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");
@@ -42,11 +42,9 @@ $(document).ready(function(){
   }
 
   function get_functional_traits_success(response){
-    console.log(response.traits);
-
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        var id = "competencies[functional_trait]["+i+"]["+factor.id+"]";
+        var id = "competency[functional_trait]["+i+"]["+factor.id+"]";
         $("#traits .functional .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");

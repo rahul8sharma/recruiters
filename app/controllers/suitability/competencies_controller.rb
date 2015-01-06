@@ -31,13 +31,17 @@ class Suitability::CompetenciesController < MasterDataController
   # POST creates competency
   def create
     Rails.logger.debug("Create Competency params are #{params}")
-    factor_ids = params[:competency][:factor].collect { |index,factor_hash| factor_hash.keys}
-    mrf_trait_ids = params[:competency][:mrf_trait].collect { |index, factor_hash| factor_hash.keys}
-    functional_trait_ids = params[:competency][:functional_trait].collect { |index, factor_hash| factor_hash.keys}
+    factor_ids = params[:competency][:factor]\
+    .collect { |index,factor_hash| factor_hash.keys} unless params[:competency][:factor].blank?
+    mrf_trait_ids = params[:competency][:mrf_trait]\
+    .collect { |index, factor_hash| factor_hash.keys} unless params[:competency][:mrf_trait].blank?
+    functional_trait_ids = params[:competency][:functional_trait]\
+      .collect { |index, factor_hash| factor_hash.keys} unless params[:competency][:functional_trait].blank?
     params[:competency][:factor] = factor_ids
     params[:competency][:mrf_trait] = mrf_trait_ids
     params[:competency][:functional_trait] = functional_trait_ids
     Vger::Resources::Suitability::Competency.create_competency(params[:competency])
+    render :action => :index
   end
 
   def edit
