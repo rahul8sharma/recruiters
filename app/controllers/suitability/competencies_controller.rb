@@ -30,17 +30,27 @@ class Suitability::CompetenciesController < MasterDataController
   # POST /suitabilty/competencies.json
   # POST creates competency
   def create
-    Rails.logger.debug("Create Competency params are #{params}")
-    factor_ids = params[:competency][:factor]\
-    .collect { |index,factor_hash| factor_hash.keys} unless params[:competency][:factor].blank?
-    mrf_trait_ids = params[:competency][:mrf_trait]\
-    .collect { |index, factor_hash| factor_hash.keys} unless params[:competency][:mrf_trait].blank?
-    functional_trait_ids = params[:competency][:functional_trait]\
-      .collect { |index, factor_hash| factor_hash.keys} unless params[:competency][:functional_trait].blank?
-    params[:competency][:factor] = factor_ids
-    params[:competency][:mrf_trait] = mrf_trait_ids
-    params[:competency][:functional_trait] = functional_trait_ids
-    Vger::Resources::Suitability::Competency.create_competency(params[:competency])
+    company_ids = params[:company_ids].to_s.split(",").map(&:to_i)
+    params[:factor_ids] ||= {}
+    params[:mrf_trait_ids] ||= {}
+    params[:functional_trait_ids] ||= {}
+
+    factor_ids = params[:factor_ids]\
+      .collect { |index,factor_hash| factor_hash.keys}\
+      .flatten
+    mrf_trait_ids = params[:mrf_trait_ids]\
+      .collect { |index, factor_hash| factor_hash.keys}\
+      .flatten
+    functional_trait_ids = params[:functional_trait_ids]\
+      .collect { |index, factor_hash| factor_hash.keys}\
+      .flatten
+
+    params[:competency][:factor_ids] = factor_ids
+    params[:competency][:mrf_trait_ids] = mrf_trait_ids
+    params[:competency][:functional_trait_ids] = functional_trait_ids
+    params[:competency][:company_ids] = company_ids
+
+    Vger::Resources::Suitability::Competency.create(params[:competency])
     render :action => :index
   end
 

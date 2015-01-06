@@ -14,25 +14,27 @@ function jsonRequest(url, dataHash, success_callback_function, failure_callback_
 
 $(document).ready(function(){
   function get_factors_success(response) {
-    console.log(response.factors);
-    $("#traits .suitability").append("<ul>");
-
+    $("#traits .suitability .trait-list").empty();
     for (var i = 0; i < response.factors.length; i++) {
         var factor = response.factors[i].attributes;
-        var id = "competency[factor]["+i+"]["+factor.id+"]";
+        if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "factor_ids["+i+"]["+factor.id+"]";
         $("#traits .suitability .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");
     }
-    $("#traits .suitability").append("</ul>");
   }
 
   function get_mrf_traits_success(response){
-    console.log(response.traits);
-
+    $("#traits .mrf .trait-list").empty();
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        var id = "competency[mrf_trait]["+i+"]["+factor.id+"]";
+        if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "mrf_trait_ids["+i+"]["+factor.id+"]";
         $("#traits .mrf .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");
@@ -42,9 +44,13 @@ $(document).ready(function(){
   }
 
   function get_functional_traits_success(response){
+    $("#traits .functional .trait-list").empty();
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        var id = "competency[functional_trait]["+i+"]["+factor.id+"]";
+        if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "functional_trait_ids["+i+"]["+factor.id+"]";
         $("#traits .functional .trait-list").append("<li>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + factor.name + "</li>");
