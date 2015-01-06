@@ -1,0 +1,31 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+= form_for @survey, :as => :survey, :url => add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  .order_enable_items
+    .page-title
+      = @survey.name
+    .divider2
+    = render :partial => "shared/exit/navigation-sub-nav"
+    .divider2
+    - index = 0
+    - @survey_traits ||= []
+    - @survey_traits.each do |survey_trait|
+      %label 
+        %input{ type: "checkbox", "data-index" => index, class: "survey_trait", checked: survey_trait.is_selected }
+          #{survey_trait.trait.name}
+      %br/
+      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][_destroy]", value: false, id: "destroy_#{index}", disabled: !survey_trait.is_selected }
+      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][id]", id: "id_#{index}", value: survey_trait.id, disabled: !survey_trait.is_selected }
+      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][survey_id]", disabled: !survey_trait.is_selected, value: @survey.id }
+      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][trait_id]", disabled: !survey_trait.is_selected, value: survey_trait.trait_id }
+      - index = index + 1
+
+  .clr
+
+  = f.submit "Proceed", :class=>" btn btn-info large-text pull-right"
+
+  .clr
+= javascript_include_tag "exit/traits"
+
