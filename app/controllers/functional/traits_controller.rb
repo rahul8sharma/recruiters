@@ -59,5 +59,4 @@ class Functional::TraitsController < MasterDataController
       format.json{ render :json => { :traits => factors } }
     end
   end
-
 end

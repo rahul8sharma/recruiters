@@ -2,15 +2,20 @@
   .column
     - score_hash.each_with_index do |(factor_name, factor_score_hash),index|\
       - element_scores_hash = factor_score_hash[:element_scores]
-      - left_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[0]
-      - right_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[1]
+      - if element_scores_hash.keys.size >= 2
+        - left_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[0]
+        - right_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[1]
+      - else
+        - left_keys = element_scores_hash.keys
+        - right_keys = []
+
       - left_element_scores_hash = element_scores_hash.select{ |k,v| left_keys.include? k }
       - right_element_scores_hash = element_scores_hash.select{ |k,v| right_keys.include? k }
       .score_container
         - score = factor_score_hash["score"]
         - less_favorable_klass = score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
         %div{:class => "score #{less_favorable_klass}"}
-          = "#{factor_score_hash["score"].to_i.to_s}%"
+          = "#{score.to_i.to_s}%"
         .sub_trait_name
           = factor_name
         .grid

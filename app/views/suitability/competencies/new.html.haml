@@ -1,0 +1,14 @@
+%h3 Create new suitability competency
+
+
+#competencies
+- @forms.times do |i|
+  %fieldset{ id:'#{i}' }
+    %legend
+      %strong
+        Competency Form
+    = render 'form', method: :post, url: suitability_competencies_path(), competency: @competency, index: i
+= javascript_include_tag 'competencies_management'
+
+
+= link_to 'Back', suitability_competencies_path
