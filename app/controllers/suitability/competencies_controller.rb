@@ -45,13 +45,14 @@ class Suitability::CompetenciesController < MasterDataController
       .collect { |index, factor_hash| factor_hash.keys}\
       .flatten
 
+
     params[:competency][:factor_ids] = factor_ids
     params[:competency][:mrf_trait_ids] = mrf_trait_ids
     params[:competency][:functional_trait_ids] = functional_trait_ids
     params[:competency][:company_ids] = company_ids
 
-    Vger::Resources::Suitability::Competency.create(params[:competency])
-    render :action => :index
+    @competency = Vger::Resources::Suitability::Competency.create(params[:competency])
+    redirect_to self.send("#{resource_name.singularize}_path",@competency)
   end
 
   def edit
@@ -65,6 +66,7 @@ class Suitability::CompetenciesController < MasterDataController
     @competency = api_resource.find(params[:id], :root => :competency)
     respond_to do |format|
       format.html # new.html.erb
+      format.js
     end
   end
 
