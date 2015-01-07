@@ -10,13 +10,15 @@ $(document).ready(function(){
       if(competency.name == undefined){
         console.log(response.competencies[i]);
       }
-      $("#competencies .competency-list").clear();
+      $("#competencies .competencies-list").empty();
       var id = "assessment[competency]["+i+"]["+competency.id+"]";
-      $("#competencies .competency-list").append("<li>"+
+      console.log(competency.name);
+      $(".competencies-list").append("<li>"+
         "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ competency.name + "</label></li>");
     }
     $("#competencies").show();
+
   }
 
   function renderFunctionalTraits(response){
@@ -59,8 +61,18 @@ $(document).ready(function(){
       alert ("Please enter a company ID");
     }
     else{
-      buildCompetencies(company_id);
-      buildFunctionalTraits(company_id);
+      var assessment_type = $("#assessment_assessment_type").val();
+      switch(assessment_type){
+        case "competency":
+          buildCompetencies(company_id);
+        break;
+        default:
+          buildSuitabilityFactors(company_id);
+          buildFunctionalTraits(company_id);
+        break;
+      }
+
+
     }
   });
 

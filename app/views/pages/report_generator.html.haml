@@ -2,15 +2,15 @@
   %p
     %label.field
       Candidate Name
-    = f.text_field :candidate_name
+    = f.text_field :candidate_name, required: true
   %p
     %label.field
       Candidate Email
-    = f.text_field :candidate_email
+    = f.text_field :candidate_email, required: true
   %p
     %label.field
       Candidate Type
-    = f.select :candidate_type, Vger::Resources::Candidate::STAGES - ["manager"]
+    = f.select :candidate_type, Vger::Resources::Candidate::STAGES - ["manager"], required: true
   %p
     %label.field
       Assessment
@@ -31,18 +31,55 @@
           Assessment Name :
           = f.text_field :assessment_name, :value => ""
         %p
+          .control-group
+            %label
+              Select the Industry your Company belongs to
+            %select{name: 'assessment[industry_id]', id: 'select_industry'}
+              %option{:value => ""}
+                Industry
+              - @industries.each do |id,industry|
+                %option{:value => (industry.id)}
+                  = industry.name
+
+            .clr
+        %p
+          .control-group
+            %label
+              Select the Department (or Function) for which you are creating this Assessment
+            %select{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+              %option{:value => ""}
+                Department
+              - @functional_areas.each do |id,functional_area|
+                %option{:value => (functional_area.id)}
+                  = functional_area.name
+            .clr
+        %p
+
+          %label
+            Select Experience Range of the Job Role that you are creating this Assessment for
+          %select{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+            %option{:value => ""}
+              Experience
+            - @job_experiences.each do |id,job_experience|
+              %option{:value => (job_experience.id)}
+                = job_experience.display_text
+          .clr
+        %p
           Assessment Type:
           = f.select :assessment_type, ["Type",Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT,Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY]
         %p
           Pearson?
           = f.select :is_jombay_pearson, ["Yes","No"]
         %p#competencies{style: "display:none;"}
-          Competencies
-          %ul.competencies-list
+          %label
+            Competencies
+            %ul.competencies-list
         %p#traits{style:"display:none;"}
         %p#functional_traits{style:"display:none;"}
           Functional Traits
           %ul.functional-trait-list
+        %p
+          = f.button :Proceed
 
 
   %p.assessment-fields
@@ -53,7 +90,7 @@
       = fields_for "assessment" do |f|
         %p
           Assessment ID
-          = f.text_field :assessment_id, :value => ""
+          = f.text_field :assessment_id, :value => "", required: true
         %p
           = f.button :Proceed
 

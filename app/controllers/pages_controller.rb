@@ -10,9 +10,29 @@ class PagesController < ApplicationController
 
   def report_generator
     if request.post?
+      Rails.logger.debug("Lets go to the next page")
+      # Figure out from which flow has the user submitted the page
+      # Via Existing Assessment flow OR
+      # Via New Assessment flow
+      if params[:assessment][:assessment_id].present? #user has come via existing assessment flow
+
+        #load custom assessment
+        #load assessment_factor_norms
+        #show flags
+        #Show candidate details
+      else
+
+        #Create New Custom Assessment
+        #Figure out Competency Norms Assessment Norms Logic
+        #show flags
+        #Show candidate details
+      end
     end
-
-
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
+                          .all.to_a.collect{|x| [x.id,x]}]
+    @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
+                        .all.to_a.collect{|x| [x.id,x]}]
+    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
   end
 
 

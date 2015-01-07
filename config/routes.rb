@@ -294,7 +294,7 @@ Recruiters::Application.routes.draw do
         get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
       end
     end
-    
+
     resources :exit_surveys, :controller => "exit/surveys", :path => "exit" do
       collection do
         get "home" => "exit/surveys#home", :as => :home
@@ -652,7 +652,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :exit  do
     resources :traits do
       collection do
@@ -936,7 +936,7 @@ Recruiters::Application.routes.draw do
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
   get "/report-management", :to => "pages#report_management", :as => :report_management
   get "/report-generator", :to => "pages#report_generator", :as => :report_generator
-  put "/report-generator", :to => "pages#report_generator", :as => :report_generator
+  post "/report-generator", :to => "pages#report_generator", :as => :report_generator
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
 
