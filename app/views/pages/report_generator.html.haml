@@ -1,4 +1,4 @@
-= fields_for "report" do |f|
+= form_for "report", :url => report_generator_path() do |f|
   %p
     %label.field
       Candidate Name
@@ -18,7 +18,7 @@
     = f.label :assessment_new, "New Assessment"
     = f.radio_button :assessment, 'existing'
     = f.label :assessment_existing, "Existing Assessment"
-  %p#assessment-fields
+  %p.assessment-fields
     %fieldset#new-assessment{ style: "display:none;"}
       %legend
         %strong
@@ -28,11 +28,37 @@
           Company ID :
           = f.text_field :company_id, :value => ""
         %p
-          Assessment ID :
+          Assessment Name :
           = f.text_field :assessment_name, :value => ""
         %p
           Assessment Type:
-          = f.select :assessment_type, Vger::Resources::Suitability::CustomAssessment::ASSESSMENT_TYPES
+          = f.select :assessment_type, ["Type",Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT,Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY]
+        %p
+          Pearson?
+          = f.select :is_jombay_pearson, ["Yes","No"]
+        %p#competencies{style: "display:none;"}
+          Competencies
+          %ul.competencies-list
+        %p#traits{style:"display:none;"}
+        %p#functional_traits{style:"display:none;"}
+          Functional Traits
+          %ul.functional-trait-list
+
+
+  %p.assessment-fields
+    %fieldset#existing-assessment{ style: "display:none;"}
+      %legend
+        %strong
+          Existing Assessment
+      = fields_for "assessment" do |f|
+        %p
+          Assessment ID
+          = f.text_field :assessment_id, :value => ""
+        %p
+          = f.button :Proceed
+
+
+
 
 
 
