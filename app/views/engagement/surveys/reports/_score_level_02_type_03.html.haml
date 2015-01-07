@@ -1,0 +1,44 @@
+.level_02.type_03
+  .column
+    - score_hash.each_with_index do |(factor_name, factor_score_hash),index|\
+      - element_scores_hash = factor_score_hash[:element_scores]
+      - if element_scores_hash.keys.size >= 2
+        - left_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[0]
+        - right_keys = element_scores_hash.keys.each_slice((element_scores_hash.keys.size/2).to_i).to_a[1]
+      - else
+        - left_keys = element_scores_hash.keys
+        - right_keys = []
+
+      - left_element_scores_hash = element_scores_hash.select{ |k,v| left_keys.include? k }
+      - right_element_scores_hash = element_scores_hash.select{ |k,v| right_keys.include? k }
+      .score_container
+        - score = factor_score_hash["score"]
+        - less_favorable_klass = score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+        %div{:class => "score #{less_favorable_klass}"}
+          = "#{score.to_i.to_s}%"
+        .sub_trait_name
+          = factor_name
+        .grid
+        .right
+          - left_element_scores_hash.each_with_index do |(element_name,element_score),index|
+            .sub_score_container.pull-left
+              .grid
+              - less_favorable_klass = element_score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+              %div{:class => "score #{less_favorable_klass}"}
+                = "#{element_score.to_i.to_s}%"
+              .trait_name
+                = element_name
+          .clr
+        .left
+          - right_element_scores_hash.each_with_index do |(element_name,element_score),index|
+            .sub_score_container.pull-right
+              .grid
+              - less_favorable_klass = element_score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+              %div{:class => "score #{less_favorable_klass}"}
+                = "#{element_score.to_i.to_s}%"
+              .trait_name
+                = element_name
+          .clr
+  .clr
+  .divider5
+

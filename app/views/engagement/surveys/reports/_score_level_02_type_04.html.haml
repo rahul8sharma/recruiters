@@ -1,0 +1,24 @@
+.level_02.type_04
+  .column
+    - score_hash.each_with_index do |(factor_name, factor_score_hash),index|
+      .score_container
+        - score = factor_score_hash["score"]
+        - less_favorable_klass = score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+        %div{:class => "score #{less_favorable_klass}"}
+          = "#{score.to_i.to_s}%"
+        .sub_trait_name
+          = factor_name
+        .grid
+        .left
+          - factor_score_hash[:element_scores].each_with_index do |(element_name, element_score),index|
+            .sub_score_container.pull-right
+              .grid
+              - less_favorable_klass = element_score.to_i <  Rails.configuration.reports["engagement_report"]["less_favorable_score"] ? "less_favorable" : ""
+              %div{:class => "score #{less_favorable_klass}"}
+                = "#{element_score.to_i.to_s}%"
+              .trait_name
+                = element_name
+          .clr
+  .clr
+  .divider5
+

@@ -255,6 +255,46 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
+      collection do
+        get "home" => "engagement/surveys#home", :as => :home
+        put "home" => "engagement/surveys#home", :as => :home
+      end
+
+      member do
+        get "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+        put "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+
+        get "details" => "engagement/surveys#details", :as => :details
+        get "elements" => "engagement/surveys#elements", :as => :elements
+
+        get "candidates" => "engagement/surveys/candidates#candidates", :as => :candidates
+        get "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
+        put "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
+        get "candidates/add_bulk" => "engagement/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
+        get "candidates/send-reminder-to-pending" =>"engagement/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
+        put "candidates/bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "engagement/surveys/candidates#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "engagement/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+
+        get "email_assessment_status" => "engagement/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+
+        get "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/bulk-send-test" => "engagement/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+
+        get "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder
+        put "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder"
+        get "candidates/:candidate_id" => "engagement/surveys/candidates#candidate", :as => :candidate
+
+        get "candidates/:candidate_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "engagement/surveys/reports#s3_report", :as => :s3_report
+
+        put "bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
+      end
+    end
+
     resources :jobs do
       collection do
         get :manage
@@ -398,7 +438,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :trait_score_buckets do
       collection do
         get :manage
@@ -530,6 +570,45 @@ Recruiters::Application.routes.draw do
       end
     end
 
+  end
+
+  namespace :engagement  do
+    resources :facets do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :factors do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :elements do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
   end
 
   namespace :suitability do
@@ -770,6 +849,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
+  match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"

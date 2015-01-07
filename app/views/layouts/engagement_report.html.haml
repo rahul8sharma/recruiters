@@ -1,0 +1,12 @@
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "engagement_reports_html"
+  = wicked_pdf_stylesheet_link_tag "shared"
+  
+- content_for :body do
+  = render :partial => "shared/engagement/report_header"
+  .report.engagement
+    = yield
+    = render :partial => "shared/engagement/footer"  
+
+= render :file => 'layouts/haml'

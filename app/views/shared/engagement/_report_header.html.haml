@@ -1,0 +1,25 @@
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+      .big-text.gray-dark.padding-all1.pull-left
+        = @report.report_data[:candidate][:name]
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href=>"#overview",:title => "Overview"}
+              Overview
+          %li
+            %a.scroll{:href=>"#indepth", :title => "In Depth"}
+              In Depth
+          %li
+            %a.scroll{:href=>"#details", :title => "Details"}
+              Details
+          %li
+            %a.scroll{:href=>"#areas_of_concern", :title => "Top Areas of Concern"}
+              Top Concerns
+          %li.right
+= wicked_pdf_javascript_include_tag 'common'
+

@@ -1,0 +1,44 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+= form_for @survey, :as => :survey, :url => add_elements_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  .order_enable_items
+    .page-title
+      = @survey.name
+    .divider2
+    = render :partial => "shared/engagement/navigation-sub-nav"
+    .divider2
+    - index = 0
+    - @facets.each do |facet|
+      .list
+        .title
+          Facet:
+          %span.color-info
+            = facet.name
+        .divider2
+        %ul
+          - @factors[facet.id].each do |factor|
+            %li.items
+              .span12.item
+                = factor.name
+              .span16
+                - @survey_elements[factor.id] ||= []
+                - @survey_elements[factor.id].each do |survey_element|
+                  %label 
+                    %input{ type: "checkbox", "data-index" => index, class: "survey_element", checked: survey_element.is_selected }
+                      #{survey_element.element.name}
+                  %br/
+                  %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][_destroy]", value: false, id: "destroy_#{index}", disabled: !survey_element.is_selected }
+                  %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][id]", id: "id_#{index}", value: survey_element.id, disabled: !survey_element.is_selected }
+                  %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][survey_id]", disabled: !survey_element.is_selected, value: @survey.id }
+                  %input{ type: "hidden", class: "survey_element_input_#{index}", name: "survey[survey_elements_attributes][#{index}][element_id]", disabled: !survey_element.is_selected, value: survey_element.element_id }
+                  - index = index + 1
+
+              .clr
+
+  = f.submit "Proceed", :class=>" btn btn-info large-text pull-right"
+
+  .clr
+= javascript_include_tag "engagement/elements"
+

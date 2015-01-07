@@ -1,6 +1,6 @@
 .divider1
 .control-group
-  %label 
+  %label
     Select the Industry your Company belongs to
   %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
     %option{:value => ""}
@@ -11,7 +11,7 @@
 
   .clr
 .control-group
-  %label 
+  %label
     Select the Department (or Function) for which you are creating this Assessment
   %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
     %option{:value => ""}
@@ -22,22 +22,23 @@
   .clr
 
 .control-group
-  %label 
+  %label
     Select Experience Range of the Job Role that you are creating this Assessment for
   %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
     %option{:value => ""}
       Experience
     - @job_experiences.each do |id,job_experience|
       %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
-        = job_experience.display_text      
+        = job_experience.display_text
   .clr
 .control-group
   %label
-    Enter a Title for the Assessment 
+    Enter a Title for the Assessment
   = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
   .clr
-- if ["new","create"].include?(params[:action]) 
-  = f.fields_for :sets do |set_form|  
+
+- if ["new","create"].include?(params[:action])
+  = f.fields_for :sets do |set_form|
     = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
     = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
     = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
@@ -49,11 +50,11 @@
           Page Size
         = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span17"
         .clr
-    
+
 .clr
 - if is_superadmin?
   .control-group
-    %label 
+    %label
       Select the Language for the Assessment
     %select.span10.first{name: 'assessment[language]', id: 'select_language'}
       - Rails.application.config.languages.each do |code, language|
@@ -63,5 +64,8 @@
     .clr
 - else
   = f.hidden_field :language, value: 'en'
-
+- if params[:action] == "edit"
+  %label
+    %input{type: 'checkbox', name: 'is_jombay_pearson_test', id: 'is_jombay_pearson_test',checked: @assessment.configuration["is_jombay_pearson_test"] }
+      Is Jombay Pearson Test?
 .divider2

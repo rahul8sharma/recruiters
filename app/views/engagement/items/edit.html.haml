@@ -1,0 +1,6 @@
+%h3 Edit Engagement Item #{@item.id}
+
+= render 'form', method: :put, url: engagement_item_path(@item.id), item: @item
+%br
+%br
+= link_to 'Back', engagement_item_path(params[:id])

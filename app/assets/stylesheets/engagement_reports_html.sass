@@ -1,0 +1,511 @@
+@import toolkit/grid/variables
+@import shared/reports/about_us_html
+
+body
+  font-family:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif
+.report
+  min-height: 100%
+.header-container
+  position: relative
+  height: 57px
+#header
+  position: fixed
+  z-index: 9999
+  #nav
+    margin: 20px 0 0 0
+    li
+      float: left
+      background: #f4f4f4
+      height: 37px
+      min-width: 34px
+
+      &.left
+        background: image-url('report/html/nav-left.png') no-repeat transparent
+      &.right
+        background: image-url('report/html/nav-right.png') no-repeat transparent
+      a
+        line-height: 37px
+        color: $grayDark
+        padding: 0 10px
+        font-size: $medium-text
+
+        &:hover
+          color: $color-warning
+          text-decoration: none
+  .print-btn
+    padding: 0 15px
+    font-size: 12px
+    line-height: 20px
+    margin-top: 25px
+
+.spotlight
+  background: #002b3a
+  color: #fff
+  .score-chart
+    .level_01
+      .grid
+        border: 1px solid #fff
+        border-bottom: 0 solid #fff
+      .trait_name
+        border: 0 none
+      .margin_square
+        background: #002b3a
+
+
+  .headings
+    border-bottom: 1px solid #cdcbcc
+
+.overall_score.depth
+  border-bottom: 1px dashed #939598
+  [class^="score"]
+    .trait_name
+      font-weight: 700
+      color: #53c530
+    &.less_favorable
+      .trait_name
+        color: #e28357
+.detail_score
+  border-bottom: 1px dashed #939598
+  .score-chart
+    .level_01
+      .average_score
+        background-position: -2px -125px
+      [class^="score"]
+        background-position: -2px -88px
+        .trait_name
+          border: 0 none
+        &.active
+          background-position: -2px -2px
+          .trait_name
+            border-bottom: 1px solid #000
+            color: #53C530
+          &.less_favorable
+            background-position: -2px -174px
+        &.less_favorable
+          .trait_name
+            color: #e28357
+      .trait_name
+        color: #bcbec0
+        font-weight: 700
+    .level_02
+      .score_container
+        .score
+          background: image-url('report/html/engagement/l2_01_score_bg.png') no-repeat -3px -2px
+          &.less_favorable
+            background-position: -3px -72px
+
+.score-chart
+  .level_01
+    position: relative
+    width: 910px
+    margin: auto
+    color: #fff
+    .trait_name
+      font-size: 18px
+      line-height: 22px
+      height: 65px
+      text-align: center
+      width: 170px
+      position: absolute
+      left: -50px
+      margin-top: 18px
+      border-bottom: 1px solid #000
+    .average_score
+      width: 110px
+      height: 110px
+      background: image-url('report/html/engagement/average_score_bg.png') no-repeat -2px -2px
+      left: 396px
+      top: -60px
+      position: absolute
+      z-index: 500
+      font-size: 30px
+      line-height: 110px
+      text-align: center
+      &.less_favorable
+        background-position: -2px -248px
+    .margin_square
+      position: absolute
+      left: 385px
+      top: -15px
+      height: 70px
+      width: 130px
+      background: #fff
+    .grid
+      margin-left: -1px
+      float: left
+      width: 225px
+      border: 1px solid #000
+      border-bottom: 0
+      height: 105px
+    [class^="score"]
+      top: 110px
+      color: #fff
+      position: absolute
+      height: 72px
+      width: 72px
+      background: image-url('report/html/engagement/l1_score_bg.png') no-repeat -2px -2px
+      line-height: 72px
+      text-align: center
+      font-size: 23px
+
+      &.less_favorable
+        background-position: -2px -174px
+
+    @for $i from 0 through 5
+      .score_#{$i}
+        left: $i * 226px - (36)
+  .level_02
+    color: #fff
+    width: 1150px
+    margin: auto
+    .column
+      margin: 0 29px
+      margin-top: -2px
+    .score_container
+      position: relative
+      width: 170px
+      height: 150px
+      &:first-child
+        height: 100px
+        .grid
+          height: 100px
+      .score
+        background: image-url('report/html/engagement/l2_score_bg.png') no-repeat -3px -2px
+        width: 55px
+        height: 55px
+        margin: auto
+        color: #fff
+        font-size: 16px
+        line-height: 55px
+        text-align: center
+        z-index: 500
+        position: absolute
+        left: 58px
+        bottom: 0px
+        &.less_favorable
+          background-position: -3px -71px
+      .sub_trait_name
+        background: #fff
+        position: absolute
+        text-align: center
+        width: 100%
+        font-size: 16px
+        line-height: 20px
+        color: #000
+        z-index: 500
+        left: 0
+        bottom: -45px
+      .grid
+        height: 150px
+        width: 1px
+        position: absolute
+        left: 50%
+        border-left: 1px solid #000
+        z-index: 400
+    &.type_01
+      .right
+        height: 55px
+        left: 85px
+        position: absolute
+        bottom: 0
+        width: 1050px
+      .sub_score_container
+        width: 165px
+        height: 55px
+        position: relative
+        &:first-child
+          margin-left: 25px
+
+        .trait_name
+          background: #FFFFFF
+          bottom: -60px
+          color: #000000
+          font-size: 14px
+          position: absolute
+          right: -45px
+          text-align: center
+          width: 150px
+        .grid
+          width: 100%
+          top: 50%
+          height: 1px
+          left: auto
+          z-index: 400
+          border: 0
+          border-top: 1px solid #000
+        .score
+          top: 0
+          border-radius: 0
+          position: absolute
+          bottom: auto
+          right: 0
+          left: auto
+          background: #53c530
+          height: 55px
+          width: 55px
+          line-height: 55px
+          text-align: center
+          font-size: 16px
+          &.less_favorable
+            background: #e28357
+    &.type_02
+      .column
+        margin-left: 260px
+      .right
+        height: 55px
+        left: 85px
+        position: absolute
+        bottom: 0
+        width: 835px
+      .sub_score_container
+        width: 165px
+        height: 55px
+        position: relative
+        &:first-child
+          margin-left: 25px
+
+        .trait_name
+          background: #FFFFFF
+          bottom: -60px
+          color: #000000
+          font-size: 14px
+          position: absolute
+          right: -45px
+          text-align: center
+          width: 150px
+        .grid
+          width: 100%
+          top: 50%
+          height: 1px
+          left: auto
+          z-index: 400
+          border: 0
+          border-top: 1px solid #000
+        .score
+          top: 0
+          border-radius: 0
+          position: absolute
+          bottom: auto
+          right: 0
+          left: auto
+          background: #53c530
+          height: 55px
+          width: 55px
+          line-height: 55px
+          text-align: center
+          font-size: 16px
+          &.less_favorable
+            background: #e28357
+    &.type_03
+      .column
+        margin-left: 490px
+      .left,
+      .right
+        height: 55px
+        left: 85px
+        position: absolute
+        bottom: 0
+        width: 640px
+      .left
+        left: -554px
+        .sub_score_container
+          .score
+            left: 0
+            right: auto
+          &:first-child
+            margin-right: 25px
+            margin-left: 0
+        .trait_name
+          left: -45px
+      .sub_score_container
+        width: 165px
+        height: 55px
+        position: relative
+        &:first-child
+          margin-left: 25px
+
+        .trait_name
+          background: #FFFFFF
+          bottom: -60px
+          color: #000000
+          font-size: 14px
+          position: absolute
+          right: -45px
+          text-align: center
+          width: 150px
+        .grid
+          width: 100%
+          top: 50%
+          height: 1px
+          left: auto
+          z-index: 400
+          border: 0
+          border-top: 1px solid #000
+        .score
+          top: 0
+          border-radius: 0
+          position: absolute
+          bottom: auto
+          right: 0
+          left: auto
+          background: #53c530
+          height: 55px
+          width: 55px
+          line-height: 55px
+          text-align: center
+          font-size: 16px
+          &.less_favorable
+            background: #e28357
+    &.type_04
+      .column
+        margin-left: 710px
+      .left
+        height: 55px
+        position: absolute
+        bottom: 0
+        width: 835px
+        left: -750px
+        .sub_score_container
+          .score
+            left: 0
+            right: auto
+          &:first-child
+            margin-right: 25px
+            margin-left: 0
+        .trait_name
+          left: -45px
+      .sub_score_container
+        width: 165px
+        height: 55px
+        position: relative
+        &:first-child
+          margin-left: 25px
+
+        .trait_name
+          background: #FFFFFF
+          bottom: -60px
+          color: #000000
+          font-size: 14px
+          position: absolute
+          right: -45px
+          text-align: center
+          width: 150px
+        .grid
+          width: 100%
+          top: 50%
+          height: 1px
+          left: auto
+          z-index: 400
+          border: 0
+          border-top: 1px solid #000
+        .score
+          top: 0
+          border-radius: 0
+          position: absolute
+          bottom: auto
+          right: 0
+          left: auto
+          background: #53c530
+          height: 55px
+          width: 55px
+          line-height: 55px
+          text-align: center
+          font-size: 16px
+          &.less_favorable
+            background: #e28357
+    &.type_05
+      .column
+        margin-left: 940px
+      .left
+        height: 55px
+        position: absolute
+        bottom: 0
+        width: 1050px
+        right: 75px
+        .sub_score_container
+          .score
+            left: 0
+            right: auto
+          &:first-child
+            margin-right: 25px
+            margin-left: 0
+        .trait_name
+          left: -45px
+      .sub_score_container
+        width: 165px
+        height: 55px
+        position: relative
+        &:first-child
+          margin-left: 25px
+
+        .trait_name
+          background: #FFFFFF
+          bottom: -60px
+          color: #000000
+          font-size: 14px
+          position: absolute
+          right: -45px
+          text-align: center
+          width: 150px
+        .grid
+          width: 100%
+          top: 50%
+          height: 1px
+          left: auto
+          z-index: 400
+          border: 0
+          border-top: 1px solid #000
+        .score
+          top: 0
+          border-radius: 0
+          position: absolute
+          bottom: auto
+          right: 0
+          left: auto
+          background: #53c530
+          height: 55px
+          width: 55px
+          line-height: 55px
+          text-align: center
+          font-size: 16px
+          &.less_favorable
+            background: #e28357
+.areas_of_concern
+  margin-top: -1px
+  height: 780px
+  background: image-url('report/html/engagement/areas_of_concern_bg.png') no-repeat #000 center center
+  color: #fff
+  .container
+    position: relative
+  [class^="snippet"]
+    position: absolute
+    text-align: center
+    width: 220px
+    font-size: 24px
+    line-height: 28px
+  .snippet_01
+    top: 273px
+    left: 90px
+  .snippet_02
+    left: 435px
+    top: 485px
+  .snippet_03
+    left: 635px
+    top: 210px
+  .snippet_04
+    left: 760px
+    top: 460px
+  .snippet_05
+    left: 970px
+    top: 340px
+  .heading
+    font-size: 30px
+    line-height: 90px
+.report-footer
+  background: #28b29b
+  color: #fff
+  font-size: 18px
+  line-height: 55px
+  width: 100%
+  position: absolute
+  bottom: 0

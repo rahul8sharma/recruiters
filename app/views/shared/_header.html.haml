@@ -10,9 +10,9 @@
       .divider1
     - if current_user
       - if defined?(@company)
-        .span8.company_name{:title => "#{@company.name}"}
+        .span4.company_name{:title => "#{@company.name}"}
           = truncate @company.name, :length   => 28
-      .span18.pull-right
+      .span22.pull-right
         %ul#sub-nav.pull-right
           %li
             %a.setting{href: "#", title: "Account"}
@@ -52,6 +52,10 @@
               - if is_superadmin?
                 %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments","mrf/assessments/candidate_feedback"].include?("#{params[:controller]}") ? "active" : "")}
                   360 DEGREE
+            %li
+              - if is_superadmin?
+                %a.mrf{:href=>home_company_engagement_surveys_path(@company), :title=> "Engagement",class: (["engagement/surveys","engagement/candidate_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+                  ENGAGEMENT
             %li
               %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
                 REPORTS
