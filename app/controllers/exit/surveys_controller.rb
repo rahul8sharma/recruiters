@@ -41,8 +41,14 @@ class Exit::SurveysController < ApplicationController
   
   def add_traits
     if request.get?
-      get_traits
+      get_items
     else
+      params[:survey] ||= {}
+      items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
+      items = Hash[params[:items].sort_by{|item_id, item_data| item_data[:order].to_i }]
+      params[:survey][:item_ids] = items.map do |index, item_data|
+        { :type => item_data[:type], :id => item_data[:id].to_i }
+      end
       @survey = Vger::Resources::Exit::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
         flash[:notice] = "Exit Survey created successfully!"
@@ -75,6 +81,21 @@ class Exit::SurveysController < ApplicationController
     else
       @survey = Vger::Resources::Exit::Survey.new
     end
+  end
+  
+  def get_items
+    @items = Vger::Resources::Exit::Item.where(
+      scopes: {
+        :for_company => @company.id
+      },
+      query_options: {
+        :item_group_id => nil
+      }
+    ).all.to_a
+    
+    @item_groups = Vger::Resources::Exit::ItemGroup.where(scopes: {
+      :for_company => @company.id
+    }).all.to_a
   end
   
   def get_traits
