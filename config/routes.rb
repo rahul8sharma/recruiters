@@ -472,6 +472,7 @@ Recruiters::Application.routes.draw do
   namespace :functional do
     resources :traits do
       collection do
+        get :get_traits
         get :manage
         get :destroy_all
         post :import_from_google_drive
@@ -537,6 +538,7 @@ Recruiters::Application.routes.draw do
 
     resources :traits do
       collection do
+        get :get_traits
         get :manage
         get :destroy_all
         post :import_from_google_drive
@@ -847,6 +849,7 @@ Recruiters::Application.routes.draw do
 
     resources :factors do
       collection do
+        get :get_factors
         post :import
         get :manage
         get :destroy_all
@@ -880,12 +883,13 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :form_builder do
     resources :defined_forms
     resources :factual_information_forms
   end
 
+  get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
   get "/trr/manage", :to => "suitability/custom_assessments/training_requirements_reports_management#manage", :as => :trr_manage
   post "/trr/manage/export_assessment_trr_candidates", :to =>  "suitability/custom_assessments/training_requirements_reports_management#export_assessment_trr_candidates", :as => :export_assessment_trr_candidates
