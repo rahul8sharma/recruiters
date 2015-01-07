@@ -1,0 +1,31 @@
+.container  
+  .span14.page-title.first
+    Create a new Exit Survey
+  .clr.divider2
+  = render :partial => "shared/exit/navigation-sub-nav"
+  .divider2
+  = form_for :survey, as: :survey, url: company_exit_surveys_path(@company) do |f|
+    = f.hidden_field :survey_type, value: "trait"
+    .border-primary
+      .padding-all2.border-bottom-grayLighter
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2 
+            Enter a title for this Exit Survey
+          %input.span20.pull-right{:type => "text", name: "survey[name]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this Exit Survey", name: "survey[name]"}
+        .clr
+        .divider2
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2 
+            Page size
+          %input.span20.pull-right{:type => "text", name: "survey[page_size]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Page size", name: "survey[page_size]"}
+        .clr
+        .divider2
+        %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
+        .clr
+      .clr

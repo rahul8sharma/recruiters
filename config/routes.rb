@@ -294,6 +294,46 @@ Recruiters::Application.routes.draw do
         get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
       end
     end
+    
+    resources :exit_surveys, :controller => "exit/surveys", :path => "exit" do
+      collection do
+        get "home" => "exit/surveys#home", :as => :home
+        put "home" => "exit/surveys#home", :as => :home
+      end
+
+      member do
+        get "add_traits" => "exit/surveys#add_traits", :as => :add_traits
+        put "add_traits" => "exit/surveys#add_traits", :as => :add_traits
+
+        get "details" => "exit/surveys#details", :as => :details
+        get "traits" => "exit/surveys#traits", :as => :traits
+
+        get "candidates" => "exit/surveys/candidates#candidates", :as => :candidates
+        get "candidates/add" => "exit/surveys/candidates#add_candidates", :as => :add_candidates
+        put "candidates/add" => "exit/surveys/candidates#add_candidates", :as => :add_candidates
+        get "candidates/add_bulk" => "exit/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
+        get "candidates/send-reminder-to-pending" =>"exit/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
+        put "candidates/bulk_upload" => "exit/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "exit/surveys/candidates#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "exit/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+
+        get "email_assessment_status" => "exit/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+
+        get "candidates/send-survey" => "exit/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/send-survey" => "exit/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/bulk-send-test" => "exit/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+
+        get "candidates/:candidate_id/send-reminder" => "exit/surveys/candidates#send_reminder", :as => :send_reminder
+        put "candidates/:candidate_id/send-reminder" => "exit/surveys/candidates#send_reminder"
+        get "candidates/:candidate_id" => "exit/surveys/candidates#candidate", :as => :candidate
+
+        get "candidates/:candidate_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
+        get "candidates/:candidate_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
+
+        put "bulk_upload" => "exit/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_exit_bulk_upload", :to => "exit/surveys/candidates#download_sample_csv_for_exit_bulk_upload", :as => :download_sample_csv_for_exit_bulk_upload
+      end
+    end
 
     resources :jobs do
       collection do
@@ -612,6 +652,27 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  namespace :exit  do
+    resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
+  end
 
   namespace :suitability do
     resources :item_groups do
@@ -859,6 +920,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
   match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
+  match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"

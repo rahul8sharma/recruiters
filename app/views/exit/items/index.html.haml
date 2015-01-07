@@ -1,0 +1,11 @@
+%h1 All Items / Item Groups
+- if can? :create, "Exit::Item"
+  = link_to "Manage Exit Items", manage_exit_items_path
+
+.pagination.pull-right
+  = paginate @items
+.clr
+= render partial: 'index', locals: { items: @items }
+.pagination.pull-right
+  = paginate @items
+.clr

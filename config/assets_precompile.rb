@@ -20,6 +20,6 @@ assets.precompile += %w(training_requirements_report.css)
 assets.precompile += %w(shared/reports/benchmarks/factor_benchmark.css)
 assets.precompile += %w(walk_ins.css walk_ins.js training_requirements.css feedback.css training_requirements_report_pdf.css)
 assets.precompile += %w(engagement.css engagement_reports_html.css)
-assets.precompile += %w(engagement/elements.js)
+assets.precompile += %w(engagement/elements.js exit/traits.js)
 assets.precompile += %w(form_builder/defined_forms.js)
 
