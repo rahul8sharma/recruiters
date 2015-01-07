@@ -3,23 +3,25 @@
 = form_for @competency, url: url, :as => :competency, remote: true do |f|
   .field
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, required: true
+
   .field
     = f.label :active
     = f.check_box :active
   %label
     Company IDs
-    %input{:id => 'company_ids', :type =>'text', :name => "company_ids"}
-  %div{:class => "load_traits"}
+    %input{:id => 'company_ids',:class => index, :type =>'text', :name => "company_ids"}
+  %div{:class => "load_traits", :id => "#{index}"}
     %a{:href => "#"}
       Load Traits
-  #traits
+  %input{name: 'form_index', type: 'hidden', value: (index) , index: (index)}
+  %div{ id: "load_traits_#{index}"}
     .field.suitability
       %label
         Suitability Factors
       %br
       %br
-      %ul.trait-list
+      %ul.trait-list.suitability-traits
       .clr
     %br
     .field.mrf
@@ -27,7 +29,7 @@
         MRF Traits
       %br
       %br
-      %ul.trait-list
+      %ul.trait-list.mrf-traits
       .clr
 
     .field.functional
@@ -35,7 +37,7 @@
         Functional Traits
       %br
 
-      %ul.trait-list
+      %ul.trait-list.functional-traits
       .clr
 
   .actions
