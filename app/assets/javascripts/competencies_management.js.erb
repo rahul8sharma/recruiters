@@ -1,16 +1,4 @@
-function jsonRequest(url, dataHash, success_callback_function, failure_callback_function) {
-  $.ajax(url, {
-    type: 'GET',
-    data: dataHash,
-    dataType: 'json',
-    success: function(response) {
-        success_callback_function(response);
-    },
-    error: function(response) {
-        failure_callback_function(response);
-    }
-  });
-}
+//= require ajax
 
 $(document).ready(function(){
   function get_factors_success(response) {
@@ -21,9 +9,9 @@ $(document).ready(function(){
           console.log(response.factors[i]);
         }
         var id = "factor_ids["+i+"]["+factor.id+"]";
-        $("#traits .suitability .trait-list").append("<li>"+
+        $("#traits .suitability .trait-list").append("<li  class='pull-left'>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
-           + factor.name + "</li>");
+           + "<label for="+id+">"+factor.name +"</label></li>");
     }
   }
 
@@ -35,9 +23,9 @@ $(document).ready(function(){
           console.log(response.factors[i]);
         }
         var id = "mrf_trait_ids["+i+"]["+factor.id+"]";
-        $("#traits .mrf .trait-list").append("<li>"+
+        $("#traits .mrf .trait-list").append("<li  class='pull-left'>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
-           + factor.name + "</li>");
+           + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
 
@@ -51,9 +39,9 @@ $(document).ready(function(){
           console.log(response.factors[i]);
         }
         var id = "functional_trait_ids["+i+"]["+factor.id+"]";
-        $("#traits .functional .trait-list").append("<li>"+
+        $("#traits .functional .trait-list").append("<li class='pull-left'>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
-           + factor.name + "</li>");
+          + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
   }
