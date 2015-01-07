@@ -177,6 +177,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
+      flash[:error] ||= ""
       candidate_assessments = []
       failed_candidate_assessments = []
       if params[:selected_candidates].empty?
@@ -195,6 +196,18 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         if params[:send_report_to_candidate]
           recipient = @candidate.email 
           assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
+        end
+        if params[:options][:send_report_links_to_manager].present? || params[:options][:send_assessment_links_to_manager].present?
+          if params[:options][:manager_name].blank?
+            flash[:error] = "Please enter the Notification Recipient's name<br/>".html_safe
+            get_templates(params[:candidate_stage])
+            render :action => :send_test_to_candidates and return
+          end
+          if !(Validators.email_regex =~ params[:options][:manager_email])
+            flash[:error] += "Please enter a valid Email Address for Notification Recipient".html_safe
+            get_templates(params[:candidate_stage])
+            render :action => :send_test_to_candidates and return
+          end
         end
         options = {
           :assessment_taker_type => assessment_taker_type,
@@ -234,7 +247,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         #flash[:error] = "Cannot send test to #{failed_candidate_assessments.size} candidates.#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         #redirect_to candidates_url
         flash[:error] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
-        get_templates
+        get_templates(params[:candidate_stage])
         render :action => :send_test_to_candidates and return
       else
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
