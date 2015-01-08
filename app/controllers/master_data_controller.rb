@@ -17,7 +17,7 @@ class MasterDataController < ApplicationController
       flash[:error] = @resource.error_messages.join("<br/>").html_safe
       render :action => :new
     else
-      redirect_to self.send("#{resource_name.singularize}_path",@resource)
+      redirect_to self.send("#{resource_name.singularize}_path",@resource.id)
     end
   end
   
@@ -35,7 +35,7 @@ class MasterDataController < ApplicationController
       flash[:error] = @resource.error_messages.join("<br/>").html_safe
       render :action => :edit
     else
-      redirect_to self.send("#{resource_name.singularize}_path",@resource)
+      redirect_to self.send("#{resource_name.singularize}_path",@resource.id)
     end
   end
   
@@ -98,7 +98,7 @@ class MasterDataController < ApplicationController
   end
   
   def resource_path(resource)
-    self.send("#{resource_name.singularize}_path",resource)
+    self.send("#{resource_name.singularize}_path",resource.id)
   end
   
   def manage_path
