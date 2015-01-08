@@ -317,6 +317,24 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
     }, :include => [:candidate_assessment_reports])
+    if is_superadmin?
+      @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
+        query_options: {
+          :assessment_id => @assessment.id,
+          :assessment_type => @assessment.class.name.gsub("Vger::Resources::","")
+        }
+      }).all.to_a[0]
+      @factual_information = []
+      if @custom_form
+        @factual_information = Vger::Resources::FormBuilder::FactualInformation.where({
+          query_options: {
+            candidate_id: @candidate.id,
+            factual_information_form_id: @custom_form.id
+          },
+          include: [:defined_field]
+        }).all.to_a
+      end   
+    end
   end
 
   def send_reminder_to_pending_candidates
