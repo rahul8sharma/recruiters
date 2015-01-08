@@ -1,0 +1,64 @@
+= form_for "report", :url => report_generator_scores_path() do |f|
+  %p
+    %label.field
+      Candidate Name
+    = f.text_field :candidate_name, required: true, value: @candidate_details["candidate_name"], disabled: true
+  %p
+    %label.field
+      Candidate Email
+    = f.text_field :candidate_email, required: true, value: @candidate_details["candidate_email"], disabled: true
+  %p
+    %label.field
+      Candidate Type
+    = f.text_field :candidate_type,required: true,  value:@candidate_details["candidate_type"], disabled: true
+  %p
+    %label.field
+      Report Flags
+    = f.check_box :interview_guide
+    = f.label :interview_guide, "Show Interview Guide"
+    = f.check_box :development_guide_manager
+    = f.label :development_guide_manager, "Show Development Guide - Manager"
+    = f.check_box :development_guide_candidate
+    = f.label :development_guide_candidate, "Show Development Guide - Candidate"
+    = f.check_box :include_subjective_questions
+    = f.label :include_subjective_questions
+    = f.check_box :include_objective_questions
+    = f.label :include_objective_questions
+  %p
+    %label.field
+      Assessment Name
+    = f.text_field :assessment_name, required: true, value: @assessment.name, disabled: true
+  %p
+    %label.field
+      Company ID
+    = f.text_field :company_id, required: true, value: @assessment.company_id, disabled: true
+  %p
+    %label.field
+      Assessment Type
+    = f.text_field :assessment_type, required: true, value: @assessment.assessment_type, disabled: true
+  %p
+    %label.field
+      Pearson?
+    = f.text_field :is_jombay_pearson_test, required: true, value: @assessment.is_jombay_pearson_test, disabled: true
+
+  - if @assessment.assessment_type == "competency" && @competencies.present?
+    %p
+      %label.field
+        Competencies
+      %ul
+        - @competencies.each do |competency|
+          %li
+            = competency.name
+  %p
+    %label.field
+      Assessment Factor Norms
+  %ul
+    - @assessment_factor_norms.each do |afn|
+      %li
+        = afn.factor.name
+
+
+
+
+
+= javascript_include_tag 'report_generator'
