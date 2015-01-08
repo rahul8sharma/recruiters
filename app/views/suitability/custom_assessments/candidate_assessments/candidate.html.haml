@@ -107,6 +107,19 @@
           .span8
             #{ h @candidate.no_of_dependents }
           .clr
+        - if is_superadmin?  
+          - if @custom_form
+            %li.border-bottom-grayLighter.padding-all1
+              .span9.large-text
+                = @custom_form.name
+              .clr      
+          - @factual_information.each do |factual_information|  
+            %li.border-bottom-grayLighter.padding-all1
+              .span9.big-text
+                = factual_information.defined_field.label
+              .span8
+                #{ h factual_information.response }
+              .clr  
   .divider1
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .page-title
