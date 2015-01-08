@@ -72,7 +72,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
       render :action => :send_survey_to_candidates
     else
       survey_traits = @survey.survey_traits.all.to_a
-      if !survey_traits.present?
+      if @survey.item_ids.empty?
         flash[:error] = "You need to select traits before sending an survey. Please select traits from below."
         redirect_to add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
       end

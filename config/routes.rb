@@ -672,6 +672,15 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
+    
+    resources :item_groups do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
   end
 
   namespace :suitability do
