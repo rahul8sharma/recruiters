@@ -29,7 +29,7 @@
           = f.text_field :company_id, :value => ""
         %p
           Assessment Name :
-          = f.text_field :assessment_name, :value => ""
+          = f.text_field :name, :value => ""
         %p
           .control-group
             %label
@@ -69,7 +69,7 @@
           = f.select :assessment_type, ["Type",Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT,Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY]
         %p
           Pearson?
-          = f.select :is_jombay_pearson, ["Yes","No"]
+          = f.select :is_jombay_pearson_test, ["Yes","No"]
         %p#competencies{style: "display:none;"}
           %label
             Competencies
@@ -90,8 +90,7 @@
       = fields_for "assessment" do |f|
         %p
           Assessment ID
-          = f.text_field :assessment_id, :value => "", required: true
-        %p
+          = f.text_field :assessment_id, :value => ""
           = f.button :Proceed
 
 
