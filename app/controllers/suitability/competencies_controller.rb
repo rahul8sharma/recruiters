@@ -41,20 +41,23 @@ class Suitability::CompetenciesController < MasterDataController
 
       factor_ids = params[:factor_ids]\
         .collect { |index,factor_hash| factor_hash.keys}\
-        .flatten
+        .flatten.map(&:to_i)
       mrf_trait_ids = params[:mrf_trait_ids]\
         .collect { |index, factor_hash| factor_hash.keys}\
-        .flatten
+        .flatten.map(&:to_i)
       functional_trait_ids = params[:functional_trait_ids]\
         .collect { |index, factor_hash| factor_hash.keys}\
-        .flatten
+        .flatten.map(&:to_i)
       params[:competency][:factor_ids] = factor_ids
       params[:competency][:mrf_trait_ids] = mrf_trait_ids
       params[:competency][:functional_trait_ids] = functional_trait_ids
       params[:competency][:company_ids] = company_ids
 
       @competency = Vger::Resources::Suitability::Competency.create(params[:competency])
-      redirect_to self.send("#{resource_name.singularize}_path",@competency)
+      respond_to do |format|
+        format.html{ redirect_to self.send("#{resource_name.singularize}_path",@competency) }
+        format.js
+      end
     else
       flash[:error] = "Either competency name is missing or factor ids are missing. Please Check"
     end
@@ -68,7 +71,9 @@ class Suitability::CompetenciesController < MasterDataController
   end
 
   def show
-    @competency = api_resource.find(params[:id], :root => :competency)
+    @competency = api_resource.find(params[:id], :root => :competency, 
+      :methods => [:factor_ids, :company_ids, :functional_trait_ids, :mrf_trait_ids]
+    )
     respond_to do |format|
       format.html # new.html.erb
       format.js

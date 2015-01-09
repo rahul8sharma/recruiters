@@ -5,6 +5,20 @@
   Active:
   = @competency.active
 %div
+  Factor Ids:
+  = @competency.factor_ids
+%div
+  Company Ids:
+  = @competency.company_ids
+%div
+  Functional Trait Ids:
+  = @competency.functional_trait_ids
+%div
+  360 Trait Ids:
+  = @competency.mrf_trait_ids
+  
+  
+%div
   = link_to "Edit", edit_suitability_competency_path(@competency)
   \|
   = link_to "Back", suitability_competencies_path
