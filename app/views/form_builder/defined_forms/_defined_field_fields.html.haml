@@ -1,6 +1,13 @@
-.defined_field.pull-left{ id: "new_fields_#{f.object.id}", style: "border: 1px solid #fff;padding:10px;" }
+.defined_field.pull-left{ id: "new_fields_#{f.object.id}", class: "defined_field", style: "border: 1px solid #fff;padding:10px;" }
+  - if !f.object.id
+    %a{ href:"javascript:void(0);", onclick: "removeDefinedField(this);", id: f.object.id }
+      Remove
+  .msg{ style: "color:red;" }  
+    - if f.object.id && !f.object.active
+      = "This field is inactive."
   - if f.object.id.present?
-    = f.hidden_field :id, value: f.object.id
+    =# f.check_box :_destroy, :class => "remove_field"
+    = f.hidden_field :id, value: f.object.id, :class => "id_field"
   .field
     %label Order
     = f.select :field_order, [*1..100]
@@ -27,7 +34,7 @@
     = f.check_box :is_mandatory
   .field.pull-left
     %label Active
-    = f.check_box :active
+    = f.check_box :active, :class => "active_field"
   .clr  
   .field
     %label Options
