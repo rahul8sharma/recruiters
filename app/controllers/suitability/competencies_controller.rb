@@ -32,6 +32,7 @@ class Suitability::CompetenciesController < MasterDataController
   # POST /suitabilty/competencies.json
   # POST creates competency
   def create
+    set_params
     @competency = Vger::Resources::Suitability::Competency.create(params[:competency])
     respond_to do |format|
       format.html{ redirect_to self.send("#{resource_name.singularize}_path",@competency) }
