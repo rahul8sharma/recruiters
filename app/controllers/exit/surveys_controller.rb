@@ -3,6 +3,7 @@ class Exit::SurveysController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey, :except => [:index,:home]
+  before_filter :get_defined_forms, :only => [:new, :edit, :create]
   
   layout 'exit'
 
@@ -31,6 +32,14 @@ class Exit::SurveysController < ApplicationController
     params[:survey][:company_id] = @company.id
     @survey = Vger::Resources::Exit::Survey.new(params[:survey])
     if @survey.save
+      if params[:defined_form_id].present?
+        factual_information_form = Vger::Resources::FormBuilder::FactualInformationForm.create({
+          :defined_form_id => params[:defined_form_id],
+          :company_id => @company.id,
+          :assessment_type => "Exit::Survey",
+          :assessment_id => @survey.id
+        })
+      end
       flash[:notice] = "Exit Survey created successfully!"
       redirect_to add_traits_company_exit_survey_path(@company.id,@survey.id)
     else
@@ -121,5 +130,9 @@ class Exit::SurveysController < ApplicationController
         @survey_traits.push(survey_trait)
       end
     end
+  end
+  
+  def get_defined_forms
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
   end
 end
