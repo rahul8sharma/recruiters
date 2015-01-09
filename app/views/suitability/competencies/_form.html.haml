@@ -1,6 +1,13 @@
-- url = @competency.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+- url = @competency.id.present? ? resource_path(@competency) : self.send("#{resource_name}_path")
 - button = @competency.id.present? ? 'Update' : 'Create New Competency'
+- @competency.company_ids ||= []
+- @competency.factor_ids ||= []
+- @competency.mrf_trait_ids ||= []
+- @competency.functional_trait_ids ||= []
 = form_for @competency, url: url, :as => :competency, remote: true do |f|
+  %input{ type: "hidden", id: "input_factor_ids", value: @competency.factor_ids.join(",") }
+  %input{ type: "hidden", id: "input_functional_trait_ids", value: @competency.functional_trait_ids.join(",") }
+  %input{ type: "hidden", id: "input_mrf_trait_ids", value: @competency.mrf_trait_ids.join(",") }
   .field
     = f.label :name
     = f.text_field :name, required: true
@@ -10,7 +17,7 @@
     = f.check_box :active
   %label
     Company IDs
-    %input{:id => 'company_ids',:class => index, :type =>'text', :name => "company_ids"}
+    %input{:id => 'company_ids',:class => index, :type =>'text', :name => "company_ids", value: @competency.company_ids.join(",")}
   %div{:class => "load_traits", :id => "#{index}"}
     %a{:href => "#"}
       Load Traits
@@ -41,4 +48,4 @@
       .clr
 
   .actions
-    = f.submit button
+    = f.submit button, disable_with: "Wait..."

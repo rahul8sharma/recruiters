@@ -32,43 +32,27 @@ class Suitability::CompetenciesController < MasterDataController
   # POST /suitabilty/competencies.json
   # POST creates competency
   def create
-
-    if ((params[:factor_ids] || params[:mrf_trait_ids] || params[:functional_trait_ids]) && (params[:competency][:name].present?))
-      company_ids = params[:company_ids].to_s.split(",").map(&:to_i)
-      params[:factor_ids] ||= {}
-      params[:mrf_trait_ids] ||= {}
-      params[:functional_trait_ids] ||= {}
-
-      factor_ids = params[:factor_ids]\
-        .collect { |index,factor_hash| factor_hash.keys}\
-        .flatten
-      mrf_trait_ids = params[:mrf_trait_ids]\
-        .collect { |index, factor_hash| factor_hash.keys}\
-        .flatten
-      functional_trait_ids = params[:functional_trait_ids]\
-        .collect { |index, factor_hash| factor_hash.keys}\
-        .flatten
-      params[:competency][:factor_ids] = factor_ids
-      params[:competency][:mrf_trait_ids] = mrf_trait_ids
-      params[:competency][:functional_trait_ids] = functional_trait_ids
-      params[:competency][:company_ids] = company_ids
-
-      @competency = Vger::Resources::Suitability::Competency.create(params[:competency])
-      redirect_to self.send("#{resource_name.singularize}_path",@competency)
-    else
-      flash[:error] = "Either competency name is missing or factor ids are missing. Please Check"
+    set_params
+    @competency = Vger::Resources::Suitability::Competency.create(params[:competency])
+    respond_to do |format|
+      format.html{ redirect_to self.send("#{resource_name.singularize}_path",@competency) }
+      format.js
     end
   end
 
   def edit
-    @competency = api_resource.find(params[:id], :root => :competency)
+    @competency = api_resource.find(params[:id], :root => :competency, 
+      :methods => [:factor_ids, :company_ids, :functional_trait_ids, :mrf_trait_ids]
+    )
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # edit.html.erb
     end
   end
 
   def show
-    @competency = api_resource.find(params[:id], :root => :competency)
+    @competency = api_resource.find(params[:id], :root => :competency, 
+      :methods => [:factor_ids, :company_ids, :functional_trait_ids, :mrf_trait_ids]
+    )
     respond_to do |format|
       format.html # new.html.erb
       format.js
@@ -76,14 +60,38 @@ class Suitability::CompetenciesController < MasterDataController
   end
 
   def update
+    set_params
     @competency = api_resource.save_existing(params[:id], params[:competency])
     respond_to do |format|
       if @competency.error_messages.present?
         flash[:error] = @competency.error_messages.join("<br/>").html_safe
         format.html{ render :action => :edit }
+        format.js
       else
         format.html{ redirect_to suitability_competency_path(params[:id]) }
+        format.js
       end
     end
+  end
+  
+  def set_params
+    company_ids = params[:company_ids].to_s.split(",").map(&:to_i)
+    params[:factor_ids] ||= {}
+    params[:mrf_trait_ids] ||= {}
+    params[:functional_trait_ids] ||= {}
+
+    factor_ids = params[:factor_ids]\
+      .collect { |index,factor_hash| factor_hash.keys}\
+      .flatten.map(&:to_i)
+    mrf_trait_ids = params[:mrf_trait_ids]\
+      .collect { |index, factor_hash| factor_hash.keys}\
+      .flatten.map(&:to_i)
+    functional_trait_ids = params[:functional_trait_ids]\
+      .collect { |index, factor_hash| factor_hash.keys}\
+      .flatten.map(&:to_i)
+    params[:competency][:factor_ids] = factor_ids
+    params[:competency][:mrf_trait_ids] = mrf_trait_ids
+    params[:competency][:functional_trait_ids] = functional_trait_ids
+    params[:competency][:company_ids] = company_ids
   end
 end
