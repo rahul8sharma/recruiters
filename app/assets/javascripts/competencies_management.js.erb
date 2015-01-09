@@ -4,29 +4,26 @@ $(document).ready(function(){
   var index;
   function get_factors_success(response) {
     $("#load_traits_"+index+" .suitability .suitability-traits").empty();
+    var factor_ids = $("#input_factor_ids").val().split(",");
     for (var i = 0; i < response.factors.length; i++) {
         var factor = response.factors[i].attributes;
-        if(factor.name == undefined){
-          console.log(response.factors[i]);
-        }
-        console.log("Index is "+index);
         var id = "factor_ids["+i+"]["+factor.id+"]";
+        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" .suitability .suitability-traits").append("<li  class='pull-left'>"+
-          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+          "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
   }
 
   function get_mrf_traits_success(response){
     $('#load_traits_'+index+' .mrf .mrf-traits').html("");
+    var factor_ids = $("#input_mrf_trait_ids").val().split(",");
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        if(factor.name == undefined){
-          console.log(response.factors[i]);
-        }
         var id = "mrf_trait_ids["+i+"]["+factor.id+"]";
+        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" .mrf .mrf-traits").append("<li  class='pull-left'>"+
-          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+          "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
@@ -35,14 +32,14 @@ $(document).ready(function(){
 
   function get_functional_traits_success(response){
     $("#load_traits_"+index+" .functional .functional-traits").empty();
+    var factor_ids = $("#input_functional_trait_ids").val().split(",");
     for (var i = 0; i < response.traits.length; i++) {
         var factor = response.traits[i].attributes;
-        if(factor.name == undefined){
-          console.log(response.factors[i]);
-        }
+        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         var id = "functional_trait_ids["+i+"]["+factor.id+"]";
+        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" .functional .functional-traits").append("<li class='pull-left'>"+
-          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+          "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
           + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
@@ -51,6 +48,8 @@ $(document).ready(function(){
   function get_factors_failure(response){
     console.log(response);
   }
+  
+  
   $(".load_traits").on("click",function(event){
     index = $(this).attr('id');
     var company_ids = $("#company_ids").val();
