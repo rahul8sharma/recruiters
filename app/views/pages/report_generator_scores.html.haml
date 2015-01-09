@@ -1,16 +1,18 @@
-= form_for "report", :url => report_generator_scores_path() do |f|
+= form_for "report", :url => generate_report_path() do |f|
   %p
     %label.field
       Candidate Name
-    = f.text_field :candidate_name, required: true, value: @candidate_details["candidate_name"], disabled: true
+    = f.text_field :candidate_name, required: true, value: @candidate_details["candidate_name"]
   %p
     %label.field
       Candidate Email
-    = f.text_field :candidate_email, required: true, value: @candidate_details["candidate_email"], disabled: true
+    = f.text_field :candidate_email, required: true, value: @candidate_details["candidate_email"]
   %p
     %label.field
       Candidate Type
-    = f.text_field :candidate_type,required: true,  value:@candidate_details["candidate_type"], disabled: true
+    = f.text_field :candidate_type,required: true,  value:@candidate_details["candidate_type"]
+  %input{name: "report[assessment_id]", type: 'hidden', value: @assessment.id}
+  %input{name: "report[competency_ids]", type: 'hidden', value: @competency_ids}
   %p
     %label.field
       Report Flags
@@ -24,39 +26,156 @@
     = f.label :include_subjective_questions
     = f.check_box :include_objective_questions
     = f.label :include_objective_questions
+    %p
+      = f.check_box :include_functional_trait_scores
+      = f.label :include_functional_trait_scores
   %p
     %label.field
       Assessment Name
-    = f.text_field :assessment_name, required: true, value: @assessment.name, disabled: true
+    = f.text_field :assessment_name, required: true, value: @assessment.name
   %p
     %label.field
       Company ID
-    = f.text_field :company_id, required: true, value: @assessment.company_id, disabled: true
+    = f.text_field :company_id, required: true, value: @assessment.company_id
   %p
     %label.field
       Assessment Type
-    = f.text_field :assessment_type, required: true, value: @assessment.assessment_type, disabled: true
+    = f.text_field :assessment_type, required: true, value: @assessment.assessment_type
   %p
     %label.field
       Pearson?
-    = f.text_field :is_jombay_pearson_test, required: true, value: @assessment.is_jombay_pearson_test, disabled: true
+    = f.text_field :is_jombay_pearson_test, required: true, value: @assessment.is_jombay_pearson_test
 
   - if @assessment.assessment_type == "competency" && @competencies.present?
     %p
       %label.field
         Competencies
-      %ul
-        - @competencies.each do |competency|
-          %li
-            = competency.name
-  %p
-    %label.field
-      Assessment Factor Norms
-  %ul
-    - @assessment_factor_norms.each do |afn|
-      %li
-        = afn.factor.name
+    %ul
+      - @competencies.each do |competency|
+        %li
+          = competency.name
+  - if @assessment_factor_norms.present?
+    %p
+      %label.field
+        Assessment Factor Norms
+    %table{width: "100%"}
+      %th{width: "40%"}
+        Factor Name
+      %th{width: "20%"}
+        From Norm Bucket
+      %th{width: "20%"}
+        To Norm Bucket
+      %th{width: "20%"}
+        Desired Score
+      - @assessment_factor_norms.each do |afn|
+        %tr
+          %td
+            = afn.factor.name
+          %td
+            %select{name:"report[norm_ranges][#{afn.factor_id}][from_norm_bucket_id]"}
+              - @norm_buckets.each do |norm_bucket|
+                - if afn.from_norm_bucket_id == norm_bucket.id
+                  %option{value: norm_bucket.id, selected:'selected'}
+                    = norm_bucket.name
+                - else
+                  %option{value: norm_bucket.id}
+                    = norm_bucket.name
+          %td
+            %select{name:"report[norm_ranges][#{afn.factor_id}][to_norm_bucket_id]"}
+              - @norm_buckets.each do |norm_bucket|
+                - if afn.to_norm_bucket_id == norm_bucket.id
+                  %option{value: norm_bucket.id, selected:'selected'}
+                    = norm_bucket.name
+                - else
+                  %option{value: norm_bucket.id}
+                    = norm_bucket.name
+          %td
+            %select{name:"report[desired_score][#{afn.factor_id}]"}
+              - @norm_buckets.each do |norm_bucket|
+                %option{value: norm_bucket.id}
+                  = norm_bucket.name
 
+  - if @functional_assessment_traits.present?
+    %p
+      %label.field
+        Functional Assessment Traits
+    %table{width: "100%"}
+      %th{width: "40%"}
+        Functional Trait Name
+      %th{width: "20%"}
+        From Norm Bucket
+      %th{width: "20%"}
+        To Norm Bucket
+      %th{width: "20%"}
+        Desired Score
+      - @functional_assessment_traits.each do |at|
+        %tr
+          %td
+            %input{type:'checkbox', name:"report[functional_traits][#{at.trait_id}]",id:"report[functional_traits][#{at.trait_id}]"}
+            %label{for: "report[functional_traits][#{at.trait_id}]"}
+              = at.trait.name
+          %td
+            %select{name:"report[functional_norm_ranges][#{at.trait_id}][from_norm_bucket_id]"}
+              - @functional_norm_buckets.each do |norm_bucket|
+                - if at.from_norm_bucket_id == norm_bucket.id
+                  %option{value: norm_bucket.id, selected:'selected'}
+                    = norm_bucket.name
+                - else
+                  %option{value: norm_bucket.id}
+                    = norm_bucket.name
+          %td
+            %select{name:"report[functional_norm_ranges][#{at.trait_id}][to_norm_bucket_id]"}
+              - @functional_norm_buckets.each do |norm_bucket|
+                - if at.to_norm_bucket_id == norm_bucket.id
+                  %option{value: norm_bucket.id, selected:'selected'}
+                    = norm_bucket.name
+                - else
+                  %option{value: norm_bucket.id}
+                    = norm_bucket.name
+          %td
+            %select{name:"report[functional_desired_score][#{at.trait_id}]"}
+              - @functional_norm_buckets.each do |norm_bucket|
+                %option{value: norm_bucket.id}
+                  = norm_bucket.name
+
+  - if @objective_items.present?
+    %p
+      %label
+        Objective Items
+      %ul
+        - @objective_items.each do |objective_item|
+          %li
+            = objective_item.body
+            %p
+              - name = "report[objective_item][#{objective_item.id}][option]"
+              %select{name: name, id: 'select_industry'}
+                - objective_item.options.each do |option|
+                  %option{:value => (option.id)}
+                    = option.body
+
+  - if @subjective_items.present?
+    %p
+      %label
+        Subjective Items
+      %ul
+        - @subjective_items.each do |subjective_item|
+          %li
+            = subjective_item.body
+            %p
+              - name = "report[subjective_item][#{subjective_item.id}][response]"
+              %input{type:'text',name: name,id: name}
+
+
+
+
+
+
+
+
+
+
+  .divider3
+  = f.button "Generate Report"
 
 
 

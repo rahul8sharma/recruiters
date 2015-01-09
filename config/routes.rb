@@ -938,6 +938,7 @@ Recruiters::Application.routes.draw do
   get "/report-generator", :to => "pages#report_generator", :as => :report_generator
   post "/report-generator", :to => "pages#report_generator", :as => :report_generator
   post "/report-generator-scores", :to => "pages#report_generator_scores", :as => :report_generator_scores
+  post "/generate_report", :to =>"pages#generate_report", :as => :generate_report
   put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "pages#manage_report", :as => :manage_report
 

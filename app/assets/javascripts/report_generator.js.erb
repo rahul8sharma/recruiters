@@ -27,9 +27,9 @@ $(document).ready(function(){
       if(trait.name == undefined){
         console.log(response.traits[i]);
       }
-      $("#functional_traits .functional-trait-list").clear();
+      $("#functional_traits .functional-trait-list").empty();
       var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
-      $("#functional_traits .functional-trait-list").append("<li>"+
+      $(".functional-trait-list").append("<li>"+
         "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ trait.name + "</label></li>");
     }
@@ -37,12 +37,34 @@ $(document).ready(function(){
 
   }
 
+  function renderSuitabilityFactors(response){
+    for (var i = 0; i < response.factors.length; i++) {
+        var factor = response.factors[i].attributes;
+        if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "assessment[factors]["+i+"]["+factor.id+"]";
+        $(".trait-list").append("<li >"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + "<label for="+id+">"+factor.name +"</label></li>");
+    }
+    $("#traits").show();
+
+  }
+
+
   function buildCompetencies(company_id){
     jsonRequest("/suitability/competencies/get_competencies",{company_ids: company_id},renderCompetencies,failure)
+
   }
 
   function buildFunctionalTraits(company_id){
    jsonRequest("/functional/traits/get_traits",{company_ids: company_id},renderFunctionalTraits,failure)
+  }
+
+  function buildSuitabilityFactors(company_id){
+    jsonRequest("/suitability/factors/get_factors",{company_ids: company_id},renderSuitabilityFactors,failure)
+
   }
 
   $("#report_assessment_new").on("click",function(){
@@ -68,7 +90,6 @@ $(document).ready(function(){
         break;
         default:
           buildSuitabilityFactors(company_id);
-          buildFunctionalTraits(company_id);
         break;
       }
 

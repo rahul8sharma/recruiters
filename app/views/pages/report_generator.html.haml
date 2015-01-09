@@ -75,9 +75,33 @@
             Competencies
             %ul.competencies-list
         %p#traits{style:"display:none;"}
+          %label
+            Factors
+            %ul.trait-list
         %p#functional_traits{style:"display:none;"}
-          Functional Traits
+          %label
+            Functional Traits
           %ul.functional-trait-list
+          %label
+            Objective Questions
+          %ul
+            - @objective_items.each_with_index do |objective_item,index|
+              %li
+                - name = "objective_items[#{index}][#{objective_item.id}]"
+                %input{type:'checkbox', value:"#{objective_item.id}",name:"#{name}",id:"#{name}"}
+                %label{for: "#{name}"}
+                  = objective_item.body
+          %label
+            Subjective Questions
+          %ul
+            - @subjective_items.each_with_index do |subjective_item,index|
+              %li
+                - name = "subjective_items[#{index}][#{subjective_item.id}]"
+                %input{type:'checkbox', value:"#{subjective_item.id}",name:"#{name}",id:"#{name}"}
+                %label{for: "#{name}"}
+                  = subjective_item.body
+
+
         %p
           = f.button :Proceed
 
