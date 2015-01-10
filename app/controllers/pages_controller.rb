@@ -33,7 +33,7 @@ class PagesController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all
     @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
     @assessment_factor_norms = []
-    @functional_assessment_traits = []
+
     if request.post?
       # Figure out from which flow has the user submitted the page
       # Via Existing Assessment flow OR
@@ -44,11 +44,23 @@ class PagesController < ApplicationController
         @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all.to_a
 
         @functional_assessment_traits = @assessment.functional_assessment_traits
+        Rails.logger.ap @functional_assessment_traits.size
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY
           competency_ids = @assessment.competency_ids
           competencies = Vger::Resources::Suitability::Competency.find(competency_ids)
           @competencies = @assessment.competency_order.map{|competency_id| competencies.detect{|competency| competency.id == competency_id }}
         end
+        objective_ids = @assessment.item_ids["other_objective_items"]\
+          .collect { |item_hash| item_hash[:id] }
+
+
+        @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
+
+        subjective_ids = @assessment.item_ids["other_subjective_items"]\
+          .collect { |item_hash| item_hash[:id]}
+
+        @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
+
         # handle assessment not found scenario
       else # user has landed on the page via new assessment flow
         params[:assessment][:is_jombay_pearson_test] = params[:assessment][:is_jombay_pearson_test] == "Yes"
@@ -153,17 +165,21 @@ class PagesController < ApplicationController
           @functional_assessment_trait.to_norm_bucket_id = @functional_norm_buckets.last.id
           @functional_assessment_traits.push @functional_assessment_trait
         end
-      end
-      @candidate_details = params[:report]
-      objective_ids = params[:objective_items]\
-          .collect { |index,factor_hash| factor_hash.keys}\
-          .flatten.map { |i| i.to_i }
-      @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
-      subjective_ids = params[:subjective_items]\
+
+        objective_ids = params[:objective_items]\
           .collect { |index,factor_hash| factor_hash.keys}\
           .flatten.map { |i| i.to_i }
 
-      @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
+        @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
+
+        subjective_ids = params[:subjective_items]\
+            .collect { |index,factor_hash| factor_hash.keys}\
+            .flatten.map { |i| i.to_i }
+
+        @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
+      end
+      @candidate_details = params[:report]
+
 
 
     end
