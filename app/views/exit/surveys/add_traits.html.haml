@@ -9,23 +9,40 @@
     .divider2
     = render :partial => "shared/exit/navigation-sub-nav"
     .divider2
-    - index = 0
-    - @survey_traits ||= []
-    - @survey_traits.each do |survey_trait|
-      %label 
-        %input{ type: "checkbox", "data-index" => index, class: "survey_trait", checked: survey_trait.is_selected }
-          #{survey_trait.trait.name}
+    .big-text
+      Smileys
+    - index = 1 
+    - @item_groups.each do |item_group|
+      %label.pull-left
+        %input{ type: "hidden", name: "items[#{index}][type]", value: item_group.class.name.gsub('Vger::Resources::','') }
+        %input{ type: "hidden", name: "items[#{index}][id]", value: item_group.id }
+        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item_group", checked: true }
+        #{item_group.body}
+      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+        - 100.times do |order|
+          %option{ value: order+1, selected: index == order+1 }
+            = order+1  
+      .clr
+      %br/    
+      - index += 1
+    .big-text
+      Reasons
+    - @items.each do |item|
+      %label.pull-left
+        #{item.body}
+        %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
+        %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
+        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
+      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+        - 100.times do |order|
+          %option{ value: order+1, selected: index == order+1 }
+            = order+1
+      - index += 1        
+      .clr
       %br/
-      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][_destroy]", value: false, id: "destroy_#{index}", disabled: !survey_trait.is_selected }
-      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][id]", id: "id_#{index}", value: survey_trait.id, disabled: !survey_trait.is_selected }
-      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][survey_id]", disabled: !survey_trait.is_selected, value: @survey.id }
-      %input{ type: "hidden", class: "survey_trait_input_#{index}", name: "survey[survey_traits_attributes][#{index}][trait_id]", disabled: !survey_trait.is_selected, value: survey_trait.trait_id }
-      - index = index + 1
 
   .clr
 
   = f.submit "Proceed", :class=>" btn btn-info large-text pull-right"
 
   .clr
-= javascript_include_tag "exit/traits"
-
