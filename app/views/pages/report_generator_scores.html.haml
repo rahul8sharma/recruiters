@@ -107,7 +107,7 @@
                 %option{value: norm_bucket.id}
                   = norm_bucket.name
 
-  - if @functional_assessment_traits.present?
+  - if !@functional_assessment_traits.empty?
     %p
       %label.field
         Functional Assessment Traits
