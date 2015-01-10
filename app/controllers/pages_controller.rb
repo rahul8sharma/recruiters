@@ -113,6 +113,7 @@ class PagesController < ApplicationController
           @competency_ids = params[:assessment][:competency]\
           .collect { |index,hash| hash.keys}\
           .flatten.map { |i| i.to_i }
+          Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { competency_order: @competency_ids })
           @competencies = Vger::Resources::Suitability::Competency.find(@competency_ids)
           selected_factor_ids = @competencies.collect { |competency| competency.factor_ids }.flatten.uniq
           selected_factors = factors.select{ |key,value| selected_factor_ids.include? key}
