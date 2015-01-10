@@ -26,9 +26,9 @@
     = f.label :include_subjective_questions
     = f.check_box :include_objective_questions
     = f.label :include_objective_questions
-    %p
-      = f.check_box :include_functional_trait_scores
-      = f.label :include_functional_trait_scores
+    / %p
+    /   = f.check_box :include_functional_trait_scores
+    /   = f.label :include_functional_trait_scores
   %p
     %label.field
       Assessment Name
@@ -50,10 +50,22 @@
     %p
       %label.field
         Competencies
-    %ul
+    %table
+      %th
+        Competency Name
+      %th
+        Desired Grade
       - @competencies.each do |competency|
-        %li
-          = competency.name
+        %tr
+          %td
+            = competency.name
+          %td
+            %select{name:"report[competency_grades][grade_#{competency.id}]"}
+              - @norm_buckets.each do |norm_bucket|
+                %option{value: norm_bucket.name}
+                  = norm_bucket.name
+
+
   - if @assessment_factor_norms.present?
     %p
       %label.field
@@ -90,7 +102,7 @@
                   %option{value: norm_bucket.id}
                     = norm_bucket.name
           %td
-            %select{name:"report[desired_score][#{afn.factor_id}]"}
+            %select{name:"report[desired_score][#{afn.factor_id}][norm_bucket_id]"}
               - @norm_buckets.each do |norm_bucket|
                 %option{value: norm_bucket.id}
                   = norm_bucket.name
@@ -133,7 +145,7 @@
                   %option{value: norm_bucket.id}
                     = norm_bucket.name
           %td
-            %select{name:"report[functional_desired_score][#{at.trait_id}]"}
+            %select{name:"report[functional_desired_score][#{at.trait_id}][norm_bucket_id]"}
               - @functional_norm_buckets.each do |norm_bucket|
                 %option{value: norm_bucket.id}
                   = norm_bucket.name
@@ -162,8 +174,9 @@
           %li
             = subjective_item.body
             %p
-              - name = "report[subjective_item][#{subjective_item.id}][response]"
-              %input{type:'text',name: name,id: name}
+              - subjective_item.body.scan("<text_box>").each_with_index do | i, index|
+                - name = "report[subjective_item][#{subjective_item.id}][#{index}]"
+                %input{type:'text',name: name,id: name}
 
 
 
