@@ -3,53 +3,41 @@
 $(document).ready(function(){
   var index;
   function get_factors_success(response) {
-    $("#load_traits_"+index+" .suitability .suitability-traits").empty();
+    $("#load_traits_"+index+" .suitability ."+response.factors.trait_class_type+"-traits").empty();
     var factor_ids = $("#input_factor_ids").val().split(",");
-    for (var i = 0; i < response.factors.length; i++) {
-        var factor = response.factors[i].attributes;
+    for (var i = 0; i < response.factors.global_factors.length; i++) {
+        var factor = response.factors.global_factors[i].attributes;
         var id = "factor_ids["+i+"]["+factor.id+"]";
         var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
-        $("#load_traits_"+index+" .suitability .suitability-traits").append("<li  class='pull-left'>"+
-          "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
-           + "<label for="+id+">"+factor.name +"</label></li>");
-    }
-  }
-
-  function get_mrf_traits_success(response){
-    $('#load_traits_'+index+' .mrf .mrf-traits').html("");
-    var factor_ids = $("#input_mrf_trait_ids").val().split(",");
-    for (var i = 0; i < response.traits.length; i++) {
-        var factor = response.traits[i].attributes;
-        var id = "mrf_trait_ids["+i+"]["+factor.id+"]";
-        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
-        $("#load_traits_"+index+" .mrf .mrf-traits").append("<li  class='pull-left'>"+
+        $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .global").append("<li  class='pull-left'>"+
           "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
-
-  }
-
-  function get_functional_traits_success(response){
-    $("#load_traits_"+index+" .functional .functional-traits").empty();
-    var factor_ids = $("#input_functional_trait_ids").val().split(",");
-    for (var i = 0; i < response.traits.length; i++) {
-        var factor = response.traits[i].attributes;
+    for (var i = 0; i < response.factors.and_factors.length; i++) {
+        var factor = response.factors.and_factors[i].attributes;
+        var id = "factor_ids["+i+"]["+factor.id+"]";
         var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
-        var id = "functional_trait_ids["+i+"]["+factor.id+"]";
-        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
-        $("#load_traits_"+index+" .functional .functional-traits").append("<li class='pull-left'>"+
+        $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .custom-and").append("<li  class='pull-left'>"+
           "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
-          + "<label for="+id+">"+factor.name +"</label></li>");
+           + "<label for="+id+">"+factor.name +"</label></li>");
     }
 
+    for (var i = 0; i < response.factors.difference_factors.  length; i++) {
+        var factor = response.factors.difference_factors[i].attributes;
+        var id = "factor_ids["+i+"]["+factor.id+"]";
+        var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
+        $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .custom-difference").append("<li  class='pull-left'>"+
+          "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
+           + "<label for="+id+">"+factor.name+" ("+factor.company_names+")" +"</label></li>");
+    }
   }
 
   function get_factors_failure(response){
     console.log(response);
   }
-  
-  
+
+
   $(".load_traits").on("click",function(event){
     index = $(this).attr('id');
     var company_ids = $("#company_ids").val();
@@ -57,7 +45,7 @@ $(document).ready(function(){
           "company_ids": company_ids
         }
     jsonRequest("/suitability/factors/get_factors", hash, get_factors_success, get_factors_failure);
-    jsonRequest("/mrf/traits/get_traits",hash,get_mrf_traits_success,get_factors_failure);
-    jsonRequest("/functional/traits/get_traits",hash,get_functional_traits_success,get_factors_failure);
+    jsonRequest("/mrf/traits/get_traits",hash,get_factors_success,get_factors_failure);
+    jsonRequest("/functional/traits/get_traits",hash,get_factors_success,get_factors_failure);
   })
 });
