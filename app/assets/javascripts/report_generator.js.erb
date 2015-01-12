@@ -15,31 +15,43 @@ $(document).ready(function(){
       console.log(competency.name);
       $(".competencies-list").append("<li>"+
         "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
-         +"<label for="+id+">"+ competency.name + "</label></li>");
+         +"<label for="+id+">"+ competency.name+" ("+competency.factor_names+")" + "</label></li>");
     }
     $("#competencies").show();
 
   }
 
   function renderFunctionalTraits(response){
-   for (var i = 0; i < response.traits.length; i++) {
-      var trait = response.traits[i].attributes;
+    $("#functional_traits .functional-trait-list").empty();
+    for (var i = 0; i < response.factors.global_factors.length; i++) {
+      var trait = response.factors.global_factors[i].attributes;
       if(trait.name == undefined){
         console.log(response.traits[i]);
       }
-      $("#functional_traits .functional-trait-list").empty();
       var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
       $(".functional-trait-list").append("<li>"+
         "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ trait.name + "</label></li>");
     }
+    for (var i = 0; i < response.factors.and_factors.length; i++) {
+      var trait = response.factors.and_factors[i].attributes;
+      if(trait.name == undefined){
+        console.log(response.traits[i]);
+      }
+
+      var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
+      $(".functional-trait-list").append("<li>"+
+        "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
+         +"<label for="+id+">"+ trait.name + "</label></li>");
+    }
+
     $("#functional_traits").show();
 
   }
 
   function renderSuitabilityFactors(response){
-    for (var i = 0; i < response.factors.length; i++) {
-        var factor = response.factors[i].attributes;
+    for (var i = 0; i < response.factors.global_factors.length; i++) {
+        var factor = response.factors.global_factors[i].attributes;
         if(factor.name == undefined){
           console.log(response.factors[i]);
         }
@@ -48,8 +60,18 @@ $(document).ready(function(){
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
-    $("#traits").show();
+    for (var i = 0; i < response.factors.and_factors.length; i++) {
+      var factor = response.factors.and_factors[i].attributes;
+      if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "assessment[factors]["+i+"]["+factor.id+"]";
+        $(".trait-list").append("<li >"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + "<label for="+id+">"+factor.name +"</label></li>");
+    }
 
+    $("#traits").show();
   }
 
 
@@ -90,6 +112,7 @@ $(document).ready(function(){
         break;
         default:
           buildSuitabilityFactors(company_id);
+          buildFunctionalTraits(company_id);
         break;
       }
 
