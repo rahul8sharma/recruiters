@@ -11,6 +11,8 @@
     .divider2
     - index = 0
     - @facets.each do |facet|
+      - factors = @factors[facet.id] || []
+      - next if factors.empty?
       .list
         .title
           Facet:
@@ -18,7 +20,7 @@
             = facet.name
         .divider2
         %ul
-          - @factors[facet.id].each do |factor|
+          - factors.each do |factor|
             %li.items
               .span12.item
                 = factor.name
