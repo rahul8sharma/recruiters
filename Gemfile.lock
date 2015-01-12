@@ -37,10 +37,8 @@ GIT
       rails (~> 3.2.13)
       sidekiq (= 2.12.1)
 
-GIT
-  remote: git@github.com:yournextleap/vger.git
-  revision: bcfe861afdfa33677f6df04799a5386fa759bc6a
-  branch: develop
+PATH
+  remote: ../vger
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
@@ -87,6 +85,11 @@ GEM
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
+    better_errors (0.8.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.1)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -98,11 +101,13 @@ GEM
     celluloid-redis (0.0.2)
       celluloid-io (>= 0.13.0.pre)
       redis
+    coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
     connection_pool (1.2.0)
+    debug_inspector (0.0.2)
     ejs (1.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -126,6 +131,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    json (1.8.1)
     json (1.8.1-java)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -133,9 +139,13 @@ GEM
     mime-types (1.25.1)
     multi_json (1.8.4)
     multipart-post (1.2.0)
+    nio4r (1.0.0)
     nio4r (1.0.0-java)
+    nokogiri (1.5.11)
     nokogiri (1.5.11-java)
     polyglot (0.3.4)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     puma (2.9.0-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
@@ -213,6 +223,7 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   awesome_print (= 1.1.0)
