@@ -152,6 +152,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
+                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
