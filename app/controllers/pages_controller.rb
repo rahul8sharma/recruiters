@@ -131,20 +131,20 @@ class PagesController < ApplicationController
           selected_factors = factors.select{ |key,value| selected_factor_ids.include? key}
           selected_factors.each_with_index do |factor,index|
             assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-            :factor_id => factor[0],
-            :functional_area_id => @assessment.functional_area_id,
-            :industry_id => @assessment.industry_id,
-            :job_experience_id => @assessment.job_experience_id,
-            :selected => true
-            )
-            default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor[0]}
-            if default_norm_bucket_range
-              assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
-              assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
-            else
-              assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
-              assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
-            end
+              :factor_id => factor[0],
+              :functional_area_id => @assessment.functional_area_id,
+              :industry_id => @assessment.industry_id,
+              :job_experience_id => @assessment.job_experience_id,
+              :selected => true
+              )
+              default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor[0]}
+              if default_norm_bucket_range
+                assessment_factor_norm.from_norm_bucket_id = default_norm_bucket_range.from_norm_bucket_id
+                assessment_factor_norm.to_norm_bucket_id = default_norm_bucket_range.to_norm_bucket_id
+              else
+                assessment_factor_norm.from_norm_bucket_id = @norm_buckets.first.id
+                assessment_factor_norm.to_norm_bucket_id = @norm_buckets.last.id
+              end
             assessment_factor_norm.functional_area_id = params[:assessment][:functional_area_id]
             assessment_factor_norm.industry_id = params[:assessment][:industry_id]
             assessment_factor_norm.job_experience_id = params[:assessment][:job_experience_id]
@@ -155,7 +155,7 @@ class PagesController < ApplicationController
           #for every functional trait - setup an functional_assessment_trait object
           Rails.logger.ap @functional_traits
         end
-
+        @functional_assessment_traits = []
         @functional_traits.each do |trait|
           Rails.logger.ap trait
           @functional_assessment_trait = Vger::Resources::Functional::AssessmentTrait.new({ trait_id: trait.id, assessment_id: @assessment.id,
