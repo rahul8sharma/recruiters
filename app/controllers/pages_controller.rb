@@ -50,16 +50,26 @@ class PagesController < ApplicationController
           competencies = Vger::Resources::Suitability::Competency.find(competency_ids)
           @competencies = @assessment.competency_order.map{|competency_id| competencies.detect{|competency| competency.id == competency_id }}
         end
-        objective_ids = @assessment.item_ids["other_objective_items"]\
-          .collect { |item_hash| item_hash[:id] }
+        # Ensure backward compatibility with older assessments where
+        # the item_ids are an array of hashes
+        # so in short older assessments wont have
+        # a) other_objective_items
+        # b) other_subjective_items
+        # c) functional_assessment traits as well, but that is handled gracefully above
+        # Newer assessments' item_ids are hash of array of hashes
+
+        unless @assessment.item_ids.is_a?(Array)
+          objective_ids = @assessment.item_ids["other_objective_items"]\
+            .collect { |item_hash| item_hash[:id] }
 
 
-        @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
+          @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
 
-        subjective_ids = @assessment.item_ids["other_subjective_items"]\
-          .collect { |item_hash| item_hash[:id]}
+          subjective_ids = @assessment.item_ids["other_subjective_items"]\
+            .collect { |item_hash| item_hash[:id]}
 
-        @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
+          @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
+        end
 
         # handle assessment not found scenario
       else # user has landed on the page via new assessment flow
