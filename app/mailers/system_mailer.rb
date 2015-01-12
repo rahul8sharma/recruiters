@@ -16,7 +16,9 @@ class SystemMailer < ActionMailer::Base
   def send_report(report_hash)
     @report_hash = report_hash
     subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
-    to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
+    recipients = report_hash[:report_email_recipients].to_s.split(",")
+    recipients.delete report_hash[:candidate][:email]
+    to = recipients.present? ? recipients.join(",") : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
 
@@ -39,7 +41,7 @@ class SystemMailer < ActionMailer::Base
   def send_report_to_candidate(report_hash)
     @report_hash = report_hash
     subject = "#{report_hash[:candidate][:name]}, your psychometric report by Jombay is ready!"
-    to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
+    to = report_hash[:candidate][:email].present? ? report_hash[:candidate][:email] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
 
