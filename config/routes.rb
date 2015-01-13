@@ -294,7 +294,7 @@ Recruiters::Application.routes.draw do
         get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
       end
     end
-    
+
     resources :exit_surveys, :controller => "exit/surveys", :path => "exit" do
       collection do
         get "home" => "exit/surveys#home", :as => :home
@@ -468,6 +468,19 @@ Recruiters::Application.routes.draw do
       post 'export_to_google_drive'
     end
   end
+
+  resources :teams do
+    collection do
+      get :get_teams
+      post :import
+      get :manage
+      get :destroy_all
+      post 'import_from_google_drive'
+      post 'export_to_google_drive'
+    end
+  end
+
+
 
   namespace :functional do
     resources :traits do
@@ -652,7 +665,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :exit  do
     resources :traits do
       collection do
@@ -672,7 +685,7 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
-    
+
     resources :item_groups do
       collection do
         get :manage
@@ -879,6 +892,28 @@ Recruiters::Application.routes.draw do
         end
       end
     end
+  end
+
+  namespace :social_recognition do
+    resources :moods do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
+      end
+    end
+    resources :lead_points do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
+      end
+    end
+
   end
 
   namespace :finance do
