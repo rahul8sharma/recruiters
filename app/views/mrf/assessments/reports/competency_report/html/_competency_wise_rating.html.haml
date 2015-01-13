@@ -14,12 +14,13 @@
               = competency_scores[:average_score_self][:bucket] ? competency_scores[:average_score_self][:bucket] : 'No Responses'
             .clr
 
-          .trait_rating.score
-            .left
-              Assessment Score
-            .right
-              = competency_scores[:assessment_rating] ? competency_scores[:assessment_rating] : 'No Responses'
-            .clr
+          - if competency_scores[:assessment_rating]
+            .trait_rating.score
+              .left
+                Assessment Score
+              .right
+                = competency_scores[:assessment_rating]
+              .clr
 
           .divider1
 
