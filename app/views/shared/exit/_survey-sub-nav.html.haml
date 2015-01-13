@@ -1,7 +1,7 @@
 .content-sub-nav.clearfix
   %a.menu{class: (["details"].include?(params[:action]) ? "active" : ""), href: details_company_exit_survey_path(@company.id,@survey.id)}
     Statistics
-  %a.menu{class: (["elements"].include?(params[:action]) ? "active" : ""), href: traits_company_exit_survey_path(@company.id,@survey.id)}
+  %a.menu{class: (["traits"].include?(params[:action]) ? "active" : ""), href: traits_company_exit_survey_path(@company.id,@survey.id)}
     Traits Included
-  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : ""), href: candidates_company_exit_survey_path(@company.id,@survey.id)}
+  %a.menu{class: (["candidates","candidate"].include?(params[:action]) ? "active" : ""), href: candidates_company_exit_survey_path(@company.id,@survey.id)}
     Candidates
