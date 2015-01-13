@@ -13,13 +13,13 @@
             .right
               = competency_scores[:average_score_self][:bucket] rescue 'NA'
             .clr
-
-          .trait_rating.score
-            .left
-              Assessment Score
-            .right
-              = competency_scores[:assessment_rating] rescue 'NA'
-            .clr
+          - if competency_scores[:assessment_rating]
+            .trait_rating.score
+              .left
+                Assessment Score
+              .right
+                = competency_scores[:assessment_rating] rescue 'NA'
+              .clr
 
           .divider1
 
