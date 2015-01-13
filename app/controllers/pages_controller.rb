@@ -59,14 +59,13 @@ class PagesController < ApplicationController
         # Newer assessments' item_ids are hash of array of hashes
 
         unless @assessment.item_ids.is_a?(Array)
-          objective_ids = @assessment.item_ids["other_objective_items"]\
-            .collect { |item_hash| item_hash[:id] }
+          objective_item_ids  = @assessment.item_ids["other_objective_items"] || []
+          objective_ids = objective_item_ids.collect { |item_hash| item_hash[:id] }
 
 
           @objective_items = Vger::Resources::ObjectiveItem.where(:query_options => { :id => objective_ids}, :include => [ :options ]).all.to_a if objective_ids.present?
-
-          subjective_ids = @assessment.item_ids["other_subjective_items"]\
-            .collect { |item_hash| item_hash[:id]}
+          subjective_item_ids = @assessment.item_ids["other_subjective_items"] || []
+          subjective_ids = subjective_item_ids.collect { |item_hash| item_hash[:id]}
 
           @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
         end

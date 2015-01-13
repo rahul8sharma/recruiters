@@ -5,19 +5,29 @@ $(document).ready(function(){
     console.log(response);
   }
   function renderCompetencies(response) {
+    $("#competencies").show();
+
+    $("#traits").hide();
+    $(".trait-item").remove();
+    $("#functional_traits").hide();
+    $("#functional_traits .functional-trait-list").hide();
+    $('.functional-trait-item').remove();
+
+
+
     for (var i = 0; i < response.competencies.length; i++) {
       var competency = response.competencies[i].attributes;
       if(competency.name == undefined){
-        console.log(response.competencies[i]);
+       // console.log(response.competencies[i]);
       }
       $("#competencies .competencies-list").empty();
       var id = "assessment[competency]["+i+"]["+competency.id+"]";
       console.log(competency.name);
-      $(".competencies-list").append("<li>"+
+      $(".competencies-list").append("<li class='competency-item'>"+
         "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ competency.name+" ("+competency.factor_names+")" + "</label></li>");
     }
-    $("#competencies").show();
+
 
   }
 
@@ -26,21 +36,21 @@ $(document).ready(function(){
     for (var i = 0; i < response.factors.global_factors.length; i++) {
       var trait = response.factors.global_factors[i].attributes;
       if(trait.name == undefined){
-        console.log(response.traits[i]);
+      //  console.log(response.traits[i]);
       }
       var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
-      $(".functional-trait-list").append("<li>"+
+      $(".functional-trait-list").append("<li class='functional-trait-item'>"+
         "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ trait.name + "</label></li>");
     }
     for (var i = 0; i < response.factors.and_factors.length; i++) {
       var trait = response.factors.and_factors[i].attributes;
       if(trait.name == undefined){
-        console.log(response.traits[i]);
+      //  console.log(response.traits[i]);
       }
 
       var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
-      $(".functional-trait-list").append("<li>"+
+      $(".functional-trait-list").append("<li class='functional-trait-item'>"+
         "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ trait.name + "</label></li>");
     }
@@ -50,13 +60,16 @@ $(document).ready(function(){
   }
 
   function renderSuitabilityFactors(response){
+    $("#traits .trait-list").empty();
+    $('.competency-item').remove();
+    $("#competencies").hide();
     for (var i = 0; i < response.factors.global_factors.length; i++) {
         var factor = response.factors.global_factors[i].attributes;
         if(factor.name == undefined){
-          console.log(response.factors[i]);
+        //  console.log(response.factors[i]);
         }
         var id = "assessment[factors]["+i+"]["+factor.id+"]";
-        $(".trait-list").append("<li >"+
+        $(".trait-list").append("<li class='trait-item' >"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
@@ -66,11 +79,10 @@ $(document).ready(function(){
           console.log(response.factors[i]);
         }
         var id = "assessment[factors]["+i+"]["+factor.id+"]";
-        $(".trait-list").append("<li >"+
+        $(".trait-list").append("<li class='trait-item'>"+
           "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
            + "<label for="+id+">"+factor.name +"</label></li>");
     }
-
     $("#traits").show();
   }
 
