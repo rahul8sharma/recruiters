@@ -98,6 +98,22 @@
               .clr                    
     .clr
     .divider2.border-bottom-grayLighter
+    - if is_superadmin?
+      .divider2
+      .left-offset1
+        .extra-medium-text
+          Optional: Enter the email addresses of the people who should receive the Assessment Reports
+          .medium-text
+            (after the Assessment is completed by the Assessment Taker)
+        .divider1
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %input.span18.first{ type:'text', name: 'report_email_recipients'}
+          .clr
+          .ie
+            Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+          .clr
     - if params[:candidates]
       .divider2
       .span17.text-center.extra-medium-text.left-offset1

@@ -95,12 +95,16 @@ class Engagement::SurveysController < ApplicationController
     @factors = Vger::Resources::Engagement::Factor.where({
       query_options: {
         :active => true
-      }
+      },
+      page: 1,
+      per: 1000
     }).all.to_a.group_by(&:facet_id)
     @elements = Vger::Resources::Engagement::Element.where({
       query_options: {
         :active => true
-      }
+      },
+      page: 1,
+      per: 1000
     }).all.to_a.group_by(&:id)
     @survey_elements = @survey.survey_elements.all.to_a
     @survey_elements.each do |survey_element|

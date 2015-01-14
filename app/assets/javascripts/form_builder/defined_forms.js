@@ -15,3 +15,12 @@ function addField(selector, association, content){
   });
   $("#new_fields_").attr("id","new_fields_"+randomId);
 }
+
+function removeDefinedField(obj){
+  if($(obj).parent().find(".id_field").length > 0) {
+    $(obj).parent().find(".active_field").removeAttr("checked");
+    $(obj).parent().find(".msg").html("This field is marked for removal");
+  } else {
+    $(obj).parent().remove();
+  }
+}

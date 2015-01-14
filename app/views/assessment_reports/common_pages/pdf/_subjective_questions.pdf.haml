@@ -1,4 +1,4 @@
-- if @report.report_data[:subjective_items].present?
+- if @report.report_hash[:subjective_items].present? && @report.report_hash[:include_objective_questions]
   - @report.report_data[:subjective_items].each_slice(3) do |subjective_items|
     = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .functional-questions.objective
@@ -18,7 +18,7 @@
           - item_data[:response].each do |index, response|
             .label.label-warning.pull-left.left-offset1
               Response #{(index.to_i+1)}
-            .span15.bold    
+            .span15.bold
               = response
             .clr
             .divider1

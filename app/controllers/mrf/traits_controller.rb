@@ -50,10 +50,41 @@ class Mrf::TraitsController < MasterDataController
   end
 
   def get_traits
-    factors = Vger::Resources::Mrf::Trait.where(:query_options => {}, :scopes => { :global => nil }).all.to_a
-    factors |= Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => params[:company_ids]},  :joins => [:companies]).all.to_a
+    company_ids = params[:company_ids].split(",")
+
+    local_factor_ids = []
+    local_factors = {}
+    factor_cache = []
+    company_ids.each do |id|
+      Rails.logger.ap id
+      local_factor = Vger::Resources::Mrf::Trait.where(:query_options => {"companies_traits.company_id" => id}, :methods=>[:company_names], :joins => [:companies]).all.to_a
+      Rails.logger.ap local_factor
+      local_factors.merge!(id =>local_factor)
+      factor_cache << local_factor
+      local_factor_ids << local_factor.map(&:id)
+    end
+
+
+    intersection_factor_ids = local_factor_ids.reduce(:&)
+
+    factor_cache = factor_cache.flatten.uniq
+    and_factors = factor_cache.select{ |factor| intersection_factor_ids.include? factor.id }
+
+    union_factor_ids = local_factor_ids.reduce(:|)
+    difference_factors  = factor_cache.reject{ |factor| intersection_factor_ids.include? factor.id}
+    diff_factor_ids = difference_factors.map(&:id)
+
+
+    global_factors = Vger::Resources::Mrf::Trait.where(:query_options => {}, :scopes => { :global => nil }).all.to_a
+    # factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_ids], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies]).all.to_a
+    factors = {
+      :global_factors => global_factors,
+      :and_factors => and_factors,
+      :difference_factors => difference_factors,
+      :trait_class_type =>"mrf"
+    }
     respond_to do |format|
-      format.json{ render :json => { :traits => factors } }
+      format.json{ render :json => { :factors => factors } }
     end
   end
 

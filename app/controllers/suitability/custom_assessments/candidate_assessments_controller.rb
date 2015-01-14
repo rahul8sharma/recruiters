@@ -152,6 +152,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
+                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
@@ -192,9 +193,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
         assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
         @candidate = Vger::Resources::Candidate.find(candidate_id)
-        recipient = ""
+        recipients = []
+        recipients |= params[:report_email_recipients].split(",") if params[:report_email_recipients].present?
         if params[:send_report_to_candidate]
-          recipient = @candidate.email 
+          recipients.push @candidate.email
           assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
         end
         if params[:options][:send_report_links_to_manager].present? || params[:options][:send_assessment_links_to_manager].present?
@@ -227,7 +229,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
             :candidate_id => candidate_id,
             :candidate_stage => params[:candidate_stage],
             :responses_count => 0,
-            :report_email_recipients => recipient,
+            :report_email_recipients => recipients.join(","),
             :options => options,
             :language => @assessment.language
           )
