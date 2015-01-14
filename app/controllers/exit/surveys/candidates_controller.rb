@@ -181,6 +181,35 @@ class Exit::Surveys::CandidatesController < ApplicationController
       end
     end
   end
+  
+  def candidate
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
+    @candidate_surveys = Vger::Resources::Engagement::CandidateSurvey.where(:survey_id => @survey.id, :query_options => {
+      :candidate_id => @candidate.id
+    })
+    
+    @reports = []#Vger::Resources::Exit::Report.where(query_options: {
+      #:candidate_survey_id => @candidate_surveys.map(&:id)
+    #}).all.to_a.group_by{|report| report.candidate_survey_id }
+    if is_superadmin?
+      @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
+        query_options: {
+          :assessment_id => @survey.id,
+          :assessment_type => @survey.class.name.gsub("Vger::Resources::","")
+        }
+      }).all.to_a[0]
+      @factual_information = []
+      if @custom_form
+        @factual_information = Vger::Resources::FormBuilder::FactualInformation.where({
+          query_options: {
+            candidate_id: @candidate.id,
+            factual_information_form_id: @custom_form.id
+          },
+          include: [:defined_field]
+        }).all.to_a
+      end   
+    end
+  end
 
   # GET : renders list of candidates
   # checks for order_by params and sets ordering accordingly

@@ -3,6 +3,7 @@ class Engagement::SurveysController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey, :except => [:index,:home]
+  before_filter :get_defined_forms, :only => [:new, :edit, :create]
   
   layout 'engagement'
 
@@ -31,6 +32,14 @@ class Engagement::SurveysController < ApplicationController
     params[:survey][:company_id] = @company.id
     @survey = Vger::Resources::Engagement::Survey.new(params[:survey])
     if @survey.save
+      if params[:defined_form_id].present?
+        factual_information_form = Vger::Resources::FormBuilder::FactualInformationForm.create({
+          :defined_form_id => params[:defined_form_id],
+          :company_id => @company.id,
+          :assessment_type => "Engagement::Survey",
+          :assessment_id => @survey.id
+        })
+      end
       flash[:notice] = "Engagement Survey created successfully!"
       redirect_to add_elements_company_engagement_survey_path(@company.id,@survey.id)
     else
@@ -86,12 +95,16 @@ class Engagement::SurveysController < ApplicationController
     @factors = Vger::Resources::Engagement::Factor.where({
       query_options: {
         :active => true
-      }
+      },
+      page: 1,
+      per: 1000
     }).all.to_a.group_by(&:facet_id)
     @elements = Vger::Resources::Engagement::Element.where({
       query_options: {
         :active => true
-      }
+      },
+      page: 1,
+      per: 1000
     }).all.to_a.group_by(&:id)
     @survey_elements = @survey.survey_elements.all.to_a
     @survey_elements.each do |survey_element|
@@ -111,5 +124,9 @@ class Engagement::SurveysController < ApplicationController
       end
     end
     @survey_elements = @survey_elements.group_by{|x| x.element.factor_id }
+  end
+  
+  def get_defined_forms
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
   end
 end

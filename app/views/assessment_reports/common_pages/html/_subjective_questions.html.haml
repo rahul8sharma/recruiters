@@ -1,4 +1,4 @@
-- if @report.report_data[:subjective_items].present?
+- if @report.report_hash[:subjective_items].present? && @report.report_hash[:include_objective_questions]
   .functional-questions.objective
     .container
       .divider2
@@ -17,7 +17,7 @@
           - item_data[:response].each do |index, response|
             .label.label-warning.pull-left.left-offset1
               Response #{index.to_i+1}
-            .span25.bold    
+            .span25.bold
               = response
             .clr
             .divider1

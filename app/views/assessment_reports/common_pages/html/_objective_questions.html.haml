@@ -1,4 +1,4 @@
-- if @report.report_data[:objective_items].present?
+- if @report.report_hash[:objective_items].present? && @report.report_hash[:include_objective_questions]
   .functional-questions.objective
     .container
       .divider2
