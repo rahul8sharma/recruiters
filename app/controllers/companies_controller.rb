@@ -219,7 +219,11 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end
-    @company = Vger::Resources::Company.find(params[:id], :include => [:subscription, :admin], :methods => methods)
+    @company = Vger::Resources::Company.find(
+      params[:id], 
+      :include => [:subscription, :admin], 
+      :methods => methods
+    )
   end
 
   def get_companies
@@ -231,7 +235,14 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
-    @companies = Vger::Resources::Company.where(:query_options => params[:search], :page => params[:page], :per => 15, :order => "#{order_by} #{order_type}", :include => [:subscription], :methods => methods)
+    @companies = Vger::Resources::Company.where(
+      :query_options => params[:search], 
+      :page => params[:page], 
+      :per => 15, 
+      :order => "#{order_by} #{order_type}", 
+      :include => [:subscription], 
+      :methods => methods
+    )
     @active_subscription 
   end
   
