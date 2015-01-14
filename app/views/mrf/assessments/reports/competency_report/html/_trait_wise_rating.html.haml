@@ -11,21 +11,21 @@
         .left
           Maximum Rating
         .right
-          = trait_score[:max_score_excluding_self][:bucket] ? trait_score[:max_score_excluding_self][:bucket] : 'Waiting For Responses'            
+          = trait_score[:max_score_excluding_self][:bucket] ? trait_score[:max_score_excluding_self][:bucket] : 'No Responses'            
         .clr
 
       .trait_rating.min
         .left
           Minimum Rating
         .right
-          = trait_score[:min_score_excluding_self][:bucket] ? trait_score[:min_score_excluding_self][:bucket] : 'Waiting For Responses'
+          = trait_score[:min_score_excluding_self][:bucket] ? trait_score[:min_score_excluding_self][:bucket] : 'No Responses'
         .clr
 
       .trait_rating.self
         .left
           Self Rating
         .right
-          = trait_score[:average_score_self][:bucket] ? trait_score[:average_score_self][:bucket] : 'Waiting For Responses'
+          = trait_score[:average_score_self][:bucket] ? trait_score[:average_score_self][:bucket] : 'No Responses'
         .clr
 
       - if trait_score[:assessment_rating]
@@ -43,11 +43,11 @@
         .divider1
         .snippet.including
           Including Self Rating: 
-          = trait_score[:average_score_including_self][:bucket].present? ? trait_score[:average_score_including_self][:bucket] : "NA"
+          = trait_score[:average_score_including_self][:bucket].present? ? trait_score[:average_score_including_self][:bucket] : 'No Responses'
         .divider1
         .snippet.excluding
           Excluding Self Rating: 
-          = trait_score[:average_score_excluding_self][:bucket].present? ? trait_score[:average_score_excluding_self][:bucket] : "NA"
+          = trait_score[:average_score_excluding_self][:bucket].present? ? trait_score[:average_score_excluding_self][:bucket] : 'No Responses'
         .divider1
   .right-sec.span17
     .divider2

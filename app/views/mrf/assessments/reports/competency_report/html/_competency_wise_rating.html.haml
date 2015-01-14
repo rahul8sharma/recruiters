@@ -11,15 +11,16 @@
             .left
               Self Rating
             .right
-              = competency_scores[:average_score_self][:bucket] rescue 'NA'
+              = competency_scores[:average_score_self][:bucket] ? competency_scores[:average_score_self][:bucket] : 'No Responses'
             .clr
 
-          .trait_rating.score
-            .left
-              Assessment Score
-            .right
-              = competency_scores[:assessment_rating] rescue 'NA'
-            .clr
+          - if competency_scores[:assessment_rating]
+            .trait_rating.score
+              .left
+                Assessment Score
+              .right
+                = competency_scores[:assessment_rating]
+              .clr
 
           .divider1
 
@@ -29,11 +30,11 @@
             .divider1
             .snippet.including
               Including Self Rating: 
-              = competency_scores[:average_score_including_self][:bucket] rescue 'NA'
+              = competency_scores[:average_score_including_self][:bucket] ? competency_scores[:average_score_including_self][:bucket] : 'No Responses'
             .divider1
             .snippet.excluding
               Excluding Self Rating:
-              = competency_scores[:score][:bucket] rescue 'NA'
+              = competency_scores[:score][:bucket] ? competency_scores[:score][:bucket] : 'No Responses'
             .divider1
 
       .right-sec.span17

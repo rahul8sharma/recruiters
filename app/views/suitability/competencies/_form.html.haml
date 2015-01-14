@@ -1,6 +1,90 @@
-= form_for @competency, :as => :competency, :url => suitability_competency_path(@competency), method: :put do |f|
+- url = @competency.id.present? ? resource_path(@competency) : self.send("#{resource_name}_path")
+- button = @competency.id.present? ? 'Update' : 'Create New Competency'
+- @competency.company_ids ||= []
+- @competency.factor_ids ||= []
+- @competency.mrf_trait_ids ||= []
+- @competency.functional_trait_ids ||= []
+= form_for @competency, url: url, :as => :competency, remote: true do |f|
+  %input{ type: "hidden", id: "input_factor_ids", value: @competency.factor_ids.join(",") }
+  %input{ type: "hidden", id: "input_functional_trait_ids", value: @competency.functional_trait_ids.join(",") }
+  %input{ type: "hidden", id: "input_mrf_trait_ids", value: @competency.mrf_trait_ids.join(",") }
+  .field
+    = f.label :name
+    = f.text_field :name, required: true
+
   .field
     = f.label :active
     = f.check_box :active
+  %label
+    Company IDs
+    %input{:id => 'company_ids',:class => index, :type =>'text', :name => "company_ids", value: @competency.company_ids.join(",")}
+  %div{:class => "load_traits", :id => "#{index}"}
+    %a{:href => "#"}
+      Load Traits
+  %input{name: 'form_index', type: 'hidden', value: (index) , index: (index)}
+  %div{ id: "load_traits_#{index}"}
+    .field.suitability
+      %label
+        Suitability Factors
+      .clr
+      %label
+        Global
+      %ul.trait-list.suitability-traits.global
+      %br
+      .clr
+      %label
+        Custom to all Company IDs provided
+      %ul.trait-list.suitability-traits.custom-and
+      %br
+      .clr
+      %label
+        Custom to either 1 of the Company IDs provided
+
+      %br
+      %ul.trait-list.suitability-traits.custom-difference
+      .clr
+    %br
+    .field.mrf
+      %label
+        MRF Traits
+      .clr
+      %label
+        Global
+      %ul.trait-list.mrf-traits.global
+      %br
+      .clr
+      %label
+        Custom to all Company IDs provided
+      %ul.trait-list.mrf-traits.custom-and
+      %br
+      .clr
+      %label
+        Custom to either 1 of the Company IDs provided
+
+      %br
+      %ul.trait-list.mrf-traits.custom-difference
+      .clr
+
+    .field.functional
+      %label
+        Functional Traits
+      .clr
+      %label
+        Global
+      %ul.trait-list.functional-traits.global
+      %br
+      .clr
+      %label
+        Custom to all Company IDs provided
+      %ul.trait-list.functional-traits.custom-and
+      %br
+      .clr
+      %label
+        Custom to either 1 of the Company IDs provided
+
+      %br
+      %ul.trait-list.functional-traits.custom-difference
+      .clr
+
   .actions
-    = f.submit 'Update'
+    = f.submit button, disable_with: "Wait..."

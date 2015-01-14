@@ -1,5 +1,6 @@
 class Suitability::CustomAssessmentsController < AssessmentsController
   before_filter :get_company
+  before_filter :get_defined_forms, :only => [:new, :edit, :create]
   after_filter :set_cache_buster
 
   layout "tests"
@@ -173,6 +174,14 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   def create
     respond_to do |format|
       if @assessment.valid? and @assessment.save
+        if params[:defined_form_id].present?
+          factual_information_form = Vger::Resources::FormBuilder::FactualInformationForm.create({
+            :defined_form_id => params[:defined_form_id],
+            :company_id => @company.id,
+            :assessment_type => "Suitability::CustomAssessment",
+            :assessment_id => @assessment.id
+          })
+        end
         redirect_path = if @assessment.assessment_type == api_resource::AssessmentType::FIT
           norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         elsif @assessment.assessment_type == api_resource::AssessmentType::COMPETENCY
@@ -278,5 +287,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     else
       flash[:error] = @assessment.error_messages.join("<br/>")
     end
+  end
+  
+  def get_defined_forms
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
   end
 end

@@ -15,14 +15,17 @@
           .rating-marker-container
             - window = (380/(@norm_buckets.size-1))
             - margin_left = ((383 - (@norm_buckets.size * 20)) / (@norm_buckets.size-1))
+            - flag = 0
             - @norm_buckets.each_with_index do |norm_bucket, index|   
               - self_rating_index = ''
               - mrf_rating_index = ''
               - klass = ''
               - if norm_bucket.name == trait_score[:average_score_self][:bucket]
                 - self_rating_index = index
+                - flag = 1
               - if norm_bucket.name == trait_score[:average_score_excluding_self][:bucket]
                 - mrf_rating_index = index
+                - flag = 1
               
               - if index == self_rating_index && index != mrf_rating_index
                 - klass = 'self-rating'
@@ -46,6 +49,10 @@
                   .right
                     Self Rating
                   .clr
+            - if flag == 0
+              .error-full-width
+                No Responses Yet
+
           .clr
           - if @report.report_data[:assessment][:set_ranges]
             - from = @norm_buckets_by_id[trait_score[:trait][:from_norm_bucket][:id]]

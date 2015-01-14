@@ -1,5 +1,10 @@
 %h1 Edit suitability competency
-
-= render 'form'
-
+#competencies
+  %fieldset{ id:'#{i}' }
+    %legend
+      %strong
+        Competency Form
+    = render 'form',  method: :put, url: suitability_competency_path(@competency), competency: @competency, index: 1
+    
+= javascript_include_tag 'competencies_management'
 = link_to 'Back', suitability_competencies_path

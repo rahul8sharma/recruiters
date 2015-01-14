@@ -137,9 +137,8 @@ class ReportUploader < AbstractController::Base
           report_email_recipients = @report.report_hash[:report_email_recipients].to_s.split(',')
           if report_email_recipients.include? @report.report_hash[:candidate][:email]
             JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_candidate(@report.report_hash), "send_report_to_candidate")
-          else
-            JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
-          end
+          end  
+          JombayNotify::Email.create_from_mail(SystemMailer.send_report(@report.report_hash), "send_report")
           if @report.report_hash[:report_receiver] && @report.report_hash[:report_receiver][:email].present? && @report.report_hash[:send_report_links_to_manager]
             JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_manager(@report.report_hash), "send_report_to_manager")
           end

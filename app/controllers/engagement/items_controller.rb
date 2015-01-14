@@ -12,7 +12,7 @@ class Engagement::ItemsController < MasterDataController
 
   def import_with_options_from_google_drive
     errors = Vger::Resources::Engagement::Item.import_with_options_from_google_drive(params[:item])
-    redirect_to manage_functional_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to manage_engagement_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   # GET /items/:id

@@ -1,0 +1,136 @@
+//= require ajax
+
+$(document).ready(function(){
+  function failure(response){
+    console.log(response);
+  }
+  function renderCompetencies(response) {
+    $("#competencies").show();
+
+    $("#traits").hide();
+    $(".trait-item").remove();
+    $("#functional_traits").hide();
+    $("#functional_traits .functional-trait-list").hide();
+    $('.functional-trait-item').remove();
+
+
+
+    for (var i = 0; i < response.competencies.length; i++) {
+      var competency = response.competencies[i].attributes;
+      if(competency.name == undefined){
+       // console.log(response.competencies[i]);
+      }
+      $("#competencies .competencies-list").empty();
+      var id = "assessment[competency]["+i+"]["+competency.id+"]";
+      console.log(competency.name);
+      $(".competencies-list").append("<li class='competency-item'>"+
+        "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
+         +"<label for="+id+">"+ competency.name+" ("+competency.factor_names+")" + "</label></li>");
+    }
+
+
+  }
+
+  function renderFunctionalTraits(response){
+    $("#functional_traits .functional-trait-list").empty();
+    for (var i = 0; i < response.factors.global_factors.length; i++) {
+      var trait = response.factors.global_factors[i].attributes;
+      if(trait.name == undefined){
+      //  console.log(response.traits[i]);
+      }
+      var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
+      $(".functional-trait-list").append("<li class='functional-trait-item'>"+
+        "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
+         +"<label for="+id+">"+ trait.name + "</label></li>");
+    }
+    for (var i = 0; i < response.factors.and_factors.length; i++) {
+      var trait = response.factors.and_factors[i].attributes;
+      if(trait.name == undefined){
+      //  console.log(response.traits[i]);
+      }
+
+      var id = "assessment[functional_traits]["+i+"]["+trait.id+"]";
+      $(".functional-trait-list").append("<li class='functional-trait-item'>"+
+        "<input type='checkbox' value="+trait.id+" id="+id+" name = "+id+">"
+         +"<label for="+id+">"+ trait.name + "</label></li>");
+    }
+
+    $("#functional_traits").show();
+
+  }
+
+  function renderSuitabilityFactors(response){
+    $("#traits .trait-list").empty();
+    $('.competency-item').remove();
+    $("#competencies").hide();
+    for (var i = 0; i < response.factors.global_factors.length; i++) {
+        var factor = response.factors.global_factors[i].attributes;
+        if(factor.name == undefined){
+        //  console.log(response.factors[i]);
+        }
+        var id = "assessment[factors]["+i+"]["+factor.id+"]";
+        $(".trait-list").append("<li class='trait-item' >"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + "<label for="+id+">"+factor.name +"</label></li>");
+    }
+    for (var i = 0; i < response.factors.and_factors.length; i++) {
+      var factor = response.factors.and_factors[i].attributes;
+      if(factor.name == undefined){
+          console.log(response.factors[i]);
+        }
+        var id = "assessment[factors]["+i+"]["+factor.id+"]";
+        $(".trait-list").append("<li class='trait-item'>"+
+          "<input type='checkbox' value="+factor.id+" id="+id+" name = "+id+">"
+           + "<label for="+id+">"+factor.name +"</label></li>");
+    }
+    $("#traits").show();
+  }
+
+
+  function buildCompetencies(company_id){
+    jsonRequest("/suitability/competencies/get_competencies",{company_ids: company_id},renderCompetencies,failure)
+
+  }
+
+  function buildFunctionalTraits(company_id){
+   jsonRequest("/functional/traits/get_traits",{company_ids: company_id},renderFunctionalTraits,failure)
+  }
+
+  function buildSuitabilityFactors(company_id){
+    jsonRequest("/suitability/factors/get_factors",{company_ids: company_id},renderSuitabilityFactors,failure)
+
+  }
+
+  $("#report_assessment_new").on("click",function(){
+    $("#existing-assessment").hide();
+    $("#new-assessment").show();
+  });
+
+  $("#report_assessment_existing").on("click",function(){
+    $("#new-assessment").hide();
+    $("#existing-assessment").show();
+  });
+
+  $("#assessment_assessment_type").on("change",function(){
+    var company_id = $("#assessment_company_id").val();
+    if(company_id == "") {
+      alert ("Please enter a company ID");
+    }
+    else{
+      var assessment_type = $("#assessment_assessment_type").val();
+      switch(assessment_type){
+        case "competency":
+          buildCompetencies(company_id);
+        break;
+        default:
+          buildSuitabilityFactors(company_id);
+          buildFunctionalTraits(company_id);
+        break;
+      }
+
+
+    }
+  });
+
+
+});

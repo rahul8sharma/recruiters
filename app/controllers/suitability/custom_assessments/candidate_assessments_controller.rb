@@ -152,6 +152,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :assessment_id => @assessment.id,
                     :sender_type => current_user.type,
                     :sender_name => current_user.name,
+                    :report_email_recipients => params[:report_email_recipients],
                     :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
@@ -192,9 +193,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
         assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REGULAR
         @candidate = Vger::Resources::Candidate.find(candidate_id)
-        recipient = ""
+        recipients = []
+        recipients |= params[:report_email_recipients].split(",") if params[:report_email_recipients].present?
         if params[:send_report_to_candidate]
-          recipient = @candidate.email 
+          recipients.push @candidate.email
           assessment_taker_type = Vger::Resources::Suitability::CandidateAssessment::AssessmentTakerType::REPORT_RECEIVER
         end
         if params[:options][:send_report_links_to_manager].present? || params[:options][:send_assessment_links_to_manager].present?
@@ -227,7 +229,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
             :candidate_id => candidate_id,
             :candidate_stage => params[:candidate_stage],
             :responses_count => 0,
-            :report_email_recipients => recipient,
+            :report_email_recipients => recipients.join(","),
             :options => options,
             :language => @assessment.language
           )
@@ -317,6 +319,24 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
     }, :include => [:candidate_assessment_reports])
+    if is_superadmin?
+      @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
+        query_options: {
+          :assessment_id => @assessment.id,
+          :assessment_type => @assessment.class.name.gsub("Vger::Resources::","")
+        }
+      }).all.to_a[0]
+      @factual_information = []
+      if @custom_form
+        @factual_information = Vger::Resources::FormBuilder::FactualInformation.where({
+          query_options: {
+            candidate_id: @candidate.id,
+            factual_information_form_id: @custom_form.id
+          },
+          include: [:defined_field]
+        }).all.to_a
+      end   
+    end
   end
 
   def send_reminder_to_pending_candidates

@@ -1,0 +1,42 @@
+.defined_field.pull-left{ id: "new_fields_#{f.object.id}", class: "defined_field", style: "border: 1px solid #fff;padding:10px;" }
+  - if !f.object.id
+    %a{ href:"javascript:void(0);", onclick: "removeDefinedField(this);", id: f.object.id }
+      Remove
+  .msg{ style: "color:red;" }  
+    - if f.object.id && !f.object.active
+      = "This field is inactive."
+  - if f.object.id.present?
+    =# f.check_box :_destroy, :class => "remove_field"
+    = f.hidden_field :id, value: f.object.id, :class => "id_field"
+  .field
+    %label Order
+    = f.select :field_order, [*1..100]
+  .field
+    %label Type
+    = f.select :field_type, Vger::Resources::FormBuilder::DefinedField::FIELD_TYPES
+  .field
+    %label Identifier
+    = f.text_field :identifier
+  .field
+    %label Label
+    = f.text_field :label
+  .field
+    %label Default Value
+    = f.text_field :default_value
+  .field
+    %label Placeholder
+    = f.text_field :placeholder
+  .field
+    %label Validator Regex
+    = f.text_field :validator_regex
+  .field.pull-left
+    %label Is Mandatory
+    = f.check_box :is_mandatory
+  .field.pull-left
+    %label Active
+    = f.check_box :active, :class => "active_field"
+  .clr  
+  .field
+    %label Options
+    = f.text_area :options, :rows => 5
+    
