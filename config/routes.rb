@@ -666,6 +666,27 @@ Recruiters::Application.routes.draw do
     end
   end
 
+  namespace :retention do
+    resources :traits do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
+  end
+
   namespace :exit  do
     resources :traits do
       collection do
