@@ -8,6 +8,11 @@
       File
       = ff.text_field "url", value: ""
     %br
+    %br  
+    = f.fields_for :zip_file do |ff|
+      Image Zip
+      = file_field_tag "zip"
+    %br
     %br
     Notifier Email
     = f.email_field :email, value: "product@jombay.com"

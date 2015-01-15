@@ -1,0 +1,73 @@
+= form_for @report, as: :group_report, url: url do |f|
+  %input{type: "hidden", value: "scored", name: "group_report[status]"}
+  %input{type: "hidden", value: @survey.id, name: "group_report[survey_id]"}
+  .border-primary
+    .padding-all2.border-bottom-grayLighter
+      = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+        %label.pull-left.big-text.line-height2 
+          Enter a name for this Report
+        %input.span18.pull-right{:type => "text", :placeholder=>"Enter a name for this Report", name: "group_report[name]", value: @report.name}  
+      = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do    
+        %input.span18.show.margin-auto{:type => "text", :placeholder=>"Enter a name for this Report", name: "group_report[name]", value: @report.name}
+      .clr
+      .divider2
+      - if @custom_form && @defined_fields.present?
+        - @defined_fields.each do |defined_field| 
+          %input{type: "hidden", value: defined_field.label, name: "group_report[criteria][#{defined_field.id}][label]"}
+          - case defined_field.field_type
+            - when "TextField"
+              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+                %label.pull-left.big-text.line-height2 
+                  #{defined_field.label}
+                %input.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+                %input.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}]", value: @report.criteria["#{defined_field.id}"]}
+              .clr
+              .divider2  
+            - when "TextArea"
+              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+                %label.pull-left.big-text.line-height2 
+                  #{defined_field.label}
+                %textarea.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+
+              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+                %textarea.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+              .clr
+              .divider2
+            - when "CheckBox"  
+              %label.big-text.line-height2 
+                %input{:type => "checkbox", name: "group_report[criteria][#{defined_field.id}][value]"}
+                #{defined_field.label}
+              .clr
+              .divider2
+            - when "RadioButton"  
+              %label.big-text.line-height2 
+                #{defined_field.label}:
+                - defined_field.options.each do |option|
+                  %input{:type => "radio", value: option, name: "group_report[criteria][#{defined_field.id}][value]"}
+                  #{option}
+              .clr
+              .divider2  
+            - when "DropDown"
+              = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+                %label.pull-left.big-text.line-height2 
+                  #{defined_field.label}
+                %select.span18.pull-right{name: "group_report[criteria][#{defined_field.id}][value]"}
+                  %option{value: ""}
+                    = defined_field.placeholder
+                  - defined_field.options.each do |option|
+                    %option{ value: option }
+                      = option
+
+              = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+                %select.span18.show.margin-auto{name: "group_report[criteria][#{defined_field.id}][value]"}                    
+                  %option{value: ""}
+                    = defined_field.placeholder
+                  - defined_field.options.each do |option|
+                    %option{ value: option }
+                      = option
+              .clr
+              .divider2  
+      %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
+      .clr
+    .clr

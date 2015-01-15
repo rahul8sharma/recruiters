@@ -1,6 +1,8 @@
 class Exit::Surveys::ReportsController < ApplicationController
   before_filter :get_company, except: [:s3_report]
   before_filter :get_survey, except: [:s3_report]
+  
+  layout "exit"
 
   def report
     @candidate_survey = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
