@@ -1,0 +1,11 @@
+%h1 All Items
+- if can? :create, "Retention::Item"
+  = link_to "Manage Retention Items", manage_retention_items_path
+
+.pagination.pull-right
+  = paginate @items
+.clr
+= render partial: 'index', locals: { items: @items }
+.pagination.pull-right
+  = paginate @items
+.clr

@@ -1,0 +1,28 @@
+= form_for :item, :url => import_with_options_from_google_drive_retention_items_path, html: { multipart: true }, :method => :post do |f|
+  %fieldset
+    %legend
+      Import NEW Retention Items alongwith Options
+    %br
+    %br
+    = f.fields_for :file do |ff|
+      File
+      = ff.text_field "url", value: ""
+    %br
+    %br
+    Notifier Email
+    = f.email_field :email, value: "product@jombay.com"
+    %br
+    %br
+    .actions
+      = submit_tag 'Import Exit Items'
+%br
+
+%br/
+= render :partial => "master_data/export_form"
+
+%br/
+= render :partial => "master_data/import_from_google_drive"
+
+= link_to 'Back', retention_items_path
+\|
+= link_to 'Destroy All', destroy_all_retention_items_path
