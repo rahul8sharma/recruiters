@@ -3,12 +3,12 @@
   .container
     .headings
       .huge-text.pull-left 
-        Sreelakshmi Venugopal
+        #{@report.report_data["candidate"]["name"]}
       .pull-right
         .huge-text.color-warning  
           Individual Report
         .extra-medium-text
-          Survey Answered On: 10/06/2014
+          Survey Answered On: #{@report.report_data["completed_at"]}
       .clr
       .divider1
     .divider2
