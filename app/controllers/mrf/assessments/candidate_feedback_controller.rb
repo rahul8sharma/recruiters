@@ -24,7 +24,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   def export_feedback_urls
     options = {
       email: Rails.application.config.emails[:jit_recipients][:product]+","+
-                Rails.application.config.emails[:jit_recipients][:shekhar],
+                Rails.application.config.emails[:jit_recipients][:product_support],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_feedback_urls(company_id: @company.id, id: @assessment.id, options: options)
@@ -35,7 +35,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   def export_report_urls
     options = {
       email: Rails.application.config.emails[:jit_recipients][:product]+","+
-                Rails.application.config.emails[:jit_recipients][:shekhar],
+                Rails.application.config.emails[:jit_recipients][:product_support],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
