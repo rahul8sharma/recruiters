@@ -331,7 +331,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
         
         get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
-        get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new
+        get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
         post "group_reports" => "exit/surveys/group_reports#create", :as => :create_group_report
 
         get "group_reports/:report_id/edit" => "exit/surveys/group_reports#edit", :as => :edit_group_report
