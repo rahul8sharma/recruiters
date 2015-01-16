@@ -1,0 +1,223 @@
+.snippet.single-column-pie
+  .container
+    .snippet_title.bracket-left-arrow-icon
+      Top 3 reasons that contributed most to the decision of Quitting
+    .divider2
+    
+    .left.span12.pull-left
+      .divider3
+      .span6.margin-auto
+        PIE CHART
+    .right.pull-left 
+      .divider2
+      %ul
+        -3.times do
+          %li
+            .count{:style=>"background: #ddd"}
+              25%
+            .span14
+              .divider1
+              Inconvenient work hours
+            .clr
+            .divider1
+    .clr
+
+.snippet.single-column-pie
+  .container
+    .snippet_title.user-icon
+      Most Popular 3 Personal Reasons for Quitting
+    .divider2
+
+    .left.span12.pull-left
+      .divider3
+      .span6.margin-auto
+        PIE CHART
+    .right.pull-left 
+      .divider2
+      %ul
+        -3.times do
+          %li
+            .count{:style=>"background: #ddd"}
+              25%
+            .span14
+              .divider1
+              Inconvenient work hours
+            .clr
+            .divider1
+    .clr
+
+.snippet.mood
+  .container
+    .snippet_title.group-talk-bubble-icon
+      Most Popular things people are happy and unhappy about
+  .divider2
+  .span24.margin-auto
+    .happy.span8.first
+      .title.huge-text
+        40% Happy :)
+      .divider1
+      %ul
+        -5.times do
+          %li
+            Co-Workers are promated faster
+    .span7
+      .pie-chart.span3.margin-auto
+        PIE CHART GOES HERE
+    .unhappy.span8
+      .title.huge-text
+        40% Unappy :(
+      .divider1
+      %ul
+        -5.times do
+          %li
+            Co-Workers are promated faster
+    .clr
+
+.snippet.two-column-list
+  .container
+    .snippet_title.exchange-arrow-icon
+      Top 3 Things that could be changed about
+  .divider2
+  .headings.container
+    .left.span15.first
+      .divider1
+      .title
+        Manager
+      .divider2
+    .right.span15.first
+      .divider1
+      .title
+        Organization
+      .divider2
+    .clr
+
+  %ul.striped_list.numbered-list
+    -3.times do |index|
+      %li
+        .container
+          .left.span15.first
+            .count.pull-left
+              #{index+1}
+            .big-text.span
+              Advancement 
+            .clr
+          .right.span15.first
+            .count.pull-left
+              #{index+1}
+            .big-text.span
+              Advancement 
+            .clr
+          .clr
+
+.snippet.recommendation
+  .container
+    .left.span15.first
+      .snippet_title.question-mark-icon
+        Top Reasons of recommending this organization
+      .divider2
+
+      %ul.numbered-list
+        -5.times do |index|
+          %li
+            .count.pull-left
+              #{index+1}
+            .big-text.span
+              Advancement 
+            .clr
+            .divider1
+    .right.span15.first
+      .snippet_title.left-offset1.user-icon
+        Ever felt discriminated?  
+      .divider2
+      .divider3
+      .span7.left-offset4
+        PIE CHART GOES HERE
+      .pull-right
+        .status{:style=>"background: #ddd"}
+          50%
+          %br/
+          YES
+        .divider2
+        .status{:style=>"background: #ddd"}
+          50%
+          %br/
+          NO
+    .clr
+    
+.snippet.two-column-pie
+  .container
+    .snippet_title.search-icon
+      New Job versus Old Job
+    .divider2
+    .left.span15.first
+      .large-text
+        Difference between Old and New Job
+      .divider2
+      .span5
+        PIE CHART
+      .span9.pull-right
+        %ul.numbered-list
+          -5.times do |index|
+            %li
+              .count.pull-left{:style=>"background: red"}
+                #{index+1}0%
+              .medium-text.span
+                Advancement 
+              .clr
+              .divider1
+      .clr
+    .right.span15.first
+      .large-text.left-offset1
+        New Salary versus the Old one
+      .divider2
+      .span5.left-offset1
+        PIE CHART
+      .span8.pull-right
+        %ul.numbered-list
+          -5.times do |index|
+            %li
+              .count.pull-left{:style=>"background: red"}
+                #{index+1}0%
+              .medium-text.span
+                Advancement 
+              .clr
+              .divider1
+      .clr
+       
+    .clr
+
+.snippet
+  .container
+    .snippet_title
+      Reasons of choosing the New Job
+  .divider2
+
+  %ul.striped_list.numbered-list
+    - 3.times do |index|
+      %li
+        .container
+          .count.pull-left
+            #{index+1}
+          .big-text.span
+            Advancement 
+          .clr
+.snippet.two-column-pie
+  .container
+    .snippet_title.building-icon
+      What people think about the Company!
+    .divider2
+    .span7.first
+      PIE CHART
+    .span22.pull-right
+      %ul.numbered-list
+        %li.divider3
+        -5.times do |index|
+          %li
+            .count.pull-left{:style=>"background: red"}
+              #{index+1}0%
+            .medium-text.span
+              Advancement 
+            .clr
+            .divider1
+    .clr
+
