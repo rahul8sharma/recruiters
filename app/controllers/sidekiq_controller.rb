@@ -84,6 +84,53 @@ class SidekiqController < ApplicationController
   end
 
 
+  def upload_exit_reports
+    reports = Vger::Resources::Exit::Report.where(
+      :query_options => {
+        :status => Vger::Resources::Exit::Report::Status::SCORED
+      },
+      :include =>[:survey],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :survey_id => report.survey.id,
+        :candidate_id => report.candidate_id,
+        :company_id => report.survey.company_id
+
+      }
+      ExitReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+    end
+    render :json => { :status => "Job Started",:reports => reports.map(&:id)}
+  end
+  
+  def upload_exit_group_reports
+    reports = Vger::Resources::Exit::GroupReport.where(
+      :query_options => {
+        :status => Vger::Resources::Exit::GroupReport::Status::SCORED
+      },
+      :include =>[:survey],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :survey_id => report.survey.id,
+        :company_id => report.survey.company_id
+      }
+      ExitGroupReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+    end
+    render :json => { :status => "Job Started",:reports => reports.map(&:id)}
+  end
+
+
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,

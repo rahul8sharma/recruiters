@@ -332,6 +332,7 @@ Recruiters::Application.routes.draw do
         
         get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
         get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
+        get "group_reports" => "exit/surveys/group_reports#index", :as => :group_reports
         post "group_reports" => "exit/surveys/group_reports#create", :as => :create_group_report
 
         get "group_reports/:report_id/edit" => "exit/surveys/group_reports#edit", :as => :edit_group_report
@@ -975,6 +976,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
   match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
+  match "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
