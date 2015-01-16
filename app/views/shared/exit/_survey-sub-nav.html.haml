@@ -5,5 +5,5 @@
     Traits Included
   %a.menu{class: (["candidates","candidate"].include?(params[:action]) ? "active" : ""), href: candidates_company_exit_survey_path(@company.id,@survey.id)}
     Candidates
-  %a.menu{class: (["group_reports","new"].include?(params[:action]) ? "active" : ""), href: new_group_report_company_exit_survey_path(@company.id,@survey.id)}
+  %a.menu{class: (["group_reports","new", "edit","index"].include?(params[:action]) ? "active" : ""), href: new_group_report_company_exit_survey_path(@company.id,@survey.id)}
     Group Reports

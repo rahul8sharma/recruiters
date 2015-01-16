@@ -3,6 +3,16 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   before_filter :get_survey, except: [:s3_report]
   
   layout "exit"
+  
+  def index
+    @reports = Vger::Resources::Exit::GroupReport.where(
+      query_options: {
+        :survey_id => @survey.id
+      },
+      page: params[:page],
+      per: 5
+    ).all
+  end
 
   def report
     @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], params.merge(methods: ["report_hash"]))

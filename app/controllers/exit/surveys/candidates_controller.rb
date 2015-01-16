@@ -188,9 +188,9 @@ class Exit::Surveys::CandidatesController < ApplicationController
       :candidate_id => @candidate.id
     })
     
-    @reports = []#Vger::Resources::Exit::Report.where(query_options: {
-      #:candidate_survey_id => @candidate_surveys.map(&:id)
-    #}).all.to_a.group_by{|report| report.candidate_survey_id }
+    @reports = Vger::Resources::Exit::Report.where(query_options: {
+      :candidate_survey_id => @candidate_surveys.map(&:id)
+    }).all.to_a.group_by{|report| report.candidate_survey_id }
     if is_superadmin?
       @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
         query_options: {
@@ -238,9 +238,9 @@ class Exit::Surveys::CandidatesController < ApplicationController
     @candidate_surveys = scope
     @candidates = @candidate_surveys.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_surveys.total_count).page(params[:page]).per(10)
-    @reports = [] #Vger::Resources::Exit::Report.where(query_options: {
-      #:candidate_survey_id => @candidate_surveys.map(&:id)
-    #}).all.to_a.group_by{|report| report.candidate_survey_id }
+    @reports = Vger::Resources::Exit::Report.where(query_options: {
+      :candidate_survey_id => @candidate_surveys.map(&:id)
+    }).all.to_a.group_by{|report| report.candidate_survey_id }
   end
   
   protected
