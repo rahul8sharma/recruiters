@@ -1,6 +1,6 @@
 = form_tag import_candidates_path, multipart: true, :method => :post do
   %fieldset
-    %legend 
+    %legend
       %strong Upload new candidates
     = fields_for "import" do |f|
       .field
@@ -9,14 +9,20 @@
       %br
       = f.fields_for "file" do |f|
         %p
-          Google Spreadsheet Url : 
+          Google Spreadsheet Url :
           = f.text_field "url"
         %p
           Worksheet Names(separated by comma,keep empty to import all)
           = f.text_field "worksheets"
       %p
-        Notification Email : 
+        Notification Email :
         = f.text_field :email, :value => "notifications@jombay.com"
+      %p
+        = f.check_box :send_activate_account_instructions
+        Send Activation Instructions
+      %p
+        Activation Host
+        = f.select :activation_host, activation_hosts.html_safe
 
     .actions
       = submit_tag 'Upload Candidates'
