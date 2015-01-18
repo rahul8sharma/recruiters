@@ -44,7 +44,7 @@ class Retention::TraitsController < MasterDataController
   end
 
   def index_columns
-    [:id, :name, :active, :definition]
+    [:id, :name, :active, :definition, :company_id]
   end
 
   def import_from
