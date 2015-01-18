@@ -1,0 +1,49 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+= form_for @survey, :as => :survey, :url => add_items_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  .order_enable_items
+    .page-title
+      = @survey.name
+    .divider2
+    = render :partial => "shared/exit/navigation-sub-nav"
+    .divider2
+    .big-text
+      Paired Response Items
+    - index = 1
+    - @item_groups.each do |item_group|
+      %label.pull-left
+        %input{ type: "hidden", name: "items[#{index}][type]", value: item_group.class.name.gsub('Vger::Resources::','') }
+        %input{ type: "hidden", name: "items[#{index}][id]", value: item_group.id }
+        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item_group", checked: true }
+        #{item_group.body}
+      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+        - 100.times do |order|
+          %option{ value: order+1, selected: index == order+1 }
+            = order+1
+      .clr
+      %br/
+      - index += 1
+    .big-text
+      Plain Items
+    - @items.each do |item|
+      %label.pull-left
+
+        %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
+        %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
+        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
+        #{item.body}
+      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+        - 100.times do |order|
+          %option{ value: order+1, selected: index == order+1 }
+            = order+1
+      - index += 1
+      .clr
+      %br/
+
+  .clr
+
+  = f.submit "Proceed", :class=>" btn btn-info large-text pull-right"
+
+  .clr

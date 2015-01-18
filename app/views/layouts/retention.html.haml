@@ -1,0 +1,14 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "companies"
+  = stylesheet_link_tag "engagement"
+  = stylesheet_link_tag "tests"
+- content_for :content do
+
+  .container
+    //For Alerts
+    //= render :partial => "shared/alert-success-iconic"
+    //= render :partial => "shared/alert-error"
+    //= render :partial => "shared/alert-success"
+
+    = yield
+= render :file => 'layouts/jit'

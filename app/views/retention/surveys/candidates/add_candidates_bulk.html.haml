@@ -1,0 +1,60 @@
+.add
+  .page-title.pull-left #{@survey.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Assessment Takers to this Assessment?"}
+    Need help in adding Assessment Takers?
+  .clr
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+
+  %a.medium-text.pull-right{:href => add_candidates_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
+    Return to Manual Addition of Assessment Takers
+  .clr
+  = form_for :bulk_upload, url: bulk_upload_company_retention_survey_path(company_id: params[:company_id], id: params[:id]), method: :put do |f|
+    .bulk-upload
+      .bulk-upload-snippet
+        .heading
+          .pull-left
+            Add Candidates in bulk
+          .clr
+        .divider2
+        .left-sec.span15
+          .inner
+            .divider2
+            .fileUpload.disabled
+              %span Choose File
+              = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.csv'
+            %input#uploadFile{ :placeholder => "Choose File", :disabled => true}
+            .clr
+            .help-text
+              File format supported: CSV
+            .divider1
+            %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_candidate_bulk_upload_path}
+              Download sample file for adding Assessment takers
+            .divider2
+        .clr
+        .divider2
+        / back to top
+        %p#back-top
+          %a{:href =>"#header"}
+            %span.medium-text.font-bold
+              %i.icon-chevron-up
+              Top
+        / back to top
+      %a.medium-text.view-instruction.scroll{:href => "#bulk-upload-instructions", :title => "View Instructions"}
+        View Instructions
+      .divider2
+      %input.btn.btn-warning.large-text.bold.pull-right{:type => "submit", :value => "Proceed" }
+      .clr
+      .divider3
+      #bulk-upload-instructions.bulk-upload-instructions
+        = image_tag("bulk-upload/bulk-upload-instructions.jpg")
+
+= javascript_include_tag 'common'
+
+:javascript
+  document.getElementById("uploadBtn").onchange = function () {
+    var filename = this.value.split('\\').pop();
+    document.getElementById("uploadFile").value = filename;
+  };
+
