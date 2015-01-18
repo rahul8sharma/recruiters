@@ -10,7 +10,7 @@ class Retention::Surveys::CandidatesController < ApplicationController
     s3_key = "survey_candidates_#{@survey.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
-      redirect_to add_candidates_bulk_company_exit_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
+      redirect_to add_candidates_bulk_company_retention_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
     end
     data = params[:bulk_upload][:file].read
     S3Utils.upload(s3_bucket_name, s3_key, data)
