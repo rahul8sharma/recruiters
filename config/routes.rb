@@ -329,6 +329,15 @@ Recruiters::Application.routes.draw do
 
         get "candidates/:candidate_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
+        
+        get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
+        get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
+        post "group_reports" => "exit/surveys/group_reports#create", :as => :create_group_report
+
+        get "group_reports/:report_id/edit" => "exit/surveys/group_reports#edit", :as => :edit_group_report
+        put "group_reports/:report_id" => "exit/surveys/group_reports#update", :as => :update_group_report
+        get "group_reports/:report_id" => "exit/surveys/group_reports#s3_report", :as => :s3_group_report
+
 
         put "bulk_upload" => "exit/surveys/candidates#bulk_upload", :as => :bulk_upload
         get "/download_sample_csv_for_exit_bulk_upload", :to => "exit/surveys/candidates#download_sample_csv_for_exit_bulk_upload", :as => :download_sample_csv_for_exit_bulk_upload

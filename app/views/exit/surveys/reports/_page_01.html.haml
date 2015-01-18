@@ -1,0 +1,209 @@
+- @report.report_data["items"].each do |item_hash|
+  - responses = item_hash["responses"]
+  - if responses.present?
+    .snippet
+      .container
+        .snippet_title.bracket-left-arrow-icon
+          = item_hash["report_body"]
+      .divider2
+
+      %ul.striped_list.numbered-list
+        - responses.each_with_index do |response_hash,index|
+          %li
+            .container
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                = response_hash["option_body"]
+              .clr
+  - else
+    - responses = item_hash["items"]
+    - if responses.present?
+      - happy_responses = responses.select{|item_hash| item_hash["responses"].first["score"] == 1 }
+      - unhappy_responses = responses.select{|item_hash| item_hash["responses"].first["score"] == 0 }
+      .snippet.mood
+        .container
+          .snippet_title.group-talk-bubble-icon
+            Most Popular things people are happy and unhappy about
+        .divider2
+        .span24.margin-auto
+          .happy.span8.first
+            .title.huge-text
+              #{(happy_responses.size*100.to_f/responses.size.to_f).round}% Happy :)
+            .divider1
+            %ul
+              - happy_responses.each do |happy_response|
+                %li
+                  = happy_response["item_body"]
+          .span7
+            .pie-chart.span3.margin-auto
+              PIE CHART GOES HERE
+          .unhappy.span8
+            .title.huge-text
+              #{(unhappy_responses.size*100.to_f/responses.size.to_f).round}% Unhappy :(
+            .divider1
+            %ul
+              - unhappy_responses.each do |unhappy_response|
+                %li
+                  = unhappy_response["item_body"]
+          .clr
+
+-#
+  .snippet.two-column-list
+    .container
+      .snippet_title.exchange-arrow-icon
+        Things that could be changed about
+    .divider2
+    .headings.container
+      .left.span15.first
+        .divider1
+        .title
+          Manager
+        .divider2
+      .right.span15.first
+        .divider1
+        .title
+          Organization
+        .divider2
+      .clr
+
+    %ul.striped_list.numbered-list
+      -3.times do |index|
+        %li
+          .container
+            .left.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+            .right.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+            .clr
+
+  .snippet.recommendation
+    .container
+      .left.span15.first
+        .snippet_title.question-mark-icon
+          Reasons of recommending this organization
+        .divider2
+
+        %ul.numbered-list
+          -5.times do |index|
+            %li
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+              .divider1
+      .right.span15.first
+        .snippet_title.left-offset1.user-icon
+          Ever felt discriminated?  
+        .divider2
+        .divider3
+        .discriminated_status.margin-auto
+          NO
+      .clr
+
+  .snippet.two-column-list
+    .container
+      .snippet_title.search-icon
+        Difference between Old and New Job
+    .divider2
+    .headings.container
+      .left.span15.first
+        .divider1
+        .title
+          Old Job
+        .divider2
+      .right.span15.first
+        .divider1
+        .title
+          New Job
+        .divider2
+      .clr
+
+    %ul.striped_list.numbered-list
+      -3.times do |index|
+        %li
+          .container
+            .left.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement  
+              .clr
+            .right.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+            .clr
+
+
+  .snippet.new-job-details
+    .container
+      .snippet_title.search-icon
+        Details about New Job
+      .divider2
+      .left.span15.first
+        .large-text.left-offset1
+          Salary
+        .divider1
+
+        %ul.numbered-list
+          -5.times do |index|
+            %li
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+              .divider1
+      .right.span15.first
+        .large-text.left-offset1
+          Reasons of choosing the New Job
+        .divider1
+        %ul.numbered-list.left-offset1
+          -5.times do |index|
+            %li
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+              .divider1
+      .clr
+
+  .snippet.company_standing 
+    .container
+      .snippet_title.building-icon
+        Company Standing
+      .divider2
+
+    %ul.striped_list.big-text
+      -1.times do |index|
+        %li
+          .container
+            .list-snippet.left-offset1
+              Ahead of Competition
+
+  .snippet.company_feedback 
+    .container
+      .snippet_title.talk-bubble-icon
+        Any other comments or feedback for the organization?
+      .divider2
+      .comments
+        .icon.pull-left
+        .span27.pull-right
+          .comment-box
+            .arrow
+            "The central point that emerges from our research is that economic elites and organized groups representing business interests have substantial independent impacts on U.S. government policy," they write, "while mass-based interest groups and average citizens have little or no independent influence."
+        .clr
+  .divider2

@@ -1,0 +1,14 @@
+#spotlight
+  .divider4
+  .container
+    .headings
+      .huge-text.pull-left 
+        #{@report.report_data["candidate"]["name"]}
+      .pull-right.text-right
+        .huge-text.color-warning  
+          Individual Report
+        .extra-medium-text
+          Survey Answered On: #{@report.report_data["completed_at"]}
+      .clr
+      .divider1
+    .divider2
