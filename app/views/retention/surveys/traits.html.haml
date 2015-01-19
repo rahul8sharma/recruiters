@@ -1,0 +1,22 @@
+.trait-show.mrf
+  .span18.huge-text.first
+    .divider1
+    #{@survey.id} - #{@survey.name}
+  %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_retention_survey_path(@company)}
+    Create a new Retention Survey
+  .clr
+  .divider2
+  = render :partial => "shared/retention/survey-sub-nav"
+  .padding-all2.border-warning.shifted-up1
+    - if (@survey.survey_traits.present?)
+      .big-text.font-bold
+        .pull-left
+          Traits Measured: #{@survey.survey_traits.size}
+        .clr
+      .divider1
+      %ul.clearfix.scores_listing.first
+        - @survey.survey_traits.each do |survey_trait|
+          %li
+            = survey_trait.trait.name
+      .divider2
+

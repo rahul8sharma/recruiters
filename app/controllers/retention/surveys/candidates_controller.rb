@@ -1,16 +1,16 @@
-class Exit::Surveys::CandidatesController < ApplicationController
+class Retention::Surveys::CandidatesController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey
 
-  layout 'exit'
+  layout 'retention'
   def bulk_upload
     s3_bucket_name = "bulk_upload_candidates_for_survey_#{Rails.env.to_s}"
     s3_key = "survey_candidates_#{@survey.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
-      redirect_to add_candidates_bulk_company_exit_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
+      redirect_to add_candidates_bulk_company_retention_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
     end
     data = params[:bulk_upload][:file].read
     S3Utils.upload(s3_bucket_name, s3_key, data)
@@ -31,7 +31,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
     if request.put?
       candidates = {}
       if params[:candidates].empty?
-        flash[:error] = "Please add at least 1 Candidate to send the survey. You may also select 'Add Candidates Later' to save the survey and return to the Exit Listings."
+        flash[:error] = "Please add at least 1 Candidate to send the survey. You may also select 'Add Candidates Later' to save the survey and return to the Retention Listings."
         render :action => :add_candidates and return
       end
 
@@ -74,7 +74,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
       survey_traits = @survey.survey_traits.all.to_a
       if @survey.item_ids.empty?
         flash[:error] = "You need to select traits before sending an survey. Please select traits from below."
-        redirect_to add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
+        redirect_to add_items_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id])
       end
     end
   end
@@ -89,16 +89,16 @@ class Exit::Surveys::CandidatesController < ApplicationController
   def send_reminder
     if request.get?
       @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
-      @candidate_survey = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+      @candidate_survey = Vger::Resources::Retention::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
     elsif request.put?
-      @candidate_survey = Vger::Resources::Exit::CandidateSurvey.send_reminder(params.merge(:survey_id => params[:id], :id => params[:candidate_survey_id]))
+      @candidate_survey = Vger::Resources::Retention::CandidateSurvey.send_reminder(params.merge(:survey_id => params[:id], :id => params[:candidate_survey_id]))
       flash[:notice] = "Reminder was sent successfully!"
-      redirect_to candidates_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
+      redirect_to candidates_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id])
     end
   end
 
   def bulk_send_survey_to_candidates
-    Vger::Resources::Exit::CandidateSurvey\
+    Vger::Resources::Retention::CandidateSurvey\
       .import_from_s3_files(:email => current_user.email,
                     :survey_id => @survey.id,
                     :sender_type => current_user.type,
@@ -114,7 +114,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
                       :key => params[:s3_key]
                     }]
                    )
-    redirect_to candidates_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]),
+    redirect_to candidates_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id]),
                 notice: "Candidates upload in progress. Candidate Listings will be updated and survey will be sent to the candidates as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
 
@@ -149,7 +149,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
           options = {}
           options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
 
-          candidate_survey = Vger::Resources::Exit::CandidateSurvey.create(
+          candidate_survey = Vger::Resources::Retention::CandidateSurvey.create(
             :survey_id => @survey.id,
             :candidate_id => candidate_id,
             :options => options
@@ -164,7 +164,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
           end
         end
       end
-      survey = Vger::Resources::Exit::Survey.send_survey_to_candidates(
+      survey = Vger::Resources::Retention::Survey.send_survey_to_candidates(
         :id => @survey.id,
         :candidate_survey_ids => candidate_surveys.map(&:id),
         :send_sms => params[:send_sms],
@@ -177,19 +177,20 @@ class Exit::Surveys::CandidatesController < ApplicationController
         render :action => :send_survey_to_candidates and return
       else
         flash[:notice] = "Survey was sent successfully!"
-        redirect_to candidates_company_exit_survey_path(@company.id, @survey.id)
+        redirect_to candidates_company_retention_survey_path(@company.id, @survey.id)
       end
     end
   end
 
   def candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
-    @candidate_surveys = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => @survey.id, :query_options => {
+    @candidate_surveys = Vger::Resources::Retention::CandidateSurvey.where(:survey_id => @survey.id, :query_options => {
       :candidate_id => @candidate.id
     })
-    @reports = Vger::Resources::Exit::Report.where(query_options: {
-      :candidate_survey_id => @candidate_surveys.map(&:id)
-    }).all.to_a.group_by{|report| report.candidate_survey_id }
+
+    @reports = []#Vger::Resources::Retention::Report.where(query_options: {
+      #:candidate_survey_id => @candidate_surveys.map(&:id)
+    #}).all.to_a.group_by{|report| report.candidate_survey_id }
     if is_superadmin?
       @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
         query_options: {
@@ -219,16 +220,16 @@ class Exit::Surveys::CandidatesController < ApplicationController
     order_type = params[:order_type] || "ASC"
     case order
       when "default"
-        order = "exit_candidate_surveys.completed_at DESC"
+        order = "retention_candidate_surveys.completed_at DESC"
       when "id"
         order = "candidates.id #{order_type}"
       when "name"
         order = "candidates.name #{order_type}"
       when "status"
-        column = "exit_candidate_surveys.status"
-        order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, exit_candidate_surveys.updated_at #{order_type}"
+        column = "retention_candidate_surveys.status"
+        order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, retention_candidate_surveys.updated_at #{order_type}"
     end
-    scope = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => @survey.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => [:candidate])
+    scope = Vger::Resources::Retention::CandidateSurvey.where(:survey_id => @survey.id).where(:page => params[:page], :per => 10, :joins => :candidate, :order => order).where(:include => [:candidate])
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
@@ -237,9 +238,9 @@ class Exit::Surveys::CandidatesController < ApplicationController
     @candidate_surveys = scope
     @candidates = @candidate_surveys.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_surveys.total_count).page(params[:page]).per(10)
-    @reports = Vger::Resources::Exit::Report.where(query_options: {
-      :candidate_survey_id => @candidate_surveys.map(&:id)
-    }).all.to_a.group_by{|report| report.candidate_survey_id }
+    @reports = [] #Vger::Resources::Exit::Report.where(query_options: {
+      #:candidate_survey_id => @candidate_surveys.map(&:id)
+    #}).all.to_a.group_by{|report| report.candidate_survey_id }
   end
 
   protected
@@ -250,14 +251,14 @@ class Exit::Surveys::CandidatesController < ApplicationController
 
   def get_survey
     if params[:id].present?
-      @survey = Vger::Resources::Exit::Survey.find(params[:id], company_id: @company.id)
+      @survey = Vger::Resources::Retention::Survey.find(params[:id], company_id: @company.id)
     else
-      @survey = Vger::Resources::Exit::Survey.new
+      @survey = Vger::Resources::Retention::Survey.new
     end
   end
 
   def get_templates
-    category = Vger::Resources::Template::TemplateCategory::SEND_EXIT_SURVEY_TO_EMPLOYEE
+    category = Vger::Resources::Template::TemplateCategory::SEND_RETENTION_SURVEY_TO_EMPLOYEE
     @templates = Vger::Resources::Template\
                   .where(query_options: {
                     company_id: @company.id,

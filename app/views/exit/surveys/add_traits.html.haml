@@ -11,7 +11,7 @@
     .divider2
     .big-text
       Smileys
-    - index = 1 
+    - index = 1
     - @item_groups.each do |item_group|
       .span18
         %label.pull-left
@@ -29,7 +29,7 @@
             %option{ value: order+1, selected: index == order+1 }
               = order+1  
       .clr
-      %br/    
+      %br/
       - index += 1
     .big-text
       Reasons
