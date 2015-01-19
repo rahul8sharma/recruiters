@@ -344,6 +344,42 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    resources :retention_surveys, :controller => "retention/surveys", :path => "retention" do
+      collection do
+        get "home" => "retention/surveys#home", :as => :home
+        put "home" => "retention/surveys#home", :as => :home
+      end
+
+      member do
+        get "add_items" => "retention/surveys#add_items", :as => :add_items
+        put "add_items" => "retention/surveys#add_items", :as => :add_items
+
+        get "details" => "retention/surveys#details", :as => :details
+        get "traits" => "retention/surveys#traits", :as => :traits
+
+        get "candidates" => "retention/surveys/candidates#candidates", :as => :candidates
+        get "candidates/add" => "retention/surveys/candidates#add_candidates", :as => :add_candidates
+        put "candidates/add" => "retention/surveys/candidates#add_candidates", :as => :add_candidates
+        get "candidates/add_bulk" => "retention/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
+        get "candidates/send-reminder-to-pending" =>"retention/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
+        put "candidates/bulk_upload" => "retention/surveys/candidates#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "retention/surveys/candidates#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "retention/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+
+        get "email_assessment_status" => "retention/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+
+        get "candidates/send-survey" => "retention/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/send-survey" => "retention/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
+        put "candidates/bulk-send-test" => "retention/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+
+        get "candidates/:candidate_id/send-reminder" => "retention/surveys/candidates#send_reminder", :as => :send_reminder
+        put "candidates/:candidate_id/send-reminder" => "retention/surveys/candidates#send_reminder"
+        get "candidates/:candidate_id" => "retention/surveys/candidates#candidate", :as => :candidate
+
+
+      end
+    end
+
     resources :jobs do
       collection do
         get :manage
@@ -656,6 +692,27 @@ Recruiters::Application.routes.draw do
     end
 
     resources :elements do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
+  end
+
+  namespace :retention do
+    resources :traits do
       collection do
         get :manage
         get :destroy_all
