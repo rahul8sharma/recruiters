@@ -16,6 +16,45 @@
       = submit_tag 'Regenerate report'
 %br
 
+= form_tag regenerate_exit_individual_reports_path, :method => :put do
+  %fieldset
+    %legend
+      %strong Regenerate report for exit survey
+    = fields_for "args" do |f|
+      %p
+        Survey ID :
+        = f.text_field :survey_id, :value => ""
+      %p
+        Notification Email :
+        = f.text_field :email, :value => ""
+      %p
+        Notify Recepients :
+        = f.check_box :notify_recipients
+    .actions
+      = submit_tag 'Regenerate report'
+%br
+
+= form_tag regenerate_exit_group_reports_path, :method => :put do
+  %fieldset
+    %legend
+      %strong Regenerate group reports for exit survey
+    = fields_for "args" do |f|
+      %p
+        Survey ID :
+        = f.text_field :survey_id, :value => ""
+      %p
+        Group Report ID :
+        = f.text_field :group_report_id, :value => ""
+      %p
+        Notification Email :
+        = f.text_field :email, :value => ""
+      %p
+        Notify Recepients :
+        = f.check_box :notify_recipients
+    .actions
+      = submit_tag 'Regenerate report'
+%br
+
 = form_tag manage_report_path, :method => :put do |f|
   %fieldset
     %legend

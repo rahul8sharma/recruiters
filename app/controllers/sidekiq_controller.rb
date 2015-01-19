@@ -191,6 +191,24 @@ class SidekiqController < ApplicationController
       redirect_to report_management_path, alert: "Please specify email and assessment_id."
     end
   end
+  
+  def regenerate_exit_individual_reports
+    if params[:args][:survey_id].present? && params[:args][:email].present?
+      survey = Vger::Resources::Exit::Survey.regenerate_individual_reports(params)
+      render :json => { :status => "Job Started", :job_id => survey.job_id }
+    else
+      redirect_to report_management_path, alert: "Please specify email and survey_id."
+    end
+  end
+  
+  def regenerate_exit_group_reports
+    if (params[:args][:survey_id].present? || params[:args][:group_report_id].present? ) && params[:args][:email].present?
+      survey = Vger::Resources::Exit::Survey.regenerate_group_reports(params)
+      render :json => { :status => "Job Started", :job_id => survey.job_id }
+    else
+      redirect_to report_management_path, alert: "Please specify email and survey_id or group report id."
+    end
+  end
 
   def regenerate_mrf_reports
     if params[:args][:assessment_id].present? && params[:args][:email].present?
