@@ -2,15 +2,15 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-= form_for @survey, :as => :survey, :url => add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+= form_for @survey, :as => :survey, :url => add_items_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
   .order_enable_items
     .page-title
       = @survey.name
     .divider2
-    = render :partial => "shared/exit/navigation-sub-nav"
+    = render :partial => "shared/retention/navigation-sub-nav"
     .divider2
     .big-text
-      Smileys
+      Paired Response Items
     - index = 1
     - @item_groups.each do |item_group|
       %label.pull-left
@@ -26,7 +26,7 @@
       %br/
       - index += 1
     .big-text
-      Reasons
+      Plain Items
     - @items.each do |item|
       %label.pull-left
 

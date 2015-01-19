@@ -1,0 +1,39 @@
+.container
+  .span14.page-title.first
+    Create a new Retention Survey
+  .clr.divider2
+  = render :partial => "shared/retention/navigation-sub-nav"
+  .divider2
+  = form_for :survey, as: :survey, url: company_retention_surveys_path(@company) do |f|
+    = f.hidden_field :survey_type, value: "trait"
+    .border-primary
+      .padding-all2.border-bottom-grayLighter
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2
+            Enter a title for this retention Survey
+          %input.span20.pull-right{:type => "text", name: "survey[name]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this retention Survey", name: "survey[name]"}
+        .clr
+        .divider2
+        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+          %label.pull-left.big-text.line-height2
+            Page size
+          %input.span20.pull-right{:type => "text", name: "survey[page_size]"}
+
+        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+          %input.span26.show.margin-auto{:type => "text", :placeholder=>"Page size", name: "survey[page_size]"}
+        .clr
+        .divider1
+        - if is_superadmin?
+          %select.span26.show.margin-auto{ name: "defined_form_id" }
+            %option Select Custom Factual Information Form
+            - @defined_forms.each do |defined_form|
+              %option{ value: defined_form.id }
+                = defined_form.name
+          .clr
+        .divider2
+        %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
+        .clr
+      .clr
