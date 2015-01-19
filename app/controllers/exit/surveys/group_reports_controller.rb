@@ -15,10 +15,8 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   end
 
   def report
-    @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], params.merge(methods: ["report_hash"]))
-    Rails.logger.ap @report.report_hash
-    @report.report_data = @report.report_hash
-    #@report.report_hash = @report.report_data
+    @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], params)
+    @report.report_hash = @report.report_data
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else

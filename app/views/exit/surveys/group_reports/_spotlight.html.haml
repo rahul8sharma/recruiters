@@ -3,25 +3,19 @@
   .container
     .headings
       .huge-text.pull-left 
-        Rustum Patil Qureshi 
+        Group Report
       .pull-right.text-right
         .huge-text.color-warning  
-          Individual Report
+          Exit Survey
         .extra-medium-text
-          No of Candidates: 22  Answered on 12-10-2014
+          No of Candidates: #{@report.report_data["no_of_candidates"]}  Answered on #{@report.report_data["completed_at"]}
       .clr
       .divider1
     .divider2
     .large-text
-      .span19.first
-        Region: West
-      .span10.pull-right
-        Business Unit: Automobiles
-      .clr
-      .divider1
-      .span19.first
-        Region: West
-      .span10.pull-right
-        Business Unit: Automobiles
-      .clr
-      .divider1
+      - @report.report_data["criteria"].each_slice(2) do |criterias|
+        - criterias.each.with_index do |(id, criteria), index|
+          %div{ class: index == 0 ? 'span19 first':'span10 pull-right' }
+            = "#{criteria['label']}: #{criteria['value']}"
+        .clr
+        .divider1
