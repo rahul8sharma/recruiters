@@ -78,7 +78,7 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   def create
     @report = Vger::Resources::Exit::GroupReport.create(params[:group_report])
     if @report.error_messages.empty?
-      redirect_to group_report_company_exit_survey_path(@company.id, @survey.id, @report.id)
+      redirect_to group_reports_company_exit_survey_path(@company.id, @survey.id)
     else  
       get_custom_form
       @report.criteria ||= {}
