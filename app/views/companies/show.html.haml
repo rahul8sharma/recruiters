@@ -2,7 +2,7 @@
   .page-title
     .divider1
     Settings
-    
+
   .divider2
   = render :partial => "shared/settings-content-sub-nav"
 
@@ -12,22 +12,14 @@
         %li.padding-all1.big-text
           .span10.gray-dark
             %i.icon-group
-            Company Name: 
+            Company Name:
           .span7
             #{@company.name}
           .clr
         %li.padding-all1.big-text
           .span10.gray-dark
-            %i.icon-barcode
-            Company Code: 
-          .span7
-            #{@company.company_code}
-          .clr
-
-        %li.padding-all1.big-text
-          .span10.gray-dark
-            %i.icon-globe 
-            Company website URL: 
+            %i.icon-globe
+            Company website URL:
           -if @company.website
             %a.span7{:href => "#{h @company.website}", :title => "Click Here to go #{@company.website} website"}
               = @company.website
@@ -49,7 +41,7 @@
 
         %li.padding-all1.big-text
           .span10.gray-dark
-            %i.icon-map-marker 
+            %i.icon-map-marker
             Company Head Quarter Address:
           .span7
             = h @company.hq_address
@@ -58,7 +50,7 @@
       - if current_user.type == "SuperAdmin"
         %a.btn.btn-warning.inverse.big-text.pull-left{href: edit_company_path(@company)}
           %b Edit Company Profile
-        
+
         %a.btn.btn-warning.big-text.pull-right{href: add_subscription_company_path(@company.id)}
           Add Subscription
       .clr
