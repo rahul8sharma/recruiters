@@ -84,6 +84,53 @@ class SidekiqController < ApplicationController
   end
 
 
+  def upload_exit_reports
+    reports = Vger::Resources::Exit::Report.where(
+      :query_options => {
+        :status => Vger::Resources::Exit::Report::Status::SCORED
+      },
+      :include =>[:survey],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :survey_id => report.survey.id,
+        :candidate_id => report.candidate_id,
+        :company_id => report.survey.company_id
+
+      }
+      ExitReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+    end
+    render :json => { :status => "Job Started",:reports => reports.map(&:id)}
+  end
+  
+  def upload_exit_group_reports
+    reports = Vger::Resources::Exit::GroupReport.where(
+      :query_options => {
+        :status => Vger::Resources::Exit::GroupReport::Status::SCORED
+      },
+      :include =>[:survey],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :survey_id => report.survey.id,
+        :company_id => report.survey.company_id
+      }
+      ExitGroupReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+    end
+    render :json => { :status => "Job Started",:reports => reports.map(&:id)}
+  end
+
+
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
                     :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
@@ -142,6 +189,24 @@ class SidekiqController < ApplicationController
       render :json => { :status => "Job Started", :job_id => assessment.job_id }
     else
       redirect_to report_management_path, alert: "Please specify email and assessment_id."
+    end
+  end
+  
+  def regenerate_exit_individual_reports
+    if params[:args][:survey_id].present? && params[:args][:email].present?
+      survey = Vger::Resources::Exit::Survey.regenerate_individual_reports(params)
+      render :json => { :status => "Job Started", :job_id => survey.job_id }
+    else
+      redirect_to report_management_path, alert: "Please specify email and survey_id."
+    end
+  end
+  
+  def regenerate_exit_group_reports
+    if (params[:args][:survey_id].present? || params[:args][:group_report_id].present? ) && params[:args][:email].present?
+      survey = Vger::Resources::Exit::Survey.regenerate_group_reports(params)
+      render :json => { :status => "Job Started", :job_id => survey.job_id }
+    else
+      redirect_to report_management_path, alert: "Please specify email and survey_id or group report id."
     end
   end
 

@@ -332,6 +332,7 @@ Recruiters::Application.routes.draw do
         
         get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
         get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
+        get "group_reports" => "exit/surveys/group_reports#index", :as => :group_reports
         post "group_reports" => "exit/surveys/group_reports#create", :as => :create_group_report
 
         get "group_reports/:report_id/edit" => "exit/surveys/group_reports#edit", :as => :edit_group_report
@@ -1050,6 +1051,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
   match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
+  match "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
@@ -1057,7 +1059,12 @@ Recruiters::Application.routes.draw do
   put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
   get "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports", :as => :regenerate_mrf_reports
   put "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports"
-
+  get "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
+  put "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports"
+  
+  get "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
+  put "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports"
+  
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
