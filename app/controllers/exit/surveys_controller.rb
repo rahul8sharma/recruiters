@@ -56,7 +56,7 @@ class Exit::SurveysController < ApplicationController
       items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
       items = Hash[params[:items].sort_by{|item_id, item_data| item_data[:order].to_i }]
       params[:survey][:item_ids] = items.map do |index, item_data|
-        { :type => item_data[:type], :id => item_data[:id].to_i }
+        { :type => item_data[:type], :id => item_data[:id].to_i, :enable_comment => item_data[:enable_comment].present? }
       end
       @survey = Vger::Resources::Exit::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
@@ -105,6 +105,16 @@ class Exit::SurveysController < ApplicationController
     @item_groups = Vger::Resources::Exit::ItemGroup.where(scopes: {
       :for_company => @company.id
     }).all.to_a
+    
+    @subjective_items = Vger::Resources::SubjectiveItem.where(
+      scopes: {
+        :for_company => @company.id
+      },
+      query_options: {
+        :active => true,
+        :behaviour => "exit_survey"
+      }
+    ).all.to_a
   end
 
   def get_traits

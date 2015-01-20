@@ -13,34 +13,61 @@
       Smileys
     - index = 1
     - @item_groups.each do |item_group|
-      %label.pull-left
-        %input{ type: "hidden", name: "items[#{index}][type]", value: item_group.class.name.gsub('Vger::Resources::','') }
-        %input{ type: "hidden", name: "items[#{index}][id]", value: item_group.id }
-        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item_group", checked: true }
-        #{item_group.body}
-      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
-        - 100.times do |order|
-          %option{ value: order+1, selected: index == order+1 }
-            = order+1
+      .span18
+        %label.pull-left
+          %input{ type: "hidden", name: "items[#{index}][type]", value: item_group.class.name.gsub('Vger::Resources::','') }
+          %input{ type: "hidden", name: "items[#{index}][id]", value: item_group.id }
+          %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item_group", checked: true }
+          #{item_group.body}
+      .span5 
+        %label   
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item_group", checked: false }  
+          Enable Comment
+      .span5    
+        %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+          - 100.times do |order|
+            %option{ value: order+1, selected: index == order+1 }
+              = order+1  
       .clr
       %br/
       - index += 1
     .big-text
       Reasons
     - @items.each do |item|
-      %label.pull-left
-
-        %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
-        %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
-        %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
-        #{item.body}
-      %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
-        - 100.times do |order|
-          %option{ value: order+1, selected: index == order+1 }
-            = order+1
-      - index += 1
+      .span18
+        %label.pull-left
+          #{item.body}
+          %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
+          %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
+          %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
+      .span5 
+        %label   
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: true }  
+          Enable Comment
+      .span5
+        %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+          - 100.times do |order|
+            %option{ value: order+1, selected: index == order+1 }
+              = order+1
+        - index += 1        
       .clr
       %br/
+    - @subjective_items.each do |item|
+      .span18
+        %label.pull-left
+          #{item.body}
+          %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
+          %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
+          %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: false, style: "display:none;" }  
+      .span10
+        %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
+          - 100.times do |order|
+            %option{ value: order+1, selected: index == order+1 }
+              = order+1
+        - index += 1        
+      .clr
+      %br/  
 
   .clr
 

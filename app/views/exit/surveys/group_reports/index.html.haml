@@ -1,0 +1,58 @@
+.candidate-list
+  .span15.page-title.first
+    .divider1
+    AID #{@survey.id} - #{@survey.name}
+  %a.extra-medium-text.pull-right.line-height3{:href => new_group_report_company_exit_survey_path(:company_id => params[:company_id], :id => @survey.id), :title => "Click Here To Create new Group Report"}
+    Create New Group Report
+  .clr
+  .divider2
+  = render :partial => "shared/exit/survey-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .divider2
+    .list-snippet-titles.extra-medium-text.clearfix
+      .span3.first
+        = sort_link "ID", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+
+      .span8
+        = sort_link "Name", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span9
+        = sort_link "Report Status", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .clr
+      .divider1
+    - if @reports.empty?
+      .alert.medium-text
+        - if params[:search].present?
+          No results found!
+        - else
+          No group reports found. To create a new Group Report
+          %a{ href: new_group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), title: "Create a new Group Report" } Click here
+    - else
+      %ul
+        - @reports.each do |report|
+          %li.list-snippet.medium-text
+            .divider1
+            .span3.first
+              %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=>"#{report.id}"} #{report.id}
+            .span8.info-block
+              %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=>"#{ h report.name}"}
+                = h report.name
+            .span9
+              - status = report_statuses[report.status]
+              %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=> "#{report.present? ? 'Complete' : 'Pending'}" }
+                = status
+                as of #{htime report.updated_at} Hrs, #{hdate report.updated_at}
+            .span4
+              - if report.status == Vger::Resources::Exit::Report::Status::UPLOADED
+                - url =  s3_group_report_company_exit_survey_path(:company_id => params[:company_id], :report_id => report.id, :view_mode => "html")
+                %a{:href => url, :title => "View Report", target: "_blank"}
+                  %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
+                  View Report
+              - else
+                %i.icon-spinner.icon-spin
+                Generating report...
+            .clr
+      .divider3
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @reports}
+    .clr

@@ -3,12 +3,20 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   before_filter :get_survey, except: [:s3_report]
   
   layout "exit"
+  
+  def index
+    @reports = Vger::Resources::Exit::GroupReport.where(
+      query_options: {
+        :survey_id => @survey.id
+      },
+      page: params[:page],
+      per: 5
+    ).all
+  end
 
   def report
-    @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], params.merge(methods: ["report_hash"]))
-    Rails.logger.ap @report.report_hash
-    @report.report_data = @report.report_hash
-    #@report.report_hash = @report.report_data
+    @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], params)
+    @report.report_hash = @report.report_data
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -70,7 +78,7 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   def create
     @report = Vger::Resources::Exit::GroupReport.create(params[:group_report])
     if @report.error_messages.empty?
-      redirect_to group_report_company_exit_survey_path(@company.id, @survey.id, @report.id)
+      redirect_to group_reports_company_exit_survey_path(@company.id, @survey.id)
     else  
       get_custom_form
       @report.criteria ||= {}
