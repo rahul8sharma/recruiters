@@ -10,11 +10,11 @@
       .field
         = f.text_field :id, :placeholder => "Company ID"
         = f.text_field :name, :placeholder => "Company Name"
-        = f.submit "Search"  
+        = f.submit "Search"
   .divider2
   .list-snippet-titles.medium-text.clearfix
     .span2.first
-      = sort_link "EMP", companies_path, "company_code::int", params[:search]
+      = sort_link "ID", companies_path, "id::int", params[:search]
     .span5
       = sort_link "Company Title", companies_path, :name, params[:search]
     .span3.first
@@ -40,7 +40,7 @@
       %li.list-snippet.border-bottom-grayLighter
         .span2.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
-            = company.company_code
+            = company.id
         .span5
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.name
@@ -66,7 +66,7 @@
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
             = h @remaining_invitations[company.id.to_s], 0
         .span3.first
-          = (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-" 
+          = (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-"
         .clr
         .divider1
   .divider2
