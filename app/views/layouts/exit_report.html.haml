@@ -2,6 +2,11 @@
   = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
   = wicked_pdf_stylesheet_link_tag "exit_reports_html"
   = wicked_pdf_stylesheet_link_tag "shared"
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "jquery"
+  = wicked_pdf_javascript_include_tag "jquery_ujs"
+  = wicked_pdf_javascript_include_tag 'highcharts-custom'
+  = wicked_pdf_javascript_include_tag "exit/pie"
   
 - content_for :body do
   = render :partial => "shared/exit/report_header"

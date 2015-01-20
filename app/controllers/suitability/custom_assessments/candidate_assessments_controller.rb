@@ -147,6 +147,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def bulk_send_test_to_candidates
+    params[:options] ||= {}
     Vger::Resources::Suitability::CandidateAssessment\
       .import_from_s3_files(:email => current_user.email,
                     :assessment_id => @assessment.id,
