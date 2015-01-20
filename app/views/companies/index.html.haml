@@ -14,7 +14,7 @@
   .divider2
   .list-snippet-titles.medium-text.clearfix
     .span2.first
-      = sort_link "ID", companies_path, "id::int", params[:search]
+      = sort_link "ID", companies_path, "id", params[:search]
     .span5
       = sort_link "Company Title", companies_path, :name, params[:search]
     .span3.first
