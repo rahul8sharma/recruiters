@@ -523,3 +523,86 @@
           border-color: #6ea6bf
         
 
+#distribution_data_points
+  table
+    border-spacing: 0
+    padding: 0 30px 18px 30px
+    border-bottom: 1px solid #bcbec0
+    tr
+      td
+        vertical-align: top
+        &:first-child
+          border-right: 1px solid #bcbec0
+  .panel  
+    border: 1px dashed #bcbec0
+  .panel.bg-white
+    .rating_snippet
+      text-align: center
+      border: 1px solid #eaeaea
+      border-radius: 2px
+      padding: 1px
+      width: 85%
+      margin: auto
+      line-height: 30px
+
+      .rating_title
+        font-size: 14px
+        border-radius: 2px
+        width: 66%
+        float: left
+        color: #fff
+        &.brown
+          background: #c4a655
+        &.blue
+          background: #6ea4be
+        &.green
+          background: #29b299
+        
+      .value
+        font-size: 18px
+        width: 31%
+        float: right
+  .legend_ratings
+    padding: 10px 25px
+    li
+      float: left
+      margin-bottom: 18px
+    .block
+      height: 18px
+      width: 18px
+  .rating_breakdown
+    padding: 3% 5.5%
+    font-size: 1rem
+    .breakdown_bar_section
+      margin-top: 6%
+      .breakdown_bar 
+        width: 23%
+        height: 360px
+      .breakdown_rating_list
+        li
+          margin-top: 36px
+          line-height: 30px
+          &:first-child
+            margin-top: 0
+          .block
+            width: 30px
+            height: 30px
+  .breakdown_small
+    [class*="span"]
+      margin-left: 9px
+    li
+      &:nth-child(3n+1)
+        margin-left: 0
+      .breakdown_bar_section
+        margin-top: 6%
+        .breakdown_bar 
+          width: 23%
+          height: 200px
+        .breakdown_rating_list
+          font-size: 0.75rem
+          li
+            margin-top: 18px
+            line-height: 18px
+            .block
+              width: 18px
+              height: 18px
