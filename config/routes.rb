@@ -329,7 +329,7 @@ Recruiters::Application.routes.draw do
 
         get "candidates/:candidate_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
-        
+
         get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
         get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
         get "group_reports" => "exit/surveys/group_reports#index", :as => :group_reports
@@ -992,6 +992,15 @@ Recruiters::Application.routes.draw do
       end
     end
     resources :lead_points do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
+      end
+    end
+    resources :gift_providers do
       collection do
         post :import
         get :manage
