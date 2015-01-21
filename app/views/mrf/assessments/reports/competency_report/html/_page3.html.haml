@@ -4,13 +4,14 @@
     .scores.container
       .span10
         .title.line-height2
-          Competencies with 360&#176; Scores 
+          Competencies with 360&#176; Scores
         .divider1
-        .mrf-benchmark-ranges-block.pull-left
-          .pull-left
-            Industry Benchmark
-          .line.pull-left
-          .clr
+        - if @report.report_data[:assessment][:set_ranges]
+          .mrf-benchmark-ranges-block.pull-left
+            .pull-left
+              Industry Benchmark
+            .line.pull-left
+            .clr
         .clr
       .scale.mrf.pull-right.left-offset1
         .line{ class: "line#{@norm_buckets.size}" }
@@ -19,7 +20,7 @@
             .marker
               .arrow
               .marker-info
-                = norm_bucket.description rescue "-" 
+                = norm_bucket.description rescue "-"
               - if norm_bucket.name.split(" ").size == 1
                 %br/
               = norm_bucket.name
