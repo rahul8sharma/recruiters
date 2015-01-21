@@ -1,8 +1,11 @@
+- @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/html/page1"
-  = render :partial => "mrf/assessments/reports/competency_report/html/distribution_data_points"
   = render :partial => "mrf/assessments/reports/competency_report/html/page2"
   = render :partial => "mrf/assessments/reports/competency_report/html/page3"
+  - if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+    - @report.report_data[:competency_scores].each do |competency_name, competency_score|  
+      = render :partial => "mrf/assessments/reports/competency_report/html/competency_distribution_data_points", locals: { competency_score: competency_score, competency_name: competency_name }
   = render :partial => "mrf/assessments/reports/competency_report/html/page4"
   = render :partial => "mrf/assessments/reports/competency_report/html/page5"
   = render :partial => "mrf/assessments/reports/competency_report/html/page6"
