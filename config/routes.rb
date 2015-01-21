@@ -594,6 +594,7 @@ Recruiters::Application.routes.draw do
   namespace :mrf do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
+    post 'assessments_management/export_mrf_raw_scores' => 'assessments_management#export_mrf_raw_scores', :as => :export_raw_scores
 
     resources :traits do
       collection do

@@ -15,4 +15,13 @@ class Mrf::AssessmentsManagementController < ApplicationController
           :options => params[:assessment])
     redirect_to mrf_assessments_management_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+  
+  def export_mrf_raw_scores
+    Vger::Resources::Mrf::Assessment\
+      .export_mrf_raw_scores(
+          :company_id => params[:assessment][:company_id],
+          :id => params[:assessment][:assessment_id],
+          :options => params[:assessment])
+    redirect_to mrf_assessments_management_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 end
