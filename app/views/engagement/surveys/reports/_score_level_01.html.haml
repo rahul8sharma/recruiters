@@ -18,6 +18,8 @@
 
   - (@report.report_data[:facet_scores].size-1).times do
     .grid
+  - if @report.report_data[:facet_scores].size < 3
+    .left-half-grid
   .clr
   .divider9
 
