@@ -80,7 +80,7 @@ class Suitability::CompetenciesController < MasterDataController
     params[:mrf_trait_ids] ||= {}
     params[:functional_trait_ids] ||= {}
 
-    factor_ids = params[:factor_ids]\
+    factor_ids = params[:suitability_trait_ids]\
       .collect { |index,factor_hash| factor_hash.keys}\
       .flatten.map(&:to_i)
     mrf_trait_ids = params[:mrf_trait_ids]\
