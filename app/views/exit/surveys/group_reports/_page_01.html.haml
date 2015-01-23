@@ -1,0 +1,220 @@
+- colors = ["#092B35", "#9D4738", "#CEAE37", "#53C531", "#FF9B2A", "#8C3278", "#CEAE37", "#00365A", "#15C1B5", "#56D3A9", "#015D6A", "#C4B864"]
+- @report.report_data["items"].sort_by{|item_hash| item_hash["report_order"] }.each do |item_hash|
+  - responses = item_hash["responses"]
+  - if responses.present?
+    .snippet.single-column-pie
+      .container
+        .snippet_title.bracket-left-arrow-icon
+          = item_hash["report_body"]
+        .divider2
+        - if item_hash["report_graph_type"] == "pie"
+          .left.span12.pull-left
+            - hash = Hash[responses.collect.with_index{|(id,response),index| ["data-#{index}","#{response['body']}-:-#{response['percent']}-:-#{colors[index]}"] }]
+            - if item_hash["selectable_options"] == 1 && responses.size == 1
+              - percent = responses[responses.keys[0]]['percent']
+              - hash["data-1"] = "No-:-#{100-percent}-:-#9D4738"
+            .span6.margin-auto.pie-chart{ hash }
+        .right.pull-left 
+          .divider2
+          %ul
+            - responses.each.with_index do |(id, response_hash),index|
+              %li
+                .count{:style=>"background: #{colors[index]}"}
+                  = response_hash["percent"]
+                .span14
+                  .divider1
+                  = response_hash["body"]
+                .clr
+                .divider1
+            - if item_hash["selectable_options"] == 1 && responses.size == 1
+              - percent = responses[responses.keys[0]]['percent']
+              %li
+                .count{:style=>"background: #9D4738"}
+                  = 100 - percent
+                .span14
+                  .divider1
+                  No
+                .clr
+                .divider1      
+        .clr
+  - else
+    - if item_hash["items"].size > 0
+      .snippet.mood
+        - happy_items = item_hash["items"].select{|id, item_data| item_data["happy"]["percentage"] > 70 }
+        - unhappy_items = item_hash["items"].select{|id, item_data| item_data["happy"]["percentage"] <= 70 }
+        - happy_items_percentage = ((happy_items.size * 100).to_f / item_hash["items"].size).round
+        .container
+          .snippet_title.group-talk-bubble-icon
+            = item_hash["report_body"]
+        .divider2
+        .span24.margin-auto
+          .happy.span8.first
+            .title.huge-text
+              #{happy_items_percentage}% Happy :)
+            .divider1
+            %ul
+              - happy_items.each do |id, item|
+                %li
+                  = item["item_body"]
+          .span7
+            .pie-chart.span3.margin-auto{ "data-0" => "Happy-:-#{happy_items_percentage}-:-#82D23F", "data-1" => "Unhappy-:-#{100-happy_items_percentage}-:-#1068b1" }
+              PIE CHART GOES HERE
+          .unhappy.span8
+            .title.huge-text
+              #{100-happy_items_percentage}% Unappy :(
+            .divider1
+            %ul
+              - unhappy_items.each do |id, item|
+                %li
+                  = item["item_body"]
+          .clr         
+
+-#
+  .snippet.two-column-list
+    .container
+      .snippet_title.exchange-arrow-icon
+        Top 3 Things that could be changed about
+    .divider2
+    .headings.container
+      .left.span15.first
+        .divider1
+        .title
+          Manager
+        .divider2
+      .right.span15.first
+        .divider1
+        .title
+          Organization
+        .divider2
+      .clr
+
+    %ul.striped_list.numbered-list
+      -3.times do |index|
+        %li
+          .container
+            .left.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+            .right.span15.first
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+            .clr
+
+  .snippet.recommendation
+    .container
+      .left.span15.first
+        .snippet_title.question-mark-icon
+          Top Reasons of recommending this organization
+        .divider2
+
+        %ul.numbered-list
+          -5.times do |index|
+            %li
+              .count.pull-left
+                #{index+1}
+              .big-text.span
+                Advancement 
+              .clr
+              .divider1
+      .right.span15.first
+        .snippet_title.left-offset1.user-icon
+          Ever felt discriminated?  
+        .divider2
+        .divider3
+        .span7.left-offset4
+          PIE CHART GOES HERE
+        .pull-right
+          .status{:style=>"background: #ddd"}
+            50%
+            %br/
+            YES
+          .divider2
+          .status{:style=>"background: #ddd"}
+            50%
+            %br/
+            NO
+      .clr
+      
+  .snippet.two-column-pie
+    .container
+      .snippet_title.search-icon
+        New Job versus Old Job
+      .divider2
+      .left.span15.first
+        .large-text
+          Difference between Old and New Job
+        .divider2
+        .span5
+          PIE CHART
+        .span9.pull-right
+          %ul.numbered-list
+            -5.times do |index|
+              %li
+                .count.pull-left{:style=>"background: red"}
+                  #{index+1}0%
+                .medium-text.span
+                  Advancement 
+                .clr
+                .divider1
+        .clr
+      .right.span15.first
+        .large-text.left-offset1
+          New Salary versus the Old one
+        .divider2
+        .span5.left-offset1
+          PIE CHART
+        .span8.pull-right
+          %ul.numbered-list
+            -5.times do |index|
+              %li
+                .count.pull-left{:style=>"background: red"}
+                  #{index+1}0%
+                .medium-text.span
+                  Advancement 
+                .clr
+                .divider1
+        .clr
+         
+      .clr
+
+  .snippet
+    .container
+      .snippet_title
+        Reasons of choosing the New Job
+    .divider2
+
+    %ul.striped_list.numbered-list
+      - 3.times do |index|
+        %li
+          .container
+            .count.pull-left
+              #{index+1}
+            .big-text.span
+              Advancement 
+            .clr
+  .snippet.two-column-pie
+    .container
+      .snippet_title.building-icon
+        What people think about the Company!
+      .divider2
+      .span7.first
+        PIE CHART
+      .span22.pull-right
+        %ul.numbered-list
+          %li.divider3
+          -5.times do |index|
+            %li
+              .count.pull-left{:style=>"background: red"}
+                #{index+1}0%
+              .medium-text.span
+                Advancement 
+              .clr
+              .divider1
+      .clr
+

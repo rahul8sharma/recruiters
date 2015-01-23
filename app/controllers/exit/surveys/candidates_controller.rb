@@ -3,7 +3,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey
-  
+
   layout 'exit'
   def bulk_upload
     s3_bucket_name = "bulk_upload_candidates_for_survey_#{Rails.env.to_s}"
@@ -148,13 +148,13 @@ class Exit::Surveys::CandidatesController < ApplicationController
         unless candidate_survey
           options = {}
           options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
-          
+
           candidate_survey = Vger::Resources::Exit::CandidateSurvey.create(
             :survey_id => @survey.id,
             :candidate_id => candidate_id,
             :options => options
           )
-          
+
           Rails.logger.ap candidate_survey.error_messages
 
           if candidate_survey.error_messages.present?
@@ -178,6 +178,34 @@ class Exit::Surveys::CandidatesController < ApplicationController
       else
         flash[:notice] = "Survey was sent successfully!"
         redirect_to candidates_company_exit_survey_path(@company.id, @survey.id)
+      end
+    end
+  end
+
+  def candidate
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
+    @candidate_surveys = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => @survey.id, :query_options => {
+      :candidate_id => @candidate.id
+    })
+    @reports = Vger::Resources::Exit::Report.where(query_options: {
+      :candidate_survey_id => @candidate_surveys.map(&:id)
+    }).all.to_a.group_by{|report| report.candidate_survey_id }
+    if is_superadmin?
+      @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
+        query_options: {
+          :assessment_id => @survey.id,
+          :assessment_type => @survey.class.name.gsub("Vger::Resources::","")
+        }
+      }).all.to_a[0]
+      @factual_information = []
+      if @custom_form
+        @factual_information = Vger::Resources::FormBuilder::FactualInformation.where({
+          query_options: {
+            candidate_id: @candidate.id,
+            factual_information_form_id: @custom_form.id
+          },
+          include: [:defined_field]
+        }).all.to_a
       end
     end
   end
@@ -209,13 +237,13 @@ class Exit::Surveys::CandidatesController < ApplicationController
     @candidate_surveys = scope
     @candidates = @candidate_surveys.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_surveys.total_count).page(params[:page]).per(10)
-    @reports = [] #Vger::Resources::Exit::Report.where(query_options: {
-      #:candidate_survey_id => @candidate_surveys.map(&:id)
-    #}).all.to_a.group_by{|report| report.candidate_survey_id }
+    @reports = Vger::Resources::Exit::Report.where(query_options: {
+      :candidate_survey_id => @candidate_surveys.map(&:id)
+    }).all.to_a.group_by{|report| report.candidate_survey_id }
   end
-  
+
   protected
-  
+
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
   end
@@ -227,7 +255,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
       @survey = Vger::Resources::Exit::Survey.new
     end
   end
-  
+
   def get_templates
     category = Vger::Resources::Template::TemplateCategory::SEND_EXIT_SURVEY_TO_EMPLOYEE
     @templates = Vger::Resources::Template\

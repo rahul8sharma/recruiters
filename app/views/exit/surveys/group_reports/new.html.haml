@@ -1,0 +1,6 @@
+.container  
+  .span25.margin-auto
+    .page-title
+      Create a new Exit Survey Group Report
+    .clr.divider2
+    = render "form", url: create_group_report_company_exit_survey_path(@company.id,@survey.id)

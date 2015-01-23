@@ -5,7 +5,7 @@
       .divider1
       .span8.first
         .blue_heading.large-text
-          Scores of Factors measured under different Competencies
+          Scores of Factors measured under different Competencies / Values
         .divider1
         .instruction_container
           .instructions
@@ -14,8 +14,9 @@
             .instruction2.less_favorable.pull-left
               Less Favorable Traits
             .clr
-        .functional-traits-title
-          Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
+        - if (@report.report_hash[:functional_items].present?)
+          .functional-traits-title
+            Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
       .pull-right
         .divider1
         .scale

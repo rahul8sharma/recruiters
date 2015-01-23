@@ -43,6 +43,10 @@ body
   color: #fff
   .score-chart
     .level_01
+      .left-half-grid
+        border-top: 1px solid #fff
+      .right-half-grid
+        border-top: 1px solid #fff
       .grid
         border: 1px solid #fff
         border-bottom: 0 solid #fff
@@ -130,6 +134,18 @@ body
       height: 70px
       width: 130px
       background: #fff
+    .left-half-grid
+      margin-left: -1px
+      float: left
+      width: 225px
+      border-top: 1px solid #000
+      height: 105px
+    .right-half-grid
+      margin-left: -1px
+      float: right
+      width: 225px
+      border-top: 1px solid #000
+      height: 105px
     .grid
       margin-left: -1px
       float: left
@@ -251,6 +267,21 @@ body
     &.type_02
       .column
         margin-left: 260px
+      .left
+        height: 55px
+        left: -285px
+        position: absolute
+        bottom: 0
+        width: 370px
+        .sub_score_container
+          .score
+            left: 0
+            right: auto
+          &:first-child
+            margin-right: 25px
+            margin-left: 0
+        .trait_name
+          left: -45px
       .right
         height: 55px
         left: 85px
@@ -359,12 +390,20 @@ body
     &.type_04
       .column
         margin-left: 710px
+      .right
+        height: 55px
+        left: 85px
+        position: absolute
+        bottom: 0
+        width: 370px
       .left
         height: 55px
         position: absolute
         bottom: 0
         width: 835px
         left: -750px
+
+
         .sub_score_container
           .score
             left: 0

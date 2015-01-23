@@ -1,0 +1,27 @@
+Hi,
+<p>
+  Exit Survey Group Report <%= @report_hash[:name] %> is ready!
+</p>
+<p>
+  Report URL:
+  <%= s3_group_report_company_exit_survey_url(:company_id => @report_hash[:company_id], :id => @report_hash[:survey_id], :report_id => @report_hash[:report_id], :view_mode => "html")
+    %>
+</p>
+<p>
+  You may alternatively view the report by copy-pasting the link in your web browser's address bar and visiting the link or by logging into your Jombay Account.
+</p>
+<p>
+  If you face any technical difficulties or have any queries please feel free to reach us at
+  <a href="mailto:prakhar@jombay.com" title="For any queries Mail to Prakhar">
+    prakhar@jombay.com.
+  </a>
+  You can also call us at
+  <b>+91 87960 29607</b>
+</p>
+Best regards,<br/>
+Prakhar Srivastava<br/>
+Jombay
+
+<br/>
+<br/>
+<%= render :partial => 'shared/mailer/footer' %>

@@ -3,7 +3,7 @@
   - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
   - if report && report.status == "uploaded"
     - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-  - else    
+  - else
     - url = @candidate_assessment.url
 
 - content_for :jquery do
@@ -11,9 +11,9 @@
   = javascript_include_tag "jquery_ujs"
 .home
   .divider1
-  - if !report
+  - if !report && @company.admin.email == current_user.email
     .extra-large-text.text-center
-      %b Test Yourself 
+      %b Test Yourself
       %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}
     .divider1
     .text-center.padding-all1.border-primary.gray-darker.or
@@ -21,11 +21,11 @@
         %a.btn.btn-warning.big-text{:href => url, :title => "Start My Self-Assessment Now", target: "_blank"}
           Start My Self-Assessment Now
       - else
-        Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.    
+        Configuring Self-Assessment. Please be patient! Link to take the Self-Assessment will appear as soon as it's ready.
       .divider1
       .extra-medium-text
         - if @custom_assessment
-          You can take a Quick assessment to trial out Jombay. 
+          You can take a Quick assessment to trial out Jombay.
           %a{:href => company_standard_assessment_path(:company_id => params[:id], :id => @custom_assessment.parent_id), :title => "What will I be measured on?"}
             What will I be measured on?
         .or-bottom.big-text
@@ -69,22 +69,22 @@
             %a.span8
               No Ready To Send Assessments Present
             .clr
-        
+
       .span10.margin-auto
         - if params[:show_more_standard_tests].blank?
           %a.medium-text{:href => home_company_path(:id => params[:id], :show_more_standard_tests => true), :title => "Click Here to See More Pre-built Assessments"}
             See More Pre-built Assessments
-            
+
       .divider1
       .text-center
         %i.icon-eye-open.span.big-text.float-none
-        %span.gray-light.medium-text.float-none{:title => "View Assessment Details"} 
+        %span.gray-light.medium-text.float-none{:title => "View Assessment Details"}
           View Assessment Details
         %i.icon-file.span.big-text.float-none
-        %span.gray-light.medium-text.float-none{:title => "View Sample Report"} 
+        %span.gray-light.medium-text.float-none{:title => "View Sample Report"}
           View Sample Report
         %i.icon-envelope.span.big-text.float-none
-        %span.gray-light.medium-text.float-none{:title => "Send Assessment"} 
+        %span.gray-light.medium-text.float-none{:title => "Send Assessment"}
           Send Assessment
         .clr
 
@@ -106,14 +106,14 @@
         / back to top
         %a.btn.btn-warning.big-text{href: new_company_custom_assessment_path(@company)}
           Create Custom Assessment
-  
+
       .divider1
       .span13.margin-auto.text-justify.medium-text
         You can create a custom assessment to suit your needs by selecting the Jombay traits of your choice. Custom assessments can be sent to both Existing Employees or Potential Hires
       .divider2
     .clr
     .divider1
-  
+
   .divider2
   #how-it-works.info-list.text-center
     .extra-large-text.text-center
@@ -154,7 +154,7 @@
         %li
           .visual02.divider5
           .extra-medium-text
-            1. Choose a Pre-built 
+            1. Choose a Pre-built
             %br/
             Assessment
         %li
@@ -242,11 +242,11 @@
       .tick
         width: 207px
 
-      #section01 
+      #section01
         .file
           width: 263px
 
-= javascript_include_tag 'common'  
+= javascript_include_tag 'common'
 
 :javascript
   $("#close").on('click',function(){

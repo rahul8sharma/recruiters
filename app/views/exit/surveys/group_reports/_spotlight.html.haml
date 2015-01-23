@@ -1,0 +1,21 @@
+#spotlight
+  .divider4
+  .container
+    .headings
+      .huge-text.pull-left 
+        Group Report
+      .pull-right.text-right
+        .huge-text.color-warning  
+          Exit Survey
+        .extra-medium-text
+          No of Candidates: #{@report.report_data["no_of_candidates"]}  Answered on #{@report.report_data["completed_at"]}
+      .clr
+      .divider1
+    .divider2
+    .large-text
+      - @report.report_data["criteria"].each_slice(2) do |criterias|
+        - criterias.each.with_index do |(id, criteria), index|
+          %div{ class: index == 0 ? 'span19 first':'span10 pull-right' }
+            = "#{criteria['label']}: #{criteria['value']}"
+        .clr
+        .divider1

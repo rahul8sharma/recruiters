@@ -3,7 +3,7 @@
     .question
       = subjective_response_value[:body]
       .info
-        = subjective_response_value[:trait_name] ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
+        = subjective_response_value[:trait_name].present? ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
         = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
       .arrow
     .divider2

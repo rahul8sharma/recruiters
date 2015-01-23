@@ -7,7 +7,7 @@
     View All Candidates
   .clr
   .divider2
-  = render :partial => "shared/candidate-content-sub-nav"
+  = render :partial => "shared/engagement/survey-sub-nav"
 
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .span19.margin-auto
@@ -107,6 +107,7 @@
           .span8
             #{ h @candidate.no_of_dependents }
           .clr
+        = render :partial => "candidates/factual_information"  
   .divider1
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .page-title
@@ -133,7 +134,7 @@
           %i.icon-chevron-down.small-text.line-height1 
     %ul
       - @candidate_surveys.each do |candidate_survey|
-        - report = candidate_survey.report
+        - report = @reports[candidate_survey.id].to_a[0]
         %li.list-snippet
           .divider1
           .span3.first
@@ -153,8 +154,5 @@
                 %i.icon-spinner.icon-spin 
                 Generating report...  
             - else 
-              - if candidate_survey.status == Vger::Resources::Engagement::CandidateSurvey::Status::EXPIRED
-                Expired
-              - else
-                Pending
+              Pending
           .clr         

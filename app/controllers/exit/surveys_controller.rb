@@ -3,34 +3,43 @@ class Exit::SurveysController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey, :except => [:index,:home]
-  
+  before_filter :get_defined_forms, :only => [:new, :edit, :create]
+
   layout 'exit'
 
   def api_resource
     Vger::Resources::Exit::Survey
   end
-  
+
   def home
     order_by = params[:order_by] || "exit_surveys.created_at"
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @surveys = Vger::Resources::Exit::Survey.where(query_options: {company_id: params[:company_id]}, order: order, page: params[:page], per: 10).all
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: { 
-      "exit_candidate_surveys.survey_id" => @surveys.map(&:id) 
+    @candidate_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: {
+      "exit_candidate_surveys.survey_id" => @surveys.map(&:id)
     })
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: { 
+    @completed_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: {
       "exit_candidate_surveys.survey_id" => @surveys.map(&:id),
       "exit_candidate_surveys.status" => Vger::Resources::Exit::CandidateSurvey.completed_statuses
     })
   end
-  
+
   def new
   end
-  
+
   def create
     params[:survey][:company_id] = @company.id
     @survey = Vger::Resources::Exit::Survey.new(params[:survey])
     if @survey.save
+      if params[:defined_form_id].present?  && params[:defined_form_id] =~ /^\d+$/
+        factual_information_form = Vger::Resources::FormBuilder::FactualInformationForm.create({
+          :defined_form_id => params[:defined_form_id],
+          :company_id => @company.id,
+          :assessment_type => "Exit::Survey",
+          :assessment_id => @survey.id
+        })
+      end
       flash[:notice] = "Exit Survey created successfully!"
       redirect_to add_traits_company_exit_survey_path(@company.id,@survey.id)
     else
@@ -38,7 +47,7 @@ class Exit::SurveysController < ApplicationController
       render action: :new
     end
   end
-  
+
   def add_traits
     if request.get?
       get_items
@@ -47,7 +56,7 @@ class Exit::SurveysController < ApplicationController
       items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
       items = Hash[params[:items].sort_by{|item_id, item_data| item_data[:order].to_i }]
       params[:survey][:item_ids] = items.map do |index, item_data|
-        { :type => item_data[:type], :id => item_data[:id].to_i }
+        { :type => item_data[:type], :id => item_data[:id].to_i, :enable_comment => item_data[:enable_comment].present? }
       end
       @survey = Vger::Resources::Exit::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
@@ -57,20 +66,20 @@ class Exit::SurveysController < ApplicationController
         flash[:error] = @survey.error_messages.join("<br/>").html_safe
         render action: :new
       end
-    end  
+    end
   end
-  
+
   def details
     @total_candidates = Vger::Resources::Exit::CandidateSurvey.count({
       survey_id: @survey.id
     })
   end
-  
+
   def traits
   end
-  
+
   protected
-  
+
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
   end
@@ -82,7 +91,7 @@ class Exit::SurveysController < ApplicationController
       @survey = Vger::Resources::Exit::Survey.new
     end
   end
-  
+
   def get_items
     @items = Vger::Resources::Exit::Item.where(
       scopes: {
@@ -92,12 +101,22 @@ class Exit::SurveysController < ApplicationController
         :item_group_id => nil
       }
     ).all.to_a
-    
+
     @item_groups = Vger::Resources::Exit::ItemGroup.where(scopes: {
       :for_company => @company.id
     }).all.to_a
+    
+    @subjective_items = Vger::Resources::SubjectiveItem.where(
+      scopes: {
+        :for_company => @company.id
+      },
+      query_options: {
+        :active => true,
+        :behaviour => "exit_survey"
+      }
+    ).all.to_a
   end
-  
+
   def get_traits
     @traits = Vger::Resources::Exit::Trait.where({
       query_options: {
@@ -121,5 +140,9 @@ class Exit::SurveysController < ApplicationController
         @survey_traits.push(survey_trait)
       end
     end
+  end
+
+  def get_defined_forms
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
   end
 end

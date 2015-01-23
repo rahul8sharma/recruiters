@@ -1,0 +1,216 @@
+@import toolkit/grid/variables
+@import shared/reports/about_us_html
+
+body
+  font-family:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif
+.report
+  min-height: 100%
+.header-container
+  position: relative
+  height: 57px
+#header
+  position: fixed
+  z-index: 9999
+  #nav
+    margin: 20px 0 0 0
+    li
+      float: left
+      background: #f4f4f4
+      height: 37px
+      min-width: 34px
+
+      &.left
+        background: image-url('report/html/nav-left.png') no-repeat transparent
+      &.right
+        background: image-url('report/html/nav-right.png') no-repeat transparent
+      a
+        line-height: 37px
+        color: $grayDark
+        padding: 0 10px
+        font-size: $medium-text
+
+        &:hover
+          color: $color-warning
+          text-decoration: none
+#spotlight
+  background: #00293a
+  color: #fff
+  .headings
+    border-bottom: 1px solid #fff
+.snippet
+  border-top: 1px solid #002b3a
+  padding: 35px 0
+  &:first-child
+    border: 0 none
+.snippet_title
+  font-size: 30px
+  padding-left: 40px  
+  color: 00293a 
+  line-height: 30px
+.bracket-left-arrow-icon
+  background: image-url('report/html/exit/bracket-left-arrow.png') no-repeat 0 0
+.user-icon
+  background: image-url('report/html/exit/user.png') no-repeat 0 0
+.building-icon  
+  background: image-url('report/html/exit/building.png') no-repeat 0 0
+.group-talk-bubble-icon
+  background: image-url('report/html/exit/group-talk-bubble.png') no-repeat 0 0
+.talk-bubble-icon
+  background: image-url('report/html/exit/talk-bubble.png') no-repeat 0 0
+.exchange-arrow-icon
+  background: image-url('report/html/exit/exchange-arrow.png') no-repeat 0 0
+.question-mark-icon
+  background: image-url('report/html/exit/question-mark.png') no-repeat 0 0
+.search-icon
+  background: image-url('report/html/exit/search.png') no-repeat 0 0
+.striped_list
+  li
+    &:nth-child(odd)
+      background: #f8f8f8
+    .container
+      padding: 10px 0
+.numbered-list
+  .count
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    background: #e3e3e3
+    line-height: 40px
+    text-align: center
+    font-size: $extra-medium-text
+    margin-left: 30px
+  .big-text
+    line-height: 40px
+.two-column-list
+  .container
+    padding: 0 !important
+    .left
+      border-right: 1px dashed #bcbec0
+    .left, .right
+      padding: 10px 0
+  .headings
+    .left, .right
+      text-align: center
+      .title
+        display: inline-block
+        background: #00293a
+        color: #fff
+        font-size: 24px
+        line-height: 45px
+        border-radius: 12px
+        padding: 0 25px
+.mood
+  .happy
+    .title
+      color: #53c530
+  .unhappy
+    .title
+      color: #1068b1
+  .pie-chart
+    margin-top: 15px
+  ul
+    li
+      list-style: disc
+      font-size: $extra-medium-text
+      padding: 7px 0
+
+.recommendation,.new-job-details
+  .left
+    border-right: 1px dashed #bcbec0
+  .discriminated_status
+    border-radius: 50%
+    height: 160px
+    width: 160px
+    margin: auto
+    background: #378ed7
+    line-height: 160px
+    color: #fff
+    font-weight: 700
+    font-size: 30px
+    text-align: center
+
+.company_standing
+  li
+    line-height: 25px
+    .list-snippet
+      padding-left: 15px
+      background: image-url('report/html/exit/blue-right-arrow.png') no-repeat 0 center
+      
+
+.company_feedback 
+  .comments
+    .icon
+      width: 75px
+      height: 75px
+      background: image-url('report/html/exit/big-user-icon.png') no-repeat 0 0
+    .comment-box
+      position: relative
+      background: #e3e3e3
+      font-size: $big-text
+      padding: 15px 35px
+      line-height: 22px
+      .arrow
+        width: 30px
+        height: 15px
+        background: image-url('report/html/exit/comment-box-arrow.png') no-repeat 0 0
+        position: absolute
+        left: -30px
+        top: 0
+.group_report 
+  .two-column-list 
+    .container 
+      .left
+        border-right: 2px solid #bcbec0 
+  .snippet
+    border-top-style: dashed
+  .single-column-pie
+    .right 
+      min-height: 450px
+      border-left: 2px solid #bcbec0
+      padding-left: 40px
+      li
+        font-size: 18px
+        line-height: 22px
+
+        .count
+          height: 75px
+          width: 75px
+          border-radius: 50%
+          font-size: 24px
+          text-align: center
+          color: #fff
+          line-height: 75px
+          float: left
+  .recommendation
+    .status
+      width: 110px
+      height: 80px
+      border-radius: 50%
+      text-align: center
+      font-size: 24px
+      color: #fff
+      padding-top: 30px
+      line-height: 30px
+    .left
+      border-right: 2px solid #bcbec0
+  .two-column-pie
+    .numbered-list 
+      border-left: 1px dashed #bcbec0
+      min-height: 300px
+      .count
+        font-size: 12px
+        color: #fff
+
+      .medium-text
+        padding-top: 10px
+    .left
+      border-right: 2px solid #bcbec0
+
+.report-footer
+  background: #28b29b
+  color: #fff
+  font-size: 18px
+  line-height: 55px
+  width: 100%
+  position: absolute
+  bottom: 0

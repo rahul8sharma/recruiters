@@ -25,6 +25,15 @@
           %input.span26.show.margin-auto{:type => "text", :placeholder=>"Page size", name: "survey[page_size]"}
         .clr
         .divider2
+        - if is_superadmin?
+          %select.span26.show.margin-auto{ name: "defined_form_id" }
+            %option{value: ""} 
+              Select Custom Factual Information Form
+            - @defined_forms.each do |defined_form|
+              %option{ value: defined_form.id }
+                = defined_form.name
+          .clr
+        .divider2        
         %input.btn.btn-info.large-text.bold.pull-right{:name=>"submit",:type=>"submit", :value=>"Proceed"}
         .clr
       .clr
