@@ -26,13 +26,14 @@
                       .value
                         = trait_score[:average_score_excluding_self][:points]
                       .clr
-                    .divider1
-                    .rating_snippet
-                      .rating_title.blue
-                        Self Rating
-                      .value
-                        = trait_score[:average_score_self][:points]
-                      .clr
+                    - if trait_score[:average_score_self].present? && trait_score[:average_score_self][:points].present?
+                      .divider1
+                      .rating_snippet
+                        .rating_title.blue
+                          Self Rating
+                        .value
+                          = trait_score[:average_score_self][:points]
+                        .clr
                     .divider1
                     .rating_snippet
                       .rating_title.brown
