@@ -2,12 +2,14 @@
   .divider1
   .scores.container
     .title
-      Data Points about 360 Degree Scores: Competencies
+      Data Points about 360 Degree Scores
     .divider2
-    - @report.report_data[:competency_scores].each do |competency_name, competency_score|  
+    - @report.report_data[:trait_scores].each do |trait_score|  
       .frame.mrf.gray-bg
-        .heading.pull-left
-          = competency_name
+        .divider2
+        .heading.pull-left.large-text.left-offset1
+          For the trait
+          "#{trait_score[:trait][:name]}"
         .clr
         .divider2
 
@@ -24,22 +26,21 @@
                     .rating_title.green
                       360&#176;
                     .value
-                      = competency_score[:score][:points]
+                      = trait_score[:average_score_excluding_self][:points]
                     .clr
-                  - if competency_score[:average_score_self].present? && competency_score[:average_score_self][:points].present?
-                    .divider1
-                    .rating_snippet
-                      .rating_title.blue
-                        Self Rating
-                      .value
-                        = competency_score[:average_score_self][:points]
-                      .clr
+                  .divider1
+                  .rating_snippet
+                    .rating_title.blue
+                      Self Rating
+                    .value
+                      = trait_score[:average_score_self][:points]
+                    .clr
                   .divider1
                   .rating_snippet
                     .rating_title.brown
                       360&#176; (Including Self)
                     .value
-                      = competency_score[:average_score_including_self][:points]
+                      = trait_score[:average_score_including_self][:points]
                     .clr
                   .divider1
                   
@@ -49,7 +50,7 @@
                   Average rating given by Stakeholders
                 .panel.bg-white
                   .divider1
-                  - competency_score[:role_wise_scores].each do |role_name, percentages_data|
+                  - trait_score[:role_wise_scores].each do |role_name, percentages_data|
                     .rating_snippet
                       .rating_title.blue
                         = role_name.titleize
@@ -64,10 +65,10 @@
             %td
               .span17.left-offset1
                 .divider2
-                - sorted_distribution = competency_score[:overall_bucket_wise_percentages] #Hash[competency_score[:overall_bucket_wise_percentages].sort_by{|bucket,percentage_data| percentage_data[:percentage] }]  
+                - sorted_distribution = trait_score[:overall_bucket_wise_percentages] #Hash[trait_score[:overall_bucket_wise_percentages].sort_by{|bucket,percentage_data| percentage_data[:percentage] }]  
                 .panel.bg-white.rating_breakdown
                   .extra-large-text.text-center 
-                    Breakdown of Ratings given by all #{sorted_distribution.first[1][:total]} Stakeholders
+                    Breakdown of Ratings given by all #{pluralize(sorted_distribution.first[1][:total],"Stakeholder")} 
                   .breakdown_bar_section
                     .breakdown_bar.left-offset2.pull-left
                       - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
@@ -86,12 +87,12 @@
         - if @report.report_data[:mrf_stakeholder_level_breakdown_at_competency_level]
           .span27.margin-auto
             %ul.clearfix.breakdown_small
-              - competency_score[:role_wise_scores].each do |role_name, role_data|
+              - trait_score[:role_wise_scores].each do |role_name, role_data|
                 - sorted_distribution = role_data[:bucket_wise_percentages] #Hash[role_data[:bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]  
                 %li.span9.pull-left
                   .panel.rating_breakdown
                     .medium-text
-                      Breakdown of Ratings given by #{sorted_distribution.first[1][:total]} #{role_name.titleize.pluralize}
+                      Breakdown of Ratings given by #{pluralize(sorted_distribution.first[1][:total],role_name.titleize)}
                     .breakdown_bar_section
                       .breakdown_bar.pull-left
                         - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|

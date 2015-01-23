@@ -7,7 +7,7 @@ $(document).ready(function(){
     var factor_ids = $("#input_factor_ids").val().split(",");
     for (var i = 0; i < response.factors.global_factors.length; i++) {
         var factor = response.factors.global_factors[i].attributes;
-        var id = "factor_ids["+i+"]["+factor.id+"]";
+        var id = response.factors.trait_class_type+"_trait_ids["+i+"]["+factor.id+"]";
         var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .global").append("<li  class='pull-left'>"+
           "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     for (var i = 0; i < response.factors.and_factors.length; i++) {
         var factor = response.factors.and_factors[i].attributes;
-        var id = "factor_ids["+i+"]["+factor.id+"]";
+        var id = response.factors.trait_class_type+"_trait_ids["+i+"]["+factor.id+"]";
         var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .custom-and").append("<li  class='pull-left'>"+
           "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     for (var i = 0; i < response.factors.difference_factors.  length; i++) {
         var factor = response.factors.difference_factors[i].attributes;
-        var id = "factor_ids["+i+"]["+factor.id+"]";
+        var id = response.factors.trait_class_type+"_trait_ids["+i+"]["+factor.id+"]";
         var checked = $.inArray(factor.id.toString(), factor_ids) !== -1 ? "checked":"";
         $("#load_traits_"+index+" ."+response.factors.trait_class_type+" .custom-difference").append("<li  class='pull-left'>"+
           "<input type='checkbox' value='"+factor.id+"' id='"+id+"' name = '"+id+"'"+checked+">"
@@ -34,7 +34,7 @@ $(document).ready(function(){
   }
 
   function get_factors_failure(response){
-    console.log(response);
+    alert("Something Went Wrong while loading factors/traits");
   }
 
 
