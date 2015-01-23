@@ -1,112 +1,108 @@
-.divider2
-.extra-large-text.left-offset2
-  = trait_score[:trait][:name]
-.divider2
-%table{:class=>"span27 margin-auto", :cellpadding=> "0", :cellspacing=> "0"}
-  %tr
-    %td
-      .span7.right-offset1.first
-        .extra-medium-text.line-height2
-          Overall Scores
-
-        .panel.bg-white
-          .divider1
-          .rating_snippet
-            .rating_title.green
-              360&#176; Score
-            .value
-              = trait_score[:average_score_excluding_self][:points]
-            .clr
-          .divider1
-          .rating_snippet
-            .rating_title.blue
-              Self Rating
-            .value
-              = trait_score[:average_score_self][:points]
-            .clr
-          .divider1
-          .rating_snippet
-            .rating_title.brown
-              360&#176; (Including Self)
-            .value
-              = trait_score[:average_score_including_self][:points]
-            .clr
-          .divider1
-          
-
-        .divider2
-        .extra-medium-text.line-height2
-          Average rating given by Stakeholders
-        .panel.bg-white
-          .divider1
-          - trait_score[:role_wise_scores].each do |role_name, percentages_data|
-            .rating_snippet
-              .rating_title.blue
-                = role_name.titleize
-              .value
-                = percentages_data[:points]
-              .clr
-            .divider1
-
-
-
-      .clr
-    %td
-      .span17.left-offset1
-        .divider2
-        .panel.bg-white.legend_ratings
-          .span.medium-text
-            Legend Ratings
+#distribution_data_points
+  .divider1
+  .scores.container
+    .title
+      Data Points about 360 Degree Scores: Traits Under Competencies
+    .divider2
+    - @report.report_data[:competency_scores].each do |competency_name, competency_score|
+      - competency_score[:trait_scores].each do |trait_score|
+        .frame.mrf.gray-bg
+          .heading.pull-left
+            #{competency_name}: #{trait_score[:trait][:name]}
           .clr
-          .divider1
-          %ul.clearfix
-            - sorted_distribution = trait_score[:overall_bucket_wise_percentages] #Hash[trait_score[:overall_bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]  
-            - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-              %li
-                .block.span{:style=>"background: #{@bucket_colors[index]};"}
-                .span
-                  = bucket_name
+          .divider2
+          %table{:class=>"span27 margin-auto", :cellpadding=> "0", :cellspacing=> "0"}
+            %tr
+              %td
+                .span7.right-offset1.first
+                  .extra-medium-text.line-height2
+                    Scores
+
+                  .panel.bg-white
+                    .divider1
+                    .rating_snippet
+                      .rating_title.green
+                        360&#176;
+                      .value
+                        = trait_score[:average_score_excluding_self][:points]
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.blue
+                        Self Rating
+                      .value
+                        = trait_score[:average_score_self][:points]
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.brown
+                        360&#176; (Including Self)
+                      .value
+                        = trait_score[:average_score_including_self][:points]
+                      .clr
+                    .divider1
+                    
+
+                  .divider2
+                  .extra-medium-text.line-height2
+                    Average rating given by Stakeholders
+                  .panel.bg-white
+                    .divider1
+                    - trait_score[:role_wise_scores].each do |role_name, percentages_data|
+                      .rating_snippet
+                        .rating_title.blue
+                          = role_name.titleize
+                        .value
+                          = percentages_data[:points]
+                        .clr
+                      .divider1
+
+
+
                 .clr
-        .divider1
-        .panel.bg-white.rating_breakdown
-          .extra-large-text.text-center 
-            Overall Breakdown of Ratings given by all Stakeholders
-          .breakdown_bar_section
-            .breakdown_bar.left-offset2.pull-left
-              - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
-            %ul.breakdown_rating_list.pull-left
-              - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                %li
-                  .block.span{:style=>"background: #{@bucket_colors[index]};"}
-                  .span8
-                    #{pluralize(percentages_data[:count], "Stakeholder")} (#{percentages_data[:percentage]}%)
-                  .clr
-            .clr
+              - sorted_distribution = trait_score[:overall_bucket_wise_percentages] #Hash[trait_score[:overall_bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]  
+              %td
+                .span17.left-offset1
+                  .divider1
+                  .panel.bg-white.rating_breakdown
+                    .extra-large-text.text-center 
+                      Breakdown of Ratings given by all #{sorted_distribution.first[1][:total]} Stakeholders
+                    .breakdown_bar_section
+                      .breakdown_bar.left-offset2.pull-left
+                        - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                          .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
+                      %ul.breakdown_rating_list.pull-left
+                        - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                          %li
+                            .block.span{:style=>"background: #{@bucket_colors[index]};"}
+                            .span8
+                              #{percentages_data[:count]} out of #{percentages_data[:total]} rated #{bucket_name}
+                            .clr
+                      .clr
 
-      .clr
-.divider1
-- if @report.report_data[:mrf_stakeholder_level_breakdown_at_competency_level]
-  .span27.margin-auto
-    %ul.clearfix.breakdown_small
-      - trait_score[:role_wise_scores].each do |role_name, role_data|
-        - sorted_distribution = role_data[:bucket_wise_percentages] #Hash[role_data[:bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]    
-        %li.span9.pull-left
-          .panel.rating_breakdown
-            .medium-text
-              Breakdown of Ratings given by #{role_name.titleize.pluralize}
-            .breakdown_bar_section
-              .breakdown_bar.pull-left
-                - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                  .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
-              %ul.breakdown_rating_list.pull-left
-                - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                  %li
-                    .block.span{:style=>"background: #{@bucket_colors[index]};"}
-                    .span5
-                      #{pluralize(percentages_data[:count], role_name.titleize)} (#{percentages_data[:percentage]}%)
-                    .clr
-
-              .clr 
+                .clr
           .divider1
+          - if @report.report_data[:mrf_stakeholder_level_breakdown_at_competency_level]
+            .span27.margin-auto
+              %ul.clearfix.breakdown_small
+                - trait_score[:role_wise_scores].each do |role_name, role_data|
+                  - sorted_distribution = role_data[:bucket_wise_percentages] #Hash[role_data[:bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]    
+                  %li.span9.pull-left
+                    .panel.rating_breakdown
+                      .medium-text
+                        Breakdown of Ratings given by #{sorted_distribution.first[1][:total]} #{role_name.titleize.pluralize}
+                      .breakdown_bar_section
+                        .breakdown_bar.pull-left
+                          - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                            .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
+                        %ul.breakdown_rating_list.pull-left
+                          - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                            %li
+                              .block.span{:style=>"background: #{@bucket_colors[index]};"}
+                              .span5
+                                #{percentages_data[:count]} out of #{percentages_data[:total]} rated #{bucket_name}
+                              .clr
 
+                        .clr 
+                    .divider1
+        .divider2
