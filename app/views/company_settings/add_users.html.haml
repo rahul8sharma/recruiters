@@ -1,4 +1,4 @@
-.company_add_user 
+.company_add_user
   .page-title
     .divider1
     Settings
@@ -20,7 +20,7 @@
           .span8.big-text.left-offset1.first
             Email ID
           .clr
-        .divider1 
+        .divider1
 
         %ul.add-users-listing
           - 10.times do |index|
@@ -30,9 +30,12 @@
                 .span2.first
                   .count.badge.badge-small.inverse
                     #{index+1}
-                %input{:type => "hidden", name: "users[#{index}][company_id]", value: @company.id}  
-                %input.span9.medium-text.first{:type => "text", name: "users[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
-                %input.span8.medium-text.left-offset1.first{:type => "text", name: "users[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
+                %input{:type => "hidden", name: "users[#{index}][company_id]", value: @company.id}
+                %input.span6.medium-text.first{:type => "text", name: "users[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
+                %input.span6.medium-text.left-offset1.first{:type => "text", name: "users[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
+                %input.span2.left-offset1.first{:type=>"checkbox", name: "users[#{index}][notify]", id:"users[#{index}][notify]" }
+                %label.span4.medium-text{for: "users[#{index}][notify]"}
+                  Notify?
                 .clr
         .divider2
         .pull-right.medium-text

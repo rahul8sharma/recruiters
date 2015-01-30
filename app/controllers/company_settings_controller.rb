@@ -72,6 +72,7 @@ class CompanySettingsController < ApplicationController
           user_data[:id] = user.id
           users[user.id] = user_data
         else
+          user_data[:notify] = user_data[:notify].present?
           user = Vger::Resources::Admin.create(user_data)
           if user.error_messages.present?
             errors[user.email] ||= []
