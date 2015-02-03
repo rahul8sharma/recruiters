@@ -644,7 +644,7 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
-    
+
     resources :trait_graph_buckets do
       collection do
         get :manage
@@ -991,6 +991,15 @@ Recruiters::Application.routes.draw do
         post 'export_to_google_drive'
       end
     end
+    resources :behaviors do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post 'import_from_google_drive'
+        post 'export_to_google_drive'
+      end
+    end
     resources :lead_points do
       collection do
         post :import
@@ -1071,10 +1080,10 @@ Recruiters::Application.routes.draw do
   put "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports"
   get "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
   put "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports"
-  
+
   get "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
   put "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports"
-  
+
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
