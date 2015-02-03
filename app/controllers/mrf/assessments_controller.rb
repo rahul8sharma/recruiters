@@ -81,7 +81,8 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def update
-    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, name: params[:assessment][:name] });
+    params[:assessment][:company_id] = @company.id
+    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
     redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
   end
 
