@@ -37,10 +37,8 @@ GIT
       rails (~> 3.2.13)
       sidekiq (= 2.12.1)
 
-GIT
-  remote: git@github.com:yournextleap/vger.git
-  revision: 3f1e1acd53afb8001959b44be399328d30980493
-  branch: develop
+PATH
+  remote: ../vger
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
