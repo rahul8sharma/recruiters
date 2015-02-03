@@ -25,6 +25,13 @@
               %option{ value: custom_assessment.id }
                 = custom_assessment.name
           .divider1
+          %select.fw{name: "assessment[assessment_type]"}
+            %option{value: ''} Choose assessment type
+            %option{ value: "jombay" }
+              Jombay
+            %option{ value: "classic" }
+              Classic
+          .divider1
           - if is_superadmin?
             %label.big-text.default
               %input{:type=>"checkbox",name: "use_competencies"}

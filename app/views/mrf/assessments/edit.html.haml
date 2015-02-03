@@ -13,6 +13,14 @@
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
           %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]", required: true}
         .clr
+      %select.span26.show.margin-auto{name: "assessment[assessment_type]"}
+        %option{value: ''} Choose assessment type
+        %option{ value: "jombay", selected: @assessment.configuration["assessment_type"] == "jombay" }
+          Jombay
+        %option{ value: "classic", selected: @assessment.configuration["assessment_type"] == "classic" }
+          Classic
+        
+      .divider1
       .hw.pull-left
 
         %input.btn.btn-info.large-text.bold.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
