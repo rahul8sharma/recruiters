@@ -76,17 +76,12 @@ class BenchmarkReportUploader < AbstractController::Base
       File.delete(pdf_save_path)
       File.delete(html_save_path)
       
-      
-      # Update report_urls hash for assessment
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_benchmark_reports", "benchmark_report_assessment_#{@assessment.id}.html")
-      
       Vger::Resources::Suitability::AssessmentReport.save_existing(@assessment_report.id,
         :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
-        :pdf_bucket  => "#{Rails.env.to_s}_benchmark_reports",
-        :pdf_key     => "benchmark_report_assessment_#{@assessment.id}.pdf",
-        :html_bucket => "#{Rails.env.to_s}_benchmark_reports",
-        :html_key    => "benchmark_report_assessment_#{@assessment.id}.html",
+        :pdf_bucket  => pdf_s3[:bucket],
+        :pdf_key     => pdf_s3[:key],
+        :html_bucket => html_s3[:bucket],
+        :html_key    => html_s3[:key],
         :report_data => @report
       )
       

@@ -169,11 +169,9 @@ class CompaniesController < ApplicationController
   def update  
     file = params[:company][:logo]
     if file
-      bucket_name = Rails.application.config.s3_buckets["bucket_name"]
       key = "companies/logos/#{@company.id}-#{file.original_filename}"
-      bucket = S3Utils.ensure_bucket(bucket_name)
       content_type = file.content_type
-      obj = bucket.objects.create(key, file.read, content_type: content_type, acl: "public-read")
+      obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
       params[:company][:logo] = url
     end

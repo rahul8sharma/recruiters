@@ -38,8 +38,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
 
   def bulk_upload
-    s3_bucket_name = Rails.application.config.s3_buckets["bucket_name"]
-    s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
@@ -49,9 +48,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id) and return
     else
       data = params[:bulk_upload][:file].read
-      S3Utils.upload(s3_bucket_name, s3_key, data)
-      @s3_bucket = s3_bucket_name
-      @s3_key = s3_key
+      obj = S3Utils.upload(@s3_key, data)
+      @s3_bucket = obj.bucket.name
       @functional_area_id = params[:bulk_upload][:functional_area_id]
       get_templates(params[:candidate_stage])
       render :action => :send_test_to_candidates

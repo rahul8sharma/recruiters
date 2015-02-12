@@ -89,17 +89,12 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       File.delete(pdf_save_path)
       File.delete(html_save_path)
 
-
-      # Update report_urls hash for assessment
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_assessment_#{@assessment.id}.html")
-
       Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
         :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
-        :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
-        :pdf_key     => "training_requirements_report_assessment_#{@assessment.id}.pdf",
-        :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
-        :html_key    => "training_requirements_report_assessment_#{@assessment.id}.html"
+        :pdf_bucket  => html_s3[:bucket],
+        :pdf_key     => pdf_s3[:key],
+        :html_bucket => html_s3[:bucket],
+        :html_key    => html_s3[:key]
       )
 
       patch["send_report"] ||= "Yes"

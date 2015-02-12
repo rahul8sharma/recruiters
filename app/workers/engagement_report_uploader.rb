@@ -89,7 +89,7 @@ class EngagementReportUploader < AbstractController::Base
       Vger::Resources::Engagement::Report.save_existing(report_id,
         :survey_id => survey_id,
         :candidate_id => candidate_id,
-        :s3_keys => { :html => html_s3},
+        :s3_keys => { :html => html_s3 },
         :status => Vger::Resources::Engagement::Report::Status::UPLOADED
       )
 

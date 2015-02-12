@@ -28,7 +28,7 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id)
       @report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
 
-      if !@report.report_data[:factor_scores].present?
+      if !@report.report_data || !@report.report_data[:factor_scores].present?
         Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
           :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
         )
@@ -89,17 +89,12 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       File.delete(pdf_save_path)
       File.delete(html_save_path)
 
-
-      # Update report_urls hash for training_requirement
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html")
-
       Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
         :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
-        :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
-        :pdf_key     => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf",
-        :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
-        :html_key    => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html"
+        :pdf_bucket  => html_s3[:bucket],
+        :pdf_key     => pdf_s3[:key],
+        :html_bucket => html_s3[:bucket],
+        :html_key    => html_s3[:key]
       )
 
       patch["send_report"] ||= "Yes"
