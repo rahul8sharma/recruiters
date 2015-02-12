@@ -6,16 +6,14 @@ class Retention::Surveys::CandidatesController < ApplicationController
 
   layout 'retention'
   def bulk_upload
-    s3_bucket_name = "bulk_upload_candidates_for_survey_#{Rails.env.to_s}"
-    s3_key = "survey_candidates_#{@survey.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    @s3_key = "retention/survey_candidates/#{@survey.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_retention_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
     end
     data = params[:bulk_upload][:file].read
-    S3Utils.upload(s3_bucket_name, s3_key, data)
-    @s3_bucket = s3_bucket_name
-    @s3_key = s3_key
+    obj = S3Utils.upload(@s3_key, data)
+    @s3_bucket = obj.bucket.name
     @functional_area_id = params[:bulk_upload][:functional_area_id]
     get_templates
     render :action => :send_survey_to_candidates
