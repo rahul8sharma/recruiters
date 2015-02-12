@@ -1,0 +1,24 @@
+#scores_competencies.scores_competencies_graph.section02
+  .divider2
+  .container
+    .title
+      360&#176; Scores: Competencies
+    .divider3
+    .graph_instructions.medium-text
+      .classic_user_icon.span
+      .user_rating.span
+        Self Rating
+      .stakeholder_rating_icon.span
+      .stakeholder_rating.span
+        Rating by other Stakeholders
+      .overlapped_score
+        .span
+          Score Overlap is indicated by 
+        .competency_overlapped_score_icon.span
+        .span
+          or
+        .trait_overlapped_score_icon.span
+        .clr
+      .clr
+    .divider2
+    = render :partial => "mrf/assessments/reports/competency_report/html/competency_classic_graph.html.haml"
