@@ -3,4 +3,4 @@
   :namespace: sidekiq_recruiters_development
 :verbose: true
 :pidfile: ./tmp/pids/sidekiq.pid
-:concurrency: 25
+:concurrency: 1

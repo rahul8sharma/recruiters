@@ -6,6 +6,7 @@ class MrfReportUploader < AbstractController::Base
   include AbstractController::Translation
   include AbstractController::AssetPaths
   include Rails.application.routes.url_helpers
+  include UploadHelper
   helper ApplicationHelper
   helper ReportsHelper
   helper_method :protect_against_forgery?
@@ -90,8 +91,8 @@ class MrfReportUploader < AbstractController::Base
         file << pdf
       end
       
-      html_s3 = upload_file_to_s3(html_file_id,html_save_path)
-      pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
+      html_s3 = upload_file_to_s3("mrf_reports/html/#{html_file_id}",html_save_path)
+      pdf_s3 = upload_file_to_s3("mrf_reports/pdf/#{pdf_file_id}",pdf_save_path)
   
       Vger::Resources::Mrf::Report.save_existing(report_id,
         :html_key => html_s3[:key],
@@ -127,17 +128,6 @@ class MrfReportUploader < AbstractController::Base
           :backtrace => [e.message] + e.backtrace[0..20]
         }
       }), "notify_report_status")
-    end
-  end
-
-  def upload_file_to_s3(file_id,file_path)
-    File.open(file_path,"r") do |file|
-      Rails.logger.debug "Uploading #{file_id} to s3 ........."
-      s3_bucket_name = Rails.application.config.s3_buckets[Rails.env.to_s]["bucket_name"]
-      s3_key = "#{file_id}"
-      url = S3Utils.upload(s3_bucket_name, s3_key, file)
-      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
-      return { :bucket => s3_bucket_name, :key => s3_key }
     end
   end
 end

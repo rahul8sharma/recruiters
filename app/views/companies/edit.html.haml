@@ -75,6 +75,11 @@
             Contact Person's Number:
           = f.text_field :contact_person_mobile, :class => "first span7 medium-text left-offset1"
           .clr
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker
+            Logo:
+          = f.file_field :logo, :class => "first span7 medium-text left-offset1"
+          .clr  
         
         %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
         .clr

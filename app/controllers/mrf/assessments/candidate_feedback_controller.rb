@@ -241,17 +241,16 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
 
   def bulk_upload
-    s3_bucket_name = "bulk_upload_mrf_candidates_#{Rails.env.to_s}"
-    s3_key = "mrf_candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    s3_key = "mrf/feedbacks/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if request.put?
       if !params[:bulk_upload] || !params[:bulk_upload][:file]
         flash[:error] = "Please select a csv file."
         redirect_to add_stakeholders_company_mrf_assessment_path and return
       else
         data = params[:bulk_upload][:file].read
-        S3Utils.upload(s3_bucket_name, s3_key, data)
-        @s3_bucket = s3_bucket_name
-        @s3_key = s3_key
+        obj = S3Utils.upload(s3_key, data)
+        @s3_bucket = obj.bucket.name
+        @s3_key = obj.key
         Vger::Resources::Mrf::Feedback\
           .import_from_s3_files(:email => current_user.email,
                         :company_id => @company.id,

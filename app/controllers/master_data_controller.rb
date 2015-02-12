@@ -70,12 +70,12 @@ class MasterDataController < ApplicationController
       redirect_to request.env['HTTP_REFERER'] and return
     end
     data = params[:import][:file].read
-    S3Utils.upload(self.s3_bucket_name, self.s3_key, data)
+    obj = S3Utils.upload(self.s3_key, data)
 
     api_resource\
       .import_from_s3(:file => {
-                        :bucket => s3_bucket_name,
-                        :key => s3_key
+                        :bucket => obj.bucket.name,
+                        :key => obj.key
                       }, :email => params[:import][:email])
     redirect_to request.env['HTTP_REFERER'], notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
@@ -129,12 +129,8 @@ class MasterDataController < ApplicationController
     "import_via_s3"
   end
   
-  def s3_bucket_name
-    "master_data"
-  end
-  
   def s3_key
-    "master_data.csv.zip"
+    "#{resource_name}/master_data.csv.zip"
   end
   
   def search_columns

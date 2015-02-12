@@ -166,9 +166,18 @@ class CompaniesController < ApplicationController
 
   end
 
-  def update
+  def update  
+    file = params[:company][:logo]
+    if file
+      key = "companies/logos/#{@company.id}-#{file.original_filename}"
+      content_type = file.content_type
+      obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
+      url = obj.public_url({secure: false}).to_s
+      params[:company][:logo] = url
+    end
     @company = Vger::Resources::Company.save_existing(@company.id, params[:company].except(:city, :state, :country))
     if @company.error_messages.blank?
+      obj.delete if file
       redirect_to company_path(@company), notice: "Company details updated successfully!"
     else
       render :action => :edit
