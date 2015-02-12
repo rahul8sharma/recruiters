@@ -163,6 +163,39 @@ $mrf_image_path: report/html/mrf
     margin: 16px 0 0 18px
 
 
+.max
+  .left
+    background: image-url('#{$mrf_image_path}/max.png') no-repeat 7px center #abed74
+.min
+  .left
+    background: image-url('#{$mrf_image_path}/min.png') no-repeat 7px center #ffcf36
+.trait_rating
+  font-size: 16px
+  padding: 1px
+  border: 1px solid #e3e3e3
+  border-radius: 3px
+  margin-bottom: 18px
+  background: #fbfbfb
+
+  &.self
+    .left
+      background: image-url('#{$mrf_image_path}/self.png') no-repeat 7px center #6ea6bf
+  &.score
+    .left
+      background: image-url('#{$mrf_image_path}/score.png') no-repeat 7px center #28b29b
+
+  .left, .right
+    width: 185px
+    border-radius: 2px
+    padding: 10px 0
+  .left
+    width: 150px
+    padding-left: 35px
+    float: left
+    color: #fff
+  .right
+    float: right
+    text-align: center
 .mrf_data_points_listing
   li
     border-top: 1px dashed #28b29b
@@ -174,39 +207,6 @@ $mrf_image_path: report/html/mrf
       .content
         border-right: 1px solid #ccc
         padding: 35px 40px
-        .trait_rating
-          font-size: 16px
-          padding: 1px
-          border: 1px solid #e3e3e3
-          border-radius: 3px
-          margin-bottom: 18px
-          background: #fbfbfb
-
-          &.max
-            .left
-              background: image-url('#{$mrf_image_path}/max.png') no-repeat 7px center #abed74
-          &.min
-            .left
-              background: image-url('#{$mrf_image_path}/min.png') no-repeat 7px center #ffcf36
-          &.self
-            .left
-              background: image-url('#{$mrf_image_path}/self.png') no-repeat 7px center #6ea6bf
-          &.score
-            .left
-              background: image-url('#{$mrf_image_path}/score.png') no-repeat 7px center #28b29b
-
-          .left, .right
-            width: 185px
-            border-radius: 2px
-            padding: 10px 0
-          .left
-            width: 150px
-            padding-left: 35px
-            float: left
-            color: #fff
-          .right
-            float: right
-            text-align: center
 
       .caption
         position: relative
@@ -636,6 +636,13 @@ $mrf_image_path: report/html/mrf
     width: 25px
     margin: auto
 .classic_report
+  .trait_rating 
+    width: 85%
+    margin: auto
+    .left
+      width: 125px
+    .right
+      width: 65px
   #distribution_data_points 
     border-bottom: 1px solid #e3e3e3
     padding-bottom: 40px

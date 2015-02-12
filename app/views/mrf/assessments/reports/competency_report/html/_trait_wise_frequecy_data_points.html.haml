@@ -1,6 +1,101 @@
-.container.section03
-  .divider2
-  .scores.container
-    .title
-      Data Points on 360&#176; Scores: Traits Under Competencies
+#trait_wise_frequecy_data_points.section03
+  .container
+    .divider2
+    .scores.container
+      .title
+        Data Points on 360&#176; Scores: Traits Under Competencies
+      .divider2
+
+      .frame
+        .heading.pull-left
+          People Management
+        .clr
+       
+        -2.times do
+          .divider2
+          .section03
+            .span28.margin-auto
+              %b.large-text
+                People Understanding
+              .divider3
+              #distribution_data_points 
+                .span7.first
+                  .big-text
+                    Overall Score
+                  .divider1
+                  .panel.bg-white
+                    .divider1
+                    .rating_snippet
+                      .rating_title.green
+                        360&#176; Score
+                      .value
+                        3.13
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.blue
+                        Self Rating
+                      .value
+                        3.22
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.brown
+                        360&#176; (Including Self)
+                      .value
+                        3.15
+                      .clr
+                    .divider1
+
+                .span7.left-offset1
+                  .divider2
+                  .panel.bg-white
+                    .divider2
+                    .trait_rating.max
+                      .left
+                        Maximum Rating
+                      .right
+                        4
+                      .clr
+
+                    .divider1
+                    .trait_rating.min
+                      .left
+                        Minimum Rating
+                      .right
+                        3
+                      .clr
+                    .divider2
+
+                .span12.left-offset1
+                  .big-text
+                    Average rating given by Stakeholders
+                  .divider1
+                  .panel.bg-white
+                    .span13.margin-auto
+                      .span6.first
+                        -3.times do
+                          .divider1
+                          .rating_snippet
+                            .rating_title.blue
+                              Managers
+                            .value
+                              3.22
+                            .clr
+                      .span6
+                        -3.times do
+                          .divider1
+                          .rating_snippet
+                            .rating_title.blue
+                              Colleagues
+                            .value
+                              3.22
+                            .clr
+                      
+                      .clr
+                    .divider1
+                .clr
+              .divider2
+              = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table"
+              .divider2
     .divider2
