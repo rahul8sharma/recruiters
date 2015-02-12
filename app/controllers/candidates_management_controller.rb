@@ -76,7 +76,7 @@ class CandidatesManagementController < ApplicationController
     end
     data = params[:import][:file].read
     now = Time.now
-    s3_bucket_name, s3_key = "candidate_scores", "candidate_scores_#{now.strftime('%d_%m_%Y_%H_%I')}"
+    s3_bucket_name, s3_key = Rails.application.config.s3_buckets["bucket_name"], "candidate_scores/#{now.strftime('%d_%m_%Y_%H_%I')}"
     S3Utils.upload(s3_bucket_name, s3_key, data)
 
     Vger::Resources::Candidate\

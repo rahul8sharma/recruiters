@@ -82,7 +82,7 @@ module Recruiters
     config.reports = YAML::load(File.open("#{Rails.root.to_s}/config/reports.yml"))
     config.default_set = YAML::load(File.open("#{Rails.root.to_s}/config/default_set.yml"))["default_set"]
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
-    config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))
+    config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))[Rails.env.to_s]
     config.signup = YAML.load(File.read(Rails.root.join("config/signup.yml"))).symbolize_keys
     config.emails = YAML.load(File.read(Rails.root.join("config/emails.yml"))).with_indifferent_access
 

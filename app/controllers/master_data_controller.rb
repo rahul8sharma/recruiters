@@ -130,11 +130,11 @@ class MasterDataController < ApplicationController
   end
   
   def s3_bucket_name
-    "master_data"
+    Rails.application.config.s3_buckets["bucket_name"]
   end
   
   def s3_key
-    "master_data.csv.zip"
+    "#{resource_name}/master_data.csv.zip"
   end
   
   def search_columns

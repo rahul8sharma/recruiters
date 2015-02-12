@@ -20,8 +20,8 @@ class Suitability::ItemGroupsController < ApplicationController
     #end
     if params[:zip]
       now = Time.now
-      s3_bucket_name = "suitability_items_images"
-      s3_key = "items_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      s3_bucket_name = Rails.application.config.s3_buckets["bucket_name"]
+      s3_key = "suitability/item_images/images_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
       data = params[:zip].read
       S3Utils.upload(s3_bucket_name, s3_key, data)
       params[:item_group][:zip_file] ||= {}

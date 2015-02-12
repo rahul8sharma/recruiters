@@ -241,8 +241,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
 
   def bulk_upload
-    s3_bucket_name = "bulk_upload_mrf_candidates_#{Rails.env.to_s}"
-    s3_key = "mrf_candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    s3_bucket_name = Rails.application.config.s3_buckets["bucket_name"]
+    s3_key = "mrf/feedbacks/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if request.put?
       if !params[:bulk_upload] || !params[:bulk_upload][:file]
         flash[:error] = "Please select a csv file."

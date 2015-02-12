@@ -38,8 +38,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
 
   def bulk_upload
-    s3_bucket_name = "bulk_upload_candidates_#{Rails.env.to_s}"
-    s3_key = "candidates_#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    s3_bucket_name = Rails.application.config.s3_buckets["bucket_name"]
+    s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
