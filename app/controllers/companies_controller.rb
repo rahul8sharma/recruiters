@@ -166,7 +166,17 @@ class CompaniesController < ApplicationController
 
   end
 
-  def update
+  def update  
+    file = params[:company][:logo]
+    if file
+      bucket_name = "companies#{Rails.env.to_s}"
+      key = "#{@company.id}-#{file.original_filename}"
+      bucket = S3Utils.ensure_bucket(bucket_name)
+      content_type = file.content_type
+      obj = bucket.objects.create(key, file.read, content_type: content_type, acl: "public-read")
+      url = obj.public_url({secure: false}).to_s
+      params[:company][:logo] = url
+    end
     @company = Vger::Resources::Company.save_existing(@company.id, params[:company].except(:city, :state, :country))
     if @company.error_messages.blank?
       redirect_to company_path(@company), notice: "Company details updated successfully!"
