@@ -81,7 +81,8 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def update
-    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { company_id: @company.id, name: params[:assessment][:name] });
+    params[:assessment][:company_id] = @company.id
+    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
     redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
   end
 
@@ -122,7 +123,8 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:company_id] = @company.id
     params[:assessment][:configuration] = {
       :use_competencies => params[:use_competencies].present?,
-      :set_ranges => params[:set_ranges].present?
+      :set_ranges => params[:set_ranges].present?,
+      :assessment_type => params[:assessment][:assessment_type] || "jombay"
     }
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
       flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."

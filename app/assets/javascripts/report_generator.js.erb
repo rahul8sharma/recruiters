@@ -132,5 +132,23 @@ $(document).ready(function(){
     }
   });
 
-
 });
+
+function randomiseScores(element_klass){
+  $(element_klass).each(function(i,obj) {
+    var randomValue = getRandomInt(1,6);
+    $(obj).val(randomValue);
+  });
+}
+
+function randomiseOptions(element_klass){
+  $(element_klass).each(function(i,obj){
+    var values_array = $(obj).find("option").toArray().map(function(obj){ return obj.value });
+    var random_option = values_array[Math.floor(Math.random()*values_array.length)];
+    $(obj).val(random_option);
+
+  });
+}
+
+function getRandomInt(min,max) {  return Math.floor(Math.random() * (max-min)) + min; }
+

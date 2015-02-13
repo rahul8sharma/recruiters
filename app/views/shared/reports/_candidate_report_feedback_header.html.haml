@@ -18,21 +18,29 @@
             %a.scroll{:href => "#scores", :title => "Scores on Traits"}
               Scores on Traits
           %li.right
-        .pull-left.feedback-email-form
-          -# Toggel ".error" upon error - at above Line
-          .divider1
-            .error-message
-              Your Email ID is needed to confirm feedback. Please enter it below & click Submit.
-          = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-            .ie.pull-left
-              %label.pull-left Last Step: Enter Email ID to confirm feedback
-              %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
-              .clr
-          = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-            %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Last Step: Enter Email ID to confirm feedback", :id => "feedback_email"}
-
-          %input.btn.btn-warning.inverse.span{:type => "submit", :value => "Submit"}
-          .clr
 
 .divider3
+.sticky_feedback_footer
+  .container
+    .medium-text.pull-left
+      LAST STEP: Once your feedback is final, please enter your email ID and click &quot;Submit&quot; to complete the process.
+    .pull-right.feedback-email-form
+      -# Toggel ".error" upon error - at above Line
+      
+      .error-message
+        .arrow
+        Your Email ID is needed to confirm feedback. Please enter it below & click Submit.
+      = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+        .ie.pull-left
+          %label.pull-left Enter your Email ID to confirm feedback
+          %input.span4{type: "text", :name => "feedback[email]", :id => "feedback_email"}
+          .clr
+      = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+        %input.pull-left{type: "text", :name => "feedback[email]", :placeholder => "Enter your Email ID to confirm feedback", :id => "feedback_email"}
+
+      %input.btn.btn-warning.span{:type => "submit", :value => "Submit"}
+      .clr
+    .clr
+  
+  
 = wicked_pdf_javascript_include_tag 'common'

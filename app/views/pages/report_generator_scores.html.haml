@@ -49,6 +49,7 @@
     %label.field
       Pearson?
     = f.text_field :is_jombay_pearson_test, required: true, value: @assessment.is_jombay_pearson_test, disabled: true
+  %br
 
   - if @assessment.assessment_type == "competency" && @competencies.present?
     %p
@@ -80,7 +81,7 @@
     %p
       %label.field
         Assessment Factor Norms
-    %table{width: "100%"}
+    %table{width: "80%"}
       %th{width: "40%"}
         Factor Name
       %th{width: "20%"}
@@ -112,10 +113,16 @@
                   %option{value: norm_bucket.id}
                     = norm_bucket.name
           %td
-            %select{name:"report[desired_score][#{afn.factor_id}][norm_bucket_id]"}
+            %select.factor-scores{name:"report[desired_score][#{afn.factor_id}][norm_bucket_id]", index:"#{afn.factor_id}"}
               - @norm_buckets.each do |norm_bucket|
                 %option{value: norm_bucket.id}
                   = norm_bucket.name
+    %p
+      %input{type:'button', value:"Randomise Factor Scores",name:"randomise_factor_scores",id:"randomise_factor_scores",onclick:"randomiseOptions('.factor-scores')" }
+
+    %br
+
+
 
   - if !@functional_assessment_traits.empty?
     %p
@@ -155,10 +162,14 @@
                   %option{value: norm_bucket.id}
                     = norm_bucket.name
           %td
-            %select{name:"report[functional_desired_score][#{at.trait_id}][norm_bucket_id]"}
+            %select.trait-scores{name:"report[functional_desired_score][#{at.trait_id}][norm_bucket_id]"}
               - @functional_norm_buckets.each do |norm_bucket|
                 %option{value: norm_bucket.id}
                   = norm_bucket.name
+    %p
+      %input{type:'button', value:"Randomise Trait Scores",name:"randomise_trait_scores",id:"randomise_trait_scores",onclick:"randomiseOptions('.trait-scores')" }
+
+    %br
 
   - if @objective_items.present?
     %p
@@ -170,10 +181,14 @@
             = objective_item.body
             %p
               - name = "report[objective_item][#{objective_item.id}][option]"
-              %select{name: name, id: 'select_industry'}
+              %select.objective-item-options{name: name, id: name}
                 - objective_item.options.each do |option|
                   %option{:value => (option.id)}
                     = option.body
+    %input{type:'button', value:"Randomise Options",name:"randomise_objective_options",id:"randomise_objective_options",onclick:"randomiseOptions('.objective-item-options')" }
+
+    %br
+    %br
 
   - if @subjective_items.present?
     %p
@@ -187,12 +202,6 @@
               - subjective_item.body.scan("<text_box>").each_with_index do | i, index|
                 - name = "report[subjective_item][#{subjective_item.id}][#{index}]"
                 %input{type:'text',name: name,id: name}
-
-
-
-
-
-
 
 
 
