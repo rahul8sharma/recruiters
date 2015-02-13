@@ -1,10 +1,13 @@
 - @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/html/page1"
-  = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
-  = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
-  = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequecy_data_points"
-  = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
+  .classic_report
+    = render :partial => "mrf/assessments/reports/competency_report/html/scores_competencies"
+    = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
+    = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
+    = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequecy_data_points"
+    -#= render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
   = render :partial => "mrf/assessments/reports/competency_report/html/page2"
   = render :partial => "mrf/assessments/reports/competency_report/html/page3"
   - if @report.report_data[:mrf_overall_breakdown_at_competency_level]
