@@ -1,0 +1,30 @@
+.big-text
+  Frequency of Ratings
+.divider2
+%table.frequecy_rating_table{:cellpadding=>"0", :cellspacing=> "0"}
+  %tbody
+    %tr.captions
+      %td.mute_bg
+      %td.dark_mute_bg{:colspan=>"8"}
+        Rating Between 
+  
+    %tr.captions.rating_ranges
+      %td.mute_bg
+      -8.times do
+        %td
+          1.0 to 1. 99
+
+    -7.times do
+      %tr
+        %td.green_bg.captions
+          Managers
+        -8.times do
+          %td.rating_score 
+            3
+            -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+    %tr.overall
+      %td.orange_bg.captions
+        Overall
+      -8.times do
+        %td.rating_score 
+          4
