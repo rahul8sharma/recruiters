@@ -629,13 +629,38 @@ $mrf_image_path: report/html/mrf
         padding-left: 15px
         li
           list-style: initial !important
-.response_distribution
-  .score_block
-    background: green
-    padding: 10px
-    width: 25px
-    margin: auto
 .classic_report
+  color: #000
+  .response_distribution_list
+    ul
+      li
+        margin-bottom: 18px
+        list-style: disc
+        .responses
+          border-bottom: 1px solid #ccc
+          text-align: center
+          [class*="span"]
+            margin-left: 54px
+            &:first-child
+              width: 40px
+              margin-left: 0
+           
+          .response-title
+            font-size: 14px
+            color: #58595b
+          .value 
+            margin: 18px auto
+            width: 38px
+            height: 38px
+            line-height: 38px
+            font-size: 18px
+            color: #A119A6
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+    &.self
+      .value
+        visibility: hidden 
+        background: #24D8BA !important
+        color: #fff !important
   .trait_rating 
     width: 85%
     margin: auto
@@ -646,11 +671,11 @@ $mrf_image_path: report/html/mrf
   #distribution_data_points 
     border-bottom: 1px solid #e3e3e3
     padding-bottom: 40px
+  .classic_user_icon
+    background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
+  .stakeholder_rating_icon
+    background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
   .scores_competencies_graph
-    .classic_user_icon
-      background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
-    .stakeholder_rating_icon
-      background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
     .competency_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center
       height: 38px
