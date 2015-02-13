@@ -1,30 +1,38 @@
-.big-text
-  Frequency of Ratings
-.divider2
-%table.frequecy_rating_table{:cellpadding=>"0", :cellspacing=> "0"}
-  %tbody
-    %tr.captions
-      %td.mute_bg
-      %td.dark_mute_bg{:colspan=>"8"}
-        Rating Between 
-  
-    %tr.captions.rating_ranges
-      %td.mute_bg
-      -8.times do
-        %td
-          1.0 to 1. 99
+- if role_wise_scores.present?
+  .big-text
+    Frequency of Ratings
+  .divider2
+  %table.frequecy_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
+    %tbody
+      %tr.captions
+        %td.mute_bg
+        %td.dark_mute_bg{:colspan=>"#{@trait_graph_buckets.size}"}
+          Rating #{trait_wise ? "":"Between"}
+    
+      %tr.captions.rating_ranges
+        %td.mute_bg
+        - @trait_graph_buckets.each do |bucket|
+          %td
+            #{bucket.min_val} 
+            - if trait_wise
+            - else
+              to #{bucket.max_val}
 
-    -7.times do
-      %tr
-        %td.green_bg.captions
-          Managers
-        -8.times do
-          %td.rating_score 
-            3
-            -#add class ".max_value" to ".rating_score" if td have maximum value of that row
-    %tr.overall
-      %td.orange_bg.captions
-        Overall
-      -8.times do
-        %td.rating_score 
-          4
+      - role_wise_scores.each do |role, score|
+        - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        %tr
+          %td.green_bg.captions
+            = role
+          - @trait_graph_buckets.each do |bucket|
+            - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
+            %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+              = bucket_score
+              -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+      %tr.overall
+        %td.orange_bg.captions
+          Overall
+        - max_score = @trait_graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
+        - @trait_graph_buckets.each do |bucket|
+          - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
+          %td.rating_score{ class: max_score == total ? "max_value" : "" }
+            = total

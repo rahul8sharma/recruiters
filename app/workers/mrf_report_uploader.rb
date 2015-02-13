@@ -45,6 +45,18 @@ class MrfReportUploader < AbstractController::Base
                         }).all
       end
       @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+      
+      @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
+                        order: "min_val ASC", query_options: {
+                          company_id: report_data[:company_id]
+                        }).all
+    
+      if @trait_graph_buckets.empty?
+        @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
+                        order: "min_val ASC", query_options: {
+                          company_id: nil
+                        }).all
+      end
 
       template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 

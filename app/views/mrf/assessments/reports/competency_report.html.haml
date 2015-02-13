@@ -2,12 +2,18 @@
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/html/page1"
   .classic_report
-    = render :partial => "mrf/assessments/reports/competency_report/html/scores_competencies"
-    = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
-    = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
-    = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
-    = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequecy_data_points"
-    = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
+    - if @report.report_data[:mrf_report_percentage_competency_scores]
+      = render :partial => "mrf/assessments/reports/competency_report/html/scores_competencies"
+    - if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
+      = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
+    - if @report.report_data[:mrf_report_strength_areas_of_improvement]
+      = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
+    - if @report.report_data[:mrf_report_data_pts_competencies_with_frequencies]
+      = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
+    - if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
+      = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequecy_data_points"
+    - if @report.report_data[:mrf_report_response_distribution_questions]
+      = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
   = render :partial => "mrf/assessments/reports/competency_report/html/page2"
   = render :partial => "mrf/assessments/reports/competency_report/html/page3"
   - if @report.report_data[:mrf_overall_breakdown_at_competency_level]
