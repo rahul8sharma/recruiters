@@ -1,35 +1,109 @@
 .response_distribution.container
-	.divider1
-	.scores.container
-		.title
-			Response Distribution on Questions
-		.divider2
-	.frame.mrf.gray-bg
-		.heading.pull-left
-			Achievment Orientation: Trait "Target Orientaton"
-		.clr
-		.divider2
-		.span30.extra-medium-text
-			Shows great vision in imagning the future?
-		.clr
-		.divider2
+  .divider1
+  .scores.container
+    .title
+      Response distribution on Questions
+    .divider2
+  .frame
+    .heading.pull-left
+      Achievment Orientation: Trait "Target Orientaton"
+    .clr
+    .divider2
+    .response_distribution_list
+      .big-text.span.line-height2.left-offset1
+        %b Questions to Other Stakeholders  
+      .stakeholder_rating_icon.span1.divider2 
+      .clr
+      .divider2
 
-		.span10.medium-text
-			&nbsp;
-		- 6.times do |index|
-			.span3.medium-text.text-center
-				Occasionaly
-		.clr
-		.divider1
-		
-		- 2.times do 
-			.span10
-				ROLE
-			- 6.times do |index|
-				.span3.medium-text.text-center
-					.score_block
-						12
-			.clr
-			.divider1
+      .span22.margin-auto 
+        %ul
+          -3.times do
+            %li
+              .big-text
+                Shows great vision in the imagining the future?
+              .divider2
+              .span20.pull-right
+                .responses
+                  .span3
+                    .response-title
+                      Never
+                    .value
+                      1
+                  .span3
+                    .response-title
+                      Rarely 
+                    .value 
+                      1
+                  .span3
+                    .response-title
+                      Occasionally
+                    .value 
+                      1                
+                  .span3
+                    .response-title
+                      Many times
+                    .value 
+                      1
+                  .span3
+                    .response-title
+                      Almost always
+                    .value 
+                      1
+                  .span1
+                    .response-title
+                      Always
+                    .value 
+                      1
+                  .clr
+              .clr
 
-	.divider2
+
+    .response_distribution_list.self
+      .big-text.span.line-height2.left-offset1
+        %b Questions to the Candidate  
+      .classic_user_icon.span1.divider2 
+      .clr
+      .divider2
+
+      .span22.margin-auto 
+        %ul
+          -3.times do
+            %li
+              .big-text
+                Shows great vision in the imagining the future?
+              .divider2
+              .span20.pull-right
+                .responses
+                  .span3
+                    .response-title
+                      Never
+                    .value{:style=>"visibility:visible"} 
+                      1
+                  .span3
+                    .response-title
+                      Rarely 
+                    .value 
+                      1
+                  .span3
+                    .response-title
+                      Occasionally
+                    .value 
+                      1                
+                  .span3
+                    .response-title
+                      Many times
+                    .value 
+                      1
+                  .span3
+                    .response-title
+                      Almost always
+                    .value 
+                      1
+                  .span1
+                    .response-title
+                      Always
+                    .value 
+                      1
+                  .clr
+              .clr
