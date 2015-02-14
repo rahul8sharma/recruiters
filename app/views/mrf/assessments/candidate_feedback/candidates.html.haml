@@ -15,13 +15,13 @@
           = sort_link "360&#176;CID", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.id", params[:search]
         .span5
           = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
-        .span6
+        .span7
           Email-ID
         .span4
           360&#176; Status
         .span5
           Reports
-        .span5
+        .span4
           Remind Stakeholders
         .clr
         .divider1          
@@ -36,7 +36,7 @@
               .span5
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.name
-              .span6
+              .span7
                 %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
                   = candidate.email
               .span4
@@ -56,7 +56,7 @@
                   Generating Report...
                 - else
                   = "-"
-              .span5
+              .span4
                 - if !@feedbacks[candidate.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) }
                   %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}
                     Send Reminders

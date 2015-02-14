@@ -4,27 +4,24 @@
     .title
       Strength and Areas of Improvement
     .divider2
-
-    -3.times do 
+    - @report.report_data[:strengths_and_areas_of_improvement].each do |type, traits|
       .extra-large-text
-        Recognized Strengths
+        = type.titleize
       .divider1
       %table.section_description.extra-medium-text{:cellpadding=>"0", :cellspacing=>"0", :align=>"top"}
         %tbody
           %tr
             %td.left-info.big-text
               .padding-all1
-                Lorem ipsum dolor sit amet, homero fabulas convenire eat mea, everti temporibus has te. Mei te iudico iriure, eum ad illud omnium facilisis. Et falli minimum cum, at ius vero assueverit. Mel dicam contentiones at, sale movet ne vel. Est ex nostro deserunt, nec quot aeque et, noster bonorum has ut.
+                = Rails.application.config.reports["mrf_report"][type.to_s]
             %td.right-info
               .padding-all1
-                %ul.large-text
-                  %li
-                    Social Networking
-                  %li
-                    Social Networking
-                  %li
-                    Social Networking
-                  %li
-                    Social Networking
+                - if traits.empty?
+                  No such traits
+                - else  
+                  %ul.large-text
+                    - traits.each do |trait|
+                      %li
+                        = trait
       .divider2
 

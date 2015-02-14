@@ -639,12 +639,6 @@ $mrf_image_path: report/html/mrf
         .responses
           border-bottom: 1px solid #ccc
           text-align: center
-          [class*="span"]
-            margin-left: 54px
-            &:first-child
-              width: 40px
-              margin-left: 0
-           
           .response-title
             font-size: 14px
             color: #58595b
@@ -676,10 +670,6 @@ $mrf_image_path: report/html/mrf
   .stakeholder_rating_icon
     background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
   .scores_competencies_graph
-    .competency_overlapped_score_icon
-      background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center
-      height: 38px
-      width: 38px
     .trait_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center
       height: 38px
@@ -737,6 +727,18 @@ $mrf_image_path: report/html/mrf
                 height: 1px
                 border-top: 1px solid #888a8d
                 position: relative
+                &.equal_rating
+                  width: 2px !important
+                  .overlapped_score_icon
+                    background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
+                    height: 38px
+                    width: 38px
+                    position: absolute
+                    top: -19px
+                    left: -19px
+                  &.trait_under
+                    .overlapped_score_icon
+                      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center !important
                 .graph_stakeholder_rating, .graph_self_rating
                   width: 37px
                   height: 37px
@@ -754,14 +756,6 @@ $mrf_image_path: report/html/mrf
                   right: -19px
                   border: 2px solid #24d8ba
                   background: image-url('#{$mrf_image_path}/self.png') #24d8ba no-repeat center center 
-
-       
-                &.equal_rating
-                  width: 2px !important
-                  .graph_stakeholder_rating
-                    background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center
-                  .graph_self_rating
-                    display: none
     
     &.traits_under_competencies
       .traits_under_graph
