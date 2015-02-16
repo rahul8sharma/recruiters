@@ -57,6 +57,18 @@ class MrfReportUploader < AbstractController::Base
                           company_id: nil
                         }).all
       end
+      
+      @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
+                      order: "min_val ASC", query_options: {
+                        company_id: @company.id
+                      }).all
+    
+      if @competency_graph_buckets.empty?
+        @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
+                        order: "min_val ASC", query_options: {
+                          company_id: nil
+                        }).all
+      end
 
       template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 

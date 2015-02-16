@@ -6,24 +6,24 @@
     %tbody
       %tr.captions
         %td.mute_bg
-        %td.dark_mute_bg{:colspan=>"#{@trait_graph_buckets.size}"}
+        %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
           Rating #{trait_wise ? "":"Between"}
     
       %tr.captions.rating_ranges
         %td.mute_bg
-        - @trait_graph_buckets.each do |bucket|
+        - graph_buckets.each do |bucket|
           %td
-            #{bucket.min_val} 
             - if trait_wise
+              #{bucket.name} 
             - else
-              to #{bucket.max_val}
+              #{bucket.min_val} to #{bucket.max_val}
 
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
         %tr
           %td.green_bg.captions
-            = role
-          - @trait_graph_buckets.each do |bucket|
+            = role.titleize
+          - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
             %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
               = bucket_score
@@ -31,8 +31,8 @@
       %tr.overall
         %td.orange_bg.captions
           Overall
-        - max_score = @trait_graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
-        - @trait_graph_buckets.each do |bucket|
+        - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
+        - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
           %td.rating_score{ class: max_score == total ? "max_value" : "" }
             = total
