@@ -60,7 +60,7 @@ class MrfReportUploader < AbstractController::Base
       
       @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
                       order: "min_val ASC", query_options: {
-                        company_id: @company.id
+                        company_id: report_data[:company_id]
                       }).all
     
       if @competency_graph_buckets.empty?
