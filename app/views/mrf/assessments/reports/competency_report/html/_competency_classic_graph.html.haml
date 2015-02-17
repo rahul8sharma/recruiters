@@ -43,7 +43,7 @@
                   .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
                   .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
               .divider1
-            - else
+            - elsif(self_score || other_score)
               - min_score = (self_score || other_score)
               - width = 0
               - margin = convertToRange(min,max,0,100,min_score)
