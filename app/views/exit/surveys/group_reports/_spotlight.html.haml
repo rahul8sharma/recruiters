@@ -13,9 +13,10 @@
       .divider1
     .divider2
     .large-text
-      - @report.report_data["criteria"].each_slice(2) do |criterias|
-        - criterias.each.with_index do |(id, criteria), index|
-          %div{ class: index == 0 ? 'span19 first':'span10 pull-right' }
-            = "#{criteria['label']}: #{criteria['value']}"
-        .clr
-        .divider1
+      - if @report.report_data["criteria"]
+        - @report.report_data["criteria"].each_slice(2) do |criterias|
+          - criterias.each.with_index do |(id, criteria), index|
+            %div{ class: index == 0 ? 'span19 first':'span10 pull-right' }
+              = "#{criteria['label']}: #{criteria['value']}"
+          .clr
+          .divider1

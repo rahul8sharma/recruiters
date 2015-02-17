@@ -1,6 +1,15 @@
-.container  
-  .span25.margin-auto
+.candidate-list
+  .span15.page-title.first
+    .divider1
+    AID #{@survey.id} - #{@survey.name}
+  %a.extra-medium-text.pull-right.line-height3{:href => new_group_report_company_exit_survey_path(:company_id => params[:company_id], :id => @survey.id), :title => "Click Here To Create new Group Report"}
+    Create New Group Report
+  .clr
+  .divider2
+  = render :partial => "shared/exit/survey-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
     .page-title
-      Create a new Exit Survey Group Report
+      Edit Exit Survey Group Report
     .clr.divider2
     = render "form", url: update_group_report_company_exit_survey_path(@company.id,@survey.id)

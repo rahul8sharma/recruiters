@@ -103,4 +103,12 @@ module ApplicationHelper
       "failed" => "Failed to generate report"
     }
   end
+  
+  def exit_report_statuses
+    {
+      "uploaded" => "Completed",
+      "scored" => "Completed",
+      "failed" => "Failed to generate report"
+    }
+  end
 end

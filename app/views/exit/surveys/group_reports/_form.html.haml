@@ -1,5 +1,5 @@
 = form_for @report, as: :group_report, url: url do |f|
-  %input{type: "hidden", value: "scored", name: "group_report[status]"}
+  %input{type: "hidden", value: Vger::Resources::Exit::GroupReport::Status::NEW, name: "group_report[status]"}
   %input{type: "hidden", value: @survey.id, name: "group_report[survey_id]"}
   .border-primary
     .padding-all2.border-bottom-grayLighter
@@ -13,25 +13,26 @@
       .divider2
       - if @custom_form && @defined_fields.present?
         - @defined_fields.each do |defined_field| 
+          - @report.criteria["#{defined_field.id}"] ||= {}
           %input{type: "hidden", value: defined_field.label, name: "group_report[criteria][#{defined_field.id}][label]"}
           - case defined_field.field_type
             - when "TextField"
               = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
                 %label.pull-left.big-text.line-height2 
                   #{defined_field.label}
-                %input.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+                %input.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"][:value]}
               = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-                %input.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}]", value: @report.criteria["#{defined_field.id}"]}
+                %input.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"][:value]}
               .clr
               .divider2  
             - when "TextArea"
               = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
                 %label.pull-left.big-text.line-height2 
                   #{defined_field.label}
-                %textarea.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+                %textarea.span18.pull-right{:type => "text", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"][:value]}
 
               = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-                %textarea.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"]}
+                %textarea.span18.show.margin-auto{:type => "text", :placeholder=>"#{defined_field.label}", name: "group_report[criteria][#{defined_field.id}][value]", value: @report.criteria["#{defined_field.id}"][:value]}
               .clr
               .divider2
             - when "CheckBox"  
