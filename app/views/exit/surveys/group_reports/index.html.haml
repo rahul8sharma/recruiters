@@ -14,10 +14,14 @@
       .span3.first
         = sort_link "ID", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
 
-      .span8
+      .span10
         = sort_link "Name", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span9
+      .span8
         = sort_link "Report Status", group_reports_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .span4
+        Report Link
+      .span2
+        Edit  
       .clr
       .divider1
     - if @reports.empty?
@@ -34,11 +38,11 @@
             .divider1
             .span3.first
               %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=>"#{report.id}"} #{report.id}
-            .span8.info-block
+            .span10.info-block
               %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=>"#{ h report.name}"}
                 = h report.name
-            .span9
-              - status = report_statuses[report.status]
+            .span8
+              - status = exit_report_statuses[report.status]
               %a{:href=> group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=> "#{report.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime report.updated_at} Hrs, #{hdate report.updated_at}
@@ -51,6 +55,9 @@
               - else
                 %i.icon-spinner.icon-spin
                 Generating report...
+            .span2
+              %a{:href=> edit_group_report_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id], :report_id => report.id), :title=>"#{ h report.name}"}
+                Edit
             .clr
       .divider3
     .pull-right
