@@ -53,7 +53,7 @@
                       .divider1
                       .rating_snippet
                         .rating_title.blue
-                          = role
+                          = role.titleize
                         .value
                           = score[:points]
                         .clr
@@ -61,6 +61,6 @@
                 .divider1
             .clr
           .divider2
-          = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false }
+          = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
           .divider2
       .divider2
