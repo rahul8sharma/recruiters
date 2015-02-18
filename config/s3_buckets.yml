@@ -1,13 +1,13 @@
 development: &dev
-  bucket_name : "report_pdfs_development"
+  bucket_name : "companiesdevelopment"
 test: &test
   <<: *dev
 
 staging:
-  bucket_name : "report_pdfs_staging"
+  bucket_name : "companiesstaging"
 
 staging_internal:
-  bucket_name : "report_pdfs_staging_internal"
+  bucket_name : "companiesstaginginternal"
 
 production:
-  bucket_name : "report_pdfs"
+  bucket_name : "companiesproduction"

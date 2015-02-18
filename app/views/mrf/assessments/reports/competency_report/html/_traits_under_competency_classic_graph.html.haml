@@ -1,0 +1,103 @@
+.traits_under_graph
+  .graph_container
+    .left_sec.pull-left
+      .graph_instructions.left-offset4
+        .span1.divider2.stakeholder_rating_icon
+        .span1.divider2.classic_user_icon
+        .clr
+      %ul
+        %li
+          .span6.extra-medium-text.first
+            = competency
+          .stakeholder_rating.medium-text.pull-left
+            = competency_scores[:score][:points] || "-"
+          .self_rating.medium-text.span
+            = competency_scores[:average_score_self][:points] || "-"
+          .clr
+        - competency_scores[:trait_scores].each do |trait_score|
+          - self_score = trait_score[:average_score_self][:points]
+          - other_score = trait_score[:average_score_excluding_self][:points]
+          - if self_score || other_score
+            %li
+              .span6.extra-medium-text.first.trait_title
+                = trait_score[:trait][:name]
+                .info
+                  .arrow
+                  = trait_score[:trait][:definition]
+              .stakeholder_rating.medium-text.pull-left
+                = trait_score[:average_score_excluding_self][:points] || "-"
+              .self_rating.medium-text.span
+                = trait_score[:average_score_self][:points] || "-"
+              .clr
+    .right_sec.span21.pull-right
+      .classic_competency_graph
+        .classic_competency_graph_scale
+          .block.pull-left
+            = @trait_graph_buckets.first.min_val
+          - @trait_graph_buckets[1..100].each do |trait_graph_bucket|
+            .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size-1)}px; text-align: right"}
+              = trait_graph_bucket.min_val
+          .clr
+        .graph
+          .graph_content
+            - self_score = competency_scores[:average_score_self][:points]
+            - other_score = competency_scores[:score][:points]
+            - min = @trait_graph_buckets.map(&:min_val).min
+            - max = @trait_graph_buckets.map(&:min_val).max
+            - if self_score && other_score
+              - min_score = [self_score,other_score].min
+              - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
+              - margin = convertToRange(min,max,0,100,min_score)
+              .divider2
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                - if self_score == other_score
+                  .overlapped_score_icon
+                - else
+                  -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                  .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                  .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
+            - elsif(self_score || other_score)
+              - min_score = self_score || other_score
+              - width = 0
+              - margin = convertToRange(min,max,0,100,min_score)
+              .divider2
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                - if self_score
+                  .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                - else
+                  .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }      
+            .divider1
+            - competency_scores[:trait_scores].each do |trait_score|
+              - self_score = trait_score[:average_score_self][:points]
+              - other_score = trait_score[:average_score_excluding_self][:points]
+              - min = @trait_graph_buckets.map(&:min_val).min
+              - max = @trait_graph_buckets.map(&:min_val).max
+              - if self_score && other_score
+                - min_score = [self_score,other_score].min
+                - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
+                - margin = convertToRange(min,max,0,100,min_score)
+                .divider2
+                .graph_bar.trait_under{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                  - if self_score == other_score
+                    .overlapped_score_icon
+                  - else
+                    -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                    .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                    .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
+                .divider1
+              - elsif(self_score || other_score)
+                - min_score = (self_score || other_score)
+                - width = 0
+                - margin = convertToRange(min,max,0,100,min_score)
+                .divider2
+                .graph_bar.trait_under{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                  -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                  - if self_score
+                    .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                  - else
+                    .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
+                .divider1   
+            .divider1
+    .clr
+

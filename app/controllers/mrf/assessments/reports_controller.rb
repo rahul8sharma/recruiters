@@ -71,6 +71,28 @@ class Mrf::Assessments::ReportsController < ApplicationController
                         company_id: nil
                       }).all
     end
+    @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
+                      order: "min_val ASC", query_options: {
+                        company_id: @company.id
+                      }).all
+    
+    if @trait_graph_buckets.empty?
+      @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
+                      order: "min_val ASC", query_options: {
+                        company_id: nil
+                      }).all
+    end
+    @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
+                      order: "min_val ASC", query_options: {
+                        company_id: @company.id
+                      }).all
+    
+    if @competency_graph_buckets.empty?
+      @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
+                      order: "min_val ASC", query_options: {
+                        company_id: nil
+                      }).all
+    end
   end
 
   def get_company

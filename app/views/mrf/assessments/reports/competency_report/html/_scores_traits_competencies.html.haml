@@ -1,0 +1,8 @@
+.traits_under_competencies.scores_competencies_graph.section02
+  .divider2
+  .container
+    .title
+      360&#176; Scores: Traits under Competencies
+    .divider2
+    - @report.report_data[:competency_scores].each do |competency, competency_scores|
+      = render :partial => "mrf/assessments/reports/competency_report/html/traits_under_competency_classic_graph", locals: { competency: competency, competency_scores: competency_scores }

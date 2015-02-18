@@ -13,13 +13,12 @@ class Exit::ItemsController < MasterDataController
   def import_with_options_from_google_drive
     if params[:zip]
       now = Time.now
-      s3_bucket_name = "exit_items_images"
-      s3_key = "items_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      s3_key = "exit/item_images/items_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
       data = params[:zip].read
-      S3Utils.upload(s3_bucket_name, s3_key, data)
+      obj = S3Utils.upload(s3_key, data)
       params[:item][:zip_file] ||= {}
-      params[:item][:zip_file][:s3_zip_bucket] = s3_bucket_name
-      params[:item][:zip_file][:s3_zip_key] = s3_key
+      params[:item][:zip_file][:s3_zip_bucket] = obj.bucket.name
+      params[:item][:zip_file][:s3_zip_key] = obj.key
     end
     errors = Vger::Resources::Exit::Item.import_with_options_from_google_drive(params[:item])
     redirect_to manage_exit_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."

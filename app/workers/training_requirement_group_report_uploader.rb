@@ -6,6 +6,7 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
   include AbstractController::Translation
   include AbstractController::AssetPaths
   include Rails.application.routes.url_helpers
+  include UploadHelper
   helper ApplicationHelper
   helper ReportsHelper
   self.view_paths = "app/views"
@@ -27,7 +28,7 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id)
       @report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
 
-      if !@report.report_data[:factor_scores].present?
+      if !@report.report_data || !@report.report_data[:factor_scores].present?
         Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
           :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
         )
@@ -83,22 +84,17 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
       File.open(pdf_save_path, 'wb') do |file|
         file << pdf
       end
-      pdf_s3 = upload_file_to_s3(pdf_file_id,pdf_save_path)
-      html_s3 = upload_file_to_s3(html_file_id,html_save_path)
+      pdf_s3 = upload_file_to_s3("training_requirement_group_reports/pdf/#{pdf_file_id}",pdf_save_path)
+      html_s3 = upload_file_to_s3("training_requirement_group_reports/html/#{html_file_id}",html_save_path)
       File.delete(pdf_save_path)
       File.delete(html_save_path)
 
-
-      # Update report_urls hash for training_requirement
-      pdf_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf")
-      html_url = S3Utils.get_url("#{Rails.env.to_s}_training_requirements_reports", "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html")
-
       Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
         :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
-        :pdf_bucket  => "#{Rails.env.to_s}_training_requirements_reports",
-        :pdf_key     => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.pdf",
-        :html_bucket => "#{Rails.env.to_s}_training_requirements_reports",
-        :html_key    => "training_requirements_report_training_requirement_group_#{@training_requirement_group.id}.html"
+        :pdf_bucket  => html_s3[:bucket],
+        :pdf_key     => pdf_s3[:key],
+        :html_bucket => html_s3[:bucket],
+        :html_key    => html_s3[:key]
       )
 
       patch["send_report"] ||= "Yes"
@@ -124,17 +120,6 @@ class TrainingRequirementGroupReportUploader < AbstractController::Base
           :backtrace => [e.message] + e.backtrace[0..20]
         }
       }), "notify_report_status")
-    end
-  end
-
-  def upload_file_to_s3(file_id,file_path)
-    File.open(file_path,"r") do |file|
-      Rails.logger.debug "Uploading #{file_id} to s3 ........."
-      s3_bucket_name = "#{Rails.env.to_s}_training_requirements_reports"
-      s3_key = "#{file_id}"
-      url = S3Utils.upload(s3_bucket_name, s3_key, file)
-      Rails.logger.debug "Uploaded #{file_id} with url #{url} to s3"
-      return { :bucket => s3_bucket_name, :key => s3_key }
     end
   end
 end
