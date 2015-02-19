@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: d78b2278067905044bef8011b834ca9f093a6c7f
+  revision: 271cd9ec4e60552c39c7951774e9d7a723c0a332
   branch: develop
   specs:
     vger (0.0.1)
