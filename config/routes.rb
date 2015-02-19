@@ -302,8 +302,8 @@ Recruiters::Application.routes.draw do
       end
 
       member do
-        get "add_traits" => "exit/surveys#add_traits", :as => :add_traits
-        put "add_traits" => "exit/surveys#add_traits", :as => :add_traits
+        get "add_items" => "exit/surveys#add_items", :as => :add_items
+        put "add_items" => "exit/surveys#add_items", :as => :add_items
 
         get "details" => "exit/surveys#details", :as => :details
         get "traits" => "exit/surveys#traits", :as => :traits

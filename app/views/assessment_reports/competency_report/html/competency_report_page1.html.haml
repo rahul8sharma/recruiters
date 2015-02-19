@@ -60,9 +60,8 @@
                   .line
                   .marker-container
                     - @norm_buckets.each do |norm_bucket|
-                      .marker
-                        -#add ".active" to ".marker " and bucket name shoud be visible only in .marker.active... refer design for same 
-                        = norm_bucket.name
+                      .marker{ class: competency_score[:grade] == norm_bucket.name ? "active":"" }
+                        = competency_score[:grade] == norm_bucket.name ? norm_bucket.name : ""
                     .clr
                 .clr
                 -#= competency_score[:grade]
