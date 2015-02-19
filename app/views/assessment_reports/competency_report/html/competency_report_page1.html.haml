@@ -28,20 +28,43 @@
       = @report.report_hash[:completed_at]
     .divider2
 .overview
-  .top-triangle
-    .bottom-triangle
-      .container
-        .divider1
-        .content
-          .overview-title
+  .bottom-triangle
+    .container
+      .divider1
+      .content
+        .overview-title
+          .pull-left
+            .divider3
             Overview of Competencies / Values Measured
-          %ul.competency-list.pull-left
-            - competency_scores.each do |competency_name, competency_score|
-              %li
-                .competency-name.pull-left
-                  = competency_name
-                .competency-value.pull-right
-                  = competency_score[:grade]
-                .clr
+          .scale.right-offset1
+            .line
+            .marker-container
+              - @norm_buckets.each do |norm_bucket|
+                .marker
+                  .arrow
+                  .marker-info
+                    = norm_bucket.description
+                  - if norm_bucket.name.split(" ").size == 1
+                    %br/
+                  = norm_bucket.name
+              .clr
           .clr
         .divider2
+        %ul.competency-list.pull-left
+          - competency_scores.each do |competency_name, competency_score|
+            %li
+              .competency-name.pull-left
+                = competency_name
+              .competency-value.pull-right
+                .scale.right-offset1
+                  .line
+                  .marker-container
+                    - @norm_buckets.each do |norm_bucket|
+                      .marker{:class=>"#{factor_score[:pass] ? 'active' : ''}"}
+                        = norm_bucket.name
+                    .clr
+                .clr
+                = competency_score[:grade]
+              .clr
+        .clr
+      .divider2
