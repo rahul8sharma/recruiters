@@ -9,6 +9,10 @@
   = link_to "Alarm Factors", suitability_factors_path(:type => "Suitability::AlarmFactor")
   \|
   = link_to "Lie Detectors", suitability_factors_path(:type => "Suitability::LieDetector")
+  = form_for :factor, :url => export_display_names_suitability_factors_path, html: { multipart: true }, :method => :post do |f|
+    = f.text_field "company_ids", :placeholder => "Company ID"
+    = submit_tag "Export Display Names"
+
 .pagination.pull-right
   = paginate @factors
 .clr
@@ -32,7 +36,7 @@
       Companies
     %th
       Edit
-    
+
   - @factors.each do |factor|
     %tr
       %td{ width: "5%" }

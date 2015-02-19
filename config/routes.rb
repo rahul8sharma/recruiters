@@ -961,6 +961,10 @@ Recruiters::Application.routes.draw do
         get :get_factors
         post :import
         get :manage
+        post :manage
+        post :import_display_names
+        get :export_display_names
+        post :export_display_names
         get :destroy_all
         post :import_from_google_drive
         post 'export_to_google_drive'

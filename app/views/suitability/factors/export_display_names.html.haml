@@ -1,0 +1,26 @@
+= form_for :factor_display_name, :url => export_display_names_suitability_factors_path, multipart: true, :method => :post do
+  %fieldset
+    %legend
+      %strong Export Display Names
+    = fields_for "export" do |f|
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url :
+          = f.text_field "url"
+        - if @factors.present?
+          %p
+            Company ID :
+            = f.text_field "company_id",  value: @company_ids
+          %p
+          %p
+            Factors :
+            = f.select :factor_id, @factors.collect { |factor|[factor.name,factor.id]},{},{ :multiple => true, :size => 10}
+
+        %p
+        Notification Email :
+        = f.text_field :email, :value => "product@jombay.com"
+      .actions
+        = submit_tag "Export"
+
+= link_to 'Back', suitability_factors_path
+
