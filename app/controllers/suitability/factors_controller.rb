@@ -22,9 +22,7 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def manage
-    if request.post?
 
-    end
   end
 
   def export_display_names
