@@ -21,6 +21,34 @@ class Suitability::FactorsController < MasterDataController
     "import_from_google_drive"
   end
 
+  def manage
+    if request.post?
+
+    end
+  end
+
+  def export_display_names
+    if request.post?
+      if params[:commit] == "Export Display Names"
+        @company_ids = params[:factor][:company_ids]
+        @factors  = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true,:type=>"Suitability::Factor",:is_global => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
+        @factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => @company_ids , :active => true,:is_global => false}, :methods => [:type, :direct_predictor_ids,:company_names], :joins => [:companies]).all.to_a
+      else
+        Vger::Resources::Suitability::Factor.export_display_names(params)
+        redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued.
+        Email notification should arrive as soon as the export is complete."
+      end
+    end
+  end
+
+  def import_display_names
+    if request.post?
+        Vger::Resources::Suitability::Factor.import_display_names(params)
+        redirect_to request.env['HTTP_REFERER'], notice: "Import operation queued.
+          Email notification should arrive as soon as the import is complete."
+    end
+  end
+
   # GET /factors/new
   # GET /factors/new.json
   def new
@@ -71,9 +99,7 @@ class Suitability::FactorsController < MasterDataController
     local_factors = {}
     factor_cache = []
     company_ids.each do |id|
-      Rails.logger.ap id
-      local_factor = Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => id, :active => true}, :methods => [:type, :direct_predictor_ids,:company_names], :joins => [:companies]).all.to_a
-      Rails.logger.ap local_factor
+      local_factor = Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => id, :active => true,:is_global => false}, :methods => [:type, :direct_predictor_ids,:company_names], :joins => [:companies]).all.to_a
       local_factors.merge!(id =>local_factor)
       factor_cache << local_factor
       local_factor_ids << local_factor.map(&:id)
@@ -90,7 +116,7 @@ class Suitability::FactorsController < MasterDataController
     diff_factor_ids = difference_factors.map(&:id)
 
 
-    global_factors = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true,:type=>"Suitability::Factor"}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
+    global_factors = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true,:type=>"Suitability::Factor",:is_global => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
     # factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_ids], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies]).all.to_a
     factors = {
       :global_factors => global_factors,
@@ -98,6 +124,7 @@ class Suitability::FactorsController < MasterDataController
       :difference_factors => difference_factors,
       :trait_class_type =>"suitability"
     }
+    return factors
 
     respond_to do |format|
       format.json{ render :json => { :factors => factors } }
