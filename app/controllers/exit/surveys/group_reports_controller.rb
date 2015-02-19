@@ -5,10 +5,13 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   layout "exit"
   
   def index
+    params[:order_by] ||= "id"
+    params[:order_type] ||= "DESC"
     @reports = Vger::Resources::Exit::GroupReport.where(
       query_options: {
         :survey_id => @survey.id
       },
+      order: "#{params[:order_by]} #{params[:order_type]}",
       page: params[:page],
       per: 5
     ).all
@@ -90,7 +93,7 @@ class Exit::Surveys::GroupReportsController < ApplicationController
   def update
     @report = Vger::Resources::Exit::GroupReport.find(params[:report_id], :company_id => @survey.company_id)
     if Vger::Resources::Exit::GroupReport.save_existing(params[:report_id],params[:group_report])
-      redirect_to group_report_company_exit_survey_path(@company.id, @survey.id, @report.id)
+      redirect_to group_reports_company_exit_survey_path(@company.id, @survey.id)
     else
       get_custom_form
       @report.criteria ||= {}

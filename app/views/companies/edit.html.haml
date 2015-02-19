@@ -80,6 +80,10 @@
             Logo:
           = f.file_field :logo, :class => "first span7 medium-text left-offset1"
           .clr  
+        .control-group
+          .span8
+            = image_tag(@company.large_logo_url)  
+          .clr  
         
         %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
         .clr
