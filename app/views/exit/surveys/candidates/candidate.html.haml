@@ -126,8 +126,6 @@
         %a{:href => "#", :title => "Sort by Survey Name in ascending order"}
           Survey Name
           %i.icon-chevron-down.small-text.line-height1
-      .span5
-        Recommendation
       .span5 
         %a{:href => "#", :title => "Sort by Survey Status in ascending order"}
           Survey Status
@@ -147,7 +145,7 @@
           .span5
             - if report
               - if report.status == Vger::Resources::Exit::Report::Status::UPLOADED
-                - url =  company_exit_survey_candidate_candidate_survey_report_url(:company_id => params[:company_id], :candidate_id => candidate_survey.candidate_id, :survey_id => @survey.id, :id => report.id, :view_mode => "html")
+                - url =  s3_report_company_exit_survey_path(:company_id => params[:company_id], :candidate_id => candidate_survey.candidate_id, :report_id => report.id, :view_mode => "html")
                 %a{:href => url, :title => "View Report", target: "_blank"}
                   View Report
               - else

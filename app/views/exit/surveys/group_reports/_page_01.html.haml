@@ -8,15 +8,25 @@
           = item_hash["report_body"]
         .divider2
         - if item_hash["report_graph_type"] == "pie"
+          - responses = Hash[responses.sort_by{|id,response| response['percent'] }.reverse]
+          - responses = responses.slice(*responses.keys[0..(item_hash["selectable_options"]-1)])
+          - sum = responses.collect{|id,response| response['percent'].to_f }.sum
+          - other = 100 - sum
           .left.span12.pull-left
             - hash = Hash[responses.collect.with_index{|(id,response),index| ["data-#{index}","#{response['body']}-:-#{response['percent']}-:-#{colors[index]}"] }]
             - if item_hash["selectable_options"] == 1 && responses.size == 1
               - percent = responses[responses.keys[0]]['percent']
               - hash["data-1"] = "No-:-#{100-percent}-:-#9D4738"
+            - if other > 0 && item_hash["selectable_options"] > 1
+              - hash["data-other"] = "No-:-#{other}-:-#C4B864"
             .span6.margin-auto.pie-chart{ hash }
         .right.pull-left 
           .divider2
           %ul
+            - responses = Hash[responses.sort_by{|id,response| response['percent'] }.reverse]
+            - responses = responses.slice(*responses.keys[0..(item_hash["selectable_options"]-1)])
+            - sum = responses.collect{|id,response| response['percent'].to_f }.sum
+            - other = 100 - sum
             - responses.each.with_index do |(id, response_hash),index|
               %li
                 .count{:style=>"background: #{colors[index]}"}
@@ -27,20 +37,31 @@
                 .clr
                 .divider1
             - if item_hash["selectable_options"] == 1 && responses.size == 1
-              - percent = responses[responses.keys[0]]['percent']
+              - response = responses[responses.keys[0]]
+              - percent = response['percent']
               %li
                 .count{:style=>"background: #9D4738"}
                   = 100 - percent
                 .span14
                   .divider1
-                  No
+                  = response["body"] == "No" ? "Yes" : "No"
                 .clr
                 .divider1      
+            - if other > 0 && item_hash["selectable_options"] > 1
+              %li
+                .count{:style=>"background: #C4B864"}
+                  = other
+                .span14
+                  .divider1
+                  Other
+                .clr
+                .divider1      
+                
         .clr
   - else
-    - if item_hash["items"].size > 0
+    - if item_hash["items"] && item_hash["items"].size > 0
       .snippet.mood
-        - happy_items = item_hash["items"].select{|id, item_data| item_data["happy"]["percentage"] > 70 }
+        - happy_items = item_hash["items"].select{|id, item_data| item_data["happy"]["percentage"] > 60 }
         - unhappy_items = item_hash["items"].select{|id, item_data| item_data["happy"]["percentage"] <= 70 }
         - happy_items_percentage = ((happy_items.size * 100).to_f / item_hash["items"].size).round
         .container
@@ -68,153 +89,3 @@
                 %li
                   = item["item_body"]
           .clr         
-
--#
-  .snippet.two-column-list
-    .container
-      .snippet_title.exchange-arrow-icon
-        Top 3 Things that could be changed about
-    .divider2
-    .headings.container
-      .left.span15.first
-        .divider1
-        .title
-          Manager
-        .divider2
-      .right.span15.first
-        .divider1
-        .title
-          Organization
-        .divider2
-      .clr
-
-    %ul.striped_list.numbered-list
-      -3.times do |index|
-        %li
-          .container
-            .left.span15.first
-              .count.pull-left
-                #{index+1}
-              .big-text.span
-                Advancement 
-              .clr
-            .right.span15.first
-              .count.pull-left
-                #{index+1}
-              .big-text.span
-                Advancement 
-              .clr
-            .clr
-
-  .snippet.recommendation
-    .container
-      .left.span15.first
-        .snippet_title.question-mark-icon
-          Top Reasons of recommending this organization
-        .divider2
-
-        %ul.numbered-list
-          -5.times do |index|
-            %li
-              .count.pull-left
-                #{index+1}
-              .big-text.span
-                Advancement 
-              .clr
-              .divider1
-      .right.span15.first
-        .snippet_title.left-offset1.user-icon
-          Ever felt discriminated?  
-        .divider2
-        .divider3
-        .span7.left-offset4
-          PIE CHART GOES HERE
-        .pull-right
-          .status{:style=>"background: #ddd"}
-            50%
-            %br/
-            YES
-          .divider2
-          .status{:style=>"background: #ddd"}
-            50%
-            %br/
-            NO
-      .clr
-      
-  .snippet.two-column-pie
-    .container
-      .snippet_title.search-icon
-        New Job versus Old Job
-      .divider2
-      .left.span15.first
-        .large-text
-          Difference between Old and New Job
-        .divider2
-        .span5
-          PIE CHART
-        .span9.pull-right
-          %ul.numbered-list
-            -5.times do |index|
-              %li
-                .count.pull-left{:style=>"background: red"}
-                  #{index+1}0%
-                .medium-text.span
-                  Advancement 
-                .clr
-                .divider1
-        .clr
-      .right.span15.first
-        .large-text.left-offset1
-          New Salary versus the Old one
-        .divider2
-        .span5.left-offset1
-          PIE CHART
-        .span8.pull-right
-          %ul.numbered-list
-            -5.times do |index|
-              %li
-                .count.pull-left{:style=>"background: red"}
-                  #{index+1}0%
-                .medium-text.span
-                  Advancement 
-                .clr
-                .divider1
-        .clr
-         
-      .clr
-
-  .snippet
-    .container
-      .snippet_title
-        Reasons of choosing the New Job
-    .divider2
-
-    %ul.striped_list.numbered-list
-      - 3.times do |index|
-        %li
-          .container
-            .count.pull-left
-              #{index+1}
-            .big-text.span
-              Advancement 
-            .clr
-  .snippet.two-column-pie
-    .container
-      .snippet_title.building-icon
-        What people think about the Company!
-      .divider2
-      .span7.first
-        PIE CHART
-      .span22.pull-right
-        %ul.numbered-list
-          %li.divider3
-          -5.times do |index|
-            %li
-              .count.pull-left{:style=>"background: red"}
-                #{index+1}0%
-              .medium-text.span
-                Advancement 
-              .clr
-              .divider1
-      .clr
-
