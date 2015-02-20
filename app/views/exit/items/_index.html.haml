@@ -3,6 +3,7 @@
     %th Id
     %th Body
     %th Trait ID
+    %th Item Group
     %th Active
     %th Edit
   - items.each do |item|
@@ -13,6 +14,8 @@
         = link_to item.body, exit_item_path(item.id)
       %td{ width: "10%" }
         = item.trait_id
+      %td{ width: "10%" }
+        = item.item_group_id
       %td{ width: "10%" }
         = item.active
       %td{ width: "20%" }
