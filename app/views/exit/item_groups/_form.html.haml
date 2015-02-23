@@ -1,0 +1,14 @@
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+= form_for @resource, as: resource_name.singularize, url: url do |f|
+  - if @resource.error_messages.present?
+    %ul
+    - @resource.error_messages.each do |msg|
+      %li #{msg}
+  .field
+    = f.label :body
+    = f.text_field :body
+  .field
+    = f.label :active
+    = f.check_box :active
+  .actions
+    = submit_tag 'Submit'

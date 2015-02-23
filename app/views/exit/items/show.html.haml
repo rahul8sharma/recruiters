@@ -2,6 +2,12 @@
 %p
   %b Body:
   = @item.body
+%p
+  %b Selectable Options:
+  = @item.selectable_options
+%p
+  %b Active:
+  = @item.active
   %br
 = link_to "Edit", edit_exit_item_path(params[:id])
 \|
