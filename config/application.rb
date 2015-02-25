@@ -80,6 +80,7 @@ module Recruiters
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
     config.payments = YAML::load(File.open("#{Rails.root.to_s}/config/payments.yml"))
     config.reports = YAML::load(File.open("#{Rails.root.to_s}/config/reports.yml"))
+    config.brand_partners = YAML::load(File.open("#{Rails.root.to_s}/config/brand_partners.yml"))["brand_partners"]
     config.default_set = YAML::load(File.open("#{Rails.root.to_s}/config/default_set.yml"))["default_set"]
     config.sidekiq = YAML.load(File.read(Rails.root.join("config/sidekiq/#{Rails.env}.yml")))
     config.s3_buckets = YAML.load(File.read(Rails.root.join("config/s3_buckets.yml")))[Rails.env.to_s]

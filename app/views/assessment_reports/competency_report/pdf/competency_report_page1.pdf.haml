@@ -1,9 +1,9 @@
 .overall_report
   .divider3
   .j-logo.pull-left
-  - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+  - if @report.report_hash[:assessment][:brand_partner]
     .pull-right
-      = wicked_pdf_image_tag ('report/pdf/talent-lens.png')
+      = wicked_pdf_image_tag("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
   .clr
   .divider30
 
