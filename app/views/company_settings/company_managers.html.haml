@@ -1,0 +1,70 @@
+- if params[:company_managers].present?
+  = content_for :alert do
+    .alert.alert-error
+      %a{"data-dismiss" => "alert", :type => "button"}
+      .pull-left
+        Are you sure you want to remove these Company Managers
+      .pull-right
+        = link_to "YES",confirm_remove_company_managers_company_path(@company, :company_manager_ids => params[:company_managers].keys.join("|"))
+        \|
+        = link_to "NO", company_managers_company_path(@company)
+      .clr
+.company_company_manager_setting
+  .page-title
+    .divider1
+    Settings
+
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
+  = form_for @company, :as => :company, url: remove_company_managers_company_path(@company), method: :put do |f|
+    .padding-all2.border-warning.shifted-up1
+      .pull-right
+        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Users"}
+
+        %a.btn.btn-warning.big-text.span{ href: add_company_managers_company_path(@company) }
+          Add New User
+        .clr
+      .clr
+      .divider3
+      .list-snippet-titles.big-text.clearfix
+        %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
+          User ID
+          %i.icon-chevron-down.small-text.line-height1
+        %a.span6{:href => "#", :title => "Name"}
+          Name
+          %i.icon-chevron-down.small-text.line-height1
+        .span6
+          Email id
+        %a.span4{:href => "#", :title => "Date Added"}
+          Date Added
+          %i.icon-chevron-down.small-text.line-height1
+        %a.span{:href => "#", :title => "Activation Status"}
+          Activation Status
+        .clr
+        .divider2
+      %ul
+        - @company_managers.each do |company_manager|
+          %li.list-snippet.border-bottom-grayLighter
+            .span1.first
+              %input{:type => "checkbox", name: "company_managers[#{company_manager.id}]", checked: (params[:company_managers].keys.include?(company_manager.id.to_s))}
+            .span3
+              #{company_manager.id}
+            .span6
+              = company_manager.name
+            .span6
+              = company_manager.email
+            .span4
+              = hdate company_manager.created_at
+            .span
+              - if(company_manager.reset_password_token == nil)
+                Activated
+              - else
+                %a{:href => reset_password_url(:reset_password_token => company_manager.reset_password_token, :activate => true)}
+                  Activate Now
+            .clr
+            .divider1
+      .divider2
+
+      .pull-right
+        = render :partial => "shared/pagination", :locals => { :objects => @company_managers}
+      .clr.divider3

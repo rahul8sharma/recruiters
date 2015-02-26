@@ -1,0 +1,40 @@
+%h1 #{controller.resource_name.humanize}
+
+- if controller.manage_path
+  = (link_to "Manage #{controller.resource_name.humanize}", controller.manage_path)
+  \|
+- if respond_to?("new_#{resource_name.singularize}_path")
+  = link_to "New #{controller.resource_name.singularize.titleize}", send("new_#{resource_name.singularize}_path")
+%br
+%br
+= render :partial => "master_data/search"
+
+.pagination.pull-right
+  = paginate @objects
+.clr  
+%fieldset
+  %legend
+    Results  
+  %table
+    %tr
+      %th Name
+      %th Email
+      %th  
+        Activation Status
+    - @objects.each do |object|
+      %tr 
+        %td
+          = object.name
+        %td
+          = object.email
+        %td
+          - if(object.reset_password_token == nil)
+            Activated
+          - else
+            %a{:href => reset_password_url(:reset_password_token => object.reset_password_token, :activate => true)}
+              Activate Now
+%br
+%br
+.pagination.pull-right
+  = paginate @objects
+.clr   
