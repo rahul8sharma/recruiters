@@ -224,7 +224,7 @@ class CompaniesController < ApplicationController
   protected
 
   def get_company
-    methods = []
+    methods = [:small_logo_url, :large_logo_url, :original_logo_url]
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end

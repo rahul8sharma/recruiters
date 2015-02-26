@@ -2,7 +2,7 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-= form_for @survey, :as => :survey, :url => add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+= form_for @survey, :as => :survey, :url => add_items_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
   .order_enable_items
     .page-title
       = @survey.name
@@ -13,16 +13,20 @@
       Smileys
     - index = 1
     - @item_groups.each do |item_group|
-      .span18
+      .span16
         %label.pull-left
           %input{ type: "hidden", name: "items[#{index}][type]", value: item_group.class.name.gsub('Vger::Resources::','') }
           %input{ type: "hidden", name: "items[#{index}][id]", value: item_group.id }
           %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item_group", checked: true }
           #{item_group.body}
-      .span5 
+      .span4 
         %label   
-          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item_group", checked: false }  
-          Enable Comment
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item_group", checked: false, style: "display:none;" }  
+          &nbsp;
+      .span4
+        %label   
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item_group", checked: false, style: "display:none;" }  
+          &nbsp;
       .span5    
         %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
           - 100.times do |order|
@@ -34,16 +38,22 @@
     .big-text
       Reasons
     - @items.each do |item|
-      .span18
+      - item_hash = @survey.item_ids.find{|item_hash| item_hash["type"] == item.class.name.gsub("Vger::Resources::",'') && item_hash["id"] == item.id }
+      - item_hash = item_hash ? item_hash : {}
+      .span16
         %label.pull-left
-          #{item.body}
           %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
           %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
-          %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
-      .span5 
+          %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: !item_hash.blank? }
+          #{item.body}
+      .span4
         %label   
-          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: true }  
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: item_hash["enable_comment"] }  
           Enable Comment
+      .span4    
+        %label   
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][comment_compulsory]", class: "item", checked: item_hash["comment_compulsory"] }
+          Comment Compulsory
       .span5
         %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
           - 100.times do |order|
@@ -59,7 +69,7 @@
           %input{ type: "hidden", name: "items[#{index}][type]", value: item.class.name.gsub('Vger::Resources::','') }
           %input{ type: "hidden", name: "items[#{index}][id]", value: item.id }
           %input{ type: "checkbox", name: "items[#{index}][selected]", class: "item", checked: true }
-          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: false, style: "display:none;" }  
+          %input.pull-left{ type: "checkbox", name: "items[#{index}][enable_comment]", class: "item", checked: false, style: "display:none;" }
       .span10
         %select.pull-right{ name: "items[#{index}][order]", style: "width: 100px" }
           - 100.times do |order|

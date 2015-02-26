@@ -48,7 +48,7 @@ class Exit::ItemsController < MasterDataController
     @item = Vger::Resources::Exit::Item.find(params[:id])
     respond_to do |format|
       if @item.class.save_existing(params[:id], params[:item])
-        format.html { redirect_to functional_item_path(params[:id]), notice: 'Exit Item Group was successfully updated.' }
+        format.html { redirect_to exit_item_path(params[:id]), notice: 'Exit Item Group was successfully updated.' }
         format.json { render json: @item, status: :created, location: @item}
       else
         format.html { render action: "edit" }
