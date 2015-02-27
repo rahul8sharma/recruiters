@@ -72,8 +72,7 @@
     .divider3
     .pull-left
     %label
-      %input{ type: "checkbox", name: "include_functional_traits_in_aggregate_scores", id: "include_functional_traits_in_aggregate_scores",
-       checked: @assessment.configuration["include_functional_traits_in_aggregate_scores"] }
+      = f.check_box :include_functional_traits_in_aggregate_scores, id: "include_functional_traits_in_aggregate_scores" 
       Include Functional Traits Score in Aggregate Scores
     .divider1
     .extra-large-text.text-center

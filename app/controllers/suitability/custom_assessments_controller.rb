@@ -67,9 +67,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
     if request.put?
       params[:assessment] ||= {}
-      params[:assessment][:include_functional_traits_in_aggregate_scores] = params[:include_functional_traits_in_aggregate_scores].present?
-      params[:assessment][:show_help_text] = @assessment.show_help_text
-      params[:assessment][:is_jombay_pearson_test] = @assessment.is_jombay_pearson_test
       params[:assessment][:functional_assessment_traits_attributes] ||= {}
       params[:assessment][:functional_assessment_traits_attributes].each do |index, factor_norms_attributes|
         norm_buckets_by_id = Hash[@functional_norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
@@ -214,8 +211,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     else
       params[:assessment] ||= {}
-      params[:assessment][:is_jombay_pearson_test] = params[:is_jombay_pearson_test].present?
-      params[:assessment][:show_help_text] = params[:show_help_text].present?
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       assessment_type = if params[:fit].present?
