@@ -70,6 +70,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
     add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
     if request.put?
+      if @company.subscription_mgmt
+        get_packages
+      end
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
         render :action => :add_candidates and return
@@ -174,6 +177,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     params[:send_test_to_candidates] = true
+
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
@@ -334,8 +338,15 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           },
           include: [:defined_field]
         }).all.to_a
-      end   
+      end
     end
+  end
+
+  def extend_validity
+    @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
+      :candidate_id => @candidate.id
+    })
   end
 
   def send_reminder_to_pending_candidates
@@ -426,5 +437,19 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     company_id: nil,
                     category: category
                   }).all.to_a
+  end
+
+  def get_packages
+    @subscriptions = Vger::Resources::Subscription.where(
+      :query_options => {
+        :company_id => @company.id
+      },
+      :order => ["valid_to ASC"],
+      :methods => [:assessments_sent,:assessments_completed],
+      :page => params[:page],
+      :per => 5
+    ).all.to_a
+    Rails.logger.debug("Fetching Subscriptions")
+    Rails.logger.ap @subscriptions
   end
 end
