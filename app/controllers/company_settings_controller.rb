@@ -71,10 +71,19 @@ class CompanySettingsController < ApplicationController
         render :action => :add_company_managers and return
       end
       params[:company_managers].each do |key,company_manager_data|
-        company_manager = Vger::Resources::User.where(:query_options => { :email => company_manager_data[:email] }).all[0]
+        company_manager = Vger::Resources::User.where(:query_options => { :email => company_manager_data[:email] }, methods: [:company_ids, :type], :root => :user).all[0]
         if company_manager
-          company_manager_data[:id] = company_manager.id
-          company_managers[company_manager.id] = company_manager_data
+          if company_manager.type == "CompanyManager"
+            company_manager_data[:id] = company_manager.id
+            company_managers[company_manager.id] = company_manager_data
+            company_manager.company_ids |= [@company.id]
+            company_manager.company_ids.uniq!
+            company_manager = Vger::Resources::CompanyManager.save_existing(company_manager.id, company_ids: company_manager.company_ids)
+          else
+            company_manager_data[:id] = company_manager.id
+            company_managers[company_manager.id] = company_manager_data
+            errors[company_manager.email] |= "Another account with email #{company_manager.email} already exists."
+          end
         else
           company_manager_data[:notify] = company_manager_data[:notify].present?
           company_manager_data[:company_ids] = [@company.id]
