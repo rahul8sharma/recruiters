@@ -1,4 +1,4 @@
-  class Suitability::FactorsController < MasterDataController
+class Suitability::FactorsController < MasterDataController
   def api_resource
     Vger::Resources::Suitability::Factor
   end
