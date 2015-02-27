@@ -449,7 +449,5 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       :page => params[:page],
       :per => 5
     ).all.to_a
-    Rails.logger.debug("Fetching Subscriptions")
-    Rails.logger.ap @subscriptions
   end
 end
