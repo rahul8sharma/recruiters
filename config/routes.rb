@@ -201,6 +201,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
+        get "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
       end
 
       resources :candidates, :except => [:destroy, :show] do
