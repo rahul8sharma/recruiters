@@ -31,10 +31,10 @@
         %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
           User ID
           %i.icon-chevron-down.small-text.line-height1
-        %a.span6{:href => "#", :title => "Name"}
+        %a.span8{:href => "#", :title => "Name"}
           Name
           %i.icon-chevron-down.small-text.line-height1
-        .span6
+        .span8
           Email id
         %a.span4{:href => "#", :title => "Date Added"}
           Date Added
@@ -50,9 +50,9 @@
               %input{:type => "checkbox", name: "users[#{user.id}]", checked: (params[:users].keys.include?(user.id.to_s))}
             .span3
               #{user.id}
-            .span6
+            .span8
               = user.name
-            .span6
+            .span8
               = user.email
             .span4
               = hdate user.created_at
