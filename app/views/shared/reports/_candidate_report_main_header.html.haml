@@ -33,9 +33,10 @@
                   Manager Guidelines
           %li.right
         = link_to "Printable PDF", company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @report.report_hash[:company][:id], :candidate_id => @report.report_hash[:candidate][:id], :custom_assessment_id => @report.report_hash[:assessment][:id], :id => @report.id, :format => "pdf", :view_mode => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn"
-        - if @report.report_hash[:assessment][:is_jombay_pearson_test]
+        - if @report.report_hash[:assessment][:brand_partner]
           .span
-            %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
+            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+            %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{brand_partner_image_path}"}
           .clr
 - if @report.report_hash[:enable_feedback]
   .give-feedback
