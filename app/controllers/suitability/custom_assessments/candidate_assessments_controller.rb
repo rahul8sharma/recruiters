@@ -70,9 +70,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
     add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
     if request.put?
-      if @company.subscription_mgmt
+      # if @company.subscription_mgmt
         get_packages
-      end
+      # end
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
         render :action => :add_candidates and return
@@ -445,9 +445,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         :company_id => @company.id
       },
       :order => ["valid_to ASC"],
-      :methods => [:assessments_sent,:assessments_completed],
-      :page => params[:page],
-      :per => 5
+      :scopes => { :active => nil },
+      :methods => [:assessments_sent,:assessments_completed]
     ).all.to_a
   end
 end
