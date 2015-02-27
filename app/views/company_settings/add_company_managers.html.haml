@@ -1,0 +1,44 @@
+.company_add_user
+  .page-title
+    .divider1
+    Settings
+  .divider2
+  = render :partial => "shared/settings-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    = form_for @company, :as => :company, :url => add_company_managers_company_path(@company), method: :put do |f|
+      .span21.margin-auto
+        .pull-right.medium-text.actions
+          %a.extra-medium-text.line-height3{:title=>"View Ready-to-Send Assessments", :href => company_managers_company_path(@company)}
+            Cancel&nbsp;
+          %input.btn.btn-warning.big-text.right-offset1.last{:type => "submit", :value => "Add"}
+        .clr
+        .divider2
+        .left-offset2.first
+          .span6.first.big-text
+            Full Name
+          .span8.big-text.left-offset1.first
+            Email ID
+          .clr
+        .divider1
+
+        %ul.add-users-listing
+          - 10.times do |index|
+            - candidate = params[:company_managers].to_a[index][1] rescue {}
+            %li.clearfix
+              .control-group
+                .span2.first
+                  .count.badge.badge-small.inverse
+                    #{index+1}
+                %input.span6.medium-text.first{:type => "text", name: "company_managers[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
+                %input.span6.medium-text.left-offset1.first{:type => "text", name: "company_managers[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
+                %input.span2.left-offset1.first{:type=>"checkbox", name: "company_managers[#{index}][notify]", id:"company_managers[#{index}][notify]" }
+                %label.span4.medium-text{for: "company_managers[#{index}][notify]"}
+                  Notify?
+                .clr
+        .divider2
+        .pull-right.medium-text
+          %a.extra-medium-text.line-height3{:title=>"View Ready-to-Send Assessments", :href => company_managers_company_path(@company)}
+            Cancel&nbsp;
+          %input.btn.btn-warning.big-text.right-offset1.last{:type => "submit", :value => "Add"}
+        .clr

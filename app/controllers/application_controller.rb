@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   helper_method :can?
-  helper_method :is_superadmin?
+  helper_method :is_superadmin?, :is_company_manager?, :is_admin?
   
   # redirect user according to type of the user
   # keep the flash message before redirecting to display any errors/warnings
@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
         params[:redirect_to] || companies_path
       when "Admin"
         landing_company_path(current_user.company_id) 
+      when "CompanyManager"
+        if current_user.company_ids && current_user.company_ids.size == 1
+          landing_company_path(current_user.company_ids.first) 
+        else
+          select_companies_path
+        end
       else
         params[:redirect_to] || root_path        
     end    
@@ -35,6 +41,14 @@ class ApplicationController < ActionController::Base
   
   def is_superadmin?
     current_user and current_user.type == "SuperAdmin"
+  end
+  
+   def is_admin?
+    current_user and current_user.type == "Admin"
+  end
+  
+  def is_company_manager?
+    current_user and current_user.type == "CompanyManager"
   end
   
   
@@ -84,6 +98,11 @@ class ApplicationController < ActionController::Base
   
   def authorize_admin!(company_id)
     return if is_superadmin?
-    redirect_to home_company_path(current_user.company_id) if company_id.to_i != current_user.company_id.to_i
+    if is_company_manager?
+      return if company_id.nil?
+      redirect_to select_companies_path if current_user.company_ids.exclude?(company_id.to_i)
+    elsif is_admin?
+      redirect_to home_company_path(current_user.company_id) if company_id.to_i != current_user.company_id.to_i
+    end  
   end
 end

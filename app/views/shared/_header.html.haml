@@ -56,9 +56,13 @@
 
         %ul.navbar.pull-right.clearfix
           - if defined?(@company)
-            - if current_user.type == "SuperAdmin"
+            - if is_superadmin?
               %li
                 %a{:href=>companies_path(), :title=> "COMPANIES"}
+                  COMPANIES
+            - elsif is_company_manager?
+              %li
+                %a{:href=>select_companies_path(), :title=> "COMPANIES"}
                   COMPANIES
             - else
               %li

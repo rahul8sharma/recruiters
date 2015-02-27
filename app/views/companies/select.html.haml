@@ -1,0 +1,39 @@
+.companies-list
+  .page-title
+    .divider1
+    Companies
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @companies}
+  .clr
+  - if @companies.present?
+    .search
+      = form_for :search, url: select_companies_path, method: :get do |f|
+        .field
+          = f.text_field :id, :placeholder => "Company ID", value: params[:search][:id]
+          = f.text_field :name, :placeholder => "Company Name", value: params[:search][:name]
+          = f.submit "Search"
+    .divider2
+    .list-snippet-titles.medium-text.clearfix
+      .span2.first
+        = sort_link "ID", companies_path, "id", params[:search]
+      .span5
+        = sort_link "Company Title", companies_path, :name, params[:search]
+      .clr
+      .divider2
+    %ul
+      - @companies.each do |company|
+        %li.list-snippet.border-bottom-grayLighter
+          .span2.first
+            %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+              = company.id
+          .span5
+            %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+              = company.name
+          .clr
+          .divider1
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @companies}
+    .clr
+  - else
+    No companies found under your account! Please contact <a href="mailto:prakhar@jombay.com">prakhar@jombay.com</a>
