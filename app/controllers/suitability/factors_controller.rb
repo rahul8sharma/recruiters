@@ -1,4 +1,4 @@
-class Suitability::FactorsController < MasterDataController
+  class Suitability::FactorsController < MasterDataController
   def api_resource
     Vger::Resources::Suitability::Factor
   end
@@ -122,7 +122,6 @@ class Suitability::FactorsController < MasterDataController
       :difference_factors => difference_factors,
       :trait_class_type =>"suitability"
     }
-    return factors
 
     respond_to do |format|
       format.json{ render :json => { :factors => factors } }
