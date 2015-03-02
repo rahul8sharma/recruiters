@@ -5,6 +5,18 @@
 @import shared/content-sub-nav
 @import shared/navigation-sub-nav
 @import shared/reports/scale_pdf.sass
+.candidate-assessemnt-link-management
+  ul
+    li
+      .btn.default:hover
+        color: $color-warning !important
+      [class*="span"]
+        padding: 10px 15px
+        margin: 0
+        &:nth-child(even)
+          border-left: 2px solid #fff
+      &:nth-child(odd)
+        background: #F8F8F8
 
 .checked
   label
