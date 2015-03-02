@@ -11,7 +11,7 @@
           - responses = Hash[responses.sort_by{|id,response| response['percent'] }.reverse]
           - responses = responses.slice(*responses.keys[0..(item_hash["selectable_options"]-1)])
           - sum = responses.collect{|id,response| response['percent'].to_f }.sum
-          - other = 100 - sum
+          - other = (100 - sum).round(1)
           .left.span12.pull-left
             - hash = Hash[responses.collect.with_index{|(id,response),index| ["data-#{index}","#{response['body']}-:-#{response['percent']}-:-#{colors[index]}"] }]
             - if item_hash["selectable_options"] == 1 && responses.size == 1
@@ -26,7 +26,7 @@
             - responses = Hash[responses.sort_by{|id,response| response['percent'] }.reverse]
             - responses = responses.slice(*responses.keys[0..(item_hash["selectable_options"]-1)])
             - sum = responses.collect{|id,response| response['percent'].to_f }.sum
-            - other = 100 - sum
+            - other = (100 - sum).round(1)
             - responses.each.with_index do |(id, response_hash),index|
               %li
                 .count{:style=>"background: #{colors[index]}"}

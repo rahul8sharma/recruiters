@@ -1,0 +1,18 @@
+= form_for :factor_display_name, :url => import_display_names_suitability_factors_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend
+      %strong Import Display Names for #{controller.resource_name.humanize}
+
+    = fields_for "import" do |f|
+      = f.fields_for "file" do |f|
+        %p
+          Google Spreadsheet Url :
+          = f.text_field "url"
+        %p
+          Worksheet Names(separated by comma,keep empty to import all)
+          = f.text_field "worksheets", :value => ''
+      %p
+      Notification Email :
+      = f.text_field :email, :value => "product@jombay.com"
+    .actions
+      = submit_tag "Import"

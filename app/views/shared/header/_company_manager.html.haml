@@ -1,0 +1,30 @@
+.span18.pull-right
+  %ul#sub-nav.pull-right
+    %li
+      %a.setting{href: "#", title: "Account"}
+      %ul.medium-text
+        - if defined?(@company)
+          %li
+            %a{:href=>statistics_company_path(@company)} Usage
+          %li
+            %a{:href=>company_path(@company)} Settings
+        %li
+          %a{href: "/logout"} Logout
+  - if defined?(@company)
+    %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
+      BUY PACKAGE
+  %ul.navbar.pull-right.clearfix
+    - if defined?(@company)
+      %li
+        %a{:href=>select_companies_path(), :title=> "COMPANIES"}
+          COMPANIES
+      %li
+        %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+          ASSESSMENTS
+      %li
+        %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+          REPORTS
+      %li
+        %a.search-menu{:href=>candidates_search_company_path(@company), :title=> "Search"}
+  .clr
+.clr

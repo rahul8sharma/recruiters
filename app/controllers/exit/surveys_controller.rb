@@ -41,22 +41,27 @@ class Exit::SurveysController < ApplicationController
         })
       end
       flash[:notice] = "Exit Survey created successfully!"
-      redirect_to add_traits_company_exit_survey_path(@company.id,@survey.id)
+      redirect_to add_items_company_exit_survey_path(@company.id,@survey.id)
     else
       flash[:error] = @survey.error_messages.join("<br/>").html_safe
       render action: :new
     end
   end
 
-  def add_traits
+  def add_items
     if request.get?
       get_items
     else
       params[:survey] ||= {}
       items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
-      items = Hash[params[:items].sort_by{|item_id, item_data| item_data[:order].to_i }]
+      items = Hash[items.sort_by{|item_id, item_data| item_data[:order].to_i }]
       params[:survey][:item_ids] = items.map do |index, item_data|
-        { :type => item_data[:type], :id => item_data[:id].to_i, :enable_comment => item_data[:enable_comment].present? }
+        { 
+          :type => item_data[:type], 
+          :id => item_data[:id].to_i, 
+          :enable_comment => item_data[:enable_comment].present?,
+          :comment_compulsory => item_data[:comment_compulsory].present?
+        }
       end
       @survey = Vger::Resources::Exit::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?

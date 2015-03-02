@@ -30,10 +30,11 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
+      get :select
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
@@ -63,6 +64,12 @@ Recruiters::Application.routes.draw do
       match "settings/user_settings/add_users" => "company_settings#add_users", :as => :add_users
       put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
+      
+      get "settings/company_managers" => "company_settings#company_managers", :as => :company_managers
+      put "settings/user_settings/remove_company_managers" => "company_settings#remove_company_managers", :as => :remove_company_managers
+      get "settings/user_settings/confirm_remove_company_managers" => "company_settings#confirm_remove_company_managers", :as => :confirm_remove_company_managers
+      match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
+      
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
@@ -75,23 +82,21 @@ Recruiters::Application.routes.draw do
         post :import
         get 'assign_jobs' => "hiring_managers#assign_jobs_form", :as => :assign_jobs_form
         post :assign_jobs
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
-
-
 
     resources :admins do
       collection do
         get :manage
         get :destroy_all
         post :import
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
-
+    
     resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do
       member do
         get "summary" => "walkin_groups#summary", as: :summary
@@ -196,6 +201,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
+        get "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
       end
 
       resources :candidates, :except => [:destroy, :show] do
@@ -302,8 +308,8 @@ Recruiters::Application.routes.draw do
       end
 
       member do
-        get "add_traits" => "exit/surveys#add_traits", :as => :add_traits
-        put "add_traits" => "exit/surveys#add_traits", :as => :add_traits
+        get "add_items" => "exit/surveys#add_items", :as => :add_items
+        put "add_items" => "exit/surveys#add_items", :as => :add_items
 
         get "details" => "exit/surveys#details", :as => :details
         get "traits" => "exit/surveys#traits", :as => :traits
@@ -386,9 +392,19 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
+    end
+  end
+  
+  resources :company_managers do
+    collection do
+      get :manage
+      get :destroy_all
+      post :import
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -416,8 +432,8 @@ Recruiters::Application.routes.draw do
       post :assign_jobs
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -446,8 +462,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -458,8 +474,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -468,8 +484,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -480,8 +496,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -490,8 +506,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -500,8 +516,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -510,8 +526,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -521,8 +537,8 @@ Recruiters::Application.routes.draw do
       post :import
       get :manage
       get :destroy_all
-      post 'import_from_google_drive'
-      post 'export_to_google_drive'
+      post :import_from_google_drive
+      post :export_to_google_drive
     end
   end
 
@@ -632,7 +648,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -641,7 +657,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -668,7 +684,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -677,7 +693,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -686,7 +702,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -814,7 +830,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
         post 'import_via_s3'
       end
     end
@@ -824,7 +840,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post 'import_via_s3'
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -833,7 +849,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -842,7 +858,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -851,7 +867,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -861,7 +877,7 @@ Recruiters::Application.routes.draw do
         get :get_competencies
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -870,7 +886,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -879,7 +895,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -888,7 +904,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -897,7 +913,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -906,7 +922,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -915,7 +931,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -924,7 +940,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -933,7 +949,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -942,7 +958,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
         post 'import_via_s3'
       end
     end
@@ -952,7 +968,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -961,9 +977,13 @@ Recruiters::Application.routes.draw do
         get :get_factors
         post :import
         get :manage
+        post :manage
+        post :import_display_names
+        get :export_display_names
+        post :export_display_names
         get :destroy_all
         post :import_from_google_drive
-        post 'export_to_google_drive'
+        post :export_to_google_drive
       end
     end
 
@@ -975,7 +995,7 @@ Recruiters::Application.routes.draw do
           get :manage
           get :destroy_all
           post 'import_via_s3'
-          post 'export_to_google_drive'
+          post :export_to_google_drive
         end
       end
     end
@@ -987,8 +1007,8 @@ Recruiters::Application.routes.draw do
         post :import
         get :manage
         get :destroy_all
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
     resources :behaviors do
@@ -996,8 +1016,8 @@ Recruiters::Application.routes.draw do
         post :import
         get :manage
         get :destroy_all
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
     resources :lead_points do
@@ -1005,8 +1025,8 @@ Recruiters::Application.routes.draw do
         post :import
         get :manage
         get :destroy_all
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
     resources :gift_providers do
@@ -1014,8 +1034,8 @@ Recruiters::Application.routes.draw do
         post :import
         get :manage
         get :destroy_all
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
 
@@ -1027,8 +1047,8 @@ Recruiters::Application.routes.draw do
         post :import
         get :manage
         get :destroy_all
-        post 'import_from_google_drive'
-        post 'export_to_google_drive'
+        post :import_from_google_drive
+        post :export_to_google_drive
       end
     end
   end

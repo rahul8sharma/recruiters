@@ -7,16 +7,13 @@
       %tr.captions
         %td.mute_bg
         %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
-          Rating #{trait_wise ? "":"Between"}
-    
+          Rating
+
       %tr.captions.rating_ranges
         %td.mute_bg
         - graph_buckets.each do |bucket|
           %td
-            - if trait_wise
-              #{bucket.name} 
-            - else
-              #{bucket.min_val} to #{bucket.max_val}
+            #{bucket.name}
 
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max

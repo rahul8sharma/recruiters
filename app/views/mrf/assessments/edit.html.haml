@@ -21,6 +21,21 @@
           Classic
         
       .divider1
+      .span26.margin-auto
+        - if is_superadmin?
+          %label.big-text.default
+            = f.check_box :use_competencies, checked: @assessment.use_competencies
+            Use competencies
+          .divider1
+          %label.big-text.default
+            = f.check_box :set_ranges, checked: @assessment.set_ranges
+            Add Traits Range
+          .divider1
+          %label.big-text.default
+            = f.check_box :show_company_logo, checked: @assessment.show_company_logo
+            Show Company Logo
+          .divider1
+        .divider1
       .hw.pull-left
 
         %input.btn.btn-info.large-text.bold.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}

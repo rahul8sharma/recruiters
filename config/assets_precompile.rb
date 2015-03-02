@@ -23,5 +23,5 @@ assets.precompile += %w(engagement.css engagement_reports_html.css)
 assets.precompile += %w(engagement/elements.js exit/traits.js)
 assets.precompile += %w(form_builder/defined_forms.js)
 assets.precompile += %w(report_generator.js)
-assets.precompile += %w(exit/pie.js)
+assets.precompile += %w(exit/pie.js exit_reports_html.css)
 
