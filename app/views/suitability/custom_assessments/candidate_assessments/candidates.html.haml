@@ -41,8 +41,11 @@
 
       .span5
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span9
+      .span8
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .span6
+        = sort_link "Assessment Status Link", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      
       -#
         - if is_superadmin?
           .pull-right
@@ -82,11 +85,12 @@
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr
             .span6  
-              Active till 19:17 Hrs, 28/12/2014
+              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
+                Active till 19:17 Hrs, 28/12/2014
             .span2.big-text.first
               %a.icon-plus-sign{:href=>"#"}
               %a.icon-minus-sign{:href=>"#"}
-            .span4
+            .span
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
