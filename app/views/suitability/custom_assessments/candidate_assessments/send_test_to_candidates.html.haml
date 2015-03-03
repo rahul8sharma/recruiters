@@ -1,5 +1,5 @@
 - params[:options] ||= {}
-.page-title 
+.page-title
   .divider1
   Assessment - #{@assessment.name}
 .divider2
@@ -8,7 +8,7 @@
 - if params[:candidates]
   - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 - else
-  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:candidates]
@@ -39,7 +39,7 @@
         .span17
           .large-text
             Following is the Preview of the email that Assessment takers will receive.
-          .divider1   
+          .divider1
           - template = @templates[0]
           .custom-email.hide
             .test-text-to-send
@@ -95,7 +95,7 @@
                     = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
                   - else
                     = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
-              .clr                    
+              .clr
     .clr
     .divider2.border-bottom-grayLighter
     - if is_superadmin?
@@ -119,17 +119,17 @@
       .span17.text-center.extra-medium-text.left-offset1
         .text-center.big-text
           Send Notifications (Optional)
-        .divider1  
+        .divider1
         %input.span8.pull-left.first{ type:'text', name: 'options[manager_name]', placeholder:"Recipient Name", value: params[:options][:manager_name]}
         %input.span8.pull-left{ type:'text', name: 'options[manager_email]', placeholder:"Recipient Email Address", value: params[:options][:manager_email]}
         .clr
-      .clr  
+      .clr
     .divider1
     - if params[:candidates]
       .medium-text.left-offset1
         %strong
           Choose what the Notifications Recipient should receive:
-      .divider1  
+      .divider1
       %div
         %label.medium-text.pull-left.left-offset1
           %input{:type=>"checkbox", name: "options[send_report_links_to_manager]", checked: params[:options][:send_report_links_to_manager]}
@@ -138,7 +138,28 @@
           %input{:type=>"checkbox", name: "options[send_assessment_links_to_manager]", checked: params[:options][:send_assessment_links_to_manager]}
           Assessment URLs
         .clr
-    .divider1    
+      .divider1
+
+      - if @subscriptions.present?
+        - Rails.logger.debug("Inside View - #{@subscriptions.size}")
+        %div
+          %label.medium-text.pull-left.left-offset1
+            Link should be valid for
+            %select{name: "options[link_validity]",style: "width: 60px" }
+              - 20.times do |n|
+                %option{value: n+1}
+                  = n+1
+            days
+        %div
+          %label.medium-text.pull-left.left-offset1
+            Package selection strategy
+            %input{:type => "text", :value => "auto", name: "options[:package_selection]"}
+            / %select{name: "options[package_selection]"}
+            /   - @subscriptions.each do |subscription|
+            /     %option{value: subscription.id}
+            /       = hdate(subscription.valid_to)
+        .clr
+    .divider1
     %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
       %label.medium-text.pull-left.left-offset1{ :for => "send_report_to_candidate", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
