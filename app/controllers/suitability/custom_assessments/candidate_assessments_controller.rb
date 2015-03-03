@@ -70,9 +70,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
     add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
     if request.put?
-      # if @company.subscription_mgmt
+      if @company.subscription_mgmt
         get_packages
-      # end
+      end
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
         render :action => :add_candidates and return
@@ -223,7 +223,11 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
           :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?
         }
+
         options.merge!(template_id: params[:template_id].to_i) if params[:template_id].present?
+        options.merge!(link_expiry: params[:options][:link_validity]) if params[:options][:link_validity].present?
+        options.merge!(package_selection: params[:options][:package_selection]) if params[:options][:package_selection].present?
+
         # create candidate_assessment if not present
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
@@ -289,6 +293,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
     end
+    scope  = scope.where(:methods => [:expiry_date,:link_status])
     @candidate_assessments = scope
     @candidates = @candidate_assessments.map(&:candidate)
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)

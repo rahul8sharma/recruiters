@@ -9,15 +9,15 @@ module ApplicationHelper
     end
     link_to_function(name, raw("#{callback}(\"#{append_to_selector}\", \"#{association}\", \"#{escape_javascript(fields)}\")"), :class => "add_fields #{options[:class]}", :content => "#{fields}", :object_id => "#{obj.id}", :style => options[:style])
   end
-  
+
   # renders a form
   def link_to_add_form(partial_path, local_variables)
-  	
+
   end
-  
+
   # this is a UI helper for rendering labels
   # this method could be used to render factual information
-  # this method checks if object to be displayed exists 
+  # this method checks if object to be displayed exists
   # if yes, render the object
   # else render default alternative text / replacement text if present
   # TODO add support for prefix and suffix to the displayed text
@@ -29,7 +29,7 @@ module ApplicationHelper
       replacement ? replacement : "Not available"
     end
   end
-  
+
   # helper for rendering time
   # checks arguments and renders time in "hours:minutes" format
   def htime datetime,replacement=nil,options={}
@@ -43,7 +43,7 @@ module ApplicationHelper
       replacement ? replacement : "Not available"
     end
   end
-  
+
   # helper for rendering date
   # checks arguments and renders data in "date/month/year" format
   def hdate date,replacement=nil,options={}
@@ -57,23 +57,23 @@ module ApplicationHelper
       replacement ? replacement : "Not available"
     end
   end
-  
-  
+
+
   # helper for rendering a sort link
   # this helper returns a link tag with an up/down css background image
   def sort_link(label,url,order_by,search_options={})
     search_options ||= {}
     order_type = ((params[:order_by].to_s == order_by.to_s && params[:order_type] == "ASC") ? "DESC" : "ASC")
     order_type_class = order_type == "ASC" ? "down" : "up"
-    order_type_class = "#{order_type_class} active" if(params[:order_by].to_s == order_by.to_s)    
+    order_type_class = "#{order_type_class} active" if(params[:order_by].to_s == order_by.to_s)
     title = order_type == "ASC" ? "Sort by #{order_by.to_s} in ascending order" : "Sort by #{order_by.to_s} in descending order"
     final_url = "#{url}?order_by=#{order_by}&order_type=#{order_type}"
     search_options.each do |key,value|
       final_url = "#{final_url}&search[#{key}]=#{value}"
-    end    
+    end
     link_to "#{label} <i class= 'icon-chevron-#{order_type_class} small-text line-height1'></i>".html_safe, final_url, :title => title, :class => order_type_class
   end
-  
+
   def test_statuses
     {
       "" => "All",
@@ -85,7 +85,17 @@ module ApplicationHelper
       "expired" => "Expired"
     }
   end
-  
+
+  def test_link_statuses
+    {
+      'locked_invite' => 'Active till',
+      'unlocked' => 'Unused',
+      'used' => 'Used on',
+      'expired' => 'Expired on'
+
+    }
+  end
+
   def test_status_options
     {
       "" => "All",
@@ -95,7 +105,7 @@ module ApplicationHelper
       "expired" => "Expired"
     }
   end
-  
+
   def report_statuses
     {
       "uploaded" => "Completed",
@@ -103,7 +113,7 @@ module ApplicationHelper
       "failed" => "Failed to generate report"
     }
   end
-  
+
   def exit_report_statuses
     {
       "uploaded" => "Completed",
