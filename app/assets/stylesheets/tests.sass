@@ -35,14 +35,26 @@ label
   .control-group > label
     cursor: default
 .send-assessment
+  .heading
+    font-weight: 700
+    color: $color-warning
+    font-size: $big-text
+    [class*="icon-"]
+      font-size: 20px
   .email-template
-    border-left: 1px solid $color-warning
     margin-left: 25px
     padding-left: 25px
   .massage-body
     p
       font-size: $medium-text
       margin-bottom: 18px
+  .manual-sending-list
+    li
+      padding: 18px 35px
+      font-size: $extra-medium-text
+      &:nth-child(odd)
+        background: #f8f8f8
+
 
 .benchmark
   .navigation-sub-nav
