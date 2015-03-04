@@ -40,14 +40,18 @@
       .span3.first
         = sort_link "ATID", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
 
-      .span8
+      .span5
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span9
+      .span8
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      - if is_superadmin?
-        .pull-right
-          %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
-            %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
+      .span6
+        = sort_link "Assessment Link Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+
+      -#
+        - if is_superadmin?
+          .pull-right
+            %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(@company.id, assessment_id: @assessment.id)}
+              %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
       .clr
       .divider1
     - if @candidates.empty?
@@ -62,6 +66,8 @@
         - @candidates.each do |candidate|
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
+          - link_status = test_link_statuses[candidate_assessment.link_status]
+
           - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
             - report = candidate_assessment.candidate_assessment_reports[0]
             -# status = report_statuses[report.status]
@@ -69,19 +75,31 @@
             .divider1
             .span3.first
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} #{candidate.id}
-            .span8.info-block
+            .span5.info-block
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"}
                 = h candidate.name
               - if current_user.type == "SuperAdmin"
                 .info
                   = candidate_assessment.candidate_stage.titleize
                 .arrow
-            .span9
+            .span8
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr
-            .span4
+            .span6
+              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
+                = link_status
+                #{htime candidate_assessment.expiry_date} Hrs, #{hdate candidate_assessment.expiry_date}
+            .span2.big-text.first
+              - assessment = candidate_assessment.assessment
+              - company = assessment.company
+              - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
+              - if company.subscription_mgmt && show_extend_remove_icons
+                %a.icon-plus-sign{:href=>extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id)}
+                - if is_superadmin?
+                  %a.icon-remove-sign{:href=>"#"}
+            .span
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
@@ -105,11 +123,12 @@
                   %a{:href => send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title => "Send Reminder"}
                     %i.icon-time
                     Send Reminder
-            - if is_superadmin?
-              .span.pull-right
-                %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"}
-                  Request 360&#176; Profiling
             .clr
+            -#
+              - if is_superadmin?
+                .span.pull-right
+                  %a{:href=> create_for_assessment_company_mrf_assessments_path(@company.id, candidate_id: candidate.id, assessment_id: @assessment.id), :title=>"#{ h candidate.name}"}
+                    Request 360&#176; Profiling
       .divider3
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}

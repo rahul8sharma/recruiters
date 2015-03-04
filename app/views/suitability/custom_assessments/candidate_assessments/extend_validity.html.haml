@@ -1,111 +1,62 @@
-.candidate-details
+.candidate-assessemnt-link-management
   .span22.first.page-title
     .divider1
     Assessment #{@assessment.id} - #{@assessment.name}
 
-  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+  %a.btn.btn-warning.big.pull-right.span{:href=>candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
     View All Candidates
   .clr
   .divider2
   = render :partial => "shared/candidate-content-sub-nav"
 
-  .padding-all2.border-warning.shifted-up1.extra-medium-text
-    .span19.margin-auto
-      %ul
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Assessment Taker:
-          .span8
-            #{@candidate.name}
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Email id:
-          .span8
-            #{ h @candidate.email}
+  = form_for @candidate_assessment, as: :candidate_assessment, :url => extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => @candidate.id), multipart: true, method: :put do |f|
+    %input{ type:'hidden',name:'candidate_assessment[id]',value: @candidate_assessment.id }
+    .padding-all2.border-warning.shifted-up1.extra-medium-text
+      .span16.margin-auto
+        .huge-text
+          #{@candidate.name}
+        %ul.big-text
+          %li
+            .span6
+              ATID
+            .span8
+              #{@candidate.id}
+            .clr
+          %li
+            .span6
+              Assessment Status
+            .span8
+              - status = test_statuses[@candidate_assessment.status]
+              = status
+              as of #{htime @candidate_assessment.updated_at} Hrs, #{hdate @candidate_assessment.updated_at}
+            .clr
+          %li
+            .span6
+              Assessment Status Link
+            .span8
+              - link_status = test_link_statuses[@candidate_assessment.link_status]
+              = link_status
+              #{htime @candidate_assessment.expiry_date} Hrs, #{hdate @candidate_assessment.expiry_date}
+            .clr
+          %li
+            .span6
+              Extended validity by
+            .span9.no-r-padding
+              %select.fw{name: 'candidate_assessment[validity_in_days]'}
+                %option{:value => ""}
+                  Number of Days
+                - 90.times do |n|
+                  %option{value: n+1}
+                    = n+1
 
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Contact no.:
-          .span8
-            #{ h @candidate.mobile, nil, :prefix => "+91-" }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Industry:
-          .span8
-            #{ h(@candidate.industry.name) rescue 'Not available' }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Current Location:
-          .span8
-            #{ h(@candidate.location.name) rescue 'Not available' }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Current Functional area:
-          .span8
-            #{ h(@candidate.functional_area.name) rescue 'Not available' }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Age:
-          .span8
-            #{ @candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "Not available" }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Experience in Current Company:
-          .span8
-            #{ h(@candidate.current_company_experience, nil, :suffix => " Years") }
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Gender:
-          .span8
-            = @candidate.gender.present? ? raw(t "gender.#{@candidate.gender}") : "Not available"
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Total Work Experience:
-          .span8
-            #{ h(@candidate.total_experience, nil, :suffix => " Years")}
-          .clr
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Current CTC:
-          .span8
-            #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
-          .clr
-        -#
-          %li.border-bottom-grayLighter.padding-all1
-            .span9.big-text
-              Marital Status:
-            .span8
-              = @candidate.marital_status.present? ? raw(t "marital_status.#{@candidate.marital_status}") : "Not available"
             .clr
-        -#
-          %li.border-bottom-grayLighter.padding-all1
-            .span9.big-text
-              Current Company Name:
-            .span8
-              #{ h @candidate.current_company }
+          %li.no-background
+            .divider1
+            .span6.no-padding
+              %input.default.btn.btn-link.big-text{name: "cancel_or_update", value: "Cancel and Go back", type: "submit"}
+            .span10.no-padding
+              %input.btn.btn-warning.big-text.pull-right{name: "cancel_or_update", value: "Update", type: "submit"}
+              .clr
             .clr
-        -#
-          %li.border-bottom-grayLighter.padding-all1
-            .span9.big-text
-              Degree with Specialization:
-            .span8
-              TODO
-            .clr
-
-        %li.border-bottom-grayLighter.padding-all1
-          .span9.big-text
-            Number of Dependants:
-          .span8
-            #{ h @candidate.no_of_dependents }
-          .clr
 
   .divider1

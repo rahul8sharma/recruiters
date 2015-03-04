@@ -64,12 +64,12 @@ Recruiters::Application.routes.draw do
       match "settings/user_settings/add_users" => "company_settings#add_users", :as => :add_users
       put "settings/user_settings/remove_users" => "company_settings#remove_users", :as => :remove_users
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
-      
+
       get "settings/company_managers" => "company_settings#company_managers", :as => :company_managers
       put "settings/user_settings/remove_company_managers" => "company_settings#remove_company_managers", :as => :remove_company_managers
       get "settings/user_settings/confirm_remove_company_managers" => "company_settings#confirm_remove_company_managers", :as => :confirm_remove_company_managers
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
-      
+
       get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
@@ -96,7 +96,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :walkin_groups, path: "walk-ins", :controller => :walkin_groups do
       member do
         get "summary" => "walkin_groups#summary", as: :summary
@@ -205,6 +205,7 @@ Recruiters::Application.routes.draw do
         put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
         get "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
+        put "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
       end
 
       resources :candidates, :except => [:destroy, :show] do
@@ -400,7 +401,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   resources :company_managers do
     collection do
       get :manage

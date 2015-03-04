@@ -1,5 +1,5 @@
 - params[:options] ||= {}
-.page-title 
+.page-title
   .divider1
   Assessment - #{@assessment.name}
 .divider2
@@ -8,7 +8,7 @@
 - if params[:candidates]
   - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 - else
-  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:candidates]
@@ -24,129 +24,207 @@
     %input{:type => "hidden", name: "s3_key", value: @s3_key }
     %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
   .send-assessment
-    .span8.left-offset1
+    .heading
+      %i.icon-envelope
+      Email Settings
+    .divider2
+    .left-offset1
       - if @templates.size > 1
         .big-text.line-height2
           Choose Email Template
-      %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+      %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
         -# add this class when template isnt availble "hide" to %select
         - @templates.each do |template|
           %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
             = template.name
-    .email-template.pull-left{ class: (@templates.size <= 1 ? 'span18 margin-auto no-border':'') }
+      .clr
+      .divider1
+    .email-template{ class: (@templates.size <= 1 ? 'span18 margin-auto no-border':'') }
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
       .gray-dark
-        .span17
-          .large-text
-            Following is the Preview of the email that Assessment takers will receive.
-          .divider1   
-          - template = @templates[0]
-          .custom-email.hide
-            .test-text-to-send
-              %span.extra-medium-text.span2.first.show
-                From
-              .massage-body.italic.span15.medium-text.email-from
-                - if template && template.from
-                  = template.preview(:from).html_safe
+        .large-text
+          Following is the Preview of the email that Assessment takers will receive.
+        .divider1
+        - template = @templates[0]
+        .custom-email.hide
+          .test-text-to-send
+            %span.extra-medium-text.span2.first.show
+              From
+            .massage-body.italic.span15.medium-text.email-from
+              - if template && template.from
+                = template.preview(:from).html_safe
+              - else
+                = "<Sender Name> at #{@company.name}"
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Subject
+            .massage-body.italic.span15.medium-text.email-subject
+              - if template && template.subject
+                = template.preview(:subject).html_safe
+              - else
+                = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Message
+            .massage-body.italic.span15.medium-text.email-body
+        .default-email
+          .test-text-to-send
+            %span.extra-medium-text.span2.first.show
+              From
+            .massage-body.italic.span15.medium-text
+              - if template && template.from
+                = template.preview(:from).html_safe
+              - else
+                = "<Sender Name> at #{@company.name}"
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Subject
+            .massage-body.italic.span15.medium-text
+              - if template && template.subject
+                = template.preview(:subject).html_safe
+              - else
+                = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Message
+            .massage-body.italic.span15.medium-text
+              - if template
+                = template.preview(:body).html_safe
+              - else
+                - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+                  = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
                 - else
-                  = "<Sender Name> at #{@company.name}"
-              .clr
-              .divider1
-              %span.extra-medium-text.span2.first.show
-                Subject
-              .massage-body.italic.span15.medium-text.email-subject
-                - if template && template.subject
-                  = template.preview(:subject).html_safe
-                - else
-                  = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
-              .clr
-              .divider1
-              %span.extra-medium-text.span2.first.show
-                Message
-              .massage-body.italic.span15.medium-text.email-body
+                  = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
+            .clr
 
-          .default-email
-            .test-text-to-send
-              %span.extra-medium-text.span2.first.show
-                From
-              .massage-body.italic.span15.medium-text
-                - if template && template.from
-                  = template.preview(:from).html_safe
-                - else
-                  = "<Sender Name> at #{@company.name}"
-              .clr
-              .divider1
-              %span.extra-medium-text.span2.first.show
-                Subject
-              .massage-body.italic.span15.medium-text
-                - if template && template.subject
-                  = template.preview(:subject).html_safe
-                - else
-                  = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
-              .clr
-              .divider1
-              %span.extra-medium-text.span2.first.show
-                Message
-              .massage-body.italic.span15.medium-text
-                - if template
-                  = template.preview(:body).html_safe
-                - else
-                  - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
-                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
-                  - else
-                    = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
-              .clr                    
-    .clr
-    .divider2.border-bottom-grayLighter
+    .divider1.border-bottom-grayLighter
+    - if @subscriptions.present?
+      .divider2
+      .heading
+        %i.icon-cogs
+        Sending Settings
+      .divider2
+
+      .left-offset1
+        .big-text
+          Automated Sending
+        .divider1
+        %label.extra-medium-text.muted.left-offset1
+          %input{:type=>"radio",  name: "options[package_selection]", value:"auto"}
+          Choose the best possible combination of packages and send assessment invitations.
+        .divider1
+
+        .big-text.text-center.bold.span17
+          OR
+        .clr
+        .divider1
+
+        .big-text
+          Manual Sending - Select a Package
+        .divider1
+
+        %ul.span17.manual-sending-list.first
+          %li
+            .span5
+              Package ID
+            .span6.text-center
+              Remaining Assessments
+            .pull-right.text-center
+              Expires In
+            .clr
+          - @subscriptions.each do |subscription|
+            - remaining = subscription.assessments_purchased - subscription.assessments_sent
+            - if remaining != 0
+              %li
+                .span5
+                  %label
+                    %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
+                    = subscription.id
+                .span6.text-center
+
+                  = remaining
+                .pull-right.text-center
+                  #{hdate subscription.valid_to}
+                .clr
+
+        .clr
+
+        .divider2
+      .heading
+        %i.icon-check
+        Choose Validity of Assessment Links
+        .divider1
+
+      .left-offset1
+        %select.span8.first{name: "options[link_validity]"}
+          -10.times do |index|
+            %option{value: index+1}
+              #{index+1} days
+          %option{value: 15}
+            15 days
+          %option{value: 20}
+            20 days
+        .clr
+        .divider1
+        %p.muted.extra-medium-text
+          Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
+          %br/
+          Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
+      .divider2.border-bottom-grayLighter
+
+
     - if is_superadmin?
       .divider2
-      .left-offset1
-        .extra-medium-text
-          Optional: Enter the email addresses of the people who should receive the Assessment Reports
-          .medium-text
-            (after the Assessment is completed by the Assessment Taker)
-        .divider1
-        = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
-          %input.span18.first{ type:'text', name: 'report_email_recipients'}
-          .clr
-          .ie
-            Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
-        = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
-          %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
-          .clr
+      .extra-medium-text
+        Optional: Enter the email addresses of the people who should receive the Assessment Reports
+        .medium-text
+          (after the Assessment is completed by the Assessment Taker)
+      .divider1
+      = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+        %input.span18.first{ type:'text', name: 'report_email_recipients'}
+        .clr
+        .ie
+          Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+      = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+        %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+        .clr
     - if params[:candidates]
       .divider2
-      .span17.text-center.extra-medium-text.left-offset1
-        .text-center.big-text
+      .span17.extra-medium-text.first
+        .big-text
           Send Notifications (Optional)
-        .divider1  
+        .divider1
         %input.span8.pull-left.first{ type:'text', name: 'options[manager_name]', placeholder:"Recipient Name", value: params[:options][:manager_name]}
         %input.span8.pull-left{ type:'text', name: 'options[manager_email]', placeholder:"Recipient Email Address", value: params[:options][:manager_email]}
         .clr
-      .clr  
+      .clr
     .divider1
     - if params[:candidates]
-      .medium-text.left-offset1
-        %strong
-          Choose what the Notifications Recipient should receive:
-      .divider1  
+      .extra-medium-text.muted
+        Choose what the Notifications Recipient should receive:
+      .divider1
       %div
-        %label.medium-text.pull-left.left-offset1
+        %label.muted.medium-text.pull-left
           %input{:type=>"checkbox", name: "options[send_report_links_to_manager]", checked: params[:options][:send_report_links_to_manager]}
           Report Links
-        %label.medium-text.pull-left.left-offset1
+        %label.muted.medium-text.pull-left.left-offset1
           %input{:type=>"checkbox", name: "options[send_assessment_links_to_manager]", checked: params[:options][:send_assessment_links_to_manager]}
           Assessment URLs
         .clr
-    .divider1    
+
+    .divider1
     %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
-      %label.medium-text.pull-left.left-offset1{ :for => "send_report_to_candidate", :class => "font-normal"}
+      %label.muted.medium-text.pull-left{ :for => "send_report_to_candidate", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
         Send report to candidate
-      %label.medium-text.pull-left.left-offset1
+      %label.muted.medium-text.pull-left.left-offset1
         %input{:type=>"checkbox", name: "options[send_sms]"}
         Also send test invitations to candidates via SMS
-      %label.medium-text.pull-left.left-offset1
+      %label.muted.medium-text.pull-left.left-offset1
         %input{:type=>"checkbox", name: "options[send_email]", checked: true}
         Send default email
       .clr

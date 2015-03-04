@@ -1,5 +1,5 @@
 .content-sub-nav.clearfix
-  %a.menu{ class: (["candidate","candidates"].include?(params[:action]) ? "active" : ""),:href => candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
+  %a.menu{ class: (["candidate","candidates","extend_validity"].include?(params[:action]) ? "active" : ""),:href => candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
     Assessment Takers
   %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Measured Traits"}
     Measured Traits
