@@ -374,6 +374,26 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def send_reminder_to_candidate_url
     send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
   end
+  
+  def resend_invitations
+    if request.put?
+      status_params = { 
+        :pending => params[:assessment][:args][:pending], 
+        :started => params[:assessment][:args][:started] 
+      }
+      assessment = Vger::Resources::Suitability::CustomAssessment.resend_test_to_candidates(
+          :id => @assessment.id,
+          :status => status_params,
+          :send_sms => false,
+          :send_email => true,
+          :template_id => params[:assessment][:args][:template_id],
+          :email =>params[:assessment][:args][:email]
+        )
+      redirect_to candidates_company_custom_assessment_path(@company.id, @assessment.id), notice: "Invitation Emails have been queued. Status email should arrive soon."
+    else
+      get_templates(nil,false)  
+    end  
+  end
 
   protected
 
@@ -411,6 +431,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def get_templates(candidate_stage, reminder = false)
     category = ""
+    query_options = {
+      company_id: @company.id
+    }
     if reminder
       candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).all.first
       category = case candidate_assessment.candidate_stage
@@ -427,16 +450,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
       end
     end
+    query_options[:category] = category if category.present?
     @templates = Vger::Resources::Template\
-                  .where(query_options: {
-                    company_id: @company.id,
-                    category: category
-                  }).all.to_a
+                  .where(query_options: query_options).all.to_a
+    query_options[:company_id] = nil
     @templates |= Vger::Resources::Template\
-                  .where(query_options: {
-                    company_id: nil,
-                    category: category
-                  }).all.to_a
+                  .where(query_options: query_options).all.to_a
   end
 
   def get_packages
@@ -446,7 +465,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       },
       :order => ["valid_to ASC"],
       :scopes => { :active => nil },
-      :methods => [:assessments_sent,:assessments_completed]
     ).all.to_a
   end
 end
