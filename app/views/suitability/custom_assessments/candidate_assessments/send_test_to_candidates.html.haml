@@ -102,76 +102,79 @@
             .clr
 
     .divider1.border-bottom-grayLighter
-    .divider2
-    .heading
-      %i.icon-cogs
-      Sending Settings
-    .divider2
+    - if @subscriptions.present?
+      .divider2
+      .heading
+        %i.icon-cogs
+        Sending Settings
+      .divider2
 
-    .left-offset1
-      .big-text
-        Automated Sending
-      .divider1
-      %label.extra-medium-text.muted.left-offset1
-        %input{:type=>"radio"}
-        Choose the best possible combination of packages and send assessment invitations.
-      .divider1
-      .big-text.text-center.bold.span17
-        OR
-      .clr
-      .divider1
+      .left-offset1
+        .big-text
+          Automated Sending
+        .divider1
+        %label.extra-medium-text.muted.left-offset1
+          %input{:type=>"radio",  name: "options[package_selection]", value:"auto"}
+          Choose the best possible combination of packages and send assessment invitations.
+        .divider1
 
-      .big-text
-        Manual Sending - Select a Package
-      .divider1
+        .big-text.text-center.bold.span17
+          OR
+        .clr
+        .divider1
 
-      %ul.span17.manual-sending-list.first
-        %li
-          .span5
-            Package ID
-          .span6.text-center
-            Remaining Assessments
-          .pull-right.text-center
-            Expires In
-          .clr
-        -3.times do
+        .big-text
+          Manual Sending - Select a Package
+        .divider1
+
+        %ul.span17.manual-sending-list.first
           %li
             .span5
-              %label
-                %input{:type=>"radio"}
-                0123
+              Package ID
             .span6.text-center
-              3
+              Remaining Assessments
             .pull-right.text-center
-              28/12/2014
+              Expires In
             .clr
+          - @subscriptions.each do |subscription|
+            - remaining = subscription.assessments_purchased - subscription.assessments_sent
+            - if remaining != 0
+              %li
+                .span5
+                  %label
+                    %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
+                    = subscription.id
+                .span6.text-center
 
-      .clr
+                  = remaining
+                .pull-right.text-center
+                  #{hdate subscription.valid_to}
+                .clr
 
-      .divider2
-    .heading
-      %i.icon-check
-      Choose Validity of Assessment Links
-      .divider1
+        .clr
 
-    .left-offset1
-      %select.span8.first
-        %option
-          1 day
-        -9.times do |index|
-          %option
-            #{index+2} days
-        %option
-          15 days
-        %option
-          20 days
-      .clr
-      .divider1
-      %p.muted.extra-medium-text
-        Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
-        %br/
-        Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
-    .divider2.border-bottom-grayLighter
+        .divider2
+      .heading
+        %i.icon-check
+        Choose Validity of Assessment Links
+        .divider1
+
+      .left-offset1
+        %select.span8.first{name: "options[link_validity]"}
+          -10.times do |index|
+            %option{value: index+1}
+              #{index+1} days
+          %option{value: 15}
+            15 days
+          %option{value: 20}
+            20 days
+        .clr
+        .divider1
+        %p.muted.extra-medium-text
+          Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
+          %br/
+          Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
+      .divider2.border-bottom-grayLighter
 
 
     - if is_superadmin?
@@ -201,16 +204,9 @@
       .clr
     .divider1
     - if params[:candidates]
-<<<<<<< HEAD
-      .medium-text.left-offset1
-        %strong
-          Choose what the Notifications Recipient should receive:
-      .divider1
-=======
       .extra-medium-text.muted
         Choose what the Notifications Recipient should receive:
       .divider1
->>>>>>> 5da8eb0b7528ce9469459f620272ea96b654627a
       %div
         %label.muted.medium-text.pull-left
           %input{:type=>"checkbox", name: "options[send_report_links_to_manager]", checked: params[:options][:send_report_links_to_manager]}
@@ -219,27 +215,7 @@
           %input{:type=>"checkbox", name: "options[send_assessment_links_to_manager]", checked: params[:options][:send_assessment_links_to_manager]}
           Assessment URLs
         .clr
-      .divider1
 
-      - if @subscriptions.present?
-        - Rails.logger.debug("Inside View - #{@subscriptions.size}")
-        %div
-          %label.medium-text.pull-left.left-offset1
-            Link should be valid for
-            %select{name: "options[link_validity]",style: "width: 60px" }
-              - 20.times do |n|
-                %option{value: n+1}
-                  = n+1
-            days
-        %div
-          %label.medium-text.pull-left.left-offset1
-            Package selection strategy
-            %input{:type => "text", :value => "auto", name: "options[:package_selection]"}
-            / %select{name: "options[package_selection]"}
-            /   - @subscriptions.each do |subscription|
-            /     %option{value: subscription.id}
-            /       = hdate(subscription.valid_to)
-        .clr
     .divider1
     %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
       %label.muted.medium-text.pull-left{ :for => "send_report_to_candidate", :class => "font-normal"}
