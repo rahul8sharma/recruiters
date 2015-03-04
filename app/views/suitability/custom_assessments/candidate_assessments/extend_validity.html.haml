@@ -9,8 +9,8 @@
   .divider2
   = render :partial => "shared/candidate-content-sub-nav"
 
-  = form_for @candidate_assessment, :url => extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => @candidate.id), multipart: true, method: :put do |f|
-    %input{ type:'hidden',name:'assessment[candidate_assessment_id]',value: @candidate_assessment.id }
+  = form_for @candidate_assessment, as: :candidate_assessment, :url => extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => @candidate.id), multipart: true, method: :put do |f|
+    %input{ type:'hidden',name:'candidate_assessment[id]',value: @candidate_assessment.id }
     .padding-all2.border-warning.shifted-up1.extra-medium-text
       .span16.margin-auto
         .huge-text
@@ -42,10 +42,10 @@
             .span6
               Extended validity by
             .span9.no-r-padding
-              %select.fw{name: 'assessment[validity_in_days]'}
+              %select.fw{name: 'candidate_assessment[validity_in_days]'}
                 %option{:value => ""}
                   Number of Days
-                - 20.times do |n|
+                - 90.times do |n|
                   %option{value: n+1}
                     = n+1
 
