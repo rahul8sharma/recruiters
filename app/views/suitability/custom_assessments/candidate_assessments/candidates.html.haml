@@ -93,7 +93,8 @@
             .span2.big-text.first
               - assessment = candidate_assessment.assessment
               - company = assessment.company
-              - if company.subscription_mgmt
+              - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
+              - if company.subscription_mgmt && show_extend_remove_icons
                 %a.icon-plus-sign{:href=>extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id)}
                 - if is_superadmin?
                   %a.icon-remove-sign{:href=>"#"}
