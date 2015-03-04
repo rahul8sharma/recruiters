@@ -1,5 +1,5 @@
 - params[:options] ||= {}
-.page-title 
+.page-title
   .divider1
   Assessment - #{@assessment.name}
 .divider2
@@ -8,7 +8,7 @@
 - if params[:candidates]
   - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 - else
-  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])  
+  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
 = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:candidates]
@@ -25,7 +25,7 @@
     %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
   .send-assessment
     .heading
-      %i.icon-envelope 
+      %i.icon-envelope
       Email Settings
     .divider2
     .left-offset1
@@ -44,7 +44,7 @@
       .gray-dark
         .large-text
           Following is the Preview of the email that Assessment takers will receive.
-        .divider1   
+        .divider1
         - template = @templates[0]
         .custom-email.hide
           .test-text-to-send
@@ -69,7 +69,6 @@
             %span.extra-medium-text.span2.first.show
               Message
             .massage-body.italic.span15.medium-text.email-body
-
         .default-email
           .test-text-to-send
             %span.extra-medium-text.span2.first.show
@@ -100,80 +99,82 @@
                   = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_candidate"
                 - else
                   = render :partial => "suitability/custom_assessments/candidate_assessments/mail_body_for_employee"
-            .clr                    
-      
+            .clr
+
     .divider1.border-bottom-grayLighter
-    .divider2   
-    .heading
-      %i.icon-cogs
-      Sending Settings
-    .divider2
+    - if @subscriptions.present?
+      .divider2
+      .heading
+        %i.icon-cogs
+        Sending Settings
+      .divider2
 
-    .left-offset1
-      .big-text
-        Automated Sending
-      .divider1
-      %label.extra-medium-text.muted.left-offset1
-        %input{:type=>"radio"}
-        Choose the best possible combination of packages and send assessment invitations.
-      .divider1
-      .big-text.text-center.bold.span17
-        OR
-      .clr
-      .divider1
+      .left-offset1
+        .big-text
+          Automated Sending
+        .divider1
+        %label.extra-medium-text.muted.left-offset1
+          %input{:type=>"radio",  name: "options[package_selection]", value:"auto"}
+          Choose the best possible combination of packages and send assessment invitations.
+        .divider1
 
-      .big-text
-        Manual Sending - Select a Package
-      .divider1
+        .big-text.text-center.bold.span17
+          OR
+        .clr
+        .divider1
 
-      %ul.span17.manual-sending-list.first
-        %li
-          .span5
-            Package ID
-          .span6.text-center
-            Remaining Assessments
-          .pull-right.text-center
-            Expires In
-          .clr 
-        -3.times do
+        .big-text
+          Manual Sending - Select a Package
+        .divider1
+
+        %ul.span17.manual-sending-list.first
           %li
             .span5
-              %label
-                %input{:type=>"radio"}
-                0123
+              Package ID
             .span6.text-center
-              3
+              Remaining Assessments
             .pull-right.text-center
-              28/12/2014
-            .clr 
+              Expires In
+            .clr
+          - @subscriptions.each do |subscription|
+            - remaining = subscription.assessments_purchased - subscription.assessments_sent
+            - if remaining != 0
+              %li
+                .span5
+                  %label
+                    %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
+                    = subscription.id
+                .span6.text-center
 
-      .clr 
+                  = remaining
+                .pull-right.text-center
+                  #{hdate subscription.valid_to}
+                .clr
 
-      .divider2
-    .heading
-      %i.icon-check
-      Choose Validity of Assessment Links
-      .divider1
+        .clr
 
-    .left-offset1
-      %select.span8.first
-        %option
-          1 day
-        -9.times do |index|
-          %option
-            #{index+2} days
-        %option
-          15 days
-        %option
-          20 days
-      .clr
-      .divider1
-      %p.muted.extra-medium-text
-        Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
-        %br/ 
-        Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
+        .divider2
+      .heading
+        %i.icon-check
+        Choose Validity of Assessment Links
+        .divider1
 
-    .divider2.border-bottom-grayLighter
+      .left-offset1
+        %select.span8.first{name: "options[link_validity]"}
+          -10.times do |index|
+            %option{value: index+1}
+              #{index+1} days
+          %option{value: 15}
+            15 days
+          %option{value: 20}
+            20 days
+        .clr
+        .divider1
+        %p.muted.extra-medium-text
+          Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
+          %br/
+          Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
+      .divider2.border-bottom-grayLighter
 
 
     - if is_superadmin?
@@ -196,16 +197,16 @@
       .span17.extra-medium-text.first
         .big-text
           Send Notifications (Optional)
-        .divider1  
+        .divider1
         %input.span8.pull-left.first{ type:'text', name: 'options[manager_name]', placeholder:"Recipient Name", value: params[:options][:manager_name]}
         %input.span8.pull-left{ type:'text', name: 'options[manager_email]', placeholder:"Recipient Email Address", value: params[:options][:manager_email]}
         .clr
-      .clr  
+      .clr
     .divider1
     - if params[:candidates]
       .extra-medium-text.muted
         Choose what the Notifications Recipient should receive:
-      .divider1  
+      .divider1
       %div
         %label.muted.medium-text.pull-left
           %input{:type=>"checkbox", name: "options[send_report_links_to_manager]", checked: params[:options][:send_report_links_to_manager]}
@@ -214,7 +215,8 @@
           %input{:type=>"checkbox", name: "options[send_assessment_links_to_manager]", checked: params[:options][:send_assessment_links_to_manager]}
           Assessment URLs
         .clr
-    .divider1    
+
+    .divider1
     %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
       %label.muted.medium-text.pull-left{ :for => "send_report_to_candidate", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }

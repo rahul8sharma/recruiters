@@ -44,8 +44,8 @@
       .span8
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
       .span6
-        = sort_link "Assessment Status Link", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      
+        = sort_link "Assessment Link Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+
       -#
         - if is_superadmin?
           .pull-right
@@ -65,6 +65,8 @@
         - @candidates.each do |candidate|
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
+          - link_status = test_link_statuses[candidate_assessment.link_status]
+
           - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
             - report = candidate_assessment.candidate_assessment_reports[0]
             -# status = report_statuses[report.status]
@@ -84,12 +86,18 @@
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr
-            .span6  
+            .span6
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
-                Active till 19:17 Hrs, 28/12/2014
+                = link_status
+                #{htime candidate_assessment.expiry_date} Hrs, #{hdate candidate_assessment.expiry_date}
             .span2.big-text.first
-              %a.icon-plus-sign{:href=>"#"}
-              %a.icon-remove-sign{:href=>"#"}
+              - assessment = candidate_assessment.assessment
+              - company = assessment.company
+              - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
+              - if company.subscription_mgmt && show_extend_remove_icons
+                %a.icon-plus-sign{:href=>extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id)}
+                - if is_superadmin?
+                  %a.icon-remove-sign{:href=>"#"}
             .span
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
