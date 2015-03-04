@@ -358,7 +358,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
     if request.put?
       if params[:cancel_or_update] == "Update"
-        if params[:assessment][:validity_in_days] == ""
+        if params[:candidate_assessment][:validity_in_days] == ""
           # Error copy needs confirmation from product
           flash[:error] = "Please select a value for the validity of the assessment."
           redirect_to extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
@@ -366,7 +366,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           Vger::Resources::Suitability::CandidateAssessment\
             .where(:assessment_id => @assessment.id, :query_options => {
               :candidate_id => @candidate.id
-            }).first.extend_validity(params[:assessment])
+            }).all[0].extend_validity(params)
           redirect_to candidates_url()
         end
       else
