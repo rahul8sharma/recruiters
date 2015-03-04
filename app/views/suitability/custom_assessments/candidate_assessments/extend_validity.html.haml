@@ -9,45 +9,54 @@
   .divider2
   = render :partial => "shared/candidate-content-sub-nav"
 
-  .padding-all2.border-warning.shifted-up1.extra-medium-text
-    .span16.margin-auto
-      .huge-text
-        #{@candidate.name}
-      %ul.big-text
-        %li
-          .span6
-            ATID
-          .span8
-            #{@candidate.id}
-          .clr
-        %li
-          .span6
-            Assessment Status
-          .span8
-            Pending as of 18:56 Hrs, 27/02/2015                   
-
-          .clr
-        %li
-          .span6
-            Assessment Status Link
-          .span8
-            Active till 19:17 Hrs, 28/12/2014                   
-          .clr
-        %li
-          .span6
-            Extended validity by
-          .span9.no-r-padding
-            %select.fw
-              %option
-                Number of Days
-          .clr
-        %li.no-background
-          .divider1
-          .span6.no-padding
-            %input.default.btn.btn-link.big-text{:type=>"button", :value=>"Cancel and Go back"}
-          .span10.no-padding
-            %input.btn.btn-warning.big-text.pull-right{:type=>"button", :value=>"Update"}
+  = form_for @candidate_assessment, :url => extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => @candidate.id), multipart: true, method: :put do |f|
+    %input{ type:'hidden',name:'assessment[candidate_assessment_id]',value: @candidate_assessment.id }
+    .padding-all2.border-warning.shifted-up1.extra-medium-text
+      .span16.margin-auto
+        .huge-text
+          #{@candidate.name}
+        %ul.big-text
+          %li
+            .span6
+              ATID
+            .span8
+              #{@candidate.id}
             .clr
-          .clr
+          %li
+            .span6
+              Assessment Status
+            .span8
+              - status = test_statuses[@candidate_assessment.status]
+              = status
+              as of #{htime @candidate_assessment.updated_at} Hrs, #{hdate @candidate_assessment.updated_at}
+            .clr
+          %li
+            .span6
+              Assessment Status Link
+            .span8
+              - link_status = test_link_statuses[@candidate_assessment.link_status]
+              = link_status
+              #{htime @candidate_assessment.expiry_date} Hrs, #{hdate @candidate_assessment.expiry_date}
+            .clr
+          %li
+            .span6
+              Extended validity by
+            .span9.no-r-padding
+              %select.fw{name: 'assessment[validity_in_days]'}
+                %option{:value => ""}
+                  Number of Days
+                - 20.times do |n|
+                  %option{value: n+1}
+                    = n+1
+
+            .clr
+          %li.no-background
+            .divider1
+            .span6.no-padding
+              %input.default.btn.btn-link.big-text{name: "cancel_or_update", value: "Cancel and Go back", type: "submit"}
+            .span10.no-padding
+              %input.btn.btn-warning.big-text.pull-right{name: "cancel_or_update", value: "Update", type: "submit"}
+              .clr
+            .clr
 
   .divider1

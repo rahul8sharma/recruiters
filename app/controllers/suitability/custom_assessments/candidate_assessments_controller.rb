@@ -349,9 +349,30 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def extend_validity
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
-      :candidate_id => @candidate.id
-    })
+    @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment\
+      .where(:assessment_id => @assessment.id,
+        :query_options => {
+          :candidate_id => @candidate.id
+        },
+        :methods => [:expiry_date,:link_status]).first
+
+    if request.put?
+      if params[:cancel_or_update] == "Update"
+        if params[:assessment][:validity_in_days] == ""
+          # Error copy needs confirmation from product
+          flash[:error] = "Please select a value for the validity of the assessment."
+          redirect_to extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
+        else
+          Vger::Resources::Suitability::CandidateAssessment\
+            .where(:assessment_id => @assessment.id, :query_options => {
+              :candidate_id => @candidate.id
+            }).first.extend_validity(params[:assessment])
+          redirect_to candidates_url()
+        end
+      else
+        redirect_to candidates_url()
+      end
+    end
   end
 
   def send_reminder_to_pending_candidates
