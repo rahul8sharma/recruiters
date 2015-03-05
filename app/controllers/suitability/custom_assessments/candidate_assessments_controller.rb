@@ -498,7 +498,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       },
       :order => ["valid_to ASC"],
       :scopes => { :active => nil },
-      :methods => [:assessments_completed, :assessments_sent]
+      :methods => [:assessments_sent]
     ).all.to_a
   end
 end
