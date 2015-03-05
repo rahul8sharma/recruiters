@@ -21,8 +21,10 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def order_enable_items
-    params[:selected_items_other] ||= {}
-    params[:selected_items_self] ||= {}
+    added_other_items = @assessment.configuration[:items_other].present? ? Hash[@assessment.configuration[:items_other].collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
+    added_self_items = @assessment.configuration[:items_other].present? ? Hash[@assessment.configuration[:items_self].collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
+    params[:selected_items_other] ||= added_other_items
+    params[:selected_items_self] ||= added_self_items
     @selected_items_other = params[:selected_items_other]
     @selected_items_self = params[:selected_items_self]
     @error_items = []
