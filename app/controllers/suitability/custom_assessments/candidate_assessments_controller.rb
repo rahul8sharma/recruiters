@@ -39,6 +39,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def bulk_upload
     @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
@@ -52,6 +53,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = obj.bucket.name
       @functional_area_id = params[:bulk_upload][:functional_area_id]
       get_templates(params[:candidate_stage])
+      if @company.subscription_mgmt
+        get_packages
+      end
       render :action => :send_test_to_candidates
     end
   end
@@ -129,6 +133,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def add_candidates_bulk
 
+
   end
 
 
@@ -158,6 +163,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                     :send_report_to_candidate => params[:send_report_to_candidate],
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
+                    :package_selection => params[:options][:package_selection],
+                    :link_validity => params[:options][:link_validity],
                     :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
                     :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?,
                     :worksheets => [{
@@ -400,12 +407,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def send_reminder_to_candidate_url
     send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
   end
-  
+
   def resend_invitations
     if request.put?
-      status_params = { 
-        :pending => params[:assessment][:args][:pending], 
-        :started => params[:assessment][:args][:started] 
+      status_params = {
+        :pending => params[:assessment][:args][:pending],
+        :started => params[:assessment][:args][:started]
       }
       assessment = Vger::Resources::Suitability::CustomAssessment.resend_test_to_candidates(
           :id => @assessment.id,
@@ -417,8 +424,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         )
       redirect_to candidates_company_custom_assessment_path(@company.id, @assessment.id), notice: "Invitation Emails have been queued. Status email should arrive soon."
     else
-      get_templates(nil,false)  
-    end  
+      get_templates(nil,false)
+    end
   end
 
   protected
@@ -491,6 +498,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       },
       :order => ["valid_to ASC"],
       :scopes => { :active => nil },
+      :methods => [:assessments_sent]
     ).all.to_a
   end
 end
