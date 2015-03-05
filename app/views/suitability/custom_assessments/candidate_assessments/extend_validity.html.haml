@@ -45,9 +45,13 @@
               %select.fw{name: 'candidate_assessment[validity_in_days]'}
                 %option{:value => ""}
                   Number of Days
-                - 90.times do |n|
-                  %option{value: n+1}
-                    = n+1
+                -10.times do |index|
+                  %option{value: index+1}
+                    #{index+1}
+                %option{value: 15}
+                  15
+                %option{value: 20}
+                  20
 
             .clr
           %li.no-background
