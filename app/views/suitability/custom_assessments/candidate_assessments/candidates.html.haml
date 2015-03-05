@@ -20,7 +20,8 @@
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
       %span.left-offset1
         %a.label.label-warning.label-small.medium-text{:href=> email_assessment_status_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Email Status Summary"} Email Status Summary
-        %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Email Status Summary"} Resend Invitations
+        - if is_superadmin?
+          %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Email Status Summary"} Resend Invitations
 
 
 
