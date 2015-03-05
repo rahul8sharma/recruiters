@@ -39,6 +39,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   def bulk_upload
     @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
@@ -52,6 +53,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       @s3_bucket = obj.bucket.name
       @functional_area_id = params[:bulk_upload][:functional_area_id]
       get_templates(params[:candidate_stage])
+      if @company.subscription_mgmt
+        get_packages
+      end
       render :action => :send_test_to_candidates
     end
   end
@@ -128,6 +132,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def add_candidates_bulk
+
 
   end
 
