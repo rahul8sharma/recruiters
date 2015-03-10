@@ -38,7 +38,7 @@
           .divider1
           .content.company-summary
             .company-badge
-              - brand_partner_image_path = asset_path("report/pdf/#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+              - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
               %img{:src => "#{Rails.application.config.action_controller.asset_host}/#{brand_partner_image_path}"}
             .divider2
             %p
