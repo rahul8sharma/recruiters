@@ -103,7 +103,8 @@
             .clr
 
     .divider1.border-bottom-grayLighter
-    - if @subscriptions.present?
+    - usable_subscriptions = @subscriptions.select{|subscription| (subscription.assessments_purchased - subscription.assessments_sent)>0 }
+    - if usable_subscriptions.present? && usable_subscriptions.size > 1
       .divider2
       .heading
         %i.icon-cogs
@@ -137,20 +138,17 @@
             .pull-right.text-center
               Expires In
             .clr
-          - @subscriptions.each do |subscription|
-            - remaining = subscription.assessments_purchased - subscription.assessments_sent
-            - if remaining != 0
-              %li
-                .span5
-                  %label
-                    %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
-                    = subscription.id
-                .span6.text-center
-
-                  = remaining
-                .pull-right.text-center
-                  #{hdate subscription.valid_to}
-                .clr
+          - usable_subscriptions.each do |subscription|
+            %li
+              .span5
+                %label
+                  %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
+                  = subscription.id
+              .span6.text-center
+                = subscription.assessments_purchased - subscription.assessments_sent
+              .pull-right.text-center
+                #{(Date.parse(subscription.valid_to) - Date.today).to_i} Days
+              .clr
 
         .clr
 
@@ -162,6 +160,8 @@
 
       .left-offset1
         %select.span8.first{name: "options[link_validity]"}
+          %option{ value: '' }
+            Default
           -10.times do |index|
             %option{value: index+1}
               #{index+1} days
