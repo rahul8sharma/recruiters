@@ -206,6 +206,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
         get "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
         put "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
+        get "candidates/:candidate_id/expire-link" => "suitability/custom_assessments/candidate_assessments#expire_assessment_link", :as => :expire_assessment_link
       end
 
       resources :candidates, :except => [:destroy, :show] do

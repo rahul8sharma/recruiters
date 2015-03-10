@@ -40,13 +40,13 @@
     .list-snippet-titles.extra-medium-text.clearfix
       .span3.first
         = sort_link "ATID", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
-
-      .span5
+      %div{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
         = sort_link "Assessment Taker", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
       .span8
         = sort_link "Assessment Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
-      .span6
-        = sort_link "Assessment Link Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      - if @company.subscription_mgmt
+        .span6
+          = sort_link "Assessment Link Status", candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
 
       -#
         - if is_superadmin?
@@ -76,7 +76,7 @@
             .divider1
             .span3.first
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{candidate.id}"} #{candidate.id}
-            .span5.info-block
+            .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
               %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"}
                 = h candidate.name
               - if current_user.type == "SuperAdmin"
@@ -88,18 +88,22 @@
                 = status
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr
-            .span6
-              %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
-                = link_status
-                #{htime candidate_assessment.expiry_date} Hrs, #{hdate candidate_assessment.expiry_date}
-            .span2.big-text.first
-              - assessment = candidate_assessment.assessment
-              - company = assessment.company
-              - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
-              - if company.subscription_mgmt && show_extend_remove_icons
-                %a.icon-plus-sign{:href=>extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id)}
-                - if is_superadmin?
-                  %a.icon-remove-sign{:href=>"#"}
+            - if @company.subscription_mgmt
+              .span6
+                %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
+                  = link_status
+                  #{htime candidate_assessment.expiry_date} Hrs, #{hdate candidate_assessment.expiry_date}
+              - if is_superadmin?    
+                .span2.big-text.first
+                  - assessment = candidate_assessment.assessment
+                  - company = assessment.company
+                  - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
+                  - if company.subscription_mgmt && show_extend_remove_icons
+                    %a.icon-plus-sign{ :href=> extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id)}
+                    - if candidate_assessment.link_status != 'expired'
+                      = link_to "", expire_assessment_link_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => candidate.id), :confirm => "Are you sure?", :class => "icon-remove-sign"
+                  - else
+                    &nbsp;    
             .span
               - if report
                 - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
@@ -134,3 +138,5 @@
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
     .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
