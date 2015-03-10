@@ -32,7 +32,7 @@
             .clr
           %li
             .span6
-              Assessment Status Link
+              Assessment Link Status
             .span8
               - link_status = test_link_statuses[@candidate_assessment.link_status]
               = link_status
@@ -40,7 +40,7 @@
             .clr
           %li
             .span6
-              Extended validity by
+              Extend validity by
             .span9.no-r-padding
               %select.fw{name: 'candidate_assessment[validity_in_days]'}
                 %option{:value => ""}
