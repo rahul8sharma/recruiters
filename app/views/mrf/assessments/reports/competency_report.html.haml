@@ -8,6 +8,8 @@
       = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
     - if @report.report_data[:mrf_report_strength_areas_of_improvement]
       = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competencies_descending_order"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order"
     - if @report.report_data[:mrf_report_data_pts_competencies_with_frequencies]
       = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
     - if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
