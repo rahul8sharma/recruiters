@@ -60,8 +60,8 @@
                   .clr
                 .divider1
             .clr
-          = render :partial => "mrf/assessments/reports/competency_report/html/discending_overall_score"
-          = render :partial => "mrf/assessments/reports/competency_report/html/discending_average_rating.html.haml"
+          = render :partial => "mrf/assessments/reports/competency_report/html/descending_overall_score"
+          = render :partial => "mrf/assessments/reports/competency_report/html/descending_average_rating.html.haml"
           .divider2
           = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
           .divider2
