@@ -184,7 +184,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     params[:send_test_to_candidates] = true
-
+    get_packages
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
