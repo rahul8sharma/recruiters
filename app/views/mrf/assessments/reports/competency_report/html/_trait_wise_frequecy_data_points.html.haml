@@ -18,76 +18,77 @@
                 %b.large-text
                   = trait_score[:trait][:name]
                 .divider3
-                #distribution_data_points 
-                  .span7.first
-                    .big-text
-                      Overall Score
-                    .divider1
-                    .panel.bg-white
+                - if @report.report_data[:competency360_traits_textual_data_points]
+                  #distribution_data_points 
+                    .span7.first
+                      .big-text
+                        Overall Score
                       .divider1
-                      .rating_snippet
-                        .rating_title.green
-                          360&#176; Score
-                        .value
-                          = trait_score[:average_score_excluding_self][:points] || "-"
-                        .clr
-                      .divider1
-                      .rating_snippet
-                        .rating_title.blue
-                          Self Rating
-                        .value
-                          = trait_score[:average_score_self][:points] || "-"
-                        .clr
-                      .divider1
-                      .rating_snippet
-                        .rating_title.brown
-                          360&#176; (Including Self)
-                        .value
-                          = trait_score[:average_score_including_self][:points] || "-"
-                        .clr
-                      .divider1
+                      .panel.bg-white
+                        .divider1
+                        .rating_snippet
+                          .rating_title.green
+                            360&#176; Score
+                          .value
+                            = trait_score[:average_score_excluding_self][:points] || "-"
+                          .clr
+                        .divider1
+                        .rating_snippet
+                          .rating_title.blue
+                            Self Rating
+                          .value
+                            = trait_score[:average_score_self][:points] || "-"
+                          .clr
+                        .divider1
+                        .rating_snippet
+                          .rating_title.brown
+                            360&#176; (Including Self)
+                          .value
+                            = trait_score[:average_score_including_self][:points] || "-"
+                          .clr
+                        .divider1
 
-                  .span7.left-offset1
-                    .divider2
-                    .panel.bg-white
+                    .span7.left-offset1
                       .divider2
-                      .trait_rating.max
-                        .left
-                          Maximum Rating
-                        .right
-                          = trait_score[:max_score_excluding_self][:points] || "-"
-                        .clr
+                      .panel.bg-white
+                        .divider2
+                        .trait_rating.max
+                          .left
+                            Maximum Rating
+                          .right
+                            = trait_score[:max_score_excluding_self][:points] || "-"
+                          .clr
 
-                      .divider1
-                      .trait_rating.min
-                        .left
-                          Minimum Rating
-                        .right
-                          = trait_score[:min_score_excluding_self][:points] || "-"
-                        .clr
-                      .divider2
+                        .divider1
+                        .trait_rating.min
+                          .left
+                            Minimum Rating
+                          .right
+                            = trait_score[:min_score_excluding_self][:points] || "-"
+                          .clr
+                        .divider2
 
-                  .span12.left-offset1
-                    .big-text
-                      Average rating given by Stakeholders
-                    .divider1
-                    .panel.bg-white
-                      .span13.margin-auto
-                        - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
-                          .span6{ class: index.odd? ? "first" : "" }
-                            .divider1
-                            .rating_snippet
-                              .rating_title.blue
-                                = role.titleize
-                              .value
-                                = score[:points] || "-"
-                              .clr
-                        .clr
+                    .span12.left-offset1
+                      .big-text
+                        Average rating given by Stakeholders
                       .divider1
-                  .clr
-                .divider2
-                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score"
-                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating"
+                      .panel.bg-white
+                        .span13.margin-auto
+                          - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
+                            .span6{ class: index.odd? ? "first" : "" }
+                              .divider1
+                              .rating_snippet
+                                .rating_title.blue
+                                  = role.titleize
+                                .value
+                                  = score[:points] || "-"
+                                .clr
+                          .clr
+                        .divider1
+                    .clr
+                  .divider2
+                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
+                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
                 .divider2
                 - if @report.report_data[:competency360_traits_frequency_of_ratings]
                   = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }

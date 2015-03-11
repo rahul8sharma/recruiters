@@ -13,55 +13,56 @@
         .clr
         .divider2
         .span28.margin-auto
-          #distribution_data_points 
-            .span10.first
-              .big-text
-                Overall Score
-              .divider1
-              .panel.bg-white
-                .span7.margin-auto
-                  .divider1
-                  .rating_snippet
-                    .rating_title.green
-                      360&#176; Score
-                    .value
-                      = competency_scores[:score][:points]
-                    .clr
-                  .divider1
-                  .rating_snippet
-                    .rating_title.blue
-                      Self Rating
-                    .value
-                      = competency_scores[:average_score_self][:points]
-                    .clr
-                  .divider1
-                  .rating_snippet
-                    .rating_title.brown
-                      360&#176; (Including Self)
-                    .value
-                      = competency_scores[:average_score_including_self][:points]
-                    .clr
-                  .divider1
-            .span18
-              .big-text
-                Average rating given by Stakeholders
-              .divider1
-              .panel.bg-white
-                .span13.margin-auto
-                  - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
-                    .span6{ class: index.odd? ? "first" : "left-offset1" }
-                      .divider1
-                      .rating_snippet
-                        .rating_title.blue
-                          = role.titleize
-                        .value
-                          = score[:points]
-                        .clr
-                  .clr
+          - if @report.report_data[:competency360_competencies_textual_data_points]
+            #distribution_data_points 
+              .span10.first
+                .big-text
+                  Overall Score
                 .divider1
-            .clr
-          = render :partial => "mrf/assessments/reports/competency_report/html/descending_overall_score"
-          = render :partial => "mrf/assessments/reports/competency_report/html/descending_average_rating.html.haml"
+                .panel.bg-white
+                  .span7.margin-auto
+                    .divider1
+                    .rating_snippet
+                      .rating_title.green
+                        360&#176; Score
+                      .value
+                        = competency_scores[:score][:points]
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.blue
+                        Self Rating
+                      .value
+                        = competency_scores[:average_score_self][:points]
+                      .clr
+                    .divider1
+                    .rating_snippet
+                      .rating_title.brown
+                        360&#176; (Including Self)
+                      .value
+                        = competency_scores[:average_score_including_self][:points]
+                      .clr
+                    .divider1
+              .span18
+                .big-text
+                  Average rating given by Stakeholders
+                .divider1
+                .panel.bg-white
+                  .span13.margin-auto
+                    - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
+                      .span6{ class: index.odd? ? "first" : "left-offset1" }
+                        .divider1
+                        .rating_snippet
+                          .rating_title.blue
+                            = role.titleize
+                          .value
+                            = score[:points]
+                          .clr
+                    .clr
+                  .divider1
+              .clr
+            = render :partial => "mrf/assessments/reports/competency_report/html/descending_overall_competency_score", locals: { competency: competency, competency_scores: competency_scores }
+            = render :partial => "mrf/assessments/reports/competency_report/html/descending_average_competency_rating.html.haml", locals: { competency: competency, competency_scores: competency_scores }
           .divider2
           - if @report.report_data[:competency360_competencies_frequency_of_ratings]
             = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
