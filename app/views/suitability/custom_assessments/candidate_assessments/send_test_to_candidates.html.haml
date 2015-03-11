@@ -103,8 +103,9 @@
             .clr
 
     .divider1.border-bottom-grayLighter
+    - @subscriptions ||= []
     - usable_subscriptions = @subscriptions.select{|subscription| (subscription.assessments_purchased - subscription.assessments_sent)>0 }
-    - if usable_subscriptions.present? && usable_subscriptions.size > 1
+    - if usable_subscriptions.size > 1
       .divider2
       .heading
         %i.icon-cogs
@@ -153,30 +154,32 @@
         .clr
 
         .divider2
-      .heading
-        %i.icon-check
-        Choose Validity of Assessment Links
-        .divider1
+    .divider2    
+    .heading
+      %i.icon-check
+      Choose Validity of Assessment Links
+      .divider1
 
-      .left-offset1
-        %select.span8.first{name: "options[link_validity]"}
-          %option{ value: '' }
-            Default
-          -10.times do |index|
-            %option{value: index+1}
-              #{index+1} days
-          %option{value: 15}
-            15 days
-          %option{value: 20}
-            20 days
-        .clr
-        .divider1
-        %p.muted.extra-medium-text
-          Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
-          %br/
-          Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
-      .divider2.border-bottom-grayLighter
+    .left-offset1
+      %select.span8.first{name: "options[link_validity]"}
+        %option{ value: '' }
+          Default
+        - 10.times do |index|
+          %option{value: index+1}
+            #{index+1} days
+        %option{value: 15}
+          15 days
+        %option{value: 20}
+          20 days
       .clr
+      .divider1
+      %p.muted.extra-medium-text
+        Number of candidates exceeding the available assessments in packages will not be sent assessment invitations.
+        %br/
+        - if @subscriptions.size > 1
+          Not all Assessment Links may be assigned the chosen validity in case of Automated Sending.
+    .divider2.border-bottom-grayLighter
+    .clr
 
 
     - if is_superadmin?
