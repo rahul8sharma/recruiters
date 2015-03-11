@@ -61,6 +61,7 @@
                 .divider1
             .clr
           .divider2
-          = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
-          .divider2
+          - if @report.report_data[:competency360_competencies_frequency_of_ratings]
+            = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
+            .divider2
       .divider2
