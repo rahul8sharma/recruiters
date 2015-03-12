@@ -2,6 +2,9 @@
 .mrf_report.fit
   = render :partial => "mrf/assessments/reports/fit_report/html/page1"
   = render :partial => "mrf/assessments/reports/fit_report/html/page2"
+  .classic_report
+    - if true
+      = render :partial => "mrf/assessments/reports/fit_report/html/traits_descending_order"
   - if @report.report_data[:mrf_overall_breakdown_at_trait_level]
     = render :partial => "mrf/assessments/reports/fit_report/html/trait_distribution_data_points"
   = render :partial => "mrf/assessments/reports/fit_report/html/page3"
