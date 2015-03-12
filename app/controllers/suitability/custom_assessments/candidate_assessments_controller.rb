@@ -184,7 +184,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     params[:send_test_to_candidates] = true
-
+    get_packages
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
@@ -379,6 +379,29 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       else
         redirect_to candidates_url()
       end
+    end
+  end
+  
+  def expire_assessment_link
+    @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => params[:id],
+      :query_options => {
+        :candidate_id => params[:candidate_id]
+      },
+      :methods => [:url]
+    ).all.first
+    if @candidate_assessment
+      @invitation = Vger::Resources::Invitation.save_existing(@candidate_assessment.invitation_id, :status => Vger::Resources::Invitation::Status::EXPIRED)
+      if @invitation.error_messages.present?
+        flash[:error] = @invitation.error_messages.join("<br/>").html_safe
+        redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
+      else
+        flash[:notice] = "Assessment Link expired successfully."
+        redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
+      end
+    else
+      flash[:error] = "Candidate Assessment not found."
+      redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
     end
   end
 

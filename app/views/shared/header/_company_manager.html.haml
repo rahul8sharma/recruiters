@@ -16,8 +16,8 @@
   %ul.navbar.pull-right.clearfix
     - if defined?(@company)
       %li
-        %a{:href=>select_companies_path(), :title=> "COMPANIES"}
-          COMPANIES
+        %a{:href=>select_companies_path(), :title=> "ACCOUNTS"}
+          ACCOUNTS
       %li
         %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           ASSESSMENTS
