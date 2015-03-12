@@ -1,4 +1,4 @@
-- sorted_trait_scores = @report.report_data[:trait_scores].sort_by{|trait_score| trait_score[:average_score_excluding_self][:points].to_i }.reverse.uniq
+- sorted_trait_scores = @report.report_data[:trait_scores].sort_by{|trait_score| trait_score[:average_score_excluding_self][:points].to_f }.reverse.uniq
 .scores_competencies_graph.descending_order.section03
   .divider2
   .container
