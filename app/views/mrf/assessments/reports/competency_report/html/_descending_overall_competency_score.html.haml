@@ -1,0 +1,71 @@
+- if @report.report_data[:competency360_competencies_visual_data_points]
+  .classic_report
+    .scores_competencies_graph.descending_order.descending_overall_score.border-bottom-grayLighter
+      .traits_under_graph
+        .divider2
+        .extra-large-text.span22.pull-right
+          Overall Score
+        .clr
+        .divider1
+        .graph_container
+          .left_sec.pull-left
+            .divider2
+            %ul
+              %li
+                .span5.big-text.first.trait_title
+                  360&#176 Score
+                  
+                .stakeholder_rating.medium-text.pull-left
+                  = competency_scores[:score][:points]
+                .clr
+
+              %li
+                .span5.big-text.first.trait_title
+                  Self Rating
+                  
+                .self_rating.medium-text.pull-left
+                  = competency_scores[:average_score_self][:points] || "-"
+                .clr
+
+              %li
+                .span5.big-text.first.trait_title
+                  360&#176 (Including Self)
+                  
+                .including_self_rating.medium-text.pull-left
+                  = competency_scores[:average_score_including_self][:points]
+                .clr
+
+
+
+          .right_sec.span22.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  = @competency_graph_buckets.first.min_val
+                - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
+                  .block.pull-left{:style=>"width: #{830/4}px; text-align: right"}
+                    = competency_graph_bucket.min_val
+                .clr
+              .graph
+                .graph_content
+                  - old_min = @competency_graph_buckets.first.min_val
+                  - old_max = @competency_graph_buckets.last.max_val
+                  - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_scores[:score][:points])
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
+                
+                  .divider1
+                  - percent_self = convertToRange(old_min, old_max, 0, 100, (competency_scores[:average_score_self][:points] || old_min))
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percent_self}%; background: #24d8ba"}
+               
+                  .divider1
+                  - percent_all = convertToRange(old_min, old_max, 0, 100, competency_scores[:average_score_including_self][:points])
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percent_all}%; background: #c4a655"}
+                
+                  .divider1
+
+
+
+          .clr
