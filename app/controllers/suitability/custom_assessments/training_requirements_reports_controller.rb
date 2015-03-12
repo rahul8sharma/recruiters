@@ -42,11 +42,11 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
                               :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
                             }
                           ).all.first
-    if @assessment_report && @assessment_report.report_data.present?                      
+    if @assessment_report && @assessment_report.report_data.present?
       url = S3Utils.get_url(@assessment_report.send("#{type}_bucket"),@assessment_report.send("#{type}_key"));
       redirect_to url
     else
-      redirect_to training_requirements_company_assessment_path(:company_id => params[:company_id], :id => params[:id])   
+      redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])   
     end
   end 
   

@@ -12,7 +12,7 @@
       .arrow
     .span4
       %label
-        - enabled = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:type].present? : true
+        - enabled = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:type].present? : !@assessment.configuration[:items_other].present?
         %input{:type=>"checkbox", checked: enabled, name: "selected_items_#{role}[#{item.id}][type]", value: "#{item.class.name}"}
         Enable
     .span5

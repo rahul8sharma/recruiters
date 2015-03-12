@@ -34,15 +34,15 @@
                 %b Integrated Talent Analytics: 
                 Jombay provides you actionable insights through Analytics reports around Benchmarking of Talent, Training Needs Identifications, Attrition Analysis among others.
 
-        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:is_jombay_pearson_test]
+        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner]
           .divider1
           .content.company-summary
             .company-badge
-              %img{:src => "#{Rails.application.config.action_controller.asset_host}/#{asset_path("talent-lens.png")}"}
+              - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+              %img{:src => "#{Rails.application.config.action_controller.asset_host}/#{brand_partner_image_path}"}
             .divider2
             %p
-              We develop and deliver leading, scientifically-valid assessments used to improve performance, identify talent, develop leaders, and engage teams.
-              TalentLens, a Pearson business, publishes scientific assessments that are used globally to hire and develop the 21st century workforce. Our instruments measure critical thinking, problem solving, and a range of job skills to deliver data-driven insights that inform and clarify an organization's human capital decisions. Learn more at TalentLens.com.
+              = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
         .divider1
         .content.contact_section
           .divider1

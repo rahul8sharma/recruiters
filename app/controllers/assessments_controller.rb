@@ -61,7 +61,6 @@ class AssessmentsController < ApplicationController
   end
 
   def update
-    params[:assessment][:is_jombay_pearson_test] = params[:is_jombay_pearson_test].present?
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.present?
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe

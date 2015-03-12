@@ -5,6 +5,18 @@
 @import shared/content-sub-nav
 @import shared/navigation-sub-nav
 @import shared/reports/scale_pdf.sass
+.candidate-assessemnt-link-management
+  ul
+    li
+      .btn.default:hover
+        color: $color-warning !important
+      [class*="span"]
+        padding: 10px 15px
+        margin: 0
+        &:nth-child(even)
+          border-left: 2px solid #fff
+      &:nth-child(odd)
+        background: #F8F8F8
 
 .checked
   label
@@ -23,14 +35,26 @@ label
   .control-group > label
     cursor: default
 .send-assessment
+  .heading
+    font-weight: 700
+    color: $color-warning
+    font-size: $big-text
+    [class*="icon-"]
+      font-size: 20px
   .email-template
-    border-left: 1px solid $color-warning
     margin-left: 25px
     padding-left: 25px
   .massage-body
     p
       font-size: $medium-text
       margin-bottom: 18px
+  .manual-sending-list
+    li
+      padding: 18px 35px
+      font-size: $extra-medium-text
+      &:nth-child(odd)
+        background: #f8f8f8
+
 
 .benchmark
   .navigation-sub-nav

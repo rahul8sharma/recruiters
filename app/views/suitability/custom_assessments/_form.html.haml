@@ -3,14 +3,21 @@
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => assessment, :f => f }
   .pull-left
     - if current_user.type == "SuperAdmin"
+      .control-group
+        %label
+          Select the Brand Partner
+        %select.span10.first{name: 'assessment[brand_partner]', id: 'select_language'}
+          %option{:value => nil}
+            Select Brand Partner
+          - Rails.application.config.brand_partners.each do |brand_partner,content|
+            %option{:value => brand_partner, selected: (assessment.brand_partner == brand_partner)}
+              = brand_partner.titleize
+        .clr      
       %label
         %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
         Enable Training Requirements Report for this assessment
       %label
-        %input{ type: "checkbox", name: "is_jombay_pearson_test", id: "is_jombay_pearson_test"  }
-        Is Jombay Pearson Test?
-      %label
-        %input{ type: "checkbox", name: "show_help_text", id: "show_help_text"  }
+        = f.check_box :show_help_text, id: "show_help_text"
         Show Help Text for Items?
 
   .pull-right

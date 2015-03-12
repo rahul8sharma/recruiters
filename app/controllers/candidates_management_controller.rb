@@ -44,18 +44,6 @@ class CandidatesManagementController < ApplicationController
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
-  def resend_invitations_to_candidates
-    status_params = {:pending=>params[:pending],:started=>params[:started]}
-    assessment = Vger::Resources::Suitability::CustomAssessment.resend_test_to_candidates(
-        :id => params[:candidate][:args][:assessment_id],
-        :status => status_params,
-        :send_sms => false,
-        :send_email => true,
-        :email =>params[:candidate][:args][:email]
-      )
-    redirect_to manage_candidates_path, notice: "Invitation Emails have been queued. Status email should arrive soon."
-  end
-
   def send_360_invitations_to_candidates
     Vger::Resources::Mrf::Assessment.resend_invitations(
         company_id: params[:candidate][:args][:company_id],
