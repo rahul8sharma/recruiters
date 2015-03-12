@@ -699,6 +699,7 @@ $mrf_image_path: report/html/mrf
             line-height: 38px
             color: #fff
             text-align: center
+            font-weight: 700
 
           .stakeholder_rating,
             height: 38px
@@ -786,12 +787,14 @@ $mrf_image_path: report/html/mrf
                   .stakeholder_rating
                     background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
                     color: #fff
+                    font-weight: 700
                   .self_rating
                     background: #24D8BA
                     color: #fff
                 .stakeholder_rating
                   background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
                   color: #A119A6
+                  font-weight: 700
                 .self_rating
                   background: none
                   color: #24D8BA
@@ -833,6 +836,60 @@ $mrf_image_path: report/html/mrf
                       background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
                     .graph_self_rating
                       background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
+
+    &.descending_order
+      .graph_container 
+        .descending_graph_bar.max
+          height: 10px 
+          border-radius: 0 5px 5px 0
+        .descending_graph_bar.min
+          height: 5px 
+          border-radius: 0 3px 3px 0
+          margin-top: 5px
+        .left_sec 
+          li 
+            font-weight: 200
+            .min_rating, .self_rating, .including_self_rating, .min_rating, .max_rating
+              border: 0 none
+              height: 38px
+              width: 38px
+              color: #FFFFFF
+              line-height: 38px
+              text-align: center
+              font-weight: 700
+            .self_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_self_rating_icon.png')  no-repeat center center
+              
+            .including_self_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_self_rating_icon.png')  no-repeat center center
+
+            .min_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_min_rating_icon.png')  no-repeat center center
+            .max_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
+
+        .right_sec 
+          .classic_competency_graph 
+            .graph 
+              .graph_content
+                background-image: none
+    &.descending_overall_score
+      .graph_container 
+        .descending_graph_bar.max
+          margin-top: 10px
+    &.descending_average_rating
+    
+      .graph_container 
+        .left_sec 
+          li 
+            font-weight: 200
+            .stakeholder_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_average_stakeholder_rating_icon.png')  no-repeat center center
+              font-weight: 700
+        .descending_graph_bar
+          background: #6ea4be
+          margin-top: 10px
+
 
   .frequecy_rating_table
     text-align: center

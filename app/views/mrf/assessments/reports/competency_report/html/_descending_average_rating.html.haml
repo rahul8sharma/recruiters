@@ -1,0 +1,44 @@
+.classic_report
+  .scores_competencies_graph.descending_order.descending_average_rating.border-bottom-grayLighter
+    .traits_under_graph
+      .divider2
+      .extra-large-text.span22.pull-right
+        Average rating given by Stakeholders
+      .clr
+      .divider1
+      .graph_container
+        .left_sec.pull-left
+          .divider2
+          %ul
+            -6.times do
+              %li
+                .span5.big-text.first.trait_title
+                  Managers
+                  
+                .stakeholder_rating.medium-text.pull-left
+                  60
+                .clr
+
+        .right_sec.span22.pull-right
+          .classic_competency_graph
+            .classic_competency_graph_scale
+              .block.pull-left
+                1.0
+              -4.times do |index|
+                .block.pull-left{:style=>"width: #{830/4}px; text-align: right"}
+                  #{index+2}
+                  \.0
+
+              .clr
+            .graph
+              .graph_content
+                -6.times do
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: 20%"}
+                
+                  .divider1
+
+
+
+
+        .clr
