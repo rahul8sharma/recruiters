@@ -43,7 +43,7 @@
                 .block.pull-left
                   = @competency_graph_buckets.first.min_val
                 - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
-                  .block.pull-left{:style=>"width: #{830/4}px; text-align: right"}
+                  .block.pull-left{:style=>"width: #{870/4}px; text-align: right"}
                     = competency_graph_bucket.min_val
                 .clr
               .graph
@@ -51,16 +51,22 @@
                   - old_min = @competency_graph_buckets.first.min_val
                   - old_max = @competency_graph_buckets.last.max_val
                   - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_scores[:score][:points])
+                  - percent_360 = percent_360 == 0 ? 5 : percent_360
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
                 
                   .divider1
-                  - percent_self = convertToRange(old_min, old_max, 0, 100, (competency_scores[:average_score_self][:points] || old_min))
+                  - if competency_scores[:average_score_self][:points]
+                    - percent_self = convertToRange(old_min, old_max, 0, 100, (competency_scores[:average_score_self][:points]))
+                    - percent_self = percent_self == 0 ? 5 : percent_self
+                  - else
+                    - percent_self = 0
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_self}%; background: #24d8ba"}
                
                   .divider1
                   - percent_all = convertToRange(old_min, old_max, 0, 100, competency_scores[:average_score_including_self][:points])
+                  - percent_all = percent_all == 0 ? 5 : percent_all
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_all}%; background: #c4a655"}
                 
