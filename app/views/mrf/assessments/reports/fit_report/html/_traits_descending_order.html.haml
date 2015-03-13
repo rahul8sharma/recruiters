@@ -52,8 +52,10 @@
                 - old_max = @trait_graph_buckets.last.max_val
                 - sorted_trait_scores.each do |trait_score|
                   - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_excluding_self][:points])
+                  - percent_360 = percent_360 == 0 ? 2 : percent_360
                   - if trait_score[:average_score_self][:points]
                     - percent_self = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_self][:points])
+                    - percent_self = percent_self == 0 ? 2 : percent_self
                   - else
                     - percent_self = 0
                   .divider1

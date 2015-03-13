@@ -17,7 +17,7 @@
               .span28.margin-auto
                 %b.large-text
                   = trait_score[:trait][:name]
-                .divider3
+                .divider1
                 - if @report.report_data[:competency360_traits_textual_data_points]
                   #distribution_data_points 
                     .span7.first
@@ -86,11 +86,10 @@
                           .clr
                         .divider1
                     .clr
-                  .divider2
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
-                .divider2
+                .divider1
                 - if @report.report_data[:competency360_traits_frequency_of_ratings]
                   = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
-                  .divider2
+                  .divider1
         .divider2
