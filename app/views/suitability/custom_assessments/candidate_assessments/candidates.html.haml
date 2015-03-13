@@ -91,8 +91,13 @@
             - if @company.subscription_mgmt
               .span6
                 %a{:href=> candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id) }
-                  = link_status
-                  #{htime candidate_assessment.expiry_date} Hrs, #{hdate candidate_assessment.expiry_date}
+                  - if candidate_assessment.link_status == 'used'
+                    = link_status
+                    #{hdate candidate_assessment.completed_at}, #{htime candidate_assessment.completed_at} Hrs
+                  - else
+                    = link_status
+                    #{hdate candidate_assessment.expiry_date}, #{htime candidate_assessment.expiry_date} Hrs
+                  
               - if is_superadmin?    
                 .span2.big-text.first
                   - assessment = candidate_assessment.assessment
