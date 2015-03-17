@@ -16,7 +16,7 @@
                   360&#176 Score
                   
                 .stakeholder_rating.medium-text.pull-left
-                  = competency_scores[:score][:points]
+                  = competency_scores[:score][:points] || "-"
                 .clr
 
               %li
@@ -32,7 +32,7 @@
                   360&#176 (Including Self)
                   
                 .including_self_rating.medium-text.pull-left
-                  = competency_scores[:average_score_including_self][:points]
+                  = competency_scores[:average_score_including_self][:points] || "-"
                 .clr
 
 
@@ -50,8 +50,11 @@
                 .graph_content
                   - old_min = @competency_graph_buckets.first.min_val
                   - old_max = @competency_graph_buckets.last.max_val
-                  - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_scores[:score][:points])
-                  - percent_360 = percent_360 == 0 ? 5 : percent_360
+                  - if competency_scores[:score][:points]
+                    - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_scores[:score][:points])
+                    - percent_360 = percent_360 == 0 ? 5 : percent_360
+                  - else
+                    - percent_360 = 0
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
                 
@@ -65,8 +68,11 @@
                   .descending_graph_bar.max{:style => "width: #{percent_self}%; background: #24d8ba"}
                
                   .divider1
-                  - percent_all = convertToRange(old_min, old_max, 0, 100, competency_scores[:average_score_including_self][:points])
-                  - percent_all = percent_all == 0 ? 5 : percent_all
+                  - if competency_scores[:average_score_including_self][:points]
+                    - percent_all = convertToRange(old_min, old_max, 0, 100, competency_scores[:average_score_including_self][:points])
+                    - percent_all = percent_all == 0 ? 5 : percent_all
+                  - else
+                    - percent_all = 0
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_all}%; background: #c4a655"}
                 

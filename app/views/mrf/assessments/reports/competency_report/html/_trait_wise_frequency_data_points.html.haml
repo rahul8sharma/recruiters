@@ -73,20 +73,24 @@
                         Average rating given by Stakeholders
                       .divider1
                       .panel.bg-white
-                        .span13.margin-auto
-                          - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
-                            .span6{ class: index.odd? ? "first" : "" }
-                              .divider1
-                              .rating_snippet
-                                .rating_title.blue
-                                  = role.titleize
-                                .value
-                                  = score[:points] || "-"
-                                .clr
-                          .clr
-                        .divider1
+                        - if trait_score[:role_wise_scores].present?
+                          .span13.margin-auto
+                            - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
+                              .span6{ class: index.odd? ? "first" : "" }
+                                .divider1
+                                .rating_snippet
+                                  .rating_title.blue
+                                    = role.titleize
+                                  .value
+                                    = score[:points] || "-"
+                                  .clr
+                            .clr
+                          .divider1
+                        - else
+                          .text-center
+                            No Responses  
                     .clr
-                = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores"
+                = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores", locals: { trait_scores: trait_score }
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
                 .divider1

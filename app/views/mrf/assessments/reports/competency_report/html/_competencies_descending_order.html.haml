@@ -1,4 +1,4 @@
-- sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:score][:points] }.reverse
+- sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:score][:points].to_i }.reverse
 .scores_competencies_graph.descending_order.section02
   .divider2
   .container
@@ -51,8 +51,11 @@
                 - old_min = @competency_graph_buckets.first.min_val
                 - old_max = @competency_graph_buckets.last.max_val
                 - sorted_competency_scores.each do |competency, competency_score|
-                  - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_score[:score][:points])
-                  - percent_360 = percent_360 == 0 ? 2 : percent_360
+                  - if competency_score[:score][:points]
+                    - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_score[:score][:points])
+                    - percent_360 = percent_360 == 0 ? 2 : percent_360
+                  - else
+                    - percent_360 = 0
                   - if competency_score[:average_score_self][:points]
                     - percent_self = convertToRange(old_min, old_max, 0, 100, competency_score[:average_score_self][:points])
                     - percent_self = percent_self == 0 ? 2 : percent_self
