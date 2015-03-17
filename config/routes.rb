@@ -110,6 +110,7 @@ Recruiters::Application.routes.draw do
     resources :training_requirement_groups, path: "training-requirements", :controller => :training_requirement_groups do
       member do
         get "training_requirements" => "training_requirement_groups#training_requirements", as: :training_requirements
+        match "customize" => "training_requirement_groups#customize", as: :customize
         get "download_report" => "training_requirement_groups#download_report", as: :download_report
         get "training_requirements_report" => "training_requirement_groups#training_requirements_report", :as => :training_requirements_report
       end
@@ -181,6 +182,10 @@ Recruiters::Application.routes.draw do
         get "download_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
 
         get "training_requirements" => "suitability/custom_assessments/training_requirements_reports#training_requirements", :as => :training_requirements
+        
+        put "training_requirements/:assessment_report_id" => "suitability/custom_assessments/training_requirements_reports#update", :as => :update_training_requirements
+        post "training_requirements" => "suitability/custom_assessments/training_requirements_reports#create", :as => :create_training_requirements
+        
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
 
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
