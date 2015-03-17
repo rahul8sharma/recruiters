@@ -1,4 +1,4 @@
-#trait_wise_frequecy_data_points.section03
+#trait_wise_frequency_data_points.section03
   .container
     .divider2
     .scores.container
@@ -21,7 +21,7 @@
                 - if @report.report_data[:competency360_traits_textual_data_points]
                   #distribution_data_points 
                     .span7.first
-                      .big-text
+                      .large-text
                         Overall Score
                       .divider1
                       .panel.bg-white
@@ -34,7 +34,7 @@
                           .clr
                         .divider1
                         .rating_snippet
-                          .rating_title.blue
+                          .rating_title.blue_light
                             Self Rating
                           .value
                             = trait_score[:average_score_self][:points] || "-"
@@ -69,7 +69,7 @@
                         .divider2
 
                     .span12.left-offset1
-                      .big-text
+                      .large-text
                         Average rating given by Stakeholders
                       .divider1
                       .panel.bg-white
@@ -86,10 +86,11 @@
                           .clr
                         .divider1
                     .clr
+                = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores"
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
                 = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
                 .divider1
                 - if @report.report_data[:competency360_traits_frequency_of_ratings]
-                  = render :partial => "mrf/assessments/reports/competency_report/html/frequecy_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
+                  = render :partial => "mrf/assessments/reports/competency_report/html/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
                   .divider1
         .divider2

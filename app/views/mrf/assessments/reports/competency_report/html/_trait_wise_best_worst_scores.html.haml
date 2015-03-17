@@ -1,0 +1,49 @@
+.classic_report
+  .scores_competencies_graph.best_worst_scores.trait_wise
+    .graph_container
+      .left_sec.pull-left
+        .graph_instructions.text-center
+          .span2.gray-dark
+            Lowest
+          .span2.gray-dark
+            Candidate
+          .span2.gray-dark
+            Highest
+          .clr
+
+          .span2.divider2.min_rating_icon
+          .span2.divider2.stakeholder_rating_icon_small
+          .span2.divider2.max_rating_icon
+          .clr
+        %ul
+          %li
+            .span2.min_rating.medium-text.span
+              3.68
+            .span2.stakeholder_rating.medium-text.pull-left
+              3.68
+            .span2.max_rating.medium-text.pull-left
+              1.0
+            .clr
+          
+      .right_sec.span21.pull-right
+        .classic_competency_graph
+          .classic_competency_graph_scale
+            .block.pull-left
+              1.0
+            -4.times do |index|
+              .block.pull-left{:style => "width: #{830/4}px; text-align: right"}
+                #{index+2}
+                \.0
+           
+            .clr
+          .graph
+            .graph_content
+              .divider2
+              .graph_bar{:style => "margin-left:0%;width:67.0%"}
+                .graph_min_rating{:style => "lef"}
+                .graph_stakeholder_rating{:style => "left:20%"}
+                .graph_max_rating
+              .divider1
+              
+              .divider1
+      .clr

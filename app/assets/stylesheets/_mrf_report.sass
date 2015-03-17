@@ -556,8 +556,10 @@ $mrf_image_path: report/html/mrf
           background: #c4a655
         &.blue
           background: #6ea4be
+        &.blue_light
+          background: #24d9ba
         &.green
-          background: #29b299
+          background: #a72aac
         
       .value
         font-size: 18px
@@ -837,6 +839,72 @@ $mrf_image_path: report/html/mrf
                     .graph_self_rating
                       background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
 
+    &.best_worst_scores
+      .graph_container 
+        .left_sec 
+          .graph_instructions
+            margin: 0
+            .min_rating_icon
+              background: image-url('#{$mrf_image_path}/min_rating_icon_small.png')  no-repeat center center
+            .stakeholder_rating_icon_small
+              background: image-url('#{$mrf_image_path}/stakeholder_rating_icon_small.png')  no-repeat center center
+            .max_rating_icon
+              background: image-url('#{$mrf_image_path}/max_rating_icon_small.png')  no-repeat center center
+
+          li 
+            div:first-child
+              padding: 0
+            .stakeholder_rating
+              width: 70px
+            .min_rating, .max_rating
+              border: 0 none
+              height: 38px
+              color: #FFFFFF
+              line-height: 38px
+              text-align: center
+              font-weight: 700
+            .min_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_min_rating_icon.png')  no-repeat center center
+            .max_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
+        .graph 
+          .graph_content 
+            .graph_bar 
+              .graph_min_rating,
+              .graph_max_rating
+                z-index: 1
+                height: 37px
+                position: absolute
+                top: -19px
+                width: 37px
+
+              .graph_min_rating
+                background: image-url('#{$mrf_image_path}/min_rating_arrow.png')  no-repeat center center
+                left: -19px
+                
+              .graph_max_rating 
+                background: image-url('#{$mrf_image_path}/max_rating_arrow.png')  no-repeat center center
+                right: -19px
+      &.trait_wise
+        .graph_container 
+          .left_sec 
+            .graph_instructions
+              .min_rating_icon
+                background: image-url('#{$mrf_image_path}/min_rating_icon_small_trait_wise.png')  no-repeat center center
+              .stakeholder_rating_icon_small
+                background: image-url('#{$mrf_image_path}/stakeholder_rating_icon_small_trait_wise.png')  no-repeat center center
+              .max_rating_icon
+                background: image-url('#{$mrf_image_path}/max_rating_icon_small_trait_wise.png')  no-repeat center center
+          .graph 
+            .graph_content 
+              .graph_bar 
+                .graph_min_rating
+                  background: image-url('#{$mrf_image_path}/min_rating_arrow_trait_wise.png')  no-repeat center center
+                .graph_stakeholder_rating
+                  background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png')  no-repeat center center
+                .graph_max_rating 
+                  background: image-url('#{$mrf_image_path}/max_rating_arrow_trait_wise.png')  no-repeat center center
+
     &.descending_order
       .graph_container 
         .descending_graph_bar.max
@@ -849,7 +917,7 @@ $mrf_image_path: report/html/mrf
         .left_sec 
           li 
             font-weight: 200
-            .min_rating, .self_rating, .including_self_rating, .min_rating, .max_rating
+            .min_rating, .self_rating, .including_self_rating, .max_rating
               border: 0 none
               height: 38px
               width: 38px
@@ -868,11 +936,8 @@ $mrf_image_path: report/html/mrf
             .max_rating
               background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
 
-        .right_sec 
-          .classic_competency_graph 
-            .graph 
-              .graph_content
-                background-image: none
+        
+                
     &.descending_overall_score
       .graph_container 
         .descending_graph_bar.max
@@ -891,7 +956,7 @@ $mrf_image_path: report/html/mrf
           margin-top: 10px
 
 
-  .frequecy_rating_table
+  .frequency_rating_table
     text-align: center
     font-size: 16px
     border-bottom: 1px solid #e3e3e3
@@ -931,7 +996,7 @@ $mrf_image_path: report/html/mrf
       color: #fff
       padding: 18px 0
     .green_bg
-      background: #03846f
+      background: #6ea4be
     .orange_bg
       background: #d56e17
       border-top: 1px solid #fff !important
