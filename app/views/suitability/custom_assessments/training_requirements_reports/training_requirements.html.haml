@@ -4,36 +4,51 @@
     Test #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send This Test
-  - if !@assessment.report_types.include?(Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT)
-    %a.extra-medium-text.pull-right.line-height3{:href => enable_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Enable Training Requirements Report for this test"}
-      Enable Training Requirements Report
-  - else
-    - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
-      %a.extra-medium-text.pull-right.line-height3{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
-        Download a PDF version of Training Requirements Report    
+  - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+    %a.extra-medium-text.pull-right.line-height3{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+      Download a PDF version of Training Requirements Report    
   .clr
   .divider2
   .clr
   = render :partial => "shared/candidate-content-sub-nav"
   .padding-all2.border-warning.shifted-up1
-    %ul
-      %li.list-snippet.medium-text
-      - if @assessment.report_types.include?(Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT)
-        - if @assessment_report && @assessment_report.report_data.present?
-          .span10.extra-medium-text.first
-            Training requirements Report
-          .span
-            %a.extra-medium-text{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :html), :title => "Download Training Requirements Report as PDF", target: "_blank"}
-              %i.icon-file              
-              View Report
+    - if @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+      .span10.extra-medium-text.first
+        Training requirements Report
+      .span
+        %a.extra-medium-text{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :html), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+          %i.icon-file              
+          View Report
+    - elsif @assessment_report.id.present?
+      .alert-info.alert.text-center
+        %i.icon-spinner.icon-spin
+        Training Requirements calculation is in progress.
+      .extra-medium-text.alert-text
+        You could update the settings of this report by using the form below.
+    - else
+      .extra-medium-text.alert-text
+        Training Requirements not enabled for this assessment. Submit the form below to generate a training requirement report.         
+    - if @assessment_report.id.present?    
+      - url = update_training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :assessment_report_id => @assessment_report.id)
+    - else
+      - url = create_training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])      
+    = form_for @assessment_report, as: :assessment_report, url: url do |f|
+      = f.hidden_field :report_type, value: "training_requirement"
+      = f.hidden_field :assessment_id, value: params[:id]
+      = f.hidden_field :status, value: Vger::Resources::Suitability::AssessmentReport::Status::NEW
+      -  Vger::Resources::Suitability::AssessmentReport.configuration.each do |name, settings|
+        - if ["TrueClass","FalseClass"].include? settings[:type]
+          .control-group
+            %label.span10.first.big-text.line-height2.gray-darker
+              = f.check_box name.to_sym, :checked => @assessment_report.send(name.to_sym)
+              #{name}
+          .clr
         - else
-          .alert-info.alert.text-center
-            %i.icon-spinner.icon-spin
-            Training Requirements calculation is in progress.     
-      - else
-        .alert-info.alert
-          %span{ class: "medium-text", style: "color: black;" }
-            Training Requirements calculation hasn't been enabled for this test. Please use the button above or to enable it 
-            %a{:href => enable_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Edit Test"}
-              click here
+          .control-group
+            %label.span10.first.big-text.line-height2.gray-darker
+              #{name}:
+              = f.text_field name.to_sym, :checked => @assessment_report.send(name.to_sym)
+          .clr 
+      %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
+        .clr
     .divider2

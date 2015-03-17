@@ -9,11 +9,31 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => @assessment.id,
-                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.new if !@assessment_report                          
     @report_data = @assessment_report.report_data if @assessment_report
+  end
+  
+  def create
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.new(params[:assessment_report])
+    if @assessment_report.save
+      flash[:notice] = "Training Requirements report created for this assessment."
+    else
+      flash[:error] = @assessment_report.error_messages.join("<br/>").html_safe
+    end  
+    redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+  
+  def update
+    @assessment_report = Vger::Resources::Suitability::AssessmentReport.save_existing(params[:assessment_report_id], params[:assessment_report])
+    if @assessment_report.error_messages.present?
+      flash[:error] = @assessment_report.error_messages.join("<br/>").html_safe
+    else
+      flash[:notice] = "Training Requirements report updated successfully."
+    end
+    redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
   
   def enable_training_requirements_report
