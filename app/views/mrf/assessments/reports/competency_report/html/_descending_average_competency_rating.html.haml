@@ -1,4 +1,4 @@
-- if @report.report_data[:competency360_competencies_visual_data_points]
+- if @report.report_data[:competency360_competencies_visual_data_points] && competency_scores[:role_wise_scores].present?
   .classic_report
     .scores_competencies_graph.descending_order.descending_average_rating.border-bottom-grayLighter
       .traits_under_graph
@@ -41,8 +41,4 @@
                     .descending_graph_bar.max{:style => "width: #{percent}%"}
                   
                     .divider1
-
-
-
-
           .clr

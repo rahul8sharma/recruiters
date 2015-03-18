@@ -25,7 +25,9 @@ class MrfReportUploader < AbstractController::Base
 
     begin
       puts "Getting Report #{report_id}"
-      @report = Vger::Resources::Mrf::Report.find(report_id, report_data)   
+      @report = Vger::Resources::Mrf::Report.find(report_id, report_data)
+      
+      @assessment = Vger::Resources::Mrf::Assessment.find(@report.assessment_id, company_id: report_data[:company_id])
       
       @report.report_hash = @report.report_data
       

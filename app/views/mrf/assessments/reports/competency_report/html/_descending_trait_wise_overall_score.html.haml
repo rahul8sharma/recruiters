@@ -16,7 +16,7 @@
                   360&#176 Score
                   
                 .stakeholder_rating.medium-text.pull-left
-                  = trait_scores[:average_score_excluding_self][:points]
+                  = trait_scores[:average_score_excluding_self][:points] || "-"
                 .clr
 
               %li
@@ -32,25 +32,8 @@
                   360&#176 (Including Self)
                   
                 .including_self_rating.medium-text.pull-left
-                  = trait_scores[:average_score_including_self][:points]
+                  = trait_scores[:average_score_including_self][:points] || "-"
                 .clr
-
-              %li
-                .span5.big-text.first.trait_title
-                  Maximum Rating
-                  
-                .max_rating.medium-text.pull-left
-                  = trait_scores[:max_score_excluding_self][:points]
-                .clr
-
-              %li
-                .span5.big-text.first.trait_title
-                  Minimum Rating
-                  
-                .min_rating.medium-text.pull-left
-                  = trait_scores[:min_score_excluding_self][:points]
-                .clr
-
 
           .right_sec.span22.pull-right
             .classic_competency_graph
@@ -66,8 +49,11 @@
                 .graph_content
                   - old_min = @trait_graph_buckets.first.min_val
                   - old_max = @trait_graph_buckets.last.max_val
-                  - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_scores[:average_score_excluding_self][:points])
-                  - percent_360 = percent_360 == 0 ? 2 : percent_360
+                  - if trait_scores[:average_score_excluding_self][:points]
+                    - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_scores[:average_score_excluding_self][:points])
+                    - percent_360 = percent_360 == 0 ? 2 : percent_360
+                  - else
+                    - percent_360 = 0
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
                 
@@ -81,23 +67,64 @@
                   .descending_graph_bar.max{:style => "width: #{percent_self}%; background: #24d8ba"}
                
                   .divider1
-                  - percent_all = convertToRange(old_min, old_max, 0, 100, trait_scores[:average_score_including_self][:points])  
-                  - percent_all = percent_all == 0 ? 2 : percent_all
+                  - if trait_scores[:average_score_including_self][:points]  
+                    - percent_all = convertToRange(old_min, old_max, 0, 100, trait_scores[:average_score_including_self][:points])  
+                    - percent_all = percent_all == 0 ? 2 : percent_all
+                  - else
+                    - percent_all = 0
                   .divider1
                   .descending_graph_bar.max{:style => "width: #{percent_all}%; background: #c4a655"}
+                  .divider1
+              .divider2    
+          .clr  
+          - if trait_scores[:max_score_excluding_self][:points]
+            .left_sec.pull-left
+              .divider2
+              %ul
+                %li
+                  .span5.big-text.first.trait_title
+                    Maximum Rating
                     
-                  .divider1
-                  - percent_max = convertToRange(old_min, old_max, 0, 100, trait_scores[:max_score_excluding_self][:points])
-                  - percent_max = percent_max == 0 ? 2 : percent_max
-                  .divider1
-                  .descending_graph_bar.max{:style => "width: #{percent_max}%; background: #abed74"}
-                
-                  .divider1
-                  - percent_min = convertToRange(old_min, old_max, 0, 100, trait_scores[:min_score_excluding_self][:points])
-                  - percent_min = percent_min == 0 ? 2 : percent_min
-                  .divider1
-                  .descending_graph_bar.max{:style => "width: #{percent_min}%; background: #ffcf36"}
-                
-                  .divider1
+                  .max_rating.medium-text.pull-left
+                    = trait_scores[:max_score_excluding_self][:points] || "-"
+                  .clr
 
-          .clr
+                %li
+                  .span5.big-text.first.trait_title
+                    Minimum Rating
+                    
+                  .min_rating.medium-text.pull-left
+                    = trait_scores[:min_score_excluding_self][:points] || "-"
+                  .clr  
+            .right_sec.span22.pull-right   
+              .classic_competency_graph
+                .classic_competency_graph_scale
+                  .block.pull-left
+                    = @trait_graph_buckets.first.min_val
+                  - @trait_graph_buckets[1..@trait_graph_buckets.length-1].each do |trait_graph_bucket|
+                    .block.pull-left{:style=>"width: #{870/4}px; text-align: right"}
+                      = trait_graph_bucket.min_val
+
+                  .clr
+                .graph
+                  .graph_content      
+                    - if trait_scores[:max_score_excluding_self][:points]
+                      - percent_max = convertToRange(old_min, old_max, 0, 100, trait_scores[:max_score_excluding_self][:points])
+                      - percent_max = percent_max == 0 ? 2 : percent_max
+                    - else
+                      - percent_max = 0
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: #{percent_max}%; background: #abed74"}
+                  
+                    .divider1
+                    - if trait_scores[:min_score_excluding_self][:points]  
+                      - percent_min = convertToRange(old_min, old_max, 0, 100, trait_scores[:min_score_excluding_self][:points])
+                      - percent_min = percent_min == 0 ? 2 : percent_min
+                    - else
+                      - percent_min = 0    
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: #{percent_min}%; background: #ffcf36"}
+                  
+                    .divider1
+                .divider2    
+            .clr

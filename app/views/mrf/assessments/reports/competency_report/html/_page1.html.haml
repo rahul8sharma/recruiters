@@ -45,7 +45,7 @@
                   .competency-name.pull-left
                     = competency_name
                   .competency-value.pull-right
-                    = competency_scores[:score][:bucket]
+                    = competency_scores[:score][:bucket] || "-"
                   .clr
             .clr
           .divider2
