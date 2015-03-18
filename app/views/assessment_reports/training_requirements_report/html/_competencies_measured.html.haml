@@ -1,0 +1,18 @@
+.competency_report
+  #traits.section02
+    .divider2
+    .scores.container
+      .title
+        Competencies / Values Measured
+      .divider2
+      .instruction_container
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+      .divider3
+      -#for this page refer assessment_reports/competency_report/html/competency_report_page2.html.haml
+      = render :partial => "assessment_reports/training_requirements_report/html/competency_factor_block"
+    

@@ -1,0 +1,45 @@
+.data_points.competency_report
+  .container
+    .divider2
+    .title
+      Data Points: Competencies
+    .divider2
+    -3.times do
+      .frame
+        .heading.pull-left
+          Competency_name
+
+        .heading.pull-right
+          High
+        .clr
+        .divider2
+
+        .left.span18
+          -6.times do
+            .span2.across_score
+              .score
+                20%
+              .divider1
+              Low
+          .clr
+          .divider2
+          .medium-text.black
+            Percentage of Assessment Takers across scores
+          .divider5
+
+        .right.span11
+          .divider1
+          .big-text.text-center.black
+            Across all Assessment Takers
+          .divider1
+          .pannel.span7.margin-auto
+            .score_snippet.max
+              Maximum Score: Below Average 
+            .score_snippet.min
+              Minimum Score: High
+            .score_snippet.average
+              Average Score: Above Average 
+
+        .clr
+        .divider1
+      .divider1
