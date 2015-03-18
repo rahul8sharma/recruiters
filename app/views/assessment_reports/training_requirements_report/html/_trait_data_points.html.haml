@@ -1,0 +1,94 @@
+.data_points.competency_report
+  .container
+    .divider2
+    .title
+      Data Points: Traits under Competencies
+    .divider2
+    .instruction_container
+      .instructions
+        .instruction1.pull-left
+          Favorable Scores
+        .instruction2.less_favorable.pull-left
+          Less Favorable Scores
+        
+        .clr
+    .frame
+      .heading.pull-left
+        Competency_name
+
+      .heading.pull-right
+        High
+      .clr
+      .divider2
+      %ul
+        -3.times do
+          %li
+            .big-text.black.bold.text-left.left-offset1
+              Adaptability
+            .divider2
+            .left.span18
+              .flow-chart
+                .parent-node
+                  .final-score
+                    .piechart
+                      pie chart goes Here
+                    .min-score
+                      30%
+                    .max-score
+                      30%
+
+
+                .child-node.left-node{:class=>"min-score"}
+                  .score
+                    30%
+                  .bucket-name
+                    Low
+                .child-node.left-node
+                  .score
+                    30%
+                  .bucket-name
+                    Below Average
+                .child-node.left-node.small
+                  .score
+                    30%
+                  .bucket-name
+                    Average (Low)
+
+                .child-node.right-node.small
+                  .score
+                    30%
+                  .bucket-name
+                    Average (High)
+                .child-node.right-node
+                  .score
+                    30%
+                  .bucket-name
+                    Above Average
+                .child-node.right-node{:class=>"min-score"} 
+                  .score
+                    30%
+                  .bucket-name
+                    High
+                .clr
+                .divider5
+                .medium-text.black  
+                  Percentage of Assessment Takers across scores
+
+            .right.span11
+              .divider1
+              .big-text.text-center.black
+                Across all Assessment Takers
+              .divider1
+              .pannel.span7.margin-auto
+                .score_snippet.max
+                  Maximum Score: Below Average 
+                .score_snippet.min
+                  Minimum Score: High
+                .score_snippet.average
+                  Average Score: Above Average 
+
+            .clr
+            .divider1
+            .tip
+              You may want to discuss with them alternative ways of dealing with highly emotional situations. It could help them learn how to manage their emotions better.
+    .divider1

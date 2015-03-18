@@ -21,7 +21,12 @@
     = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", style: "padding: 2px 6px 2px 6px;"
 
 = render :template => "assessment_reports/training_requirements_report/html/page1"
-.page-break
+= render :partial => "assessment_reports/training_requirements_report/html/competency_overview"
+= render :partial => "assessment_reports/training_requirements_report/html/competencies_measured"
+= render :partial => "assessment_reports/training_requirements_report/html/competencies_data_points"
+= render :partial => "assessment_reports/training_requirements_report/html/trait_data_points"
+
+
 
 - limiter = Rails.application.config.reports["html"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
 - scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["pie_charts_step"]
