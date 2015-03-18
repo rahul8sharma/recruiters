@@ -95,11 +95,10 @@ class TrainingRequirementGroupsController < ApplicationController
     @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
-                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if !@report
+    if !@report.report_data
       redirect_to company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), alert: "Training Requirement Report not found!"
       return
     end
