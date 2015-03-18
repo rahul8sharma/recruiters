@@ -1,0 +1,75 @@
+.data_points.competency_report
+  .container
+    .divider2
+    .title
+      Data Points: Traits under Competencies
+    .divider2
+    .instruction_container
+      .instructions
+        .instruction1.pull-left
+          Favorable Scores
+        .instruction2.less_favorable.pull-left
+          Less Favorable Scores
+        
+        .clr
+    - @report_data[:competency_scores].each do |competency, competency_data|
+      .frame
+        .heading.pull-left
+          = competency
+
+        .heading.pull-right
+          = competency_data[:avg_score][:bucket]
+        .clr
+        .divider2
+        %ul
+          - competency_data[:factor_scores].each_with_index do |(factor_name, factor_data),index|
+            %li
+              .big-text.black.bold.text-left.left-offset1
+                = factor_name
+              .divider2
+              .left.span18
+                .flow-chart
+                  .parent-node
+                    .final-score
+                      .pie-chart{ id: "pie_competency_#{index}", "data-percentage-candidates" => factor_data[:percentage_candidates], style: "width: 100px;height: 100px;margin-left: -15px;margin-top: -5px;" }
+                      .min-score
+                        = "#{100 - factor_data[:percentage_candidates]}%"
+                      .max-score
+                        = "#{factor_data[:percentage_candidates]}%"
+
+                  - @norm_buckets.each_with_index do |norm_bucket, index|
+                    - small = index == 2 || index == 3
+                    - if factor_data[:acceptable_range]
+                      - from_weight = factor_data[:acceptable_range][:from_norm_bucket][:weight]
+                      - to_weight = factor_data[:acceptable_range][:to_norm_bucket][:weight]
+                      - min_score = (norm_bucket.weight < from_weight || norm_bucket.weight > to_weight) ? 'min-score' : ''
+                    - else
+                      - min_score = 'gray'  
+                    .child-node{ :class => "#{min_score ? 'min-score' : ''} #{index < (@norm_buckets.size/2) ? 'left-node' : 'right-node'} #{small ? 'small' : ''}"}
+                      .score
+                        #{factor_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                      .bucket-name
+                        = norm_bucket.name
+                  .clr
+                  .divider5
+                  .medium-text.black  
+                    Percentage of Assessment Takers across scores
+
+              .right.span11
+                .divider1
+                .big-text.text-center.black
+                  Across all Assessment Takers
+                .divider1
+                .pannel.span7.margin-auto
+                  .score_snippet.max
+                    Maximum Score: #{factor_data[:max_score][:bucket]}
+                  .score_snippet.min
+                    Minimum Score: #{factor_data[:min_score][:bucket]}
+                  .score_snippet.average
+                    Average Score: #{factor_data[:avg_score][:bucket]}
+
+              .clr
+              .divider1
+              .tip
+                = factor_data[:tip]
+      .divider1

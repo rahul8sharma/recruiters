@@ -16,6 +16,7 @@
             .score
               #{factor_score[:percentage_candidates]}% Less Favourable
             .divider1
-            .label
-              Above Average
+            - if @report.average_scores_in_top_training_needs
+              .label
+                = factor_score[:avg_score][:bucket]
         .clr

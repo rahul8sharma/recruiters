@@ -18,31 +18,53 @@
 
 - content_for :report_link do
   - if @view_mode == "html"
-    = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", style: "padding: 2px 6px 2px 6px;"
-
-= render :template => "assessment_reports/training_requirements_report/html/page1"
-= render :partial => "assessment_reports/training_requirements_report/html/competency_overview"
-= render :partial => "assessment_reports/training_requirements_report/html/competencies_measured"
-= render :partial => "assessment_reports/training_requirements_report/html/competencies_data_points"
-= render :partial => "assessment_reports/training_requirements_report/html/trait_data_points"
-
-
-
+    - if @report.pdf_button
+      = link_to "View Printable PDF", download_training_requirements_report_company_custom_assessment_url(:company_id => @assessment.company_id, :id => @assessment.id, :format => "pdf", :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", style: "padding: 2px 6px 2px 6px;"
+    
+    
+- if @report.cover_page
+  = render :partial => "assessment_reports/training_requirements_report/html/cover_page"
+  
+  
+- if @report.include_competencies  
+  - if @report.overview_competency_average_scores
+    = render :partial => "assessment_reports/training_requirements_report/html/competency_overview"
+  - if @report.competency_values_measured
+    = render :partial => "assessment_reports/training_requirements_report/html/competencies_measured"
+    
 - limiter = Rails.application.config.reports["html"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
 - scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["pie_charts_step"]
 
-- factor_scores = @report_data[:factor_scores].select{|key,value| @report_data[:factor_scores].keys[0..limiter-1].include?(key) }
-- (0..factor_scores.keys.length-1).step(scores_step) do |step|
-  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-  = render :template => "assessment_reports/training_requirements_report/html/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
-  .page-break  
+- less_favorable_factors = @report_data[:factor_scores].select{|factor, factor_data| factor_data[:percentage_candidates] > 0 }
+- top_training_needs = less_favorable_factors.select{|key,value| less_favorable_factors.keys[0..limiter-1].include?(key) }
+- if @report.show_top_training_needs
+  - (0..top_training_needs.keys.length-1).step(scores_step) do |step|
+    - step_top_training_needs = top_training_needs.slice(*top_training_needs.keys[step..(step+(scores_step - 1))])
+    = render :partial => "assessment_reports/training_requirements_report/html/top_training_needs", :locals => { :factor_scores => step_top_training_needs, :step => step }
+    .page-break  
   
-  
-- scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["scores_step"]
-- (0..factor_scores.keys.length-1).step(scores_step) do |step|
-  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-  = render :template => "assessment_reports/training_requirements_report/html/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
-  .page-break 
+- if @report.show_remaining_traits  
+  - remaining_factor_scores = @report_data[:factor_scores].except(*top_training_needs.keys)
+  - (0..remaining_factor_scores.keys.length-1).step(scores_step) do |step|
+    - step_factor_scores = remaining_factor_scores.slice(*remaining_factor_scores.keys[step..(step+(scores_step - 1))])
+    = render :partial => "assessment_reports/training_requirements_report/html/remaining_traits", :locals => { :factor_scores => step_factor_scores, :step => step }
+    .page-break  
+    
+- if @report.include_competencies
+  - if @report.data_points_competencies
+    = render :partial => "assessment_reports/training_requirements_report/html/competencies_data_points"
+  - if @report.data_points_traits_under_competencies
+    = render :partial => "assessment_reports/training_requirements_report/html/competency_trait_data_points"
+
+- if @report.data_points_traits && !@report.include_competencies
+  = render :partial => "assessment_reports/training_requirements_report/html/trait_data_points"
+
+- if @report.tips_in_traits
+  - scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["scores_step"]
+  - (0..less_favorable_factors.keys.length-1).step(scores_step) do |step|
+    - step_factor_scores = less_favorable_factors.slice(*less_favorable_factors.keys[step..(step+(scores_step - 1))])
+    = render :partial => "assessment_reports/training_requirements_report/html/areas_of_improvements", :locals => { :factor_scores => step_factor_scores, :step => step }
+    .page-break 
   
 
 = render :partial => "shared/reports/html/about_us.html.haml"
