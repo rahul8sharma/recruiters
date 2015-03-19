@@ -15,7 +15,7 @@
   %input{name: "report[assessment_name]", type: 'hidden', value: @assessment.name}
   %input{name: "report[company_id]", type: 'hidden', value: @assessment.company_id}
   %input{name: "report[assessment_type]", type: 'hidden', value: @assessment.assessment_type}
-  %input{name: "report[is_jombay_pearson_test]", type: 'hidden', value: @assessment.is_jombay_pearson_test}
+  %input{name: "report[brand_partner]", type: 'hidden', value: @assessment.brand_partner}
   %input{name: "report[competency_ids]", type: 'hidden', value: @competency_ids}
   %p
     %label.field
@@ -48,7 +48,7 @@
   %p
     %label.field
       Pearson?
-    = f.text_field :is_jombay_pearson_test, required: true, value: @assessment.is_jombay_pearson_test, disabled: true
+    = f.text_field :brand_partner, required: true, value: @assessment.brand_partner, disabled: true
   %br
 
   - if @assessment.assessment_type == "competency" && @competencies.present?
