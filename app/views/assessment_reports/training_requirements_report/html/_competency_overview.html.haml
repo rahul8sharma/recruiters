@@ -1,5 +1,9 @@
+- competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
 .competency_report
   .overview
+    .divider2
+    - if !@report.cover_page
+      .divider2
     .bottom-triangle
       .container
         .divider1
@@ -11,29 +15,29 @@
             .scale.right-offset1
               .line
               .marker-container
-                -#refer a code for scale from assessment_reports/competency_reports/html/competency_report_page_1.html.haml
-                .marker
-                  .arrow
-                  .marker-info
-                    sfdsfdfsdffds
-                  high
+                - @norm_buckets.each do |norm_bucket|
+                  .marker
+                    .arrow
+                    .marker-info
+                      = norm_bucket.description
+                    = norm_bucket.name
                 .clr
             .clr
           .divider2
           %ul.competency-list.pull-left
-            %li
-              .competency-name.pull-left
-                competency_name
-              .competency-value.pull-right
-                -#refer a code for scale from assessment_reports/competency_reports/html/competency_report_page_1.html.haml
-                .scale.right-offset1
-                  .line
-                  .marker-container
-                    .marker{ class: "active" }
-                      High
-                    .clr
+            - competency_scores.each do |competency, competency_data|
+              %li
+                .competency-name.pull-left
+                  = competency
+                .competency-value.pull-right
+                  .scale.right-offset1
+                    .line
+                    .marker-container
+                      - @norm_buckets.each do |norm_bucket|  
+                        .marker{ class: (norm_bucket.name == competency_data[:avg_score][:bucket] ? 'active' : '') }
+                          = norm_bucket.name
+                      .clr
+                  .clr
                 .clr
-                -#= competency_score[:grade]
-              .clr
           .clr
         .divider2

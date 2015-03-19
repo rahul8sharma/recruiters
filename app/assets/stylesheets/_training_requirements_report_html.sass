@@ -18,20 +18,30 @@ $trr_image_path: report/html/training_requirements_report
     .left
       text-align: center
       border-right: 1px solid #ccc
-      .across_score
-        font-size: 14px
-        margin: 0 25px
-        margin-top: 50px
-        &:first-child
-          margin-left: 10px
-      .score
-        background: image-url("#{$trr_image_path}/across_score.png") no-repeat center 0
-        width: 37px
-        height: 37px
-        font-size: 12px
-        color: #fff
-        line-height: 37px
-        margin: auto
+      .bucket-holder
+        position: relative
+        .connector
+          position: absolute
+          background: #28b29b
+          height: 1px
+          width: 591px
+          left: 57px
+          top: 67px
+          z-index: -1
+        .across_score
+          font-size: 14px
+          margin: 0 24px
+          margin-top: 50px
+          &:first-child
+            margin-left: 10px
+        .score
+          background: image-url("#{$trr_image_path}/across_score.png") no-repeat center 0
+          width: 37px
+          height: 37px
+          font-size: 12px
+          color: #fff
+          line-height: 37px
+          margin: auto
     .right
       .pannel
         border: 1px dashed #ccc
@@ -54,6 +64,14 @@ $trr_image_path: report/html/training_requirements_report
     .flow-chart
       width: 610px
       margin: auto
+      .score
+        background: image-url("#{$trr_image_path}/across_score.png") no-repeat center 0
+        width: 37px
+        height: 37px
+        font-size: 12px
+        color: #fff
+        line-height: 37px
+        margin: auto
       .parent-node
         width: 1px
         height: 130px
@@ -116,6 +134,10 @@ $trr_image_path: report/html/training_requirements_report
           border-color: #fdc206
           .score
             background: image-url("#{$trr_image_path}/min_rating_circle.png") no-repeat center 0
+        &.gray
+          border-color: #cccccc
+          .score
+            background: image-url("#{$trr_image_path}/gray_circle.png") no-repeat center 0    
 
         .score
           position: absolute

@@ -4,29 +4,29 @@
     .title
       Data Points: Competencies
     .divider2
-    -3.times do
+    - @report_data[:competency_scores].each do |competency, competency_data|
       .frame
         .heading.pull-left
-          Competency_name
+          = competency
 
         .heading.pull-right
-          High
+          = competency_data[:avg_score][:bucket]
         .clr
         .divider2
-
         .left.span18
-          -6.times do
-            .span2.across_score
-              .score
-                20%
-              .divider1
-              Low
-          .clr
-          .divider2
-          .medium-text.black
-            Percentage of Assessment Takers across scores
-          .divider5
-
+          .bucket-holder
+            .connector
+            - @norm_buckets.each do |norm_bucket|
+              .span2.across_score
+                .score
+                  #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                .divider1
+                = norm_bucket.name
+            .clr
+            .divider2
+            .medium-text.black
+              Percentage of Assessment Takers across scores
+            .divider5
         .right.span11
           .divider1
           .big-text.text-center.black
@@ -34,11 +34,11 @@
           .divider1
           .pannel.span7.margin-auto
             .score_snippet.max
-              Maximum Score: Below Average 
+              Maximum Score: #{competency_data[:max_score][:bucket]}
             .score_snippet.min
-              Minimum Score: High
+              Minimum Score: #{competency_data[:min_score][:bucket]}
             .score_snippet.average
-              Average Score: Above Average 
+              Average Score: #{competency_data[:avg_score][:bucket]}
 
         .clr
         .divider1

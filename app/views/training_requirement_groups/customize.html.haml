@@ -20,6 +20,7 @@
           Download a PDF version of Training Requirements Report
     .clr
     - if @training_requirement_group_report
+      - competency_based = @assessments.size == 1 && @assessments.first.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY
       .padding-all2.border-warning.shifted-up1
         - url = customize_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :assessment_report_id => @training_requirement_group_report.id)
         = form_for @training_requirement_group_report, as: :assessment_group_report, url: url do |f|
@@ -27,17 +28,34 @@
           = f.hidden_field :assessment_group_id, value: params[:id]
           = f.hidden_field :status, value: Vger::Resources::Suitability::AssessmentReport::Status::NEW
           -  Vger::Resources::Suitability::AssessmentGroupReport.configuration.each do |name, settings|
-            - if ["TrueClass","FalseClass"].include? settings[:type]
-              .control-group
-                %label.span10.first.big-text.line-height2.gray-darker
-                  = f.check_box name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
-                  #{name}
-              .clr
+            - if settings[:flag_type] == 'competency'
+              - if competency_based
+                - if ["TrueClass","FalseClass"].include? settings[:type]
+                  .control-group
+                    %label.span10.first.big-text.line-height2.gray-darker
+                      = f.check_box name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                      #{name}
+                  .clr
+                - else
+                  .control-group
+                    %label.span10.first.big-text.line-height2.gray-darker
+                      #{name}:
+                      = f.text_field name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                  .clr
+              %br    
             - else
-              .control-group
-                %label.span10.first.big-text.line-height2.gray-darker
-                  #{name}:
-                  = f.text_field name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
-              .clr 
+              - if ["TrueClass","FalseClass"].include? settings[:type]
+                .control-group
+                  %label.span10.first.big-text.line-height2.gray-darker
+                    = f.check_box name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                    #{name}
+                .clr
+              - else
+                .control-group
+                  %label.span10.first.big-text.line-height2.gray-darker
+                    #{name}:
+                    = f.text_field name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                .clr      
+              %br
           %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
             .clr

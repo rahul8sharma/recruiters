@@ -5,17 +5,17 @@ class AssessmentReportsController < ApplicationController
 
   def training_requirements_report
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all   
-    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id])
-    @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], methods: [:training_requirements_report])
+    @report = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
                             assessment_id: params[:id],
-                            report_type: Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
-                            status: Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
+                            report_type: Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                           }).all.to_a.first
-    if !@assessment_report
-      redirect_to company_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Assessment Report not found!"
+    if !@report.report_data
+      redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), alert: "Assessment Report not found!"
       return
     end
-    @report_data = @assessment_report.report_data
+    @report.report_hash = @report.report_data
+    @report_data = @report.report_data
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else

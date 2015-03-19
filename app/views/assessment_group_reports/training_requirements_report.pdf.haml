@@ -27,7 +27,9 @@
 - limiter = Rails.application.config.reports["pdf"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
 - scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["pie_charts_step"]
 
-- factor_scores = @report_data[:factor_scores].select{|key,value| @report_data[:factor_scores].keys[0..limiter-1].include?(key) }
+- less_favorable_factors = @report_data[:factor_scores].select{|factor, factor_data| factor_data[:percentage_candidates] > 0 }
+
+- factor_scores = less_favorable_factors.select{|key,value| less_favorable_factors.keys[0..limiter-1].include?(key) }
 - (0..factor_scores.keys.length-1).step(scores_step) do |step|
   - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
   = render :template => "assessment_reports/training_requirements_report/pdf/page2", :locals => { :factor_scores => step_factor_scores, :step => step }

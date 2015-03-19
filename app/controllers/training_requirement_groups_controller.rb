@@ -21,6 +21,7 @@ class TrainingRequirementGroupsController < ApplicationController
   end
   
   def customize
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id, id: @training_requirement_group.assessment_hash.keys }, select: ["name","id","assessment_type"], order: ["created_at DESC"]).all
     if request.put?
       @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.save_existing(params[:assessment_report_id], params[:assessment_group_report])
       if @training_requirement_group_report.error_messages.empty?
@@ -95,11 +96,10 @@ class TrainingRequirementGroupsController < ApplicationController
     @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
-                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if !@report
+    if !@report.report_data
       redirect_to company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), alert: "Training Requirement Report not found!"
       return
     end
