@@ -9,7 +9,7 @@
           .blue_heading.extra-large-text
             Responses to Other Questions
           .divider1
-          = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
         .page-break
   - @report.report_data[:subjective_responses_self].each do |subjective_response_key, subjective_response_value|
 
@@ -21,5 +21,5 @@
           .blue_heading.extra-large-text
             Responses to Other Questions
           .divider1
-          = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/subjective_responses", :locals => { :role => role, :subjective_response_value => subjective_response_value, :step_responses => step_responses}
         .page-break

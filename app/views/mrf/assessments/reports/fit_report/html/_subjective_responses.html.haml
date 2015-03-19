@@ -12,11 +12,16 @@
         - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
           %li
             - role_wise_response.each do |comments|
-              .stakeholder.span3.first
-                = role.titleize
-              .comment-box.span23.pull-right
-                = comments
-                .arrow
+              - if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
+                .stakeholder.span3.first
+                  = role.titleize
+                .comment-box.span23.pull-right
+                  = comments
+                  .arrow
+              - else
+                .comment-box.span26.pull-right
+                  = comments
+                  .arrow      
               .clr
               .divider1
     - else

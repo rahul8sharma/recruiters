@@ -10,11 +10,16 @@
       %ul
         - step_responses.each do |role_wise_response|
           %li
-            .stakeholder.span2.first
-              = role.titleize
-            .comment-box.span15.pull-right
-              = role_wise_response
-              .arrow
+            - if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
+              .stakeholder.span2.first
+                = role.titleize
+              .comment-box.span15.pull-right
+                = role_wise_response
+                .arrow
+            - else
+              .comment-box.span17.pull-right
+                = role_wise_response
+                .arrow    
             .clr
             .divider1
 

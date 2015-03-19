@@ -21,11 +21,16 @@
           - trait_scores[:comments].each do |role_name, role_wise_comment|
             - if role_wise_comment.any?{ |comment| comment[:comment].present? }
               %li
-                .stakeholder.span3.first
-                  = role_name.titleize
-                .comment-box.span23.pull-right.medium-text.line-height1
-                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-                  .arrow
+                - if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
+                  .stakeholder.span3.first
+                    = role_name.titleize
+                  .comment-box.span23.pull-right.medium-text.line-height1
+                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
+                    .arrow
+                - else
+                  .comment-box.span26.pull-right.medium-text.line-height1
+                    = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
+                    .arrow    
                 .clr
         - else
           .no-responses
