@@ -13,20 +13,20 @@
           = competency_data[:avg_score][:bucket]
         .clr
         .divider2
-
         .left.span18
-          - @norm_buckets.each do |norm_bucket|
-            .span2.across_score
-              .score
-                #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
-              .divider1
-              = norm_bucket.name
-          .clr
-          .divider2
-          .medium-text.black
-            Percentage of Assessment Takers across scores
-          .divider5
-
+          .bucket-holder
+            .connector
+            - @norm_buckets.each do |norm_bucket|
+              .span2.across_score
+                .score
+                  #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                .divider1
+                = norm_bucket.name
+            .clr
+            .divider2
+            .medium-text.black
+              Percentage of Assessment Takers across scores
+            .divider5
         .right.span11
           .divider1
           .big-text.text-center.black

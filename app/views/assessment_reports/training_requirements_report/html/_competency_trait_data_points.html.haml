@@ -45,7 +45,7 @@
                       - min_score = (norm_bucket.weight < from_weight || norm_bucket.weight > to_weight) ? 'min-score' : ''
                     - else
                       - min_score = 'gray'  
-                    .child-node{ :class => "#{min_score ? 'min-score' : ''} #{index < (@norm_buckets.size/2) ? 'left-node' : 'right-node'} #{small ? 'small' : ''}"}
+                    .child-node{ :class => "#{min_score} #{index < (@norm_buckets.size/2) ? 'left-node' : 'right-node'} #{small ? 'small' : ''}"}
                       .score
                         #{factor_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
                       .bucket-name

@@ -21,6 +21,7 @@ class TrainingRequirementGroupsController < ApplicationController
   end
   
   def customize
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id, id: @training_requirement_group.assessment_hash.keys }, select: ["name","id","assessment_type"], order: ["created_at DESC"]).all
     if request.put?
       @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.save_existing(params[:assessment_report_id], params[:assessment_group_report])
       if @training_requirement_group_report.error_messages.empty?
