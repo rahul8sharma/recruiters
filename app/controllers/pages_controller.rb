@@ -72,7 +72,6 @@ class PagesController < ApplicationController
 
         # handle assessment not found scenario
       else # user has landed on the page via new assessment flow
-        params[:assessment][:is_jombay_pearson_test] = params[:assessment][:is_jombay_pearson_test] == "Yes"
         assessment_params = params[:assessment].except(:assessment_id)
         assessment_params = assessment_params.except(:factors)
         assessment_params = assessment_params.except(:competency)
