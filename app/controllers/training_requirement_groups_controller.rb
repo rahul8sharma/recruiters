@@ -76,15 +76,14 @@ class TrainingRequirementGroupsController < ApplicationController
     else
       type = "html"
     end  
-    @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.where(
+    @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
-                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if @training_requirement_group_report && @training_requirement_group_report.report_data.present?                      
-      url = S3Utils.get_url(@training_requirement_group_report.send("#{type}_bucket"),@training_requirement_group_report.send("#{type}_key"));
+    if @report.send("#{type}_bucket").present? && @report.send("#{type}_key").present?
+      url = S3Utils.get_url(@report.send("#{type}_bucket"),@report.send("#{type}_key"));
       redirect_to url
     else
       redirect_to training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id])   

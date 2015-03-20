@@ -35,7 +35,7 @@
                     .marker-container
                       - @norm_buckets.each do |norm_bucket|  
                         .marker{ class: (norm_bucket.name == competency_data[:avg_score][:bucket] ? 'active' : '') }
-                          = norm_bucket.name
+                          = norm_bucket.name if norm_bucket.name == competency_data[:avg_score][:bucket]
                       .clr
                   .clr
                 .clr
