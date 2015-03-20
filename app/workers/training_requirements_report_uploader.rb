@@ -29,7 +29,7 @@ class TrainingRequirementsReportUploader < AbstractController::Base
       @report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
 
       @report.report_hash = @report.report_data
-      if !@report.report_data[:factor_scores].present?
+      if !@report.report_data || !@report.report_data[:factor_scores].present?
         Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
           :status      => Vger::Resources::Suitability::AssessmentReport::Status::FAILED,
         )
