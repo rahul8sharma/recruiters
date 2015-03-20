@@ -31,17 +31,21 @@
                 .flow-chart
                   .parent-node
                     .final-score
-                      .pie-chart{ id: "pie_competency_#{index}", "data-percentage-candidates" => factor_data[:percentage_candidates], style: "width: 100px;height: 100px;margin-left: -15px;margin-top: -5px;" }
+                      .pie-chart{ id: "pie_competency_#{index}", "data-percentage-candidates" => factor_data[:percentage_candidates] }
                       .min-score
                         = "#{100 - factor_data[:percentage_candidates]}%"
                       .max-score
                         = "#{factor_data[:percentage_candidates]}%"
-
+                  - if factor_data[:acceptable_range]
+                    - from_weight = factor_data[:acceptable_range][:from_norm_bucket][:weight]
+                    - to_weight = factor_data[:acceptable_range][:to_norm_bucket][:weight]
+                    - diff = to_weight - from_weight
+                    - width = diff * 121
+                    - left = (from_weight-1) * 121
+                    .line{ style: "left: #{left}px;width: #{width}px;" }
                   - @norm_buckets.each_with_index do |norm_bucket, index|
                     - small = index == 2 || index == 3
                     - if factor_data[:acceptable_range]
-                      - from_weight = factor_data[:acceptable_range][:from_norm_bucket][:weight]
-                      - to_weight = factor_data[:acceptable_range][:to_norm_bucket][:weight]
                       - min_score = (norm_bucket.weight < from_weight || norm_bucket.weight > to_weight) ? 'min-score' : ''
                     - else
                       - min_score = 'gray'  
@@ -71,5 +75,5 @@
               .clr
               .divider1
               .tip
-                = factor_data[:tip]
+                = factor_data[:tip] || "-"
       .divider1

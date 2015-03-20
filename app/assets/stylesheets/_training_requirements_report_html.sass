@@ -1,4 +1,6 @@
 $trr_image_path: report/html/training_requirements_report
+body
+  font-family:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif !important
 .report.training_requirements_report
   .data_points
     .frame
@@ -62,8 +64,14 @@ $trr_image_path: report/html/training_requirements_report
           &.average
             background: #3E9DAF
     .flow-chart
+      position: relative
       width: 610px
       margin: auto
+      .line
+        height: 1px
+        border-top: 1px solid #82d23f
+        position: absolute
+        z-index: 1
       .score
         background: image-url("#{$trr_image_path}/across_score.png") no-repeat center 0
         width: 37px
@@ -87,8 +95,11 @@ $trr_image_path: report/html/training_requirements_report
           top: -25px
           padding: 0 25px
 
-          .piechart
-            margin-top: 25px
+          .pie-chart
+            width: 100px
+            height: 100px
+            margin-left: -15px
+            margin-top: -5px
 
           .max-score, .min-score
             width: 80px
@@ -112,7 +123,7 @@ $trr_image_path: report/html/training_requirements_report
         width: 120px
         height: 75px
         float: left
-        border-top: 1px solid #82d23f
+        border-top: 1px solid #fdc206
         .score
           bottom: -18px
 
