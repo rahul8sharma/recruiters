@@ -18,10 +18,12 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
   
   def create
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.new(params[:assessment_report])
-    if @assessment_report.save
+    report_types = (@assessment.report_types + [Vger::Resources::Assessment::ReportType::TRAINING_REQUIREMENT]).compact.flatten.uniq
+    @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, report_types: report_types)
+    if @assessment_report.save && @assessment.error_messages.empty?
       flash[:notice] = "Training Requirements report created for this assessment."
     else
-      flash[:error] = @assessment_report.error_messages.join("<br/>").html_safe
+      flash[:error] = (@assessment_report.error_messages + @assessment.error_messages).join("<br/>").html_safe
     end  
     redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
