@@ -83,7 +83,7 @@ class MrfReportUploader < AbstractController::Base
       @view_mode = "html"
       html = render_to_string(
          template: "mrf/assessments/reports/#{template}.html.haml",
-         layout: "layouts/reports_360.html.haml",
+         layout: "layouts/mrf/reports.html.haml",
          handlers: [ :haml ],
          formats: [ :html ]
       )
@@ -92,13 +92,13 @@ class MrfReportUploader < AbstractController::Base
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
           "mrf/assessments/reports/#{template}.pdf.haml",
-          layout: "layouts/reports_360.pdf.haml",
+          layout: "layouts/mrf/reports.pdf.haml",
           handlers: [ :haml ],
           formats: [:pdf]
         ),
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
         footer: {
-          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/reports_360.pdf.haml")
+          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
         }
       )
 
