@@ -234,6 +234,9 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "group_report" => "mrf/assessments/reports#group_report", :as => :group_report
+        get "download_group_report" => "mrf/assessments/reports#download_group_report", :as => :download_group_report
+        
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 

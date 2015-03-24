@@ -2,6 +2,49 @@ class Mrf::Assessments::ReportsController < ApplicationController
   before_filter :get_company, except: [:s3_report]
   before_filter :get_assessment, except: [:s3_report]
   
+  def group_report
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
+    end
+    if params[:competency]
+      template = "competency_group_report.#{@view_mode}.haml"
+    else
+      template = "fit_group_report.#{@view_mode}.haml" 
+    end  
+    layout = "layouts/mrf/group_reports.#{@view_mode}.haml"
+    @page = 1
+    respond_to do |format|
+      format.html { 
+        render :template => "mrf/assessments/reports/#{template}",
+        layout: layout,
+        formats: [:pdf, :html]
+      }
+      format.pdf {
+        render pdf: "report_#{params[:id]}.pdf",
+        footer: {
+          :html => {
+            template: "shared/reports/pdf/_report_footer.pdf.haml"
+          }
+        },
+        template: "mrf/assessments/reports/#{template}",
+        layout: layout,
+        handlers: [ :haml ],
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        formats: [:pdf],
+        locals: { :@view_mode => "pdf" }
+      }
+    end
+  end
+  
+  def download_group_report
+  end
+  
   def report
     report_type = params[:report_type] || "fit_report"  
     get_norm_buckets
@@ -22,7 +65,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     else
       template = "fit_report.#{@view_mode}.haml" 
     end  
-    layout = "layouts/reports_360.#{@view_mode}.haml"
+    layout = "layouts/mrf/reports.#{@view_mode}.haml"
     @page = 1
     respond_to do |format|
       format.html { 

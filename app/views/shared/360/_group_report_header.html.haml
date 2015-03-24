@@ -1,0 +1,15 @@
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+      .big-text.gray-dark.padding-all1.pull-left
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href => "#developement_guide_competencies", :title => "Development Guide for the Assessment Taker"}
+              Data Points For Competencies
+          %li.right
+= wicked_pdf_javascript_include_tag 'common'
+
