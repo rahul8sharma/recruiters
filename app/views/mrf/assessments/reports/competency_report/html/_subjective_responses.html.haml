@@ -13,10 +13,10 @@
           %li
             - role_wise_response.each do |comments|
               .stakeholder.span3.first
-                = role.titleize
+                = role.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
               .comment-box.span23.pull-right
                 = comments
-                .arrow
+                .arrow  
               .clr
               .divider1
     - else

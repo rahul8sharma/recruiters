@@ -27,7 +27,7 @@
             - if role_wise_comment.any?{ |comment| comment[:comment].present? }
               %li
                 .stakeholder.span2.first
-                  = role_name.titleize
+                  = role_name.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
                 .comment-box.span15.pull-right
                   = role_wise_comment.map { |comment| comment[:comment] }.compact.join("; ")
                   .arrow

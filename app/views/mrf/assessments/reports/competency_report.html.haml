@@ -13,9 +13,9 @@
     - if @report.report_data[:competency360_traits_decending]
       = render :partial => "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order"
     - if @report.report_data[:mrf_report_data_pts_competencies_with_frequencies]
-      = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequecy_data_points"
+      = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points"
     - if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
-      = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequecy_data_points"
+      = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequency_data_points"
     - if @report.report_data[:mrf_report_response_distribution_questions]
       = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
   = render :partial => "mrf/assessments/reports/competency_report/html/page2"

@@ -24,22 +24,21 @@
                     .rating_title.green
                       360&#176;
                     .value
-                      = competency_score[:score][:points]
+                      = competency_score[:score][:points] || "-"
                     .clr
-                  - if competency_score[:average_score_self].present? && competency_score[:average_score_self][:points].present?
-                    .divider1
-                    .rating_snippet
-                      .rating_title.blue
-                        Self Rating
-                      .value
-                        = competency_score[:average_score_self][:points]
-                      .clr
+                  .divider1
+                  .rating_snippet
+                    .rating_title.blue_light
+                      Self Rating
+                    .value
+                      = competency_score[:average_score_self][:points] || "-"
+                    .clr
                   .divider1
                   .rating_snippet
                     .rating_title.brown
                       360&#176; (Including Self)
                     .value
-                      = competency_score[:average_score_including_self][:points]
+                      = competency_score[:average_score_including_self][:points] || "-"
                     .clr
                   .divider1
                   

@@ -22,9 +22,9 @@
             - if role_wise_comment.any?{ |comment| comment[:comment].present? }
               %li
                 .stakeholder.span3.first
-                  = role_name.titleize
+                  = role_name.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
                 .comment-box.span23.pull-right.medium-text.line-height1
-                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
                   .arrow
                 .clr
         - else

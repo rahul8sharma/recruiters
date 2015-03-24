@@ -11,7 +11,7 @@
         - step_responses.each do |role_wise_response|
           %li
             .stakeholder.span2.first
-              = role.titleize
+              = role.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
             .comment-box.span15.pull-right
               = role_wise_response
               .arrow

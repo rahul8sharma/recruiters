@@ -68,8 +68,8 @@
           Assessment Type:
           = f.select :assessment_type, ["Type",Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT,Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY]
         %p
-          Pearson?
-          = f.select :is_jombay_pearson_test, ["Yes","No"]
+          Brand Partner
+          = f.select :brand_partner, [""]+Rails.application.config.brand_partners.keys
         %p#competencies{style: "display:none;"}
           %label
             Competencies

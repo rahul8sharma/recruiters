@@ -20,10 +20,31 @@ class TrainingRequirementGroupsController < ApplicationController
   def new
   end
   
+  def customize
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id, id: @training_requirement_group.assessment_hash.keys }, select: ["name","id","assessment_type"], order: ["created_at DESC"]).all
+    if request.put?
+      @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.save_existing(params[:assessment_report_id], params[:assessment_group_report])
+      if @training_requirement_group_report.error_messages.empty?
+        flash[:notice] = "Training Requirement updated successfully."
+        redirect_to training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id])   
+      else
+        flash[:error] = @training_requirement_group_report.error_messages.join("<br/>").html_safe
+        render action: :customize
+      end
+    else
+      @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.where(
+                            :query_options => {
+                              :assessment_group_id => @training_requirement_group.id,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
+                            }
+                          ).all.first
+    end                      
+  end
+  
   def create
     params[:training_requirement][:assessment_hash].reject!{|training_requirement_group_id, training_requirement_group_data| training_requirement_group_data["enabled"] != "true" }
     if @training_requirement_group.assessment_hash.present? && @training_requirement_group.save
-      redirect_to company_training_requirement_groups_path(@company)
+      redirect_to customize_company_training_requirement_group_path(:company_id => params[:company_id], :id => @training_requirement_group.id)
     else
       @training_requirement_group.error_messages ||= []
       @training_requirement_group.error_messages << "Please select at least one assessment." if !@training_requirement_group.assessment_hash.present?
@@ -55,15 +76,14 @@ class TrainingRequirementGroupsController < ApplicationController
     else
       type = "html"
     end  
-    @training_requirement_group_report = Vger::Resources::Suitability::AssessmentGroupReport.where(
+    @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
-                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if @training_requirement_group_report && @training_requirement_group_report.report_data.present?                      
-      url = S3Utils.get_url(@training_requirement_group_report.send("#{type}_bucket"),@training_requirement_group_report.send("#{type}_key"));
+    if @report.send("#{type}_bucket").present? && @report.send("#{type}_key").present?
+      url = S3Utils.get_url(@report.send("#{type}_bucket"),@report.send("#{type}_key"));
       redirect_to url
     else
       redirect_to training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id])   
@@ -75,11 +95,10 @@ class TrainingRequirementGroupsController < ApplicationController
     @report = Vger::Resources::Suitability::AssessmentGroupReport.where(
                             :query_options => {
                               :assessment_group_id => @training_requirement_group.id,
-                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if !@report
+    if !@report.report_data
       redirect_to company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), alert: "Training Requirement Report not found!"
       return
     end

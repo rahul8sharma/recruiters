@@ -1,0 +1,74 @@
+- if @report.report_data[:competency360_competencies_best_worst_scores]    
+  .classic_report
+    .scores_competencies_graph.descending_order.descending_overall_score.best_worst_scores.border-bottom-grayLighter
+      .traits_under_graph
+        .divider2
+        .large-text
+          360&#176; Scores across exercise
+        .divider1
+        .graph_container
+          .left_sec.pull-left
+            .divider2
+            %ul.default
+              %li
+
+                .span3.large-text.first.trait_title
+                  Lowest
+                .span2.first.divider2.min_rating_icon_small
+                .min_rating.medium-text.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
+                .clr
+              %li
+                .span3.large-text.first.trait_title
+                  Candidate
+                .span2.first.divider2.stakeholder_rating_icon_small
+                .stakeholder_rating.medium-text.pull-left
+                  = competency_scores[:score][:points] || "-"
+                .clr
+              %li
+                .span3.large-text.first.trait_title
+                  Highest
+                .span2.first.divider2.max_rating_icon_small
+                .max_rating.medium-text.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
+                .clr
+          .right_sec.span22.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  = @competency_graph_buckets.first.min_val
+                - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
+                  .block.pull-left{:style => "width: #{870/4}px; text-align: right"}
+                    = competency_graph_bucket.min_val
+                
+                .clr
+              .graph
+                .graph_content
+                  - old_min = @competency_graph_buckets.first.min_val
+                  - old_max = @competency_graph_buckets.last.max_val
+                  - score = @assessment.report_data[:competency_scores][competency][:min_score][:score] || old_min
+                  - percent = convertToRange(old_min, old_max, 0, 100, score)
+                  - percent = percent == 0 ? 2 : percent
+                  
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percent}%; background: #ffcf36"}
+                  .divider1
+                  .divider1
+                  - if competency_scores[:score][:points]
+                    - score = competency_scores[:score][:points]
+                    - percent = convertToRange(old_min, old_max, 0, 100, score)
+                    - percent = percent == 0 ? 2 : percent
+                  - else
+                    - percent = 0
+                  
+                  .descending_graph_bar.max{:style => "width: #{percent}%; background: #a729ac"}
+                  .divider1
+                  .divider1
+                  
+                  - score = @assessment.report_data[:competency_scores][competency][:max_score][:score] || old_min
+                  - percent = convertToRange(old_min, old_max, 0, 100, score)
+                  - percent = percent == 0 ? 2 : percent
+                  
+                  .descending_graph_bar.max{:style => "width: #{percent}%; background: #abed74"}
+                  .divider1
+          .clr

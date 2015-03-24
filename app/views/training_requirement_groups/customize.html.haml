@@ -1,0 +1,61 @@
+.create-test.creat-test-show
+  .divider1
+  .inn.first
+    .page-title.pull-left
+      #{@training_requirement_group.title}
+  .clr
+  .divider2
+  .inn.gray-gradient
+    .pull-left
+      .content-sub-nav.clearfix
+        %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""),:href => company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
+          Summary
+        %a.menu{ class: (["customize"].include?(params[:action]) ? "active" : ""), :href => customize_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
+          Customize
+        %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
+          Training Requirements
+    .span10.pull-right.text-right
+      - if @training_requirement_group_report && @training_requirement_group_report.status == Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED
+        %a.pull-right{:href => download_report_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
+          Download a PDF version of Training Requirements Report
+    .clr
+    - if @training_requirement_group_report
+      - competency_based = @assessments.size == 1 && @assessments.first.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY
+      .padding-all2.border-warning.shifted-up1
+        - url = customize_company_training_requirement_group_path(:company_id => params[:company_id], :id => params[:id], :assessment_report_id => @training_requirement_group_report.id)
+        = form_for @training_requirement_group_report, as: :assessment_group_report, url: url do |f|
+          = f.hidden_field :report_type, value: "training_requirement"
+          = f.hidden_field :assessment_group_id, value: params[:id]
+          = f.hidden_field :status, value: Vger::Resources::Suitability::AssessmentReport::Status::NEW
+          -  Vger::Resources::Suitability::AssessmentGroupReport.configuration.each do |name, settings|
+            - if settings[:flag_type] == 'competency'
+              - if competency_based
+                - if ["TrueClass","FalseClass"].include? settings[:type]
+                  .control-group
+                    %label.span10.first.big-text.line-height2.gray-darker
+                      = f.check_box name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                      #{name}
+                  .clr
+                - else
+                  .control-group
+                    %label.span10.first.big-text.line-height2.gray-darker
+                      #{name}:
+                      = f.text_field name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                  .clr
+              %br    
+            - else
+              - if ["TrueClass","FalseClass"].include? settings[:type]
+                .control-group
+                  %label.span10.first.big-text.line-height2.gray-darker
+                    = f.check_box name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                    #{name}
+                .clr
+              - else
+                .control-group
+                  %label.span10.first.big-text.line-height2.gray-darker
+                    #{name}:
+                    = f.text_field name.to_sym, :checked => @training_requirement_group_report.send(name.to_sym)
+                .clr      
+              %br
+          %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
+            .clr
