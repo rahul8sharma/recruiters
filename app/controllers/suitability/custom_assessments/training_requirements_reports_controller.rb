@@ -18,10 +18,12 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
   
   def create
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.new(params[:assessment_report])
-    if @assessment_report.save
+    report_types = (@assessment.report_types + [Vger::Resources::Assessment::ReportType::TRAINING_REQUIREMENT]).compact.flatten.uniq
+    @assessment = Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, report_types: report_types)
+    if @assessment_report.save && @assessment.error_messages.empty?
       flash[:notice] = "Training Requirements report created for this assessment."
     else
-      flash[:error] = @assessment_report.error_messages.join("<br/>").html_safe
+      flash[:error] = (@assessment_report.error_messages + @assessment.error_messages).join("<br/>").html_safe
     end  
     redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
@@ -55,15 +57,14 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
     else
       type = "html"
     end  
-    @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
+    @report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
                               :assessment_id => params[:id],
-                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT,
-                              :status        => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED,
+                              :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
-    if @assessment_report && @assessment_report.report_data.present?
-      url = S3Utils.get_url(@assessment_report.send("#{type}_bucket"),@assessment_report.send("#{type}_key"));
+    if @report.send("#{type}_bucket").present? && @report.send("#{type}_key").present?
+      url = S3Utils.get_url(@report.send("#{type}_bucket"),@report.send("#{type}_key"));
       redirect_to url
     else
       redirect_to training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])   
