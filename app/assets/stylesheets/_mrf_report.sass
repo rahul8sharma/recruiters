@@ -939,11 +939,13 @@ $mrf_image_path: report/html/mrf
     .mute_bg
       background: #f8f8f8
       width: 200px !important
-    .green_bg, .orange_bg
+    .green_bg, .orange_bg, .blue_bg
       border-top: 1px solid #fff
       border-left: 1px solid #fff
       color: #fff
       padding: 18px 0
+    .blue_bg
+      background: #a119a6  
     .green_bg
       background: #6ea4be
     .orange_bg
@@ -951,3 +953,13 @@ $mrf_image_path: report/html/mrf
       border-top: 1px solid #fff !important
     .dark_mute_bg
       background: #e3e3e3
+.group_report
+  .classic_report
+    .trait_rating 
+      width: 48%
+      .left, .right
+        padding: 6px 0
+      .left
+        padding-left: 34px
+      &.span
+        margin-left: 8px      

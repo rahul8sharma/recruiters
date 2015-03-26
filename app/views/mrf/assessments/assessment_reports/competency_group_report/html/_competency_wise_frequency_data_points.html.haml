@@ -1,0 +1,83 @@
+- if @report.report_data[:competency360_data_pts_competencies_with_frequencies]
+  .container.section03#competency-data-points
+    .divider2
+    .container
+      .title
+        Data Points on 360&#176; Competencies: Score Averages
+      .divider2
+      - @report.report_data[:competency_scores].each do |competency,competency_scores|
+        .frame
+          .heading.pull-left
+            = competency
+          .heading.pull-right
+            360&#176; Score: #{competency_scores[:average_score_excluding_self][:points]}
+          .clr
+          .divider2
+          .span28.margin-auto
+            - if @report.report_data[:competency360_competencies_textual_data_points]
+              #distribution_data_points 
+                .span8.first
+                  .large-text.bold
+                    Average Overall Score
+                  .divider1
+                  .panel.bg-white
+                    .span7.margin-auto
+                      .divider1
+                      .rating_snippet
+                        .rating_title.green
+                          360&#176; Score
+                        .value
+                          = competency_scores[:average_score_excluding_self][:points] || "-"
+                        .clr
+                      .divider1
+                .span14
+                  .large-text.bold
+                    360&#176; Scores Across Exercise
+                  .divider1
+                  .panel.bg-white
+                    .span12.margin-auto
+                      .divider1
+                      .trait_rating.max.pull-left
+                        .left
+                          Maximum Rating
+                        .right
+                          = competency_scores[:max_score_excluding_self][:points] || "-"
+                        .clr
+                      .trait_rating.min.span
+                        .left
+                          Minimum Rating
+                        .right
+                          = competency_scores[:min_score_excluding_self][:points] || "-"
+                        .clr
+                      .clr  
+                      .divider1
+                .clr    
+                .divider2
+                .span22.first
+                  .large-text.bold
+                    Average Scores Per Stakeholder Type
+                  .divider1
+                  .panel.bg-white
+                    - if competency_scores[:role_wise_scores].present?
+                      .span20.margin-auto
+                        - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
+                          .span6{ class: ((index)%3) == 0 ? "first" : "left-offset1" }
+                            .divider1
+                            .rating_snippet
+                              .rating_title.blue
+                                = role.titleize
+                              .value
+                                = score[:points]
+                              .clr
+                        .clr
+                      .divider1
+                    - else
+                      .text-center
+                        No Responses
+                .clr
+            = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/descending_overall_competency_score", locals: { competency: competency, competency_scores: competency_scores }
+            = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/descending_average_competency_rating.html.haml", locals: { competency: competency, competency_scores: competency_scores }
+            = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/scores_across_exercise.html.haml", locals: { competency: competency, competency_scores: competency_scores }
+            = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competency_frequency_rating_table", locals: { competency_scores: competency_scores, role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets }
+            .divider1
+        .divider2

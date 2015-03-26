@@ -1,10 +1,9 @@
-- if @report.report_data[:competency360_traits_visual_data_points] && trait_scores[:role_wise_scores].present?
+- if @report.report_data[:competency360_traits_visual_data_points] && trait_scores[:role_wise_scores].present? || true
   .classic_report
     .scores_competencies_graph.descending_order.descending_average_rating.border-bottom-grayLighter
       .traits_under_graph
-        .divider2
-        .extra-large-text.span22.pull-right
-          Average rating given by Stakeholders
+        .large-text.bold
+          Average Scores Per Stakeholder Type
         .clr
         .divider1
         .graph_container
@@ -42,4 +41,3 @@
                   
                     .divider1
           .clr
-  .divider2 
