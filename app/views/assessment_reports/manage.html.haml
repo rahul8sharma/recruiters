@@ -1,23 +1,23 @@
 = form_for :report, url: manage_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id]), method: :put do |f|
   = hidden_field_tag "view_mode", "html"
   - @report.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
-  %div
-    %b Company:
+  .bold
+    Company:
     #{@report.report_hash["company"]["name"]}
-  %div
-    %b Candidate:
+  .bold
+    Candidate:
     #{@report.report_hash["candidate"]["name"]}
-  %div
-    %b Assessment:
+  .bold
+    Assessment:
     #{@report.report_hash["assessment"]["name"]}
-  %div
-    %b Send Report Email:
+  .bold
+    Send Report Email:
     = select_tag "report[send_report]", options_for_select(["No","Yes"])
   %div
     = f.fields_for :overall_scores do |overall_scores_form|
       - overall_scores_form.object = OpenStruct.new()
       - overall_scores_form.object.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
-      %b Overall Score:
+      .bold Overall Score:
       = f.select :overall_factor_score_bucket_id, @overall_factor_score_buckets, {}, {}
   %br
   %br
@@ -47,10 +47,10 @@
     = f.fields_for :aggregate_scores do |aggregate_scores_form|
       - aggregate_scores_form.object = OpenStruct.new()
       - aggregate_scores_form.object.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
-      %b Aggregate Competency Score :
+      .bold Aggregate Competency Score :
       = f.select :aggregate_competency_score_bucket_id, @aggregate_competency_score_buckets, {}, {}
     %br
-    %b Competency Grades
+    .bold Competency Grades
     %table
       %tr
         %th Competency
@@ -70,8 +70,8 @@
         - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
           %br
           %br
-          %div
-            %b #{competency_name}
+          .bold
+            #{competency_name}
             %table
               %tr
                 %th Factor
