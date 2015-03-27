@@ -1,0 +1,64 @@
+= render partial: "shared/360/mrf_report_header.pdf.haml"
+
+.response_distribution
+  .divider1
+  .scores
+    .blue_heading.large-text
+      Response distribution on Questions
+    .divider1
+
+    .frame
+      .heading.pull-left
+        Achievement Orientation - Trait “Target Orientation”
+      .clr
+      .small-padding
+        .response_distribution_list
+          .pull-left.line-height2.bold
+            Questions to Other Stakeholders  
+          .stakeholder_rating_icon.span1.first.divider2 
+          .clr
+          .divider1
+
+          .span16.margin-auto 
+            %ul
+              -2.times do
+                %li
+                  Shows great vision in the imagining the future?
+                  .divider1
+                  .left-offset1
+                    .responses
+                      -6.times do
+                        .pull-left{ style: "width:#{580/6}px" }
+                          .response-title.small-text
+                            Strongly disagree                   
+                        
+                          .value
+                            1
+                      .clr
+                  .clr
+
+        .response_distribution_list.self
+          .pull-left.line-height2.bold
+            Questions to the Candidate
+          .classic_user_icon.span1.first.divider2 
+          .clr
+          .divider1
+
+          .span16.margin-auto 
+            %ul
+              -2.times do
+                %li
+                  Shows great vision in the imagining the future?
+                  .divider1
+                  .left-offset1
+                    .responses
+                      -6.times do
+                        .pull-left{ style: "width:#{580/6}px" }
+                          .response-title.small-text
+                            Strongly disagree                   
+                        
+                          .value{style: "visibility:visible"}
+                            1
+                      .clr
+                  .clr
+    .divider1                  

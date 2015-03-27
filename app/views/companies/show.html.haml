@@ -48,8 +48,8 @@
           .clr
       .divider2
       - if current_user.type == "SuperAdmin"
-        %a.btn.btn-warning.inverse.big-text.pull-left{href: edit_company_path(@company)}
-          %b Edit Company Profile
+        %a.btn.btn-warning.inverse.big-text.pull-left.bold{href: edit_company_path(@company)}
+          Edit Company Profile
 
         %a.btn.btn-warning.big-text.pull-right{href: add_subscription_company_path(@company.id)}
           Add Subscription

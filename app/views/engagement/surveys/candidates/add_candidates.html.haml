@@ -6,8 +6,8 @@
   .divider1
   .clr
   .text-center
-    %a.label.label-warning.label-small{:href => add_candidates_bulk_company_engagement_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
-      %b USE BULK UPLOAD
+    %a.label.label-warning.label-small.bold{:href => add_candidates_bulk_company_engagement_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+      USE BULK UPLOAD
     .divider1
     .big-text
       OR
@@ -23,7 +23,7 @@
     -# if current_user.type == "SuperAdmin"
       %label
         %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual'", :checked => checked}
-        %b.extra-medium-text{ class: checked ? 'checked': '' }
+        %span.extra-medium-text.bold{ class: checked ? 'checked': '' }
           Add Candidates manually:
       .divider1
     = form_for @survey, :as => :survey, :url => add_candidates_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
