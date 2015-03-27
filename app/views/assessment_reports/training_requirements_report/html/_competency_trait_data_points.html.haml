@@ -43,6 +43,10 @@
                     - width = diff * 121
                     - left = (from_weight-1) * 121
                     .line{ style: "left: #{left}px;width: #{width}px;" }
+                    .range{ style: "left: #{left}px;width: #{width}px;" }
+                      .text
+                        Expected Score Range
+                  
                   - @norm_buckets.each_with_index do |norm_bucket, index|
                     - small = index == 2 || index == 3
                     - if factor_data[:acceptable_range]
@@ -55,7 +59,7 @@
                       .bucket-name
                         = norm_bucket.name
                   .clr
-                  .divider5
+                  .divider7
                   .medium-text.black  
                     Percentage of Assessment Takers across scores
 
@@ -74,6 +78,7 @@
 
               .clr
               .divider1
-              .tip
-                = factor_data[:tip] || "-"
-      .divider1
+              - if @report.tips_in_traits
+                .tip
+                  = factor_data[:tip] || "-"
+      .divider2

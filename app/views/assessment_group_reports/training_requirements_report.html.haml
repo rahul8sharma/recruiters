@@ -59,7 +59,7 @@
 - if @report.data_points_traits && !@report.include_competencies
   = render :partial => "assessment_reports/training_requirements_report/html/trait_data_points"
 
-- if @report.tips_in_traits
+- if @report.areas_of_improvements
   - scores_step = Rails.application.config.reports["html"]["training_requirements_report"]["scores_step"]
   - (0..less_favorable_factors.keys.length-1).step(scores_step) do |step|
     - step_factor_scores = less_favorable_factors.slice(*less_favorable_factors.keys[step..(step+(scores_step - 1))])
