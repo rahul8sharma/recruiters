@@ -1105,6 +1105,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
+  match "/sidekiq/upload_mrf_group_reports", :to => "sidekiq#upload_mrf_group_reports"
   match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
   match "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"
