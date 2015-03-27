@@ -42,7 +42,7 @@
               .block.pull-left
                 = @competency_graph_buckets.first.min_val
               - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
-                .block.pull-left{:style=>"width: #{830/4}px; text-align: right"}
+                .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size-1)}px; text-align: right"}
                   = competency_graph_bucket.min_val
 
               .clr

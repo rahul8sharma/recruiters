@@ -1,19 +1,19 @@
-- if @report.report_data[:competency360_traits_visual_data_points] && trait_scores[:role_wise_scores].present?
+- if @report.report_data[:competency360_competencies_visual_data_points] && competency_scores[:role_wise_scores].present? || true
   .classic_report
     .scores_competencies_graph.descending_order.descending_average_rating.border-bottom-grayLighter
       .traits_under_graph
         .divider2
-        .extra-large-text.span22.pull-right
-          Average rating given by Stakeholders
+        .large-text.bold
+          Average Scores Per Stakeholder Type
         .clr
         .divider1
         .graph_container
           .left_sec.pull-left
             .divider2
             %ul
-              - trait_scores[:role_wise_scores].each do |role, scores|
+              - competency_scores[:role_wise_scores].each do |role, scores|
                 %li
-                  .span5.big-text.first.trait_title
+                  .span5.large-text.first.trait_title
                     = role.pluralize.titleize
                     
                   .stakeholder_rating.medium-text.pull-left
@@ -24,17 +24,17 @@
             .classic_competency_graph
               .classic_competency_graph_scale
                 .block.pull-left
-                  = @trait_graph_buckets.first.min_val
-                - @trait_graph_buckets[1..@trait_graph_buckets.length-1].each do |trait_graph_bucket|
-                  .block.pull-left{:style=>"width: #{870/(@trait_graph_buckets.size-1)}px; text-align: right"}
-                    = trait_graph_bucket.min_val
+                  = @competency_graph_buckets.first.min_val
+                - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
+                  .block.pull-left{:style=>"width: #{870/(@competency_graph_buckets.size-1)}px; text-align: right"}
+                    = competency_graph_bucket.min_val
 
                 .clr
               .graph
                 .graph_content
-                  - trait_scores[:role_wise_scores].each do |role, scores|
-                    - old_min = @trait_graph_buckets.first.min_val
-                    - old_max = @trait_graph_buckets.last.max_val
+                  - competency_scores[:role_wise_scores].each do |role, scores|
+                    - old_min = @competency_graph_buckets.first.min_val
+                    - old_max = @competency_graph_buckets.last.max_val
                     - percent = convertToRange(old_min, old_max, 0, 100, scores[:points])
                     - percent = percent == 0 ? 2 : percent
                     .divider1
@@ -42,4 +42,3 @@
                   
                     .divider1
           .clr
-  .divider2 

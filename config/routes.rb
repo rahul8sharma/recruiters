@@ -234,8 +234,12 @@ Recruiters::Application.routes.draw do
       end
 
       member do
-        get "group_report" => "mrf/assessments/reports#group_report", :as => :group_report
-        get "download_group_report" => "mrf/assessments/reports#download_group_report", :as => :download_group_report
+        get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
+        get "group_report/:report_id/mrf_report" => "mrf/assessments/assessment_reports#group_report", :as => :group_report
+        
+        get "group_report" => "mrf/assessments/assessment_reports#manage", :as => :manage_group_report
+        post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
+        put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
         
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits

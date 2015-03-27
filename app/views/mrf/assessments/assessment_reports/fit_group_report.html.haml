@@ -1,0 +1,9 @@
+- @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
+.competency_report.group_report
+  = render :partial => "mrf/assessments/assessment_reports/fit_group_report/html/page1"
+  .classic_report
+    = render :partial => "mrf/assessments/assessment_reports/fit_group_report/html/traits_descending_order"
+    = render :partial => "mrf/assessments/assessment_reports/fit_group_report/html/trait_wise_frequency_data_points"
+  = render :partial => "mrf/assessments/assessment_reports/fit_group_report/html/page9"
+  = render :partial => "shared/reports/html/about_us"
+  = render :partial => "shared/reports/html/legal_disclaimer"

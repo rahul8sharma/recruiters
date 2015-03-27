@@ -1,0 +1,69 @@
+- if @report.report_data[:competency360_competencies_descending]
+  - sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_i }.reverse
+  .scores_competencies_graph.descending_order.section02#competency-scores
+    .divider2
+    .container
+      .title
+        360&#176; Competencies: Score Averages in Descending Order
+      .divider2
+      .graph_instructions.medium-text
+        .stakeholder_rating_icon.span.first
+        .span
+          %span.bold
+            360&#176; 
+          Rating
+        .classic_user_icon.span
+        .span.bold
+          Self Rating
+        
+        .clr
+
+      .traits_under_graph
+        .graph_container
+          .left_sec.pull-left
+            .graph_instructions.left-offset4
+              .span1.divider2.stakeholder_rating_icon
+              .span1.divider2.classic_user_icon
+              .clr
+            %ul
+              - sorted_competency_scores.each do |competency, competency_score|
+                %li
+                  .span6.extra-medium-text.first.trait_title
+                    = competency
+                    
+                  .stakeholder_rating.medium-text.pull-left
+                    = competency_score[:average_score_excluding_self][:points] || "-"
+                  .self_rating.medium-text.span
+                    = competency_score[:average_score_self][:points] || "-"
+                  .clr
+                
+          .right_sec.span21.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  = @competency_graph_buckets.first.min_val
+                - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
+                  .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size-1)}px; text-align: right"}
+                    = competency_graph_bucket.min_val
+
+                .clr
+              .graph
+                .graph_content
+                  - old_min = @competency_graph_buckets.first.min_val
+                  - old_max = @competency_graph_buckets.last.max_val
+                  - sorted_competency_scores.each do |competency, competency_score|
+                    - if competency_score[:average_score_excluding_self][:points]
+                      - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_score[:average_score_excluding_self][:points])
+                      - percent_360 = percent_360 == 0 ? 2 : percent_360
+                    - else
+                      - percent_360 = 0
+                    - if competency_score[:average_score_self][:points]
+                      - percent_self = convertToRange(old_min, old_max, 0, 100, competency_score[:average_score_self][:points])
+                      - percent_self = percent_self == 0 ? 2 : percent_self
+                    - else
+                      - percent_self = 0
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
+                    .descending_graph_bar.min{:style => "width: #{percent_self}%; background: #24d8ba"}
+                    .divider1
+          .clr

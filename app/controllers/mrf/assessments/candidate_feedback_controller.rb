@@ -7,7 +7,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   before_filter :get_assessment
   before_filter :get_candidate, only: [:statistics, :stakeholders]
 
-  layout 'mrf'
+  layout 'mrf/mrf'
 
   def send_reminder
     Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
