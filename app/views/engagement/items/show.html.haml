@@ -1,6 +1,6 @@
 %h3 Item #{@item.id}
 %p
-  %b Body:
+  %span.bold Body:
   = @item.body
   %br
 = link_to "Edit", edit_engagement_item_path(params[:id])

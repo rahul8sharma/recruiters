@@ -1,0 +1,55 @@
+.scores
+  .scores_competencies_graph.descending_order
+    .blue_heading.large-text
+      360&#176; Traits: Scores in Descending Order
+    .divider1
+    .graph_instructions
+      .stakeholder_rating_icon.pull-left
+      .pull-left.bold
+        360&#176; Rating
+      .classic_user_icon.span
+      .pull-left.bold
+        Self Rating
+      
+      .clr
+
+    .traits_under_graph
+      .graph_container
+        .left_sec.pull-left
+          .graph_instructions{style:"margin-left:135px"}
+            .span1.divider2.stakeholder_rating_icon
+            .span1.divider2.classic_user_icon.first
+            .clr
+          %ul
+            - 5.times do
+              %li
+                .span4.first.trait_title
+                  competency
+                  
+                .stakeholder_rating.medium-text.pull-left
+                  33
+                .self_rating.medium-text.span
+                  33
+                .clr
+              
+        .right_sec.span13.pull-right
+          .classic_competency_graph
+            .classic_competency_graph_scale
+              .block.pull-left
+                0
+              - 4.times do |index|
+                .block.pull-left{:style=>"width: #{510/4}px; text-align: right"}
+                  #{index+2}
+
+              .clr
+            .graph
+              .graph_content
+                .descending_graph_bar.max{:style => "width: 33%; background: #a119a6; margin-top:10px"}
+                .descending_graph_bar.min{:style => "width: 33%; background: #24d8ba"}
+
+                -4.times do
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: 33%; background: #a119a6; margin-top:10px"}
+                  .descending_graph_bar.min{:style => "width: 33%; background: #24d8ba"}
+
+        .clr

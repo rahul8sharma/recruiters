@@ -1,0 +1,38 @@
+.graph_container
+  .left_sec.pull-left
+    .graph_instructions
+      .span1.divider1.stakeholder_rating_icon
+      .span1.divider1.classic_user_icon.first
+      .clr
+    %ul
+      - 3.times do
+        %li
+          .span5.first
+            competency Name
+          .stakeholder_rating.small-text.pull-left
+            3.3
+          .self_rating.small-text.span
+            3.3
+          .clr
+  .right_sec.span13.first.pull-right
+    .classic_competency_graph
+      .classic_competency_graph_scale
+        .block.pull-left
+          0
+        - 4.times do |index|
+          .block.pull-left{:style=>"width: #{510/4}px; text-align: right"}
+            #{index+2}
+        .clr
+      .graph
+        .graph_content
+          -3.times do
+            .divider1
+            .graph_bar{ style: "margin-left:20%;width:20%" }
+              .graph_self_rating{style:"left:-14px;right:auto"}
+              .graph_stakeholder_rating{style:"right:-14px;left:auto"}
+
+            .divider1
+            
+          
+  .clr
+

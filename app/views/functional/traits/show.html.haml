@@ -1,9 +1,9 @@
 %h3 Functional Trait #{@trait.id}
 %p
-  %b Name:
+  %span.bold Name:
   = @trait.name
   %br
-  %b Definition:
+  %span.bold Definition:
   = @trait.definition
 %br
 = link_to "Edit", edit_functional_trait_path(@trait)

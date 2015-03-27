@@ -13,7 +13,7 @@
   .divider1
   - if !report && @company.admin.email == current_user.email
     .extra-large-text.text-center
-      %b Test Yourself
+      %span.bold Test Yourself
       %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}
     .divider1
     .text-center.padding-all1.border-primary.gray-darker.or
@@ -33,8 +33,8 @@
       .divider1
     .divider3
 
-    .extra-large-text.text-center
-      %b Test Others
+    .extra-large-text.text-center.bold
+      Test Others
   .divider1
   .border-primary.gray-darker
     .divider1
@@ -116,9 +116,8 @@
 
   .divider2
   #how-it-works.info-list.text-center
-    .extra-large-text.text-center
-      %b
-        How it Works
+    .extra-large-text.text-center.bold
+      How it Works
     .divider4
     #section01
       .left-offset1

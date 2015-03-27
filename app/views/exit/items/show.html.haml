@@ -1,12 +1,12 @@
 %h3 Item #{@item.id}
 %p
-  %b Body:
+  %span.bold Body:
   = @item.body
 %p
-  %b Selectable Options:
+  %span.bold Selectable Options:
   = @item.selectable_options
 %p
-  %b Active:
+  %span.bold Active:
   = @item.active
   %br
 = link_to "Edit", edit_exit_item_path(params[:id])
