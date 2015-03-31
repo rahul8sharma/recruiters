@@ -46,7 +46,11 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
   end
   
   def s3_report
-    report = Vger::Resources::Mrf::AssessmentReport.find(params[:report_id],params)
+    report = Vger::Resources::Mrf::AssessmentReport.find(params[:report_id],{
+      assessment_id: params[:id],
+      company_id: params[:company_id],
+      report_id: params[:report_id]
+    })
     if request.format.to_s == "application/pdf"
       url = S3Utils.get_url(report.pdf_bucket, report.pdf_key)
     else

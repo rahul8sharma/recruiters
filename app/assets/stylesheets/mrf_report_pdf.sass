@@ -221,6 +221,7 @@ $mrf_image_path: report/pdf/mrf
       .left_sec
         float: left
         .content
+          border: none
           border-width: 0px !important
           border-right: 1px solid #ccc !important
           padding: 20px 20px 10px 20px
@@ -623,6 +624,28 @@ $mrf_image_path: report/pdf/mrf
         .box
           border-color: #6ea6bf
 
+.strength_weakness_areas
+  ul
+    li
+      line-height: 25px
+  .section_description
+    border: 1px solid #28b29b
+    .left-info
+      color: #FFFFFF
+      margin-left: 0px
+      background: #28b29b
+      vertical-align: top
+      width: 50%
+    .right-info
+      background: #FFFFFF
+      color: #000000
+      vertical-align: top
+      width: 50%
+      ul
+        padding-left: 15px
+        li
+          list-style: initial !important
+
 .classic_report
   color: #000
   .response_distribution_list
@@ -698,11 +721,11 @@ $mrf_image_path: report/pdf/mrf
             line-height: 27px
             background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
           .self_rating
-            line-height: 22px
+            line-height: 25px
             background: #24d8ba
             border: 2px solid #24d8ba
-            height: 22px
-            width: 22px
+            height: 25px
+            width: 25px
           .clr
       .right_sec
         .classic_competency_graph
@@ -744,11 +767,11 @@ $mrf_image_path: report/pdf/mrf
                   width: 2px !important
                   .overlapped_score_icon
                     background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
-                    height: 38px
-                    width: 38px
+                    height: 27px
+                    width: 27px
                     position: absolute
-                    top: -19px
-                    left: -19px
+                    top: -13.5px
+                    left: -13.5px
                   &.trait_under
                     .overlapped_score_icon
                       background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center !important
@@ -763,8 +786,8 @@ $mrf_image_path: report/pdf/mrf
 
                 .graph_self_rating
                   z-index: 1
-                  width: 23px
-                  height: 23px
+                  width: 25px
+                  height: 25px
                   border: 2px solid #24d8ba
                   background: image-url('#{$mrf_image_path}/self.png') #24d8ba no-repeat center center 
     

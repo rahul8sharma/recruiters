@@ -1,64 +1,69 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
-
-.response_distribution
-  .divider1
-  .scores
-    .blue_heading.large-text
-      Response distribution on Questions
-    .divider1
-
-    .frame
-      .heading.pull-left
-        Achievement Orientation - Trait “Target Orientation”
-      .clr
-      .small-padding
-        .response_distribution_list
-          .pull-left.line-height2.bold
-            Questions to Other Stakeholders  
-          .stakeholder_rating_icon.span1.first.divider2 
-          .clr
+- if @report.report_data[:mrf_report_response_distribution_questions]
+  - @report.report_data[:competency_scores].each do |competency,competency_scores|
+    - competency_scores[:trait_scores].each do |trait_score|
+      = render partial: "shared/360/mrf_report_header.pdf.haml"
+      .response_distribution
+        .divider1
+        .scores
+          .blue_heading.large-text
+            Response distribution on Questions
           .divider1
-
-          .span16.margin-auto 
-            %ul
-              -2.times do
-                %li
-                  Shows great vision in the imagining the future?
-                  .divider1
-                  .left-offset1
-                    .responses
-                      -6.times do
-                        .pull-left{ style: "width:#{580/6}px" }
-                          .response-title.small-text
-                            Strongly disagree                   
-                        
-                          .value
-                            1
-                      .clr
+          .frame
+            .heading.pull-left
+              #{competency}: Trait "#{trait_score[:trait][:name]}"
+            .clr
+            .small-padding
+              - if trait_score[:items][:other_responses].find{|item_data| item_data[:responses].present? }
+                .response_distribution_list
+                  .pull-left.line-height2.bold
+                    Questions to Other Stakeholders  
+                  .stakeholder_rating_icon.span1.first.divider2 
                   .clr
+                  .divider1
+        
+                  .span16.margin-auto 
+                    %ul
+                      - trait_score[:items][:other_responses].each do |item_data|
+                        - if item_data[:responses].present?
+                          %li
+                            = item_data[:item]
+                            .divider1
+                            .left-offset1
+                              .responses
+                                - add_br = item_data[:responses].keys.find{|body| body.size > 20 }
+                                - item_data[:responses].each_with_index do |(body,response_count),index|
+                                  .pull-left{ style: "width:#{580/(item_data[:responses].size)}px" }
+                                    .response-title.small-text
+                                      = body
+                                    .value
+                                      = response_count
+                                .clr
+                            .clr
+              - if trait_score[:items][:self_responses].find{|item_data| item_data[:responses].present? }
+                .response_distribution_list.self
+                  .pull-left.line-height2.bold
+                    Questions to the Candidate
+                  .classic_user_icon.span1.first.divider2 
+                  .clr
+                  .divider1
 
-        .response_distribution_list.self
-          .pull-left.line-height2.bold
-            Questions to the Candidate
-          .classic_user_icon.span1.first.divider2 
-          .clr
+                  .span16.margin-auto 
+                    %ul
+                      - trait_score[:items][:self_responses].each do |item_data|
+                        - if item_data[:responses].present?
+                          %li
+                            = item_data[:item]
+                            .divider1
+                            .left-offset1
+                              .responses
+                                - add_br = item_data[:responses].keys.find{|body| body.size > 20 }
+                                - item_data[:responses].each_with_index do |(body,response_count),index|
+                                  .pull-left{ style: "width:#{580/(item_data[:responses].size)}px" }
+                                    .response-title.small-text
+                                      = body
+                                    .value{ style: "#{response_count > 0 ? 'visibility:visible':'' }" }
+                                      = response_count
+                                .clr
+                            .clr
           .divider1
-
-          .span16.margin-auto 
-            %ul
-              -2.times do
-                %li
-                  Shows great vision in the imagining the future?
-                  .divider1
-                  .left-offset1
-                    .responses
-                      -6.times do
-                        .pull-left{ style: "width:#{580/6}px" }
-                          .response-title.small-text
-                            Strongly disagree                   
-                        
-                          .value{style: "visibility:visible"}
-                            1
-                      .clr
-                  .clr
-    .divider1                  
+      .page-break                  

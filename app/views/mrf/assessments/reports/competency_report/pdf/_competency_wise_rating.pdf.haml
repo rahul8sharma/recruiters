@@ -1,3 +1,4 @@
+.divider1
 .frame.mrf.gray-bg
   .heading.pull-left
     #{competency_name} : #{competency_scores[:score][:bucket]}
@@ -7,6 +8,20 @@
     %li
       .left_sec
         .content
+          .trait_rating.max
+            .left
+              Maximum Rating
+            .right
+              = competency_scores[:max_score_excluding_self][:bucket]
+            .clr
+
+          .trait_rating.min
+            .left
+              Minimum Rating
+            .right
+              = competency_scores[:min_score_excluding_self][:bucket]
+            .clr
+            
           .trait_rating.self
             .left
               Self Rating
@@ -20,8 +35,6 @@
               .right
                 = competency_scores[:assessment_rating] rescue 'NA'
               .clr
-
-          .divider1
 
           .overall_average
             %p
@@ -65,8 +78,5 @@
                   No Responses Yet
             .clr
             .divider3
-
       .clr
-
-      .divider2
-.divider1
+      .divider1

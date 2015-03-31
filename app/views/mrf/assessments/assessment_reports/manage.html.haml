@@ -12,7 +12,7 @@
     - if @group_report.id.present?
       - url = update_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id)
       - if @group_report.html_key && @group_report.html_bucket
-        = link_to "View Group Report", s3_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id)
+        = link_to "View Group Report", s3_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id), :class => "big-text"
       - else
         .medium-text
           %i.icon-spinner.icon-spin 
@@ -24,7 +24,11 @@
     = form_for @group_report, as: :group_report, url: url do |f|
       = f.hidden_field :assessment_id, value: @assessment.id
       = f.hidden_field :status, value: Vger::Resources::Mrf::AssessmentReport::Status::SCORED
-      -  Vger::Resources::Mrf::AssessmentReport.configuration.each do |name, settings|
+      - if @assessment.configuration[:use_competencies]
+        - settings = Vger::Resources::Mrf::AssessmentReport.configuration.select{|name,settings| ["competency","all"].include?(settings[:flag_type]) }
+      - else
+        - settings = Vger::Resources::Mrf::AssessmentReport.configuration.select{|name,settings| ["fit","all"].include?(settings[:flag_type]) }  
+      -  settings.each do |name, settings|
         - if ["TrueClass","FalseClass"].include? settings[:type]
           .control-group
             %label.span16.first.big-text.line-height2.gray-darker
@@ -40,6 +44,6 @@
           %br
       %br    
       .left-offset6
-        = f.submit "Submit", class: "btn btn-warning btn-large"              
+        = f.submit "Submit", class: "btn btn-warning big-text"              
       .clr  
         

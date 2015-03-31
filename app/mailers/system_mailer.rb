@@ -29,6 +29,14 @@ class SystemMailer < ActionMailer::Base
     to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
+  
+  def send_mrf_group_report(report_id, report_hash)
+    @report_id = report_id
+    @report_hash = report_hash
+    subject = "360 Degree Group Report ready for #{report_hash[:assessment][:id]}"
+    to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
+    mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
+  end
 
   def send_engagement_report(report_id,report_hash)
     @report_id = report_id

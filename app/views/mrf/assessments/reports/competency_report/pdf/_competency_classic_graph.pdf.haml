@@ -5,34 +5,54 @@
       .span1.divider1.classic_user_icon.first
       .clr
     %ul
-      - 3.times do
+      - @report.report_data[:competency_scores].each do |competency, competency_scores|
         %li
           .span5.first
-            competency Name
+            = competency
           .stakeholder_rating.small-text.pull-left
-            3.3
+            = competency_scores[:score][:points]
           .self_rating.small-text.span
-            3.3
+            = competency_scores[:average_score_self][:points]
           .clr
   .right_sec.span13.first.pull-right
     .classic_competency_graph
       .classic_competency_graph_scale
         .block.pull-left
-          0
-        - 4.times do |index|
-          .block.pull-left{:style=>"width: #{510/4}px; text-align: right"}
-            #{index+2}
+          = @competency_graph_buckets[0].min_val
+        - @competency_graph_buckets[1..100].each do |competency_graph_bucket|
+          .block.pull-left{:style=>"width: #{510/(@competency_graph_buckets.size-1)}px; text-align: right"}
+            = competency_graph_bucket.min_val
         .clr
       .graph
         .graph_content
-          -3.times do
+          - @report.report_data[:competency_scores].each do |competency,competency_scores|
+            - self_score = competency_scores[:average_score_self][:points]
+            - other_score = competency_scores[:score][:points]
+            - min = @competency_graph_buckets.map(&:min_val).min
+            - max = @competency_graph_buckets.map(&:min_val).max
+            - if self_score && other_score
+              - min_score = [self_score,other_score].min
+              - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
+              - margin = convertToRange(min,max,0,100,min_score)
+              .divider1
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                - if self_score == other_score
+                  .overlapped_score_icon
+                - else
+                  -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                  .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                  .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
+            - elsif(self_score || other_score)
+              - min_score = (self_score || other_score)
+              - width = 0
+              - margin = convertToRange(min,max,0,100,min_score)
+              .divider1
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
+                -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
+                - if self_score
+                  .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
+                - else  
+                  .graph_stakeholder_rating{ style: "#{min_score == other_score ? 'left:-19px;right:auto;' : 'right:-19px;left:auto'}" }
             .divider1
-            .graph_bar{ style: "margin-left:20%;width:20%" }
-              .graph_self_rating{style:"left:-14px;right:auto"}
-              .graph_stakeholder_rating{style:"right:-14px;left:auto"}
-
-            .divider1
-            
-          
   .clr
 

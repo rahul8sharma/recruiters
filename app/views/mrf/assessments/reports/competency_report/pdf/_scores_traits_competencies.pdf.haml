@@ -19,6 +19,7 @@
         .trait_overlapped_score_icon.span
         .clr
       .clr
-    
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/traits_under_competency_classic_graph"
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/traits_under_competency_classic_graph"
+    - page.each do |competency, hash|  
+      - competency_scores = @report.report_data[:competency_scores][competency]
+      - trait_scores = hash[:pick]
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/traits_under_competency_classic_graph", locals: { competency: competency, competency_scores: competency_scores, trait_scores: trait_scores }

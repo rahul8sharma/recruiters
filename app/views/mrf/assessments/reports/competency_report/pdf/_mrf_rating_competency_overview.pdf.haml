@@ -1,24 +1,26 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
-.mrf_rating_competency_overview{style:"padding: 18px 30px;"}
-  .divider2
-  .color-warning.large-text
-    Ratings Overview of Competencies / Values Measured
-  .divider2
-  .content
-    .overview-title
-      .left
-        Competency
-      .right
-        360&#176; Rating
-      .clr
+- if @report.report_data[:mrf_report_cover]
+  = render partial: "shared/360/mrf_report_header.pdf.haml"
+  .mrf_rating_competency_overview{style:"padding: 18px 30px;"}
+    .divider2
+    .color-warning.large-text
+      Ratings Overview of Competencies / Values Measured
+    .divider2
+    .content
+      .overview-title
+        .left
+          Competency
+        .right
+          360&#176; Rating
+        .clr
 
-    %ul.competency-list
-      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-        %li
-          .competency-name
-            = competency_name
-          .competency-value
-            = competency_scores[:score][:bucket]
-          .clr
-    .bg
-  .divider2
+      %ul.competency-list
+        - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+          %li
+            .competency-name
+              = competency_name
+            .competency-value
+              = competency_scores[:score][:bucket]
+            .clr
+      .bg
+    .divider2
+  .page-break  
