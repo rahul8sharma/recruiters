@@ -23,7 +23,7 @@
         
     = form_for @group_report, as: :group_report, url: url do |f|
       = f.hidden_field :assessment_id, value: @assessment.id
-      = f.hidden_field :status, value: Vger::Resources::Mrf::AssessmentReport::Status::SCORED
+      = f.hidden_field :status, value: Vger::Resources::Mrf::AssessmentReport::Status::NEW
       - if @assessment.configuration[:use_competencies]
         - settings = Vger::Resources::Mrf::AssessmentReport.configuration.select{|name,settings| ["competency","all"].include?(settings[:flag_type]) }
       - else
