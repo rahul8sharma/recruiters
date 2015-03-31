@@ -20,7 +20,7 @@
           .divider1
           - if @report.report_data[:competency360_traits_textual_data_points]
             .border-bottom-grayLighter
-              .span4.first.border-right-grayLighter
+              .span5.first.border-right-grayLighter
                 .small-text.black.bold
                   Overall Scores
                 .divider1
@@ -43,7 +43,7 @@
                   - if index%2==1  
                     .clr
                     .divider1
-              .pull-left.left-offset1.bold
+              .pull-right.bold
                 .divider2
                 .color-min
                   Minimum Rating: #{trait_scores[:min_score_excluding_self][:points]}
