@@ -1,11 +1,26 @@
 - if @report.report_data[:mrf_report_data_pts_competencies_avg] || @report.report_data[:mrf_report_data_pts_competencies]
   = render partial: "shared/360/mrf_report_header.pdf.haml"
   #developement_guide_competencies.section03
-    .divider1
     .scores
       .blue_heading.extra-large-text
         Data Points on 360&#176; Scores of Competencies
-      .divider2
-      - if @report.report_data[:mrf_report_data_pts_competencies_avg]
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}
-      .divider2
+      .divider1
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_data_points",:locals =>{:role_wise_scores => @report.report_data[:role_wise_scores]}
+  .page-break
+  
+  - competency_name, competency_scores = @report.report_data[:competency_scores].first
+  - if competency_scores[:role_wise_scores].size < 5
+    - competency_scores = @report.report_data[:competency_scores].except(*[@report.report_data[:competency_scores].keys.first])
+  - else
+    - competency_scores = @report.report_data[:competency_scores]  
+  - competency_scores.each_slice(2) do |step_competency_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    #developement_guide_competencies.section03
+      .divider1
+      .scores
+        .blue_heading.extra-large-text
+          Data Points on 360&#176; Scores of Competencies
+        - step_competency_scores.each do |competency_name, competency_scores|
+          - if @report.report_data[:mrf_report_data_pts_competencies]
+            = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_wise_rating", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+    .page-break         

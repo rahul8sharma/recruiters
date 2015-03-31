@@ -1,0 +1,59 @@
+- if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+  - @report.report_data[:competency_scores].each do |competency, competency_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    .scores
+      .divider2
+      .blue_heading.large-text
+        Data Points on 360&#176; Scores: Competencies
+      .divider1
+      .frame.mrf.gray-bg
+        .heading.pull-left
+          = competency
+        .heading.pull-right 
+          360&#176; Score:
+          = competency_scores[:score][:points]
+        .clr 
+        .divider1
+        .small-padding
+          - if @report.report_data[:competency360_competencies_textual_data_points]
+            .border-bottom-grayLighter
+              .span5.first.border-right-grayLighter
+                .small-text.black.bold
+                  Overall Scores
+                .divider1
+                .bold.color-stakeholder
+                  360&#176; Score: 
+                  = competency_scores[:score][:points] || "-"
+                .divider1
+                .bold.color-self
+                  Self Rating: 
+                  = competency_scores[:average_score_self][:points] || "-"
+                .divider1
+                .bold.color-including-self
+                  360&#176; (Including Self): 
+                  = competency_scores[:average_score_including_self][:points] || "-"
+              .span12
+                .small-text.black.bold.left-offset1
+                  Average rating given by Stakeholders
+                .divider1
+
+                - competency_scores[:role_wise_scores].each_with_index do |(role, role_wise_score),index|
+                  .color-average.span4.bold.left-offset1
+                    #{role.titleize}: #{role_wise_score[:points]}
+                  - if index%2 == 1
+                    .clr
+                    .divider1
+
+              .clr
+              .divider1
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_wise_best_worst_scores.pdf.haml", locals: { competency: competency, competency_scores: competency_scores }
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/descending_overall_competency_scores.pdf.haml", locals: { competency: competency, competency_scores: competency_scores }
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/descending_average_competency_rating.pdf.haml", locals: { competency: competency, competency_scores: competency_scores }      
+
+           
+    .page-break 
+    - if @report.report_data[:competency360_competencies_frequency_of_ratings]
+      = render partial: "shared/360/mrf_report_header.pdf.haml"   
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+      .page-break
+                   

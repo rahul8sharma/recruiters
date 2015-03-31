@@ -32,9 +32,9 @@
                 .clr
               .graph
                 .graph_content
+                  - old_min = @trait_graph_buckets.first.min_val
+                  - old_max = @trait_graph_buckets.last.max_val
                   - trait_scores[:role_wise_scores].each do |role, scores|
-                    - old_min = @trait_graph_buckets.first.min_val
-                    - old_max = @trait_graph_buckets.last.max_val
                     - percent = convertToRange(old_min, old_max, 0, 100, scores[:points])
                     - percent = percent == 0 ? 2 : percent
                     .divider1

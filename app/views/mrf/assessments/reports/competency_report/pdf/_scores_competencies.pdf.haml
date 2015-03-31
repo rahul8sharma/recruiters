@@ -1,25 +1,44 @@
-= render partial: "shared/360/mrf_report_header.pdf.haml"
-.scores
-  #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
-    .divider1
-    .blue_heading.large-text
-      360&#176; Scores: Competencies
-    .divider1
-    .graph_instructions.medium-text
-      .classic_user_icon.pull-left
-      .user_rating.pull-left
-        Self Rating
-      .stakeholder_rating_icon.span
-      .stakeholder_rating.pull-left
-        Rating by other Stakeholders
-      .overlapped_score
-        .span.left-offset1
-          Score Overlap is indicated by 
-        .competency_overlapped_score_icon.span
-        .span
-          or
-        .trait_overlapped_score_icon.span
+- if @report.report_data[:mrf_report_percentage_competency_scores]
+  = render partial: "shared/360/mrf_report_header.pdf.haml"
+  .scores
+    #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
+      .divider1
+      .blue_heading.large-text
+        360&#176; Scores: Competencies
+      .divider1
+      .graph_instructions.medium-text
+        .classic_user_icon.pull-left
+        .user_rating.pull-left
+          Self Rating
+        .stakeholder_rating_icon.span
+        .stakeholder_rating.pull-left
+          Rating by other Stakeholders
+        .overlapped_score
+          .span.left-offset1
+            Score Overlap is indicated by 
+          .competency_overlapped_score_icon.span
+          .span
+            or
+          .trait_overlapped_score_icon.span
+          .clr
         .clr
-      .clr
-    .divider1
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_classic_graph"
+      .divider1
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_classic_graph"
+  - if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
+    - total_competencies = @report.report_data[:competency_scores].size
+    - traits_under_each_competency = Hash[@report.report_data[:competency_scores].collect{|competency,competency_scores| [competency, competency_scores[:trait_scores]] }]
+    - available = 16 - total_competencies
+    - first_page = Hash[traits_under_each_competency.collect{|competency, traits| pick = (traits.size > available ? traits[0..(available-1)] : traits); available = available - pick.size; traits_under_each_competency[competency] = (traits - traits[0..(pick.size-1)]); [competency,{ pick: pick, pending: (traits.size - pick.size) }] }]
+    - first_page = first_page.select{|competency, hash| hash[:pick].size > 0 }
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/scores_traits_competencies", locals: { page: first_page }
+
+    - competencies = @report.report_data[:competency_scores].keys - first_page.select{|competency,hash| hash[:pending] == 0 }.keys
+    - while(competencies.present?) do
+      - available = 16
+      - page = Hash[traits_under_each_competency.slice(*competencies).collect{|competency, traits| pick = (traits.size > available ? traits[0..(available-1)] : traits); available = available - pick.size; traits_under_each_competency[competency] = (traits - traits[0..(pick.size-1)]); [competency,{ pick: pick, pending: (traits.size - pick.size) }] }]
+      - page = page.select{|competency, hash| hash[:pick].size > 0 }
+      .page-break
+      = render partial: "shared/360/mrf_report_header.pdf.haml"
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/scores_traits_competencies", locals: { page: page }
+      - competencies = competencies - page.select{|competency,hash| hash[:pending] == 0 }.keys
+    .page-break
