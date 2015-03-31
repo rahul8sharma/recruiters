@@ -154,7 +154,7 @@ class SidekiqController < ApplicationController
 
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -172,7 +172,7 @@ class SidekiqController < ApplicationController
 
   def upload_training_requirement_groups_reports
     training_requirement_group_reports = Vger::Resources::Suitability::AssessmentGroupReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -190,7 +190,7 @@ class SidekiqController < ApplicationController
 
   def upload_benchmark_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK
                   }).all.to_a
     job_ids = []

@@ -52,9 +52,12 @@
                
                 - old_min = @trait_graph_buckets.first.min_val
                 - old_max = @trait_graph_buckets.last.max_val
-                - score = trait_scores[:average_score_excluding_self][:points]
-                - percent = convertToRange(old_min, old_max, 0, 100, score)
-                - percent = percent == 0 ? 2 : percent
+                - if trait_scores[:average_score_excluding_self][:points]
+                  - score = trait_scores[:average_score_excluding_self][:points]
+                  - percent = convertToRange(old_min, old_max, 0, 100, score)
+                  - percent = percent == 0 ? 2 : percent
+                - else  
+                  - percent = 0  
                 
                 .divider1
                 .descending_graph_bar.max.no-margin{:style => "width: #{percent}%; background: #ffcf36"}
