@@ -12,7 +12,7 @@
     - if @group_report.id.present?
       - url = update_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id)
       - if @group_report.html_key && @group_report.html_bucket
-        = link_to "View Group Report", s3_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id), :class => "big-text"
+        = link_to "View Group Report", s3_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id), :class => "big-text", :target => "_blank"
       - else
         .medium-text
           %i.icon-spinner.icon-spin 
