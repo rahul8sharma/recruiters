@@ -40,7 +40,7 @@
                   .line{ style: "left: #{left}px;width: #{width}px" }
                   .range{ style: "left: #{left}px;width: #{width}px;" }
                     .text
-                      Expected Score Range
+                      .text-inner Expected Score Range
                 - @norm_buckets.each_with_index do |norm_bucket, index|
                   - small = index == 2 || index == 3
                   - if factor_data[:acceptable_range].present?
