@@ -2,7 +2,7 @@
   .span22.first.page-title
     .divider1
     Assessment #{@assessment.id} - #{@assessment.name}
-  
+
   %a.btn.btn-warning.big.big-text.pull-right.span{:href=>candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
     View All Candidates
   .clr
@@ -14,7 +14,7 @@
       %ul
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
-            Assessment Taker: 
+            Assessment Taker:
           .span8
             #{@candidate.name}
           .clr
@@ -36,7 +36,7 @@
             Industry:
           .span8
             #{ h(@candidate.industry.name) rescue 'Not available' }
-          .clr          
+          .clr
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
             Current Location:
@@ -48,12 +48,12 @@
             Current Functional area:
           .span8
             #{ h(@candidate.functional_area.name) rescue 'Not available' }
-          .clr          
+          .clr
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
             Age:
           .span8
-            #{ @candidate.birth_date.present? ? (Time.now.year - Date.parse(@candidate.birth_date).year) : "Not available" }
+            #{ @candidate.age.present? @candidate.age : "Not available" }
           .clr
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
@@ -71,13 +71,13 @@
           .span9.big-text
             Total Work Experience:
           .span8
-            #{ h(@candidate.total_experience, nil, :suffix => " Years")} 
+            #{ h(@candidate.total_experience, nil, :suffix => " Years")}
           .clr
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
             Current CTC:
           .span8
-            #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") } 
+            #{ h(@candidate.current_ctc,nil, :suffix => " Lakhs") }
           .clr
         -#
           %li.border-bottom-grayLighter.padding-all1
@@ -128,17 +128,17 @@
           %i.icon-chevron-down.small-text.line-height1
       .span5
         Recommendation
-      .span5 
+      .span5
         %a{:href => "#", :title => "Sort by Assessment Status in ascending order"}
           Assessment Status
-          %i.icon-chevron-down.small-text.line-height1 
+          %i.icon-chevron-down.small-text.line-height1
     %ul
       - @candidate_assessments.each do |candidate_assessment|
-        - report = candidate_assessment.candidate_assessment_reports[0] 
+        - report = candidate_assessment.candidate_assessment_reports[0]
         %li.list-snippet
           .divider1
           .span3.first
-            %a{:href=> company_custom_assessment_path(:id => candidate_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"} 
+            %a{:href=> company_custom_assessment_path(:id => candidate_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"}
               #{candidate_assessment.assessment.id}
           .span5
             #{@company.name}
@@ -146,9 +146,9 @@
             #{candidate_assessment.assessment.name}
           .span5
             - if candidate_assessment.candidate_stage != Vger::Resources::Candidate::Stage::EMPLOYED
-              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-' 
+              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => candidate_assessment.overall_fitment_grade_id, :candidate_stage => candidate_assessment.candidate_stage }).all[0].body rescue '-'
             - else
-              \-  
+              \-
           .span5
             - if report
               - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
@@ -156,11 +156,11 @@
                 %a{:href => url, :title => "View Report", target: "_blank"}
                   View Report
               - else
-                %i.icon-spinner.icon-spin 
-                Generating report...  
-            - else 
+                %i.icon-spinner.icon-spin
+                Generating report...
+            - else
               - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
                 Expired
               - else
                 Pending
-          .clr         
+          .clr
