@@ -34,7 +34,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
 
       if selected_traits_size >= traits_range["min"] && selected_traits_size <= traits_range["max"]
-        set_weightage
+        store_assessment_factor_norms
       else
         if selected_traits_size < traits_range["min"] || selected_traits_size > traits_range["max"]
           flash[:error] = "Please select at least #{traits_range["min"]} traits to create the assessment.Maximum traits allowed in an assessment is #{traits_range["max"]}"
@@ -49,10 +49,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
   def set_weightage
     @token = "I am accesible!"
-    if request.put?
-      store_assessment_factor_norms
   end
-
+  
   def get_functional_assessment_traits
     added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
 
@@ -140,7 +138,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
         @assessment = api_resource.save_existing(@assessment.id, { competency_order: ordered_competencies })
         if @assessment.error_messages.blank?
-          redirect_to set_weightage_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          redirect_to competency_norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
         else
           flash[:error] = @assessment.error_messages.join("<br/>")
         end
