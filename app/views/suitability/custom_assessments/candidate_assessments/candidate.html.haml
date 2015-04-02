@@ -53,7 +53,7 @@
           .span9.big-text
             Age:
           .span8
-            #{ @candidate.age.present? @candidate.age : "Not available" }
+            #{ @candidate.age.present? ? @candidate.age : "Not available" }
           .clr
         %li.border-bottom-grayLighter.padding-all1
           .span9.big-text
