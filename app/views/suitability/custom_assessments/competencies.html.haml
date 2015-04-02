@@ -9,7 +9,7 @@
   = render :partial => "shared/navigation-sub-nav"
   .divider2
 
-  = form_for @assessment, :as => :assessment, :url => set_weightage_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+  = form_for @assessment, :as => :assessment, :url => competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
     .norms
       - 2.times do 
         .span15.first
