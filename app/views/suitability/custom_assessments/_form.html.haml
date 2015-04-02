@@ -6,13 +6,18 @@
       .control-group
         %label
           Select the Brand Partner
-        %select.span10.first{name: 'assessment[brand_partner]', id: 'select_language'}
+        %select.span10.first{name: 'assessment[brand_partner]', id: 'select_brand_partner'}
           %option{:value => ""}
             Select Brand Partner
           - Rails.application.config.brand_partners.each do |brand_partner,content|
             %option{:value => brand_partner, selected: (assessment.brand_partner == brand_partner)}
               = brand_partner.titleize
-        .clr      
+        .clr
+      .control-group
+        %label
+          Post Assessment Redirect URL (URL should start with 'http' or 'https')
+        %input.span10.first{ name: 'assessment[redirect_url]'}
+        .clr              
       %label
         %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
         Enable Training Requirements Report for this assessment
