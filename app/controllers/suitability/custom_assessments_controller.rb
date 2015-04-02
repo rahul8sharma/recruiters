@@ -46,6 +46,11 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
     end
   end
+
+  def set_weightage
+    @token = "I am accesible!"
+  end
+  
   def get_functional_assessment_traits
     added_assessment_traits = Hash[@assessment.functional_assessment_traits.collect{|assessment_trait| ["#{assessment_trait.trait_id}",assessment_trait] }]
 

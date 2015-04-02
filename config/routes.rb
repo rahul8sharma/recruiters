@@ -164,6 +164,9 @@ Recruiters::Application.routes.draw do
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
         put "norms" => "suitability/custom_assessments#norms", :as => :norms
 
+        get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+        put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+
         get "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
         put "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
 
