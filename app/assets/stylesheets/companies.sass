@@ -69,6 +69,35 @@
   font-size: $extra-medium-text
   margin: 0 0 18px 0
   color: $grayDarker
+  .info-block
+    position: relative
+    .info
+      position: absolute
+      background: #fff
+      border: 1px solid $color-warning
+      padding: 7px 0
+      text-align: left
+      border-radius: 3px
+      width: 185px
+      left: -2px
+      bottom: 39px
+      display: none
+      color: $grayDark
+      font-size: $default-text
+      z-index: 999
+      line-height: 15px
+    .arrow
+      position: absolute
+      background: image-url('down-caret.png') no-repeat
+      width: 17px
+      height: 10px
+      left: 10px
+      bottom: 30px
+      display: none
+      z-index: 1000
+    &:hover
+      .arrow, .info
+        display: block
   a
     display: block
     color: $grayDarker
