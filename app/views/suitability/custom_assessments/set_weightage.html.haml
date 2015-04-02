@@ -1,0 +1,11 @@
+.norms
+  .page-title.pull-left
+    #{@assessment.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in creating a Custom Assessment?"}
+    Need help in creating a Custom Assessment?
+  .clr
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider1
+  = form_for @assessment, :as => :assessment, :url => set_weightage_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+    %input.pull-right.btn.btn-warning.large-text{:type => "submit", :value => "Proceed"}
