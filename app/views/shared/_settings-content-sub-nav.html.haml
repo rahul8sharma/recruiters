@@ -5,7 +5,7 @@
   %a.menu{:title => "Password Settings", :href => password_settings_path, class: "#{ ['password_settings'].include?(params[:action]) ? 'active':''  }"}
     Password Settings
   - if current_user.type == "SuperAdmin"  
-    %a.menu{:title => "User Settings", :href => user_settings_company_path(@company), class: "#{ ['user_settings','add_users', 'remove_users'].include?(params[:action]) ? 'active':''  }" }
+    %a.menu{:title => "User Settings", :href => user_settings_company_path(@company.id), class: "#{ ['user_settings','add_users', 'remove_users'].include?(params[:action]) ? 'active':''  }" }
       User Settings
     %a.menu{:title => "Company Managers", :href => company_managers_company_path(@company), class: "#{ ['company_managers'].include?(params[:action]) ? 'active':''  }" }
       Company Managers  

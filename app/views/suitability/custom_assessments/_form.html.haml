@@ -16,8 +16,14 @@
       .control-group
         %label
           Post Assessment Redirect URL (URL should start with 'http' or 'https')
-        %input.span10.first{ name: 'assessment[redirect_url]'}
-        .clr              
+        %input.span10.first{ name: 'assessment[redirect_url]', value: @assessment.redirect_url }
+        .clr   
+      .control-group
+        %label
+          Custom Thank You Message
+        %textarea.span10.first{ name: 'assessment[thank_you_message]'}
+         = @assessment.thank_you_message
+        .clr
       %label
         %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
         Enable Training Requirements Report for this assessment
