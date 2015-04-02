@@ -1,11 +1,61 @@
-%b.large-text
-  Activate your Jombay Account
-.divider1
+.activate_account
+  .divider2
+  .huge-text.black
+    Hi Sreelakshmi Venugopal, your Jombay Account has been created!
+  .divider3
+  .large-text
+    Set a password for your login 
+    %a{:href=>"#"}
+      = @user.email
+    to get started!
+.divider2
 = render :partial => "shared/user-alerts"
-= form_for(:user, :url => activate_account_path, method: :put) do |f|
-  %input{type: "text", :name => "user[email]", :placeholder => "Email", value: @user.email, disabled: "disabled"}
-  %input{type: "password", :name => "user[password]", :placeholder => "New Password"}
-  %input{type: "password", :name => "user[password_confirmation]", :placeholder => "Confirm Password"}
-  %input{type: "hidden", name: "user[reset_password_token]", value: params[:reset_password_token]}
-  %input.btn.btn-info.pull-right{:type => "submit", :value => "Activate"}
+= form_for(:user,  :url => activate_account_path, method: :put, html: { class: "span16 border-primary first" }) do |f|
+  .span14.margin-auto
+    .divider2
+    .span2.rounded.border-warning.divider4.text-center.first
+      .icon-lock.line-height4.huge-text.color-warning
+    %label.span5.big-text.line-height4
+      Set Password 
+    .span7.first
+      .divider1
+      %input.fw{type: "password", :name => "user[password]", :placeholder => "************"}
+    .clr
+    .divider2
+    .span2.rounded.border-warning.divider4.text-center.first
+      .icon-ok.line-height4.huge-text.color-warning
+    %label.span5.big-text.line-height4
+      Confirm Password 
+    .span7.first
+      .divider1
+      %input.fw{type: "password", :name => "user[password_confirmation]", :placeholder => "************"}
+    %input{type: "hidden", name: "user[reset_password_token]", value: params[:reset_password_token]}
+    .clr
+    .divider1
+    %input.btn.btn-warning.large-text.pull-right.bold{:type => "submit", :value => "Proceed"}
+    .clr
+    .divider2
   .clr
+.span13.pull-right
+  .divider1
+  .large-text.gray-darker
+    What makes a password strong (or weak)?
+  .divider2
+  .extra-medium-text
+    .black
+      A strong Password:
+    .divider1
+    %ol.gray-darker
+      %li
+        Is at least eight characters long.
+        .divider1
+      %li
+        Does not contain your user name, real name or company name.
+        .divider1
+      %li
+        Does not contain a complete word
+        .divider1
+      %li
+        Is significantly different from previous password.
+        .divider1
+.clr
