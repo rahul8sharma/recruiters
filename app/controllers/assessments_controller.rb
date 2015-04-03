@@ -286,4 +286,103 @@ class AssessmentsController < ApplicationController
     @assessment.sets = []
     @assessment.sets.push Vger::Resources::Suitability::Set.new
   end
+  
+  # fetches default factor weights
+  # creates assessment_factor_weight for each factor with default values
+  def get_weights
+    params[:assessment] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes] ||= {}
+    params[:assessment][:assessment_competency_weights_attributes] ||= {}
+
+    selected_factors = Hash[params[:assessment][:assessment_factor_weights_attributes].values.map{|factor_weight_attributes| [factor_weight_attributes[:factor_id].to_i,factor_weight_attributes] }]
+
+    added_factor_weights = @assessment.assessment_factor_weights.to_a
+    added_factor_weights_ids = added_factor_weights.map(&:factor_id)
+    
+    @competency_weights = {}
+    
+    if @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY
+      @assessment.assessment_competency_weights.where(include: [:competency]).all.each do |assessment_competency_weight|
+        competency_id = assessment_competency_weight.competency_id
+        factor_weights = assessment_competency_weight.competency.factor_ids.collect do |factor_id|
+          assessment_factor_weight = added_factor_weights\
+                                        .find{|factor_weight| 
+                                          factor_weight.competency_id == competency_id && 
+                                            factor_weight.factor_id == factor_id 
+                                        }
+          if !assessment_factor_weight
+            assessment_factor_weight = Vger::Resources::Suitability::AssessmentFactorWeight.new(
+              :factor_id => factor_id,
+              :competency_id => assessment_competency_weight.competency_id,
+              :assessment_id => @assessment.id,
+              :weight => 1.0
+            )
+          end
+          assessment_factor_weight.factor = @factors[factor_id]
+          assessment_factor_weight
+        end
+        @competency_weights[assessment_competency_weight.competency] = {
+          competency_weight: assessment_competency_weight,
+          factor_weights: factor_weights
+        }
+      end
+    else
+      @factor_weights = []
+      @assessment.job_assessment_factor_norms.where(include: [:factor]).all.each do |assessment_factor_norm|
+        factor_id = assessment_factor_norm.factor_id
+        if added_factor_weights_ids.include?(factor_id)
+          assessment_factor_weight = added_factor_weights.find{|factor_weight| factor_weight.factor_id == factor_id }
+        else
+          assessment_factor_weight = Vger::Resources::Suitability::AssessmentFactorWeight.new(
+            :factor_id => factor_id,
+            :assessment_id => @assessment.id,
+            :weight => 1.0
+          )
+        end
+        assessment_factor_weight.factor = assessment_factor_norm.factor
+        @factor_weights << assessment_factor_weight
+      end      
+    end
+  end
+  
+  def store_weights
+    params[:assessment][:assessment_competency_weights_attributes] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes].each do |index, factor_weights_attributes|
+      if factor_weights_attributes[:weight].to_f > 1 || factor_weights_attributes[:weight].to_f < 0
+        flash[:error] = "Weightage can't be more than 1 and less than 0"
+        return false
+      end
+    end
+    params[:assessment][:assessment_competency_weights_attributes].each do |index, competency_weights_attributes|
+      if competency_weights_attributes[:weight].to_f > 1 || competency_weights_attributes[:weight].to_f < 0
+        flash[:error] = "Weightage can't be more than 1 and less than 0"
+        return false
+      end
+    end
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    if @assessment.error_messages.blank?
+      if params[:save_and_close].present?
+        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+          redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+        end
+      else
+        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          if is_superadmin?
+            redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          end
+        end
+      end
+      return true
+    else
+      flash[:error] = @assessment.error_messages.join("<br/>")
+      return false
+    end
+  end
 end

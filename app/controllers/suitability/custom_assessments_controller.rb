@@ -48,7 +48,15 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
 
   def set_weightage
-    @token = "I am accesible!"
+    if request.put?
+      if !store_weights
+        get_factors
+        get_weights
+      end
+    else
+      get_factors
+      get_weights
+    end  
   end
   
   def get_functional_assessment_traits
@@ -87,9 +95,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
       @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-
-
-
 
       # This is a bad workaround to allow superadmin to proceed even if items are not available
       # Need a better way to manage this
@@ -280,10 +285,16 @@ class Suitability::CustomAssessmentsController < AssessmentsController
           redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
           if is_superadmin?
-            redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+            redirect_to set_weightage_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
           else
             redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
           end
+          
+          #if is_superadmin?
+          #  redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+          #else
+          #  redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          #end
         end
       end
     else
