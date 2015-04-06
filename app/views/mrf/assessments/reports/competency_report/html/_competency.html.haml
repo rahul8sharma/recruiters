@@ -1,6 +1,6 @@
 .frame.mrf.gray-bg
-  .heading.pull-left
-    = competency_name
+  .heading.pull-left{ title: competency_name }
+    = truncate competency_name, length: 40
   .heading.pull-right 
     Competency's 360&#176; Rating: 
     = competency_scores[:score][:bucket]

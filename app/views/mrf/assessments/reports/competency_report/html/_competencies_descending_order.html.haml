@@ -27,8 +27,8 @@
           %ul
             - sorted_competency_scores.each do |competency, competency_score|
               %li
-                .span6.extra-medium-text.first.trait_title
-                  = competency
+                .span6.extra-medium-text.first.trait_title{ title: competency }
+                  = truncate competency, length: 25
                   
                 .stakeholder_rating.medium-text.pull-left
                   = competency_score[:score][:points] || "-"
