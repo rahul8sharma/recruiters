@@ -1,22 +1,22 @@
 .companies-list
   .divider1
   .page-title.pull-left
-    Your Accounts 
+    Your Accounts
     .extra-medium-text.gray-dark
-      Click on Account Name or ID to go to an Account 
+      Click on Account Name or ID to go to an Account
   .border-primary.padding-all1.pull-right
-    .extra-medium-text.pull-left 
-      Export and Email Overall Data (All Accounts) 
+    .extra-medium-text.pull-left
+      Export and Email Overall Data (All Accounts)
     .span.border-left-grayLighter
       .span
         %a.btn.btn-warning.default-text{:href=>"#"}
-          %i.icon-file  
+          %i.icon-file
           Assessment Status Summary
       .span
-        %a.btn.btn-warning.default-text{:href=>"#"}
-          %i.icon-bar-chart 
+        %a.btn.btn-warning.default-text{:href=> email_usage_stats_company_managers_path}
+          %i.icon-bar-chart
           Usage Summary
-    
+
     .clr
   .clr
   .divider2
@@ -49,7 +49,7 @@
                     .info
                       Assessment Status Summary
                     .arrow
-                  %a.huge-text.span1.info-block{:href => "#", :title => "Usage Summary"}
+                  %a.huge-text.span1.info-block{:href => email_usage_stats_company_path(company.id), :title => "Usage Summary"}
                     %i.icon-bar-chart
                     .info
                       Usage Summary

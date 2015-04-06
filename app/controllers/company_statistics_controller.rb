@@ -21,7 +21,7 @@ class CompanyStatisticsController < ApplicationController
     }
     Vger::Resources::Company.find(params[:id])\
       .export_usage_stats(options)
-    redirect_to statistics_company_url(@company), notice: "Overall Usage Summary will be generated and emailed to #{current_user.email}."
+    redirect_to request.env['HTTP_REFERER'], notice: "Overall Usage Summary will be generated and emailed to #{current_user.email}."
   end
 
   protected
