@@ -4,7 +4,7 @@
     .span12.item
       #{item_index+1}. #{item.body}
       .info
-        %b Options under the item
+        .bold Options under the item
         .divider1
         %ul
           - item.options.each do |option|
@@ -13,7 +13,7 @@
     .span4
       %label
         - enabled = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:type].present? : !@assessment.configuration[:items_other].present?
-        %input{:type=>"checkbox", checked: enabled, name: "selected_items_#{role}[#{item.id}][type]", value: "#{item.class.name}"}
+        %input{:type=>"checkbox", class: "#{role}", checked: enabled, name: "selected_items_#{role}[#{item.id}][type]", value: "#{item.class.name}"}
         Enable
     .span5
       %label

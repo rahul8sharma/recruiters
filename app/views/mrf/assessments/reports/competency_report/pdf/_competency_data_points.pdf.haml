@@ -8,7 +8,7 @@
       .left_sec
         .caption
           All Traits
-        .divider2
+        .divider1
         .content
           .trait_rating.max
             .left
@@ -38,8 +38,6 @@
               = @report.report_data[:assessment_rating]
             .clr
 
-          .divider1
-
           .overall_average
             %p
               Overall Average
@@ -54,7 +52,7 @@
       .right-sec
         .caption.text-center
           Average Rating by Stakeholders
-        .divider3
+        .divider2
         - role_wise_scores.each do |role_name, role_wise_score|
           .stakeholders-rating-snippet
             .stakeholders-name.pull-left
@@ -82,6 +80,7 @@
             .divider3
 
       .clr
-      .divider2
-.divider1
-
+      
+- competency_name, competency_scores = @report.report_data[:competency_scores].first
+- if competency_scores[:role_wise_scores].size < 5
+  = render :partial => "mrf/assessments/reports/competency_report/pdf/competency_wise_rating", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}

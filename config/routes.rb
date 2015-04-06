@@ -234,6 +234,13 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
+        get "group_report/:report_id/mrf_report" => "mrf/assessments/assessment_reports#group_report", :as => :group_report
+        
+        get "group_report" => "mrf/assessments/assessment_reports#manage", :as => :manage_group_report
+        post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
+        put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
+        
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
@@ -1098,6 +1105,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
   match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
+  match "/sidekiq/upload_mrf_group_reports", :to => "sidekiq#upload_mrf_group_reports"
   match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
   match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
   match "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"

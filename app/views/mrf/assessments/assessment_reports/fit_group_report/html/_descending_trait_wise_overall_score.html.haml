@@ -1,0 +1,43 @@
+- if @report.report_data[:competency360_traits_visual_data_points] || true
+  .classic_report
+    .scores_competencies_graph.descending_order.descending_overall_score
+      .traits_under_graph
+        .divider2
+        .large-text.bold
+          Average Overall Score
+        .clr
+        .divider1
+        .graph_container
+          .left_sec.pull-left
+            .divider2
+            %ul
+              %li
+                .span5.large-text.first.trait_title
+                  360&#176 Score
+                  
+                .stakeholder_rating.medium-text.pull-left
+                  = trait_scores[:average_score_excluding_self][:points] || "-"
+                .clr
+          .right_sec.span22.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  = @trait_graph_buckets.first.min_val
+                - @trait_graph_buckets[1..@trait_graph_buckets.length-1].each do |trait_graph_bucket|
+                  .block.pull-left{:style=>"width: #{870/(@trait_graph_buckets.size-1)}px; text-align: right"}
+                    = trait_graph_bucket.min_val
+
+                .clr
+              .graph
+                .graph_content
+                  - old_min = @trait_graph_buckets.first.min_val
+                  - old_max = @trait_graph_buckets.last.max_val
+                  - if trait_scores[:average_score_excluding_self][:points]
+                    - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_scores[:average_score_excluding_self][:points])
+                    - percent_360 = percent_360 == 0 ? 2 : percent_360
+                  - else
+                    - percent_360 = 0
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
+                  .divider2
+          .clr  

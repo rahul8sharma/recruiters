@@ -1,0 +1,61 @@
+- @report.report_data[:competency_scores].each do |competency, competency_scores|
+  - competency_scores[:trait_scores].each do |trait_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    .scores
+      .blue_heading.large-text
+        Data Points on 360&#176; Scores: Traits
+      .divider1
+      .frame.mrf.gray-bg
+        .heading.pull-left
+          = competency
+        .heading.pull-right 
+          360&#176; Score:
+          = competency_scores[:score][:points]
+        .clr 
+        .divider1
+
+        .small-padding
+          .medium-text.bold
+            = trait_scores[:trait][:name]
+          .divider1
+          - if @report.report_data[:competency360_traits_textual_data_points]
+            .border-bottom-grayLighter
+              .span5.first.border-right-grayLighter
+                .small-text.black.bold
+                  Overall Scores
+                .divider1
+                .bold.color-stakeholder
+                  360&#176; Score: #{trait_scores[:average_score_excluding_self][:points]}
+                .divider1
+                .bold.color-self
+                  Self Rating: #{trait_scores[:average_score_self][:points]}
+                .divider1
+                .bold.color-including-self
+                  360&#176; (Including Self): #{trait_scores[:average_score_including_self][:points]}
+              .span10.border-right-grayLighter
+                .small-text.black.bold.left-offset1
+                  Average rating given by Stakeholders
+                .divider1
+
+                - trait_scores[:role_wise_scores].each_with_index do |(role, score), index|
+                  .color-average.span4.bold{ class: index%2==0 ? 'left-offset1':'' }
+                    #{role.pluralize.titleize}: #{score[:points]}
+                  - if index%2==1  
+                    .clr
+                    .divider1
+              .pull-right.bold
+                .divider2
+                .color-min
+                  Minimum Rating: #{trait_scores[:min_score_excluding_self][:points]}
+                .divider1
+                .color-max
+                  Maximum Rating: #{trait_scores[:max_score_excluding_self][:points]}
+              .clr
+              .divider1
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/trait_wise_best_worst_scores", locals: { trait_scores: trait_scores }
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/descending_trait_wise_overall_score", locals: { trait_scores: trait_scores }
+          
+    .page-break 
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/descending_trait_wise_average_rating", locals: { trait_scores: trait_scores }    
+      
+    

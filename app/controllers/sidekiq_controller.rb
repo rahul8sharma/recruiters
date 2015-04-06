@@ -32,7 +32,7 @@ class SidekiqController < ApplicationController
         :assessment_id => report.assessment_id,
         :candidate_id => report.candidate_id
       }
-      ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+      Suitability::ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
@@ -54,7 +54,28 @@ class SidekiqController < ApplicationController
         :candidate_id => report.candidate_id,
         :company_id => report.assessment.company_id
       }
-      MrfReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+      Mrf::ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+    end
+    render :json => { :status => "Job Started", :reports => reports.map(&:id) }
+  end
+  
+  def upload_mrf_group_reports
+    reports = Vger::Resources::Mrf::AssessmentReport.where(
+      :query_options => {
+        :status =>  Vger::Resources::Mrf::AssessmentReport::Status::SCORED
+      },
+      :include => [:assessment],
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :assessment_id => report.assessment_id,
+        :company_id => report.assessment.company_id
+      }
+      Mrf::GroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
@@ -78,7 +99,7 @@ class SidekiqController < ApplicationController
         :company_id => report.survey.company_id
 
       }
-      EngagementReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Engagement::ReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -103,7 +124,7 @@ class SidekiqController < ApplicationController
         :company_id => report.survey.company_id
 
       }
-      ExitReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Exit::ReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -125,7 +146,7 @@ class SidekiqController < ApplicationController
         :survey_id => report.survey.id,
         :company_id => report.survey.company_id
       }
-      ExitGroupReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Exit::GroupReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -133,7 +154,7 @@ class SidekiqController < ApplicationController
 
   def upload_training_requirements_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -144,14 +165,14 @@ class SidekiqController < ApplicationController
         :company_id => assessment_report.company_id
       }
       job_ids[assessment_report.assessment_id] = assessment_report.id
-      TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      Suitability::TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :report_ids => job_ids }
   end
 
   def upload_training_requirement_groups_reports
     training_requirement_group_reports = Vger::Resources::Suitability::AssessmentGroupReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::AssessmentGroup::ReportType::TRAINING_REQUIREMENT
                   }, methods: [:company_id]).all.to_a
     job_ids = {}
@@ -162,14 +183,14 @@ class SidekiqController < ApplicationController
         :company_id => training_requirement_group_report.company_id
       }
       job_ids[training_requirement_group_report.assessment_group_id] = training_requirement_group_report.id
-      TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      Suitability::TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end
 
   def upload_benchmark_reports
     assessment_reports = Vger::Resources::Suitability::AssessmentReport.where(:query_options => {
-                    :status => Vger::Resources::Suitability::AssessmentReport::Status::NEW,
+                    :status => Vger::Resources::Suitability::AssessmentReport::Status::SCORED,
                     :report_type => Vger::Resources::Suitability::CustomAssessment::ReportType::BENCHMARK
                   }).all.to_a
     job_ids = []
@@ -178,7 +199,7 @@ class SidekiqController < ApplicationController
         :assessment_id => assessment_report.assessment_id,
         :assessment_report_id => assessment_report.id
       }
-      job_ids << BenchmarkReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      job_ids << Suitability::BenchmarkReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end

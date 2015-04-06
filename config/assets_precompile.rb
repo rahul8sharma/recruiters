@@ -22,6 +22,6 @@ assets.precompile += %w(walk_ins.css walk_ins.js training_requirements.css feedb
 assets.precompile += %w(engagement.css engagement_reports_html.css)
 assets.precompile += %w(engagement/elements.js exit/traits.js)
 assets.precompile += %w(form_builder/defined_forms.js)
-assets.precompile += %w(report_generator.js)
+assets.precompile += %w(report_generator.js mrf/order_enable_items.js)
 assets.precompile += %w(exit/pie.js exit_reports_html.css)
 

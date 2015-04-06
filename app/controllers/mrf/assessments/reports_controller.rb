@@ -22,7 +22,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     else
       template = "fit_report.#{@view_mode}.haml" 
     end  
-    layout = "layouts/reports_360.#{@view_mode}.haml"
+    layout = "layouts/mrf/reports.#{@view_mode}.haml"
     @page = 1
     respond_to do |format|
       format.html { 

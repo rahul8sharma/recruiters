@@ -1,11 +1,21 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
 = form_for @assessment, as: :assessment, url: order_enable_items_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
   .order_enable_items
     .page-title 
       = @assessment.name
     .divider1
     .big-text
-      Items for: 
-      %span.big-text.color-info Others
+      .pull-left
+        Items for: 
+        %span.big-text.color-info Others
+      .pull-right
+        %label
+          %input{ type: "checkbox", id: "checkAllOther", checked: true }
+          Select All Other Items
+      .clr  
     %br  
     %br
     - total_items = @trait_wise_items.values.flatten.select{|item| item.role != Vger::Resources::Mrf::Feedback::Role::SELF }.size
@@ -17,8 +27,14 @@
       - total_index += items.size
     
     .big-text
-      Items for: 
-      %span.big-text.color-info Self
+      .pull-left
+        Items for: 
+        %span.big-text.color-info Self
+      .pull-right
+        %label
+          %input{ type: "checkbox", id: "checkAllSelf", checked: true }
+          Select All Self Items
+      .clr  
     %br
     %br  
     - total_items = @trait_wise_items.values.flatten.select{|item| item.role == Vger::Resources::Mrf::Feedback::Role::SELF }.size
@@ -30,3 +46,5 @@
       - total_index += items.size
     %input.btn.btn-info.large-text.pull-right{:type => "submit", :value => "Proceed"}
     .clr
+    
+= javascript_include_tag "mrf/order_enable_items"    

@@ -1,8 +1,20 @@
-$image-path: report/pdf/mrf
+$mrf_image_path: report/pdf/mrf
 .report.mrf
+  .color-stakeholder
+    color: #9b3e97
+  .color-self
+    color: #52c1af
+  .color-including-self
+    color: #c5a756
+  .color-average
+    color: #6ea4be
   .overall_report
     min-height: 500px
     color: #002b3a
+  .color-max
+    color: #b3d56e
+  .color-min
+    color: #ffd037
   .scale 
     width: 380px
     .marker
@@ -11,7 +23,7 @@ $image-path: report/pdf/mrf
       .hexagon
         top: 35px
         position: absolute
-        background: image-url("#{$image-path}/scale-hexagon.png") no-repeat
+        background: image-url("#{$mrf_image_path}/scale-hexagon.png") no-repeat
         height: 15px
         width: 13px
         .bucket-name
@@ -49,7 +61,7 @@ $image-path: report/pdf/mrf
   .factor_fit 
     background: none
     .factors_container
-      background: image-url("#{$image-path}/hexagon-bg.png") center center no-repeat
+      background: image-url("#{$mrf_image_path}/hexagon-bg.png") center center no-repeat
       
       [class*="factor_"]
         font-weight: 200
@@ -74,7 +86,7 @@ $image-path: report/pdf/mrf
         font-weight: 700
         margin-bottom: 10px
     .rating-slider
-      background:  image-url('#{$image-path}/rating-slider-line.png') no-repeat center center
+      background:  image-url('#{$mrf_image_path}/rating-slider-line.png') no-repeat center center
       margin-top: 30px 
       width: 380px
       .error-full-width
@@ -92,7 +104,7 @@ $image-path: report/pdf/mrf
         width: 400px
       .marker
         position: relative
-        background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
+        background:  image-url('#{$mrf_image_path}/marker-disk.png') no-repeat center center
         height: 20px
         width: 20px
         margin-left: 52px
@@ -103,7 +115,7 @@ $image-path: report/pdf/mrf
         &:first-child
           margin-left: 0 !important
         &.mrf-rating.self-rating
-          background:  image-url('#{$image-path}/marker-hexagon-combo.png') no-repeat center center
+          background:  image-url('#{$mrf_image_path}/marker-hexagon-combo.png') no-repeat center center
             
         [class*="arrow"]
           position: absolute
@@ -131,7 +143,7 @@ $image-path: report/pdf/mrf
         .mrf-result
           border: 1px solid #28b29b
           .left
-            background: image-url('#{$image-path}/rating-ring.png') no-repeat center 2px #28b29b
+            background: image-url('#{$mrf_image_path}/rating-ring.png') no-repeat center 2px #28b29b
             padding: 15px 0 0 0
             color: #fff
 
@@ -149,27 +161,27 @@ $image-path: report/pdf/mrf
           .right
             padding: 15px 0 0 0
             color: #fff
-            background: image-url('#{$image-path}/user-icon.png') no-repeat center 5px #3da5bf
+            background: image-url('#{$mrf_image_path}/user-icon.png') no-repeat center 5px #3da5bf
           
 
 
       .marker.mrf-rating
-        background:  image-url('#{$image-path}/marker-hexagon-green.png') no-repeat center center
+        background:  image-url('#{$mrf_image_path}/marker-hexagon-green.png') no-repeat center center
 
         .arrow-mrf-result
           display: block
           top: -8px
-          background:  image-url('#{$image-path}/mrf-rating-arrow.png') no-repeat center center
+          background:  image-url('#{$mrf_image_path}/mrf-rating-arrow.png') no-repeat center center
         .mrf-result
           background: #fff
           display: block
          
       .marker.self-rating
-        background:  image-url('#{$image-path}/marker-hexagon-blue.png') no-repeat center center
+        background:  image-url('#{$mrf_image_path}/marker-hexagon-blue.png') no-repeat center center
         .arrow-self-result
           display: block
           top: 13px
-          background:  image-url('#{$image-path}/self-rating-arrow.png') no-repeat center center
+          background:  image-url('#{$mrf_image_path}/self-rating-arrow.png') no-repeat center center
           
         .self-result  
           display: block  
@@ -209,6 +221,7 @@ $image-path: report/pdf/mrf
       .left_sec
         float: left
         .content
+          border: none
           border-width: 0px !important
           border-right: 1px solid #ccc !important
           padding: 20px 20px 10px 20px
@@ -224,16 +237,16 @@ $image-path: report/pdf/mrf
 
             &.max
               .left
-                background: image-url('#{$image-path}/max.png') no-repeat 5px center #abed74
+                background: image-url('#{$mrf_image_path}/max.png') no-repeat 5px center #abed74
             &.min
               .left
-                background: image-url('#{$image-path}/min.png') no-repeat 5px center #ffcf36
+                background: image-url('#{$mrf_image_path}/min.png') no-repeat 5px center #ffcf36
             &.self
               .left
-                background: image-url('#{$image-path}/self.png') no-repeat 5px center #6ea6bf
+                background: image-url('#{$mrf_image_path}/self.png') no-repeat 5px center #6ea6bf
             &.score
               .left
-                background: image-url('#{$image-path}/score.png') no-repeat 5px center #28b29b
+                background: image-url('#{$mrf_image_path}/score.png') no-repeat 5px center #28b29b
 
             .left, .right
               width: 115px
@@ -269,9 +282,9 @@ $image-path: report/pdf/mrf
             color: #fff
             width: 200px
             &.including
-              background: image-url('#{$image-path}/including.png') no-repeat 7px center #28b29b
+              background: image-url('#{$mrf_image_path}/including.png') no-repeat 7px center #28b29b
             &.excluding
-              background: image-url('#{$image-path}/excluding.png') no-repeat 7px center #28b29b
+              background: image-url('#{$mrf_image_path}/excluding.png') no-repeat 7px center #28b29b
       .right-sec
         float: right
         .caption
@@ -288,7 +301,7 @@ $image-path: report/pdf/mrf
           font-size: 12px
         .stakeholders-rating-slider
           margin-top: 10px
-          background:  image-url('#{$image-path}/stakeholders-rating-line.png') no-repeat 9px center
+          background:  image-url('#{$mrf_image_path}/stakeholders-rating-line.png') no-repeat 9px center
           width: 285px
           position: relative
           .stakeholders-rating-marker-container
@@ -306,7 +319,7 @@ $image-path: report/pdf/mrf
             color: #ba4965
           .marker
             position: relative
-            background:  image-url('#{$image-path}/marker-disk.png') no-repeat center center
+            background:  image-url('#{$mrf_image_path}/marker-disk.png') no-repeat center center
             height: 20px
             width: 20px
             margin-left: 31px
@@ -314,13 +327,13 @@ $image-path: report/pdf/mrf
             text-align: center
             z-index: 999
             &.active
-              background:  image-url('#{$image-path}/marker-hexagon-blue.png') no-repeat center center
+              background:  image-url('#{$mrf_image_path}/marker-hexagon-blue.png') no-repeat center center
               .arrow, .score
                 display: block
             &:first-child
               margin: 0 !important
           .arrow
-            background: image-url('#{$image-path}/stakeholders-rating-arrow.png') no-repeat 
+            background: image-url('#{$mrf_image_path}/stakeholders-rating-arrow.png') no-repeat 
             width: 22px 
             height: 14px
             position: absolute
@@ -344,7 +357,7 @@ $image-path: report/pdf/mrf
 
 
   .feedback-stats
-    background: image-url("#{$image-path}/feedback-stats-bg.png") no-repeat center 30px
+    background: image-url("#{$mrf_image_path}/feedback-stats-bg.png") no-repeat center 30px
     min-height: 770px
     .stats
       width: 670px
@@ -399,7 +412,7 @@ $image-path: report/pdf/mrf
   .competency_report
     .mrf_rating_competency_overview
       .bg
-        background: image-url("#{$image-path}/mrf-rating-competenc-overview-bg.png") no-repeat 0 0
+        background: image-url("#{$mrf_image_path}/mrf-rating-competenc-overview-bg.png") no-repeat 0 0
         min-height: 300px
       .content
         background: #fff
@@ -444,7 +457,7 @@ $image-path: report/pdf/mrf
     .competency-container.mrf
       border-width: 1px
       .factors_list
-        background: image-url("#{$image-path}/competency-hexagon-bg.png") no-repeat center center
+        background: image-url("#{$mrf_image_path}/competency-hexagon-bg.png") no-repeat center center
 
         [class*="factor_"]
           width: 90px
@@ -507,7 +520,8 @@ $image-path: report/pdf/mrf
           top: -4px
     
     .frame
-      background: #fbfcfd
+      .small-padding
+        padding: 0 15px 
       .mrf_scores_listing 
         .left-sec 
           .rounded
@@ -555,16 +569,16 @@ $image-path: report/pdf/mrf
       font-weight: 700
       color: #000
     .bottom-trangle
-      background: image-url('#{$image-path}/mrf-comments-bottom-trangle.png') no-repeat right bottom
+      background: image-url('#{$mrf_image_path}/mrf-comments-bottom-trangle.png') no-repeat right bottom
       
     .stakeholder
       color: #595959
       font-weight: 700
       text-align: center
       padding-top: 36px
-      background: image-url('#{$image-path}/stakeholder-icon.png') no-repeat center 0
+      background: image-url('#{$mrf_image_path}/stakeholder-icon.png') no-repeat center 0
     .frame
-      background: image-url('#{$image-path}/stakeholder-comment-frame-bg.png') no-repeat 20px 20px 
+      background: image-url('#{$mrf_image_path}/stakeholder-comment-frame-bg.png') no-repeat 20px 20px 
       border: 1px solid #28B29B
       padding: 20px 25px
     .boxed-comments
@@ -577,7 +591,7 @@ $image-path: report/pdf/mrf
       color: #fff
       background: #28b29b
       .arrow  
-        background: image-url('#{$image-path}/comment-box-arrow.png') no-repeat
+        background: image-url('#{$mrf_image_path}/comment-box-arrow.png') no-repeat
         width: 23px
         height: 15px
         position: absolute
@@ -585,7 +599,7 @@ $image-path: report/pdf/mrf
         top: 0
         z-index: 11
     .no-responses
-      background: image-url('#{$image-path}/mrf-no-response-icon.png') no-repeat
+      background: image-url('#{$mrf_image_path}/mrf-no-response-icon.png') no-repeat
       min-height: 40px
       padding: 5px 0 0 40px
       .box
@@ -598,20 +612,381 @@ $image-path: report/pdf/mrf
     &.responses
       .frame
         border: 1px solid #6ea6bf
+        background-image: image-url('#{$mrf_image_path}/responses-stakeholder-comment-frame-bg.png')
       .comment-box
         background: #6ea6bf
         .arrow
-          background-image: image-url('#{$image-path}/responses-comment-box-arrow.png')
+          background-image: image-url('#{$mrf_image_path}/responses-comment-box-arrow.png')
       .bottom-trangle
-        background-image: image-url('#{$image-path}/responses-mrf-comments-bottom-trangle.png')
-      .frame
-        background-image: image-url('#{$image-path}/responses-stakeholder-comment-frame-bg.png')
+        background-image: image-url('#{$mrf_image_path}/responses-mrf-comments-bottom-trangle.png')
       .no-responses
-        background-image: image-url('#{$image-path}/responses-mrf-no-response-icon.png')
+        background-image: image-url('#{$mrf_image_path}/responses-mrf-no-response-icon.png')
         .box
           border-color: #6ea6bf
 
+.strength_weakness_areas
+  ul
+    li
+      line-height: 25px
+  .section_description
+    border: 1px solid #28b29b
+    .left-info
+      color: #FFFFFF
+      margin-left: 0px
+      background: #28b29b
+      vertical-align: top
+      width: 50%
+    .right-info
+      background: #FFFFFF
+      color: #000000
+      vertical-align: top
+      width: 50%
+      ul
+        padding-left: 15px
+        li
+          list-style: initial !important
 
+.classic_report
+  color: #000
+  .response_distribution_list
+    ul
+      li
+        margin-bottom: 18px
+        list-style: disc
+        .responses
+          border-bottom: 1px solid #ccc
+          text-align: center
+          .response-title
+            color: #58595b
+          .value 
+            margin: 12px auto
+            width: 27px
+            height: 27px
+            line-height: 27px
+
+            color: #A119A6
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+    &.self
+      .value
+        visibility: hidden 
+        background: #24D8BA !important
+        color: #fff !important
+  .trait_rating 
+    width: 85%
+    margin: auto
+    .left
+      width: 125px
+    .right
+      width: 65px
+  #distribution_data_points 
+    border-bottom: 1px solid #e3e3e3
+    padding-bottom: 40px
+  .classic_user_icon
+    background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
+  .stakeholder_rating_icon
+    background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
+  .scores_competencies_graph
+    .competency_overlapped_score_icon
+      background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
+      height: 28px
+      width: 28px
+    .trait_overlapped_score_icon
+      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center
+      height: 28px
+      width: 28px
+    .graph_instructions
+      line-height: 28px
+      .classic_user_icon, .stakeholder_rating_icon 
+        height: 28px
+        width: 18px
+    .graph_container
+      margin-bottom: 15px
+      .graph_instructions
+        margin-left: 175px
+        .stakeholder_rating_icon, .classic_user_icon
+          width: 38px
+      .left_sec
+        li
+          margin-top: 10px
+          font-weight: 700
+          div:first-child
+            padding-top: 5px
+          .stakeholder_rating, .self_rating
+            color: #fff
+            text-align: center
+
+          .stakeholder_rating
+            height: 27px
+            width: 27px
+            line-height: 27px
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
+          .self_rating
+            line-height: 24px
+            background: #24d8ba
+            border: 2px solid #24d8ba
+            height: 24px
+            width: 24px
+          .clr
+      .right_sec
+        .classic_competency_graph
+          .classic_competency_graph_scale
+            width: 101%
+            .block
+              color: #808285
+              line-height: 25px
+              &:first-child
+                width: 2px !important
+          .graph
+            border: 1px solid #e5e5e5
+            background: -moz-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
+
+            background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #e9eaec), color-stop(30%, #F6F6F7), color-stop(50%, #FFFFFF))
+
+            background: -webkit-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
+
+            background: -o-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
+
+            background: -ms-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
+
+            background: linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
+
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#e9eaec',GradientType=1 )
+            background-repeat: no-repeat
+
+
+
+            .graph_content
+              background: image-url('#{$mrf_image_path}/classic_competency_graph_dashed_bg.png') repeat-y center 0
+              min-height: 20px
+              padding: 8px 0
+              .graph_bar
+                height: 1px
+                border-top: 1px solid #888a8d
+                position: relative
+                &.equal_rating
+                  width: 2px !important
+                  .overlapped_score_icon
+                    background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
+                    height: 27px
+                    width: 27px
+                    position: absolute
+                    top: -15px
+                    left: -13.5px
+                  &.trait_under
+                    .overlapped_score_icon
+                      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center !important
+                .graph_stakeholder_rating, .graph_self_rating
+                  width: 27px
+                  height: 27px
+                  top: -15px
+                  position: absolute
+                .graph_stakeholder_rating
+                  background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat center center
+                  z-index: 2 
+
+                .graph_self_rating
+                  z-index: 1
+                  width: 24px
+                  height: 24px
+                  border: 2px solid #24d8ba
+                  background: image-url('#{$mrf_image_path}/self.png') #24d8ba no-repeat center center 
+    
+    &.traits_under_competencies
+      .traits_under_graph
+        .graph_container 
+          .classic_user_icon, .stakeholder_rating_icon
+            background: none
+          &:first-child
+            .classic_user_icon
+              background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
+            .stakeholder_rating_icon
+              background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
+
+
+          .left_sec
+            ul 
+              li
+                div:first-child 
+                  font-weight: 200
+                  color: #808285
+                &:first-child 
+                  div
+                    font-weight: 700
+                    color: #414042
+                  .stakeholder_rating
+                    background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
+                    color: #fff
+                    font-weight: 700
+                  .self_rating
+                    background: #24D8BA
+                    color: #fff
+                .stakeholder_rating
+                  background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+                  color: #A119A6
+                  font-weight: 700
+                .self_rating
+                  background: none
+                  color: #24D8BA
+                .trait_title
+                  position: relative
+                  &:hover
+                    color: #1b7daa
+                    cursor: pointer
+                    .info
+                      display: block
+                  .arrow
+                    position: absolute
+                    background: image-url('#{$mrf_image_path}/classic_competency_trait_info_arrow.png') no-repeat center center
+                    width: 18px
+                    height: 28px
+                    padding: 0
+                    top: 27%
+                    left: -17px
+                  .info
+                    border: 1px solid #1b7daa
+                    border-radius: 2px
+                    padding: 10px 15px
+                    width: 390px
+                    color: #1b7daa
+                    font-size: 14px
+                    background: #fff
+                    display: none
+                    left: 102%
+                    position: absolute
+                    top: -60%
+                    min-height: 30px
+                    z-index: 3
+          .right_sec
+            .classic_competency_graph
+              .graph
+                .graph_content 
+                  .graph_bar.trait_under
+                    .graph_stakeholder_rating
+                      background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
+                    .graph_self_rating
+                      background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
+
+    &.best_worst_scores
+      .trait_title
+        line-height: 28px
+        padding: 0 !important
+      .min_rating_icon_small
+        background: image-url('#{$mrf_image_path}/min_rating_icon_small.png')  no-repeat center center
+        
+        height: 28px
+      .stakeholder_rating_icon_small
+        background: image-url('#{$mrf_image_path}/stakeholder_rating_icon_small.png')  no-repeat center center
+        
+        height: 28px
+      .max_rating_icon_small
+        background: image-url('#{$mrf_image_path}/max_rating_icon_small.png')  no-repeat center center
+        
+        height: 28px
+      &.trait_wise
+        .min_rating_icon_small
+          background: image-url('#{$mrf_image_path}/min_rating_icon_small_trait_wise.png')  no-repeat center center
+        .stakeholder_rating_icon_small
+          background: image-url('#{$mrf_image_path}/stakeholder_rating_icon_small_trait_wise.png')  no-repeat center center
+        .max_rating_icon_small
+          background: image-url('#{$mrf_image_path}/max_rating_icon_small_trait_wise.png')  no-repeat center center
+
+    &.descending_order
+      .graph_container 
+        .descending_graph_bar.max
+          height: 5px 
+          border-radius: 0 2.5px 2.5px 0
+        .descending_graph_bar.min
+          height: 2.5px 
+          border-radius: 0 1.5px 1.5px 0
+          margin-top: 2.5px
+        .left_sec 
+          li 
+            font-weight: 200
+            .min_rating, .self_rating, .including_self_rating, .max_rating
+              border: 0 none
+              height: 27px
+              width: 27px
+              color: #FFFFFF
+              line-height: 27px
+              text-align: center
+              font-weight: 700
+            .self_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_self_rating_icon.png')  no-repeat center center
+              
+            .including_self_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_self_rating_icon.png')  no-repeat center center
+
+            .min_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_min_rating_icon.png')  no-repeat center center
+            .max_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
+
+        
+                
+    &.descending_overall_score
+      .trait_title
+        line-height: 27px
+        padding: 0 !important
+      .graph_container 
+        .descending_graph_bar.max
+          margin-top: 17px
+    &.descending_average_rating
+      .graph_container 
+        .left_sec 
+          li 
+            font-weight: 200
+            .stakeholder_rating
+              background: image-url('#{$mrf_image_path}/graph_left_sec_average_stakeholder_rating_icon.png')  no-repeat center center
+              font-weight: 700
+        .descending_graph_bar
+          background: #6ea4be
+          margin-top: 3px
+
+
+  .frequency_rating_table
+    text-align: center
+    font-size: 10px
+    border-bottom: 1px solid #e3e3e3
+    tr
+      &:nth-child(odd)
+        background: #f8f8f8
+    .rating_score
+      border-right: 1px solid #e3e3e3
+      color: #a119a6
+      background-image: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') 
+      background-repeat: no-repeat
+      background-position: center center
+      font-weight: 700
+      &.max_value
+        background-image: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_max_trait_rating_icon.png') 
+    .captions
+      td
+        border-top: 1px solid #fff
+        border-left: 1px solid #fff
+        color: #000
+    .rating_ranges
+      background: #ccc
+      td
+        border-bottom: 1px solid #fff
+        width: 115px
+    .overall
+      td
+        border-top: 1px solid #d56e17
+    .mute_bg
+      background: #f8f8f8
+      width: 200px !important
+    .green_bg, .orange_bg
+      border-top: 1px solid #fff
+      border-left: 1px solid #fff
+      color: #fff
+      padding: 7px 0
+    .green_bg
+      background: #6ea4be
+    .orange_bg
+      background: #d56e17
+      border-top: 1px solid #fff !important
+    .dark_mute_bg
+      background: #e3e3e3
 
 
 

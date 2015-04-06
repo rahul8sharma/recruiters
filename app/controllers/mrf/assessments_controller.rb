@@ -4,7 +4,7 @@ class Mrf::AssessmentsController < ApplicationController
   before_filter :get_company
   before_filter :get_assessment, :except => [:index]
 
-  layout 'mrf'
+  layout 'mrf/mrf'
 
   def home
     order_by = params[:order_by] || "mrf_assessments.created_at"
@@ -258,7 +258,7 @@ class Mrf::AssessmentsController < ApplicationController
     get_norm_buckets
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
-
+  
   protected
   
   def get_norm_buckets

@@ -1,0 +1,58 @@
+- if @report.report_data[:competency360_traits_visual_data_points] && trait_scores[:role_wise_scores].present?
+  = render partial: "shared/360/mrf_report_header.pdf.haml" 
+  .scores
+    .blue_heading.large-text
+      Data Points on 360&#176; Scores: Traits
+    .divider1
+    .frame.mrf.gray-bg
+      .small-padding
+        -#Average Stakholder Rating section
+        .scores_competencies_graph.descending_order.descending_overall_score.descending_average_rating
+          .traits_under_graph
+            .divider1
+            .small-text.bold
+              Average rating given by Stakeholders
+            .clr
+            
+            .graph_container
+              .left_sec.pull-left
+                .divider2
+                %ul
+                  - trait_scores[:role_wise_scores].each  do |role, score|
+                    %li
+                      .span3.small-text.first.trait_title
+                        = role.pluralize.titleize
+                        
+                      .stakeholder_rating.small-text.pull-left
+                        = score[:points]
+                      .clr
+
+
+              .right_sec.span15.pull-right.first
+                .classic_competency_graph
+                  .classic_competency_graph_scale
+                    .block.pull-left
+                      = @trait_graph_buckets.first.min_val
+                    - @trait_graph_buckets[1..@trait_graph_buckets.length-1].each do |trait_graph_bucket|
+                      .block.pull-left{:style => "width: #{590/(@trait_graph_buckets.size-1)}px; text-align: right"}
+                        = trait_graph_bucket.min_val
+                    
+                    .clr
+                    
+                    .clr
+                  .graph
+                    .graph_content
+                      .divider1
+                      - old_min = @trait_graph_buckets.first.min_val
+                      - old_max = @trait_graph_buckets.last.max_val
+                      - trait_scores[:role_wise_scores].each_with_index  do |(role, score), index|
+                        - score = score[:points]
+                        - percent = convertToRange(old_min, old_max, 0, 100, score)
+                        - percent = percent == 0 ? 2 : percent
+                        .descending_graph_bar.max{:style => "width: #{percent}%; background: #6ea4be", class: (index==0?'no-margin':'')}
+                        .divider1
+                  .divider2    
+              .clr
+- if @report.report_data[:competency360_traits_frequency_of_ratings]            
+  = render :partial => "mrf/assessments/reports/competency_report/pdf/frequency_rating_table", locals: { role_wise_scores: trait_scores[:role_wise_scores], name: trait_scores[:trait][:name], average_score_excluding_self: trait_scores[:average_score_excluding_self][:points], graph_buckets: @trait_graph_buckets, :is_trait => true  }                  
+.page-break

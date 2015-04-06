@@ -1,0 +1,28 @@
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+      .big-text.gray-dark.padding-all1.pull-left
+        360&#176; Profiling Group Report
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{ href: "#overview" }
+              Overview
+          %li
+            %a.scroll{ href: "#competency-scores" }
+              Competencies: Scores
+          %li
+            %a.scroll{ href: "#trait-scores" }
+              Traits: Scores
+          %li
+            %a.scroll{ href: "#competency-data-points" }
+              Data Points: Competencies
+          %li
+            %a.scroll{ href: "#trait-data-points" }
+              Data Points: Traits
+          %li.right
+= wicked_pdf_javascript_include_tag 'common'
+

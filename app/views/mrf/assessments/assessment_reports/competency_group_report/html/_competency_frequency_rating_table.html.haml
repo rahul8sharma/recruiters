@@ -1,0 +1,43 @@
+- if @report.report_data[:competency360_competencies_frequency_of_ratings] && role_wise_scores.present? || true
+  .divider1
+  .large-text.bold.left-offset7
+    Frequency of Candidates on Scores
+  .divider1
+  %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
+    %tbody
+      %tr.captions
+        %td.mute_bg
+        %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
+          Rating
+
+      %tr.captions.rating_ranges
+        %td.mute_bg
+        - graph_buckets.each do |bucket|
+          %td
+            #{bucket.name}
+      %tr
+        %td.blue_bg.captions
+          360&#176; Rating
+        - max_score = competency_scores[:average_score_excluding_self][:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        - graph_buckets.each do |bucket|
+          - bucket_score = competency_scores[:average_score_excluding_self][:bucket_wise_percentages][bucket.name][:candidates_count]
+          %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+            - bucket_score
+      - role_wise_scores.each do |role, score|
+        - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        %tr
+          %td.green_bg.captions
+            = role.titleize
+          - graph_buckets.each do |bucket|
+            - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
+            %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+              = bucket_score
+              -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+      %tr.overall
+        %td.orange_bg.captions
+          Overall
+        - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:candidates_count] }.sum }.max
+        - graph_buckets.each do |bucket|
+          - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:candidates_count] }.sum
+          %td.rating_score{ class: max_score == total ? "max_value" : "" }
+            = total

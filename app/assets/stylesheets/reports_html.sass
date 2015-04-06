@@ -425,6 +425,7 @@ $mid_favorable_color: #062b58
         .competency-list
           margin: 0
           width: 100%
+          border-top: 1px dashed #28b29b
           .scale
             margin-right: 40px
             height: 35px
@@ -433,7 +434,7 @@ $mid_favorable_color: #062b58
             .marker-container 
               .marker
                 background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
-                font-size: 11px
+                font-size: 10px
                 font-weight: 200 
                 height: 30px
                 &.active
@@ -441,7 +442,7 @@ $mid_favorable_color: #062b58
 
           li
             padding: 16px 30px
-            &:nth-child(odd)
+            &:nth-child(even)
               background: #f8f8f8
           &.mrf
             li

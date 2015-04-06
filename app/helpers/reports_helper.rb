@@ -15,4 +15,18 @@ module ReportsHelper
     points = points.round(2)
     points
   end
+  
+  def get_competency_scores_page(available,traits_competency)
+    Hash[traits_competency.collect do |competency, traits| 
+      if available == 0
+        pick = []
+        available = available - pick.size; 
+      else
+        pick = traits.size > available ? traits[0..(available-1)] : traits;
+        available = available - pick.size; 
+        traits_competency[competency] = (traits - traits[0..(pick.size-1)]); 
+      end
+      [competency,{ pick: pick, pending: (traits.size - pick.size) }]
+    end]
+  end
 end
