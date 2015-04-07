@@ -7,51 +7,7 @@
   .divider2
   = form_for @assessment, :as => :assessment, :url => set_weightage_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
     .trait-list
-      .large-text.black
-        Set Weightage for Competencies & Traits
-      .divider2
-
-      -2.times do
-        -# '.border-top-grayLighter' class should not present at first snippet, Put %Div only for first
-        %div.border-top-grayLighter
-          .divider1
-          %label.span7.big-text.color-warning.first
-            Problem Solving
-          .span2
-            %input.fw{:type=>"text"}
-          .clr
-          .divider1
-
-          %ul.trait-snippet.clearfix
-            -3.times do
-              %li.span10.first.border-right-grayLighter
-                %label.span7.first.medium-text
-                  Considerateness
-                .span2
-                  %input.fw{:type=>"text"}
-                .clr
-                .divider1
-              %li.span10.first.border-right-grayLighter
-                .span1
-                  &nbsp;
-                %label.span6.first.medium-text
-                  Considerateness
-                .span2
-                  %input.fw.error{:type=>"text"}
-                .clr
-                .divider1
-              %li.span10.first
-                .span1
-                  &nbsp;
-                %label.span6.first.medium-text
-                  Considerateness
-                .span2
-                  %input.fw{:type=>"text"}
-                .clr
-                .divider1
-          .divider1
-        .divider1
-
-    %input.pull-left.btn.btn-warning.large-text.bold{:type => "submit", :value => "Save and Close"}
-    %input.pull-right.btn.btn-warning.large-text.right-offset1.bold{:type => "submit", :value => "Proceed"}
+      = render :partial => "#{@assessment.assessment_type}_weightages"
+    %input.pull-left.btn.btn-warning.large-text.bold{:type => "submit", name: "save_and_close", :value => "Save and Close"}
+    %input.pull-right.btn.btn-warning.large-text.right-offset1.bold{:type => "submit", name: "proceed", :value => "Proceed"}
     .clr

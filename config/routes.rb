@@ -116,10 +116,13 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :benchmarks, :controller => "suitability/benchmarks", :except => [:destroy] do
+    resources :benchmarks, :benchmark_assessments, :controller => "suitability/benchmarks", :except => [:destroy] do
       member do
         get "norms" => "suitability/benchmarks#norms", :as => :norms
         put "norms" => "suitability/benchmarks#norms", :as => :norms
+        
+        get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+        put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
 
         get "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
         put "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
@@ -159,7 +162,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :custom_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
+    resources :custom_assessments, :fit_assessments, :competency_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
         put "norms" => "suitability/custom_assessments#norms", :as => :norms
