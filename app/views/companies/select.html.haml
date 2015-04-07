@@ -44,7 +44,7 @@
                   = company.name
               .span4.text-center
                 .span2.margin-auto
-                  %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_managers_path(:company_id => company.id), :title => "Assessment Status Summary"}
+                  %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_path(company.id), :title => "Assessment Status Summary"}
                     %i.icon-file
                     .info
                       Assessment Status Summary
