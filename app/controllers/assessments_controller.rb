@@ -286,4 +286,50 @@ class AssessmentsController < ApplicationController
     @assessment.sets = []
     @assessment.sets.push Vger::Resources::Suitability::Set.new
   end
+  
+  # fetches default factor weights
+  # creates assessment_factor_weight for each factor with default values
+  def get_weights
+    params[:assessment] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes] ||= {}
+    params[:assessment][:assessment_competency_weights_attributes] ||= {}
+    @weights = @assessment.get_weights(@factors)
+  end
+  
+  def store_weights
+    params[:assessment][:assessment_competency_weights_attributes] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes] ||= {}
+    params[:assessment][:assessment_factor_weights_attributes].each do |index, factor_weights_attributes|
+      if factor_weights_attributes[:weight].to_f > 1 || factor_weights_attributes[:weight].to_f < 0
+        flash[:error] = "Weightage can't be more than 1 and less than 0"
+        return false
+      end
+    end
+    params[:assessment][:assessment_competency_weights_attributes].each do |index, competency_weights_attributes|
+      if competency_weights_attributes[:weight].to_f > 1 || competency_weights_attributes[:weight].to_f < 0
+        flash[:error] = "Weightage can't be more than 1 and less than 0"
+        return false
+      end
+    end
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    if @assessment.error_messages.blank?
+      if params[:save_and_close].present?
+        redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+      else
+        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
+          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          if is_superadmin?
+            redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+          else
+            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+          end
+        end
+      end
+      return true
+    else
+      flash[:error] = @assessment.error_messages.join("<br/>")
+      return false
+    end
+  end
 end

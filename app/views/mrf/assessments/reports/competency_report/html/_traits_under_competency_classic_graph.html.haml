@@ -7,8 +7,8 @@
         .clr
       %ul
         %li
-          .span6.extra-medium-text.first
-            = competency
+          .span6.extra-medium-text.first{ title: competency }
+            = truncate competency, length: 25
           .stakeholder_rating.medium-text.pull-left
             = competency_scores[:score][:points] || "-"
           .self_rating.medium-text.span
@@ -19,8 +19,8 @@
           - other_score = trait_score[:average_score_excluding_self][:points]
           - if self_score || other_score
             %li
-              .span6.extra-medium-text.first.trait_title
-                = trait_score[:trait][:name]
+              .span6.extra-medium-text.first.trait_title{ title: trait_score[:trait][:name] }
+                = truncate trait_score[:trait][:name], length: 25
                 .info
                   .arrow
                   = trait_score[:trait][:definition]

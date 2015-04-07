@@ -1,6 +1,6 @@
 .competency-container.mrf
   .heading.pull-left
-    = competency_name
+    = truncate competency_name, length: 45
   .heading.pull-right
     360&#176; Rating: 
     = competency_scores[:score][:bucket]
