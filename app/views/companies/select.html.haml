@@ -9,11 +9,11 @@
       Export and Email Overall Data (All Accounts)
     .span.border-left-grayLighter
       .span
-        %a.btn.btn-warning.default-text{:href=>"#"}
+        %a.btn.btn-warning.default-text{:href => email_assessment_stats_company_managers_path}
           %i.icon-file
           Assessment Status Summary
       .span
-        %a.btn.btn-warning.default-text{:href=> email_usage_stats_company_managers_path}
+        %a.btn.btn-warning.default-text{:href => email_usage_stats_company_managers_path}
           %i.icon-bar-chart
           Usage Summary
 
@@ -44,7 +44,7 @@
                   = company.name
               .span4.text-center
                 .span2.margin-auto
-                  %a.huge-text.span1.first.info-block{:href => "#", :title => "Assessment Status Summary"}
+                  %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_managers_path(:company_id => company.id), :title => "Assessment Status Summary"}
                     %i.icon-file
                     .info
                       Assessment Status Summary
