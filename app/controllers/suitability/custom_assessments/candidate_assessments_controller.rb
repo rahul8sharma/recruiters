@@ -415,7 +415,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def email_assessment_status
      options = {
       :custom_assessment => {
-        :job_klass => "AssessmentStatusExporter",
+        :job_klass => "Suitability::Assessment::AssessmentStatusExporter",
         :args => {
           :user_id => current_user.id,
           :assessment_id => params[:id]

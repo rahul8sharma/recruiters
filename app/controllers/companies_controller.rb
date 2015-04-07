@@ -233,6 +233,20 @@ class CompaniesController < ApplicationController
 
   def candidate
   end
+  
+  def email_assessment_stats
+     options = {
+      :assessment_stats => {
+        :job_klass => "Suitability::Assessment::CompanyAssessmentStatusExporter",
+        :args => {
+          :user_id => current_user.id,
+          :company_id => params[:id]
+        }
+      }
+    }
+    @company.export_assessment_stats(options)
+    redirect_to request.env['HTTP_REFERER'], notice: "Assessment Status Summary will be generated and emailed to #{current_user.email}."
+  end
 
   protected
 
