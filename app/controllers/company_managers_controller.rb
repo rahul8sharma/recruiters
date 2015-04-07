@@ -20,7 +20,7 @@ class CompanyManagersController < MasterDataController
   def email_assessment_stats
      options = {
       :assessment_stats => {
-        :job_klass => "AssessmentStatusExporter",
+        :job_klass => "Suitability::Assessment::CompanyManagerAssessmentStatusExporter",
         :args => {
           :user_id => current_user.id,
           :company_id => params[:company_id]
