@@ -7,71 +7,7 @@
   .divider2
   = form_for @assessment, :as => :assessment, :url => set_weightage_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
     .trait-list
-      .large-text.black
-        - if @competency_weights.present?
-          Set Weightage for Competencies & Traits (Value should be between 0 to 1)
-        - else
-          Set Weightage for Traits (Value should be between 0 to 1)
-      .divider2
-      - if @competency_weights.present?
-        - factor_index = 0
-        - @competency_weights.each_with_index do |(competency, competency_weights), index|
-          - competency_weight = competency_weights[:competency_weight]
-          %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][id]", value: competency_weight.id}
-          %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][assessment_id]", value: competency_weight.assessment_id}
-          %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][competency_id]", value: competency_weight.competency_id}
-          -# '.border-top-grayLighter' class should not present at first snippet, Put %Div only for first
-          %div.border-top-grayLighter
-            .divider1
-            %label.span7.big-text.color-warning.first
-              = competency.name
-            .span2
-              %input.fw{:type=>"text", name: "assessment[assessment_competency_weights_attributes][#{index}][weight]", value: competency_weight.weight}
-            .clr
-            .divider1
-
-            %ul.trait-snippet.clearfix
-              - competency_weights[:factor_weights].each_with_index do |factor_weight, index|
-                %li.span10.first{ class: (index+1)%3!=0 ? 'border-right-grayLighter':'' }
-                  - if factor_weight.id.present?
-                    %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][id]", value: factor_weight.id}
-                  %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][assessment_id]", value: factor_weight.assessment_id}
-                  %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][competency_id]", value: factor_weight.competency_id}
-                  %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][factor_id]", value: factor_weight.factor_id}
-                  %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][id]", value: factor_weight.id}
-                  - if (index%3)!=0
-                    .span1
-                      &nbsp;
-                  %label.first.medium-text{ class: index%3==1 ? 'span6': 'span7' }
-                    = factor_weight.factor.name
-                  .span2
-                    %input.fw{:type=>"text", name: "assessment[assessment_factor_weights_attributes][#{factor_index}][weight]", value: factor_weight.weight}
-                  .clr
-                  .divider1
-                - factor_index = factor_index + 1
-            .divider1
-          .divider1          
-      - else
-        %ul.trait-snippet.clearfix
-          - @factor_weights.each_with_index do |factor_weight, index|
-            %li.span10.first{ class: (index+1)%3!=0 ? 'border-right-grayLighter':'' }
-              - if factor_weight.id.present?
-                %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{index}][id]", value: factor_weight.id}
-                
-              %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{index}][assessment_id]", value: factor_weight.assessment_id}
-              %input{:type=>"hidden", name: "assessment[assessment_factor_weights_attributes][#{index}][factor_id]", value: factor_weight.factor_id}
-              - if (index%3)!=0
-                .span1
-                  &nbsp;
-              %label.first.medium-text{ class: index%3==1 ? 'span6': 'span7' }
-                = factor_weight.factor.name
-              .span2
-                %input.fw{:type=>"text", name: "assessment[assessment_factor_weights_attributes][#{index}][weight]", value: factor_weight.weight}
-              .clr
-              .divider1
-        .divider1
-      .divider1              
-        
+      = render :partial => "#{@assessment.assessment_type}_weightages"
     %input.pull-left.btn.btn-warning.large-text.bold{:type => "submit", name: "save_and_close", :value => "Save and Close"}
     %input.pull-right.btn.btn-warning.large-text.right-offset1.bold{:type => "submit", name: "proceed", :value => "Proceed"}
     .clr

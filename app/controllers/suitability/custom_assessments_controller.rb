@@ -19,8 +19,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
 
-
-
   def norms
     get_norms
     if request.get?
@@ -99,19 +97,10 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       # This is a bad workaround to allow superadmin to proceed even if items are not available
       # Need a better way to manage this
       if @assessment.error_messages.blank?
-
         if params[:save_and_close].present?
-          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-            redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
-          else
-            redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-          end
+          redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         else
-          if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-            redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
-          else
-            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
-          end
+          redirect_to self.send("add_candidates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         end
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
@@ -191,12 +180,10 @@ class Suitability::CustomAssessmentsController < AssessmentsController
             :assessment_id => @assessment.id
           })
         end
-        redirect_path = if @assessment.assessment_type == api_resource::AssessmentType::FIT
-          norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-        elsif @assessment.assessment_type == api_resource::AssessmentType::COMPETENCY
+        redirect_path = if @assessment.assessment_type == api_resource::AssessmentType::COMPETENCY
           competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-        elsif  @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          norms_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          self.send("norms_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         end
         format.html { redirect_to redirect_path }
       else
@@ -275,26 +262,12 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
       flash[:error] = @assessment.error_messages.join("<br/>")
       if params[:save_and_close].present?
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
-        else
-          redirect_to company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-        end
+        redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path",params[:company_id], @assessment.id)
       else
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+        if is_superadmin?
+          redirect_to self.send("set_weightage_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         else
-          if is_superadmin?
-            redirect_to set_weightage_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
-          else
-            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-          end
-          
-          #if is_superadmin?
-          #  redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
-          #else
-          #  redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-          #end
+          redirect_to self.send("add_candidates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         end
       end
     else
