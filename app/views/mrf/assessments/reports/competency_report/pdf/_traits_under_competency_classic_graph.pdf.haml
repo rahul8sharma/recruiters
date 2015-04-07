@@ -8,7 +8,7 @@
       %ul
         %li
           .span5.first
-            = competency
+            = truncate competency, length: 30
           .stakeholder_rating.small-text.pull-left
             = competency_scores[:score][:points]
           .self_rating.small-text.span
@@ -20,7 +20,7 @@
           - if self_score || other_score
             %li
               .span5.first
-                = trait_score[:trait][:name]
+                = truncate trait_score[:trait][:name], length: 30
               .stakeholder_rating.small-text.pull-left
                 = trait_score[:average_score_excluding_self][:points]
               .self_rating.small-text.span
