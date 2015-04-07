@@ -188,10 +188,10 @@ Recruiters::Application.routes.draw do
         get "download_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
 
         get "training_requirements" => "suitability/custom_assessments/training_requirements_reports#training_requirements", :as => :training_requirements
-        
+
         put "training_requirements/:assessment_report_id" => "suitability/custom_assessments/training_requirements_reports#update", :as => :update_training_requirements
         post "training_requirements" => "suitability/custom_assessments/training_requirements_reports#create", :as => :create_training_requirements
-        
+
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
 
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
@@ -208,7 +208,7 @@ Recruiters::Application.routes.draw do
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        
+
         get "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
         put "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations"
 
@@ -242,11 +242,11 @@ Recruiters::Application.routes.draw do
       member do
         get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
         get "group_report/:report_id/mrf_report" => "mrf/assessments/assessment_reports#group_report", :as => :group_report
-        
+
         get "group_report" => "mrf/assessments/assessment_reports#manage", :as => :manage_group_report
         post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
         put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
-        
+
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
@@ -428,6 +428,7 @@ Recruiters::Application.routes.draw do
       post :import
       post :import_from_google_drive
       post :export_to_google_drive
+      get "email_usage_stats" => "company_managers#email_usage_stats", :as => :email_usage_stats
     end
   end
 

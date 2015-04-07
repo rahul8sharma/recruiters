@@ -3,7 +3,7 @@
     .question.medium-text
       = subjective_response_value[:body]
     .info
-      = subjective_response_value[:trait_name] ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
+      = subjective_response_value[:trait_name].present? ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
       = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
     .divider2
     - if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
