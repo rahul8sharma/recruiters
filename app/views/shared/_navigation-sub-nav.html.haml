@@ -2,7 +2,7 @@
   .menu{ class: [:new, :create, :update].include?(params[:action].to_sym) ? "active" : "" }
     .count 1
     Enter Job Role Details
-  .menu{ class: ([:norms, :styles, :competencies, :competency_norms].include?(params[:action].to_sym)) ? "active" : "" }
+  .menu{ class: ([:norms, :styles, :competencies, :competency_norms, :set_weightage].include?(params[:action].to_sym)) ? "active" : "" }
     .count 2
     Choose Behavioral Traits
   .menu{ class: (([:add_candidates].include?(params[:action].to_sym) || [:add_candidates_bulk].include?(params[:action].to_sym)) && (request.get? || flash[:error].present?)) ? "active" : "" }
