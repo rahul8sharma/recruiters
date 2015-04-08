@@ -276,7 +276,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def get_custom_assessments
-    @custom_assessments = Vger::Resources::Suitability::CustomAssessment.where(company_id: params[:company_id], query_options: { company_id: params[:company_id] }, order_by: "created_at DESC").all.to_a
+    @custom_assessments = Vger::Resources::Suitability::CustomAssessment.where(company_id: params[:company_id], query_options: { company_id: params[:company_id] }, order: "created_at DESC").all.to_a
   end
 
   def get_custom_assessment
