@@ -10,11 +10,11 @@
   .huge-text
     = @report.report_hash[:candidate][:name]
   .divider2
-  - if (@report.report_hash[:enable_recommendation])
+  - if (@report.report_hash[:enable_aggregate_competency_score])
     .heading.fw.extra-large-text.comptency
       %b
         Aggregate Score:
-        = @report.report_hash[:overall_score_bucket][:name]
+        = @report.report_hash[:aggregate_competency_score_bucket][:name]    
 
     - if (@report.report_hash[:functional_items].present?)
       - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
