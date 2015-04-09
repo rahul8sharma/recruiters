@@ -10,11 +10,11 @@
   = render :partial => "shared/settings-content-sub-nav"
 
   .padding-all2.border-warning.shifted-up1
-    .extra-large-text.text-center
+    .extra-large-text
       Please provide the following information
     .divider2
-    = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { :class => "edit_company_page text-right" }) do |f|
-      .pull-left.span15
+    = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { :class => "edit_company_page" }) do |f|
+      .span15.margin-auto
         .error
           - @company.error_messages ||= []
           - @company.error_messages.each do |message|
@@ -24,59 +24,52 @@
         %input{ type: "hidden", name: "state", id: "input_state", value: @company.state }
         %input{ type: "hidden", name: "country", id: "input_country", value: @company.country }
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Company Name:
           = f.text_field :name, :class => "first span7 medium-text left-offset1"
           .clr
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Company Pan Card Number:
           = f.text_field :pancard, :class => "first span7 medium-text left-offset1"
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Country:
           = f.select :country, @countries, { :prompt => "Select Country" }, { :id => "select_country", :class => "first span7 medium-text left-offset1" }
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             State:
           = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state", :class => "first span7 medium-text left-offset1" }
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             City:
           = f.select :city, {@company.city => @company.hq_location_id }, { :prompt => "Select City" }, { :id => "select_city", :class => "first span7 medium-text left-offset1" }
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Company Address:
           = f.text_area :address, :rows => 5, :class => "first span7 medium-text left-offset1"
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Pincode:
           = f.text_field :pincode, :class => "first span7 medium-text left-offset1"
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Contact Person's Name:
           = f.text_field :contact_person, :class => "first span7 medium-text left-offset1"
           .clr
-
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Contact Person's Number:
           = f.text_field :contact_person_mobile, :class => "first span7 medium-text left-offset1"
           .clr
         .control-group
-          %label.span7.first.big-text.line-height2.gray-darker
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Logo:
           = f.file_field :logo, :class => "first span7 medium-text left-offset1"
           .clr  
@@ -84,23 +77,30 @@
           .span8
             = image_tag(@company.large_logo_url)  
           .clr  
-        
-        %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
         .clr
-      .pull-left.span10
-        -  Vger::Resources::Company.configuration.each do |name, settings|
-          - if ["TrueClass","FalseClass"].include? settings[:type]
-            .control-group
-              %label.span10.first.big-text.line-height2.gray-darker
-                = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
-                #{name}
-            .clr
-          - else
-            .control-group
-              %label.span10.first.big-text.line-height2.gray-darker
-                #{name}:
-                = f.text_field name.to_sym, :checked => @company.send(name.to_sym)
-            .clr    
-      .clr
+      .span20.margin-auto
+        %table.table{:width => "100%"}
+          %tr
+            %th.big-text
+              Flag Name
+            %th.big-text
+              Status
+          -  Vger::Resources::Company.configuration.each do |name, settings|
+            %tr
+              - if ["TrueClass","FalseClass"].include? settings[:type]
+                %td.large-text
+                  #{name}
+                %td.text-center
+                  = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
+              - else
+                %td.large-text
+                  #{name}
+                %td.text-center
+                  = f.text_field name.to_sym, :checked => @company.send(name.to_sym)
+
+      .divider1
+      .control-group.text-center
+        %input.btn.btn-warning.large-text{:type => "submit", :value => "Submit"}
+
     .clr      
-= javascript_include_tag 'edit_company'        
+= javascript_include_tag 'edit_company'
