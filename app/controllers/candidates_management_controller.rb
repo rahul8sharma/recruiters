@@ -68,10 +68,16 @@ class CandidatesManagementController < ApplicationController
     obj = S3Utils.upload(s3_key, data)
 
     Vger::Resources::Candidate\
-      .import_candidate_scores(:file => {
+      .import_candidate_scores(
+                      :file => {
                         :bucket => obj.bucket.name,
                         :key => obj.key
-                      }, :assessment_id => params[:import][:assessment_id], :override_overall_scores => params[:import][:override_overall_scores], :email => params[:import][:email])
+                      }, 
+                      :assessment_id => params[:import][:assessment_id], 
+                      :override_overall_scores => params[:import][:override_overall_scores].present?,
+                      :override_competency_scores => params[:import][:override_competency_scores].present?,
+                      :email => params[:import][:email]
+                    )
     redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
