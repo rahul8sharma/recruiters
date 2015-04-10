@@ -75,6 +75,7 @@ Recruiters::Application.routes.draw do
       put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
       get "landing" => "companies#landing", :as => :landing
+      get "email_assessment_stats" => "companies#email_assessment_stats", :as => :email_assessment_stats
     end
 
     resources :hiring_managers do
@@ -116,10 +117,13 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :benchmarks, :controller => "suitability/benchmarks", :except => [:destroy] do
+    resources :benchmarks, :benchmark_assessments, :controller => "suitability/benchmarks", :except => [:destroy] do
       member do
         get "norms" => "suitability/benchmarks#norms", :as => :norms
         put "norms" => "suitability/benchmarks#norms", :as => :norms
+        
+        get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+        put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
 
         get "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
         put "competency_norms" => "suitability/benchmarks#competency_norms", :as => :competency_norms
@@ -159,10 +163,13 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :custom_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
+    resources :custom_assessments, :fit_assessments, :competency_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
         put "norms" => "suitability/custom_assessments#norms", :as => :norms
+
+        get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+        put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
 
         get "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
         put "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
@@ -182,10 +189,10 @@ Recruiters::Application.routes.draw do
         get "download_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#download_report", :as => :download_training_requirements_report
 
         get "training_requirements" => "suitability/custom_assessments/training_requirements_reports#training_requirements", :as => :training_requirements
-        
+
         put "training_requirements/:assessment_report_id" => "suitability/custom_assessments/training_requirements_reports#update", :as => :update_training_requirements
         post "training_requirements" => "suitability/custom_assessments/training_requirements_reports#create", :as => :create_training_requirements
-        
+
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
 
         get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
@@ -202,7 +209,7 @@ Recruiters::Application.routes.draw do
         get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        
+
         get "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
         put "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations"
 
@@ -236,11 +243,11 @@ Recruiters::Application.routes.draw do
       member do
         get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
         get "group_report/:report_id/mrf_report" => "mrf/assessments/assessment_reports#group_report", :as => :group_report
-        
+
         get "group_report" => "mrf/assessments/assessment_reports#manage", :as => :manage_group_report
         post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
         put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
-        
+
         get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
 
@@ -422,6 +429,8 @@ Recruiters::Application.routes.draw do
       post :import
       post :import_from_google_drive
       post :export_to_google_drive
+      get "email_usage_stats" => "company_managers#email_usage_stats", :as => :email_usage_stats
+      get "email_assessment_stats" => "company_managers#email_assessment_stats", :as => :email_assessment_stats
     end
   end
 

@@ -28,7 +28,7 @@
               - sorted_competency_scores.each do |competency, competency_score|
                 %li
                   .span5.first.trait_title
-                    = competency
+                    = truncate competency, length: 30
                     
                   .stakeholder_rating.pull-left
                     = competency_score[:score][:points] || "-"

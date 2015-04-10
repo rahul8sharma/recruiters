@@ -27,6 +27,16 @@
       Assessment Answered On:
       = @report.report_hash[:completed_at]
     .divider2
+- if @report.report_data[:competency_interpretation_guide]    
+  .container
+    .divider2
+    .title
+      Guidelines to Interpret the Report
+    .divider2
+    .suitability-competency-report-guideline.text-center
+      - interpretation_image_path = asset_path("report/html/suitability-competency-report-guideline.jpg")
+      = image_tag "#{Rails.application.config.action_controller.asset_host}/#{interpretation_image_path}"
+    .divider2
 .overview
   .bottom-triangle
     .container

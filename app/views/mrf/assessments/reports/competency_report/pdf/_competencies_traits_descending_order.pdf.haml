@@ -26,7 +26,7 @@
               - sorted_trait_scores.each do |trait_score|
                 %li
                   .span5.first.trait_title
-                    = trait_score[:trait][:name]
+                    = truncate trait_score[:trait][:name], length: 30
                     
                   .stakeholder_rating.pull-left
                     = trait_score[:average_score_excluding_self][:points] || "-"

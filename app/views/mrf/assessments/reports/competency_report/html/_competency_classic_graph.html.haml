@@ -7,8 +7,8 @@
     %ul
       - @report.report_data[:competency_scores].each do |competency, competency_scores|
         %li
-          .span6.extra-medium-text.first
-            = competency
+          .span6.extra-medium-text.first{ title: competency }
+            = truncate competency, length: 25
           .stakeholder_rating.medium-text.pull-left
             = competency_scores[:score][:points] || "-"
           .self_rating.medium-text.span

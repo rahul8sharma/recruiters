@@ -8,8 +8,8 @@
   - @report.report_data[:competency_scores].each do |competency,competency_scores|
     - competency_scores[:trait_scores].each do |trait_score|
       .frame
-        .heading.pull-left
-          #{competency}: Trait "#{trait_score[:trait][:name]}"
+        .heading.pull-left{ title: "#{competency}: Trait #{trait_score[:trait][:name]}" }
+          = truncate "#{competency}: Trait #{trait_score[:trait][:name]}", length: 80
         .clr
         .divider2
         - if trait_score[:items][:other_responses].find{|item_data| item_data[:responses].present? }
