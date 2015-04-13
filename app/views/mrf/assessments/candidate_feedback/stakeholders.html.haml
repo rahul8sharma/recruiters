@@ -14,18 +14,20 @@
 
   .padding-all2.border-warning.shifted-up1    
     .list-snippet-titles.big-text.clearfix
-      .span3.first
+      .span1.first
         = sort_link "ID", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
       .span5
         = sort_link "Stakeholder", candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
       .span6
         Email Id
-      .span5
+      .span4
         Role
       .span5
         Response Status
       .span4
         Send Reminder
+      .span2
+        Enable/Disable
       .clr
       .divider1          
       %ul
@@ -34,13 +36,13 @@
           - feedback = @feedbacks[stakeholder_assessment.id].first
           %li.list-snippet.extra-medium-text
             .divider1
-            .span3.first
+            .span1.first
               = stakeholder.id
             .span5
               = stakeholder.name
             .span6
               = stakeholder.email
-            .span5
+            .span4
               = feedback.role.titleize
             .span5
               = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
@@ -50,6 +52,11 @@
                   Send Reminder
               - else
                 = "-"
+            .span2
+              - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                = link_to "#{feedback.active ? 'Disable':'Enable'}", update_feedback_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id, feedback_id: feedback.id, active: !feedback.active)
+              - else
+                = "-"  
             .clr
     .divider2
     .pull-right

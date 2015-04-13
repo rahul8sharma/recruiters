@@ -5,9 +5,21 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_assessment
-  before_filter :get_candidate, only: [:statistics, :stakeholders]
+  before_filter :get_candidate, only: [:statistics, :stakeholders, :update_feedback]
 
   layout 'mrf/mrf'
+  
+  def update_feedback
+    feedback = Vger::Resources::Mrf::Feedback.save_existing(params[:feedback_id],
+      {
+        company_id: @company.id, 
+        assessment_id: @assessment.id, 
+        active: params[:active]
+      }
+    )
+    flash[:notice] = "Candidate successfully #{feedback.active ? 'enabled':'disabled'}."
+    redirect_to candidate_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, @candidate.id)
+  end
 
   def send_reminder
     Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
