@@ -7,10 +7,10 @@
         = f.label :assessment_id
         = f.text_field :assessment_id
       %p
-        = f.label :override_competency_scores
+        = f.label "Competency Scores: Ignore calculations and display scores from sheet on Reports"
         %input{ type: "checkbox", name: "import[override_competency_scores]" }
       %p
-        = f.label :override_overall_scores
+        = f.label "Overall Score: Ignore calculations and display scores from sheet on Reports"
         %input{ type: "checkbox", name: "import[override_overall_scores]" }
       %p
         Zipped CSV File
