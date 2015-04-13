@@ -66,14 +66,14 @@
               - if settings[:flag_type] == "common" || settings[:flag_type] == "competency"
                 %tr
                   %td.extra-medium-text
-                    #{name}
+                    #{settings[:display_name]}
                   %td.text-center
                     = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)
             - else
               - if settings[:flag_type] == "common" || settings[:flag_type] == "plain"
                 %tr
                   %td.extra-medium-text
-                    #{name}
+                    #{settings[:display_name]}
                   %td.text-center
                     = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)
     .clr

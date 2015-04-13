@@ -78,7 +78,7 @@
             = image_tag(@company.large_logo_url)  
           .clr  
         .clr
-      .span20.margin-auto
+      .span25.margin-auto
         %table.table{:width => "100%"}
           %tr
             %th.big-text
@@ -88,13 +88,13 @@
           -  Vger::Resources::Company.configuration.each do |name, settings|
             %tr
               - if ["TrueClass","FalseClass"].include? settings[:type]
-                %td.large-text
-                  #{name}
+                %td.extra-medium-text
+                  #{settings[:display_name]}
                 %td.text-center
                   = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
               - else
-                %td.large-text
-                  #{name}
+                %td.extra-medium-text
+                  #{settings[:display_name]}
                 %td.text-center
                   = f.text_field name.to_sym, :checked => @company.send(name.to_sym)
 
