@@ -23,7 +23,7 @@
             %option{value: ''} Choose assessment
             - @custom_assessments.each do |custom_assessment|
               %option{ value: custom_assessment.id }
-                = custom_assessment.name
+                #{custom_assessment.id} - #{custom_assessment.name}
           .divider1
           %select.fw{name: "assessment[assessment_type]"}
             %option{value: ''} Choose assessment type
