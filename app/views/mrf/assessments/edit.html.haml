@@ -18,9 +18,9 @@
         %option{ value: "jombay", selected: @assessment.configuration["assessment_type"] == "jombay" }
           Jombay
         %option{ value: "classic", selected: @assessment.configuration["assessment_type"] == "classic" }
-          Classic
-        
+          Classic  
       .divider1
+      
       .span26.margin-auto
         - if is_superadmin?
           %label.big-text.default
@@ -34,12 +34,14 @@
           %label.big-text.default
             = f.check_box :show_company_logo, checked: @assessment.show_company_logo
             Show Company Logo
-          .divider1
         .divider1
       .hw.pull-left
-
-        %input.btn.btn-info.large-text.bold.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
-        .clr
+      
+      .span26.margin-auto
+        = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
+        
         .divider2
-
+        %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
       .clr
+      .divider2
+    .clr
