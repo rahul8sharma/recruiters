@@ -1,0 +1,35 @@
+- if is_superadmin?
+  -helpText = "(Common and Trait based Flags)"
+  - if @assessment.use_competencies == true
+    - helpText = "(Common and Competency based Flags)"
+  .select_flags
+    %table.table{:width => "100%"}
+      %tr
+        %th.big-text
+          Sr.No
+        %th.big-text
+          Flag Name #{helpText}
+        %th.big-text
+          Flag Status
+      - iterator = 0
+      -  Vger::Resources::Mrf::Assessment.configuration.each do |name, settings|
+        - if @assessment.use_competencies == true
+          - if settings[:flag_type] == "common" || settings[:flag_type] == "competency"
+            - iterator += 1
+            %tr
+              %td.extra-medium-text
+                #{iterator}
+              %td.extra-medium-text
+                #{settings[:display_name]}
+              %td.text-center
+                = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)
+        - else
+          - if settings[:flag_type] == "common" || settings[:flag_type] == "plain"
+            - iterator += 1
+            %tr
+              %td.extra-medium-text
+                #{iterator}
+              %td.extra-medium-text
+                #{settings[:display_name]}
+              %td.text-center
+                = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)

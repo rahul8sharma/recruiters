@@ -9,219 +9,228 @@
 @import statistic
 @import shared/reports/traits_hexagon_html
 .factors_container
-  margin-left: -35px
+	margin-left: -35px
 .home
-  ul
-    li
-      color: $grayDarker
-  .info-list
-    li
-      float: left
-      margin-left: 32px
-      &:first-child
-        margin-left: 0
-    .visual01
-      background: image-url("home/visual01.png") no-repeat center 0
-    .visual02
-      background: image-url("home/visual02.png") no-repeat center 0
-      width: 266px
-    .pencil
-      background: image-url("home/pencil.png") no-repeat center 0
-    .file
-      background: image-url("home/file.png") no-repeat center 0
-    .envelop
-      background: image-url("home/envelop.png") no-repeat center 0
-    .group
-      background: image-url("home/group.png") no-repeat center 0
-    .tick
-      background: image-url("home/tick.png") no-repeat center 0
+	ul
+		li
+			color: $grayDarker
+	.info-list
+		li
+			float: left
+			margin-left: 32px
+			&:first-child
+				margin-left: 0
+		.visual01
+			background: image-url("home/visual01.png") no-repeat center 0
+		.visual02
+			background: image-url("home/visual02.png") no-repeat center 0
+			width: 266px
+		.pencil
+			background: image-url("home/pencil.png") no-repeat center 0
+		.file
+			background: image-url("home/file.png") no-repeat center 0
+		.envelop
+			background: image-url("home/envelop.png") no-repeat center 0
+		.group
+			background: image-url("home/group.png") no-repeat center 0
+		.tick
+			background: image-url("home/tick.png") no-repeat center 0
 
-  .assessment-list
-    li
-      width: 370px
-      padding: 10px
-      font-size: 16px
-      border: 1px solid $grayLighter  
-      border-radius: 2px
-      line-height: 16px
-      margin-bottom: 18px
+	.assessment-list
+		li
+			width: 370px
+			padding: 10px
+			font-size: 16px
+			border: 1px solid $grayLighter  
+			border-radius: 2px
+			line-height: 16px
+			margin-bottom: 18px
 
-      a
-        color: $grayDarker
+			a
+				color: $grayDarker
 
-        &:hover
-          color: $color-warning
-          text-decoration: none
+				&:hover
+					color: $color-warning
+					text-decoration: none
 
 
-      [class^="icon-"], [class*=" icon-"]
-        line-height: 16px
-        font-size: 18px
-        margin: 0 15px
-      .icon-chevron-right
-        margin-right: 20px
-  a
-    &:hover
-      color: $color-warning
-      text-decoration: none
+			[class^="icon-"], [class*=" icon-"]
+				line-height: 16px
+				font-size: 18px
+				margin: 0 15px
+			.icon-chevron-right
+				margin-right: 20px
+	a
+		&:hover
+			color: $color-warning
+			text-decoration: none
 
 .list-snippet
-  font-size: $extra-medium-text
-  margin: 0 0 18px 0
-  color: $grayDarker
-  .info-block
-    position: relative
-    .info
-      position: absolute
-      background: #fff
-      border: 1px solid $color-warning
-      padding: 7px 10px
-      text-align: left
-      border-radius: 3px
-      width: 185px
-      left: -2px
-      bottom: 39px
-      display: none
-      color: $grayDark
-      font-size: $default-text
-      z-index: 999
-      line-height: 15px
-    .arrow
-      position: absolute
-      background: image-url('down-caret.png') no-repeat
-      width: 17px
-      height: 10px
-      left: 10px
-      bottom: 30px
-      display: none
-      z-index: 1000
-    &:hover
-      .arrow, .info
-        display: block
-  a
-    display: block
-    color: $grayDarker
-    &:hover
-      color: $color-warning
-      text-decoration: none
+	font-size: $extra-medium-text
+	margin: 0 0 18px 0
+	color: $grayDarker
+	.info-block
+		position: relative
+		.info
+			position: absolute
+			background: #fff
+			border: 1px solid $color-warning
+			padding: 7px 10px
+			text-align: left
+			border-radius: 3px
+			width: 185px
+			left: -2px
+			bottom: 39px
+			display: none
+			color: $grayDark
+			font-size: $default-text
+			z-index: 999
+			line-height: 15px
+		.arrow
+			position: absolute
+			background: image-url('down-caret.png') no-repeat
+			width: 17px
+			height: 10px
+			left: 10px
+			bottom: 30px
+			display: none
+			z-index: 1000
+		&:hover
+			.arrow, .info
+				display: block
+	a
+		display: block
+		color: $grayDarker
+		&:hover
+			color: $color-warning
+			text-decoration: none
 .list-snippet-titles 
-  a
-    color: $default
-    &:hover
-      text-decoration: none
-      color: $default
-      i
-        color: $color-warning
-    i.active
-      color: $color-warning
+	a
+		color: $default
+		&:hover
+			text-decoration: none
+			color: $default
+			i
+				color: $color-warning
+		i.active
+			color: $color-warning
 .payment_unsuccess
-  .border-warning
-    border-radius: 4px
-    padding: 18px 50px
-  ul
-    li
-      padding: 0 0 0 40px
+	.border-warning
+		border-radius: 4px
+		padding: 18px 50px
+	ul
+		li
+			padding: 0 0 0 40px
 
-      i
-        margin: 0 0 0 -40px
+			i
+				margin: 0 0 0 -40px
 .sign-up
-  .control-group
-    .info-tooltip-control
-      position: relative
-      width: 0
-      height: 36px
-      .info-tooltip
-        display: none
-        position: absolute
-        border: 1px solid $color-warning
-        border-radius: 4px
-        font-size: 12px
-        width: 280px
-        padding: 10px
-        z-index: 99999
-        background: #fff
-        left: 10px
+	.control-group
+		.info-tooltip-control
+			position: relative
+			width: 0
+			height: 36px
+			.info-tooltip
+				display: none
+				position: absolute
+				border: 1px solid $color-warning
+				border-radius: 4px
+				font-size: 12px
+				width: 280px
+				padding: 10px
+				z-index: 99999
+				background: #fff
+				left: 10px
 
-      .left-caret
-        background: image-url("left-caret.png") no-repeat center center
-        height: 10px
-        left: -10px
-        position: absolute
-        top: 44%
-        width: 16px
-    &.infoMassage
-      .info-tooltip-control
-        display: block
+			.left-caret
+				background: image-url("left-caret.png") no-repeat center center
+				height: 10px
+				left: -10px
+				position: absolute
+				top: 44%
+				width: 16px
+		&.infoMassage
+			.info-tooltip-control
+				display: block
 .company_profile
-  i
-    font-size: 24px
-    color: $color-warning
-    margin-right: 20px
+	i
+		font-size: 24px
+		color: $color-warning
+		margin-right: 20px
 
 .candidate-search
-  .info-text
-    color: #bcbec0
-  .search-field
-    float: left
-    width: 280px
-    padding: 2px 15px
-    font-size: 14px
-    border-right: 0 none
-  .search-btn
-    float: left
-    input
-      width: 70px
-      height: 30px
-      background: image-url("search-icon-default.png") no-repeat center center  $color-warning
-      float: left
-      border: 1px solid transparent
-      padding: 0
-      box-shadow: none
+	.info-text
+		color: #bcbec0
+	.search-field
+		float: left
+		width: 280px
+		padding: 2px 15px
+		font-size: 14px
+		border-right: 0 none
+	.search-btn
+		float: left
+		input
+			width: 70px
+			height: 30px
+			background: image-url("search-icon-default.png") no-repeat center center  $color-warning
+			float: left
+			border: 1px solid transparent
+			padding: 0
+			box-shadow: none
 
-      &:hover
-        border: 1px solid $color-warning
-        background: image-url("search-icon-warning.png") no-repeat center center #fff
-        
-  ul.styled
-    padding: 0 0 0 15px
-    li
-      padding: 0 0 0 10px
-      list-style: disc
-      line-height: 23px
+			&:hover
+				border: 1px solid $color-warning
+				background: image-url("search-icon-warning.png") no-repeat center center #fff
+				
+	ul.styled
+		padding: 0 0 0 15px
+		li
+			padding: 0 0 0 10px
+			list-style: disc
+			line-height: 23px
 
-     
+		 
 //----------//
 #back-top
-  position: fixed
-  bottom: 30px
-  left: 91%
+	position: fixed
+	bottom: 30px
+	left: 91%
 
 #back-top a
-  display: block
-  text-align: center
-  font: 11px/100% Arial, Helvetica, sans-serif
-  text-transform: uppercase
-  text-decoration: none
-  color: #bbb
+	display: block
+	text-align: center
+	font: 11px/100% Arial, Helvetica, sans-serif
+	text-transform: uppercase
+	text-decoration: none
+	color: #bbb
 
-  /* transition */
-  -webkit-transition: 1s
-  -moz-transition: 1s
-  transition: 1s
+	/* transition */
+	-webkit-transition: 1s
+	-moz-transition: 1s
+	transition: 1s
 
 #back-top a:hover
-  color: #000
+	color: #000
 
 
 /* arrow icon (span tag) */
 #back-top span
-  width: 150px
-  padding: 10px
-  display: block
-  margin-bottom: 25px
-  color : $color-warning
-  /* transition */
-  -webkit-transition: 1s
-  -moz-transition: 1s
-  transition: 1s
+	width: 150px
+	padding: 10px
+	display: block
+	margin-bottom: 25px
+	color : $color-warning
+	/* transition */
+	-webkit-transition: 1s
+	-moz-transition: 1s
+	transition: 1s
 
+.company_profile
+	table.table
+		border-collapse: collapse
+		th
+			background: #e3e3e3
+			color: #000
+		td, th
+			border: 1px solid black
+			padding: 5px
