@@ -12,7 +12,7 @@
           Flag Status
       - iterator = 0
       - if @assessment.present?
-        -  Vger::Resources::Mrf::Assessment.configuration.each do |name, settings|
+        -  Vger::Resources::Mrf::Assessment.configuration.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
           - iterator += 1
           %tr
             %td.medium-text
@@ -24,7 +24,7 @@
             %td.text-center
               = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)
       - else
-        -  Vger::Resources::Company.configuration.each do |name, settings|
+        -  Vger::Resources::Company.configuration.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
           - iterator += 1
           %tr
             - if ["TrueClass","FalseClass"].include? settings[:type]
