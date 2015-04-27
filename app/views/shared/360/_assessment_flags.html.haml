@@ -1,3 +1,9 @@
+-if @assessment.present?
+  - object = @assessment
+  - flags = Vger::Resources::Mrf::Assessment.configuration
+-else
+  - object = @company
+  - flags = Vger::Resources::Company.configuration
 - if is_superadmin?
   .select_flags
     %table.table{:width => "100%"}
@@ -11,10 +17,10 @@
         %th.big-text
           Flag Status
       - iterator = 0
-      - if @assessment.present?
-        -  Vger::Resources::Mrf::Assessment.configuration.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
-          - iterator += 1
-          %tr
+      -  flags.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
+        - iterator += 1
+        %tr
+          - if ["TrueClass","FalseClass"].include? settings[:type]
             %td.medium-text
               #{iterator}
             %td.medium-text
@@ -22,26 +28,13 @@
             %td.medium-text
               #{settings[:display_name]}
             %td.text-center
-              = f.check_box name.to_sym, :checked => @assessment.send(name.to_sym)
-      - else
-        -  Vger::Resources::Company.configuration.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
-          - iterator += 1
-          %tr
-            - if ["TrueClass","FalseClass"].include? settings[:type]
-              %td.medium-text
-                #{iterator}
-              %td.medium-text
-                #{settings[:context].titleize}
-              %td.medium-text
-                #{settings[:display_name]}
-              %td.text-center
-                = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
-            - else
-              %td.medium-text
-                #{iterator}
-              %td.medium-text
-                #{settings[:context].titleize}
-              %td.medium-text
-                #{settings[:display_name]}
-              %td.text-center
-                = f.text_field name.to_sym, :checked => @company.send(name.to_sym)
+              = f.check_box name.to_sym, :checked => object.send(name.to_sym)
+          - else
+            %td.medium-text
+              #{iterator}
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.text_field name.to_sym, :checked => object.send(name.to_sym)
