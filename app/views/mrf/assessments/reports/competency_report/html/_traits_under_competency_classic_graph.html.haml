@@ -37,10 +37,9 @@
       .classic_competency_graph
         .classic_competency_graph_scale
           .block.pull-left
-            = @trait_graph_buckets.first.min_val
-          - @trait_graph_buckets[1..100].each do |trait_graph_bucket|
-            .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size-1)}px; text-align: right"}
-              = trait_graph_bucket.min_val
+          - @trait_graph_buckets.each do |trait_graph_bucket|
+            .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: left"}
+              = trait_graph_bucket.name
           .clr
         .graph
           .graph_content
