@@ -131,8 +131,6 @@ class Mrf::AssessmentsController < ApplicationController
       render action: :new and return
     end
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
-    Rails.logger.ap("@@Assessment@@");
-    Rails.logger.ap(@assessment);
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
       redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
