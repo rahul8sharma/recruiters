@@ -39,8 +39,8 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: d17a7c17f6785daea96a1a165dbf45ecebb5f568
-  branch: develop
+  revision: 6cdfa97ab3a03fc6924a4bbe320ce427afa5d1f5
+  branch: ScorerChanges
   specs:
     vger (0.0.1)
       her (~> 0.6.8)
