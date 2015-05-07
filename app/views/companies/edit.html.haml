@@ -79,24 +79,7 @@
           .clr  
         .clr
       .span25.margin-auto
-        %table.table{:width => "100%"}
-          %tr
-            %th.big-text
-              Flag Name
-            %th.big-text
-              Status
-          -  Vger::Resources::Company.configuration.each do |name, settings|
-            %tr
-              - if ["TrueClass","FalseClass"].include? settings[:type]
-                %td.extra-medium-text
-                  #{settings[:display_name]}
-                %td.text-center
-                  = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
-              - else
-                %td.extra-medium-text
-                  #{settings[:display_name]}
-                %td.text-center
-                  = f.text_field name.to_sym, :checked => @company.send(name.to_sym)
+        = render :partial => "shared/company_flags", :locals => { :f => f}
 
       .divider1
       .control-group.text-center
