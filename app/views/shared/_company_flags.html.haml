@@ -1,0 +1,34 @@
+- if is_superadmin?
+  .select_flags
+    %table.table{:width => "100%"}
+      %tr
+        %th.big-text
+          Sr.No
+        %th.big-text
+          Type
+        %th.big-text
+          Flag Name
+        %th.big-text
+          Flag Status
+      - iterator = 0
+      -  Vger::Resources::Company.configuration.each do |name, settings|
+        - iterator += 1
+        %tr
+          - if ["TrueClass","FalseClass"].include? settings[:type]
+            %td.medium-text
+              #{iterator}
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
+          - else
+            %td.medium-text
+              #{iterator}
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.text_field name.to_sym, :checked => @company.send(name.to_sym)

@@ -84,7 +84,7 @@
 
               .clr
         .divider1
-        - if @report.report_data[:mrf_stakeholder_level_breakdown_at_competency_level]
+        - if @report.report_data[:mrf_stakeholder_level_breakdown_at_trait_level]
           .span27.margin-auto
             %ul.clearfix.breakdown_small
               - trait_score[:role_wise_scores].each do |role_name, role_data|

@@ -17,9 +17,10 @@
         .factors_list
           - @report.report_hash[:factor_scores].each_with_index do |(factor_name,factor_score),index|
             - margin = factor_name.split(" ").size > 1 ? 15 : 30
-            %div{ class: "factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            %div{ class: "factor_#{index+1}" }
               .text-wrap{:style=>"margin-top: #{margin}px;"}
-                = factor_name.gsub(" ","<br/>").html_safe
+                %a{:href => "#"+"#{factor_name}", :title => "#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}"}
+                  = factor_name.gsub(" ","<br/>").html_safe
           .clr
       .divider4
       .bottom-sec

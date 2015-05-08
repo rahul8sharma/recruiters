@@ -1,0 +1,40 @@
+-if @assessment.id.present?
+  - object = @assessment
+  - flags = Vger::Resources::Mrf::Assessment.configuration
+-else
+  - object = @company
+  - flags = Vger::Resources::Company.configuration
+- if is_superadmin?
+  .select_flags
+    %table.table{:width => "100%"}
+      %tr
+        %th.big-text
+          Sr.No
+        %th.big-text
+          Type
+        %th.big-text
+          Flag Name
+        %th.big-text
+          Flag Status
+      - iterator = 0
+      -  flags.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
+        - iterator += 1
+        %tr
+          - if ["TrueClass","FalseClass"].include? settings[:type]
+            %td.medium-text
+              #{iterator}
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.check_box name.to_sym, :checked => object.send(name.to_sym)
+          - else
+            %td.medium-text
+              #{iterator}
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.text_field name.to_sym, :checked => object.send(name.to_sym)
