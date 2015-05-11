@@ -1,0 +1,26 @@
+.medium-text.black
+  = subjective_response_value[:body]
+-#
+  .info
+    = subjective_response_value[:trait_name].present? ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
+    = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
+.divider1
+- if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
+  %ul
+    - step_responses.each do |role_wise_response|
+      %li.left-offset1.border-bottom-grayLighter.vSmall-padding
+        .classic_user_icon.black.pull-left 
+        .span2.first
+          Manager:
+
+        .span15.color_blue
+          -# need to toggle with ".green_heading " and ".color_blue" in "stake holder comments on traits"
+          "#{role_wise_response}"
+        .clr
+- else
+  %li
+    .no-responses
+      .box
+        No Responses
+    .divider1
+.divider1
