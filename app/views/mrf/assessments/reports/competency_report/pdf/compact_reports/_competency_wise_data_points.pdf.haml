@@ -1,0 +1,80 @@
+- if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+  - @report.report_data[:competency_scores].each do |competency, competency_scores|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml"
+    .scores.border-bottom-grayLighter
+      .divider1
+      .green_heading.big-text
+        Competency  
+        “#{competency}”
+      .divider1
+      .small-padding
+        .border-left-grayLighter.span
+          - if @report.report_data[:competency360_competencies_textual_data_points]
+            .stakeholder_rating_icon.span1.first &nbsp;
+            .medium-text.color-average.pull-left
+              360&#176; Score: 
+              = competency_scores[:score][:points] || "-"
+            .classic_user_icon.span1 &nbsp;
+            .medium-text.color-average.pull-left
+              Self Rating: 
+              = competency_scores[:average_score_self][:points] || "-"
+            .self_rating_icon.span &nbsp;
+            .medium-text.color-average.pull-left
+              360&#176; (Including Self): 
+              = competency_scores[:average_score_including_self][:points] || "-"
+            .clr
+            .divider1
+
+            .medium-text.black.span
+              Average rating given by Stakeholders
+            .clr
+            .left-offset1
+              .span.color-average.vSmall-padding.first
+                Managers: 100.00
+              .span.color-average.vSmall-padding
+                Super Manager: 5
+              .span.color-average.vSmall-padding
+                Customers: 5 
+              .span.color-average.vSmall-padding
+                Colleagues: 100.00
+              .span.color-average.vSmall-padding
+                Direct Reports: 5
+              .span.color-average.vSmall-padding
+                Subordinates: 5
+              .clr
+            .divider1
+            .span10.border-right-grayLighter
+              -# remove ".border-right-grayLighter" within traitwise partial
+              .medium-text.black.span.first
+                360&#176; Scores across exercise
+              .clr
+              .divider1
+              .high_low_scores
+                .left-offset1
+                  .low.color-average.span
+                    Lowest: 20
+                  .candidate.color-average.span
+                    Candidate: 60
+                  .high.color-average.span
+                    Highest: 82
+                  .clr
+            -# 
+              -#For trait wise  all code remains same, just add below section to trait wise partial and delet this comment 
+              .pull-right
+                .medium-text.black.span
+                  Maximum/Minimum Ratings given to Candidate
+                .clr
+                .divider1
+                .min_max_scores
+                  .min.color-average.span
+                    Maximum Rating: 20
+                  .max.color-average.span
+                    Minimum Rating: 16
+                   
+                    .clr
+            .clr
+          .divider1
+          - if @report.report_data[:competency360_competencies_frequency_of_ratings]
+            = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+          .page-break
+        .clr
