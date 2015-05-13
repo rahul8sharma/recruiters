@@ -11,7 +11,8 @@
             Trait "#{trait_score[:trait][:name]}" Under Competency "#{competency}"
           - if @report.report_data[:competency360_traits_data_pts_items_as_title]
             - trait_score[:items][:self_responses].each do |item|
-              = item[:item]
+              .color-warning
+                = item[:item]
         .divider1
         .small-padding
           .border-left-grayLighter.span
@@ -73,6 +74,7 @@
             = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
             .clr
             .divider2
+          .clr
       - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
         .page-break
         .clr
