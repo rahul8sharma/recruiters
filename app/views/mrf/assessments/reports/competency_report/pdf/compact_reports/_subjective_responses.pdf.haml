@@ -1,25 +1,9 @@
-.medium-text.black
-  = subjective_response_value[:body]
--#
-  .info
-    = subjective_response_value[:trait_name].present? ? "This question was about the trait #{subjective_response_value[:trait_name]}." : ""
-    = subjective_response_value[:compulsory] ? "Response to question was Mandatory" : "Response to question was Optional"
-.divider1
-- if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
-  %ul
-    - step_responses.each do |role_wise_response|
-      %li.left-offset1.border-bottom-grayLighter.vSmall-padding
-        .classic_user_icon.black.pull-left 
-        .span2.first
-          Manager:
+- if @report.report_data[:mrf_report_show_subjective_responses] && @report.report_data[:subjective_responses_enabled]
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
+  .stakeholder-comments.responses
+  - @report.report_data[:subjective_responses_others].each_with_index do |(subjective_response_key, subjective_response_value), index|
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
 
-        .span15.color_blue
-          "#{role_wise_response}"
-        .clr
-- else
-  %li
-    .no-responses
-      .box
-        No Responses
-    .divider1
-.divider1
+  - @report.report_data[:subjective_responses_self].each_with_index do |(subjective_response_key, subjective_response_value), index|
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
+  .page-break
