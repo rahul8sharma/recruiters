@@ -1,5 +1,5 @@
 - if @report.report_data[:mrf_report_percentage_competency_scores]
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml"
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
   .scores
     #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
       .divider1
@@ -38,6 +38,6 @@
       - competencies = competencies - page.select{|competency,hash| hash[:pending] == 0 }.keys
       - page = page.select{|competency, hash| hash[:pick].size > 0 }
       .page-break
-      = render partial: "shared/360/compact_mrf_report_header.pdf.haml"
+      = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
       = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_traits_competencies", locals: { page: page }
     .page-break

@@ -1,5 +1,5 @@
 - if @report.report_data[:mrf_report_360_feedback_stats] || @report.report_data[:plain_mrf_report_360_feedback_stats]
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml"
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Summar of 360 Degree Feedback"}
   .divider3
   .feedback-stats
     .stats

@@ -2,12 +2,19 @@
   = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
+    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
+    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
-
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page7"
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page8"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits"
+    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page9"
+    .page-break
     
   / = render :partial => "mrf/assessments/reports/competency_report/pdf/mrf_rating_competency_overview"
   / = render :partial => "mrf/assessments/reports/competency_report/pdf/page2"

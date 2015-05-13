@@ -1,6 +1,6 @@
 .header.clearfix
-  .large-text.white.pull-left.line-height3
-    Stakeholder Comments on Traits
+  .extra-medium-text.white.pull-left.line-height3
+    = display_text rescue "NA"
   .text-right.pull-right
     .user_name
       = @report.report_hash[:candidate][:name]

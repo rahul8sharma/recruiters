@@ -1,14 +1,14 @@
 - if @report.report_data[:mrf_report_strength_areas_of_improvement]
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml"
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Strength and Areas of Improvement"}
 
   .strength_weakness_areas.section02
     .scores
       - @report.report_data[:strengths_and_areas_of_improvement].each do |type, traits|
         .medium-text
-          = type.titleize
+          .font-bold
+            = type.titleize
         .divider1
         .section_description.gray-dark
-          
           .left-info{:style=>"width:100%;font-weight:600;"}
             .less-padding-all1
               = Rails.application.config.reports["mrf_report"][type.to_s]
