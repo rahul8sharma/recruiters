@@ -1,9 +1,9 @@
 - if @report.report_data[:mrf_report_show_trait_comments] && @report.report_data[:comments_enabled]
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments On Traits"}
-  .stakeholder-comments.responses
-    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-      - competency_scores[:trait_scores].each_slice(5) do |step_trait|
-        - step_trait.each do |trait|
+  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+    - competency_scores[:trait_scores].each_slice(5) do |step_trait|
+      = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments On Traits"}
+      - step_trait.each do |trait|
+        .stakeholder-comments.responses
           .medium-text.black
             Comments on 
             %span.font-bold
@@ -25,7 +25,5 @@
                 .box
                   No Responses
               .divider3
-        .page-break
-        = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments On Traits"}
-        .clr
-        .divider2
+      .page-break
+    .clr

@@ -10,9 +10,6 @@
             %a{:href=>company_path(@company)} Settings
         %li
           %a{href: "/logout"} Logout
-  - if defined?(@company)
-    %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
-      BUY PACKAGE
   %ul.navbar.pull-right.clearfix
     - if defined?(@company)
       %li
