@@ -1,0 +1,83 @@
+- if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+  - @report.report_data[:competency_scores].each do |competency, competency_scores|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on 360 Degree Scores: Traits Under Competencies"}
+    - iterator = 0
+    - competency_scores[:trait_scores].each do |trait_score|
+      - iterator += 1
+      .scores.border-bottom-grayLighter
+        .divider1
+        .green_heading.big-text
+          - if @report.report_data[:competency360_traits_data_pts_trait_name_as_title]
+            Trait "#{trait_score[:trait][:name]}" Under Competency "#{competency}"
+          - if @report.report_data[:competency360_traits_data_pts_items_as_title]
+            - trait_score[:items][:self_responses].each do |item|
+              .color-warning
+                = item[:item]
+        .divider1
+        .small-padding
+          .border-left-grayLighter.span
+            - if @report.report_data[:competency360_competencies_textual_data_points]
+              .stakeholder_rating_icon.span1.first &nbsp;
+              .medium-text.color-average.pull-left
+                360&#176; Score: 
+                = trait_score[:average_score_excluding_self][:points] || "-"
+              .classic_user_icon.span1 &nbsp;
+              .medium-text.color-average.pull-left
+                Self Rating: 
+                = trait_score[:average_score_self][:points] || "-"
+              .self_rating_icon.span &nbsp;
+              .medium-text.color-average.pull-left
+                360&#176; (Including Self): 
+                = trait_score[:average_score_including_self][:points] || "-"
+              .clr
+              .divider1
+
+              .medium-text.black.span
+                Average rating given by Stakeholders
+              .clr
+              .left-offset1
+                - if trait_score[:role_wise_scores].present?
+                  - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
+                    .span.color-average.vSmall-padding
+                      #{role.titleize}: #{score[:points] || "-"}
+                  .clr
+              .divider1
+              
+              .span10.border-right-grayLighter
+                .medium-text.black.span.first
+                  360&#176; Scores across exercise
+                .clr
+                .divider1
+                .high_low_scores
+                  .left-offset1
+                    .low.color-average.span
+                      Lowest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score]}
+                    .candidate.color-average.span
+                      Candidate: #{trait_score[:average_score_excluding_self][:points] || "-"}
+                    .high.color-average.span
+                      Highest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score]}
+                    .clr
+              .pull-right
+                .medium-text.black.span
+                  Maximum/Minimum Ratings given to Candidate
+                .clr
+                .divider1
+                .min_max_scores
+                  .min.color-average.span
+                    Maximum Rating: #{trait_score[:max_score_excluding_self][:points] || "-"}
+                  .max.color-average.span
+                    Minimum Rating: #{trait_score[:min_score_excluding_self][:points] || "-"}
+                   
+                    .clr
+              .clr
+            .divider1
+            = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
+            .clr
+            .divider2
+          .clr
+      - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
+        .page-break
+        .clr
+        = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on 360 Degree Scores: Traits Under Competencies"}
+    .page-break
+  .clr

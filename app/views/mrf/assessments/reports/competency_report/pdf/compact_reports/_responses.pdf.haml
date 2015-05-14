@@ -1,0 +1,21 @@
+.medium-text.black
+  Question #{index+1}: #{subjective_response_value[:body]}
+.divider1
+- if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
+  %ul
+    - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
+      - role_wise_response.each do |comments|
+        %li.left-offset1.border-bottom-grayLighter.vSmall-padding
+          .classic_user_icon.black.pull-left 
+          .span2.first
+            #{role.titleize}
+          .span15.green_heading
+            #{comments}
+          .clr
+  .divider1
+- else
+  .no-responses
+    .box
+      No Response
+  .divider2
+.divider1

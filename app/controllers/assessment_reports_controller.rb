@@ -85,6 +85,7 @@ class AssessmentReportsController < ApplicationController
     @fitment_grades["N/A"] = "N/A"
     @fitment_grades["Blank"] = ""
     @competency_grades = Hash[Vger::Resources::Suitability::CompetencyGrade.all.collect{|x| [x.name, x.name]}]
+    @competency_grades["Average"] = "Average"
     @aggregate_competency_score_buckets = Hash[Vger::Resources::Suitability::AggregateCompetencyScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :candidate_id, :company_id ]))
     @report.report_hash = @report.report_data

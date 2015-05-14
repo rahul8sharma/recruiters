@@ -58,5 +58,6 @@
           %input.big-text.btn-link.color-info{:name => "build_from_scratch", type: "submit", value: "Build 360 Degree from Scratch with New Traits"}
           .divider1 
           %p.medium-text.text-justify
-            If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.
+            If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.      
+      = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
       .clr

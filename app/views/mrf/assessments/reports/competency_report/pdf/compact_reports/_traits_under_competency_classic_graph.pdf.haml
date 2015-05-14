@@ -11,11 +11,11 @@
         .clr
       %ul
         %li
-          .span5.first
+          .span5.first{:style=>"color:#000"}
             = truncate competency, length: 30
-          .stakeholder_rating.small-text.pull-left{:class => "#{visibility}" }
+          .stakeholder_rating.small-text.pull-left{:class => "" }
             = competency_scores[:score][:points]
-          .self_rating.small-text.span{:class => "#{visibility}" }
+          .self_rating.small-text.span{:class => "" }
             = competency_scores[:average_score_self][:points]
           .clr
         - trait_scores.each do |trait_score|
@@ -23,7 +23,7 @@
           - other_score = trait_score[:average_score_excluding_self][:points]
           - if self_score || other_score
             %li
-              .span5.first
+              .span5.first{:style=>"color:#000"}
                 = truncate trait_score[:trait][:name], length: 30
               .stakeholder_rating.small-text.pull-left
                 = trait_score[:average_score_excluding_self][:points]
@@ -50,7 +50,7 @@
               - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
               - margin = convertToRange(min,max,0,100,min_score)
               .divider1
-              .graph_bar{ class: (self_score == other_score ? "equal_rating #{visibility}" : "#{visibility}"), style: "margin-left:#{margin}%;width:#{width}%" }
+              .graph_bar{ class: (self_score == other_score ? "equal_rating " : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 - if self_score == other_score
                   .overlapped_score_icon
                 - else
@@ -63,7 +63,7 @@
               - width = 0
               - margin = convertToRange(min,max,0,100,min_score)
               .divider1
-              .graph_bar{ class: (self_score == other_score ? "equal_rating #{visibility}" : " #{visibility}"), style: "margin-left:#{margin}%;width:#{width}%" }
+              .graph_bar{ class: (self_score == other_score ? "equal_rating " : " "), style: "margin-left:#{margin}%;width:#{width}%" }
                 -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
                 - if self_score
                   .graph_self_rating{ style: "#{min_score == self_score ? 'left:-14px;right:auto' : 'right:-14px;left:auto'}" }
