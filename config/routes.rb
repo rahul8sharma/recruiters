@@ -1084,6 +1084,33 @@ Recruiters::Application.routes.draw do
     resources :defined_forms
     resources :factual_information_forms
   end
+  
+  namespace :jq do
+    resources :jobs do
+      collection do
+        post :destroy_all
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :interview_questions do
+      collection do
+        post :destroy_all
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :candidate_jobs
+    
+    resources :multimedia_answers
+  end
+  
+  resources :multimedia_profiles
+  resources :work_experiences
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
