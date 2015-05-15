@@ -8,14 +8,14 @@
         %li.left-offset1.border-bottom-grayLighter.vSmall-padding
           .classic_user_icon.black.pull-left 
           .span2.first
-            #{role.titleize}
+            = role.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
           .span15.green_heading
-            #{comments}
+            "#{comments}"
           .clr
+        .clr
   .divider1
 - else
   .no-responses
     .box
       No Response
   .divider2
-.divider1

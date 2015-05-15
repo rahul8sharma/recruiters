@@ -37,9 +37,22 @@
       .classic_competency_graph
         .classic_competency_graph_scale
           .block.pull-left
-          - @trait_graph_buckets.each do |trait_graph_bucket|
-            .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: left"}
-              = trait_graph_bucket.name
+          - size = @trait_graph_buckets.size
+          - if ((size.to_f/2.to_f) == 0)
+            - pull_center = (size.to_f/2.to_f) 
+          - else
+            - pull_center = ((size.to_f/2.to_f).ceil).to_f
+          - @trait_graph_buckets.each_with_index do |trait_graph_bucket, index|
+            - index = index+1
+            - if(index < pull_center)
+              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: left"}
+                = trait_graph_bucket.name
+            - if(index == pull_center)
+              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: center"}
+                = trait_graph_bucket.name
+            - if (index > pull_center)
+              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: right"}
+                = trait_graph_bucket.name
           .clr
         .graph
           .graph_content
