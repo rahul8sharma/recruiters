@@ -40,9 +40,22 @@
           .classic_competency_graph
             .classic_competency_graph_scale
               .block.pull-left
-              - @competency_graph_buckets.each do |competency_graph_bucket|
-                .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size)}px; text-align: center"}
-                  = competency_graph_bucket.name
+              - size = @competency_graph_buckets.size
+              - if(size.to_f/2.to_f == 0)
+                - pull_center = (size.to_f/2.to_f)
+              -else
+                - pull_center = ((size.to_f/2.to_f).ceil).to_f
+              - @competency_graph_buckets.each_with_index do |competency_graph_bucket, index|
+                - index = index+1
+                - if(index < pull_center)
+                  .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size)}px; text-align: left"}
+                    = competency_graph_bucket.name
+                - if(index == pull_center)
+                  .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size)}px; text-align: center"}
+                    = competency_graph_bucket.name
+                - if (index > pull_center)
+                  .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size)}px; text-align: right"}
+                    = competency_graph_bucket.name
                   
               .clr
             .graph
