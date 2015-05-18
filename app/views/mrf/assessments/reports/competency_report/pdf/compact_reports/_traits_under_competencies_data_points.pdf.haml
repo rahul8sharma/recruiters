@@ -1,6 +1,6 @@
 - if @report.report_data[:mrf_overall_breakdown_at_competency_level]
   - @report.report_data[:competency_scores].each do |competency, competency_scores|
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on 360 Degree Scores: Traits Under Competencies"}
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
     - iterator = 0
     - competency_scores[:trait_scores].each do |trait_score|
       - iterator += 1
@@ -11,7 +11,7 @@
             Trait "#{trait_score[:trait][:name]}" Under Competency "#{competency}"
           - if @report.report_data[:competency360_traits_data_pts_items_as_title]
             - trait_score[:items][:self_responses].each do |item|
-              .color-warning
+              .color-warning.medium-text
                 = item[:item]
         .divider1
         .small-padding
@@ -78,6 +78,6 @@
       - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
         .page-break
         .clr
-        = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on 360 Degree Scores: Traits Under Competencies"}
+        = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
     .page-break
   .clr

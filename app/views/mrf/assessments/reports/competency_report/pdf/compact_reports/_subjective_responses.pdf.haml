@@ -1,9 +1,15 @@
 - if @report.report_data[:mrf_report_show_subjective_responses] && @report.report_data[:subjective_responses_enabled]
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
   .stakeholder-comments.responses
-  - @report.report_data[:subjective_responses_others].each_with_index do |(subjective_response_key, subjective_response_value), index|
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
-
-  - @report.report_data[:subjective_responses_self].each_with_index do |(subjective_response_key, subjective_response_value), index|
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
+    .green_heading.big-text
+      Responses by Stakeholders
+    .clr
+    - @report.report_data[:subjective_responses_others].each_with_index do |(subjective_response_key, subjective_response_value), index|
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
+    .green_heading.big-text
+      Responses by Candidate
+    .clr
+    - @report.report_data[:subjective_responses_self].each_with_index do |(subjective_response_key, subjective_response_value), index|
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/responses", :locals => { :subjective_response_key => subjective_response_key, :subjective_response_value => subjective_response_value, :index => index}
   .page-break
+  .clr
