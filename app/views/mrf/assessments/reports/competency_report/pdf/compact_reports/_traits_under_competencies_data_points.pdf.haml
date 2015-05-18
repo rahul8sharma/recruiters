@@ -7,7 +7,7 @@
       .scores.border-bottom-grayLighter
         .divider1
         .green_heading.big-text
-          - if !@report.report_data[:competency360_traits_data_pts_trait_name_as_title]
+          - if @report.report_data[:competency360_traits_data_pts_trait_name_as_title]
             Trait "#{trait_score[:trait][:name]}" Under Competency "#{competency}"
           - if @report.report_data[:competency360_traits_data_pts_items_as_title]
             - trait_score[:items][:self_responses].each do |item|
