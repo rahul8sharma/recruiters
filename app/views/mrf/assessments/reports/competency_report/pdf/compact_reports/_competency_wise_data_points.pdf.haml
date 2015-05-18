@@ -1,0 +1,58 @@
+- if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+  - @report.report_data[:competency_scores].each_slice(2) do |step_competency_scores|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Competencies"}
+    - step_competency_scores.each do |competency, competency_scores|
+      .scores.border-bottom-grayLighter
+        .divider1
+        .green_heading.big-text
+          Competency 
+          %span.font-bold
+            "#{competency}"
+        .divider1
+        .small-padding
+          .border-left-grayLighter.span
+            - if @report.report_data[:competency360_competencies_textual_data_points]
+              .stakeholder_rating_icon.span1.first &nbsp;
+              .medium-text.color-average.pull-left
+                360&#176; Score: 
+                = competency_scores[:score][:points] || "-"
+              .classic_user_icon.span1 &nbsp;
+              .medium-text.color-average.pull-left
+                Self Rating: 
+                = competency_scores[:average_score_self][:points] || "-"
+              .self_rating_icon.span &nbsp;
+              .medium-text.color-average.pull-left
+                360&#176; (Including Self): 
+                = competency_scores[:average_score_including_self][:points] || "-"
+              .clr
+              .divider1
+
+              .medium-text.black.span
+                Average rating given by Stakeholders
+              .clr
+              .left-offset1
+                - if competency_scores[:role_wise_scores].present?
+                  - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
+                    .span.color-average.vSmall-padding.first
+                      #{role.titleize}  #{score[:points]}
+                  .clr
+              .span10
+                .medium-text.black.span.first
+                  360&#176; Scores across exercise
+                .clr
+                .high_low_scores{:style => "padding-top: 10px"}
+                  .left-offset1
+                    .low.color-average.span
+                      Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
+                    .candidate.color-average.span
+                      Candidate: #{competency_scores[:score][:points] || "-"}
+                    .high.color-average.span
+                      Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+                    .clr
+              .clr
+            .divider1
+            - if @report.report_data[:competency360_competencies_frequency_of_ratings]
+              = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+          .clr
+    .page-break    
+    .clr

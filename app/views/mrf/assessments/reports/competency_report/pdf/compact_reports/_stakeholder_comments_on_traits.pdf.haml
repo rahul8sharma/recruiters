@@ -1,0 +1,29 @@
+- if @report.report_data[:mrf_report_show_trait_comments] && @report.report_data[:comments_enabled]
+  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+    - competency_scores[:trait_scores].each_slice(5) do |step_trait|
+      = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments On Traits"}
+      - step_trait.each do |trait|
+        .stakeholder-comments.responses
+          .medium-text.black
+            Comments on 
+            %span.font-bold
+              #{trait[:trait][:name]}
+          .divider1
+          %ul
+            - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+              - trait[:comments].each do |role_name, role_wise_comment|
+                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                  %li.left-offset1.border-bottom-grayLighter.vSmall-padding
+                    .classic_user_icon.black.pull-left 
+                    .span2.first
+                      #{role_name.titleize}
+                    .span15.green_heading
+                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+                    .clr
+            - else
+              .no-responses
+                .box
+                  No Responses
+              .divider3
+      .page-break
+    .clr
