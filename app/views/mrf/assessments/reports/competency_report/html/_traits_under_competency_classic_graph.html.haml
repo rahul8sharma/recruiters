@@ -1,7 +1,3 @@
-- visibility = 'invisible'
-- if @report.report_data[:hide_score_360_competency]
-  - visibility = 'invisible'
-
 .traits_under_graph
   .graph_container
     .left_sec.pull-left
@@ -13,9 +9,9 @@
         %li
           .span6.extra-medium-text.first{ title: competency }
             = truncate competency, length: 25
-          .stakeholder_rating.medium-text.pull-left{:class => "#{visibility}" }
+          .stakeholder_rating.medium-text.pull-left
             = competency_scores[:score][:points] || "-"
-          .self_rating.medium-text.span{:class => "#{visibility}" }
+          .self_rating.medium-text.span
             = competency_scores[:average_score_self][:points] || "-"
           .clr
         - competency_scores[:trait_scores].each do |trait_score|
@@ -37,22 +33,10 @@
       .classic_competency_graph
         .classic_competency_graph_scale
           .block.pull-left
-          - size = @trait_graph_buckets.size
-          - if ((size.to_f/2.to_f) == 0)
-            - pull_center = (size.to_f/2.to_f) 
-          - else
-            - pull_center = ((size.to_f/2.to_f).ceil).to_f
-          - @trait_graph_buckets.each_with_index do |trait_graph_bucket, index|
-            - index = index+1
-            - if(index < pull_center)
-              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: left"}
-                = trait_graph_bucket.name
-            - if(index == pull_center)
-              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: center"}
-                = trait_graph_bucket.name
-            - if (index > pull_center)
-              .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size)}px; text-align: right"}
-                = trait_graph_bucket.name
+            = @trait_graph_buckets.first.min_val
+          - @trait_graph_buckets[1..100].each do |trait_graph_bucket|
+            .block.pull-left{:style=>"width: #{830/(@trait_graph_buckets.size-1)}px; text-align: right"}
+              = trait_graph_bucket.min_val
           .clr
         .graph
           .graph_content
@@ -65,7 +49,7 @@
               - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
-              .graph_bar{ class: (self_score == other_score ? "equal_rating #{visibility}" : "#{visibility}"), style: "margin-left:#{margin}%;width:#{width}%" }
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 - if self_score == other_score
                   .overlapped_score_icon
                 - else
@@ -77,7 +61,7 @@
               - width = 0
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
-              .graph_bar{ class: (self_score == other_score ? "equal_rating #{visibility}" : "#{visibility}"), style: "margin-left:#{margin}%;width:#{width}%" }
+              .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
                 - if self_score
                   .graph_self_rating{ style: "#{min_score == self_score ? 'left:-19px;right:auto' : 'right:-19px;left:auto'}" }
@@ -116,4 +100,3 @@
                 .divider1   
             .divider1
     .clr
-
