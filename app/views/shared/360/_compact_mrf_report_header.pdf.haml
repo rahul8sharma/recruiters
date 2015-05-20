@@ -3,7 +3,7 @@
     = display_text rescue "NA"
   .text-right.pull-right
     .user_name
-      = @report.report_hash[:candidate][:name]
+      = truncate @report.report_hash[:candidate][:name] ,length: 25
     .small-text
       360&#176; Profiling: 
       = @report.report_hash[:assessment][:name]
