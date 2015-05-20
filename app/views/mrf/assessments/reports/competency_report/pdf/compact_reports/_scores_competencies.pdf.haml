@@ -1,5 +1,5 @@
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
 - if @report.report_data[:mrf_report_percentage_competency_scores]
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
   .scores
     #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
       .divider1
@@ -27,6 +27,7 @@
   .page-break
 
 - if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
   - total_competencies = @report.report_data[:competency_scores].size
   - traits_competency = Hash[@report.report_data[:competency_scores].collect{|competency,competency_scores| [competency, competency_scores[:trait_scores]] }]
   - available = 16 - (2*total_competencies)
