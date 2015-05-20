@@ -1,5 +1,5 @@
+= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
 - if @report.report_data[:mrf_report_percentage_competency_scores]
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
   .scores
     #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
       .divider1
@@ -24,20 +24,22 @@
         .clr
       .divider1
       = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph"
-  - if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
-    - total_competencies = @report.report_data[:competency_scores].size
-    - traits_competency = Hash[@report.report_data[:competency_scores].collect{|competency,competency_scores| [competency, competency_scores[:trait_scores]] }]
-    - available = 16 - (2*total_competencies)
-    - first_page = get_competency_scores_page(available,traits_competency)
-    - competencies = @report.report_data[:competency_scores].keys - first_page.select{|competency,hash| hash[:pending] == 0 }.keys
-    - first_page = first_page.select{|competency, hash| hash[:pick].size > 0 }
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_traits_competencies", locals: { page: first_page }
-    - while(competencies.present?) do
-      - available = 16
-      - page = get_competency_scores_page(available,traits_competency)
-      - competencies = competencies - page.select{|competency,hash| hash[:pending] == 0 }.keys
-      - page = page.select{|competency, hash| hash[:pick].size > 0 }
-      .page-break
-      = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
-      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_traits_competencies", locals: { page: page }
+  .page-break
+
+- if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
+  - total_competencies = @report.report_data[:competency_scores].size
+  - traits_competency = Hash[@report.report_data[:competency_scores].collect{|competency,competency_scores| [competency, competency_scores[:trait_scores]] }]
+  - available = 16 - (2*total_competencies)
+  - first_page = get_competency_scores_page(available,traits_competency)
+  - competencies = @report.report_data[:competency_scores].keys - first_page.select{|competency,hash| hash[:pending] == 0 }.keys
+  - first_page = first_page.select{|competency, hash| hash[:pick].size > 0 }
+  = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_traits_competencies", locals: { page: first_page }
+  - while(competencies.present?) do
+    - available = 16
+    - page = get_competency_scores_page(available,traits_competency)
+    - competencies = competencies - page.select{|competency,hash| hash[:pending] == 0 }.keys
+    - page = page.select{|competency, hash| hash[:pick].size > 0 }
     .page-break
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_traits_competencies", locals: { page: page }
+  .page-break
