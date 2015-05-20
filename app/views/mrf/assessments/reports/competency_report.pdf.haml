@@ -1,9 +1,9 @@
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
-    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
     .page-break
