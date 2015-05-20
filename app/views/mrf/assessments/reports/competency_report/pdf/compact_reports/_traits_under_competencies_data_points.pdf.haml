@@ -19,7 +19,7 @@
             %strong
               &nbsp; &nbsp; &nbsp;Overall Score
           .border-left-grayLighter.span
-            - if !@report.report_data[:competency360_competencies_textual_data_points]
+            - if @report.report_data[:competency360_competencies_textual_data_points]
               .stakeholder_rating_icon.span1.first &nbsp;
               .medium-text.color-average.pull-left
                 360&#176; Score: 
