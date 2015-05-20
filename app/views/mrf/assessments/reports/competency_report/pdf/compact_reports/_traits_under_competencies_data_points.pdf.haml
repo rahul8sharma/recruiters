@@ -1,4 +1,4 @@
-- if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+- if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
   - @report.report_data[:competency_scores].each do |competency, competency_scores|
     = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
     - iterator = 0
@@ -15,6 +15,9 @@
                 = item[:item]
         .divider1
         .small-padding
+          .medium-text.color-average.pull-left
+            %strong
+              &nbsp; &nbsp; &nbsp;Overall Score
           .border-left-grayLighter.span
             - if @report.report_data[:competency360_competencies_textual_data_points]
               .stakeholder_rating_icon.span1.first &nbsp;
@@ -43,21 +46,22 @@
                   .clr
               .divider1
               
-              .span10.border-right-grayLighter
-                .medium-text.black.span.first
-                  360&#176; Scores across exercise
-                .clr
-                .divider1
-                .high_low_scores
-                  .left-offset1
-                    .low.color-average.span
-                      Lowest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score]}
-                    .candidate.color-average.span
-                      Candidate: #{trait_score[:average_score_excluding_self][:points] || "-"}
-                    .high.color-average.span
-                      Highest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score]}
-                    .clr
-              .pull-right
+              - if @report.report_data[:competency360_traits_best_worst_scores]
+                .span10.border-right-grayLighter
+                  .medium-text.black.span.first
+                    360&#176; Scores across exercise
+                  .clr
+                  .divider1
+                  .high_low_scores
+                    .left-offset1
+                      .low.color-average.span
+                        Lowest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score]}
+                      .candidate.color-average.span
+                        Candidate: #{trait_score[:average_score_excluding_self][:points] || "-"}
+                      .high.color-average.span
+                        Highest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score]}
+                      .clr
+              %div{ :class => @report.report_data[:competency360_traits_best_worst_scores] ? 'pull-right': 'pull-left'}
                 .medium-text.black.span
                   Maximum/Minimum Ratings given to Candidate
                 .clr
