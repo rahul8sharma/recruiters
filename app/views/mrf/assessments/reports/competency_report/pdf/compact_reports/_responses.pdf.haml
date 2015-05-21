@@ -1,3 +1,4 @@
+.divider1
 .medium-text.black
   Question #{index+1}: #{subjective_response_value[:body]}
 .divider1
@@ -5,7 +6,7 @@
   %ul
     - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
       - role_wise_response.each do |comments|
-        %li.left-offset1.border-bottom-grayLighter.vSmall-padding
+        %li.left-offset1.border-bottom-grayLighter
           .classic_user_icon.black.pull-left 
           .span2.first
             = role.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
@@ -13,9 +14,7 @@
             "#{comments}"
           .clr
         .clr
-  .divider1
 - else
   .no-responses
     .box
       No Response
-  .divider2
