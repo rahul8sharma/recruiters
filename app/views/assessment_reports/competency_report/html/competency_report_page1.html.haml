@@ -33,10 +33,127 @@
     .title
       Guidelines to Interpret the Report
     .divider2
-    .suitability-competency-report-guideline.text-center
-      - interpretation_image_path = asset_path("report/html/suitability-competency-report-guideline.jpg")
-      = image_tag "#{Rails.application.config.action_controller.asset_host}/#{interpretation_image_path}"
-    .divider2
+
+    .suitability-competency-report-guideline
+      .section_01
+        .title
+          .index-holder.pull-left
+            .rounded
+              1
+          .title-text.pull-left
+            ​Scale and Scores Overview
+          .clr
+        .divider2
+        .box-bordered.span15{:style=>"margin:0 0 0 35px;"}
+          Jombay's assessments are built around 6-point scales ranging from Low to High. You can hover over each score to see its meaning.
+        .dot-nav.span1.first{:style=>"margin-top: 28px;"}
+          .rounded
+        .scale.pull-right
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                .arrow
+                .marker-info
+                  = norm_bucket.description
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
+            .clr
+        .clr
+      .divider5
+      .section_02
+        .big-text.black.line-height2.pull-left 
+          Interpersonal Relations and Emotional Control
+        .scale.pull-right
+          .line
+          .marker-container
+            .marker
+            .marker
+            .marker.active
+              Average (Low)
+            .marker
+            .marker
+            .marker
+            .clr
+        .clr
+      .divider2
+      .box-bordered.span15{:style=>"margin:0 0 0 35px;"}
+        Competency Overview section gives you your scores in each of the competencies
+      .dot-nav.divider2.pull-left{:style=>"width: 250px; margin-top: -16px;"}
+        .rounded
+      .clr
+
+      .divider3
+
+      .section_03
+        .title
+          .index-holder.pull-left
+            .rounded
+              2
+          .title-text.pull-left
+            ​Competencies Overview
+          .clr
+        .divider2
+
+        .frame.text-center
+          .heading.pull-left
+            Task Management
+          .heading.pull-right
+            Average (Low)
+          .clr
+
+          .pull-left.left-offset1
+            .dot-nav.left.divider2.span1{:style=>"margin-top: 7px;"}
+              .rounded
+            .box-bordered.span{:style=>"margin:26px 0 0 0;"}
+              Name of the Competency measured
+            .clr
+          .pull-right.right-offset1
+            .box-bordered.span{:style=>"margin:26px 0 0 0;"}
+              Your score on this Competency 
+            .dot-nav.divider2.first.span1{:style=>"margin-top: 7px;"}
+              .rounded
+            .clr
+          .clr
+          .divider1
+          .span20.margin-auto
+            = image_tag("report/html/interpretation_guideline_hexagon.png")
+          .divider1
+          .bottom-tag.margin-auto.divider2.span22
+            .divider1
+            .text.span7.margin-auto
+              Traits Under the Competency
+          .divider2
+      .divider3
+      .section_04
+        .title
+          .index-holder.pull-left
+            .rounded
+              3
+          .title-text.pull-left
+            ​Scores on Traits
+          .clr
+        .divider2
+        .interpretation_guideline_trait
+          .box-bordered.black.span16
+            Traits are behavioral characteristics evaluated in the assessment. To know the 
+            %br/
+            meaning of a Trait, simply place your cursor over it to see a text-box with its definition
+          .box-bordered.span7.pull-right{:style=>"margin-top: -14px"}
+            Displayed here is what you scored on this Trait in the assessment. 
+          .clr
+        .box-bordered.span14.text-center{:style=>"margin-top: -46px"}
+          This text helps you understand the significance of your score on this trait.
+        .box-bordered.span10.pull-right{:style=>"margin-top: -46px; border-color: #1d78be"}
+          Expected Score: This is the expected score range for 
+          %br/
+          a trait in a particular profile. This determines whether a trait has a Favourable score or a Less Favourable  score.
+        .clr
+
+        .divider2
+
+
 - if @report.report_data[:suitability_competency_report_competency_scores_overview]
   .overview
     .bottom-triangle

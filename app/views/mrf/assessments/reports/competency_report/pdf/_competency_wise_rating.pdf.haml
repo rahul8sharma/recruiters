@@ -12,14 +12,14 @@
             .left
               Maximum Rating
             .right
-              = competency_scores[:max_score_excluding_self][:bucket]
+              = competency_scores[:max_score_excluding_self][:bucket] rescue 'NA'
             .clr
 
           .trait_rating.min
             .left
               Minimum Rating
             .right
-              = competency_scores[:min_score_excluding_self][:bucket]
+              = competency_scores[:min_score_excluding_self][:bucket] rescue 'NA'
             .clr
             
           .trait_rating.self

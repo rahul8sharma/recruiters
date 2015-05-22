@@ -1,11 +1,9 @@
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies"
-    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
     .page-break
@@ -18,6 +16,12 @@
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page9"
     .page-break
     
+  .common-top-trangle
+    .common-bottom-trangle 
+      = render :partial => "shared/reports/pdf/about_us"
+      .page-break
+      = render :partial => "shared/reports/pdf/legal_disclaimer"
+      .page-break
   / = render :partial => "mrf/assessments/reports/competency_report/pdf/mrf_rating_competency_overview"
   / = render :partial => "mrf/assessments/reports/competency_report/pdf/page2"
   / = render :partial => "mrf/assessments/reports/competency_report/pdf/page3"
@@ -31,9 +35,9 @@
   /   = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_descending_order"
 
 
-  .common-top-trangle
-    .common-bottom-trangle 
-      = render :partial => "shared/reports/pdf/about_us"
-      .page-break
-      = render :partial => "shared/reports/pdf/legal_disclaimer"
-      .page-break
+  / .common-top-trangle
+  /   .common-bottom-trangle 
+  /     = render :partial => "shared/reports/pdf/about_us"
+  /     .page-break
+  /     = render :partial => "shared/reports/pdf/legal_disclaimer"
+  /     .page-break
