@@ -794,7 +794,7 @@ body
         color: #fff
         margin-top: -15px
       .rounded
-        background: $color-warning
+        background: image-url("report/pdf/guideline_index_holder_icon.png") no-repeat
         height: 100%
         width: 100%
       .title-text
@@ -824,7 +824,8 @@ body
         width: 6px 
         right: -3px
         top: -3px
-        background: #414042
+        background: image-url("report/pdf/dot_nav_icon.png") no-repeat
+
     .section_02
       background: none repeat scroll 0 0 #F8F8F8
       padding: 4px 25px
@@ -860,3 +861,26 @@ body
       .interpretation_guideline_trait
         background: image-url("report/pdf/interpretation_guideline_trait.png") no-repeat center center
         height: 180px 
+  .explanation_scores_list
+    li
+      border-bottom: 1px dashed #d8d8d8
+      &:nth-child(even)
+        background: #f8f8f8
+    .scale
+      float: none
+      .line
+        border-color: #ccc
+      .marker-container 
+        .marker
+          color: #ccc
+          background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+          &:hover
+            background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+          &.active
+            color: #3aafe5
+            background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
+
+      .left
+        width: 52%
+      .right
+        width: 42%

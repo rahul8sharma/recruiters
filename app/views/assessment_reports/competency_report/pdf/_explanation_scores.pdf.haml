@@ -1,0 +1,34 @@
+-if @report.report_data[:hexagons_page_competency]
+  = render partial: "shared/reports/pdf/report_header"
+.divider2
+.scores
+  .blue_heading.large-text
+    Explanation of Jombay Scores
+%ul.explanation_scores_list
+  -6.times do
+    %li
+      .scores
+        .left.pull-left
+          .scale.right-offset1
+            .line
+            .marker-container
+              .marker.active
+                %br/
+                Low
+              .marker
+                Below Average
+              .marker
+                Average (Low)
+              .marker
+                Average (High)
+              .marker
+                Above Average
+              .marker
+                %br/
+                High
+              .clr
+          .clr
+        .right.pull-right.big-text
+          .divider1
+          Low is the minimum score on the scale
+        .clr
