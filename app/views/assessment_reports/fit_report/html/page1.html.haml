@@ -4,9 +4,20 @@
     .user-name.pull-left
       = @report.report_hash[:candidate][:name]
     - if (@report.report_hash[:enable_recommendation])
-      .final-score.pull-right
-        Aggregate Score:
-        = @report.report_hash[:overall_score_bucket][:name]
+      .pull-right
+        .final-score{:style=>"background-color: #128975;font-size:20px;line-height:36px;padding-right: 170px;width:315px"}
+          Aggregate Score:
+          = @report.report_hash[:overall_score_bucket][:name]
+        .final-score.overall_score_rating{:style=>"background-color: #CD6212; width: 355px"}
+          -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
+          .score_rating_title.pull-left{:style=>"color: #CD6212"}
+            Score Rating
+          .span
+            AMBER
+          .clr
+        .divider1
+      .clr
+
       .divider4
       - if (@report.report_hash[:functional_items].present?)
         - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
