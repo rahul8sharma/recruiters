@@ -943,6 +943,24 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :factor_score_ratings do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :competency_score_ratings do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
 
     resources :aggregate_competency_score_buckets do
       collection do
