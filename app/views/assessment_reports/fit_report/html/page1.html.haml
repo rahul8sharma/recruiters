@@ -5,7 +5,7 @@
       = @report.report_hash[:candidate][:name]
     - if (@report.report_hash[:enable_recommendation])
       .pull-right
-        .final-score{:style=>"background-color: #128975;font-size:20px;line-height:36px;padding-right: 170px;width:315px"}
+        .final-score.score_band{:style=>"background-color: #128975;"}
           Aggregate Score:
           = @report.report_hash[:overall_score_bucket][:name]
         .final-score.overall_score_rating{:style=>"background-color: #CD6212; width: 355px"}
