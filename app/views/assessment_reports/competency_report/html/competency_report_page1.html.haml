@@ -6,10 +6,10 @@
 
     - if (@report.report_hash[:enable_aggregate_competency_score])
       .pull-right
-        .final-score{:style=>"background-color: #128975;font-size:20px;line-height:36px;padding-right: 170px;width:295px"}
+        .final-score{:style=>"background-color: #128975;font-size:20px;line-height:36px;padding-right: 170px;width:315px"}
           Aggregate Score:
           = @report.report_hash[:aggregate_competency_score_bucket][:name]
-        .final-score.overall_score_rating{:style=>"background-color: #CD6212;"}
+        .final-score.overall_score_rating{:style=>"background-color: #CD6212; width: 355px"}
           -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
           .score_rating_title.pull-left{:style=>"color: #CD6212"}
             Score Rating
