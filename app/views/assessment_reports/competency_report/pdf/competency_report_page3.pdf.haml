@@ -20,9 +20,9 @@
       .pull-right
         .divider1
         .scale
-          .line
+          .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
           .marker-container
-            - @norm_buckets.each do |norm_bucket|
+            - @company_norm_buckets.each do |norm_bucket|
               .marker
                 - if norm_bucket.name.split(" ").size == 1
                   %br/

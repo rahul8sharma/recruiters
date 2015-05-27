@@ -173,9 +173,9 @@
               .divider3
               Overview of Competencies / Values Measured
             .scale.right-offset1
-              .line
+              .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
               .marker-container
-                - @norm_buckets.each do |norm_bucket|
+                - @company_norm_buckets.each do |norm_bucket|
                   .marker
                     .arrow
                     .marker-info
@@ -193,9 +193,9 @@
                   = competency_name
                 .competency-value.pull-right
                   .scale.right-offset1
-                    .line
+                    .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
-                      - @norm_buckets.each do |norm_bucket|
+                      - @company_norm_buckets.each do |norm_bucket|
                         .marker{ class: competency_score[:grade] == norm_bucket.name ? "active":"" }
                           = competency_score[:grade] == norm_bucket.name ? norm_bucket.name : ""
                       .clr

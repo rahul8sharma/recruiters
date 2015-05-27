@@ -10,9 +10,9 @@
         .container
           .left.pull-left
             .scale.right-offset1
-              .line
+              .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
               .marker-container
-                - @norm_buckets.each_with_index do |norm_bucket, index|
+                - @company_norm_buckets.each_with_index do |norm_bucket, index|
                   .marker{ :class=> active_label_index == index ? 'active': ''}
                     = norm_bucket.name
                 .clr
