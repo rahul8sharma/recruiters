@@ -8,9 +8,9 @@
     - factor_scores.each do |factor_name, factor_score|
       %li{:id => "#{competency_name}#{factor_name}"}
         .divider1
-        .lhs-sec.pull-left
+        .lhs-sec.pull-left{:style=> "width: 730px;"}
           %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
-          .span17.first
+          .span16.first
             .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
               = factor_name 
               .info
@@ -18,8 +18,8 @@
               .arrow
             .clr
 
-        .rhs-sec.pull-right
-          .slider
+        .rhs-sec.pull-left
+          .slider{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
             - scale = factor_score[:scale]
             .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
               -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"

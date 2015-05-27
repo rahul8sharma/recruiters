@@ -7,14 +7,14 @@
   %ul.clearfix.scores_listing.first
     - factor_scores.each do |factor_name, factor_score|
       %li{:id => "#{competency_name}#{factor_name}"}
-        .lhs-sec.pull-left
+        .lhs-sec.pull-left{:style=>"width:520px;"}
           .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
             -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
           .span.first
             .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
               = factor_name
-        .rhs-sec.pull-right
-          .slider
+        .rhs-sec.pull-left
+          .slider{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
             - scale = factor_score[:scale]
             .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
 

@@ -231,7 +231,7 @@ body
           border: 1px solid #ccc
           width: 250px
           height: 10px
-          margin: 25px 5px 0 0
+          margin: 25px 0px 0 0
           .range
             height: 100%
             background: #79d5ff
@@ -264,10 +264,11 @@ body
                 border-color: #fdc206
               .arrow
                 background-position: center -1px
-
+          .position
+            left: -11px
           @for $i from 0 through 5
             .position#{$i}
-              left: $i * 50px - (15)
+              left: $i * 50px - (12)
 
   @for $i from 0 through 4
     .offset#{$i}
