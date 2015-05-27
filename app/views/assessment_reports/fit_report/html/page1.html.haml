@@ -8,12 +8,13 @@
         .final-score.score_band{:style=>"background-color: #128975"}
           Aggregate Score:
           = @report.report_hash[:overall_score_bucket][:name]
-        .final-score.overall_score_rating{:style=>"background-color: #CD6212; width: 355px"}
+          - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
+        .final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 355px"}
           -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
-          .score_rating_title.pull-left{:style=>"color: #CD6212"}
+          .score_rating_title.pull-left{:style=>"color: #{bg_hex}"}
             Score Rating
           .span
-            AMBER
+            = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
           .clr
         .divider1
       .clr
