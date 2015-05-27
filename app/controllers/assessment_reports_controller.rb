@@ -116,7 +116,23 @@ class AssessmentReportsController < ApplicationController
 
   def assessment_report
     report_type = params[:report_type] || "fit"
-    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
+    
+    @norm_buckets = Vger::Resources::Suitability::NormBucket\
+                        .where(order: "weight ASC").all                    
+                        
+    @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                        .where(query_options: {
+                          company_id: params[:company_id]
+                        })\
+                        .where(order: "weight ASC").all
+    
+    if @company_norm_buckets.empty?
+      @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                        .where(query_options: {
+                          company_id: nil
+                        })\
+                        .where(order: "weight ASC").all                    
+    end                    
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
     @report.report_hash = @report.report_data
     if params[:view_mode]
