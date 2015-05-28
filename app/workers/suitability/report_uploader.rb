@@ -55,6 +55,20 @@ module Suitability
 
         @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
 
+        @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                            .where(query_options: {
+                              company_id: company_id
+                            })\
+                            .where(order: "weight ASC").all
+        
+        if @company_norm_buckets.empty?
+          @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                            .where(query_options: {
+                              company_id: nil
+                            })\
+                            .where(order: "weight ASC").all                    
+        end      
+
         candidate_name = @report.report_hash[:candidate][:name]
         company_name = @report.report_hash[:company][:name]
 
