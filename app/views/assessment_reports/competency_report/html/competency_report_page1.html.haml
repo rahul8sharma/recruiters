@@ -127,7 +127,7 @@
           .clr
           .divider1
           .span20.margin-auto
-            = image_tag("report/html/interpretation_guideline_hexagon.png")
+            = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("html/interpretation_guideline_hexagon.png")}")
           .divider1
           .bottom-tag.margin-auto.divider2.span22
             .divider1
@@ -140,8 +140,8 @@
           .index-holder.pull-left
             .rounded
               3
-          .title-text.pull-left
-            ​Scores on Traits
+          .title-text.pull-left 
+            Scores on Traits
           .clr
         .divider2
         .interpretation_guideline_trait
