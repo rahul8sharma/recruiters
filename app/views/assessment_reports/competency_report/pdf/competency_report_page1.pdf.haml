@@ -15,7 +15,6 @@
       %b
         Aggregate Score:
         = @report.report_hash[:aggregate_competency_score_bucket][:name]
-    .divider1
     - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
     - if @report.report_hash[:competency_score_rating_on_overall_score]
       .color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
