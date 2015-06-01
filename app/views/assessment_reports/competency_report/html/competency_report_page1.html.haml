@@ -197,7 +197,7 @@
                     .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
                       - @company_norm_buckets.each do |norm_bucket|
-                        .marker{ class: competency_score[:grade] == norm_bucket.name ? "active":"" }
+                        .marker{ class: competency_score[:grade] == norm_bucket.name ? "active" : "" }
                           = competency_score[:grade] == norm_bucket.name ? norm_bucket.name : ""
                       .clr
                   .clr
