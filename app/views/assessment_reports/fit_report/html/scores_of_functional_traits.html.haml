@@ -31,8 +31,7 @@
     .clr
     .divider4
     %ul.clearfix.scores_listing.first
-      - @report.report_data[:functional_trait_scores].each_with_index do |(factor_name,factor_score),index|
-      
+      - @report.report_data[:functional_trait_scores].each_with_index do |(factor_name,factor_score),index|      
         %li
           .lhs-sec.pull-left
             %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
