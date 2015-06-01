@@ -14,7 +14,12 @@
     .heading.fw.extra-large-text.comptency
       %b
         Aggregate Score:
-        = @report.report_hash[:aggregate_competency_score_bucket][:name]    
+        = @report.report_hash[:aggregate_competency_score_bucket][:name]
+    - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
+    - if @report.report_hash[:competency_score_rating_on_overall_score]
+      .color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
+        Score Rating: 
+        = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
 
     - if (@report.report_hash[:functional_items].present?)
       - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
