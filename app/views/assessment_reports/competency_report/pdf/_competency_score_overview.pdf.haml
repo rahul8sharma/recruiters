@@ -17,12 +17,13 @@
         .clr
 
       %ul.competency-list.pull-left
-        - competency_scores.each do |competency_name, competency_score|
+        - competency_scores.each do |competency_name, competency_data|
           %li
             .competency-name
               = competency_name
             .competency-value
-              = competency_score[:grade]
+              - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(competency_data[:grade_uid]) }
+              = company_norm_bucket.name
             .clr
       .clr
     .divider2
