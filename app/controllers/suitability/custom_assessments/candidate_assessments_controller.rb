@@ -96,6 +96,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
             candidate_data[:id] = candidate.id
             candidates[candidate.id] = candidate_data
             attributes_to_update = candidate_data.dup
+            attributes_to_update.delete(:applicant_id)
             attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless candidate.send(attribute).blank? }
             Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
           else
@@ -239,6 +240,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         # add it to list of candidate_assessments to send email
         unless candidate_assessment
           candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.create(
+            :applicant_id => params[:candidates][candidate_id][:applicant_id],
             :assessment_id => @assessment.id,
             :candidate_id => candidate_id,
             :candidate_stage => params[:candidate_stage],
