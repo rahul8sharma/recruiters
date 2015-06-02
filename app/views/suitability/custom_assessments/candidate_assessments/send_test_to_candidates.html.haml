@@ -1,4 +1,7 @@
-- params[:options] ||= is_superadmin? ? {} : { :manager_name => current_user.name, :manager_email => current_user.email }
+- if !is_superadmin? && @company.prefill_notification_details
+  - params[:options] ||= { :manager_name => current_user.name, :manager_email => current_user.email, :send_report_links_to_manager => true }
+- else  
+  - params[:options] ||= {}
 .page-title
   .divider1
   Assessment - #{@assessment.name}
