@@ -9,11 +9,10 @@
   .factors_container
     .factors_list  
       - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
-        - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(factor_score[:norm_bucket_uid]) }
-        - margin = company_norm_bucket.name.split(" ").size > 1 ? 15 : 30
+        - margin = factor_name.split(" ").size > 1 ? 15 : 30
         %div{:class=>"factor_#{index+1}"}
           .text-wrap{:style=>"margin-top: #{margin}px;"}
             %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
-            = company_norm_bucket.name.gsub(" ","<br/>").html_safe
+            = factor_name.gsub(" ","<br/>").html_safe
       -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 .divider1  
