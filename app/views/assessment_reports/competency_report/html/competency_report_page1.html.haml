@@ -10,13 +10,13 @@
           Aggregate Score:
           = @report.report_hash[:aggregate_competency_score_bucket][:name]
         - if @report.report_hash[:competency_score_rating_on_overall_score]
-          - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
+          - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
           .final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 355px"}
             -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
             .score_rating_title.pull-left{:style=>"color: #{bg_hex}"}
               Score Rating
             .span
-              = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
+              = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"
             .clr
         .divider1
         - if (@report.report_hash[:functional_items].present?)
@@ -36,7 +36,7 @@
       Assessment Answered On:
       = @report.report_hash[:completed_at]
     .divider2
-- if @report.report_data[:competency_interpretation_guide]    
+- if @report.report_data[:competency_interpretation_guide]
   .container
     .divider2
     .title
@@ -196,9 +196,9 @@
                   .scale.right-offset1
                     .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
-                      - @company_norm_buckets.each do |norm_bucket|
-                        .marker{ class: competency_score[:grade] == norm_bucket.name ? "active":"" }
-                          = competency_score[:grade] == norm_bucket.name ? norm_bucket.name : ""
+                      - @company_norm_buckets.each do |company_norm_bucket|
+                        .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                          = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
                       .clr
                   .clr
                   -#= competency_score[:grade]

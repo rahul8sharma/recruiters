@@ -2,7 +2,8 @@
   .heading.pull-left{ title: competency_name }
     = competency_name.to_s[0..50]
   .heading.pull-right
-    = competency_data[:grade]
+    - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(competency_data[:grade_uid]) }
+    = company_norm_bucket.name
   .clr
    
   .factors_container
@@ -12,6 +13,6 @@
         %div{:class=>"factor_#{index+1}"}
           .text-wrap{:style=>"margin-top: #{margin}px;"}
             %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
-              = factor_name.gsub(" ","<br/>").html_safe
+            = factor_name.gsub(" ","<br/>").html_safe
       -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 .divider1  
