@@ -1,0 +1,20 @@
+= form_tag import_assessments_factor_scores_candidates_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Import Candidate Scores for Multiple Assessments
+    = fields_for "import" do |f|
+      %p
+        = f.label "Competency Scores: Ignore calculations and display scores from sheet on Reports"
+        %input{ type: "checkbox", name: "import[override_competency_scores]" }
+      %p
+        = f.label "Overall Score: Ignore calculations and display scores from sheet on Reports"
+        %input{ type: "checkbox", name: "import[override_overall_scores]" }
+      %p
+        Zipped CSV File
+        = f.file_field "file"
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = submit_tag "Import Scores"

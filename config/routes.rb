@@ -20,7 +20,7 @@ Recruiters::Application.routes.draw do
       post 'resend_invitations_to_candidates' => "candidates_management#resend_invitations_to_candidates"
       post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
       post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
-
+      post 'import_assessments_factor_scores' => "candidates_management#import_assessments_factor_scores", as: :import_assessments_factor_scores
       get :destroy_all
     end
   end
