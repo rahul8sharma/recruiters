@@ -98,7 +98,12 @@
     .clr
   .control-group
     %label
-      Set Applicant Id
       = f.check_box :set_applicant_id
+      Set Applicant Id
     .clr
+  .control-group  
+    %label
+      = f.check_box :should_send_notifications, id: "should_send_notifications"
+      Send Report Notifications
+    .clr  
 .divider2
