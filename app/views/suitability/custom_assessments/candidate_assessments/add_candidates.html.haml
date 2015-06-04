@@ -61,9 +61,12 @@
       %input{ id:"candidate_stage", type: "hidden", value: "", name: "candidate_stage" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         .left-offset2.first
-          .span9.first.big-text
+          - if @assessment.set_applicant_id
+            .span3.big-text.first
+              .span Applicant Id
+          .span6.first.big-text.left-offset1
             Assessment taker’s name
-          .span8.big-text.left-offset1
+          .span6.big-text.left-offset1
             .span Assessment taker’s email address
           .clr
         %ul.add-candidates.clearfix
