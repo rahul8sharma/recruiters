@@ -61,14 +61,16 @@
       %input{ id:"candidate_stage", type: "hidden", value: "", name: "candidate_stage" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         .left-offset2.first
+          - klass = @assessment.set_applicant_id ? "span6" : "span8"
           - if @assessment.set_applicant_id
             .span3.big-text.first
               .span Applicant Id
-          .span6.first.big-text.left-offset1
+          .big-text.left-offset1{ class: klass }
             Assessment taker’s name
-          .span6.big-text.left-offset1
-            .span Assessment taker’s email address
+          .span9.big-text.left-offset1
+            Assessment taker’s email address
           .clr
+        .divider1  
         %ul.add-candidates.clearfix
           - 10.times do |index|
             = render :partial => "suitability/custom_assessments/candidate_assessments/assessment_candidate_assessment_fields", :locals => { :index => (index+1), :candidate => (params[:candidates].to_a[index][1] rescue {}) }
