@@ -108,6 +108,11 @@ body
         color: #fff
         line-height: 25px
 
+    .color-band
+      padding: 10px 45px
+      line-height: 25px
+      color: #fff
+
     .sub-heading
       font-weight: 700
       color: #fff
@@ -231,7 +236,7 @@ body
           border: 1px solid #ccc
           width: 250px
           height: 10px
-          margin: 25px 5px 0 0
+          margin: 25px 0px 0 0
           .range
             height: 100%
             background: #79d5ff
@@ -264,10 +269,11 @@ body
                 border-color: #fdc206
               .arrow
                 background-position: center -1px
-
+          .position
+            left: -11px
           @for $i from 0 through 5
             .position#{$i}
-              left: $i * 50px - (15)
+              left: $i * 50px - (12)
 
   @for $i from 0 through 4
     .offset#{$i}
@@ -771,3 +777,117 @@ body
     width: 100%
 .fw
   margin-left: -40px
+
+.report
+  .suitability-competency-report-guideline
+    .marker .inn
+      width: 100px
+      margin-left: -25px
+    img
+      max-width: none
+    .title
+      color: $color-warning
+      font-size: 14px
+      line-height: 25px
+      border-top: 2px solid $color-warning
+      font-weight: 700
+      .index-holder
+        background: #fff
+        width: 25px
+        height: 25px
+        text-align: center
+        overflow: hidden
+        color: #fff
+        margin-top: -15px
+      .rounded
+        background: image-url("report/pdf/guideline_index_holder_icon.png") no-repeat
+        height: 100%
+        width: 100%
+      .title-text
+        background: #fff
+        margin-top: -15px
+        padding: 0 5px
+    .box-bordered
+      border: 1px dashed #414042
+      padding: 7px 10px
+      font-size: 10px
+      line-height: 14px
+      background: #fff
+    .dot-nav
+      border-width: 0 1px 1px 0
+      border-color: #414042
+      border-style: solid
+      position: relative
+      &.left
+        border-width: 0 0 1px 1px
+        .rounded
+          left: -3px
+          right: auto
+          
+      .rounded
+        position: absolute
+        height: 6px 
+        width: 6px 
+        right: -3px
+        top: -3px
+        background: image-url("report/pdf/dot_nav_icon.png") no-repeat
+
+    .section_02
+      background: none repeat scroll 0 0 #F8F8F8
+      padding: 4px 25px
+      .scale
+        height: 35px
+        margin-right: 0px
+      .line
+        border-color: #CCCCCC
+      .marker
+        background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+        font-size: 10px
+        font-weight: 200
+        height: 30px
+        &:hover
+          background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+        &.active
+          background: image-url("report/html/competency/list-scale-small-hexa.png") no-repeat center bottom
+
+          &:hover
+            background: image-url("report/html/competency/list-scale-small-hexa.png") no-repeat center bottom
+    .section_03
+      .frame
+        background: #fbfbfb
+        border-color: #e3e3e3
+      .bottom-tag
+        border: 1px solid #808285
+        border-top: 0 none
+        .text
+          background: #FBFBFB
+          font-weight: 700
+          margin-top: -9px
+    .section_04
+      .interpretation_guideline_trait
+        background: image-url("report/pdf/interpretation_guideline_trait.png") no-repeat center center
+        height: 180px 
+  .explanation_scores_list
+    li
+      border-bottom: 1px dashed #d8d8d8
+      &:nth-child(even)
+        background: #f8f8f8
+    .scale
+      float: none
+      .line
+        border-color: #ccc
+      .marker-container 
+        .marker
+          color: #ccc
+          background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+          &:hover
+            background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+          &.active
+            color: #3aafe5
+            background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
+
+    .left
+      width: 45%
+    .right
+      width: 52%
+      line-height: 20px

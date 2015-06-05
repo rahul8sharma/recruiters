@@ -5,6 +5,114 @@
     .blue_heading.large-text
       Guidelines to Interpret the Report
     .divider2
-    .suitability-competency-report-guideline.text-center
-      = wicked_pdf_image_tag ("report/html/suitability-competency-report-guideline.jpg")
-    .divider2
+    
+    .suitability-competency-report-guideline
+      .section_01
+        .title
+          .index-holder.pull-left
+            .rounded
+              1
+          .title-text.pull-left Scale and Scores Overview
+          .clr
+        .divider1
+        .box-bordered.span10{:style=>"margin:0 0 0 25px;padding: 14px 10px"}
+          Jombay's assessments are built around 6-point scales ranging from Low to High.
+        .dot-nav.span1.first{:style=>"margin-top: 19px;"}
+          .rounded
+        .scale.pull-right
+          .line
+          .marker-container
+            - @norm_buckets.each do |norm_bucket|
+              .marker
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name
+            .clr
+        .clr
+      .divider2
+      .section_02
+        .black.line-height2.pull-left 
+          Interpersonal Relations and Emotional Control
+        .scale.pull-right
+          .line
+          .marker-container
+            .marker
+            .marker
+            .marker.active
+              .inn Average (Low)
+            .marker
+            .marker
+            .marker
+            .clr
+        .clr
+      .divider1
+      .box-bordered.span{:style=>"margin:0 0 0 25px;"}
+        Competency Overview section gives you your scores in each of the competencies
+      .dot-nav.divider1.pull-left{:style=>"width: 165px; margin-top: -4px;"}
+        .rounded
+      .clr
+
+      .divider2
+
+      .section_03
+        .title
+          .index-holder.pull-left
+            .rounded
+              2
+          .title-text.pull-left Competencies Overview
+          .clr
+        .divider1
+
+        .frame.text-center
+          .heading.pull-left
+            Task Management
+          .heading.pull-right
+            Average (Low)
+          .clr
+
+          .pull-left.left-offset1
+            .dot-nav.left.divider1.span1{:style=>"margin-top: 7px;"}
+              .rounded
+            .box-bordered.span{:style=>"margin:10px 0 0 0;"}
+              Name of the Competency measured
+            .clr
+          .pull-right.right-offset1
+            .box-bordered.span{:style=>"margin:10px 0 0 0;"}
+              Your score on this Competency 
+            .dot-nav.divider1.first.span1{:style=>"margin-top: 7px;"}
+              .rounded
+            .clr
+          .clr
+          .divider1
+          .span13.margin-auto
+            = wicked_pdf_image_tag ("report/pdf/interpretation_guideline_hexagon.png")
+          .bottom-tag.margin-auto.divider1.span14
+            .divider1
+            .text.span5.margin-auto
+              Traits Under the Competency
+          .divider2
+      .divider3
+      .section_04
+        .title
+          .index-holder.pull-left
+            .rounded
+              3
+          .title-text.pull-left Scores on Traits
+          .clr
+        .divider2
+        .interpretation_guideline_trait
+          .box-bordered.black.span
+            Traits are behavioral characteristics evaluated in the assessment. To know the 
+            %br/
+            meaning of a Trait, simply place your cursor over it to see a text-box with its definition
+          .box-bordered.span5.pull-right{:style=>"margin-top: -14px"}
+            Displayed here is what you scored on this Trait in the assessment. 
+          .clr
+        .box-bordered.span.text-center{:style=>"margin-top: -30px"}
+          This text helps you understand the significance of your score on this trait.
+        .box-bordered.span7.pull-right{:style=>"margin-top: -30px; border-color: #1d78be"}
+          Expected Score: This is the expected score range for 
+          a trait in a particular profile. This determines whether a trait has a Favourable score or a Less Favourable  score.
+        .clr
+
+        .divider2

@@ -24,9 +24,9 @@
       .pull-right
         .divider1
         .scale
-          .line
+          .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
           .marker-container
-            - @norm_buckets.each do |norm_bucket|
+            - @company_norm_buckets.each do |norm_bucket|
               .marker
                 - if norm_bucket.name.split(" ").size == 1
                   %br/
@@ -37,20 +37,28 @@
       %ul.clearfix.scores_listing.first
         - factor_scores.each_with_index do |(factor_name,factor_score),index|
           %li{:id => "#{factor_name}"}
-            .lhs-sec.pull-left
+            .lhs-sec.pull-left{:style=>"width:520px;"}
               .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
               -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
               .span.first
                 .factor-name
                   = factor_name
-            .rhs-sec.pull-right
-              .slider
+            .rhs-sec.pull-left
+              .slider{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
+                - marker_width = 50
                 - scale = factor_score[:scale]
-                .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
+                - norm_bucket_uid = factor_score[:norm_bucket_uid]
+                - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
+                - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
+                - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+                - position = (company_norm_bucket.weight - 1) * marker_width
+                - offset = ((from_norm_bucket.weight - 1) * marker_width)
+                - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+                .pointer{ class: "#{factor_score[:pass] ? '' : 'less-favorable'}", style: "left: #{position-12}px;" }
 
                   -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
                   .score-indicater
-                    = factor_score[:norm_bucket]
+                    = company_norm_bucket.name
                   .arrow
                 .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
                 -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)

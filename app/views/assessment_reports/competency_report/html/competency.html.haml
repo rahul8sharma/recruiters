@@ -1,16 +1,17 @@
+- company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
 .frame
   .heading.pull-left
     #{competency_name} #{(step > 0 ? "(continued)":"")}
   .heading.pull-right 
-    #{competency_data[:grade]}
+    = company_norm_bucket.name
   .clr 
   %ul.clearfix.scores_listing.first
     - factor_scores.each do |factor_name, factor_score|
       %li{:id => "#{competency_name}#{factor_name}"}
         .divider1
-        .lhs-sec.pull-left
+        .lhs-sec.pull-left{:style=> "width: 730px;"}
           %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
-          .span17.first
+          .span16.first
             .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
               = factor_name 
               .info
@@ -18,15 +19,23 @@
               .arrow
             .clr
 
-        .rhs-sec.pull-right
-          .slider
+        .rhs-sec.pull-left
+          .slider{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
+            - marker_width = 80
             - scale = factor_score[:scale]
-            .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
+            - norm_bucket_uid = factor_score[:norm_bucket_uid]
+            - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
+            - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
+            - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+            - position = (company_norm_bucket.weight - 1) * marker_width
+            - offset = ((from_norm_bucket.weight - 1) * marker_width)
+            - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+            .pointer{ class: "#{factor_score[:pass] ? '' : 'less-favorable'}", style: "left: #{position-14}px;" }
               -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
               .score-indicater
-                = factor_score[:norm_bucket]
+                = company_norm_bucket.name
               .arrow
-            .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+            .range{ style: "margin-left: #{offset}px;width: #{width}px;" }
             -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
         .clr
