@@ -131,7 +131,7 @@ module Suitability
         html_s3 = upload_file_to_s3("suitability_reports/html/#{html_file_id}",html_save_path)
         feedback_html_s3 = upload_file_to_s3("suitability_reports/feedback/#{feedback_html_file_id}",feedback_html_save_path)
 
-        should_send_notifications = patch["send_report"] == "Yes" || @report.configuration[:should_send_notifications]
+        should_send_notifications = (patch["send_report"] == "Yes" || @report.configuration[:should_send_notifications])
         
         now = Time.now.strftime("%d_%m_%Y_%H_%M")
         notifications_sent_at = (should_send_notifications ? now : @report.configuration[:notifications_sent_at])
