@@ -30,7 +30,7 @@
               .score-indicater
                 = company_norm_bucket.name
               .arrow
-            .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+            .range{ style: "margin-left: #{offset}px;width: #{width}px;" }
             -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
         .clr
         .divider1
