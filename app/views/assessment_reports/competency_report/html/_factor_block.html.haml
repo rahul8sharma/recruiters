@@ -12,7 +12,7 @@
         - margin = factor_name.split(" ").size > 1 ? 15 : 30
         %div{:class=>"factor_#{index+1}"}
           .text-wrap{:style=>"margin-top: #{margin}px;"}
-            %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
-            = factor_name.gsub(" ","<br/>").html_safe
+            %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}" }
+              = factor_name.gsub(" ","<br/>").html_safe
       -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 .divider1  
