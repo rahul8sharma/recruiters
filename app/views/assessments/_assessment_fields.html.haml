@@ -95,5 +95,15 @@
       Custom Thank You Message
     %textarea.span10.first{ name: 'assessment[thank_you_message]' }
       = @assessment.thank_you_message
-    .clr                  
+    .clr
+  .control-group
+    %label
+      = f.check_box :set_applicant_id
+      Set Applicant Id
+    .clr
+  .control-group  
+    %label
+      = f.check_box :should_send_notifications, id: "should_send_notifications"
+      Send Report Notifications
+    .clr  
 .divider2

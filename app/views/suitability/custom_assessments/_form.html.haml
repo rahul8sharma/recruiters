@@ -2,7 +2,7 @@
   = f.hidden_field :company_id, value: assessment.company_id
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => assessment, :f => f }
   .pull-left
-    - if current_user.type == "SuperAdmin"
+    - if is_superadmin?
       .control-group
         %label
           Select the Brand Partner
@@ -30,7 +30,15 @@
       %label
         = f.check_box :show_help_text, id: "show_help_text"
         Show Help Text for Items?
-
+      .clr  
+      %label
+        = f.check_box :set_applicant_id, id: "set_applicant_id"
+        Set Applicant Id
+      .clr
+      %label
+        = f.check_box :should_send_notifications, id: "should_send_notifications"
+        Send Report Notifications
+      .clr
   .pull-right
     - if current_user.type == "SuperAdmin"
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }

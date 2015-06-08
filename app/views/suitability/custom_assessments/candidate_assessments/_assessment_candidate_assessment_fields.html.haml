@@ -6,7 +6,13 @@
     .span2
       .count.badge.badge-small.inverse 
         = index
-    %input.span9.medium-text.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (candidate[:name])}
-    %input.span9.medium-text.left-offset1{name: "candidates[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (candidate[:email])}
+    - klass = @assessment.set_applicant_id ? "span6" : "span8"    
+    - if @assessment.set_applicant_id
+      .span3.big-text.first
+        %input.span3{name: "candidates[#{index-1}][applicant_id]", disabled: !checked, type: "text", placeholder: "Applicant Id", value: (candidate[:applicant_id])}
+    .medium-text.left-offset1{ class: klass }
+      %input.first{name: "candidates[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (candidate[:name]), class: klass}
+    .span9.medium-text.left-offset1  
+      %input.span9.first{name: "candidates[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (candidate[:email])}
     / %input.span3.left-offset1{name: "candidates[#{index-1}][mobile]", disabled: !checked, type: "text", placeholder: "Mobile Number", value: (candidate[:mobile])}
     .clr

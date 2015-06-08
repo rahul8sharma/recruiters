@@ -38,7 +38,7 @@ module Suitability
           :patch => patch,
           :methods => methods
         )
-
+        
         @report.report_hash = @report.report_data if patch.empty?
         #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
         #  puts "Report #{report_id} is being uploaded already..."
@@ -130,22 +130,28 @@ module Suitability
         pdf_s3 = upload_file_to_s3("suitability_reports/pdf/#{pdf_file_id}",pdf_save_path)
         html_s3 = upload_file_to_s3("suitability_reports/html/#{html_file_id}",html_save_path)
         feedback_html_s3 = upload_file_to_s3("suitability_reports/feedback/#{feedback_html_file_id}",feedback_html_save_path)
+
+        should_send_notifications = (patch["send_report"] == "Yes" || @report.configuration[:should_send_notifications])
+        
+        now = Time.now.strftime("%d_%m_%Y_%H_%M")
+        notifications_sent_at = (should_send_notifications ? now : @report.configuration[:notifications_sent_at])
         Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
           :custom_assessment_id => assessment_id,
           :candidate_id => candidate_id,
           :company_id => company_id,
+          :notifications_sent_at => notifications_sent_at,
+          :uploaded_at => now,
           :s3_keys => { :pdf => pdf_s3, :html => html_s3, :feedback => feedback_html_s3 },
           :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
         )
         File.delete(pdf_save_path)
         File.delete(html_save_path)
         File.delete(feedback_html_save_path)
-        patch["send_report"] ||= "Yes"
-        if patch["send_report"] == "Yes"
+        if should_send_notifications
           #Execute this line Unless report_notify is set to false
-          puts "Regenerated at - #{@report.report_hash[:regenerated_at]}"
-          puts "Regenerate Notify - #{@report.report_hash[:regenerate_notify]}"
-          unless @report.report_hash[:regenerated_at] && !@report.report_hash[:regenerate_notify]
+          puts "Regenerated at - #{@report.configuration[:regenerated_at]}"
+          puts "Regenerate Notify - #{@report.configuration[:regenerate_notify]}"
+          unless @report.configuration[:regenerated_at] && !@report.configuration[:regenerate_notify]
             # if report_email_recipients is same as candidate email
             # use send_report_to_candidate template
             # else use send_report template

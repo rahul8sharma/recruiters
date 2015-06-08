@@ -57,6 +57,29 @@ class CandidatesManagementController < ApplicationController
   end
 
 
+  def import_assessments_factor_scores
+    unless params[:import][:file]
+      flash[:notice] = "Please select a zip file."
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    data = params[:import][:file].read
+    now = Time.now
+    s3_key = "assessments_factor_scores/#{now.strftime('%d_%m_%Y_%H_%I')}"
+    obj = S3Utils.upload(s3_key, data)
+
+    Vger::Resources::Candidate\
+      .import_assessments_factor_scores(
+                      :file => {
+                        :bucket => obj.bucket.name,
+                        :key => obj.key
+                      }, 
+                      :override_overall_scores => params[:import][:override_overall_scores].present?,
+                      :override_competency_scores => params[:import][:override_competency_scores].present?,
+                      :email => params[:import][:email]
+                    )
+    redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+  end
+
   def import_candidate_scores
     unless params[:import][:file]
       flash[:notice] = "Please select a zip file."
