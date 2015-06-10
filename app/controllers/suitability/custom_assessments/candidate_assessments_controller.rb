@@ -8,7 +8,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def export_feedback_scores
     options = {
       :custom_assessment => {
-        :job_klass => "FeedbackScoresExporter",
+        :job_klass => "Suitability::FeedbackScoresExporter",
         :args => {
           :user_id => current_user.id,
           :assessment_id => params[:id]
@@ -23,7 +23,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def email_reports
     options = {
       :custom_assessment => {
-        :job_klass => "CandidateReportsExporter",
+        :job_klass => "Suitability::CandidateReportsExporter",
         :args => {
           :user_id => current_user.id,
           :assessment_id => params[:id]
