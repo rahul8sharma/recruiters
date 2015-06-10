@@ -4,6 +4,7 @@
     %legend 
       %strong Download Candidate Reports
     = f.fields_for "args" do |f|
+      = f.hidden_field :user_id, value: current_user.id
       %p
         Assessment ID : 
         = f.text_field :assessment_id
