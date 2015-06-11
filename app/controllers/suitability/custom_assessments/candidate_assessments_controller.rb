@@ -74,9 +74,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
     add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
     if request.put?
-      if @company.subscription_mgmt
-        get_packages
-      end
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
         render :action => :add_candidates and return
@@ -124,6 +121,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         get_templates(params[:candidate_stage])
         params[:send_test_to_candidates] = true
         params[:candidates] = candidates
+        if @company.subscription_mgmt
+          get_packages
+        end
         render :action => :send_test_to_candidates
       end
     else
@@ -135,10 +135,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def add_candidates_bulk
-
-
   end
-
 
   # GET : renders send_reminder page
   # PUT : sends reminder and redirects to candidates list for current assessment
@@ -187,7 +184,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   # PUT : creates candidate assessments for selected candidates and sends test to candidates
   def send_test_to_candidates
     params[:send_test_to_candidates] = true
-    get_packages
     if request.put?
       params[:candidates] ||= {}
       params[:selected_candidates] ||= {}
@@ -196,6 +192,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       failed_candidate_assessments = []
       if params[:selected_candidates].empty?
         flash[:error] = "Please select at least one candidate."
+        get_packages  
         render :action => :send_test_to_candidates and return
       end
       params[:selected_candidates].each do |candidate_id,on|
@@ -216,11 +213,13 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
           if params[:options][:manager_name].blank?
             flash[:error] = "Please enter the Notification Recipient's name<br/>".html_safe
             get_templates(params[:candidate_stage])
+            get_packages
             render :action => :send_test_to_candidates and return
           end
           if !(Validators.email_regex =~ params[:options][:manager_email])
             flash[:error] += "Please enter a valid Email Address for Notification Recipient".html_safe
             get_templates(params[:candidate_stage])
+            get_packages
             render :action => :send_test_to_candidates and return
           end
         end
@@ -268,6 +267,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         #redirect_to candidates_url
         flash[:error] = "#{failed_candidate_assessments.first.error_messages.join('<br/>')}"
         get_templates(params[:candidate_stage])
+        get_packages
         render :action => :send_test_to_candidates and return
       else
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::BENCHMARK
@@ -277,6 +277,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         end
         redirect_to candidates_url
       end
+    else
+      get_packages  
     end
   end
 

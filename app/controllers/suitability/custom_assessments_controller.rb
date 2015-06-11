@@ -75,7 +75,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   def functional_traits
     get_functional_traits
     get_functional_assessment_traits
-
+    get_sections
     if request.put?
       params[:assessment] ||= {}
       params[:assessment][:functional_assessment_traits_attributes] ||= {}
@@ -277,5 +277,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
   def get_defined_forms
     @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
+  end
+  
+  def get_sections
+    @sections = Vger::Resources::Section.where(query_options: {active: true}).all.to_a
   end
 end
