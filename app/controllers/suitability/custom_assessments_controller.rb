@@ -280,6 +280,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
   
   def get_sections
-    @sections = Vger::Resources::Section.where(query_options: {active: true}, include: [:subjective_items, :objective_items]).all.to_a
+    @sections = Vger::Resources::Section.where(query_options: {active: true, company_id: @company.id}, include: [:subjective_items, :objective_items]).all.to_a
   end
 end
