@@ -160,8 +160,8 @@ class AssessmentsController < ApplicationController
 
 
     @functional_norm_buckets = Vger::Resources::Functional::NormBucket.where(:order => "weight ASC").all
-    @objective_items = Vger::Resources::ObjectiveItem.active.all.to_a
-    @subjective_items = Vger::Resources::SubjectiveItem.active.all.to_a
+    @objective_items = Vger::Resources::ObjectiveItem.active.where(query_options: { section_id: nil }).all.to_a
+    @subjective_items = Vger::Resources::SubjectiveItem.active.where(query_options: { section_id: nil }).all.to_a
   end
 
   # fetches default factor norms
