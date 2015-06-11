@@ -14,6 +14,6 @@
         %div{:class=>"factor_#{index+1} #{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
           .text-wrap{:style=>"margin-top: #{margin}px;"}
             %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable underlined'}"}
-              = company_norm_bucket.name.gsub(" ","<br/>").html_safe
+              = factor_name.gsub(" ","<br/>").html_safe
       -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 .divider2  
