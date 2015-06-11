@@ -5,6 +5,7 @@
     %th Trait ID
     %th Trait Type
     %th Active
+    %th Section ID
     %th Edit
   - items.each do |item|
     %tr
@@ -18,6 +19,8 @@
         = item.trait_type
       %td{ width: "10%" }
         = item.active
+      %td{ width: "20%" }
+        = item.section_id
       %td{ width: "20%" }
         = link_to "Edit", edit_objective_item_path(item.id)
 
