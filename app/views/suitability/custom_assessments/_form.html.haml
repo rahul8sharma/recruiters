@@ -39,6 +39,10 @@
         = f.check_box :should_send_notifications, id: "should_send_notifications"
         Send Report Notifications
       .clr
+      %label
+        = f.check_box :is_functional_assessment, id: "is_functional_assessment"
+        Is Functional Assessment
+      .clr
   .pull-right
     - if current_user.type == "SuperAdmin"
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
