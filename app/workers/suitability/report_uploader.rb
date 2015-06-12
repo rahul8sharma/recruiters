@@ -72,8 +72,13 @@ module Suitability
         candidate_name = @report.report_hash[:candidate][:name]
         company_name = @report.report_hash[:company][:name]
 
-        template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
-
+        template = if @report.configuration[:is_functional_assessment]
+          "functional_report"
+        elsif @report.report_hash[:assessment][:assessment_type] == "competency"
+          "competency_report"
+        else
+          "assessment_report"
+        end
         report_status = {
           :errors => [],
           :message => "",
