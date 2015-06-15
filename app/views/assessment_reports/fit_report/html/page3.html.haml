@@ -38,8 +38,8 @@
           %li{:id => "#{factor_name}"}
             .divider1
             .lhs-sec.pull-left{:style=> "width: 730px;"}
-              %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
-              -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
+              %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+              -#use ".mid-favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
               .span16.first
                 .factor-name.pull-left
                   = factor_name
@@ -57,8 +57,8 @@
                 - position = (company_norm_bucket.weight - 1) * marker_width
                 - offset = ((from_norm_bucket.weight - 1) * marker_width)
                 - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-                .pointer{ class: "#{factor_score[:pass] ? '' : 'less-favorable'}", style: "left: #{position-14}px;" }
-                  -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+                .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-14}px;" }
+                  -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
                   .score-indicater
                     = company_norm_bucket.name
                   .arrow
