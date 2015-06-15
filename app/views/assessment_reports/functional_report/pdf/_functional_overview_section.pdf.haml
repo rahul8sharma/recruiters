@@ -1,0 +1,26 @@
+- if @report.report_hash[:enable_functional_overview_section]
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .divider2
+  .functional
+    .functional_final_score
+      .score_band.pull-right 
+        Aggregate Score: #{@report.report_data[:objective_score].to_f.round(2)}%
+      .clr
+    .overview
+      .bottom-triangle
+        .divider1
+        .content
+          .overview-title
+            Overview of Sections Scores
+          %ul.competency-list.pull-left
+            - @report.report_data[:section_wise_objective_item_scores].each do |section_name, section_data|
+              - next if section_name == "Global"
+              %li
+                .competency-name.pull-left
+                  = section_name
+                .competency-value.pull-left
+                  #{section_data[:percentage]}%
+                  
+                .clr
+          .clr
+        .divider2
