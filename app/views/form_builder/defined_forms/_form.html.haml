@@ -15,8 +15,8 @@
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :company_id
-    = f.text_field :company_id
+    = f.label :company_ids
+    = f.text_field :company_ids, value: @resource.company_ids.to_a.join(",")
   .field
     = f.label :active
     = f.check_box :active

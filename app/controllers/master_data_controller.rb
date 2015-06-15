@@ -22,11 +22,11 @@ class MasterDataController < ApplicationController
   end
   
   def show
-    @resource = api_resource.find(params[:id])
+    @resource = api_resource.find(params[:id], :methods => index_columns)
   end
   
   def edit
-    @resource = api_resource.find(params[:id])
+    @resource = api_resource.find(params[:id], :methods => index_columns)
   end
   
   def update
