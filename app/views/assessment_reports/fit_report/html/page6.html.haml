@@ -22,7 +22,7 @@
       %ul.clearfix.scores_listing.interview_guide_listing
         - guidelines_for_candidate_manager.each do |factor_name, guide|
           %li
-            - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less-favorable')
+            - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
             .span1.first.hexagon-icon{ class: klass }
             .factor-name.span4
               = factor_name
