@@ -259,13 +259,11 @@ class Retention::Surveys::CandidatesController < ApplicationController
     category = Vger::Resources::Template::TemplateCategory::SEND_RETENTION_SURVEY_TO_EMPLOYEE
     @templates = Vger::Resources::Template\
                   .where(query_options: {
-                    company_id: @company.id,
                     category: category
-                  }).all.to_a
+                  }, scopes: { global_or_for_company_id: @company.id }).all.to_a
     @templates |= Vger::Resources::Template\
                   .where(query_options: {
-                    company_id: nil,
                     category: category
-                  }).all.to_a
+                  }, scopes: { global: nil }).all.to_a
   end
 end
