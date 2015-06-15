@@ -34,8 +34,8 @@
       - @report.report_data[:functional_trait_scores].each_with_index do |(factor_name,factor_score),index|      
         %li
           .lhs-sec.pull-left
-            %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less-favorable'}" }
-            -#use ".mid-favorable" or ".less-favorable" or ".favorable" to change the color of hexagon
+            %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            -#use ".mid-favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
             .span17.first
               .factor-name.pull-left
                 = factor_name
@@ -46,8 +46,8 @@
           .rhs-sec.pull-right
             .slider
               - scale = factor_score[:scale]
-              .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less-favorable'}" }
-                -# Use position1, postion2...5. for pointer position, and also add ".less-favorable" for first two buckets- "low" and "below average"
+              .pointer{ class: "position#{scale[:position]} #{factor_score[:pass] ? '' : 'less_favorable'}" }
+                -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
                 .score-indicater
                   = factor_score[:norm_bucket]
                 .arrow
