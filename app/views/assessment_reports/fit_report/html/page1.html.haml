@@ -5,17 +5,22 @@
       = @report.report_hash[:candidate][:name]
     - if (@report.report_hash[:enable_recommendation])
       .pull-right
-        .final-score.score_band{:style=>"background-color: #128975"}
-          Aggregate Score:
-          = @report.report_hash[:overall_score_bucket][:name]
-          - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
-        .final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 355px"}
-          -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
-          .score_rating_title.pull-left{:style=>"color: #{bg_hex}"}
-            Score Rating
-          .span
-            = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
-          .clr
+        .score_value.pull-left
+          35%
+        .pull-left
+          .final-score.score_band{:style=>"background-color: #128975"}
+            Aggregate Score:
+            = @report.report_hash[:overall_score_bucket][:name]
+            - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
+          .final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 355px"}
+            -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
+            .score_rating_title.pull-left{:style=>"color: #{bg_hex}"}
+              Score Rating
+            .span
+              = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
+            .clr
+
+        .clr
         .divider1
       .clr
 

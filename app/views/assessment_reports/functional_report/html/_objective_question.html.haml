@@ -1,0 +1,62 @@
+.functional
+  - if @report.report_hash[:objective_items].present? && @report.report_hash[:include_objective_questions]
+    .functional-questions.objective
+      .container
+        .divider2
+        .title.pull-left
+          Section “Verbal Resoning”: Objective Questions 
+        .correct-responses.span9.pull-right.first
+          Correct Responses: #{@report.report_data[:objective_score].to_f.round(2)}%
+        .clr
+        .divider1
+
+        .instruction-box
+          .user.span12.first
+            %i.icon-edit
+            Options selected by #{@report.report_data[:candidate][:name].to_s[0..15]}
+          .correct.span9
+            %i.icon-ok-circle
+            Green indicates correct response
+          .incorrect.span9
+            %i.icon-remove-circle
+            Red indicates incorrect response
+          .clr
+        .divider1
+        .clr
+
+        .divider1
+
+        - @report.report_data[:objective_items].each do |item_id, item_data|
+          .frame
+            .label.label-warning.pull-left.left-offset1
+              Question
+            .span24
+              .question
+                = item_data[:item][:body].html_safe
+              .divider1
+              %ul.options
+                - item_data[:options].each do |option_id, option_data|
+                  %li #{option_data[:body]}
+            .responses-result{ class: (item_data[:response][:score] == 1 ? 'correct' : 'incorrect') }
+            .clr
+            .divider1
+            .label.label-warning.pull-left.left-offset1
+              Options and response
+            .clr
+            .divider1
+            %ul.options-response
+              - item_data[:options].each do |option_id,option_data|
+                - cklass = (option_data[:score] == 1) ? 'correct' : ''
+                - iklass = option_id.to_i == item_data[:response][:id].to_i ? 'incorrect' : ''
+                - iconstyle = option_id.to_i == item_data[:response][:id].to_i ? '' : 'visibility:hidden'
+                %li{ class: "#{iklass} #{cklass}" }
+                  %i.icon-edit{:style => "#{iconstyle}"}
+                  = option_data[:body]
+            - if item_data[:trait].present?
+              .attachment-info
+                This question is attached to the trait “#{item_data[:trait]}”
+          .divider1
+      .divider1
+
+
+
