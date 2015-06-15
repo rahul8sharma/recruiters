@@ -494,7 +494,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   def get_templates(candidate_stage, reminder = false)
     category = ""
     query_options = {
-      company_id: @company.id
     }
     if reminder
       candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id).all.first
@@ -514,10 +513,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     end
     query_options[:category] = category if category.present?
     @templates = Vger::Resources::Template\
-                  .where(query_options: query_options).all.to_a
-    query_options[:company_id] = nil
+                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
     @templates |= Vger::Resources::Template\
-                  .where(query_options: query_options).all.to_a
+                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
 
   def get_packages
