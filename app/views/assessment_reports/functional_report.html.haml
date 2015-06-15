@@ -1,1 +1,15 @@
-= "Hello World!"
+:css
+  .report .inner{margin-top:0px;} 
+
+.divider3
+  
+.competency_report
+  = render :partial => "assessment_reports/functional_report/html/functional_overview_section"
+  = render :partial => "assessment_reports/functional_report/html/objective_questions"
+  = render :partial => "assessment_reports/functional_report/html/subjective_questions"
+  
+= render :partial => "shared/reports/html/about_us"
+.page-break
+
+= render :partial => "shared/reports/html/legal_disclaimer"
+.page-break

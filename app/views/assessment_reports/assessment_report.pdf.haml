@@ -20,10 +20,12 @@
 - if @report.report_hash[:functional_trait_scores].present?  
   = render :template => "assessment_reports/fit_report/pdf/scores_of_functional_traits"
   .page-break    
-    
-= render :partial => "assessment_reports/common_pages/pdf/objective_questions"
-.page-break
-= render :partial => "assessment_reports/common_pages/pdf/subjective_questions"      
-.page-break
+.competency_report
+  = render :partial => "assessment_reports/functional_report/pdf/functional_overview_section"
+  .page-break
+  = render :partial => "assessment_reports/functional_report/pdf/objective_questions"
+  .page-break
+  = render :partial => "assessment_reports/functional_report/pdf/subjective_questions"
+  .page-break          
 
 = render :template => "assessment_reports/common_pages"
