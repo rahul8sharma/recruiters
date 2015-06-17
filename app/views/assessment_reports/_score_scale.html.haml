@@ -1,12 +1,13 @@
-.score_scale
-  .container
-    .divider1
-    .white.huge-text
-      Jombay Score Scale
-    .divider2
-    .text-center
-      = image_tag("report/html/score_scale.png")
+- if @report.report_data[:enable_score_scale_section]  
+  .score_scale
+    .container
       .divider1
-      %p.big-text.white
-        Scores indicate where a person stands on a particular trait, when compared to the relevant norm population
+      .white.huge-text
+        Jombay Score Scale
       .divider2
+      .text-center
+        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("report/html/score_scale.png")}")
+        .divider1
+        %p.big-text.white
+          Scores indicate where a person stands on a particular trait, when compared to the relevant norm population
+        .divider2

@@ -10,7 +10,6 @@
   - competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
   
   = render :template => "assessment_reports/competency_report/html/competency_report_page1", :locals => { competency_scores: competency_scores }
-  
   = render :partial => "assessment_reports/score_scale"
   = render :partial => "assessment_reports/competency_report/html/explanation_scores"
   

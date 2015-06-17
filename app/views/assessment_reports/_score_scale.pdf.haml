@@ -1,5 +1,6 @@
-= render partial: "shared/reports/pdf/report_header.pdf.haml"
-.scores
+- if @report.report_data[:enable_score_scale_section]  
+  = render partial: "shared/reports/pdf/report_header.pdf.haml"
+  .scores
   .divider2
   .blue_heading.large-text 
     Jombay Score Scale
@@ -9,3 +10,4 @@
     .divider2
     %p.medium-text
       Scores indicate where a person stands on a particular trait, when compared to the relevant norm population
+  .page-break
