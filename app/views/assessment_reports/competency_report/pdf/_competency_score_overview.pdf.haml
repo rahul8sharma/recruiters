@@ -23,7 +23,7 @@
               = competency_name
             .competency-value
               - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(competency_data[:grade_uid]) }
-              = company_norm_bucket.name
+              = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
             .clr
       .clr
     .divider2
