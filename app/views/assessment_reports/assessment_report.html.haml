@@ -9,6 +9,7 @@
 - if @report.report_hash[:factor_scores].present?
   = render :template => "assessment_reports/fit_report/html/page2"
   .page-break      
+= render :partial => "assessment_reports/score_scale"
 
 - if @report.report_hash[:factor_scores].present?
   - factor_scores = @report.report_hash[:factor_scores]
@@ -21,7 +22,6 @@
   .page-break
 .competency_report
   = render :partial => "assessment_reports/functional_report/html/functional_overview_section"
-= render :partial => "assessment_reports/score_scale"
 = render :partial => "assessment_reports/functional_report/html/objective_questions"
 = render :partial => "assessment_reports/functional_report/html/subjective_questions"
 
