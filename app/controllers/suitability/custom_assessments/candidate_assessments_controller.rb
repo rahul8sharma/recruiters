@@ -85,10 +85,14 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         end
 
         params[:candidates].each do |key,candidate_data|
+          @errors[key] ||= []
+          if @assessment.set_applicant_id && !(/^[0-9]{8}$/.match(candidate_data[:applicant_id]).present?)
+            @errors[key] << "Applicant ID is invalid."
+          end
           if candidate_data[:email].present?
             candidate = Vger::Resources::Candidate.where(:query_options => { :email => candidate_data[:email] }).all[0]
           end
-          @errors[key] ||= []
+          
           if candidate
             candidate_data[:id] = candidate.id
             candidates[candidate.id] = candidate_data

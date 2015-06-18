@@ -6,10 +6,11 @@
 
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]    
 
+= render :partial => "assessment_reports/score_scale"
 - if @report.report_hash[:factor_scores].present?
   = render :template => "assessment_reports/fit_report/pdf/page2"
   .page-break      
-
+    
 - if @report.report_hash[:factor_scores].present?
   - factor_scores = @report.report_hash[:factor_scores]
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
@@ -23,9 +24,9 @@
 .competency_report
   = render :partial => "assessment_reports/functional_report/pdf/functional_overview_section"
   .page-break
-  = render :partial => "assessment_reports/functional_report/pdf/objective_questions"
-  .page-break
-  = render :partial => "assessment_reports/functional_report/pdf/subjective_questions"
-  .page-break          
+= render :partial => "assessment_reports/functional_report/pdf/objective_questions"
+.page-break
+= render :partial => "assessment_reports/functional_report/pdf/subjective_questions"
+.page-break
 
 = render :template => "assessment_reports/common_pages"
