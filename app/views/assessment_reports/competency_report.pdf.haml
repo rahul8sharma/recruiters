@@ -12,10 +12,10 @@
   .page-break
   = render :partial => "assessment_reports/competency_report/pdf/competency_report_guideline"
   .page-break
-  = render :partial => "assessment_reports/competency_report/pdf/competency_score_overview", :locals => { competency_scores: competency_scores}
-  .page-break
   = render :partial => "assessment_reports/score_scale"
   = render :partial => "assessment_reports/competency_report/pdf/explanation_scores"
+  = render :partial => "assessment_reports/competency_report/pdf/competency_score_overview", :locals => { competency_scores: competency_scores}
+  .page-break
   - (0..competency_scores.length-1).step(competency_step) do |step|
     - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
     = render :template => "assessment_reports/competency_report/pdf/competency_report_page2", :locals => { competency_scores: step_competency_scores }
