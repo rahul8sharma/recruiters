@@ -144,13 +144,13 @@ class AssessmentReportsController < ApplicationController
         @view_mode = "html"
       end
     end
-    template = nil
-    case report_type
-      when "fit"
-        template = "assessment_report"
-      when "competency"  
-        template = "competency_report"
-    end    
+    template = if @report.configuration[:is_functional_assessment]
+      "functional_report"
+    elsif @report.report_hash[:assessment][:assessment_type] == "competency"
+      "competency_report"
+    else
+      "assessment_report"
+    end
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
       when "html" 

@@ -148,6 +148,7 @@ class Exit::SurveysController < ApplicationController
   end
 
   def get_defined_forms
-    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { for_company: @company.id }, query_options: { active: true }).all.to_a
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { global_or_for_company_id: @company.id }, query_options: { active: true }).all.to_a
+    @defined_forms |= Vger::Resources::FormBuilder::DefinedForm.where(scopes: { global: nil }, query_options: { active: true }).all.to_a
   end
 end

@@ -1,6 +1,7 @@
 class TemplatesController < MasterDataController
   before_filter :authenticate_user!
   before_filter :get_template_variables, :only => [:new, :create, :update, :edit]
+  before_filter :set_params, :only => [:create, :update]
   
   def api_resource
     Vger::Resources::Template
@@ -14,7 +15,7 @@ class TemplatesController < MasterDataController
     [
       :id,
       :name,
-      :company_id,
+      :company_ids,
       :category,
       :from,
       :subject,
@@ -25,7 +26,7 @@ class TemplatesController < MasterDataController
   def search_columns
     [
       :id,
-      :company_id,
+      :company_ids,
       :name,
       :category
     ]
@@ -35,5 +36,9 @@ class TemplatesController < MasterDataController
   
   def get_template_variables
     @template_variables = Vger::Resources::TemplateVariable.all
+  end
+  
+  def set_params
+    params[:template][:company_ids] = params[:template][:company_ids].to_s.split(",")
   end
 end

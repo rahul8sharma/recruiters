@@ -1,6 +1,6 @@
 = form_for :candidate, url: export_validation_progress_candidates_path, multipart: true, :method => :post do |f|
   %fieldset
-    %input{ type: "hidden", name: "candidate[job_klass]", value: "GenerateValidationProgressReport" }
+    %input{ type: "hidden", name: "candidate[job_klass]", value: "Suitability::GenerateValidationProgressReport" }
     %legend 
       %strong Download Validation Progress
     = f.fields_for "args" do |f|

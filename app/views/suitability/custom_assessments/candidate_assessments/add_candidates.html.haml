@@ -56,9 +56,8 @@
       .divider1
     = form_for @assessment, :as => :assessment, :url => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
-      %input{ type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
-      %input{ id:"candidate_stage", type: "hidden", value: "", name: "candidate_stage" }
+      %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         .left-offset2.first
           - klass = @assessment.set_applicant_id ? "span6" : "span8"

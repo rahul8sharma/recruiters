@@ -1,0 +1,13 @@
+:css
+  .report .inner{margin-top:0px;} 
+.competency_report
+  = render :partial => "assessment_reports/functional_report/pdf/functional_overview_section"
+  .page-break
+  = render :partial => "assessment_reports/functional_report/pdf/objective_questions"
+  = render :partial => "assessment_reports/functional_report/pdf/subjective_questions"
+  
+= render :partial => "shared/reports/pdf/about_us"
+.page-break
+
+= render :partial => "shared/reports/pdf/legal_disclaimer"
+.page-break  

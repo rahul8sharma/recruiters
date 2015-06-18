@@ -110,6 +110,51 @@
               = subjective_item.body
             .clr
     .divider2
+    .extra-large-text.text-center
+      Sections
+    .divider1
+    %ul.big-text
+      - @sections.each do |section|
+        %li.less-padding-all
+          .pull-left
+            %label
+              %input{type: "checkbox", :onclick => "$('.item_#{section.id}').prop('checked',$(this).is(':checked'))"}
+              = section.name
+          .clr            
+          .divider1
+          %ul.big-text
+            - index = 0
+            - added_objective_items = ( @assessment.item_ids.is_a?(Hash) && @assessment.item_ids["other_objective_items"].present?) ? @assessment.item_ids["other_objective_items"].map { |item_hash| item_hash["id"]} : []
+            - section.objective_items.each do |objective_item|
+              - next if !objective_item[:active]
+              - objective_checked = added_objective_items.include? objective_item[:id]
+              %li.less-padding-all
+                - index += 1
+                .span18
+                  %input.pull-left{ name: "assessment[other_objective_items][#{objective_item[:id]}][included]",
+                    type: "checkbox",
+                    class: "item_#{section.id}",
+                    id: "objective_item_#{objective_item[:id]}", checked: objective_checked }
+                  %label.left-offset1.pull-left{ for: "objective_item_#{objective_item[:id]}" }
+                    = objective_item[:body]
+                  .clr  
+                  
+            - index = 0
+            - added_subjective_items = ( @assessment.item_ids.is_a?(Hash) && @assessment.item_ids["other_subjective_items"].present?) ? @assessment.item_ids["other_subjective_items"].map { |item_hash| item_hash["id"]} : []
+            - section.subjective_items.each do |subjective_item|
+              - next if !subjective_item[:active]
+              - subjective_checked = added_subjective_items.include? subjective_item[:id]
+              %li.less-padding-all
+                - index += 1
+                .span18
+                  %input.pull-left{ name: "assessment[other_subjective_items][#{subjective_item[:id]}][included]",
+                    type: "checkbox",
+                    class: "item_#{section.id}",
+                    id: "subjective_item_#{subjective_item[:id]}", checked: subjective_checked }
+                  %label.left-offset1.pull-left{ for: "subjective_item_#{subjective_item[:id]}" }
+                    = subjective_item[:body]
+                  .clr  
+    .divider2
 
     %input.pull-left.btn.btn-warning.inverse.large-text{name: "save_and_close", value: "Save and Close" , type: "submit"}
     %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Proceed"}

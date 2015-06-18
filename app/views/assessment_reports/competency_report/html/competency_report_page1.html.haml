@@ -18,6 +18,7 @@
             .span
               = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"
             .clr
+        .clr
         .divider1
         - if (@report.report_hash[:functional_items].present?)
           - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])

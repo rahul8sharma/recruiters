@@ -72,8 +72,13 @@ module Suitability
         candidate_name = @report.report_hash[:candidate][:name]
         company_name = @report.report_hash[:company][:name]
 
-        template = ["fit", "benchmark"].include?(@report.report_hash[:assessment][:assessment_type]) ? "assessment_report" : "competency_report"
-
+        template = if @report.configuration[:is_functional_assessment]
+          "functional_report"
+        elsif @report.report_hash[:assessment][:assessment_type] == "competency"
+          "competency_report"
+        else
+          "assessment_report"
+        end
         report_status = {
           :errors => [],
           :message => "",
@@ -111,9 +116,10 @@ module Suitability
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        pdf_file_id = "#{candidate_name.underscore.gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub(' ','-').gsub('_','-')}-#{@report.id}.pdf"
-        html_file_id = "report_#{@report.id}.html"
-        feedback_html_file_id = "feedback_report_#{@report.id}.html"
+        file_id = "#{candidate_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
+        pdf_file_id = "#{file_id}.pdf"
+        html_file_id = "#{file_id}.html"
+        feedback_html_file_id = "feedback-#{file_id}.html"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
         html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
         feedback_html_save_path = File.join(Rails.root.to_s,'tmp',"feedback_#{html_file_id}")

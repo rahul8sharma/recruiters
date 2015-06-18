@@ -1,0 +1,27 @@
+- if @report.report_hash[:subjective_items].present? && @report.report_hash[:include_subjective_questions]
+  - @report.report_data[:subjective_items].group_by{|item_id, item_data| item_data[:section] }.each do |section, section_data|
+    .functional-questions.objective
+      .container
+        .divider2
+        .title
+          = section.present? ? "Section &#147;#{section}&#148;:".html_safe : ""
+          Subjective Questions
+        .divider2
+        - Hash[section_data].each do |item_id, item_data|
+          .frame
+            .divider1
+            .label.label-warning.pull-left.left-offset1
+              Question
+            .span22
+              = item_data[:item][:body].gsub("<text_box>","___________________").html_safe
+            .clr
+            .divider1
+            - item_data[:response].each do |index, response|
+              .label.label-warning.pull-left.left-offset1
+                Response #{index.to_i+1}
+              .span25.bold
+                = response
+              .clr
+              .divider1
+          .divider1
+      .divider1

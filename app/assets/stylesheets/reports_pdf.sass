@@ -377,10 +377,8 @@ body
     .section02
       background: #fff
     .overall_report
-      min-height: 1100px
     .overview 
       background: image-url('report/pdf/competency/overview_bg.png') no-repeat 
-      min-height: 1100px
       .inner
         padding: 18px 40px
         width: auto
@@ -424,7 +422,47 @@ body
               color: #28b29b
               font-weight: 700
               font-size: 18px
-
+    .functional
+      padding: 18px 30px
+      .functional-questions 
+        .correct-responses
+          padding: 0
+          line-height: 30px
+      .functional_final_score
+        padding: 18px 0
+        .score_band
+          background: #f58220
+          font-size: 30px
+          line-height: 55px
+          padding: 0 90px 0 40px
+          color: #fff
+      .overview
+        .content 
+          .overview-title
+            text-align: left
+            padding: 25px
+            border-bottom: 0 none
+          .competency-name
+            padding: 10px 0
+            border-right: 1px solid #e3e3e3
+            width: 90%
+          .competency-value
+            float: left
+            font-size: 20px
+            color: #28b29b
+            font-weight: 700
+            width: 5%
+            padding: 10px 0
+            margin-left: 15px
+          .competency-list
+            border: 0 none
+          li
+            padding: 5px 25px
+            &:nth-child(even)
+              background: #fff
+            &:nth-child(odd)
+              background: #f8f8f8
+    
     .heading
       background: #28b29b
       line-height: 24px
@@ -717,7 +755,7 @@ body
       line-height: 38px
       color: #fff
     .instruction-box
-      padding: 0 0 0 40px
+      padding: 0 0 0 10px
       .user, .correct, .incorrect
         font-weight: 700
         text-align: center
