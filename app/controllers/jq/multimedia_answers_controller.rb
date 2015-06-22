@@ -9,14 +9,19 @@ class Jq::MultimediaAnswersController < MasterDataController
     "import_from_google_drive"
   end
   
+  def show
+    @resource = api_resource.find(params[:id], :methods => index_columns+[:original_attachment_url])
+  end
+  
   def create
     file = params[:jq_multimedia_answer][:attachment]
     if file
-      key = "multimedia_answers/attachments/#{file.original_filename}"
+      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:candidate_id]}/#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
-      params[:jq_multimedia_answer][:attachment] = url
+      params[:jq_multimedia_answer].delete :attachment
+      params[:jq_multimedia_answer][:unprocessed_attachment_url] = url
     end
     @resource = api_resource.create(params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?
@@ -30,12 +35,14 @@ class Jq::MultimediaAnswersController < MasterDataController
   def update
     file = params[:jq_multimedia_answer][:attachment]
     if file
-      key = "multimedia_answers/attachments/#{params[:id]}-#{file.original_filename}"
+      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:candidate_id]}/#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
-      params[:jq_multimedia_answer][:attachment] = url
+      params[:jq_multimedia_answer].delete :attachment
+      params[:jq_multimedia_answer][:unprocessed_attachment_url] = url
     end
+    
     @resource = api_resource.save_existing(params[:id], params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?
       flash[:error] = @resource.error_messages.join("<br/>").html_safe
