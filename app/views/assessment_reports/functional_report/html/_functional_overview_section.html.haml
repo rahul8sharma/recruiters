@@ -1,4 +1,4 @@
-- if @report.report_hash[:enable_functional_overview_section]
+- if @report.report_hash[:enable_functional_overview_section] && @report.report_data[:objective_items].present?
   .functional
     .functional_final_score
       .score_band.pull-right Aggregate Score: #{@report.report_data[:objective_score].to_f.round(2)}%
