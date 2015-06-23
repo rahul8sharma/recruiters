@@ -16,7 +16,7 @@
     - if @report.report_data[:mrf_report_show_completion_status]
       - completed_count = 0
       - sent_count = 0
-      - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+      - @report.report_data[:feedback_stats].each do |role, status|
         - completed_count += status[:completed]
         - sent_count += status[:sent]
       .pull-right
