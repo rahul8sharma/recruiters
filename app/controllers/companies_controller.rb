@@ -247,6 +247,21 @@ class CompaniesController < ApplicationController
     @company.export_assessment_stats(options)
     redirect_to request.env['HTTP_REFERER'], notice: "Assessment Status Summary will be generated and emailed to #{current_user.email}."
   end
+  
+  def email_reports_summary
+    options = {
+      :assessment_stats => {
+        :job_klass => "Suitability::Assessment::AccountReportsSummaryExporter",
+        :args => {
+          :user_id => current_user.id,
+          :company_ids => [params[:id]]
+        }
+      }
+    }
+    Vger::Resources::Company.find(params[:id])\
+      .export_assessment_stats(options)
+    redirect_to request.env['HTTP_REFERER'], notice: "Reports Summary will be generated and emailed to #{current_user.email}."
+  end
 
   protected
 
