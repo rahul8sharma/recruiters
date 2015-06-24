@@ -2,12 +2,7 @@
   = stylesheet_link_tag "companies"
   = stylesheet_link_tag "jq"
 - content_for :content do
-.jq
-  .container
-    //For Alerts
-    //= render :partial => "shared/alert-success-iconic"
-    //= render :partial => "shared/alert-error"
-    //= render :partial => "shared/alert-success"
-  
-    = yield
+  .jq
+    .container
+      = yield
 = render :file => 'layouts/jit'
