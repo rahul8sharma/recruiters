@@ -74,8 +74,9 @@ Recruiters::Application.routes.draw do
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
-      get "landing" => "companies#landing", :as => :landing
-      get "email_assessment_stats" => "companies#email_assessment_stats", :as => :email_assessment_stats
+      get :landing
+      get :email_assessment_stats
+      get :email_reports_summary
     end
 
     resources :hiring_managers do
