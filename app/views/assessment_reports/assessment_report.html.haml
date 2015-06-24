@@ -4,12 +4,12 @@
 = render :template => "assessment_reports/fit_report/html/page1"
 .page-break
 
+= render :partial => "assessment_reports/score_scale"
 - scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
 
 - if @report.report_hash[:factor_scores].present?
   = render :template => "assessment_reports/fit_report/html/page2"
   .page-break      
-= render :partial => "assessment_reports/score_scale"
 
 - if @report.report_hash[:factor_scores].present?
   - factor_scores = @report.report_hash[:factor_scores]
