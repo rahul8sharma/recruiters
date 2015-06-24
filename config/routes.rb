@@ -536,6 +536,15 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
+  
+  resources :languages do
+    collection do
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+    end
+  end
 
 
   resources :locations do
