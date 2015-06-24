@@ -60,8 +60,11 @@
             - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "" }), :title=>"#{sent_count}"}  #{sent_count}
           .span4.text-center.left-offset1
-            %a{:href => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
+            %a.span{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), title: "Export Report Summary" }
+              %i.icon-file
+            %a.span{:href => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               %i.icon-envelope
+            .clr  
           .clr
           .divider1
   .divider2

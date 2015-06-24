@@ -2,7 +2,8 @@
   .divider1
   .page-title.pull-left
     Your Accounts
-    .extra-medium-text.gray-dark
+    .clr
+    .span6.extra-medium-text.gray-dark.first
       Click on Account Name or ID to go to an Account
   .border-primary.padding-all1.pull-right
     .extra-medium-text.pull-left
@@ -14,8 +15,12 @@
           Assessment Status Summary
       .span
         %a.btn.btn-warning.default-text{:href => email_usage_stats_company_managers_path}
-          %i.icon-bar-chart
+          %i.icon-file
           Usage Summary
+      .span
+        %a.btn.btn-warning.default-text{:href => email_reports_summary_company_managers_path}
+          %i.icon-bar-chart
+          Reports Summary    
 
     .clr
   .clr
@@ -43,11 +48,16 @@
                 %a.medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
                   = company.name
               .span4.text-center
-                .span2.margin-auto
+                .span3.margin-auto
                   %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_path(company.id), :title => "Assessment Status Summary"}
                     %i.icon-file
                     .info
                       Assessment Status Summary
+                    .arrow
+                  %a.huge-text.span1.first.info-block{:href => email_reports_summary_company_managers_path(:company_ids => company.id), :title => "Reports Summary"}
+                    %i.icon-file
+                    .info
+                      Reports Summary
                     .arrow
                   %a.huge-text.span1.info-block{:href => email_usage_stats_company_path(company.id), :title => "Usage Summary"}
                     %i.icon-bar-chart

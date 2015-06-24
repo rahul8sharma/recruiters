@@ -432,6 +432,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       get "email_usage_stats" => "company_managers#email_usage_stats", :as => :email_usage_stats
       get "email_assessment_stats" => "company_managers#email_assessment_stats", :as => :email_assessment_stats
+      get "email_reports_summary" => "company_managers#email_reports_summary", :as => :email_reports_summary
     end
   end
 
