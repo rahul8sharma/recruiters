@@ -26,6 +26,16 @@ Recruiters::Application.routes.draw do
   end
 
   resources :companies do
+    scope module: :companies do
+      namespace :jq, path: "hiring" do
+        resources :jobs do
+          scope module: :jobs do
+            resources :candidate_jobs, path: "candidates"
+          end
+        end
+      end
+    end
+    
     collection do
       post :import
       get :manage
