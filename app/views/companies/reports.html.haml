@@ -2,6 +2,10 @@
   .span14.page-title.first
     .divider1.big.big-text
     Reports
+  .pull-right
+    - if @company.enable_all_assessments_reports_summary_export    
+      %a.btn.btn-warning.big.medium-text.pull-right.span{:href => email_reports_summary_company_path(@company.id), :title => "Export Reports Summary"}
+        Export Overall Reports Summary  
   .clr
 
   .divider2
