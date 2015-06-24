@@ -4,8 +4,8 @@
     Reports
   .pull-right
     - if @company.enable_all_assessments_reports_summary_export    
-      %a.btn.btn-warning.big.medium-text.pull-right.span{:href => email_reports_summary_company_path(@company.id), :title => "Export Reports Summary"}
-        Export Overall Reports Summary  
+      %a.btn.btn-warning.big.medium-text.pull-right.span{:href => email_reports_summary_company_path(@company.id), :title => "Email Overall Reports Summary"}
+        Email Overall Reports Summary  
   .clr
 
   .divider2

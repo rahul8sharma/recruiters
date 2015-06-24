@@ -11,7 +11,7 @@
     .span.border-left-grayLighter
       .span
         %a.btn.btn-warning.default-text{:href => email_assessment_stats_company_managers_path}
-          %i.icon-file
+          %i.icon-check
           Assessment Status Summary
       .span
         %a.btn.btn-warning.default-text{:href => email_reports_summary_company_managers_path}
@@ -49,20 +49,20 @@
                   = company.name
               .span4.text-center
                 .span3.margin-auto
-                  %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_path(company.id), :title => "Assessment Status Summary"}
+                  %a.huge-text.span1.first.info-block{:href => email_assessment_stats_company_path(company.id), :title => "Email Assessment Status Summary"}
+                    %i.icon-check
+                    .info
+                      Email Assessment Status Summary
+                    .arrow
+                  %a.huge-text.span1.info-block{:href => email_reports_summary_company_managers_path(:company_ids => company.id), :title => "Email Reports Summary"}
                     %i.icon-file
                     .info
-                      Assessment Status Summary
+                      Email Reports Summary
                     .arrow
-                  %a.huge-text.span1.first.info-block{:href => email_reports_summary_company_managers_path(:company_ids => company.id), :title => "Reports Summary"}
-                    %i.icon-file
-                    .info
-                      Reports Summary
-                    .arrow
-                  %a.huge-text.span1.info-block{:href => email_usage_stats_company_path(company.id), :title => "Usage Summary"}
+                  %a.huge-text.span1.info-block{:href => email_usage_stats_company_path(company.id), :title => "Email Usage Summary"}
                     %i.icon-bar-chart
                     .info
-                      Usage Summary
+                      Email Usage Summary
                     .arrow
                   .clr
                 .clr
