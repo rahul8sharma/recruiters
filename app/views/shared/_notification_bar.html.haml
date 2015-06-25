@@ -1,8 +1,10 @@
-.divider1
-.container
-  - if content_for? :alert
+- if content_for? :alert
+  .divider1
+  .container
     = yield :alert
-  - if flash[:notice].present?
+- if flash[:notice].present?
+  .divider1
+  .container
     %div{ class: "alert alert-success" }
       %strong
         = flash[:notice].to_s.html_safe

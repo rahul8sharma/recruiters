@@ -1,0 +1,32 @@
+@import toolkit/grid/core-set
+.jq
+  background: #f8f8f8
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+  *, *:before, *:after 
+    -webkit-box-sizing: inherit
+    -moz-box-sizing: inherit
+    box-sizing: inherit
+    
+
+  .suitcase-icon
+    background: image-url("jq/suitcase-icon.png") no-repeat center center 
+  .bullseye-icon
+    background: image-url("jq/bullseye-icon.png") no-repeat 0 0
+    height: 20px
+  .list-snippet-titles
+    color: #000
+    &+ul
+      border: 1px solid #fff
+  li.list-snippet
+    padding: 10px 0
+    margin: 0
+    font-size: 14px 
+    &:nth-child(odd)
+      background-color: #f8f8f8
+
+    .info-block 
+      .info
+        color: $color-warning
