@@ -1,2 +1,60 @@
-%h1
-  Jobs Posted
+.companies-list
+  .page-title
+    .divider2
+    Jobs Posted
+  .divider2
+ 
+  .list-snippet-titles.extra-medium-text.clearfix
+    .divider1
+    .span11.left-offset1
+      %a.down{:href => "#", :title => "Sort by Job Title in ascending order"}
+        Job Title 
+        %i.icon-chevron-down.small-text.line-height1
+    .span5
+      Location
+    .span4.first.text-center
+      %a.down{:href => "#", :title => "Sort by Posted on dates in ascending order"}
+        Posted on date
+        %i.icon-chevron-down.small-text.line-height1
+    .span5.text-center.first
+      Number of applications
+    .span4.text-center
+      Number of ignored
+
+    .clr
+    .divider1
+  %ul
+    -5.times do
+      %li.list-snippet
+        .span11.left-offset1
+          %a{:href=>"#"}
+            Advertising Manager OR Promotions Manager
+        .span5.info-block
+          %a{:href=>"#"} 
+            Pune
+          .info
+            Mumbai
+            %br/
+            chakan
+            %br/
+            Baner
+          .arrow
+        .span4.first.text-center
+          20-04-2015
+        .span5.text-center.first
+          %a{:href=>"#"}
+            2
+        .span4.text-center
+          2
+
+        .clr
+  .divider3
+  .pull-right
+    .muted.extra-medium-text
+      .span.line-height2
+        Go to Page  
+      %select.span2
+        %option 1
+      .clr
+  .clr             
+.divider4

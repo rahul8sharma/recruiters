@@ -1,2 +1,95 @@
-%h1
-  Advertising Manager OR Promotions Manager
+.companies-list
+  .page-title
+    .divider2
+    Advertising Manager OR Promotions Manager
+  .divider2
+  .pull-left
+    %i.icon-map-marker.color-success.big-text
+    %span.color-success.extra-medium-text
+      Location: 
+    Thiruvendipuram
+  .span
+    %i.icon-calendar.color-success.big-text
+    %span.color-success.extra-medium-text
+      Posted on date:  
+    20-03-2015
+  .clr
+
+  .span1.text-center.bg-success.first
+    %i.icon-copy.extra-large-text.white.line-height2
+  .pannel.pull-left
+    .span5
+      %span.color-success
+        Number of application: 
+      30
+    .border-left-grayLighter.pull-left
+      .span2.text-center.first
+        %i.icon-ok-sign.color-green.big-text
+        %span.color-green.extra-medium-text
+          12
+      .span2.text-center.first
+        %i.icon-remove-sign.color-stop.big-text
+        %span.color-stop.extra-medium-text
+          10
+      .clr
+    .border-left-grayLighter.pull-left
+      .span6
+        %span.medium-text.color-success
+          Number of applicants Ignored:
+        8
+      .clr
+    .clr
+  .pull-right
+    .muted.medium-text
+      .span.line-height2
+        Filter by Status
+      %select.span3
+        %option
+          All
+        %option
+          2
+        %option
+          3
+          
+      .clr
+  .clr
+  
+  .divider1
+  .list-snippet-titles.extra-medium-text.clearfix
+    .divider1
+    .span7.left-offset1
+      %a.down{:href => "#", :title => "Sort by Names in ascending order"}
+        Name 
+        %i.icon-chevron-down.small-text.line-height1
+    .span6
+      Location
+    .span6.first
+      %a.down{:href => "#", :title => "Sort by Applied on dates in ascending order"}
+        Applied on date
+        %i.icon-chevron-down.small-text.line-height1
+    .span6
+      Psychometric Score
+    .span
+      Status
+
+    .clr
+    .divider1
+  %ul
+    -5.times do
+      %li.list-snippet
+        .span7.left-offset1
+          Pranav Shah
+        .span6
+          Pune
+        .span6.first
+          20-04-2015
+        .span6
+          %a{:href=>"#"}
+            Average
+        .span.color-green
+          -#toggle above class .color-stop  and below text "Rejected"
+          Accepted
+
+        .clr
+  
+.divider4
