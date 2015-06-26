@@ -30,7 +30,8 @@ class MultimediaProfilesController < MasterDataController
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
-      params[:multimedia_profile][:attachment] = url
+      params[:multimedia_profile].delete :attachment
+      params[:multimedia_profile][:unprocessed_attachment_url] = url
     end
     @resource = api_resource.create(params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?

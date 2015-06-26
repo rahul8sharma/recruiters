@@ -1,3 +1,4 @@
+- location = @job.locations.first
 .divider2
 .page-title
   Job Details
@@ -6,10 +7,10 @@
 .pannel.divider4.span28.first
   .span
     .color-warning.extra-medium-text
-      Job Title
+      = @job.title
     .divider1
     .medium-text
-      Advertising Manager OR Promotions Manager
+      = @job.description
   .clr
 .clr
 .divider1
@@ -20,7 +21,7 @@
   .span7
     %span.medium-text.color-success
       Location:
-    Thiruvendipuram
+    = location ? location.name : "-"
   .clr
 
 .span1.bg-success.text-center.white.large-text
@@ -29,7 +30,7 @@
   .span6
     %span.medium-text.color-success
       Posted on date: 
-    20-03-2015
+    = hdate @job.posted_on, "-"
   .clr
 
 .span1.bg-success.text-center.white.large-text
@@ -38,7 +39,8 @@
   .span6
     %span.medium-text.color-success
       Number of application:  
-    32
+    %a{ href: company_jq_job_candidate_jobs_path(params[:company_id],@job.id) }  
+      = @all_candidate_jobs_count
   .clr
 
 .span1.bg-success.text-center.white.large-text
@@ -47,7 +49,8 @@
   .span6
     %span.medium-text.color-success
       Number of ignored: 
-    12
+    %a{ href: company_jq_job_candidate_jobs_path(params[:company_id],@job.id) }    
+      = @ignored_candidate_jobs_count
   .clr
 .clr
 
@@ -60,92 +63,92 @@
     .span3.medium-text.color-success
       Job Description:
     .span25.first
-      fdjjdfjdsf sdfjj
+      = @job.description
     .clr
   .clr
 
 .divider1
+-#
+  .span10.first
+    .pannel.success-border-l
+      .left-offset1
+        .span1.color-success
+          %i.icon-trophy.large-text
+        .pull-left.medium-text.color-success
+          Responsibilities
+        .clr
+        .divider1
+       
+        %ul.disc.left-offset1
+          %li Budget Management 
+          %li Executive Support
+          %li Event Coordination
 
-.span10.first
-  .pannel.success-border-l
-    .left-offset1
-      .span1.color-success
-        %i.icon-trophy.large-text
-      .pull-left.medium-text.color-success
-        Responsibilities
-      .clr
-      .divider1
-     
-      %ul.disc.left-offset1
-        %li Budget Management 
-        %li Executive Support
-        %li Event Coordination
+    .divider1
 
-  .divider1
+    .pannel.success-border-l
+      .left-offset1
+        .span1.color-success
+          %i.icon-edit.large-text
+        .pull-left.medium-text.color-success
+          Must-have skills
+        .clr
+        .divider1
+       
+        %ul.disc.left-offset1
+          %li Think Strategically
+          %li Collect and Analyze Data
+          %li Communicate
+          %li Get Things Done  
 
-  .pannel.success-border-l
-    .left-offset1
-      .span1.color-success
-        %i.icon-edit.large-text
-      .pull-left.medium-text.color-success
-        Must-have skills
-      .clr
-      .divider1
-     
-      %ul.disc.left-offset1
-        %li Think Strategically
-        %li Collect and Analyze Data
-        %li Communicate
-        %li Get Things Done  
+    .divider1
 
-  .divider1
+    .pannel.success-border-l
+      .left-offset1
+        .span1.color-success
+          %i.icon-check.large-text
+        .pull-left.medium-text.color-success
+          Nice-to-have skills
+        .clr
+        .divider1
+       
+        %ul.disc.left-offset1
+          %li Market understanding
+          %li Customer focused
+  .span20.pull-right
+    .pannel.success-border-l
+      .left-offset1
+        .span1.bullseye-icon
+        .pull-left.medium-text.color-success
+          Any specific job questions
+        .clr
+        .divider1
+       
+        %ol.disc.left-offset1
+          %li 
+            Why do you want to work for this company? Why are you interested in this job?
+            .divider1
 
-  .pannel.success-border-l
-    .left-offset1
-      .span1.color-success
-        %i.icon-check.large-text
-      .pull-left.medium-text.color-success
-        Nice-to-have skills
-      .clr
-      .divider1
-     
-      %ul.disc.left-offset1
-        %li Market understanding
-        %li Customer focused
-.span20.pull-right
-  .pannel.success-border-l
-    .left-offset1
-      .span1.bullseye-icon
-      .pull-left.medium-text.color-success
-        Any specific job questions
-      .clr
-      .divider1
-     
-      %ol.disc.left-offset1
-        %li 
-          Why do you want to work for this company? Why are you interested in this job?
-          .divider1
+          %li 
+            Have you done this kind of work before?
+            .divider1
 
-        %li 
-          Have you done this kind of work before?
-          .divider1
+          %li 
+            What kind of training or qualifications do you have?
+            .divider1
 
-        %li 
-          What kind of training or qualifications do you have?
-          .divider1
+          %li 
+            Tell me about yourself. Why should we hire you?
+            .divider1
 
-        %li 
-          Tell me about yourself. Why should we hire you?
-          .divider1
+          %li 
+            What do you do in your spare time?
+            .divider1
 
-        %li 
-          What do you do in your spare time?
-          .divider1
-
-        %li 
-          What do you think of working in a group?
-          .divider1
-.clr
+          %li 
+            What do you think of working in a group?
+            .divider1
+  .clr
 
 .divider1
 
@@ -161,57 +164,13 @@
     .divider1
    
     %ol.disc.left-offset1
-      %li
-        %div
-          .span22
-            Why do you want to work for this company? Why are you interested in this job?
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
-
-      %li
-        %div
-          .span22
-            Have you done this kind of work before?
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
-
-      %li
-        %div
-          .span22
-            What kind of training or qualifications do you have?
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
-
-      %li
-        %div
-          .span22
-            Tell me about yourself. Why should we hire you?
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
-
-      %li
-        %div
-          .span22
-            What do you do in your spare time?
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
-
-      %li
-        %div
-          .span22
-            What do you think of working in a group? 
-          .span3.text-center
-            01.12 mins
-          .clr
-        .divider1
+      - @interview_questions.each do |interview_question|
+        %li
+          %div
+            .span22
+              = interview_question.body
+            .span3.text-center
+              = "#{interview_question.allowed_time/60}:#{interview_question.allowed_time%60} mins"
+            .clr
+          .divider1
 .divider4
