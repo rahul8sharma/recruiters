@@ -17,6 +17,21 @@ class CompanyManagersController < MasterDataController
     redirect_to request.env['HTTP_REFERER'], notice: "Overall Usage Summary will be generated and emailed to #{current_user.email}."
   end
   
+  def email_reports_summary
+    options = {
+      :assessment_stats => {
+        :job_klass => "Suitability::Assessment::AccountReportsSummaryExporter",
+        :args => {
+          :user_id => current_user.id,
+          :company_ids => params[:company_ids]
+        }
+      }
+    }
+    Vger::Resources::CompanyManager.find(current_user.id)\
+      .export_assessment_stats(options)
+    redirect_to request.env['HTTP_REFERER'], notice: "Reports Summary will be generated and emailed to #{current_user.email}."
+  end
+  
   def email_assessment_stats
      options = {
       :assessment_stats => {

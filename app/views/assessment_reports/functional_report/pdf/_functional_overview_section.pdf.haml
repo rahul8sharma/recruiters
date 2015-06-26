@@ -1,4 +1,4 @@
-- if @report.report_hash[:enable_functional_overview_section]
+- if @report.report_hash[:enable_functional_overview_section] && @report.report_data[:objective_items].present?
   = render partial: "shared/reports/pdf/report_header.pdf.haml"
   .divider2
   .functional

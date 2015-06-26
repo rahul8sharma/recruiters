@@ -1,0 +1,13 @@
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+= form_for @resource, as: resource_name.singularize, url: url do |f|
+  - index_columns.each do |index_column|
+    - next if index_column.to_s == 'id'
+    .field
+      = f.label index_column
+      = f.text_field index_column
+  .field
+    = f.label :attachment
+    = f.file_field :attachment
+  .action
+    = f.submit  
+    

@@ -26,6 +26,16 @@ Recruiters::Application.routes.draw do
   end
 
   resources :companies do
+    scope module: :companies do
+      namespace :jq, path: "hiring" do
+        resources :jobs do
+          scope module: :jobs do
+            resources :candidate_jobs, path: "candidates"
+          end
+        end
+      end
+    end
+    
     collection do
       post :import
       get :manage
@@ -74,8 +84,9 @@ Recruiters::Application.routes.draw do
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
-      get "landing" => "companies#landing", :as => :landing
-      get "email_assessment_stats" => "companies#email_assessment_stats", :as => :email_assessment_stats
+      get :landing
+      get :email_assessment_stats
+      get :email_reports_summary
     end
 
     resources :hiring_managers do
@@ -432,6 +443,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       get "email_usage_stats" => "company_managers#email_usage_stats", :as => :email_usage_stats
       get "email_assessment_stats" => "company_managers#email_assessment_stats", :as => :email_assessment_stats
+      get "email_reports_summary" => "company_managers#email_reports_summary", :as => :email_reports_summary
     end
   end
 
@@ -518,6 +530,15 @@ Recruiters::Application.routes.draw do
   resources :plans, :only => [:index] do
     collection do
       post :import
+      get :manage
+      get :destroy_all
+      post :import_from_google_drive
+      post :export_to_google_drive
+    end
+  end
+  
+  resources :languages do
+    collection do
       get :manage
       get :destroy_all
       post :import_from_google_drive
