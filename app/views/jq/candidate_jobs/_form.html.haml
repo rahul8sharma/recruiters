@@ -1,11 +1,14 @@
 - url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
 = form_for @resource, as: resource_name.singularize, url: url do |f|
-  = @resource.error_messages.to_a.join("<br/>").html_safe
   - index_columns.each do |index_column|
     - next if index_column.to_s == 'id'
     .field
       = f.label index_column
-      = f.text_field index_column
+      - if index_column == :candidate_status 
+        = f.select index_column, Vger::Resources::Jq::CandidateJob::CANDIDATE_STATUSES
+      - elsif index_column == :recruiter_status 
+        = f.select index_column, Vger::Resources::Jq::CandidateJob::RECRUITER_STATUSES
+      - else
+        = f.text_field index_column
   .action
     = f.submit  
-    

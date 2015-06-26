@@ -3,58 +3,54 @@
     .divider1
     Jobs Posted
   .divider2
- 
-  .list-snippet-titles.extra-medium-text.clearfix
+  - if !@jobs.present?
     .divider1
-    .span11.left-offset1
-      %a.down{:href => "#", :title => "Sort by Job Title in ascending order"}
-        Job Title 
-        %i.icon-chevron-down.small-text.line-height1
-    .span5
-      Location
-    .span4.first.text-center
-      %a.down{:href => "#", :title => "Sort by Posted on dates in ascending order"}
-        Posted on date
-        %i.icon-chevron-down.small-text.line-height1
-    .span5.text-center.first
-      Number of applications
-    .span4.text-center
-      Number of ignored
+    .alert.medium-text
+      No jobs found!
+  - else
+    .list-snippet-titles.extra-medium-text.clearfix
+      .divider1
+      .span11.left-offset1
+        %a.down{:href => "#", :title => "Sort by Job Title in ascending order"}
+          Job Title 
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        Location
+      .span4.first.text-center
+        %a.down{:href => "#", :title => "Sort by Posted on dates in ascending order"}
+          Posted on date
+          %i.icon-chevron-down.small-text.line-height1
+      .span5.text-center.first
+        Number of applications
+      .span4.text-center
+        Number of ignored
 
-    .clr
-    .divider1
-  %ul
-    -5.times do
-      %li.list-snippet
-        .span11.left-offset1
-          %a{:href=>"#"}
-            Advertising Manager OR Promotions Manager
-        .span5.info-block
-          %a{:href=>"#"} 
-            Pune
-          .info
-            Mumbai
-            %br/
-            chakan
-            %br/
-            Baner
-          .arrow
-        .span4.first.text-center
-          20-04-2015
-        .span5.text-center.first
-          %a{:href=>"#"}
-            2
-        .span4.text-center
-          2
-
-        .clr
-  .divider3
-  .pull-right
-    .muted.extra-medium-text
-      .span.line-height2
-        Go to Page  
-      %select.span2
-        %option 1
       .clr
+      .divider1
+    %ul
+      - @jobs.each do |job|
+        - location = job.locations.first
+        %li.list-snippet
+          .span11.left-offset1
+            %a{:href=> company_jq_job_path(params[:company_id],job.id) }
+              = job.title
+          .span5.info-block
+            %a{:href=>"#"} 
+              = location ? location.name : "-"
+            .info
+              = location ? location.address : "-"
+            .arrow
+          .span4.first.text-center
+            = hdate job.posted_on, "-"
+          .span5.text-center.first
+            %a{:href=>"#"}
+              = @candidate_jobs[job.id.to_s] || 0
+          .span4.text-center
+            = @ignored_candidate_jobs[job.id.to_s] || 0
+
+          .clr
+    .divider3
+  .pull-right
+    = render :partial => "shared/pagination", locals: { objects: @jobs } 
   .clr             
 .divider4

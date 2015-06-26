@@ -18,8 +18,9 @@
       %li
         %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           ASSESSMENTS
-
-
+      %li
+        %a{:href=>company_jq_jobs_path(@company.id), :title=> "HIRING", class: (["companies/jq/jobs","companies/jq/jobs/candidate_jobs"].include?("#{params[:controller]}") ? "active" : "")}
+          HIRING
       %li
         %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           REPORTS

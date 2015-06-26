@@ -1,56 +1,57 @@
+- location = @job.locations.first
 .companies-list
   .page-title
     .divider1
-    Advertising Manager OR Promotions Manager
+    = @job.title
   .divider2
   .pull-left
     %i.icon-map-marker.color-success.big-text
     %span.color-success.extra-medium-text
       Location: 
-    Thiruvendipuram
+    = location ? location.name : "-"
   .span
     %i.icon-calendar.color-success.big-text
     %span.color-success.extra-medium-text
       Posted on date:  
-    20-03-2015
+    = hdate(@job.posted_on, "-")
   .clr
-
+  .divider1
   .span1.text-center.bg-success.first
     %i.icon-copy.extra-large-text.white.line-height2
   .pannel.pull-left
     .span5
       %span.color-success
         Number of application: 
-      30
+      = @all_candidate_jobs_count
     .border-left-grayLighter.pull-left
       .span2.text-center.first
         %i.icon-ok-sign.color-green.big-text
         %span.color-green.extra-medium-text
-          12
+          = @accepted_candidate_jobs_count
       .span2.text-center.first
         %i.icon-remove-sign.color-stop.big-text
         %span.color-stop.extra-medium-text
-          10
+          = @rejected_candidate_jobs_count
       .clr
     .border-left-grayLighter.pull-left
       .span6
         %span.medium-text.color-success
           Number of applicants Ignored:
-        8
+        = @ignored_candidate_jobs_count
       .clr
     .clr
   .pull-right
     .muted.medium-text
-      .span.line-height2
-        Filter by Status
-      %select.span3
-        %option
-          All
-        %option
-          2
-        %option
-          3
-          
+      = form_for :search, url: company_jq_job_candidate_jobs_path(params[:company_id], @job.id), method: :get, html: { id: "candidate_jobs_search_form" } do |f|
+        - params[:search] ||= {}
+        .span.line-height2
+          Filter by Status
+        %select.span3{name: "search[jq_candidate_jobs.recruiter_status]", onchange: "document.getElementById('candidate_jobs_search_form').submit();"}
+          %option
+            All
+          - Vger::Resources::Jq::CandidateJob::RECRUITER_STATUSES.each do |status|
+            %option{ value: status, selected: (params[:search]["jq_candidate_jobs.recruiter_status"] == status) }
+              = status
       .clr
   .clr
   
@@ -58,15 +59,11 @@
   .list-snippet-titles.extra-medium-text.clearfix
     .divider1
     .span7.left-offset1
-      %a.down{:href => "#", :title => "Sort by Names in ascending order"}
-        Name 
-        %i.icon-chevron-down.small-text.line-height1
+      = sort_link("Name",company_jq_job_candidate_jobs_path(params[:company_id],@job.id),:name,params[:search])
     .span6
       Location
     .span6.first
-      %a.down{:href => "#", :title => "Sort by Applied on dates in ascending order"}
-        Applied on date
-        %i.icon-chevron-down.small-text.line-height1
+      = sort_link("Applied on date",company_jq_job_candidate_jobs_path(params[:company_id],@job.id),:created_at,params[:search])
     .span6
       Psychometric Score
     .span
@@ -75,21 +72,32 @@
     .clr
     .divider1
   %ul
-    -5.times do
+    - @candidate_jobs.each do |candidate_job|
       %li.list-snippet
         .span7.left-offset1
-          Pranav Shah
+          %a{:href => company_jq_job_candidate_job_path(params[:company_id],@job.id,candidate_job.id) }
+            = candidate_job.candidate.name
         .span6
-          Pune
+          = candidate_job.candidate.location.name rescue "-"
         .span6.first
-          20-04-2015
+          = hdate(candidate_job.created_at,"-")
         .span6
-          %a{:href=>"#"}
-            Average
-        .span.color-green
+          - report = @reports[candidate_job.id]
+          - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+            - view_mode = "html"
+            - url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
+            %a{:href => url, target: "_blank"}
+              = report.report_data[:overall_score_bucket][:name]
+          - else
+            %i.icon-spinner.icon-spin
+            Calculating...     
+        .span{ class: (candidate_job.recruiter_status == Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
           -#toggle above class .color-stop  and below text "Rejected"
-          Accepted
+          = candidate_job.recruiter_status.titleize
 
         .clr
-  
+  .divider1      
+  .pull-right
+    = render :partial => "shared/pagination", locals: { objects: @candidate_jobs }
+  .clr  
 .divider4
