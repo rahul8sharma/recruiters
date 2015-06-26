@@ -8,14 +8,16 @@ class MultimediaProfilesController < MasterDataController
   def index_columns
     [
       :id,
-      :candidate_id
+      :candidate_id,
+      :status
     ]
   end
   
   def search_columns
     [
       :id,
-      :candidate_id
+      :candidate_id,
+      :status
     ]
   end
   

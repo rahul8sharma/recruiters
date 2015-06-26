@@ -58,7 +58,8 @@ class Jq::MultimediaAnswersController < MasterDataController
       :candidate_id,
       :interview_question_id,
       :job_id,
-      :company_id
+      :company_id,
+      :status
     ]
   end
   
@@ -68,7 +69,8 @@ class Jq::MultimediaAnswersController < MasterDataController
       :candidate_id,
       :interview_question_id,
       :job_id,
-      :company_id
+      :company_id,
+      :status
     ]
   end
 end
