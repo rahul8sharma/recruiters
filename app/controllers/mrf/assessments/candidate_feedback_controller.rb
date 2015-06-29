@@ -340,7 +340,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       candidate = Vger::Resources::Candidate.where(query_options: { email: params[:candidate][:email] }).all.to_a.first
     end
     if !candidate
-      candidate = Vger::Resources::Candidate.create(params[:candidate])
+      candidate = Vger::Resources::Candidate.find_or_create(params[:candidate])
       if !candidate.error_messages.empty?
         flash[:error] = candidate.error_messages.join("<br/>").html_safe
         return nil
