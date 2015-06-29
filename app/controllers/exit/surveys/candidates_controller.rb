@@ -46,7 +46,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
           attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless candidate.send(attribute).blank? }
           Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
         else
-          candidate = Vger::Resources::Candidate.create(candidate_data)
+          candidate = Vger::Resources::Candidate.find_or_create(candidate_data)
           if candidate.error_messages.present?
             @errors[key] |= candidate.error_messages
           else

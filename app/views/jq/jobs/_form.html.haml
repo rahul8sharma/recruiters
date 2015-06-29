@@ -5,12 +5,13 @@
     - next if index_column.to_s == 'id'
     .field
     - if index_column == :posted_on
-      - f.object.send("#{index_column}=",Date.parse(@resource.send(index_column)))
+      - if @resource.send(index_column)
+        - f.object.send("#{index_column}=",Date.parse(@resource.send(index_column)))
       = f.label index_column
       = f.datetime_select index_column
     - elsif index_column == :location_ids
       = f.label index_column
-      = f.text_field index_column, value: @resource.send(index_column).join(",")
+      = f.text_field index_column, value: @resource.send(index_column).to_a.join(",")
     - else
       = f.label index_column
       = f.text_field index_column
