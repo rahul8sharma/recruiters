@@ -1,10 +1,22 @@
 puts "Loading Her Configuration"
 require 'faraday/response/raise_error'
 require 'faraday/adapter/net_http'
+require 'oauth2'
+
+oauth_options ||= {
+  callback: "",
+  app_id: Rails.application.config.vger["api"]["app_name"],
+  secret: Rails.application.config.vger["api"]["password"],
+  site: Rails.application.config.vger["api"]["url"]
+}
+
+$oauth_client = OAuth2::Client.new(oauth_options[:app_id], oauth_options[:secret], site: oauth_options[:site])
+
+
 class TokenAuthentication < Faraday::Middleware
 	def call(env)
 		if RequestStore.store[:auth_token]
-			env[:request_headers]["X-AuthToken"] = RequestStore.store[:auth_token]
+			env[:request_headers]["Authorization"] = "Bearer "+RequestStore.store[:auth_token]
 		end
 		@app.call(env)
 	end
