@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     current_user and current_user.type == "SuperAdmin"
   end
   
-   def is_admin?
+  def is_admin?
     current_user and current_user.type == "Admin"
   end
   
