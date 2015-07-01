@@ -5,8 +5,8 @@ require 'oauth2'
 
 oauth_options ||= {
   callback: "",
-  app_id: Rails.application.config.vger["api"]["app_name"],
-  secret: Rails.application.config.vger["api"]["password"],
+  app_id: Rails.application.config.vger["api"]["app_id"],
+  secret: Rails.application.config.vger["api"]["secret"],
   site: Rails.application.config.vger["api"]["url"]
 }
 
@@ -15,8 +15,8 @@ $oauth_client = OAuth2::Client.new(oauth_options[:app_id], oauth_options[:secret
 
 class TokenAuthentication < Faraday::Middleware
 	def call(env)
-		if RequestStore.store[:auth_token]
-			env[:request_headers]["Authorization"] = "Bearer "+RequestStore.store[:auth_token]
+		if RequestStore.store[:oauth_token]
+			env[:request_headers]["Authorization"] = "Bearer "+RequestStore.store[:oauth_token]
 		end
 		@app.call(env)
 	end
@@ -36,8 +36,6 @@ end
 
 Vger::Config.configure({
 	:url => Rails.application.config.vger["api"]["url"],
-	:middlewares => [TokenAuthentication,Faraday::Response::RaiseError,PaginationParser],
-	:app_name => Rails.application.config.vger["api"]["app_name"],
-	:password => Rails.application.config.vger["api"]["password"]
+	:middlewares => [TokenAuthentication,Faraday::Response::RaiseError,PaginationParser]
 })
 

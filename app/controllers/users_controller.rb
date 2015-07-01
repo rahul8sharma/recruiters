@@ -6,8 +6,7 @@ class UsersController < ApplicationController
     if request.post?
       begin
         token = sign_in(params[:user])
-        RequestStore.store[:auth_token] = token.token
-        session[:auth_token] = token.token
+        RequestStore.store[:oauth_token] = token.token
         response = Vger::Resources::User.current()
         if response.respond_to?(:error) && response.send(:error).present?
           flash[:error] = response.error

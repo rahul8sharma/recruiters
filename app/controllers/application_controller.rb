@@ -36,7 +36,8 @@ class ApplicationController < ActionController::Base
   
   protected
   def set_auth_token
-    RequestStore.store[:auth_token] = session[:auth_token] || params[:auth_token]
+    token = get_token
+    RequestStore.store[:oauth_token] = (token ? token.token : nil)
   end
   
   def is_superadmin?
