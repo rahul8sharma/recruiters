@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
   # set session[:auth_token] to nil
   # redirect to login_path
   def invalid_authentication(e)
-    session[:auth_token] = nil
+    session[:oauth_token] = nil
     flash[:error] = e.message
     redirect_to login_path
   end
