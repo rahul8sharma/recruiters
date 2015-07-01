@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 6da3e47ed7f16fec18f5225f4143687a7aa2def0
+  revision: 5f7c4d09cc217c5dcc061d4ee61d04cbcd0c87ad
   branch: develop
   specs:
     vger (0.0.1)
@@ -253,7 +253,7 @@ DEPENDENCIES
   jombay-notify!
   jquery-rails (= 2.2.1)
   kaminari!
-  oauth2
+  oauth2 (= 1.0.0)
   puma (= 2.9.0)
   rails (= 3.2.13)
   rails-backbone (= 0.7.2)
