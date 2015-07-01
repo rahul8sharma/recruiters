@@ -5,8 +5,18 @@ class UsersController < ApplicationController
   def login
     if request.post?
       begin
-        sign_in(params[:user])
+        token = sign_in(params[:user])
+        RequestStore.store[:oauth_token] = token.token
+        response = Vger::Resources::User.current()
+        if response.respond_to?(:error) && response.send(:error).present?
+          flash[:error] = response.error
+          redirect_to login_path and return
+        end
+        current_user = response
         redirect_user
+      rescue OAuth2::Error => e
+        json = JSON.parse e.response.response.body
+        flash[:error] = json["error"]
       rescue Faraday::Unauthorized => e
         flash[:error] = e.response[:body][:data][:error]
       end
