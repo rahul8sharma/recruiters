@@ -1,0 +1,13 @@
+- if @report.report_data[:mrf_report_show_trait_definitions_pdf]
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Trait Definition"}
+  - trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_data| competency_data[:trait_scores] }.flatten.uniq
+  .scores
+    .large-text.blue-heading
+      Definitions of Traits included in this assessment
+    %h2
+    .divider1
+    - trait_scores.each do |trait|
+      %b.medium-text
+        = trait[:trait][:name]
+      %p  
+        = trait[:trait][:definition]

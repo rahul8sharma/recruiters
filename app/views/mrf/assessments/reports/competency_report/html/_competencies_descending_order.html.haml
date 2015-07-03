@@ -1,4 +1,4 @@
-- sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:score][:points].to_i }.reverse
+- sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:score][:points].to_f }.reverse
 .scores_competencies_graph.descending_order.section02
   .divider2
   .container
@@ -29,7 +29,6 @@
               %li
                 .span6.extra-medium-text.first.trait_title{ title: competency }
                   = truncate competency, length: 25
-                  
                 .stakeholder_rating.medium-text.pull-left
                   = competency_score[:score][:points] || "-"
                 .self_rating.medium-text.span
