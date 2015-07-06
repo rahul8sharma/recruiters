@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   protected
   def set_auth_token
     token = get_token(params)
-    RequestStore.store[:oauth_token] = (token ? token.token : nil)
+    RequestStore.store[:auth_token] = (token ? token.token : nil)
   end
   
   def is_superadmin?
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
   # set session[:auth_token] to nil
   # redirect to login_path
   def invalid_authentication(e)
-    session[:oauth_token] = nil
+    session[:auth_token] = nil
     flash[:error] = e.message
     redirect_to login_path
   end

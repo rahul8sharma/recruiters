@@ -15,8 +15,8 @@ $oauth_client = OAuth2::Client.new(oauth_options[:app_id], oauth_options[:secret
 
 class TokenAuthentication < Faraday::Middleware
 	def call(env)
-		if RequestStore.store[:oauth_token]
-			env[:request_headers]["Authorization"] = "Bearer "+RequestStore.store[:oauth_token]
+		if RequestStore.store[:auth_token]
+			env[:request_headers]["Authorization"] = "Bearer "+RequestStore.store[:auth_token]
 		end
 		@app.call(env)
 	end

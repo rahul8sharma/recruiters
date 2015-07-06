@@ -12,7 +12,7 @@ class SidekiqController < ApplicationController
   end
   
   def queue_job
-    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=#{params[:job_klass]}&auth_token=#{params[:auth_token]}")
+    Vger::Resources::Candidate.get("/sidekiq/queue-job?#{params.to_param}")
     render :json => { :status => "Job Started" }
   end
 
