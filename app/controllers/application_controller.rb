@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   
   protected
   def set_auth_token
-    token = get_token
+    token = get_token(params)
     RequestStore.store[:oauth_token] = (token ? token.token : nil)
   end
   

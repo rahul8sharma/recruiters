@@ -10,6 +10,11 @@ class SidekiqController < ApplicationController
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
     render :json => { :status => "Job Started" }
   end
+  
+  def queue_job
+    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=#{params[:job_klass]}&auth_token=#{params[:auth_token]}")
+    render :json => { :status => "Job Started" }
+  end
 
   def upload_reports
     reports = Vger::Resources::Suitability::CandidateAssessmentReport.where(
