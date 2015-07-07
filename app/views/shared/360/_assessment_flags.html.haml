@@ -17,7 +17,7 @@
         %th.big-text
           Flag Status
       - iterator = 0
-      -  flags.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) }.each do |name, settings|
+      - flags.select{|config, settings| [true.class.name, false.class.name].include?(settings[:type]) && settings[:context] == 'mrf' }.each do |name, settings|
         - iterator += 1
         %tr
           - if ["TrueClass","FalseClass"].include? settings[:type]

@@ -4,7 +4,7 @@ gem 'rails', '3.2.13'
 group :assets do
   gem 'sass', '3.2.14'
   gem 'sass-rails', '3.2.6'
-	gem 'bootstrap-sass', '2.3.1.0'
+  gem 'bootstrap-sass', '2.3.1.0'
   gem 'uglifier', '1.0.3'
 end
 
@@ -24,7 +24,7 @@ gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessabl
 
 gem 'her', '0.6.8'
 
-gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "release-2.32", :ref => "d8475bcf303d5bcef05f6929ee5c3f3fa0c5b28b"
 
 gem 'faraday_middleware','0.9.1'
 gem 'awesome_print','1.1.0'
@@ -41,8 +41,8 @@ gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :bran
 gem 'celluloid-redis'
 
 platform :ruby do
-	group :development do
-		gem 'better_errors','0.8.0'
-		gem 'binding_of_caller','0.7.1'
-	end
+  group :development do
+    gem 'better_errors','0.8.0'
+    gem 'binding_of_caller','0.7.1'
+  end
 end
