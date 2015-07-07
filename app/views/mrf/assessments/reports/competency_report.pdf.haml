@@ -1,9 +1,15 @@
+- competency_order = @report.report_data[:assessment][:competency_order]
+- @report.report_data[:competency_scores] = Hash[@report.report_data[:competency_scores].sort_by{|competency,competency_data| competency_order.index(competency_data[:id]) }]
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
     .page-break
