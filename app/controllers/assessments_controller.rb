@@ -229,7 +229,14 @@ class AssessmentsController < ApplicationController
       end
       factor_ids << competency.factor_ids
     end
-    @factor_norms = @factor_norms.flatten.compact.uniq.map
+    @factor_norms = @factor_norms.flatten.compact.uniq
+    
+    diff = factor_ids.flatten.uniq - @factor_norms.map(&:factor_id).uniq
+    if diff.present?
+      flash[:error] = "Some of the traits are not visible for this account. Traits: #{diff.join(',')}"
+      redirect_to competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+    end
+    
     @factor_norms = factor_ids.flatten.uniq.map{|factor_id| @factor_norms.detect{|factor_norm| factor_norm.factor_id == factor_id } }
     @alarm_factor_norms = @alarm_factor_norms.flatten.compact.uniq
   end
