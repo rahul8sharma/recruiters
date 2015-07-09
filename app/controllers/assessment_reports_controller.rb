@@ -110,8 +110,12 @@ class AssessmentReportsController < ApplicationController
     else
       view_mode = params[:view_mode] || "html"
     end
-    url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
-    redirect_to url
+    if report.s3_keys[view_mode].present?
+      url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
+      redirect_to url
+    else
+      raise Faraday::ResourceNotFound.new("Not Found")
+    end
   end
 
   def assessment_report
