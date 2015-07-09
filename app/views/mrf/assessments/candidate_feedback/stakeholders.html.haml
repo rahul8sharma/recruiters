@@ -9,6 +9,10 @@
     %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, candidate_ids: @candidate.id)}
       Add Stakeholders
   .clr
+  %br
+  .span7.pull-right.medium-text
+    = link_to "Disable all stakeholders for this candidate", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id, options: { candidate_id: @candidate.id }), confirm: "Are you sure?"
+  .clr  
   .divider2
   = render :partial => "shared/360/candidate-details-sub-nav"
 
@@ -39,9 +43,9 @@
             .span1.first
               = stakeholder.id
             .span5
-              = stakeholder.name
+              = link_to stakeholder.name, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
             .span6
-              = stakeholder.email
+              = link_to stakeholder.email, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
             .span4
               = feedback.role.titleize
             .span5
@@ -62,3 +66,5 @@
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @stakeholders}
     .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'       

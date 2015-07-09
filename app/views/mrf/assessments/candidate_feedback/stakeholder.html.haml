@@ -1,0 +1,72 @@
+.candidate-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+    %br
+    Stakeholder: 
+    = @stakeholder.name
+  .pull-right  
+    %a.btn.btn-info.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
+      Create a new 360&#176; Profiling Exercise
+    %br  
+    %br  
+    = link_to "Disable Link for this stakeholder", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id, :options => { stakeholder_id: @stakeholder.id }), confirm: "Are you sure?", class: "pull-right big-text big"
+    .pull-right
+      &nbsp;
+      \|
+      &nbsp;
+    %a.big-text.big.pull-right{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
+      Add Stakeholders  
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      - if @feedbacks.present?
+        .span3.first
+          = sort_link "360&#176;CID", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.id", params[:search]
+        .span5
+          = sort_link "Candidate", candidates_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "candidates.name", params[:search]
+        .span7
+          Email-ID
+        .span7
+          360&#176; Status
+        .span6
+          Remind Stakeholders
+        .clr
+        .divider1          
+
+        %ul
+          - @feedbacks.each do |feedback|
+            - candidate = feedback.candidate
+            %li.list-snippet.extra-medium-text
+              .divider1
+              .span3.first
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.id
+              .span5
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.name
+              .span7
+                %a{:href => candidate_statistics_company_mrf_assessment_path(@company.id,@assessment.id,candidate.id), :title => candidate.id}
+                  = candidate.email
+              .span7
+                - if Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                  Completed
+                - else
+                  Pending
+              .span6
+                - if Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                  %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { candidate_id: candidate.id }), :title => "Send Reminders"}
+                    Send Reminders
+                - else
+                  = "-"    
+              .clr
+      - else
+        .alert.medium-text.text-center
+          No candidates present
+    .divider2
+    .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'    
