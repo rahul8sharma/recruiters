@@ -13,7 +13,6 @@
       360&#176;
     .banner-sub-heading.pull-left
       Profiling Report
-    - if @report.report_data[:mrf_report_show_completion_status]
       - completed_count = 0
       - sent_count = 0
       - @report.report_data[:feedback_stats].each do |role, status|
