@@ -22,9 +22,16 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   end
 
   def send_reminder
-    Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
-    flash[:notice] = "Reminders sent successfully."
-    redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+    if request.put?
+      params[:options] = YAML.load(params[:options])
+      params[:options].merge!(template_id: params[:template_id])
+      Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
+      flash[:notice] = "Reminders sent successfully."
+      redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+    else
+      get_templates(true)
+      get_custom_assessment
+    end
   end
 
   def enable_self_ratings
@@ -202,7 +209,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         :filename => "sample_csv_for_bulk_upload.csv")
     #end
   end
-
+  
   def add_stakeholders
     params[:candidate] ||= {}
     params[:feedbacks] ||= {}
@@ -210,6 +217,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     10.times do |index|
       params[:feedbacks][index.to_s] ||= {}
     end
+    get_templates(false)
     if request.put?
       feedbacks = params[:feedbacks].select{|index,feedback_hash| feedback_hash[:email].present? and feedback_hash[:name].present? }
       if feedbacks.empty?
@@ -246,7 +254,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
           params[:feedbacks][index.to_s] = {}
         end
       else
-        redirect_to candidates_company_mrf_assessment_path(@company.id, @assessment.id)
+        redirect_to candidates_company_mrf_assessment_path(@company.id, @assessment.id) and return
       end
     end
     get_custom_assessment
@@ -257,7 +265,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     if request.put?
       if !params[:bulk_upload] || !params[:bulk_upload][:file]
         flash[:error] = "Please select a csv file."
-        redirect_to add_stakeholders_company_mrf_assessment_path and return
+        redirect_to bulk_upload_company_mrf_assessment_path and return
       else
         data = params[:bulk_upload][:file].read
         obj = S3Utils.upload(s3_key, data)
@@ -270,6 +278,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                         :sender_type => current_user.type,
                         :sender_name => current_user.name,
                         :send_invitations => params[:send_invitations],
+                        :template_id => params[:template_id],
                         :worksheets => [{
                           :file => "BulkUpload.csv",
                           :bucket => @s3_bucket,
@@ -280,6 +289,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
                     notice: "Bulk upload in progress."
         #render :action => :preview
       end
+    else
+      get_custom_assessment
+      get_templates(false)
     end
   end
 
@@ -374,7 +386,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.create(
         company_id: @company.id,
         assessment_id: @assessment.id,
-        stakeholder_id: stakeholder.id
+        stakeholder_id: stakeholder.id,
+        invitation_template_id: params[:template_id]
       )
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
@@ -414,5 +427,21 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def get_candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id])
+  end
+  
+  def get_templates(reminder)
+    category = ""
+    query_options = {
+    }
+    if reminder
+      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_REMINDER_TO_STAKEHOLDER
+    else
+      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_STAKEHOLDER
+    end
+    query_options[:category] = category if category.present?
+    @templates = Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
+    @templates |= Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
 end

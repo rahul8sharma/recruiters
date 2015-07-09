@@ -9,7 +9,7 @@
       = f.text_field :company_ids, value: @resource.company_ids.to_a.join(",")
     .field
       = f.label :category
-      = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES
+      = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES.sort
     .field
       = f.label :from
       = f.text_field :from, id: "template_from"

@@ -5,7 +5,7 @@
     = f.text_field :name
   .field
     = f.label :category
-    = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES
+    = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES.sort
   .field
     = f.label :value
     = f.text_area :value

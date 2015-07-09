@@ -28,35 +28,8 @@
   = help_text
   .divider2
 .span30
-  .extra-medium-text.color-info
-    = bulk_addition_text
-  .divider2
-  = form_for :assessment, as: :assessment, url: bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html: { multipart: true } do |f|
-    .span25.first.left-offset4.extra-medium-text
-      .bulk-upload
-        .span.left-offset1.pull-left
-          .control-group
-            .span6.extra-medium-text.pull-left
-              .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
-              = fields_for :bulk_upload do |ff|
-                = ff.file_field(:file, accept: '.csv')
-              .span.default-text
-                (File format supported: CSV)
-            .span14.extra-medium-text
-              %a{:target => "_blank", :href => download_sample_csv_for_mrf_bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id)}
-                Download Sample File for adding Candidates and Stakeholders
-    .divider4
-    .span7.pull-right.medium-text
-      - if is_superadmin?
-        .span.medium-text
-          %label.line-height2
-            %input{name: "send_invitations", type: "checkbox", checked: "checked"}
-            Send Email Invitations 
-      %input.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Send Invitations" , name:"send"}
-    .clr  
-  
-  .divider2.border-bottom-grayLighter{ class: manual_addition_text.nil? ? 'hide':'' }
-
+  = link_to "Bulk Upload", bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), class: "btn btn-info big-text big bold"   
+  .divider2.border-bottom-grayLighter
 
 .span30{ class: manual_addition_text.nil? ? 'hide':'' }
   .divider2
@@ -114,6 +87,8 @@
                     = role.titleize
               .clr
       .divider2
+      = render :partial => "email_settings", locals: { reminder: false }
+      .divider2
       .span.pull-left
         %a.big-text{:href => home_company_mrf_assessments_path(@company.id)}
           Add Candidates/Stakeholders Later
@@ -131,4 +106,3 @@
           %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
         .clr
       .clr
-
