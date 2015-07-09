@@ -47,14 +47,18 @@
                 #{hdate(candidate_assessment.completed_at)}
             .span
               - report = candidate_assessment.candidate_assessment_reports.first
-              - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
-              %a{:href => url, :title => "View Report", target: "_blank"}
-                %i.icon-file              
-                View Report
-                - if is_superadmin?
-                  - if candidate_assessment.options[:link_used]
-                    - url_params = CGI::parse(candidate_assessment.options[:link_used])
-                    = "(Manager Link Used)" if url_params["cc"].present?
+              - if report.configuration[:notifications_sent_at]
+                - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
+                %a{:href => url, :title => "View Report", target: "_blank"}
+                  %i.icon-file              
+                  View Report
+                  - if is_superadmin?
+                    - if candidate_assessment.options[:link_used]
+                      - url_params = CGI::parse(candidate_assessment.options[:link_used])
+                      = "(Manager Link Used)" if url_params["cc"].present?
+              - else
+                %i.icon-spinner.icon-spin
+                Generating Report...          
             .clr
       - else
         .alert.medium-text

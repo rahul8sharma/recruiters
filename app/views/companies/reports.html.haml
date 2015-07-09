@@ -16,9 +16,9 @@
       = sort_link "Assessment Taker", reports_company_path(@company), :name, params[:search]
     .span9
       = sort_link "Assessment Title", reports_company_path(@company), "suitability_custom_assessments.name", params[:search]
-    .span7.left-offset1
+    .span5.left-offset1
       = sort_link "Completed On", reports_company_path(@company), :completed_at, params[:search]
-    .span2
+    .span4.text-center
       %a{:href=>"#"}
         Report
     .clr
@@ -40,16 +40,20 @@
           .span9
             %a{:href=>assessment_url, :title => candidate_assessment.assessment.name}
               = candidate_assessment.assessment.name
-          .span7.left-offset1
+          .span5.left-offset1
             %a{:href => "#", :title => candidate_assessment.completed_at}
               #{htime(candidate_assessment.completed_at)} Hrs,
               #{hdate(candidate_assessment.completed_at)}
-          .span2.text-center          
+          .span4.text-center          
             - report = candidate_assessment.candidate_assessment_reports.first
-            - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-            
-            %a{:href=> url, :title => "Click to View Report", :target => "_blank"}
-              %i.icon-file        
+            - if report.configuration[:notifications_sent_at]
+              - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+              
+              %a{:href=> url, :title => "Click to View Report", :target => "_blank"}
+                %i.icon-file        
+            - else
+              %i.icon-spinner.icon-spin
+              Generating Report...      
           .clr
           .divider1
     - else
