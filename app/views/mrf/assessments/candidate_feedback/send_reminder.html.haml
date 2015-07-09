@@ -1,0 +1,22 @@
+- if params[:options].present?
+  - if params[:options][:candidate_id]
+    - if params[:options][:role]
+      - role = params[:options][:role] == "self" ? "Self" : "all " + params[:options][:role].titleize.pluralize
+      - message = "#{role} for Candidate #CID #{params[:options][:candidate_id]}"
+    - else  
+      - message = "all pending for Candidate #CID #{params[:options][:candidate_id]}"
+  - else
+    - message = "all " + params[:options].values.first.pluralize.titleize
+- else
+  - message = "all " + "pending".titleize   
+.span25.huge-text.page-title
+  Send Reminder to #{message} 
+  %br
+.span30
+  = form_for @assessment, as: :assessment, url: send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), method: :put do |f|
+    .divider2
+    %input{ type: "hidden", name: "options", value: params[:options].to_yaml }  
+    = render :partial => "email_settings", locals: { reminder: true }
+    .span.pull-right
+      %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+    .clr
