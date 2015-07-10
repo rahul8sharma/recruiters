@@ -1,32 +1,16 @@
 module Exit
-  class ReportUploader < AbstractController::Base
-    include Sidekiq::Worker
-    include AbstractController::Rendering
-    include AbstractController::Helpers
-    include AbstractController::Translation
-    include AbstractController::AssetPaths
-    include Rails.application.routes.url_helpers
-    include UploadHelper
-    helper ApplicationHelper
-    helper ReportsHelper
-    helper_method :protect_against_forgery?
-    self.view_paths = "app/views"
-
-    def protect_against_forgery?
-      false
-    end
-
+  class ReportUploader < ::ReportUploader
     def perform(report_data, auth_token, patch = {})
       tries = 0
       patch ||= {}
       report_data = HashWithIndifferentAccess.new report_data
-      RequestStore.store[:auth_token] = auth_token
       report_id = report_data["id"]
       survey_id = report_data["survey_id"]
       candidate_id = report_data["candidate_id"]
       company_id = report_data["company_id"]
       patch ||= {}
       begin
+        RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         params = {}
         candidate_survey = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => survey_id,

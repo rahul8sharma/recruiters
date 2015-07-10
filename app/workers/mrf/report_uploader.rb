@@ -1,22 +1,5 @@
 module Mrf
-  class ReportUploader < AbstractController::Base
-    include Sidekiq::Worker
-
-    include AbstractController::Rendering
-    include AbstractController::Helpers
-    include AbstractController::Translation
-    include AbstractController::AssetPaths
-    include Rails.application.routes.url_helpers
-    include UploadHelper
-    helper ApplicationHelper
-    helper ReportsHelper
-    helper_method :protect_against_forgery?
-    self.view_paths = "app/views"
-    
-    def protect_against_forgery?
-      false
-    end
-    
+  class ReportUploader < ::ReportUploader
     def get_norm_buckets(report_data)
       @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
                         order: "weight ASC", query_options: {
@@ -60,10 +43,10 @@ module Mrf
       tries = 0
 
       report_data = HashWithIndifferentAccess.new report_data
-      RequestStore.store[:auth_token] = auth_token
       report_id = report_data["id"]
 
       begin
+        RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         @report = Vger::Resources::Mrf::Report.find(report_id, report_data)
         
@@ -148,7 +131,7 @@ module Mrf
         else
           Vger::Resources::Mrf::Report.save_existing(report_id,
             :status => Vger::Resources::Mrf::Report::Status::FAILED
-          )
+          ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report {report_id}",{
           :report => {
