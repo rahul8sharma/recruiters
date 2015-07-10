@@ -72,8 +72,8 @@ class Exit::Surveys::CandidatesController < ApplicationController
     else
       survey_traits = @survey.survey_traits.all.to_a
       if @survey.item_ids.empty?
-        flash[:error] = "You need to select traits before sending an survey. Please select traits from below."
-        redirect_to add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
+        flash[:error] = "You need to select items before sending an survey. Please select items from below."
+        redirect_to add_items_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
       end
     end
   end
