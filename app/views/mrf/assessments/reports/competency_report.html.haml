@@ -1,4 +1,4 @@
-- competency_order = @report.report_data[:assessment][:competency_order]
+- competency_order = @report.report_data[:assessment][:competency_order] || @report.report_data[:competency_scores].collect{|competency, competency_data| competency_data[:id] }
 - @report.report_data[:competency_scores] = Hash[@report.report_data[:competency_scores].sort_by{|competency,competency_data| competency_order.index(competency_data[:id]) }]
 - @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .competency_report
