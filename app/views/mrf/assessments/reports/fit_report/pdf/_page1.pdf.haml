@@ -1,40 +1,38 @@
-.overall_report
-  .divider1
-  .j-logo.pull-left
-  .clr
-  .divider28
-
-  .huge-text.left-offset1
-    = @report.report_hash[:candidate][:name]
-
-  .divider1
-  .banner
-    .banner-heading
-      360&#176;
-    .banner-sub-heading.pull-left
-      Profiling Report
-    - if @report.report_data[:mrf_report_show_completion_status]
-      - completed_count = 0
-      - sent_count = 0
-      - Hash[@report.report_data[:feedback_stats]].each do |role, status|
-        - completed_count += status[:completed]
-        - sent_count += status[:sent]
-      .pull-right
-        Completion Status: #{completed_count} out of #{sent_count}
-      .clr
-  .divider2
-  .extra-large-text
-    .span.left-offset1
-      360&#176; Profiling:
-    .span13
-      = @report.report_hash[:assessment][:name]
+- if @report.report_data[:plain_mrf_report_cover]
+  .overall_report
+    .divider1
+    .j-logo.pull-left
     .clr
+    .divider28
+
+    .huge-text.left-offset1
+      = @report.report_hash[:candidate][:name]
+    .divider1
+    .banner
+      .banner-heading
+        360&#176;
+      .banner-sub-heading.pull-left
+        Profiling Report
+      - if @report.report_data[:mrf_report_show_completion_status]
+        - completed_count = 0
+        - sent_count = 0
+        - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+          - completed_count += status[:completed]
+          - sent_count += status[:sent]
+        .pull-right
+          Completion Status: #{completed_count} out of #{sent_count}
+        .clr
     .divider2
+    .extra-large-text
+      .span.left-offset1
+        360&#176; Profiling:
+      .span13
+        = @report.report_hash[:assessment][:name]
+      .clr
+      .divider2
 
-    .span.left-offset1
-      Report Generated On:
-    .span
-      = hdate @report.report_hash[:generated_at]
-    .clr
-
-
+      .span.left-offset1
+        Report Generated On:
+      .span
+        = hdate @report.report_hash[:generated_at]
+      .clr
