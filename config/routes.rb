@@ -210,6 +210,9 @@ Recruiters::Application.routes.draw do
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         get "candidates/add_bulk" => "suitability/custom_assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
+        
+        get "candidates/expire_links" => "suitability/custom_assessments/candidate_assessments#expire_links", :as => :expire_links
+        
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
@@ -272,6 +275,7 @@ Recruiters::Application.routes.draw do
         get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
+        get "stakeholders/:stakeholder_id" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
         get ":candidate_id/update_feedback" => "mrf/assessments/candidate_feedback#update_feedback", :as => :update_feedback
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
@@ -294,6 +298,7 @@ Recruiters::Application.routes.draw do
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
+        get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
       end
     end
 

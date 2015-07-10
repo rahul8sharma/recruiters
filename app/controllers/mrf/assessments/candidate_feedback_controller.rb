@@ -9,6 +9,20 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   layout 'mrf/mrf'
   
+  def expire_feedback_urls
+    options = {
+      :assessment => {
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }.merge(params[:options])
+      }
+    }
+    @assessment\
+      .disable_feedbacks(options)
+    redirect_to request.env['HTTP_REFERER'], notice: "Links are marked for expiration."
+  end
+  
   def update_feedback
     feedback = Vger::Resources::Mrf::Feedback.save_existing(params[:feedback_id],
       {
@@ -134,6 +148,26 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         candidate_id: @candidate.id
       }
     }).all.to_a.group_by{|feedback| feedback.stakeholder_assessment_id }
+  end
+  
+  def stakeholder
+    @stakeholder = Vger::Resources::Stakeholder.find(params[:stakeholder_id])
+    @stakeholder_assessment = Vger::Resources::Mrf::StakeholderAssessment.where(
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      query_options: {
+        "stakeholder_id" => params[:stakeholder_id],
+        "assessment_id" => @assessment.id
+      }
+    ).all.first
+    @feedbacks = Vger::Resources::Mrf::Feedback.where({
+      company_id: @company.id,
+      assessment_id: @assessment.id,
+      query_options: {
+        stakeholder_assessment_id: @stakeholder_assessment.id
+      },
+      :include => :candidate
+    }).all.to_a
   end
 
   def candidates

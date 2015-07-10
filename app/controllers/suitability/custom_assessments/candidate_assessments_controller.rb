@@ -4,6 +4,20 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   before_filter :get_company
 
   layout "tests"
+  
+  def expire_links
+    options = {
+      :custom_assessment => {
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
+      .expire_links(options)
+    redirect_to candidates_url, notice: "Links are marked for expiration."
+  end
 
   def export_feedback_scores
     options = {
