@@ -3,10 +3,8 @@
   .j-logo.pull-left
   .clr
   .divider28
-
   .huge-text.left-offset1
     = @report.report_hash[:candidate][:name]
-
   .divider1
   .banner
     .banner-heading.pull-left
@@ -15,12 +13,13 @@
       .divider3
       .banner-sub-heading
         Profiling Report
-      - completed_count = 0
-      - sent_count = 0
-      - @report.report_data[:feedback_stats].each do |role, status|
-        - completed_count += status[:completed]
-        - sent_count += status[:sent]
-      Completion Status: #{completed_count} out of #{sent_count}
+      - if @report.report_data[:mrf_report_show_completion_status]
+        - completed_count = 0
+        - sent_count = 0
+        - @report.report_data[:feedback_stats].each do |role, status|
+          - completed_count += status[:completed]
+          - sent_count += status[:sent]
+        Completion Status: #{completed_count} out of #{sent_count}
     .clr
   .divider2
   .extra-large-text

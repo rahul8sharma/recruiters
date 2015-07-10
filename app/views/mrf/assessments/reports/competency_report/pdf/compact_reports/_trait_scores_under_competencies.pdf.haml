@@ -1,27 +1,28 @@
-- @report.report_data[:competency_scores].each_slice(2) do |step_scores|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
-  .scores
-    .traits_under_competencies.scores_competencies_graph.section02
-      .large-text
-        360&#176; Scores: Traits under Competencies
-      .divider1
-      .graph_instructions.medium-text
-        .classic_user_icon.pull-left
-        .user_rating.pull-left
-          Self Rating
-        .stakeholder_rating_icon.span
-        .stakeholder_rating.pull-left
-          Rating by other Stakeholders
-        .overlapped_score
-          .span.left-offset1
-            Score Overlap is indicated by 
-          .competency_overlapped_score_icon.span
-          .span
-            or
-          .trait_overlapped_score_icon.span
+- if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
+  - @report.report_data[:competency_scores].each_slice(2) do |step_scores|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
+    .scores
+      .traits_under_competencies.scores_competencies_graph.section02
+        .large-text
+          360&#176; Scores: Traits under Competencies
+        .divider1
+        .graph_instructions.medium-text
+          .classic_user_icon.pull-left
+          .user_rating.pull-left
+            Self Rating
+          .stakeholder_rating_icon.span
+          .stakeholder_rating.pull-left
+            Rating by other Stakeholders
+          .overlapped_score
+            .span.left-offset1
+              Score Overlap is indicated by 
+            .competency_overlapped_score_icon.span
+            .span
+              or
+            .trait_overlapped_score_icon.span
+            .clr
           .clr
-        .clr
-      - step_scores.each do |competency, competency_scores|
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competency_classic_graph", locals: { competency: competency, competency_scores: competency_scores, trait_scores: competency_scores[:trait_scores] }
-  .page-break
-  .clr
+        - step_scores.each do |competency, competency_scores|
+          = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competency_classic_graph", locals: { competency: competency, competency_scores: competency_scores, trait_scores: competency_scores[:trait_scores] }
+    .page-break
+    .clr

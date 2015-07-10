@@ -1,37 +1,35 @@
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Summary of Feedback"}
-.divider3
-.feedback-stats
-  .stats
-
-    .caption
-      Feedback Stats
-    %ul
-      %li.head
-        .left
-          Feedback from
-        .middle
-          Requests to
-        .right
-          Completed by
-        .clr
- 
-      - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
-        %li.list
+- if @report.report_data[:mrf_report_360_feedback_stats]
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Summary of Feedback"}
+  .divider3
+  .feedback-stats
+    .stats
+      .caption
+        Feedback Stats
+      %ul
+        %li.head
           .left
-            = feedback_name.titleize
+            Feedback from
           .middle
-            = feedback_stats[:sent]
+            Requests to
           .right
-            = feedback_stats[:completed]
+            Completed by
           .clr
-      %li.list.total
-        .left
-          Total
-        .middle
-          = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
-        .right
-          = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
-        .clr
-
-  .divider2
-.page-break    
+        - @report.report_data[:feedback_stats].each do |feedback_name, feedback_stats|
+          %li.list
+            .left
+              = feedback_name.titleize
+            .middle
+              = feedback_stats[:sent]
+            .right
+              = feedback_stats[:completed]
+            .clr
+        %li.list.total
+          .left
+            Total
+          .middle
+            = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:sent] }.sum
+          .right
+            = @report.report_data[:feedback_stats].values.flatten.collect{|feedback_stats| feedback_stats[:completed] }.sum
+          .clr
+    .divider2
+  .page-break

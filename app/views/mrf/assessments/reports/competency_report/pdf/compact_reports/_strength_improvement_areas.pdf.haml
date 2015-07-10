@@ -1,25 +1,26 @@
-- @report.report_data[:strengths_and_areas_of_improvement].each_slice(2) do |step_scores|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Strengths and Areas of Improvement"}
-  - step_scores.each do |type, traits|
-    .strength_weakness_areas.section02
-      .scores
-        .medium-text
-          .font-bold
-            = type.titleize
-        .divider1
-        .section_description.gray-dark
-          .left-info{:style=>"width:100%;font-weight:600;"}
-            .less-padding-all1
-              = Rails.application.config.reports["mrf_report"][type.to_s]
-          .right-info{:style=>"width:100%;color:#808285"}
-            .less-padding-all1
-              - if traits.empty?
-                No such traits
-              - else  
-                %ul
-                  - traits.each do |trait|
-                    %li
-                      = trait
-        .divider2
-  .page-break
-  .clr
+- if @report.report_data[:mrf_report_strength_areas_of_improvement]
+  - @report.report_data[:strengths_and_areas_of_improvement].each_slice(2) do |step_scores|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Strengths and Areas of Improvement"}
+    - step_scores.each do |type, traits|
+      .strength_weakness_areas.section02
+        .scores
+          .medium-text
+            .font-bold
+              = type.titleize
+          .divider1
+          .section_description.gray-dark
+            .left-info{:style=>"width:100%;font-weight:600;"}
+              .less-padding-all1
+                = Rails.application.config.reports["mrf_report"][type.to_s]
+            .right-info{:style=>"width:100%;color:#808285"}
+              .less-padding-all1
+                - if traits.empty?
+                  No such traits
+                - else  
+                  %ul
+                    - traits.each do |trait|
+                      %li
+                        = trait
+          .divider2
+    .page-break
+    .clr
