@@ -1213,27 +1213,24 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
-  get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
-  put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
-  get "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports", :as => :regenerate_mrf_reports
-  put "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports"
-  get "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
-  put "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports"
-
-  get "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
-  put "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports"
+  
+  
+  match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports
+  match "/sidekiq/regenerate_mrf_reports/", :to => "reports_management#regenerate_mrf_reports", :as => :regenerate_mrf_reports
+  match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
+  match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
-  get "/report-management", :to => "pages#report_management", :as => :report_management
-  get "/report-generator", :to => "pages#report_generator", :as => :report_generator
-  post "/report-generator", :to => "pages#report_generator", :as => :report_generator
-  post "/report-generator-scores", :to => "pages#report_generator_scores", :as => :report_generator_scores
-  post "/generate_report", :to =>"pages#generate_report", :as => :generate_report
-  put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
-  put "/manage_report", :to => "pages#manage_report", :as => :manage_report
+  get "/report-management", :to => "reports_management#report_management", :as => :report_management
+  get "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
+  post "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
+  post "/report-generator-scores", :to => "reports_management#report_generator_scores", :as => :report_generator_scores
+  post "/generate_report", :to =>"reports_management#generate_report", :as => :generate_report
+  put "/modify_norms", :to => "reports_management#modify_norms", :as => :modify_norms
+  put "/manage_report", :to => "reports_management#manage_report", :as => :manage_report
 
   resources :global_configurations do
     collection do

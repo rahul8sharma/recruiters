@@ -8,7 +8,7 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsController < Ap
   def training_requirements
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(
                             :query_options => {
-                              :assessment_id => @assessment.id,
+                              :assessment_id => params[:id],
                               :report_type   => Vger::Resources::Suitability::CustomAssessment::ReportType::TRAINING_REQUIREMENT
                             }
                           ).all.first
