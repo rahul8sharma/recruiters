@@ -14,12 +14,12 @@
               .color-warning.medium-text
                 = item[:item]
         .divider1
-        .small-padding
-          .medium-text.color-average.pull-left
-            %strong
-              &nbsp; &nbsp; &nbsp;Overall Score
-          .border-left-grayLighter.span
-            - if @report.report_data[:competency360_competencies_textual_data_points]
+        - if @report.report_data[:competency360_traits_textual_data_points]
+          .small-padding
+            .medium-text.color-average.pull-left
+              %strong
+                &nbsp; &nbsp; &nbsp;Overall Score
+            .border-left-grayLighter.span
               .stakeholder_rating_icon.span1.first &nbsp;
               .medium-text.color-average.pull-left
                 360&#176; Score: 
@@ -34,7 +34,6 @@
                 = trait_score[:average_score_including_self][:points] || "-"
               .clr
               .divider1
-
               .medium-text.black.span
                 Average rating given by Stakeholders
               .clr
@@ -45,7 +44,6 @@
                       #{role.titleize}: #{score[:points] || "-"}
                   .clr
               .divider1
-              
               - if @report.report_data[:competency360_traits_best_worst_scores]
                 .span10.border-right-grayLighter
                   .medium-text.black.span.first
@@ -74,11 +72,13 @@
                    
                     .clr
               .clr
-            .divider1
+              .divider1
+            .clr
+        - if @report.report_data[:competency360_traits_frequency_of_ratings]
+          .small-padding
             = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
             .clr
             .divider2
-          .clr
       - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
         .page-break
         .clr
