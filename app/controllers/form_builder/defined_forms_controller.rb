@@ -14,7 +14,7 @@ class FormBuilder::DefinedFormsController < MasterDataController
   end
 
   def search_columns
-    [:id, :name, :company_ids, :active]
+    [:id, :name, :active]
   end
   
   protected
