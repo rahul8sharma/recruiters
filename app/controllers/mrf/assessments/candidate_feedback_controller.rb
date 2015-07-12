@@ -10,6 +10,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
   layout 'mrf/mrf'
   
   def expire_feedback_urls
+    params[:options] ||= {}
     options = {
       :assessment => {
         :args => {
