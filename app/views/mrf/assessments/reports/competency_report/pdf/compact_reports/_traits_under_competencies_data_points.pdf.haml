@@ -43,7 +43,6 @@
                     .span.color-average.vSmall-padding
                       #{role.titleize}: #{score[:points] || "-"}
                   .clr
-              .divider1
               - if @report.report_data[:competency360_traits_best_worst_scores]
                 .span10.border-right-grayLighter
                   .medium-text.black.span.first
@@ -72,13 +71,12 @@
                    
                     .clr
               .clr
-              .divider1
             .clr
         - if @report.report_data[:competency360_traits_frequency_of_ratings]
           .small-padding
             = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
             .clr
-            .divider2
+            .divider1
       - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
         .page-break
         .clr
