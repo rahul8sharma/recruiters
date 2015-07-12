@@ -25,6 +25,8 @@
     .clr
     - if is_superadmin?
       .pull-right
+        = link_to "Expire Links", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id), confirm: "Are you sure?"
+        \|  
         %a{:href => export_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id)}
           Export Feedback Urls
         \|  
@@ -87,3 +89,5 @@
       .extra-medium-text.margin-auto{:style => "width: 710px"}
         Self Ratings: Enabled For All #{@total_candidates} candidates.
     .divider2
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'   

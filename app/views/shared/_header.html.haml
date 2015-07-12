@@ -10,7 +10,7 @@
       .divider1
     - if current_user
       - if defined?(@company)
-        .span8.company_name{:title => "#{@company.name}"}
+        .span6.company_name{:title => "#{@company.name}"}
           = truncate @company.name, :length   => 28
       = render :partial => "shared/header/#{current_user.type.underscore}"
     - else

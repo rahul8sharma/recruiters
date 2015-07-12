@@ -1,21 +1,20 @@
-- if @report.report_data[:mrf_report_data_pts_traits]
-  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-    - competency_scores[:trait_scores].each_slice(2) do |trait_scores|
-      = render partial: "shared/360/mrf_report_header.pdf.haml"
-      #developement_guide_traits.section03
+- @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+  - competency_scores[:trait_scores].each_slice(2) do |trait_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    #developement_guide_traits.section03
+      .divider1
+      .scores
+        .blue_heading.extra-large-text
+          Data Points on 360&#176; Scores of Competencies
         .divider1
-        .scores
-          .blue_heading.extra-large-text
-            Data Points on 360&#176; Scores of Competencies
-          .divider1
-          - trait_scores.each_with_index do |trait_score,index|
-            .frame.mrf.gray-bg{ style: "#{index > 0 ? 'border-top: none;':''}" }
-              - if index == 0
-                .heading.pull-left
-                  #{competency_name }: #{competency_scores[:score][:bucket]}
-                .clr 
-                .divider1
-              %ul.mrf_data_points_listing
-                = render :partial => "mrf/assessments/reports/competency_report/pdf/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index, :competency_name => competency_name }
-          .divider1
-      .page-break
+        - trait_scores.each_with_index do |trait_score,index|
+          .frame.mrf.gray-bg{ style: "#{index > 0 ? 'border-top: none;':''}" }
+            - if index == 0
+              .heading.pull-left
+                #{competency_name }: #{competency_scores[:score][:bucket]}
+              .clr 
+              .divider1
+            %ul.mrf_data_points_listing
+              = render :partial => "mrf/assessments/reports/competency_report/pdf/trait_wise_rating", :locals => {:trait_score => trait_score, :index => index, :competency_name => competency_name }
+        .divider1
+    .page-break

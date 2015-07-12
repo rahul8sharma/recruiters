@@ -53,7 +53,13 @@ class Exit::SurveysController < ApplicationController
       get_items
     else
       params[:survey] ||= {}
+      params[:items] ||= {}
       items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
+      if items.empty?
+        flash[:error] = "You need to select items before sending an survey. Please select items from below."
+        get_items
+        redirect_to add_items_company_exit_survey_path(@company.id,@survey.id) and return
+      end
       items = Hash[items.sort_by{|item_id, item_data| item_data[:order].to_i }]
       params[:survey][:item_ids] = items.map do |index, item_data|
         { 

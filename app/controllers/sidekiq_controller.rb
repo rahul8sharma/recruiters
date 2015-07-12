@@ -1,5 +1,6 @@
 class SidekiqController < ApplicationController
   before_filter :check_superadmin
+  before_filter :check_auth_token
 
   def generate_factor_benchmarks
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
@@ -8,6 +9,11 @@ class SidekiqController < ApplicationController
 
   def generate_mrf_scores
     Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
+    render :json => { :status => "Job Started" }
+  end
+  
+  def queue_job
+    Vger::Resources::Candidate.get("/sidekiq/queue-job?#{params.to_param}")
     render :json => { :status => "Job Started" }
   end
 
@@ -32,7 +38,7 @@ class SidekiqController < ApplicationController
         :assessment_id => report.assessment_id,
         :candidate_id => report.candidate_id
       }
-      Suitability::ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+      Suitability::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
@@ -54,7 +60,7 @@ class SidekiqController < ApplicationController
         :candidate_id => report.candidate_id,
         :company_id => report.assessment.company_id
       }
-      Mrf::ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+      Mrf::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
@@ -75,7 +81,7 @@ class SidekiqController < ApplicationController
         :assessment_id => report.assessment_id,
         :company_id => report.assessment.company_id
       }
-      Mrf::GroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:patch])
+      Mrf::GroupReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
@@ -99,7 +105,7 @@ class SidekiqController < ApplicationController
         :company_id => report.survey.company_id
 
       }
-      Engagement::ReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Engagement::ReportUploader.perform_async(report_data,params[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -124,7 +130,7 @@ class SidekiqController < ApplicationController
         :company_id => report.survey.company_id
 
       }
-      Exit::ReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Exit::ReportUploader.perform_async(report_data,params[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -146,7 +152,7 @@ class SidekiqController < ApplicationController
         :survey_id => report.survey.id,
         :company_id => report.survey.company_id
       }
-      Exit::GroupReportUploader.perform_async(report_data,RequestStore.store[:auth_token],params[:patch])
+      Exit::GroupReportUploader.perform_async(report_data,params[:auth_token],params[:patch])
     end
     render :json => { :status => "Job Started",:reports => reports.map(&:id)}
   end
@@ -165,7 +171,7 @@ class SidekiqController < ApplicationController
         :company_id => assessment_report.company_id
       }
       job_ids[assessment_report.assessment_id] = assessment_report.id
-      Suitability::TrainingRequirementsReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      Suitability::TrainingRequirementsReportUploader.perform_async(report_data, params[:auth_token])
     end
     render :json => { :status => "Job Started", :report_ids => job_ids }
   end
@@ -183,7 +189,7 @@ class SidekiqController < ApplicationController
         :company_id => training_requirement_group_report.company_id
       }
       job_ids[training_requirement_group_report.assessment_group_id] = training_requirement_group_report.id
-      Suitability::TrainingRequirementGroupReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      Suitability::TrainingRequirementGroupReportUploader.perform_async(report_data, params[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end
@@ -199,44 +205,17 @@ class SidekiqController < ApplicationController
         :assessment_id => assessment_report.assessment_id,
         :assessment_report_id => assessment_report.id
       }
-      job_ids << Suitability::BenchmarkReportUploader.perform_async(report_data, RequestStore.store[:auth_token])
+      job_ids << Suitability::BenchmarkReportUploader.perform_async(report_data, params[:auth_token])
     end
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end
-
-  def regenerate_reports
-    if params[:args][:assessment_id].present? && params[:args][:email].present?
-      assessment = Vger::Resources::Suitability::CustomAssessment.regenerate_reports(params)
-      render :json => { :status => "Job Started", :job_id => assessment.job_id }
-    else
-      redirect_to report_management_path, alert: "Please specify email and assessment_id."
-    end
-  end
   
-  def regenerate_exit_individual_reports
-    if params[:args][:survey_id].present? && params[:args][:email].present?
-      survey = Vger::Resources::Exit::Survey.regenerate_individual_reports(params)
-      render :json => { :status => "Job Started", :job_id => survey.job_id }
-    else
-      redirect_to report_management_path, alert: "Please specify email and survey_id."
-    end
-  end
+  protected
   
-  def regenerate_exit_group_reports
-    if (params[:args][:survey_id].present? || params[:args][:group_report_id].present? ) && params[:args][:email].present?
-      survey = Vger::Resources::Exit::Survey.regenerate_group_reports(params)
-      render :json => { :status => "Job Started", :job_id => survey.job_id }
-    else
-      redirect_to report_management_path, alert: "Please specify email and survey_id or group report id."
-    end
-  end
-
-  def regenerate_mrf_reports
-    if params[:args][:assessment_id].present? && params[:args][:email].present?
-      assessment = Vger::Resources::Mrf::Assessment.regenerate_reports(company_id: params[:args][:company_id], :args => params[:args])
-      render :json => { :status => "Job Started", :job_id => assessment.job_id }
-    else
-      redirect_to report_management_path, alert: "Please specify email and assessment_id."
+  def check_auth_token
+    if params[:auth_token].blank?
+      render :json => { :status => :unauthorized }
+      return 
     end
   end
 end

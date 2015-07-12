@@ -46,7 +46,7 @@ class Exit::Surveys::CandidatesController < ApplicationController
           attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless candidate.send(attribute).blank? }
           Vger::Resources::Candidate.save_existing(candidate.id, attributes_to_update)
         else
-          candidate = Vger::Resources::Candidate.create(candidate_data)
+          candidate = Vger::Resources::Candidate.find_or_create(candidate_data)
           if candidate.error_messages.present?
             @errors[key] |= candidate.error_messages
           else
@@ -72,8 +72,8 @@ class Exit::Surveys::CandidatesController < ApplicationController
     else
       survey_traits = @survey.survey_traits.all.to_a
       if @survey.item_ids.empty?
-        flash[:error] = "You need to select traits before sending an survey. Please select traits from below."
-        redirect_to add_traits_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
+        flash[:error] = "You need to select items before sending an survey. Please select items from below."
+        redirect_to add_items_company_exit_survey_path(:company_id => params[:company_id], :id => params[:id])
       end
     end
   end

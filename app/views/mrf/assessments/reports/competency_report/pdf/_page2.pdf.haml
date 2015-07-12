@@ -1,12 +1,11 @@
-- if @report.report_data[:mrf_report_competencies_measured]
-  - @report.report_data[:competency_scores].each_slice(3) do |step_competency_scores|
-    = render partial: "shared/360/mrf_report_header.pdf.haml"
-    #traits.section02
+- @report.report_data[:competency_scores].each_slice(3) do |step_competency_scores|
+  = render partial: "shared/360/mrf_report_header.pdf.haml"
+  #traits.section02
+    .divider2
+    .scores
+      .blue_heading.extra-large-text
+        Competencies Measured
       .divider2
-      .scores
-        .blue_heading.extra-large-text
-          Competencies Measured
-        .divider2
-        - step_competency_scores.each do |competency_name, competency_scores|
-          = render :partial => "mrf/assessments/reports/competency_report/pdf/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
-    .page-break          
+      - step_competency_scores.each do |competency_name, competency_scores|
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/factor_block", :locals => { :competency_name => competency_name, :competency_scores => competency_scores }
+  .page-break          

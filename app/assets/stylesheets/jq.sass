@@ -1,0 +1,106 @@
+@import toolkit/grid/core-set
+#header + .divider1
+  background: #f8f8f8 
+
+.jq
+  background: #f8f8f8
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+  *, *:before, *:after 
+    -webkit-box-sizing: inherit
+    -moz-box-sizing: inherit
+    box-sizing: inherit
+    
+
+  .suitcase-icon
+    background: image-url("jq/suitcase-icon.png") no-repeat center center 
+  .bullseye-icon
+    background: image-url("jq/bullseye-icon.png") no-repeat 0 0
+    height: 20px
+  .list-snippet-titles
+    color: #000
+    &+ul
+      border: 1px solid #fff
+  li.list-snippet
+    padding: 10px 0
+    margin: 0
+    font-size: 14px 
+    &:nth-child(odd)
+      background-color: #f8f8f8
+
+    .info-block 
+      .info
+        color: $color-warning
+  .candidate-profile
+    [class*="-icon"]
+      background: image-url("jq/profile-icons.png") no-repeat 0 0
+    .psy-icon
+      background-position: 0px 0px
+      width: 35px
+      height: 20px
+ 
+    .strengths-icon
+      background-position: 0px -29px
+      width: 40px
+      height: 40px
+    .experience-icon, .job-count-icon, .job-details-icon, .languages-icon, .video-icon
+      width: 50px
+      height: 40px
+    .experience-icon
+      background-position: 0px -77px
+     
+    .job-count-icon
+      background-position: 0px -126px
+     
+    .job-details-icon
+      background-position: 0px -175px
+     
+    .languages-icon  
+      background-position: 0px -224px
+     
+    .video-icon
+      background-position: 0px -273px
+
+    .profile-picture
+      width: 160px
+      width: 160px
+      overflow: hidden
+      border: 3px solid #ccc
+      img
+        width: 100%
+    .profile-details
+      .pannel
+        padding: 1px 1px 1px 50px
+        border: 0 none
+
+        .left
+          padding: 18px 0 0 0
+          float: left
+        .title
+        .right
+          width: 60%
+          float: right
+          background-color: #f8f8f8
+          padding: 30px 30px 30px 10px
+
+        &.languages
+          ul
+            li
+              border-top: 1px solid #fff
+              line-height: 45px
+              &:first-child
+                border: 0 none
+    .video-section
+      ul
+        li
+          margin: 18px 0 0 2.5%
+          width: 30%
+          float: left
+          border: 1px solid #d7d5d0
+          &:nth-child(3n+1)
+            margin-left: 0
+
+          iframe
+            max-width: 100%

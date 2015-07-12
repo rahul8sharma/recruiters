@@ -210,6 +210,9 @@ Recruiters::Application.routes.draw do
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         get "candidates/add_bulk" => "suitability/custom_assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
+        
+        get "candidates/expire_links" => "suitability/custom_assessments/candidate_assessments#expire_links", :as => :expire_links
+        
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
@@ -272,6 +275,7 @@ Recruiters::Application.routes.draw do
         get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
         get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
         get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
+        get "stakeholders/:stakeholder_id" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
         get ":candidate_id/update_feedback" => "mrf/assessments/candidate_feedback#update_feedback", :as => :update_feedback
 
         get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
@@ -288,12 +292,13 @@ Recruiters::Application.routes.draw do
 
         get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
-        put "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
+        match "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
-        get "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
+        match "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
+        get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
       end
     end
 
@@ -1195,6 +1200,8 @@ Recruiters::Application.routes.draw do
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
+  
+  get "/sidekiq/queue-job" => "sidekiq#queue_job"
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
   match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
@@ -1206,27 +1213,24 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
-  get "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports", :as => :regenerate_reports
-  put "/sidekiq/regenerate_reports/", :to => "sidekiq#regenerate_reports"
-  get "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports", :as => :regenerate_mrf_reports
-  put "/sidekiq/regenerate_mrf_reports/", :to => "sidekiq#regenerate_mrf_reports"
-  get "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
-  put "/sidekiq/regenerate_exit_individual_reports/", :to => "sidekiq#regenerate_exit_individual_reports"
-
-  get "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
-  put "/sidekiq/regenerate_exit_group_reports/", :to => "sidekiq#regenerate_exit_group_reports"
+  
+  
+  match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports
+  match "/sidekiq/regenerate_mrf_reports/", :to => "reports_management#regenerate_mrf_reports", :as => :regenerate_mrf_reports
+  match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
+  match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
   get "/master-data", :to => "pages#home"
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
-  get "/report-management", :to => "pages#report_management", :as => :report_management
-  get "/report-generator", :to => "pages#report_generator", :as => :report_generator
-  post "/report-generator", :to => "pages#report_generator", :as => :report_generator
-  post "/report-generator-scores", :to => "pages#report_generator_scores", :as => :report_generator_scores
-  post "/generate_report", :to =>"pages#generate_report", :as => :generate_report
-  put "/modify_norms", :to => "pages#modify_norms", :as => :modify_norms
-  put "/manage_report", :to => "pages#manage_report", :as => :manage_report
+  get "/report-management", :to => "reports_management#report_management", :as => :report_management
+  get "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
+  post "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
+  post "/report-generator-scores", :to => "reports_management#report_generator_scores", :as => :report_generator_scores
+  post "/generate_report", :to =>"reports_management#generate_report", :as => :generate_report
+  put "/modify_norms", :to => "reports_management#modify_norms", :as => :modify_norms
+  put "/manage_report", :to => "reports_management#manage_report", :as => :manage_report
 
   resources :global_configurations do
     collection do

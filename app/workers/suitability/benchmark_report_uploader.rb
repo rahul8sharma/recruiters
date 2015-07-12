@@ -1,21 +1,8 @@
 module Suitability
-  class BenchmarkReportUploader < AbstractController::Base
-    include Sidekiq::Worker
-    
-    include AbstractController::Rendering
-    include AbstractController::Helpers
-    include AbstractController::Translation
-    include AbstractController::AssetPaths
-    include Rails.application.routes.url_helpers
-    include UploadHelper
-    helper ApplicationHelper
-    helper ReportsHelper
-    self.view_paths = "app/views"
-    
+  class BenchmarkReportUploader < ::ReportUploader
     def perform(report_data, auth_token, patch = {})
       report_data = HashWithIndifferentAccess.new report_data
       Rails.logger.debug "************* #{report_data} ******************"
-      RequestStore.store[:auth_token] = auth_token
       assessment_id = report_data["assessment_id"]
       assessment_report_id = report_data["assessment_report_id"]
       tries = 0
@@ -25,6 +12,7 @@ module Suitability
         :status => "success"
       }
       begin
+        RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         @assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id, methods: [ :benchmark_report ])
         @assessment_report = Vger::Resources::Suitability::AssessmentReport.find(assessment_report_id)
         @assessment_report.report_data = @assessment.benchmark_report
@@ -98,7 +86,7 @@ module Suitability
         else
           Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
           :status      => Vger::Resources::Suitability::AssessmentReport::Status::FAILED,
-          )
+          ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload benchmark report for Assessment with ID #{assessment_id}",{
           :report => {

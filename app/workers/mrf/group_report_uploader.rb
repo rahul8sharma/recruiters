@@ -4,10 +4,10 @@ module Mrf
       tries = 0
 
       report_data = HashWithIndifferentAccess.new report_data
-      RequestStore.store[:auth_token] = auth_token
       report_id = report_data["id"]
 
       begin
+        RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         @report = Vger::Resources::Mrf::AssessmentReport.find(report_id, report_data)
         
@@ -90,7 +90,7 @@ module Mrf
         else
           Vger::Resources::Mrf::AssessmentReport.save_existing(report_id,
             :status => Vger::Resources::Mrf::AssessmentReport::Status::FAILED
-          )
+          ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Group Report Uploader","Failed to upload MRF group report {report_id}",{
           :report => {

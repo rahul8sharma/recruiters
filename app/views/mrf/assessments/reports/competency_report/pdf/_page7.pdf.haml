@@ -1,11 +1,10 @@
-- if @report.report_data[:mrf_report_show_trait_comments] && @report.report_data[:comments_enabled]
-  - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-    - competency_scores[:trait_scores].each do |trait_scores|
-      = render partial: "shared/360/mrf_report_header.pdf.haml"
-      .stakeholder-comments
-        .divider2
-        .blue_heading.extra-large-text
-          Stakeholder Comments on Traits under various Competencies
-        .divider1
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/comments_on_traits", :locals => { :competency_name => competency_name, :competency_scores => competency_scores, trait_scores: trait_scores}
-      .page-break
+- @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+  - competency_scores[:trait_scores].each do |trait_scores|
+    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    .stakeholder-comments
+      .divider2
+      .blue_heading.extra-large-text
+        Stakeholder Comments on Traits under various Competencies
+      .divider1
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/comments_on_traits", :locals => { :competency_name => competency_name, :competency_scores => competency_scores, trait_scores: trait_scores}
+    .page-break

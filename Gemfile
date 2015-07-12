@@ -8,6 +8,8 @@ group :assets do
   gem 'uglifier', '1.0.3'
 end
 
+gem 'oauth2', '1.0.0'
+
 gem 'haml-rails', '0.3.4'
 gem 'jquery-rails', '2.2.1'
 gem 'rails-backbone','0.7.2'
@@ -18,13 +20,12 @@ gem 'kaminari', :github => "amatsuda/kaminari", :branch => "master", :ref => "c7
 
 gem 'wicked_pdf','0.9.6'
 
-gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessable-entity", :ref => "10ff492fb74000ce1d8"
+gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessable-entity", :ref => "dca594d4664e42476826d098053135b304242614"
 
 gem 'her', '0.6.8'
 
-gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "release-2.32", :ref => "d8475bcf303d5bcef05f6929ee5c3f3fa0c5b28b"
-
-gem 'faraday_middleware','0.9.0'
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
+gem 'faraday_middleware','0.9.1'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
 #gem 'roo'

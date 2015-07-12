@@ -45,6 +45,8 @@
   color: $color-info !important
 .color-success
   color: $color-success !important
+.color-green
+  color: $color-green
 .color-stop
   color: $red
 .rounded
@@ -69,6 +71,8 @@
   border-bottom: 1px solid $grayLighter
 .border-left-grayLighter
   border-left: 1px solid $grayLighter
+.border-bottom-success
+  border-bottom: 1px solid $color-success
 .no-border
   border: none !important 
 .fw
@@ -93,7 +97,12 @@ a.default-color
   cursor: not-allowed
   color: $grayLighter
 .bg-white
-  background: #fff !important
+  background-color: #fff !important
+.bg-warning
+  background-color: $color-warning !important
+.bg-success
+  background-color: $color-success !important
+
 .or
   position: relative
 
@@ -108,3 +117,9 @@ a.default-color
   .or-bottom
     left: 48.5%
     bottom: -14px
+.pannel
+  background: #fff
+  border: 1px solid #e3e3e3
+  padding: 8px 0
+  &.success-border-l
+    border-left: 3px solid $color-success

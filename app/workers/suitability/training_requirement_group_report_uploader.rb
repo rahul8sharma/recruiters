@@ -1,21 +1,8 @@
 module Suitability
-  class TrainingRequirementGroupReportUploader < AbstractController::Base
-    include Sidekiq::Worker
-
-    include AbstractController::Rendering
-    include AbstractController::Helpers
-    include AbstractController::Translation
-    include AbstractController::AssetPaths
-    include Rails.application.routes.url_helpers
-    include UploadHelper
-    helper ApplicationHelper
-    helper ReportsHelper
-    self.view_paths = "app/views"
-
+  class TrainingRequirementGroupReportUploader < ::ReportUploader
     def perform(report_data, auth_token, patch = {})
       report_data = HashWithIndifferentAccess.new report_data
       Rails.logger.debug "************* #{report_data} ******************"
-      RequestStore.store[:auth_token] = auth_token
       training_requirement_group_id = report_data["training_requirement_group_id"]
       training_requirement_group_report_id = report_data["training_requirement_group_report_id"]
       tries = 0
@@ -25,6 +12,7 @@ module Suitability
         :status => "success"
       }
       begin
+        RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a
         @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id)
         @report = Vger::Resources::Suitability::AssessmentGroupReport.find(training_requirement_group_report_id)
@@ -110,7 +98,7 @@ module Suitability
         else
           Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
             :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
-          )
+          ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload training_requirements report for Assessment Group with ID #{report_data[:training_requirement_group_id]}",{
           :report => {

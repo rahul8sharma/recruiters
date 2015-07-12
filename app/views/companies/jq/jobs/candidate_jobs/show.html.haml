@@ -1,2 +1,140 @@
-%h1
-  Anuja Pandit
+.candidate-profile
+  .page-title.pull-left
+    .divider1
+    = @candidate_job.candidate.name
+  .span.extra-medium-text.left-offset1
+    %i.icon-map-marker.line-height2.large-text
+    = @candidate_job.candidate.location.name rescue "-"
+  .pull-right.extra-medium-text
+    %i.icon-calendar.line-height2.large-text
+    Applied on: #{hdate(@candidate_job.created_at)}
+  .clr
+
+  .divider2
+  .profile-picture.pull-left
+    = image_tag(@candidate_job.candidate.large_profile_picture_url)
+  .span6.left-offset1
+    .big-text.color-success
+      .psy-icon.pull-left
+      .pull-left
+        Psychometric Score
+      .clr
+    .extra-medium-text
+      .left-offset1
+        .divider1
+        = @report ? @report[:report_data][:overall_score_bucket][:name] : "-"
+        .divider1
+
+      .border-top-grayLighter
+        .left-offset1
+          .divider1
+          - view_mode = "html"
+          - if @report && @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+            - url = S3Utils.get_url(@report.s3_keys[view_mode][:bucket], @report.s3_keys[view_mode][:key])
+            %a{:href => url, target: "_blank"}
+              View Report
+          - else
+            %i.icon-spinner.icon-spin
+            Generating Report...  
+          .divider1
+
+  .span8.border-left-grayLighter
+    .span7
+      .big-text.color-success
+        .strengths-icon.pull-left
+        .pull-left.line-height2
+          Top Strengths
+        .clr
+      .extra-medium-text.left-offset1
+        .divider1
+        - if @report
+          - top_strengths = Hash[@report[:report_data][:factor_scores].sort_by{|factor,factor_data| factor_data[:score] }]
+          - top_strengths.slice!(*top_strengths.keys[0..2])
+          - top_strengths.each.with_index do |(factor_name, factor_data), index|
+            - if index != 0
+              .border-top-grayLighter
+            .divider1
+            = factor_name
+            .divider1
+        - else    
+          = "-"
+    .clr
+  .pull-right
+    .divider7
+    - if ![Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED, Vger::Resources::Jq::CandidateJob::RecruiterStatus::REJECTED].include?(@candidate_job.recruiter_status)
+      = form_for @candidate_job, as: :candidate_job, url: company_jq_job_candidate_job_path(params[:company_id], @job.id, @candidate_job.id), method: :put, html: { id: "candidate_job_form_reject" } do |f|
+        %input.btn.btn-link.bold.big-text{type: "submit", name: "status", value: "REJECT"}
+        %input.btn.btn-warning.bold.big-text{type: "submit", name: "status", value: "ACCEPT"}
+    - else
+      .bold.big-text{ class: (@candidate_job.recruiter_status == Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
+        = @candidate_job.recruiter_status.upcase
+  .clr
+  .divider2.border-bottom-success
+
+  .divider2
+
+  .profile-details.medium-text
+    .pannel.experience.span15.first
+      .left
+        .experience-icon.pull-left
+        .title.pull-left.line-height2
+          Total work experience
+      .right
+        = @candidate_job.candidate.total_experience ? "#{@candidate_job.candidate.total_experience} Years" : "-"
+      .clr
+
+    .pannel.job-count.span15
+      .left
+        .job-count-icon.pull-left
+        .title.pull-left.line-height2
+          Total Number of Jobs
+      .right
+        = @candidate_job.candidate.companies_worked_for || "-"
+      .clr
+    .divider1.clr
+    .pannel.job-details.span15.first
+      .left
+        .job-details-icon.pull-left
+        .title.pull-left.line-height2
+          Last Job details
+      .right
+        .black 
+          = @candidate_job.candidate.current_designation || "-"
+        = @candidate_job.candidate.current_company || "-"
+        %br/
+        = @candidate_job.candidate.current_company_experience || "-"
+      .clr
+    .pannel.languages.span15
+      .left
+        .languages-icon.pull-left
+        .title.pull-left.line-height2
+          Languages
+      .right
+        - if @candidate_job.candidate.languages.present?
+          %ul
+            - @candidate_job.candidate.languages.each do |language|
+              %li
+                = language
+        - else
+          = "-"        
+      .clr    
+    .clr
+
+  .divider1
+
+  .pannel
+    .video-section.left-offset1
+      .video-icon.pull-left
+      .medium-text.pull-left.line-height2
+        Link to the video answer
+      .clr
+
+      .divider1
+      
+      %ul.clearfix
+        - @multimedia_answers.each do |multimedia_answer|
+          %li
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => multimedia_answer.sd_attachment_url, :width => "420"}
+
+      .divider1
+.divider4    
