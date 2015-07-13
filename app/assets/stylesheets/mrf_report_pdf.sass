@@ -685,6 +685,10 @@ $mrf_image_path: report/pdf/mrf
     background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
   .stakeholder_rating_icon
     background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
+  .desired_range
+    background: #b4e5f9
+    border-radius: 2px 
+    height: 5px
   .scores_competencies_graph
     .competency_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
@@ -699,6 +703,8 @@ $mrf_image_path: report/pdf/mrf
       .classic_user_icon, .stakeholder_rating_icon 
         height: 28px
         width: 18px
+      .desired_range
+        margin: 12px 0 0 18px
     .graph_container
       margin-bottom: 15px
       .graph_instructions
@@ -759,6 +765,10 @@ $mrf_image_path: report/pdf/mrf
               background: image-url('#{$mrf_image_path}/classic_competency_graph_dashed_bg.png') repeat-y center 0
               min-height: 20px
               padding: 8px 0
+              position: relative
+              .desired_range
+                margin-top: -2px
+                position: absolute
               .graph_bar
                 height: 1px
                 border-top: 1px solid #888a8d
