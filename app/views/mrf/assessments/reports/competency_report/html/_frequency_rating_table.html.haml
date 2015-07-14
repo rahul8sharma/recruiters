@@ -9,13 +9,14 @@
         %td.mute_bg
         %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
           Rating
+        %td.mute-bg
       %tr.captions.rating_ranges
         %td.mute_bg
           Stakeholder(s)
         - graph_buckets.each do |bucket|
           %td
             #{bucket.name}
-        %td
+        %td.mute_bg
           No. of Respodents
         - stakeholder_count = 0
       - role_wise_scores.each do |role, score|

@@ -80,8 +80,9 @@
                                 .divider1
                                 .rating_snippet
                                   .rating_title.blue
+                                    .rating-count
+                                      #{score[:count]}
                                     = role.titleize
-                                    (#{score[:count]})
                                   .value
                                     = score[:points] || "-"
                                   .clr
