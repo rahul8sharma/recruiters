@@ -9,15 +9,17 @@
         
         %td.mute_bg.medium-text{:colspan=>"8"}
           Ratings Between
-
       %tr.captions.rating_ranges
         %td
         - graph_buckets.each do |bucket|
           %td
             = bucket.name
-
+        %td
+          No. of Respondents
+      - stakeholder_count = 0
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        - stakeholder_count += score[:count]
         %tr{:style=>"background:none"}
           %td.color-average.captions.line-height2.border-bottom-grayLighter{:style=>"text-align:left"}
             = role.titleize
@@ -26,6 +28,8 @@
             %td.border-bottom-grayLighter.color-stakeholder{ class: max_score == bucket_score ? "max_value":"" }
               = bucket_score
               -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+          %td.border-bottom-grayLighter.color-stakeholder
+            = score[:count]
       %tr{:style=>"background:none"}
         %td.captions.bold.line-height2.border-bottom-grayLighter.color-average{:style=>"text-align:left"}
           Total
@@ -34,4 +38,6 @@
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
           %td.border-bottom-grayLighter.color-stakeholder{ class: max_score == total ? "max_value" : "" }
             = total
+        %td.captions.bold.line-height2.border-bottom-grayLighter.color-average
+          = stakeholder_count
     .divider1
