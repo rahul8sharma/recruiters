@@ -30,14 +30,24 @@
             - other_score = competency_scores[:score][:points]
             - min = @competency_graph_buckets.map(&:min_val).min
             - max = @competency_graph_buckets.map(&:min_val).max
+            / Variables used to get the desired range and compute the width and margin/
+            - start_from = competency_scores[:from_norm_bucket][:name]
+            - end_to = competency_scores[:to_norm_bucket][:name]
+            - desired_range_width = 1
+            - desired_range_margin = 1
+            - @norm_buckets.each_with_index do |norm_bucket, index|
+              - index = index + 1
+              - if norm_bucket.name == start_from
+                - desired_range_margin = (desired_range_margin * index) * 20
+              - if norm_bucket.name == end_to
+                - desired_range_width = ((desired_range_width * index) * 20) - desired_range_margin
+            / Variables used to get the desired range and compute the width and margin/
             - if self_score && other_score
               - min_score = [self_score,other_score].min
               - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
-              
-              .desired_range{:style=>"width: 50%; margin-left: 20%"}
-
+              .desired_range{:style=>"width: #{desired_range_width}%; margin-left: #{desired_range_margin}%",:start=>start_from, :end_to=>end_to}
               .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 - if self_score == other_score
                   .overlapped_score_icon
@@ -51,9 +61,7 @@
               - width = 0
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
-
-              .desired_range{:style=>"width: 50%; margin-left: 20%"}
-
+              .desired_range{:style=>"width: #{desired_range_width}%; margin-left: #{desired_range_margin}%",:start=>start_from, :end_to=>end_to}
               .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
                 - if self_score
