@@ -49,9 +49,9 @@
             - @norm_buckets.each_with_index do |norm_bucket, index|
               - index = index + 1
               - if norm_bucket.name == start_from
-                - desired_range_margin = (desired_range_margin * index) * 20
+                - desired_range_margin = index * 20
               - if norm_bucket.name == end_to
-                - desired_range_width = ((desired_range_width * index) * 20) - desired_range_margin
+                - desired_range_width = (index * 20) - desired_range_margin
             / Variables used to get the desired range and compute the width and margin/
 
             - if self_score && other_score
