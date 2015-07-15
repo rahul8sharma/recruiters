@@ -1,4 +1,4 @@
-- if @report.report_data[:mrf_report_traits_aggregate_score]
+- if @report.report_data[:mrf_report_items_statistics_per_stakeholder_type_pdf]
   - @report.report_data[:competency_scores].each do |competency, competency_scores|
     - competency_scores[:trait_scores].each do |trait_score|
       = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
