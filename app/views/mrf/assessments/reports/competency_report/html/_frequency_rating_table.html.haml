@@ -9,15 +9,19 @@
         %td.mute_bg
         %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
           Rating
-
+        %td.mute-bg
       %tr.captions.rating_ranges
         %td.mute_bg
+          Stakeholder(s)
         - graph_buckets.each do |bucket|
           %td
             #{bucket.name}
-
+        %td.mute_bg
+          No. of Respodents
+        - stakeholder_count = 0
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        - stakeholder_count += score[:count]
         %tr
           %td.green_bg.captions
             = role.titleize
@@ -26,6 +30,8 @@
             %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
               = bucket_score
               -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+          %td.green_bg.captions
+            = score[:count]
       %tr.overall
         %td.orange_bg.captions
           Overall
@@ -34,3 +40,5 @@
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
           %td.rating_score{ class: max_score == total ? "max_value" : "" }
             = total
+        %td.orange_bg.captions
+          = stakeholder_count
