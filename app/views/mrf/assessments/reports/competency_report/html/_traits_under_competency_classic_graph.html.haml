@@ -49,6 +49,9 @@
               - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
+
+              .desired_range{:style=>"width: 50%; margin-left: 20%"}
+
               .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 - if self_score == other_score
                   .overlapped_score_icon
@@ -61,6 +64,9 @@
               - width = 0
               - margin = convertToRange(min,max,0,100,min_score)
               .divider2
+              
+              .desired_range{:style=>"width: 50%; margin-left: 20%"}
+
               .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
                 - if self_score
@@ -78,6 +84,9 @@
                 - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
                 - margin = convertToRange(min,max,0,100,min_score)
                 .divider2
+
+                .desired_range{:style=>"width: 50%; margin-left: 20%"}
+
                 .graph_bar.trait_under{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                   - if self_score == other_score
                     .overlapped_score_icon
@@ -91,6 +100,9 @@
                 - width = 0
                 - margin = convertToRange(min,max,0,100,min_score)
                 .divider2
+
+                .desired_range{:style=>"width: 50%; margin-left: 20%"}
+
                 .graph_bar.trait_under{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                   -# add class ".equal_rating" to ".graph_bar.equal_rating" if score is equal
                   - if self_score

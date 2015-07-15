@@ -1,8 +1,8 @@
 development: &dev
   api:
     url : "http://api.internal.ur-nl.com:6080"
-    app_id : "8d07dd071609708c9e3a65ce0686ee7ee91964f25c9e182727f8c3fa38c65c0b"
-    secret : "7d31738316c8afcb2963ea9c1e2cfb5db3de79badf9a900297ddfce480184687"
+    app_id : "c6932ce3a4de1d2f98a920922722e7a3810ecdcfcd82ff680be8f261a717e999"
+    secret : "14245244915148411e705ade4df65d62b73f5cd4646ce48f67df7c78d51af06d"
   billing:
     url: "https://www.billing.ur-nl.com/staging_internal/public/process_payment/"
 
