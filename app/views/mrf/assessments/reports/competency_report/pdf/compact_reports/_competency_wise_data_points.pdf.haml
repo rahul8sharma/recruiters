@@ -33,7 +33,7 @@
                 - if competency_scores[:role_wise_scores].present?
                   - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
                     .span.color-average.vSmall-padding.first
-                      #{role.titleize}  #{score[:points]}
+                      (#{score[:count]}) #{role.titleize}  #{score[:points]}
                   .clr
               - if @report.report_data[:competency360_competencies_best_worst_scores]
                 .span10
