@@ -46,14 +46,9 @@
               #{hdate(candidate_assessment.completed_at)}
           .span4.text-center          
             - report = candidate_assessment.candidate_assessment_reports.first
-            - if report.configuration[:notifications_sent_at]
-              - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-              
-              %a{:href=> url, :title => "Click to View Report", :target => "_blank"}
-                %i.icon-file        
-            - else
-              %i.icon-spinner.icon-spin
-              Generating Report...      
+            - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+            %a{:href=> url, :title => "Click to View Report", :target => "_blank"}
+              %i.icon-file        
           .clr
           .divider1
     - else

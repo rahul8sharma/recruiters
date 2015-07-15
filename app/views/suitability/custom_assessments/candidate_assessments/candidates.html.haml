@@ -117,7 +117,7 @@
                     &nbsp;    
             .span
               - if report
-                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED && report.configuration[:notifications_sent_at]
+                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
                   %a{:href => url, :title => "View Report", target: "_blank"}
                     %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
