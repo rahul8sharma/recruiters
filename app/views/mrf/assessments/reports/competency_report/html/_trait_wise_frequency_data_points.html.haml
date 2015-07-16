@@ -70,7 +70,8 @@
 
                     .span12.left-offset1
                       .large-text
-                        Average rating given by Stakeholders
+                        - total_stakeholders = trait_score[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
+                        Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
                       .divider1
                       .panel.bg-white
                         - if trait_score[:role_wise_scores].present?
@@ -80,7 +81,7 @@
                                 .divider1
                                 .rating_snippet
                                   .rating_title.blue
-                                    #{role.titleize} (#{score[:count]})
+                                    #{pluralize(score[:count],role.titleize)}
                                   .value
                                     = score[:points] || "-"
                                   .clr
