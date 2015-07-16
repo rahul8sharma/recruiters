@@ -23,12 +23,12 @@
             .clr
             .divider1
             .medium-text.black
-              Average rating given by #{other_response[:count]} Stakeholders
+              Average rating given by #{pluralize(other_response[:count],"Stakeholder")}
             .border-bottom-grayLighter
               .divider1
               - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
                 .span.color-average
-                  #{role_name.titleize} (#{role_wise_score[:count]}) : #{role_wise_score[:average_score]}
+                  #{pluralize(role_wise_score[:count],role_name.titleize)} : #{role_wise_score[:average_score]}
               .clr
               .divider1
         .divider1  

@@ -44,7 +44,7 @@
                     
                 .span21
                   .large-text
-                    Average rating given by Stakeholders
+                    Average rating given by #{pluralize(other_response[:count],"Stakeholder")}
                   .divider1
                   .panel.bg-white
                     .divider2
@@ -55,7 +55,7 @@
                           .divider1
                           .rating_snippet
                             .rating_title.blue
-                              #{role_name.titleize} (#{role_wise_score[:count]})
+                              #{pluralize(role_wise_score[:count], role_name.titleize)}
                             .value
                               = role_wise_score[:average_score]
                             .clr
