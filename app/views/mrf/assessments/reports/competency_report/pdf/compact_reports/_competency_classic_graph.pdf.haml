@@ -35,12 +35,13 @@
             - end_to = competency_scores[:to_norm_bucket][:name]
             - desired_range_width = 1
             - desired_range_margin = 1
+            - step =  (100.0/(@norm_buckets.size-1))
             - @norm_buckets.each_with_index do |norm_bucket, index|
-              - index = index + 1
               - if norm_bucket.name == start_from
-                - desired_range_margin = index * 20
+                - desired_range_margin = index * step
               - if norm_bucket.name == end_to
-                - desired_range_width = (index * 20) - desired_range_margin
+                - desired_range_width = (index * step) - desired_range_margin
+            - desired_range_width = 2 if desired_range_width == 0        
             / Variables used to get the desired range and compute the width and margin/
             - if self_score && other_score
               - min_score = [self_score,other_score].min
