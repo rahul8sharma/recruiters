@@ -45,7 +45,8 @@
 
                 .divider2
                 .extra-medium-text.line-height2
-                  Average rating given by Stakeholders
+                  - total_stakeholders = competency_score[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
+                  Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
                 .panel.bg-white
                   .divider1
                   - competency_score[:role_wise_scores].each do |role_name, percentages_data|
@@ -66,7 +67,7 @@
                 - sorted_distribution = competency_score[:overall_bucket_wise_percentages] #Hash[competency_score[:overall_bucket_wise_percentages].sort_by{|bucket,percentage_data| percentage_data[:percentage] }]  
                 .panel.bg-white.rating_breakdown
                   .extra-large-text.text-center 
-                    Breakdown of Ratings given by all #{sorted_distribution.first[1][:total]} Stakeholders
+                    Breakdown of Ratings given by #{pluralize(sorted_distribution.first[1][:total], "Stakeholder")} 
                   .breakdown_bar_section
                     .breakdown_bar.left-offset2.pull-left
                       - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|

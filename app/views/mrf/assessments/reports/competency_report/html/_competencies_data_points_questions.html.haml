@@ -1,0 +1,102 @@
+.section03
+  .divider2
+  .scores.container
+    .title
+      Data Points on 360&#176; Scores: Questions
+    .divider2
+    - @report.report_data[:competency_scores].each do |competency, competency_scores|
+      .frame
+        .heading.pull-left
+          = truncate competency, length: 25
+        .heading.pull-right
+          360&#176; Score: 
+          = competency_scores[:score][:points] || "-"
+        .clr
+        .divider2
+        - competency_scores[:trait_scores].each do |trait_score|
+          .span28.margin-auto
+            .large-text
+              Trait: 
+              %span.default
+                = trait_score[:trait][:name]
+            - trait_score[:items][:other_responses].each do |other_response|
+              .divider1
+              .big-text
+                Question to Stakeholder:
+              .extra-medium-text.color-warning
+                = other_response[:item]
+              .divider2
+
+              #distribution_data_points
+                .span7.first
+                  .large-text
+                    Overall Score
+                  .divider1
+                  .panel.bg-white
+                    .divider4
+                    .rating_snippet
+                      .rating_title.green
+                        360&#176; Score
+                      .value
+                        = other_response[:score]
+                      .clr
+                    .divider4
+                    
+                .span21
+                  .large-text
+                    Average rating given by #{pluralize(other_response[:count],"Stakeholder")}
+                  .divider1
+                  .panel.bg-white
+                    .divider2
+                    .span18.margin-auto
+                      - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
+                        - index += 1
+                        .span6.first
+                          .divider1
+                          .rating_snippet
+                            .rating_title.blue
+                              #{pluralize(role_wise_score[:count], role_name.titleize)}
+                            .value
+                              = role_wise_score[:average_score]
+                            .clr
+                        - if index % 3 == 0
+                          .clr
+                      .clr
+                    .divider3
+                .clr
+
+            - trait_score[:items][:self_responses].each do |self_response|
+              .self-rate
+                .divider2
+                .span28.margin-auto
+                  .span21.first
+                    .large-text
+                      Trait: 
+                      %span.default
+                        = trait_score[:trait][:name]
+
+                    .divider1
+                    .big-text
+                      Question to Self:
+                    .extra-medium-text.color-warning
+                      = self_response[:item]
+                    .divider2
+                  .span
+
+                    #distribution_data_points
+                      .span7.first
+                        .large-text
+                          Overall Score
+                        .divider1
+                        .panel.bg-white
+                          .divider2
+                          .rating_snippet
+                            .rating_title.blue_light
+                              Self Rating 
+                            .value
+                              = self_response[:score]
+                            .clr
+                          .divider2
+                  .clr
+                  .divider2
+      .divider2

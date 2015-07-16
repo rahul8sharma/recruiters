@@ -3,17 +3,19 @@
 .competency_report
   = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
     .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions"
-    .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points"
+    .page-break
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions"
     .page-break
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses"
     .page-break
