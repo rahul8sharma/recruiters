@@ -18,6 +18,8 @@
       = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points"
     - if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
       = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequency_data_points"
+    - if @report.report_data[:mrf_report_items_statistics_per_stakeholder_type]
+      = render :partial => "mrf/assessments/reports/competency_report/html/competencies_data_points_questions"
     - if @report.report_data[:mrf_report_response_distribution_questions]
       = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
   = render :partial => "mrf/assessments/reports/competency_report/html/page2"

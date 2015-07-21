@@ -30,6 +30,7 @@ class AssessmentsController < ApplicationController
     competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :id => @assessment.competency_order }).all.to_a
     @competencies = @assessment.competency_order.map{|competency_id| competencies.detect{|competency| competency.id == competency_id }}
     get_competency_norms
+    get_weights
     if request.get?
     else
       store_assessment_factor_norms

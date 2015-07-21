@@ -27,13 +27,14 @@
               .clr
               .divider1
               .medium-text.black.span
-                Average rating given by Stakeholders
+                - total_stakeholders = competency_scores[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
+                Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
               .clr
               .left-offset1
                 - if competency_scores[:role_wise_scores].present?
                   - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
                     .span.color-average.vSmall-padding.first
-                      (#{score[:count]}) #{role.titleize}  #{score[:points]}
+                      #{pluralize(score[:count],role.titleize)}:  #{score[:points]}
                   .clr
               - if @report.report_data[:competency360_competencies_best_worst_scores]
                 .span10
