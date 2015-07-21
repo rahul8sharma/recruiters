@@ -357,7 +357,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
     @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(:assessment_id => @assessment.id, :query_options => {
       :candidate_id => @candidate.id
-    }, :include => [:candidate_assessment_reports])
+    }, :include => [:candidate_assessment_reports], methods: [:link_status])
     if is_superadmin?
       @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where({
         query_options: {
@@ -415,14 +415,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       :methods => [:url]
     ).all.first
     if @candidate_assessment
-      @invitation = Vger::Resources::Invitation.save_existing(@candidate_assessment.invitation_id, :status => Vger::Resources::Invitation::Status::EXPIRED)
-      if @invitation.error_messages.present?
-        flash[:error] = @invitation.error_messages.join("<br/>").html_safe
-        redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
-      else
-        flash[:notice] = "Assessment Link expired successfully."
-        redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
-      end
+      @invitation = Vger::Resources::Invitation.find(@candidate_assessment.invitation_id)
+      @invitation = @invitation.expire({})
+      flash[:notice] = "Assessment Link expired successfully."
+      redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])
     else
       flash[:error] = "Candidate Assessment not found."
       redirect_to candidates_company_custom_assessment_path(params[:company_id],params[:id])

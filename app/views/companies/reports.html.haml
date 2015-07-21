@@ -46,9 +46,7 @@
               #{hdate(candidate_assessment.completed_at)}
           .span4.text-center          
             - report = candidate_assessment.candidate_assessment_reports.first
-            - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => candidate_assessment.assessment.company_id,:candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
-            %a{:href=> url, :title => "Click to View Report", :target => "_blank"}
-              %i.icon-file        
+            = render :partial => "suitability/custom_assessments/candidate_assessments/report_status/#{report.status}", locals: { report: report, candidate_assessment: candidate_assessment }
           .clr
           .divider1
     - else

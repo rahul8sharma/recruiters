@@ -151,18 +151,7 @@
               \-
           .span5
             - if report
-              - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
-                - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
-                %a{:href => url, :title => "View Report", target: "_blank"}
-                  View Report
-              - elsif report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING 
-                Pending
-              - else
-                %i.icon-spinner.icon-spin
-                Generating Report...
+              = render :partial => "suitability/custom_assessments/candidate_assessments/report_status/#{report.status}", locals: { report: report, candidate_assessment: candidate_assessment }
             - else
-              - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
-                Expired
-              - else
-                Pending
+              = render :partial => "suitability/custom_assessments/candidate_assessments/candidate_assessment_status/#{candidate_assessment.status}", locals: { candidate_assessment: candidate_assessment, assessment: @assessment, company: @company, candidate: @candidate }  
           .clr
