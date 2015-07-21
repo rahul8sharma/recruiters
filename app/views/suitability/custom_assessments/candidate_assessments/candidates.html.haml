@@ -110,7 +110,7 @@
               - if is_superadmin?    
                 .span2.big-text.first
                   - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
-                  - if @company.subscription_mgmt && show_extend_remove_icons
+                  - if show_extend_remove_icons
                     %a.icon-plus-sign{ :href=> extend_validity_company_custom_assessment_path(params[:company_id], params[:id],:candidate_id => candidate.id)}
                     - if candidate_assessment.link_status != 'expired'
                       = link_to "", expire_assessment_link_company_custom_assessment_path(params[:company_id], params[:id], candidate.id), :confirm => "Are you sure?", :class => "icon-remove-sign"
