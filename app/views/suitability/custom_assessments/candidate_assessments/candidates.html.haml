@@ -76,10 +76,11 @@
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
           - link_status = test_link_statuses[candidate_assessment.link_status]
-
-          - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
+  
+          - if candidate_assessment.candidate_assessment_reports.present?
             - report = candidate_assessment.candidate_assessment_reports[0]
-            -# status = report_statuses[report.status]
+          - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
+            - status = 'Pending'  
           %li.list-snippet.medium-text
             .divider1
             .span3.first
@@ -126,6 +127,8 @@
                       - if candidate_assessment.options[:link_used]
                         - url_params = CGI::parse(candidate_assessment.options[:link_used])
                         = "(Manager Link Used)" if url_params["cc"].present?
+                - elsif report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING 
+                  \-
                 - else
                   %i.icon-spinner.icon-spin
                   Generating report...

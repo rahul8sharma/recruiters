@@ -155,9 +155,11 @@
                 - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
                 %a{:href => url, :title => "View Report", target: "_blank"}
                   View Report
+              - elsif report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING 
+                Pending
               - else
                 %i.icon-spinner.icon-spin
-                Generating report...
+                Generating Report...
             - else
               - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
                 Expired
