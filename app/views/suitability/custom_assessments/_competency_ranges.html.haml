@@ -39,6 +39,8 @@
         %label.span7.big-text.color-warning.first
           = competency.name
         .span6
+          - competency_weight.from_norm_bucket_id ||= @norm_buckets.sort_by(&:weight).first.id
+          - competency_weight.to_norm_bucket_id ||= @norm_buckets.sort_by(&:weight).last.id
           %select.span3.first{name: norm_min_name, index: (index)}
             - @norm_buckets.each do |norm_bucket|
               - if competency_weight.from_norm_bucket_id == norm_bucket.id

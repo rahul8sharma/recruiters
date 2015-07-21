@@ -76,10 +76,11 @@
           - candidate_assessment = @candidate_assessments.select{|x| x.candidate_id == candidate.id }.first
           - status = test_statuses[candidate_assessment.status]
           - link_status = test_link_statuses[candidate_assessment.link_status]
-
-          - if candidate_assessment && candidate_assessment.candidate_assessment_reports.present?
+  
+          - if candidate_assessment.candidate_assessment_reports.present?
             - report = candidate_assessment.candidate_assessment_reports[0]
-            -# status = report_statuses[report.status]
+          - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
+            - status = 'Pending'  
           %li.list-snippet.medium-text
             .divider1
             .span3.first
@@ -87,7 +88,7 @@
             .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
               %a{:href=> candidate_company_custom_assessment_path(params[:company_id], params[:id], :candidate_id => candidate.id), :title=>"#{ h candidate.name}"}
                 = h candidate.name
-              - if current_user.type == "SuperAdmin"
+              - if is_superadmin?
                 .info
                   = candidate_assessment.candidate_stage.titleize
                 .arrow
@@ -97,50 +98,12 @@
                 as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
                 -#remember Hrs & Hr
             - if @company.subscription_mgmt
-              .span6
-                %a{:href=> candidate_company_custom_assessment_path(params[:company_id], params[:id], :candidate_id => candidate.id) }
-                  - if candidate_assessment.link_status == 'used'
-                    = link_status
-                    #{hdate candidate_assessment.completed_at}, #{htime candidate_assessment.completed_at} Hrs
-                  - else
-                    = link_status
-                    #{hdate candidate_assessment.expiry_date}, #{htime candidate_assessment.expiry_date} Hrs
-                  
-              - if is_superadmin?    
-                .span2.big-text.first
-                  - show_extend_remove_icons = ["Active till","Expired on"].include? link_status
-                  - if @company.subscription_mgmt && show_extend_remove_icons
-                    %a.icon-plus-sign{ :href=> extend_validity_company_custom_assessment_path(params[:company_id], params[:id],:candidate_id => candidate.id)}
-                    - if candidate_assessment.link_status != 'expired'
-                      = link_to "", expire_assessment_link_company_custom_assessment_path(params[:company_id], params[:id], candidate.id), :confirm => "Are you sure?", :class => "icon-remove-sign"
-                  - else
-                    &nbsp;    
+              = render :partial => "suitability/custom_assessments/candidate_assessments/link_status/#{candidate_assessment.link_status}", locals: { candidate_assessment: candidate_assessment, assessment: @assessment, company: @company, candidate: candidate }
             .span
               - if report
-                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED && report.configuration[:notifications_sent_at]
-                  - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
-                  %a{:href => url, :title => "View Report", target: "_blank"}
-                    %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
-                    View Report
-                    - if is_superadmin?
-                      - if candidate_assessment.options[:link_used]
-                        - url_params = CGI::parse(candidate_assessment.options[:link_used])
-                        = "(Manager Link Used)" if url_params["cc"].present?
-                - else
-                  %i.icon-spinner.icon-spin
-                  Generating report...
+                = render :partial => "suitability/custom_assessments/candidate_assessments/report_status/#{report.status}", locals: { report: report, candidate_assessment: candidate_assessment }
               - else
-                - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::READY_FOR_SCORING
-                  %i.icon-spinner.icon-spin
-                  Generating report...
-                - elsif candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
-                  = status
-                - elsif candidate_assessment.link_status == Vger::Resources::Invitation::Status::EXPIRED
-                  = candidate_assessment.link_status.titleize
-                - else  
-                  %a{:href => send_reminder_to_candidate_company_custom_assessment_path(params[:company_id], params[:id], candidate.id), :title => "Send Reminder"}
-                    %i.icon-time
-                    Send Reminder
+                = render :partial => "suitability/custom_assessments/candidate_assessments/candidate_assessment_status/#{candidate_assessment.status}", locals: { candidate_assessment: candidate_assessment, assessment: @assessment, company: @company, candidate: candidate }  
             .clr
             -#
               - if is_superadmin?

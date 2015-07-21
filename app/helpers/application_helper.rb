@@ -92,7 +92,6 @@ module ApplicationHelper
       'unlocked' => 'Unused',
       'used' => 'Used on',
       'expired' => 'Expired on'
-
     }
   end
 
