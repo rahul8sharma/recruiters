@@ -38,6 +38,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def send_reminder
     if request.put?
+      params[:options] ||= {}.to_yaml
       params[:options] = YAML.load(params[:options])
       params[:options].merge!(template_id: params[:template_id])
       Vger::Resources::Mrf::Assessment.send_reminders(company_id: @company.id, id: @assessment.id, options: params[:options])
