@@ -28,18 +28,14 @@
           URL: &lt;candidate specific url&gt;
       %p
         If you face any technical difficulties or have any queries please feel free to reach us at 
-        %a{:href=>"mailto:prakhar@jombay.com", :title=>"For any queries Mail to Prakhar"} 
-          prakhar@jombay.com. 
+        %a{:href=>"mailto:#{Rails.application.config.emails[:jit_recipients][:support]}"} 
+          #{Rails.application.config.emails[:jit_recipients][:support]}.
         %br  
-        You can also call us at 
-        %span.bold +91 87960 29607
       %p 
         Best Regards,
         %br/
         - if ["SuperAdmin"].include? current_user.type
-          Prakhar Srivastava
-          %br
-          Jombay
+          Team Jombay
         - else
           = current_user.name
           %br/
