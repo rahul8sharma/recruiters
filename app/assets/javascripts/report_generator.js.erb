@@ -13,8 +13,7 @@ $(document).ready(function(){
     $("#functional_traits .functional-trait-list").hide();
     $('.functional-trait-item').remove();
 
-
-
+    var optionLength = response.competencies.length;
     for (var i = 0; i < response.competencies.length; i++) {
       var competency = response.competencies[i].attributes;
       if(competency.name == undefined){
@@ -23,7 +22,6 @@ $(document).ready(function(){
       $("#competencies .competencies-list").empty();
       var id = "assessment[competency]["+i+"]["+competency.id+"]";
       var order = "assessment[competency]["+i+"][competency_order]["+competency.id+"]";
-      var optionLength = response.competencies.length;
       $(".competencies-list").append("<li class='competency-item'>"+
         "<select name="+order+">"+getOptions(optionLength)+"</select>"+
         "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
