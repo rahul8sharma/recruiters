@@ -203,8 +203,9 @@
               - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
               - offset = offset-15 if width == 0 && offset != 0
               - width = 15 if width == 0   
+              - klass = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "favorable" : "less_favorable" 
               %li
-                .span1.first.hexagon-icon{:class=>"less_favorable"}
+                .span1.first.hexagon-icon{:class =>  company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "favorable" : "less_favorable" }
                 -#toggle class".less_favorable" and "favorable"
                 .competency-name.pull-left
                   = competency_name
@@ -216,7 +217,7 @@
                     .marker-container
                       - @company_norm_buckets.each do |company_norm_bucket|
                         -#toggle class".less_favorable" and "favorable" below
-                        .marker.favorable{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                        .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}" }
                           = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
                       .clr
                   .clr
