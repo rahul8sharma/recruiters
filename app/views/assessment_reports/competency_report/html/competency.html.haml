@@ -31,7 +31,7 @@
             - offset = ((from_norm_bucket.weight - 1) * marker_width)
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
             - offset = offset-15 if width == 0 && offset != 0
-            - width = 15 if width == 0
+            - width = 25 if width == 0
             .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-14}px;" }
               -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
               .score-indicater

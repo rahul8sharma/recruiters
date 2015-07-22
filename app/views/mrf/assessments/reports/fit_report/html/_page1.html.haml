@@ -14,6 +14,8 @@
         - Hash[@report.report_data[:feedback_stats]].each do |role, status|
           - completed_count += status[:completed]
           - sent_count += status[:sent]
+        .agrregate_score.pull-right
+          Aggregare Score: #{@report.report_data[:aggregate_traits_score]}%
         .completion-status.pull-right
           Completion Status: #{completed_count} out of #{sent_count}
         .clr
