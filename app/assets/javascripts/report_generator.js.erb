@@ -17,18 +17,30 @@ $(document).ready(function(){
 
     for (var i = 0; i < response.competencies.length; i++) {
       var competency = response.competencies[i].attributes;
+      console.log(competency);
+      console.log("---------------");
       if(competency.name == undefined){
        // console.log(response.competencies[i]);
       }
       $("#competencies .competencies-list").empty();
       var id = "assessment[competency]["+i+"]["+competency.id+"]";
-      console.log(competency.name);
+      var order = "assessment[competency]["+i+"][competency_order]["+competency.id+"]";
+      var optionLength = response.competencies.length;
       $(".competencies-list").append("<li class='competency-item'>"+
+        "<select name="+order+">"+getOptions(optionLength)+"</select>"+
         "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
          +"<label for="+id+">"+ competency.name+" ("+competency.factor_names+")" + "</label></li>");
     }
 
 
+  }
+
+  function getOptions(length){
+    var optionHTML;
+    for(var i = 0; i < length; i++) {
+      optionHTML += "<option selected="" value="+i+">"+(i+1)+"</option>"
+    }
+    return optionHTML;
   }
 
   function renderFunctionalTraits(response){
