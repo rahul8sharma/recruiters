@@ -194,14 +194,19 @@
           %ul.competency-list.pull-left
             - competency_scores.each do |competency_name, competency_score|
               %li
+                .span1.first.hexagon-icon{:class=>"less_favorable"}
+                -#toggle class".less_favorable" and "favorable"
                 .competency-name.pull-left
                   = competency_name
                 .competency-value.pull-right
                   .scale.right-offset1
+                    -#for desire_range adjust width and left (Might need to add left value calculated + 14px to it )
+                    .desire_range{:style=>"width: 20px; left: #{(0+14)}px"}
                     .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
                       - @company_norm_buckets.each do |company_norm_bucket|
-                        .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                        -#toggle class".less_favorable" and "favorable" below
+                        .marker.favorable{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
                           = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
                       .clr
                   .clr
