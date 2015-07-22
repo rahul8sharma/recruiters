@@ -212,7 +212,8 @@
                 .competency-value.pull-right
                   .scale.right-offset1
                     -#for desire_range adjust width and left (Might need to add left value calculated + 14px to it )
-                    .desire_range{:style=>"width: #{width}px; left: #{offset+14}px"}
+                    - if @report.report_data[:enable_competency_desired_ranges]
+                      .desire_range{:style=>"width: #{width}px; left: #{offset+14}px"}
                     .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
                       - @company_norm_buckets.each do |company_norm_bucket|
