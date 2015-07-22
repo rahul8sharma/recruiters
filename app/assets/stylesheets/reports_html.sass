@@ -449,13 +449,36 @@ $mid_favorable_color: #062b58
         .competency-list
           margin: 0
           width: 100%
-          border-top: 1px dashed #28b29b
+
+          li
+            padding: 16px 30px
+            &:nth-child(odd)
+              background: #f8f8f8
+            .hexagon-icon
+              background: image-url('report/html/trait-score-hexagon.png') no-repeat
+              height: 33px
+              width: 35px
+            .hexagon-icon.less_favorable
+              background-position: 0 -53px
+            .competency-name 
+              padding-top: 7px
+              width: 55% 
           .scale
             margin-right: 40px
             height: 35px
+            .desire_range
+              background-color: #3aafe5
+              border-radius: 3px
+              height: 7px
+              position: absolute
+              top: 21px
+              left: 14px
+              z-index: 999
             .line
               border-color: #ccc
+              height: 2px
             .marker-container 
+              z-index: 1000
               .marker
                 background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
                 font-size: 10px
@@ -464,10 +487,11 @@ $mid_favorable_color: #062b58
                 &.active
                   background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
 
-          li
-            padding: 16px 30px
-            &:nth-child(even)
-              background: #f8f8f8
+                  &.favorable
+                    background: image-url('report/html/competency/list-scale-small-hexa-favorable.png') no-repeat center bottom
+                  &.less_favorable
+                    background: image-url('report/html/competency/list-scale-small-hexa-less-favorable.png') no-repeat center bottom
+
           &.mrf
             li
               padding: 0
