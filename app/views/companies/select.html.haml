@@ -73,4 +73,4 @@
           = render :partial => "shared/pagination", :locals => { :objects => @companies}
         .clr
       - else
-        No companies found under your account! Please contact <a href="mailto:prakhar@jombay.com">prakhar@jombay.com</a>
+        No companies found under your account! Please contact <a href="mailto:#{Rails.application.config.emails[:jit_recipients][:support]}">#{Rails.application.config.emails[:jit_recipients][:support]}</a>
