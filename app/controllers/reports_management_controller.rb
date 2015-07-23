@@ -107,8 +107,9 @@ class ReportsManagementController < ApplicationController
       else # user has landed on the page via new assessment flow
         assessment_params = params[:assessment].except(:assessment_id)
         assessment_params = assessment_params.except(:factors)
-        assessment_params = assessment_params.except(:competency)
+        assessment_params = assessment_params.except(:competencies)
         assessment_params = assessment_params.except(:functional_traits)
+        assessment_params = assessment_params.except(:competency_order)
         @assessment = Vger::Resources::Suitability::CustomAssessment.create(assessment_params)
         query_options = {
           :functional_area_id => @assessment.functional_area_id,
@@ -163,10 +164,14 @@ class ReportsManagementController < ApplicationController
         end
 
         if @assessment.assessment_type == Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY
-          @competency_ids = params[:assessment][:competency]\
-          .collect { |index,hash| hash.keys}\
-          .flatten.map { |i| i.to_i }
-          Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { competency_order: @competency_ids })
+          @competency_ids = params[:assessment][:competencies].map(&:to_i)
+
+          selected_competencies = Hash[params[:assessment][:competency_order].select{|competency_id,order| @competency_ids.include?(competency_id.to_i) }]
+          competency_order = Hash[selected_competencies.map{|competency_id,order| [competency_id.to_i,order.to_i] }]
+          competency_order = Hash[competency_order.sort_by{|competency_id, order| order }]
+          ordered_competencies = competency_order.keys.select{|competency_id| @competency_ids.include?(competency_id) }
+
+          Vger::Resources::Suitability::CustomAssessment.save_existing(@assessment.id, { competency_order: ordered_competencies })
           @competencies = Vger::Resources::Suitability::Competency.find(@competency_ids)
           selected_factor_ids = @competencies.collect { |competency| competency.factor_ids }.flatten.uniq
           selected_factors = factors.select{ |key,value| selected_factor_ids.include? key}

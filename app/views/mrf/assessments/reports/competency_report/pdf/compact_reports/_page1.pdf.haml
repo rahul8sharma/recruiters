@@ -13,6 +13,10 @@
       .divider3
       .banner-sub-heading
         Profiling Report
+      - if @report.report_data[:mrf_report_numerical_aggregate_score_pdf]
+        .extra-medium-text{:style => "padding: 2px 0px 25px 0px;"}
+          Aggregate Score: #{@report.report_data[:aggregate_competencies_score]}%
+        .clr
       - if @report.report_data[:mrf_report_show_completion_status]
         - completed_count = 0
         - sent_count = 0

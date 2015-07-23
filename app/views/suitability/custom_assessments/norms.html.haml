@@ -12,6 +12,27 @@
   .clr
   .divider1
   = render :partial => "shared/navigation-sub-nav"
+  .divider1
+  #info_bar.extra-medium-text
+    #info
+      .content
+        .pull-left
+          Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits)
+        .pull-right
+          %i.icon-ok-sign
+          %span#label_counter
+            Number of traits selected:
+          %span#traits-counter
+            / some counter
+          .divider1
+          %i.icon-time
+          %span
+            Approximate assessment duration:
+          %span#approximate-time.color-warning
+            /some counter
+        .clr
+        .divider1
+      .border-bottom-grayLighter
   .divider2
 
 
@@ -22,23 +43,17 @@
     %input{type: 'hidden', name: 'user', value: current_user.type}
     - if current_user.type != "SuperAdmin"
       = f.hidden_field :validate_items, value: "on"
-    
-    .extra-large-text
-      Competencies
-    .divider2
-    - 2.times do |index|
+    - 2.times do 
       .span15.first
         .factor-list
           .titles.clearfix
-            .span1.first
-              &nbsp;
-            .span6
+            .span7.first
               .big-text
                 Behavioral Trait
               .muted
                 Place the cursor on individual Traits below to see their definition
                 
-            .span6{class: (index==0?"left-offset1" : "left-offset2")}
+            .span6.left-offset1
               .big-text
                 Expected Score Range
                 %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
@@ -47,73 +62,9 @@
             .clr
             .divider1 
             .semi-muted
-              .span3{class: (index==0?"left-offset8" : "left-offset9")}
+              .left-offset8.first.span3
                 Minimum
-              
-              %div{class: (index==0?"span3" : "span")}
-                Maximum
-    .clr                
-    - aindex = 0
-    .factor-list
-      %ul.factor-snippet.clearfix
-        - @factor_norms.each_with_index do |assessment_factor_norm,index|
-          = render :partial => 'assessment_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => index }
-          - aindex += 1
-        - @alarm_factor_norms.each_with_index do |assessment_factor_norm,index|
-          = render :partial => 'assessment_alarm_factor_norm_fields', :locals => { :assessment_factor_norm => assessment_factor_norm, :index => aindex+index } 
-    .divider2.border-bottom-grayLighter
-    .divider1
-
-
-    .extra-large-text
-      Traits
-    .divider2
-    #info_bar.extra-medium-text
-      #info
-        .content
-          .pull-left
-            Please select a minimum of 10 traits to create this assessment (You can select maximum 26 traits)
-          .pull-right
-            %i.icon-ok-sign
-            %span#label_counter
-              Number of traits selected:
-            %span#traits-counter
-              / some counter
-            .divider1
-            %i.icon-time
-            %span
-              Approximate assessment duration:
-            %span#approximate-time.color-warning
-              /some counter
-          .clr
-          .divider1
-        .border-bottom-grayLighter
-    .divider2
-    - 2.times do |index|
-      .span15.first
-        .factor-list
-          .titles.clearfix
-            .span1.first
-              &nbsp;
-            .span6
-              .big-text
-                Behavioral Trait
-              .muted
-                Place the cursor on individual Traits below to see their definition
-                
-            .span6{class: (index==0?"left-offset1" : "left-offset2")}
-              .big-text
-                Expected Score Range
-                %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
-              .muted
-                Choose Minimum and Maximum score
-            .clr
-            .divider1 
-            .semi-muted
-              .span3{class: (index==0?"left-offset8" : "left-offset9")}
-                Minimum
-              
-              %div{class: (index==0?"span3" : "span")}
+              .span3 
                 Maximum
     .clr                
     - aindex = 0
