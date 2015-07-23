@@ -106,9 +106,15 @@
       = f.check_box :is_functional_assessment, id: "is_functional_assessment"
       Is Functional Assessment
     .clr  
+    
   .control-group  
     %label
       = f.check_box :should_send_notifications, id: "should_send_notifications"
       Send Report Notifications
+    .clr  
+  .control-group  
+    %label
+      = f.check_box :is_jq_assessment, id: "is_jq_assessment"
+      Is JQ Assessment
     .clr  
 .divider2

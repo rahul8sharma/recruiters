@@ -1148,6 +1148,26 @@ Recruiters::Application.routes.draw do
   end
   
   namespace :jq do
+    resources :quadrant_descriptions do
+      collection do
+        get :manage
+        post :destroy_all
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :functions do
+      collection do
+        get :manage
+        post :destroy_all
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
     resources :jobs do
       collection do
         post :destroy_all
