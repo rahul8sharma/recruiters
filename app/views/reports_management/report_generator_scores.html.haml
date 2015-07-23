@@ -60,11 +60,6 @@
         Competency Name
       %th
         Desired Grade
-      %th
-        Set Min Range
-      %th
-        Set Max Range
-
       - @competencies.each_with_index do |competency, index|
         %tr
           %td
@@ -74,20 +69,6 @@
               - @norm_buckets.each do |norm_bucket|
                 %option{value: norm_bucket.name}
                   = norm_bucket.name
-          %td
-            %select{name: "report[competency_grades][from_norm_bucket_id]"}
-              %option{:value => ""}
-                Set Min
-              - @norm_buckets.each do |norm_bucket|
-                %option{value: norm_bucket.uid}
-                  = norm_bucket.name         
-          %td
-            %select{name: "report[competency_grades][to_norm_bucket_id]"}
-              %option{:value => ""}
-                Set Max
-              - @norm_buckets.each do |norm_bucket|
-                %option{value: norm_bucket.uid}
-                  = norm_bucket.name         
     %p
       %input{type:'checkbox', value:"1",name:"report[competency_grades_compute]",id:"report[competency_grades_compute]"}
       %label{for: "report[competency_grades_compute]"}
