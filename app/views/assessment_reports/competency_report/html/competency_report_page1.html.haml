@@ -203,9 +203,10 @@
               - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
               - offset = offset-15 if width == 0 && offset != 0
               - width = 15 if width == 0   
-              - klass = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "favorable" : "less_favorable" 
+              - scored_weight = company_norm_bucket.weight
+              - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
               %li
-                .span1.first.hexagon-icon{:class =>  company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "favorable" : "less_favorable" }
+                .span1.first.hexagon-icon{:class =>  klass}
                 -#toggle class".less_favorable" and "favorable"
                 .competency-name.pull-left
                   = competency_name
