@@ -60,7 +60,7 @@
         Competency Name
       %th
         Desired Grade
-      - @competencies.each_with_index do |competency, index|
+      - @competencies.each do |competency|
         %tr
           %td
             = competency.name
