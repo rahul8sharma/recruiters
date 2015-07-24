@@ -1,10 +1,9 @@
 - if @report.report_hash[:html_suitability_reports_scale_description_page]
-  - active_label_index = 0
   .divider3
   .container
     .title Explanation of Jombay Scores
   %ul.explanation_scores_list
-    - @company_norm_buckets.each do |norm_bucket, index|
+    - @company_norm_buckets.each do |norm_bucket_scale, index|
       %li
         .container
           .left.pull-left
@@ -12,12 +11,11 @@
               .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
               .marker-container
                 - @company_norm_buckets.each_with_index do |norm_bucket, index|
-                  .marker{ :class=> active_label_index == index ? 'active': ''}
+                  .marker{ :class=> norm_bucket_scale.name == norm_bucket.name ? 'active': ''}
                     = norm_bucket.name
                 .clr
             .clr
           .right.pull-right.big-text
             .divider1
-            = norm_bucket.description
+            = norm_bucket_scale.description
           .clr
-      - active_label_index += 1
