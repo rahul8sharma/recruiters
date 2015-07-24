@@ -30,10 +30,10 @@
             - position = (company_norm_bucket.weight - 1) * marker_width
             - offset = ((from_norm_bucket.weight - 1) * marker_width)
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-            - offset = offset-15 if width == 0 && offset != 0
             - width = 34 if width == 0
-            - offset = offset - 19 if to_norm_bucket.name == @company_norm_buckets.last.name
-            .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-14}px;" }
+            - if to_norm_bucket.name == @company_norm_buckets.last.name && width == 34
+              - offset = offset - 34
+            .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position}px;" }
               -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
               .score-indicater
                 = company_norm_bucket.name
