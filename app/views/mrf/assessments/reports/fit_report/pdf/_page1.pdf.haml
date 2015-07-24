@@ -14,7 +14,7 @@
       .banner-sub-heading.pull-left
         Profiling Report
       - if @report.report_data[:mrf_report_numerical_aggregate_score_pdf]
-        .extra-medium-text{:style => "padding: 2px 0px 25px 0px;"}
+        %span.extra-medium-text.pull-right{:style => "padding: 2px 0px 25px 0px;"}
           Aggregate Score: #{@report.report_data[:aggregate_traits_score]}%
         .clr
       - if @report.report_data[:mrf_report_show_completion_status]
