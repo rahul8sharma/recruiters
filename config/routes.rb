@@ -1148,6 +1148,14 @@ Recruiters::Application.routes.draw do
   end
   
   namespace :jq do
+    resources :candidate_assessment_reports do
+      collection do
+        get :manage
+        post :export_norm_population
+        post :import_norm_population
+      end
+    end
+  
     resources :quadrant_descriptions do
       collection do
         get :manage
