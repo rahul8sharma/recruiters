@@ -203,20 +203,23 @@
               - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
               - offset = offset-15 if width == 0 && offset != 0
               - width = 15 if width == 0   
+              - scored_weight = company_norm_bucket.weight
+              - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
               %li
-                .span1.first.hexagon-icon{:class=>"less_favorable"}
+                .span1.first.hexagon-icon{:class =>  klass}
                 -#toggle class".less_favorable" and "favorable"
                 .competency-name.pull-left
                   = competency_name
                 .competency-value.pull-right
                   .scale.right-offset1
                     -#for desire_range adjust width and left (Might need to add left value calculated + 14px to it )
-                    .desire_range{:style=>"width: #{width}px; left: #{offset+14}px"}
+                    - if @report.report_data[:enable_competency_desired_ranges]
+                      .desire_range{:style=>"width: #{width}px; left: #{offset+14}px"}
                     .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
                     .marker-container
                       - @company_norm_buckets.each do |company_norm_bucket|
                         -#toggle class".less_favorable" and "favorable" below
-                        .marker.favorable{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                        .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}" }
                           = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
                       .clr
                   .clr

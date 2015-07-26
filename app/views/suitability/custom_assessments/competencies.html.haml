@@ -69,8 +69,8 @@
       Standard competencies
     .divider2
 
-    - if !@local_competencies.present? 
-      .alert No custom competencies present for the company
+    - if !@global_competencies.present? 
+      .alert No standard competencies present for the company
     - else
       -#
         .global_selector
