@@ -96,7 +96,8 @@ class AssessmentReportsController < ApplicationController
         :assessment_id => @report.assessment_id,
         :candidate_id => @report.candidate_id
       }
-      #Suitability::ReportUploader.perform_async(report_data, RequestStore.store[:auth_token], params[:report])
+      current_user = Vger::Resources::User.current(:methods => [:authentication_token])
+      Suitability::ReportUploader.perform_async(report_data, current_user.authentication_token, params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
       #redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
     end

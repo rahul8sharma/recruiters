@@ -9,7 +9,7 @@
     %input{type: 'hidden', name: 'assessment[industry_id]', value: @assessment.industry_id}
     %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
     %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
-    
+    = render :partial => "competency_ranges"
     - 2.times do 
       .span15.first
         .factor-list

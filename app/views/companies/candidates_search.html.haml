@@ -56,7 +56,7 @@
             .span
               - if test_statuses[candidate_assessment.status] == "Completed"
                 - report = candidate_assessment.candidate_assessment_reports.first
-                - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                   - url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => candidate.id, :custom_assessment_id => assessment.id, :id => report.id, :view_mode => "html")
                   %a{href: url, title: "View Report", target: "_blank"}
                     %i.icon-file

@@ -3,7 +3,7 @@
   = render :partial => "mrf/assessments/reports/fit_report/html/page1"
   = render :partial => "mrf/assessments/reports/fit_report/html/page2"
   .classic_report
-    - if true
+    - if @report.report_data[:plain360_traits_decending]
       = render :partial => "mrf/assessments/reports/fit_report/html/traits_descending_order"
   - if @report.report_data[:mrf_overall_breakdown_at_trait_level]
     = render :partial => "mrf/assessments/reports/fit_report/html/trait_distribution_data_points"

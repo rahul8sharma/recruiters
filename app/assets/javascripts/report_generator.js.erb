@@ -4,6 +4,7 @@ $(document).ready(function(){
   function failure(response){
     console.log(response);
   }
+  
   function renderCompetencies(response) {
     $("#competencies").show();
 
@@ -13,22 +14,35 @@ $(document).ready(function(){
     $("#functional_traits .functional-trait-list").hide();
     $('.functional-trait-item').remove();
 
-
-
-    for (var i = 0; i < response.competencies.length; i++) {
+    var optionLength = response.competencies.length;
+    
+    for (var i = 0; i < response.competencies.length; i++) 
+    {
       var competency = response.competencies[i].attributes;
       if(competency.name == undefined){
        // console.log(response.competencies[i]);
       }
       $("#competencies .competencies-list").empty();
-      var id = "assessment[competency]["+i+"]["+competency.id+"]";
-      console.log(competency.name);
+      var id = "assessment[competencies][]";
+      var order = "assessment[competency_order]["+competency.id+"]";
+
       $(".competencies-list").append("<li class='competency-item'>"+
-        "<input type='checkbox' value="+competency.id+" id="+id+" name = "+id+">"
+        "<select name="+order+">"+getOptions(optionLength, i)+"</select>"+
+        "<input type='checkbox' value='"+competency.id+"' id='"+id+"' name = '"+id+"'>"
          +"<label for="+id+">"+ competency.name+" ("+competency.factor_names+")" + "</label></li>");
     }
+  }
 
-
+  function getOptions(length, selected){
+    var optionHTML="";
+    for(var optionList = 0; optionList < length; optionList++) {
+      if (optionList == (selected+1)){
+        optionHTML += "<option selected value="+optionList+">"+(optionList+1)+"</option>"
+      }else{
+        optionHTML += "<option value="+optionList+">"+(optionList+1)+"</option>"
+      }
+    }
+    return optionHTML;
   }
 
   function renderFunctionalTraits(response){

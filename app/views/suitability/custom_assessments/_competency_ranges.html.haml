@@ -1,0 +1,64 @@
+.large-text.black
+  Set Ranges for Competencies
+.divider2
+
+.span15.first
+  .factor-list
+    .titles.clearfix
+      .span6.first
+        .big-text
+          Competency
+          
+      .span6.left-offset1
+        .big-text
+          Expected Score Range
+        .muted
+          Choose Minimum and Maximum score
+      .clr
+      .divider1 
+      .semi-muted
+        .left-offset7.first.span3
+          Minimum
+        .span3 
+          Maximum
+.clr                
+- aindex = 0
+.factor-list
+  %ul.factor-snippet.clearfix         
+    - factor_index = 0
+    - @weights.each_with_index do |(competency, competency_weights), index|
+      - norm_min_name = "assessment[assessment_competency_weights_attributes][#{index}][from_norm_bucket_id]"
+      - norm_max_name = "assessment[assessment_competency_weights_attributes][#{index}][to_norm_bucket_id]"
+      - competency_weight = competency_weights[:competency_weight]
+      %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][id]", value: competency_weight.id}
+      %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][assessment_id]", value: competency_weight.assessment_id}
+      %input{:type=>"hidden", name: "assessment[assessment_competency_weights_attributes][#{index}][competency_id]", value: competency_weight.competency_id}
+      -# '.border-top-grayLighter' class should not present at first snippet, Put %Div only for first
+      %div
+        .divider1
+        %label.span7.big-text.color-warning.first
+          = competency.name
+        .span6
+          - competency_weight.from_norm_bucket_id ||= @norm_buckets.sort_by(&:weight).first.id
+          - competency_weight.to_norm_bucket_id ||= @norm_buckets.sort_by(&:weight).last.id
+          %select.span3.first{name: norm_min_name, index: (index)}
+            - @norm_buckets.each do |norm_bucket|
+              - if competency_weight.from_norm_bucket_id == norm_bucket.id
+                %option{value: norm_bucket.id, selected:'selected'}
+                  = norm_bucket.name         
+              - else
+                %option{value: norm_bucket.id}
+                  = norm_bucket.name         
+              
+          %select.span3{name: norm_max_name, index: (index)}
+            - @norm_buckets.each do |norm_bucket|
+              - if competency_weight.to_norm_bucket_id == norm_bucket.id
+                %option{value: norm_bucket.id, selected:'selected'}
+                  = norm_bucket.name         
+              - else
+                %option{value: norm_bucket.id}
+                  = norm_bucket.name        
+        .clr
+      .divider1 
+    .divider1   
+.divider3

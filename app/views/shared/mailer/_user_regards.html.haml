@@ -1,0 +1,10 @@
+%p
+  Best Regards, %br/
+  - if ["SuperAdmin"].include? @mailer_data[:sender][:type]
+    Team Jombay 
+    %br/
+  - else
+    = current_user.name
+    %br/
+    = @company.name
+    %br/

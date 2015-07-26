@@ -124,6 +124,12 @@ module Suitability
         
         now = Time.now.strftime("%d_%m_%Y_%H_%M")
         notifications_sent_at = (should_send_notifications ? now : @report.configuration[:notifications_sent_at])
+        status = nil
+        if notifications_sent_at
+          status = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
+        else
+          status = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
+        end
         Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
           :custom_assessment_id => assessment_id,
           :candidate_id => candidate_id,
@@ -131,7 +137,7 @@ module Suitability
           :notifications_sent_at => notifications_sent_at,
           :uploaded_at => now,
           :s3_keys => { :pdf => pdf_s3, :html => html_s3, :feedback => feedback_html_s3 },
-          :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
+          :status => status
         )
         File.delete(pdf_save_path)
         File.delete(html_save_path)

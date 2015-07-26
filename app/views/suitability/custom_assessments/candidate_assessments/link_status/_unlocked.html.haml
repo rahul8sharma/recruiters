@@ -1,0 +1,6 @@
+.span6
+  = test_link_statuses[candidate_assessment.link_status]
+  #{hdate candidate_assessment.expiry_date}, #{htime candidate_assessment.expiry_date} Hrs
+- if is_superadmin?    
+  .span2.big-text.first
+    &nbsp;
