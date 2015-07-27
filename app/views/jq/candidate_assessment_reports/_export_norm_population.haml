@@ -1,0 +1,15 @@
+= form_tag export_norm_population_jq_candidate_assessment_reports_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Download norm population
+    = fields_for "args" do |f|
+      %p
+        Assessment ID : 
+        = f.text_field :assessment_id
+        
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+    .actions
+      = submit_tag 'Download Norm Population'
