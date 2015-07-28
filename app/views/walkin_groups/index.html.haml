@@ -17,12 +17,10 @@
     .list-snippet-titles.large-text.clearfix
       .span5.first
         %a{:href => "#"}
-          Walk-In ID
-          %i.icon-chevron-down.small-text.line-height1
+          = sort_link "Walk-In ID", company_walkin_groups_path(:company_id => params[:company_id]), :id, params[:search]
       .span10
         %a{:href => "#"}
-          Walk-In Index Page
-          %i.icon-chevron-down.small-text.line-height1
+          = sort_link "Walk-In Index Page", company_walkin_groups_path(:company_id => params[:company_id]), :title, params[:search]
       .span8
         Page Management
     .divider2
