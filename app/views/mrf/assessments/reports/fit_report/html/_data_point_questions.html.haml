@@ -1,0 +1,98 @@
+.classic_report
+  .section03
+    .divider2
+    .scores.container
+      .title
+        Data Points on 360&#176; Scores: Questions
+      .divider2
+      
+      .clr
+      .divider2
+
+      .span28.margin-auto
+        .large-text.span23.first
+          Trait: 
+          %span
+            Openly admits responsibility for specific mistakes and acts to correct problems
+        .large-text.pull-right.line-height2.white{:style=>" background: #28b29b;padding: 0 6px;"}
+          360&#176; Score: 200
+        .clr
+        .divider2
+        .big-text
+          Question to Stakeholder:
+        .extra-medium-text.color-warning.line-height2
+          Pays minute attention to details while completing a task
+        .divider2
+
+        #distribution_data_points
+          .span7.first
+            .large-text
+              Overall Score
+            .divider1
+            .panel.bg-white
+              .divider4
+              .rating_snippet
+                .rating_title.green
+                  360&#176; Score
+                .value
+                  200.00
+                .clr
+              .divider4
+              
+          .span21
+            .large-text
+              Average rating given by Stakeholder
+            .divider1
+            .panel.bg-white
+              .divider2
+              .span18.margin-auto
+                - 6.times do |index|
+                  - index += 1
+                  .span6.first
+                    .divider1
+                    .rating_snippet
+                      .rating_title.blue
+                        Manager(2)
+                      .value
+                        200.00
+                      .clr
+                  - if index % 3 == 0
+                    .clr
+                .clr
+              .divider3
+          .clr
+
+        .self-rate
+          .divider2
+          .span28.margin-auto
+            .span21.first
+              .large-text
+                Trait: 
+                %span.default
+                  Stress Tolerance
+
+              .divider1
+              .big-text
+                Question to Self:
+              .extra-medium-text.color-warning.line-height2
+                Pays minute attention to details while completing a task
+              .divider2
+            .span
+
+              #distribution_data_points
+                .span7.first
+                  .large-text
+                    Overall Score
+                  .divider1
+                  .panel.bg-white
+                    .divider2
+                    .rating_snippet
+                      .rating_title.blue_light
+                        Self Rating 
+                      .value
+                        200.00
+                      .clr
+                    .divider2
+            .clr
+            .divider2
+      .divider2
