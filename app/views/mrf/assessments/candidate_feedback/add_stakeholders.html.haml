@@ -82,7 +82,7 @@
               %select.span8.medium-text.left-offset1{ name: "feedbacks[#{index}][role]" }
                 %option{ value: "" }
                   Select Role
-                - Vger::Resources::Mrf::Feedback::ROLES.each do |role|
+                - Vger::Resources::Mrf::Feedback::ROLES.sort.each do |role|
                   %option{ value: role, selected: (params[:feedbacks][index.to_s][:role] == role) }
                     = role.titleize
               .clr
