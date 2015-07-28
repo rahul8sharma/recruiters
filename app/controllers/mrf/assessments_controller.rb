@@ -89,7 +89,7 @@ class Mrf::AssessmentsController < ApplicationController
   def update
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
-    flash[:notice] = "Assessment successfully updated"
+    flash[:notice] = "360 Degree Exercise successfully updated"
     redirect_to edit_company_mrf_assessment_path(@company.id,@assessment.id)
   end
 
