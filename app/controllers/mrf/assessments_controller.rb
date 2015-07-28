@@ -22,7 +22,7 @@ class Mrf::AssessmentsController < ApplicationController
 
   def order_enable_items
     added_other_items = @assessment.items_other.present? ? Hash[@assessment.items_other.collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
-    added_self_items = @assessment.items_other.present? ? Hash[@assessment.items_self.collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
+    added_self_items = @assessment.items_self.present? ? Hash[@assessment.items_self.collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
     params[:selected_items_other] ||= added_other_items
     params[:selected_items_self] ||= added_self_items
     @selected_items_other = params[:selected_items_other]
@@ -89,7 +89,8 @@ class Mrf::AssessmentsController < ApplicationController
   def update
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
-    redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
+    flash[:notice] = "Assessment successfully updated"
+    redirect_to edit_company_mrf_assessment_path(@company.id,@assessment.id)
   end
 
   def create_for_assessment
