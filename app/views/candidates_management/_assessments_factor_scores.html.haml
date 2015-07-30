@@ -1,16 +1,16 @@
-= form_for :candidate, url: export_candidate_responses_candidates_path, multipart: true, :method => :post do |f|
+= form_for :candidate, url: export_assessments_factor_scores_candidates_path, multipart: true, :method => :post do |f|
   %input{ type: "hidden", name: "candidate[job_klass]", value: "Suitability::AssessmentsFactorScoresExporter" }
   %fieldset
     %legend 
       %strong Download Candidate FactorScores for Multiple Assessments
     = f.fields_for "args" do |f|
       %p
-        Assessment IDs : (Comma Separated)
+        Assessment IDs * : (Comma Separated )
         = f.text_field :assessment_ids
         
       = f.fields_for "folder" do |f|
         %p
-          Google Drive Folder Url : 
+          Google Drive Folder Url * : 
           = f.text_field "url"
 
       %p
@@ -19,15 +19,18 @@
 
       %p
         Export Failed: 
-        = f.check_box :export_failed, checked: true
+        = f.check_box :export_failed, { checked: true }, true, false
         
       %p
         Export Successful: 
-        = f.check_box :export_uploaded, checked: true
+        = f.check_box :export_uploaded, { checked: true }, true, false
         
       %p
         Export Pending: 
-        = f.check_box :export_pending, checked: true      
+        = f.check_box :export_pending, { checked: true }, true, false
+      %p
+        Export Hive Scores Pending: 
+        = f.check_box :export_hive_scores_pending, { checked: true }, true, false
 
       %p
         Rows per sheet: 
