@@ -28,10 +28,11 @@
             - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
             - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
             - position = (company_norm_bucket.weight - 1) * marker_width
+            - position = 295 if position > 295
             - offset = ((from_norm_bucket.weight - 1) * marker_width)
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
             - width = 34 if width == 0
-            - if to_norm_bucket.name == @company_norm_buckets.last.name && width == 34
+            - if ((width == 34) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
               - offset = offset - 34
             .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position}px;" }
               -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"

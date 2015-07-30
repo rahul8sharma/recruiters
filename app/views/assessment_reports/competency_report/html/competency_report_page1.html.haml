@@ -205,6 +205,8 @@
               - width = 15 if width == 0   
               - scored_weight = company_norm_bucket.weight
               - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
+              - if ((width == 15) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
+                - offset = offset + 6
               %li
                 .span1.first.hexagon-icon{:class =>  klass}
                 -#toggle class".less_favorable" and "favorable"
