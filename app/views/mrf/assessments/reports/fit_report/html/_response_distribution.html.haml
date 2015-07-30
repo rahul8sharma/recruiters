@@ -1,0 +1,65 @@
+.classic_report
+  .response_distribution.container
+    .divider1
+    .scores.container
+      .title
+        Response distribution on Questions
+      .divider2
+
+    .extra-large-text.pull-left
+      Trait &quot;Target Orientation&quot;
+    .clr
+    .divider2
+
+    .response_distribution_list
+      .big-text.span.line-height2.left-offset1.bold
+        Questions to Other Stakeholders
+      .stakeholder_rating_icon.span1.divider2 
+      .clr
+      .divider2
+
+      .span26.margin-auto 
+        %ul
+          %li
+            .big-text
+              Shows great vision in the imagining the future?
+            .divider2
+            .left-offset1
+              .responses
+                -6.times do |index|
+                  .span{:style=> "width: 153px" }
+                    .response-title
+                      Very bad
+
+                    %br
+                    .value
+                      0
+                .clr
+            .clr
+
+    .response_distribution_list.self
+      .big-text.span.line-height2.left-offset1.bold
+        Questions to the Candidate  
+      .classic_user_icon.span1.divider2 
+      .clr
+      .divider2
+
+      .span26.margin-auto 
+        %ul
+          %li
+            .big-text
+              Shows great vision in the imagining the future?
+            .divider2
+            .left-offset1
+              .responses
+                -6.times do |index|
+                  .span{:style=> "width: 153px" }
+                    .response-title
+                      Very bad
+
+                    %br
+                    .value
+                      1
+                .clr
+              .clr
+    .divider1                  
