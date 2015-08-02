@@ -1,0 +1,22 @@
+= form_tag import_norm_population_jq_candidate_assessment_reports_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend
+      %strong Upload norm population
+    %br
+    = fields_for "file" do |f|
+      File: 
+      = f.file_field "file"
+    %br
+    %br
+    = fields_for "args" do |af|
+      %p
+        Assessment ID:
+        = af.text_field :assessment_id
+      %p
+        Notification Email :
+        = af.text_field :email, :value => "notifications@jombay.com"
+      %p
+        Override Percentile Score:
+        = af.check_box :override_overall_scores
+    .actions
+      = submit_tag 'Upload norm population'

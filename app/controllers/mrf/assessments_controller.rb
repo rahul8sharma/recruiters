@@ -21,8 +21,8 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def order_enable_items
-    added_other_items = @assessment.items_other.present? ? Hash[@assessment.items_other.collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
-    added_self_items = @assessment.items_other.present? ? Hash[@assessment.items_self.collect{|item_data| [item_data['id'],{ type: item_data['type'] }] }] : {}
+    added_other_items = @assessment.items_other.present? ? Hash[@assessment.items_other.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index }] }] : {}
+    added_self_items = @assessment.items_self.present? ? Hash[@assessment.items_self.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index }] }] : {}
     params[:selected_items_other] ||= added_other_items
     params[:selected_items_self] ||= added_self_items
     @selected_items_other = params[:selected_items_other]
@@ -89,7 +89,8 @@ class Mrf::AssessmentsController < ApplicationController
   def update
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
-    redirect_to details_company_mrf_assessment_path(@company.id,@assessment.id)
+    flash[:notice] = "360 Degree Exercise successfully updated"
+    redirect_to edit_company_mrf_assessment_path(@company.id,@assessment.id)
   end
 
   def create_for_assessment

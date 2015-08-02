@@ -1,0 +1,48 @@
+- if @report.report_data[:plain_mrf_report_data_points_items]
+  - @report.report_data[:trait_scores].each do |trait_score|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
+    .scores.classic_report
+      .divider1
+      - trait_score[:items][:other_responses].each do |other_response|
+        .extra-medium-text.green_heading
+          Trait: Stress Tolerance
+        .divider1
+        .gray-darker
+          Question to Stakeholder:
+        .small-text.color-warning
+          = other_response[:item]
+        .divider1
+        .left-offset1
+          .stakeholder_rating_icon.span1.first &nbsp;
+          .medium-text.color-average.pull-left
+            360&#176; Score: #{other_response[:score]}
+          .clr
+          .divider1
+          .medium-text.black
+            Average rating given by Stakeholder
+          .border-bottom-grayLighter
+            .divider1
+            - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
+              .span.color-average
+                #{pluralize(role_wise_score[:count],role_name.titleize)} : #{role_wise_score[:average_score]}
+            .clr
+            .divider1
+        .divider1  
+      
+      - trait_score[:items][:self_responses].each do |self_response|
+        .extra-medium-text.green_heading
+          Trait: #{trait_score[:trait][:name]}
+        .divider1
+        .gray-darker
+          Question to Self:
+        .small-text.color-warning
+          #{self_response[:item]}
+        .divider1
+        .left-offset1
+          .classic_user_icon.span1.first &nbsp;
+          .medium-text.color-average.pull-left
+            Self Rating: #{self_response[:score]}
+          .clr
+          .divider1
+    .page-break
+     

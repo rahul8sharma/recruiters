@@ -56,6 +56,15 @@ class CandidatesManagementController < ApplicationController
     redirect_to manage_candidates_path, notice: "Invitation Emails have been queued."
   end
 
+  def export_assessments_factor_scores
+    if params[:candidate][:args][:folder][:url].blank? || params[:candidate][:args][:assessment_ids].blank?
+      flash[:error] = "Please enter required details"
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    Vger::Resources::Candidate\
+      .export_candidate_responses(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
 
   def import_assessments_factor_scores
     unless params[:import][:file]

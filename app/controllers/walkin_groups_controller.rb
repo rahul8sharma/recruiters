@@ -7,10 +7,14 @@ class WalkinGroupsController < ApplicationController
   layout "walk_ins"
   
   def index
+    order_by = params[:order_by] || "created_at"
+    params[:order_by] ||= order_by
+    order_type = params[:order_type] || "DESC"
     @walkin_groups = Vger::Resources::Suitability::WalkinGroup.where(:query_options => {  
                             company_id: @company.id
                           },
                           methods: [:url],
+                          order: "#{order_by} #{order_type}",
                           page: params[:page],
                           per: 10
                         ).all

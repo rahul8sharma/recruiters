@@ -1,0 +1,78 @@
+.classic_report
+  .response_distribution.container
+    .divider1
+    .scores.container
+      .title
+        Response distribution on Questions
+      .divider2
+
+    - @report.report_data[:trait_scores].each do |trait_score|
+      .extra-large-text.pull-left
+        Trait
+        &quot;
+        = truncate "#{trait_score[:trait][:name]}", length: 80
+        &quot;
+      .clr
+      .divider2
+      / QUESTION TO OTHER STAKEHOLDERS /
+      - if trait_score[:items][:other_responses].find{|item_data| item_data[:responses].present? }
+        .response_distribution_list
+          .big-text.span.line-height2.left-offset1.bold
+            Questions to Other Stakeholders
+          .stakeholder_rating_icon.span1.divider2 
+          .clr
+          .divider2
+
+          .span26.margin-auto 
+            %ul
+              - trait_score[:items][:other_responses].each do |item_data|
+                - if item_data[:responses].present?
+                  %li
+                    .big-text
+                      = item_data[:item]
+                    .divider2
+                    .left-offset1
+                      .responses
+                        - add_br = item_data[:responses].keys.find{|body| body.size > 20 }
+                        - item_data[:responses].each_with_index do |(body,response_count),index|
+                          .span{ style: "width:#{920/(item_data[:responses].size)}px" }
+                            .response-title
+                              = body
+                            - if body.size < 21 && add_br
+                              %br
+                            .value
+                              = response_count
+                        .clr
+                    .clr
+
+      /QUESTIONS TO SELF /
+      - if trait_score[:items][:self_responses].find{|item_data| item_data[:responses].present? }
+        .response_distribution_list.self
+          .big-text.span.line-height2.left-offset1.bold
+            Questions to the Candidate  
+          .classic_user_icon.span1.divider2 
+          .clr
+          .divider2
+
+          .span26.margin-auto 
+            %ul
+              - trait_score[:items][:self_responses].each do |item_data|
+                - if item_data[:responses].present?
+                  %li
+                    .big-text
+                      = item_data[:item]
+                    .divider2
+                    .left-offset1
+                      .responses
+                        - add_br = item_data[:responses].keys.find{|body| body.size > 20 }
+                        - item_data[:responses].each_with_index do |(body,response_count),index|
+                          .span{ style: "width:#{920/(item_data[:responses].size)}px" }
+                            .response-title
+                              = body
+                              - if body.size < 21 && add_br
+                                %br
+                            .value{ style: "#{response_count > 0 ? 'visibility:visible':'' }" }
+                              = response_count
+                        .clr
+                    .clr
+      .divider1                  

@@ -21,6 +21,7 @@ Recruiters::Application.routes.draw do
       post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
       post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
       post 'import_assessments_factor_scores' => "candidates_management#import_assessments_factor_scores", as: :import_assessments_factor_scores
+      post 'export_assessments_factor_scores' => "candidates_management#export_assessments_factor_scores", as: :export_assessments_factor_scores
       get :destroy_all
     end
   end
@@ -1148,6 +1149,34 @@ Recruiters::Application.routes.draw do
   end
   
   namespace :jq do
+    resources :candidate_assessment_reports do
+      collection do
+        get :manage
+        post :export_norm_population
+        post :import_norm_population
+      end
+    end
+  
+    resources :quadrant_descriptions do
+      collection do
+        get :manage
+        post :destroy_all
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :functions do
+      collection do
+        get :manage
+        post :destroy_all
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
     resources :jobs do
       collection do
         post :destroy_all
