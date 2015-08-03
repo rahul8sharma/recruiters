@@ -252,6 +252,7 @@ Recruiters::Application.routes.draw do
       collection do
         get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
         get "home" => "mrf/assessments#home", :as => :home
+        get "candidates" => "mrf/feedbacks#index", :as => :candidates
         put "home" => "mrf/assessments#home", :as => :home
       end
 
@@ -1211,6 +1212,8 @@ Recruiters::Application.routes.draw do
   post "/trr/manage/import_assessment_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_assessment_trr_candidates", :as => :import_assessment_trr_candidates
   post "/trr/manage/import_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_group_trr_candidates", :as => :import_group_trr_candidates
 
+  get "/users", :to => "users#index", :as => :users
+  
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
 

@@ -1,6 +1,25 @@
 class UsersController < ApplicationController
   layout "users"
-  before_filter :authenticate_user!, :only => [ :password_settings ]
+  before_filter :authenticate_user!, :only => [ :password_settings, :index ]
+  
+  def index
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
+    search_params = params[:search].dup
+    name = search_params.delete :name
+    email = search_params.delete :email
+    conditions = {
+      methods: [:company_ids, :type, :assessment_ids],
+      root: :user,
+      query_options: search_params,
+      page: params[:page], per: 10
+    }
+    conditions[:scopes] = {}
+    conditions[:scopes][:name_like] = name if name
+    conditions[:scopes][:email_like] = email if email
+    @users = Vger::Resources::User.where(conditions)
+    render layout: "companies"
+  end
 
   def login
     if request.post?
