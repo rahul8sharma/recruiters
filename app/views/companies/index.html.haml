@@ -1,15 +1,17 @@
 .companies-list
   .page-title
     .divider1
-    Companies
+    Search Companies 
+    | 
+    = link_to "Search Users", users_path
   .pull-right
     = render :partial => "shared/pagination", :locals => { :objects => @companies}
   .clr
   .search
     = form_for :search, url: companies_path, method: :get do |f|
       .field
-        = f.text_field :id, :placeholder => "Company ID"
-        = f.text_field :name, :placeholder => "Company Name"
+        = f.text_field :id, :placeholder => "Company ID", value: params[:search][:id]
+        = f.text_field :name, :placeholder => "Company Name", value: params[:search][:name]
         = f.submit "Search"
   .divider2
   .list-snippet-titles.medium-text.clearfix

@@ -451,6 +451,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         stakeholder_assessment_id: stakeholder_assessment.id,
         company_id: @company.id,
         assessment_id: @assessment.id,
+        stakeholder_id: stakeholder_assessment.stakeholder_id,
         role: feedback_hash[:role],
         candidate_id: candidate.id,
         status: Vger::Resources::Mrf::Feedback::Status::PENDING
