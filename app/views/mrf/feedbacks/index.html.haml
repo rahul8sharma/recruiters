@@ -44,11 +44,11 @@
             .span5
               = link_to feedback.candidate.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
             .span6{ title: feedback.candidate.email }
-              = link_to feedback.candidate.email[0..20], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.candidate.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
             .span5
               = link_to feedback.stakeholder.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
-            .span6
-              = link_to feedback.stakeholder.email, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span6{ title: feedback.stakeholder.email }
+              = link_to feedback.stakeholder.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
             .span3
               = feedback.role
             .clr
