@@ -20,18 +20,19 @@
             .clr
 
         .rhs-sec.pull-left
-          .slider{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
+          - scale_width = (@company_norm_buckets.size-1)*80
+          .slider{:style=>"width:#{scale_width}px"}
             - marker_width = 80
             - scale = factor_score[:scale]
             - norm_bucket_uid = factor_score[:norm_bucket_uid]
             - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
             - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
             - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-            - position = (company_norm_bucket.weight - 1) * marker_width
-            - position = 295 if position > 295
             - offset = ((from_norm_bucket.weight - 1) * marker_width)
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
             - width = 34 if width == 0
+            - position = (company_norm_bucket.weight - 1) * marker_width
+            - position = scale_width-20 if position > scale_width
             - if ((width == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
               - offset = offset - 34
             .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position}px;" }
