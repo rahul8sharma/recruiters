@@ -32,7 +32,7 @@
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
             - width = 34 if width == 0
             - position = (company_norm_bucket.weight - 1) * marker_width
-            - position = scale_width-20 if position > scale_width
+            - position = scale_width-20 if position >= scale_width
             - if ((width == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
               - offset = offset - 34
             .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position}px;" }
