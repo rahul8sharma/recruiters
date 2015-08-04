@@ -1,9 +1,15 @@
 .profiling-exercises-list
-  .span14.page-title.first
+  .span10.page-title.first
     .divider1
     360&#176; Profiling Exercises
-  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_mrf_assessment_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
-    Create a new 360&#176; Profiling Exercise
+  .pull-right.span  
+    %a.btn.btn-info.big.big-text{:href => new_company_mrf_assessment_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
+      Create a new 360&#176; Profiling Exercise
+    %br  
+    %br
+    %a.big.big-text.text-center.pull-right{:href => candidates_company_mrf_assessments_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
+      Search Candidates / Stakeholders
+    .clr  
   .clr
   .divider2
   .list-snippet-titles.big-text.clearfix
