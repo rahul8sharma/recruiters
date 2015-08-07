@@ -1,0 +1,41 @@
+.span25.huge-text.page-title
+  Add Candidates
+  .divider1
+.span30
+  = form_for @assessment, as: :assessment, url: add_company_mrf_assessment_candidate_assessments_path(@company.id, @assessment.id), method: :put do |f|
+    .divider2
+    %div.left-offset5
+      .first
+        .span8.first.extra-medium-text
+          Candidate Name
+        .span8.extra-medium-text.left-offset1
+          Candidate Email ID
+        .clr
+      .divider1
+      %ul.add-candidates.clearfix
+        - params[:candidates] ||= {}
+        - 10.times do |index|
+          - params[:candidates][index] ||= {}
+          %li
+            .control-group
+              .span8.extra-medium-text.first
+                %input.span8.medium-text{type: "text", placeholder: "Name", name: "candidates[#{index}][name]", value: params[:candidates][:name] }
+              .span8.extra-medium-text.left-offset1
+                %input.span8.medium-text{type: "text", placeholder: "Email", name: "candidates[#{index}][email]", value: params[:candidates][:email] }
+              .clr
+    .divider2
+    .send-assessment
+      .heading
+        Select Stakeholder Types: 
+      .divider1
+      - Vger::Resources::Mrf::Feedback::ROLES.each do |role|
+        .pull-left.span4
+          = check_box_tag "stakeholder_types[]", role, checked: :checked
+          %b #{role.titleize}
+      .clr    
+    .divider2
+    = render :partial => "mrf/assessments/candidate_assessments/email_settings_for_candidate", locals: { reminder: false }
+    .divider2
+    .span.pull-right
+      %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+    .clr

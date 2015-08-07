@@ -50,7 +50,7 @@
             .span6{ title: feedback.stakeholder.email }
               = link_to feedback.stakeholder.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
             .span3
-              = feedback.role
+              = feedback.role.titleize
             .clr
             .clr
     - else

@@ -1,0 +1,31 @@
+function selectCandidateInvitationTemplate() {
+  var body = $("#select_candidate_invitation_template").find(":selected").attr("body");
+  var subject = $("#select_candidate_invitation_template").find(":selected").attr("subject");
+  var from = $("#select_candidate_invitation_template").find(":selected").attr("from");
+  if(body) {
+    $(".default-email-candidate-invitation").hide();
+    $(".custom-email-candidate-invitation").show();
+    $(".email-body-candidate-invitation").html("<i>"+body+"</i>");
+    $(".email-subject-candidate-invitation").html("<i>"+subject+"</i>");
+    $(".email-from-candidate-invitation").html("<i>"+from+"</i>");
+  } else {
+    $(".custom-email-candidate-invitation").hide();
+    $(".default-email-candidate-invitation").show();
+  }
+}
+
+function selectStakeholderInvitationTemplate() {
+  var body = $("#select_stakeholder_invitation_template").find(":selected").attr("body");
+  var subject = $("#select_stakeholder_invitation_template").find(":selected").attr("subject");
+  var from = $("#select_stakeholder_invitation_template").find(":selected").attr("from");
+  if(body) {
+    $(".default-email-stakeholder-invitation").hide();
+    $(".custom-email-stakeholder-invitation").show();
+    $(".email-body-stakeholder-invitation").html("<i>"+body+"</i>");
+    $(".email-subject-stakeholder-invitation").html("<i>"+subject+"</i>");
+    $(".email-from-stakeholder-invitation").html("<i>"+from+"</i>");
+  } else {
+    $(".custom-email-stakeholder-invitation").hide();
+    $(".default-email-stakeholder-invitation").show();
+  }
+}
