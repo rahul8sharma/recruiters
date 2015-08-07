@@ -1,0 +1,40 @@
+.candidate-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+  .pull-right  
+    %a.btn.btn-info.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
+      Create a new 360&#176; Profiling Exercise
+    %br  
+    %br  
+    %a.big-text.big.pull-right{:href => add_company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)}
+      Add Candidates  
+  .clr
+  .divider2
+  = render :partial => "shared/360/candidate-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    = form_for @candidate_assessment, as: :candidate_assessment, url: company_mrf_assessment_candidate_assessment_path(@company.id, @assessment.id, @candidate_assessment.id) do |f|      
+      .send-assessment
+        .heading
+          Candidate: 
+          = @candidate_assessment.candidate.name
+          %br/
+          %br/
+        .heading
+          Select Stakeholder Types: 
+        .divider1
+        - Vger::Resources::Mrf::Feedback::ROLES.each do |role|
+          .pull-left.span4
+            %label
+              = check_box_tag "stakeholder_types[]", role, @candidate_assessment.stakeholder_types.include?(role), class: "pull-left"
+              %b #{role.titleize} 
+            %br/
+            %br/
+            
+        .clr 
+        = f.submit "Update", class: "btn btn-info large-text font-bold"  
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+    .clr

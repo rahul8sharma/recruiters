@@ -269,7 +269,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         return
       end
 
-      candidate = get_or_create_candidate
+      candidate = get_or_create_candidate(params[:candidate])
       return if !candidate
 
       feedbacks.each do |index, feedback_hash|
@@ -351,7 +351,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def preview
   end
-
+  
   protected
 
   def get_company
@@ -384,13 +384,13 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     ).all.to_a
   end
 
-  def get_or_create_candidate
+  def get_or_create_candidate(candidate_hash)
     candidate = nil
-    if params[:candidate][:email].present?
-      candidate = Vger::Resources::Candidate.where(query_options: { email: params[:candidate][:email] }).all.to_a.first
+    if candidate_hash[:email].present?
+      candidate = Vger::Resources::Candidate.where(query_options: { email: candidate_hash[:email] }).all.to_a.first
     end
     if !candidate
-      candidate = Vger::Resources::Candidate.find_or_create(params[:candidate])
+      candidate = Vger::Resources::Candidate.find_or_create(candidate_hash)
       if !candidate.error_messages.empty?
         flash[:error] = candidate.error_messages.join("<br/>").html_safe
         return nil
@@ -434,7 +434,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     return stakeholder_assessment
   end
-
+  
   def get_or_create_feedback(stakeholder_assessment,candidate,feedback_hash)
     feedback = Vger::Resources::Mrf::Feedback.where(
       company_id: @company.id,
@@ -442,7 +442,6 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       stakeholder_assessment_id: stakeholder_assessment.id,
       query_options: {
         stakeholder_assessment_id: stakeholder_assessment.id,
-        role: feedback_hash[:role],
         candidate_id: candidate.id
       }
     ).all.to_a.first

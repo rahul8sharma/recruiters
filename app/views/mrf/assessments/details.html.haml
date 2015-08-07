@@ -5,6 +5,9 @@
   %a.btn.btn-info.pull-right.big-text.big.bold{:href => new_company_mrf_assessment_path(@company)}
     Create a new 360&#176; Profiling Exercise 
   .clr
+  .pull-right.big-text.big
+    = link_to "Invite Candidates", add_company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)
+  .clr
   .divider2
   = render :partial => "shared/360/candidate-content-sub-nav"
 

@@ -1,0 +1,13 @@
+.send-assessment
+  .heading
+    %i.icon-envelope
+    Email Settings
+  .divider2
+  .span14
+    = render :partial => "mrf/assessments/candidate_assessments/mail_body_for_candidate_invitation"
+  .span13
+    = render :partial => "mrf/assessments/candidate_assessments/mail_body_for_stakeholder_invitation"  
+  .clr  
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
+= javascript_include_tag 'mrf/add_candidates'          

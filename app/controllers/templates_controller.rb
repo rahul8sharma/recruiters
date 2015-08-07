@@ -33,6 +33,10 @@ class TemplatesController < MasterDataController
   
   protected
   
+  def select_category
+    Vger::Resources::Template::TEMPLATE_CATEGORIES.sort
+  end
+  
   def get_template_variables
     @template_variables = Vger::Resources::TemplateVariable.all
   end

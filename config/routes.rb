@@ -249,6 +249,12 @@ Recruiters::Application.routes.draw do
     end
 
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
+      resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do 
+        collection do
+          match "add" => "mrf/assessments/candidate_assessments#add_candidates", :as => :add
+        end
+      end
+      
       collection do
         get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
         get "home" => "mrf/assessments#home", :as => :home
@@ -264,13 +270,6 @@ Recruiters::Application.routes.draw do
         post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
         put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
 
-        get "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
-        put "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
-
-        get "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
-        put "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
-
-
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
 
@@ -280,23 +279,20 @@ Recruiters::Application.routes.draw do
         get "stakeholders/:stakeholder_id" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
         get ":candidate_id/update_feedback" => "mrf/assessments/candidate_feedback#update_feedback", :as => :update_feedback
 
-        get "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
-        put "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
         get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
-        put "order_enable_items" => "mrf/assessments#order_enable_items"
-
-        get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
-        get "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
-        put "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
-
         get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
 
-        get "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
-        put "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
-        match "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
-        get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
+        match "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
+        match "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
+        match "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        match "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
+        match "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
+        match "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         match "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
+        match "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
+        
+        get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
