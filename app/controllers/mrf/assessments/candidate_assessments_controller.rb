@@ -77,7 +77,7 @@ class Mrf::Assessments::CandidateAssessmentsController < ApplicationController
     if @candidate_assessment.error_messages.present?
       render :action => :edit
     else
-      redirect_to company_mrf_assessment_candidate_assessments_path(@company.id, @assessment.id, @candidate_assessment.id)
+      redirect_to company_mrf_assessment_candidate_assessments_path(@company.id, @assessment.id)
     end
   end
 
