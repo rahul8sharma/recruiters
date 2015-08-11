@@ -62,7 +62,8 @@ class Mrf::AssessmentsController < ApplicationController
           id: item_id,
           type: item_data[:type].split("Vger::Resources::").last,
           enable_comment: item_data[:enable_comment].present?,
-          comment_compulsory: item_data[:comment_compulsory].present?
+          comment_compulsory: item_data[:comment_compulsory].present?,
+          allow_skip: item_data[:allow_skip].present?
         }
       }
       items_other = @selected_items_other.collect{ |item_id,item_data|
@@ -70,7 +71,8 @@ class Mrf::AssessmentsController < ApplicationController
           id: item_id,
           type: item_data[:type].split("Vger::Resources::").last,
           enable_comment: item_data[:enable_comment].present?,
-          comment_compulsory: item_data[:comment_compulsory].present?
+          comment_compulsory: item_data[:comment_compulsory].present?,
+          allow_skip: item_data[:allow_skip].present?
         }
       }
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { 
