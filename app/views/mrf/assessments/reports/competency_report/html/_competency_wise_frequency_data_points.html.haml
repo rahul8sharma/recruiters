@@ -51,7 +51,7 @@
                 .panel.bg-white
                   - if competency_scores[:role_wise_scores].present?
                     .span13.margin-auto
-                      - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
+                      - competency_scores[:role_wise_scores].select{|role,score| score[:points] }.each_with_index do |(role, score),index|
                         .span6{ class: index.odd? ? "first" : "left-offset1" }
                           .divider1
                           .rating_snippet

@@ -1,7 +1,7 @@
 - items.each_with_index do |item, item_index|
   %li.items{ class: @error_items.include?(item.id.to_s) ? "error" : "" }
     -# toggle ".error" class to ".items"
-    .span12.item
+    .span10.item
       #{item_index+1}. #{item.body}
       .info
         .bold Options under the item
@@ -14,17 +14,18 @@
       %label
         - enabled = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:type].present? : !@assessment.configuration[:items_other].present?
         %input{:type=>"checkbox", class: "#{role}", checked: enabled, name: "selected_items_#{role}[#{item.id}][type]", value: "#{item.class.name}"}
-        Enable
-    .span5
+    .span4
       %label
         - enable_comment = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:enable_comment].present? : assessment_trait.enable_comment
         %input{:type=>"checkbox", checked: enable_comment, name: "selected_items_#{role}[#{item.id}][enable_comment]"}
-        Enable Comment
     .span5
       %label
         - comment_compulsory = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:comment_compulsory].present? : assessment_trait.comment_compulsory
         %input{:type=>"checkbox", checked: comment_compulsory, name: "selected_items_#{role}[#{item.id}][comment_compulsory]"}
-        Comment Compulsory
+    .span3
+      %label
+        - allow_skip = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:allow_skip].present? : false
+        %input{:type=>"checkbox", checked: allow_skip, name: "selected_items_#{role}[#{item.id}][allow_skip]"}
     .span
       %select{ name: "selected_items_#{role}[#{item.id}][order]" }
         - order = selected_items[item.id.to_s].present? ? selected_items[item.id.to_s][:order].to_i : total_index

@@ -425,7 +425,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         company_id: @company.id,
         assessment_id: @assessment.id,
         stakeholder_id: stakeholder.id,
-        invitation_template_id: params[:template_id]
+        invitation_template_id: params[:template_id],
+        assessment_type: @assessment.assessment_type
       )
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
