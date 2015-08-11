@@ -76,7 +76,7 @@
                       .panel.bg-white
                         - if trait_score[:role_wise_scores].present?
                           .span13.margin-auto
-                            - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
+                            - trait_score[:role_wise_scores].select{|role,score| score[:points] }.each_with_index do |(role, score),index|
                               .span6{ class: index.odd? ? "first" : "" }
                                 .divider1
                                 .rating_snippet
