@@ -1,4 +1,4 @@
-- if @report.report_data[:mrf_report_show_subjective_responses]
+- if @report.report_data[:mrf_report_show_trait_comments]
   - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
     - if competency_scores[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
       - competency_scores[:trait_scores].each_slice(5) do |step_trait|
