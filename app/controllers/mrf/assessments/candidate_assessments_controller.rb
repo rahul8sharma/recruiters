@@ -137,7 +137,7 @@ class Mrf::Assessments::CandidateAssessmentsController < ApplicationController
 
   def get_templates_for_candidates
     query_options = {
-      category: Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_CANDIDATE
+      category: eval("Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_CANDIDATE")
     }
     @candidate_templates = Vger::Resources::Template\
                   .where(
@@ -150,7 +150,7 @@ class Mrf::Assessments::CandidateAssessmentsController < ApplicationController
                     scopes: { global: nil }
                   ).all.to_a
     query_options = {
-      category: Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE
+      category: eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE")
     }              
     @stakeholder_templates = Vger::Resources::Template\
                   .where(

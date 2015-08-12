@@ -25,6 +25,10 @@ class LocationsController < MasterDataController
     ]
   end
   
+  def select_location_type
+    Vger::Resources::Location::LOCATION_TYPES
+  end
+  
   def get_locations
     @locations = Vger::Resources::Location.where(:order => [:name],:query_options => params[:search]).all.to_a
     respond_to do |format|

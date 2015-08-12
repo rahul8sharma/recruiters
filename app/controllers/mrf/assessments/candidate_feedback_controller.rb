@@ -473,9 +473,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     query_options = {
     }
     if reminder
-      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_REMINDER_TO_STAKEHOLDER
+      category = eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_REMINDER_TO_STAKEHOLDER")
     else
-      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_STAKEHOLDER
+      category = eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_INVITATION_TO_STAKEHOLDER")
     end
     query_options[:category] = category if category.present?
     @templates = Vger::Resources::Template\
