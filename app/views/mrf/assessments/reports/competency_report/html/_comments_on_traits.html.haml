@@ -2,43 +2,45 @@
   .sub-tiltle
     Comments on Traits under
     = competency_name
-  .divider2
-  - competency_scores[:trait_scores].each do |trait|
-    .bottom-trangle
-      .frame
-        .trait-comment-heading
-          Comments on 
-          %span.trait-name
-            "#{trait[:trait][:name]}"
-            .info
-              Trait present under the competency "#{competency_name}"
-            .arrow
-        .trait-comment-sub-heading
-          - if trait[:comments_compulsory] == true
-            Comments were Mandatory
-          - else
-            Comments were Optional
-        .divider2
-        - if !trait[:comments].present?
-          .no-responses
-            .box
-              No Responses
-          .divider3
-        - else
-          %ul
-            - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
-              - trait[:comments].each do |role_name, role_wise_comment|
-                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
-                  %li
-                    .stakeholder.span3.first
-                      = role_name.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
-                    .comment-box.span23.pull-right.medium-text.line-height1
-                      = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-                      .arrow
-                    .clr
-            - else
+  - if competency_scores[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
+    .divider2
+    - competency_scores[:trait_scores].each do |trait|
+      .bottom-trangle
+        - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+          .frame
+            .trait-comment-heading
+              Comments on 
+              %span.trait-name
+                "#{trait[:trait][:name]}"
+                .info
+                  Trait present under the competency "#{competency_name}"
+                .arrow
+            .trait-comment-sub-heading
+              - if trait[:comments_compulsory] == true
+                Comments were Mandatory
+              - else
+                Comments were Optional
+            .divider2
+            - if !trait[:comments].present?
               .no-responses
                 .box
                   No Responses
               .divider3
+            - else
+              %ul
+                - trait[:comments].each do |role_name, role_wise_comment|
+                  - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                    %li
+                      .stakeholder.span3.first
+                        = role_name.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
+                      .comment-box.span23.pull-right.medium-text.line-height1
+                        = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+                        .arrow
+                      .clr
+  - else
     .divider2
+    .no-responses
+      .box
+        No comments present for the traits under this competency
+    .divider2
+  .divider2 

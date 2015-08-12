@@ -1,4 +1,4 @@
-- url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => report.report_data[:company][:id], :candidate_id => report.report_data[:candidate][:id], :custom_assessment_id => report.report_data[:assessment][:id], :id => report.id, :view_mode => "html")
+- url =  company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => @company.id, :candidate_id => candidate_assessment.candidate_id, :custom_assessment_id => candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
 %a{:href => url, :title => "View Report", target: "_blank"}
   %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
   View Report

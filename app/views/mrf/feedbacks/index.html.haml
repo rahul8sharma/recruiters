@@ -1,0 +1,62 @@
+.profiling-exercises-list
+  .span14.page-title.first
+    .divider1
+    Candidates and Stakeholders
+  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_mrf_assessment_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
+    Create a new 360&#176; Profiling Exercise
+  .clr
+  .divider2
+  .search
+    = form_for :search, url: candidates_company_mrf_assessments_path(company_id: params[:company_id]), method: :get do |f|
+      .field
+        = f.text_field :candidate_name, :placeholder => "Candidate Name", value: params[:search][:candidate_name]
+        = f.text_field :candidate_email, :placeholder => "Candidate Email", value: params[:search][:candidate_email]
+        = f.text_field :stakeholder_name, :placeholder => "Stakeholder Name", value: params[:search][:stakeholder_name]
+        = f.text_field :stakeholder_email, :placeholder => "Stakeholder Email", value: params[:search][:stakeholder_email]
+        = f.submit "Search"
+  .divider2      
+  .list-snippet-titles.big-text.clearfix
+    - if @feedbacks.present?
+      .span2.first
+        360&#176; ID
+      .span2
+        CID
+      .span5
+        Candidate Name
+      .span6
+        Candidate Email
+      .span5
+        Stakeholder Name
+      .span6
+        Stakeholder Email
+      .span3
+        Stakeholder Type
+      .clr
+      .divider2          
+      %ul
+        - @feedbacks.each do |feedback|
+          %li.list-snippet.border-top-grayLighter.extra.medium-text
+            .divider1
+            .span2.first
+              = link_to feedback.assessment_id, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span2
+              = link_to feedback.candidate_id, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span5
+              = link_to feedback.candidate.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span6{ title: feedback.candidate.email }
+              = link_to feedback.candidate.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span5
+              = link_to feedback.stakeholder.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span6{ title: feedback.stakeholder.email }
+              = link_to feedback.stakeholder.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+            .span3
+              = feedback.role
+            .clr
+            .clr
+    - else
+      .alert.medium-text.text-center
+        No 360 Degree Profiling Exercises present. 
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @feedbacks}
+  .clr

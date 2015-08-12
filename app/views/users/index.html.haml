@@ -1,0 +1,58 @@
+.companies-list
+  .page-title
+    .divider1
+    Search Users
+    \|
+    = link_to "Search Companies", companies_path
+    .divider1
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @users }
+  .clr
+  .search
+    = form_for :search, url: users_path, method: :get do |f|
+      .field
+        = f.text_field :id, :placeholder => "User ID", value: params[:search][:id]
+        = f.text_field :name, :placeholder => "User Name", value: params[:search][:name]
+        = f.text_field :email, :placeholder => "User Email", value: params[:search][:email]
+        = f.select :type, options_for_select(["Candidate","Admin","CompanyManager"], params[:search][:type]), { :prompt => "User Type" }
+        = f.submit "Search"
+  .divider2
+  .list-snippet-titles.medium-text.clearfix
+    .span2.first
+      = sort_link "ID", users_path, "id", params[:search]
+    .span5
+      = sort_link "Name", users_path, :name, params[:search]
+    .span8
+      = sort_link "Email", users_path, :email, params[:search]
+    .span6
+      Company ID
+    .span6
+      Assessment ID
+    .span2
+      Role
+    .clr
+    .divider2
+  %ul
+    - @users.each do |user|
+      %li.list-snippet.border-bottom-grayLighter
+        .span2.first
+          %a.extra-medium-text{:href => self.send("get_link_for_#{user.type.underscore}",user), target: "_blank", :title => "Go to #{user.name}"}
+            = user.id
+        .span5
+          %a.extra-medium-text{:href => self.send("get_link_for_#{user.type.underscore}",user), target: "_blank", :title => user.name}
+            = user.name ? user.name[0..30] : "-"
+        .span8
+          %a.extra-medium-text{:href => self.send("get_link_for_#{user.type.underscore}",user), target: "_blank", :title => user.email}
+            = user.email ? user.email[0..30] : "-"
+        .span6
+          = user.company_ids.present? ? user.company_ids.join(", ") : "-"
+        .span6
+          = user.assessment_ids.present? ? user.assessment_ids.join(", ") : "-"
+        .span2.first
+          = user.type
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @users}
+  .clr

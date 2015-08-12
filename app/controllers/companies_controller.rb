@@ -286,14 +286,19 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
-    @companies = Vger::Resources::Company.where(
-      :query_options => params[:search],
+    search_params = params[:search].dup
+    name = search_params.delete :name
+    conditions = {
+      :query_options => search_params,
       :page => params[:page],
       :per => 15,
       :order => "#{order_by} #{order_type}",
       :include => [:subscription],
       :methods => methods
-    )
+    }
+    conditions[:scopes] = { :name_like => name } if name
+
+    @companies = Vger::Resources::Company.where(conditions)
     @active_subscription
   end
 
