@@ -4,6 +4,9 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def index
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
+    params[:search] = params[:search].each{|key,val| params[:search][key].strip! }
     @factors = Vger::Resources::Suitability::Factor.where(
       :page => params[:page],
       :per => 50,
@@ -11,9 +14,7 @@ class Suitability::FactorsController < MasterDataController
       :methods => [:type, :company_names],
       :order => [:factor_order],
       :root => :factor,
-      :query_options => {
-        type: params[:type] || "Suitability::Factor"
-      }
+      :query_options => params[:search]
     ).all
   end
 
@@ -126,5 +127,13 @@ class Suitability::FactorsController < MasterDataController
     respond_to do |format|
       format.json{ render :json => { :factors => factors } }
     end
+  end
+  
+  def select_type
+    ["Suitability::Factor","Suitability::DirectPredictor","Suitability::LieDetector","Suitability::AlarmFactor"]
+  end
+  
+  def search_columns
+    [:name, :type, :active, :parent_id]
   end
 end

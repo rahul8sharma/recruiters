@@ -1,17 +1,13 @@
 %h3 All Suitability Factors : Showing #{params[:type]}
 - if can? :create, "Suitability::Factor"
   = link_to "Manage Suitability Factors", manage_suitability_factors_path
-  \|
-  = link_to "Suitability Factors", suitability_factors_path(:type => "Suitability::Factor")
-  \|
-  = link_to "Direct Predictors", suitability_factors_path(:type => "Suitability::DirectPredictor")
-  \|
-  = link_to "Alarm Factors", suitability_factors_path(:type => "Suitability::AlarmFactor")
-  \|
-  = link_to "Lie Detectors", suitability_factors_path(:type => "Suitability::LieDetector")
   = form_for :factor, :url => export_display_names_suitability_factors_path, html: { multipart: true }, :method => :post do |f|
     = f.text_field "company_ids", :placeholder => "Company ID"
     = submit_tag "Export Display Names"
+
+%br
+%br
+= render :partial => "master_data/search"
 
 .pagination.pull-right
   = paginate @factors
