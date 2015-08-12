@@ -1,119 +1,33 @@
-.left-offset1
-  - if @candidate_templates.size > 1
-    .big-text.line-height2
-      Choose Email Template To Send Invitation To Candidate
-  %select.span9.first{ id: "select_candidate_invitation_template", name: "candidate_invitation_template_id", class: (@candidate_templates.size <= 1 ? 'hide':''), onchange: "selectCandidateInvitationTemplate()" }
-    -# add this class when template isnt availble "hide" to %select
-    - @candidate_templates.each do |template|
-      %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
-        = template.name
-  .clr
-  .divider1
+.big-text.line-height2
+  Choose Email Template To Send Invitation To Candidate
+%select.span9.first{ id: "select_candidate_invitation_template", name: "candidate_invitation_template_id", onchange: "selectCandidateInvitationTemplate()" }
+  - @candidate_templates.each do |template|
+    %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
+      = template.name
+.clr
+.divider1
 .email-template{ style: "margin-left:0;padding-left:0" }
-  -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
   .gray-dark
     .large-text
       Following is the Preview of the email that candidates will receive.
     .divider1
     - template = @candidate_templates[0]
-    .custom-email-candidate-invitation.hide
+    .custom-email-candidate-invitation
       .test-text-to-send
         %span.extra-medium-text.span2.first.show
           From
         .massage-body.italic.span15.medium-text.email-from-candidate-invitation
-          - if template && template.from
-            = template.preview(:from).html_safe
-          - else
-            = "<Sender Name> at #{@company.name}"
+          = template.preview(:from).html_safe
         .clr
         .divider1
         %span.extra-medium-text.span2.first.show
           Subject
         .massage-body.italic.span15.medium-text.email-subject-candidate-invitation
-          - if template && template.subject
-            = template.preview(:subject).html_safe
-          - else
-            = "<Candidate's Name>, here is your link to invite stakeholders."
+          = template.preview(:subject).html_safe
         .clr
         .divider1
         %span.extra-medium-text.span2.first.show
           Message
         .massage-body.italic.span15.medium-text.email-body-candidate-invitation
-        .clr
-    .default-email-candidate-invitation
-      .test-text-to-send
-        %span.extra-medium-text.span2.first.show
-          From
-        .massage-body.italic.span15.medium-text
-          - if template && template.from
-            = template.preview(:from).html_safe
-          - else
-            = "Jombay <no-reply@jombay.com>"
-        .clr
-        .divider1
-        %span.extra-medium-text.span2.first.show
-          Subject
-        .massage-body.italic.span15.medium-text
-          - if template && template.subject
-            = template.preview(:subject).html_safe
-          - else
-            = "<Candidates's Name>, here is your link to invite stakeholders."
-        .clr
-        .divider1
-        %span.extra-medium-text.span2.first.show
-          Message
-        .massage-body.italic.span15.medium-text
-          - if template
-            = template.preview(:body).html_safe
-          - else
-            Email dated: &lt;Email Sent Date and Time&gt;
-            %br
-            %br
-            Dear &lt;Candidate's Name&gt;,
-            %br
-            %p
-              You have an invitation from &lt;Sender Name&gt; for #{@company.name} to participate in a 360° Feedback Exercise via Jombay. This exercise is titled "#{@assessment.name}" and aims to develop a comprehensive 360º profile of all candidates attached to it.
-            %p
-              360º Exercises lets candidates understand perception of others, helping them enhance their strengths and work on areas of improvement.
-            %p
-              To get started with the feedback, please click on the link below. Your feedback will be completely anonymous. Please ensure that you read the guidelines presented before the exercise carefully!
-            %p
-              Link: &lt;Feedback URL&gt;
-            %p
-              %ul
-                %li
-                  This link is meant only to be used by you (&lt;Stakeholder's Name&gt;). Please do not forward it to anyone else. 
-                  %br
-                %li
-                  If you believe you’ve been sent an incorrect link, please let us know at shekhar@jombay.com
-                  %br
-                %li
-                  If you accidentally close the Feedback window, you can again click on the link above to resume the exercise
-                  %br
-                %li
-                  If you face any technical difficulties, please feel free to reach us at shekhar@jombay.com
-
-            %p
-              Best Regards, 
-              %br
-              - if is_superadmin?
-                #{current_user.name}
-                %br
-                Jombay
-                %br
-              - else
-                &lt;Sender Name&gt;
-                %br
-                #{@company.name}
-                %br
-            %p
-              Other notes: 
-              %br
-              %ol
-                %li
-                  If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser while ensuring that there are no spaces in between. 
-                  %br
-                %li
-                  If more candidates are added to this 360º Profiling Exercise with your feedback requested from, you will be notified
-                  
+          = template.preview(:body).html_safe
         .clr

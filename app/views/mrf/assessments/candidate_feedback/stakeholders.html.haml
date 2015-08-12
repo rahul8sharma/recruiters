@@ -3,13 +3,12 @@
     .divider1
     #{@candidate.id} - #{@candidate.name}
   .span7.pull-right.medium-text
-    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
-      Return to 360&#176; Profiling Exercise Details
-    .divider1
     %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, candidate_ids: @candidate.id)}
       Add Stakeholders
   .clr
-  %br
+  .span7.pull-right.medium-text  
+    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
+      Return to 360&#176; Profiling Exercise Details
   .span7.pull-right.medium-text
     = link_to "Disable all stakeholders for this candidate", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id, options: { candidate_id: @candidate.id }), confirm: "Are you sure?"
   .clr  
