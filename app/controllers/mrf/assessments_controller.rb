@@ -3,6 +3,10 @@ class Mrf::AssessmentsController < ApplicationController
   before_filter { authorize_admin!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_assessment, :except => [:index]
+  
+  def api_resource
+    Vger::Resources::Mrf::Assessment
+  end
 
   layout 'mrf/mrf'
 
@@ -21,8 +25,8 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def order_enable_items
-    added_other_items = @assessment.items_other.present? ? Hash[@assessment.items_other.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index }] }] : {}
-    added_self_items = @assessment.items_self.present? ? Hash[@assessment.items_self.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index }] }] : {}
+    added_other_items = @assessment.items_other.present? ? Hash[@assessment.items_other.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index, allow_skip: !item_data['compulsory'] }] }] : {}
+    added_self_items = @assessment.items_self.present? ? Hash[@assessment.items_self.collect.with_index{|item_data, index| [item_data['id'].to_s,{ type: item_data['type'], order: index, allow_skip: !item_data['compulsory'] }] }] : {}
     params[:selected_items_other] ||= added_other_items
     params[:selected_items_self] ||= added_self_items
     @selected_items_other = params[:selected_items_other]
@@ -63,7 +67,7 @@ class Mrf::AssessmentsController < ApplicationController
           type: item_data[:type].split("Vger::Resources::").last,
           enable_comment: item_data[:enable_comment].present?,
           comment_compulsory: item_data[:comment_compulsory].present?,
-          allow_skip: item_data[:allow_skip].present?
+          compulsory: !item_data[:allow_skip].present?
         }
       }
       items_other = @selected_items_other.collect{ |item_id,item_data|
@@ -72,7 +76,7 @@ class Mrf::AssessmentsController < ApplicationController
           type: item_data[:type].split("Vger::Resources::").last,
           enable_comment: item_data[:enable_comment].present?,
           comment_compulsory: item_data[:comment_compulsory].present?,
-          allow_skip: item_data[:allow_skip].present?
+          compulsory: !item_data[:allow_skip].present?
         }
       }
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { 
@@ -136,11 +140,62 @@ class Mrf::AssessmentsController < ApplicationController
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
       flash[:notice] = "360 Degree feedback created successfully!"
-      redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+      if params[:proceed_with_competencies].present?
+        redirect_to competencies_company_mrf_assessment_path(@company.id,@assessment.id)
+      else
+        if params[:assessment][:use_competencies] == "1"
+          redirect_to competencies_company_mrf_assessment_path(@company.id,@assessment.id)
+        else
+          redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+        end
+      end
     else
       get_custom_assessments
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
       render action: :new
+    end
+  end
+  
+  def competencies
+    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
+    if request.get?
+    else
+      added_assessment_competencies = Hash[@assessment.assessment_competencies.map do |assessment_competency|
+        [assessment_competency.competency_id, assessment_competency.id]
+      end]
+      params[:assessment] ||= {}
+      params[:assessment][:competencies] ||= []
+      if params[:assessment][:competencies].blank?
+        flash[:error] = "Competencies to be measured must be selected before proceeding!"
+        return
+      else
+        selected_competency_ids = params[:assessment][:competencies].map(&:to_i)
+        selected_competencies = Hash[params[:assessment][:competency_order].select{|competency_id,order| selected_competency_ids.include?(competency_id.to_i) }]
+        competency_order = Hash[selected_competencies.map{|competency_id,order| [competency_id.to_i,order.to_i] }]
+        competency_order = Hash[competency_order.sort_by{|competency_id, order| order }]
+        if competency_order.values.size != competency_order.values.uniq.size
+          flash[:error] = "Competencies should have unique order!"
+          return
+        end
+        ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
+        @assessment = api_resource.save_existing(@assessment.id,  {
+          company_id: @company.id,
+          assessment_competencies_attributes: Hash[ordered_competencies.collect.with_index do |competency_id, index|
+            [index, {
+              id: added_assessment_competencies[competency_id],
+              competency_id: competency_id,
+              assessment_id: @assessment.id,
+              competency_order: index
+            }]
+          end]
+        })
+        if @assessment.error_messages.blank?
+          redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+        else
+          flash[:error] = @assessment.error_messages.join("<br/>")
+        end
+      end
     end
   end
 

@@ -1,0 +1,21 @@
+- assessment_competency = @assessment_competencies.find{|assessment_competency| assessment_competency.competency_id == competency.id }
+- assessment_competency ||= Vger::Resources::Mrf::AssessmentCompetency.new(competency_id: competency.id, assessment_id: @assessment.id)
+%li.medium-text.gray-darker
+  .span4.first
+    = competency.id
+  .span8
+    %label{:for=>"competency_#{competency.id}"}
+      = competency.name
+  .span14
+    = competency.factor_names.join(", ") != "" ? competency.factor_names.join(", ") : "-"
+  %select.span2{name: "assessment[competency_order][#{competency.id}]"}  
+    - @all_competency_count.times do |index|
+      - selected = @ordered_competency_ids.index(competency.id)
+      - selected = competency_index if !selected
+      %option{value: index, selected: index==selected}
+        = index+1
+  .span.left-offset1
+    %input{:type=>"checkbox", checked: @ordered_competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, :id=>"competency_#{competency.id}"}
+   
+  .clr
+  .divider1

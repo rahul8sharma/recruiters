@@ -44,7 +44,7 @@
       .divider1
       .factor-list
         %ul.clearfix
-          - @assessment.assessment_competencies.each_with_index do |assessment_competency, index|
+          - @assessment.assessment_competencies.sort_by(&:competency_order).each_with_index do |assessment_competency, index|
             = render :partial => 'mrf_competencies_range_field', :locals =>{:assessment_competency => assessment_competency, :index => index}
 
     .divider3

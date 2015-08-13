@@ -1,0 +1,81 @@
+- @assessment_competencies = @assessment.assessment_competencies.to_a
+- @ordered_competency_ids = @assessment_competencies.sort_by(&:competency_order).map(&:competency_id)
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+.competencies
+  .page-title 
+    #{@assessment.name}
+  .divider1
+  = form_for @assessment, :as => :assessment, :url => competencies_company_mrf_assessment_path(params[:company_id],params[:id]), method: :put do |f|
+    - all_competency_index = 0
+    - @all_competency_count = @local_competencies.count + @global_competencies.count
+
+    .large-text
+      Custom competencies
+    .divider2
+
+    - if !@local_competencies.present? 
+      .alert No custom competencies present for the company
+    - else
+      -#
+        .global_selector
+          %input{:type=>"checkbox", checked: ((@local_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_local"}
+          %label{ for: "check_all_local" }
+            Select All
+      %ul
+        %li.extra-medium-text
+          .span4.first
+            Competency ID
+          .span8
+            Competency Name
+          .span14
+            Traits included
+          .span2
+            Order
+          .span.left-offset1
+           
+          .clr
+          .divider2
+        - @local_competencies.each do |competency|
+          = render :partial => "mrf_assessment_competency_fields", locals: { competency: competency, competency_index: all_competency_index }
+          - all_competency_index+=1  
+    .divider3.border-bottom-grayLighter
+
+    .divider2
+
+    .large-text
+      Standard competencies
+    .divider2
+
+    - if !@global_competencies.present? 
+      .alert No standard competencies present for the company
+    - else
+      -#
+        .global_selector
+          %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
+          %label{:for => "check_all_global"}
+            Select All
+      %ul
+        %li.extra-medium-text
+          .span4.first
+            Competency ID
+          .span8
+            Competency Name
+          .span14
+            Triats included
+          .span2
+            Order
+          .span.left-offset1
+           
+          .clr
+          .divider2
+        - @global_competencies.each do |competency|
+          = render :partial => "mrf_assessment_competency_fields", locals: { competency: competency, competency_index: all_competency_index }
+          - all_competency_index+=1  
+    .divider2
+
+    %input.pull-right.btn.btn-warning.large-text{:type => "submit", :value => "Proceed"}  
+   
+= javascript_include_tag 'competencies'
+
