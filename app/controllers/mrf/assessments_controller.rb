@@ -157,9 +157,8 @@ class Mrf::AssessmentsController < ApplicationController
   end
   
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
-    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
     if request.get?
+      get_competencies
     else
       added_assessment_competencies = Hash[@assessment.assessment_competencies.map do |assessment_competency|
         [assessment_competency.competency_id, assessment_competency.id]
@@ -167,6 +166,7 @@ class Mrf::AssessmentsController < ApplicationController
       params[:assessment] ||= {}
       params[:assessment][:competencies] ||= []
       if params[:assessment][:competencies].blank?
+        get_competencies
         flash[:error] = "Competencies to be measured must be selected before proceeding!"
         return
       else
@@ -175,6 +175,7 @@ class Mrf::AssessmentsController < ApplicationController
         competency_order = Hash[selected_competencies.map{|competency_id,order| [competency_id.to_i,order.to_i] }]
         competency_order = Hash[competency_order.sort_by{|competency_id, order| order }]
         if competency_order.values.size != competency_order.values.uniq.size
+          get_competencies
           flash[:error] = "Competencies should have unique order!"
           return
         end
@@ -193,6 +194,7 @@ class Mrf::AssessmentsController < ApplicationController
         if @assessment.error_messages.blank?
           redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
         else
+          get_competencies
           flash[:error] = @assessment.error_messages.join("<br/>")
         end
       end
@@ -400,5 +402,9 @@ class Mrf::AssessmentsController < ApplicationController
       @assessment_traits.push @assessment_trait
     end
   end
-
+  
+  def get_competencies
+    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
+  end
 end
