@@ -283,6 +283,8 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
 
+        
+        match "competencies" => "mrf/assessments#competencies", :as => :competencies
         match "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         match "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
         match "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
