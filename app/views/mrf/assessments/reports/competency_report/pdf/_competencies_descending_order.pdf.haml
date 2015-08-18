@@ -8,10 +8,10 @@
         360&#176; Competencies: Scores in Descending Order
       .divider1
       .graph_instructions
-        .stakeholder_rating_icon.pull-left
+        .graph_stakeholder_rating_icon.pull-left
         .pull-left.bold
           360&#176; Rating
-        .classic_user_icon.span
+        .graph_classic_user_icon.span
         .pull-left.bold
           Self Rating
         
@@ -21,8 +21,8 @@
         .graph_container
           .left_sec.pull-left
             .graph_instructions{style:"margin-left:175px"}
-              .span1.divider2.stakeholder_rating_icon
-              .span1.divider2.classic_user_icon.first
+              .span1.divider2.graph_stakeholder_rating_icon
+              .span1.divider2.graph_classic_user_icon.first
               .clr
             %ul
               - sorted_competency_scores.each do |competency, competency_score|
