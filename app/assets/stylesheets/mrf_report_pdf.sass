@@ -42,11 +42,13 @@ $mrf_image_path: report/pdf/mrf
       border-color: #707175
       left: 5px
   .mrf_data_points
+    .small-padding
+      padding: 0 15px
     .min_max_scores
       color: #fff
       .max, .min
         line-height: 25px
-        padding: 0 15px
+        padding: 0 10px
       .max
         background: #ffd038
       .min
@@ -122,6 +124,7 @@ $mrf_image_path: report/pdf/mrf
     .left-sec
       .rounded
         background: #414042
+        margin-top: 5px
       .title
         color: #000
         font-weight: 700
@@ -182,9 +185,9 @@ $mrf_image_path: report/pdf/mrf
             width: 63px
             float: right
         .mrf-result
-          border: 1px solid #28b29b
+          border: 1px solid #A119A6
           .left
-            background: image-url('#{$mrf_image_path}/rating-ring.png') no-repeat center 2px #28b29b
+            background: image-url('#{$mrf_image_path}/rating-ring.png') no-repeat center 2px #A119A6
             padding: 15px 0 0 0
             color: #fff
 
@@ -193,7 +196,7 @@ $mrf_image_path: report/pdf/mrf
             background: #fff
           
         .self-result  
-          border: 1px solid #3da5bf
+          border: 1px solid #24D8BA
 
           .left
             background: #fff
@@ -202,23 +205,23 @@ $mrf_image_path: report/pdf/mrf
           .right
             padding: 15px 0 0 0
             color: #fff
-            background: image-url('#{$mrf_image_path}/user-icon.png') no-repeat center 5px #3da5bf
+            background: image-url('#{$mrf_image_path}/user-icon.png') no-repeat center 5px #24D8BA
           
 
 
       .marker.mrf-rating
-        background:  image-url('#{$mrf_image_path}/marker-hexagon-green.png') no-repeat center center
+        background:  image-url('#{$mrf_image_path}/marker-hexagon-dark-blue.png') no-repeat center center
 
         .arrow-mrf-result
           display: block
-          top: -8px
+          top: -7px
           background:  image-url('#{$mrf_image_path}/mrf-rating-arrow.png') no-repeat center center
         .mrf-result
           background: #fff
           display: block
          
       .marker.self-rating
-        background:  image-url('#{$mrf_image_path}/marker-hexagon-blue.png') no-repeat center center
+        background:  image-url('#{$mrf_image_path}/marker-hexagon-navy.png') no-repeat center center
         .arrow-self-result
           display: block
           top: 13px
@@ -560,9 +563,8 @@ $mrf_image_path: report/pdf/mrf
           left: 482px
           top: -4px
     
+      
     .frame
-      .small-padding
-        padding: 0 15px 
       .mrf_scores_listing 
         .left-sec 
           .rounded
