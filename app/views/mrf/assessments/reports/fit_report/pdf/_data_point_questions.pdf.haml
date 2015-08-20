@@ -30,7 +30,7 @@
 
             .divider1
             - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
-              .span3.color-average.border_gray_light.small-padding.text-center
+              .span4.color-average.border_gray_light.small-padding.text-center
                 #{pluralize(role_wise_score[:count],role_name.titleize)} : #{role_wise_score[:average_score]}
 
             .clr
