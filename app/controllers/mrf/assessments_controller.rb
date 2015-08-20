@@ -394,7 +394,7 @@ class Mrf::AssessmentsController < ApplicationController
     @traits.each do |trait|
       trait_type = trait.class.name.gsub('Vger::Resources::','')
       @assessment_trait = added_assessment_traits["#{trait_type}-#{trait.id}"]
-      @assessment_trait ||= Vger::Resources::Mrf::AssessmentTrait.new({ trait_type: trait_type, trait_id: trait.id, assessment_id: @assessment.id })
+      @assessment_trait ||= Vger::Resources::Mrf::AssessmentTrait.new({ trait_type: trait_type, trait_id: trait.id, assessment_id: @assessment.id, from_norm_bucket_id: @norm_buckets.sort_by(&:weight).map(&:id).first, to_norm_bucket_id: @norm_buckets.sort_by(&:weight).map(&:id).last })
       @assessment_trait.trait = trait
       @assessment_trait.from_norm_bucket_id ||= @norm_buckets.map(&:id).min
       @assessment_trait.to_norm_bucket_id ||= @norm_buckets.map(&:id).max

@@ -18,7 +18,7 @@
       - stakeholder_count = 0
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
-        - stakeholder_count += score[:count]
+        - stakeholder_count += score[:count].to_i
         %tr{:style=>"background:none"}
           %td.color-average.captions{:style=>"text-align:left"}
             = role.titleize
