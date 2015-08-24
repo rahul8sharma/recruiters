@@ -6,6 +6,8 @@
     Create a new 360&#176; Profiling Exercise 
   .clr
   .pull-right.big-text.big
+    = link_to "Candidates", company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)
+    \|
     = link_to "Invite Candidates", add_company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)
   .clr
   .divider2

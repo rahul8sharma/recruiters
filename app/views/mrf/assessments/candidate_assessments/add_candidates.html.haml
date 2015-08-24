@@ -6,6 +6,8 @@
     .divider2
     %div.left-offset5
       .first
+        .span2
+          &nbsp;
         .span8.first.extra-medium-text
           Candidate Name
         .span8.extra-medium-text.left-offset1
@@ -18,6 +20,9 @@
           - params[:candidates][index] ||= {}
           %li
             .control-group
+              .span2
+                .count.badge.badge-small.inverse 
+                  =  index+1
               .span8.extra-medium-text.first
                 %input.span8.medium-text{type: "text", placeholder: "Name", name: "candidates[#{index}][name]", value: params[:candidates][:name] }
               .span8.extra-medium-text.left-offset1

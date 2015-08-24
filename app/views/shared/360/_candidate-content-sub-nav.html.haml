@@ -3,7 +3,7 @@
     Statistics
   %a.menu{class: (["traits"].include?(params[:action]) ? "active" : ""), href: traits_company_mrf_assessment_path(@company,@assessment)}
     Traits Included
-  %a.menu{class: (["candidates"].include?(params[:action]) ? "active" : ""), href: candidates_company_mrf_assessment_path(@company,@assessment)}
+  %a.menu{class: (["candidates","index","edit"].include?(params[:action]) ? "active" : ""), href: candidates_company_mrf_assessment_path(@company,@assessment)}
     Candidates
   %a.menu{class: (["manage"].include?(params[:action]) ? "active" : ""), href: manage_group_report_company_mrf_assessment_path(@company.id,@assessment.id)}
     Group Report
