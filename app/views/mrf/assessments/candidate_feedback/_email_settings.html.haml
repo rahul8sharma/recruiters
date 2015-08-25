@@ -4,14 +4,13 @@
     Email Settings
   .divider2
   .left-offset1
-    - if @templates.size > 1
-      .big-text.line-height2
-        Choose Email Template
-    %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
-      -# add this class when template isnt availble "hide" to %select
-      - @templates.each do |template|
-        %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
-          = template.name
+    .big-text.line-height2
+      Choose Email Template
+  %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+    -# add this class when template isnt availble "hide" to %select
+    - @templates.each do |template|
+      %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
+        = template.name
     .clr
     .divider1
   .email-template
@@ -26,22 +25,13 @@
           %span.extra-medium-text.span2.first.show
             From
           .massage-body.italic.span15.medium-text.email-from
-            - if template && template.from
-              = template.preview(:from).html_safe
-            - else
-              = "<Sender Name> at #{@company.name}"
+            = template.preview(:from).html_safe
           .clr
           .divider1
           %span.extra-medium-text.span2.first.show
             Subject
           .massage-body.italic.span15.medium-text.email-subject
-            - if template && template.subject
-              = template.preview(:subject).html_safe
-            - else
-              - if reminder
-                = "[REMINDER] <Stakeholder's Name>, your 360 degree feedback for <no of candidates> candidates is pending.".html_safe
-              - else
-                = "<Stakeholder's Name>, you have been invited to give 360 degree feedback for <no of candidates> candidates."
+            = template.preview(:subject).html_safe
           .clr
           .divider1
           %span.extra-medium-text.span2.first.show
@@ -53,31 +43,19 @@
           %span.extra-medium-text.span2.first.show
             From
           .massage-body.italic.span15.medium-text
-            - if template && template.from
-              = template.preview(:from).html_safe
-            - else
-              = "Jombay <no-reply@jombay.com>"
+            = template.preview(:from).html_safe
           .clr
           .divider1
           %span.extra-medium-text.span2.first.show
             Subject
           .massage-body.italic.span15.medium-text
-            - if template && template.subject
-              = template.preview(:subject).html_safe
-            - else
-              - if reminder
-                = "[REMINDER] <Stakeholder's Name>, your 360 degree feedback for <no of candidates> candidates is pending."
-              - else  
-                = "<Stakeholder's Name>, you have been invited to give 360 degree feedback for <no of candidates> candidates."
+            = template.preview(:subject).html_safe
           .clr
           .divider1
           %span.extra-medium-text.span2.first.show
             Message
           .massage-body.italic.span15.medium-text
-            - if template
-              = template.preview(:body).html_safe
-            - else
-              = render :partial => "mrf/assessments/candidate_feedback/mail_body_for_invitation"
+            = template.preview(:body).html_safe
           .clr
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'

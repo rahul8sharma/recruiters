@@ -269,7 +269,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         return
       end
 
-      candidate = get_or_create_candidate
+      candidate = get_or_create_candidate(params[:candidate])
       return if !candidate
 
       feedbacks.each do |index, feedback_hash|
@@ -351,7 +351,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
 
   def preview
   end
-
+  
   protected
 
   def get_company
@@ -384,13 +384,13 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     ).all.to_a
   end
 
-  def get_or_create_candidate
+  def get_or_create_candidate(candidate_hash)
     candidate = nil
-    if params[:candidate][:email].present?
-      candidate = Vger::Resources::Candidate.where(query_options: { email: params[:candidate][:email] }).all.to_a.first
+    if candidate_hash[:email].present?
+      candidate = Vger::Resources::Candidate.where(query_options: { email: candidate_hash[:email] }).all.to_a.first
     end
     if !candidate
-      candidate = Vger::Resources::Candidate.find_or_create(params[:candidate])
+      candidate = Vger::Resources::Candidate.find_or_create(candidate_hash)
       if !candidate.error_messages.empty?
         flash[:error] = candidate.error_messages.join("<br/>").html_safe
         return nil
@@ -425,7 +425,8 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
         company_id: @company.id,
         assessment_id: @assessment.id,
         stakeholder_id: stakeholder.id,
-        invitation_template_id: params[:template_id]
+        invitation_template_id: params[:template_id],
+        assessment_type: @assessment.assessment_type
       )
       if !stakeholder_assessment.error_messages.empty?
         flash[:error] = stakeholder_assessment.error_messages.join("<br/>").html_safe
@@ -434,7 +435,7 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     end
     return stakeholder_assessment
   end
-
+  
   def get_or_create_feedback(stakeholder_assessment,candidate,feedback_hash)
     feedback = Vger::Resources::Mrf::Feedback.where(
       company_id: @company.id,
@@ -442,7 +443,6 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
       stakeholder_assessment_id: stakeholder_assessment.id,
       query_options: {
         stakeholder_assessment_id: stakeholder_assessment.id,
-        role: feedback_hash[:role],
         candidate_id: candidate.id
       }
     ).all.to_a.first
@@ -473,9 +473,9 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     query_options = {
     }
     if reminder
-      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_REMINDER_TO_STAKEHOLDER
+      category = eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_REMINDER_TO_STAKEHOLDER")
     else
-      category = Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_STAKEHOLDER
+      category = eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_INVITATION_TO_STAKEHOLDER")
     end
     query_options[:category] = category if category.present?
     @templates = Vger::Resources::Template\

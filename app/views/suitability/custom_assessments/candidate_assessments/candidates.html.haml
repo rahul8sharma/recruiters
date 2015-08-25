@@ -95,7 +95,7 @@
             .span8
               %a{:href=> candidate_company_custom_assessment_path(params[:company_id], params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
                 = status
-                as of #{htime candidate_assessment.updated_at} Hrs, #{hdate candidate_assessment.updated_at}
+                as of #{htime candidate_assessment.completed_at} Hrs, #{hdate candidate_assessment.completed_at}
                 -#remember Hrs & Hr
             - if @company.subscription_mgmt
               = render :partial => "suitability/custom_assessments/candidate_assessments/link_status/#{candidate_assessment.link_status}", locals: { candidate_assessment: candidate_assessment, assessment: @assessment, company: @company, candidate: candidate }

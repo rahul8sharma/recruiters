@@ -2,7 +2,7 @@
   - @report.report_data[:competency_scores].each_slice(2) do |step_competency_scores|
     = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Competencies"}
     - step_competency_scores.each do |competency, competency_scores|
-      .scores.border-bottom-grayLighter
+      .scores.border-bottom-grayLighter.mrf_data_points
         .divider1
         .green_heading.big-text
           Competency 
@@ -12,50 +12,77 @@
         - if @report.report_data[:competency360_competencies_textual_data_points]
           .small-padding
             .border-left-grayLighter.span
-              .stakeholder_rating_icon.span1.first &nbsp;
-              .medium-text.color-average.pull-left
-                360&#176; Score: 
-                = competency_scores[:score][:points] || "-"
-              .classic_user_icon.span1 &nbsp;
-              .medium-text.color-average.pull-left
-                Self Rating: 
-                = competency_scores[:average_score_self][:points] || "-"
-              .self_rating_icon.span &nbsp;
-              .medium-text.color-average.pull-left
-                360&#176; (Including Self): 
-                = competency_scores[:average_score_including_self][:points] || "-"
-              .clr
-              .divider1
-              .medium-text.black.span
-                - total_stakeholders = competency_scores[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
-                Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
-              .clr
-              .left-offset1
-                - if competency_scores[:role_wise_scores].present?
-                  - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
-                    .span.color-average.vSmall-padding.first
-                      #{pluralize(score[:count],role.titleize)}:  #{score[:points]}
+              .final_data_points
+                .border_gray_light.span
+                  .left.pull-left.stakeholder_rating_icon
+                    
+                  .right.pull-left
+                    .medium-text.color-average
+                      360&#176; Score: 
+                      = competency_scores[:score][:points] || "-"
                   .clr
+                .border_gray_light.span
+                  .left.pull-left.classic_user_icon
+                  .right.pull-left
+                    .medium-text.color-average
+                      Self Rating: 
+                      = competency_scores[:average_score_self][:points] || "-"
+                  .clr
+                .border_gray_light.span
+                  .left.pull-left.self_rating_icon
+                  .right.pull-left
+                    .medium-text.color-average
+                      360&#176; (Including Self): 
+                      = competency_scores[:average_score_including_self][:points] || "-"
+                  .clr
+                .clr
+              .divider1
+              .rating_by_all_takeholders
+                .medium-text.black.span.bold.line-height2
+                  - total_stakeholders = competency_scores[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
+                  Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
+                .clr
+
+                .border_gray_light.span
+                  - if competency_scores[:role_wise_scores].present?
+                    - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
+                      .span.color-average
+                        #{pluralize(score[:count],role.titleize)}:  #{score[:points]}
+
+                        = index  < competency_scores[:role_wise_scores].size-1 ? "|" : ""
+                    .clr
+                .clr
               - if @report.report_data[:competency360_competencies_best_worst_scores]
-                .span10
-                  .medium-text.black.span.first
+                .span14.final_data_points
+                  .medium-text.black.span.first.bold.line-height2
                     360&#176; Scores across exercise
                   .clr
                   .high_low_scores{:style => "padding-top: 10px"}
-                    .left-offset1
-                      .low.color-average.span
-                        Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
-                      .candidate.color-average.span
-                        Candidate: #{competency_scores[:score][:points] || "-"}
-                      .high.color-average.span
-                        Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+                    .border_gray_light.span.first
+                      .low.left.pull-left
+
+                      .right.pull-left
+                        .color-average.medium-text
+                          Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
                       .clr
+                    .border_gray_light.span
+                      .stakeholder_rating_icon.left.pull-left
+                      .right.pull-left
+                        .color-average.medium-text
+                          Candidate: #{competency_scores[:score][:points] || "-"}
+                      .clr
+                    .border_gray_light.span
+                      .high.left.pull-left
+                      .right.pull-left
+                        .color-average.medium-text
+                          Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+                      .clr
+                    .clr
               .clr
-            .clr
-            .divider1
-        - if @report.report_data[:competency360_competencies_frequency_of_ratings]
-          .small-padding
-            = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+              .divider1
+              - if @report.report_data[:competency360_competencies_frequency_of_ratings]
+                = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+                .clr
             .clr
     .clr
     .page-break    

@@ -12,7 +12,7 @@
             %a.scroll{:href => "#overview", :title => "Overview"}
               Overview
           %li
-            %a.scroll{:href => "#details", :title => "Details"}
+            %a.scroll{:href => "javascript:void(0);", :title => "Details", onclick: "window.scrollBy(0,document.getElementById('details').getBoundingClientRect().top-50);"}
               Details
           %li.right
         = yield :report_link

@@ -16,10 +16,11 @@ $mrf_image_path: report/html/mrf
     height: 10px
   .left-sec
     .rounded
-      background: #28b29b
+      background: #414042
+      margin-top: 5px
     .title
       color: #000
-      font-size: 20px
+      font-size: 18px
       font-weight: 700
   .rating-slider
     background:  image-url('#{$mrf_image_path}/rating-slider-line.png') no-repeat center center
@@ -61,14 +62,14 @@ $mrf_image_path: report/html/mrf
         position: absolute
         width: 185px
         left: -85px
-        border: 1px solid #28b29b
+        border: 1px solid #a119a6
         bottom: 31px
         border-radius: 3px
         background: #fff
         padding: 2px
         .left
           float: left
-          background: image-url('#{$mrf_image_path}/rating-ring.png') no-repeat center 5px #28b29b
+          background: image-url('#{$mrf_image_path}/rating-ring.png') no-repeat center 5px #a119a6
           width: 91px
           padding: 35px 0 0 0
           color: #fff
@@ -83,7 +84,7 @@ $mrf_image_path: report/html/mrf
         position: absolute
         width: 185px
         left: -85px
-        border: 1px solid #3da5bf
+        border: 1px solid #24d8ba
         bottom: 31px
         border-radius: 3px
         padding: 2px
@@ -96,14 +97,14 @@ $mrf_image_path: report/html/mrf
         .right
           padding: 35px 0 0 0
           color: #fff
-          background: image-url('#{$mrf_image_path}/user-icon.png') no-repeat center 5px #3da5bf
+          background: image-url('#{$mrf_image_path}/user-icon.png') no-repeat center 5px #24d8ba
           width: 91px
           float: right
         
 
 
     .marker.mrf-rating
-      background:  image-url('#{$mrf_image_path}/marker-hexagon-green.png') no-repeat center center
+      background:  image-url('#{$mrf_image_path}/marker-hexagon-dark-blue.png') no-repeat center center
 
       .arrow-mrf-result
         display: block
@@ -114,7 +115,7 @@ $mrf_image_path: report/html/mrf
         display: block
        
     .marker.self-rating
-      background:  image-url('#{$mrf_image_path}/marker-hexagon-blue.png') no-repeat center center
+      background:  image-url('#{$mrf_image_path}/marker-hexagon-navy.png') no-repeat center center
       .arrow-self-result
         display: block
         top: 20px
@@ -634,6 +635,11 @@ $mrf_image_path: report/html/mrf
 .classic_report
   color: #000
   .response_distribution_list
+    .graph_classic_user_icon
+      width: 20px
+      height: 20px
+      background: #24d8ba
+      margin-top: 10px
     ul
       li
         margin-bottom: 18px
@@ -672,22 +678,31 @@ $mrf_image_path: report/html/mrf
   .stakeholder_rating_icon
     background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
   .desired_range
-    background: #b4e5f9
-    border-radius: 2px 
+    background: #066896
+    border-radius: 3px 
     height: 5px
 
 
   .scores_competencies_graph
     .competency_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
-      height: 38px
-      width: 38px
+      height: 40px
+      width: 40px
     .trait_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center
-      height: 38px
-      width: 38px
+      height: 40px
+      width: 40px
     .graph_instructions
-      line-height: 38px
+      line-height: 40px
+      .graph_classic_user_icon, .graph_stakeholder_rating_icon
+        width: 20px
+        height: 20px
+        background: #24d8ba
+        margin-top: 10px
+      .graph_stakeholder_rating_icon
+        background: #a119a6
+        border-radius: 50%
+
       .classic_user_icon, .stakeholder_rating_icon 
         height: 38px
         width: 22px
@@ -697,9 +712,13 @@ $mrf_image_path: report/html/mrf
       margin-bottom: 36px
       .graph_instructions
         margin-left: 220px
+        margin-bottom: 30px
         .stakeholder_rating_icon, .classic_user_icon
           width: 38px
       .left_sec
+        .graph_stakeholder_rating_icon, .graph_classic_user_icon
+          margin-left: 20px
+          margin-right: 8px
         li
           margin-top: 18px
           font-weight: 700
@@ -720,7 +739,7 @@ $mrf_image_path: report/html/mrf
             border: 2px solid #24d8ba
             height: 34px
             width: 34px
-          .clr
+          
       .right_sec
         .classic_competency_graph
           .classic_competency_graph_scale
@@ -751,8 +770,8 @@ $mrf_image_path: report/html/mrf
                   width: 2px !important
                   .overlapped_score_icon
                     background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
-                    height: 38px
-                    width: 38px
+                    height: 37px
+                    width: 37px
                     position: absolute
                     top: -19px
                     left: -19px
@@ -771,11 +790,11 @@ $mrf_image_path: report/html/mrf
 
                 .graph_self_rating
                   z-index: 1
-                  width: 33px
-                  height: 33px
-                  right: -19px
+                  width: 34px
+                  height: 34px
+                  right: -18px
                   border: 2px solid #24d8ba
-                  background: image-url('#{$mrf_image_path}/self.png') #24d8ba no-repeat center center 
+                  background: #24d8ba
     
     &.traits_under_competencies
       .traits_under_graph
@@ -850,8 +869,7 @@ $mrf_image_path: report/html/mrf
                     .graph_stakeholder_rating
                       background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
                     .graph_self_rating
-                      background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
-
+                      background: #fff
     &.best_worst_scores
       .min_rating_icon_small
         background: image-url('#{$mrf_image_path}/min_rating_icon_small.png')  no-repeat center center
@@ -868,6 +886,8 @@ $mrf_image_path: report/html/mrf
           background: image-url('#{$mrf_image_path}/max_rating_icon_small_trait_wise.png')  no-repeat center center
 
     &.descending_order
+      .graph_classic_user_icon
+        border-radius: 50%
       .graph_container 
         .descending_graph_bar.max
           height: 10px 

@@ -18,8 +18,7 @@ class TemplatesController < MasterDataController
       :company_ids,
       :category,
       :from,
-      :subject,
-      :body
+      :subject
     ]
   end
   
@@ -32,6 +31,10 @@ class TemplatesController < MasterDataController
   end
   
   protected
+  
+  def select_category
+    Vger::Resources::Template::TEMPLATE_CATEGORIES.sort
+  end
   
   def get_template_variables
     @template_variables = Vger::Resources::TemplateVariable.all
