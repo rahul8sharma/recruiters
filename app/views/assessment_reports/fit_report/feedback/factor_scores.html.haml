@@ -18,16 +18,17 @@
           .clr
 
     .scale
-      .line
+      .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
       .marker-container
+        - marker_width = 80
         - @company_norm_buckets.each do |norm_bucket|
-          .marker
+          .marker{ style: "width: #{marker_width}px;" }
             .arrow
             .marker-info
               = norm_bucket.description
             - if norm_bucket.name.split(" ").size == 1
               %br/
-            = norm_bucket.name
+            = norm_bucket.name.split(" ").join("<br/>").html_safe
         .clr
       .divider4
       .medium-text.text-center
@@ -50,24 +51,34 @@
                   = factor_score[:factor_definition]
                 .arrow
               .clr
-          .rhs-sec.pull-right
-            .slider
-              - marker_width = 80
-              - scale = factor_score[:scale]
-              - norm_bucket_uid = factor_score[:norm_bucket_uid]
-              - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
-              - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
-              - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-              - position = (company_norm_bucket.weight - 1) * marker_width
-              - offset = ((from_norm_bucket.weight - 1) * marker_width)
-              - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-              .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-22}px;" }
-                -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
-                .score-indicater
-                  = company_norm_bucket.name
-                .arrow
-              .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
-              -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+          - if @report.report_data[:suitability_report_show_buckets_on_feedback]
+            .divider1
+            .rhs-sec.pull-right.extra-medium-text
+              Your Rating:
+              %input{:type=>"hidden", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 0}
+              %select{ name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][company_norm_bucket_id]" }
+                - @company_norm_buckets.each do |norm_bucket|
+                  %option{ value: norm_bucket.id }
+                    = norm_bucket.name
+          - else    
+            .rhs-sec.pull-right
+              .slider
+                - marker_width = 80
+                - scale = factor_score[:scale]
+                - norm_bucket_uid = factor_score[:norm_bucket_uid]
+                - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
+                - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
+                - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+                - position = (company_norm_bucket.weight - 1) * marker_width
+                - offset = ((from_norm_bucket.weight - 1) * marker_width)
+                - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+                .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-22}px;" }
+                  -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
+                  .score-indicater
+                    = company_norm_bucket.name
+                  .arrow
+                .range{ class: "offset#{scale[:offset]} width#{scale[:width]}" }
+                -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
 
           .clr
           .divider1
@@ -75,16 +86,17 @@
             = factor_score[:description]
           = fields_for :feedback do
             .divider2
-            .optional-feedback
-              .feedback-title.span13
-                How close is the score to your observation:
-              %label.span4
-                %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 0, checked: true}
-                About Right
-              %label.span4
-                %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: 1}
-                Should be more
-              %label.span4
-                %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}]", value: -1}
-                Should be less
-              .clr
+            - if !@report.report_data[:suitability_report_show_buckets_on_feedback]
+              .optional-feedback
+                .feedback-title.span13
+                  How close is the score to your observation:
+                %label.span4
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 0, checked: true}
+                  About Right
+                %label.span4
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 1}
+                  Should be more
+                %label.span4
+                  %input{:type=>"radio", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: -1}
+                  Should be less
+                .clr
