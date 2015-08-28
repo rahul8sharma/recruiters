@@ -82,7 +82,7 @@
           - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
             - status = 'Pending'  
           - show_status = ''
-          - if status == 'SCORED'
+          - if status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED
             - show_status = status+" as of "+htime(candidate_assessment.completed_at)+"Hrs, "+hdate(candidate_assessment.completed_at)
           - else
             - show_status = status+" as of "+htime(candidate_assessment.updated_at)+"Hrs, "+hdate(candidate_assessment.updated_at)
