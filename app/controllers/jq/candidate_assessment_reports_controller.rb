@@ -6,6 +6,69 @@ class Jq::CandidateAssessmentReportsController < MasterDataController
   def manage
   end
   
+  
+  def show
+    report = api_resource.find(params[:id], params)
+    if request.format.to_s == "application/pdf"
+      view_mode = "pdf"
+    else
+      view_mode = params[:view_mode] || "html"
+    end
+    if report.s3_keys[view_mode].present?
+      url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
+      redirect_to url
+    else
+      raise Faraday::ResourceNotFound.new("Not Found")
+    end
+  end
+
+  def report
+    @norm_buckets = Vger::Resources::Suitability::NormBucket\
+                        .where(order: "weight ASC").all                    
+                        
+    @report = api_resource.find(params[:id],params.merge(:patch => params[:patch]))
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
+    end
+    template = "jq_report"
+    template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
+    case @view_mode
+      when "html" 
+        layout = "jq_reports.html.haml"
+      when "pdf"
+        layout  = "jq_reports.pdf.haml"
+    end    
+    @page = 1
+    respond_to do |format|
+      format.html { 
+        render template: "jq/candidate_assessment_reports/#{template}", 
+               layout: "layouts/#{layout}", 
+               formats: [:pdf, :html]
+      }
+      format.pdf {
+        render pdf: "report_#{params[:id]}.pdf",
+        footer: {
+          :html => {
+            template: "shared/reports/pdf/_report_footer.pdf.haml",
+            layout: "layouts/#{layout}"
+          }
+        },
+        template: "jq/candidate_assessment_reports/#{template}",
+        layout: "layouts/#{layout}",
+        handlers: [ :haml ],
+        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        formats: [:pdf],
+        locals: { :@view_mode => "pdf" }
+      }
+    end
+  end
+  
   def export_norm_population
     Vger::Resources::Jq::CandidateAssessmentReport\
       .export_norm_population({:args => params[:args]})

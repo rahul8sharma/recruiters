@@ -1154,6 +1154,9 @@ Recruiters::Application.routes.draw do
         post :export_norm_population
         post :import_norm_population
       end
+      member do
+        get :report
+      end
     end
   
     resources :quadrant_descriptions do
