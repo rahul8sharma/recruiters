@@ -81,6 +81,12 @@
             - report = candidate_assessment.candidate_assessment_reports[0]
           - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
             - status = 'Pending'  
+          - show_status = ''
+          - if status == 'SCORED'
+            - show_status = status+" as of "+htime(candidate_assessment.completed_at)+"Hrs, "+hdate(candidate_assessment.completed_at)
+          - else
+            - show_status = status+" as of "+htime(candidate_assessment.updated_at)+"Hrs, "+hdate(candidate_assessment.updated_at)
+
           %li.list-snippet.medium-text
             .divider1
             .span3.first
@@ -94,8 +100,7 @@
                 .arrow
             .span8
               %a{:href=> candidate_company_custom_assessment_path(params[:company_id], params[:id], :candidate_id => candidate.id), :title=> "#{candidate_assessment.candidate_assessment_reports.present? ? 'Complete' : 'Pending'}" }
-                = status
-                as of #{htime candidate_assessment.completed_at} Hrs, #{hdate candidate_assessment.completed_at}
+                #{show_status}
                 -#remember Hrs & Hr
             - if @company.subscription_mgmt
               = render :partial => "suitability/custom_assessments/candidate_assessments/link_status/#{candidate_assessment.link_status}", locals: { candidate_assessment: candidate_assessment, assessment: @assessment, company: @company, candidate: candidate }
