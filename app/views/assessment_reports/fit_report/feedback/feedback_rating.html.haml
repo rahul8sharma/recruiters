@@ -1,0 +1,36 @@
+.section03
+  .divider1
+  .scores.container
+    .title.span15.line-height2
+      Please rate #{@report.report_hash[:candidate][:name]} on the following traits
+    .scale
+      .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
+      .marker-container
+        - marker_width = 80
+        - @company_norm_buckets.each do |norm_bucket|
+          .marker{ style: "width: #{marker_width}px;" }
+            .arrow
+            .marker-info
+              = norm_bucket.description
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
+            = norm_bucket.name.split(" ").join("<br/>").html_safe
+    .clr
+    .divider1
+    %ul
+      - factor_scores.each_with_index do |(factor_name,factor_score),index|
+        %li.border-bottom-d-grayLighter
+          .divider1
+          .big-text.bold.span4
+            = factor_name
+          .extra-medium-text.gray-dark.span19
+            = factor_score[:factor_definition]
+          .medium-text.span.line-height2.gray-dark
+            Your rating is
+          %input{:type=>"hidden", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 0}
+          %select.span4{ name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][company_norm_bucket_id]" }
+            - @company_norm_buckets.each do |norm_bucket|
+              %option{ value: norm_bucket.id }
+                = norm_bucket.name
+          .clr
+          .divider1
