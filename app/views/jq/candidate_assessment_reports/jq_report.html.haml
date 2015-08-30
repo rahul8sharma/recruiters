@@ -1,2 +1,62 @@
-%h2
-  JQ Report HTML
+= render :partial => "shared/header"
+.divider2
+.container
+  .huge-text
+    Psychometric Report
+  .divider2
+  .span7.bg-white.first
+    .large-text.text-center.line-height2.border-bottom-grayLighter
+      Psychometric Score
+    .divider1
+    .over_all.span5.margin-auto.divider10.white
+      .content
+        Above 
+        %br/
+        Average
+  .span23.bg-white
+    .large-text.text-center.line-height2.border-bottom-grayLighter
+      Top Strengths
+    .divider1
+    .span20.margin-auto
+      .over_all.trait.span5.divider10
+        .content
+          Responsibility of Outcomes
+      .over_all.trait.span5.divider10.left-offset2
+        .content
+          Responsibility of Outcomes
+      .over_all.trait.span5.divider10.left-offset2
+        .content
+          Responsibility of Outcomes
+      .clr
+
+
+  .clr
+  .divider2
+
+  .huge-text
+    Score Description
+  .divider2
+
+  %ul.clearfix.scores_listing.first
+    -3.times do
+      %li
+        .divider1
+        .lhs-sec.pull-left
+          .span1.first.hexagon-icon.favorable
+          .span16.first
+            .factor-name.pull-left
+              Adaptability
+              
+            .clr
+        .rhs-sec.pull-right
+          .slider
+            .pointer.less_favorable{:style => "left: 386px;"}
+              .score-indicater
+                High
+              .arrow
+            .range{:style => "margin-left: 240px;width: 160px;"}
+        .clr
+        .divider1
+        .factor-description
+          Usually uncomplainingly adjusts to changing environments; more likely to enjoy change and look forward to it; tends to get easily accustomed to change; almost always flexible at work
+       
