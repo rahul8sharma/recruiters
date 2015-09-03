@@ -4,9 +4,10 @@
       = image_tag("jombay-logo.png")
       .divider1
     .user_name.span
-      Pranav do Truncket
+      = truncate @report.report_data[:candidate][:name], :length   => 20
     .right_sec.pull-right
-      %span 84% 
+      %span
+        #{@report.report_data[:overall_scores][:percentile_score]}%
       %span.logi_color L
       %span.exp_color> E
       %span.meth_color> M
