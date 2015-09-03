@@ -1,8 +1,8 @@
 - competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
 = render :partial => "assessment_reports/training_requirements_report/pdf/header"
 .divider2
-.competency_report.no-bg
-  .overview
+.competency_report
+  .overview.no-bg
     .scores
       .divider2
       - if !@report.cover_page
