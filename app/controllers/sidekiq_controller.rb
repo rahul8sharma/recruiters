@@ -42,6 +42,25 @@ class SidekiqController < ApplicationController
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
+  
+  def upload_jq_reports
+    reports = Vger::Resources::Jq::CandidateAssessmentReport.where(
+      :query_options => {
+        :is_norm => false,
+        :status =>  Vger::Resources::Jq::CandidateAssessmentReport::Status::SCORED
+      },
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id
+      }
+      Jq::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
+    end
+    render :json => { :status => "Job Started", :reports => reports.map(&:id) }
+  end
 
   def upload_mrf_reports
     reports = Vger::Resources::Mrf::Report.where(

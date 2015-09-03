@@ -21,6 +21,15 @@ class SystemMailer < ActionMailer::Base
     to = recipients.present? ? recipients.join(",") : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
+  
+  def send_jq_report(report_hash)
+    @report_hash = report_hash
+    subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
+    recipients = report_hash[:report_email_recipients].to_s.split(",")
+    recipients.delete report_hash[:candidate][:email]
+    to = recipients.present? ? recipients.join(",") : "engineering@jombay.com"
+    mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
+  end
 
   def send_mrf_report(report_id, report_hash)
     @report_id = report_id
