@@ -7,7 +7,7 @@
       = truncate @report.report_data[:candidate][:name], :length   => 20
     .right_sec.pull-right
       %span
-        #{@report.report_data[:overall_scores][:percentage_score]}%
+        #{@report.report_data[:overall_scores][:percentile_score]}%
       %span.logi_color L
       %span.exp_color> E
       %span.meth_color> M
