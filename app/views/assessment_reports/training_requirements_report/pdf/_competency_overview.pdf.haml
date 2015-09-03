@@ -3,39 +3,40 @@
 .divider2
 .competency_report.no-bg
   .overview
-    .divider2
-    - if !@report.cover_page
+    .scores
       .divider2
-    .divider1
-    .content
-      .overview-title
-        .pull-left
-          .divider2
-          Overview of Competencies / Values Measured
-        .scale.right-offset1
-          .line
-          .marker-container
-            - @norm_buckets.each do |norm_bucket|
-              .marker
-                - if norm_bucket.name.split(" ").size == 1
-                  %br/
-                = norm_bucket.name
-            .clr
-        .clr
-      %ul.competency-list.pull-left
-        - competency_scores.each do |competency, competency_data|
-          %li
-            .competency-name.pull-left
-              = competency
-            .competency-value.pull-right
-              .scale.right-offset1
-                .line
-                .marker-container
-                  - @norm_buckets.each do |norm_bucket|  
-                    .marker{ class: (norm_bucket.name == competency_data[:avg_score][:bucket] ? 'active' : '') }
-                      = norm_bucket.name if norm_bucket.name == competency_data[:avg_score][:bucket]
-                  .clr
+      - if !@report.cover_page
+        .divider2
+      .divider1
+      .content
+        .overview-title
+          .pull-left
+            .divider2
+            Overview of Competencies / Values Measured
+          .scale.right-offset1
+            .line
+            .marker-container
+              - @norm_buckets.each do |norm_bucket|
+                .marker
+                  - if norm_bucket.name.split(" ").size == 1
+                    %br/
+                  = norm_bucket.name
               .clr
-            .clr
-      .clr
-    .divider2
+          .clr
+        %ul.competency-list.pull-left
+          - competency_scores.each do |competency, competency_data|
+            %li
+              .competency-name.pull-left
+                = competency
+              .competency-value.pull-right
+                .scale.right-offset1
+                  .line
+                  .marker-container
+                    - @norm_buckets.each do |norm_bucket|  
+                      .marker{ class: (norm_bucket.name == competency_data[:avg_score][:bucket] ? 'active' : '') }
+                        = norm_bucket.name if norm_bucket.name == competency_data[:avg_score][:bucket]
+                    .clr
+                .clr
+              .clr
+        .clr
+      .divider2
