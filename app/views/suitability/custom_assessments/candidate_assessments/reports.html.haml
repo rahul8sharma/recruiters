@@ -22,6 +22,8 @@
     %a.label.label-warning.label-small.medium-text.pull-right{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
       Email Reports Summary
     - if is_superadmin?  
+      %a.label.label-warning.label-small.medium-text.pull-left{ href: trigger_report_downloader_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), confirm: "Are you sure?" }
+        Download PDF Reports
       %a.label.label-warning.label-small.medium-text.pull-left{ href: export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
         Export Feedback Scores
     .clr
