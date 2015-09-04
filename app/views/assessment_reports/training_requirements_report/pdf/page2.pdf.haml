@@ -1,17 +1,19 @@
 = render :partial => "assessment_reports/training_requirements_report/pdf/header"
 .divider2
-#trait-score
-  .title.extra-large-text.pull-left
+#trait-score.training-need
+  .title.extra-large-text
     Top Training Needs
-  .pull-left
-    .score-indicator
-      .indicator.less_favorable
+  .instruction_container
+    .instructions
+      .instruction1.pull-left
         Candidates with Less Favorable scores
-      .indicator.favorable
+      .instruction2.less_favorable.pull-left
         Candidates with Favorable scores
+      .label.span
+        Average Score
       .clr
+  
   .clr
-  .divider1
   
   %ul.training-need-list
     - counter = step
@@ -32,4 +34,7 @@
             .divider1
             .score
               #{factor_score[:percentage_candidates]}% Less Favourable
+            - if @report.average_scores_in_top_training_needs
+              .label
+                = factor_score[:avg_score][:bucket]
         .clr

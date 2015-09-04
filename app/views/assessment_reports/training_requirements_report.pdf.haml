@@ -22,7 +22,21 @@
 
 = render :template => "assessment_reports/training_requirements_report/pdf/page1"
 .page-break
+- if @report.include_competencies  
+  - if @report.overview_competency_average_scores
+    = render :partial => "assessment_reports/training_requirements_report/pdf/competency_overview"
+    .page-break
 
+  - if @report.competency_values_measured
+    = render :partial => "assessment_reports/training_requirements_report/pdf/competencies_measured"
+    .page-break
+- if @report.include_competencies
+  - if @report.data_points_competencies
+    = render :partial => "assessment_reports/training_requirements_report/pdf/competencies_data_points"
+    .page-break
+  - if @report.data_points_traits_under_competencies
+    = render :partial => "assessment_reports/training_requirements_report/pdf/competency_trait_data_points"
+    .page-break
 - limiter = Rails.application.config.reports["pdf"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
 - scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["pie_charts_step"]
 
