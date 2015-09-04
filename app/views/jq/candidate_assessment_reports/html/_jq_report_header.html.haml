@@ -1,7 +1,7 @@
 #header.jq_header
   .container
     .logo.pull-left
-      = image_tag("jombay-logo.png")
+      = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
       .divider1
     .user_name.span
       = truncate @report.report_data[:candidate][:name], :length   => 20
