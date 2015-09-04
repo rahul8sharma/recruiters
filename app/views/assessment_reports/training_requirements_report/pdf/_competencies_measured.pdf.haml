@@ -1,20 +1,22 @@
-= render :partial => "assessment_reports/training_requirements_report/pdf/header"
 - competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
-.competency_report
-  #traits
-    .divider1
-    .scores
-      .title.extra-large-text
-        Competencies / Values Measured
+- competency_scores.each_slice(4) do |step_comptencies|
+  = render :partial => "assessment_reports/training_requirements_report/pdf/header"
+  .competency_report
+    #traits
       .divider1
-      .instruction_container
-        .instructions
-          .instruction1.pull-left
-            Favorable Traits
-          .instruction2.less_favorable.pull-left
-            Less Favorable Traits
-          .clr
-      .divider1
-      - competency_scores.each do |competency, competency_data|
-        = render :partial => "assessment_reports/training_requirements_report/pdf/competency_factor_block", locals: { competency: competency, competency_data: competency_data }
+      .scores
+        .title.extra-large-text
+          Competencies / Values Measured
+        .divider1
+        .instruction_container
+          .instructions
+            .instruction1.pull-left
+              Favorable Traits
+            .instruction2.less_favorable.pull-left
+              Less Favorable Traits
+            .clr
+        .divider1
+        - step_comptencies.each do |competency, competency_data|
+          = render :partial => "assessment_reports/training_requirements_report/pdf/competency_factor_block", locals: { competency: competency, competency_data: competency_data }
+  .page-break
     

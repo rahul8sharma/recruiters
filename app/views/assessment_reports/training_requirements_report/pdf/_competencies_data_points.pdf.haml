@@ -1,15 +1,15 @@
-= render :partial => "assessment_reports/training_requirements_report/pdf/header"
-.divider1
-.data_points.competency_report
-  .scores
-    .title.extra-large-text
-      Data Points: Competencies
-    .divider1
-    - @report_data[:competency_scores].each do |competency, competency_data|
+- @report_data[:competency_scores].each_slice(4) do |step|
+  = render :partial => "assessment_reports/training_requirements_report/pdf/header"
+  .divider1
+  .data_points.competency_report
+    .scores
+      .title.extra-large-text
+        Data Points: Competencies
+      .divider1
+    - step.each do |competency, competency_data|
       .frame
         .heading.pull-left
           = competency
-
         .heading.pull-right
           = competency_data[:avg_score][:bucket]
         .clr
@@ -40,3 +40,4 @@
 
         .clr
         .divider1
+  .page-break
