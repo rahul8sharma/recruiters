@@ -4,12 +4,11 @@
     .title
       Guidelines for Candidate&#39;s Manager
     .divider2
-
     %ul
-      -3.times do
+      - @report.report_data[:competency_guidelines].each do |key, value|
         %li
           .span7.bold
-            Assertiveness
+            #{key}
           .span22
-            lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum.
+            #{value[:manager]}
           .clr
