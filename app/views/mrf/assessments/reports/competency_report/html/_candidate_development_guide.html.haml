@@ -3,13 +3,12 @@
     .divider2
     .title
       Development Guide for the Candidate
-    .divider2
-
+    .divider1
     %ul
-      -3.times do
+      - @report.report_data[:competency_guidelines].each do |key, value|
         %li
           .span7.bold
-            Assertiveness
+            #{key}
           .span22
-            lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum lorel ispum.
+            #{value[:candidate]}
           .clr
