@@ -177,6 +177,7 @@ Recruiters::Application.routes.draw do
 
     resources :custom_assessments, :fit_assessments, :competency_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
+        get "download_pdf_reports" => "suitability/custom_assessments#download_pdf_reports", :as => :download_pdf_reports
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
         put "norms" => "suitability/custom_assessments#norms", :as => :norms
 
@@ -217,6 +218,8 @@ Recruiters::Application.routes.draw do
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
+        get "trigger_report_downloader" => "suitability/custom_assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        
         get "export_feedback_scores" => "suitability/custom_assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
 
         get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
