@@ -10,22 +10,25 @@
   .divider2
   = render :partial => "shared/candidate-content-sub-nav"
   .clr
-  .padding-all2.border-warning.shifted-up1
+  .padding-all1.border-warning.shifted-up1
     .list-snippet-titles.extra-medium-text.clearfix.pull-left
       .span3.first
         = sort_link "ATID", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
       .span8
         = sort_link "Assessment Taker", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
-      .span8
+      .span4
         Assessment Status 
       .clr
-    %a.label.label-warning.label-small.medium-text.pull-right{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
-      Email Reports Summary
+    .span4.pull-right
+      %a.label.label-warning.label-small.small-text{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
+        Email Reports Summary
     - if is_superadmin?  
-      %a.label.label-warning.label-small.medium-text.pull-left{ href: trigger_report_downloader_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), confirm: "Are you sure?" }
-        Download PDF Reports
-      %a.label.label-warning.label-small.medium-text.pull-left{ href: export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
-        Export Feedback Scores
+      .span4.pull-right
+        %a.label.label-warning.label-small.small-text{ href: trigger_report_downloader_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), confirm: "Are you sure?" }
+          Download PDF Reports
+      .span4.pull-right
+        %a.label.label-warning.label-small.small-text{ href: export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
+          Export Feedback Scores
     .clr
     .divider1
     %ul
