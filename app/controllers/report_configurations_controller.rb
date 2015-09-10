@@ -1,0 +1,50 @@
+class ReportConfigurationsController < MasterDataController
+  before_filter :authenticate_user!
+  before_filter :set_params, :only => [:create, :update]
+  
+  def api_resource
+    Vger::Resources::ReportConfiguration
+  end
+  
+  def index_columns
+    [
+      :id,
+      :company_id,
+      :report_type,
+      :assessment_type,
+      :view_mode
+    ]
+  end
+  
+  def search_columns
+    [
+      :id,
+      :company_id,
+      :report_type,
+      :assessment_type,
+      :view_mode
+    ]
+  end
+  
+  def load_configuration
+    file = YAML.load(File.read(Rails.root.join("config/report_configurations.yml"))).with_indifferent_access
+    @config = file[params[:report_type]][params[:assessment_type]][params[:view_mode]]
+    selected = [];
+    if(params[:id].present?)
+      @resource = api_resource.find(params[:id], :methods => index_columns)
+      selected = @resource.configuration[:sections]
+      Rails.logger.ap @resource.configuration[:sections]
+    end
+    render :json => { config: @config["sections"].to_json, selected: selected.to_json }
+  end
+  
+  def edit
+    @resource = api_resource.find(params[:id], :methods => index_columns)
+  end
+  
+  protected
+  
+  def set_params
+    params[:report_configuration][:configuration] = JSON.parse(params[:report_configuration][:configuration].gsub(/=>/, ': '))
+  end
+end
