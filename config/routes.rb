@@ -260,6 +260,7 @@ Recruiters::Application.routes.draw do
         get "home" => "mrf/assessments#home", :as => :home
         get "candidates" => "mrf/feedbacks#index", :as => :candidates
         put "home" => "mrf/assessments#home", :as => :home
+        post "report_preview" => "mrf/assessments/reports#report_preview"
       end
 
       member do
@@ -1273,4 +1274,6 @@ Recruiters::Application.routes.draw do
 
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
+
+  
 end

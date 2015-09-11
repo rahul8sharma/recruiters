@@ -1,0 +1,21 @@
+.span27.margin-auto
+  %ul.clearfix.breakdown_small
+    - trait_score[:role_wise_scores].each do |role_name, role_data|
+      - sorted_distribution = role_data[:bucket_wise_percentages] #Hash[role_data[:bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]    
+      %li.span9.pull-left
+        .panel.rating_breakdown
+          .medium-text
+            Breakdown of Ratings given by #{sorted_distribution.first[1][:total]} #{role_name.titleize.pluralize}
+          .breakdown_bar_section
+            .breakdown_bar.pull-left
+              - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
+            %ul.breakdown_rating_list.pull-left
+              - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
+                %li
+                  .block.span{:style=>"background: #{@bucket_colors[index]};"}
+                  .span5
+                    #{percentages_data[:count]} out of #{percentages_data[:total]} rated #{bucket_name}
+                  .clr
+            .clr 
+        .divider1

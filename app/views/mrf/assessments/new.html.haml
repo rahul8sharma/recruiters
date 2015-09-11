@@ -1,8 +1,12 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
 .container  
   .span14.page-title.first
     Create a new 360&#176; Profiling Exercise
   .clr.divider2
-  = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company) do |f|
+  = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company), html:{id:"assessment_form"} do |f|
     .border-primary
       .padding-all2.border-bottom-grayLighter
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
@@ -65,5 +69,14 @@
       .clr
       .divider2
 
-      = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
+      / = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
+      = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
       .clr
+
+  .divider1
+    %a.btn.btn-info.large-text.bold.pull-right{:id => "generate_preview", :target => "_blank"}
+      Generate Preview
+.divider1
+#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}
+
+= javascript_include_tag "mrf/enableSections"

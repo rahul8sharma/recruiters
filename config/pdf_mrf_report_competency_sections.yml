@@ -1,0 +1,159 @@
+:mrf:
+:competency:
+  :pdf: 
+  [
+    {
+      id: "",
+      text: "Cover Page",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page1",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "trait_definitions",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "scores_competencies",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "trait_scores_under_competencies",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "strength_improvement_areas",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "competency_wise_data_points",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "traits_under_competencies_data_points",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "competencies_data_points_questions",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "subjective_responses",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "stakeholder_comments_on_traits",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+    {
+      id: "feedback_stats",
+      text: "",
+      path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
+      children: 
+      [
+        {
+          id: "",
+          text: "",
+          path: "",
+          locals: {}
+        }
+      ]
+    },
+  ]

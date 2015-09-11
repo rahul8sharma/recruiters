@@ -1,0 +1,26 @@
+.span.final_data_points
+  .medium-text.black.span.first.bold.line-height2
+    360&#176; Scores across exercise
+  .clr
+  .high_low_scores
+    .border_gray_light.span.first
+      .low.left.pull-left
+
+      .right.pull-left
+        .color-average.medium-text
+          Lowest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score]}
+      .clr
+    .border_gray_light.span
+      .stakeholder_rating_icon.left.pull-left
+
+      .right.pull-left
+        .color-average.medium-text
+          Candidate: #{trait_score[:average_score_excluding_self][:points] || "-"}
+      .clr
+    .border_gray_light.span
+      .high.left.pull-left
+      .right.pull-left
+        .color-average.medium-text
+          Highest: #{@assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score]}
+      .clr
+    .clr

@@ -1,0 +1,236 @@
+html:
+  cover_page:
+    name: "Cover Page"
+    path: "mrf/assessments/reports/competency_report/html/page1"
+    subsections: {
+      numerical_aggregate_score: 
+        {
+          name: "Numerical Aggregate Score",
+          path: "mrf/assessments/reports/competency_report/html/numerical_aggregate_score",
+          locals: {}
+        },
+      show_completion_status: 
+        {
+          name: "Completion Status",
+          path: "mrf/assessments/reports/competency_report/html/show_completion_status",
+          locals: {}
+        },
+      mrf_report_cover: 
+        {
+          name: "Report Cover",
+          path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
+          locals: {}
+        }
+    }
+  360_degree_scores_competencies:
+    name: "360 Degree Scores Competencies"
+    path: "mrf/assessments/reports/competency_report/html/scores_competencies"
+    subsections: {
+      competency_classic_graph: 
+        {
+          name: "Competency Classic Graph",
+          path: "mrf/assessments/reports/competency_report/html/competency_classic_graph.html.haml",
+          locals: {}
+        }
+    }
+  360_degree_scores_traits_under_competencies:
+    name: "360 Degree Scores Traits Under Competencies"
+    path: "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
+    subsections: {}
+  strength_and_areas_of_improvement:
+    name: "Strength and Areas of Improvement"
+    path: "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
+    subsections: {}
+  360_degree_competencies_scores_in_descending_order:
+    name: "360 Degree Competencies Score in Descending Order"
+    path: "mrf/assessments/reports/competency_report/html/competencies_descending_order"
+    subsections: {}
+  360_degree_traits_scores_in_descending_order:
+    name: "360 Degree Traits Score in Descending Order"
+    path: "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order"
+    subsections: {}
+  data_points_on_360_degree_scores_competencies:
+    name: "Data Points on 360 Degree Scores"
+    path: "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points"
+    subsections:
+      {
+        competencies_textual_data_points: 
+          {
+            name: "Competencies Textual Data Points",
+            path: "mrf/assessments/reports/competency_report/html/competencies_textual_data_points",
+            locals: {
+              competency_scores: "competency_scores"
+            }
+          },
+        competency_wise_best_worst_scores: 
+          {
+            name: "Competencywise best and worst score",
+            path: "mrf/assessments/reports/competency_report/html/competency_wise_best_worst_scores",
+            locals: {
+              competency: "competency",
+              competency_scores: "competency_scores"
+            }
+          },
+        competencies_descending_order: 
+          {
+            name: "Competencies in Descending Order",
+            path: "mrf/assessments/reports/competency_report/html/descending_overall_competency_score",
+            locals: {
+              competency: "competency",
+              competency_scores: "competency_scores"
+            }
+          },
+        descending_average_competency_rating:
+          {
+            name: "Average Competency Rating in Descending Order",
+            path: "mrf/assessments/reports/competency_report/html/descending_average_competency_rating.html.haml",
+            locals: {
+              competency: "competency",
+              competency_scores: "competency_scores"
+            }
+          },
+        frequency_rating_table: 
+          {
+            name: "Frequency Rating Table",
+            path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
+            locals: {
+              role_wise_scores : "competency_scores{:role_wise_scores}",
+              trait_wise: "false",
+              graph_buckets: "@competency_graph_buckets"
+            }
+          }
+      }
+  data_points_on_360_degree_scores_traits_under_competencies:
+    name: "Data Points on 360 Scores Traits Under Competencies"
+    path: "mrf/assessments/reports/competency_report/html/trait_wise_frequency_data_points"
+    subsections:
+      {
+        traits_textual_data_points: 
+          {
+            name: "Traits Textual Data Points",
+            path: "mrf/assessments/reports/competency_report/html/traits_textual_data_points",
+            locals: {
+              trait_score: "trait_score"
+            }
+          },
+        trait_wise_best_worst_scores: 
+          {
+            name: "Traitwise Best and Worst Score",
+            path: "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores",
+            locals: {
+              trait_score: "trait_score"
+            }
+          },
+        descending_trait_wise_overall_score: 
+          {
+            name: "Trait Wise Overall Score in descending order",
+            path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score",
+            locals: {
+              trait_score: "trait_score"
+            }
+          },
+        descending_trait_wise_average_rating:
+          {
+            name: "Trait wise average rating in descending order",
+            path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating",
+            locals: {
+              trait_score: "trait_score"
+            }
+          },
+        frequency_rating_table:
+          {
+            name: "Frequency Rating Table",
+            path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
+            locals: {
+              role_wise_scores: "trait_score{:role_wise_scores}",
+              trait_wise: "true",
+              graph_buckets: "@trait_graph_buckets" 
+            }
+          }
+      }
+  data_points_on_360_degree_scores_questions:
+    name: "Data Points on 360 Degree Scores Questions"
+    path: "mrf/assessments/reports/competency_report/html/competencies_data_points_questions"
+    subsections: {}
+  response_distribution_on_questions:
+    name: "Response Distribution on Questions"
+    path: "mrf/assessments/reports/competency_report/html/response_distribution"
+    subsections: {}
+  competencies_measured:
+    name: "Competencies Measured"
+    path: "mrf/assessments/reports/competency_report/html/page2"
+    subsections: {}
+  competencies_with_360_degree_scores:
+    name: "Competencies with 360 Degree Scores"
+    path: "mrf/assessments/reports/competency_report/html/page3"
+    subsections: {}
+  data_points_about_360_degree_scores_competencies:
+    name: "Data Points on 360 Degree Scores Competencies"
+    path: "mrf/assessments/reports/competency_report/html/competency_distribution_data_points"
+    subsections:
+      {
+        stakeholder_level_breakdown_at_competency_level:
+          {
+            name: "Stakeholder Breakdown at Competency Level",
+            path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_competency_level",
+            locals: {
+              competency_score: "competency_score"
+            }
+          }
+      }
+  data_points_about_360_degree_scores_traits_under_competencies:
+    name: "Data Points on 360 Degree Scores Traits Under Competencies"
+    path: "mrf/assessments/reports/competency_report/html/trait_distribution_data_points"
+    subsections:
+      {
+        stakeholder_level_breakdown_at_trait_level: 
+          {
+            name: "Stakeholder Level Breakdown and Trait Level",
+            path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level",
+            locals: {
+              trait_score: "trait_score"
+            }
+          }
+      }
+  data_points_on_360_degree_scores_of_competencies:
+    name: "Data Points on 360 Degree Scores of Compentencies" 
+    path: "mrf/assessments/reports/competency_report/html/page4"
+    subsections:
+      {
+        competency_data_points:
+          {
+            name: "Competency Data Points",
+            path: "mrf/assessments/reports/competency_report/html/competency_data_points",
+            locals: {
+              role_wise_scores: "@report.report_data{:role_wise_scores}"
+            }
+          }
+      }
+  traits_with_360_degree_scores:
+    name: "Traits with 360 Degree Scores" 
+    path: "mrf/assessments/reports/competency_report/html/page5"
+    subsections: {}
+  data_points_on_360_degree_scores_of_traits:
+    name: "Data Points on 360 Scores of Traits" 
+    path: "mrf/assessments/reports/competency_report/html/page6"
+    subsections: {}
+  stakeholder_comments_on_traits_under_various_competencies:
+    name: "Stakeholder comments on traits under various competencies" 
+    path: "mrf/assessments/reports/competency_report/html/page7"
+    subsections: {}
+  responses_to_other_questions:
+    name: "Response to Other Questions" 
+    path: "mrf/assessments/reports/competency_report/html/page8"
+    subsections: {}
+  summary_of_360_degree_feedback:
+    name: "Summary of 360 Degree Feedback" 
+    path: "mrf/assessments/reports/competency_report/html/page9"
+    subsections: {}
+  about_us:
+    name: "About Us" 
+    path: "shared/reports/html/about_us"
+    subsections: {}
+  legal_disclaimer:
+    name: "Legal Disclaimer" 
+    path: "shared/reports/html/legal_disclaimer"
+    subsections: {}

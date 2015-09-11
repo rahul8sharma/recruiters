@@ -8,6 +8,10 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
+
+    Rails.logger.debug("Report Data")
+    Rails.logger.debug(params)
+
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -47,6 +51,36 @@ class Mrf::Assessments::ReportsController < ApplicationController
     end
   end
 
+  def report_preview
+    report_type = "competency"
+    get_norm_buckets
+    params[:company_id] = 2
+    params[:id] = 322
+    params[:candidate_id] = 51216
+    params[:report_id] = 981
+    
+    @config = Rack::Utils.parse_nested_query(URI.decode(params[:config]));
+
+    Rails.logger.ap("PARAMS")
+    Rails.logger.ap(params[:config])
+    Rails.logger.ap(@config)
+
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+    @report = Vger::Resources::Mrf::Report.find(params[:report_id], params)
+    @report.report_hash = @report.report_data
+
+
+    layout = "layouts/mrf/reports.html.haml"
+    template = "mrf/assessments/reports/competency_report.html.haml"
+
+    render json:{ 
+      content: render_to_string(
+        :layout => layout,
+        :template => template)
+    }
+  end
+
+
   def s3_report
     report = Vger::Resources::Mrf::Report.find(params[:report_id], params)
     if request.format.to_s == "application/pdf"
@@ -56,6 +90,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     end
     redirect_to url
   end
+
 
   protected
   

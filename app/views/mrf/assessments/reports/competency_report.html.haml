@@ -2,37 +2,27 @@
 - @report.report_data[:competency_scores] = Hash[@report.report_data[:competency_scores].sort_by{|competency,competency_data| competency_order.index(competency_data[:id]).to_i }]
 - @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .competency_report
-  = render :partial => "mrf/assessments/reports/competency_report/html/page1"
   .classic_report
-    - if @report.report_data[:mrf_report_percentage_competency_scores]
-      = render :partial => "mrf/assessments/reports/competency_report/html/scores_competencies"
-    - if @report.report_data[:mrf_report_percentage_trait_scores_under_competencies]
-      = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
-    - if @report.report_data[:mrf_report_strength_areas_of_improvement]
-      = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
-    - if @report.report_data[:competency360_competencies_decending]  
-      = render :partial => "mrf/assessments/reports/competency_report/html/competencies_descending_order"
-    - if @report.report_data[:competency360_traits_decending]
-      = render :partial => "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order"
-    - if @report.report_data[:mrf_report_data_pts_competencies_with_frequencies]
-      = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points"
-    - if @report.report_data[:mrf_report_data_pts_traits_under_competencies_with_frequencies]
-      = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequency_data_points"
-    - if @report.report_data[:mrf_report_items_statistics_per_stakeholder_type]
-      = render :partial => "mrf/assessments/reports/competency_report/html/competencies_data_points_questions"
-    - if @report.report_data[:mrf_report_response_distribution_questions]
-      = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page2"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page3"
-  - if @report.report_data[:mrf_overall_breakdown_at_competency_level]
+    = render :partial => "mrf/assessments/reports/competency_report/html/page1"
+    = render :partial => "mrf/assessments/reports/competency_report/html/scores_competencies"
+    = render :partial => "mrf/assessments/reports/competency_report/html/scores_traits_competencies"
+    = render :partial => "mrf/assessments/reports/competency_report/html/strength_improvement_areas"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competencies_descending_order"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points"
+    = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_frequency_data_points"
+    = render :partial => "mrf/assessments/reports/competency_report/html/competencies_data_points_questions"
+    = render :partial => "mrf/assessments/reports/competency_report/html/response_distribution"  
+    = render :partial => "mrf/assessments/reports/competency_report/html/page2"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page3"
     = render :partial => "mrf/assessments/reports/competency_report/html/competency_distribution_data_points"
-  - if @report.report_data[:mrf_overall_breakdown_at_trait_level]
     = render :partial => "mrf/assessments/reports/competency_report/html/trait_distribution_data_points"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page4"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page5"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page6"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page7"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page8"
-  = render :partial => "mrf/assessments/reports/competency_report/html/page9"
-  = render :partial => "shared/reports/html/about_us"
-  = render :partial => "shared/reports/html/legal_disclaimer"
+    
+    = render :partial => "mrf/assessments/reports/competency_report/html/page4"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page5"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page6"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page7"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page8"
+    = render :partial => "mrf/assessments/reports/competency_report/html/page9"
+    = render :partial => "shared/reports/html/about_us"
+    = render :partial => "shared/reports/html/legal_disclaimer"
