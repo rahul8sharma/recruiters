@@ -52,6 +52,11 @@ function getConfiguration(){
       root_obj.children = [];
       root_obj.state = { selected: true };
       objects[root_obj.id] = root_obj;      
+    } else if(obj.parent == "#") {
+      root_obj = obj.original;
+      root_obj.children = [];
+      root_obj.state = { selected: true };
+      objects[root_obj.id] = root_obj;      
     }
     var final_obj = obj.original;
     final_obj.children = [];
@@ -61,18 +66,21 @@ function getConfiguration(){
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     if(obj.parent == "#") {
+      root = objects[obj.id];
     } else {
       var parent = $jstree.get_node(obj.parent);
       if(parent && parent.parent == "#") {
         root = objects[parent.id];
-      }
+      } 
       var parent = objects[obj.parent];
       var original = obj.original;
       original.state = { selected: true };
       parent.children.push(original);
     }
+    if($.inArray(root, configuration) == -1) {
+      configuration.push(root);
+    }
   }
-  configuration.push(root);
   hash["sections"] = configuration
   return hash;
 }
@@ -95,7 +103,6 @@ $(document).ready(function(){
       var obj = selected[i];
       if(obj.children == null || obj.children.length == 0) {
         $jstree.select_node(obj.id);
-        return obj.id;
       } else {
         setSelected(obj);
       }

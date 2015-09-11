@@ -33,7 +33,6 @@ class ReportConfigurationsController < MasterDataController
     if(params[:id].present?)
       @resource = api_resource.find(params[:id], :methods => index_columns)
       selected = @resource.configuration[:sections]
-      Rails.logger.ap @resource.configuration[:sections]
     end
     render :json => { config: @config["sections"].to_json, selected: selected.to_json }
   end
@@ -45,6 +44,6 @@ class ReportConfigurationsController < MasterDataController
   protected
   
   def set_params
-    params[:report_configuration][:configuration] = JSON.parse(params[:report_configuration][:configuration].gsub(/=>/, ': '))
+    params[:report_configuration][:configuration] = JSON.parse(params[:report_configuration][:configuration])
   end
 end

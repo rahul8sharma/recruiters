@@ -87,9 +87,6 @@ module Recruiters
     config.signup = YAML.load(File.read(Rails.root.join("config/signup.yml"))).symbolize_keys
     config.emails = YAML.load(File.read(Rails.root.join("config/emails.yml"))).with_indifferent_access
     
-    config.report_configurations = YAML.load(File.read(Rails.root.join("config/report_configurations.yml"))).with_indifferent_access
-
-
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
