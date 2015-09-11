@@ -1,6 +1,4 @@
 //= require jstree.min
-
-var $jstree = null;
 var selected = [];
 function loadConfig() {
   var reportType = $('#select_report_type :selected').text();
@@ -28,7 +26,7 @@ function loadConfig() {
 
 function setSelected(obj){
   if(obj.children == null || obj.children.length == 0) {
-    $jstree.select_node(obj.id);
+    $('#configuration').jstree(true).select_node(obj.id);
     return obj.id;
   } else {
     for(var i = 0; i < obj.children.length; i++) {
@@ -38,51 +36,59 @@ function setSelected(obj){
   }
 }
 
+function createNode(id){
+  var obj = $('#configuration').jstree(true).get_node(id).original;
+  obj.children = [];
+  obj.state = { selected: true };
+  return obj;
+}
+
 function getConfiguration(){
   var hash = {}
   var configuration = [];
   var objects = {};
   var root = null;
-  var selected = $jstree.get_checked('full');
+  var selected = $('#configuration').jstree(true).get_checked('full');
+  //console.log(selected);
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
-    var parent = $jstree.get_node(obj.parent);
+    var parent = $('#configuration').jstree(true).get_node(obj.parent);
     if(parent && parent.parent == "#") {
-      root_obj = $jstree.get_node(parent.id).original;
-      root_obj.children = [];
-      root_obj.state = { selected: true };
-      objects[root_obj.id] = root_obj;      
-    } else if(obj.parent == "#") {
-      root_obj = obj.original;
-      root_obj.children = [];
-      root_obj.state = { selected: true };
-      objects[root_obj.id] = root_obj;      
-    }
-    var final_obj = obj.original;
-    final_obj.children = [];
-    final_obj.state = { selected: true };
-    objects[final_obj.id] = final_obj;
+      objects[parent.id] = createNode(parent.id);;      
+    } 
+    objects[obj.id] = createNode(obj.id);;
   }
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     if(obj.parent == "#") {
       root = objects[obj.id];
     } else {
-      var parent = $jstree.get_node(obj.parent);
-      if(parent && parent.parent == "#") {
-        root = objects[parent.id];
+      var parent_node = $('#configuration').jstree(true).get_node(obj.parent);
+      if(parent_node && parent_node.parent == "#") {
+        root = objects[parent_node.id];
       } 
       var parent = objects[obj.parent];
-      var original = obj.original;
-      original.state = { selected: true };
-      parent.children.push(original);
+      parent.children.push(objects[obj.id]);
+      if(parent_node) {
+        parent.children = sortChildren(parent.children, parent_node.children)
+      }
     }
     if($.inArray(root, configuration) == -1) {
       configuration.push(root);
     }
   }
+  var root = $('#configuration').jstree(true).get_node("#");
+  configuration = sortChildren(configuration, root.children);
+  //console.log(configuration);
   hash["sections"] = configuration
   return hash;
+}
+
+function sortChildren(arr, children){
+  arr = arr.sort(function(a, b){
+    return (children.indexOf(a.id) - children.indexOf(b.id));
+  });
+  return arr;
 }
 
 $(document).ready(function(){
@@ -102,24 +108,32 @@ $(document).ready(function(){
     for(var i = 0; i < selected.length; i++) {
       var obj = selected[i];
       if(obj.children == null || obj.children.length == 0) {
-        $jstree.select_node(obj.id);
+        $('#configuration').jstree(true).select_node(obj.id);
       } else {
         setSelected(obj);
       }
     }
   }).jstree({
     "checkbox" : {
-      "keep_selected_style" : true
+      "keep_selected_style": false,
+      "whole_node": false
     },
-    "plugins" : [ "checkbox" ],
+    "dnd": {
+      "drag_selection": false
+    },
+    "plugins" : [ "checkbox", "dnd" ],
     "core" : {
+      "check_callback": function(operation, node, node_parent, node_position, more) {
+        if (operation === "move_node") {
+          return node.parent === node_parent.id ;
+        }
+        return true;  //allow all other operations
+      },
       "full": true,
       "multiple" : true,
       "animation" : 0,
       'data' : []
     }
   });
-  
-  $jstree = $('#configuration').jstree();
 });
 loadConfig();

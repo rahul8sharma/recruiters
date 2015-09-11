@@ -34,7 +34,9 @@ class ReportConfigurationsController < MasterDataController
       @resource = api_resource.find(params[:id], :methods => index_columns)
       selected = @resource.configuration[:sections]
     end
-    render :json => { config: @config["sections"].to_json, selected: selected.to_json }
+    selected_sections = selected.collect{|x| x[:id] }
+    sections = @config["sections"].sort_by{|section| selected_sections.index(section[:id]) || 1000 }
+    render :json => { config: sections.to_json, selected: selected.to_json }
   end
   
   def edit
