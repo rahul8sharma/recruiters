@@ -1,6 +1,6 @@
 :mrf:
   :competency:
-    :html: 
+    :html: &html
       :sections: [
         {
           id: "cover_page",
@@ -276,4 +276,11 @@
           path: "shared/reports/html/legal_disclaimer",
           children: []
         }
-]
+      ]
+    :pdf:
+      <<: *html
+  :fit:
+    :html:
+      <<: *html
+    :pdf:
+      <<: *html  

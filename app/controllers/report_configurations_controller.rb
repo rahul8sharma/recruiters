@@ -27,16 +27,21 @@ class ReportConfigurationsController < MasterDataController
   end
   
   def load_configuration
-    file = YAML.load(File.read(Rails.root.join("config/report_configurations.yml"))).with_indifferent_access
-    @config = file[params[:report_type]][params[:assessment_type]][params[:view_mode]]
+    file = YAML.load(File.read(Rails.root.join("config/report_configurations_#{params[:report_type]}.yml"))).with_indifferent_access
+    @config = file[params[:report_type]][params[:assessment_type]][params[:view_mode]] rescue nil
     selected = [];
-    if(params[:id].present?)
-      @resource = api_resource.find(params[:id], :methods => index_columns)
-      selected = @resource.configuration[:sections]
+    error = nil
+    if @config
+      if(params[:id].present?)
+        @resource = api_resource.find(params[:id], :methods => index_columns)
+        selected = @resource.configuration[:sections]
+      end
+      selected_sections = selected.collect{|x| x[:id] }
+      sections = @config["sections"].sort_by{|section| selected_sections.index(section[:id]) || 1000 }
+    else
+      error = "Invalid combination."
     end
-    selected_sections = selected.collect{|x| x[:id] }
-    sections = @config["sections"].sort_by{|section| selected_sections.index(section[:id]) || 1000 }
-    render :json => { config: sections.to_json, selected: selected.to_json }
+    render :json => { config: sections.to_json, selected: selected.to_json, error: error }
   end
   
   def edit

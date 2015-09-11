@@ -15,11 +15,15 @@ function loadConfig() {
     success: function(data) {
       var config = JSON.parse(data.config);
       selected = JSON.parse(data.selected);
-      $('#configuration').jstree(true).settings.core.data = config;
-      $('#configuration').jstree(true).refresh();
+      if(data.error) {
+        alert(data.error);
+      } else {
+        $('#configuration').jstree(true).settings.core.data = config;
+        $('#configuration').jstree(true).refresh();
+      }
     },
     error: function(error){
-      console.log(error);
+      alert(error.statusText);
     }
   });
 }
