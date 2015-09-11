@@ -1,0 +1,12 @@
+:exit:
+  :competency:
+    :html: &html
+      :sections: [
+        {
+          id: "overall_score",
+          text: "Overall Score",
+          path: "engagement/surveys/reports/_page_01.html.haml",
+          children: []
+        }  
+      ]
+    

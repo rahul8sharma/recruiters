@@ -88,10 +88,7 @@ module Recruiters
     config.emails = YAML.load(File.read(Rails.root.join("config/emails.yml"))).with_indifferent_access
     
     config.mrf_report_competency_sections = YAML::load(File.open("#{Rails.root.to_s}/config/mrf_report_competency_sections.yml")).with_indifferent_access
-
-
-
-
+    
     config.action_controller.default_url_options = { :trailing_slash => true }
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true

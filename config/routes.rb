@@ -502,6 +502,12 @@ Recruiters::Application.routes.draw do
     end
   end
   
+  resources :report_configurations do
+    collection do
+      get :load_configuration
+    end
+  end
+  
   resources :sections do
     collection do
       get :manage

@@ -1,0 +1,6 @@
+- config.each do |config, settings|
+  = config
+  - if settings.is_a? Hash
+    = render partial: "configuration", locals: { parent: config, config: settings }
+  - else
+      
