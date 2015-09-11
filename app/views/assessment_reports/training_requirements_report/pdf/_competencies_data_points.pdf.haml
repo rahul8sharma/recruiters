@@ -6,38 +6,38 @@
       .title.extra-large-text
         Data Points: Competencies
       .divider1
-    - step.each do |competency, competency_data|
-      .frame
-        .heading.pull-left
-          = competency
-        .heading.pull-right
-          = competency_data[:avg_score][:bucket]
-        .clr
-        .divider1
-        .left.span12
-          .bucket-holder
-            .connector
-            - @norm_buckets.each do |norm_bucket|
-              .span1.across_score
-                .score
-                  #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
-                = norm_bucket.name
-            .clr
-            .divider1
-            .small-text.black
-              Percentage of Assessment Takers across scores
-            .divider3
-        .right.span7
-          .text-center.black.line-height2
-            Across all Assessment Takers
-          .pannel.span5.margin-auto
-            .score_snippet.max
-              Maximum Score: #{competency_data[:max_score][:bucket]}
-            .score_snippet.min
-              Minimum Score: #{competency_data[:min_score][:bucket]}
-            .score_snippet.average
-              Average Score: #{competency_data[:avg_score][:bucket]}
+      - step.each do |competency, competency_data|
+        .frame
+          .heading.pull-left
+            = competency
+          .heading.pull-right
+            = competency_data[:avg_score][:bucket]
+          .clr
+          .divider1
+          .left.span12
+            .bucket-holder
+              .connector
+              - @norm_buckets.each do |norm_bucket|
+                .span1.across_score
+                  .score
+                    #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                  = norm_bucket.name
+              .clr
+              .divider1
+              .small-text.black
+                Percentage of Assessment Takers across scores
+              .divider3
+          .right.span7
+            .text-center.black.line-height2
+              Across all Assessment Takers
+            .pannel.span5.margin-auto
+              .score_snippet.max
+                Maximum Score: #{competency_data[:max_score][:bucket]}
+              .score_snippet.min
+                Minimum Score: #{competency_data[:min_score][:bucket]}
+              .score_snippet.average
+                Average Score: #{competency_data[:avg_score][:bucket]}
 
-        .clr
-        .divider1
+          .clr
+          .divider1
   .page-break
