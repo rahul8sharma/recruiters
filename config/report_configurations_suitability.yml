@@ -1,0 +1,24 @@
+:suitability:
+  :competency:
+    :html: &html
+      :sections: [
+        {
+          id: "cover_page",
+          text: "Cover Page",
+          path: "assessment_reports/competency_report/html/competency_report_page1.html.haml",
+          children: []
+        }
+      ]
+    :pdf:
+      <<: *html
+  :fit:
+    :html:
+      <<: *html
+    :pdf:
+      <<: *html      
+  :jq:
+    :html:
+      <<: *html
+    :pdf:
+      <<: *html         
+        

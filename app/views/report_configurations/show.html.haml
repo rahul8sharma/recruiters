@@ -1,0 +1,23 @@
+= stylesheet_link_tag 'jstree'    
+%h2
+  Showing details of #{resource_name.singularize.titleize} - #{@resource.id}
+.config.hide{ "data-config" => @resource.configuration["sections"].to_json }  
+%table{ cellspacing: 5, cellpadding: 5 }
+  - index_columns.each do |index_column|
+    %tr
+      %td 
+        %h4
+          #{index_column.to_s.titleize}:
+      %td #{@resource.send(index_column).to_s}
+  %tr
+    %td 
+      %h4
+        Configuration:
+    %td 
+      #configuration
+.links
+  = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)
+  \|
+  = link_to "Back", send("#{resource_name}_path")
+- content_for :javascripts do
+  = javascript_include_tag 'show_report_configurations'  
