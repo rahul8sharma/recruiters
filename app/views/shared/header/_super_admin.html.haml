@@ -17,8 +17,9 @@
         %li
           %a{href: "/logout"} Logout
   - if defined?(@company)
-    %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
-      BUY PACKAGE
+    -#
+      %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
+        BUY PACKAGE
     %ul#sub-nav.pull-right.first
       %li
         %a.setting.other-apps{href: "#", title: "Account"}

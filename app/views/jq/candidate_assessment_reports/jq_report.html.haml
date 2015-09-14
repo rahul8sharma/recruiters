@@ -1,0 +1,74 @@
+= render :partial => "jq/candidate_assessment_reports/html/jq_report_header"
+- sortedArray = @report.report_data[:quadrant_scores].sort_by {|name,value| value[:percentile_score]}.reverse
+.divider2
+.container
+  .lems_blocks
+    
+    - klass = ""
+    - key_name = @report.report_data[:quadrant_scores].keys[0]
+    - if sortedArray[0][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"] || sortedArray[1][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"]
+      - klass = "max"
+    .bg_logi.block{:class => klass}
+      .text-right.pull-left
+        %span.score 
+          #{@report.report_data[:quadrant_scores][key_name]["percentile_score"]}%
+        %br
+        = @report.report_data[:quadrant_scores].keys[0]
+      .clr
+      .lems_icon
+    
+    - klass = ""
+    - key_name = @report.report_data[:quadrant_scores].keys[1]
+    - if sortedArray[0][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"] || sortedArray[1][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"]
+      - klass = "max"
+    .bg_exp.block{:class => klass}
+      .text-right
+        %span.score
+          #{@report.report_data[:quadrant_scores][key_name]["percentile_score"]}%
+        %br
+        = @report.report_data[:quadrant_scores].keys[1]
+      .lems_icon
+    
+    - klass = ""
+    - key_name = @report.report_data[:quadrant_scores].keys[2]
+    - if sortedArray[0][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"] || sortedArray[1][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"]
+      - klass = "max"
+    .bg_meth.block{:class => klass}
+      .divider12
+      .text-right.pull-left
+        %span.score
+          #{@report.report_data[:quadrant_scores][key_name]["percentile_score"]}%
+        %br
+        = @report.report_data[:quadrant_scores].keys[2]
+      .clr
+      .lems_icon
+    
+    - klass = ""
+    - key_name = @report.report_data[:quadrant_scores].keys[3]
+    - if sortedArray[0][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"] || sortedArray[1][1]["percentile_score"] == @report.report_data[:quadrant_scores][key_name]["percentile_score"]
+      - klass = "max"
+    .bg_soc.block{:class => klass}
+      .divider12
+      .text-right
+        %span.score
+          #{@report.report_data[:quadrant_scores][key_name]["percentile_score"]}%
+        %br
+        = @report.report_data[:quadrant_scores].keys[3]
+      .lems_icon
+    .clr
+
+  .divider1
+  %ul.bottom_description
+    - @report.report_data[:quadrant_descriptions].each do |name, value| 
+      %li.big-text{:class => name}
+        -# append class to li "social, methodical, experimental,logical"
+        .span9.first
+          .title
+            = name
+        .span18.pull-right
+          = value[:description]
+        .clr
+
+
+
+

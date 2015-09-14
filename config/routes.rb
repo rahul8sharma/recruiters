@@ -177,6 +177,7 @@ Recruiters::Application.routes.draw do
 
     resources :custom_assessments, :fit_assessments, :competency_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
+        get "download_pdf_reports" => "suitability/custom_assessments#download_pdf_reports", :as => :download_pdf_reports
         get "norms" => "suitability/custom_assessments#norms", :as => :norms
         put "norms" => "suitability/custom_assessments#norms", :as => :norms
 
@@ -217,6 +218,8 @@ Recruiters::Application.routes.draw do
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
+        get "trigger_report_downloader" => "suitability/custom_assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        
         get "export_feedback_scores" => "suitability/custom_assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
 
         get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
@@ -677,6 +680,15 @@ Recruiters::Application.routes.draw do
     resources :traits do
       collection do
         get :get_traits
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :competency_guidelines do
+      collection do
         get :manage
         get :destroy_all
         post :import_from_google_drive
@@ -1154,6 +1166,9 @@ Recruiters::Application.routes.draw do
         post :export_norm_population
         post :import_norm_population
       end
+      member do
+        get :report
+      end
     end
   
     resources :quadrant_descriptions do
@@ -1234,15 +1249,16 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/queue-job" => "sidekiq#queue_job"
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
-  match "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
-  match "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
-  match "/sidekiq/upload_mrf_group_reports", :to => "sidekiq#upload_mrf_group_reports"
-  match "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
-  match "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
-  match "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"
-  match "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
-  match "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
-  match "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
+  get "/sidekiq/upload_reports", :to => "sidekiq#upload_reports"
+  get "/sidekiq/upload_jq_reports", :to => "sidekiq#upload_jq_reports"
+  get "/sidekiq/upload_mrf_reports", :to => "sidekiq#upload_mrf_reports"
+  get "/sidekiq/upload_mrf_group_reports", :to => "sidekiq#upload_mrf_group_reports"
+  get "/sidekiq/upload_engagement_reports", :to => "sidekiq#upload_engagement_reports"
+  get "/sidekiq/upload_exit_reports", :to => "sidekiq#upload_exit_reports"
+  get "/sidekiq/upload_exit_group_reports", :to => "sidekiq#upload_exit_group_reports"
+  get "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
+  get "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
+  get "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
   
   
   match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports

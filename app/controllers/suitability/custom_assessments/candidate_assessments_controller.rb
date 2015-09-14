@@ -49,7 +49,20 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     redirect_to reports_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
 
-
+  def trigger_report_downloader
+    options = {
+      :custom_assessment => {
+        :job_klass => "Suitability::CandidateReportsDownloader",
+        :args => {
+          :email => current_user.email,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
+      .download_pdf_reports(options)
+    redirect_to reports_url, notice: "Reports will be downloaded and link to download the zip file will be emailed to #{current_user.email}."
+  end
 
   def bulk_upload
     @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
