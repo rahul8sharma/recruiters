@@ -8,7 +8,7 @@
       = @report.report_hash[:candidate][:name]
     .divider1
 
-    .content
+    .content.overview_block
       .overview-title
         .left
           Competencies / Values
@@ -26,4 +26,6 @@
               = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
             .clr
       .clr
+    = render :partial => "assessment_reports/competency_report/pdf/competency_report_overview_scale_page"
+   
     .divider2
