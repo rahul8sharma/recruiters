@@ -3,11 +3,9 @@
     .divider2
     .j-logo
     .divider4
-
     .large-text
       = @report.report_hash[:candidate][:name]
     .divider1
-
     .content.overview_block
       .overview-title
         .left
@@ -15,7 +13,6 @@
         .right
           Scores
         .clr
-
       %ul.competency-list.pull-left
         - competency_scores.each do |competency_name, competency_data|
           %li
@@ -26,6 +23,3 @@
               = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
             .clr
       .clr
-    = render :partial => "assessment_reports/competency_report/pdf/competency_report_overview_scale_page"
-   
-    .divider2
