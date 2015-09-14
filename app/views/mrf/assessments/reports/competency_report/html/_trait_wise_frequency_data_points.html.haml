@@ -11,17 +11,21 @@
             = competency
           .clr
           - competency_scores[:trait_scores].each do |trait_score|
+            - trait_hash = HashWithIndifferentAccess.new({trait_score: trait_score, role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets})
             .divider2
             .section03
               .span28.margin-auto
                 %b.large-text
                   = trait_score[:trait][:name]
                 .divider1
-                = render :partial => "mrf/assessments/reports/competency_report/html/traits_textual_data_points", :locals => {:trait_score => trait_score }
-                = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores", locals: { trait_scores: trait_score }
-                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
-                = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
-                .divider1
-                = render :partial => "mrf/assessments/reports/competency_report/html/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
+                - section_value.each do |section|
+                  - locals = Hash[section["locals"].map { |key, value| [key.to_sym, trait_hash[key.to_sym]] }]
+                  = render :partial => section["path"], :locals => locals
+                / = render :partial => "mrf/assessments/reports/competency_report/html/traits_textual_data_points", :locals => {:trait_score => trait_score }
+                / = render :partial => "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores", locals: { trait_scores: trait_score }
+                / = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score", locals: { trait_scores: trait_score }
+                / = render :partial => "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating", locals: { trait_scores: trait_score }
+                / .divider1
+                / = render :partial => "mrf/assessments/reports/competency_report/html/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
                 .divider1
         .divider2

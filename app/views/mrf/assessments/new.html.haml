@@ -2,6 +2,9 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
+- content_for :stylesheets do
+  = stylesheet_link_tag "jstree"
+
 .container  
   .span14.page-title.first
     Create a new 360&#176; Profiling Exercise
@@ -13,6 +16,8 @@
           %label.pull-left.big-text.line-height2 
             Enter a title for this 360&#176; Exercise
           %input.span20.pull-right{:type => "text", name: "assessment[name]"}
+
+          %input{:id => "input_config", :name => "", :value => "" ,:type => "hidden"}
 
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
           %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this 360 Degree Exercise", name: "assessment[name]"}
@@ -77,6 +82,5 @@
     %a.btn.btn-info.large-text.bold.pull-right{:id => "generate_preview", :target => "_blank"}
       Generate Preview
 .divider1
-#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}
 
-= javascript_include_tag "mrf/enableSections"
+#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}

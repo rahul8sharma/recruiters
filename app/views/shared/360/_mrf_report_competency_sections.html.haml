@@ -1,23 +1,19 @@
 - if is_superadmin?
-  - assessment_sections = Rails.application.config.mrf_report_competency_sections["html"]
   %h1.text-center
     HTML Report Sections
-  %ul.report_sections
-    - assessment_sections.each do |name, settings|
-      %li.padding-all1.parent
-        .span14.large-text
-          = settings["name"]
-        .span14
-          %input.section{:type => "checkbox", :name => "assessment[report_configuration][#{name}]", :section => name}
-        .clr
-        - if settings["subsections"].length > 0
-          .divider1
-          %ul.left-offset1
-            - settings["subsections"].each do |key, value|
-              %li.medium-text.child
-                .span10
-                  = value["name"]
-                .span10
-                  %input{:type => "checkbox", :name => "assessment[report_configuration][#{name}][#{key}]", :disabled => true, :class => "subsection_#{name}"}
-              .clr
-      %hr
+   
+  %select{id: "set_assessment_type", name: "set_assessment_type"}
+    %option{value: ''} Set Assessment Type
+    %option{value: 'competency'} COMPETENCY
+    %option{value: 'fit'} FIT
+
+  %select{id: "set_view_mode", name: "set_assessment_type"}
+    %option{value: ''} Set View Mode
+    %option{value: 'pdf'} PDF
+    %option{value: 'html'} HTML
+  
+  .divider2
+  
+  #html_configuration
+
+= javascript_include_tag "mrf/enableSections"

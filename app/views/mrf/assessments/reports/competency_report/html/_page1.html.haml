@@ -7,8 +7,8 @@
       360&#176; Profiling Report
     .clr
     .divider1
-    = render :partial => "mrf/assessments/reports/competency_report/html/numerical_aggregate_score"
-    = render :partial => "mrf/assessments/reports/competency_report/html/show_completion_status" 
+    - section_value.each do |value|
+      = render :partial => value["path"]
     .divider3
     .extra-medium-text
       360&#176; Profiling: 
@@ -17,4 +17,3 @@
       Report Generated On: 
       = hdate(@report.report_data[:generated_at])
     .divider2
-= render :partial => "mrf/assessments/reports/competency_report/html/mrf_report_cover"

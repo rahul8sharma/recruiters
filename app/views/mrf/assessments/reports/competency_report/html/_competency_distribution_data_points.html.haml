@@ -5,6 +5,7 @@
       Data Points about 360 Degree Scores: Competencies
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_score|  
+      - competency_hash = HashWithIndifferentAccess.new({ competency_score: competency_score })
       .frame.mrf.gray-bg
         .heading.pull-left
           = competency_name
@@ -58,7 +59,7 @@
             %td
               .span17.left-offset1
                 .divider2
-                - sorted_distribution = competency_score[:overall_bucket_wise_percentages] #Hash[competency_score[:overall_bucket_wise_percentages].sort_by{|bucket,percentage_data| percentage_data[:percentage] }]  
+                - sorted_distribution = competency_score[:overall_bucket_wise_percentages]
                 .panel.bg-white.rating_breakdown
                   .extra-large-text.text-center 
                     Breakdown of Ratings given by #{pluralize(sorted_distribution.first[1][:total], "Stakeholder")} 
@@ -76,5 +77,7 @@
                     .clr
               .clr
         .divider1
-        = render :partial => "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_competency_level", :locals => {:competency_score => competency_score }
+        - section_value.each do |section|
+          - locals = Hash[section["locals"].map { |key, value| [key.to_sym, competency_hash[key.to_sym]] }]
+          = render :partial => section["path"], :locals => locals
       .divider2                  

@@ -21,4 +21,5 @@
         Desired Range
       .clr
     .divider2
-    = render :partial => "mrf/assessments/reports/competency_report/html/competency_classic_graph.html.haml"
+    - section_value.each do |value|
+      = render :partial => value["path"]

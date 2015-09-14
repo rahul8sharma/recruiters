@@ -28,6 +28,12 @@
           ]
         },
         {
+          id: "mrf_report_cover",
+          text: "MRF Report Cover",
+          path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
+          children: []
+        },
+        {
           id: "360_degree_scores_competencies",
           text: "360 Degree Scores Competencies",
           path: "mrf/assessments/reports/competency_report/html/scores_competencies",
@@ -109,7 +115,7 @@
               text: "Frequency Rating Table",
               path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
               locals: {
-                role_wise_scores : "competency_scores{:role_wise_scores}",
+                role_wise_scores : "competency_scores[:role_wise_scores]",
                 trait_wise: "false",
                 graph_buckets: "@competency_graph_buckets"
               }
@@ -158,7 +164,7 @@
               text: "Frequency Rating Table",
               path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
               locals: {
-                role_wise_scores: "trait_score{:role_wise_scores}",
+                role_wise_scores: "trait_score[:role_wise_scores]",
                 trait_wise: "true",
                 graph_buckets: "@trait_graph_buckets" 
               }
@@ -229,7 +235,7 @@
               text: "Competency Data Points",
               path: "mrf/assessments/reports/competency_report/html/competency_data_points",
               locals: {
-                role_wise_scores: "@report.report_data{:role_wise_scores}"
+                role_wise_scores: "@report.report_data[:role_wise_scores]"
               }
             }
           ]
@@ -277,10 +283,297 @@
           children: []
         }
       ]
-    :pdf:
-      <<: *html
+    :pdf: &pdf
+      :sections: [
+        {
+          id: "cover_page",
+          text: "Cover Page",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page1",
+          children: [
+            {
+              id: "mrf_report_numerical_aggregate_score",
+              text: "MRF Numerical Aggregate Score",
+              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score",
+              locals: {}
+            },
+            {
+              id: "mrf_report_show_completion_status",
+              text: "MRF Report Completion Status",
+              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status",
+              locals: {}
+            },
+          ]
+        },
+        {
+          id: "trait_definitions",
+          text: "Trait Definitions",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
+          children: []
+        },
+        {
+          id: "scores_competencies",
+          text: "Scores Competencies",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
+          children: [
+            {
+              id: "competency_classic_graph",
+              text: "Comptencies Classic Graph",
+              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph",
+              locals: {}
+            },
+          ]
+        },
+        {
+          id: "trait_scores_under_competencies",
+          text: "Trait Scores Under Competencies",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
+          children: []
+        },
+        {
+          id: "strength_improvement_areas",
+          text: "Strength and Improvement Areas",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+          children: []
+        },
+        {
+          id: "competency_wise_data_points",
+          text: "Competency Wise Data Points",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
+          children: []
+        },
+        {
+          id: "traits_under_competencies_data_points",
+          text: "Traits Under Competencies Data Points",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points",
+          children: [
+            {
+              id: "competency360_traits_data_pts_trait_name_as_title",
+              text: "Name as Title",
+              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title",
+              locals: {
+                trait_score: "trait_score",
+                competency: "competency"
+              }
+            },
+            {
+              id: "competency360_traits_data_pts_items_as_title",
+              text: "Item as Title",
+              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
+              locals: {
+                trait_score: "trait_score"
+              }
+            },
+          ]
+        },
+        {
+          id: "competencies_data_points_questions",
+          text: "Comptencies Data Points Questions",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions",
+          children: []
+        },
+        {
+          id: "subjective_responses",
+          text: "Subjective Responses",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses",
+          children: []
+        },
+        {
+          id: "stakeholder_comments_on_traits",
+          text: "Stakeholder Comments On Traits",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
+          children: []
+        },
+        {
+          id: "page9",
+          text: "Feedback Stats",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
+          children: []
+        }
+      ]
   :fit:
-    :html:
-      <<: *html
+    :html: &html
+      :sections: [
+        {
+          id: "cover_page",
+          text: "Cover Page",
+          path: "mrf/assessments/reports/fit_report/html/page1",
+          children: []
+        },
+        {
+          id: "traits_measured_in_this_assessment",
+          text: "Traits measured in this Assessment",
+          path: "mrf/assessments/reports/fit_report/html/page2",
+          children: []
+        },
+        {
+          id: "traits_descending_order",
+          text: "Traits: Scores in Descending Order",
+          path: "mrf/assessments/reports/fit_report/html/traits_descending_order",
+          children: []
+        },
+        {
+          id: "trait_distribution_data_points",
+          text: "Data Points about 360 Degree Scores",
+          path: "mrf/assessments/reports/fit_report/html/trait_distribution_data_points",
+          children: [
+            {
+              id: "mrf_stakeholder_level_breakdown_at_trait_level",
+              text: "Stakeholder Level Distribution at Trait Level",
+              path: "mrf/assessments/reports/fit_report/html/mrf_stakeholder_level_breakdown_at_trait_level",
+              locals: {
+                trait_score: "trait_score"
+              }
+            }
+          ]
+        },
+        {
+          id: "scores_of_tratis_measured_with_360_degree",
+          text: "Scores of Traits measured with 360 Degree Assessment",
+          path: "mrf/assessments/reports/fit_report/html/page3",
+          children: [
+            {
+              id: "fit",
+              text: "Fit",
+              path: "mrf/assessments/reports/fit_report/html/fit",
+              locals: {
+                trait_scores: "@report.report_data[:trait_scores]"
+              }
+            }
+          ]
+        },
+        {
+          id: "data_points_on_360_Degree_scores",
+          text: "Data Points about 360 Degree Scores ",
+          path: "mrf/assessments/reports/fit_report/html/page4",
+          children: [
+            {
+              id: "fit_data_points",
+              text: "Fit Data Points",
+              path: "mrf/assessments/reports/fit_report/html/fit_data_points",
+              locals: {
+                role_wise_scores: "@report.report_data[:role_wise_scores]"
+              }
+            },
+            {
+              id: "trait_wise_rating",
+              text: "Trait Wise Rating",
+              path: "mrf/assessments/reports/fit_report/html/page_4_all_individual",
+              locals: {
+                trait_score: "@report.report_data[:trait_scores]"
+              }
+            }
+          ]
+        },
+        {
+          id: "data_points_on_360_degree_scores_questions",
+          text: "Data Points on 360 Degree Scores: Questions",
+          path: "mrf/assessments/reports/fit_report/html/data_point_questions",
+          children: []
+        },
+        {
+          id: "response_distribution",
+          text: "Response distribution on Questions",
+          path: "mrf/assessments/reports/fit_report/html/response_distribution",
+          children: []
+        },
+        {
+          id: "stakeholder_comments_on_traits",
+          text: "Stakeholder Comments on Traits",
+          path: "mrf/assessments/reports/fit_report/html/trait_comments",
+          children: []
+        },
+        {
+          id: "responses_to_other_questions",
+          text: "Responses to Other Questions",
+          path: "mrf/assessments/reports/fit_report/html/subjective_all",
+          children: []
+        },
+        {
+          id: "summary_of_360_degree_feedback",
+          text: "Summary of 360 Degree Feedback",
+          path: "mrf/assessments/reports/fit_report/html/page5",
+          children: []
+        },
+        {
+          id: "about_us",
+          text: "About Us",
+          path: "shared/reports/html/about_us",
+          children: []
+        },
+        {
+          id: "legal_disclaimer",
+          text: "Legal Disclaimer",
+          path: "shared/reports/html/legal_disclaimer",
+          children: []
+        }
+      ]
     :pdf:
-      <<: *html  
+      :sections: [
+        {
+          id: "cover_page",
+          text: "PDF: Cover Page",
+          path: "mrf/assessments/reports/fit_report/pdf/page1",
+          children: [
+            {
+              id: "mrf_report_numerical_aggregate_score",
+              text: "Numerical Aggregate Score",
+              path: "mrf/assessments/reports/fit_report/pdf/mrf_report_numerical_aggregate_score",
+              locals: {}
+            },
+            {
+              id: "show_completion_status",
+              text: "Show Completion Status",
+              path: "mrf/assessments/reports/fit_report/pdf/mrf_report_show_completion_status",
+              locals: {}
+            }
+          ]
+        },
+        {
+          id: "traits_measured_in_this_assessment",
+          text: "360 Degree Traits measured in this Assessment",
+          path: "mrf/assessments/reports/fit_report/pdf/page2",
+          children: []
+        },
+        {
+          id: "scores_of_tratis_measured_with_360_degree",
+          text: "Scores of Traits measured with 360 Degree Assessment",
+          path: "mrf/assessments/reports/fit_report/pdf/page3",
+          children: []
+        },
+        {
+          id: "trait_distribution_data_points",
+          text: "Data Points about 360 Degree Scores",
+          path: "mrf/assessments/reports/fit_report/pdf/page4",
+          children: []
+        },
+        {
+          id: "data_point_questions",
+          text: "Data Points Questions",
+          path: "mrf/assessments/reports/fit_report/pdf/data_point_questions",
+          children: []
+        },
+        {
+          id: "trait_wise_rating",
+          text: "Trait Wise Rating",
+          path: "mrf/assessments/reports/fit_report/pdf/trait_wise_ratings",
+          children: []
+        },
+        {
+          id: "trait_comments",
+          text: "Trait Comments",
+          path: "mrf/assessments/reports/fit_report/pdf/trait_comments",
+          children: []
+        },
+        {
+          id: "subjective_responses",
+          text: "Subjective Responses",
+          path: "mrf/assessments/reports/fit_report/pdf/subjective_all",
+          children: []
+        },
+        {
+          id: "summary_of_360_degree_feedback",
+          text: "Summary of 360 Degree; Feedback",
+          path: "mrf/assessments/reports/fit_report/pdf/page5",
+          children: []
+        }
+      ]
