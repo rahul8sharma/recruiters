@@ -19,7 +19,7 @@
   .page-break
   
   - if @report.report_data[:enable_competency_desired_ranges]
-    = render :partial => "assessment_reports/competency_report/pdf/competency_report_overview_scale_page", :locals => { competency_scores: competency_scores}
+    = render :partial => "assessment_reports/competency_report/pdf/custom_competency_score_overview", :locals => { competency_scores: competency_scores}
     .page-break
   - else
     = render :partial => "assessment_reports/competency_report/pdf/competency_score_overview", :locals => { competency_scores: competency_scores}

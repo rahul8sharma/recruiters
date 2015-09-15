@@ -11,20 +11,19 @@
     - offset = offset-17 if width == 0 && offset != 0
     - width = 17 if width == 0   
     - scored_weight = company_norm_bucket.weight
-    
     - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
     
     - if ((width == 17) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
       - offset = offset + 6
 
     %li
-      .favorable.first.hexagon-icon.span1
+      .first.hexagon-icon.span1{:class => klass}
       .competency-name.pull-left
         = competency_name
       .competency-value.pull-right
         .scale.right-offset1
           - if @report.report_data[:enable_competency_desired_ranges]
-            .desire_range{:style=>"width: #{width}px; left: #{offset+15}px"}
+            .desire_range{:style=>"width: #{width}px; left: #{offset}px"}
           .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
           .marker-container
             - @company_norm_buckets.each do |company_norm_bucket|

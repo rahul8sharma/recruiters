@@ -1,4 +1,6 @@
 .overview
+  %h2
+    Custom
   .inner{ style: "margin-top:0px;" }
     .divider2
     .j-logo
@@ -22,7 +24,7 @@
                 Less Favorable
               .clr
       .scale
-        .line
+        .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
         .marker-container
           - @company_norm_buckets.each do |norm_bucket|
             .marker
