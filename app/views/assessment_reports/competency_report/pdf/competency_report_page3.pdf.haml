@@ -30,5 +30,7 @@
             .clr
       .clr
       .divider2
-
-      = render :template => "assessment_reports/competency_report/pdf/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
+      - if @report.report_data[:show_favourable_above_desired_range]
+        = render :partial => "assessment_reports/competency_report/pdf/custom_competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
+      - else
+        = render :partial => "assessment_reports/competency_report/pdf/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }

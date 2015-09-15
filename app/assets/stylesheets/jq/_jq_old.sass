@@ -1,0 +1,76 @@
+body
+  background: #f8f8f8 !important
+.over_all
+  background: image-url('#{$image_url}/over_all_bg.png') center 0 no-repeat
+  text-align: center
+  position: relative
+  .content
+    position: absolute
+    width: 67%
+    top: 34%
+    font-size: 20px
+    line-height: 23px
+    margin-left: 30px
+
+  &.trait
+    background: image-url('#{$image_url}/over_all_trait_bg.png') center 0 no-repeat
+
+ul
+  &.scores_listing 
+    li
+      padding: 30px 50px 30px 30px
+      background: #fff
+      border: 1px solid #e3e3e3
+      margin-bottom: 18px
+      &:first-child
+    .lhs-sec
+      color: #000
+      padding-top: 18px
+    .rhs-sec 
+      .slider
+        border: 1px solid #ccc
+        height: 10px
+        margin: 33px 0 0
+        position: relative
+        width: 400px
+        .pointer
+          background: image-url("#{$image_url}/scale-pointer-hexagon.png") no-repeat scroll center 0
+          height: 33px
+          position: absolute
+          top: -11px
+          width: 30px
+          z-index: 1000
+          &.less_favorable
+            background-position: 0 -43px
+            .score-indicater
+              border: 1px solid #f58220
+          .score-indicater
+            border: 1px solid #82d23f
+            border-radius: 2px
+            bottom: 41px
+            font-size: 12px
+            left: 50%
+            margin-left: -45px
+            position: absolute
+            text-align: center
+            width: 90px
+            line-height: 25px
+          .arrow
+            background: image-url("#{$image_url}/score-indicater-arrow.png") no-repeat scroll center 0
+            height: 12px
+            position: absolute
+            top: -10px
+            width: 30px
+        .range
+          background: #79d5ff
+          height: 100%
+
+    .factor-name
+      font-size: 18px
+      font-weight: 700
+      line-height: 23px
+      margin: 7px 0 0
+      position: relative
+    .factor-description
+      font-size: 16px
+      line-height: 24px

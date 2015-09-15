@@ -8,51 +8,45 @@
   %ul.clearfix.scores_listing.first
     - factor_scores.each do |factor_name, factor_score|
       %li{:id => "#{competency_name}#{factor_name}"}
-        .divider1
-        .lhs-sec.pull-left{:style=> "width: 730px;"}
-          %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-          .span16.first
-            .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
-              = factor_name 
-              .info
-                = factor_score[:factor_definition]
-              .arrow
-            .clr
-
+        .lhs-sec.pull-left{:style=>"width:520px;"}
+          .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+            -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
+          .span.first
+            .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+              = factor_name
         .rhs-sec.pull-left
-          - scale_width = (@company_norm_buckets.size-1)*80
-          .slider{:style=>"width:#{scale_width}px"}
-            - marker_width = 80
+          .slider{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
+            - marker_width = 50
             - scale = factor_score[:scale]
             - norm_bucket_uid = factor_score[:norm_bucket_uid]
             - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
             - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
             - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+            - position = (company_norm_bucket.weight - 1) * marker_width
             - offset = ((from_norm_bucket.weight - 1) * marker_width)
             - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
             - width = 34 if width == 0
-            - position = (company_norm_bucket.weight - 1) * marker_width
-            - position = scale_width-20 if position >= scale_width
             - if ((width == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
               - offset = offset - 34
-            .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position}px;" }
+            .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{position-20}px;" }
+
               -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
               .score-indicater
                 = company_norm_bucket.name
               .arrow
             .range{ style: "margin-left: #{offset}px;width: #{width}px;" }
             -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-
         .clr
         .divider1
         .factor-description
           = factor_score[:description]
+
         - if @report.report_hash[:enable_factor_consistency] && factor_score[:type] != 'Functional::Trait'
-          .divider1
           .responses  
             %i.icon-align-justify
             Reliability of Candidate's Responses for this Factor:
             %span.score 
               = factor_score[:consistency_bucket]
-
-.divider1
+        .divider1
+.divider2
+        

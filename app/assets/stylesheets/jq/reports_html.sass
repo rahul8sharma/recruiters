@@ -1,0 +1,118 @@
+@import shared/header
+
+$image-url: report/html/jq
+$logi_color: #fb886d
+$exp_color: #0bbcb2
+$meth_color: #ffde4b
+$soc_color: #90e973
+
+.bg_logi
+  background: $logi_color
+.bg_exp
+  background: $exp_color
+.bg_meth
+  background: $meth_color
+.bg_soc
+  background: $soc_color
+.logi_color
+  color: $logi_color
+.exp_color
+  color: $exp_color
+.meth_color
+  color: $meth_color
+.soc_color
+  color: $soc_color
+.jq_header
+  .user_name
+    font-size: 20px
+    padding-left: 10px
+    border-left: 1px solid #414042
+    margin-top: 18px
+  .right_sec
+    font-size: 40px
+    font-weight: 700
+    padding-top: 20px
+.lems_blocks
+  height: 828px
+  .block
+    height: 50%
+    width: 50%
+    position: relative
+    float: left
+    padding: 55px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -o-box-sizing: border-box 
+    -webkit-box-sizing: border-box
+    .text-right
+      font-size: 55px
+      line-height: 100%
+    .score
+      font-size: 60px
+    .lems_icon
+      background: image-url('#{$image_url}/overall_lems_icon.png') 0 0 no-repeat
+      width: 199px
+      height: 208px
+      position: absolute
+  .max
+    .lems_icon
+      background: image-url('#{$image_url}/overall_lems_icon_max.png') 0 0 no-repeat
+    .text-right
+      color: #fff
+    .score
+      font-size: 84px
+  .bg_logi
+    color: #c25840
+    .lems_icon
+      right: 0
+      bottom: 0
+  .bg_exp
+    color: #0f7973
+    .lems_icon
+      left: 0
+      bottom: 0
+      background-position: 100% 0
+  .bg_meth
+    color: #ab9638
+    .lems_icon
+      background-position: 0 100% 
+      right: 0
+      top: 0
+  .bg_soc
+    color: #579e40
+    .lems_icon
+      background-position: 100% 100%
+      left: 0
+      top: 0
+ul.bottom_description
+  li
+    padding: 35px
+    border: 1px solid #ddffd2
+    margin-bottom: 18px
+    .title
+      padding: 42px 0 42px 105px
+      font-size: 45px
+      background: image-url('#{$image_url}/lems_icon.png') 0 0 no-repeat
+
+
+    &.social
+      border-color: $soc_color
+      .title
+        background-position: 0px 0px
+        color: $soc_color
+    &.methodical
+      border-color: $meth_color
+      .title
+        background-position: -0px -303px
+        color: $meth_color
+    &.experimental
+      border-color: $exp_color
+      .title
+        background-position: -0px -202px
+        color: $exp_color
+    &.logical
+      border-color: $logi_color
+      .title
+        background-position: -0px -101px
+        color: $logi_color
+

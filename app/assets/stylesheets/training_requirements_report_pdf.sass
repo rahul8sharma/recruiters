@@ -1,27 +1,48 @@
-= bg($image)
-  background: image-url('report/pdf/training_requirements/#{$image}.png') no-repeat
+= bg($image, $position-x, $position-y)
+  background: image-url('report/pdf/training_requirements/#{$image}.png') no-repeat #{$position-x} #{$position-y}
+$trr_image_path: report/html/training_requirements_report
 
 .training_requirements_report
+  .label
+    background: #3d9eaf
+    font-size: 14px
+    font-weight: 200
+    line-height: 24px
+    padding: 0 4px
+    margin-top: 7px
+  .instruction_container 
+    .instructions 
+      [class*="instruction"]
+        +bg(round-indications-small, 0, 0)
+        padding: 0 0 0 20px
+        line-height: 16px
+        color: #000
+        text-decoration: none
+      .instruction1
+        margin-left: 0
+      .instruction2
+        background-position: 0px -34px
   .section01
     .large-text
       margin-left: 35px
     h1
       font-size: 35px
       color: #000
-      padding: 18px 35px
-      border-top: 1px dashed #7f7f7f
-      border-bottom: 1px dashed #7f7f7f
+      font-weight: 200
+      padding: 14px 35px
+      border-top: 1px dashed #999
+      border-bottom: 1px dashed #999
     .logo
       width: 200px
       height: 50px
       margin-left: 35px
-      +bg(logo)
+      +bg(logo, 0, 0)
     .pie
       width: 510px
       height: 110px
       margin-left: 35px
       background-size: 510px 110px
-      +bg(pie)
+      +bg(pie, 0, 0)
   .trr_header
     position: relative
     background: #42b59f
@@ -31,7 +52,7 @@
       position: absolute
       width: 65px
       height: 75px
-      +bg(logo-icon)
+      +bg(logo-icon, 0, 0)
   .score-indicator
     margin-left: 25px
     .indicator
@@ -40,19 +61,212 @@
       float: left
       margin-left: 25px
       &.less_favorable  
-        +bg(less-fav-hexagon)
+        +bg(less-fav-hexagon, 0, 0)
         text-decoration: underline
       &.favorable
-        +bg(fav-hexagon)
+        +bg(fav-hexagon, 0, 0)
         color: #414142
       &.mid-favorable
-        +bg(mid-fav-hexagon)
+        +bg(mid-fav-hexagon, 0, 0)
   .assessment_names
     width: 500px
     padding-left: 15px
   .title
     margin-left: 18px
-    color: #000
+    color: #1c7dab
+  .scores
+    .title
+      margin-left: 0
+  .training-need
+    .instructions
+      margin-left: 20px
+    .instruction1, .instruction2
+      margin-top: 10px
+  .data_points
+    .divider1
+      height: 8px
+    .padding-all1
+      padding: 8px
+    .frame
+      border-width: 1px
+      margin-bottom: 8px
+    ul
+      li
+        padding-top: 10px
+        &:first-child
+          border: 0 none
+          padding: 0
+    .tip
+      padding: 7px 7px 7px 50px
+      +bg(tip, 18px, 7px)
+      background-color: #f8f8f8
+      font-size: 10px
+      margin: 0px 5px 2px 5px
+
+    .left
+      text-align: center
+      border-right: 1px solid #ccc
+      .bucket-holder
+        position: relative
+        .connector
+          position: absolute
+          border-top: 1px dashed #a8e0d7
+          height: 1px
+          width: 395px
+          left: 44px
+          top: 44px
+          z-index: -1
+        .across_score
+          font-size: 9px
+          color: #000
+          margin: 30px 24px 0
+          text-align: center
+          line-height: 12px
+          &:first-child
+            margin-left: 10px
+        .score
+          +bg(across_score, center, 0)
+          width: 26px
+          height: 26px
+          font-size: 8px
+          color: #fff
+          line-height: 26px
+          margin: auto
+          margin-bottom: 10px
+    .right
+      .pannel
+        border: 1px dashed #ccc
+        padding: 10px 20px
+        .score_snippet
+          line-height: 14px
+          padding: 7px
+          color: #fff
+          font-size: 10px
+          border-radius: 3px
+          margin-top: 10px
+          &:first-child
+            margin-top: 0
+          &.max
+            background: #82D23F
+          &.min
+            background: #FDC206
+          &.average
+            background: #3E9DAF
+    .flow-chart
+      position: relative
+      width: 390px
+      margin: auto
+      .line
+        height: 1px
+        border-top: 1px solid #82d23f
+        position: absolute
+        z-index: 1
+      .range  
+        top: 155px
+        height: 15px
+        border: 1px solid #a1def8
+        border-top: none
+        position: absolute
+        z-index: 1
+        font-size: 16px
+        color: #1a98d5
+        .text
+          bottom: -7px
+          height: 1px
+          left: 50%
+          position: absolute
+          width: 1px
+          .text-inner
+            font-size: 10px
+            line-height: 9px
+            left: -70px
+            position: absolute
+            text-align: center
+            top: 0
+            width: 140px
+      .score
+        +bg(across_score, center, 0)
+        width: 26px
+        height: 26px
+        font-size: 8px
+        color: #fff
+        line-height: 26px
+        margin: auto
+      .parent-node
+        width: 1px
+        height: 55px
+        margin: auto
+        position: relative
+        border-left: 1px solid #dedede
+        .final-score
+          width: 45px
+          height: 62px
+          +bg(final-score, center, center)
+          background-color: #fff
+          position: absolute
+          left: -48px
+          top: -25px
+          padding: 0 25px
+          .pie-chart
+            width: 76px
+            height: 76px
+            margin-left: -15px
+            margin-top: -7px
+          .max-score, .min-score
+            width: 80px
+            position: absolute
+            font-size: 16px
+            top: 23px            
+          .min-score
+            color: #82d23f
+            text-align: left
+            right: -80px
+          .max-score
+            text-align: right
+            color: #fdc206
+            left: -80px
+      .child-node
+        position: relative
+        width: 76px
+        height: 50px
+        float: left
+        border-top: 1px solid #fdc206
+        .score
+          bottom: -13px
+        &.small
+          width: 38px
+        &.left-node
+          border-left: 1px solid #82d23f
+          .bucket-name
+            left: -33px
+          .score
+            left: -13px
+        &.right-node
+          border-right: 1px solid #82d23f
+          .bucket-name
+            right: -33px
+          .score
+            right: -13px
+        &.min-score
+          border-color: #fdc206
+          .score
+            +bg(min_rating_circle, center, 0)
+        &.gray
+          border-color: #cccccc
+          .score
+            background: image-url("#{$trr_image_path}/gray_circle.png") no-repeat center 0    
+
+        .score
+          position: absolute
+          +bg(max_rating_circle, center, 0)
+        .bucket-name
+          position: absolute
+          width: 65px
+          bottom: -50px
+          height: 30px
+          font-size: 10px
+          line-height: 12px
+
   .training-need-list
     li
       padding: 25px 45px
@@ -71,11 +285,13 @@
         .trait-title
           font-size: 16px
           color: #000
+          font-weight: 700
           width: 190px
           min-height: 50px
           text-align: left
         .count
-          +bg(count-bg)
+          +bg(count-bg, 0, 0)
+          font-weight: 700
           width: 23px 
           height: 23px 
           line-height: 23px
@@ -91,13 +307,13 @@
           font-size: 16px
           color: #fdc206
           font-weight: 700
+
   .scale
     .line
       border-color: #bcbec0
     .marker-container 
       .marker
-        +bg(scale-hexagon)
-        background-position: center bottom
+        +bg(scale-hexagon, center, bottom)
         color: #366378
   #details
     .scale
@@ -111,7 +327,7 @@
         background: #f6f6f6
 
       p
-        +bg(tip)
+        +bg(tip, 0, 0)
         font-size: 12px
         padding-left: 45px
         margin: 0
@@ -134,16 +350,14 @@
           float: left 
           margin: 0 10px
       .rating-slider
-        +bg(rating-slider-line)
-        background-position: center center
+        +bg(rating-slider-line, center, center)
         margin-top: 30px
         position: relative
         width: 280px
         background-size: 250px 1px
 
         .marker
-          +bg(marker-disk)
-          background-position: center center           
+          +bg(marker-disk, center, center)
           float: left
           height: 30px
           margin-left: 23px
@@ -155,14 +369,12 @@
           &:first-child
             margin: 0
           &.active
-            +bg(marker-hexagon-blue)
-            background-position: center center           
+            +bg(marker-hexagon-blue, center, center)
             .score, .arrow
               display: block
 
         .arrow
-          +bg(rating-slider-arrow)
-          background-position: center center           
+          +bg(rating-slider-arrow, center, center)
           display: none
           height: 12px
           left: -1px
@@ -171,7 +383,7 @@
           width: 27px 
           z-index: 9999
         .score
-          background: none repeat scroll 0 0 #FFF
+          background: #FFF
           border: 1px solid #c5cdd5
           border-radius: 2px
           display: none
@@ -183,3 +395,44 @@
           font-size: 8px
   .common-bottom-trangle
     background-position: center 1007px
+  .overview 
+    .content
+      border-color: #a5ded6 !important
+      .competency-list
+        li
+          background: #fff !important
+          padding: 5px 0 !important
+          &:nth-child(odd)
+            background: #f8f8f8 !important
+    .competency-name
+      padding-left: 25px !important
+      color: #000
+      margin-top: 10px
+    .scale
+      margin-right: 25px
+      height: 39px
+      .line
+        bottom: 17px
+      .marker
+        line-height: 12px
+        height: 28px
+        &.active
+          color: #3baee3
+          background: image-url('report/pdf/scale-hexagon.png') no-repeat center bottom
+          font-weight: 200
+          white-space: nowrap
+
+    .overview-title
+      padding-left: 25px !important
+      border: 0 none !important
+      .scale
+        height: 52px
+        .line
+          border-color: #3baee3
+          bottom: 13px
+        .marker-container
+          .marker
+            height: 45px
+            color: #1c7dab
+            background: image-url('report/pdf/scale-hexagon.png') no-repeat center bottom
+            
