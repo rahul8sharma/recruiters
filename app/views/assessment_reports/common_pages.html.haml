@@ -12,7 +12,6 @@
     / - if @report.report_hash[:candidate_stage].to_sym == :candidate    
     - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
       
-      
     - (0..ordered_guides.length-1).step(guides_step) do |step|    
       - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
       = render :template => "assessment_reports/fit_report/html/page5", :locals => { :post_assessment_guidelines => step_post_assessment_guidelines, :step => step }

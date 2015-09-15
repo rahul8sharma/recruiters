@@ -13,5 +13,9 @@
             Less Favorable Traits
           .clr
       .clr
-      - competency_scores.each do |competency_name,competency_data|
-        = render :partial => "assessment_reports/competency_report/pdf/factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+      - if @report.report_data[:show_favourable_above_desired_range]
+        - competency_scores.each do |competency_name,competency_data|
+          = render :partial => "assessment_reports/competency_report/pdf/custom_factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
+      - else
+        - competency_scores.each do |competency_name,competency_data|
+          = render :partial => "assessment_reports/competency_report/pdf/generic_factor_block", locals: { competency_name: competency_name, competency_data: competency_data }
