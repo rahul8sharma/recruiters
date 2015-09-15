@@ -13,23 +13,18 @@
             %li
               .span5.big-text.first.trait_title
                 360&#176 Score
-                
               .stakeholder_rating.medium-text.pull-left
                 = trait_score[:average_score_excluding_self][:points] || "-"
               .clr
-
             %li
               .span5.big-text.first.trait_title
                 Self Rating
-                
               .self_rating.medium-text.pull-left
                 = trait_score[:average_score_self][:points] || "-"
               .clr
-
             %li
               .span5.big-text.first.trait_title
                 360&#176 (Including Self)
-                
               .including_self_rating.medium-text.pull-left
                 = trait_score[:average_score_including_self][:points] || "-"
               .clr
@@ -82,16 +77,13 @@
             %ul
               %li
                 .span5.big-text.first.trait_title
-                  Maximum Rating
-                  
+                  Maximum Rating                  
                 .max_rating.medium-text.pull-left
                   = trait_score[:max_score_excluding_self][:points] || "-"
                 .clr
-
               %li
                 .span5.big-text.first.trait_title
                   Minimum Rating
-                  
                 .min_rating.medium-text.pull-left
                   = trait_score[:min_score_excluding_self][:points] || "-"
                 .clr  
@@ -103,7 +95,6 @@
                 - @trait_graph_buckets[1..@trait_graph_buckets.length-1].each do |trait_graph_bucket|
                   .block.pull-left{:style=>"width: #{870/(@trait_graph_buckets.size-1)}px; text-align: right"}
                     = trait_graph_bucket.min_val
-
                 .clr
               .graph
                 .graph_content      

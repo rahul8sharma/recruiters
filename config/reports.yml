@@ -44,9 +44,51 @@ employee:
 
 engagement_report:
   less_favorable_score: 40
-  
+
 mrf_report:
   recognised_strengths: "Strengths according to the candidate as well as stakeholders. They are traits that both candidates and stakeholders have rated on the higher side. Average scores are not considered here."
   unrecognised_strengths: "Strengths according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the higher side, but the candidate has rated themselves on the lower side. Average scores are not considered here."
   recognised_areas_of_improvements: "Areas of improvement according to the candidate as well as stakeholders. They are traits that both candidates and stakeholders have rated on the lower side. Average scores are not considered here."
   unrecognised_areas_of_improvements: "Areas of improvement according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the lower side but the candidate has rated themselves on the higher side. Average scores are not considered here."
+
+report_data:
+  development: &dev
+    mrf:
+      competency:
+        assessment_id: 322
+        candidate_id: 51216
+        id: 981
+      fit:
+        assessment_id: 324
+        candidate_id: 51675
+        id: 987
+  staging_internal:
+    mrf:
+      competency:
+        assessment_id: 322
+        candidate_id: 51216
+        id: 981
+      fit:
+        assessment_id: 324
+        candidate_id: 51675
+        id: 987
+  staging:
+    mrf:
+      competency:
+        assessment_id: 0
+        candidate_id: 0
+        id: 0
+      fit:
+        assessment_id: 0
+        candidate_id: 0
+        id: 0
+  production:
+    mrf:
+      competency:
+        assessment_id: 0
+        candidate_id: 0
+        id: 0
+      fit:
+        assessment_id: 0
+        candidate_id: 0
+        id: 0

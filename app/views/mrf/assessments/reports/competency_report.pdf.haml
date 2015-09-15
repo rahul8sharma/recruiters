@@ -2,7 +2,7 @@
 - @report.report_data[:competency_scores] = Hash[@report.report_data[:competency_scores].sort_by{|competency,competency_data| competency_order.index(competency_data[:id]).to_i }]
 .competency_report
   .classic_report
-    - @report_configuration["sections"].each do |section_value|
+    - @report_configuration["pdf"]["sections"].each do |section_value|
       = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
       .page-break
     / = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"

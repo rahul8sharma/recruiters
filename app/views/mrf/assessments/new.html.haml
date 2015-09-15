@@ -10,15 +10,13 @@
     Create a new 360&#176; Profiling Exercise
   .clr.divider2
   = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company), html:{id:"assessment_form"} do |f|
+    %input{:id => "input_config", :name => "assessment[report_configuration]", :value => "" ,:type => "hidden"}
     .border-primary
       .padding-all2.border-bottom-grayLighter
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
           %label.pull-left.big-text.line-height2 
             Enter a title for this 360&#176; Exercise
           %input.span20.pull-right{:type => "text", name: "assessment[name]"}
-
-          %input{:id => "input_config", :name => "", :value => "" ,:type => "hidden"}
-
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
           %input.span26.show.margin-auto{:type => "text", :placeholder=>"Enter a title for this 360 Degree Exercise", name: "assessment[name]"}
         .clr
@@ -73,14 +71,9 @@
             If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.      
       .clr
       .divider2
-
-      / = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
       = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
       .clr
-
   .divider1
-    %a.btn.btn-info.large-text.bold.pull-right{:id => "generate_preview", :target => "_blank"}
-      Generate Preview
 .divider1
 
-#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}
+#ReportPreview{:style =>"max-height: 600px; overflow: auto;border: 1px solid black"}

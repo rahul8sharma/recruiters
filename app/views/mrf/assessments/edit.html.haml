@@ -1,8 +1,16 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "jstree"
+
 .container
   .span14.page-title.first
   %h1 Edit a 360&#176; Profiling Exercise
   .clr.divider2
-  = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put do |f|
+  = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put , html: {id: "assessment_form"} do |f|
+    %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
     .border-primary
       .padding-all2
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
@@ -38,10 +46,11 @@
       .hw.pull-left
       
       .span26.margin-auto
-        = render :partial => "shared/360/assessment_flags", :locals => { :f => f}
+        = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
         
         .divider2
         %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
       .clr
       .divider2
     .clr
+#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}

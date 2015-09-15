@@ -8,9 +8,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
-
-    Rails.logger.debug("Report Data")
-    Rails.logger.debug(params)
+    @report_configuration = @report.report_configuration
 
     if params[:view_mode]
       @view_mode = params[:view_mode]
@@ -52,55 +50,46 @@ class Mrf::Assessments::ReportsController < ApplicationController
   end
 
   def report_preview
-    report_type = "competency"
+    report_type = "mrf"
     get_norm_buckets        
     report_params = {}
-    report_params[:company_id] = 2
-    #competency
-    # report_params[:assessment_id] = 322
-    # report_params[:candidate_id] = 51216
-    # report_params[:id] = 981    
-    
-    #fit
-    report_params[:assessment_id] = 324
-    report_params[:candidate_id] = 52675
-    report_params[:id] = 987    
-    
-    @report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
-    
-    Rails.logger.ap("PARAMS")
-    Rails.logger.ap(params[:config])
-    Rails.logger.ap(@report_configuration)
-    
+    report_params[:company_id] = 2    
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-    @report = Vger::Resources::Mrf::Report.find(report_params[:id], report_params)
-    @report.report_hash = @report.report_data
-
-    #enable for competency reports
-    # @assessment = Vger::Resources::Mrf::Assessment.new
-    # @assessment.report_data = {:competency_scores => {}, :trait_scores => {}}
-    # @report.report_data[:competency_scores].each do |competency, competency_scores|
-    #     @assessment.report_data[:competency_scores][competency] = {
-    #       :min_score => { :score => 0 },
-    #       :max_score => { :score => 0 }
-    #     }
-    #     competency_scores[:trait_scores].each do |trait_scores|
-    #        @assessment.report_data[:trait_scores][trait_scores[:trait][:name]] = {
-    #         :min_score => { :score => 0 },
-    #         :max_score => { :score => 0 }
-    #       } 
-    #     end
-    # end
-
-     layout = "layouts/mrf/reports.pdf.haml"
-    #layout = "layouts/mrf/reports.html.haml"
-
-    # template = "mrf/assessments/reports/competency_report.html.haml"
-    # template = "mrf/assessments/reports/competency_report.pdf.haml"
     
-    #template = "mrf/assessments/reports/fit_report.html.haml"
-     template = "mrf/assessments/reports/fit_report.pdf.haml"
+    if params[:assessment_type] == 'competency'
+      report_params[:assessment_id] = 322
+      report_params[:candidate_id] = 51216
+      report_params[:id] = 981    
+      @report = Vger::Resources::Mrf::Report.find(report_params[:id], report_params)
+      @report.report_hash = @report.report_data
+      @assessment = Vger::Resources::Mrf::Assessment.new
+      @assessment.report_data = {:competency_scores => {}, :trait_scores => {}}
+      @report.report_data[:competency_scores].each do |competency, competency_scores|
+          @assessment.report_data[:competency_scores][competency] = {
+            :min_score => { :score => 0 },
+            :max_score => { :score => 0 }
+          }
+          competency_scores[:trait_scores].each do |trait_scores|
+             @assessment.report_data[:trait_scores][trait_scores[:trait][:name]] = {
+              :min_score => { :score => 0 },
+              :max_score => { :score => 0 }
+            } 
+          end
+      end
+    else
+      report_params[:assessment_id] = 324
+      report_params[:candidate_id] = 52675
+      report_params[:id] = 987    
+      @report = Vger::Resources::Mrf::Report.find(report_params[:id], report_params)
+      @report.report_hash = @report.report_data
+    end
+
+    @report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
+    layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
+    template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
     
+    Rails.logger.debug("Report Data")
+    Rails.logger.debug(@report.report_data)
 
     render json:{ 
       content: render_to_string(

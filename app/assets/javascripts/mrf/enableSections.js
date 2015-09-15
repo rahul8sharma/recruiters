@@ -1,10 +1,15 @@
 //= require jstree.min
-var selected = [];
-var $jstree = null;
-function loadConfig(viewType, assessment_Type) {
+// var selected = [];
+var $htmlTree, $pdfTree = null;
+var defaultSelectedObject = { 
+  html: { sections: [] },
+  pdf: { sections: [] }  
+};
+
+function loadConfig(assessment_Type, $jsTree, viewMode) {
   var reportType = 'mrf';
   var assessmentType = assessment_Type;
-  var viewMode = viewType;
+  var viewMode = viewMode;
   var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&view_mode="+viewMode;
   $.ajax({ 
     type: "GET",
@@ -12,12 +17,13 @@ function loadConfig(viewType, assessment_Type) {
     dataType: 'json',
     success: function(data) {
       var config = JSON.parse(data.config);
-      selected = JSON.parse(data.selected);
+      var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : defaultSelectedObject;
+      $jsTree.selected = $jsTree.treeType == "html" ? data.html.sections : data.pdf.sections;
       if(data.error) {
         alert(data.error);
       } else {
-        $jstree.settings.core.data = config; 
-        $jstree.refresh();
+        $jsTree.settings.core.data = config; 
+        $jsTree.refresh();
       }
     },
     error: function(error){
@@ -25,46 +31,47 @@ function loadConfig(viewType, assessment_Type) {
     }
   });
 }
-function setSelected(obj){
+
+function setSelected(obj, $jsTree){
   if(obj.children == null || obj.children.length == 0) {
-    $jstree.select_node(obj.id);
+    $jsTree.select_node(obj.id);
     return obj.id;
   } else {
     for(var i = 0; i < obj.children.length; i++) {
       var o = obj.children[i];
-      setSelected(o);
+      setSelected(o, $jsTree);
     }
   }
 }
 
-function createNode(id){
-  var obj = $jstree.get_node(id).original;
+function createNode(id, $jsTree){
+  var obj = $jsTree.get_node(id).original;
   obj.children = [];
   obj.state = { selected: true };
   return obj;
 }
 
-function getConfiguration(){
+function getConfiguration($jsTree){
   var hash = {}
   var configuration = [];
   var objects = {};
   var root = null;
-  var selected = $jstree.get_checked('full');
+  var selected = $jsTree.get_checked('full');
   //console.log(selected);
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
-    var parent = $jstree.get_node(obj.parent);
+    var parent = $jsTree.get_node(obj.parent);
     if(parent && parent.parent == "#") {
-      objects[parent.id] = createNode(parent.id);;      
+      objects[parent.id] = createNode(parent.id, $jsTree);;      
     } 
-    objects[obj.id] = createNode(obj.id);;
+    objects[obj.id] = createNode(obj.id, $jsTree);;
   }
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     if(obj.parent == "#") {
       root = objects[obj.id];
     } else {
-      var parent_node = $jstree.get_node(obj.parent);
+      var parent_node = $jsTree.get_node(obj.parent);
       if(parent_node && parent_node.parent == "#") {
         root = objects[parent_node.id];
       } 
@@ -78,7 +85,7 @@ function getConfiguration(){
       configuration.push(root);
     }
   }
-  var root = $jstree.get_node("#");
+  var root = $jsTree.get_node("#");
   configuration = sortChildren(configuration, root.children);
   //console.log(configuration);
   hash["sections"] = configuration
@@ -93,43 +100,59 @@ function sortChildren(arr, children){
 }
 
 $(document).ready(function(){
-  $("#set_view_mode").change(function(){    
-    if($('#set_assessment_type').val() != ""){
-      loadConfig($('#set_view_mode').val(), $('#set_assessment_type').val());
-    }else{
-      alert('Set Assessment Type');
-    }
-
-  });
-
   $("#set_assessment_type").change(function(){    
-    if($('#set_view_mode').val() != ""){
-      loadConfig($('#set_view_mode').val(), $('#set_assessment_type').val());
-    }else{
-      alert('Set View Mode');
-    }    
-
+    loadConfig($('#set_assessment_type').val(), $htmlTree, 'html');
+    loadConfig($('#set_assessment_type').val(), $pdfTree, 'pdf');
   });
   
-  $('#generate_preview').on('click', function(){
-    generatePreview();
+  $('#generate_html_preview').on('click', function(){
+    updateInput();
+    generatePreview($('#set_assessment_type').val(), 'html', $('#ReportPreview'), $htmlTree);
   });
+
+
+  $('#generate_pdf_preview').on('click', function(){
+    updateInput();
+    generatePreview($('#set_assessment_type').val(), 'pdf', $('#ReportPreview'), $pdfTree);
+  });
+
 
   $('#assessment_form').submit(function(e) {
-    //e.preventDefault();
-    var configuration = getConfiguration();
-    $("#input_config").val(JSON.stringify(configuration));
+    updateInput();
     return true;
   });
-  
-  $('#html_configuration').on('changed.jstree', function (e, data) {
+    
+  $htmlTree = createJSTree("#html_configuration");
+  $htmlTree.treeType = "html";
+  $pdfTree = createJSTree("#pdf_configuration");
+  $pdfTree.treeType = "pdf";
+
+  loadConfig($('#set_assessment_type').val(), $htmlTree, 'html');
+  loadConfig($('#set_assessment_type').val(), $pdfTree, 'pdf');
+});
+
+function updateInput(){
+  var html_configuration = getConfiguration($htmlTree);
+  var pdf_configuration = getConfiguration($pdfTree);
+  var configuration = {
+    html: html_configuration,
+    pdf: pdf_configuration
+  };
+  $("#input_config").val(JSON.stringify(configuration));   
+  return configuration;
+}
+
+function createJSTree(container){
+  $(container).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
+    data.instance.selected = data.instance.selected || [];
+    var selected = data.instance.selected;
     for(var i = 0; i < selected.length; i++) {
       var obj = selected[i];
       if(obj.children == null || obj.children.length == 0) {
-        $jstree.select_node(obj.id);
+        data.instance.select_node(obj.id);
       } else {
-        setSelected(obj);
+        setSelected(obj, data.instance);
       }
     }
   }).jstree({
@@ -154,28 +177,30 @@ $(document).ready(function(){
       'data' : []
     }
   });
-  $jstree = $('#html_configuration').jstree(true);
-});
+  return $(container).jstree(true);
 
-function generatePreview(){
-  $("#ReportPreview").html("Loading...");
-  var configuration = getConfiguration(); 
+}
+
+function generatePreview(assessmentType, viewMode, container, $jsTree){
+  container.html("Loading...");
+  var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType;
+  var configuration = updateInput();
   var form_data = {
     "config": JSON.stringify(configuration),
     "authenticity_token": $('input[name="authenticity_token"]').val()
   }
   $.ajax({ 
       type: "POST",
-      url: "/companies/2/360/report_preview",
+      url: "/companies/2/360/report_preview?"+uri,
       data: form_data,
       dataType: 'json',
       success: function(data)
       {   
-        $("#ReportPreview").html(data.content);
+        container.html(data.content);
       },error: function(data) { 
-        $("#ReportPreview").html('');
+        container.html('');
       }
     });
 }
 
-// loadConfig($('#set_view_mode').val(), $('#set_assessment_type').val());
+// loadConfig($('#set_assessment_type').val());
