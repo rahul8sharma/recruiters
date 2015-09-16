@@ -35,6 +35,30 @@ class ReportConfigurationsController < MasterDataController
         selected = @resource.configuration
         selected[:html][:sections] ||= []
         selected[:pdf][:sections] ||= []
+      else
+        @resource = api_resource.where({
+          query_options: {
+            report_type: params[:report_type],
+            assessment_type: params[:assessment_type],
+            company_id: params[:company_id]
+          } 
+        }).first
+        
+        if !@resource
+          @resource = api_resource.where({
+            query_options: {
+              report_type: params[:report_type],
+              assessment_type: params[:assessment_type],
+              company_id: nil
+            } 
+          }).first
+        end
+        
+        if @resource
+          selected = @resource.configuration
+          selected[:html][:sections] ||= []
+          selected[:pdf][:sections] ||= []
+        end
       end
       selected_html_sections = selected[:html][:sections].collect{|x| x[:id] }
       selected_pdf_sections = selected[:pdf][:sections].collect{|x| x[:id] }

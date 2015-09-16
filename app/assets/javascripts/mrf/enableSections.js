@@ -10,21 +10,50 @@ function loadConfig(assessment_Type) {
   var reportType = 'mrf';
   var assessmentType = assessment_Type;
   var viewMode = viewMode;
-  var uri = "report_type="+reportType+"&assessment_type="+assessmentType;
+  var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&company_id="+$("#input_company_id").val();
   $.ajax({ 
     type: "GET",
     url: "/report_configurations/load_configuration?"+uri,
     dataType: 'json',
-    success: function(data) {
-      if(data.error) {
-        alert(data.error);
+    success: function(response_data) {
+      if(response_data.error) {
+        alert(response_data.error);
       } else {
-        var config = JSON.parse(data.config);
-        var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : defaultSelectedObject;
+        var config = JSON.parse(response_data.config);
+        var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : JSON.parse(response_data.selected);
+        data.html = data.html || { sections: [] };
+        data.pdf = data.pdf || { sections: [] };
         $htmlTree.selected = data.html.sections;
         $pdfTree.selected = data.pdf.sections;          
+        
+        var selectedHtmlSectionIds = $.map(data.html.sections, function(section){ return section.id; });
+        var selectedPdfSectionIds = $.map(data.pdf.sections, function(section){ return section.id; });
+        if(selectedHtmlSectionIds.length > 0) {
+          config.html.sections.sort(function(a,b){
+            if(selectedHtmlSectionIds.indexOf(a.id) == -1) {
+              return 1;
+            } else if(selectedHtmlSectionIds.indexOf(b.id) == -1) {
+              return -1;
+            } else {
+              return selectedHtmlSectionIds.indexOf(a.id) - selectedHtmlSectionIds.indexOf(b.id);
+            }  
+          });
+        }
+        if(selectedPdfSectionIds.length > 0) {
+          config.pdf.sections.sort(function(a,b){
+            if(selectedPdfSectionIds.indexOf(a.id) == -1) {
+              return 1;
+            } else if(selectedPdfSectionIds.indexOf(b.id) == -1) {
+              return -1;
+            } else {
+              return selectedPdfSectionIds.indexOf(a.id) - selectedPdfSectionIds.indexOf(b.id);
+            }
+          });
+        }  
+        
         $htmlTree.settings.core.data = config.html.sections; 
         $htmlTree.refresh();
+        
         $pdfTree.settings.core.data = config.pdf.sections; 
         $pdfTree.refresh();
       }
@@ -109,13 +138,13 @@ $(document).ready(function(){
   
   $('#generate_html_preview').on('click', function(){
     updateInput();
-    generatePreview($('#set_assessment_type').val(), 'html', $('#ReportPreview'), $htmlTree);
+    generatePreview($('#set_assessment_type').val(), 'html', $htmlTree);
   });
 
 
   $('#generate_pdf_preview').on('click', function(){
     updateInput();
-    generatePreview($('#set_assessment_type').val(), 'pdf', $('#ReportPreview'), $pdfTree);
+    generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree);
   });
 
 
@@ -182,8 +211,7 @@ function createJSTree(container){
 
 }
 
-function generatePreview(assessmentType, viewMode, container, $jsTree){
-  container.html("Loading...");
+function generatePreview(assessmentType, viewMode, $jsTree){
   var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType;
   var configuration = updateInput();
   var form_data = {
@@ -196,12 +224,11 @@ function generatePreview(assessmentType, viewMode, container, $jsTree){
       data: form_data,
       dataType: 'json',
       success: function(data)
-      {   
-        container.html(data.content);
-      },error: function(data) { 
-        container.html('');
+      { 
+        document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';  
+        document.getElementById('iframe1').contentWindow.document.write(data.content);
+      },error: function(error) { 
+        document.getElementById('iframe1').contentWindow.document.write("Error while loading the preview.");
       }
     });
 }
-
-// loadConfig($('#set_assessment_type').val());
