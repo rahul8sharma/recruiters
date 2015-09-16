@@ -4,27 +4,17 @@
 :css
   .report .competency_report .inner{margin-top:0px;} 
 - @factor_scores = @report.report_data[:competency_scores].map{|competency, competency_scores| competency_scores[:factor_scores] }.reduce({}){|factor_scores, _hash| _hash.merge(factor_scores) }
+- competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+
+
 .competency_report
-  - competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
+  = render :template => "assessment_reports/competency_report/html/cover_page", :locals => { competency_scores: competency_scores }
+
+  = render :template => "assessment_reports/competency_report/html/comptencies_values_measured", :locals => {competency_scores: competency_scores, competency_step: competency_step}
   
-  - competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
-  = render :template => "assessment_reports/competency_report/html/competency_report_page1", :locals => { competency_scores: competency_scores }
-  
-  - (0..competency_scores.length-1).step(competency_step) do |step|    
-    - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
-    = render :template => "assessment_reports/competency_report/html/competency_report_page2", :locals => { competency_scores: step_competency_scores }
-  
-  - if @view_mode == "html"
-    = render :template => "assessment_reports/competency_report/html/competency_report_page3"
-  - else
-    - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
-      - if competency_data[:factor_scores].present?
-        - competency_factors_step = Rails.application.config.reports[@view_mode]["competency_factors_step"]
-        - (0..competency_data[:factor_scores].keys.length-1).step(competency_factors_step) do |step|    
-          - step_keys = competency_data[:factor_scores].keys[step..(step+(competency_factors_step - 1))]
-          - factor_scores = competency_data[:factor_scores].select{|key,value| step_keys.include?(key) }
-          = render :template => "assessment_reports/competency_report/html/competency_report_page3", :locals => { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
-  
+  = render :template => "assessment_reports/competency_report/html/competency_report_page3"
+
   = render :partial => "assessment_reports/functional_report/html/functional_overview_section"
   = render :partial => "assessment_reports/functional_report/html/objective_questions"
   = render :partial => "assessment_reports/functional_report/html/subjective_questions"

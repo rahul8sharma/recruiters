@@ -20,5 +20,4 @@
     :html:
       <<: *html
     :pdf:
-      <<: *html         
-        
+      <<: *html
