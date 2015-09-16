@@ -409,14 +409,4 @@ class Mrf::AssessmentsController < ApplicationController
     @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
     @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
   end
-
-  def get_report_configurations
-    @report_configurations = Vger::Resources::ReportConfiguration.where({
-        query_options: {
-          company_id: params[:company_id],
-          report_type: Vger::Resources::ReportConfiguration::ReportType::MRF
-        },
-        select: [:id, :view_mode, :assessment_type]
-      })
-  end
 end

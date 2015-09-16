@@ -11,6 +11,7 @@
   .clr.divider2
   = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put , html: {id: "assessment_form"} do |f|
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
+    %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     .border-primary
       .padding-all2
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
@@ -53,4 +54,4 @@
       .clr
       .divider2
     .clr
-#ReportPreview{:style =>"max-height: 600px; overflow: auto; zoom: 90%; border: 1px solid black"}
+%iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
