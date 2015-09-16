@@ -11,8 +11,7 @@ class ReportConfigurationsController < MasterDataController
       :id,
       :company_id,
       :report_type,
-      :assessment_type,
-      :view_mode
+      :assessment_type
     ]
   end
   
@@ -21,27 +20,30 @@ class ReportConfigurationsController < MasterDataController
       :id,
       :company_id,
       :report_type,
-      :assessment_type,
-      :view_mode
+      :assessment_type
     ]
   end
   
   def load_configuration
     file = YAML.load(File.read(Rails.root.join("config/report_configurations_#{params[:report_type]}.yml"))).with_indifferent_access
-    @config = file[params[:report_type]][params[:assessment_type]][params[:view_mode]] rescue nil
-    selected = [];
+    @config = file[params[:report_type]][params[:assessment_type]] rescue nil
+    selected = { html: { sections: [] }, pdf: { sections: [] } };
     error = nil
     if @config
       if(params[:id].present?)
         @resource = api_resource.find(params[:id], :methods => index_columns)
-        selected = @resource.configuration[:sections]
+        selected = @resource.configuration
+        selected[:html][:sections] ||= []
+        selected[:pdf][:sections] ||= []
       end
-      selected_sections = selected.collect{|x| x[:id] }
-      sections = @config["sections"].sort_by{|section| selected_sections.index(section[:id]) || 1000 }
+      selected_html_sections = selected[:html][:sections].collect{|x| x[:id] }
+      selected_pdf_sections = selected[:pdf][:sections].collect{|x| x[:id] }
+      html_sections = @config["html"]["sections"].sort_by{|section| selected_html_sections.index(section[:id]) || 1000 }
+      pdf_sections = @config["pdf"]["sections"].sort_by{|section| selected_pdf_sections.index(section[:id]) || 1000 }
     else
       error = "Invalid combination."
     end
-    render :json => { config: sections.to_json, selected: selected.to_json, error: error }
+    render :json => { config: { html: { sections: html_sections }, pdf: { sections: pdf_sections } }.to_json, selected: selected.to_json, error: error }
   end
   
   def edit

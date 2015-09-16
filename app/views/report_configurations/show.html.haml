@@ -1,7 +1,7 @@
 = stylesheet_link_tag 'jstree'    
 %h2
   Showing details of #{resource_name.singularize.titleize} - #{@resource.id}
-.config.hide{ "data-config" => @resource.configuration["sections"].to_json }  
+.config.hide{ "data-config" => @resource.configuration.to_json }  
 %table{ cellspacing: 5, cellpadding: 5 }
   - index_columns.each do |index_column|
     %tr
@@ -12,9 +12,15 @@
   %tr
     %td 
       %h4
-        Configuration:
+        HTML Configuration:
     %td 
-      #configuration
+      #html_configuration
+  %tr
+    %td 
+      %h4
+        PDF Configuration:
+    %td 
+      #pdf_configuration    
 .links
   = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)
   \|

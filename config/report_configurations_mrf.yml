@@ -1,6 +1,6 @@
 :mrf:
   :competency:
-    :html: &html
+    :html:
       :sections: [
         {
           id: "html_cover_page",

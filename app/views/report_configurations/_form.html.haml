@@ -14,13 +14,16 @@
     .field
       = f.label :assessment_type
       = f.select :assessment_type, Vger::Resources::ReportConfiguration::ASSESSMENT_TYPES.sort, {}, { id: "select_assessment_type", class: "config" }
-    .field
-      = f.label :view_mode
-      = f.select :view_mode, Vger::Resources::ReportConfiguration::VIEW_MODES.sort, {}, { id: "select_view_mode", class: "config" }
     .action
       = f.submit
-.pull-left
-  #configuration
+.clr
+.divider2      
+.span14.pull-left
+  %h2 HTML Configuration
+  #html_configuration
+.span14.pull-left
+  %h2 PDF Configuration
+  #pdf_configuration
 .clr      
 - content_for :javascripts do
   = javascript_include_tag 'report_configurations'

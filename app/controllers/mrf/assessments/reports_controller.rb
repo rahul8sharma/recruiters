@@ -55,7 +55,13 @@ class Mrf::Assessments::ReportsController < ApplicationController
     report_params = {}
     report_params[:company_id] = 2    
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-    
+
+    report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_preview_configurations.yml")).with_indifferent_access
+    report_preview_configurations = report_conf[Rails.env.to_s][report_type][params[:assessment_type]]
+
+    Rails.logger.ap("Reports Confguration");
+    Rails.logger.ap(report_preview_configurations)
+
     if params[:assessment_type] == 'competency'
       report_params[:assessment_id] = 322
       report_params[:candidate_id] = 51216
@@ -88,8 +94,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
     layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
     template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
     
-    Rails.logger.debug("Report Data")
-    Rails.logger.debug(@report.report_data)
+    # Rails.logger.debug("Report Data")
+    # Rails.logger.debug(@report.report_data)
 
     render json:{ 
       content: render_to_string(
