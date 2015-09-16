@@ -1,10 +1,11 @@
 //= require jstree.min
 var selected = [];
+var $pdfTree = null;
+var $htmlTree = null;
 function loadConfig() {
   var reportType = $('#select_report_type :selected').text();
   var assessmentType = $('#select_assessment_type :selected').text();
-  var viewMode = $('#select_view_mode :selected').text();
-  var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&view_mode="+viewMode;
+  var uri = "report_type="+reportType+"&assessment_type="+assessmentType;
   if($("#report_configuration_id").length > 0) {
     uri = uri + "&id="+$("#report_configuration_id").val();
   }
@@ -14,12 +15,16 @@ function loadConfig() {
     dataType: 'json',
     success: function(data) {
       var config = JSON.parse(data.config);
-      selected = JSON.parse(data.selected);
+      var selected = JSON.parse(data.selected);
+      $htmlTree.selected = selected.html.sections
+      $pdfTree.selected = selected.pdf.sections;
       if(data.error) {
         alert(data.error);
       } else {
-        $('#configuration').jstree(true).settings.core.data = config;
-        $('#configuration').jstree(true).refresh();
+        $htmlTree.settings.core.data = config.html.sections;
+        $pdfTree.settings.core.data = config.pdf.sections;
+        $htmlTree.refresh();
+        $pdfTree.refresh();
       }
     },
     error: function(error){
@@ -28,46 +33,47 @@ function loadConfig() {
   });
 }
 
-function setSelected(obj){
+function setSelected($jsTree, obj){
   if(obj.children == null || obj.children.length == 0) {
-    $('#configuration').jstree(true).select_node(obj.id);
+    $jsTree.select_node(obj.id);
     return obj.id;
   } else {
     for(var i = 0; i < obj.children.length; i++) {
       var o = obj.children[i];
-      setSelected(o);
+      setSelected($jsTree, o);
     }
   }
 }
 
-function createNode(id){
-  var obj = $('#configuration').jstree(true).get_node(id).original;
+function createNode($jsTree, id){
+  var obj = $jsTree.get_node(id).original;
   obj.children = [];
   obj.state = { selected: true };
   return obj;
 }
 
-function getConfiguration(){
+function getConfigurationForTree($jsTree){
   var hash = {}
   var configuration = [];
   var objects = {};
   var root = null;
-  var selected = $('#configuration').jstree(true).get_checked('full');
+  var selected = $jsTree.get_checked('full');
   //console.log(selected);
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
-    var parent = $('#configuration').jstree(true).get_node(obj.parent);
+    var parent = $jsTree.get_node(obj.parent);
     if(parent && parent.parent == "#") {
-      objects[parent.id] = createNode(parent.id);;      
+      objects[parent.id] = createNode($jsTree, parent.id);;      
     } 
-    objects[obj.id] = createNode(obj.id);;
+    objects[obj.id] = createNode($jsTree, obj.id);;
   }
+  //var selected = $jsTree.selected;
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     if(obj.parent == "#") {
       root = objects[obj.id];
     } else {
-      var parent_node = $('#configuration').jstree(true).get_node(obj.parent);
+      var parent_node = $jsTree.get_node(obj.parent);
       if(parent_node && parent_node.parent == "#") {
         root = objects[parent_node.id];
       } 
@@ -81,7 +87,7 @@ function getConfiguration(){
       configuration.push(root);
     }
   }
-  var root = $('#configuration').jstree(true).get_node("#");
+  var root = $jsTree.get_node("#");
   configuration = sortChildren(configuration, root.children);
   //console.log(configuration);
   hash["sections"] = configuration
@@ -96,6 +102,9 @@ function sortChildren(arr, children){
 }
 
 $(document).ready(function(){
+  $htmlTree = createJSTree("#html_configuration", "html");
+  $pdfTree = createJSTree("#pdf_configuration", "pdf");
+
   $(".config").change(function(){
     loadConfig();
   });
@@ -106,15 +115,29 @@ $(document).ready(function(){
     $("#input_config").val(JSON.stringify(configuration));
     return true;
   });
-  
-  $('#configuration').on('changed.jstree', function (e, data) {
+  loadConfig();
+});
+
+function getConfiguration(){
+  var html_configuration = getConfigurationForTree($htmlTree);
+  var pdf_configuration = getConfigurationForTree($pdfTree);
+  var configuration = {
+    html: html_configuration,
+    pdf: pdf_configuration
+  }
+  return configuration;
+}
+
+function createJSTree(container, viewMode){
+  $(container).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
+    var selected = data.instance.selected;
     for(var i = 0; i < selected.length; i++) {
       var obj = selected[i];
       if(obj.children == null || obj.children.length == 0) {
-        $('#configuration').jstree(true).select_node(obj.id);
+        data.instance.select_node(obj.id);
       } else {
-        setSelected(obj);
+        setSelected(data.instance, obj);
       }
     }
   }).jstree({
@@ -139,5 +162,8 @@ $(document).ready(function(){
       'data' : []
     }
   });
-});
-loadConfig();
+  var tree = $(container).jstree(true);
+  tree.viewMode = viewMode;
+  return tree;
+}
+
