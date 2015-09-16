@@ -140,6 +140,8 @@ class AssessmentReportsController < ApplicationController
     end                    
     @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
     @report.report_hash = @report.report_data
+    Rails.logger.ap("Report Data")
+    Rails.logger.ap(@report.report_data)
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else

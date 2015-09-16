@@ -5,21 +5,17 @@
 .page-break
 
 = render :partial => "assessment_reports/score_scale"
-- scores_step = Rails.application.config.reports[@view_mode]["scores_step"]
 
-- if @report.report_hash[:factor_scores].present?
-  = render :template => "assessment_reports/fit_report/html/page2"
-  .page-break      
+= render :template => "assessment_reports/fit_report/html/page2"
+.page-break      
 
-- if @report.report_hash[:factor_scores].present?
-  - factor_scores = @report.report_hash[:factor_scores]
-  - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
-    - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-    = render :template => "assessment_reports/fit_report/html/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
+= render :template => "assessment_reports/fit_report/html/page3"
+.page-break
   
-- if @report.report_hash[:functional_trait_scores].present?  
-  = render :template => "assessment_reports/fit_report/html/scores_of_functional_traits"
-  .page-break
+= render :template => "assessment_reports/fit_report/html/scores_of_functional_traits"
+.page-break
+
+
 .competency_report
   = render :partial => "assessment_reports/functional_report/html/functional_overview_section"
 = render :partial => "assessment_reports/functional_report/html/objective_questions"

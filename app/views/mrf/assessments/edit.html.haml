@@ -12,13 +12,13 @@
   = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put , html: {id: "assessment_form"} do |f|
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
+    %input{:id => "report_type", :value => "mrf", :type => "hidden"}
     .border-primary
       .padding-all2
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
           %label.pull-left.big-text.line-height2
             Enter a title for this 360&#176; Exercise
           %input.span20.pull-right{:type => "text", :value => "#{@assessment.name}", name: "assessment[name]", required: true}
-
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
           %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]", required: true}
         .clr
@@ -29,7 +29,6 @@
         %option{ value: "classic", selected: @assessment.configuration["assessment_type"] == "classic" }
           Classic  
       .divider1
-      
       .span26.margin-auto
         - if is_superadmin?
           %label.big-text.default
@@ -45,10 +44,8 @@
             Show Company Logo
         .divider1
       .hw.pull-left
-      
       .span26.margin-auto
         = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
-        
         .divider2
         %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
       .clr

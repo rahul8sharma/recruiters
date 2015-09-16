@@ -1,0 +1,43 @@
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+- @report.report_hash[:competency_scores].each do |competency_name, competency_data|
+  - if competency_data[:factor_scores].present?
+    - competency_factors_step = Rails.application.config.reports[@view_mode]["competency_factors_step"]
+    - (0..competency_data[:factor_scores].keys.length-1).step(competency_factors_step) do |step|
+      - step_keys = competency_data[:factor_scores].keys[step..(step+(competency_factors_step - 1))]
+      - factor_scores = competency_data[:factor_scores].select{|key,value| step_keys.include?(key) }      
+      = render partial: "shared/reports/pdf/report_header.pdf.haml"
+      .inner
+        .scores.favorable_factors
+          .divider1
+          .span8.first
+            .blue_heading.large-text
+              Scores of Factors measured under different Competencies / Values
+            .divider1
+            .instruction_container
+              .instructions
+                .instruction1.pull-left.first
+                  Favorable Traits
+                .instruction2.less_favorable.pull-left
+                  Less Favorable Traits
+                .clr
+            - if (@report.report_hash[:functional_items].present?)
+              .functional-traits-title
+                Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
+          .pull-right
+            .divider1
+            .scale
+              .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
+              .marker-container
+                - @company_norm_buckets.each do |norm_bucket|
+                  .marker
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
+                .clr
+          .clr
+          .divider2
+          - if @report.report_data[:show_favourable_above_desired_range]
+            = render :partial => "assessment_reports/competency_report/pdf/custom_competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
+          - else
+            = render :partial => "assessment_reports/competency_report/pdf/competency", locals: { competency_name: competency_name, competency_data: competency_data, factor_scores: factor_scores, step: step }
+      .page-break

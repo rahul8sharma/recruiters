@@ -1,13 +1,12 @@
 //= require jstree.min
-// var selected = [];
 var $htmlTree, $pdfTree = null;
 var defaultSelectedObject = { 
   html: { sections: [] },
   pdf: { sections: [] }  
 };
 
-function loadConfig(assessment_Type) {
-  var reportType = 'mrf';
+function loadConfig(assessment_Type, reportType) {
+  var reportType = reportType;
   var assessmentType = assessment_Type;
   var viewMode = viewMode;
   var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&company_id="+$("#input_company_id").val();
@@ -132,19 +131,22 @@ function sortChildren(arr, children){
 }
 
 $(document).ready(function(){
+  var reportType = $('#report_type').val();
+  var company_id = $('#input_company_id').val();
   $("#set_assessment_type").change(function(){    
-    loadConfig($('#set_assessment_type').val());
+    loadConfig($('#set_assessment_type').val(), reportType);
   });
-  
   $('#generate_html_preview').on('click', function(){
+    document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';
     updateInput();
-    generatePreview($('#set_assessment_type').val(), 'html', $htmlTree);
+    generatePreview($('#set_assessment_type').val(), 'html', $htmlTree, reportType, company_id);
   });
 
 
   $('#generate_pdf_preview').on('click', function(){
+    document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
     updateInput();
-    generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree);
+    generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree, reportType, company_id);
   });
 
 
@@ -158,7 +160,7 @@ $(document).ready(function(){
   $pdfTree = createJSTree("#pdf_configuration");
   $pdfTree.treeType = "pdf";
 
-  loadConfig($('#set_assessment_type').val());
+  loadConfig($('#set_assessment_type').val(), reportType);
 });
 
 function updateInput(){
@@ -211,8 +213,9 @@ function createJSTree(container){
 
 }
 
-function generatePreview(assessmentType, viewMode, $jsTree){
-  var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType;
+function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_id){  
+  var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType+"&report_type="+reportType+"&company_id="+company_id;  
+  var url = "/report_configurations/report_preview_"+reportType+"?"+uri;
   var configuration = updateInput();
   var form_data = {
     "config": JSON.stringify(configuration),
@@ -220,7 +223,7 @@ function generatePreview(assessmentType, viewMode, $jsTree){
   }
   $.ajax({ 
       type: "POST",
-      url: "/companies/2/360/report_preview?"+uri,
+      url: url,
       data: form_data,
       dataType: 'json',
       success: function(data)

@@ -3,19 +3,256 @@
     :html: &html
       :sections: [
         {
-          id: "cover_page",
+          id: "html_cover_page",
           text: "Cover Page",
-          path: "assessment_reports/competency_report/html/competency_report_page1.html.haml",
+          path: "assessment_reports/competency_report/html/cover_page",
+          children: []
+        },
+        {
+          id: "html_competencies_values_measured",
+          text: "Competencies and Values Measured",
+          path: "assessment_reports/competency_report/html/comptencies_values_measured",
+          children: []
+        },
+        {
+          id: "html_trait_scores_under_competencies",
+          text: "Trait Scores Under Competencies",
+          path: "assessment_reports/competency_report/html/trait_scores_under_competencies",
+          children: []
+        },
+        {
+          id: "html_functional_overview_section",
+          text: "Functional Overview Sections",
+          path: "assessment_reports/functional_report/html/functional_overview_section",
+          children: []
+        },
+        {
+          id: "html_objective_questions",
+          text: "Objective Questions",
+          path: "assessment_reports/functional_report/html/objective_questions",
+          children: []
+        },
+        {
+          id: "html_subjective_questions",
+          text: "Subjective Questions",
+          path: "assessment_reports/functional_report/html/subjective_questions",
+          children: []
+        },
+        {
+          id: "html_guidelines_for_candidate_manager",
+          text: "Guidelines for Candidate Manager",
+          path: "assessment_reports/competency_report/html/guidelines_for_candidate_and_manager",
+          children: []
+        },
+        {
+          id: "html_about_us",
+          text: "About Us",
+          path: "shared/reports/html/about_us",
+          children: []
+        },
+        {
+          id: "html_legal_disclaimer",
+          text: "Legal Disclaimer",
+          path: "shared/reports/html/legal_disclaimer",
           children: []
         }
       ]
     :pdf:
-      <<: *html
+      :sections: [
+        {
+          id: "pdf_cover_page",
+          text: "Cover Page",
+          path: "assessment_reports/competency_report/pdf/cover_page",
+          children: []
+        },
+        {
+          id: "pdf_competency_report_guideline",
+          text: "Competency report guideline",
+          path: "assessment_reports/competency_report/pdf/competency_report_guideline",
+          children: []
+        },
+        {
+          id: "pdf_score_scale",
+          text: "Score Scale",
+          path: "assessment_reports/score_scale",
+          children: []
+        },
+        {
+          id: "pdf_explanation_scores",
+          text: "Scores Exaplanation",
+          path: "assessment_reports/competency_report/pdf/explanation_scores",
+          children: []
+        },
+        {
+          id: "pdf_custom_competency_score_overview",
+          text: "Custom Competency Score Overview",
+          path: "assessment_reports/competency_report/pdf/custom_competency_score_overview",
+          children: []
+        },
+        {
+          id: "pdf_competencies_values_measured",
+          text: "Competncies Values Measured",
+          path: "assessment_reports/competency_report/pdf/compentencies_values_measured",
+          children: []
+        },
+        {
+          id: "pdf_factor_scores_unders_competencies",
+          text: "Factor Scores Under Competencies",
+          path: "assessment_reports/competency_report/pdf/factor_scores_under_competencies",
+          children: []
+        },
+        {
+          id: "pdf_functional_overview_sections",
+          text: "Functional Overview Section",
+          path: "assessment_reports/functional_report/pdf/functional_overview_section",
+          children: []
+        },
+        {
+          id: "pdf_objective_questions",
+          text: "Objective Questions",
+          path: "assessment_reports/functional_report/pdf/objective_questions",
+          children: []
+        },
+        {
+          id: "pdf_subjective_questions",
+          text: "Subjective Questions",
+          path: "assessment_reports/functional_report/pdf/subjective_questions",
+          children: []
+        },
+        {
+          id: "pdf_miscellaneous_factors",
+          text: "Miscellaneous Factors",
+          path: "assessment_reports/competency_report/pdf/miscellaneous_factors",
+          children: []
+        },
+        {
+          id: "pdf_development_interview_guide_candidate",
+          text: "Developemnt Interview Guide For Candidate",
+          path: "assessment_reports/competency_report/pdf/development_interview_guide_candidate",
+          children: []
+        },
+        {
+          id: "pdf_development_interview_guide_manager",
+          text: "Developemnt Interview Guide For Manager",
+          path: "assessment_reports/competency_report/pdf/development_interview_guide_manager",
+          children: []
+        }
+      ]
   :fit:
-    :html:
-      <<: *html
+    :html: &html
+      :sections: [
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        }
+      ]
     :pdf:
-      <<: *html      
+      :sections: [
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        },
+        {
+          id: "",
+          text: "",
+          path: "",
+          children: []
+        }
+      ]
   :jq:
     :html:
       <<: *html
