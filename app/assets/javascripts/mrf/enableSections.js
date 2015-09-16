@@ -6,24 +6,28 @@ var defaultSelectedObject = {
   pdf: { sections: [] }  
 };
 
-function loadConfig(assessment_Type, $jsTree, viewMode) {
+function loadConfig(assessment_Type) {
   var reportType = 'mrf';
   var assessmentType = assessment_Type;
   var viewMode = viewMode;
-  var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&view_mode="+viewMode;
+  var uri = "report_type="+reportType+"&assessment_type="+assessmentType;
   $.ajax({ 
     type: "GET",
     url: "/report_configurations/load_configuration?"+uri,
     dataType: 'json',
     success: function(data) {
-      var config = JSON.parse(data.config);
-      var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : defaultSelectedObject;
-      $jsTree.selected = $jsTree.treeType == "html" ? data.html.sections : data.pdf.sections;
       if(data.error) {
         alert(data.error);
       } else {
-        $jsTree.settings.core.data = config; 
-        $jsTree.refresh();
+        var config = JSON.parse(data.config);
+        var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : defaultSelectedObject;
+        $htmlTree.selected = data.html.sections;
+        $pdfTree.selected = data.pdf.sections;
+          
+        $htmlTree.settings.core.data = config.html.sections; 
+        $htmlTree.refresh();
+        $pdfTree.settings.core.data = config.pdf.sections; 
+        $pdfTree.refresh();
       }
     },
     error: function(error){
@@ -101,8 +105,7 @@ function sortChildren(arr, children){
 
 $(document).ready(function(){
   $("#set_assessment_type").change(function(){    
-    loadConfig($('#set_assessment_type').val(), $htmlTree, 'html');
-    loadConfig($('#set_assessment_type').val(), $pdfTree, 'pdf');
+    loadConfig($('#set_assessment_type').val());
   });
   
   $('#generate_html_preview').on('click', function(){
@@ -127,8 +130,7 @@ $(document).ready(function(){
   $pdfTree = createJSTree("#pdf_configuration");
   $pdfTree.treeType = "pdf";
 
-  loadConfig($('#set_assessment_type').val(), $htmlTree, 'html');
-  loadConfig($('#set_assessment_type').val(), $pdfTree, 'pdf');
+  loadConfig($('#set_assessment_type').val());
 });
 
 function updateInput(){

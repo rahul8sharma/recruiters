@@ -10,6 +10,9 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @report.report_hash = @report.report_data
     @report_configuration = @report.report_configuration
 
+    Rails.logger.debug("Report Data")
+    Rails.logger.debug(@report.report_hash)
+
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -56,18 +59,10 @@ class Mrf::Assessments::ReportsController < ApplicationController
     report_params[:company_id] = 2    
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
 
-    report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_preview_configurations.yml")).with_indifferent_access
-    report_preview_configurations = report_conf[Rails.env.to_s][report_type][params[:assessment_type]]
-
-    Rails.logger.ap("Reports Confguration");
-    Rails.logger.ap(report_preview_configurations)
-
+    report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_dumps/mrf_#{params[:assessment_type]}.yml")).with_indifferent_access
+    @report = Vger::Resources::Mrf::Report.new(report_conf)
+    
     if params[:assessment_type] == 'competency'
-      report_params[:assessment_id] = 322
-      report_params[:candidate_id] = 51216
-      report_params[:id] = 981    
-      @report = Vger::Resources::Mrf::Report.find(report_params[:id], report_params)
-      @report.report_hash = @report.report_data
       @assessment = Vger::Resources::Mrf::Assessment.new
       @assessment.report_data = {:competency_scores => {}, :trait_scores => {}}
       @report.report_data[:competency_scores].each do |competency, competency_scores|
@@ -82,20 +77,13 @@ class Mrf::Assessments::ReportsController < ApplicationController
             } 
           end
       end
-    else
-      report_params[:assessment_id] = 324
-      report_params[:candidate_id] = 52675
-      report_params[:id] = 987    
-      @report = Vger::Resources::Mrf::Report.find(report_params[:id], report_params)
-      @report.report_hash = @report.report_data
     end
+
+    @report.report_hash = @report.report_data
 
     @report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
     layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
     template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
-    
-    # Rails.logger.debug("Report Data")
-    # Rails.logger.debug(@report.report_data)
 
     render json:{ 
       content: render_to_string(
