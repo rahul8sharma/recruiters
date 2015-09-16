@@ -10,9 +10,9 @@
 
 
 .competency_report
-  = render :template => "assessment_reports/competency_report/html/cover_page", :locals => { competency_scores: competency_scores }
-  = render :template => "assessment_reports/competency_report/html/comptencies_values_measured", :locals => {competency_scores: competency_scores, competency_step: competency_step}
-  = render :template => "assessment_reports/competency_report/html/trait_scores_under_competencies"
+  = render :partial => "assessment_reports/competency_report/html/cover_page", :locals => { competency_scores: competency_scores }
+  = render :partial => "assessment_reports/competency_report/html/comptencies_values_measured", :locals => {competency_scores: competency_scores, competency_step: competency_step}
+  = render :partial => "assessment_reports/competency_report/html/trait_scores_under_competencies"
   = render :partial => "assessment_reports/functional_report/html/functional_overview_section"
   = render :partial => "assessment_reports/functional_report/html/objective_questions"
   = render :partial => "assessment_reports/functional_report/html/subjective_questions"
