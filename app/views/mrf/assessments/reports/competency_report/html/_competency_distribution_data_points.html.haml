@@ -5,19 +5,18 @@
       Data Points about 360 Degree Scores: Competencies
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_score|  
+      - competency_hash = HashWithIndifferentAccess.new({ competency_score: competency_score })
       .frame.mrf.gray-bg
         .heading.pull-left
           = competency_name
         .clr
         .divider2
-
         %table{:class=>"span27 margin-auto", :cellpadding=> "0", :cellspacing=> "0"}
           %tr
             %td
               .span7.right-offset1.first
                 .extra-medium-text.line-height2
                   Scores
-
                 .panel.bg-white
                   .divider1
                   .rating_snippet
@@ -41,8 +40,6 @@
                       = competency_score[:average_score_including_self][:points] || "-"
                     .clr
                   .divider1
-                  
-
                 .divider2
                 .extra-medium-text.line-height2
                   - total_stakeholders = competency_score[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
@@ -58,13 +55,11 @@
                       .clr
                     .divider1
 
-
-
               .clr
             %td
               .span17.left-offset1
                 .divider2
-                - sorted_distribution = competency_score[:overall_bucket_wise_percentages] #Hash[competency_score[:overall_bucket_wise_percentages].sort_by{|bucket,percentage_data| percentage_data[:percentage] }]  
+                - sorted_distribution = competency_score[:overall_bucket_wise_percentages]
                 .panel.bg-white.rating_breakdown
                   .extra-large-text.text-center 
                     Breakdown of Ratings given by #{pluralize(sorted_distribution.first[1][:total], "Stakeholder")} 
@@ -80,30 +75,9 @@
                             #{percentages_data[:count]} out of #{percentages_data[:total]} rated #{bucket_name}
                           .clr
                     .clr
-
               .clr
         .divider1
-        - if @report.report_data[:mrf_stakeholder_level_breakdown_at_competency_level]
-          .span27.margin-auto
-            %ul.clearfix.breakdown_small
-              - competency_score[:role_wise_scores].each do |role_name, role_data|
-                - sorted_distribution = role_data[:bucket_wise_percentages] #Hash[role_data[:bucket_wise_percentages].sort_by{|bucket, percentages_data| percentages_data[:percentage] }]  
-                %li.span9.pull-left
-                  .panel.rating_breakdown
-                    .medium-text
-                      Breakdown of Ratings given by #{sorted_distribution.first[1][:total]} #{role_name.titleize.pluralize}
-                    .breakdown_bar_section
-                      .breakdown_bar.pull-left
-                        - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                          .bar{:style=>"height: #{percentages_data[:percentage]}%; background: #{@bucket_colors[index]};"}
-                      %ul.breakdown_rating_list.pull-left
-                        - sorted_distribution.each.with_index do |(bucket_name, percentages_data),index|
-                          %li
-                            .block.span{:style=>"background: #{@bucket_colors[index]};"}
-                            .span5
-                              #{percentages_data[:count]} out of #{percentages_data[:total]} rated #{bucket_name}
-                            .clr
-
-                      .clr 
-                  .divider1
+        - section_value.each do |section|
+          - locals = Hash[section["locals"].map { |key, value| [key.to_sym, competency_hash[key.to_sym]] }]
+          = render :partial => section["path"], :locals => locals
       .divider2                  

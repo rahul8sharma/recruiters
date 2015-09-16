@@ -93,6 +93,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def update
+    params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
     flash[:notice] = "360 Degree Exercise successfully updated"
@@ -131,6 +132,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def create
+    params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     params[:assessment][:company_id] = @company.id
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
       flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."
@@ -406,5 +408,15 @@ class Mrf::AssessmentsController < ApplicationController
   def get_competencies
     @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
     @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
+  end
+
+  def get_report_configurations
+    @report_configurations = Vger::Resources::ReportConfiguration.where({
+        query_options: {
+          company_id: params[:company_id],
+          report_type: Vger::Resources::ReportConfiguration::ReportType::MRF
+        },
+        select: [:id, :view_mode, :assessment_type]
+      })
   end
 end

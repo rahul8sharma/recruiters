@@ -1,0 +1,58 @@
+.small-padding
+  .border-left-grayLighter.span
+    .final_data_points
+      .border_gray_light.span
+        .left.pull-left.stakeholder_rating_icon
+          
+        .right.pull-left
+          .medium-text.color-average
+            360&#176; Score: 
+            = trait_score[:average_score_excluding_self][:points] || "-"
+
+      .border_gray_light.span
+        .left.pull-left.classic_user_icon
+        .right.pull-left
+          .medium-text.color-average
+            Self Rating: 
+            = trait_score[:average_score_self][:points] || "-"
+        .clr
+      .border_gray_light.span
+        .left.pull-left.self_rating_icon
+        .right.pull-left
+          .medium-text.color-average
+            360&#176; (Including Self): 
+            = trait_score[:average_score_including_self][:points] || "-"
+        .clr
+      .clr
+    .divider1
+    .rating_by_all_takeholders
+      .medium-text.black.span.bold.line-height2
+        - total_stakeholders = trait_score[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
+        Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
+      .clr
+      .border_gray_light.span
+        - if trait_score[:role_wise_scores].present?
+          - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
+            .span.color-average
+              #{pluralize(score[:count],role.titleize)}: #{score[:points] || "-"}
+
+              = index  < trait_score[:role_wise_scores].size-1 ? "|" : ""
+          .clr
+      .clr
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_best_worst_scores", :locals =>{trait_score: trait_score}
+    %div{ :class => @report.report_data[:competency360_traits_best_worst_scores] ? 'pull-right': 'pull-left'}
+      .medium-text.black.span.bold.line-height2
+        Ratings given to Candidate
+      .clr
+      .min_max_scores
+        .min.span
+          Maximum Rating: #{trait_score[:max_score_excluding_self][:points] || "-"}
+        .max.span
+          Minimum Rating: #{trait_score[:min_score_excluding_self][:points] || "-"}                 
+        .clr
+    .clr
+    .divider1
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
+    .clr
+    .divider1
+  .clr

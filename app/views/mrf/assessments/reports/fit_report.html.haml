@@ -1,18 +1,4 @@
 - @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .mrf_report.fit
-  = render :partial => "mrf/assessments/reports/fit_report/html/page1"
-  = render :partial => "mrf/assessments/reports/fit_report/html/page2"
-  .classic_report
-    - if @report.report_data[:plain360_traits_decending]
-      = render :partial => "mrf/assessments/reports/fit_report/html/traits_descending_order"
-  - if @report.report_data[:mrf_overall_breakdown_at_trait_level]
-    = render :partial => "mrf/assessments/reports/fit_report/html/trait_distribution_data_points"
-  = render :partial => "mrf/assessments/reports/fit_report/html/page3"
-  = render :partial => "mrf/assessments/reports/fit_report/html/page4"
-  = render :partial => "mrf/assessments/reports/fit_report/html/data_point_questions"
-  = render :partial => "mrf/assessments/reports/fit_report/html/response_distribution"
-  = render :partial => "mrf/assessments/reports/fit_report/html/trait_comments"
-  = render :partial => "mrf/assessments/reports/fit_report/html/subjective_all"
-  = render :partial => "mrf/assessments/reports/fit_report/html/page5"
-  = render :partial => "shared/reports/html/about_us"
-  = render :partial => "shared/reports/html/legal_disclaimer"
+  - @report.report_configuration["html"]["sections"].each do |section_value|
+    = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }

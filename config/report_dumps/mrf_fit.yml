@@ -1,0 +1,1643 @@
+--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+assessment_id: 332
+candidate_id: 51216
+html_bucket: report_pdfs_staging_internal
+html_key: mrf_reports/html/mrf_report_992.html
+pdf_bucket: report_pdfs_staging_internal
+pdf_key: mrf_reports/pdf/mrf_report_992.pdf
+report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  generated_at: '2015-09-16T14:15:14+05:30'
+  candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Michaelangelo
+    id: 51216
+    email: michaelangelo@tmnt.com
+  assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 332
+    name: Report Hash [Fit Based]
+    use_competencies: false
+    set_ranges: false
+    competency_order: []
+  company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    name: Jombay
+  feedback_stats: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      sent: 1
+      completed: 1
+    self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      sent: 1
+      completed: 1
+  mrf_report_cover: true
+  mrf_report_competencies_measured: true
+  mrf_report_competency_self_360: false
+  mrf_report_data_pts_competencies_avg: true
+  mrf_report_data_pts_competencies: false
+  mrf_report_traits_self_360: true
+  mrf_report_data_pts_traits: true
+  mrf_report_360_feedback_stats: true
+  mrf_report_show_completion_status: false
+  mrf_report_show_subjective_responses: true
+  mrf_report_show_trait_comments: false
+  mrf_report_show_pdf_link: false
+  mrf_overall_breakdown_at_competency_level: false
+  mrf_overall_breakdown_at_trait_level: false
+  mrf_stakeholder_level_breakdown_at_competency_level: false
+  mrf_stakeholder_level_breakdown_at_trait_level: false
+  mrf_report_percentage_competency_scores: false
+  mrf_report_percentage_trait_scores_under_competencies: false
+  mrf_report_strength_areas_of_improvement: true
+  mrf_report_data_pts_competencies_with_frequencies: true
+  mrf_report_data_pts_traits_under_competencies_with_frequencies: true
+  mrf_report_response_distribution_questions: false
+  competency360_competencies_frequency_of_ratings: true
+  competency360_traits_frequency_of_ratings: false
+  competency360_competencies_visual_data_points: false
+  competency360_traits_visual_data_points: false
+  competency360_competencies_textual_data_points: true
+  competency360_traits_textual_data_points: true
+  competency360_competencies_decending: true
+  competency360_traits_decending: true
+  competency360_competencies_best_worst_scores: true
+  competency360_traits_best_worst_scores: true
+  plain_mrf_report_cover: true
+  plain_mrf_traits_overview: true
+  plain_mrf_report_traits_self_360: true
+  plain_mrf_report_data_pts_traits: true
+  plain_mrf_report_360_feedback_stats: true
+  plain_mrf_report_show_subjective_responses: true
+  plain_mrf_report_show_trait_comments: false
+  plain360_traits_frequency_of_ratings: true
+  plain360_traits_visual_data_points: false
+  plain360_traits_textual_data_points: true
+  plain360_traits_decending: true
+  plain360_traits_best_worst_scores: true
+  show_stakeholder_type_in_comments_subjective_items: true
+  hide_score_360_competency: false
+  competency360_traits_data_pts_trait_name_as_title: false
+  competency360_traits_data_pts_items_as_title: true
+  mrf_report_show_trait_definitions_pdf: false
+  mrf_report_items_statistics_per_stakeholder_type: false
+  mrf_report_items_statistics_per_stakeholder_type_pdf: false
+  mrf_report_numerical_aggregate_score: false
+  mrf_report_numerical_aggregate_score_pdf: false
+  plain_mrf_report_data_points_items: false
+  competency360_mrf_report_development_guidelines_candidate: false
+  competency360_mrf_report_PDF_development_guidelines_candidate: false
+  competency360_mrf_report_development_guidelines_manager: false
+  competency360_mrf_report_PDF_development_guidelines_manager: false
+  aggregate_traits_score: 49.5
+  average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    score: 42.86
+    bucket: Average (Low)
+    points: 2.41
+    count: 1
+  average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    score: 44.04
+    bucket: Average (Low)
+    points: 2.48
+    count: 2
+  min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    points: 1.87
+    score: 25.0
+    bucket: Below Average
+  max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    points: 3.0
+    score: 54.17
+    bucket: Average (High)
+  average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    score: 45.22
+    bucket: Average (Low)
+    points: 2.54
+    count: 1
+  role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 42.86
+      bucket: Average (Low)
+      points: 2.41
+      count: 1
+  comments_enabled: true
+  subjective_responses_enabled: true
+  subjective_responses_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    '17': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      body: Based on the goals achieved, successes, challenges and ratings of core competencies and values, highlight 3 key strengths for yourself.
+      compulsory: false
+      role_wise_subjective_responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        self:
+        - "tions and festivities have just begun. Like every time, even if it is a\
+          \ company holiday on Ganesh Chaturthi (which is tomorrow), we will have\
+          \ Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      trait_name: ''
+  subjective_responses_others: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      body: One focus area for improvement for this person
+      compulsory: false
+      role_wise_subjective_responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        manager:
+        - "tions and festivities have just begun. Like every time, even if it is a\
+          \ company holiday on Ganesh Chaturthi (which is tomorrow), we will have\
+          \ Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      trait_name: ''
+    '13': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      body: What does this person do well that you would like them to do more?
+      compulsory: false
+      role_wise_subjective_responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        manager:
+        - "tions and festivities have just begun. Like every time, even if it is a\
+          \ company holiday on Ganesh Chaturthi (which is tomorrow), we will have\
+          \ Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      trait_name: ''
+    '19': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      body: Based on the goals achieved, successes, challenges and ratings of core competencies and values, highlight 3 key strengths for this individual.
+      compulsory: false
+      role_wise_subjective_responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        manager:
+        - "tions and festivities have just begun. Like every time, even if it is a\
+          \ company holiday on Ganesh Chaturthi (which is tomorrow), we will have\
+          \ Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      trait_name: ''
+  strengths_and_areas_of_improvement: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    recognised_strengths: []
+    unrecognised_strengths: []
+    recognised_areas_of_improvements:
+    - Decisiveness
+    unrecognised_areas_of_improvements: []
+  competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  trait_scores:
+  - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    trait: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Customer Service Orientation
+      id: 64
+      type: Suitability::Factor
+      definition: Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+      from_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Low
+        id: 1
+      to_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: High
+        id: 6
+    assessment_rating:
+    assessment_score:
+    average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 47.62
+      bucket: Average (Low)
+      points: 2.63
+      count: 1
+    average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 55.96
+      bucket: Average (High)
+      points: 2.97
+      count: 2
+    average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 64.29
+      bucket: Average (High)
+      points: 3.31
+      count: 1
+    max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.63
+      score: 47.62
+      bucket: Average (Low)
+    min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.63
+      score: 47.62
+      bucket: Average (Low)
+    max_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 3.31
+      score: 64.29
+      bucket: Average (High)
+    min_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.63
+      score: 47.62
+      bucket: Average (Low)
+    comments: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      self:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+    comments_compulsory: false
+    items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      self_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Almost never: 0
+          Sometimes: 0
+          Usually: 1
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many Times: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: I lead by example of excellent customer service delivery
+        score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Sometimes: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often do you go out of your way to meet a customer's expectations?
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Has difficulty understanding the client's requirements
+        score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 1
+          Disagree: 0
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 1
+          Disagree: 0
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Goes out of the way to ensure customer satisfaction / meet customer's expectations
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly disagree: 0
+          Disagree: 0
+          Slightly disagree: 0
+          Slightly agree: 1
+          Agree: 0
+          Strongly agree: 0
+      other_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        count: 1
+        score: 1.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 1.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Almost never: 1
+          Sometimes: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        count: 1
+        score: 4.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many Times: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Leads by example of excellent customer service delivery
+        count: 1
+        score: 0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Sometimes: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often does this person go out of the way to meet a customer's expectations?
+        count: 1
+        score: 1.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 1.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Occasionally: 0
+          Many times: 0
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Has difficulty understanding the client's requirements
+        count: 1
+        score: 1.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 1.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 1
+          Agree: 0
+          Disagree: 0
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Responds appropriately to customer needs
+        count: 1
+        score: 4.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 1
+          Agree: 0
+          Disagree: 0
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Goes out of the way to ensure customer satisfaction / meet customer's expectations
+        count: 1
+        score: 6.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 6.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly disagree: 0
+          Disagree: 0
+          Slightly disagree: 0
+          Slightly agree: 0
+          Agree: 0
+          Strongly agree: 1
+    role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 47.62
+        bucket: Average (Low)
+        points: 2.63
+        count: 1
+        bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            total: 1
+            percentage: 100.0
+            candidates_count: 1
+          3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+    overall_bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 1
+        total: 1
+        percentage: 100.0
+        candidates_count: 1
+      3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+  - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    trait: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Decisiveness
+      id: 65
+      type: Suitability::Factor
+      definition: Ability of an individual to take decisions
+      from_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Low
+        id: 1
+      to_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: High
+        id: 6
+    assessment_rating:
+    assessment_score:
+    average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 25.0
+      bucket: Below Average
+      points: 1.87
+      count: 1
+    average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 23.61
+      bucket: Below Average
+      points: 1.77
+      count: 2
+    average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 22.22
+      bucket: Below Average
+      points: 1.67
+      count: 1
+    max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 1.87
+      score: 25.0
+      bucket: Below Average
+    min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 1.87
+      score: 25.0
+      bucket: Below Average
+    max_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 1.87
+      score: 25.0
+      bucket: Below Average
+    min_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 1.67
+      score: 22.22
+      bucket: Below Average
+    comments: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      self:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+    comments_compulsory: false
+    items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      self_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Takes sound and timely decisions
+        score: 0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Almost never: 0
+          Sometimes: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Takes decisions independently at work
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often do you take decisions independently at work?
+        score: 1.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Occasionally: 0
+          Many times: 0
+          Almost always: 0
+          Always: 0
+      other_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Takes sound and timely decisions
+        count: 1
+        score: 1.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 1.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Almost never: 1
+          Sometimes: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Takes decisions independently at work
+        count: 1
+        score: 0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Occasionally: 0
+          Many times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often does this person take decisions independently at work?
+        count: 1
+        score: 3.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many times: 0
+          Almost always: 0
+          Always: 0
+    role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 25.0
+        bucket: Below Average
+        points: 1.87
+        count: 1
+        bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            total: 1
+            percentage: 100.0
+            candidates_count: 1
+          2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+    overall_bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 1
+        total: 1
+        percentage: 100.0
+        candidates_count: 1
+      2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+  - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    trait: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Foresight
+      id: 66
+      type: Suitability::Factor
+      definition: Tendency to think about the future in relation to tasks at hand
+      from_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Low
+        id: 1
+      to_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: High
+        id: 6
+    assessment_rating:
+    assessment_score:
+    average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 54.17
+      bucket: Average (High)
+      points: 3.0
+      count: 1
+    average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 43.75
+      bucket: Average (Low)
+      points: 2.6
+      count: 2
+    average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 33.33
+      bucket: Below Average
+      points: 2.2
+      count: 1
+    max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 3.0
+      score: 54.17
+      bucket: Average (High)
+    min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 3.0
+      score: 54.17
+      bucket: Average (High)
+    max_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 3.0
+      score: 54.17
+      bucket: Average (High)
+    min_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.2
+      score: 33.33
+      bucket: Below Average
+    comments: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      self:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment: "tions and festivities have just begun. Like every time, even if\
+          \ it is a company holiday on Ganesh Chaturthi (which is tomorrow), we will\
+          \ have Ganesh Sthapana in office.\r\n\r\nSince most of us have Ganesh Sthapan"
+    comments_compulsory: false
+    items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      self_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Foresees possibilites or implications of any action or decision taken
+        score: 0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Occasionally: 0
+          Many times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: I can gauge future implications and outcomes of the decision taken
+        score: 0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 1
+          Rarely: 0
+          Sometimes: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often can you foresee future outcomes of any action or decision taken?
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Foresees possibilites or implications of any action or decision taken
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many Times: 1
+          Usually: 0
+          Always: 0
+      other_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Foresees possibilites or implications of any action or decision taken
+        count: 1
+        score: 3.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Can gauge future implications and outcomes of the decision taken
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Sometimes: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often does this person foresee future outcomes of any action or decision taken?
+        count: 1
+        score: 4.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Foresees possibilites or implications of any action or decision taken
+        count: 1
+        score: 3.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many Times: 0
+          Usually: 0
+          Always: 0
+    role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 54.17
+        bucket: Average (High)
+        points: 3.0
+        count: 1
+        bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            total: 1
+            percentage: 100.0
+            candidates_count: 1
+          4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+    overall_bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 1
+        total: 1
+        percentage: 100.0
+        candidates_count: 1
+      4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+  - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    trait: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Convincing
+      id: 67
+      type: Suitability::Factor
+      definition: Degree to which an individual can have an impact on other's decisions and convince them
+      from_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Low
+        id: 1
+      to_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: High
+        id: 6
+    assessment_rating:
+    assessment_score:
+    average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 45.83
+      bucket: Average (Low)
+      points: 2.27
+      count: 1
+    average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 51.04
+      bucket: Average (High)
+      points: 2.54
+      count: 2
+    average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 56.25
+      bucket: Average (High)
+      points: 2.8
+      count: 1
+    max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.27
+      score: 45.83
+      bucket: Average (Low)
+    min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.27
+      score: 45.83
+      bucket: Average (Low)
+    max_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.8
+      score: 56.25
+      bucket: Average (High)
+    min_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.27
+      score: 45.83
+      bucket: Average (Low)
+    comments: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      self:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+    comments_compulsory: false
+    items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      self_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Easily influences or convinces team members
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many Times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often do you succeed in convincing your team members?
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many times: 0
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Rarely presents arguments in a convincing manners
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 0
+          Disagree: 1
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Easily influences or convinces team members
+        score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 0
+          Disagree: 1
+          Strongly Disagree: 0
+      other_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Easily influences or convinces team members
+        count: 1
+        score: 3.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many Times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: How often does this person succeed in convincing team members?
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 1
+          Occasionally: 0
+          Many times: 0
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Rarely presents arguments in a convincing manners
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 1
+          Disagree: 0
+          Strongly Disagree: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Easily influences or convinces team members
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly Agree: 0
+          Agree: 0
+          Disagree: 1
+          Strongly Disagree: 0
+    role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 45.83
+        bucket: Average (Low)
+        points: 2.27
+        count: 1
+        bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            total: 1
+            percentage: 100.0
+            candidates_count: 1
+          3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+    overall_bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 1
+        total: 1
+        percentage: 100.0
+        candidates_count: 1
+      3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+  - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    trait: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Persistence
+      id: 68
+      type: Suitability::Factor
+      definition: Tendency to continue a course of action in spite of difficulty
+      from_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Low
+        id: 1
+      to_norm_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: High
+        id: 6
+    assessment_rating:
+    assessment_score:
+    average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 41.67
+      bucket: Average (Low)
+      points: 2.3
+      count: 1
+    average_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 45.84
+      bucket: Average (Low)
+      points: 2.5
+      count: 2
+    average_score_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      score: 50.0
+      bucket: Average (Low)
+      points: 2.7
+      count: 1
+    max_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.3
+      score: 41.67
+      bucket: Average (Low)
+    min_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.3
+      score: 41.67
+      bucket: Average (Low)
+    max_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.7
+      score: 50.0
+      bucket: Average (Low)
+    min_score_including_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      points: 2.3
+      score: 41.67
+      bucket: Average (Low)
+    comments: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8200
+        comment:
+      self:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        feedback_id: 8201
+        comment:
+    comments_compulsory: false
+    items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      self_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Persists on a task in spite of obstacles
+        score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 1
+          Occasionally: 0
+          Many Times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: I am determined and never give up even in the face of difficulties and business challenges
+        score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Sometimes: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: When do you quit working on a task with obstacles?
+        score: 4.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 1
+          Many times: 0
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Persists on a task in spite of an obstacle
+        score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly disagree: 0
+          Disagree: 0
+          Slightly disagree: 1
+          Slightly agree: 0
+          Agree: 0
+          Strongly agree: 0
+      other_responses:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Persists on a task in spite of obstacles
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 1
+          Occasionally: 0
+          Many Times: 0
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Shows determination and never give up attitude even in the face of difficulties and business challenges
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Sometimes: 1
+          Usually: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: When does this person quit working on a task with obstacles?
+        count: 1
+        score: 3.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 3.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Never: 0
+          Rarely: 0
+          Occasionally: 0
+          Many times: 1
+          Almost always: 0
+          Always: 0
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        item: Persists on a task in spite of an obstacle
+        count: 1
+        score: 2.0
+        role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            average_score: 2.0
+        responses: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          Strongly disagree: 0
+          Disagree: 1
+          Slightly disagree: 0
+          Slightly agree: 0
+          Agree: 0
+          Strongly agree: 0
+    role_wise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 41.67
+        bucket: Average (Low)
+        points: 2.3
+        count: 1
+        bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 1
+            total: 1
+            percentage: 100.0
+            candidates_count: 1
+          3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+          5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            count: 0
+            total: 1
+            percentage: 0
+            candidates_count: 0
+    overall_bucket_wise_percentages: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      1 point: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      2 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 1
+        total: 1
+        percentage: 100.0
+        candidates_count: 1
+      3 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      4 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+      5 points: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        count: 0
+        total: 1
+        percentage: 0
+        candidates_count: 0
+report_type:
+status: uploaded
+created_at: '2015-09-16T14:15:09+05:30'
+id: 992
+report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_cover_page
+      text: Cover Page
+      path: mrf/assessments/reports/fit_report/html/page1
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_traits_measured_in_this_assessment
+      text: Traits measured in this Assessment
+      path: mrf/assessments/reports/fit_report/html/page2
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_traits_descending_order
+      text: 'Traits: Scores in Descending Order'
+      path: mrf/assessments/reports/fit_report/html/traits_descending_order
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_trait_distribution_data_points
+      text: Data Points about 360 Degree Scores
+      path: mrf/assessments/reports/fit_report/html/trait_distribution_data_points
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_mrf_stakeholder_level_breakdown_at_trait_level
+        text: Stakeholder Level Distribution at Trait Level
+        path: mrf/assessments/reports/fit_report/html/mrf_stakeholder_level_breakdown_at_trait_level
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          trait_score: trait_score
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_scores_of_tratis_measured_with_360_degree
+      text: Scores of Traits measured with 360 Degree Assessment
+      path: mrf/assessments/reports/fit_report/html/page3
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_fit
+        text: Fit
+        path: mrf/assessments/reports/fit_report/html/fit
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          trait_scores: '@report.report_data[:trait_scores]'
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_data_points_on_360_Degree_scores
+      text: 'Data Points about 360 Degree Scores '
+      path: mrf/assessments/reports/fit_report/html/page4
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_fit_data_points
+        text: Fit Data Points
+        path: mrf/assessments/reports/fit_report/html/fit_data_points
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          role_wise_scores: '@report.report_data[:role_wise_scores]'
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_trait_wise_rating
+        text: Trait Wise Rating
+        path: mrf/assessments/reports/fit_report/html/page_4_all_individual
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          trait_score: '@report.report_data[:trait_scores]'
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_data_points_on_360_degree_scores_questions
+      text: 'Data Points on 360 Degree Scores: Questions'
+      path: mrf/assessments/reports/fit_report/html/data_point_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_response_distribution
+      text: Response distribution on Questions
+      path: mrf/assessments/reports/fit_report/html/response_distribution
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_stakeholder_comments_on_traits
+      text: Stakeholder Comments on Traits
+      path: mrf/assessments/reports/fit_report/html/trait_comments
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_responses_to_other_questions
+      text: Responses to Other Questions
+      path: mrf/assessments/reports/fit_report/html/subjective_all
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_summary_of_360_degree_feedback
+      text: Summary of 360 Degree Feedback
+      path: mrf/assessments/reports/fit_report/html/page5
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_about_us
+      text: About Us
+      path: shared/reports/html/about_us
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_legal_disclaimer
+      text: Legal Disclaimer
+      path: shared/reports/html/legal_disclaimer
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+  pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_cover_page
+      text: 'PDF: Cover Page'
+      path: mrf/assessments/reports/fit_report/pdf/page1
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_mrf_report_numerical_aggregate_score
+        text: Numerical Aggregate Score
+        path: mrf/assessments/reports/fit_report/pdf/mrf_report_numerical_aggregate_score
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: pdf_show_completion_status
+        text: Show Completion Status
+        path: mrf/assessments/reports/fit_report/pdf/mrf_report_show_completion_status
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_traits_measured_in_this_assessment
+      text: 360 Degree Traits measured in this Assessment
+      path: mrf/assessments/reports/fit_report/pdf/page2
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_scores_of_tratis_measured_with_360_degree
+      text: Scores of Traits measured with 360 Degree Assessment
+      path: mrf/assessments/reports/fit_report/pdf/page3
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_trait_distribution_data_points
+      text: Data Points about 360 Degree Scores
+      path: mrf/assessments/reports/fit_report/pdf/page4
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_data_point_questions
+      text: Data Points Questions
+      path: mrf/assessments/reports/fit_report/pdf/data_point_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_trait_wise_rating
+      text: Trait Wise Rating
+      path: mrf/assessments/reports/fit_report/pdf/trait_wise_ratings
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_trait_comments
+      text: Trait Comments
+      path: mrf/assessments/reports/fit_report/pdf/trait_comments
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_subjective_responses
+      text: Subjective Responses
+      path: mrf/assessments/reports/fit_report/pdf/subjective_all
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_summary_of_360_degree_feedback
+      text: Summary of 360 Degree; Feedback
+      path: mrf/assessments/reports/fit_report/pdf/page5
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+updated_at: '2015-09-16T14:20:47+05:30'

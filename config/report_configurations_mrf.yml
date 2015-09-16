@@ -277,7 +277,7 @@
           children: []
         }
       ]
-    :pdf:
+    :pdf: &pdf
       :sections: [
         {
           id: "pdf_cover_page",
@@ -385,7 +385,7 @@
         }
       ]
   :fit:
-    :html:
+    :html: &html
       :sections: [
         {
           id: "pdf_cover_page",

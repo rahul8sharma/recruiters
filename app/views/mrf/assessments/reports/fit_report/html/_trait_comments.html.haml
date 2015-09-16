@@ -1,4 +1,4 @@
-- if @report.report_data[:mrf_report_show_trait_comments] && @report.report_data[:comments_enabled]
+- if @report.report_data[:comments_enabled]
   .stakeholder-comments
     .container
       .divider2
@@ -7,7 +7,7 @@
       .divider2
       - if @report.report_data[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
         - @report.report_data[:trait_scores].each do |trait|
-          = render :partial => "mrf/assessments/reports/fit_report/html/comments_on_traits", :locals => { :trait_scores => trait}
+          = render :partial => "mrf/assessments/reports/fit_report/html/comments_on_traits", :locals => { :trait_scores => trait }
       - else
         .no-responses
           .box
