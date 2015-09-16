@@ -8,10 +8,6 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
-    @report_configuration = @report.report_configuration
-
-    Rails.logger.debug("Report Data")
-    Rails.logger.debug(@report.report_hash)
 
     if params[:view_mode]
       @view_mode = params[:view_mode]
@@ -54,14 +50,12 @@ class Mrf::Assessments::ReportsController < ApplicationController
 
   def report_preview
     report_type = "mrf"
-    get_norm_buckets        
-    report_params = {}
-    report_params[:company_id] = 2    
+    get_norm_buckets
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
 
     report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_dumps/mrf_#{params[:assessment_type]}.yml")).with_indifferent_access
     @report = Vger::Resources::Mrf::Report.new(report_conf)
-    
+ 
     if params[:assessment_type] == 'competency'
       @assessment = Vger::Resources::Mrf::Assessment.new
       @assessment.report_data = {:competency_scores => {}, :trait_scores => {}}
@@ -80,8 +74,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
     end
 
     @report.report_hash = @report.report_data
+    @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
 
-    @report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
     layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
     template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
 

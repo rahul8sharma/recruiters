@@ -1,5 +1,5 @@
 - @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
 .competency_report
   .classic_report
-    - @report_configuration["html"]["sections"].each do |section_value|
+    - @report.report_configuration["html"]["sections"].each do |section_value|
       = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }

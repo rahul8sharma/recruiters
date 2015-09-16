@@ -22,8 +22,7 @@ function loadConfig(assessment_Type) {
         var config = JSON.parse(data.config);
         var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : defaultSelectedObject;
         $htmlTree.selected = data.html.sections;
-        $pdfTree.selected = data.pdf.sections;
-          
+        $pdfTree.selected = data.pdf.sections;          
         $htmlTree.settings.core.data = config.html.sections; 
         $htmlTree.refresh();
         $pdfTree.settings.core.data = config.pdf.sections; 

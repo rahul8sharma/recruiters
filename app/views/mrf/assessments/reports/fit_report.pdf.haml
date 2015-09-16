@@ -1,24 +1,7 @@
 .mrf_report.fit
-  - @report_configuration["pdf"]["sections"].each do |section_value|
+  - @report.report_configuration["pdf"]["sections"].each do |section_value|
     = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
     .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/page1"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/page2"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/page3"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/page4"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/data_point_questions"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_wise_ratings"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/trait_comments"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/subjective_all"
-  / .page-break
-  / = render :partial => "mrf/assessments/reports/fit_report/pdf/page5"
   .page-break
   .common-top-trangle
     .common-bottom-trangle 
