@@ -1,3 +1,6 @@
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+- competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
+
 - (0..competency_scores.length-1).step(competency_step) do |step|    
   - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
   - if @report.report_hash[:hexagons_page_competency]
