@@ -105,7 +105,7 @@ class ReportConfigurationsController < MasterDataController
     }
   end
 
-def report_preview_suitability
+  def report_preview_suitability
     report_type = 'suitability'
     
     get_suitability_norm_bucket
