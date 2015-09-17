@@ -142,114 +142,150 @@
     :html: &html
       :sections: [
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_cover_page",
+          text: "Cover Page",
+          path: "assessment_reports/fit_report/html/page1",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_score_scale",
+          text: "Score Scale",
+          path: "assessment_reports/score_scale",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_traits_measured_in_this_assessment",
+          text: "Traits Measured In This Assessment",
+          path: "assessment_reports/fit_report/html/page2",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_scores_of_traits_measured_in_this_assessment",
+          text: "Scores of Traits Measured In this Assessment",
+          path: "assessment_reports/fit_report/html/page3",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_scores_of_functional_traits_measured_in_assessment",
+          text: "Scores of Functional Traits",
+          path: "assessment_reports/fit_report/html/scores_of_functional_traits",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_functional_overview_section",
+          text: "Functional Overview Section",
+          path: "assessment_reports/functional_report/html/functional_overview_section",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_objective_questions",
+          text: "Objective Questions",
+          path: "assessment_reports/functional_report/html/objective_questions",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_subjective_questions",
+          text: "Subjective Questions",
+          path: "assessment_reports/functional_report/html/subjective_questions",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "html_miscellaneous_factors",
+          text: "Miscellaneous Factors",
+          path: "assessment_reports/fit_report/html/page4",
+          children: []
+        },
+        {
+          id: "html_development_guide_for_assessment_taker",
+          text: "Developemnt Guide For Assessment Taker",
+          path: "assessment_reports/fit_report/html/page5",
+          children: []
+        },
+        {
+          id: "html_guidelines_for_candidate_manager",
+          text: "Developemnt Guide For Candidate Manager",
+          path: "assessment_reports/fit_report/html/page6",
+          children: []
+        },
+        {
+          id: "html_about_us",
+          text: "About Us",
+          path: "shared/reports/html/about_us",
+          children: []
+        },
+        {
+          id: "html_legal_disclaimer",
+          text: "Legal Disclaimer",
+          path: "shared/reports/html/legal_disclaimer",
           children: []
         }
       ]
     :pdf:
       :sections: [
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_cover_page",
+          text: "PDF_FIT_Cover Page",
+          path: "assessment_reports/fit_report/pdf/page1",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_score_scale",
+          text: "Score Scale",
+          path: "assessment_reports/score_scale",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_traits_in_this_assessment",
+          text: "Traits Measured In This Assessment",
+          path: "assessment_reports/fit_report/pdf/page2",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_scores_of_traits_measured",
+          text: "Scores Of Traits Measured",
+          path: "assessment_reports/fit_report/pdf/page3",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf__scores_of_functional_traits",
+          text: "Scores of Functional Traits",
+          path: "assessment_reports/fit_report/pdf/scores_of_functional_traits",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_functional_overview_sections",
+          text: "Functional Overview Section",
+          path: "assessment_reports/functional_report/pdf/functional_overview_section",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_objective_questions",
+          text: "Objective Questions",
+          path: "assessment_reports/functional_report/pdf/objective_questions",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_subjective_questions",
+          text: "Subjective Questions",
+          path: "assessment_reports/functional_report/pdf/subjective_questions",
           children: []
         },
         {
-          id: "",
-          text: "",
-          path: "",
+          id: "pdf_miscellaneous_factors",
+          text: "Miscellaneous Factors",
+          path: "assessment_reports/fit_report/pdf/page4",
+          children: []
+        },
+        {
+          id: "pdf_development_interview_guide_candidate",
+          text: "Developemnt Guide For Assessment Taker",
+          path: "assessment_reports/fit_report/pdf/page5",
+          children: []
+        },
+        {
+          id: "pdf_development_interview_guide_manager",
+          text: "Guidelines For Assessment Taker Manager",
+          path: "assessment_reports/fit_report/pdf/page6",
           children: []
         }
       ]

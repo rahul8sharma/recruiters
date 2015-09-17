@@ -78,7 +78,7 @@ class ReportConfigurationsController < MasterDataController
     report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_dumps/#{report_type}_#{params[:assessment_type]}.yml")).with_indifferent_access
     @report = Vger::Resources::Mrf::Report.new(report_conf)
  
-    if params[:assessment_type]
+    if params[:assessment_type] == 'competency'
       @assessment = Vger::Resources::Mrf::Assessment.new
       @assessment.report_data = {:competency_scores => {}, :trait_scores => {}}
       @report.report_data[:competency_scores].each do |competency, competency_scores|

@@ -1,4 +1,4 @@
--if @report.report_hash[:hexagons_page_plain]
+- if @report.report_hash[:factor_scores].present?
   = render partial: "shared/reports/pdf/report_header.pdf.haml"
   .inner
     .factor_fit.report_content

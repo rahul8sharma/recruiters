@@ -1,7 +1,7 @@
 = form_for assessment, :as => :assessment, :url => url, multipart: true, method: method, html: {id: "assessment_form", class: "creat-test-form" } do |f|
   = f.hidden_field :company_id, value: assessment.company_id
   %input{:id => "report_type", :value => "suitability", :type => "hidden"}
-  %input{:id => "input_config", :name => "assessment[report_configuration]", :value => "" ,:type => "hidden"}
+  %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
   %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
   
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => assessment, :f => f }
