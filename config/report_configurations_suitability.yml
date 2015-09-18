@@ -9,6 +9,59 @@
           children: []
         },
         {
+          id: "html_competency_interpretation_guide",
+          text: "Competency Interpretation Guidelines",
+          path: "assessment_reports/competency_report/html/competency_interpretation_guide",
+          children: []
+        },
+        {
+          id: "html_score_scale",
+          text: "Score Scale",
+          path: "assessment_reports/score_scale",
+          children: []
+        },
+        {
+          id: "html_explanation_scores",
+          text: "Exaplanation Scores",
+          path: "assessment_reports/competency_report/html/explanation_scores",
+          children: []
+        },
+        {
+          id: "html_competency_scores_overview",
+          text: "Competency Scores Overview",
+          path: "assessment_reports/competency_report/html/competency_scores_overview",
+          children: [
+            {
+              id: "html_custom_legend",
+              text: "Custom Legend[Without Expected Score]",
+              path: "assessment_reports/competency_report/html/custom_legend",
+              locals: {}
+            },
+            {
+              id: "html_generic_legend",
+              text: "Generic Legend[With Expected Score]",
+              path: "assessment_reports/competency_report/html/generic_legend",
+              locals: {}
+            },
+            {
+              id: "html_show_favourable_above_desired_range",
+              text: "Scale[Above Desired Range is Favourable]",
+              path: "assessment_reports/competency_report/html/show_favourable_above_desired_range",
+              locals: {
+                competency_scores: "competency_scores"
+              }
+            },
+            {
+              id: "html_show_generic_scale",
+              text: "Scale[Outside Range is Not Favourable]",
+              path: "assessment_reports/competency_report/html/show_generic_scale",
+              locals: {
+                competency_scores: "competency_scores"
+              }
+            }
+          ]
+        },
+        {
           id: "html_competencies_values_measured",
           text: "Competencies and Values Measured",
           path: "assessment_reports/competency_report/html/comptencies_values_measured",
