@@ -88,7 +88,22 @@
           id: "html_trait_scores_under_competencies",
           text: "Trait Scores Under Competencies",
           path: "assessment_reports/competency_report/html/trait_scores_under_competencies",
-          children: []
+          children: [
+            {
+              id: "html_generic_competency_block",
+              text: "Generic Competency Block[Outside Favourable Range is Not Favourable]",
+              path: "assessment_reports/competency_report/html/generic_competency",
+              locals: {
+              }
+            },
+            {
+              id: "html_custom_competency_block",
+              text: "Custom Competency Block[In and Above Favourable Range is Favourable]",
+              path: "assessment_reports/competency_report/html/custom_competency_block",
+              locals: {
+              }
+            }
+          ]
         },
         {
           id: "html_functional_overview_section",
