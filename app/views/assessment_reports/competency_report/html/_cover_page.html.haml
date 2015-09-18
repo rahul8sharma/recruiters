@@ -3,35 +3,5 @@
     .divider6
     .user-name.pull-left
       = @report.report_hash[:candidate][:name]
-    - if (@report.report_hash[:enable_aggregate_competency_score])
-      .pull-right
-        .final-score.score_band{ :style=>"background-color: #128975" }
-          Aggregate Score:
-          = @report.report_hash[:aggregate_competency_score_bucket][:name]
-        - if @report.report_hash[:competency_score_rating_on_overall_score]
-          - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
-          .final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 355px"}
-            -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
-            .score_rating_title.pull-left{:style=>"color: #{bg_hex}"}
-              Score Rating
-            .span
-              = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"
-            .clr
-        .clr
-        .divider1
-        - if (@report.report_hash[:functional_items].present?)
-          - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
-            .text-center.pull-right
-              Aggregate Score includes Functional Trait scores
-          - else
-            .text-center.pull-right
-              Aggregate Score excludes Functional Trait scores
-    .clr
-    .divider3
-    .extra-medium-text
-      Assessment:
-      = @report.report_hash[:assessment][:name]
-      .divider1
-      Assessment Answered On:
-      = @report.report_hash[:completed_at]
-    .divider2
+    - section_value.each do |section|
+      = render :partial => section["path"], :locals => { nested_child: section["children"] }

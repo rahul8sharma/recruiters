@@ -6,7 +6,38 @@
           id: "html_cover_page",
           text: "Cover Page",
           path: "assessment_reports/competency_report/html/cover_page",
-          children: []
+          children: [
+            {
+              id: "html_aggregate_competency_score",
+              text: "Aggregate Competency Scores",
+              path: "assessment_reports/competency_report/html/aggregate_competency_score",
+              children: [
+                {
+                  id: "html_color_band",
+                  text: "Color Band",
+                  path: "assessment_reports/competency_report/html/competency_score_rating_on_overall_score",
+                  children: []
+                },
+                {
+                  id: "html_functional_items_legend",
+                  text: "Functional Items Legend",
+                  path: "assessment_reports/competency_report/html/functional_items_legend",
+                  children: [
+                    {
+                      id: "html_include_functional_legend",
+                      text: "Include Functional Items Legend",
+                      path: "assessment_reports/competency_report/html/include_functional_legend",
+                    },
+                    {
+                      id: "html_exculde_functional_legend",
+                      text: "Exclude Functional Items Legend",
+                      path: "assessment_reports/competency_report/html/exclude_functional_legend",
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           id: "html_competency_interpretation_guide",
