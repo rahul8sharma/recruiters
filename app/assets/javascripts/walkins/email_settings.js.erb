@@ -1,0 +1,18 @@
+function selectInvitationTemplate() {
+  var id = $("#select_invitation_template").find(":selected").val();
+  var body = $("#select_invitation_template").find(":selected").attr("body");
+  if(body !== undefined) {
+    $(".invitation_template_id").val(id);
+    var subject = $("#select_invitation_template").find(":selected").attr("subject");
+    var from = $("#select_invitation_template").find(":selected").attr("from");
+    $(".email-body-invitation").html("<i>"+body+"</i>");
+    $(".email-subject-invitation").html("<i>"+subject+"</i>");
+    $(".email-from-invitation").html("<i>"+from+"</i>");
+  } else {
+    $(".email-body-invitation").html("");
+    $(".email-subject-invitation").html("");
+    $(".email-from-invitation").html("");
+  }
+}
+
+selectInvitationTemplate();
