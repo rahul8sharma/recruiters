@@ -91,28 +91,28 @@ function getConfiguration($jsTree){
   //console.log(selected);
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
-    var parent = $jsTree.get_node(obj.parent);
-    if(parent && parent.parent == "#") {
-      objects[parent.id] = createNode(parent.id, $jsTree);;      
-    } 
-    objects[obj.id] = createNode(obj.id, $jsTree);;
+    objects[obj.id] = createNode($jsTree, obj.id);;
+    for(var j = 0;  j < obj.parents.length; j++) {
+      var parent = $jsTree.get_node(obj.parents[j]);
+      if($.inArray(parent, selected) == -1 && parent.id !== "#") {
+        objects[parent.id] = createNode($jsTree, parent.id);;      
+        selected.push(parent);
+      }
+    }
   }
+  //console.log(selected);
+  //var selected = $jsTree.selected;
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     if(obj.parent == "#") {
       root = objects[obj.id];
     } else {
       var parent_node = $jsTree.get_node(obj.parent);
-      if(parent_node && parent_node.parent == "#") {
-        root = objects[parent_node.id];
-      } 
       var parent = objects[obj.parent];
       parent.children.push(objects[obj.id]);
-      if(parent_node) {
-        parent.children = sortChildren(parent.children, parent_node.children)
-      }
+      parent.children = sortChildren(parent.children, parent_node.children)
     }
-    if($.inArray(root, configuration) == -1) {
+    if(root != null && $.inArray(root, configuration) == -1) {
       configuration.push(root);
     }
   }
