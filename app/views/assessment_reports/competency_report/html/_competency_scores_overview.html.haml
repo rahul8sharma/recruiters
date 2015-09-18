@@ -1,0 +1,44 @@
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+- if @report.report_data[:suitability_competency_report_competency_scores_overview]
+  .overview
+    .bottom-triangle
+      .container
+        .divider1
+        .content
+          .overview-title
+            .pull-left.text-left
+              Overview of Competencies / Values Measured
+              .divider1
+              .instruction_container
+                .instructions
+                  .box.pull-left
+                    - if @report.report_data[:enable_competency_desired_ranges]
+                      .box-icon.pull-left
+                      .box-title.pull-left 
+                        Expected Score 
+                    .clr
+                  .instruction1.pull-left
+                    Favorable 
+                  .instruction2.less_favorable.pull-left
+                    Less Favorable 
+                  .clr
+            .scale.right-offset1
+              .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
+              .marker-container
+                - @company_norm_buckets.each do |norm_bucket|
+                  .marker
+                    .arrow
+                    .marker-info
+                      = norm_bucket.description
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
+                .clr
+            .clr
+          .divider1
+          - if @report.report_data[:show_favourable_above_desired_range]
+            = render :partial => "assessment_reports/competency_report/html/show_favourable_above_desired_range", :locals => { competency_scores: competency_scores }
+          - else
+            = render :partial => "assessment_reports/competency_report/html/show_generic_scale", :locals => { competency_scores: competency_scores }
+          .clr
+        .divider2
