@@ -45,15 +45,9 @@
           children: []
         },
         {
-          id: "html_about_us",
-          text: "About Us",
-          path: "shared/reports/html/about_us",
-          children: []
-        },
-        {
-          id: "html_legal_disclaimer",
-          text: "Legal Disclaimer",
-          path: "shared/reports/html/legal_disclaimer",
+          id: "html_common_footer_sections",
+          text: "Footer[ About Us and Legal Disclaimer ]",
+          path: "shared/reports/html/common_footer_sections",
           children: []
         }
       ]
@@ -135,6 +129,12 @@
           id: "pdf_development_interview_guide_manager",
           text: "Developemnt Interview Guide For Manager",
           path: "assessment_reports/competency_report/pdf/development_interview_guide_manager",
+          children: []
+        },
+        {
+          id: "pdf_common_footer_sections",
+          text: "Footer[ About Us and Legal Disclaimer ]",
+          path: "shared/reports/pdf/common_footer_sections",
           children: []
         }
       ]
@@ -278,7 +278,7 @@
         },
         {
           id: "pdf_development_interview_guide_candidate",
-          text: "Developemnt Guide For Assessment Taker",
+          text: "Developement Guide For Assessment Taker",
           path: "assessment_reports/fit_report/pdf/page5",
           children: []
         },
