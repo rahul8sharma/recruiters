@@ -16,7 +16,7 @@
                   id: "html_color_band",
                   text: "Color Band",
                   path: "assessment_reports/competency_report/html/competency_score_rating_on_overall_score",
-                  children: []
+                  locals: {}
                 },
                 {
                   id: "html_functional_items_legend",
@@ -27,11 +27,13 @@
                       id: "html_include_functional_legend",
                       text: "Include Functional Items Legend",
                       path: "assessment_reports/competency_report/html/include_functional_legend",
+                      locals: {}
                     },
                     {
                       id: "html_exculde_functional_legend",
                       text: "Exclude Functional Items Legend",
                       path: "assessment_reports/competency_report/html/exclude_functional_legend",
+                      locals: {}
                     }
                   ]
                 }
