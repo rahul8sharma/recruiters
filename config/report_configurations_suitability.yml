@@ -287,6 +287,12 @@
           text: "Guidelines For Assessment Taker Manager",
           path: "assessment_reports/fit_report/pdf/page6",
           children: []
+        },
+        {
+          id: "pdf_common_footer_sections",
+          text: "Footer[ About Us and Legal Disclaimer ]",
+          path: "shared/reports/pdf/common_footer_sections",
+          children: []
         }
       ]
   :jq:
