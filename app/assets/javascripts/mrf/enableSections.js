@@ -27,7 +27,7 @@ function loadConfig(assessment_Type, reportType) {
         
         var selectedHtmlSectionIds = $.map(data.html.sections, function(section){ return section.id; });
         var selectedPdfSectionIds = $.map(data.pdf.sections, function(section){ return section.id; });
-        if(selectedHtmlSectionIds.length > 0) {
+        /*if(selectedHtmlSectionIds.length > 0) {
           config.html.sections.sort(function(a,b){
             if(selectedHtmlSectionIds.indexOf(a.id) == -1) {
               return 1;
@@ -48,7 +48,7 @@ function loadConfig(assessment_Type, reportType) {
               return selectedPdfSectionIds.indexOf(a.id) - selectedPdfSectionIds.indexOf(b.id);
             }
           });
-        }  
+        }  */
         
         $htmlTree.settings.core.data = config.html.sections; 
         $htmlTree.refresh();
@@ -75,7 +75,7 @@ function setSelected(obj, $jsTree){
   }
 }
 
-function createNode(id, $jsTree){
+function createNode($jsTree, id){
   var obj = $jsTree.get_node(id).original;
   obj.children = [];
   obj.state = { selected: true };
