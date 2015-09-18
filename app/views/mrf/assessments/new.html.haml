@@ -12,6 +12,7 @@
   = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company), html:{id:"assessment_form"} do |f|
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => "" ,:type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
+    %input{:id => "report_type", :value => "mrf", :type => "hidden"}
     .border-primary
       .padding-all2.border-bottom-grayLighter
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do

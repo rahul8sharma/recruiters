@@ -1,0 +1,586 @@
+--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+candidate_assessment_id: 54809
+configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  should_send_notifications: true
+  any_scores_overwritten: false
+  is_functional_assessment: false
+  notifications_sent_at: '16_09_2015_18_10'
+  regenerated_at:
+  uploaded_at: '16_09_2015_18_10'
+  regenerate_notify:
+created_at: '2015-09-16T18:09:52+05:30'
+id: 32169
+report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 32169
+  candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Barrey Allen SuitComp Report
+    email: barryallensuitacom@gmail.com
+    id: 52676
+  assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 6643
+    name: Report Hash [Competency][All Enabled]
+    assessment_type: competency
+    brand_partner:
+  company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Jombay
+    id: 2
+  report_receiver: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: ''
+    email: ''
+  send_report_links_to_manager: false
+  enable_recommendation: true
+  enable_aggregate_competency_score: true
+  enable_lie_detection: true
+  enable_feedback: true
+  enable_factor_consistency: true
+  enable_post_assessment_guidelines: true
+  enable_score_scale_section: true
+  suitability_report_show_buckets_on_feedback: true
+  competency_interpretation_guide: true
+  include_subjective_questions: true
+  include_objective_questions: true
+  overall_score_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    name: Average (High)
+  overall_factor_score: 63.02
+  overall_factor_score_rating: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: GREEN
+    color: '#0EB156'
+  consistency: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    enabled: true
+    bucket_name: Average
+  suitability_competency_report_competency_scores_overview: true
+  reliability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    enabled: true
+    bucket_name: Reliable
+  lie_detection: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket:
+    description:
+  s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  report_email_recipients:
+  candidate_stage: employee
+  candidate_assessment_id: 54809
+  completed_at: 16/09/2015
+  direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  post_assessment_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could increase your capacity to take stress by gradually taking up opportunities that are more demanding. If you feel stressed, try to analyse where the stress is coming from and break it down into the causes, effects and steps to be taken. Try to identify a stress buster technique (e.g. meditation, jogging, sports, hobbies etc. ) which suits you the best so that it could help you perform better in high pressure work.
+      factor_type: Suitability::Factor
+    Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could seek feedback from your colleagues from time to time to ensure that you do not come across as manipulative.
+      factor_type: Suitability::Factor
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to making task completion itself a goal. You could also make sure your colleagues know about the deliverables that you need to finish. You can ask them to push you to finish those deliverables. This could motivate you to keep at a task till it is completed, even if you happen to get bored with it.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could consider attending events where you are likely to meet other professionals. Before going to any event, try to ensure you are well-versed with topic and the attendees of the event so that you can strike an appropriate conversation. You also can try to spend more time with people who are good at networking to understand how to approach and initiate fruitful conversations.
+      factor_type: Suitability::Factor
+    Team Player: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to look at team performance as your own performance. You may consider assigning equal importance to team tasks and individual tasks.
+      factor_type: Suitability::Factor
+    Guilt Consciousness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could make sure that you try your best to make everything better whenever you make any mistake, and try and move on.
+      factor_type: Suitability::Factor
+    Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: Ensure that you do not delay work unnecessarily by being overly organized.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could consider discussing the pros and cons of your decisions with colleagues and exercise smart caution if too much risk is involved. Also, it would be a good idea to keep a back up plan ready in case your high risk decisions do not work out as desired.
+      factor_type: Suitability::Factor
+    Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider listing consequences of not following all steps in the prescribed process even though it might get work done faster.
+      factor_type: Suitability::Factor
+    Initiative: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You may want to analyse your week to identify instances where you could have taken initiative. To improve on this quality, you could consider volunteering for a few tasks. These small wins will help you to take more initiative.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to spend more time just by yourself so that you can introspect, focus on self-growth and not grow too dependent on social company.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider taking up opportunities that involve change and adaptation. However, avoid submitting to change without considering it holistically.
+      factor_type: Suitability::Factor
+    Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try taking up more challenging and difficult goals. You may want to advertise your goal and its deadline to people you interact regularly with. You could also consider pinning up your goal along with a deadline at your workstation such that it is always visible.
+      factor_type: Suitability::Factor
+    Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: If you find a guideline or rule not very useful or redundant, you may want to discuss your reasons with your manager or colleagues before deciding to bend it.
+      factor_type: Suitability::Factor
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may consider increasing your interaction with different kinds of people in varied situations. You could try to observe their expressions, body language, etc. with an aim to understand them better.
+      factor_type: Suitability::Factor
+    Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You are good at identifying and solving problems, however you can develop these skills further by observing role models. You may consult your manager to identify people you can pair with and mentor them. At the same time you may attempt to analyse scenarios in which you can use your problem solving skills more effectively.
+      factor_type: Suitability::Factor
+  guidelines_for_candidate_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider gradually increasing his/her work pressure and observing how much he/she can deal with increased pressure. You may also encourage him/her to take-up high pressure tasks to enhance his/her career prospects.
+      factor_type: Suitability::Factor
+    Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: It could be a good idea to assign him/her responsibilities where being influential is critical. However, you may want to make sure that he/she is not perceived as manipulative or dominating by team members.
+      factor_type: Suitability::Factor
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: When he/she seems to be losing interest in a task, you could try to highlight a future outcome of that task which could be desirable for him/her. You may also consider discussing the implications of not completing the task, for him/her as well as for co-workers whose work is likely to be impacted by the delay.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You may want to share experiences and pointers about the importance of making business connections. You could try taking him/her to events or meetings where he/she can observe, learn and develop networking skills. You might also share some new contacts you come across and encourage him/her in his/her efforts.
+      factor_type: Suitability::Factor
+    Team Player: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to point out the positives of performing as a team. Try to assign him/her to more team tasks that might trigger his/her interest in achieving a collaborative goal.
+      factor_type: Suitability::Factor
+    Guilt Consciousness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: He/she seems to be conscious of doing something wrong. You could consider pairing him/her with individuals who need to be more efficient at finding remedy for his/her mistakes.
+      factor_type: Suitability::Factor
+    Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider putting him/her in roles where high amount of planning and prioritization is required. He/she could also contribute in charting out long term plans for the team. However, you could ensure that he/she does not delay work unnecessarily by being overly organized.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could ensure that he/she take relevant and calculated risks and also develop the habit of having a back up plan in case of backfire.
+      factor_type: Suitability::Factor
+    Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try and encourage him/her to follow processes more stringently by emphasizing the benefits of each step in the process.
+      factor_type: Suitability::Factor
+    Initiative: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to identify the cause and then take steps to motivate him/her by designing a reward system that aligns these goals with the business objectives.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to ensure that he/she finishes his/her tasks on time and do not intrude in others' work privacy.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: He/she could be more effective in dynamic environments as compared to others. Hence, you could consider assigning to him/her such projects or responsibilities as they come by.
+      factor_type: Suitability::Factor
+    Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to appreciate every target he/she achieves (small or big). You may also encourage him/her to take on more challenging goals.
+      factor_type: Suitability::Factor
+    Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to make him/her understand the significance of following rules and regulations. Providing him/her with simple guidelines on how to follow rules and procedures could help him/her follow these easily.
+      factor_type: Suitability::Factor
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider introducing him/her to more diverse and challenging group interactions as it could help him/her get better at understanding people.
+      factor_type: Suitability::Factor
+    Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could involve him/her in brainstorming sessions for finding solutions to complex problems. Encourage him/her to monitor his/her problem solving process to come up with more practical solutions. You may also ask him/her to assist others in order to improve the team's overall performance.
+      factor_type: Suitability::Factor
+  enable_functional_overview_section: true
+  subjective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  objective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  section_wise_objective_item_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  functional_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  include_functional_traits_in_aggregate_scores: false
+  objective_score: 0.0
+  html_suitability_reports_scale_description_page: true
+  pdf_suitability_reports_scale_description_page: true
+  competency_score_rating_on_overall_score: true
+  plain_score_rating_on_overall_score: true
+  enable_competency_desired_ranges: true
+  enable_interview_and_development_guide_both: false
+  show_favourable_above_desired_range: true
+  competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Additional Traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 609
+      score: 78.57
+      grade: Above Average
+      grade_uid: tcEez
+      factor_ids:
+      - 23
+      - 67
+      - 35
+      - 28
+      - 3
+      - 76
+      - 78
+      factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745877
+          factor_id: 23
+          score: 55.67
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Below Average
+          description: May follow processes selectively; more likely to assign a general structure to tasks but may not follow it meticulously; may perceive processes and methods to be more optional rather than compulsory; less likely to mind using shortcuts if work gets done faster
+          factor_definition: Degree to which an individual prefers to have processes and structure in place
+        Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745872
+          factor_id: 67
+          score: 60.0
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (High)
+          norm_bucket_uid: ygMKO
+          consistency_bucket: Low
+          description: Might find it easy to succeed in convincing others in most cases, but likely to find it difficult at times; likely to convince manager as well as influence subordinates' opinions in many situations; generally able to persuade the colleagues successfully; may seem to exert influence at times
+          factor_definition: Degree to which an individual can have an impact on other's decisions and convince them
+        Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745879
+          factor_id: 35
+          score: 33.33
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Below Average
+          description: May have a selective preference for targets; might opt for easier targets when given a choice; performance likely to improve with slightly flexible deadlines; may need encouragement to go the extra mile to reach a set goal
+          factor_definition: Preference for targets and tendency to strive for achieving them
+        Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745873
+          factor_id: 28
+          score: 66.6
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: vBUZs
+            to_norm_bucket_uid: tcEez
+          norm_bucket: Average (High)
+          norm_bucket_uid: ygMKO
+          consistency_bucket: Average
+          description: Often open to change; often flexible at work; may occasionally take time to get accustomed to changes; less likely to be uncomfortable with change
+          factor_definition: Degree to which an individual is open to new experiences, ideas, feedback and change
+        People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745871
+          factor_id: 3
+          score: 46.6
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Low
+          description: Usually understands others' emotions and feelings; may develop a moderate sense of rapport with others; might occasionally come across as unapproachable; may sometimes feel uncomfortable in emotional situations
+          factor_definition: Degree to which an individual can understand others' emotions and connect with other people
+        Team Player: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745874
+          factor_id: 76
+          score: 26.6
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Below Average
+          norm_bucket_uid: DrHWZ
+          consistency_bucket: High
+          description: May invest more in his/her personal development than of the team; often makes sure he/she gets credit for his/her contribution to the team's success; less likely to go out of the way for the team's sake; more likely to be competitive than cooperative
+          factor_definition: Degree to which an individual focuses on being a part of the team performance
+        Guilt Consciousness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745886
+          factor_id: 78
+          score: 89.0
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Above Average
+          norm_bucket_uid: tcEez
+          consistency_bucket: High
+          description: More likely to avoid morally incorrect behavior; likely to be perceived as a role model for ethical behavior; less likely to use unethical shortcuts to get work done; might to feel guilty if he/she happens to overlook norms
+          factor_definition: Degree to which an individual is mindful of doing wrong things
+      from_norm_bucket_uid: vBUZs
+      to_norm_bucket_uid: pZQeOjio
+    Client Acquisition & Retention: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 402
+      score: 50.0
+      grade: Average (Low)
+      grade_uid: BrXyV
+      factor_ids:
+      - 69
+      - 68
+      - 27
+      - 3
+      factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745883
+          factor_id: 69
+          score: 40.0
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: tcEez
+          norm_bucket: Below Average
+          norm_bucket_uid: DrHWZ
+          consistency_bucket: Low
+          description: Often not proactive in approaching others to build business contacts; less likely to take efforts for professional networking; might invest less time in following up with existing contacts; less likely to use his/her acquaintances to widen his/her professional network
+          factor_definition: Degree to which an individual takes initiative to network with people
+        Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745884
+          factor_id: 68
+          score: 60.0
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: pZQeOjio
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Low
+          description: Might selectively choose to continue investing efforts on a task or letting it go; likely to be moderately focused; likely to be discouraged by obstacles and not find it worthwhile to continue something with too many obstacles; may sometimes get distracted by other tasks
+          factor_definition: Tendency to continue a course of action in spite of difficulty
+        Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745881
+          factor_id: 27
+          score: 60.0
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: tcEez
+          norm_bucket: Average (High)
+          norm_bucket_uid: ygMKO
+          consistency_bucket: Average
+          description: More likely to be open to social interactions; often talkative; likely to initiate conversations selectively; may not always be comfortable in large groups; may occasionally shy away from expressing himself/herself
+          factor_definition: Tendency to be reserved v/s outgoing (Low score represents the tendency to be reserved, High score represents the tendency to be outgoing)
+        People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745871
+          factor_id: 3
+          score: 46.6
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Low
+          description: Usually understands others' emotions and feelings; may develop a moderate sense of rapport with others; might occasionally come across as unapproachable; may sometimes feel uncomfortable in emotional situations
+          factor_definition: Degree to which an individual can understand others' emotions and connect with other people
+      from_norm_bucket_uid: vBUZs
+      to_norm_bucket_uid: pZQeOjio
+    Company Fit: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 68
+      score: 66.67
+      grade: Average (High)
+      grade_uid: ygMKO
+      factor_ids:
+      - 2
+      - 69
+      - 11
+      - 23
+      - 35
+      - 39
+      factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745880
+          factor_id: 2
+          score: 53.4
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Average
+          description: Likely to handle stressful situations well with some support; may not face difficulty in maintaining work-life balance; may not thrive under pressure but likely to have some coping strategies in place; might have difficulty handling stressful situations for prolonged durations
+          factor_definition: Degree to which an individual can work effectively under pressure
+        Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745883
+          factor_id: 69
+          score: 40.0
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: tcEez
+          norm_bucket: Below Average
+          norm_bucket_uid: DrHWZ
+          consistency_bucket: Low
+          description: Often not proactive in approaching others to build business contacts; less likely to take efforts for professional networking; might invest less time in following up with existing contacts; less likely to use his/her acquaintances to widen his/her professional network
+          factor_definition: Degree to which an individual takes initiative to network with people
+        Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745876
+          factor_id: 11
+          score: 80.0
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Above Average
+          norm_bucket_uid: tcEez
+          consistency_bucket: Average
+          description: Tends to work in an organized and systematic manner; likely to prioritize work in the order of importance; generally efficient in tasks that require planning; prefers to have a plan for tasks at hand
+          factor_definition: Tendency to take organized and planned approach to work
+        Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745877
+          factor_id: 23
+          score: 55.67
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Below Average
+          description: May follow processes selectively; more likely to assign a general structure to tasks but may not follow it meticulously; may perceive processes and methods to be more optional rather than compulsory; less likely to mind using shortcuts if work gets done faster
+          factor_definition: Degree to which an individual prefers to have processes and structure in place
+        Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745879
+          factor_id: 35
+          score: 33.33
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Average (Low)
+          norm_bucket_uid: BrXyV
+          consistency_bucket: Below Average
+          description: May have a selective preference for targets; might opt for easier targets when given a choice; performance likely to improve with slightly flexible deadlines; may need encouragement to go the extra mile to reach a set goal
+          factor_definition: Preference for targets and tendency to strive for achieving them
+        Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745885
+          factor_id: 39
+          score: 22.33
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: DrHWZ
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Below Average
+          norm_bucket_uid: DrHWZ
+          consistency_bucket: Below Average
+          description: May not always follow all rules and regulations; more likely to focus on getting work done than how it is done; may not always be updated about all standard policies and procedures; less likely to mind being flexible about certain rules and guidelines
+          factor_definition: Degree to which an individual adheres to rules and regulations
+      from_norm_bucket_uid: vBUZs
+      to_norm_bucket_uid: pZQeOjio
+    Creation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 2522
+      score: 45.83
+      grade: Average (Low)
+      grade_uid: BrXyV
+      factor_ids:
+      - 15
+      - 26
+      - 105
+      - 28
+      factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745878
+          factor_id: 15
+          score: 66.6
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: BrXyV
+            to_norm_bucket_uid: BrXyV
+          norm_bucket: Average (High)
+          norm_bucket_uid: ygMKO
+          consistency_bucket: Low
+          description: Sometimes enthusiastic about taking risks; more likely to focus on the benefits of taking a risk; usually cautious regarding ambiguity in tasks; may not mind tasks that involve uncertainty but might occasionally hesitate to do so
+          factor_definition: Degree to which an individual takes risks
+        Initiative: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745875
+          factor_id: 26
+          score: 33.4
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: ygMKO
+            to_norm_bucket_uid: pZQeOjio
+          norm_bucket: Below Average
+          norm_bucket_uid: DrHWZ
+          consistency_bucket: Average
+          description: Likely to focus on assigned tasks than willingly taking up new ones; may be less proactive; usually takes up work only when asked to; less likely to contribute ideas and suggestions to tasks or decisions at the workplace by himself/herself
+          factor_definition: Tendency to take up tasks or charge of situations voluntarily
+        Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745882
+          factor_id: 105
+          score: 33.0
+          pass: false
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: ygMKO
+            to_norm_bucket_uid: ygMKO
+          norm_bucket: High
+          norm_bucket_uid: pZQeOjio
+          consistency_bucket: High
+          description: Define complex problems and situations clearly and objectively, discern subtle relationships among complex situations, events, or ideas
+          factor_definition: Ablility to come up with solutions to work-related problems
+        Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          type: Suitability::Factor
+          factor_score_id: 745873
+          factor_id: 28
+          score: 66.6
+          pass: true
+          scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_norm_bucket_uid: vBUZs
+            to_norm_bucket_uid: tcEez
+          norm_bucket: Average (High)
+          norm_bucket_uid: ygMKO
+          consistency_bucket: Average
+          description: Often open to change; often flexible at work; may occasionally take time to get accustomed to changes; less likely to be uncomfortable with change
+          factor_definition: Degree to which an individual is open to new experiences, ideas, feedback and change
+      from_norm_bucket_uid: vBUZs
+      to_norm_bucket_uid: pZQeOjio
+  aggregate_competency_score_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    name: Average (High)
+  aggregate_competency_score: 60.27
+  aggregate_competency_score_rating: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    name: AMBER
+    color: '#CD6212'
+  hexagons_page_competency: true
+  trait_scores_competency: true
+  development_guide_candidate: true
+  development_guide_manager: true
+s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/pdf/barrey-allen-suit-comp-report-jombay-32169.pdf
+  html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/html/barrey-allen-suit-comp-report-jombay-32169.html
+  feedback: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/feedback/feedback-barrey-allen-suit-comp-report-jombay-32169.html
+status: uploaded
+updated_at: '2015-09-16T18:10:59+05:30'

@@ -263,7 +263,6 @@ Recruiters::Application.routes.draw do
         get "home" => "mrf/assessments#home", :as => :home
         get "candidates" => "mrf/feedbacks#index", :as => :candidates
         put "home" => "mrf/assessments#home", :as => :home
-        post "report_preview" => "mrf/assessments/reports#report_preview"
       end
 
       member do
@@ -508,6 +507,8 @@ Recruiters::Application.routes.draw do
   resources :report_configurations do
     collection do
       get :load_configuration
+      post :report_preview_mrf
+      post :report_preview_suitability
     end
   end
   

@@ -1,0 +1,12 @@
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+- competency_scores_hash = HashWithIndifferentAccess.new({ competency_scores: competency_scores })
+.overview
+  .bottom-triangle
+    .container
+      .divider1
+      .content
+        - section_value.each do |section|
+          - locals = Hash[section["locals"].map { |key, value| [key.to_sym, competency_scores_hash[key.to_sym]] }]
+          = render :partial => section["path"], :locals => locals
+        .clr
+      .divider2
