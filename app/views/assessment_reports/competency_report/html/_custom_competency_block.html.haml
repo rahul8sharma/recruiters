@@ -1,70 +1,71 @@
-- company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
-.frame
-  .heading.pull-left
-    #{competency_name} #{(step > 0 ? "(continued)":"")}
-  .heading.pull-right 
-    = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
-  .clr 
-  %ul.clearfix.scores_listing.first
-    - factor_scores.each do |factor_name, factor_score|
-      - scale_width = (@company_norm_buckets.size-1)*80
-      - marker_width = 80
-      - scale = factor_score[:scale]
-      - norm_bucket_uid = factor_score[:norm_bucket_uid]
-      
-      - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
-      - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
-      
-      - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-      
-      - offset = ((from_norm_bucket.weight - 1) * marker_width)
-      
-      - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-      - width = 34 if width == 0
-      
-      - position = (company_norm_bucket.weight - 1) * marker_width
-      - position = scale_width-20 if position >= scale_width
-      
-      - scored_weight = company_norm_bucket.weight
-      - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
-      
-      %li{:id => "#{competency_name}#{factor_name}"}
-        .divider1
-        .lhs-sec.pull-left{:style=> "width: 730px;"}
-          %div{ class: "span1 first hexagon-icon #{klass}" }
-          .span16.first
-            .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
-              = factor_name 
-              .info
-                = factor_score[:factor_definition]
-              .arrow
-            .clr
-
-        .rhs-sec.pull-left
-          .slider{:style=>"width:#{scale_width}px"}
-
-            - if ((width == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
-              - offset = offset - 34
-            
-            .pointer{ class: "#{klass}", style: "left: #{position}px;" }
-              -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
-              .score-indicater
-                = company_norm_bucket.name
-              .arrow
-            
-            .range{ style: "margin-left: #{offset}px;width: #{width}px;" }
-            -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-
-        .clr
-        .divider1
-        .factor-description
-          = factor_score[:description]
-        - if @report.report_hash[:enable_factor_consistency] && factor_score[:type] != 'Functional::Trait'
+- step_competency_scores.each do |competency_name, competency_data|
+  - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
+  .frame
+    .heading.pull-left
+      #{competency_name} #{(step > 0 ? "(continued)":"")}
+    .heading.pull-right 
+      = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
+    .clr 
+    %ul.clearfix.scores_listing.first
+      - factor_scores.each do |factor_name, factor_score|
+        - scale_width = (@company_norm_buckets.size-1)*80
+        - marker_width = 80
+        - scale = factor_score[:scale]
+        - norm_bucket_uid = factor_score[:norm_bucket_uid]
+        
+        - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
+        - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
+        
+        - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+        
+        - offset = ((from_norm_bucket.weight - 1) * marker_width)
+        
+        - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+        - width = 34 if width == 0
+        
+        - position = (company_norm_bucket.weight - 1) * marker_width
+        - position = scale_width-20 if position >= scale_width
+        
+        - scored_weight = company_norm_bucket.weight
+        - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
+        
+        %li{:id => "#{competency_name}#{factor_name}"}
           .divider1
-          .responses  
-            %i.icon-align-justify
-            Reliability of Candidate's Responses for this Factor:
-            %span.score 
-              = factor_score[:consistency_bucket]
+          .lhs-sec.pull-left{:style=> "width: 730px;"}
+            %div{ class: "span1 first hexagon-icon #{klass}" }
+            .span16.first
+              .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+                = factor_name 
+                .info
+                  = factor_score[:factor_definition]
+                .arrow
+              .clr
 
-.divider1
+          .rhs-sec.pull-left
+            .slider{:style=>"width:#{scale_width}px"}
+
+              - if ((width == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
+                - offset = offset - 34
+              
+              .pointer{ class: "#{klass}", style: "left: #{position}px;" }
+                -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
+                .score-indicater
+                  = company_norm_bucket.name
+                .arrow
+              
+              .range{ style: "margin-left: #{offset}px;width: #{width}px;" }
+              -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
+
+          .clr
+          .divider1
+          .factor-description
+            = factor_score[:description]
+          - if @report.report_hash[:enable_factor_consistency] && factor_score[:type] != 'Functional::Trait'
+            .divider1
+            .responses  
+              %i.icon-align-justify
+              Reliability of Candidate's Responses for this Factor:
+              %span.score 
+                = factor_score[:consistency_bucket]
+
+  .divider1

@@ -12,7 +12,24 @@
           id: "html_competencies_values_measured",
           text: "Competencies and Values Measured",
           path: "assessment_reports/competency_report/html/comptencies_values_measured",
-          children: []
+          children: [
+            {
+              id: "html_custom_factor_block",
+              text: "Custom Factor Block[Scores above range are shown as favourable]",
+              path: "assessment_reports/competency_report/html/custom_factor_block",
+              locals: {
+                step_competency_scores: "step_competency_scores"
+              }
+            },
+            {
+              id: "html_generic_factor_block",
+              text: "Generic Factor Block[Scores above and below range are shown as not favourable]",
+              path: "assessment_reports/competency_report/html/generic_factor_block",
+              locals: {
+                step_competency_scores: "step_competency_scores"
+              }
+            }
+          ]
         },
         {
           id: "html_trait_scores_under_competencies",
@@ -85,9 +102,27 @@
         },
         {
           id: "pdf_competencies_values_measured",
-          text: "Competncies Values Measured",
+          text: "Competencies Values Measured",
           path: "assessment_reports/competency_report/pdf/compentencies_values_measured",
-          children: []
+          children: 
+          [
+            {
+              id: "pdf_custom_factor_block",
+              text: "Custom Factor Block[Scores above range are shown as favourable]",
+              path: "assessment_reports/competency_report/pdf/custom_factor_block",
+              locals: {
+                step_competency_scores: "step_competency_scores"
+              }
+            },
+            {
+              id: "pdf_generic_factor_block",
+              text: "Generic Factor Block[Scores above and below range are shown as not favourable]",
+              path: "assessment_reports/competency_report/pdf/generic_factor_block",
+              locals: {
+                step_competency_scores: "step_competency_scores"
+              }
+            }
+          ]
         },
         {
           id: "pdf_factor_scores_unders_competencies",

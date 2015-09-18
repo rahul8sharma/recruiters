@@ -4,7 +4,6 @@
 :css
   .report .competency_report .inner{margin-top:0px;} 
 - @factor_scores = @report.report_data[:competency_scores].map{|competency, competency_scores| competency_scores[:factor_scores] }.reduce({}){|factor_scores, _hash| _hash.merge(factor_scores) }
-
 .competency_report
   - @report.report_configuration["html"]["sections"].each do |section_value|
     = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
