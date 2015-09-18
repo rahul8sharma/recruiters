@@ -196,7 +196,30 @@
           id: "pdf_factor_scores_unders_competencies",
           text: "Factor Scores Under Competencies",
           path: "assessment_reports/competency_report/pdf/factor_scores_under_competencies",
-          children: []
+          children: [
+            {
+              id: "pdf_custom_competency",
+              text: "Custom Competency Block [Above range is Favourable]",
+              path: "assessment_reports/competency_report/pdf/custom_competency",
+              locals: {
+                competency_name: "competency_name",
+                competency_data: "competency_data",
+                factor_scores: "factor_scores",
+                step: "step"
+              }
+            },
+            {
+              id: "pdf_generic_competency",
+              text: "competency Block [Outside Range is not Favourable]",
+              path: "assessment_reports/competency_report/pdf/generic_competency",
+              locals: {
+                competency_name: "competency_name",
+                competency_data: "competency_data",
+                factor_scores: "factor_scores",
+                step: "step"
+              }
+            }
+          ]
         },
         {
           id: "pdf_functional_overview_sections",
