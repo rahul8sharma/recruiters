@@ -16,7 +16,8 @@
                   id: "html_color_band",
                   text: "Color Band",
                   path: "assessment_reports/competency_report/html/competency_score_rating_on_overall_score",
-                  locals: {}
+                  locals: {},
+                  children: []
                 },
                 {
                   id: "html_functional_items_legend",
