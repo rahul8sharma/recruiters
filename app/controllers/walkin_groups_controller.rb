@@ -3,7 +3,7 @@ class WalkinGroupsController < ApplicationController
   before_filter :get_company
   
   before_filter :get_walkin_group, :except => [ :index, :create, :new ]
-  
+  before_filter :get_templates, only: [:update, :customize, :edit]
   layout "walk_ins"
   
   def index
@@ -86,5 +86,15 @@ class WalkinGroupsController < ApplicationController
                     }, 
                     select: ["name","id"]
                    ).all.to_a
+  end
+  
+  def get_templates
+    query_options = {
+      category: Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_WALKIN
+    }
+    @invitation_templates = Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
+    @invitation_templates |= Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
 end
