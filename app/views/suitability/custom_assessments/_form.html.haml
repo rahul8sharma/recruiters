@@ -50,6 +50,9 @@
       %label
         = f.check_box :is_jq_assessment, id: "is_jq_assessment"
         Is JQ Assessment
+      %label
+        = f.check_box :include_cocubes_scores_in_reoprts
+        Include Cocubes Scores in Reports and Summary
       .clr
   .pull-right
     - if current_user.type == "SuperAdmin"
