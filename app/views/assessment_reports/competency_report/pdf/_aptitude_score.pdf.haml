@@ -8,9 +8,9 @@
     .divider1
     .span7.margin-auto
       .span3.first.rounded
-        18 / 50
+        #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
       .span3.left-offset1.rounded
-        42%
+        #{@report.report_data[:cocubes_percentage_score]}%
       .clr
       .divider1
       .span3.first.text-center.large-text
