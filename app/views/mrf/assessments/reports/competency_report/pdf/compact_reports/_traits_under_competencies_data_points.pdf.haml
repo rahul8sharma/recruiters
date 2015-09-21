@@ -3,11 +3,15 @@
   - iterator = 0
   - competency_scores[:trait_scores].each do |trait_score|
     - iterator += 1
+    - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
     .scores.border-bottom-grayLighter.mrf_data_points
       .divider1
       .green_heading.big-text
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title", locals: { trait_score: trait_score, competency: competency}
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title", locals: { trait_score: trait_score}
+      - section_value.each do |section|
+        - locals = Hash[section["locals"].map { |key, value| [key.to_sym, value_hash[key.to_sym]] }]
+        = render :partial => section["path"], :locals => locals
+        / = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title", locals: { trait_score: trait_score, competency: competency}
+        / = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title", locals: { trait_score: trait_score}
       .divider1
       = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_textual_data_points", locals: { trait_score: trait_score}
     - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
