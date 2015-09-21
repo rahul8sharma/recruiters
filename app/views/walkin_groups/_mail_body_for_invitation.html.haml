@@ -1,0 +1,35 @@
+- if @invitation_templates.empty?
+  .big-text.line-height2
+    Email Templates not available. Please add templates to use this feature.
+- else
+  .big-text.line-height2
+    Choose Email Template To Send Invitation To Candidate
+  %select.span9.first{ id: "select_invitation_template", name: "invitation_template_id", onchange: "selectInvitationTemplate()" }
+    %option{ value: nil }
+      Select Invitation Template
+    - @invitation_templates.each do |template|
+      %option{ value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from), selected: (template.id == @walkin_group.assessment_hash.values.first["invitation_template_id"].to_i)}
+        = template.name
+  .clr
+  .divider1
+  .email-template{ style: "margin-left:0;padding-left:0" }
+    .gray-dark
+      .large-text
+        Following is the Preview of the email that candidates will receive.
+      .divider1
+      .custom-email-invitation
+        .test-text-to-send
+          %span.extra-medium-text.span2.first.show
+            From
+          .massage-body.italic.span15.medium-text.email-from-invitation
+          .clr
+          .divider1
+          %span.extra-medium-text.span2.first.show
+            Subject
+          .massage-body.italic.span15.medium-text.email-subject-invitation
+          .clr
+          .divider1
+          %span.extra-medium-text.span2.first.show
+            Message
+          .massage-body.italic.span15.medium-text.email-body-invitation
+          .clr
