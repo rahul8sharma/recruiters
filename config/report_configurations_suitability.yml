@@ -305,7 +305,33 @@
           id: "html_cover_page",
           text: "Cover Page",
           path: "assessment_reports/fit_report/html/page1",
-          children: []
+          children: [
+            {
+              id: "html_enable_recommendation",
+              text: "Enable Recommendation",
+              path: "assessment_reports/fit_report/html/enable_recommendation",
+              children: [
+                {
+                  id: "html_aggregate_score",
+                  text: "Aggregate Score",
+                  path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
+                  locals: {}
+                },
+                {
+                  id: "html_color_band",
+                  text: "Color Band",
+                  path: "assessment_reports/fit_report/html/color_band",
+                  locals: {}
+                }
+              ]
+            },
+            {
+              id: "html_assessment_details",
+              text: "Assessment Details [Name and Completion Date]",
+              path: "assessment_reports/fit_report/html/assessment_details",
+              locals: {}
+            }
+          ]
         },
         {
           id: "html_score_scale",
