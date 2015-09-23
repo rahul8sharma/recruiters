@@ -1,3 +1,7 @@
+= f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
+= f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
+%input{:id => "report_type", :value => "suitability", :type => "hidden"}
+    
 .divider1
 .control-group
   %label
@@ -53,6 +57,19 @@
 
 .clr
 - if is_superadmin?
+  - if ["new","create"].include? params[:action]
+    .control-group
+      %label
+        Select Assessment Tyoe
+      %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
+        %option{:value => ""}
+          Select Assessment Type
+        - Vger::Resources::Assessment::ASSESSMENT_TYPES.sort.each do |assessment_type|
+          %option{:value => assessment_type, selected: (assessment.assessment_type == assessment_type)}
+            = assessment_type.titleize
+      .clr
+  - else
+    = f.hidden_field :assessment_type, value: @assessment.assessment_type, :id => "set_assessment_type"    
   .control-group
     %label
       Select the Language for the Assessment
@@ -72,9 +89,6 @@
         %option{ value: defined_form.id }
           = defined_form.name
     .clr
-- else
-  = f.hidden_field :language, value: 'en'
-- if params[:action] == "edit"
   .control-group
     %label
       Select the Brand Partner
@@ -96,6 +110,16 @@
     %textarea.span10.first{ name: 'assessment[thank_you_message]' }
       = @assessment.thank_you_message
     .clr
+  .control-group
+    %label
+      %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+      Enable Training Requirements Report for this assessment
+    .clr  
+  .control-group
+    %label
+      = f.check_box :show_help_text, id: "show_help_text"
+      Show Help Text for Items?
+    .clr  
   .control-group
     %label
       = f.check_box :set_applicant_id
@@ -127,4 +151,7 @@
       = f.check_box :include_cocubes_scores_in_reoprts
       Include Cocubes Scores in Reports and Summary
     .clr  
+- else
+  = f.hidden_field :language, value: 'en'
+  = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
 .divider2

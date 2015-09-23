@@ -13,6 +13,7 @@
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => "" ,:type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     %input{:id => "report_type", :value => "mrf", :type => "hidden"}
+    %input{:id => "set_assessment_type", :value => "fit", :type => "hidden"}
     .border-primary
       .padding-all2.border-bottom-grayLighter
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
@@ -43,7 +44,7 @@
           .divider1
           - if is_superadmin?
             %label.big-text.default
-              = f.check_box :use_competencies
+              = f.check_box :use_competencies, :id => "check_use_competencies"
               Use competencies
             .divider1
             %label.big-text.default
@@ -73,7 +74,7 @@
             If you wish to build the 360&#176; Profiling without an existing assessment, by selecting Traits of your choice, choose this option.      
       .clr
       .divider2
-      = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
+      = render :partial => "shared/report_configuration", :locals => { :f => f}
       .clr
   .divider1
 .divider1

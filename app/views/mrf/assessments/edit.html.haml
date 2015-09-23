@@ -13,6 +13,7 @@
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     %input{:id => "report_type", :value => "mrf", :type => "hidden"}
+    %input{:id => "set_assessment_type", :value => @assessment.use_competencies ? "competency" : "fit", :type => "hidden"}
     .border-primary
       .padding-all2
         = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
@@ -32,7 +33,7 @@
       .span26.margin-auto
         - if is_superadmin?
           %label.big-text.default
-            = f.check_box :use_competencies, checked: @assessment.use_competencies
+            = f.check_box :use_competencies, checked: @assessment.use_competencies, id: "check_use_competencies"
             Use competencies
           .divider1
           %label.big-text.default
@@ -45,7 +46,7 @@
         .divider1
       .hw.pull-left
       .span26.margin-auto
-        = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f}
+        = render :partial => "shared/report_configuration", :locals => { :f => f}
         .divider2
         %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
       .clr
