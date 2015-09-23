@@ -575,5 +575,11 @@
           text: "Summary of 360 Degree; Feedback",
           path: "mrf/assessments/reports/fit_report/pdf/page5",
           children: []
+        },
+        {
+          id: "pdf_common_footer_pages",
+          text: "Footer Pages[About Us and Legal Disclaimer]",
+          path: "mrf/assessments/reports/fit_report/pdf/footer_pages",
+          children: []
         }
       ]
