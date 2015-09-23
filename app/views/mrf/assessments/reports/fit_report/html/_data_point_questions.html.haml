@@ -18,8 +18,8 @@
             = trait_score[:average_score_excluding_self][:points]
           .clr
           .divider2
-          
           - trait_score[:items][:other_responses].each do |other_response|
+            .divider1
             .big-text
               Question to Stakeholder:
             .extra-medium-text.color-warning.line-height2
@@ -64,38 +64,36 @@
                   .divider3
               .clr
 
-          - trait_score[:items][:self_responses].each do |self_response|
-            .self-rate
-              .divider2
-              .span28.margin-auto
-                .span21.first
-                  .large-text
-                    Trait: 
-                    %span.default
-                      = trait_score[:trait][:name]
-
+          .self-rate
+            .divider2
+            .span28.margin-auto
+              .span21.first
+                .large-text
+                  Trait: 
+                  %span.default
+                    = trait_score[:trait][:name]
                   .divider1
+                - trait_score[:items][:self_responses].each do |self_response|
                   .big-text
                     Question to Self:
                   .extra-medium-text.color-warning.line-height2
                     = self_response[:item]
                   .divider2
-                .span
-
-                  #distribution_data_points
-                    .span7.first
-                      .large-text
-                        Overall Score
-                      .divider1
-                      .panel.bg-white
-                        .divider2
-                        .rating_snippet
-                          .rating_title.blue_light
-                            Self Rating 
-                          .value
-                            = self_response[:score]
-                          .clr
-                        .divider2
-                .clr
-                .divider2
-        .divider2
+                  .span
+                    #distribution_data_points
+                      .span7.first
+                        .large-text
+                          Overall Score
+                        .divider1
+                        .panel.bg-white
+                          .divider2
+                          .rating_snippet
+                            .rating_title.blue_light
+                              Self Rating 
+                            .value
+                              = self_response[:score]
+                            .clr
+                          .divider2
+                  .clr
+                  .divider2
+            .divider2
