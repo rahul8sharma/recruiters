@@ -7,25 +7,21 @@
 
 %h1 Edit company assessment
 = form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
-  %input{:id => "report_type", :value => "suitability", :type => "hidden"}
-  %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
-  %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
-
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
   .divider1
-  
-  = render :partial => "shared/360/mrf_report_competency_sections", :locals => { :f => f} 
+  = render :partial => "shared/report_configuration", :locals => { :f => f} 
   .clr
   .divider2
   %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
   .clr
 
 .divider1
-%iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
-  %html
-    %body
-      %h3
-        Preview Will be loaded here!
-
+- if is_superadmin?
+  %iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
+    %html
+      %body
+        %h3
+          Preview Will be loaded here!
+  
 
 

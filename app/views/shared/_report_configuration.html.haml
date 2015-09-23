@@ -1,0 +1,21 @@
+.divider2
+.span30{ class: is_superadmin? ? "" : 'hide' }
+  .pull-left
+    %h1.text-center
+      HTML Report Sections 
+    #html_configuration
+    %br
+    %a.btn.btn-info.large-text.bold{:id => "generate_html_preview", :target => "_blank"}
+      Generate HTML Preview
+  .pull-left
+    %h1.text-center
+      PDF Report Sections
+    #pdf_configuration
+    %br
+    %a.btn.btn-info.large-text.bold{:id => "generate_pdf_preview", :target => "_blank"}
+      Generate PDF Preview
+  .clr
+.divider2
+
+
+= javascript_include_tag "mrf/enableSections"

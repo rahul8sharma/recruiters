@@ -15,4 +15,18 @@
   .divider1
   = render :partial => "shared/navigation-sub-nav"
   .divider2
-  = render 'form', method: :post, url: company_custom_assessments_path(:company_id => params[:company_id]), assessment: @assessment  
+  = form_for @assessment, :as => :assessment, :url => company_custom_assessments_path(:company_id => params[:company_id]), multipart: true, method: "post", html: {id: "assessment_form", class: "creat-test-form" } do |f|
+    = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
+    .pull-right
+      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }
+    .clr
+    .divider1
+    = render :partial => "shared/report_configuration", :locals => { :f => f}
+
+  .divider1
+  - if is_superadmin?
+    %iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
+      %html
+        %body
+          %h3
+            Preview Will be loaded here!
