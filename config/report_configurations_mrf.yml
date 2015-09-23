@@ -382,6 +382,12 @@
           text: "Feedback Stats",
           path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
           children: []
+        },
+        {
+          id: "pdf_common_footer_pages",
+          text: "Footer Pages[About Us and Legal Disclaimer]",
+          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/footer_pages",
+          children: []
         }
       ]
   :fit:
