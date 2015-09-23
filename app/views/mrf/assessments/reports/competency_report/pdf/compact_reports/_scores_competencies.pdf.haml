@@ -22,5 +22,6 @@
         Desired Range
       .clr
     .divider1
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph"
+    - section_value.each do |section|
+      = render :partial => section["path"]
 .page-break

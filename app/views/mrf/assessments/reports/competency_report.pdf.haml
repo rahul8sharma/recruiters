@@ -5,10 +5,3 @@
     - @report.report_configuration["pdf"]["sections"].each do |section_value|
       = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
       .page-break
-
-  .common-top-trangle
-    .common-bottom-trangle 
-      = render :partial => "shared/reports/pdf/about_us"
-      .page-break
-      = render :partial => "shared/reports/pdf/legal_disclaimer"
-      .page-break

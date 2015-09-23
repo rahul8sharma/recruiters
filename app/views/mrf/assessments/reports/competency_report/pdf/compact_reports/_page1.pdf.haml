@@ -13,8 +13,8 @@
       .divider3
       .banner-sub-heading
         Profiling Report
-      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score"
-      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status"
+      - section_value.each do |section|
+        = render :partial => section["path"]
     .clr
   .divider2
   .extra-large-text
@@ -24,7 +24,6 @@
       = @report.report_hash[:assessment][:name]
     .clr
     .divider2
-
     .span.left-offset1
       Report Generated On:
     .span

@@ -49,6 +49,12 @@
           children: []
         },
         {
+          id: "html_aptitude_score",
+          text: "Show Cocubes Aptitude Score",
+          path: "assessment_reports/competency_report/html/aptitude_score",
+          children: []
+        },
+        {
           id: "html_score_scale",
           text: "Score Scale",
           path: "assessment_reports/score_scale",
@@ -165,9 +171,22 @@
         },
         {
           id: "html_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/html/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/html/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/html/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
     :pdf:
@@ -182,6 +201,12 @@
           id: "pdf_competency_report_guideline",
           text: "Competency report guideline",
           path: "assessment_reports/competency_report/pdf/competency_report_guideline",
+          children: []
+        },
+        {
+          id: "pdf_aptitude_score",
+          text: "Show Cocubes Aptitude Score",
+          path: "assessment_reports/competency_report/pdf/aptitude_score",
           children: []
         },
         {
@@ -293,9 +318,22 @@
         },
         {
           id: "pdf_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/pdf/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
   :fit:
@@ -349,7 +387,16 @@
           id: "html_scores_of_traits_measured_in_this_assessment",
           text: "Scores of Traits Measured In this Assessment",
           path: "assessment_reports/fit_report/html/page3",
-          children: []
+          children: [
+            {
+              id: "html_enable_factor_score_consistency",
+              text: "Enable Factor Score Consistency",
+              path: "assessment_reports/fit_report/html/enable_factor_consistency",
+              locals: {
+                factor_score: "factor_score"
+              }
+            }
+          ]
         },
         {
           id: "html_scores_of_functional_traits_measured_in_assessment",
@@ -476,9 +523,22 @@
         },
         {
           id: "pdf_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/pdf/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "pdf_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "pdf_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
   :jq:

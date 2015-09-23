@@ -21,7 +21,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 6643
     name: Report Hash [Competency][All Enabled]
     assessment_type: competency
-    brand_partner:
+    brand_partner: cocubes
   company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Jombay
     id: 2
@@ -36,6 +36,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   enable_factor_consistency: true
   enable_post_assessment_guidelines: true
   enable_score_scale_section: true
+  include_cocubes_scores_in_reoprts: true
   suitability_report_show_buckets_on_feedback: true
   competency_interpretation_guide: true
   include_subjective_questions: true
@@ -572,6 +573,9 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   trait_scores_competency: true
   development_guide_candidate: true
   development_guide_manager: true
+  cocubes_score: 12.0
+  cocubes_max_score: 30.0
+  cocubes_percentage_score: 40.0
 s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     bucket: report_pdfs_staging_internal

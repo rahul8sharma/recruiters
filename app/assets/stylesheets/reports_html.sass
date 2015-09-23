@@ -909,10 +909,11 @@ select
     .dot-nav
       border-width: 0 1px 1px 0
       border-color: #414042
-      border-style: solid
+      border-style: none solid solid none
       position: relative
       &.left
         border-width: 0 0 1px 1px
+        border-style: none none solid solid
         .rounded
           left: -4px
           right: auto
@@ -985,6 +986,14 @@ select
       width: 52%
     .right
       width: 42%
+.aptitude_score
+  .rounded
+    background: #28b29b
+    height: 150px
+    font-size: 20px 
+    color: #fff
+    line-height: 150px
+    text-align: center
 
 
 .fw
