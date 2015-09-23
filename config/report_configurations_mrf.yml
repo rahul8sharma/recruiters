@@ -385,9 +385,22 @@
         },
         {
           id: "pdf_common_footer_pages",
-          text: "Footer Pages[About Us and Legal Disclaimer]",
+          text: "Footer Pages",
           path: "mrf/assessments/reports/competency_report/pdf/compact_reports/footer_pages",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
   :fit:
@@ -578,8 +591,21 @@
         },
         {
           id: "pdf_common_footer_pages",
-          text: "Footer Pages[About Us and Legal Disclaimer]",
+          text: "Footer Pages",
           path: "mrf/assessments/reports/fit_report/pdf/footer_pages",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]

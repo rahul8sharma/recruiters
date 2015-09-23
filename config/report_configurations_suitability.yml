@@ -171,9 +171,22 @@
         },
         {
           id: "html_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/html/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/html/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/html/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
     :pdf:
@@ -305,9 +318,22 @@
         },
         {
           id: "pdf_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/pdf/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
   :fit:
@@ -497,9 +523,22 @@
         },
         {
           id: "pdf_common_footer_sections",
-          text: "Footer[ About Us and Legal Disclaimer ]",
+          text: "Footer",
           path: "shared/reports/pdf/common_footer_sections",
-          children: []
+          children: [
+            {
+              id: "pdf_about_us",
+              text: "About Us",
+              path: "shared/reports/pdf/about_us",
+              locals: {}
+            },
+            {
+              id: "pdf_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/pdf/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
   :jq:

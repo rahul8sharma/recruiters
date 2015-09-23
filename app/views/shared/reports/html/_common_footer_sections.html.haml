@@ -1,7 +1,7 @@
 .common-top-trangle
   .common-bottom-trangle 
-    = render :partial => "shared/reports/html/about_us"
-    .page-break
-    = render :partial => "shared/reports/html/legal_disclaimer"
-    .page-break
+    - section_value.each do |section|
+      = render :partial => section["path"]
+      .page-break
+
 = render :partial => "shared/reports/html/report_footer", :locals => { :force => true, :last_page => true }
