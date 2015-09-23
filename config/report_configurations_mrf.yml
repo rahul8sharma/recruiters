@@ -265,16 +265,23 @@
           children: []
         },
         {
-          id: "html_about_us",
-          text: "About Us",
-          path: "shared/reports/html/about_us",
-          children: []
-        },
-        {
-          id: "html_legal_disclaimer",
-          text: "Legal Disclaimer",
-          path: "shared/reports/html/legal_disclaimer",
-          children: []
+          id: "html_common_footer_pages",
+          text: "Footer Pages",
+          path: "shared/reports/html/common_footer_sections",
+          children: [
+            {
+              id: "html_about_us",
+              text: "About Us",
+              path: "shared/reports/html/about_us",
+              locals: {}
+            },
+            {
+              id: "html_legal_disclaimer",
+              text: "Legal Disclaimer",
+              path: "shared/reports/html/legal_disclaimer",
+              locals: {}
+            }
+          ]
         }
       ]
     :pdf: &pdf
@@ -384,9 +391,9 @@
           children: []
         },
         {
-          id: "pdf_common_footer_pages",
+          id: "html_common_footer_pages",
           text: "Footer Pages",
-          path: "mrf/assessments/reports/competency_report/pdf/compact_reports/footer_pages",
+          path: "shared/reports/pdf/common_footer_sections",
           children: [
             {
               id: "html_about_us",
