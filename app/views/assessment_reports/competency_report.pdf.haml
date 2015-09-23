@@ -12,6 +12,9 @@
   .page-break
   = render :partial => "assessment_reports/competency_report/pdf/competency_report_guideline"
   .page-break
+  - if @report.report_data[:include_cocubes_scores_in_reoprts]
+    = render :partial => "assessment_reports/competency_report/pdf/aptitude_score"
+  .page-break
   = render :partial => "assessment_reports/score_scale"
   
   .page-break
