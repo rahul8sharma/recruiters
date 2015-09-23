@@ -164,10 +164,23 @@
           children: []
         },
         {
-          id: "html_guidelines_for_candidate_manager",
-          text: "Guidelines for Candidate Manager",
+          id: "html_guidelines",
+          text: "Guidelines for Candidate and Manager",
           path: "assessment_reports/competency_report/html/guidelines_for_candidate_and_manager",
-          children: []
+          children: [
+            {
+              id: "html_guidelines_for_candidate",
+              text: "For Candidate",
+              path: "assessment_reports/competency_report/html/development_interview_guide_candidate",
+              locals: {}
+            },
+            {
+              id: "html_guidelines_for_candidate_manager",
+              text: "For Manager",
+              path: "assessment_reports/competency_report/html/development_interview_guide_manager",
+              locals: {}
+            }
+          ]
         },
         {
           id: "html_common_footer_sections",
