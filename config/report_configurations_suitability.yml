@@ -49,6 +49,12 @@
           children: []
         },
         {
+          id: "html_aptitude_score",
+          text: "Show Cocubes Aptitude Score",
+          path: "assessment_reports/competency_report/html/aptitude_score",
+          children: []
+        },
+        {
           id: "html_score_scale",
           text: "Score Scale",
           path: "assessment_reports/score_scale",
@@ -182,6 +188,12 @@
           id: "pdf_competency_report_guideline",
           text: "Competency report guideline",
           path: "assessment_reports/competency_report/pdf/competency_report_guideline",
+          children: []
+        },
+        {
+          id: "pdf_aptitude_score",
+          text: "Show Cocubes Aptitude Score",
+          path: "assessment_reports/competency_report/pdf/aptitude_score",
           children: []
         },
         {

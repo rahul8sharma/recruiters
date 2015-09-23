@@ -1,0 +1,21 @@
+.aptitude_score
+  .container
+    .divider2
+    .title
+      Score for Aptitude 
+    .divider1
+    .pannel
+      .divider1
+      .span9.margin-auto
+        .span4.first.rounded
+          #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
+        .span4.left-offset1.rounded
+          #{@report.report_data[:cocubes_percentage_score]}%
+        .clr
+        .divider1
+        .span4.first.text-center.extra-large-text
+          Score
+        .span4.left-offset1.text-center.extra-large-text
+          Percentage
+        .clr
+      .divider1
