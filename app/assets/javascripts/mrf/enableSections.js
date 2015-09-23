@@ -19,7 +19,8 @@ function loadConfig(assessment_Type, reportType) {
         alert(response_data.error);
       } else {
         var config = JSON.parse(response_data.config);
-        var data = $('#input_config').val() ? JSON.parse($('#input_config').val()) : JSON.parse(response_data.selected);
+        var input_json = $('#input_config').val() ? JSON.parse($('#input_config').val()) : {}
+        var data = jQuery.isEmptyObject(input_json) ? JSON.parse(response_data.selected) : input_json;
         data.html = data.html || { sections: [] };
         data.pdf = data.pdf || { sections: [] };
         $htmlTree.selected = data.html.sections;
