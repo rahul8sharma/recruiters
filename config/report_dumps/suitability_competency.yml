@@ -14,8 +14,8 @@ report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
 report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   id: 32174
   candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    name: Puja Burande
-    email: puja.21.burande@gmail.com
+    name: Bruce Wayne
+    email: bruce_wayne@gmail.com
     id: 52679
   assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 6620
