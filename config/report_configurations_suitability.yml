@@ -8,6 +8,20 @@
           path: "assessment_reports/competency_report/html/cover_page",
           children: [
             {
+              id: "html_feedback_header",
+              text: "Feedback Header",
+              path: "shared/reports/feedback_header",
+              locals: {},
+              children: []
+            },
+            {
+              id: "html_assessment_details",
+              text: "Assessment Name and Completion Date",
+              path: "assessment_reports/competency_report/html/assessment_details",
+              locals: {},
+              children: []
+            },
+            {
               id: "html_aggregate_competency_score",
               text: "Aggregate Competency Scores",
               path: "assessment_reports/competency_report/html/aggregate_competency_score",
