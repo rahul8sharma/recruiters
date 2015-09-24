@@ -193,8 +193,8 @@ report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
 report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   id: 32168
   candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    name: A
-    email: a@a.com
+    name: Barrey Allen Suitability Competency Based Report
+    email: john@doer.com
     id: 34423
   assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 6642

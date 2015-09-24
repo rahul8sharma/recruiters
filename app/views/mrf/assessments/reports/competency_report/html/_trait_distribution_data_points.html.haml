@@ -77,7 +77,5 @@
                       .clr
                 .clr
           .divider1
-          - section_value.each do |section|
-            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, distribution_hash[key.to_sym]] }]
-            = render :partial => section["path"], :locals => locals
+          = render :partial => "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level", :locals => { trait_score: trait_score }
         .divider2

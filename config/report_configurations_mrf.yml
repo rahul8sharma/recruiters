@@ -193,31 +193,13 @@
           id: "html_data_points_about_360_degree_scores_competencies",
           text: "Data Points on 360 Degree Scores Competencies",
           path: "mrf/assessments/reports/competency_report/html/competency_distribution_data_points",
-          children: [
-            {
-              id: "html_stakeholder_level_breakdown_at_competency_level",
-              text: "Stakeholder Breakdown at Competency Level",
-              path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_competency_level",
-              locals: {
-                competency_score: "competency_score"
-              }
-            }
-          ]
+          children: []
         },
         {
           id: "html_data_points_about_360_degree_scores_traits_under_competencies",
           text: "Data Points on 360 Degree Scores Traits Under Competencies",
           path: "mrf/assessments/reports/competency_report/html/trait_distribution_data_points",
-          children: [
-            {
-              id: "html_stakeholder_level_breakdown_at_trait_level",
-              text: "Stakeholder Level Breakdown and Trait Level",
-              path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level",
-              locals: {
-                trait_score: "trait_score"
-              }
-            }
-          ]
+          children: []
         },
         {
           id: "html_data_points_on_360_degree_scores_of_competencies",
@@ -450,16 +432,7 @@
           id: "pdf_scores_of_tratis_measured_with_360_degree",
           text: "Scores of Traits measured with 360 Degree Assessment",
           path: "mrf/assessments/reports/fit_report/html/page3",
-          children: [
-            {
-              id: "pdf_fit",
-              text: "Fit",
-              path: "mrf/assessments/reports/fit_report/html/fit",
-              locals: {
-                trait_scores: "@report.report_data[:trait_scores]"
-              }
-            }
-          ]
+          children: []
         },
         {
           id: "pdf_data_points_on_360_Degree_scores",

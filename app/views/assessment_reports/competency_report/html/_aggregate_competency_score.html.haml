@@ -1,8 +1,5 @@
 .pull-right
   .divider2
-  .final-score.score_band{ :style=>"background-color: #128975" }
-    Aggregate Score: #{@report.report_hash[:aggregate_competency_score_bucket][:name]}
-  
   - nested_child.each do |child|
     = render :partial => child["path"], :locals => { functional_legends: child["children"]}  
   .divider1
