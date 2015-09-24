@@ -22,11 +22,4 @@
     .clr
     .divider1
   = render :partial => "shared/report_configuration"
-
   .divider1
-  - if is_superadmin?
-    %iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
-      %html
-        %body
-          %h3
-            Preview Will be loaded here!

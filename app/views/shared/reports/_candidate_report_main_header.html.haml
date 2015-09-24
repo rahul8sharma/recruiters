@@ -7,7 +7,7 @@
       .logo.pull-left.pull-left
         = image_tag(asset_path("jombay-logo.png"))
       .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:candidate][:name] }
-        = @report.report_hash[:candidate][:name].truncate(30)
+        = @report.report_hash[:candidate][:name].truncate(25)
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left

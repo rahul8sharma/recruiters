@@ -196,8 +196,16 @@ function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_
     dataType: 'json',
     success: function(data)
     { 
+      $("#generate_html_preview").removeAttr("disabled");
+      $("#generate_pdf_preview").removeAttr("disabled");
+      $("#generate_html_preview").html("Generate HTML Preview");
+      $("#generate_pdf_preview").html("Generate PDF Preview");
+      $("#iframe1").show();
       document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';  
       document.getElementById('iframe1').contentWindow.document.write(data.content);
+      $('html, body').animate({
+        scrollTop: $("#iframe1").offset().top - 100
+      }, 500);
     },error: function(error) { 
       document.getElementById('iframe1').contentWindow.document.write("Error while loading the preview.");
     }
@@ -222,18 +230,30 @@ $(document).ready(function(){
   });
   
   $('#generate_html_preview').on('click', function(e){
-    document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';
-    updateInput();
-    generatePreview($('#set_assessment_type').val(), 'html', $htmlTree, reportType, company_id);
     e.preventDefault();
+    if($('#set_assessment_type').val() !== "") {
+      $(this).html("Please wait...");
+      $(this).attr("disabled", true);
+      document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';
+      updateInput();
+      generatePreview($('#set_assessment_type').val(), 'html', $htmlTree, reportType, company_id);
+    } else {
+      alert("Please select assessment type!");
+    }
   });
 
 
   $('#generate_pdf_preview').on('click', function(e){
-    document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
-    updateInput();
-    generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree, reportType, company_id);
     e.preventDefault();
+    if($('#set_assessment_type').val() !== "") {
+      $(this).html("Please wait...");
+      $(this).attr("disabled", true);
+      document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
+      updateInput();
+      generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree, reportType, company_id);
+    } else {
+      alert("Please select assessment type!");
+    }  
   });
 
 
