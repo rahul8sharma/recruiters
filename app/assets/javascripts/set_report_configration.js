@@ -4,6 +4,9 @@ var defaultSelectedObject = {
   html: { sections: [] },
   pdf: { sections: [] }  
 };
+var reportType = $('#report_type').val();
+var company_id = $('#input_company_id').val();
+  
 
 function loadConfig(assessment_Type, reportType) {
   var reportType = reportType;
@@ -181,7 +184,7 @@ function createJSTree(container){
 
 }
 
-function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_id){  
+function generatePreview(assessmentType, viewMode, $jsTree){  
   var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType+"&report_type="+reportType+"&company_id="+company_id;  
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
   var configuration = updateInput();
@@ -195,11 +198,8 @@ function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_
     data: form_data,
     dataType: 'json',
     success: function(data)
-    { 
-      $("#generate_html_preview").removeAttr("disabled");
-      $("#generate_pdf_preview").removeAttr("disabled");
-      $("#generate_html_preview").html("Generate HTML Preview");
-      $("#generate_pdf_preview").html("Generate PDF Preview");
+    {   
+      enablePreviewButtons();
       $("#iframe1").show();
       document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';  
       document.getElementById('iframe1').contentWindow.document.write(data.content);
@@ -207,14 +207,31 @@ function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_
         scrollTop: $("#iframe1").offset().top - 100
       }, 500);
     },error: function(error) { 
+      enablePreviewButtons();
       document.getElementById('iframe1').contentWindow.document.write("Error while loading the preview.");
     }
   });
 }
 
+function enablePreviewButtons(){
+  $("#generate_html_preview").removeAttr("disabled");
+  $("#generate_pdf_preview").removeAttr("disabled");
+  $("#generate_html_preview").html("Generate HTML Preview");
+  $("#generate_pdf_preview").html("Generate PDF Preview");
+}
+
+function loadPreview($btn, $tree){
+  $btn.html("Please wait...");
+  $btn.attr("disabled", true);
+  document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
+  updateInput();
+  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree);
+}
+
 $(document).ready(function(){
-  var reportType = $('#report_type').val();
-  var company_id = $('#input_company_id').val();
+  reportType = $('#report_type').val();
+  company_id = $('#input_company_id').val();
+
   $("#set_assessment_type").change(function(){    
     loadConfig($('#set_assessment_type').val(), reportType);
   });
@@ -232,11 +249,7 @@ $(document).ready(function(){
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
     if($('#set_assessment_type').val() !== "") {
-      $(this).html("Please wait...");
-      $(this).attr("disabled", true);
-      document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';
-      updateInput();
-      generatePreview($('#set_assessment_type').val(), 'html', $htmlTree, reportType, company_id);
+      loadPreview($(this), $htmlTree);
     } else {
       alert("Please select assessment type!");
     }
@@ -246,11 +259,7 @@ $(document).ready(function(){
   $('#generate_pdf_preview').on('click', function(e){
     e.preventDefault();
     if($('#set_assessment_type').val() !== "") {
-      $(this).html("Please wait...");
-      $(this).attr("disabled", true);
-      document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
-      updateInput();
-      generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree, reportType, company_id);
+      loadPreview($(this), $pdfTree);
     } else {
       alert("Please select assessment type!");
     }  
