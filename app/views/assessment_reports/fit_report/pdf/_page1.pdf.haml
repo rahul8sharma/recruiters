@@ -1,22 +1,26 @@
 .inner{ style: "margin-top:0px;" }
   .overall_report
     .j-logo.pull-left
+    /sec 0
     - if @report.report_hash[:assessment][:brand_partner]
       .pull-right
         = wicked_pdf_image_tag("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
     .clr
     .divider30
-
     .huge-text
       = @report.report_hash[:candidate][:name]
     .divider2
+    
+    /sec 1
     - if (@report.report_hash[:enable_recommendation])
       .heading.fw.extra-large-text
         %b
           Aggregate Score:
           = @report.report_hash[:overall_score_bucket][:name]
+    
+    /sec 2
     - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
-    - if @report.report_hash[:trait_score_rating_on_overall_score]
+    - if @report.report_hash[:trait_score_rating_on_overall_score]      
       .color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
         Score Rating: 
         = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
@@ -29,6 +33,8 @@
           .text-center.pull-left
             Aggregate Score excludes Functional Trait scores
     .divider5
+    
+    /sec3
     .large-text
       .span.first
         Assessment:

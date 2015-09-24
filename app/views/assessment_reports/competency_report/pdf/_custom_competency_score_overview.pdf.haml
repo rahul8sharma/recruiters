@@ -32,9 +32,6 @@
               = norm_bucket.name
           .clr
       .clr
-      - if @report.report_data[:show_favourable_above_desired_range]
-        = render :partial => "assessment_reports/competency_report/pdf/custom_desired_range", :locals => { competency_scores: competency_scores }
-      -else
-        = render :partial => "assessment_reports/competency_report/pdf/generic_desired_range", :locals => { competency_scores: competency_scores }
-
+      - section_value.each do |section|
+        = render :partial => section["path"], :locals => {competency_scores: competency_scores}
     .divider2

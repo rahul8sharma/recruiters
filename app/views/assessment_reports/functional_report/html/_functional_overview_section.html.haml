@@ -12,7 +12,6 @@
               .overview-title
                 .divider1
                 Overview of Sections Scores
-               
               .divider1
               %ul.competency-list.pull-left
                 - @report.report_data[:section_wise_objective_item_scores].each do |section_name, section_data|
@@ -22,7 +21,6 @@
                       = section_name
                     .competency-value.pull-left
                       #{section_data[:percentage]}%
-                      
                     .clr
               .clr
             .divider2

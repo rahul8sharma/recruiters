@@ -1,4 +1,4 @@
-- if @report.report_hash[:objective_items].present? && @report.report_hash[:include_objective_questions]
+- if @report.report_hash[:objective_items].present?
   - objective_items = Hash[@report.report_data[:objective_items].sort_by{|item_id, item_data| item_data[:section] }]
   - objective_items.each_slice(2) do |objective_items|
     = render partial: "shared/reports/pdf/report_header.pdf.haml"
