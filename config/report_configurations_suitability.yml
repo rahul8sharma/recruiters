@@ -130,18 +130,28 @@
           path: "assessment_reports/competency_report/html/trait_scores_under_competencies",
           children: [
             {
-              id: "html_generic_competency_block",
-              text: "Generic Competency Block[Outside Favourable Range is Not Favourable]",
+              id: "html_generic_competency_block_with_consistency_enabled",
+              text: "Generic Competency Block[Outside Favourable Range is Not Favourable] With Factor Consistency Enabled",
               path: "assessment_reports/competency_report/html/generic_competency",
-              locals: {
-              }
+              locals: {}
             },
             {
-              id: "html_custom_competency_block",
-              text: "Custom Competency Block[In and Above Favourable Range is Favourable]",
+              id: "html_generic_competency_block_with_consistency_disabled",
+              text: "Generic Competency Block[Outside Favourable Range is Not Favourable] With Factor Consistency Disabled",
+              path: "assessment_reports/competency_report/html/generic_competency_consistency_disabled",
+              locals: {}
+            },
+            {
+              id: "html_custom_competency_block_with_consistency_enabled",
+              text: "Custom Competency Block[In and Above Favourable Range is Favourable] With Factor Consistency Enabled",
               path: "assessment_reports/competency_report/html/custom_competency_block",
-              locals: {
-              }
+              locals: {}
+            },
+            {
+              id: "html_custom_competency_block_with_consistency_disabled",
+              text: "Custom Competency Block[In and Above Favourable Range is Favourable] With Factor Consistency Disabled",
+              path: "assessment_reports/competency_report/html/custom_competency_block_consistency_disabled",
+              locals: {}
             }
           ]
         },
@@ -208,7 +218,39 @@
           id: "pdf_cover_page",
           text: "Cover Page",
           path: "assessment_reports/competency_report/pdf/cover_page",
-          children: []
+          children: [
+            {
+              id: "pdf_enable_aggregate_score",
+              text: "Aggregate Score | Color Bnad | Functional Trait",
+              path: "assessment_reports/competency_report/pdf/enable_aggregate_competency_score",
+              children: [
+                {
+                  id: "pdf_aggregate_score_text",
+                  text: "Aggregate Score",
+                  path: "assessment_reports/competency_report/pdf/aggregate_score_text",
+                  locals: {},
+                },
+                {
+                  id: "pdf_color_band",
+                  text: "Color Band",
+                  path: "assessment_reports/competency_report/pdf/color_band",
+                  locals: {},
+                },
+                {
+                  id: "pdf_functional_trait_legend",
+                  text: "Functional Trait Legend",
+                  path: "assessment_reports/competency_report/pdf/functional_trait_legend",
+                  locals: {},
+                }
+              ]
+            },
+            {
+              id: "pdf_assessment_details",
+              text: "Assessment Details [Name Completion Date]",
+              path: "assessment_reports/competency_report/pdf/assessment_details",
+              locals: {}
+            }
+          ]
         },
         {
           id: "pdf_competency_report_guideline",

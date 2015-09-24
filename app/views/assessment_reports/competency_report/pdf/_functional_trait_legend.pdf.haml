@@ -1,0 +1,7 @@
+- if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
+  - if (@report.report_hash[:functional_items].present?)
+    .text-center.pull-left
+      Aggregate Score includes Functional Trait scores
+  - else
+    .text-center.pull-left
+      Aggregate Score excludes Functional Trait scores

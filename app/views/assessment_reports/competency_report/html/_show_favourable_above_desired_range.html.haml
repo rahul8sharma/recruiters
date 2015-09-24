@@ -11,9 +11,7 @@
     - offset = offset-17 if width == 0 && offset != 0
     - width = 17 if width == 0   
     - scored_weight = company_norm_bucket.weight
-    
     - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable"
-    
     - if ((width == 17) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
       - offset = offset + 6
     %li
