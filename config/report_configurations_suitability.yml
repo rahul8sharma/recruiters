@@ -604,9 +604,40 @@
       :sections: [
         {
           id: "pdf_cover_page",
-          text: "PDF_FIT_Cover Page",
+          text: "Cover Page",
           path: "assessment_reports/fit_report/pdf/page1",
-          children: []
+          children: [
+            {
+              id: "pdf_enable_recommendation",
+              text: "Enable Recommendation",
+              path: "assessment_reports/fit_report/pdf/enable_recommendation",
+              locals: {}
+            },
+            {
+              id: "pdf_color_band",
+              text: "Color Band",
+              path: "assessment_reports/fit_report/pdf/color_band",
+              locals: {}
+            },
+            {
+              id: "pdf_include_functional_item_legend",
+              text: "Include Functional Item Legend",
+              path: "assessment_reports/fit_report/pdf/include_functional_item",
+              locals: {}
+            },
+            {
+              id: "pdf_exclude_functional_item_legend",
+              text: "Exclude Functional Item Legend",
+              path: "assessment_reports/fit_report/pdf/exclude_functional_item",
+              locals: {}
+            },
+            {
+              id: "pdf_assessment_details",
+              text: "Assessment Details",
+              path: "assessment_reports/fit_report/pdf/assessment_details",
+              locals: {}
+            }
+          ]
         },
         {
           id: "pdf_score_scale",
@@ -624,7 +655,20 @@
           id: "pdf_scores_of_traits_measured",
           text: "Scores Of Traits Measured",
           path: "assessment_reports/fit_report/pdf/page3",
-          children: []
+          children: [
+            {
+              id: "pdf_traits_consistency_enabled",
+              text: "Factor Consistency Enabled",
+              path: "assessment_reports/fit_report/pdf/consistency_enabled",
+              locals: {}
+            },
+            {
+              id: "pdf_traits_consistency_disabled",
+              text: "Factor Consistency Disabled",
+              path: "assessment_reports/fit_report/pdf/consistency_disabled",
+              locals: {}
+            }
+          ]
         },
         {
           id: "pdf__scores_of_functional_traits",
