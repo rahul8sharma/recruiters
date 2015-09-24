@@ -190,7 +190,7 @@ function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_
     "authenticity_token": $('input[name="authenticity_token"]').val()
   }
   $.ajax({ 
-    type: "POST",
+    method: "POST",
     url: url,
     data: form_data,
     dataType: 'json',
