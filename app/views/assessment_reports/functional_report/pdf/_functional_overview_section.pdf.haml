@@ -1,4 +1,4 @@
-- if @report.report_hash[:enable_functional_overview_section] && @report.report_data[:objective_items].present?
+- if @report.report_data[:objective_items].present?
   .competency_report
     = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .divider2
