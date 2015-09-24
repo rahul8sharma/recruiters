@@ -1,4 +1,4 @@
 - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
 - nested_section_value.each do |nested_child|
-   = render :partial => nested_child["path"]
+   = render :partial => nested_child["path"], :locals => { :second_nest => nested_child["children"] }
 .divider5
