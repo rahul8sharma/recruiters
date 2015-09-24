@@ -295,9 +295,26 @@
         },
         {
           id: "pdf_custom_competency_score_overview",
-          text: "Custom Competency Score Overview",
+          text: "Competency Score Overview[Generic and Custom]",
           path: "assessment_reports/competency_report/pdf/custom_competency_score_overview",
-          children: []
+          children: [
+            {
+              id: "pdf_generic_desired_range",
+              text: "Generic Desired Range",
+              path: "assessment_reports/competency_report/pdf/generic_desired_range",
+              locals: {
+                competency_scores: "competency_scores"
+              }
+            },
+            {
+              id: "pdf_custom_desired_range",
+              text: "Custom Desired Range",
+              path: "assessment_reports/competency_report/pdf/custom_desired_range",
+              locals: {
+                competency_scores: "competency_scores"
+              }
+            }
+          ]
         },
         {
           id: "pdf_competencies_values_measured",
