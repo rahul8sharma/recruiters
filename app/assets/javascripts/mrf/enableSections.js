@@ -12,7 +12,7 @@ function loadConfig(assessment_Type, reportType) {
   var uri = "report_type="+reportType+"&assessment_type="+assessmentType+"&company_id="+$("#input_company_id").val();
   $.ajax({ 
     type: "GET",
-    url: "/report_configurations/load_configuration?"+uri,
+    url: "/report_configurations/load_configuration/?"+uri,
     dataType: 'json',
     success: function(response_data) {
       if(response_data.error) {
@@ -183,7 +183,7 @@ function createJSTree(container){
 
 function generatePreview(assessmentType, viewMode, $jsTree, reportType, company_id){  
   var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType+"&report_type="+reportType+"&company_id="+company_id;  
-  var url = "/report_configurations/report_preview_"+reportType+"?"+uri;
+  var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
   var configuration = updateInput();
   var form_data = {
     "config": JSON.stringify(configuration),
