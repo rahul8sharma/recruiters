@@ -45,11 +45,11 @@
             Show Company Logo
         .divider1
       .hw.pull-left
-      .span26.margin-auto
-        = render :partial => "shared/report_configuration", :locals => { :f => f}
-        .divider2
-        %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
+      %input.btn.btn-info.large-text.bold.text-center.pull-right{:name=>"save_and_next",:type=>"submit", :value=>"Update"}
       .clr
       .divider2
     .clr
+  .span26.margin-auto
+    = render :partial => "shared/report_configuration"
+    .divider2
 %iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}

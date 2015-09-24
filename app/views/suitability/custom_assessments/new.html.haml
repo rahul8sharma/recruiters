@@ -21,7 +21,7 @@
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }
     .clr
     .divider1
-    = render :partial => "shared/report_configuration", :locals => { :f => f}
+  = render :partial => "shared/report_configuration"
 
   .divider1
   - if is_superadmin?
