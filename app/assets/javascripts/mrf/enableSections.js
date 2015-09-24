@@ -225,6 +225,7 @@ $(document).ready(function(){
     document.getElementById('iframe1').contentWindow.document.body.innerHTML = '';
     updateInput();
     generatePreview($('#set_assessment_type').val(), 'html', $htmlTree, reportType, company_id);
+    return false;
   });
 
 
@@ -232,6 +233,7 @@ $(document).ready(function(){
     document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
     updateInput();
     generatePreview($('#set_assessment_type').val(), 'pdf', $pdfTree, reportType, company_id);
+    return false;
   });
 
 
