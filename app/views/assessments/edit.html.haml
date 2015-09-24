@@ -9,13 +9,11 @@
 = form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
   .divider1
+  %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
+  .clr
 = render :partial => "shared/report_configuration"
 .clr
 .divider2
-%input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
-.clr
-
-.divider1
 - if is_superadmin?
   %iframe#iframe1{:style =>"height: 800px;width:1200px; overflow: auto;border: 1px solid black;"}
     %html
