@@ -10,40 +10,5 @@
     .huge-text
       = @report.report_hash[:candidate][:name]
     .divider2
-    
-    /sec 1
-    - if (@report.report_hash[:enable_recommendation])
-      .heading.fw.extra-large-text
-        %b
-          Aggregate Score:
-          = @report.report_hash[:overall_score_bucket][:name]
-    
-    /sec 2
-    - bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
-    - if @report.report_hash[:trait_score_rating_on_overall_score]      
-      .color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
-        Score Rating: 
-        = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"
-
-      - if (@report.report_hash[:functional_items].present?)
-        - if (@report.report_hash[:include_functional_traits_in_aggregate_scores])
-          .text-center.pull-left
-            Aggregate Score includes Functional Trait scores
-        - else
-          .text-center.pull-left
-            Aggregate Score excludes Functional Trait scores
-    .divider5
-    
-    /sec3
-    .large-text
-      .span.first
-        Assessment:
-      .span10
-        = @report.report_hash[:assessment][:name]
-      .clr
-      .divider2
-      Assessment Answered On:
-      = @report.report_hash[:completed_at]
-
-
-
+    - section_value.each do |section|
+      = render :partial => section["path"]
