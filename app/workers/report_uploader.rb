@@ -11,6 +11,9 @@ class ReportUploader < AbstractController::Base
   helper ReportsHelper
   helper_method :protect_against_forgery?
   self.view_paths = "app/views"
+  
+  Recruiters::Application.routes.default_url_options = { :host => ActionController::Base.asset_host }
+  self.asset_host = ActionController::Base.asset_host
 
   def protect_against_forgery?
     false
