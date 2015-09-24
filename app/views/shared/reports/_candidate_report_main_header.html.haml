@@ -36,7 +36,7 @@
         - if @report.report_hash[:assessment][:brand_partner]
           .span
             - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-            %img.pull-right{:src => "#{Rails.application.config.action_controller.asset_host}/#{brand_partner_image_path}"}
+            %img.pull-right{:src => brand_partner_image_path}
           .clr
 - if @report.report_hash[:enable_feedback]
   .give-feedback
