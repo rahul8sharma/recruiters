@@ -5,14 +5,14 @@
       HTML Report Sections 
     #html_configuration
     %br
-    %button.btn.btn-info.large-text.bold{:id => "generate_html_preview"}
+    %button.btn.btn-info.large-text.bold{:id => "generate_html_preview", type: "html"}
       Generate HTML Preview
   .pull-left
     %h1.text-center
       PDF Report Sections
     #pdf_configuration
     %br
-    %button.btn.btn-info.large-text.bold{:id => "generate_pdf_preview"}
+    %button.btn.btn-info.large-text.bold{:id => "generate_pdf_preview", type: "pdf"}
       Generate PDF Preview
   .clr
   .divider2
@@ -20,4 +20,4 @@
   - content_for :iframe do
     %iframe#iframe1.hide{:style =>"height: 1000px;width:99.7%;margin:auto;overflow:auto;"}
 
-= javascript_include_tag "mrf/enableSections"
+= javascript_include_tag "set_report_configration"
