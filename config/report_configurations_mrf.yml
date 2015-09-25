@@ -261,14 +261,14 @@
               id: "html_mrf_overall_breakdown_at_trait_level",
               text: "Overall Breakdown at competency level",
               path: "mrf/assessments/reports/competency_report/html/mrf_overall_breakdown_at_trait_level",
-              locals: { competency_score: "competency_score" },
+              locals: { trait_score: "trait_score" },
               children: []
             },
             {
               id: "html_mrf_stakeholder_level_breakdown_at_trait_level",
               text: "Stakeholder level breakdown at competency level",
               path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level",
-              locals: { competency_score: "competency_score" },
+              locals: { trait_score: "trait_score" },
               children: []
             }
           ]
