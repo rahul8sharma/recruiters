@@ -31,14 +31,7 @@
           id: "html_360_degree_scores_competencies",
           text: "360 Degree Scores Competencies",
           path: "mrf/assessments/reports/competency_report/html/scores_competencies",
-          children: [
-            {
-              id: "html_competency_classic_graph",
-              text: "Competency Classic Graph",
-              path: "mrf/assessments/reports/competency_report/html/competency_classic_graph.html.haml",
-              locals: {}
-            }
-          ]
+          children: []
         },
         {
           id: "html_360_degree_scores_traits_under_competencies",
@@ -193,13 +186,43 @@
           id: "html_data_points_about_360_degree_scores_competencies",
           text: "Data Points on 360 Degree Scores Competencies",
           path: "mrf/assessments/reports/competency_report/html/competency_distribution_data_points",
-          children: []
+          children: [
+            {
+              id: "html_mrf_overall_breakdown_at_competency_level",
+              text: "Overall Breakdown at competency level",
+              path: "mrf/assessments/reports/competency_report/html/mrf_overall_breakdown_at_competency_level",
+              locals: { competency_score: "competency_score" },
+              children: []
+            },
+            {
+              id: "html_mrf_stakeholder_level_breakdown_at_competency_level",
+              text: "Stakeholder level breakdown at competency level",
+              path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_competency_level",
+              locals: { competency_score: "competency_score" },
+              children: []
+            }
+          ]
         },
         {
           id: "html_data_points_about_360_degree_scores_traits_under_competencies",
           text: "Data Points on 360 Degree Scores Traits Under Competencies",
           path: "mrf/assessments/reports/competency_report/html/trait_distribution_data_points",
-          children: []
+          children: [
+            {
+              id: "html_mrf_overall_breakdown_at_trait_level",
+              text: "Overall Breakdown at competency level",
+              path: "mrf/assessments/reports/competency_report/html/mrf_overall_breakdown_at_trait_level",
+              locals: { competency_score: "competency_score" },
+              children: []
+            },
+            {
+              id: "html_mrf_stakeholder_level_breakdown_at_trait_level",
+              text: "Stakeholder level breakdown at competency level",
+              path: "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level",
+              locals: { competency_score: "competency_score" },
+              children: []
+            }
+          ]
         },
         {
           id: "html_data_points_on_360_degree_scores_of_competencies",
@@ -295,16 +318,9 @@
         },
         {
           id: "pdf_scores_competencies",
-          text: "Scores Competencies",
+          text: "360 Degree Scores Competencies",
           path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
-          children: [
-            {
-              id: "pdf_competency_classic_graph",
-              text: "Comptencies Classic Graph",
-              path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph",
-              locals: {}
-            },
-          ]
+          children: []
         },
         {
           id: "pdf_trait_scores_under_competencies",
