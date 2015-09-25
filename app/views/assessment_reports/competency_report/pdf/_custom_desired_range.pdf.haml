@@ -22,8 +22,7 @@
         = competency_name
       .competency-value.pull-right
         .scale.right-offset1
-          - if @report.report_data[:enable_competency_desired_ranges]
-            .desire_range{:style=>"width: #{width}px; left: #{offset}px"}
+          .desire_range{:style=>"width: #{width}px; left: #{offset}px"}
           .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
           .marker-container
             - @company_norm_buckets.each do |company_norm_bucket|
