@@ -3,6 +3,55 @@
     :html:
       :sections: [
         {
+          id: "html_header",
+          text: "Report Header",
+          path: "shared/360/mrf_report_header",
+          children: [
+            {
+              id: "html_header_menu",
+              text: "Menu",
+              path: "shared/reports/mrf/header/menu",
+              children: [
+                {
+                  id: "html_header_overview",
+                  text: "Overview",
+                  path: "shared/reports/mrf/header/overview"
+                },
+                {
+                  id: "html_header_traits",
+                  text: "Traits",
+                  path: "shared/reports/mrf/header/traits"
+                },
+                {
+                  id: "html_header_scores",
+                  text: "Scores",
+                  path: "shared/reports/mrf/header/scores"
+                },
+                {
+                  id: "html_header_data_points_competencies",
+                  text: "Data Point Competencies",
+                  path: "shared/reports/mrf/header/data_points_competencies"
+                },
+                {
+                  id: "html_header_data_points_traits",
+                  text: "Data Points Traits",
+                  path: "shared/reports/mrf/header/data_points_traits"
+                },
+                {
+                  id: "html_header_summary",
+                  text: "Summary",
+                  path: "shared/reports/mrf/header/summary"
+                }
+              ]
+            },
+            {
+              id: "html_header_download_pdf_link",
+              text: "Download PDF Link",
+              path: "shared/reports/mrf/header/download_pdf_link"
+            }
+          ]
+        },
+        {
           id: "html_cover_page",
           text: "Cover page",
           path: "mrf/assessments/reports/competency_report/html/page1",
@@ -417,6 +466,55 @@
   :fit:
     :html: &html
       :sections: [
+        {
+          id: "html_header",
+          text: "Report Header",
+          path: "shared/360/mrf_report_header",
+          children: [
+            {
+              id: "html_header_menu",
+              text: "Menu",
+              path: "shared/reports/mrf/header/menu",
+              children: [
+                {
+                  id: "html_header_overview",
+                  text: "Overview",
+                  path: "shared/reports/mrf/header/overview"
+                },
+                {
+                  id: "html_header_traits",
+                  text: "Traits",
+                  path: "shared/reports/mrf/header/traits"
+                },
+                {
+                  id: "html_header_scores",
+                  text: "Scores",
+                  path: "shared/reports/mrf/header/scores"
+                },
+                {
+                  id: "html_header_data_points_competencies",
+                  text: "Data Point Competencies",
+                  path: "shared/reports/mrf/header/data_points_competencies"
+                },
+                {
+                  id: "html_header_data_points_traits",
+                  text: "Data Points Traits",
+                  path: "shared/reports/mrf/header/data_points_traits"
+                },
+                {
+                  id: "html_header_summary",
+                  text: "Summary",
+                  path: "shared/reports/mrf/header/summary"
+                }
+              ]
+            },
+            {
+              id: "html_header_download_pdf_link",
+              text: "Download PDF Link",
+              path: "shared/reports/mrf/header/download_pdf_link"
+            }
+          ]
+        },
         {
           id: "html_cover_page",
           text: "Cover Page",
