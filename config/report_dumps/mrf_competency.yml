@@ -29,64 +29,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       sent: 1
       completed: 1
-  mrf_report_cover: true
-  mrf_report_competencies_measured: true
-  mrf_report_competency_self_360: false
-  mrf_report_data_pts_competencies_avg: true
-  mrf_report_data_pts_competencies: false
-  mrf_report_traits_self_360: true
-  mrf_report_data_pts_traits: true
-  mrf_report_360_feedback_stats: true
-  mrf_report_show_completion_status: false
-  mrf_report_show_subjective_responses: true
-  mrf_report_show_trait_comments: false
-  mrf_report_show_pdf_link: false
-  mrf_overall_breakdown_at_competency_level: false
-  mrf_overall_breakdown_at_trait_level: false
-  mrf_stakeholder_level_breakdown_at_competency_level: false
-  mrf_stakeholder_level_breakdown_at_trait_level: false
-  mrf_report_percentage_competency_scores: false
-  mrf_report_percentage_trait_scores_under_competencies: false
-  mrf_report_strength_areas_of_improvement: true
-  mrf_report_data_pts_competencies_with_frequencies: true
-  mrf_report_data_pts_traits_under_competencies_with_frequencies: true
-  mrf_report_response_distribution_questions: false
-  competency360_competencies_frequency_of_ratings: true
-  competency360_traits_frequency_of_ratings: false
-  competency360_competencies_visual_data_points: false
-  competency360_traits_visual_data_points: false
-  competency360_competencies_textual_data_points: true
-  competency360_traits_textual_data_points: true
-  competency360_competencies_decending: true
-  competency360_traits_decending: true
-  competency360_competencies_best_worst_scores: true
-  competency360_traits_best_worst_scores: true
-  plain_mrf_report_cover: true
-  plain_mrf_traits_overview: true
-  plain_mrf_report_traits_self_360: true
-  plain_mrf_report_data_pts_traits: true
-  plain_mrf_report_360_feedback_stats: true
-  plain_mrf_report_show_subjective_responses: true
-  plain_mrf_report_show_trait_comments: false
-  plain360_traits_frequency_of_ratings: true
-  plain360_traits_visual_data_points: false
-  plain360_traits_textual_data_points: true
-  plain360_traits_decending: true
-  plain360_traits_best_worst_scores: true
-  show_stakeholder_type_in_comments_subjective_items: true
-  hide_score_360_competency: false
-  competency360_traits_data_pts_trait_name_as_title: false
-  competency360_traits_data_pts_items_as_title: true
-  mrf_report_show_trait_definitions_pdf: false
-  mrf_report_items_statistics_per_stakeholder_type: false
-  mrf_report_items_statistics_per_stakeholder_type_pdf: false
-  mrf_report_numerical_aggregate_score: false
-  mrf_report_numerical_aggregate_score_pdf: false
-  plain_mrf_report_data_points_items: false
-  competency360_mrf_report_development_guidelines_candidate: false
-  competency360_mrf_report_PDF_development_guidelines_candidate: false
-  competency360_mrf_report_development_guidelines_manager: false
-  competency360_mrf_report_PDF_development_guidelines_manager: false
   aggregate_traits_score: 59.4
   average_score_excluding_self: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     score: 62.5
