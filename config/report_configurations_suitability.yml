@@ -153,7 +153,7 @@
             {
               id: "html_generic_competency_block_with_consistency_enabled",
               text: "Generic Competency Block[Outside Favourable Range is Not Favourable] With Factor Consistency Enabled",
-              path: "assessment_reports/competency_report/html/generic_competency",
+              path: "assessment_reports/competency_report/html/generic_competency_consistency_enabled",
               locals: {}
             },
             {
@@ -391,7 +391,7 @@
             {
               id: "pdf_generic_competency_with_consistency",
               text: "competency Block [Outside Range is not Favourable] With Consistency",
-              path: "assessment_reports/competency_report/pdf/generic_competency",
+              path: "assessment_reports/competency_report/pdf/generic_competency_consistency_enabled",
               locals: {
                 competency_name: "competency_name",
                 competency_data: "competency_data",
