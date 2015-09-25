@@ -39,34 +39,35 @@
               = index  < competency_scores[:role_wise_scores].size-1 ? "|" : ""
           .clr
       .clr
-    - if @report.report_data[:competency360_competencies_best_worst_scores]
-      .span14.final_data_points
-        .medium-text.black.span.first.bold.line-height2
-          360&#176; Scores across exercise
-        .clr
-        .high_low_scores{:style => "padding-top: 10px"}
-          .border_gray_light.span.first
-            .low.left.pull-left
 
-            .right.pull-left
-              .color-average.medium-text
-                Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
-            .clr
-          .border_gray_light.span
-            .stakeholder_rating_icon.left.pull-left
-            .right.pull-left
-              .color-average.medium-text
-                Candidate: #{competency_scores[:score][:points] || "-"}
-            .clr
-          .border_gray_light.span
-            .high.left.pull-left
-            .right.pull-left
-              .color-average.medium-text
-                Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
-            .clr
+    .span14.final_data_points
+      .medium-text.black.span.first.bold.line-height2
+        360&#176; Scores across exercise
+      .clr
+      .high_low_scores{:style => "padding-top: 10px"}
+        .border_gray_light.span.first
+          .low.left.pull-left
+
+          .right.pull-left
+            .color-average.medium-text
+              Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
           .clr
+        .border_gray_light.span
+          .stakeholder_rating_icon.left.pull-left
+          .right.pull-left
+            .color-average.medium-text
+              Candidate: #{competency_scores[:score][:points] || "-"}
+          .clr
+        .border_gray_light.span
+          .high.left.pull-left
+          .right.pull-left
+            .color-average.medium-text
+              Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+          .clr
+        .clr
     .clr
     .divider1
+
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
     .clr
   .clr
