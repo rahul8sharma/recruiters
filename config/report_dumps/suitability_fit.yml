@@ -208,17 +208,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: ''
     email: ''
   send_report_links_to_manager: false
-  enable_recommendation: true
-  enable_aggregate_competency_score: true
-  enable_lie_detection: true
-  enable_feedback: true
-  enable_factor_consistency: true
-  enable_post_assessment_guidelines: true
-  enable_score_scale_section: true
-  suitability_report_show_buckets_on_feedback: true
-  competency_interpretation_guide: true
-  include_subjective_questions: true
-  include_objective_questions: true
   overall_score_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 5
     name: Above Average
@@ -230,7 +219,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   consistency: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     enabled: true
     bucket_name: High
-  suitability_competency_report_competency_scores_overview: true
   reliability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     enabled: true
     bucket_name: Less Reliable
@@ -334,20 +322,11 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: Try to ensure that he/she does not stress himself/herself or the team while insisting adherence to rules and procedures.
       factor_type: Suitability::Factor
-  enable_functional_overview_section: true
   subjective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   objective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   section_wise_objective_item_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   functional_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  include_functional_traits_in_aggregate_scores: false
   objective_score: 0.0
-  html_suitability_reports_scale_description_page: true
-  pdf_suitability_reports_scale_description_page: true
-  competency_score_rating_on_overall_score: true
-  plain_score_rating_on_overall_score: true
-  enable_competency_desired_ranges: true
-  enable_interview_and_development_guide_both: false
-  show_favourable_above_desired_range: true
   factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       factor_score_id: 745964
@@ -480,10 +459,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       description: May believe delegation to be an effective strategy when dealing with multiple tasks; tends to distribute responsibilities among team members instead of insisting on working on everything by himself/herself; less likely to worry about tasks once they are delegated to others
       factor_definition: Degree of the action or process of delegating or being delegated
   functional_trait_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  hexagons_page_plain: true
-  trait_scores_plain: true
-  development_guide_candidate: true
-  development_guide_manager: true
 s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     bucket: report_pdfs_staging_internal
