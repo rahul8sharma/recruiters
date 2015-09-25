@@ -369,7 +369,7 @@
             {
               id: "pdf_custom_competency_with_consistency",
               text: "Custom Competency Block [Above range is Favourable] With Consistency",
-              path: "assessment_reports/competency_report/pdf/custom_competency",
+              path: "assessment_reports/competency_report/pdf/custom_competency_consistency_enabled",
               locals: {
                 competency_name: "competency_name",
                 competency_data: "competency_data",
