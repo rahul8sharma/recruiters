@@ -7,6 +7,5 @@
 
 
 .competency_report
-  =# render :partial => "shared/reports/candidate_report_main_header"
   - @report.report_configuration["html"]["sections"].each do |section_value|
     = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
