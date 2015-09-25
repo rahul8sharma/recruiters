@@ -158,6 +158,7 @@ function createJSTree(container){
         setSelected(obj, data.instance);
       }
     }
+    updateInput();
   }).jstree({
     "checkbox" : {
       "keep_selected_style": false,
