@@ -165,7 +165,7 @@
             {
               id: "html_custom_competency_block_with_consistency_enabled",
               text: "Custom Competency Block[In and Above Favourable Range is Favourable] With Factor Consistency Enabled",
-              path: "assessment_reports/competency_report/html/custom_competency_block",
+              path: "assessment_reports/competency_report/html/custom_competency_block_consistency_enabled",
               locals: {}
             },
             {

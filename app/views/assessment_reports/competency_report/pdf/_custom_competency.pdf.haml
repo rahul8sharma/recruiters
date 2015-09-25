@@ -28,11 +28,11 @@
         .factor-description
           = factor_score[:description]
         - if factor_score[:type] != 'Functional::Trait'
-        .responses  
-          %i.icon-align-justify
-          Reliability of Candidate's Responses for this Factor:
-          %span.score 
-            = factor_score[:consistency_bucket]
-        .divider1
+          .responses  
+            %i.icon-align-justify
+            Reliability of Candidate's Responses for this Factor:
+            %span.score 
+              = factor_score[:consistency_bucket]
+          .divider1
 .divider2
         
