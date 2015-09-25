@@ -1,5 +1,4 @@
 - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
-- if @report.report_hash[:competency_score_rating_on_overall_score]
-  .color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
-    Score Rating: 
-    = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"
+.color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
+  Score Rating: 
+  = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"
