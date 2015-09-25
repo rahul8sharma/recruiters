@@ -16,7 +16,7 @@
             },
             {
               id: "html_assessment_details",
-              text: "Assessment Name and Completion Date",
+              text: "Assessment[Name and Completion Date]",
               path: "assessment_reports/competency_report/html/assessment_details",
               locals: {},
               children: []
@@ -28,7 +28,7 @@
               children: [
                 {
                   id: "html_aggregate_score_bucket",
-                  text: "Aggregate Score",
+                  text: "Aggregate Competency Score[Bucket]",
                   path: "assessment_reports/competency_report/html/aggregate_score_bucket",
                   locals: {},
                   children: []
@@ -83,7 +83,7 @@
         },
         {
           id: "html_explanation_scores",
-          text: "Exaplanation Scores",
+          text: "Explanation Scores",
           path: "assessment_reports/competency_report/html/explanation_scores",
           children: []
         },
@@ -129,7 +129,7 @@
           children: [
             {
               id: "html_custom_factor_block",
-              text: "Custom Factor Block[Scores above range are shown as favourable]",
+              text: "Custom Factor Block[Scores above range are favourable]",
               path: "assessment_reports/competency_report/html/custom_factor_block",
               locals: {
                 step_competency_scores: "step_competency_scores"
@@ -137,7 +137,7 @@
             },
             {
               id: "html_generic_factor_block",
-              text: "Generic Factor Block[Scores above and below range are shown as not favourable]",
+              text: "Generic Factor Block[Scores outside range are not favourable]",
               path: "assessment_reports/competency_report/html/generic_factor_block",
               locals: {
                 step_competency_scores: "step_competency_scores"
@@ -242,7 +242,7 @@
           children: [
             {
               id: "pdf_enable_aggregate_score",
-              text: "Aggregate Score | Color Bnad | Functional Trait",
+              text: "Aggregate Score | Color Band | Functional Trait",
               path: "assessment_reports/competency_report/pdf/enable_aggregate_competency_score",
               children: [
                 {
@@ -284,7 +284,7 @@
             },
             {
               id: "pdf_assessment_details",
-              text: "Assessment Details [Name Completion Date]",
+              text: "Assessment Details [Name and Completion Date]",
               path: "assessment_reports/competency_report/pdf/assessment_details",
               locals: {}
             }
@@ -353,7 +353,7 @@
             },
             {
               id: "pdf_generic_factor_block",
-              text: "Generic Factor Block[Scores above and below range are shown as not favourable]",
+              text: "Generic Factor Block[Scores outside range are not favourable]",
               path: "assessment_reports/competency_report/pdf/generic_factor_block",
               locals: {
                 step_competency_scores: "step_competency_scores"
@@ -485,7 +485,7 @@
             },
             {
               id: "html_assessment_details",
-              text: "Assessment Name and Completion Date",
+              text: "Assessment[Name and Completion Date]",
               path: "assessment_reports/competency_report/html/assessment_details",
               locals: {},
               children: []
@@ -497,14 +497,14 @@
               children: [
                 {
                   id: "html_aggregate_score_bucket",
-                  text: "Aggregate Score",
+                  text: "Aggregate Score [Bucket]",
                   path: "assessment_reports/competency_report/html/aggregate_score_bucket",
                   locals: {},
                   children: []
                 },
                 {
                   id: "html_aggregate_score",
-                  text: "Aggregate Score",
+                  text: "Aggregate Score [Score]",
                   path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
                   locals: {}
                 },
@@ -630,7 +630,7 @@
             },
             {
               id: "pdf_assessment_details",
-              text: "Assessment Details",
+              text: "Assessment Details[Name and Completion Date]",
               path: "assessment_reports/fit_report/pdf/assessment_details",
               locals: {}
             }
@@ -705,7 +705,7 @@
         },
         {
           id: "pdf_development_interview_guide_manager",
-          text: "Guidelines For Assessment Taker Manager",
+          text: "Guidelines For Assessment Takers Manager",
           path: "assessment_reports/fit_report/pdf/page6",
           children: []
         },
