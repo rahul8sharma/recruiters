@@ -532,21 +532,18 @@
         },
         {
           id: "html_scores_of_traits_measured_in_this_assessment",
-          text: "Scores of Traits Measured In this Assessment",
+          text: "Scores of Traits Measured In this Assessment [Consistency Enabled]",
           path: "assessment_reports/fit_report/html/page3",
-          children: [
-            {
-              id: "html_enable_factor_score_consistency",
-              text: "Enable Factor Score Consistency",
-              path: "assessment_reports/fit_report/html/enable_factor_consistency",
-              locals: {
-                factor_score: "factor_score"
-              }
-            }
-          ]
+          children: []
         },
         {
-          id: "html_scores_of_functional_traits_measured_in_assessment",
+          id: "html_scores_of_traits_measured_in_this_assessment_consistency_enabled",
+          text: "Scores of Traits Measured In this Assessment [Consistency Disabled]",
+          path: "assessment_reports/fit_report/html/page3_consistecny_disabled",
+          children: []
+        },
+        {
+          id: "html_scores_of_functional_traits_measured_in_assessment_consistency_disabled",
           text: "Scores of Functional Traits",
           path: "assessment_reports/fit_report/html/scores_of_functional_traits",
           children: []

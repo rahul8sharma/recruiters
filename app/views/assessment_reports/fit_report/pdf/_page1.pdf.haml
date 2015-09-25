@@ -1,7 +1,6 @@
 .inner{ style: "margin-top:0px;" }
   .overall_report
     .j-logo.pull-left
-    /sec 0
     - if @report.report_hash[:assessment][:brand_partner]
       .pull-right
         = wicked_pdf_image_tag("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")

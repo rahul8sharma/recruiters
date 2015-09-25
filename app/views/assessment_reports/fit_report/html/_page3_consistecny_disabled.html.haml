@@ -42,6 +42,7 @@
               .divider1
               .lhs-sec.pull-left{:style=> "width: 730px;"}
                 %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+                -#use ".mid-favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
                 .span16.first
                   .factor-name.pull-left
                     = factor_name
@@ -54,7 +55,7 @@
                 .slider{:style=>"width:#{scale_values[:scale_width]}px;"}                  
                   - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
                     - scale_values[:offset] = scale_values[:offset] - 34
-                  .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]-14}px;" }
+                  .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]}px;" }
                     .score-indicater
                       = scale_values[:company_norm_bucket_name]
                     .arrow
@@ -64,8 +65,3 @@
               .factor-description
                 = factor_score[:description]
               .divider1
-              .responses
-                %i.icon-align-justify
-                Reliability of Candidate's Responses for this Factor:
-                %span.score
-                  = factor_score[:consistency_bucket]
