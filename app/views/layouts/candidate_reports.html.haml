@@ -18,8 +18,6 @@
       .report
         = yield 
   - else
-    - if @view_mode == "html"
-      = render :partial => "shared/reports/candidate_report_main_header"
     .report
       = yield 
       

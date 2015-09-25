@@ -3,6 +3,55 @@
     :html: &html
       :sections: [
         {
+          id: "html_header",
+          text: "Report Header",
+          path: "shared/reports/candidate_report_main_header",
+          children: [
+            {
+              id: "html_header_menu",
+              text: "Menu",
+              path: "shared/reports/suitability/header/menu",
+              children: [
+                {
+                  id: "html_header_overview",
+                  text: "Overview",
+                  path: "shared/reports/suitability/header/overview"
+                },
+                {
+                  id: "html_header_traits",
+                  text: "Traits",
+                  path: "shared/reports/suitability/header/traits_measured"
+                },
+                {
+                  id: "html_header_trait_scores",
+                  text: "Traits Scores",
+                  path: "shared/reports/suitability/header/scores_of_traits_measured"
+                },
+                {
+                  id: "html_header_development_guide_for_assessment_taker",
+                  text: "Development Guide for Assessment Taker",
+                  path: "shared/reports/suitability/header/development_guide_for_assessment_taker"
+                },
+                {
+                  id: "html_header_development_guide_for_manager",
+                  text: "Development Guide for Manager",
+                  path: "shared/reports/suitability/header/development_guide_for_manager"
+                }
+              ]
+            },
+            {
+              id: "html_header_download_pdf_link",
+              text: "Download PDF Link",
+              path: "shared/reports/suitability/header/download_pdf_link",
+            },
+            {
+              id: "html_header_brand_partner_logo",
+              text: "Brand Partner Logo",
+              path: "shared/reports/suitability/header/brand_partner_logo",
+            }
+          ]
+        },
+        {
           id: "html_cover_page",
           text: "Cover Page",
           path: "assessment_reports/competency_report/html/cover_page",
@@ -472,6 +521,55 @@
     :html: &html
       :sections: [
         {
+          id: "html_header",
+          text: "Report Header",
+          path: "shared/reports/candidate_report_main_header",
+          children: [
+            {
+              id: "html_header_menu",
+              text: "Menu",
+              path: "shared/reports/suitability/header/menu",
+              children: [
+                {
+                  id: "html_header_overview",
+                  text: "Overview",
+                  path: "shared/reports/suitability/header/overview"
+                },
+                {
+                  id: "html_header_traits",
+                  text: "Traits",
+                  path: "shared/reports/suitability/header/traits_measured"
+                },
+                {
+                  id: "html_header_trait_scores",
+                  text: "Traits Scores",
+                  path: "shared/reports/suitability/header/scores_of_traits_measured"
+                },
+                {
+                  id: "html_header_development_guide_for_assessment_taker",
+                  text: "Development Guide for Assessment Taker",
+                  path: "shared/reports/suitability/header/development_guide_for_assessment_taker"
+                },
+                {
+                  id: "html_header_development_guide_for_manager",
+                  text: "Development Guide for Manager",
+                  path: "shared/reports/suitability/header/development_guide_for_manager"
+                }
+              ]
+            },
+            {
+              id: "html_header_download_pdf_link",
+              text: "Download PDF Link",
+              path: "shared/reports/suitability/header/download_pdf_link",
+            },
+            {
+              id: "html_header_brand_partner_logo",
+              text: "Brand Partner Logo",
+              path: "shared/reports/suitability/header/brand_partner_logo",
+            }
+          ]
+        },
+        {
           id: "html_cover_page",
           text: "Cover Page",
           path: "assessment_reports/fit_report/html/page1",
@@ -486,7 +584,7 @@
             {
               id: "html_assessment_details",
               text: "Assessment[Name and Completion Date]",
-              path: "assessment_reports/competency_report/html/assessment_details",
+              path: "assessment_reports/fit_report/html/assessment_details",
               locals: {},
               children: []
             },
@@ -495,13 +593,6 @@
               text: "Enable Recommendation",
               path: "assessment_reports/fit_report/html/enable_recommendation",
               children: [
-                {
-                  id: "html_aggregate_score_bucket",
-                  text: "Aggregate Score [Bucket]",
-                  path: "assessment_reports/competency_report/html/aggregate_score_bucket",
-                  locals: {},
-                  children: []
-                },
                 {
                   id: "html_aggregate_score",
                   text: "Aggregate Score [Score]",
