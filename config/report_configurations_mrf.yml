@@ -236,7 +236,13 @@
               locals: {
                 role_wise_scores: "@report.report_data[:role_wise_scores]"
               }
-            }
+            },
+            {
+              id: "html_competency_wise_rating",
+              text: "Competency Wise Rating",
+              path: "mrf/assessments/reports/competency_report/html/competency_wise_rating",
+              locals: {}
+            },
           ]
         },
         {
