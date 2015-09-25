@@ -11,6 +11,7 @@
           .heading.pull-left
             #{competency_name}: #{trait_score[:trait][:name]}
           .clr
-          = render :partial => "mrf/assessments/reports/competency_report/html/mrf_overall_breakdown_at_trait_level", :locals => { trait_score: trait_score }
-          = render :partial => "mrf/assessments/reports/competency_report/html/mrf_stakeholder_level_breakdown_at_trait_level", :locals => { trait_score: trait_score }
+          - section_value.each do |section|
+            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, distribution_hash[key.to_sym]] }]
+            = render :partial => section["path"], :locals => locals
         .divider2

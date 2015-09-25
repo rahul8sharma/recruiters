@@ -65,16 +65,17 @@
                     .divider3
                 .clr
 
-            - trait_score[:items][:self_responses].each do |self_response|
-              .self-rate
-                .divider2
-                .span28.margin-auto
-                  .span21.first
-                    .large-text
-                      Trait: 
-                      %span.default
-                        = trait_score[:trait][:name]
+            .self-rate
+              .divider2
+              .span28.margin-auto
+                .large-text
+                  Trait: 
+                  %span.default
+                    = trait_score[:trait][:name]
+                - trait_score[:items][:self_responses].each do |self_response|
+                  .divider1
 
+                  .span21.first
                     .divider1
                     .big-text
                       Question to Self:

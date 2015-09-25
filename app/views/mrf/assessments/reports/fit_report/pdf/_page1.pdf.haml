@@ -11,8 +11,8 @@
       360&#176;
     .banner-sub-heading.pull-left
       Profiling Report
-    = render :partial => "mrf/assessments/reports/fit_report/pdf/mrf_report_numerical_aggregate_score"
-    = render :partial => "mrf/assessments/reports/fit_report/pdf/mrf_report_show_completion_status"
+    - section_value.each do |section|
+      = render :partial => section["path"]
   .divider2
   .extra-large-text
     .span.left-offset1
