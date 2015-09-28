@@ -35,10 +35,12 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def email_reports
+    date_range = params[:date_range].present? ? JSON.parse(params[:date_range]) : nil
     options = {
       :custom_assessment => {
         :job_klass => "Suitability::CandidateReportsExporter",
         :args => {
+          :date_range => date_range,
           :user_id => current_user.id,
           :assessment_id => params[:id]
         }
