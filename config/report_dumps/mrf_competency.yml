@@ -113,7 +113,13 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     unrecognised_areas_of_improvements:
     - Process Orientation
     - Persistence
-  competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Building Strategic Perspective: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      candidate: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections
+      manager: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections
+    Effective Execution: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      candidate: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections
+      manager: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections
   aggregate_competencies_score: 61.55
   competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Additional Traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess

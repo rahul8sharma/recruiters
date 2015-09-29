@@ -49,7 +49,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     description:
   s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   report_email_recipients:
-  candidate_stage: employee
+  candidate_stage: candidate
   candidate_assessment_id: 54809
   completed_at: 16/09/2015
   direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
