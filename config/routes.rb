@@ -676,6 +676,7 @@ Recruiters::Application.routes.draw do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
     post 'assessments_management/export_mrf_raw_scores' => 'assessments_management#export_mrf_raw_scores', :as => :export_raw_scores
+    post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
 
     resources :traits do
       collection do
@@ -873,6 +874,9 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :suitability do
+    get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
+    post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
+    
     resources :item_groups do
       collection do
         get :manage
