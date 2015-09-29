@@ -12,7 +12,7 @@ class Suitability::AssessmentsManagementController < ApplicationController
       .replicate_assessment(
           :company_id => params[:assessment][:company_id],
           :assessment_id => params[:assessment][:assessment_id])
-    redirect_to mrf_assessments_management_path, 
+    redirect_to suitability_assessments_management_path, 
       notice: "Replica of the Assessment will be created. Email notification should arrive as soon as the replication is complete."
   end
 end
