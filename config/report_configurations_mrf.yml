@@ -325,6 +325,18 @@
           children: []
         },
         {
+          id: "html_development_guide_candidate",
+          text: "Development Guide for the Candidate",
+          path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
+          children: []
+        },
+        {
+          id: "html_development_guide_manager",
+          text: "Guidelines for Candidates Manager",
+          path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
+          children: []
+        },
+        {
           id: "html_common_footer_pages",
           text: "Footer Pages",
           path: "shared/reports/html/common_footer_sections",
