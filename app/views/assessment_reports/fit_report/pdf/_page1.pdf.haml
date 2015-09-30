@@ -3,7 +3,8 @@
     .j-logo.pull-left
     - if @report.report_hash[:assessment][:brand_partner]
       .pull-right
-        = wicked_pdf_image_tag("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+        - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore)
+        .partner-logo{:style => "background: url(#{imagePath}.png) no-repeat center 0; width: 200px; height: 200px "}
     .clr
     .divider30
     .huge-text
