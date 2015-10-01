@@ -25,11 +25,24 @@ class ReportConfigurationsController < MasterDataController
   end
   
   def load_configuration
-    file = YAML.load(
+    html_file_name = 
+      "config/report_configurations/"+
+      "#{params[:report_type]}_#{params[:assessment_type]}_html.yml"
+    pdf_file_name = 
+      "config/report_configurations/"+
+      "#{params[:report_type]}_#{params[:assessment_type]}_pdf.yml"  
+    html = YAML.load(
       File.read(
-        Rails.root.join("config/report_configurations/#{params[:report_type]}.yml"))
+        Rails.root.join(html_file_name))
       ).with_indifferent_access
-    @config = file[params[:report_type]][params[:assessment_type]] rescue nil
+    pdf = YAML.load(
+      File.read(
+        Rails.root.join(pdf_file_name))
+      ).with_indifferent_access
+    @config = HashWithIndifferentAccess.new({ 
+      html: html, 
+      pdf: pdf 
+    })
     selected = { html: { sections: [] }, pdf: { sections: [] } };
     error = nil
     if @config

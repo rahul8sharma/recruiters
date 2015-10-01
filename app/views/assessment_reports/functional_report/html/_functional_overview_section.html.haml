@@ -4,23 +4,23 @@
       .functional_final_score
         .score_band.pull-right Aggregate Score: #{@report.report_data[:objective_score].to_f.round(2)}%
         .clr
-      .overview
-        .bottom-triangle
-          .container
-            .divider2
-            .content
-              .overview-title
-                .divider1
-                Overview of Sections Scores
-              .divider1
-              %ul.competency-list.pull-left
-                - @report.report_data[:section_wise_objective_item_scores].each do |section_name, section_data|
-                  - next if section_name == "Global"
-                  %li
-                    .competency-name.pull-left
-                      = section_name
-                    .competency-value.pull-left
-                      #{section_data[:percentage]}%
-                    .clr
-              .clr
-            .divider2
+      - if @report.report_data[:section_wise_objective_item_scores].present?  
+        .overview
+          .bottom-triangle
+            .container
+              .divider2
+              .content
+                .overview-title
+                  .divider1
+                  Overview of Sections Scores
+                %ul.competency-list.pull-left
+                  - @report.report_data[:section_wise_objective_item_scores].each do |section_name, section_data|
+                    - next if section_name == "Global"
+                    %li
+                      .competency-name.pull-left
+                        = section_name
+                      .competency-value.pull-left
+                        #{section_data[:percentage]}%
+                      .clr
+                .clr
+              .divider2

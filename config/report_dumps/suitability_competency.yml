@@ -184,8 +184,11 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       body: You could involve him/her in brainstorming sessions for finding solutions to complex problems. Encourage him/her to monitor his/her problem solving process to come up with more practical solutions. You may also ask him/her to assist others in order to improve the team's overall performance.
       factor_type: Suitability::Factor
   subjective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  objective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  section_wise_objective_item_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  section_wise_objective_item_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Section 1:
+      :percentage: 20.5
+    Section 2:
+      :percentage: 34
   functional_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   objective_score: 0.0
   competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -551,6 +554,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   cocubes_score: 12.0
   cocubes_max_score: 30.0
   cocubes_percentage_score: 40.0
+  objective_score: 20
   objective_items: 
     21:
       :item:
