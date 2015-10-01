@@ -64,13 +64,6 @@
               children: []
             },
             {
-              id: "html_assessment_details",
-              text: "Assessment[Name and Completion Date]",
-              path: "assessment_reports/competency_report/html/assessment_details",
-              locals: {},
-              children: []
-            },
-            {
               id: "html_aggregate_competency_score",
               text: "Aggregate Competency Scores",
               path: "assessment_reports/competency_report/html/aggregate_competency_score",
@@ -109,6 +102,13 @@
                   ]
                 }
               ]
+            },
+            {
+              id: "html_assessment_details",
+              text: "Assessment[Name and Completion Date]",
+              path: "assessment_reports/competency_report/html/assessment_details",
+              locals: {},
+              children: []
             }
           ]
         },
@@ -139,24 +139,39 @@
         {
           id: "html_competency_scores_overview",
           text: "Competency Scores Overview",
-          path: "assessment_reports/competency_report/html/competency_scores_overview",
+          path: "assessment_reports/competency_report/html/competency_scores_overview/main",
+          locals: {},
           children: [
             {
-              id: "html_custom_legend",
-              text: "Custom Legend[Without Expected Score]",
-              path: "assessment_reports/competency_report/html/custom_legend",
-              locals: {}
-            },
-            {
-              id: "html_generic_legend",
-              text: "Generic Legend[With Expected Score]",
-              path: "assessment_reports/competency_report/html/generic_legend",
-              locals: {}
+              id: "html_competency_scores_overview_legend",
+              text: "Competency Scores Overview Legend",
+              path: "assessment_reports/competency_report/html/competency_scores_overview/legend",
+              locals: {},
+              children: [
+                {
+                  id: "html_competency_scores_overview_title",
+                  text: "Competency Scores Overview Title",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/competency_scores_overview_title",
+                  locals: {}
+                },
+                {
+                  id: "html_competency_scores_overview_custom_legend",
+                  text: "Custom Legend [Without Expected Score]",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/custom_legend",
+                  locals: {}
+                },
+                {
+                  id: "html_competency_scores_overview_generic_legend",
+                  text: "Generic Legend [With Expected Score]",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/generic_legend",
+                  locals: {}
+                }
+              ]
             },
             {
               id: "html_show_favourable_above_desired_range",
               text: "Scale[Above Desired Range is Favourable]",
-              path: "assessment_reports/competency_report/html/show_favourable_above_desired_range",
+              path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_above_desired_range",
               locals: {
                 competency_scores: "competency_scores"
               }
@@ -164,7 +179,7 @@
             {
               id: "html_show_generic_scale",
               text: "Scale[Outside Range is Not Favourable]",
-              path: "assessment_reports/competency_report/html/show_generic_scale",
+              path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_within_desired_range",
               locals: {
                 competency_scores: "competency_scores"
               }
