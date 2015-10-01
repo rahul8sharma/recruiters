@@ -170,19 +170,59 @@
             },
             {
               id: "html_show_favourable_above_desired_range",
-              text: "Scale[Above Desired Range is Favourable]",
+              text: "Scale [Above Desired Range is Favourable]",
               path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_above_desired_range",
               locals: {
                 competency_scores: "competency_scores"
-              }
+              },
+              children: [
+                {
+                  id: "html_competency_scores_overview_custom_show_desired_ranges",
+                  text: "Show Desired Ranges",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/show_desired_range",
+                  locals: {
+                    width: "width",
+                    offset: "offset"
+                  }
+                },
+                {
+                  id: "html_competency_scores_overview_custom_hide_desired_ranges",
+                  text: "Hide Desired Ranges",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/hide_desired_range",
+                  locals: {
+                    width: "width",
+                    offset: "offset"
+                  }
+                }
+              ]  
             },
             {
               id: "html_show_generic_scale",
-              text: "Scale[Outside Range is Not Favourable]",
+              text: "Scale [Outside Range is Not Favourable]",
               path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_within_desired_range",
               locals: {
                 competency_scores: "competency_scores"
-              }
+              },
+              children: [
+                {
+                  id: "html_competency_scores_overview_generic_show_desired_ranges",
+                  text: "Show Desired Ranges",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/show_desired_range",
+                  locals: {
+                    width: "width",
+                    offset: "offset"
+                  }
+                },
+                {
+                  id: "html_competency_scores_overview_generic_hide_desired_ranges",
+                  text: "Hide Desired Ranges",
+                  path: "assessment_reports/competency_report/html/competency_scores_overview/hide_desired_range",
+                  locals: {
+                    width: "width",
+                    offset: "offset"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -193,7 +233,7 @@
           children: [
             {
               id: "html_custom_factor_block",
-              text: "Custom Factor Block[Scores above range are favourable]",
+              text: "Custom Competency Block[Scores above range are favourable]",
               path: "assessment_reports/competency_report/html/custom_factor_block",
               locals: {
                 step_competency_scores: "step_competency_scores"
@@ -201,7 +241,7 @@
             },
             {
               id: "html_generic_factor_block",
-              text: "Generic Factor Block[Scores outside range are not favourable]",
+              text: "Generic Competency Block[Scores outside range are not favourable]",
               path: "assessment_reports/competency_report/html/generic_factor_block",
               locals: {
                 step_competency_scores: "step_competency_scores"
@@ -216,25 +256,25 @@
           children: [
             {
               id: "html_generic_competency_block_with_consistency_enabled",
-              text: "Generic Competency Block[Outside Favourable Range is Not Favourable] With Factor Consistency Enabled",
+              text: "Generic Factor Block[Outside Favourable Range is Not Favourable] With Factor Consistency Enabled",
               path: "assessment_reports/competency_report/html/generic_competency_consistency_enabled",
               locals: {}
             },
             {
               id: "html_generic_competency_block_with_consistency_disabled",
-              text: "Generic Competency Block[Outside Favourable Range is Not Favourable] With Factor Consistency Disabled",
+              text: "Generic Factor Block[Outside Favourable Range is Not Favourable] With Factor Consistency Disabled",
               path: "assessment_reports/competency_report/html/generic_competency_consistency_disabled",
               locals: {}
             },
             {
               id: "html_custom_competency_block_with_consistency_enabled",
-              text: "Custom Competency Block[In and Above Favourable Range is Favourable] With Factor Consistency Enabled",
+              text: "Custom Factor Block[In and Above Favourable Range is Favourable] With Factor Consistency Enabled",
               path: "assessment_reports/competency_report/html/custom_competency_block_consistency_enabled",
               locals: {}
             },
             {
               id: "html_custom_competency_block_with_consistency_disabled",
-              text: "Custom Competency Block[In and Above Favourable Range is Favourable] With Factor Consistency Disabled",
+              text: "Custom Factor Block[In and Above Favourable Range is Favourable] With Factor Consistency Disabled",
               path: "assessment_reports/competency_report/html/custom_competency_block_consistency_disabled",
               locals: {}
             }

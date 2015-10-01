@@ -21,8 +21,10 @@
         = competency_name
       .competency-value.pull-right
         .scale.right-offset1
-          -#for desire_range adjust width and left (Might need to add left value calculated + 14px to it )
-          / .desire_range{:style=>"width: #{width}px; left: #{offset+15}px"}
+          - locals_hash = { width: width, offset: offset }
+          - section_value.each do |section|
+            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
+            = render :partial => section["path"], :locals => locals
           .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
           .marker-container
             - @company_norm_buckets.each do |company_norm_bucket|
