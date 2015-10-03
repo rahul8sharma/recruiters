@@ -116,24 +116,6 @@
     children: []
   },
   {
-    id: "html_aptitude_score",
-    text: "Show Cocubes Aptitude Score",
-    path: "assessment_reports/competency_report/html/aptitude_score",
-    children: []
-  },
-  {
-    id: "html_score_scale",
-    text: "Score Scale",
-    path: "assessment_reports/score_scale",
-    children: []
-  },
-  {
-    id: "html_explanation_scores",
-    text: "Explanation Scores",
-    path: "assessment_reports/competency_report/html/explanation_scores",
-    children: []
-  },
-  {
     id: "html_competency_scores_overview",
     text: "Competency Scores Overview",
     path: "assessment_reports/competency_report/html/competency_scores_overview/main",
@@ -191,7 +173,7 @@
               offset: "offset"
             }
           }
-        ]  
+        ]
       },
       {
         id: "html_show_generic_scale",
@@ -222,6 +204,24 @@
         ]
       }
     ]
+  },
+  {
+    id: "html_aptitude_score",
+    text: "Show Cocubes Aptitude Score",
+    path: "assessment_reports/competency_report/html/aptitude_score",
+    children: []
+  },
+  {
+    id: "html_score_scale",
+    text: "Score Scale",
+    path: "assessment_reports/score_scale",
+    children: []
+  },
+  {
+    id: "html_explanation_scores",
+    text: "Explanation Scores",
+    path: "assessment_reports/competency_report/html/explanation_scores",
+    children: []
   },
   {
     id: "html_competencies_values_measured",
