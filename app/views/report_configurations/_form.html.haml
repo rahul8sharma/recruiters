@@ -1,0 +1,29 @@
+= stylesheet_link_tag 'jstree'    
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+.pull-left
+  = form_for @resource, as: resource_name.singularize, url: url, html: { id: "config_form" } do |f|
+    - if @resource.id.present?
+      = f.hidden_field :id
+    = f.hidden_field :configuration, id: :input_config
+    .field
+      = f.label :company_id
+      = f.text_field :company_id
+    .field
+      = f.label :report_type
+      = f.select :report_type, Vger::Resources::ReportConfiguration::REPORT_TYPES.sort, {}, { id: "select_report_type", class: "config" }
+    .field
+      = f.label :assessment_type
+      = f.select :assessment_type, Vger::Resources::ReportConfiguration::ASSESSMENT_TYPES.sort, {}, { id: "select_assessment_type", class: "config" }
+    .action
+      = f.submit
+.clr
+.divider2      
+.span14.pull-left
+  %h2 HTML Configuration
+  #html_configuration
+.span14.pull-left
+  %h2 PDF Configuration
+  #pdf_configuration
+.clr      
+- content_for :javascripts do
+  = javascript_include_tag 'report_configurations'

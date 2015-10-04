@@ -1,0 +1,24 @@
+- competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
+- competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
+- (0..competency_scores.length-1).step(competency_step) do |step|
+  - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
+  - step_competency_scores_hash = HashWithIndifferentAccess.new({ step_competency_scores: step_competency_scores })
+  = render partial: "shared/reports/pdf/report_header"
+  #traits.section02
+    .divider1
+    .scores
+      .blue_heading.large-text.pull-left
+        Competencies / Values Measured
+      .instruction_container.pull-left
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+      .clr
+      - section_value.each do |section|
+        - locals = Hash[section["locals"].map { |key, value| [key.to_sym, step_competency_scores_hash[key.to_sym]] }]
+        = render :partial => section["path"], :locals => locals
+  .page-break
+.page-break

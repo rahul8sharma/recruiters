@@ -1,45 +1,12 @@
-
 .header-container
   #header
     .container
       .logo.pull-left.pull-left
-        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+        = image_tag(asset_path("jombay-logo.png"))
       .big-text.gray-dark.padding-all1.pull-left
         = truncate @report.report_data[:candidate][:name], length: 20
       .pull-right
-        %ul#nav.clearfix.pull-left
-          %li.left
-
-          - if @report.report_data[:plain_mrf_report_cover] || @report.report_data[:mrf_report_cover]
-            %li
-              %a.scroll{:href => "#overview", :title => "Overview"}
-                Overview
-
-          - if @report.report_data[:plain_mrf_traits_overview] || @report.report_data[:mrf_report_competencies_measured]
-            %li
-              %a.scroll{:href => "#traits", :title => "Traits Measured in this Assessment"}
-                Traits
-          - if @report.report_data[:plain_mrf_report_traits_self_360] || @report.report_data[:mrf_report_competency_self_360]
-            %li
-              %a.scroll{:href => "#scores", :title => "Scores of Traits measured in this Assessment"}
-                Scores
-
-          - if @report.report_data[:assessment][:use_competencies] && (@report.report_data[:mrf_report_data_pts_competencies] || @report.report_data[:mrf_report_data_pts_competencies_avg])
-            %li
-              %a.scroll{:href => "#developement_guide_competencies", :title => "Development Guide for the Assessment Taker"}
-                Data Points For Competencies
-
-          - if @report.report_data[:mrf_report_data_pts_traits]
-            %li
-              %a.scroll{:href => "#developement_guide_traits", :title => "Development Guide for the Assessment Taker"}
-                Data Points For Traits
-
-          - if @report.report_data[:mrf_report_360_feedback_stats]
-            %li
-              %a.scroll{:href => "#manager_guideline", :title => "Guidelines for Assessment Taker's Manager"}
-                Summary
-          %li.right
-        - if @report.report_data[:mrf_report_show_pdf_link]
-          = link_to "Printable PDF", s3_report_company_mrf_assessment_url(@report.report_data[:company][:id], @report.report_data[:assessment][:id], @report.report_data[:candidate][:id], @report.id, :format => :pdf, :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", target: :_blank
+        - section_value.each do |section|
+          = render :partial => section["path"], locals: { section_value: section["children"] }
 = wicked_pdf_javascript_include_tag 'common'
 

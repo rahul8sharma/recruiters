@@ -8,6 +8,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
+
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -47,6 +48,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     end
   end
 
+
   def s3_report
     report = Vger::Resources::Mrf::Report.find(params[:report_id], params)
     if request.format.to_s == "application/pdf"
@@ -56,6 +58,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
     end
     redirect_to url
   end
+
 
   protected
   

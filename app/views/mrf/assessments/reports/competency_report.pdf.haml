@@ -1,51 +1,7 @@
 - competency_order = @report.report_data[:assessment][:competency_order] || @report.report_data[:competency_scores].collect{|competency, competency_data| competency_data[:id] }
 - @report.report_data[:competency_scores] = Hash[@report.report_data[:competency_scores].sort_by{|competency,competency_data| competency_order.index(competency_data[:id]).to_i }]
 .competency_report
-  = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page1"
   .classic_report
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits"
-    .page-break
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/page9"
-    .page-break
-    
-  .common-top-trangle
-    .common-bottom-trangle 
-      = render :partial => "shared/reports/pdf/about_us"
+    - @report.report_configuration["pdf"]["sections"].each do |section_value|
+      = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
       .page-break
-      = render :partial => "shared/reports/pdf/legal_disclaimer"
-      .page-break
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/mrf_rating_competency_overview"
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/page2"
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/page3"
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/page4"
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/page5"
-  / = render :partial => "mrf/assessments/reports/competency_report/pdf/page6"
-
-  / .classic_report
-  /   = render :partial => "mrf/assessments/reports/competency_report/pdf/trait_wise_data_points"
-  /   = render :partial => "mrf/assessments/reports/competency_report/pdf/response_distribution"
-  /   = render :partial => "mrf/assessments/reports/competency_report/pdf/competencies_descending_order"
-
-
-  / .common-top-trangle
-  /   .common-bottom-trangle 
-  /     = render :partial => "shared/reports/pdf/about_us"
-  /     .page-break
-  /     = render :partial => "shared/reports/pdf/legal_disclaimer"
-  /     .page-break

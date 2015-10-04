@@ -2,7 +2,7 @@
   .container
     .logo.pull-left
       - if @view_mode == "html"
-        = image_tag("#{Rails.application.config.action_controller.asset_host}/#{asset_path("jombay-logo.png")}")
+        = image_tag(asset_path("jombay-logo.png"))
       - else
         = link_to(wicked_pdf_image_tag("jombay-logo.png"), "/")
 

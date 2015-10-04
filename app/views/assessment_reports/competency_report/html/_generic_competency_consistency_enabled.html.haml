@@ -1,0 +1,45 @@
+- @report.report_hash[:competency_scores].each do |competency_name, competency_data|
+  - if competency_data[:factor_scores].present?
+    - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
+    .frame
+      .heading.pull-left
+        #{competency_name}
+      .heading.pull-right 
+        = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
+      .clr 
+      %ul.clearfix.scores_listing.first
+        - competency_data[:factor_scores].each do |factor_name, factor_score|
+          %li{:id => "#{competency_name}#{factor_name}"}
+            .divider1
+            .lhs-sec.pull-left{:style=> "width: 730px;"}
+              %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+              .span16.first
+                .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+                  = factor_name 
+                  .info
+                    = factor_score[:factor_definition]
+                  .arrow
+                .clr
+            .rhs-sec.pull-left
+              - scale_values = get_scale_calculations(80, factor_score, @company_norm_buckets, 34)
+              .slider{:style=>"width:#{scale_values[:scale_width]}px"}
+                - if ((scale_values[:width] == 34) && (scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name))
+                  - scale_values[:offset] = scale_values[:offset] - 34
+                .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]}px;" }
+                  .score-indicater
+                    #{scale_values[:company_norm_bucket_name]}
+                  .arrow
+                .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+            .clr
+            .divider1
+            .factor-description
+              = factor_score[:description]
+            - if factor_score[:type] != 'Functional::Trait'
+              .divider1
+              .responses  
+                %i.icon-align-justify
+                Reliability of Candidate's Responses for this Factor:
+                %span.score 
+                  = factor_score[:consistency_bucket]
+
+    .divider1

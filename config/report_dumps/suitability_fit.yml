@@ -1,0 +1,677 @@
+--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+candidate_assessment_id: 54808
+configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  should_send_notifications: true
+  any_scores_overwritten: false
+  is_functional_assessment: false
+  notifications_sent_at: '18_09_2015_18_58'
+  regenerated_at: '2015-09-18 18:55:55 +0530'
+  uploaded_at: '18_09_2015_18_58'
+  regenerate_notify: 'true'
+created_at: '2015-09-08T13:18:15+05:30'
+id: 32168
+report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_cover_page
+      text: Cover Page
+      path: assessment_reports/fit_report/html/page1
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_score_scale
+      text: Score Scale
+      path: assessment_reports/score_scale
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_traits_measured_in_this_assessment
+      text: Traits Measured In This Assessment
+      path: assessment_reports/fit_report/html/page2
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_scores_of_traits_measured_in_this_assessment
+      text: Scores of Traits Measured In this Assessment
+      path: assessment_reports/fit_report/html/page3
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_scores_of_functional_traits_measured_in_assessment
+      text: Scores of Functional Traits
+      path: assessment_reports/fit_report/html/scores_of_functional_traits
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_functional_overview_section
+      text: Functional Overview Section
+      path: assessment_reports/functional_report/html/functional_overview_section
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_objective_questions
+      text: Objective Questions
+      path: assessment_reports/functional_report/html/objective_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_subjective_questions
+      text: Subjective Questions
+      path: assessment_reports/functional_report/html/subjective_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_miscellaneous_factors
+      text: Miscellaneous Factors
+      path: assessment_reports/fit_report/html/page4
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_development_guide_for_assessment_taker
+      text: Developemnt Guide For Assessment Taker
+      path: assessment_reports/fit_report/html/page5
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_guidelines_for_candidate_manager
+      text: Developemnt Guide For Candidate Manager
+      path: assessment_reports/fit_report/html/page6
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_about_us
+      text: About Us
+      path: shared/reports/html/about_us
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_legal_disclaimer
+      text: Legal Disclaimer
+      path: shared/reports/html/legal_disclaimer
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+  pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_cover_page
+      text: PDF_FIT_Cover Page
+      path: assessment_reports/fit_report/pdf/page1
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_score_scale
+      text: Score Scale
+      path: assessment_reports/score_scale
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_traits_in_this_assessment
+      text: Traits Measured In This Assessment
+      path: assessment_reports/fit_report/pdf/page2
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_scores_of_traits_measured
+      text: Scores Of Traits Measured
+      path: assessment_reports/fit_report/pdf/page3
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf__scores_of_functional_traits
+      text: Scores of Functional Traits
+      path: assessment_reports/fit_report/pdf/scores_of_functional_traits
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_functional_overview_sections
+      text: Functional Overview Section
+      path: assessment_reports/functional_report/pdf/functional_overview_section
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_objective_questions
+      text: Objective Questions
+      path: assessment_reports/functional_report/pdf/objective_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_subjective_questions
+      text: Subjective Questions
+      path: assessment_reports/functional_report/pdf/subjective_questions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_miscellaneous_factors
+      text: Miscellaneous Factors
+      path: assessment_reports/fit_report/pdf/page4
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_development_interview_guide_candidate
+      text: Developement Guide For Assessment Taker
+      path: assessment_reports/fit_report/pdf/page5
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_development_interview_guide_manager
+      text: Guidelines For Assessment Taker Manager
+      path: assessment_reports/fit_report/pdf/page6
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: pdf_common_footer_sections
+      text: Footer[ About Us and Legal Disclaimer ]
+      path: shared/reports/pdf/common_footer_sections
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 32168
+  candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Barrey Allen Suitability Competency Based Report
+    email: john@doer.com
+    id: 34423
+  assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 6642
+    name: Release-2.41 Fit Test
+    assessment_type: fit
+    brand_partner: cocubes
+  company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Jombay
+    id: 2
+  report_receiver: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: ''
+    email: ''
+  send_report_links_to_manager: false
+  overall_score_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 5
+    name: Above Average
+  overall_factor_score: 82.5
+  overall_factor_score_rating: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: GREEN
+    color: '#0EB156'
+  consistency: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    enabled: true
+    bucket_name: High
+  reliability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    enabled: true
+    bucket_name: Less Reliable
+  lie_detection: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket:
+    description:
+  s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bucket: report_pdfs_staging_internal
+      key: suitability_reports/pdf/a-jombay-32168.pdf
+    html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bucket: report_pdfs_staging_internal
+      key: suitability_reports/html/a-jombay-32168.html
+    feedback: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bucket: report_pdfs_staging_internal
+      key: suitability_reports/feedback/feedback-a-jombay-32168.html
+  report_email_recipients:
+  candidate_stage: employee
+  candidate_assessment_id: 54808
+  completed_at: 08/09/2015
+  direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  post_assessment_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider delegating tasks carefully to those who would rather efficiently complete their tasks instead of those who might delay doing their tasks.
+      factor_type: Suitability::Factor
+    Assertiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You may want to express your opinion individually in every group conversation. You can avoid giving in easily if you believe in something. Before you agree to something, come up with a justification for why you should agree. You could try to maintain eye contact when communicating.
+      factor_type: Suitability::Factor
+    Data Driven: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: When complete data is not available, it could be a good idea to consider your gut feeling instead of always waiting on data to take the further course of action.
+      factor_type: Suitability::Factor
+    Customer Service Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to make sure you do not promise beyond what you can provide. You should also make sure to follow up and network with the clients
+      factor_type: Suitability::Factor
+    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to ensure that you weigh the implications of every decision you take. It can also be a good idea to incorporate the opinions of others in taking decisions to get different point of views.
+      factor_type: Suitability::Factor
+    Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could seek feedback from your colleagues from time to time to ensure that you do not come across as manipulative.
+      factor_type: Suitability::Factor
+    Considerateness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You might want to ensure that others do not take undue advantage of you because of your considerate nature.
+      factor_type: Suitability::Factor
+    Agreeableness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: If you feel that you come across as inflexible or hard to convince, try to hear the other person out completely. Consider playing the devil's advocate by listing out arguments against your opinion.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider taking up opportunities that involve change and adaptation. However, avoid submitting to change without considering it holistically.
+      factor_type: Suitability::Factor
+    Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider being a bit flexible depending on the situations as long as the spirit of the guidelines is followed.
+      factor_type: Suitability::Factor
+  guidelines_for_candidate_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider assigning him/her decisions regarding what tasks need to be delegated to whom in the team.
+      factor_type: Suitability::Factor
+    Assertiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could consider encouraging him/her to speak up his/her mind, defend opinions in groups to help gain confidence.
+      factor_type: Suitability::Factor
+    Data Driven: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: It could be a good idea to assign him/her to tasks that need objective decision-making and logical approach. You could give him/her responsibility of tasks that, more often than not require experience and gut feel than using existing data.
+      factor_type: Suitability::Factor
+    Customer Service Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may consider conveying appreciation and positive feedback from customers in front of other team members - this will encourage him/her to continue his/her efforts. You could consider assigning him/her customers, who you feel could be difficult to attend to. This would ensure high customer satisfaction. You can also consider pairing him/her with others in order to help others understand the nuances better.
+      factor_type: Suitability::Factor
+    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider assigning him/her responsibilities which require independent decision making. However, you may want to make sure that he/she continues taking informed and efficient decisions.
+      factor_type: Suitability::Factor
+    Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: It could be a good idea to assign him/her responsibilities where being influential is critical. However, you may want to make sure that he/she is not perceived as manipulative or dominating by team members.
+      factor_type: Suitability::Factor
+    Considerateness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You might want to caution and guide him/her about people who might take undue advantage of his/her considerate nature.
+      factor_type: Suitability::Factor
+    Agreeableness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to get him/her to list the pros and cons of his/her firm stand so that he/she is more open to considering the opinions of others. You may also want to encourage him/her to consider the opinions of at least two other team members before he/she sticks to his/her own opinion.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: He/she could be more effective in dynamic environments as compared to others. Hence, you could consider assigning to him/her such projects or responsibilities as they come by.
+      factor_type: Suitability::Factor
+    Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: Try to ensure that he/she does not stress himself/herself or the team while insisting adherence to rules and procedures.
+      factor_type: Suitability::Factor
+  subjective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  objective_score: 20
+  objective_items: 
+    21:
+      :item:
+        :body: g = ?
+      :section: ''
+      :trait: ''
+      :options:
+        81:
+          :score: 0.0
+          :body: '3.12'
+        82:
+          :score: 0.0
+          :body: '4.32'
+        83:
+          :score: 1.0
+          :body: '9.872'
+        84:
+          :score: 0.0
+          :body: '8'
+      :response:
+        :id: 82
+        :body: '4.32'
+        :score: 0.0
+    22:
+      :item:
+        :body: PI = ?
+      :section: ''
+      :trait: ''
+      :options:
+        85:
+          :score: 0.0
+          :body: '2'
+        86:
+          :score: 0.0
+          :body: '3'
+        87:
+          :score: 0.0
+          :body: '5'
+        88:
+          :score: 1.0
+          :body: '3.14'
+      :response:
+        :id: 86
+        :body: '3'
+        :score: 0.0
+    41:
+      :item:
+        :body: 3*3=?
+      :section: Section 1
+      :trait: ''
+      :options:
+        161:
+          :score: 0.0
+          :body: '7'
+        162:
+          :score: 0.0
+          :body: '15'
+        163:
+          :score: 1.0
+          :body: '9'
+        164:
+          :score: 0.0
+          :body: '2'
+      :response:
+        :id: 162
+        :body: '15'
+        :score: 0.0
+    35:
+      :item:
+        :body: 1+1=?
+      :section: Section 1
+      :trait: ''
+      :options:
+        137:
+          :score: 0.0
+          :body: '1'
+        138:
+          :score: 0.0
+          :body: '9'
+        139:
+          :score: 1.0
+          :body: '2'
+        140:
+          :score: 0.0
+          :body: '7'
+      :response:
+        :id: 138
+        :body: '9'
+        :score: 0.0
+    42:
+      :item:
+        :body: 4*4=?
+      :section: Section 2
+      :trait: ''
+      :options:
+        165:
+          :score: 0.0
+          :body: '8'
+        166:
+          :score: 1.0
+          :body: '16'
+        167:
+          :score: 0.0
+          :body: '7'
+        168:
+          :score: 0.0
+          :body: '15'
+      :response:
+        :id: 166
+        :body: '16'
+        :score: 1.0
+    36:
+      :item:
+        :body: 2+2=?
+      :section: Section 2
+      :trait: ''
+      :options:
+        141:
+          :score: 0.0
+          :body: '2'
+        142:
+          :score: 1.0
+          :body: '4'
+        143:
+          :score: 0.0
+          :body: '6'
+        144:
+          :score: 0.0
+          :body: '67'
+      :response:
+        :id: 142
+        :body: '4'
+        :score: 1.0
+    37:
+      :item:
+        :body: 3+3=?
+      :section: Section 3
+      :trait: ''
+      :options:
+        145:
+          :score: 1.0
+          :body: '6'
+        146:
+          :score: 0.0
+          :body: '11'
+        147:
+          :score: 0.0
+          :body: '3'
+        148:
+          :score: 0.0
+          :body: '45'
+      :response:
+        :id: 146
+        :body: '11'
+        :score: 0.0
+    38:
+      :item:
+        :body: 4+4=?
+      :section: Section 4
+      :trait: ''
+      :options:
+        149:
+          :score: 0.0
+          :body: '4'
+        150:
+          :score: 0.0
+          :body: '12'
+        151:
+          :score: 1.0
+          :body: '8'
+        152:
+          :score: 0.0
+          :body: '34'
+      :response:
+        :id: 150
+        :body: '12'
+        :score: 0.0
+    39:
+      :item:
+        :body: 1*1=?
+      :section: Section 5
+      :trait: ''
+      :options:
+        153:
+          :score: 1.0
+          :body: '1'
+        154:
+          :score: 0.0
+          :body: '13'
+        155:
+          :score: 0.0
+          :body: '3'
+        156:
+          :score: 0.0
+          :body: '23'
+      :response:
+        :id: 154
+        :body: '13'
+        :score: 0.0
+  section_wise_objective_item_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Section 1:
+      :percentage: 20.5
+    Section 2:
+      :percentage: 34
+  
+  functional_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  objective_score: 0.0
+  factor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745964
+      factor_id: 28
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Usually uncomplainingly adjusts to changing environments; more likely to enjoy change and look forward to it; tends to get easily accustomed to change; almost always flexible at work
+      factor_definition: Degree to which an individual is open to new experiences, ideas, feedback and change
+    Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745968
+      factor_id: 39
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Tend to follow all guidelines meticulously; almost always rule-conscious; often lives by ethics and morals; tends to get irritated if policies and guidelines are not adhered to; may come across as less flexible at times
+      factor_definition: Degree to which an individual adheres to rules and regulations
+    Agreeableness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745960
+      factor_id: 16
+      score: 20.0
+      pass: false
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: BrXyV
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: Below Average
+      norm_bucket_uid: DrHWZ
+      consistency_bucket: Average
+      description: More likely to stand firmly by his/her point of view; often analyzes other's opinions skeptically before agreeing to them; less likely to easily agree with group decisions without debate; likely to perceive his/her own views as more justified than those of others
+      factor_definition: Tendency to agree easily with others (High scores indicate a tendency to agree easily, Low scores indicate a tendency to be stubborn)
+    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745967
+      factor_id: 65
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Most likely to take quick decisions; tend to take firm decisions even in the face of uncertainty; may not hesitate if asked to make a choice on the spot; often prefers taking decisions independently; likely to be confident when taking tough calls
+      factor_definition: Ability of an individual to take decisions
+    Considerateness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745965
+      factor_id: 72
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Tends to be respectful and considerate towards other people; most likely to offend anyone with his/her actions; often willing to hear out what other people have to say; might try tone down negative feedback; tends to treat everyone with dignity
+      factor_definition: Degree to which an individual is considerate
+    Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745963
+      factor_id: 67
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Tends to be influential in interpersonal interactions; is more likely to gather support for his/her ideas from colleagues with ease; tends to put his/her points and suggestions across in an affirmative and effective manner; likely to leave an impact on people around
+      factor_definition: Degree to which an individual can have an impact on other's decisions and convince them
+    Data Driven: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745962
+      factor_id: 61
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Almost always considers facts and figures before making decisions; most likely to analyze pros and cons of the available information thoroughly before planning any further course of action; more likely to make objective decisions; not likely to trust sources of information that are not concrete like numbers or facts
+      factor_definition: Tendency to be driven by data and facts as opposed to intuitive thinking
+    Customer Service Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745966
+      factor_id: 64
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: Most likely to build lasting relationships with customers; tends to be excellent at understanding and catering to customer demands; almost always takes efforts to ensure client satisfaction by going out of his/her way; often good at dealing with demanding customers with ease
+      factor_definition: Degree to which an individual is willing to go out of his/her way to ensure customer satisfaction
+    Assertiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745961
+      factor_id: 1
+      score: 22.17
+      pass: false
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: ygMKO
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: Low
+      norm_bucket_uid: vBUZs
+      consistency_bucket: Above Average
+      description: Less likely to be frank and insistent; tends to be indirect when expressing feelings, needs and ideas; more likely to avoid confrontation; may not feel the need to express his/her opinions in most situations; less likely to voice his/her criticism
+      factor_definition: Tendency to be firm, frank and insistent
+    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      factor_score_id: 745959
+      factor_id: 87
+      score: 100.0
+      pass: true
+      scale: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        from_norm_bucket_uid: vBUZs
+        to_norm_bucket_uid: pZQeOjio
+      norm_bucket: High
+      norm_bucket_uid: pZQeOjio
+      consistency_bucket: High
+      description: May believe delegation to be an effective strategy when dealing with multiple tasks; tends to distribute responsibilities among team members instead of insisting on working on everything by himself/herself; less likely to worry about tasks once they are delegated to others
+      factor_definition: Degree of the action or process of delegating or being delegated
+  functional_trait_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/pdf/a-jombay-32168.pdf
+  html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/html/a-jombay-32168.html
+  feedback: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    bucket: report_pdfs_staging_internal
+    key: suitability_reports/feedback/feedback-a-jombay-32168.html
+status: uploaded
+updated_at: '2015-09-18T18:58:47+05:30'

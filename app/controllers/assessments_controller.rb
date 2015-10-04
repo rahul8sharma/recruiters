@@ -62,6 +62,7 @@ class AssessmentsController < ApplicationController
   end
 
   def update
+    params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.present?
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe

@@ -1,0 +1,10 @@
+.divider5
+.large-text
+  .span.first
+    Assessment:
+  .span10
+    = @report.report_hash[:assessment][:name]
+  .clr
+  .divider2
+  Assessment Answered On:
+  = @report.report_hash[:completed_at]

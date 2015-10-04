@@ -1,0 +1,5 @@
+.common-top-trangle
+  .common-bottom-trangle 
+    - section_value.each do |section|
+      = render :partial => section["path"]
+      .page-break

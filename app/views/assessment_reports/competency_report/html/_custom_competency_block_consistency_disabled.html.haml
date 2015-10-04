@@ -1,0 +1,37 @@
+- @report.report_hash[:competency_scores].each do |competency_name, competency_data|
+  - if competency_data[:factor_scores].present?
+    - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
+    .frame
+      .heading.pull-left
+        #{competency_name}
+      .heading.pull-right 
+        = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
+      .clr 
+      %ul.clearfix.scores_listing.first
+        - competency_data[:factor_scores].each do |factor_name, factor_score|          
+          - scale_values = get_scale_calculations(80, factor_score, @company_norm_buckets, 34)
+          %li{:id => "#{competency_name}#{factor_name}"}
+            .divider1
+            .lhs-sec.pull-left{:style=> "width: 730px;"}
+              %div{ class: "span1 first hexagon-icon #{scale_values[:klass]}" }
+              .span16.first
+                .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+                  = factor_name 
+                  .info
+                    = factor_score[:factor_definition]
+                  .arrow
+                .clr
+            .rhs-sec.pull-left
+              .slider{:style=>"width:#{scale_values[:scale_width]}px"}
+                - if ((scale_values[:scale_width] == 34) && (to_norm_bucket.name == @company_norm_buckets.last.name))
+                  - offset = offset - 34
+                .pointer{ class: "#{scale_values[:klass]}", style: "left: #{scale_values[:position]}px;" }
+                  .score-indicater
+                    = company_norm_bucket.name
+                  .arrow
+                .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+            .clr
+            .divider1
+            .factor-description
+              = factor_score[:description]
+    .divider1

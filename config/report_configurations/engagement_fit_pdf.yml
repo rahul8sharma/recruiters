@@ -1,0 +1,8 @@
+:sections: [
+  {
+    id: "overall_score",
+    text: "Overall Score",
+    path: "engagement/surveys/reports/overall_score.html.haml",
+    children: []
+  }
+]

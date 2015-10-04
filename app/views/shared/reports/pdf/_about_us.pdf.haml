@@ -35,8 +35,9 @@
 - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner]
   .company-summary
     .content
+      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
       .company-logo
-        = wicked_pdf_image_tag("report/pdf/#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+        .partner-logo{:style => "background: url(#{imagePath}.png) no-repeat center 0; width: 150px; height: 50px "}
       .divider1
       = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
 - else
