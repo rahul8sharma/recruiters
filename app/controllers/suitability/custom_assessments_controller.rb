@@ -213,21 +213,14 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     else
       params[:assessment] ||= {}
+      params[:assessment][:report_configuration] ||= {}.to_json
+      params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
-      assessment_type = if params[:fit].present?
-         api_resource::AssessmentType::FIT
-      elsif params[:competency].present?
-        api_resource::AssessmentType::COMPETENCY
-      else
-        @assessment.report_types << api_resource::ReportType::BENCHMARK
-        api_resource::AssessmentType::BENCHMARK
-      end
       if params[:enable_training_requirements_report].present?
         @assessment.report_types << api_resource::ReportType::TRAINING_REQUIREMENT
       end
       @assessment.report_types.uniq!
-      @assessment.assessment_type = assessment_type
       @assessment.company_id = params[:company_id]
     end
   end

@@ -1,0 +1,28 @@
+%ul.clearfix.scores_listing.first
+  - step_factor_scores.each_with_index do |(factor_name,factor_score),index|
+    - scale_values = get_scale_calculations(50, factor_score, @company_norm_buckets, 34)
+    %li{:id => "#{factor_name}"}
+      .lhs-sec.pull-left{:style=>"width:520px;"}
+        .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+        .span.first
+          .factor-name
+            = factor_name
+      .rhs-sec.pull-left
+        .slider{:style=>"width:#{scale_values[:scale_width]}px;"}
+          - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
+            - scale_values[:offset] = scale_values[:offset] - 33
+          .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]}px;" }
+            .score-indicater
+              = scale_values[:company_norm_bucket_name]
+            .arrow
+          .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+      .clr
+      .divider1
+      .factor-description
+        = factor_score[:description]
+      .responses
+        %i.icon-align-justify
+        Reliability of Candidate's Responses for this Factor:
+        %span.score
+          = factor_score[:consistency_bucket]
+      .divider1

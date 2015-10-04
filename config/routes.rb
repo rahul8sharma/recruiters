@@ -504,6 +504,14 @@ Recruiters::Application.routes.draw do
     end
   end
   
+  resources :report_configurations do
+    collection do
+      get :load_configuration
+      post :report_preview_mrf
+      post :report_preview_suitability
+    end
+  end
+  
   resources :sections do
     collection do
       get :manage
@@ -1293,4 +1301,6 @@ Recruiters::Application.routes.draw do
 
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
+
+  
 end

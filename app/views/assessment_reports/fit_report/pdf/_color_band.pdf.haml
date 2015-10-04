@@ -1,0 +1,4 @@
+- bg_hex = @report.report_hash[:overall_factor_score_rating][:color]
+.color-band.fw.large-text{:style=>"background-color: #{bg_hex}"}
+  Score Rating: 
+  = @report.report_hash[:overall_factor_score_rating][:name] rescue "-"

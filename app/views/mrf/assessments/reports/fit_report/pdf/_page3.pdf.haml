@@ -1,4 +1,4 @@
-- if @report.report_data[:mrf_report_traits_self_360]
+- @report.report_data[:trait_scores].each_slice(4) do |trait_scores|
   = render partial: "shared/360/mrf_report_header.pdf.haml"
   #scores.section03
     .divider1

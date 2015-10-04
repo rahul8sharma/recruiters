@@ -1,0 +1,9 @@
+:sections: [
+  {
+    id: "overall_score",
+    text: "Overall Score",
+    path: "exit/surveys/reports/_page_01.html.haml",
+    children: []
+  }  
+]
+    

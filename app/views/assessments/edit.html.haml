@@ -1,6 +1,19 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "jstree"
+
 %h1 Edit company assessment
-= form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
+= form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
   = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
   .divider1
   %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
   .clr
+= render :partial => "shared/report_configuration"
+.clr
+.divider2
+  
+
+

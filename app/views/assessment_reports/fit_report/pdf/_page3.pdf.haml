@@ -1,0 +1,40 @@
+- scores_step = Rails.application.config.reports[@view_mode]["scores_step"]    
+- if @report.report_hash[:factor_scores].present?
+  - factor_scores = @report.report_hash[:factor_scores]
+  - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
+    - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+    = render partial: "shared/reports/pdf/report_header.pdf.haml"
+    .inner
+      .scores.favorable_factors
+        .divider1
+        .pull-left
+          .blue_heading.large-text
+            Scores of Traits measured in this Assessment
+          .divider1
+          .instruction_container
+            .box.pull-left
+              .box-icon.pull-left
+              .box-title.pull-left
+                Expected Score Range
+              .clr
+            .instructions.pull-left
+              .instruction1.pull-left
+                Favorable Traits
+              .instruction2.less_favorable.pull-left
+                Less Favorable Traits
+              .clr
+        .pull-right
+          .divider1
+          .scale
+            .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
+            .marker-container
+              - @company_norm_buckets.each do |norm_bucket|
+                .marker
+                  - if norm_bucket.name.split(" ").size == 1
+                    %br/
+                  = norm_bucket.name
+              .clr
+        .clr
+        - section_value.each do |section|
+          = render :partial => section["path"], :locals => {step_factor_scores: step_factor_scores }
+    .page-break

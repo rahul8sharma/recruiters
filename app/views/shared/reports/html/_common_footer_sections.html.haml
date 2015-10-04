@@ -1,0 +1,7 @@
+.common-top-trangle
+  .common-bottom-trangle 
+    - section_value.each do |section|
+      = render :partial => section["path"]
+      .page-break
+
+= render :partial => "shared/reports/html/report_footer", :locals => { :force => true, :last_page => true }

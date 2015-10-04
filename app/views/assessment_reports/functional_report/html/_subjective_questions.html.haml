@@ -1,4 +1,4 @@
-- if @report.report_hash[:subjective_items].present? && @report.report_hash[:include_subjective_questions]
+- if @report.report_hash[:subjective_items].present?
   - @report.report_data[:subjective_items].group_by{|item_id, item_data| item_data[:section] }.each do |section, section_data|
     .functional-questions.objective
       .container
