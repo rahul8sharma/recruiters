@@ -253,22 +253,15 @@
     children: []
   },
   {
-    id: "pdf_common_footer_sections",
-    text: "Footer",
-    path: "shared/reports/pdf/common_footer_sections",
-    children: [
-      {
-        id: "html_about_us",
-        text: "About Us",
-        path: "shared/reports/pdf/about_us",
-        locals: {}
-      },
-      {
-        id: "html_legal_disclaimer",
-        text: "Legal Disclaimer",
-        path: "shared/reports/pdf/legal_disclaimer",
-        locals: {}
-      }
-    ]
+    id: "html_about_us",
+    text: "About Us",
+    path: "shared/reports/pdf/about_us",
+    locals: {}
+  },
+  {
+    id: "html_legal_disclaimer",
+    text: "Legal Disclaimer",
+    path: "shared/reports/pdf/legal_disclaimer",
+    locals: {}
   }
 ]

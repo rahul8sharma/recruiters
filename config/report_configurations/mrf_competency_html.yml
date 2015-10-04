@@ -334,22 +334,15 @@
     children: []
   },
   {
-    id: "html_common_footer_pages",
-    text: "Footer Pages",
-    path: "shared/reports/html/common_footer_sections",
-    children: [
-      {
-        id: "html_about_us",
-        text: "About Us",
-        path: "shared/reports/html/about_us",
-        locals: {}
-      },
-      {
-        id: "html_legal_disclaimer",
-        text: "Legal Disclaimer",
-        path: "shared/reports/html/legal_disclaimer",
-        locals: {}
-      }
-    ]
+    id: "html_about_us",
+    text: "About Us",
+    path: "shared/reports/html/about_us",
+    locals: {}
+  },
+  {
+    id: "html_legal_disclaimer",
+    text: "Legal Disclaimer",
+    path: "shared/reports/html/legal_disclaimer",
+    locals: {}
   }
 ]
