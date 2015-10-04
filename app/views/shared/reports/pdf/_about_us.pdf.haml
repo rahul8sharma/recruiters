@@ -35,7 +35,7 @@
 - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner]
   .company-summary
     .content
-      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore)
+      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
       .company-logo
         .partner-logo{:style => "background: url(#{imagePath}.png) no-repeat center 0; width: 150px; height: 50px "}
       .divider1
