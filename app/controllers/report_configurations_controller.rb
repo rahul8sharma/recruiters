@@ -178,56 +178,26 @@ class ReportConfigurationsController < MasterDataController
   def get_suitability_norm_bucket
     @norm_buckets = Vger::Resources::Suitability::NormBucket\
                         .where(order: "weight ASC").all                    
-                        
     @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
-                        .where(query_options: {
-                          company_id: params[:company_id]
-                        })\
-                        .where(order: "weight ASC").all
-    
-    if @company_norm_buckets.empty?
-      @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
-                        .where(query_options: {
-                          company_id: nil
-                        })\
-                        .where(order: "weight ASC").all                    
-    end                    
+                      .where(query_options: {
+                        company_id: nil
+                      })\
+                      .where(order: "weight ASC").all
   end
 
   def get_mrf_norm_buckets
     @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                      order: "weight ASC", query_options: {
-                        company_id: params[:company_id]
-                      }).all
-    
-    if @norm_buckets.empty?
-      @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                      order: "weight ASC", query_options: {
-                        company_id: nil
-                      }).all
-    end
+                    order: "weight ASC", query_options: {
+                      company_id: nil
+                    }).all
     @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: params[:company_id]
-                      }).all
-    
-    if @trait_graph_buckets.empty?
-      @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: nil
-                      }).all
-    end
+                    order: "min_val ASC", query_options: {
+                      company_id: nil
+                    }).all
     @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: params[:company_id]
-                      }).all
-    
-    if @competency_graph_buckets.empty?
-      @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: nil
-                      }).all
-    end
+                    order: "min_val ASC", query_options: {
+                      company_id: nil
+                    }).all
   end
 
   def set_params
