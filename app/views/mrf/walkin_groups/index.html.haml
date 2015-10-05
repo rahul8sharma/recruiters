@@ -1,0 +1,49 @@
+.walk-ins-list
+  .page-title.pull-left
+    .divider1
+    Walk-Ins
+  - if can?(:create, "Suitability::WalkinGroup")    
+    %a.btn.btn-warning.big.big-text.span.pull-right.large-text{:href => new_company_mrf_walkin_group_path(params[:company_id]), :title => "Click Here To Create New Walk-In"} 
+      Create a new Walk-In Index Page
+  
+  - if @walkin_groups.empty?
+    .alert.pull-right
+      No walk-ins have been created. To create a Walk-In, 
+      %a{:href => new_company_mrf_walkin_group_path(params[:company_id]), :title => "Click Here To Create New Walk In"} click here.
+  .clr
+  .divider2
+
+  - if @walkin_groups.present?    
+    .list-snippet-titles.large-text.clearfix
+      .span5.first
+        %a{:href => "#"}
+          = sort_link "Walk-In ID", company_mrf_walkin_groups_path(params[:company_id]), :id, params[:search]
+      .span10
+        %a{:href => "#"}
+          = sort_link "Walk-In Index Page", company_mrf_walkin_groups_path(params[:company_id]), :title, params[:search]
+      .span8
+        Page Management
+    .divider2
+
+    %ul
+      - @walkin_groups.each do |walkin_group|
+        %li.list-snippet.border-bottom-grayLighter
+          .span5.first
+            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title =>  walkin_group.title} Walk In #{walkin_group.id}
+          .span10
+            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title => walkin_group.title}  
+              = walkin_group.title
+          .span8
+            %a{:href=> edit_company_mrf_walkin_group_path(@company.id, walkin_group.id), :title=> "title"}   
+              Manage
+          
+          .span
+            %a{:href => walkin_group.url, target: "_blank", :title => "Send This Test"}
+              Link  
+          .clr
+          .divider1
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @walkin_groups}
+  .clr    
+ 
