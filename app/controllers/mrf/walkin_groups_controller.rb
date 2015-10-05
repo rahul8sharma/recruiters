@@ -3,6 +3,7 @@ class Mrf::WalkinGroupsController < ApplicationController
   before_filter :get_company
   
   before_filter :get_walkin_group, :except => [ :index, :create, :new ]
+  before_filter :get_templates_for_candidates, :only => [:edit]
   layout "walk_ins"
   
   def index

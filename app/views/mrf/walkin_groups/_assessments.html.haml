@@ -46,7 +46,7 @@
       - @assessments.each do |assessment|
         %li
           %input{type: "hidden", class: "candidate_invitation_template_id", name: "walkin_group[assessment_hash][#{assessment.id}][candidate_invitation_template_id]", value: @walkin_group.assessment_hash["#{assessment.id}"]['candidate_invitation_template_id'], class: "candidate_invitation_template_id"}
-          %input{type: "hidden", class: "stakeholder_invitation_template_id", name: "walkin_group[assessment_hash][#{assessment.id}][candidate_invitation_template_id]", value: @walkin_group.assessment_hash["#{assessment.id}"]['stakeholder_invitation_template_id'], class: "stakeholder_invitation_template_id"}
+          %input{type: "hidden", class: "stakeholder_invitation_template_id", name: "walkin_group[assessment_hash][#{assessment.id}][stakeholder_invitation_template_id]", value: @walkin_group.assessment_hash["#{assessment.id}"]['stakeholder_invitation_template_id'], class: "stakeholder_invitation_template_id"}
             
           -# add class ".checked" to "<label>" when user clicks on checkbox/label
           .divider1
