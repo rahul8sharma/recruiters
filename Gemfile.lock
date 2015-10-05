@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 3881e7f59eb19a1be60fe098896bc5ed7f48b42f
+  revision: 91f4ecc64c6daa96e84cfffd194a5cfad0ab4ea9
   branch: develop
   specs:
     vger (0.0.1)
@@ -135,14 +135,14 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.2)
-    json (1.8.2-java)
+    json (1.8.3)
+    json (1.8.3-java)
     jwt (1.5.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    multi_json (1.11.0)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nio4r (1.1.0)
@@ -160,7 +160,7 @@ GEM
       rack (>= 1.1, < 2.0)
     puma (2.9.0-java)
       rack (>= 1.1, < 2.0)
-    rack (1.4.5)
+    rack (1.4.7)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.5.3)
@@ -226,7 +226,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.43)
+    tzinfo (0.3.45)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
@@ -266,3 +266,6 @@ DEPENDENCIES
   uglifier (= 1.0.3)
   vger!
   wicked_pdf (= 0.9.6)
+
+BUNDLED WITH
+   1.10.6
