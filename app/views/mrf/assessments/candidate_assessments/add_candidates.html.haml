@@ -1,6 +1,10 @@
-.span25.huge-text.page-title
+.span22.huge-text.page-title.pull-left
   Add Candidates
   .divider1
+.pull-right
+  %a.btn.btn-warning{ href: bulk_upload_company_mrf_assessment_candidate_assessments_path(@company.id, @assessment.id) }
+    Bulk Upload
+.clr  
 .span30
   = form_for @assessment, as: :assessment, url: add_company_mrf_assessment_candidate_assessments_path(@company.id, @assessment.id), method: :put do |f|
     .divider2

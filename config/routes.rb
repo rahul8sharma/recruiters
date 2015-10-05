@@ -255,6 +255,7 @@ Recruiters::Application.routes.draw do
       resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do 
         collection do
           match "add" => "mrf/assessments/candidate_assessments#add_candidates", :as => :add
+          match "bulk_upload" => "mrf/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         end
       end
       
