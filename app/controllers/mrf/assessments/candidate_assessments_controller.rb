@@ -8,6 +8,47 @@ class Mrf::Assessments::CandidateAssessmentsController < ApplicationController
 
   layout 'mrf/mrf'
   
+  def bulk_upload
+    s3_key = "mrf/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+    if request.put?
+      if !params[:bulk_upload] || !params[:bulk_upload][:file]
+        flash[:error] = "Please select a csv file."
+        redirect_to bulk_upload_company_mrf_assessment_candidate_assessments_path(
+          @company.id,
+          @assessment.id
+        ) and return
+      else
+        data = params[:bulk_upload][:file].read
+        obj = S3Utils.upload(s3_key, data)
+        @s3_bucket = obj.bucket.name
+        @s3_key = obj.key
+        Vger::Resources::Mrf::CandidateAssessment\
+          .import_from_s3_files(
+                        :email => current_user.email,
+                        :company_id => @company.id,
+                        :assessment_id => @assessment.id,
+                        :sender_type => current_user.type,
+                        :sender_name => current_user.name,
+                        :send_invitations => params[:send_invitations],
+                        :candidate_invitation_template_id => 
+                                          params[:candidate_invitation_template_id],
+                        :stakeholder_invitation_template_id => 
+                                        params[:stakeholder_invitation_template_id],
+                        :worksheets => [{
+                          :file => "BulkUpload.csv",
+                          :bucket => @s3_bucket,
+                          :key => @s3_key
+                        }]
+                       )
+        redirect_to details_company_mrf_assessment_url(@company.id,@assessment.id),
+                    notice: "Bulk upload in progress."
+        #render :action => :preview
+      end
+    else
+      get_templates_for_candidates
+    end
+  end
+  
   def add_candidates
     params[:candidates] ||= {}
     10.times do |index|

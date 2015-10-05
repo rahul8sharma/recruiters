@@ -250,11 +250,22 @@ Recruiters::Application.routes.draw do
         end
       end
     end
-
+  
+    resources :mrf_walkin_groups, path: "360/walk-ins", :controller => "mrf/walkin_groups" do
+      member do
+        get "summary" => "mrf/walkin_groups#summary", as: :summary
+        put "summary" => "mrf/walkin_groups#summary", as: :summary
+        get "customize" => "mrf/walkin_groups#customize", as: :customize
+        put "customize" => "mrf/walkin_groups#customize", as: :customize
+        get "expire" => "mrf/walkin_groups#expire", as: :expire
+      end
+    end
+  
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
       resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do
         collection do
           match "add" => "mrf/assessments/candidate_assessments#add_candidates", :as => :add
+          match "bulk_upload" => "mrf/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         end
       end
 

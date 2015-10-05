@@ -1,0 +1,19 @@
+function selectStakeholderInvitationTemplate() {
+  var id = $("#select_stakeholder_invitation_template").find(":selected").val();
+  var body = $("#select_stakeholder_invitation_template").find(":selected").attr("body");
+  if(body !== undefined) {
+    $(".stakeholder_invitation_template_id").val(id);
+  }
+}
+
+function selectCandidateInvitationTemplate() {
+  var id = $("#select_candidate_invitation_template").find(":selected").val();
+  var body = $("#select_candidate_invitation_template").find(":selected").attr("body");
+  if(body !== undefined) {
+    $(".candidate_invitation_template_id").val(id);
+  }
+}
+
+
+selectStakeholderInvitationTemplate();
+selectCandidateInvitationTemplate();
