@@ -93,6 +93,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def update
+    params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
     flash[:notice] = "360 Degree Exercise successfully updated"
@@ -131,6 +132,7 @@ class Mrf::AssessmentsController < ApplicationController
   end
 
   def create
+    params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     params[:assessment][:company_id] = @company.id
     if params[:build_from_existing].present? && !params[:assessment][:custom_assessment_id].present?
       flash[:error] = "Please choose the assessment this 360 Degree Profiling Exercise will be run on. If you wish to proceed without an assessment, you can use the Build 360 Degree from Scratch with New Traits option."

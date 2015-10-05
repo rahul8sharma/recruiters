@@ -22,10 +22,10 @@
       = yield(:content)
     - else
       = yield
+    = yield :iframe
     - if content_for?(:footer)
       = yield (:footer)
     - else
       .divider6
       = render :partial => "shared/footer"
-
 = render :file => 'layouts/haml'

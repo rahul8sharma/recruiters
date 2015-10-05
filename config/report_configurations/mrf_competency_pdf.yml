@@ -1,0 +1,111 @@
+:sections: [
+  {
+    id: "pdf_cover_page",
+    text: "Cover Page",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page1",
+    children: [
+      {
+        id: "pdf_mrf_report_numerical_aggregate_score",
+        text: "MRF Numerical Aggregate Score",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score",
+        locals: {}
+      },
+      {
+        id: "pdf_mrf_report_show_completion_status",
+        text: "MRF Report Completion Status",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status",
+        locals: {}
+      },
+    ]
+  },
+  {
+    id: "pdf_trait_definitions",
+    text: "Trait Definitions",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
+    children: []
+  },
+  {
+    id: "pdf_scores_competencies",
+    text: "360 Scores:Competencies(Graph)",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
+    children: []
+  },
+  {
+    id: "pdf_trait_scores_under_competencies",
+    text: "360 Scores: Traits Under Competencies(Graph)",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
+    children: []
+  },
+  {
+    id: "pdf_strength_improvement_areas",
+    text: "Strength and Improvement Areas",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+    children: []
+  },
+  {
+    id: "pdf_competency_wise_data_points",
+    text: "Data Points on 360 Degree Scores:Competencies",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
+    children: []
+  },
+  {
+    id: "pdf_traits_under_competencies_data_points",
+    text: "Data Points on Scores: Traits Under Competencies",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points",
+    children: [
+      {
+        id: "pdf_competency360_traits_data_pts_trait_name_as_title",
+        text: "Name as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title",
+        locals: {
+          trait_score: "trait_score",
+          competency: "competency"
+        }
+      },
+      {
+        id: "pdf_competency360_traits_data_pts_items_as_title",
+        text: "Item as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
+        locals: {
+          trait_score: "trait_score"
+        }
+      },
+    ]
+  },
+  {
+    id: "pdf_competencies_data_points_questions",
+    text: "Data Points on Questions",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions",
+    children: []
+  },
+  {
+    id: "pdf_subjective_responses",
+    text: "Responses to Other Questions",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses",
+    children: []
+  },
+  {
+    id: "pdf_stakeholder_comments_on_traits",
+    text: "Stakeholder Comments On Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
+    children: []
+  },
+  {
+    id: "pdf_page9",
+    text: "Feedback Stats",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
+    children: []
+  },
+  {
+    id: "html_about_us",
+    text: "About Us",
+    path: "shared/reports/pdf/about_us",
+    locals: {}
+  },
+  {
+    id: "html_legal_disclaimer",
+    text: "Legal Disclaimer",
+    path: "shared/reports/pdf/legal_disclaimer",
+    locals: {}
+  }
+]

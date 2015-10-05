@@ -29,4 +29,32 @@ module ReportsHelper
       [competency,{ pick: pick, pending: (traits.size - pick.size) }]
     end]
   end
+
+  def get_scale_calculations(marker_width, factor_score, company_norm_buckets, gutter)
+    scale_width = (company_norm_buckets.size-1)*marker_width
+    scale = factor_score[:scale]
+    norm_bucket_uid = factor_score[:norm_bucket_uid] 
+    from_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
+    to_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
+    company_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+    
+    offset = ((from_norm_bucket.weight - 1) * marker_width)        
+    width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+    width = gutter if width == 0
+    position = (company_norm_bucket.weight - 1) * marker_width
+    position = scale_width-20 if position >= scale_width
+    scored_weight = company_norm_bucket.weight
+    klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
+
+    HashWithIndifferentAccess.new({ 
+      offset: offset,
+      width: width,
+      position: position,
+      klass: klass,
+      scale_width: scale_width,
+      to_norm_bucket_name: to_norm_bucket.name,
+      company_norm_bucket_name: company_norm_bucket.name
+    })
+  end
+
 end

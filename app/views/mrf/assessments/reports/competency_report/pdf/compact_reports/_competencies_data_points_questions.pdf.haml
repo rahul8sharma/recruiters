@@ -1,67 +1,66 @@
-- if @report.report_data[:mrf_report_items_statistics_per_stakeholder_type_pdf]
-  - @report.report_data[:competency_scores].each do |competency, competency_scores|
-    - competency_scores[:trait_scores].each do |trait_score|
-      = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
-      .scores.classic_report.mrf_data_points
-        .frame
-          .heading.pull-left
-            Competency "#{competency}"
-          .heading.pull-right
-            Trait: #{trait_score[:trait][:name]}
-          .clr
+- @report.report_data[:competency_scores].each do |competency, competency_scores|
+  - competency_scores[:trait_scores].each do |trait_score|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
+    .scores.classic_report.mrf_data_points
+      .frame
+        .heading.pull-left
+          Competency "#{competency}"
+        .heading.pull-right
+          Trait: #{trait_score[:trait][:name]}
+        .clr
 
-          .small-padding
-            - trait_score[:items][:other_responses].each do |other_response|
-              .border-bottom-grayDark
-                .extra-medium-text
-                  .divider1
-                  .gray-darker.bold
-                    Question to Stakeholder:
-                  .divider1
-                  .color-warning
-                    = other_response[:item]
-                  .divider1
-                .left-offset1
-                  .final_data_points
-                    .border_gray_light.span.first
-                      .left.pull-left.stakeholder_rating_icon
-                      .right.pull-left
-                        .medium-text.color-average
-                          360&#176; Score: #{other_response[:score]}
-                      .clr
-                    .clr
-                  .divider1
-                  .medium-text.black.bold.line-height2
-                    Average rating given by #{pluralize(other_response[:count],"Stakeholder")}
-
-                  .divider1
-                  - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
-                    .span4.color-average.border_gray_light.small-padding.text-center
-                      #{pluralize(role_wise_score[:count],role_name.titleize)} : #{role_wise_score[:average_score]}
-
-                  .clr
-                  .divider1
-              .divider1  
-            - trait_score[:items][:self_responses].each do |self_response|
-              .border-bottom-grayDar
-                .extra-medium-text
-                  .divider1
-                  .gray-darker.bold
-                    Question to Self:
-                  .divider1
-                  .color-warning
-                    #{self_response[:item]}
-                  .divider1
-
-                .left-offset1.final_data_points
+        .small-padding
+          - trait_score[:items][:other_responses].each do |other_response|
+            .border-bottom-grayDark
+              .extra-medium-text
+                .divider1
+                .gray-darker.bold
+                  Question to Stakeholder:
+                .divider1
+                .color-warning
+                  = other_response[:item]
+                .divider1
+              .left-offset1
+                .final_data_points
                   .border_gray_light.span.first
-                    .left.pull-left.classic_user_icon
+                    .left.pull-left.stakeholder_rating_icon
                     .right.pull-left
                       .medium-text.color-average
-                        Self Rating: #{self_response[:score]}
+                        360&#176; Score: #{other_response[:score]}
                     .clr
                   .clr
-                  .divider1
-          .divider2        
-      .page-break
-  .page-break
+                .divider1
+                .medium-text.black.bold.line-height2
+                  Average rating given by #{pluralize(other_response[:count],"Stakeholder")}
+
+                .divider1
+                - other_response[:role_wise_scores].each_with_index do |(role_name, role_wise_score), index|
+                  .span4.color-average.border_gray_light.small-padding.text-center
+                    #{pluralize(role_wise_score[:count],role_name.titleize)} : #{role_wise_score[:average_score]}
+
+                .clr
+                .divider1
+            .divider1  
+          - trait_score[:items][:self_responses].each do |self_response|
+            .border-bottom-grayDar
+              .extra-medium-text
+                .divider1
+                .gray-darker.bold
+                  Question to Self:
+                .divider1
+                .color-warning
+                  #{self_response[:item]}
+                .divider1
+
+              .left-offset1.final_data_points
+                .border_gray_light.span.first
+                  .left.pull-left.classic_user_icon
+                  .right.pull-left
+                    .medium-text.color-average
+                      Self Rating: #{self_response[:score]}
+                  .clr
+                .clr
+                .divider1
+        .divider2        
+    .page-break
+.page-break

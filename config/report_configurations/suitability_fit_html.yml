@@ -1,0 +1,169 @@
+:sections: [
+  {
+    id: "html_header",
+    text: "Report Header",
+    path: "shared/reports/candidate_report_main_header",
+    children: [
+      {
+        id: "html_header_menu",
+        text: "Menu",
+        path: "shared/reports/suitability/header/menu",
+        children: [
+          {
+            id: "html_header_overview",
+            text: "Overview",
+            path: "shared/reports/suitability/header/overview"
+          },
+          {
+            id: "html_header_traits",
+            text: "Traits",
+            path: "shared/reports/suitability/header/traits_measured"
+          },
+          {
+            id: "html_header_trait_scores",
+            text: "Traits Scores",
+            path: "shared/reports/suitability/header/scores_of_traits_measured"
+          },
+          {
+            id: "html_header_development_guide_for_assessment_taker",
+            text: "Development Guide for Assessment Taker",
+            path: "shared/reports/suitability/header/development_guide_for_assessment_taker"
+          },
+          {
+            id: "html_header_development_guide_for_manager",
+            text: "Development Guide for Manager",
+            path: "shared/reports/suitability/header/development_guide_for_manager"
+          }
+        ]
+      },
+      {
+        id: "html_header_download_pdf_link",
+        text: "Download PDF Link",
+        path: "shared/reports/suitability/header/download_pdf_link",
+      },
+      {
+        id: "html_header_brand_partner_logo",
+        text: "Brand Partner Logo",
+        path: "shared/reports/suitability/header/brand_partner_logo",
+      }
+    ]
+  },
+  {
+    id: "html_cover_page",
+    text: "Cover Page",
+    path: "assessment_reports/fit_report/html/page1",
+    children: [
+     {
+        id: "html_feedback_header",
+        text: "Feedback Header",
+        path: "shared/reports/feedback_header",
+        locals: {},
+        children: []
+      },
+      {
+        id: "html_enable_recommendation",
+        text: "Enable Recommendation",
+        path: "assessment_reports/fit_report/html/enable_recommendation",
+        children: [
+          {
+            id: "html_aggregate_score",
+            text: "Aggregate Score [Score]",
+            path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
+            locals: {}
+          },
+          {
+            id: "html_color_band",
+            text: "Color Band",
+            path: "assessment_reports/fit_report/html/color_band",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_assessment_details",
+        text: "Assessment[Name and Completion Date]",
+        path: "assessment_reports/fit_report/html/assessment_details",
+        locals: {},
+        children: []
+      }
+    ]
+  },
+  {
+    id: "html_score_scale",
+    text: "Score Scale",
+    path: "assessment_reports/score_scale",
+    children: []
+  },
+  {
+    id: "html_traits_measured_in_this_assessment",
+    text: "Traits Measured In This Assessment",
+    path: "assessment_reports/fit_report/html/page2",
+    children: []
+  },
+  {
+    id: "html_scores_of_traits_measured_in_this_assessment_consistency_enabled",
+    text: "Scores of Traits Measured In this Assessment [Consistency Enabled]",
+    path: "assessment_reports/fit_report/html/page3",
+    children: []
+  },
+  {
+    id: "html_scores_of_traits_measured_in_this_assessment_consistency_disabled",
+    text: "Scores of Traits Measured In this Assessment [Consistency Disabled]",
+    path: "assessment_reports/fit_report/html/page3_consistecny_disabled",
+    children: []
+  },
+  {
+    id: "html_scores_of_functional_traits_measured_in_assessment",
+    text: "Scores of Functional Traits",
+    path: "assessment_reports/fit_report/html/scores_of_functional_traits",
+    children: []
+  },
+  {
+    id: "html_functional_overview_section",
+    text: "Functional Overview Section",
+    path: "assessment_reports/functional_report/html/functional_overview_section",
+    children: []
+  },
+  {
+    id: "html_objective_questions",
+    text: "Objective Questions",
+    path: "assessment_reports/functional_report/html/objective_questions",
+    children: []
+  },
+  {
+    id: "html_subjective_questions",
+    text: "Subjective Questions",
+    path: "assessment_reports/functional_report/html/subjective_questions",
+    children: []
+  },
+  {
+    id: "html_miscellaneous_factors",
+    text: "Miscellaneous Factors",
+    path: "assessment_reports/fit_report/html/page4",
+    children: []
+  },
+  {
+    id: "html_development_guide_for_assessment_taker",
+    text: "Developemnt Guide For Assessment Taker",
+    path: "assessment_reports/fit_report/html/page5",
+    children: []
+  },
+  {
+    id: "html_guidelines_for_candidate_manager",
+    text: "Developemnt Guide For Candidate Manager",
+    path: "assessment_reports/fit_report/html/page6",
+    children: []
+  },
+  {
+    id: "html_about_us",
+    text: "About Us",
+    path: "shared/reports/html/about_us",
+    children: []
+  },
+  {
+    id: "html_legal_disclaimer",
+    text: "Legal Disclaimer",
+    path: "shared/reports/html/legal_disclaimer",
+    children: []
+  }
+]

@@ -1,0 +1,81 @@
+:sections: [
+  {
+    id: "pdf_cover_page",
+    text: "Cover Page",
+    path: "mrf/assessments/reports/fit_report/pdf/page1",
+    children: [
+      {
+        id: "pdf_mrf_report_numerical_aggregate_score",
+        text: "Numerical Aggregate Score",
+        path: "mrf/assessments/reports/fit_report/pdf/mrf_report_numerical_aggregate_score",
+        locals: {}
+      },
+      {
+        id: "pdf_show_completion_status",
+        text: "Show Completion Status",
+        path: "mrf/assessments/reports/fit_report/pdf/mrf_report_show_completion_status",
+        locals: {}
+      }
+    ]
+  },
+  {
+    id: "pdf_traits_measured_in_this_assessment",
+    text: "360 Degree Traits measured in this Assessment",
+    path: "mrf/assessments/reports/fit_report/pdf/page2",
+    children: []
+  },
+  {
+    id: "pdf_scores_of_tratis_measured_with_360_degree",
+    text: "Scores of Traits measured with 360 Degree Assessment",
+    path: "mrf/assessments/reports/fit_report/pdf/page3",
+    children: []
+  },
+  {
+    id: "pdf_trait_distribution_data_points",
+    text: "Data Points about 360 Degree Scores(Average for all traits)",
+    path: "mrf/assessments/reports/fit_report/pdf/page4",
+    children: []
+  },
+  {
+    id: "pdf_data_point_questions",
+    text: "Data Points on 360 Degree Scores: Questions",
+    path: "mrf/assessments/reports/fit_report/pdf/data_point_questions",
+    children: []
+  },
+  {
+    id: "pdf_trait_wise_rating",
+    text: "Data Points on 360 Scores of Traits(Buckets)",
+    path: "mrf/assessments/reports/fit_report/pdf/trait_wise_ratings",
+    children: []
+  },
+  {
+    id: "pdf_trait_comments",
+    text: "Stakeholder Comments on Traits",
+    path: "mrf/assessments/reports/fit_report/pdf/trait_comments",
+    children: []
+  },
+  {
+    id: "pdf_subjective_responses",
+    text: "Responses to Other Questions",
+    path: "mrf/assessments/reports/fit_report/pdf/subjective_all",
+    children: []
+  },
+  {
+    id: "pdf_summary_of_360_degree_feedback",
+    text: "Summary of 360 Degree Feedback",
+    path: "mrf/assessments/reports/fit_report/pdf/page5",
+    children: []
+  },
+  {
+    id: "html_about_us",
+    text: "About Us",
+    path: "shared/reports/pdf/about_us",
+    locals: {}
+  },
+  {
+    id: "html_legal_disclaimer",
+    text: "Legal Disclaimer",
+    path: "shared/reports/pdf/legal_disclaimer",
+    locals: {}
+  }
+]
