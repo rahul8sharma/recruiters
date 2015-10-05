@@ -36,7 +36,7 @@ Recruiters::Application.routes.draw do
         end
       end
     end
-    
+
     collection do
       post :import
       get :manage
@@ -133,7 +133,7 @@ Recruiters::Application.routes.draw do
       member do
         get "norms" => "suitability/benchmarks#norms", :as => :norms
         put "norms" => "suitability/benchmarks#norms", :as => :norms
-        
+
         get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
         put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
 
@@ -212,14 +212,14 @@ Recruiters::Application.routes.draw do
         get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
         get "candidates/add_bulk" => "suitability/custom_assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
-        
+
         get "candidates/expire_links" => "suitability/custom_assessments/candidate_assessments#expire_links", :as => :expire_links
-        
+
         get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
         put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
         get "trigger_report_downloader" => "suitability/custom_assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
-        
+
         get "export_feedback_scores" => "suitability/custom_assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
 
         get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
@@ -252,13 +252,13 @@ Recruiters::Application.routes.draw do
     end
 
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
-      resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do 
+      resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do
         collection do
           match "add" => "mrf/assessments/candidate_assessments#add_candidates", :as => :add
           match "bulk_upload" => "mrf/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         end
       end
-      
+
       collection do
         get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
         get "home" => "mrf/assessments#home", :as => :home
@@ -287,7 +287,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
         get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
 
-        
+
         match "competencies" => "mrf/assessments#competencies", :as => :competencies
         match "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         match "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
@@ -297,7 +297,7 @@ Recruiters::Application.routes.draw do
         match "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
         match "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
         match "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
-        
+
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
@@ -494,7 +494,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
-  
+
   resources :template_variables do
     collection do
       post :import
@@ -504,7 +504,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
-  
+
   resources :report_configurations do
     collection do
       get :load_configuration
@@ -553,7 +553,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
-  
+
   resources :languages do
     collection do
       get :manage
@@ -696,7 +696,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :competency_guidelines do
       collection do
         get :manage
@@ -1003,7 +1003,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :factor_score_ratings do
       collection do
         get :manage
@@ -1021,7 +1021,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :competency_score_ratings do
       collection do
         get :manage
@@ -1115,6 +1115,19 @@ Recruiters::Application.routes.draw do
     end
   end
 
+  namespace :sq do
+    resources :quadrants do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+  end
+
+
   namespace :social_recognition do
     resources :moods do
       collection do
@@ -1171,7 +1184,7 @@ Recruiters::Application.routes.draw do
     resources :defined_forms
     resources :factual_information_forms
   end
-  
+
   namespace :jq do
     resources :candidate_assessment_reports do
       collection do
@@ -1183,7 +1196,7 @@ Recruiters::Application.routes.draw do
         get :report
       end
     end
-  
+
     resources :quadrant_descriptions do
       collection do
         get :manage
@@ -1193,7 +1206,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :functions do
       collection do
         get :manage
@@ -1203,7 +1216,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :jobs do
       collection do
         post :destroy_all
@@ -1212,7 +1225,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :interview_questions do
       collection do
         post :destroy_all
@@ -1221,12 +1234,12 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :candidate_jobs
-    
+
     resources :multimedia_answers
   end
-  
+
   resources :multimedia_profiles
   resources :work_experiences
 
@@ -1239,7 +1252,7 @@ Recruiters::Application.routes.draw do
   post "/trr/manage/import_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_group_trr_candidates", :as => :import_group_trr_candidates
 
   get "/users", :to => "users#index", :as => :users
-  
+
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
 
@@ -1258,7 +1271,7 @@ Recruiters::Application.routes.draw do
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
 
-  
+
   get "/sidekiq/queue-job" => "sidekiq#queue_job"
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
   get "/sidekiq/generate_mrf_scores" => "sidekiq#generate_mrf_scores"
@@ -1272,8 +1285,8 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   get "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   get "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
-  
-  
+
+
   match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports
   match "/sidekiq/regenerate_mrf_reports/", :to => "reports_management#regenerate_mrf_reports", :as => :regenerate_mrf_reports
   match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
