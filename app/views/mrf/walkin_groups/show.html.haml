@@ -36,14 +36,6 @@
         %a{:href=>"#"}
           Assessment Name
           %i.icon-chevron-down.small-text.line-height1
-      .span6.text-center
-        %a{:href=>"#"}
-          Assessments Sent
-          %i.icon-chevron-down.small-text.line-height1
-      .span6.text-center
-        %a{:href=>"#"}
-          Assessments Answered
-          %i.icon-chevron-down.small-text.line-height1
       .clr
     .divider1
     %ul
@@ -52,16 +44,10 @@
           %li.list-snippet.border-bottom-grayLighter
             .divider1
             .span3.first
-              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => assessment.id, :href => details_company_mrf_assessment_path(@company.id, assessment.id)}
                 #{assessment.id}
             .span13
-              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
+              %a{:title => assessment.name, :href => details_company_mrf_assessment_path(@company.id, assessment.id)}
                 #{assessment.name}
-            .span6.text-center
-              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
-                = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-            .span6.text-center
-              %a{:title => "", :href => company_custom_assessment_path(@company, assessment)}
-                = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
             .clr
             .divider1
