@@ -137,7 +137,7 @@
       {
         id: "html_descending_average_competency_rating",
         text: "Average Rating given by Stakeholders ",
-        path: "mrf/assessments/reports/competency_report/html/descending_average_competency_rating.html.haml",
+        path: "mrf/assessments/reports/competency_report/html/descending_average_competency_rating",
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
