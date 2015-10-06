@@ -1,0 +1,8 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.walk-ins-customize
+  = render :partial => "mrf/walkin_groups/assessments", locals: { url: customize_company_mrf_walkin_group_path(@company.id, @walkin_group.id) }
+= javascript_include_tag "walk_ins"
+= javascript_include_tag "mrf/walkins/email_settings"
