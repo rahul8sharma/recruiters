@@ -1,0 +1,13 @@
+= form_for :assessment, url: mrf_replicate_assessment_path, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Create a Copy of an existing Assessment
+    %p
+      Company ID : 
+      = f.text_field :company_id
+    %p
+      Assessment ID : 
+      = f.text_field :assessment_id
+
+  .actions
+    = submit_tag 'Create'
