@@ -32,12 +32,13 @@
       .clr
       .border_gray_light.span
         - if trait_score[:role_wise_scores].present?
-          - trait_score[:role_wise_scores].each_with_index do |(role, score),index|
-            .span.color-average
-              #{pluralize(score[:count],role.titleize)}: #{score[:points] || "-"}
+          - trait_score[:role_wise_scores].each_slice(4) do |step_trait_wise_roles|
+            - step_trait_wise_roles.each_with_index do |(role, score),index|
+              .span.color-average
+                #{pluralize(score[:count],role.titleize)}: #{score[:points] || "-"}
 
-              = index  < trait_score[:role_wise_scores].size-1 ? "|" : ""
-          .clr
+                = index  < trait_score[:role_wise_scores].size-1 ? "|" : ""
+            .clr
       .clr
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_best_worst_scores", :locals =>{trait_score: trait_score}
     %div{ :class => @report.report_data[:competency360_traits_best_worst_scores] ? 'pull-right': 'pull-left'}

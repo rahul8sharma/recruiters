@@ -47,10 +47,8 @@
               - min_score = [self_score,other_score].min
               - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
               - margin = convertToRange(min,max,0,100,min_score)
-              .divider1
-              
+              .divider1              
               .desired_range{:style=>"width: #{desired_range_width}%; margin-left: #{desired_range_margin}%",:start=>start_from, :end_to=>end_to}
-
               .graph_bar{ class: (self_score == other_score ? "equal_rating" : ""), style: "margin-left:#{margin}%;width:#{width}%" }
                 - if self_score == other_score
                   .overlapped_score_icon
