@@ -88,7 +88,20 @@
     id: "pdf_stakeholder_comments_on_traits",
     text: "Stakeholder Comments On Traits",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
-    children: []
+    children: [
+      {
+        id: "pdf_stakeholder_comments_on_traits_with_role_names",
+        text: "Stakholder Comments On Traits [Show Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_with_type",
+        locals: {}
+      },
+      {
+        id: "pdf_stakeholder_comments_on_traits_without_role_names",
+        text: "Stakholder Comments On Traits [Hide Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_without_type",
+        locals: {}
+      }
+    ]
   },
   {
     id: "pdf_page9",
