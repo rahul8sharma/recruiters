@@ -4,8 +4,7 @@
     .title
       Data Points on 360&#176; Scores of Competencies
     .divider2
-    - score_competencies_hash = HashWithIndifferentAccess.new({ role_wise_scores: @report.report_data[:role_wise_scores] })
-    
+    - score_competencies_hash = HashWithIndifferentAccess.new({ role_wise_scores: @report.report_data[:role_wise_scores] })    
     - section_value.each do |section|
       - locals = Hash[section["locals"].map { |key, value| [key.to_sym, score_competencies_hash[key.to_sym]] }]
       = render :partial => section["path"], :locals => locals

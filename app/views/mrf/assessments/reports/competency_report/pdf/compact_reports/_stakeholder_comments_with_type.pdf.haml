@@ -1,0 +1,22 @@
+.stakeholder-comments.responses
+  .medium-text.black
+    Comments on 
+    %span.font-bold
+      #{trait[:trait][:name]}
+  .divider1
+  %ul
+    - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+      - trait[:comments].each do |role_name, role_wise_comment|
+        - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+          %li.left-offset1.border-bottom-grayLighter.vSmall-padding
+            .classic_user_icon.black.pull-left 
+            .span2.first
+              #{role_name.titleize}
+            .span15.green_heading
+              = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
+            .clr
+    - else
+      .no-responses
+        .box
+          No Responses
+      .divider3

@@ -1,12 +1,14 @@
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Trait Definition"}
 - trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_data| competency_data[:trait_scores] }.flatten.uniq
-.scores
-  .large-text.blue-heading
-    Definitions of Traits included in this assessment
-  %h2
-  .divider1
-  - trait_scores.each do |trait|
-    %b.medium-text
-      = trait[:trait][:name]
-    %p  
-      = trait[:trait][:definition]
+- trait_scores.each_slice(10) do |step_trait_definitions|
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Trait Definition"}
+  .scores
+    .large-text.blue-heading
+      Definitions of Traits included in this assessment
+    %h2
+    .divider1
+    - step_trait_definitions.each do |trait|
+      %b.medium-text
+        = trait[:trait][:name]
+      %p  
+        = trait[:trait][:definition]
+  .page-break

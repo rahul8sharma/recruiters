@@ -79,16 +79,61 @@
     children: []
   },
   {
-    id: "pdf_subjective_responses",
-    text: "Responses to Other Questions",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses",
-    children: []
+    id: "pdf_subjective_responses_others",
+    text: "Responses to Other Questions [Others]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses_others",
+    children: [
+      {
+        id: "pdf_responses_with_stakholder_type_others",
+        text: "Responses [Show Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/responses_with_stakeholder_type",
+        locals: {}
+      },
+      {
+        id: "pdf_responses_without_stakholder_type_others",
+        text: "Responses [Hide Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/responses_without_stakeholder_type",
+        locals: {}
+      }
+    ]
+  },
+  {
+    id: "pdf_subjective_responses_self",
+    text: "Responses to Other Questions [Self]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses_self",
+    children: [
+      {
+        id: "pdf_responses_with_stakholder_type_self",
+        text: "Responses [Show Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/responses_with_stakeholder_type",
+        locals: {}
+      },
+      {
+        id: "pdf_responses_without_stakholder_type_self",
+        text: "Responses [Hide Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/responses_without_stakeholder_type",
+        locals: {}
+      }
+    ]
   },
   {
     id: "pdf_stakeholder_comments_on_traits",
     text: "Stakeholder Comments On Traits",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
-    children: []
+    children: [
+      {
+        id: "pdf_stakeholder_comments_on_traits_with_role_names",
+        text: "Stakholder Comments On Traits [Show Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_with_type",
+        locals: {}
+      },
+      {
+        id: "pdf_stakeholder_comments_on_traits_without_role_names",
+        text: "Stakholder Comments On Traits [Hide Stakholder Type]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_without_type",
+        locals: {}
+      }
+    ]
   },
   {
     id: "pdf_page9",

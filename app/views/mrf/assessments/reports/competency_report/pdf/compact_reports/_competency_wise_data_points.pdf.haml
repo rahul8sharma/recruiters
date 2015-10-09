@@ -1,9 +1,11 @@
-- @report.report_data[:competency_scores].each_slice(2) do |step_competency_scores|
+- roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
+- step = roles.size > 4 ? 1 : 2
+- @report.report_data[:competency_scores].each_slice(step) do |step_competency_scores|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Competencies"}
   - step_competency_scores.each do |competency, competency_scores|
     .scores.border-bottom-grayLighter.mrf_data_points
       .divider1
-      .green_heading.big-text
+      .green_heading.medium-text
         Competency 
         %span.font-bold
           "#{competency}"
