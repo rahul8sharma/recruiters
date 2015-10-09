@@ -7,7 +7,7 @@
       - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
       .scores.border-bottom-grayLighter.mrf_data_points
         .divider1
-        .green_heading.big-text
+        .green_heading.medium-text
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, value_hash[key.to_sym]] }]
             = render :partial => section["path"], :locals => locals

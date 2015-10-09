@@ -24,7 +24,6 @@
             = trait_score[:average_score_including_self][:points] || "-"
         .clr
       .clr
-    .divider1
     .rating_by_all_takeholders
       .medium-text.black.span.bold.line-height2
         - total_stakeholders = trait_score[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
