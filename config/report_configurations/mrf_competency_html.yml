@@ -307,13 +307,67 @@
     id: "html_stakeholder_comments_on_traits_under_various_competencies",
     text: "Stakeholder comments on traits under various competencies",
     path: "mrf/assessments/reports/competency_report/html/page7",
-    children: []
+    children: [
+      {
+        id: "html_stakholder_comments_with_type",
+        text: "Stakeholder Comments [With Stakeholder Type]",
+        path: "mrf/assessments/reports/competency_report/html/comments_with_stakeholder_type",
+        locals: {}
+      },
+      {
+        id: "html_stakholder_comments_without_type",
+        text: "Stakeholder Comments [Without Stakeholder Type]",
+        path: "mrf/assessments/reports/competency_report/html/comments_without_stakeholder_type",
+        locals: {}
+      }
+    ]
   },
   {
     id: "html_responses_to_other_questions",
     text: "Response to Other Questions",
     path: "mrf/assessments/reports/competency_report/html/page8",
-    children: []
+    children: [
+      {
+        id: "html_response_others",
+        text: "Response to Other Questions [by Stakeholders]",
+        path: "mrf/assessments/reports/competency_report/html/responses_by_others",
+        locals: "",
+        children: [
+          {
+            id: "html_response_others_with_type_by_stakeholder",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/show_stakholder_type",
+            locals: {}
+          },
+          {
+            id: "html_response_others_without_type_by_stakeholders",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/hide_stakholder_type",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_response_self",
+        text: "Response to Other Questions [by Self]",
+        path: "mrf/assessments/reports/competency_report/html/responses_by_self",
+        locals: "",
+        children: [
+          {
+            id: "html_response_others_with_type_by_self",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/show_stakholder_type",
+            locals: {}
+          },
+          {
+            id: "html_response_others_without_type_by_self",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/hide_stakholder_type",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_summary_of_360_degree_feedback",
