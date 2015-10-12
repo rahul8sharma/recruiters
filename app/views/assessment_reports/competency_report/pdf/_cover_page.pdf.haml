@@ -10,7 +10,6 @@
   .huge-text
     = @report.report_hash[:candidate][:name]
   .divider2
-
   - section_value.each do |section|
     = render :partial => section["path"], :locals => { :nested_section_value => section["children"] }
 .page-break

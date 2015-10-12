@@ -1,7 +1,7 @@
 = render partial: "shared/reports/pdf/report_header"
 .divider2
 .scores
-  .blue_heading.large-text
+  %h1.font-normal.blue_heading.large-text
     Explanation of Jombay Scores
 %ul.explanation_scores_list
   - @company_norm_buckets.each do |norm_bucket_scale, index|

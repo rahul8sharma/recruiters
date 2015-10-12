@@ -175,6 +175,7 @@ class AssessmentReportsController < ApplicationController
       }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
+        toc:{},
         footer: {
           :html => {
             template: "shared/reports/pdf/_report_footer.pdf.haml",

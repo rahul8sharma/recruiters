@@ -8,8 +8,12 @@
   .inner
     .scores.interview_guide
       .divider1
-      .blue_heading.large-text.pull-left
-        Guidelines for Assessment Taker&#39;s Manager
+      - if step == 0
+        %h1.font-normal.blue_heading.large-text.pull-left
+          Guidelines for Assessment Taker&#39;s Manager
+      - else
+        .font-normal.blue_heading.large-text.pull-left
+          Guidelines for Assessment Taker&#39;s Manager
       .instruction_container.pull-right
         .instructions
           .instruction1.pull-left
