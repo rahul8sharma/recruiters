@@ -1,0 +1,36 @@
+- if @report.report_data[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
+  - @report.report_data[:trait_scores].each do |trait|
+    - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+      .bottom-trangle
+        .frame.boxed-comments
+          .trait-comment-heading
+            Comments on 
+            %span.trait-name
+              = trait[:trait][:name]
+          .trait-comment-sub-heading
+            - if trait[:comments_compulsory] == true
+              Comments were Mandatory
+            - else
+              Comments were Optional
+          .divider2
+          - if !trait[:comments].present?
+            .no-responses
+              .box
+                No Responses
+            .divider3
+          - else
+            %ul
+              - trait[:comments].each do |role_name, role_wise_comment|
+                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                  %li
+                    .stakeholder.span3.first
+                    .comment-box.span23.pull-right.medium-text.line-height1
+                      = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
+                      .arrow
+                    .clr
+      .divider2
+- else
+  .no-responses
+    .box
+      No comments present for any Trait
+.divider3

@@ -21,10 +21,14 @@
           - trait_scores[:comments].each do |role_name, role_wise_comment|
             - if role_wise_comment.any?{ |comment| comment[:comment].present? }
               %li
-                .stakeholder.span3.first
-                  = role_name.titleize if @report.report_data[:show_stakeholder_type_in_comments_subjective_items]
-                .comment-box.span23.pull-right.medium-text.line-height1
-                  = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
+                .stakeholder.span2.first
+                .comment-box.span15.pull-right.medium-text.line-height1
+                  = role_wise_comment.map { |comment| comment[:comment] }.compact.join("; ")
                   .arrow
                 .clr
-  .divider2
+- else
+  .no-responses
+    .box
+      No comments on this Trait
+  .divider1
+.divider2
