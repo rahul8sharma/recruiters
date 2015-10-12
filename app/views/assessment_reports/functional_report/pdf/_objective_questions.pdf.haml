@@ -3,7 +3,8 @@
   - objective_items.each_slice(2) do |objective_items|
     = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .functional-questions.objective
-      .divider2
+      %h1.font-normal
+        Functional Questions
       .title.pull-left
         - section = Hash[objective_items].values.first[:section]
         - all_responses = @report.report_data[:objective_items].values.flatten.select{|item| item[:section] == section }
