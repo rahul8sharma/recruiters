@@ -5,7 +5,6 @@
     - (0..competency_data[:factor_scores].keys.length-1).step(competency_factors_step) do |step|
       - step_keys = competency_data[:factor_scores].keys[step..(step+(competency_factors_step - 1))]
       - factor_scores = competency_data[:factor_scores].select{|key,value| step_keys.include?(key) }      
-      = render partial: "shared/reports/pdf/report_header.pdf.haml"
       .inner
         .scores.favorable_factors
           .divider1

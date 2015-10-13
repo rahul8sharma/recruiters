@@ -3,7 +3,6 @@
 - (0..competency_scores.length-1).step(competency_step) do |step|
   - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
   - step_competency_scores_hash = HashWithIndifferentAccess.new({ step_competency_scores: step_competency_scores })
-  = render partial: "shared/reports/pdf/report_header"
   #traits.section02
     .divider1
     .scores

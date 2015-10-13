@@ -175,19 +175,27 @@ class AssessmentReportsController < ApplicationController
       }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
-        toc:{},
-        footer: {
-          :html => {
-            template: "shared/reports/pdf/_report_footer.pdf.haml",
-            layout: "layouts/#{layout}"
-          }
-        },
-        template: "assessment_reports/#{template}",
-        layout: "layouts/#{layout}",
-        handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:pdf],
-        locals: { :@view_mode => "pdf" }
+          cover: '/path/to/coverpage/image',
+          toc: {},
+          header: {
+            :html => {
+              template: "shared/reports/pdf/_report_header.pdf.haml",
+              layout: "layouts/#{layout}"
+            },
+            :spacing => 10
+          },
+          footer: {
+            :html => {
+              template: "shared/reports/pdf/_report_footer.pdf.haml",
+              layout: "layouts/#{layout}"
+            }
+          },
+          template: "assessment_reports/#{template}",
+          layout: "layouts/#{layout}",
+          handlers: [ :haml ],
+          margin: { :left => "5mm",:right => "5mm", :top => "10mm", :bottom => "12mm" },
+          formats: [:pdf],
+          locals: { :@view_mode => "pdf" }
       }
     end
   end

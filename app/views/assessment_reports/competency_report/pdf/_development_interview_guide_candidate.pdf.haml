@@ -7,7 +7,6 @@
     - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
   - (0..ordered_guides.length-1).step(guides_step) do |step|    
     - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .inner
       .scores.interview_guide
         .divider1
