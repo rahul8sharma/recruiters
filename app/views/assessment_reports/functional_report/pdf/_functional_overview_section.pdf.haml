@@ -1,10 +1,9 @@
 - if @report.report_data[:objective_items].present?
   .competency_report
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .divider2
     .functional
       .functional_final_score
-        .score_band.pull-right 
+        %h1.font-normal.score_band.pull-right 
           Aggregate Score: #{@report.report_data[:objective_score].to_f.round(2)}%
         .clr
       .overview

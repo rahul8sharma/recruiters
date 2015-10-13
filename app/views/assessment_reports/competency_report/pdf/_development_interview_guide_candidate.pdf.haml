@@ -7,16 +7,23 @@
     - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
   - (0..ordered_guides.length-1).step(guides_step) do |step|    
     - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .inner
       .scores.interview_guide
         .divider1
-        .blue_heading.large-text.pull-left
-          - if @report.report_hash[:candidate_stage].to_sym == :candidate
-            Interview Questions
-          - else
-            Development Guide for the Assessment Taker
-          =# "(continued)" if step != 0
+        - if step == 0
+          %h1.font-normal.blue_heading.large-text.pull-left
+            - if @report.report_hash[:candidate_stage].to_sym == :candidate
+              Interview Questions
+            - else
+              Development Guide for the Assessment Taker
+            =# "(continued)" if step != 0
+        -else
+          .blue_heading.large-text.pull-left
+            - if @report.report_hash[:candidate_stage].to_sym == :candidate
+              Interview Questions
+            - else
+              Development Guide for the Assessment Taker
+            =# "(continued)" if step != 0
         .instruction_container.pull-right
           .instructions
             .instruction1.pull-left
