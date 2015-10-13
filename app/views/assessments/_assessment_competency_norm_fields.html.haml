@@ -20,14 +20,14 @@
   %input{name: (exp_name), type: 'hidden', value: assessment_factor_norm.job_experience_id, index: (index)}
   %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
   
-  .span6.first
+  .span5.first
     %label{ for: "checkbox_factor_#{index}" }
       = assessment_factor_norm.factor.name
       %p
         = assessment_factor_norm.factor.definition
       .down-caret
   .left-offset1.pull-left
-    %select.span3.first{name: norm_min_name, index: (index)}
+    %select.span4.first{name: norm_min_name, index: (index)}
       - @norm_buckets.each do |norm_bucket|
         - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
           %option{value: norm_bucket.id, selected:'selected'}
@@ -36,7 +36,7 @@
           %option{value: norm_bucket.id}
             = norm_bucket.name         
         
-    %select.span3{name: norm_max_name, index: (index)}
+    %select.span4{name: norm_max_name, index: (index)}
       - @norm_buckets.each do |norm_bucket|
         - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
           %option{value: norm_bucket.id, selected:'selected'}
