@@ -182,7 +182,7 @@ class AssessmentReportsController < ApplicationController
               template: "shared/reports/pdf/_report_header.pdf.haml",
               layout: "layouts/#{layout}"
             },
-            :spacing => 10
+            :spacing => 15
           },
           footer: {
             :html => {
@@ -193,7 +193,7 @@ class AssessmentReportsController < ApplicationController
           template: "assessment_reports/#{template}",
           layout: "layouts/#{layout}",
           handlers: [ :haml ],
-          margin: { :left => "5mm",:right => "5mm", :top => "10mm", :bottom => "12mm" },
+          margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
           formats: [:pdf],
           locals: { :@view_mode => "pdf" }
       }
