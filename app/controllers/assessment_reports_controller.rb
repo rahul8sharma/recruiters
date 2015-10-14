@@ -173,7 +173,7 @@ class AssessmentReportsController < ApplicationController
                layout: "layouts/#{layout}", 
                formats: [:pdf, :html]
       }
-      if !@report.report_hash[:assessment][:enable_table_of_contents]
+      if @report.report_hash[:assessment][:enable_table_of_contents]
         format.pdf {
           render pdf: "report_#{params[:id]}.pdf",
             cover: report_cover_url(),
