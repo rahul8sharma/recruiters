@@ -34,3 +34,5 @@ public/assets
 *:encryptable
 *Thumbs.db
 *~
+**/*.swp
+config/puma.rb

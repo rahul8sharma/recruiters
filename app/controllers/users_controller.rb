@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   end
 
   def login
+  
     if request.post?
       begin
         token = sign_in(params[:user])
