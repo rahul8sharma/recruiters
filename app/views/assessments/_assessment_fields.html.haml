@@ -60,7 +60,7 @@
   - if ["new","create"].include? params[:action]
     .control-group
       %label
-        Select Assessment Tyoe
+        Select Assessment Type
       %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
         %option{:value => ""}
           Select Assessment Type
@@ -112,6 +112,11 @@
     .clr
   .control-group
     %label
+      %input{ type: "checkbox", name: "assessment[enable_table_of_contents]", id: "enable_table_of_contents" }
+      Enable Table of Contents
+    .clr  
+  .control-group
+    %label
       %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
       Enable Training Requirements Report for this assessment
     .clr  
@@ -140,11 +145,6 @@
     %label
       = f.check_box :is_jq_assessment, id: "is_jq_assessment"
       Is JQ Assessment
-    .clr  
-  .control-group  
-    %label
-      = f.check_box :enable_interview_and_development_guide_both, id: "enable_interview_and_development_guide_both"
-      Enable Both Interview and Development Guidlines
     .clr  
   .control-group  
     %label
