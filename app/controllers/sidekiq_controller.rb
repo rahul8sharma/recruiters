@@ -38,7 +38,7 @@ class SidekiqController < ApplicationController
         :assessment_id => report.assessment_id,
         :candidate_id => report.candidate_id
       }
-      Suitability::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
+      Suitability::ReportUploader.new.perform(report_data, params[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end
