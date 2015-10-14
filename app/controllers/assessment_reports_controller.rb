@@ -173,30 +173,57 @@ class AssessmentReportsController < ApplicationController
                layout: "layouts/#{layout}", 
                formats: [:pdf, :html]
       }
-      format.pdf {
-        render pdf: "report_#{params[:id]}.pdf",
-          cover: '',
-          toc: {},
-          header: {
-            :html => {
-              template: "shared/reports/pdf/_report_header.pdf.haml",
-              layout: "layouts/#{layout}"
+      if !@report.report_hash[:assessment][:enable_table_of_contents]
+        format.pdf {
+          render pdf: "report_#{params[:id]}.pdf",
+            cover: report_cover_url(),
+            toc: {
             },
-            :spacing => 15
-          },
-          footer: {
-            :html => {
-              template: "shared/reports/pdf/_report_footer.pdf.haml",
-              layout: "layouts/#{layout}"
-            }
-          },
-          template: "assessment_reports/#{template}",
-          layout: "layouts/#{layout}",
-          handlers: [ :haml ],
-          margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
-          formats: [:pdf],
-          locals: { :@view_mode => "pdf" }
-      }
+            header: {
+              :html => {
+                template: "shared/reports/pdf/_report_header.pdf.haml",
+                layout: "layouts/#{layout}"
+              },
+              :spacing => 15
+            },
+            footer: {
+              :html => {
+                template: "shared/reports/pdf/_report_footer.pdf.haml",
+                layout: "layouts/#{layout}"
+              }
+            },
+            template: "assessment_reports/#{template}",
+            layout: "layouts/#{layout}",
+            handlers: [ :haml ],
+            margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
+            formats: [:pdf],
+            locals: { :@view_mode => "pdf" }
+        }
+      else
+        format.pdf {
+          render pdf: "report_#{params[:id]}.pdf",
+            cover: report_cover_url(),
+            header: {
+              :html => {
+                template: "shared/reports/pdf/_report_header.pdf.haml",
+                layout: "layouts/#{layout}"
+              },
+              :spacing => 15
+            },
+            footer: {
+              :html => {
+                template: "shared/reports/pdf/_report_footer.pdf.haml",
+                layout: "layouts/#{layout}"
+              }
+            },
+            template: "assessment_reports/#{template}",
+            layout: "layouts/#{layout}",
+            handlers: [ :haml ],
+            margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
+            formats: [:pdf],
+            locals: { :@view_mode => "pdf" }
+        }        
+      end
     end
   end
 end
