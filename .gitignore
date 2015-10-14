@@ -35,4 +35,4 @@ public/assets
 *Thumbs.db
 *~
 **/*.swp
-#config/puma.rb
+config/puma.rb
