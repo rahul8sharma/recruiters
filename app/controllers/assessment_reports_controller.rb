@@ -175,7 +175,7 @@ class AssessmentReportsController < ApplicationController
       }
       format.pdf {
         render pdf: "report_#{params[:id]}.pdf",
-          cover: '/path/to/coverpage/image',
+          cover: '',
           toc: {},
           header: {
             :html => {
