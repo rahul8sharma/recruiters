@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if request.post?
       begin
         token = sign_in(params[:user])
-        Rails.logger.debug "Token: #{token}"
+    
         RequestStore.store[:auth_token] = token.token
         response = Vger::Resources::User.current()
         if response.respond_to?(:error) && response.send(:error).present?
