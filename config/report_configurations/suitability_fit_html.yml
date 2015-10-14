@@ -96,13 +96,13 @@
   },
   {
     id: "html_traits_measured_in_this_assessment",
-    text: "Traits Measured In This Assessment",
+    text: "Traits Measured in this Assessment",
     path: "assessment_reports/fit_report/html/page2",
     children: []
   },
   {
     id: "html_scores_of_traits_measured_in_this_assessment_consistency_enabled",
-    text: "Scores of Traits Measured In this Assessment [Consistency Enabled]",
+    text: "Scores of Traits measured in this Assessment [Consistency Enabled]",
     path: "assessment_reports/fit_report/html/page3",
     children: []
   },
@@ -114,7 +114,7 @@
   },
   {
     id: "html_scores_of_functional_traits_measured_in_assessment",
-    text: "Scores of Functional Traits",
+    text: "Overview of scores of Subjective/Objective questions",
     path: "assessment_reports/fit_report/html/scores_of_functional_traits",
     children: []
   },
@@ -144,13 +144,13 @@
   },
   {
     id: "html_development_guide_for_assessment_taker",
-    text: "Developemnt Guide For Assessment Taker",
+    text: "Development/Interview Guide for Candidate",
     path: "assessment_reports/fit_report/html/page5",
     children: []
   },
   {
     id: "html_guidelines_for_candidate_manager",
-    text: "Developemnt Guide For Candidate Manager",
+    text: "Guidelines for Assessment takers manager",
     path: "assessment_reports/fit_report/html/page6",
     children: []
   },
