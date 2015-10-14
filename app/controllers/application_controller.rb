@@ -21,12 +21,12 @@ class ApplicationController < ActionController::Base
       when "SuperAdmin"
         params[:redirect_to] || companies_path
       when "Admin"
-        landing_company_path(current_user.company_id) 
+        params[:redirect_to] || landing_company_path(current_user.company_id) 
       when "CompanyManager"
         if current_user.company_ids && current_user.company_ids.size == 1
-          landing_company_path(current_user.company_ids.first) 
+          params[:redirect_to] || landing_company_path(current_user.company_ids.first) 
         else
-          select_companies_path
+          params[:redirect_to]||select_companies_path
         end
       else
         params[:redirect_to] || root_path        
