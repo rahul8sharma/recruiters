@@ -22,7 +22,7 @@
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, disabled: 'disabled', index: (index)}
     .span1.first
       %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
-    .span6
+    .span4
       %label{ for: "checkbox_factor_#{index}" }
         = assessment_factor_norm.factor.name
         %p
@@ -30,7 +30,7 @@
         .down-caret
 
     .left-offset1.pull-left
-      %select.span3.first{name: norm_min_name, disabled: 'disabled', index: (index)}
+      %select.span4.first{name: norm_min_name, disabled: 'disabled', index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
@@ -39,7 +39,7 @@
             %option{value: norm_bucket.id}
               = norm_bucket.name         
           
-      %select.span3{name: norm_max_name, disabled: 'disabled', index: (index)}
+      %select.span4{name: norm_max_name, disabled: 'disabled', index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
@@ -59,14 +59,14 @@
     %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
     .span1.first
       %input{name: "selected_factor", class: "check_factor", type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: checked}
-    .span6
+    .span4
       %label{ for: "checkbox_factor_#{index}" }
         = assessment_factor_norm.factor.name
         %p= assessment_factor_norm.factor.definition
         .down-caret
        
     .left-offset1.pull-left
-      %select.span3.first{name: norm_min_name, index: (index)}
+      %select.span4.first{name: norm_min_name, index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.from_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
@@ -74,7 +74,7 @@
           - else
             %option{value: norm_bucket.id}
               = norm_bucket.name         
-      %select.span3{name: norm_max_name, index: (index)}
+      %select.span4{name: norm_max_name, index: (index)}
         - @norm_buckets.each do |norm_bucket|
           - if assessment_factor_norm.to_norm_bucket_id == norm_bucket.id
             %option{value: norm_bucket.id, selected:'selected'}
