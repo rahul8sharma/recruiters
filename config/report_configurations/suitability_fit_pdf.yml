@@ -50,7 +50,7 @@
   },
   {
     id: "pdf_scores_of_traits_measured",
-    text: "Scores Of Traits Measured",
+    text: "Scores of Traits measured in this Assessment",
     path: "assessment_reports/fit_report/pdf/page3",
     children: [
       {
@@ -75,7 +75,7 @@
   },
   {
     id: "pdf_functional_overview_sections",
-    text: "Functional Overview Section",
+    text: "Overview of scores of Subjective/Objective questions",
     path: "assessment_reports/functional_report/pdf/functional_overview_section",
     children: []
   },
@@ -99,7 +99,7 @@
   },
   {
     id: "pdf_development_interview_guide_candidate",
-    text: "Developement Guide For Assessment Taker",
+    text: "Development/Interview Guide for Candidate",
     path: "assessment_reports/fit_report/pdf/page5",
     children: []
   },

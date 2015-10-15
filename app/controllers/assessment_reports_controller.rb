@@ -191,9 +191,9 @@ class AssessmentReportsController < ApplicationController
       locals: { :@view_mode => "pdf" }
     }
 
-    if @report.report_hash[:assessment][:enable_table_of_contents]
+    if @report.report_hash[:enable_table_of_contents]
       hash.merge!({
-        cover: report_cover_url(),
+        cover: report_cover_url(:protocol => ''),
         toc: {}
       })
     end
