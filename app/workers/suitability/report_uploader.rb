@@ -85,13 +85,7 @@ module Suitability
            formats: [ :html ]
         )
 
-        @view_mode = "pdf"
-        pdf = WickedPdf.new.pdf_from_string(
-          render_to_string("assessment_reports/#{template}.pdf.haml",
-            layout: "layouts/candidate_reports.pdf.haml",
-            handlers: [ :haml ],
-            formats: [:pdf]
-          ),
+        hash_toc = {
           margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
           footer: {
             :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
@@ -103,11 +97,24 @@ module Suitability
               layout: "layouts/candidate_reports.pdf.haml"
             ),
             :spacing => 15
-          },
-          toc: {},
-          cover: report_cover_url().gsub("http://", '')
-        )
+          }
+        }
 
+        if @report.report_hash[:enable_table_of_contents]
+          hash_toc.merge!({
+            cover: report_cover_url().gsub("http://", ''),
+            toc: {}
+          })
+        end
+
+        @view_mode = "pdf"
+        pdf = WickedPdf.new.pdf_from_string(
+          render_to_string("assessment_reports/#{template}.pdf.haml",
+            layout: "layouts/candidate_reports.pdf.haml",
+            handlers: [ :haml ],
+            formats: [:pdf]
+          ), hash_toc
+        )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
         file_id = "#{candidate_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
