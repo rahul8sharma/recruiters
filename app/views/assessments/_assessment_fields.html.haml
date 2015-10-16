@@ -60,7 +60,7 @@
   - if ["new","create"].include? params[:action]
     .control-group
       %label
-        Select Assessment Tyoe
+        Select Assessment Type
       %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
         %option{:value => ""}
           Select Assessment Type
@@ -143,13 +143,13 @@
     .clr  
   .control-group  
     %label
-      = f.check_box :enable_interview_and_development_guide_both, id: "enable_interview_and_development_guide_both"
-      Enable Both Interview and Development Guidlines
-    .clr  
-  .control-group  
-    %label
       = f.check_box :include_cocubes_scores_in_reoprts
       Include Cocubes Scores in Reports and Summary
+    .clr  
+  .control-group
+    %label
+      = f.check_box :enable_table_of_contents
+      Enable Table of Contents
     .clr  
 - else
   = f.hidden_field :language, value: 'en'

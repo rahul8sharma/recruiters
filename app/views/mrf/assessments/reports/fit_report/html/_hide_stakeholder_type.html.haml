@@ -1,0 +1,16 @@
+- if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
+  %ul
+    - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
+      %li
+        - role_wise_response.each do |comments|
+          .stakeholder.span3.first
+          .comment-box.span23.pull-right
+            = comments
+            .arrow
+          .clr
+          .divider1
+- else
+  .no-responses
+    .box
+      No Responses
+  .divider3

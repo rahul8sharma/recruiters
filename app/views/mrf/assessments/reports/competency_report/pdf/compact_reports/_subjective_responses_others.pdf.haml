@@ -1,0 +1,11 @@
+- if @report.report_data[:subjective_responses_others].length > 0
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
+  .stakeholder-comments.responses
+    .green_heading.big-text
+      Responses by Stakeholders
+    %br
+    .clr
+    - section_value.each do |section|
+      = render :partial => section["path"], :locals => {:responses => @report.report_data[:subjective_responses_others]}
+  .page-break
+  .clr

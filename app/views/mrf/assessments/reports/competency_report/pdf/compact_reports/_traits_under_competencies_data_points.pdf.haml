@@ -1,20 +1,17 @@
+- roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
+- step = roles.size > 5 ? 1 : 2
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
-  - iterator = 0
-  - competency_scores[:trait_scores].each do |trait_score|
-    - iterator += 1
-    - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
-    .scores.border-bottom-grayLighter.mrf_data_points
-      .divider1
-      .green_heading.big-text
-      - section_value.each do |section|
-        - locals = Hash[section["locals"].map { |key, value| [key.to_sym, value_hash[key.to_sym]] }]
-        = render :partial => section["path"], :locals => locals
-      .divider1
-      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_textual_data_points", locals: { trait_score: trait_score}
-    - if ((iterator % 2 == 0) && (iterator < competency_scores[:trait_scores].length))
-      .page-break
-      .clr
-      = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
-  .page-break
+  - competency_scores[:trait_scores].each_slice(step) do |step_traitwise_score|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
+    - step_traitwise_score.each do |trait_score|
+      - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
+      .scores.border-bottom-grayLighter.mrf_data_points
+        .divider1
+        .green_heading.medium-text
+          - section_value.each do |section|
+            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, value_hash[key.to_sym]] }]
+            = render :partial => section["path"], :locals => locals
+          .divider1
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_textual_data_points", locals: { trait_score: trait_score}
+    .page-break
 .clr

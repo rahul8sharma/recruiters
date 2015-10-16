@@ -17,19 +17,20 @@ class ApplicationController < ActionController::Base
   # keep the flash message before redirecting to display any errors/warnings
   def after_sign_in_path_for()
     flash.keep
+    return params[:redirect_to] if params[:redirect_to].present?
     case current_user.type
       when "SuperAdmin"
-        params[:redirect_to] || companies_path
+            companies_path
       when "Admin"
-        landing_company_path(current_user.company_id) 
+            landing_company_path(current_user.company_id) 
       when "CompanyManager"
         if current_user.company_ids && current_user.company_ids.size == 1
-          landing_company_path(current_user.company_ids.first) 
+            landing_company_path(current_user.company_ids.first) 
         else
-          select_companies_path
+            select_companies_path
         end
       else
-        params[:redirect_to] || root_path        
+            root_path        
     end    
   end
 

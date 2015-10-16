@@ -167,6 +167,37 @@ class AssessmentReportsController < ApplicationController
         template = "assessment_report_feedback.html.haml"
     end    
     @page = 1
+
+    hash = {
+      pdf: "report_#{params[:id]}.pdf",
+      header: {
+        :html => {
+          template: "shared/reports/pdf/_report_header.pdf.haml",
+          layout: "layouts/#{layout}"
+        },
+        :spacing => 15
+      },
+      footer: {
+        :html => {
+          template: "shared/reports/pdf/_report_footer.pdf.haml",
+          layout: "layouts/#{layout}"
+        }
+      },
+      template: "assessment_reports/#{template}",
+      layout: "layouts/#{layout}",
+      handlers: [ :haml ],
+      margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
+      formats: [:pdf],
+      locals: { :@view_mode => "pdf" }
+    }
+
+    if @report.report_hash[:enable_table_of_contents]
+      hash.merge!({
+        cover: report_cover_url(:protocol => ''),
+        toc: {}
+      })
+    end
+
     respond_to do |format|
       format.html { 
         render template: "assessment_reports/#{template}", 
@@ -174,19 +205,7 @@ class AssessmentReportsController < ApplicationController
                formats: [:pdf, :html]
       }
       format.pdf {
-        render pdf: "report_#{params[:id]}.pdf",
-        footer: {
-          :html => {
-            template: "shared/reports/pdf/_report_footer.pdf.haml",
-            layout: "layouts/#{layout}"
-          }
-        },
-        template: "assessment_reports/#{template}",
-        layout: "layouts/#{layout}",
-        handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        formats: [:pdf],
-        locals: { :@view_mode => "pdf" }
+        render(hash) 
       }
     end
   end

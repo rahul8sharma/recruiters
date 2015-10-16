@@ -1135,6 +1135,15 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :items do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
   end
 
 
@@ -1313,6 +1322,9 @@ Recruiters::Application.routes.draw do
   post "/generate_report", :to =>"reports_management#generate_report", :as => :generate_report
   put "/modify_norms", :to => "reports_management#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "reports_management#manage_report", :as => :manage_report
+
+  get "/suitability_cover_page", :to => "report_cover#cover", :as => :report_cover
+
 
   resources :global_configurations do
     collection do

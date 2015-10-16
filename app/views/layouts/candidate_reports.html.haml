@@ -14,7 +14,7 @@
       = f.hidden_field :custom_assessment_id, value: @report.report_hash[:assessment][:id]
       = f.hidden_field :company_id, value: @report.report_hash[:company][:id]
       = f.hidden_field :candidate_id, value: @report.report_hash[:candidate][:id]
-      = render :partial => "shared/reports/candidate_report_main_header"
+      -# = render :partial => "shared/reports/candidate_report_main_header"
       .report
         = yield 
   - else
