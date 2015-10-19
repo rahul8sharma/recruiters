@@ -120,9 +120,47 @@
   },
   {
     id: "html_360_degree_scores_traits_under_competencies",
-    text: "360 Degree Scores Traits Under Competencies",
+    text: "XX 360 Degree Scores: Traits under Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_traits_competencies",
-    children: []
+    children: [
+      {
+        id: "html_360_traits_under_competency_legend",
+        text: "Trait Score Legend",
+        path: "mrf/assessments/reports/competency_report/html/trait_legend",
+        children: [
+          {
+            id: "html_360_trait_scores_legent_with_desired_range",
+            text: "Legend with Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_trait_scores_legent_without_desired_range",
+            text: "Legend without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
+            locals: {}
+          }]
+      },
+      {
+        id: "html_360_traits_under_competency_graph",
+        text: "Trait Score Graph",
+        path: "mrf/assessments/reports/competency_report/html/trait_graph",
+        children: [
+          {
+            id: "html_360_traits_under_competency_graph_with_desired_range",
+            text: "Trait Graph With Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_traits_under_competency_graph_without_desired_range",
+            text: "Trait Graph Without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_strength_and_areas_of_improvement",
