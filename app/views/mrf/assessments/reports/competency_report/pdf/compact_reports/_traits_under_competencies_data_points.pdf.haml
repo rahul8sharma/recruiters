@@ -1,5 +1,5 @@
 - roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
-- step = roles.size > 5 ? 1 : 2
+- step = roles.size >= 5 ? 1 : 2
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each_slice(step) do |step_traitwise_score|
     = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
