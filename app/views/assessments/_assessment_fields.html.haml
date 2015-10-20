@@ -1,6 +1,5 @@
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
-= f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
     
 .divider1
@@ -165,4 +164,5 @@
 - else
   = f.hidden_field :language, value: 'en'
   = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
+  = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
 .divider2
