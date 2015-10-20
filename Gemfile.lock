@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 24aa65fdea56c7bc91d9ad003f02863f22f2543e
+  revision: 828a3bdf22ee09ebedfc6a861ef6ced0590f8a97
   branch: develop
   specs:
     vger (0.0.1)
@@ -161,7 +161,7 @@ GEM
     puma (2.9.0-java)
       rack (>= 1.1, < 2.0)
     rack (1.4.7)
-    rack-cache (1.2)
+    rack-cache (1.5.0)
       rack (>= 0.4)
     rack-protection (1.5.3)
       rack
@@ -266,6 +266,3 @@ DEPENDENCIES
   uglifier (= 1.0.3)
   vger!
   wicked_pdf (= 0.9.6)
-
-BUNDLED WITH
-   1.10.6
