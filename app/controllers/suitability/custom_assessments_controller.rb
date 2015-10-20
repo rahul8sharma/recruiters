@@ -1,6 +1,7 @@
 class Suitability::CustomAssessmentsController < AssessmentsController
   before_filter :get_company
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
+  before_filter :get_templates, :only => [:new, :edit, :create]
   after_filter :set_cache_buster
 
   layout "tests"
@@ -280,5 +281,15 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   def get_sections
     @sections = Vger::Resources::Section.where(query_options: {active: true, company_id: @company.id}, include: [:subjective_items, :objective_items]).all.to_a
+  end
+  
+  def get_templates
+    query_options = {
+      :category => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
+    }
+    @templates = Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
+    @templates |= Vger::Resources::Template\
+                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
 end
