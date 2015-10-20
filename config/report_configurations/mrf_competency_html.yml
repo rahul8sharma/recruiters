@@ -120,7 +120,7 @@
   },
   {
     id: "html_360_degree_scores_traits_under_competencies",
-    text: "XX 360 Degree Scores: Traits under Competencies",
+    text: "360 Degree Scores: Traits under Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_traits_competencies",
     children: [
       {
