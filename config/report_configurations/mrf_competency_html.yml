@@ -79,7 +79,7 @@
     path: "mrf/assessments/reports/competency_report/html/scores_competencies",
     children: [
       {
-        id: "html_360_scores_competency_legend",
+      id: "html_360_scores_competency_legend",
         text: "Desired Range on Legend[Show/Hide]",
         path: "mrf/assessments/reports/competency_report/html/desired_range_legend",
         children: [
@@ -453,16 +453,49 @@
     children: []
   },
   {
-    id: "html_development_guide_candidate",
-    text: "Development Guide for the Candidate",
-    path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
-    children: []
-  },
-  {
-    id: "html_development_guide_manager",
-    text: "Guidelines for Candidates Manager",
-    path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
-    children: []
+    id: "html_360_pagl",
+    text: "360 Degree PAGL",
+    path: "mrf/assessments/reports/competency_report/html/mrf_pagl",
+    children: [
+      {
+        id: "html_360_pagl_competency_based",
+        text: "360 Degree PAGL [Competency Based]",
+        path: "mrf/assessments/reports/competency_report/html/mrf_pagl_competency_based",
+        children: [
+          {
+            id: "html_development_guide_candidate",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
+            locals: {}
+          },
+          {
+            id: "html_development_guide_manager",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_360_pagl_trait_based",
+        text: "360 Degree PAGL [Trait Based]",
+        path: "mrf/assessments/reports/competency_report/html/mrf_pagl_trait_based",
+        children: [
+          {
+            id: "html_development_guide_candidate_trait_based",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/html/candidate_development_guide_trait_based",
+            locals: {}
+          },
+          {
+            id: "html_development_guide_manager_trait_based",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines_trait_based",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_about_us",
