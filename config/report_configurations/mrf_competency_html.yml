@@ -75,15 +75,92 @@
   },
   {
     id: "html_360_degree_scores_competencies",
-    text: "360 Degree Scores Competencies",
+    text: "360 Degree Scores: Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_competencies",
-    children: []
+    children: [
+      {
+        id: "html_360_scores_competency_legend",
+        text: "Desired Range on Legend[Show/Hide]",
+        path: "mrf/assessments/reports/competency_report/html/desired_range_legend",
+        children: [
+          {
+            id: "html_360_show_desired_range_header",
+            text: "Show Desired Range in Legend",
+            path: "mrf/assessments/reports/competency_report/html/label_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_hide_desired_range_header",
+            text: "Hide Desired Range in Legend",
+            path: "mrf/assessments/reports/competency_report/html/label_without_desired_range",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_360_scores_competency_desired_range",
+        text: "Desired Range on Graph [Show/Hide]",
+        path: "mrf/assessments/reports/competency_report/html/desired_range_graph",
+        children: [
+          {
+            id: "html_360_show_desired_range_section",
+            text: "Show Desired Range in Graph",
+            path: "mrf/assessments/reports/competency_report/html/graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_hide_desired_range_section",
+            text: "Hide Desired Range in Graph",
+            path: "mrf/assessments/reports/competency_report/html/graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_360_degree_scores_traits_under_competencies",
-    text: "360 Degree Scores Traits Under Competencies",
+    text: "360 Degree Scores: Traits under Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_traits_competencies",
-    children: []
+    children: [
+      {
+        id: "html_360_traits_under_competency_legend",
+        text: "Trait Score Legend",
+        path: "mrf/assessments/reports/competency_report/html/trait_legend",
+        children: [
+          {
+            id: "html_360_trait_scores_legent_with_desired_range",
+            text: "Legend with Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_trait_scores_legent_without_desired_range",
+            text: "Legend without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
+            locals: {}
+          }]
+      },
+      {
+        id: "html_360_traits_under_competency_graph",
+        text: "Trait Score Graph",
+        path: "mrf/assessments/reports/competency_report/html/trait_graph",
+        children: [
+          {
+            id: "html_360_traits_under_competency_graph_with_desired_range",
+            text: "Trait Graph With Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_traits_under_competency_graph_without_desired_range",
+            text: "Trait Graph Without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_strength_and_areas_of_improvement",

@@ -1,0 +1,39 @@
+.graph_container
+  .left_sec.pull-left
+    .graph_instructions.left-offset4
+      .span1.divider2.graph_stakeholder_rating_icon
+      .span1.divider2.graph_classic_user_icon
+      .clr
+    %ul
+      - @report.report_data[:competency_scores].each do |competency, competency_scores|
+        %li
+          .span6.extra-medium-text.first{ title: competency }
+            = truncate competency, length: 25
+          .stakeholder_rating.medium-text.pull-left
+            = competency_scores[:score][:points] || "-"
+          .self_rating.medium-text.span
+            = competency_scores[:average_score_self][:points] || "-"
+          .clr
+  .right_sec.span21.pull-right
+    .classic_competency_graph
+      .classic_competency_graph_scale
+        .block.pull-left
+          = @competency_graph_buckets[0].min_val
+        - @competency_graph_buckets[1..100].each do |competency_graph_bucket|
+          .block.pull-left{:style=>"width: #{830/(@competency_graph_buckets.size-1)}px; text-align: right"}
+            = competency_graph_bucket.min_val
+        .clr
+      .graph
+        .graph_content
+          - @report.report_data[:competency_scores].each do |competency,competency_scores|
+            - self_score = competency_scores[:average_score_self][:points]
+            - other_score = competency_scores[:score][:points]
+            - min = @competency_graph_buckets.map(&:min_val).min
+            - max = @competency_graph_buckets.map(&:min_val).max
+            - step =  (100.0/(@norm_buckets.size-1))
+            
+            - section_value.each do |section|
+              = render :partial => section["path"], :locals => {:self_score =>self_score, :other_score => other_score, :min => min, :max => max, :step => step, :competency => competency, :competency_scores => competency_scores}
+
+  .divider1
+.clr
