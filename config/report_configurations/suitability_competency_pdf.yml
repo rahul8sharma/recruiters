@@ -241,8 +241,14 @@
     children: []
   },
   {
+    id: "pdf_interview_questions_for_candidate",
+    text: "Interview Questions",
+    path: "assessment_reports/competency_report/pdf/interview_guide_candidate",
+    locals: {}
+  },
+  {
     id: "pdf_development_interview_guide_candidate",
-    text: "Development/Interview Guide for Candidate",
+    text: "Development Guide for Candidate",
     path: "assessment_reports/competency_report/pdf/development_interview_guide_candidate",
     children: []
   },
