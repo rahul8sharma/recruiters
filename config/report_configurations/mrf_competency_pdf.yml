@@ -47,7 +47,20 @@
     id: "pdf_trait_scores_under_competencies",
     text: "360 Scores: Traits Under Competencies(Graph)",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
-    children: []
+    children: [
+      {
+        id: "pdf_trait_scores_under_competencies_with_desired_range",
+        text: "Graph with Desired Range",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies_with_desired_range",
+        locals: {}
+      },
+      {
+        id: "pdf_trait_scores_under_competencies_without_desired_range",
+        text: "Graph without Desired Range",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies_without_desired_range",
+        locals: {}
+      }
+    ]
   },
   {
     id: "pdf_strength_improvement_areas",
