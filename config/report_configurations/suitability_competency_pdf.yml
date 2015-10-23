@@ -167,7 +167,7 @@
   },
   {
     id: "pdf_factor_scores_unders_competencies",
-    text: "Scores of factors measured under various competencies",
+    text: "Scores of factors measured under different competencies",
     path: "assessment_reports/competency_report/pdf/factor_scores_under_competencies",
     children: [
       {
