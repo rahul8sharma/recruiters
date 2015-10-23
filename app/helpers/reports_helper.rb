@@ -42,7 +42,7 @@ module ReportsHelper
     width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
     width = gutter if width == 0
     position = (company_norm_bucket.weight - 1) * marker_width
-    position = scale_width-20 if position >= scale_width
+    position = scale_width-20 if position > scale_width
     scored_weight = company_norm_bucket.weight
     klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
 

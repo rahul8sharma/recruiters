@@ -20,7 +20,7 @@
               - scale_values[:offset] = scale_values[:offset] - 34
             .pointer{ class: "#{scale_values[:klass]}", style: "left: #{scale_values[:position]-20}px;" }
               .score-indicater
-                = company_norm_bucket.name
+                = scale_values[:company_norm_bucket_name]
               .arrow
             .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
         .clr

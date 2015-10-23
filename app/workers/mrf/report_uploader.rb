@@ -44,7 +44,6 @@ module Mrf
 
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
-
       begin
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
@@ -136,7 +135,9 @@ module Mrf
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Report Uploader","Failed to upload MRF report {report_id}",{
           :report => {
             :status => "Failed",
-            :report_id => report_id
+            :report_id => report_id,
+            :assessment_id => report_data[:assessment_id],
+            :company_id => report_data[:company_id]
           },
           :errors => {
             :backtrace => [e.message] + e.backtrace[0..20]

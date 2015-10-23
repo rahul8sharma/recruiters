@@ -12,18 +12,10 @@
         .divider1
         - if step == 0
           %h1.font-normal.blue_heading.large-text.pull-left
-            - if @report.report_hash[:candidate_stage].to_sym == :candidate
-              Interview Questions
-            - else
-              Development Guide for the Assessment Taker
-            =# "(continued)" if step != 0
+            Development Guide for the Assessment Taker
         -else
           .blue_heading.large-text.pull-left
-            - if @report.report_hash[:candidate_stage].to_sym == :candidate
-              Interview Questions
-            - else
-              Development Guide for the Assessment Taker
-            =# "(continued)" if step != 0
+            Development Guide for the Assessment Taker
         .instruction_container.pull-right
           .instructions
             .instruction1.pull-left
@@ -40,17 +32,7 @@
             - norm_bucket_uid = factor_score[:norm_bucket_uid]
             - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
             - scored_weight = company_norm_bucket.weight
-            - if @report.report_data[:show_favourable_above_desired_range]
-              - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-            - else
-              - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-            %li
-              .divider1
-              .que-no.hexagon-icon{ class: klass }
-              .factor-name.pull-left
-                = factor_name
-              .description.pull-left
-                = guide[:body]
-              .clr
-              .divider1
+            
+            - section_value.each do |section|
+              = render :partial => section["path"], :locals => {:scored_weight=> scored_weight, :from_norm_bucket => from_norm_bucket, :factor_name => factor_name, :guide => guide, :to_norm_bucket => to_norm_bucket}
     .page-break

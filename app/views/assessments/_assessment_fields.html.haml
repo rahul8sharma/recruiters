@@ -101,6 +101,16 @@
     .clr      
   .control-group
     %label
+      Select Assessment Completion Notification Template
+    %select.span10.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
+      %option{:value => ""}
+        Select Assessment Completion Notification Template
+      - @templates.each do |template|
+        %option{:value => template.id, selected: (assessment.assessment_completion_notification_template_id == template.id)}
+          = template.name
+    .clr      
+  .control-group
+    %label
       Post Assessment Redirect URL (URL should start with 'http' or 'https')
     %input.span10.first{ name: 'assessment[redirect_url]', value: @assessment.redirect_url }
     .clr
@@ -154,4 +164,5 @@
 - else
   = f.hidden_field :language, value: 'en'
   = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
+  = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
 .divider2

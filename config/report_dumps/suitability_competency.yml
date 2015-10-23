@@ -118,6 +118,43 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
       body: You are good at identifying and solving problems, however you can develop these skills further by observing role models. You may consult your manager to identify people you can pair with and mentor them. At the same time you may attempt to analyse scenarios in which you can use your problem solving skills more effectively.
       factor_type: Suitability::Factor
+  interview_guide: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may consider increasing your interaction with different kinds of people in varied situations. You could try to observe their expressions, body language, etc. with an aim to understand them better.
+      factor_type: Suitability::Factor
+    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: Consider pushing yourself to take decisions on your own. You can also try not to be overcautious. You may leverage information about thumb-rules from similar situations in the past when you were required to take a decision. This could reduce chances of a wrong decision.
+      factor_type: Suitability::Factor
+    Foresight: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to actively participate in discussions about future goals of your department so that you find it easier to relate your current tasks to those goals. You could consider listing some indicators and thumb-rules about dealing with anticipated situations by discussing with your manager.
+      factor_type: Suitability::Factor
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to making task completion itself a goal. You could also make sure your colleagues know about the deliverables that you need to finish. You can ask them to push you to finish those deliverables. This could motivate you to keep at a task till it is completed, even if you happen to get bored with it.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try using different approaches such as social networks, email, messages etc. in addition to attending events to connect with new people and to maintain your existing network. You could explore ways to get new references from your existing connections.
+      factor_type: Suitability::Factor
+    Responsibility of Outcomes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to ensure that you do not stress yourself out by holding yourself accountable for everything beyond a point. One should accept that some things are beyond one's control.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try experimenting with new ideas and approaches before rejecting them for being unfamiliar. You may try to avoid being over-cautious due to fear of failure. You could start taking up tasks that involve less risk and gradually increase the degree of risk.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to balance your social and personal time more effectively. You may want to analyse your past pattern to distribute your time more effectively between social and personal needs.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to make an effort to introspect and identify habits and patterns that are unchanged for a very long time. You may start with making minor changes to your daily routine. It would help to be more open to feedback and new ideas.
+      factor_type: Suitability::Factor
   guidelines_for_candidate_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
