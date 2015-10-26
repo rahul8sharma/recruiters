@@ -1,6 +1,6 @@
-%h1 All Items / Item Groups
+%h1 All Items
 - if can? :create, "Sq::Item"
-  = link_to "Manage Mrf Items", manage_sq_items_path
+  = link_to "Manage SQ Items", manage_sq_items_path
 
 .pagination.pull-right
   = paginate @items

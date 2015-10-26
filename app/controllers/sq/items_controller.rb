@@ -10,8 +10,17 @@ class Sq::ItemsController < MasterDataController
   end
 
   def import_with_options_from_google_drive
+    if params[:zip]
+      now = Time.now
+      s3_key = "sq/item_images/images_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      data = params[:zip].read
+      obj = S3Utils.upload(s3_key, data)
+      params[:item][:zip_file] ||= {}
+      params[:item][:zip_file][:s3_zip_bucket] = obj.bucket.name
+      params[:item][:zip_file][:s3_zip_key] = obj.key
+    end
     errors = Vger::Resources::Sq::Item.import_with_options_from_google_drive(params[:item])
-    redirect_to manage_mrf_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+    redirect_to manage_sq_items_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   # GET /items/:id
