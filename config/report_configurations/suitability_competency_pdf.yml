@@ -250,39 +250,13 @@
     id: "pdf_development_interview_guide_candidate",
     text: "Development Guide for Candidate",
     path: "assessment_reports/competency_report/pdf/development_interview_guide_candidate",
-    children: [
-      {
-        id: "pdf_developement_guide_scale_generic",
-        text: "Generic Scale[Outside range is not Favourable]",
-        path: "assessment_reports/competency_report/pdf/development_generic_scale",
-        locals: {}
-      },
-      {
-        id: "pdf_developement_guide_scale_custom",
-        text: "Custom Scale [Within and above range is Favourable]",
-        path: "assessment_reports/competency_report/pdf/development_custom_scale",
-        locals: {}
-      }
-    ]
+    children: []
   },
   {
     id: "pdf_development_interview_guide_manager",
     text: "Guidelines for Assessment takers manager",
     path: "assessment_reports/competency_report/pdf/development_interview_guide_manager",
-    children: [
-      {
-        id: "pdf_developement_guide_scale_generic_manager",
-        text: "Generic Scale[Outside range is not Favourable]",
-        path: "assessment_reports/competency_report/pdf/development_generic_scale",
-        locals: {}
-      },
-      {
-        id: "pdf_developement_guide_scale_custom_manager",
-        text: "Custom Scale [Within and above range is Favourable]",
-        path: "assessment_reports/competency_report/pdf/development_custom_scale",
-        locals: {}
-      }
-    ]
+    children: []
   },
   {
     id: "pdf_about_us",
