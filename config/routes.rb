@@ -316,6 +316,13 @@ Recruiters::Application.routes.draw do
       end
     end
 
+
+    resources :sjt_assessments, :controller => "sjt/assessments", :path=> "sjt" do
+      collection do
+        match "home" => "sjt/assessments#home", :as => :home
+      end
+    end
+
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
       collection do
         get "home" => "engagement/surveys#home", :as => :home
