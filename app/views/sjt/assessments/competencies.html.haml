@@ -1,0 +1,54 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.competencies
+  .page-title 
+    Assessment Name
+  .divider1
+  = render :partial => "shared/sjt/sjt_navigation-sub-nav"
+  .divider2
+
+  %form
+    .large-text
+      Custom competencies
+    .divider2
+    %ul
+      %li.extra-medium-text
+        .span4.first
+          Competency ID
+        .span8
+          Competency Name
+        .span14
+          Traits included
+        .span2
+          Order
+        .span.left-offset1
+         
+        .clr
+        .divider2
+      - 5.times do |index|
+        %li.medium-text.gray-darker
+          .span4.first
+            1234
+          .span8
+            %label{}
+              Competency Name
+          .span14
+            People Understanding, Customer Service Orientation, Persistence
+          %select.span2
+            - selected = 2
+            - 5.times do |index|
+              %option{value: index, selected: index==selected}
+                = index+1
+                
+          .span.left-offset1
+            %input{:type=>"checkbox"}
+          .clr
+          .divider1
+    .divider3.border-bottom-grayLighter
+
+
+    %input.pull-right.btn.btn-warning.large-text{:type => "submit", :value => "Proceed"}  
+   
+= javascript_include_tag 'competencies'
