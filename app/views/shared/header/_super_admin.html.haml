@@ -39,6 +39,9 @@
           %li
             %a.mrf{:href=>home_company_retention_surveys_path(@company), :title=> "Retention",class: (["retention/surveys","retention/candidate_surveys"].include?("#{params[:controller]}") ? "active" : "")}
               RETENTION
+          %li
+            %a.mrf{:href=>home_company_sjt_assessments_path(@company), :title=> "SJT",class: (["sjt/assessments"].include?("#{params[:controller]}") ? "active" : "")}
+              SJT
 
   %ul.navbar.pull-right.clearfix
     - if defined?(@company)
