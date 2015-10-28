@@ -1,0 +1,59 @@
+.page-title
+  .divider1
+  Assessment Name
+.divider2
+= render :partial => "shared/sjt/sjt_navigation-sub-nav"
+.divider3
+%form
+  .send-assessment
+    .heading
+      %i.icon-envelope
+      Email Settings
+    .divider2
+    .left-offset1
+    .email-template
+      -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
+      .gray-dark
+        .large-text
+          Following is the Preview of the email that Assessment takers will receive.
+        .divider1
+        .custom-email.hide
+          .test-text-to-send
+            %span.extra-medium-text.span2.first.show
+              From
+            .massage-body.italic.span15.medium-text.email-from
+              Sender Name at company name
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Subject
+            .massage-body.italic.span15.medium-text.email-subject
+              Assessment Taker's Name, company name has chosen you to write an Assessment"
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Message
+            .massage-body.italic.span15.medium-text.email-body
+            .clr
+        .default-email
+          .test-text-to-send
+            %span.extra-medium-text.span2.first.show
+              From
+            .massage-body.italic.span15.medium-text
+              Sender Name at company name
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Subject
+            .massage-body.italic.span15.medium-text
+              Subject of the email
+            .clr
+            .divider1
+            %span.extra-medium-text.span2.first.show
+              Message
+            .massage-body.italic.span15.medium-text
+              Body of the email
+            .clr
+    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
+    .clr
+    .divider1

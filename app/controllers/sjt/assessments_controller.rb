@@ -6,9 +6,22 @@ class Sjt::AssessmentsController < ApplicationController
   layout 'sjt/sjt'
 
   def home
-    @status = "This action works!"
   end
 
+  def edit
+  end
+
+  def new
+  end
+
+  def competencies
+  end
+
+  def add_candidates
+  end
+
+  def send_assessment
+  end
 
   protected
 
