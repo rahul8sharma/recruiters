@@ -48,7 +48,7 @@
           .divider1
     .divider3.border-bottom-grayLighter
 
-
-    %input.pull-right.btn.btn-warning.large-text{:type => "submit", :value => "Proceed"}  
+    %a.btn.btn-warning.big.big-text.pull-right.span{:href => add_candidates_company_sjt_assessment_path(@company.id, "1234"), :title => "Proceed"} 
+      Proceed
    
 = javascript_include_tag 'competencies'

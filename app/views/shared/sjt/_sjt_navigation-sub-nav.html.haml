@@ -5,10 +5,10 @@
   .menu{ class: ([:competencies].include?(params[:action].to_sym)) ? "active" : "" }
     .count 2
     Choose Competencies
-  .menu
+  .menu{ class: ([:add_candidates].include?(params[:action].to_sym)) ? "active" : "" }
     .count 3
     Add Assessment Taker Details
-  .menu
+  .menu{ class: ([:send_assessment].include?(params[:action].to_sym)) ? "active" : "" }
     .count 4
     Confirm &amp; Send Assessment
 .clr

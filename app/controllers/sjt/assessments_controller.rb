@@ -16,7 +16,13 @@ class Sjt::AssessmentsController < ApplicationController
 
   def competencies
   end
-  
+
+  def add_candidates
+  end
+
+  def send_assessment
+  end
+
   protected
 
   def get_company
