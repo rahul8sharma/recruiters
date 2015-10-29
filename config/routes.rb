@@ -326,6 +326,7 @@ Recruiters::Application.routes.draw do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
         match "add_candidates" => "sjt/assessments#add_candidates", :as => :add_candidates
         match "send_assessment" => "sjt/assessments#send_assessment", :as => :send_assessment
+        match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
       end
 
     end
@@ -1344,7 +1345,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
   match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
-  get "/master-data", :to => "pages#home"
+  get "/master-data", :to => "pages#home", :as => :master_data
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
