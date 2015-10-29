@@ -554,7 +554,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       },
       :order => ["valid_to ASC"],
       :scopes => { :active => nil },
-      :methods => [:assessments_sent]
+      :methods => [:unlocked_invites_count]
     ).all.to_a
   end
 end
