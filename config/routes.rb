@@ -310,6 +310,7 @@ Recruiters::Application.routes.draw do
 
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
+        get "/export_feedback_status" => "mrf/assessments/candidate_feedback#export_feedback_status", :as => :export_feedback_status
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
         get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
