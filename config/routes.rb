@@ -326,6 +326,7 @@ Recruiters::Application.routes.draw do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
         match "add_candidates" => "sjt/assessments#add_candidates", :as => :add_candidates
         match "send_assessment" => "sjt/assessments#send_assessment", :as => :send_assessment
+        match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
       end
 
     end
