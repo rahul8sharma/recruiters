@@ -6,6 +6,7 @@
 - content_for :content do
   .divider1
   .white-box.container
+    = link_to "Back", master_data_path
     = yield
   .divider1
 = render :file => 'layouts/jit'
