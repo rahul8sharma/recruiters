@@ -310,10 +310,26 @@ Recruiters::Application.routes.draw do
 
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
+        get "/export_feedback_status" => "mrf/assessments/candidate_feedback#export_feedback_status", :as => :export_feedback_status
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
         get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
       end
+    end
+
+
+    resources :sjt_assessments, :controller => "sjt/assessments", :path=> "sjt" do
+      collection do
+        match "home" => "sjt/assessments#home", :as => :home
+      end
+
+      member do
+        match "competencies" => "sjt/assessments#competencies", :as => :competencies
+        match "add_candidates" => "sjt/assessments#add_candidates", :as => :add_candidates
+        match "send_assessment" => "sjt/assessments#send_assessment", :as => :send_assessment
+        match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
+      end
+
     end
 
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
@@ -1330,7 +1346,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
   match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
-  get "/master-data", :to => "pages#home"
+  get "/master-data", :to => "pages#home", :as => :master_data
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload

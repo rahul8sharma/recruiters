@@ -1,0 +1,61 @@
+.assessments-list
+  .span14.page-title.first
+    .divider1
+    Situational Judgement Tests
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href => new_company_sjt_assessment_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
+    Create SJT
+  .pull-right
+    %a.extra-medium-text.line-height3{:title => "View Ready-to-Send SJTs"}
+      View Ready-to-Send SJTs
+  .clr
+  .divider2
+  .list-snippet-titles.extra-medium-text.clearfix
+    .span2.first
+      AID
+    .span4
+      Created On
+    .span8
+      Assessment Title
+    .span4
+      View Details
+    .span4
+      %a{:href=>"#"}
+        Completed by
+    .span3
+      %a{:href=>"#"}
+        Sent to 
+    .span5
+      Send Assessment 
+    .clr
+    .divider2          
+  %ul
+    - 5.times do |index|
+      %li.list-snippet.border-bottom-grayLighter.medium-text
+        .span2.first
+          %a{:href => "ID"} 
+            12345
+        .span4
+          %a{:href => "Date"} 
+            31/08/1089
+        .span8.info-block
+          %a{{:title => "Assessment Name"}}  
+            Dummy Name
+        .span3.text-center
+          %a{:title => "Vieq Details"}
+            %i.icon-eye-open
+        .span3.text-center.left-offset1
+          %a{:title => "Completed Count"}
+            X
+        .span2.text-center.left-offset1
+          %a{}
+            X
+        .span4.text-center.left-offset1
+          %a.span{:title => "Send This Test"}
+            %i.icon-envelope
+          .clr  
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    -# = render :partial => "shared/pagination", :locals => { :objects => @assessments}
+  .clr

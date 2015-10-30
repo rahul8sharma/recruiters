@@ -109,7 +109,7 @@
     .divider1.border-bottom-grayLighter
     - if @company.subscription_mgmt
       - @subscriptions ||= []
-      - usable_subscriptions = @subscriptions.select{|subscription| (subscription.assessments_purchased - subscription.assessments_sent)>0 }
+      - usable_subscriptions = @subscriptions.select{|subscription| subscription.unlocked_invites_count > 0 }
       - if usable_subscriptions.size > 1
         .divider2
         .heading
@@ -151,7 +151,7 @@
                     %input{:type=>"radio", name: "options[package_selection]", value:subscription.id}
                     = subscription.id
                 .span6.text-center
-                  = subscription.assessments_purchased - subscription.assessments_sent
+                  = subscription.unlocked_invites_count
                 .pull-right.text-center
                   #{(Date.parse(subscription.valid_to) - Date.today).to_i} Days
                 .clr
