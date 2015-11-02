@@ -31,20 +31,21 @@
   %ul
     - 5.times do |index|
       %li.list-snippet.border-bottom-grayLighter.medium-text
+        - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id])
         .span2.first
-          %a{:href => "ID"} 
+          %a{:href => assessment_url, :title => "Assessment ID"} 
             12345
         .span4
-          %a{:href => "Date"} 
+          %a{:href => assessment_url, :title => "Date"} 
             31/08/1089
         .span8.info-block
-          %a{{:title => "Assessment Name"}}  
+          %a{:href=> assessment_url, :title => "Assessment Name"}  
             Dummy Name
         .span3.text-center
-          %a{:title => "Vieq Details"}
+          %a{:href=> assessment_url, :title => "Vieq Details"}
             %i.icon-eye-open
         .span3.text-center.left-offset1
-          %a{:title => "Completed Count"}
+          %a{:href=> assessment_url, :title => "Completed Count"}
             X
         .span2.text-center.left-offset1
           %a{}

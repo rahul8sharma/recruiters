@@ -7,6 +7,15 @@ class Sjt::Assessments::CandidateAssessmentsController < ApplicationController
 
   def candidates
   end
+
+  def candidate
+  end
+
+  def competencies_measured
+  end
+
+  def reports
+  end
   
 
   protected

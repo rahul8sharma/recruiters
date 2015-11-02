@@ -58,20 +58,21 @@
     %ul
       - 5.times do |index|
         - show_status = "Active as of 00:00Hrs, 31/08/1989"
+        - candidate_profile_url =  candidate_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => index)
         %li.list-snippet.medium-text
           .divider1
           .span3.first
-            %a{:href=> "#"}
+            %a{:href=> candidate_profile_url}
               123
           .info-block.span5
-            %a{:href=> ""}
+            %a{:href=> candidate_profile_url}
               Candidate Name
             - if is_superadmin?
               .info
                 Some Info
               .arrow
           .span8
-            %a{:href=> ""}
+            %a{:href=> candidate_profile_url}
               #{show_status}
           .span
             .span6
