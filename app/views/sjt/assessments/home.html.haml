@@ -31,7 +31,7 @@
   %ul
     - 5.times do |index|
       %li.list-snippet.border-bottom-grayLighter.medium-text
-        - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => "123")
         .span2.first
           %a{:href => assessment_url, :title => "Assessment ID"} 
             12345
