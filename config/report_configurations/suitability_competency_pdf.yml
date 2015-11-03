@@ -119,7 +119,7 @@
               offset: "offset"
             }
           }
-        ]  
+        ]
       }
     ]
   },
@@ -127,6 +127,12 @@
     id: "pdf_aptitude_score",
     text: "Score for Aptitude",
     path: "assessment_reports/competency_report/pdf/aptitude_score",
+    children: []
+  },
+  {
+    id: "pdf_aptitude_score_explanation",
+    text: "Explanation of CoCubes Score",
+    path: "assessment_reports/competency_report/pdf/explanation_of_cocubes_score",
     children: []
   },
   {
