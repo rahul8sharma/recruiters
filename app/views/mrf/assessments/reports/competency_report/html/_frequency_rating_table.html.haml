@@ -17,7 +17,7 @@
           %td
             #{bucket.name}
         %td.mute_bg
-          No. of Respodents
+          No. of Respondents
         - stakeholder_count = 0
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max

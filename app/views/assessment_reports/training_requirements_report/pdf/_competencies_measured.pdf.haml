@@ -1,5 +1,5 @@
 - competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
-- competency_scores.each_slice(4) do |step_comptencies|
+- competency_scores.each_slice(3) do |step_comptencies|
   = render :partial => "assessment_reports/training_requirements_report/pdf/header"
   .competency_report
     #traits
