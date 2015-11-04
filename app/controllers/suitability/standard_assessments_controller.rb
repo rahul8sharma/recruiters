@@ -6,7 +6,17 @@ class Suitability::StandardAssessmentsController < AssessmentsController
   end
   
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
+    @global_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => {
+        :active => true
+      }, 
+      :scopes => {
+        :global => nil,
+        :for_suitability => nil
+      },
+      :methods => [:factor_names], 
+      :order => ["name ASC"]
+    ).to_a
     @local_competencies = []
     if request.get?
     else

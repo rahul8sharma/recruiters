@@ -5,6 +5,9 @@
   %br
   %b Definition:
   = @factor.definition
+  %br
+  %b Visibility:
+  = @factor.modules.join(", ")
   
 = link_to "Add Item", new_suitability_item_path(item_type: "Suitability::Item", :item => { :factor_id => @factor.id })
 \|

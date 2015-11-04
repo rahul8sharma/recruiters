@@ -17,9 +17,9 @@
     %th
       ID
     %th
-      UID
-    %th
       Name
+    %th
+      Visibility
     %th
       Definition
     %th
@@ -37,11 +37,11 @@
     %tr
       %td{ width: "5%" }
         = factor.id
-      %td{ width: "5%" }
-        = factor.uid rescue 'Not Found'
       %td{ width: "15%" }
         %a{ href: suitability_factor_path(:id => "#{factor.id}") }
           = factor.name
+      %td{ width: "5%" }
+        = factor.modules.join(",")
       %td{ width: "40%" }
         = factor.definition
       %td
@@ -52,7 +52,7 @@
       %td
         = factor.factor_order
       %td
-        = factor.company_names
+        = factor.company_ids.join(", ")
       %td
         = link_to "Edit", edit_suitability_factor_path(factor.id)
 .pagination.pull-right

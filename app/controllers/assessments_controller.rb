@@ -27,7 +27,14 @@ class AssessmentsController < ApplicationController
   end
 
   def competency_norms
-    competencies = Vger::Resources::Suitability::Competency.where(:query_options => { :id => @assessment.competency_order }).all.to_a
+    competencies = Vger::Resources::Suitability::Competency.where(
+                            :query_options => { 
+                              :id => @assessment.competency_order
+                            },
+                            :scopes => {
+                              :for_suitability => nil
+                            }
+                          ).all.to_a
     @competencies = @assessment.competency_order.map{|competency_id| competencies.detect{|competency| competency.id == competency_id }}
     get_competency_norms
     get_weights
@@ -43,11 +50,7 @@ class AssessmentsController < ApplicationController
   # PUT : updates assessment and renders styles
   def norms
     get_norms
-    if request.get?
-      #if params[:assessment]
-      #  @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-      #end
-    elsif request.put?
+    if request.put?
       store_assessment_factor_norms
     end
   end
@@ -84,9 +87,33 @@ class AssessmentsController < ApplicationController
   end
 
   def get_factors
-    factors = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
-    factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => params[:company_id], :active => true}, :methods => [:type, :direct_predictor_ids], :joins => [:companies]).all.to_a
-    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(:methods => [:type, :direct_predictor_ids]).all.to_a
+    factors = Vger::Resources::Suitability::Factor.where(
+      :query_options => {
+        :active => true
+      }, 
+      :scopes => { 
+        :global => nil, 
+        :for_suitability => nil 
+      }, 
+      :methods => [:type, :direct_predictor_ids]
+    ).all.to_a
+    factors |= Vger::Resources::Suitability::Factor.where(
+      :query_options => { 
+        "companies_factors.company_id" => params[:company_id], 
+        :active => true
+      }, 
+      :scopes => { 
+        :for_suitability => nil 
+      }, 
+      :methods => [:type, :direct_predictor_ids], 
+      :joins => [:companies]
+    ).all.to_a
+    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(
+      :methods => [:type, :direct_predictor_ids], 
+      :scopes => { 
+        :for_suitability => nil 
+      }
+    ).all.to_a
     @factors = Hash[factors.sort_by{|factor| factor.name.to_s }.collect{|x| [x.id,x]}]
   end
 
@@ -251,9 +278,18 @@ class AssessmentsController < ApplicationController
   # create new job_assessment_factor_norm for each factor
   def get_styles
     @norm_buckets = Vger::Resources::Suitability::NormBucket.all
-    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.active({ :type => "Suitability::DirectPredictor" }).where(:include => [ :parent ]).to_a.map(&:parent_id).uniq
+    all_direct_predictor_parent_ids = Vger::Resources::Suitability::DirectPredictor.active({ 
+      :type => "Suitability::DirectPredictor" 
+    }).where(
+      :include => [ :parent ], 
+      :scopes => { 
+        :for_suitability => nil 
+      }
+    ).to_a.map(&:parent_id).uniq
 
-    all_direct_predictors = Vger::Resources::Suitability::Factor.active({ :id => all_direct_predictor_parent_ids }).to_a
+    all_direct_predictors = Vger::Resources::Suitability::Factor.active({ 
+      :id => all_direct_predictor_parent_ids 
+    }).to_a
 
     @assessment_factor_norms = @assessment.job_assessment_factor_norms.where(:include => { :factor => { :methods => [:type] } }).all
 

@@ -1,4 +1,4 @@
-= form_for :item_group, :url => import_from_google_drive_suitability_item_groups_path, html: { multipart: true }, :method => :post do |f|
+= form_for :item_group, :url => import_with_options_from_google_drive_suitability_item_groups_path, html: { multipart: true }, :method => :post do |f|
   %fieldset
     %legend
       Import Suitability Items
@@ -24,5 +24,10 @@
     .actions
       = submit_tag 'Import Suitability Items'
 %br
+%br/
+= render :partial => "master_data/#{controller.import_from}"
+%br/
+= render :partial => "master_data/export_form"
+%br/
 = link_to 'Back', suitability_item_groups_path     
 =# link_to 'Destroy All', destroy_all_suitability_item_groups_path     
