@@ -212,6 +212,12 @@
     children: []
   },
   {
+    id: "html_aptitude_score_explanation",
+    text: "Explanation of CoCubes Score",
+    path: "assessment_reports/competency_report/html/explanation_of_cocubes_score",
+    children: []
+  },
+  {
     id: "html_score_scale",
     text: "Explainations for Jombay Scores[Score Scale]",
     path: "assessment_reports/score_scale",
