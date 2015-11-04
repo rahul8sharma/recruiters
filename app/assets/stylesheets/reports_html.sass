@@ -993,6 +993,58 @@ select
     color: #fff
     line-height: 150px
     text-align: center
+.explanation_of_cocubes_score
+  ul
+    li
+      color: #000
+      padding: 25px
+      border-top: 1px dashed #d4d4d4
+      &:first-child
+        border: 0 none
+      p
+        padding-left: 50px
+        margin: 0
+      .cocubes_score_title
+        padding-left: 50px
+        line-height: 49px
+        background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+      .cocubes_score_scale
+        margin-top: 15px
+        height: 18px
+        border: 1px solid #919191
+        background: #c8c8c8
+        position: relative
+      .average
+        background-position: 0px -57px 
+      .high
+        background-position: 0px -114px
+      .icon
+        background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+        width: 45px
+        height: 49px
+        position: absolute
+        top: -14px
+        .arrow
+          background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+          position: absolute
+          left: -50%
+          top: -30px
+          margin-left: -13px
+          text-align: center
+          line-height: 29px
+          height: 32px
+          width: 111px
+          background-position: 0px -171px
+      .slider
+        float: left
+        height: 100%
+        &.average
+          background: #fcc311
+          width: 32%
+          margin-left: 32%
+        &.high
+          background: #6ba630
+          width: 36%
 
 
 .fw
