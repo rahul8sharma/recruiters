@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 9c31f676fc5d779c5e05837cbb4e84b6cf7778af
+  revision: 8d3a7c1d349603c9f4b6a740ea72a78054c0a8c9
   branch: develop
   specs:
     vger (0.0.1)
@@ -266,3 +266,6 @@ DEPENDENCIES
   uglifier (= 1.0.3)
   vger!
   wicked_pdf (= 0.9.6)
+
+BUNDLED WITH
+   1.10.6
