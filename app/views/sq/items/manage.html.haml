@@ -1,0 +1,31 @@
+= form_for :item, :url => import_with_options_from_google_drive_sq_items_path, html: { multipart: true }, :method => :post do |f|
+  %fieldset
+    %legend
+      Import NEW Sq Items alongwith Options
+    %br
+    %br
+    = f.fields_for :file do |ff|
+      File
+      = ff.text_field "url", value: ""
+    %br
+    %br
+    = f.fields_for :zip_file do |ff|
+      Image Zip
+      = file_field_tag "zip"
+    %br
+    %br
+    Notifier Email
+    = f.email_field :email, value: "product@jombay.com"
+    %br
+    %br
+    .actions
+      = submit_tag 'Import SQ Items'
+%br
+
+%br/
+= render :partial => "master_data/export_form"
+
+%br/
+= render :partial => "master_data/import_from_google_drive"
+
+= link_to 'Back', sq_items_path

@@ -101,7 +101,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
     assessment_factor_norms = @assessment.job_assessment_factor_norms.all.to_a
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
-    add_candidates_allow = assessment_factor_norms.size > 1 || functional_assessment_traits.size >= 1
+    add_candidates_allow = assessment_factor_norms.size >= 1 || functional_assessment_traits.size >= 1
     if request.put?
       if params[:candidate_stage].empty?
         flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
@@ -554,7 +554,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       },
       :order => ["valid_to ASC"],
       :scopes => { :active => nil },
-      :methods => [:assessments_sent]
+      :methods => [:unlocked_invites_count]
     ).all.to_a
   end
 end

@@ -1,0 +1,26 @@
+= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
+.scores
+  #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
+    .divider1
+    .large-text
+      360&#176; Scores: Competencies
+    .divider1
+    .graph_instructions.medium-text
+      .graph_classic_user_icon.pull-left
+      .user_rating.span
+        Self Rating
+      .graph_stakeholder_rating_icon.span
+      .stakeholder_rating.span
+        Rating by other Stakeholders
+      .overlapped_score.pull-left
+        .competency_overlapped_score_icon.span.left-offset1
+        .span
+          Score Overlap
+        .clr
+      .desired_range.span2
+      .span
+        Desired Range
+      .clr
+    .divider1
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph_with_desired_range"
+.page-break

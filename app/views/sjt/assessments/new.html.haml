@@ -1,0 +1,11 @@
+.new
+  .page-title.pull-left
+    Create SJT
+    %span.sub-page-title.medium-text  Takes less than a minute!
+  .clr
+  .divider1
+  = render :partial => "shared/sjt/sjt_navigation-sub-nav"
+  .divider2
+
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href => competencies_company_sjt_assessment_path(@company.id, "1234"), :title => "Proceed"} 
+    Proceed

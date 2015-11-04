@@ -23,7 +23,7 @@
 
               -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
               .score-indicater
-                = company_norm_bucket.name
+                = scale_values[:company_norm_bucket_name]
               .arrow
             .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
             -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)

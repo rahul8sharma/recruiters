@@ -1,7 +1,6 @@
 - @report_data[:competency_scores].each do |competency, competency_data|
   - competency_data[:factor_scores].each_slice(3) do |step_scores|
     = render :partial => "assessment_reports/training_requirements_report/pdf/header"
-    .divider1
     .data_points.competency_report
       .scores
         .title.extra-large-text

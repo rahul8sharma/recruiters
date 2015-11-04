@@ -1,0 +1,11 @@
+%h1 All Items
+- if can? :create, "Sq::Item"
+  = link_to "Manage SQ Items", manage_sq_items_path
+
+.pagination.pull-right
+  = paginate @items
+.clr
+= render partial: 'index', locals: { items: @items }
+.pagination.pull-right
+  = paginate @items
+.clr

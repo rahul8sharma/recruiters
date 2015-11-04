@@ -2,8 +2,7 @@
   .border-left-grayLighter.span
     .final_data_points
       .border_gray_light.span
-        .left.pull-left.stakeholder_rating_icon
-          
+        .left.pull-left.stakeholder_rating_icon          
         .right.pull-left
           .medium-text.color-average
             360&#176; Score: 
@@ -31,13 +30,15 @@
         Average rating given by #{pluralize(total_stakeholders,"Stakeholder")}
       .clr
 
-      .border_gray_light.span
+      .border_gray_light.span.float-none
         - if competency_scores[:role_wise_scores].present?
-          - competency_scores[:role_wise_scores].each_with_index do |(role, score),index|
-            .span.color-average
-              #{pluralize(score[:count],role.titleize)}:  #{score[:points]}
-              = index  < competency_scores[:role_wise_scores].size-1 ? "|" : ""
-          .clr
+          - competency_scores[:role_wise_scores].each_slice(4) do |step_roles|
+            - step_roles.each_with_index do |(role, score),index|
+              .span.color-average
+                #{pluralize(score[:count],role.titleize)}:  #{score[:points]}
+                = index  < competency_scores[:role_wise_scores].size-1 ? "|" : ""
+            .clr
+          %br
       .clr
 
     .span14.final_data_points

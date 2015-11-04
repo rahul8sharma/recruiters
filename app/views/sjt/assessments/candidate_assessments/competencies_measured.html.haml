@@ -1,0 +1,59 @@
+.candidate-list
+  .span13.page-title.first
+    .divider1
+    AID:Assessment Name
+  .pull-right
+    - if is_superadmin?
+      %a.extra-medium-text.line-height3.pull-left{:href => "#"}
+        Expire All Links
+      %span.pull-left.line-height3
+        &nbsp;
+        \|  
+        &nbsp;
+    %a.extra-medium-text.line-height3.pull-left{:href => new_company_sjt_assessment_path(params[:company_id]), :title => "Click Here To Create Custom Assessment"}
+      Create New SJT
+    %a.btn.btn-warning.big-text.big.span.pull-left{ href: add_candidates_company_sjt_assessment_path(params[:company_id], params[:id]) }
+      Send this SJT
+  .clr
+  .divider2
+  = render :partial => "shared/sjt/sjt-candidate-content-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .big-text.font-bold
+      .pull-left
+        Traits Measured: 10
+      .pull-right.span7.first.text-center
+        Expected Score Range
+      .clr
+    .divider1
+    .scale.pull-right
+      .line
+      .marker-container
+        - 6.times do |index|
+          .marker
+            High
+        .clr
+    .clr
+    %ul.clearfix.scores_listing.first
+      - 6.times do |index|
+        -# - to_norm_bucket = @norm_buckets[factor_norm.to_norm_bucket_id]
+        -# - from_norm_bucket = @norm_buckets[factor_norm.from_norm_bucket_id]
+        -# - width = to_norm_bucket.weight - from_norm_bucket.weight
+        -# - offset = from_norm_bucket.weight - 1
+        %li
+          .lhs-sec.span20.first
+            .factor-name
+              Factor Name
+            .factor-description
+              Factor Description
+          .rhs-sec.pull-right
+            .marker-set
+              - 5.times do |index|
+                .marker.show
+                  Low
+              .clr
+            .slider
+              .visual
+              .range{ class: "offset1  width2" }
+
+          .clr

@@ -75,19 +75,96 @@
   },
   {
     id: "html_360_degree_scores_competencies",
-    text: "360 Degree Scores Competencies",
+    text: "360 Degree Scores: Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_competencies",
-    children: []
+    children: [
+      {
+      id: "html_360_scores_competency_legend",
+        text: "Desired Range on Legend[Show/Hide]",
+        path: "mrf/assessments/reports/competency_report/html/desired_range_legend",
+        children: [
+          {
+            id: "html_360_show_desired_range_header",
+            text: "Show Desired Range in Legend",
+            path: "mrf/assessments/reports/competency_report/html/label_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_hide_desired_range_header",
+            text: "Hide Desired Range in Legend",
+            path: "mrf/assessments/reports/competency_report/html/label_without_desired_range",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_360_scores_competency_desired_range",
+        text: "Desired Range on Graph [Show/Hide]",
+        path: "mrf/assessments/reports/competency_report/html/desired_range_graph",
+        children: [
+          {
+            id: "html_360_show_desired_range_section",
+            text: "Show Desired Range in Graph",
+            path: "mrf/assessments/reports/competency_report/html/graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_hide_desired_range_section",
+            text: "Hide Desired Range in Graph",
+            path: "mrf/assessments/reports/competency_report/html/graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_360_degree_scores_traits_under_competencies",
-    text: "360 Degree Scores Traits Under Competencies",
+    text: "360 Degree Scores: Traits under Competencies",
     path: "mrf/assessments/reports/competency_report/html/scores_traits_competencies",
-    children: []
+    children: [
+      {
+        id: "html_360_traits_under_competency_legend",
+        text: "Trait Score Legend",
+        path: "mrf/assessments/reports/competency_report/html/trait_legend",
+        children: [
+          {
+            id: "html_360_trait_scores_legent_with_desired_range",
+            text: "Legend with Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_trait_scores_legent_without_desired_range",
+            text: "Legend without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
+            locals: {}
+          }]
+      },
+      {
+        id: "html_360_traits_under_competency_graph",
+        text: "Trait Score Graph",
+        path: "mrf/assessments/reports/competency_report/html/trait_graph",
+        children: [
+          {
+            id: "html_360_traits_under_competency_graph_with_desired_range",
+            text: "Trait Graph With Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "html_360_traits_under_competency_graph_without_desired_range",
+            text: "Trait Graph Without Desired Range",
+            path: "mrf/assessments/reports/competency_report/html/trait_graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_strength_and_areas_of_improvement",
-    text: "Strength and Areas of Improvement",
+    text: "Strengths and Areas of Improvement",
     path: "mrf/assessments/reports/competency_report/html/strength_improvement_areas",
     children: []
   },
@@ -137,7 +214,7 @@
       {
         id: "html_descending_average_competency_rating",
         text: "Average Rating given by Stakeholders ",
-        path: "mrf/assessments/reports/competency_report/html/descending_average_competency_rating.html.haml",
+        path: "mrf/assessments/reports/competency_report/html/descending_average_competency_rating",
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
@@ -307,13 +384,67 @@
     id: "html_stakeholder_comments_on_traits_under_various_competencies",
     text: "Stakeholder comments on traits under various competencies",
     path: "mrf/assessments/reports/competency_report/html/page7",
-    children: []
+    children: [
+      {
+        id: "html_stakholder_comments_with_type",
+        text: "Stakeholder Comments [With Stakeholder Type]",
+        path: "mrf/assessments/reports/competency_report/html/comments_with_stakeholder_type",
+        locals: {}
+      },
+      {
+        id: "html_stakholder_comments_without_type",
+        text: "Stakeholder Comments [Without Stakeholder Type]",
+        path: "mrf/assessments/reports/competency_report/html/comments_without_stakeholder_type",
+        locals: {}
+      }
+    ]
   },
   {
     id: "html_responses_to_other_questions",
     text: "Response to Other Questions",
     path: "mrf/assessments/reports/competency_report/html/page8",
-    children: []
+    children: [
+      {
+        id: "html_response_others",
+        text: "Response to Other Questions [by Stakeholders]",
+        path: "mrf/assessments/reports/competency_report/html/responses_by_others",
+        locals: "",
+        children: [
+          {
+            id: "html_response_others_with_type_by_stakeholder",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/show_stakholder_type",
+            locals: {}
+          },
+          {
+            id: "html_response_others_without_type_by_stakeholders",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/hide_stakholder_type",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_response_self",
+        text: "Response to Other Questions [by Self]",
+        path: "mrf/assessments/reports/competency_report/html/responses_by_self",
+        locals: "",
+        children: [
+          {
+            id: "html_response_others_with_type_by_self",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/show_stakholder_type",
+            locals: {}
+          },
+          {
+            id: "html_response_others_without_type_by_self",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/competency_report/html/hide_stakholder_type",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_summary_of_360_degree_feedback",
@@ -322,16 +453,49 @@
     children: []
   },
   {
-    id: "html_development_guide_candidate",
-    text: "Development Guide for the Candidate",
-    path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
-    children: []
-  },
-  {
-    id: "html_development_guide_manager",
-    text: "Guidelines for Candidates Manager",
-    path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
-    children: []
+    id: "html_360_pagl",
+    text: "360 Degree PAGL",
+    path: "mrf/assessments/reports/competency_report/html/mrf_pagl",
+    children: [
+      {
+        id: "html_360_pagl_competency_based",
+        text: "360 Degree PAGL [Competency Based]",
+        path: "mrf/assessments/reports/competency_report/html/mrf_pagl_competency_based",
+        children: [
+          {
+            id: "html_development_guide_candidate",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
+            locals: {}
+          },
+          {
+            id: "html_development_guide_manager",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_360_pagl_trait_based",
+        text: "360 Degree PAGL [Trait Based]",
+        path: "mrf/assessments/reports/competency_report/html/mrf_pagl_trait_based",
+        children: [
+          {
+            id: "html_development_guide_candidate_trait_based",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/html/candidate_development_guide_trait_based",
+            locals: {}
+          },
+          {
+            id: "html_development_guide_manager_trait_based",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines_trait_based",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_about_us",

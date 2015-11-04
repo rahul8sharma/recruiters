@@ -311,10 +311,29 @@ Recruiters::Application.routes.draw do
 
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
+        get "/export_feedback_status" => "mrf/assessments/candidate_feedback#export_feedback_status", :as => :export_feedback_status
         get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
         get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
         get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
       end
+    end
+
+
+    resources :sjt_assessments, :controller => "sjt/assessments", :path=> "sjt" do
+      collection do
+        match "home" => "sjt/assessments#home", :as => :home
+      end
+
+      member do
+        match "competencies" => "sjt/assessments#competencies", :as => :competencies
+        match "add_candidates" => "sjt/assessments#add_candidates", :as => :add_candidates
+        match "send_assessment" => "sjt/assessments#send_assessment", :as => :send_assessment
+        match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
+        match "candidate/:candidate_id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
+        match "competencies_measured" => "sjt/assessments/candidate_assessments#competencies_measured", :as => :competencies_measured
+        match "reports" => "sjt/assessments/candidate_assessments#reports", :as => :reports
+      end
+
     end
 
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
@@ -709,6 +728,15 @@ Recruiters::Application.routes.draw do
     end
 
     resources :competency_guidelines do
+      collection do
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :trait_guidelines do
       collection do
         get :manage
         get :destroy_all
@@ -1136,6 +1164,25 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :exercises do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    resources :items do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
+      end
+    end
   end
 
 
@@ -1303,7 +1350,7 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/regenerate_exit_individual_reports/", :to => "reports_management#regenerate_exit_individual_reports", :as => :regenerate_exit_individual_reports
   match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
-  get "/master-data", :to => "pages#home"
+  get "/master-data", :to => "pages#home", :as => :master_data
   get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
@@ -1314,6 +1361,9 @@ Recruiters::Application.routes.draw do
   post "/generate_report", :to =>"reports_management#generate_report", :as => :generate_report
   put "/modify_norms", :to => "reports_management#modify_norms", :as => :modify_norms
   put "/manage_report", :to => "reports_management#manage_report", :as => :manage_report
+
+  get "/suitability_cover_page", :to => "report_cover#cover", :as => :report_cover
+
 
   resources :global_configurations do
     collection do

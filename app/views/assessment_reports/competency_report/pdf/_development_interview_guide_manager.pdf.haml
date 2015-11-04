@@ -4,12 +4,15 @@
 - ordered_guides += candidate_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
 - (0..ordered_guides.length-1).step(guides_step) do |step|
   - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
-  = render partial: "shared/reports/pdf/report_header.pdf.haml"
   .inner
     .scores.interview_guide
       .divider1
-      .blue_heading.large-text.pull-left
-        Guidelines for Assessment Taker&#39;s Manager
+      - if step == 0
+        %h1.font-normal.blue_heading.large-text.pull-left
+          Guidelines for Assessment Taker&#39;s Manager
+      - else
+        .font-normal.blue_heading.large-text.pull-left
+          Guidelines for Assessment Taker&#39;s Manager
       .instruction_container.pull-right
         .instructions
           .instruction1.pull-left
@@ -27,10 +30,7 @@
           - norm_bucket_uid = factor_score[:norm_bucket_uid]
           - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
           - scored_weight = company_norm_bucket.weight
-          - if @report.report_data[:show_favourable_above_desired_range]
-            - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-          - else
-            - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
+          - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
           %li
             .divider1
             .que-no.hexagon-icon{ class: klass }

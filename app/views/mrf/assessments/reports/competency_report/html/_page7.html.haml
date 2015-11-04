@@ -1,9 +1,45 @@
-- if @report.report_data[:mrf_report_show_trait_comments]
-  .stakeholder-comments
-    .container
-      .divider2
-      .title
-        Stakeholder Comments on Traits under various Competencies
-      .divider2
-      - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
-        = render :partial => "mrf/assessments/reports/competency_report/html/comments_on_traits", :locals => { :competency_name => competency_name, :competency_scores => competency_scores}
+.stakeholder-comments
+  .container
+    .divider2
+    .title
+      Stakeholder Comments on Traits under various Competencies
+    .divider2
+    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+      - if competency_scores[:trait_scores].present?
+        .sub-tiltle
+          Comments on Traits under
+          = competency_name
+        - if competency_scores[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
+          .divider2
+          - competency_scores[:trait_scores].each do |trait|
+            .bottom-trangle
+              - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+                .frame
+                  .trait-comment-heading
+                    Comments on 
+                    %span.trait-name
+                      "#{trait[:trait][:name]}"
+                      .info
+                        Trait present under the competency "#{competency_name}"
+                      .arrow
+                  .trait-comment-sub-heading
+                    - if trait[:comments_compulsory] == true
+                      Comments were Mandatory
+                    - else
+                      Comments were Optional
+                  .divider2
+                  - if !trait[:comments].present?
+                    .no-responses
+                      .box
+                        No Responses
+                    .divider3
+                  - else
+                    - section_value.each do |section|
+                      = render :partial => section["path"], :locals => { :trait => trait}
+        - else
+          .divider2
+          .no-responses
+            .box
+              No comments present for the traits under this competency
+          .divider2
+        .divider2 

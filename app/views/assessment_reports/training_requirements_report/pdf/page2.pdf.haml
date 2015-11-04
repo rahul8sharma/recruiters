@@ -1,5 +1,5 @@
 = render :partial => "assessment_reports/training_requirements_report/pdf/header"
-.divider2
+.divider1
 #trait-score.training-need
   .title.extra-large-text
     Top Training Needs
@@ -9,12 +9,10 @@
         Candidates with Less Favorable scores
       .instruction2.less_favorable.pull-left
         Candidates with Favorable scores
-      .label.span
+      .label.span.medium-text
         Average Score
       .clr
-  
   .clr
-  
   %ul.training-need-list
     - counter = step
     - limiter = Rails.application.config.reports["html"]["graph_limiter_on_training_requirement_report"]
@@ -30,11 +28,10 @@
               = factor_name
             .clr
             .pie-visual
-              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 115px;height: 115px;" }
-            .divider1
+              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 100px;height: 100px;" }
             .score
               #{factor_score[:percentage_candidates]}% Less Favourable
             - if @report.average_scores_in_top_training_needs
-              .label
+              .label.medium-text
                 = factor_score[:avg_score][:bucket]
         .clr

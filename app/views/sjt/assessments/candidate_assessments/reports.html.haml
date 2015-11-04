@@ -1,0 +1,84 @@
+.candidate-list
+  .span13.page-title.first
+    .divider1
+    AID:Assessment Name
+  .pull-right
+    - if is_superadmin?
+      %a.extra-medium-text.line-height3.pull-left{:href => "#"}
+        Expire All Links
+        
+      %span.pull-left.line-height3
+        &nbsp;
+        \|  
+        &nbsp;
+    %a.extra-medium-text.line-height3.pull-left{:href => new_company_sjt_assessment_path(params[:company_id]), :title => "Click Here To Create Custom Assessment"}
+      Create New SJT
+    %a.btn.btn-warning.big-text.big.span.pull-left{ href: add_candidates_company_sjt_assessment_path(params[:company_id], params[:id]) }
+      Send this SJT
+  .clr
+  .divider2
+  = render :partial => "shared/sjt/sjt-candidate-content-sub-nav"
+  .clr
+  .padding-all1.border-warning.shifted-up1
+    .list-snippet-titles.extra-medium-text.clearfix.pull-left
+      .span3.first
+        ATID
+      .span8
+        Assessment Taker
+      .span4
+        Assessment Status 
+      .clr
+    - if is_superadmin?  
+      .span4.pull-right
+        %a.label.label-warning.label-small.small-text{ href: "#", confirm: "Are you sure?" }
+          Download PDF Reports
+      .span4.pull-right
+        %a.label.label-warning.label-small.small-text{ href: "#" }
+          Export Feedback Scores
+    .clr
+    .divider1
+    %ul
+      - 5.times do |index|
+        %li.list-snippet.medium-text
+          .divider1
+          - candidate_profile_url =  candidate_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => index)
+          .span3.first
+            %a{:href=> candidate_profile_url, :title => "ID"} 
+              123
+          .span8            
+            %a{:href=> candidate_profile_url } 
+              Abhishek Verma
+          .span10
+            %a{:href=> candidate_profile_url, :title => ""}
+              Completed as of
+              1600Hrs,
+              31/08/1989
+          .span
+            %i.icon-spinner.icon-spin
+            Generating report...
+          .clr
+
+    .divider2
+    .pull-right
+      %form
+        .medium-text.pull-left.line-height2.bold
+          Select Date Range: &nbsp;&nbsp;
+          %input{ name: "date_range", class: "daterangepicker" }
+        .medium-text.pull-left
+          &nbsp;&nbsp;&nbsp;
+        %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
+        .clr
+    .divider2
+    -# .pull-right
+    -#   = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+    -# .clr
+- content_for :stylesheets do
+  = stylesheet_link_tag "jquery-ui/jquery.comiseo.daterangepicker"
+  = stylesheet_link_tag "jquery-ui/jquery-ui"
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+  = javascript_include_tag "suitability/reports"
+    
+    
+

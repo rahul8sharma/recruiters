@@ -1,0 +1,83 @@
+.candidate-list
+  .span13.page-title.first
+    .divider1
+    AID:Assessment Name
+  .pull-right
+    - if is_superadmin?
+      %a.extra-medium-text.line-height3.pull-left{:href => "#"}
+        Expire All Links
+        
+      %span.pull-left.line-height3
+        &nbsp;
+        \|  
+        &nbsp;
+    %a.extra-medium-text.line-height3.pull-left{:href => new_company_sjt_assessment_path(params[:company_id]), :title => "Click Here To Create Custom Assessment"}
+      Create New SJT
+    %a.btn.btn-warning.big-text.big.span.pull-left{ href: add_candidates_company_sjt_assessment_path(params[:company_id], params[:id]) }
+      Send this SJT
+  .clr
+  .divider2
+  = render :partial => "shared/sjt/sjt-candidate-content-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .extra-medium-text.line-height2.pull-left
+      %span
+        Assessments Sent:
+      %span
+        0
+      %span.left-offset1
+        Assessments Taken:
+      %span
+        0
+      %span.left-offset1
+        %a.label.label-warning.label-small.medium-text{:href=> "#", :title=>"Email Status Summary"} Email Status Summary
+        - if is_superadmin?
+          %a.label.label-warning.label-small.medium-text{:href=> "#", :title=>"Email Status Summary"} Resend Invitations
+
+
+    .filter-status.pull-right
+      %form
+        .medium-text.muted.line-height2.pull-left
+          Show Assessment takers with Status
+        %select.span3{name: "search[status]"}
+          %option
+            All
+        .clr
+    .clr
+    .divider2
+    .list-snippet-titles.extra-medium-text.clearfix
+      .span3.first
+        ATID
+      %div.span5
+        Assessment Taker
+      .span8
+        Assessment Status
+      .span6
+        Assessment Link Status
+      .divider1
+    %ul
+      - 5.times do |index|
+        - show_status = "Active as of 00:00Hrs, 31/08/1989"
+        - candidate_profile_url =  candidate_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => index)
+        %li.list-snippet.medium-text
+          .divider1
+          .span3.first
+            %a{:href=> candidate_profile_url}
+              123
+          .info-block.span5
+            %a{:href=> candidate_profile_url}
+              Candidate Name
+            - if is_superadmin?
+              .info
+                Some Info
+              .arrow
+          .span8
+            %a{:href=> candidate_profile_url}
+              #{show_status}
+          .span
+            .span6
+              Active as of ""
+    .divider3
+  .pull-right
+    -# = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+  .clr

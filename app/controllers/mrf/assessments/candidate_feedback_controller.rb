@@ -67,6 +67,18 @@ class Mrf::Assessments::CandidateFeedbackController < ApplicationController
     flash[:notice] = "360 Degree urls for pending stakeholders will be generated and emailed soon."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
+  
+  def export_feedback_status
+    options = {
+      email: Rails.application.config.emails[:jit_recipients][:product]+","+
+                Rails.application.config.emails[:jit_recipients][:product_support]+","+
+                Rails.application.config.emails[:jit_recipients][:psychs],
+      assessment_id: @assessment.id
+    }
+    Vger::Resources::Mrf::Assessment.export_feedback_status(company_id: @company.id, id: @assessment.id, options: options)
+    flash[:notice] = "360 Degree Feedback status csv will be generated and emailed soon."
+    redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
+  end
 
   def export_report_urls
     options = {

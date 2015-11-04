@@ -1,7 +1,7 @@
 :sections: [
   {
     id: "pdf_cover_page",
-    text: "Cover Page",
+    text: "Cover Page [Details]",
     path: "assessment_reports/competency_report/pdf/cover_page",
     children: [
       {
@@ -56,13 +56,13 @@
   },
   {
     id: "pdf_competency_report_guideline",
-    text: "Competency report guideline",
+    text: "Guidelines to interpret the report",
     path: "assessment_reports/competency_report/pdf/competency_report_guideline",
     children: []
   },
   {
     id: "pdf_competency_scores_overview",
-    text: "Competency Score Overview",
+    text: "Overview of Competencies Measured",
     path: "assessment_reports/competency_report/pdf/competency_scores_overview/main",
     children: [
       {
@@ -119,31 +119,37 @@
               offset: "offset"
             }
           }
-        ]  
+        ]
       }
     ]
   },
   {
     id: "pdf_aptitude_score",
-    text: "Show Cocubes Aptitude Score",
+    text: "Score for Aptitude",
     path: "assessment_reports/competency_report/pdf/aptitude_score",
     children: []
   },
   {
+    id: "pdf_aptitude_score_explanation",
+    text: "Explanation of CoCubes Score",
+    path: "assessment_reports/competency_report/pdf/explanation_of_cocubes_score",
+    children: []
+  },
+  {
     id: "pdf_score_scale",
-    text: "Score Scale",
+    text: "Explainations for Jombay Scores [Score Scale]",
     path: "assessment_reports/score_scale",
     children: []
   },
   {
     id: "pdf_explanation_scores",
-    text: "Scores Exaplanation",
+    text: "Explainations for Jombay Scores",
     path: "assessment_reports/competency_report/pdf/explanation_scores",
     children: []
   },
   {
     id: "pdf_competencies_values_measured",
-    text: "Competencies Values Measured",
+    text: "Competencies Measured",
     path: "assessment_reports/competency_report/pdf/compentencies_values_measured",
     children: 
     [
@@ -167,7 +173,7 @@
   },
   {
     id: "pdf_factor_scores_unders_competencies",
-    text: "Factor Scores Under Competencies",
+    text: "Scores of factors measured under different competencies",
     path: "assessment_reports/competency_report/pdf/factor_scores_under_competencies",
     children: [
       {
@@ -218,7 +224,7 @@
   },
   {
     id: "pdf_functional_overview_sections",
-    text: "Functional Overview Section",
+    text: "Overview of scores of Subjective/Objective questions",
     path: "assessment_reports/functional_report/pdf/functional_overview_section",
     children: []
   },
@@ -241,14 +247,20 @@
     children: []
   },
   {
+    id: "pdf_interview_questions_for_candidate",
+    text: "Interview Questions",
+    path: "assessment_reports/competency_report/pdf/interview_guide_candidate",
+    locals: {}
+  },
+  {
     id: "pdf_development_interview_guide_candidate",
-    text: "Developemnt Interview Guide For Candidate",
+    text: "Development Guide for Candidate",
     path: "assessment_reports/competency_report/pdf/development_interview_guide_candidate",
     children: []
   },
   {
     id: "pdf_development_interview_guide_manager",
-    text: "Developemnt Interview Guide For Manager",
+    text: "Guidelines for Assessment takers manager",
     path: "assessment_reports/competency_report/pdf/development_interview_guide_manager",
     children: []
   },

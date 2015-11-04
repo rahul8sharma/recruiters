@@ -1,6 +1,9 @@
-.header.clearfix
+.report_header.clearfix
   .logo
     = image_tag('report/pdf/jombay-logo-icon.png')
+  - if @report.report_hash[:assessment][:brand_partner] && @report.report_hash[:assessment][:brand_partner] == "cocubes"
+    .logo-partner
+      = image_tag('report/pdf/cocubes-logo-infiniti.png')
   .text-right
     .user_name
       = @report.report_hash[:candidate][:name]

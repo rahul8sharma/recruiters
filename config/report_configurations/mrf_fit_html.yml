@@ -153,13 +153,63 @@
     id: "html_stakeholder_comments_on_traits",
     text: "Stakeholder Comments on Traits",
     path: "mrf/assessments/reports/fit_report/html/trait_comments",
-    children: []
+    children: [
+      {
+        id: "html_comments_on_traits_with_stakholder_type",
+        text: "Comments On Traits [Show Stakeholder Type]",
+        path: "mrf/assessments/reports/fit_report/html/comments_on_traits_with_stakholder_type"
+      },
+      {
+        id: "html_comments_on_traits_without_stakholder_type",
+        text: "Comments On Traits [Hide Stakeholder Type]",
+        path: "mrf/assessments/reports/fit_report/html/comments_on_traits_without_stakholder_type"
+      }
+    ]
   },
   {
     id: "html_responses_to_other_questions",
     text: "Responses to Other Questions",
     path: "mrf/assessments/reports/fit_report/html/subjective_all",
-    children: []
+    children: [
+      {
+        id: "html_responses_by_stakeholders",
+        text: "Responses By Stakeholders",
+        path: "mrf/assessments/reports/fit_report/html/responses_by_stakeholders",
+        children: [
+          {
+            id: "html_responses_show_stakeholder_type",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/fit_report/html/show_stakeholder_type",
+            locals: {}
+          },
+          {
+            id: "html_responses_hide_stakeholder_type",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/fit_report/html/hide_stakeholder_type",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "html_responses_by_self",
+        text: "Responses By Self",
+        path: "mrf/assessments/reports/fit_report/html/responses_by_self",
+        children: [
+          {
+            id: "html_responses_show_stakeholder_type_self",
+            text: "Show Stakeholder Type",
+            path: "mrf/assessments/reports/fit_report/html/show_stakeholder_type",
+            locals: {}
+          },
+          {
+            id: "html_responses_hide_stakeholder_type_self",
+            text: "Hide Stakeholder Type",
+            path: "mrf/assessments/reports/fit_report/html/hide_stakeholder_type",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "html_summary_of_360_degree_feedback",
