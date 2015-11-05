@@ -1,4 +1,4 @@
-class Suitability::ItemGroupsController < ApplicationController
+class Suitability::ItemGroupsController < MasterDataController
   before_filter :authenticate_user!
 
   def api_resource
@@ -10,10 +10,11 @@ class Suitability::ItemGroupsController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
 
-  layout "admin"
+  def import_from
+    "import_from_google_drive"
+  end
 
-  def import_from_google_drive
-    
+  def import_with_options_from_google_drive
     #unless params[:item_group][:file]
     #  flash[:notice] = "Please select a zip file."
     #  redirect_to request.env['HTTP_REFERER'] and return
@@ -27,7 +28,7 @@ class Suitability::ItemGroupsController < ApplicationController
       params[:item_group][:zip_file][:s3_zip_bucket] = obj.bucket.name
       params[:item_group][:zip_file][:s3_zip_key] = obj.key
     end
-    errors = Vger::Resources::Suitability::ItemGroup.import_from_google_drive(params[:item_group])
+    errors = Vger::Resources::Suitability::ItemGroup.import_with_options_from_google_drive(params[:item_group])
     redirect_to manage_suitability_item_groups_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 

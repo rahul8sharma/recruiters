@@ -46,7 +46,7 @@
           .span8.info-block
             %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
-            - if current_user.type == "SuperAdmin"
+            - if is_superadmin?
               .info  
                 = assessment.assessment_type.titleize + ' Based'
               .arrow

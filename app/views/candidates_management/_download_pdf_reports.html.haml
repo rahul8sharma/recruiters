@@ -1,0 +1,15 @@
+= form_for :candidate, url: download_pdf_reports_candidates_path, multipart: true, :method => :post do |f|
+  
+  %fieldset
+    %legend 
+      %strong Download PDF Report 
+    = f.fields_for "args" do |f|
+      %p
+        Assessment ID's (comma seprated): 
+        = f.text_field :assessment_id
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Download'

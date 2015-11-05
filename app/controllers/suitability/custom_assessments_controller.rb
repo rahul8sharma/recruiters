@@ -112,8 +112,28 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
 
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.global(:query_options => {:active => true}, :methods => [:factor_names], :order => ["name ASC"]).to_a
-    @local_competencies = Vger::Resources::Suitability::Competency.where(:query_options => { "companies_competencies.company_id" => @company.id, :active => true }, :methods => [:factor_names], :order => ["name ASC"], :joins => "companies").all.to_a
+    @global_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => {
+        :active => true
+      }, 
+      :scopes => {
+        :global => nil,
+        :for_suitability => nil
+      },
+      :methods => [:factor_names], 
+      :order => ["name ASC"]
+    ).to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => { 
+        "companies_competencies.company_id" => @company.id, :active => true 
+      }, 
+      :scopes => {
+        :for_suitability => nil
+      }, 
+      :methods => [:factor_names], 
+      :order => ["name ASC"], 
+      :joins => "companies"
+    ).all.to_a
     if request.get?
     else
       params[:assessment] ||= {}
@@ -164,7 +184,15 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     order_by = params[:order_by] || "created_at"
     params[:order_by] ||= order_by
     order_type = params[:order_type] || "DESC"
-    @assessments = api_resource.where(:query_options => { :company_id => params[:company_id], :assessment_type => ["fit","competency"] }, :order => "#{order_by} #{order_type}", :page => params[:page], :per => 15)
+    @assessments = api_resource.where(
+      :query_options => { 
+        :company_id => params[:company_id], 
+        :assessment_type => ["fit","competency"] 
+      }, 
+      :order => "#{order_by} #{order_type}", 
+      :page => params[:page], 
+      :per => 15
+    )
   end
 
   # POST /assessments

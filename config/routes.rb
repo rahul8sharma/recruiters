@@ -17,6 +17,7 @@ Recruiters::Application.routes.draw do
       post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
       post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
       post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
+      post 'download_pdf_reports' => "candidates_management#download_pdf_reports"
       post 'resend_invitations_to_candidates' => "candidates_management#resend_invitations_to_candidates"
       post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
       post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
@@ -929,6 +930,8 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
       end
     end
 

@@ -44,6 +44,12 @@ class CandidatesManagementController < ApplicationController
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
+  def download_pdf_reports
+    Vger::Resources::Candidate\
+      .download_pdf_reports(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+
   def send_360_invitations_to_candidates
     Vger::Resources::Mrf::Assessment.resend_invitations(
         company_id: params[:candidate][:args][:company_id],

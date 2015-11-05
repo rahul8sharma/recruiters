@@ -11,7 +11,7 @@ class Suitability::FactorsController < MasterDataController
       :page => params[:page],
       :per => 50,
       :include => [:parent],
-      :methods => [:type, :company_names],
+      :methods => [:type, :company_names, :company_ids],
       :order => [:factor_order],
       :root => :factor,
       :query_options => params[:search]
@@ -73,13 +73,14 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def edit
-    @factor = api_resource.find(params[:id], :root => :factor)
+    @factor = api_resource.find(params[:id], :root => :factor, methods: [:company_ids])
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
   def update
+    params[:factor][:company_ids] = params[:factor][:company_ids].to_s.split(",")
     @factor = api_resource.save_existing(params[:id], params[:factor])
     respond_to do |format|
       if @factor.error_messages.present?

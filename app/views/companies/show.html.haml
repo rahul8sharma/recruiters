@@ -47,7 +47,7 @@
             = h @company.hq_address
           .clr
       .divider2
-      - if current_user.type == "SuperAdmin"
+      - if is_superadmin?
         %a.btn.btn-warning.inverse.big-text.pull-left.bold{href: edit_company_path(@company)}
           Edit Company Profile
 
