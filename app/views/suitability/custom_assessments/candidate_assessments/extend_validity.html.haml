@@ -7,7 +7,7 @@
     View All Candidates
   .clr
   .divider2
-  = render :partial => "shared/candidate-content-sub-nav"
+  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
 
   = form_for @candidate_assessment, as: :candidate_assessment, :url => extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => @candidate.id), multipart: true, method: :put do |f|
     %input{ type:'hidden',name:'candidate_assessment[id]',value: @candidate_assessment.id }

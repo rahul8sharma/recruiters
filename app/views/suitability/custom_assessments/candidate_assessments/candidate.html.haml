@@ -7,7 +7,7 @@
     View All Candidates
   .clr
   .divider2
-  = render :partial => "shared/candidate-content-sub-nav"
+  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
 
   .padding-all2.border-warning.shifted-up1.extra-medium-text
     .span19.margin-auto
