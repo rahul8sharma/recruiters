@@ -326,16 +326,24 @@ Recruiters::Application.routes.draw do
 
       member do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
+        match "competencies_measured" => "sjt/assessments#competencies_measured", :as => :competencies_measured
+        
         match "send_test_to_candidates" => "sjt/assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
         match "add_candidates" => "sjt/assessments/candidate_assessments#add_candidates", :as => :add_candidates
-        match "candidate/:id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
-        match "competencies_measured" => "sjt/assessments/candidate_assessments#competencies_measured", :as => :competencies_measured
+        match "candidates/:candidate_id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
+        
         match "reports" => "sjt/assessments/candidate_assessments#reports", :as => :reports
         
         match "candidates/add_bulk" => "sjt/assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
         put "candidates/bulk_upload" => "sjt/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
         put "candidates/bulk-send-test" => "sjt/assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+
+        get "candidates/expire_links" => "sjt/assessments/candidate_assessments#expire_links", :as => :expire_links
+        get "email_assessment_status" => "sjt/assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
+        get "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
+        put "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations"
+
       end
 
     end

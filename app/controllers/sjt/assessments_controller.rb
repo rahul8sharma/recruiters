@@ -52,6 +52,16 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
     end
   end
 
+  def competencies_measured
+    @competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => {
+        :id => @assessment.competency_order
+      }, 
+      :methods => [:factor_names], 
+      :order => ["name ASC"]
+    ).to_a
+  end
+
   def competencies_url
     add_candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
   end

@@ -1,0 +1,12 @@
+.content-sub-nav.clearfix
+  %a.menu{ class: (["candidate","candidates","extend_validity"].include?(params[:action]) ? "active" : ""),:href => candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
+    Assessment Takers
+  %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_retention_suvery_path(:company_id => params[:company_id], :id => params[:id]), :title => "Measured Traits"}
+    Measured Traits
+  %a.menu{ class: (["reports"].include?(params[:action]) ? "active" : ""), :href => company_retention_suvery_path(:company_id => params[:company_id], :id => params[:id]), :title => "Reports"}
+    Reports
+  - if is_superadmin?
+    %a.label-warning.label-small.medium-text.pull-right{:href=> send_reminder_to_pending_candidates_company_retention_suvery_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} 
+      Send Reminder to all pending candidates
+
+

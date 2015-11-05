@@ -8,7 +8,7 @@
     Create New SJT
   .clr
   .divider2
-  = render :partial => "shared/sjt/sjt-candidate-content-sub-nav"
+  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
   .clr
   .padding-all2.border-warning.shifted-up1
     .big-text.font-bold

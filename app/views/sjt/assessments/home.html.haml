@@ -37,7 +37,7 @@
     %ul
       - @assessments.each do |assessment|
         %li.list-snippet.border-bottom-grayLighter.medium-text
-          - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => "123")
+          - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id)
           .span2.first
             %a{:href=> assessment_url, :title =>  assessment.name} 
               = assessment.id
