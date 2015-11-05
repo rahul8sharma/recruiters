@@ -112,28 +112,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
 
   def competencies
-    @global_competencies = Vger::Resources::Suitability::Competency.where(
-      :query_options => {
-        :active => true
-      }, 
-      :scopes => {
-        :global => nil,
-        :for_suitability => nil
-      },
-      :methods => [:factor_names], 
-      :order => ["name ASC"]
-    ).to_a
-    @local_competencies = Vger::Resources::Suitability::Competency.where(
-      :query_options => { 
-        "companies_competencies.company_id" => @company.id, :active => true 
-      }, 
-      :scopes => {
-        :for_suitability => nil
-      }, 
-      :methods => [:factor_names], 
-      :order => ["name ASC"], 
-      :joins => "companies"
-    ).all.to_a
+    get_competencies(:for_suitability)
     if request.get?
     else
       params[:assessment] ||= {}
@@ -320,4 +299,30 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @templates |= Vger::Resources::Template\
                   .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
+
+  def get_competencies(scope)
+    @global_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => {
+        :active => true
+      }, 
+      :scopes => {
+        :global => nil,
+        scope => nil
+      },
+      :methods => [:factor_names], 
+      :order => ["name ASC"]
+    ).to_a
+    @local_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => { 
+        "companies_competencies.company_id" => @company.id, :active => true 
+      }, 
+      :scopes => {
+        scope => nil
+      }, 
+      :methods => [:factor_names], 
+      :order => ["name ASC"], 
+      :joins => "companies"
+    ).all.to_a    
+  end
+
 end

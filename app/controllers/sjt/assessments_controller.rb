@@ -48,14 +48,32 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
   end
 
   def competencies
+    get_competencies(:for_sjt)
+    if request.get?
+    else
+      params[:assessment] ||= {}
+      params[:assessment][:competencies] ||= []
+      if params[:assessment][:competencies].blank?
+        flash[:error] = "Competencies to be measured must be selected before proceeding!"
+        return
+      else
+        selected_competency_ids = params[:assessment][:competencies].map(&:to_i)
+        selected_competencies = Hash[params[:assessment][:competency_order].select{|competency_id,order| selected_competency_ids.include?(competency_id.to_i) }]
+        competency_order = Hash[selected_competencies.map{|competency_id,order| [competency_id.to_i,order.to_i] }]
+        competency_order = Hash[competency_order.sort_by{|competency_id, order| order }]
+        if competency_order.values.size != competency_order.values.uniq.size
+          flash[:error] = "Competencies should have unique order!"
+          return
+        end
+        ordered_competencies = competency_order.keys.select{|competency_id| selected_competency_ids.include?(competency_id) }
+        @assessment = api_resource.save_existing(@assessment.id, { competency_order: ordered_competencies })
+        if @assessment.error_messages.blank?
+          redirect_to add_candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+        else
+          flash[:error] = @assessment.error_messages.join("<br/>")
+        end
+      end
+    end
   end
-
-  def add_candidates
-  end
-
-  def send_assessment
-  end
-
-  protected
 
 end
