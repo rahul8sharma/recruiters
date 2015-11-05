@@ -332,6 +332,10 @@ Recruiters::Application.routes.draw do
         match "candidate/:id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
         match "competencies_measured" => "sjt/assessments/candidate_assessments#competencies_measured", :as => :competencies_measured
         match "reports" => "sjt/assessments/candidate_assessments#reports", :as => :reports
+        
+        match "candidates/add_bulk" => "sjt/assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
+        put "candidates/bulk_upload" => "sjt/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
+        put "candidates/bulk-send-test" => "sjt/assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
       end
 
     end
