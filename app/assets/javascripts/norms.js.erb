@@ -52,15 +52,11 @@ jQuery(document).ready(function($) {
     $(".check_factor").prop("checked", $(this).is(":checked"));
     $(".check_factor").trigger("change");
   });
-  
+  var trait_ranges = <%= Rails.application.config.validators['traits_range'].to_json %>;
   //- -validation for norms range ---//
-  if ($('input[name="user"]').val() == "SuperAdmin"){
-    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["min"] %>);  
-    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["SuperAdmin"]["max"] %>);  
-  }else{
-    var traits_min = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["min"] %>);  
-    var traits_max = parseInt(<%= Rails.application.config.validators["traits_range"]["Admin"]["max"] %>);  
-  }
+  var user_type = $('input[name="user"]').val();
+  var traits_min = parseInt(trait_ranges[user_type]["min"]);  
+  var traits_max = parseInt(trait_ranges[user_type]["max"]);  
   //--form submission
   $('#edit_assessment').submit(function() {
       if ($('input[name=selected_factor]:checked').length >= traits_min && $('input[name=selected_factor]:checked').length <= traits_max) {

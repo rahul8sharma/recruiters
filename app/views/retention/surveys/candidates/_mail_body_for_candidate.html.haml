@@ -13,7 +13,7 @@
 %p
   Best Regards,
   %br/
-  - if ["SuperAdmin"].include? current_user.type
+  - if is_superadmin?
     Team Jombay
   - else
     = current_user.name

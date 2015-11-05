@@ -313,7 +313,7 @@ class AssessmentsController < ApplicationController
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => query_options).all.to_a
     if default_norm_bucket_ranges.empty?
-      if current_user.type == "SuperAdmin" && ["norms","competency_norms"].include?(params[:action])
+      if is_superadmin? && ["norms","competency_norms"].include?(params[:action])
         flash[:alert] = "Custom norms not present for this combination. Global norms have been picked."
       end
       query_options = {
