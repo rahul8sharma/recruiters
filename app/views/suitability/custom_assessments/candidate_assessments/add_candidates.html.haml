@@ -44,11 +44,11 @@
   .margin-auto.span22
     -#Bulk Upload old code
       .select-candidate-type
-        - if current_user.type == "SuperAdmin"
+        - if is_superadmin?
           = render :partial => "suitability/custom_assessments/candidate_assessments/bulk_upload"
       .divider1
     - checked = (params[:upload_method] == "manual")
-    -# if current_user.type == "SuperAdmin"
+    -# if is_superadmin?
       %label
         %input{:type => "radio", :name => "upload_type", value: "manual", :onClick => "window.location='#{request.path}?upload_method=manual&candidate_stage=#{params[:candidate_stage]}'", :checked => checked}
         %b.extra-medium-text{ class: checked ? 'checked': '' }

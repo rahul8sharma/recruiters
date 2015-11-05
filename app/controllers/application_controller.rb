@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     flash.keep
     return params[:redirect_to] if params[:redirect_to].present?
     case current_user.type
-      when "SuperAdmin"
+      when "SuperAdmin","JitUser"
             companies_path
       when "Admin"
             landing_company_path(current_user.company_id) 
@@ -42,7 +42,11 @@ class ApplicationController < ActionController::Base
   end
   
   def is_superadmin?
-    current_user and current_user.type == "SuperAdmin"
+    current_user and (is_jit_user? || current_user.type == "SuperAdmin")
+  end
+  
+  def is_jit_user?
+    current_user and current_user.type == "JitUser"
   end
   
   def is_admin?
@@ -86,7 +90,7 @@ class ApplicationController < ActionController::Base
   end
   
   def check_superadmin
-    if current_user && current_user.type != "SuperAdmin"
+    if current_user && !is_superadmin?
       flash[:error] = "You are not authorized to access this page."
       redirect_to root_url and return
     end 
