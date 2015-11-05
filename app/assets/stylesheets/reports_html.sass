@@ -408,7 +408,48 @@ select
           padding: 30px 0 30px 40px
           .factor-name:hover
             color: #000
+    &.sjt
+      ul.scores_listing 
+        li
+          padding: 30px 40px
+          .hexagon-icon
+            background: image-url('report/html/sjt/trait-score-hexagon01.png') no-repeat 0 center
+            height: 35px
+           
+          .rhs-sec 
+            .scale
+              height: 35px
+              margin-right: -15px
+              .line
+                border-color: #ccc
+                height: 2px
+                bottom: -12px
+              .marker-container 
+                z-index: 1000
+                .marker
+                  background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
+                  font-size: 14px
+                  font-weight: 200 
+                  height: 50px
+                  &.active
+                    background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
 
+                    
+            .slider
+              background: #fff
+              .pointer
+                background: image-url('report/html/sjt/scale-pointer-hexagon.png') no-repeat center 0
+                .score-indicater
+                  border-color: #3aafe5
+
+                .arrow
+                  background: image-url('report/html/sjt/score-indicater-arrow.png') no-repeat center 0
+          .factor-description
+            p 
+              background: image-url('report/html/sjt/trait-score-hexagon.png') no-repeat
+              background-size: auto 70%
+              padding: 0 0 0 20px
+              font-size: 18px 
 
   @for $i from 0 through 4
     .offset#{$i}
