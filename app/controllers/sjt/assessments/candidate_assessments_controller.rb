@@ -1,22 +1,6 @@
 class Sjt::Assessments::CandidateAssessmentsController < Suitability::CustomAssessments::CandidateAssessmentsController
   layout 'sjt/sjt'
 
-  helper_method :add_candidates_bulk_url, 
-                :competencies_url, 
-                :send_reminder_to_candidate_url, 
-                :candidates_url, 
-                :candidate_url,
-                :add_candidates_url, 
-                :reports_url, 
-                :send_test_to_candidates_path, 
-                :bulk_send_test_to_candidates_path, 
-                :new_assessment_url, 
-                :expire_links_url, 
-                :email_assessment_status_url, 
-                :resend_invitations_url
-    
-  
-
   private
 
   def add_candidates_bulk_url
