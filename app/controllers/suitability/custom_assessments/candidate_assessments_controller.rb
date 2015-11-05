@@ -162,7 +162,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     else
       if !add_candidates_allow
         flash[:error] = "You need to select traits before sending an assessment. Please select traits from below."
-        redirect_to norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        redirect_to competencies_url
       end
     end
   end
@@ -506,6 +506,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
+  end
+
+  def competencies_url
+    norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
   def candidates_url

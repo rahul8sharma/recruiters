@@ -15,8 +15,6 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
       :page => params[:page], 
       :per => 15
     )
-    Rails.logger.ap("--LOGGER--")
-    Rails.logger.ap(@assessments.size)
   end
 
   def create
