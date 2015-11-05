@@ -45,8 +45,21 @@ class CandidatesManagementController < ApplicationController
   end
 
   def download_pdf_reports
+  	unless params[:candidate][:args][:file]
+      flash[:notice] = "Please select a file."
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    data = params[:candidate][:args][:file].read
+    now = Time.now
+    s3_key = "candidate_scores/#{now.strftime('%d_%m_%Y_%H_%I')}"
+    obj = S3Utils.upload(s3_key, data)
+
     Vger::Resources::Candidate\
-      .download_pdf_reports(params[:candidate])
+      .download_pdf_reports(params[:candidate].merge(:file => {
+                        :bucket => obj.bucket.name,
+                        :key => obj.key
+                      }))
+
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

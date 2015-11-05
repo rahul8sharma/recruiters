@@ -8,6 +8,9 @@
         Assessment ID's (comma seprated): 
         = f.text_field :assessment_id
       %p
+        CSV File:
+        = f.file_field "file"
+      %p
         Notification Email : 
         = f.text_field :email, :value => "product@jombay.com"
 
