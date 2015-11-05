@@ -1,11 +1,21 @@
-class Sjt::AssessmentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:company_id]) }
-  before_filter :get_company
-
+class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
   layout 'sjt/sjt'
 
   def home
+    order_by = params[:order_by] || "created_at"
+    params[:order_by] ||= order_by
+    order_type = params[:order_type] || "DESC"
+    @assessments = api_resource.where(
+      :query_options => { 
+        :company_id => params[:company_id], 
+        :assessment_type => ["sjt_competency"] 
+      }, 
+      :order => "#{order_by} #{order_type}", 
+      :page => params[:page], 
+      :per => 15
+    )
+    Rails.logger.ap("--LOGGER--")
+    Rails.logger.ap(@assessments.size)
   end
 
   def edit
@@ -24,10 +34,5 @@ class Sjt::AssessmentsController < ApplicationController
   end
 
   protected
-
-  def get_company
-    @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
-  end
-
 
 end

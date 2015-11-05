@@ -9,54 +9,62 @@
       View Ready-to-Send SJTs
   .clr
   .divider2
-  .list-snippet-titles.extra-medium-text.clearfix
-    .span2.first
-      AID
-    .span4
-      Created On
-    .span8
-      Assessment Title
-    .span4
-      View Details
-    .span4
-      %a{:href=>"#"}
-        Completed by
-    .span3
-      %a{:href=>"#"}
-        Sent to 
-    .span5
-      Send Assessment 
+  - if @assessments.empty?
+    .alert.pull-left
+      No assessments have been created. To create an assessments, 
+      %a{:href => new_company_sjt_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
+    .divider2
+  - else 
+    .list-snippet-titles.extra-medium-text.clearfix
+      .span2.first
+        AID
+      .span4
+        Created On
+      .span8
+        Assessment Title
+      .span4
+        View Details
+      .span4
+        %a{:href=>"#"}
+          Completed by
+      .span3
+        %a{:href=>"#"}
+          Sent to 
+      .span5
+        Send Assessment 
+      .clr
+      .divider2          
+    %ul
+      - @assessments.each do |assessment|
+        %li.list-snippet.border-bottom-grayLighter.medium-text
+          - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => "123")
+          .span2.first
+            %a{:href=> assessment_url, :title =>  assessment.name} 
+              = assessment.id
+          .span4
+            %a{:href => assessment_url, :title => "Date"} 
+              = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
+          .span8.info-block
+            %a{:href=> assessment_url, :title => "Assessment Name"}  
+              = assessment.name
+          .span3.text-center
+            %a{:href=> assessment_url, :title => "View Details"}
+              %i.icon-eye-open
+          .span3.text-center.left-offset1
+            - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
+            %a{:href=> assessment_url, :title=>"#{completed_count}"}  
+              = completed_count
+          .span2.text-center.left-offset1
+            - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+            %a{:href=> assessment_url, :title=>"#{sent_count}"}  
+              = sent_count
+          .span4.text-center.left-offset1
+            %a.span{:href => add_candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
+              %i.icon-envelope
+            .clr  
+          .clr
+          .divider1
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @assessments}
     .clr
-    .divider2          
-  %ul
-    - 5.times do |index|
-      %li.list-snippet.border-bottom-grayLighter.medium-text
-        - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => "123")
-        .span2.first
-          %a{:href => assessment_url, :title => "Assessment ID"} 
-            12345
-        .span4
-          %a{:href => assessment_url, :title => "Date"} 
-            31/08/1089
-        .span8.info-block
-          %a{:href=> assessment_url, :title => "Assessment Name"}  
-            Dummy Name
-        .span3.text-center
-          %a{:href=> assessment_url, :title => "Vieq Details"}
-            %i.icon-eye-open
-        .span3.text-center.left-offset1
-          %a{:href=> assessment_url, :title => "Completed Count"}
-            X
-        .span2.text-center.left-offset1
-          %a{}
-            X
-        .span4.text-center.left-offset1
-          %a.span{:title => "Send This Test"}
-            %i.icon-envelope
-          .clr  
-        .clr
-        .divider1
-  .divider2
-  .pull-right
-    -# = render :partial => "shared/pagination", :locals => { :objects => @assessments}
-  .clr
