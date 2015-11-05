@@ -32,7 +32,7 @@
     = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
       %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
       .clr
-    - if current_user.type == "SuperAdmin"
+    - if is_superadmin?
       .divider2
       .text-center.large-text
         %b OR
@@ -43,12 +43,12 @@
     .clr
     .divider3
     - if params[:candidates]
-      - if current_user.type == "SuperAdmin"
+      - if is_superadmin?
         .text-center
           %label.invitation-sms.medium-text
             Also send test invitations to candidates via SMS
             %input{:type=>"checkbox", name: "send_sms"}
-          %label.invitation-sms.medium-text{ style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+          %label.invitation-sms.medium-text{ style: "display:#{is_superadmin? ? 'block': 'none'}"}
             Send default email
             %input{:type=>"checkbox", name: "send_email", checked: true}
       - params[:candidates].each do |id,candidate_data|

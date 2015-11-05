@@ -38,7 +38,7 @@
 
   = form_for @assessment, :as => :assessment, :url => functional_traits_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
     %input{type: 'hidden', name: 'user', value: current_user.type}
-    - if current_user.type != "SuperAdmin"
+    - if !is_superadmin?
       = f.hidden_field :validate_items, value: "on"
     - 2.times do
       .span15.first

@@ -60,12 +60,12 @@
   .clr
   .divider2
   .pull-left
-    - if current_user.type == "SuperAdmin"
+    - if is_superadmin?
       %label 
         %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
         Enable Training Requirements Report for this assessment
   .pull-right  
-    - if current_user.type == "SuperAdmin"
+    - if is_superadmin?
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed with Competency Framework", name: "competency", style: "margin-right:10px;" }
     %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }  
   .clr
