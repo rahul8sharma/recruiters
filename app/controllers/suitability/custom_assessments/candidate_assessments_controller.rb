@@ -17,7 +17,9 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
                 :new_assessment_url, 
                 :expire_links_url, 
                 :email_assessment_status_url, 
-                :resend_invitations_url
+                :resend_invitations_url,
+                :trigger_report_downloader_url,
+                :export_feedback_scores_url
     
   
   def expire_links
@@ -425,7 +427,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         if params[:candidate_assessment][:validity_in_days] == ""
           # Error copy needs confirmation from product
           flash[:error] = "Please select a value for the validity of the assessment."
-          redirect_to extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
+          redirect_to extend_validity_url()
         else
           Vger::Resources::Suitability::CandidateAssessment\
             .where(:assessment_id => @assessment.id, :query_options => {
@@ -563,6 +565,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
 
   private
 
+  def extend_validity_url
+    extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
+  end
+  
   def add_candidates_bulk_url
     add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id)
   end
@@ -612,6 +618,14 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def resend_invitations_url
-    resend_invitations_company_custom_assessment_path(params[:company_id],params[:id])
+    resend_invitations_company_custom_assessment_path(params[:company_id], params[:id])
+  end
+
+  def trigger_report_downloader_url
+    trigger_report_downloader_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def export_feedback_scores_url
+    export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 end
