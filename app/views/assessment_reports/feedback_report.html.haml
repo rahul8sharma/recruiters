@@ -7,7 +7,7 @@
 
 
 - factor_scores = Hash.new
-- if @report.report_hash[:assessment][:assessment_type] == 'competency'
+- if @report.report_hash[:competency_scores].present?
   - @report.report_hash[:competency_scores].each do |competency_name, competency_values|
     - competency_values[:factor_scores].each do |factor_name, score|
       - factor_scores[factor_name] = score
