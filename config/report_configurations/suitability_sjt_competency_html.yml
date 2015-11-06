@@ -126,7 +126,7 @@
   },
   {
     id: "html_competencies_values_measured",
-    text: "Competencies Measured",
+    text: "Competencies Measured [Hexagonal Block]",
     path: "assessment_reports/competency_report/html/comptencies_values_measured",
     children: [
       {
