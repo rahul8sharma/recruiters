@@ -1,7 +1,7 @@
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
-    
+
 .divider1
 .control-group
   %label
@@ -12,7 +12,6 @@
     - @industries.each do |id, industry|
       %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
         = industry.name
-
   .clr
 .control-group
   %label
@@ -24,7 +23,6 @@
       %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
         = functional_area.name
   .clr
-
 .control-group
   %label
     Select Experience Range of the Job Role that you are creating this Assessment for
@@ -40,7 +38,6 @@
     Enter a Title for the Assessment
   = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
   .clr
-
 - if ["new","create"].include?(params[:action])
   = f.fields_for :sets do |set_form|
     = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
@@ -54,31 +51,9 @@
           Page Size
         = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span17"
         .clr
-
 .clr
 - if is_superadmin?
-  - if ["new","create"].include? params[:action]
-    .control-group
-      %label
-        Select Assessment Type
-      %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
-        %option{:value => ""}
-          Select Assessment Type
-        - Vger::Resources::Assessment::ASSESSMENT_TYPES.sort.each do |assessment_type|
-          %option{:value => assessment_type, selected: (assessment.assessment_type == assessment_type)}
-            = assessment_type.titleize
-      .clr
-  - else
-    = f.hidden_field :assessment_type, value: @assessment.assessment_type, :id => "set_assessment_type"    
-  .control-group
-    %label
-      Select the Language for the Assessment
-    %select.span10.first{name: 'assessment[language]', id: 'select_language'}
-      - Rails.application.config.languages.each do |code, language|
-        %option{:value => code, selected: (assessment.language == code)}
-          = language
-
-    .clr
+  = f.hidden_field :assessment_type, value: Vger::Resources::Assessment::AssessmentType::SJT_COMPETENCY, :id => "set_assessment_type"    
   .control-group
     %label
       Select Custom Factual Information Form
@@ -91,22 +66,12 @@
     .clr
   .control-group
     %label
-      Select the Brand Partner
-    %select.span10.first{name: 'assessment[brand_partner]', id: 'select_brand_partner'}
-      %option{:value => ""}
-        Select Brand Partner
-      - Rails.application.config.brand_partners.each do |brand_partner, content|
-        %option{:value => brand_partner, selected: (assessment.brand_partner == brand_partner)}
-          = brand_partner.titleize
-    .clr      
-  .control-group
-    %label
       Select Assessment Completion Notification Template
     %select.span10.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
       %option{:value => ""}
         Select Assessment Completion Notification Template
       - @templates.each do |template|
-        %option{:value => template.id, selected: (assessment.assessment_completion_notification_template_id == template.id)}
+        %option{:value => template.id, selected: (@assessment.assessment_completion_notification_template_id == template.id)}
           = template.name
     .clr      
   .control-group
@@ -122,39 +87,13 @@
     .clr
   .control-group
     %label
-      %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-      Enable Training Requirements Report for this assessment
-    .clr  
-  .control-group
-    %label
       = f.check_box :show_help_text, id: "show_help_text"
       Show Help Text for Items?
     .clr  
-  .control-group
-    %label
-      = f.check_box :set_applicant_id
-      Set Applicant Id
-    .clr
-  .control-group  
-    %label
-      = f.check_box :is_functional_assessment, id: "is_functional_assessment"
-      Is Functional Assessment
-    .clr  
-    
   .control-group  
     %label
       = f.check_box :should_send_notifications, id: "should_send_notifications"
       Send Report Notifications
-    .clr  
-  .control-group  
-    %label
-      = f.check_box :is_jq_assessment, id: "is_jq_assessment"
-      Is JQ Assessment
-    .clr  
-  .control-group  
-    %label
-      = f.check_box :include_cocubes_scores_in_reoprts
-      Include Cocubes Scores in Reports and Summary
     .clr  
   .control-group
     %label
@@ -163,6 +102,6 @@
     .clr  
 - else
   = f.hidden_field :language, value: 'en'
-  = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
+  = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::SJT_COMPETENCY, :id => "set_assessment_type"    
   = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
 .divider2
