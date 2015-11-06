@@ -577,8 +577,8 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
-  def send_reminder_to_candidate_url
-    send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
+  def send_reminder_to_candidate_url(candidate,candidate_assessment)
+    send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id, :candidate_assessment_id => candidate_assessment.id)
   end
 
   def candidates_url
