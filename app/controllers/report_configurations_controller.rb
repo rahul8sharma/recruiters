@@ -144,10 +144,8 @@ class ReportConfigurationsController < MasterDataController
     end
     template = if @report.configuration[:is_functional_assessment]
       "functional_report"
-    elsif @report.report_hash[:assessment][:assessment_type] == "competency"
-      "competency_report"
     else
-      "assessment_report"
+      @report.report_hash[:assessment][:assessment_type]+"_report"
     end
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
@@ -157,7 +155,7 @@ class ReportConfigurationsController < MasterDataController
         layout  = "candidate_reports.pdf.haml"
       when "feedback"  
         layout  = "feedback_reports.html.haml"
-        template = "assessment_report_feedback.html.haml"
+        template = "feedback_report.html.haml"
     end    
     @page = 1
     

@@ -10,16 +10,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     Vger::Resources::Suitability::CustomAssessment
   end
 
-  def get_company
-    methods = []
-    if ["show","index", "training_requirements"].include? params[:action]
-      if Rails.application.config.statistics[:load_assessmentwise_statistics]
-        methods << :assessmentwise_statistics
-      end
-    end
-    @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
-  end
-
   def norms
     get_norms
     if request.get?
@@ -216,7 +206,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
   def get_company
     methods = []
-    if ["show","index", "training_requirements"].include? params[:action]
+    if ["show","index", "training_requirements","home"].include? params[:action]
       if Rails.application.config.statistics[:load_assessmentwise_statistics]
         methods << :assessmentwise_statistics
       end
