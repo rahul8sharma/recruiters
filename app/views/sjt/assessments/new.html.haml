@@ -16,11 +16,11 @@
 
   = form_for @assessment, :as => :assessment, :url => company_sjt_assessments_path(:company_id => params[:company_id]), multipart: true, method: "post", html: {id: "assessment_form", class: "creat-test-form" } do |f|
     = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
-    -# = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
-    %input{:id => "report_type", :value => "suitability", :type => "hidden"}
+    = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
     = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
-    -# = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
-    -# %input{:id => "report_type", :value => "suitability", :type => "hidden"}
+    = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
+    %input{:id => "report_type", :value => "suitability", :type => "hidden"}
+    
     .divider1
     .control-group
       %label
