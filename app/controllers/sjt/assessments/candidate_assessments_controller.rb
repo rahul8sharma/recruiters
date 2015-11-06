@@ -14,6 +14,10 @@ class Sjt::Assessments::CandidateAssessmentsController < Suitability::CustomAsse
   def competencies_url
     competencies_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
+  
+  def send_reminder_to_candidate_url(candidate,candidate_assessment)
+    send_reminder_to_candidate_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id, :candidate_assessment_id => candidate_assessment.id)
+  end
 
   def candidates_url
     candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id])

@@ -347,7 +347,8 @@ Recruiters::Application.routes.draw do
         match "candidates/:candidate_id/extend-validity" => "sjt/assessments/candidate_assessments#extend_validity", :as => :extend_validity
         get "trigger_report_downloader" => "sjt/assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
-
+        get "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
       end
 
     end

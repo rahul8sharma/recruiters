@@ -3,7 +3,7 @@
     .divider1
     Send Reminder
   .divider3
-  - url = send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  - url = send_reminder_to_candidate_url(@candidate, @candidate_assessment)
   = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
     .span8.left-offset1
       - if @templates.size > 1
@@ -54,8 +54,7 @@
                     = render :partial => "suitability/custom_assessments/candidate_assessments/reminder_mail_body_for_employee"
             .clr
             .divider2
-            = form_for @assessment, as: :assessment, url: controller.send_reminder_to_candidate_url, method: :put, html: { class: 'pull-right span' } do |f|
-              %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
+            %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
             %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
               Cancel
             .clr
