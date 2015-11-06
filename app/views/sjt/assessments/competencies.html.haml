@@ -53,7 +53,7 @@
                 %option{value: index, selected: index==selected}
                   = index+1                  
             .span.left-offset1
-              %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
+              %input{:type=>"checkbox", checked: @assessment.competency_order.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "local_competency", :id=>"competency_#{competency.id}"}
             .clr
             .divider1
           - all_competency_index+=1  
@@ -97,7 +97,7 @@
                   = index+1
                   
             .span.left-offset1
-              %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}             
+              %input{:type=>"checkbox", checked: @assessment.competency_order.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}             
             .clr
             .divider1
           - all_competency_index+=1  
