@@ -45,21 +45,19 @@ class CandidatesManagementController < ApplicationController
   end
 
   def download_pdf_reports
-  	unless params[:candidate][:args][:file]
+  	if params[:candidate][:args][:file]
       flash[:notice] = "Please select a file."
-      redirect_to request.env['HTTP_REFERER'] and return
-    end
-    data = params[:candidate][:args][:file].read
-    now = Time.now
-    s3_key = "report_urls/#{now.strftime('%d_%m_%Y_%H_%I')}"
-    obj = S3Utils.upload(s3_key, data)
-
-    params[:candidate][:args].merge!({ 
+      data = params[:candidate][:args][:file].read
+      now = Time.now
+      s3_key = "report_urls/#{now.strftime('%d_%m_%Y_%H_%I')}"
+      obj = S3Utils.upload(s3_key, data)
+      params[:candidate][:args].merge!({ 
       					:file => {
                         :bucket => obj.bucket.name,
                         :key => obj.key
                       }})
-                      	
+
+    end
     Vger::Resources::Candidate\
       .download_pdf_reports(params[:candidate])
 
