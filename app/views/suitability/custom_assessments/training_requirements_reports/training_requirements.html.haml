@@ -10,7 +10,7 @@
   .clr
   .divider2
   .clr
-  = render :partial => "shared/candidate-content-sub-nav"
+  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
   .padding-all2.border-warning.shifted-up1
     - if @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
       .span10.extra-medium-text.first
