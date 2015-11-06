@@ -1,0 +1,52 @@
+#scores
+  .divider2
+  .scores.container.sjt
+    .title.pull-left
+      .divider3
+      Scores of Competencies/Values measured
+    .scale
+      .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
+      .marker-container
+        - @company_norm_buckets.each do |norm_bucket|
+          .marker
+            .arrow
+            .marker-info
+              = norm_bucket.description
+            - if norm_bucket.name.split(" ").size == 1
+              %br/
+            = norm_bucket.name
+        .clr
+    .clr
+    .divider4 
+    .frame
+      %ul.clearfix.scores_listing.first
+        - @report.report_hash[:competency_scores].each do |competency_name, competency_score|
+          - norm_bucket_uid = competency_score[:grade_uid]
+          - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+          %li{:id => "#{competency_name}"}
+            .divider1
+            .lhs-sec.pull-left
+              %div{ class: "span1 first hexagon-icon favorable"}
+              .span15.first
+                .factor-name.pull-left
+                  = competency_name
+                  .info
+                    Some Description
+                  .arrow
+                .clr
+            .rhs-sec.pull-right
+              .scale
+                .line{:style => "width:400px"}
+                .marker-container
+                  - @company_norm_buckets.each do |company_norm_bucket|
+                    .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                      = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+                  .clr
+            .clr
+            .divider1
+            .factor-description.big-text
+              - if competency_score[:factor_scores].present?
+                - competency_score[:factor_scores].each do |factor_name, factor_score|
+                  %p
+                    = factor_score[:description]
+    .divider1
