@@ -6,6 +6,9 @@ class AssessmentsController < ApplicationController
   before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
   before_filter :get_factors, :only => [:norms, :competency_norms]
   before_filter :add_set, :only => [:new]
+  
+  helper_method :assessment_url, 
+                :edit_assessment_url
 
   layout "tests"
 
@@ -68,10 +71,10 @@ class AssessmentsController < ApplicationController
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.present?
       flash[:error] = @assessment.error_messages.join("<br/>").html_safe
-      redirect_to edit_company_custom_assessment_path(@company,@assessment)
+      redirect_to edit_assessment_url
     else
       flash[:notice] = "Assessment updated successfully! Please regenerate reports for the changes to reflect in them"
-      redirect_to company_custom_assessment_path(@company,@assessment)
+      redirect_to assessment_url
     end
   end
 
@@ -375,5 +378,15 @@ class AssessmentsController < ApplicationController
       flash[:error] = @assessment.error_messages.join("<br/>")
       return false
     end
+  end
+  
+  private
+  
+  def assessment_url
+    company_custom_assessment_path(params[:company_id], params[:id])
+  end
+  
+  def edit_assessment_url
+    edit_company_custom_assessment_path(params[:company_id], params[:id])
   end
 end

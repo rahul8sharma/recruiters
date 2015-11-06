@@ -65,6 +65,15 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
   def competencies_url
     add_candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
   end
-
+  
+  private
+  
+  def assessment_url
+    company_sjt_assessment_path(params[:company_id], params[:id])
+  end
+  
+  def edit_assessment_url
+    edit_company_sjt_assessment_path(params[:company_id], params[:id])
+  end
 
 end
