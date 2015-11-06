@@ -641,6 +641,34 @@ body
             margin-left: 25px
           .factor-description
             margin-left: 50px
+      &.sjt
+        ul.scores_listing 
+          li
+            padding: 15px 20px
+            .hexagon-icon
+              background: image-url('report/pdf/sjt/trait-score-hexagon.png') no-repeat 0 center
+             
+            .rhs-sec 
+              .scale
+                height: 35px
+                .line
+                  border-color: #ccc
+                  height: 2px
+                  bottom: -12px
+                .marker-container 
+                  z-index: 1000
+                  .marker
+                    background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
+                    font-size: 10px
+                    font-weight: 200 
+                    height: 50px
+                    &.active
+                      background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
+
+            .factor-description
+              p 
+                background: image-url('report/html/sjt/trait-score-hexagon-small.png') no-repeat 0 6px
+                padding: 0 0 0 15px
 
   .factor-block
     margin: 5px 15px 0 15px
