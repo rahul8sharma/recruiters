@@ -12,7 +12,7 @@ class CandidatesManagementController < ApplicationController
     Vger::Resources::Candidate\
       .import_from_google_drive(params[:import])
     redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export
     Vger::Resources::Candidate\
@@ -45,14 +45,14 @@ class CandidatesManagementController < ApplicationController
   end
 
   def download_pdf_reports
-  	if params[:candidate][:args][:file]
+    if params[:candidate][:args][:file]
       flash[:notice] = "Please select a file."
       data = params[:candidate][:args][:file].read
       now = Time.now
       s3_key = "report_urls/#{now.strftime('%d_%m_%Y_%H_%I')}"
       obj = S3Utils.upload(s3_key, data)
       params[:candidate][:args].merge!({ 
-      					:file => {
+                :file => {
                         :bucket => obj.bucket.name,
                         :key => obj.key
                       }})
