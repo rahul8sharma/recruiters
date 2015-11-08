@@ -1,0 +1,24 @@
+.trait-show
+  .span15.page-title.first
+    .divider1
+    AID #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send this SJT
+  %a.extra-medium-text.pull-right.line-height3{:href => new_company_sjt_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+    Create New SJT
+  .clr
+  .divider2
+  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .big-text.font-bold
+      .pull-left
+        Competencies Measured: #{@competencies.size}
+    .divider2
+    %ul.clearfix.scores_listing.first
+      - @competencies.each do |competency|
+        %li
+          .lhs-sec.span20.first
+            .factor-name
+              = competency.name
+        .divider1

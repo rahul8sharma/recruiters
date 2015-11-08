@@ -12,7 +12,7 @@ class CandidatesManagementController < ApplicationController
     Vger::Resources::Candidate\
       .import_from_google_drive(params[:import])
     redirect_to manage_candidates_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export
     Vger::Resources::Candidate\
@@ -41,6 +41,26 @@ class CandidatesManagementController < ApplicationController
   def export_candidate_report_urls
     Vger::Resources::Candidate\
       .export_candidate_report_urls(params[:candidate])
+    redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+
+  def download_pdf_reports
+    if params[:candidate][:args][:file]
+      flash[:notice] = "Please select a file."
+      data = params[:candidate][:args][:file].read
+      now = Time.now
+      s3_key = "report_urls/#{now.strftime('%d_%m_%Y_%H_%I')}"
+      obj = S3Utils.upload(s3_key, data)
+      params[:candidate][:args].merge!({ 
+                :file => {
+                        :bucket => obj.bucket.name,
+                        :key => obj.key
+                      }})
+
+    end
+    Vger::Resources::Candidate\
+      .download_pdf_reports(params[:candidate])
+
     redirect_to manage_candidates_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

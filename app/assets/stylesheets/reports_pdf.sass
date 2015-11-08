@@ -78,6 +78,11 @@ body
       position: absolute
       width: 55px
       bottom: -16px
+    .logo-partner
+      position: absolute
+      width: 55px
+      bottom: 6px
+      left: 86px
     .user_name
       font-size: 18px
       font-weight: 700
@@ -636,6 +641,34 @@ body
             margin-left: 25px
           .factor-description
             margin-left: 50px
+      &.sjt
+        ul.scores_listing 
+          li
+            padding: 10px 20px
+            .hexagon-icon
+              background: image-url('report/pdf/sjt/trait-score-hexagon.png') no-repeat 0 center
+             
+            .rhs-sec 
+              .scale
+                height: 35px
+                .line
+                  border-color: #ccc
+                  height: 2px
+                  bottom: -12px
+                .marker-container 
+                  z-index: 1000
+                  .marker
+                    background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
+                    font-size: 10px
+                    font-weight: 200 
+                    height: 50px
+                    &.active
+                      background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
+
+            .factor-description
+              p 
+                background: image-url('report/html/sjt/trait-score-hexagon-small.png') no-repeat 0 6px
+                padding: 0 0 0 15px
 
   .factor-block
     margin: 5px 15px 0 15px
@@ -1023,3 +1056,56 @@ body
     color: #fff
     line-height: 110px
     text-align: center
+.explanation_of_cocubes_score
+  ul
+    li
+      color: #000
+      padding: 25px
+      border-top: 1px dashed #d4d4d4
+      &:first-child
+        border: 0 none
+      p
+        padding-left: 50px
+        margin: 0
+      .cocubes_score_title
+        padding-left: 50px
+        line-height: 49px
+        background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+      .cocubes_score_scale
+        margin-top: 15px
+        height: 18px
+        border: 1px solid #919191
+        background: #c8c8c8
+        position: relative
+      .average
+        background-position: 0px -57px 
+      .high
+        background-position: 0px -114px
+      .icon
+        background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+        width: 45px
+        height: 49px
+        position: absolute
+        top: -14px
+        .arrow
+          background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
+          position: absolute
+          left: -50%
+          top: -30px
+          margin-left: -13px
+          text-align: center
+          line-height: 29px
+          height: 32px
+          width: 111px
+          background-position: 0px -171px
+      .slider
+        float: left
+        height: 100%
+        &.average
+          background: #fcc311
+          width: 32%
+          margin-left: 32%
+        &.high
+          background: #6ba630
+          width: 36%
+

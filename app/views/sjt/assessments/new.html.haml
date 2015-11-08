@@ -1,3 +1,10 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "jstree"
+
 .new
   .page-title.pull-left
     Create SJT
@@ -6,6 +13,11 @@
   .divider1
   = render :partial => "shared/sjt/sjt_navigation-sub-nav"
   .divider2
-
-  %a.btn.btn-warning.big.big-text.pull-right.span{:href => competencies_company_sjt_assessment_path(@company.id, "1234"), :title => "Proceed"} 
-    Proceed
+  = form_for @assessment, :as => :assessment, :url => company_sjt_assessments_path(:company_id => params[:company_id]), multipart: true, method: "post", html: {id: "assessment_form", class: "creat-test-form" } do |f|
+    = render :partial => "assessments/sjt_assessment_fields", :locals => { :assessment => @assessment, :f => f }
+    .pull-right
+      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "sjt_competency" }
+    .clr
+    .divider1
+  = render :partial => "shared/report_configuration"
+  .divider1

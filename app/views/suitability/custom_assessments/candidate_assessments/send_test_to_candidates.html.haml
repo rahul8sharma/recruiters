@@ -9,9 +9,9 @@
 = render :partial => "shared/navigation-sub-nav"
 .divider3
 - if params[:candidates]
-  - url = send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  - url = send_test_to_candidates_path
 - else
-  - url = bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  - url = bulk_send_test_to_candidates_path
 = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:candidates]
@@ -226,7 +226,7 @@
         .clr
 
     .divider1
-    %div{style: "display:#{current_user.type == 'SuperAdmin' ? 'block': 'none'}"}
+    %div{style: "display:#{is_superadmin? ? 'block': 'none'}"}
       %label.muted.medium-text.pull-left{ :for => "send_report_to_candidate", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_candidate', id: "send_report_to_candidate" }
         Send report to candidate

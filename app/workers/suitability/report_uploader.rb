@@ -57,10 +57,8 @@ module Suitability
 
         template = if @report.configuration[:is_functional_assessment]
           "functional_report"
-        elsif @report.report_hash[:assessment][:assessment_type] == "competency"
-          "competency_report"
         else
-          "assessment_report"
+          @report.report_hash[:assessment][:assessment_type]+"_report"
         end
         
         report_status = {
@@ -79,7 +77,7 @@ module Suitability
 
         @view_mode = "feedback"
         feedback_html = render_to_string(
-           template: "assessment_reports/assessment_report_feedback.html.haml",
+           template: "assessment_reports/feedback_report.html.haml",
            layout: "layouts/feedback_reports.html.haml",
            handlers: [ :haml ],
            formats: [ :html ]

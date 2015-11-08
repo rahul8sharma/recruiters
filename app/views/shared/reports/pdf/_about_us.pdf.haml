@@ -29,12 +29,12 @@
             %p
               %span.bold Integrated Talent Analytics: 
               Jombay provides you actionable insights through Analytics reports around Benchmarking of Talent, Training Needs Identifications, Attrition Analysis among others.
-  - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner]
+  - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
     .company-summary
       .content
         - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
         .company-logo
-          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 150px; height: 50px "}
+          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 200px; height: 50px "}
         .divider1
         = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
   - else

@@ -4,6 +4,23 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   before_filter :get_company
 
   layout "tests"
+
+  helper_method :add_candidates_bulk_url, 
+                :competencies_url, 
+                :send_reminder_to_candidate_url, 
+                :candidates_url, 
+                :candidate_url,
+                :add_candidates_url, 
+                :reports_url, 
+                :send_test_to_candidates_path, 
+                :bulk_send_test_to_candidates_path, 
+                :new_assessment_url, 
+                :expire_links_url, 
+                :email_assessment_status_url, 
+                :resend_invitations_url,
+                :trigger_report_downloader_url,
+                :export_feedback_scores_url
+    
   
   def expire_links
     options = {
@@ -67,15 +84,14 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
   end
 
   def bulk_upload
-    @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
-
+    get_s3_keys
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
-      redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id,candidate_stage: params[:candidate_stage]) and return
+      redirect_to add_candidates_bulk_url and return
     end
     if !params[:candidate_stage].present?
       flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
-      redirect_to add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id) and return
+      redirect_to add_candidates_bulk_url and return
     else
       data = params[:bulk_upload][:file].read
       obj = S3Utils.upload(@s3_key, data)
@@ -87,6 +103,10 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
       render :action => :send_test_to_candidates
     end
+  end
+
+  def get_s3_keys
+    @s3_key = "suitability/candidates/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
   end
 
   # GET : renders form to add candidates
@@ -162,7 +182,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     else
       if !add_candidates_allow
         flash[:error] = "You need to select traits before sending an assessment. Please select traits from below."
-        redirect_to norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+        redirect_to competencies_url
       end
     end
   end
@@ -345,28 +365,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     @candidates = Kaminari.paginate_array(@candidates, total_count: @candidate_assessments.total_count).page(params[:page]).per(10)
   end
 
-  def reports
-    order = params[:order_by] || "completed_at"
-    order_type = params[:order_type] || "DESC"
-    case order
-      when "id"
-        order = "candidates.id #{order_type}"
-      when "name"
-        order = "candidates.name #{order_type}"
-    end
-    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
-      :assessment_id => @assessment.id,
-      :joins => [:candidate_assessment_reports, :candidate],
-      :include => [:candidate_assessment_reports, :candidate],
-      :query_options => {
-        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
-      },
-      :order => order,
-      :page => params[:page],
-      :per=>10
-    ).all
-  end
-
   # GET : renders candidate info for selected assessment
   def candidate
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
@@ -393,6 +391,28 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     end
   end
 
+  def reports
+    order = params[:order_by] || "completed_at"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "id"
+        order = "candidates.id #{order_type}"
+      when "name"
+        order = "candidates.name #{order_type}"
+    end
+    @candidate_assessments = Vger::Resources::Suitability::CandidateAssessment.where(
+      :assessment_id => @assessment.id,
+      :joins => [:candidate_assessment_reports, :candidate],
+      :include => [:candidate_assessment_reports, :candidate],
+      :query_options => {
+        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+      },
+      :order => order,
+      :page => params[:page],
+      :per=>10
+    ).all
+  end
+
   def extend_validity
     @candidate = Vger::Resources::Candidate.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
     @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment\
@@ -407,7 +427,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
         if params[:candidate_assessment][:validity_in_days] == ""
           # Error copy needs confirmation from product
           flash[:error] = "Please select a value for the validity of the assessment."
-          redirect_to extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
+          redirect_to extend_validity_url()
         else
           Vger::Resources::Suitability::CandidateAssessment\
             .where(:assessment_id => @assessment.id, :query_options => {
@@ -462,10 +482,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     redirect_to candidates_url, notice: "Status Summary will be generated and emailed to #{current_user.email}."
   end
 
-  def send_reminder_to_candidate_url
-    send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => params[:candidate_id], :candidate_assessment_id => @candidate_assessment.id)
-  end
-
   def resend_invitations
     if request.put?
       status_params = {
@@ -498,6 +514,7 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
     end
   end
 
+
   def get_company
     methods = []
     if ["index", "candidates"].include?(params[:action])
@@ -506,18 +523,6 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       end
     end
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
-  end
-
-  def candidates_url
-    candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
-  end
-
-  def add_candidates_url
-    add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
-  end
-
-  def reports_url
-    reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
   def get_templates(candidate_stage, reminder = false)
@@ -556,5 +561,71 @@ class Suitability::CustomAssessments::CandidateAssessmentsController < Applicati
       :scopes => { :active => nil },
       :methods => [:unlocked_invites_count]
     ).all.to_a
+  end
+
+  private
+
+  def extend_validity_url
+    extend_validity_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id],:candidate_id => params[:candidate_id])
+  end
+  
+  def add_candidates_bulk_url
+    add_candidates_bulk_company_custom_assessment_url(company_id: @company.id,id: @assessment.id)
+  end
+
+  def competencies_url
+    norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def send_reminder_to_candidate_url(candidate,candidate_assessment)
+    send_reminder_to_candidate_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :candidate_id => candidate.id, :candidate_assessment_id => candidate_assessment.id)
+  end
+
+  def candidates_url
+    candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def candidate_url(candidate)
+    candidate_company_custom_assessment_path(params[:company_id], params[:id], :candidate_id => candidate.id)
+  end
+
+  def add_candidates_url
+    add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def reports_url
+    reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def send_test_to_candidates_path
+    send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def bulk_send_test_to_candidates_path
+    bulk_send_test_to_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])   
+  end
+
+  def new_assessment_url
+    new_company_custom_assessment_path(params[:company_id])
+  end
+
+  def expire_links_url
+    expire_links_company_custom_assessment_path(params[:company_id], params[:id])
+  end
+
+  def email_assessment_status_url
+    email_assessment_status_company_custom_assessment_path(params[:company_id], params[:id])
+  end
+
+  def resend_invitations_url
+    resend_invitations_company_custom_assessment_path(params[:company_id], params[:id])
+  end
+
+  def trigger_report_downloader_url
+    trigger_report_downloader_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+  end
+
+  def export_feedback_scores_url
+    export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 end

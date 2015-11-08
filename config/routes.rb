@@ -17,6 +17,7 @@ Recruiters::Application.routes.draw do
       post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
       post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
       post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
+      post 'download_pdf_reports' => "candidates_management#download_pdf_reports"
       post 'resend_invitations_to_candidates' => "candidates_management#resend_invitations_to_candidates"
       post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
       post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
@@ -325,9 +326,29 @@ Recruiters::Application.routes.draw do
 
       member do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
-        match "add_candidates" => "sjt/assessments#add_candidates", :as => :add_candidates
-        match "send_assessment" => "sjt/assessments#send_assessment", :as => :send_assessment
+        match "competencies_measured" => "sjt/assessments#competencies_measured", :as => :competencies_measured
+        
+        match "send_test_to_candidates" => "sjt/assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
         match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
+        match "add_candidates" => "sjt/assessments/candidate_assessments#add_candidates", :as => :add_candidates
+        match "candidates/:candidate_id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
+        
+        match "reports" => "sjt/assessments/candidate_assessments#reports", :as => :reports
+        
+        match "candidates/add_bulk" => "sjt/assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
+        put "candidates/bulk_upload" => "sjt/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
+        put "candidates/bulk-send-test" => "sjt/assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+
+        get "candidates/expire_links" => "sjt/assessments/candidate_assessments#expire_links", :as => :expire_links
+        get "email_assessment_status" => "sjt/assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
+        get "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
+        put "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations"
+
+        match "candidates/:candidate_id/extend-validity" => "sjt/assessments/candidate_assessments#extend_validity", :as => :extend_validity
+        get "trigger_report_downloader" => "sjt/assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        get "export_feedback_scores" => "sjt/assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
+        get "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        put "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
       end
 
     end
@@ -926,6 +947,8 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
+        post :export_to_google_drive
+        post :import_with_options_from_google_drive
       end
     end
 

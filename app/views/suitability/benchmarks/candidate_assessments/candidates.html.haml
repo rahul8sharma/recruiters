@@ -4,7 +4,7 @@
     Benchmark #{@assessment.id} - #{@assessment.name}
   %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
     Send This Benchmark
-  - if current_user.type == "SuperAdmin"  
+  - if is_superadmin?
     %a.extra-medium-text.pull-right.line-height3{ href: email_reports_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])}
       Email Reports Summary 
   .clr
@@ -66,7 +66,7 @@
             .span7
               - if report
                 - if candidate_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
-                  - if current_user.type == "SuperAdmin"
+                  - if is_superadmin?
                     - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                       - url =  company_benchmark_candidate_candidate_assessment_report_url(:company_id => params[:company_id], :candidate_id => candidate.id, :benchmark_id => @assessment.id, :id => report.id)
                       %a{:href => url, :title => "View Report", target: "_blank"}
