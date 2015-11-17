@@ -6,7 +6,7 @@
     Password Settings
   - if is_superuser?
     %a.menu{:title => "Candidate Settings", :href => user_settings_company_path(@company.id), class: "#{ ['user_settings','add_users', 'remove_users'].include?(params[:action]) ? 'active':''  }" }
-      Candidate Settings
+      Admins
     %a.menu{:title => "Company Managers", :href => company_managers_company_path(@company), class: "#{ ['company_managers'].include?(params[:action]) ? 'active':''  }" }
       Company Managers  
   .clr    

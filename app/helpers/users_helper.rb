@@ -1,4 +1,13 @@
 module UsersHelper
+  def activation_hosts
+    hosts_html = ''
+    Rails.application.config.domain.each_pair do | key, value |
+      hosts_html += "<option value='#{value.gsub("http://", '')}'>#{key.gsub("_url", '').gsub("_", " ").capitalize}</option>"
+    end
+
+    hosts_html
+  end
+  
   def get_link_for_admin(user)
     Rails.logger.ap user
     user_settings_company_path(user.company_id)

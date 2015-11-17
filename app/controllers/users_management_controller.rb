@@ -5,7 +5,7 @@ class UsersManagementController < ApplicationController
   before_filter :get_master_data, :only => [:edit]
 
   def manage
-    render :layout => "user"
+    render :layout => "admin"
   end
 
   def import

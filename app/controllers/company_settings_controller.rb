@@ -34,7 +34,7 @@ class CompanySettingsController < ApplicationController
       joins: [:roles],
       query_options: {
         company_id: @company.id,
-        "roles.name" => Vger::Resources::Role::RoleName::COMPANY_MANAGER
+        "roles.name" => Vger::Resources::Role::RoleName::ADMIN
       }, 
       page: params[:page],
       per: 10,
@@ -89,12 +89,16 @@ class CompanySettingsController < ApplicationController
           company_manager.company_ids |= [@company.id]
           company_manager.company_ids.uniq!
           company_manager = Vger::Resources::User.save_existing(company_manager.id, company_ids: company_manager.company_ids)
+          if company_manager.error_messages.present?
+            errors[company_manager.email] ||= []
+            errors[company_manager.email] |= company_manager.error_messages
+          end
         else
           errors[company_manager.email] ||= []
           errors[company_manager.email] |= company_manager.error_messages
         end
         unless errors.empty?
-          flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
+          flash[:error] = errors.map{|key,value| [key,value.join(",")].join(": ") }.join("<br/ >")
           render :action => :add_company_managers and return
         end
       end

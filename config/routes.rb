@@ -15,7 +15,7 @@ Recruiters::Application.routes.draw do
 
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
-
+  
   resources :users do
     member do
       match 'generate_assessment_link' => "users_management#generate_assessment_link", :as => :generate_assessment_link

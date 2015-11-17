@@ -19,16 +19,16 @@
   = form_for @company, :as => :company, url: remove_company_managers_company_path(@company), method: :put do |f|
     .padding-all2.border-warning.shifted-up1
       .pull-right
-        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Candidates"}
+        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Company Managers"}
 
         %a.btn.btn-warning.big-text.span{ href: add_company_managers_company_path(@company) }
-          Add New Candidate
+          Add New Company Manager
         .clr
       .clr
       .divider3
       .list-snippet-titles.big-text.clearfix
-        %a.span3.left-offset1.first{:href => "#", :title => "Candidate ID"}
-          Candidate ID
+        %a.span3.left-offset1.first{:href => "#", :title => "Company Manager ID"}
+          Company Manager ID
           %i.icon-chevron-down.small-text.line-height1
         %a.span8{:href => "#", :title => "Name"}
           Name
