@@ -112,7 +112,7 @@
           .clr
         .control-group
           %label Candidate Type:
-          = select_tag :candidate_stage, options_for_select(Vger::Resources::Candidate::STAGES)
+          = select_tag :candidate_stage, options_for_select(Vger::Resources::User::STAGES)
           .clr
         .control-group  
           = submit_tag "Update Candidate Stage"             

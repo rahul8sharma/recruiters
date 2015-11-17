@@ -68,10 +68,10 @@
                   %i.icon-spinner.icon-spin
                   Generating report...
               - else
-                - if user_survey.status == Vger::Resources::Retention::CandidateSurvey::Status::READY_FOR_SCORING
+                - if user_survey.status == Vger::Resources::Retention::UserSurvey::Status::READY_FOR_SCORING
                   %i.icon-spinner.icon-spin
                   Generating report...
-                - elsif user_survey.status == Vger::Resources::Retention::CandidateSurvey::Status::SCORED
+                - elsif user_survey.status == Vger::Resources::Retention::UserSurvey::Status::SCORED
                   = status
                 - else
                   %a{:href => send_reminder_company_retention_survey_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title => "Send Reminder"}

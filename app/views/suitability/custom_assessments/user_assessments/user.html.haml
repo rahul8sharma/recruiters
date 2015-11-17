@@ -145,7 +145,7 @@
           .span10
             #{user_assessment.assessment.name}
           .span5
-            - if user_assessment.candidate_stage != Vger::Resources::Candidate::Stage::EMPLOYED
+            - if user_assessment.candidate_stage != Vger::Resources::User::Stage::EMPLOYED
               = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => user_assessment.overall_fitment_grade_id, :candidate_stage => user_assessment.candidate_stage }).all[0].body rescue '-'
             - else
               \-

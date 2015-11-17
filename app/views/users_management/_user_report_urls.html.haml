@@ -1,5 +1,5 @@
 = form_for :user, url: export_user_report_urls_users_path, multipart: true, :method => :post do |f|
-  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::CandidateReportUrlsExporter" }
+  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::UserReportUrlsExporter" }
   %fieldset
     %legend 
       %strong Download Candidate Report Urls

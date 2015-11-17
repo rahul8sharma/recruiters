@@ -10,7 +10,7 @@
   %p
     %label.field
       Candidate Type
-    = f.select :user_type, Vger::Resources::Candidate::STAGES - ["manager"], required: true
+    = f.select :user_type, Vger::Resources::User::STAGES - ["manager"], required: true
   %p
     %label.field
       Assessment

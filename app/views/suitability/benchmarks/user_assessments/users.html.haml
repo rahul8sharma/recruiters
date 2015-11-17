@@ -65,9 +65,9 @@
                 -#remember Hrs & Hr 
             .span7
               - if report
-                - if user_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
+                - if user_assessment.status == Vger::Resources::Suitability::UserAssessment::Status::SCORED
                   - if is_superuser?
-                    - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+                    - if report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
                       - url =  company_benchmark_user_user_assessment_report_url(:company_id => params[:company_id], :user_id => user.id, :benchmark_id => @assessment.id, :id => report.id)
                       %a{:href => url, :title => "View Report", target: "_blank"}
                         View Report
@@ -79,7 +79,7 @@
                   %i.icon-spinner.icon-spin 
                   Analysing Responses...
               - else 
-                - if user_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::EXPIRED
+                - if user_assessment.status == Vger::Resources::Suitability::UserAssessment::Status::EXPIRED
                   = status  
                 - else   
                   %a{:href => send_reminder_to_user_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title => "Send Reminder"}

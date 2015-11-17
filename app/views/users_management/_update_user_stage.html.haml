@@ -7,7 +7,7 @@
       = text_field_tag :assessment_id
     %p
       Candidate Stage : 
-      = select_tag :candidate_stage, options_for_select(Vger::Resources::Candidate::STAGES)
+      = select_tag :candidate_stage, options_for_select(Vger::Resources::User::STAGES)
       
   .actions
     = submit_tag 'Update All Candidates'

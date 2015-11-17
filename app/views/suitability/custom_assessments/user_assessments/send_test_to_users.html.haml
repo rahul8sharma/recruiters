@@ -100,7 +100,7 @@
               - if template
                 = template.preview(:body).html_safe
               - else
-                - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
+                - if params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
                   = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_user"
                 - else
                   = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_employee"

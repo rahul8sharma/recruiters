@@ -6,7 +6,7 @@
   - manual_addition_text = nil
   - stakeholders_text = nil
 - elsif  params[:user_ids].size == 1
-  - @user = Vger::Resources::Candidate.find(params[:user_ids].first)
+  - @user = Vger::Resources::User.find(params[:user_ids].first)
   - params[:user][:name] = @user.name
   - params[:user][:email] = @user.email
   - page_title = "Add Stakeholders for #{@user.name}"  
