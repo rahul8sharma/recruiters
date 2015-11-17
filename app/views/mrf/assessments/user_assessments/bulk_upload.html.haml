@@ -1,0 +1,25 @@
+.span25.huge-text.page-title
+  Send Invitations to Users in Bulk
+.span30
+  .divider2
+  = form_for :assessment, as: :assessment, url: bulk_upload_company_mrf_assessment_user_assessments_path(@company.id, @assessment.id), method: :put, html: { multipart: true } do |f|
+    .span25.first.left-offset4.extra-medium-text
+      .bulk-upload
+        .span.left-offset1.pull-left
+          .control-group
+            .span6.extra-medium-text.pull-left
+              .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
+              = fields_for :bulk_upload do |ff|
+                = ff.file_field(:file, accept: '.csv')
+              .span.default-text
+                (File format supported: CSV)
+    .divider4
+    = render :partial => "mrf/assessments/user_assessments/email_settings_for_user", locals: { reminder: false }
+    .divider2
+    .span12.pull-right.medium-text
+      %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Send Invitations" , name:"send"}
+    .clr  
+  
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
+= javascript_include_tag 'mrf/add_stakeholders'

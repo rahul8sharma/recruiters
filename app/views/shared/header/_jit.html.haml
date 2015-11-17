@@ -1,0 +1,63 @@
+.span20.pull-right
+  %ul#sub-nav.pull-right
+    %li
+      %a.setting{href: "#", title: "Account"}
+      %ul.medium-text
+        - if defined?(@company)
+          %li
+            %a{:href=>statistics_company_path(@company)} Usage
+          %li
+            %a{:href=>company_path(@company)} Settings
+          %li
+            %a{:href=>company_training_requirement_groups_path(@company)} Training Requirements
+          %li
+            %a{:href=>company_walkin_groups_path(@company)} Walk-Ins
+          %li
+            %a{:href => company_mrf_walkin_groups_path(@company)} 360 Walk-Ins
+          %li
+            %a{:href=>company_benchmarks_path(@company)} Benchmarks
+        %li
+          %a{href: "/logout"} Logout
+  - if defined?(@company)
+    -#
+      %a.label.label-warning.label-small.pull-right{:href=>plans_company_path(@company), :title=> "UPGRADE ACCOUNT"}
+        BUY PACKAGE
+    %ul#sub-nav.pull-right.first
+      %li
+        %a.setting.other-apps{href: "#", title: "Account"}
+          OTHERS
+        %ul.medium-text
+          %li
+            %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments","mrf/assessments/user_feedback"].include?("#{params[:controller]}") ? "active" : "")}
+              360 DEGREE
+          %li
+            %a.mrf{:href=>home_company_engagement_surveys_path(@company), :title=> "Engagement",class: (["engagement/surveys","engagement/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+              ENGAGEMENT
+          %li
+            %a.mrf{:href=>home_company_exit_surveys_path(@company), :title=> "Exit",class: (["exit/surveys","exit/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+              EXIT
+          %li
+            %a.mrf{:href=>home_company_retention_surveys_path(@company), :title=> "Retention",class: (["retention/surveys","retention/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+              RETENTION
+          %li
+            %a.mrf{:href=>home_company_sjt_assessments_path(@company), :title=> "SJT",class: (["sjt/assessments"].include?("#{params[:controller]}") ? "active" : "")}
+              SJT
+
+  %ul.navbar.pull-right.clearfix
+    - if defined?(@company)
+      %li
+        %a{:href=>companies_path(), :title=> "COMPANIES"}
+          COMPANIES
+      %li
+        %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+          ASSESSMENTS
+      %li
+        %a{:href=>company_jq_jobs_path(@company.id), :title=> "HIRING", class: (["companies/jq/jobs","companies/jq/jobs/user_jobs"].include?("#{params[:controller]}") ? "active" : "")}
+          HIRING    
+      %li
+        %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+          REPORTS
+      %li
+        %a.search-menu{:href=>users_search_company_path(@company), :title=> "Search"}
+  .clr
+.clr

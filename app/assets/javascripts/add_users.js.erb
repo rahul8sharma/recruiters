@@ -1,0 +1,29 @@
+function getUserType(type){    
+  document.getElementById('candidate_stage').value = type;
+  document.getElementById('candidate_stage_bulk').value = type;
+  document.getElementById('bulk_upload_functional_area_id').setAttribute('disabled', 'disabled');
+  (type == 'employee' ? addClass('employee' , 'candidate') : addClass('candidate', 'employee'))
+  if(type == 'employee' && document.getElementById('upload_type').checked){
+    document.getElementById('bulk_upload_functional_area_id').removeAttribute('disabled');
+  }
+}
+function addClass(addTo, removeFrom){
+  document.getElementById(addTo).setAttribute('class', 'checked');
+  document.getElementById(removeFrom).removeAttribute('class', 'checked');
+}
+
+function selectTemplate() {
+  var body = $("#select_template").find(":selected").attr("body");
+  var subject = $("#select_template").find(":selected").attr("subject");
+  var from = $("#select_template").find(":selected").attr("from");
+  if(body) {
+    $(".default-email").hide();
+    $(".custom-email").show();
+    $(".email-body").html("<i>"+body+"</i>");
+    $(".email-subject").html("<i>"+subject+"</i>");
+    $(".email-from").html("<i>"+from+"</i>");
+  } else {
+    $(".custom-email").hide();
+    $(".default-email").show();
+  }
+}

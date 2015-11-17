@@ -1,0 +1,18 @@
+- checked = (params[:upload_method] == "manual")
+%li
+  %input{name: "users[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
+  - klass = @errors.keys.include?((index-1).to_s) ? "error" : ""
+  .control-group{ class: klass }
+    .span2
+      .count.badge.badge-small.inverse 
+        = index
+    - klass = @assessment.set_applicant_id ? "span6" : "span8"    
+    - if @assessment.set_applicant_id
+      .span3.big-text.first
+        %input.span3{name: "users[#{index-1}][applicant_id]", disabled: !checked, type: "text", placeholder: "Applicant Id", value: (user[:applicant_id])}
+    .medium-text.left-offset1{ class: klass }
+      %input.first{name: "users[#{index-1}][name]", disabled: !checked, type: "text", placeholder: "Name", value: (user[:name]), class: klass}
+    .span9.medium-text.left-offset1  
+      %input.span9.first{name: "users[#{index-1}][email]", disabled: !checked, type: "text", placeholder: "Email id", value: (user[:email])}
+    / %input.span3.left-offset1{name: "users[#{index-1}][mobile]", disabled: !checked, type: "text", placeholder: "Mobile Number", value: (user[:mobile])}
+    .clr

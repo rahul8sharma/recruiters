@@ -1,0 +1,62 @@
+.page-title 
+  .divider1
+  Assessment - #{@assessment.name}
+.divider2
+= render :partial => "shared/navigation-sub-nav"
+.divider2
+.span18.margin-auto.text-center
+  - if params[:users]
+    - url = send_test_to_users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])
+  - else
+    - url = bulk_send_test_to_users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])  
+  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+    %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
+    - if params[:users]
+      %input{:type => "hidden", name: "user_ids", value: params[:users].keys.join(",") }
+      %input{:type => "hidden", name: "upload_type", value: "manual" }
+    - else
+      %input{:type => "hidden", name: "upload_type", value: "bulk" }
+      %input{:type => "hidden", name: "s3_bucket", value: @s3_bucket }
+      %input{:type => "hidden", name: "s3_key", value: @s3_key }
+      %input{:type => "hidden", name: "functional_area_id", value: @functional_area_id }
+    .extra-medium-text
+      Optional: Enter the email addresses of the people who should receive the Assessment Reports
+      .medium-text
+        (after the Assessment is completed by the Assessment Taker)
+    .divider1
+    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'report_email_recipients'}
+      .clr
+      .ie
+        Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
+      .clr
+    - if is_superuser?
+      .divider2
+      .text-center.large-text
+        %b OR
+      .divider2
+      %label{ for: "send_report_to_user", class: "font-normal" }
+        %input{ type:'checkbox', name: 'send_report_to_user', id: "send_report_to_user" }
+        Send report to user
+    .clr
+    .divider3
+    - if params[:users]
+      - if is_superuser?
+        .text-center
+          %label.invitation-sms.medium-text
+            Also send test invitations to users via SMS
+            %input{:type=>"checkbox", name: "send_sms"}
+          %label.invitation-sms.medium-text{ style: "display:#{is_superuser? ? 'block': 'none'}"}
+            Send default email
+            %input{:type=>"checkbox", name: "send_email", checked: true}
+      - params[:users].each do |id,user_data|
+        %input{:type => "checkbox", name: "selected_users[#{id}]", checked: true, style: "display:none;"}
+        %input{:type => "hidden", name: "users[#{id}][name]", value: user_data[:name]}
+        %input{:type => "hidden", name: "users[#{id}][email]", value: user_data[:email]}
+    .divider1        
+    .text-center
+      %input.btn.btn-warning.large-text.big{:type => "submit", :value => "Send assessment"}
+        Send Assessment
+

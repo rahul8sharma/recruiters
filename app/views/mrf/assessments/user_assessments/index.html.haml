@@ -1,0 +1,51 @@
+.user-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@assessment.id} - #{@assessment.name}
+  .pull-right  
+    %a.btn.btn-info.big-text.big.bold{:href => new_company_mrf_assessment_path(@company.id)}
+      Create a new 360&#176; Profiling Exercise
+    %br  
+    %br  
+    %a.big-text.big.pull-right{:href => add_company_mrf_assessment_user_assessments_path(@company.id,@assessment.id)}
+      Invite Users  
+  .clr
+  .divider2
+  = render :partial => "shared/360/user-content-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      - if @user_assessments.present?
+        .span3.first
+          CID
+        .span8
+          User Name
+        .span8
+          Email-ID
+        .span6
+          Allowed Stakeholder Types
+        .span2
+        .clr
+        .divider1          
+        %ul
+          - @user_assessments.each do |user_assessment|
+            %li.list-snippet.extra-medium-text
+              .divider1
+              .span3.first
+                = user_assessment.user_id
+              .span8
+                = user_assessment.user.name
+              .span8
+                = user_assessment.user.email
+              .span6
+                = user_assessment.stakeholder_types.join(", ")
+              .span2
+                = link_to "Edit", edit_company_mrf_assessment_user_assessment_path(@company.id,@assessment.id, user_assessment.id)
+              .clr
+      - else
+        .alert.medium-text.text-center
+          No users present
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+    .clr

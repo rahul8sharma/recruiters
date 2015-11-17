@@ -1,0 +1,17 @@
+%table
+  %tr
+    %td{width: "30%"} User ID:
+    %td
+      = @user.id
+  %tr
+    %td{width: "30%"} User Name:
+    %td
+      = @user.name
+  %tr
+    %td{width: "30%"} Assessment ID:
+    %td
+      = params[:assessment_id]
+  %tr
+    %td Assessment Url
+    %td      
+      = link_to @user_assessment.url, @user_assessment.url, :target => "_blank"
