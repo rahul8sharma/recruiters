@@ -8,7 +8,7 @@
     %br  
     %br  
     %a.big-text.big.pull-right{:href => add_company_mrf_assessment_user_assessments_path(@company.id,@assessment.id)}
-      Add Users  
+      Add Candidates  
   .clr
   .divider2
   = render :partial => "shared/360/user-content-sub-nav"
@@ -17,7 +17,7 @@
     = form_for @user_assessment, as: :user_assessment, url: company_mrf_assessment_user_assessment_path(@company.id, @assessment.id, @user_assessment.id) do |f|      
       .send-assessment
         .heading
-          User: 
+          Candidate: 
           = @user_assessment.user.name
           %br/
           %br/

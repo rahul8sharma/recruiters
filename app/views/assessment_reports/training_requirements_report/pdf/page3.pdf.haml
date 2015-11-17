@@ -37,12 +37,12 @@
         .pie-snippet.span5
           .divider1
           .left
-            - left = factor_score[:percentage_candidates]
+            - left = factor_score[:percentage_users]
             %u #{left}%
           .pie-visual 
-            .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 70px;height: 70px;" }
+            .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 70px;height: 70px;" }
           .right.favorable
-            #{100 - factor_score[:percentage_candidates]}%
+            #{100 - factor_score[:percentage_users]}%
         .rating-slider.pull-right
           - @norm_buckets.each do |norm_bucket|
             .marker{:class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': ''}

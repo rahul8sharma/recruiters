@@ -3,8 +3,8 @@
     .divider1
     Benchmark #{@assessment.id} - #{@assessment.name}
 
-  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Users"}
-    View All Users
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+    View All Candidates
   .clr
   .divider2
   = render :partial => "shared/user-content-benchmark-sub-nav"
@@ -144,9 +144,9 @@
             - report = user_assessment.user_assessment_reports[0] 
           .span6
             - if report
-              - if user_assessment.status == Vger::Resources::Suitability::UserAssessment::Status::SCORED
+              - if user_assessment.status == Vger::Resources::Suitability::CandidateAssessment::Status::SCORED
                 - if is_superuser?
-                  - if report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+                  - if report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
                     - url =  company_assessment_user_user_assessment_report_url(:company_id => params[:company_id], :user_id => @user.id, :assessment_id => @assessment.id, :id => report.id)
                     %a.underlined{:href => url, :title => "View Report", target: "_blank"}
                       View Report

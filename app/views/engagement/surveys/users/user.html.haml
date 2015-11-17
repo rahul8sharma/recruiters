@@ -3,8 +3,8 @@
     .divider1
     Survey #{@survey.id} - #{@survey.name}
   
-  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Users"}
-    View All Users
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_engagement_survey_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+    View All Candidates
   .clr
   .divider2
   = render :partial => "shared/engagement/survey-sub-nav"

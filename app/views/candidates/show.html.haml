@@ -1,4 +1,4 @@
-.candidate_profile
+.user_profile
   .page-title
     .divider1
     Candidate Details
@@ -8,82 +8,82 @@
       %tr
         %td{width: "30%"} Name:
         %td
-          = @candidate.name
+          = @user.name
       %tr
         %td Email:
         %td
-          = @candidate.email
+          = @user.email
       %tr
         %td Alternate Email:
         %td
-          = @candidate.alternate_email
+          = @user.alternate_email
       %tr
         %td Mobile:
         %td
-          = @candidate.mobile
+          = @user.mobile
       %tr
         %td Age:
         %td
-          = @candidate.age
+          = @user.age
       %tr
         %td Gender:
         %td
-          = @candidate.gender
+          = @user.gender
       %tr
         %td Marital Status:
         %td
-          = @candidate.marital_status
+          = @user.marital_status
       %tr
         %td Companies worked for:
         %td
-          = @candidate.companies_worked_for
+          = @user.companies_worked_for
       %tr
         %td Current Company:
         %td
-          = @candidate.current_company
+          = @user.current_company
       %tr
         %td Total Experience:
         %td
-          = @candidate.total_experience
+          = @user.total_experience
       %tr
         %td Current Company Experience:
         %td
-          = @candidate.current_company_experience
+          = @user.current_company_experience
       %tr
         %td Current CTC:
         %td
-          = @candidate.current_ctc
+          = @user.current_ctc
       %tr
         %td Current Designation:
         %td
-          = @candidate.current_designation
+          = @user.current_designation
       %tr
         %td Industry:
         %td
-          = @candidate.industry.name rescue "-"
+          = @user.industry.name rescue "-"
       %tr
         %td Functional area:
         %td
-          = @candidate.functional_area.name rescue "-"
+          = @user.functional_area.name rescue "-"
       %tr
         %td Degree with Specialization:
         %td
-          = @candidate.degree.name rescue "-"
+          = @user.degree.name rescue "-"
       %tr
         %td Current Location:
         %td
-          = @candidate.location.name rescue "-"
+          = @user.location.name rescue "-"
       %tr
         %td Number of Dependants:
         %td
-          = @candidate.no_of_dependents
+          = @user.no_of_dependents
     %br      
     %br
     .span8.generate_link.pull-left
       %b
         Generate Assessment Link
       %br  
-      = form_tag generate_assessment_link_candidate_path(@candidate) do
+      = form_tag generate_assessment_link_user_path(@user) do
         .control-group
           %label Assessment ID:
           = text_field_tag :assessment_id
@@ -94,7 +94,7 @@
       %b
         Deactivate Assessment Link
       %br  
-      = form_tag deactivate_assessment_link_candidate_path(@candidate) do
+      = form_tag deactivate_assessment_link_user_path(@user) do
         .control-group
           %label Assessment ID:
           = text_field_tag :assessment_id
@@ -105,7 +105,7 @@
       %b
         Update Candidate Type
       %br  
-      = form_tag update_candidate_stage_candidate_path(@candidate) do
+      = form_tag update_candidate_stage_user_path(@user) do
         .control-group
           %label Assessment ID:
           = text_field_tag :assessment_id
@@ -118,6 +118,6 @@
           = submit_tag "Update Candidate Stage"             
     .clr      
   .divider3
-  = link_to "Back", candidates_path
+  = link_to "Back", users_path
   \|
-  = link_to "Edit", edit_candidate_path(@candidate)
+  = link_to "Edit", edit_user_path(@user)

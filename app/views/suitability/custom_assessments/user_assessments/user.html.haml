@@ -3,8 +3,8 @@
     .divider1
     Assessment #{@assessment.id} - #{@assessment.name}
 
-  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Users"}
-    View All Users
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+    View All Candidates
   .clr
   .divider2
   = render :partial => "shared/suitability/user_sub_nav_#{@assessment.assessment_type}"
@@ -145,7 +145,7 @@
           .span10
             #{user_assessment.assessment.name}
           .span5
-            - if user_assessment.candidate_stage != Vger::Resources::User::Stage::EMPLOYED
+            - if user_assessment.candidate_stage != Vger::Resources::Candidate::Stage::EMPLOYED
               = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => user_assessment.overall_fitment_grade_id, :candidate_stage => user_assessment.candidate_stage }).all[0].body rescue '-'
             - else
               \-

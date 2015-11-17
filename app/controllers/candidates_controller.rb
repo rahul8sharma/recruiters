@@ -1,11 +1,11 @@
-class CandidatesController < ApplicationController
-  layout "candidates"
+class UsersController < ApplicationController
+  layout "users"
   before_filter :authenticate_user!
-  before_filter :check_superadmin
+  before_filter :check_superuser
   before_filter :get_master_data, :only => [:edit]
 
   def api_resource
-    Vger::Resources::Candidate
+    Vger::Resources::User
   end
 
   def destroy_all
@@ -18,25 +18,25 @@ class CandidatesController < ApplicationController
     params[:order_type] ||= "ASC"
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
-    @candidates = Vger::Resources::Candidate.where(:page => params[:page], :per => 10, :query_options => params[:search], :order => "#{params[:order_by]} #{params[:order_type]}")
-    render :layout => "admin"
+    @users = Vger::Resources::User.where(:page => params[:page], :per => 10, :query_options => params[:search], :order => "#{params[:order_by]} #{params[:order_type]}")
+    render :layout => "user"
   end
 
   def show
-    @candidate = Vger::Resources::Candidate.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
+    @user = Vger::Resources::User.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
   end
   
   def update
-    @candidate = Vger::Resources::Candidate.save_existing(params[:id],params[:candidate])
-    if @candidate.error_messages.present?
+    @user = Vger::Resources::User.save_existing(params[:id],params[:user])
+    if @user.error_messages.present?
       render :action => :edit
     else
-      redirect_to candidate_path(@candidate)
+      redirect_to user_path(@user)
     end
   end
   
   def edit
-    @candidate = Vger::Resources::Candidate.find(params[:id])
+    @user = Vger::Resources::User.find(params[:id])
   end
   
   protected

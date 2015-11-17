@@ -20,7 +20,7 @@
           360&#176; Rating
         - max_score = trait_scores[:average_score_excluding_self][:bucket_wise_percentages].values.map{|x| x[:count] }.max
         - graph_buckets.each do |bucket|
-          - bucket_score = trait_scores[:average_score_excluding_self][:bucket_wise_percentages][bucket.name][:candidates_count]
+          - bucket_score = trait_scores[:average_score_excluding_self][:bucket_wise_percentages][bucket.name][:users_count]
           %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
             = bucket_score
       - role_wise_scores.each do |role, score|
@@ -36,8 +36,8 @@
       %tr.overall
         %td.orange_bg.captions
           Overall
-        - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:candidates_count] }.sum }.max
+        - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:users_count] }.sum }.max
         - graph_buckets.each do |bucket|
-          - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:candidates_count] }.sum
+          - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:users_count] }.sum
           %td.rating_score{ class: max_score == total ? "max_value" : "" }
             = total

@@ -1,6 +1,6 @@
 class CompanySettingsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:id]) }
+  before_filter { authorize_user!(params[:id]) }
 
   layout "companies"
 
@@ -30,8 +30,16 @@ class CompanySettingsController < ApplicationController
 
   def user_settings
     params[:users] ||= {}
-    @users = Vger::Resources::Admin.where(:query_options => {:company_id => @company.id}, :page => params[:page],
-      :per => 10,methods: [:reset_password_token]).all
+    @users = Vger::Resources::User.where(
+      joins: [:roles],
+      query_options: {
+        company_id: @company.id,
+        "roles.name" => Vger::Resources::Role::RoleName::COMPANY_MANAGER
+      }, 
+      page: params[:page],
+      per: 10,
+      methods: [:reset_password_token]
+    ).all
   end
   
   def company_managers
@@ -70,31 +78,20 @@ class CompanySettingsController < ApplicationController
         flash[:error] = "Please enter full name as well as email id of the company managers you want to add."
         render :action => :add_company_managers and return
       end
-      params[:company_managers].each do |key,company_manager_data|
-        company_manager = Vger::Resources::User.where(:query_options => { :email => company_manager_data[:email] }, methods: [:company_ids, :type], :root => :user).all[0]
-        if company_manager
-          if company_manager.type == "CompanyManager"
-            company_manager_data[:id] = company_manager.id
-            company_managers[company_manager.id] = company_manager_data
-            company_manager.company_ids |= [@company.id]
-            company_manager.company_ids.uniq!
-            company_manager = Vger::Resources::CompanyManager.save_existing(company_manager.id, company_ids: company_manager.company_ids)
-          else
-            company_manager_data[:id] = company_manager.id
-            company_managers[company_manager.id] = company_manager_data
-            errors[company_manager.email] |= "Another account with email #{company_manager.email} already exists."
-          end
+      params[:company_managers].each do |key,user_data|
+        user_data[:role] = Vger::Resources::Role::RoleName::COMPANY_MANAGER
+        user_data[:notify] = user_data[:notify].present?
+        company_manager = Vger::Resources::User.find_or_create(user_data)
+        if !company_manager.error_messages.present?
+          company_manager = Vger::Resources::User.find(company_manager.id, methods: [:company_ids])
+          user_data[:id] = company_manager.id
+          company_managers[company_manager.id] = user_data
+          company_manager.company_ids |= [@company.id]
+          company_manager.company_ids.uniq!
+          company_manager = Vger::Resources::User.save_existing(company_manager.id, company_ids: company_manager.company_ids)
         else
-          company_manager_data[:notify] = company_manager_data[:notify].present?
-          company_manager_data[:company_ids] = [@company.id]
-          company_manager = Vger::Resources::CompanyManager.create(company_manager_data)
-          if company_manager.error_messages.present?
-            errors[company_manager.email] ||= []
-            errors[company_manager.email] |= company_manager.error_messages
-          else
-            company_manager_data[:id] = company_manager.id
-            company_managers[company_manager.id] = company_manager_data
-          end
+          errors[company_manager.email] ||= []
+          errors[company_manager.email] |= company_manager.error_messages
         end
         unless errors.empty?
           flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
@@ -109,7 +106,7 @@ class CompanySettingsController < ApplicationController
 
   def remove_users
     params[:users] ||= {}
-    @users = Vger::Resources::Admin.where(:query_options => {:company_id => @company.id}, :page => params[:page], :per => 10).all
+    @users = Vger::Resources::User.where(:query_options => {:company_id => @company.id}, :page => params[:page], :per => 10).all
     if params[:users].empty?
       flash[:error] = "Please select at least one user to remove"
     else
@@ -119,7 +116,7 @@ class CompanySettingsController < ApplicationController
 
   def confirm_remove_users
     params[:user_ids].split("|").each do |user_id,on|
-      Vger::Resources::Admin.destroy_existing(user_id)
+      Vger::Resources::User.destroy_existing(user_id)
     end
     flash[:notice] = "Users removed successfully."
     redirect_to user_settings_company_path(@company)
@@ -142,28 +139,24 @@ class CompanySettingsController < ApplicationController
         render :action => :add_users and return
       end
       params[:users].each do |key,user_data|
-        user = Vger::Resources::User.where(:query_options => { :email => user_data[:email] }).all[0]
-        if user
+        user_data[:notify] = user_data[:notify].present?
+        user_data[:role] = Vger::Resources::Role::RoleName::ADMIN
+        user = Vger::Resources::User.find_or_create(user_data)
+        if user.error_messages.present?
+          errors[user.email] ||= []
+          errors[user.email] |= user.error_messages
+        else
           user_data[:id] = user.id
           users[user.id] = user_data
-        else
-          user_data[:notify] = user_data[:notify].present?
-          user = Vger::Resources::Admin.create(user_data)
-          if user.error_messages.present?
-            errors[user.email] ||= []
-            errors[user.email] |= user.error_messages
-          else
-            user_data[:id] = user.id
-            users[user.id] = user_data
-          end
-        end
-        unless errors.empty?
-          flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
-          render :action => :add_users and return
         end
       end
-      flash[:notice] = "New users successfully added. Instructions to login have been emailed to the users."
-      redirect_to user_settings_company_path(@company)
+      if errors.present?
+        flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
+        render :action => :add_users and return
+      else
+        flash[:notice] = "New users successfully added. Instructions to login have been emailed to the users."
+        redirect_to user_settings_company_path(@company)
+      end
     else
     end
   end
@@ -175,8 +168,16 @@ class CompanySettingsController < ApplicationController
   end
   
   def get_company_managers
-    @company_managers = Vger::Resources::CompanyManager.where(joins: [:companies], :query_options => { "companies_company_managers.company_id" => @company.id}, :page => params[:page],
-      :per => 10,methods: [:reset_password_token]).all
+    @company_managers = Vger::Resources::User.where(
+      joins: [:companies, :roles], 
+      query_options: {
+        "roles.name" => Vger::Resources::Role::RoleName::COMPANY_MANAGER,
+        "companies_users.company_id" => @company.id
+      }, 
+      page: params[:page],
+      per: 10,
+      methods: [:reset_password_token]
+    ).all
   end
 end
 

@@ -1,10 +1,10 @@
 - url = nil
-- if @candidate_assessment
-  - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+- if @user_assessment
+  - report = @user_assessment.user_assessment_reports.present? ? @user_assessment.user_assessment_reports.first : nil
   - if report && report.status == "uploaded"
-    - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+    - url = company_custom_assessment_user_user_assessment_report_url(:company_id => params[:id], :user_id => @user_assessment.user_id, :custom_assessment_id => @user_assessment.assessment_id, :id => report.id, :view_mode => "html")
   - else    
-    - url = @candidate_assessment.url
+    - url = @user_assessment.url
     
 .trait-show
   .span21.page-title.first
@@ -22,7 +22,7 @@
     Are you looking to measure other traits?
     %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click here to create a New Custom Assessment"}
       Click here to create a New Custom Assessment
-  = render :partial => "shared/candidate-content-standard-sub-nav"
+  = render :partial => "shared/user-content-standard-sub-nav"
 
   -#
     %a.btn.btn-warning.pull-right{:href => norms_standard_assessment_path(:id => params[:id]), :title => "Edit Test"}

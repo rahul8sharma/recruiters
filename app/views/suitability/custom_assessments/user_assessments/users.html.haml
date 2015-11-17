@@ -75,10 +75,10 @@
           - link_status = test_link_statuses[user_assessment.link_status]
           - if user_assessment.user_assessment_reports.present?
             - report = user_assessment.user_assessment_reports[0]
-          - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::HIVE_SCORES_PENDING
+          - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
             - status = 'Pending'  
           - show_status = ''
-          - if status == Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
+          - if status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED
             - show_status = status+" as of "+htime(user_assessment.completed_at)+"Hrs, "+hdate(user_assessment.completed_at)
           - else
             - show_status = status+" as of "+htime(user_assessment.updated_at)+"Hrs, "+hdate(user_assessment.updated_at)

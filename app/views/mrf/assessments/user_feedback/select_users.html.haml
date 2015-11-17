@@ -20,14 +20,14 @@
 .container
   .divider1
   .extra-large-text.text-center
-    Please select the Users to be included in this 360&#176; Profiling Exercise
+    Please select the Candidates to be included in this 360&#176; Profiling Exercise
   .span16.extra-medium-text.margin-auto.text-justify
-    Additional Users can be included before sending out invitations for this exercise
+    Additional Candidates can be included before sending out invitations for this exercise
   .divider2
   = form_for @assessment, as: :assessment, url: select_users_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
     .allign-center.text-center
       %a.btn.btn-info.large-text.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, :include_all => true)}
-        Include All Users and Proceed
+        Include All Candidates and Proceed
     .divider2
     %ul.add-360-traits-listing
       = f.hidden_field :company_id

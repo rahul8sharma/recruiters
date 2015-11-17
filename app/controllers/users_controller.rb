@@ -9,9 +9,10 @@ class UsersController < ApplicationController
     name = search_params.delete :name
     email = search_params.delete :email
     conditions = {
-      methods: [:company_ids, :type, :assessment_ids],
+      methods: [:company_ids, :assessment_ids, :role_names],
       root: :user,
       query_options: search_params,
+      joins: :roles,
       page: params[:page], per: 10
     }
     conditions[:scopes] = {}
@@ -156,7 +157,7 @@ class UsersController < ApplicationController
 
   def redirect_user
     if current_user
-      if current_user.type == "Candidate"
+      if current_user.role == "Candidate"
         flash.clear
         flash[:error] = "You are not authorized to access this page."
         sign_out

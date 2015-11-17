@@ -43,7 +43,7 @@
     = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
     = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
     = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
-    - if !is_superadmin?
+    - if !is_superuser?
       = set_form.hidden_field :page_size, value: Rails.application.config.default_set["page_size"]
     - else
       .control-group
@@ -52,7 +52,7 @@
         = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span17"
         .clr
 .clr
-- if is_superadmin?
+- if is_superuser?
   = f.hidden_field :assessment_type, value: Vger::Resources::Assessment::AssessmentType::SJT_COMPETENCY, :id => "set_assessment_type"    
   .control-group
     %label

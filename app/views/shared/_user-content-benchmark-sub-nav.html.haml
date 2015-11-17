@@ -1,6 +1,6 @@
 .content-sub-nav.clearfix
-  %a.menu{ class: (["user","users"].include?(params[:action]) ? "active" : ""),:href => users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title => "Users"}
-    Users     
+  %a.menu{ class: (["user","users"].include?(params[:action]) ? "active" : ""),:href => users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title => "Candidates"}
+    Candidates     
   %a.menu{ class: (["show"].include?(params[:action]) ? "active" : ""), :href => company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :title => "Summary"}
     Results
 .clr

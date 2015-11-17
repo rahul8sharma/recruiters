@@ -1,5 +1,5 @@
 .span25.huge-text.page-title
-  Send Invitations to Users in Bulk
+  Send Invitations to Candidates in Bulk
 .span30
   .divider2
   = form_for :assessment, as: :assessment, url: bulk_upload_company_mrf_assessment_user_assessments_path(@company.id, @assessment.id), method: :put, html: { multipart: true } do |f|

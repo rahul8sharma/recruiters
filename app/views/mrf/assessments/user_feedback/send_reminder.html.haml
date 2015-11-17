@@ -2,9 +2,9 @@
   - if params[:options][:user_id]
     - if params[:options][:role]
       - role = params[:options][:role] == "self" ? "Self" : "all " + params[:options][:role].titleize.pluralize
-      - message = "#{role} for User #CID #{params[:options][:user_id]}"
+      - message = "#{role} for Candidate #CID #{params[:options][:user_id]}"
     - else  
-      - message = "all pending for User #CID #{params[:options][:user_id]}"
+      - message = "all pending for Candidate #CID #{params[:options][:user_id]}"
   - else
     - message = "all " + params[:options].values.first.pluralize.titleize
 - else

@@ -47,7 +47,7 @@ class Suitability::StandardAssessmentsController < AssessmentsController
 
   # fetches styles data
   # GET : renders styles
-  # PUT : updates assessment and redirects to add_candidates
+  # PUT : updates assessment and redirects to add_users
   def styles
     get_styles
     if request.put?  

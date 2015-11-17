@@ -1,7 +1,7 @@
 .big-text.line-height2
   Choose Email Template To Send Invitation To Stakeholder
   %br/
-  (When User Invites a Stakeholder)
+  (When Candidate Invites a Stakeholder)
 %select.span9.first{ id: "select_stakeholder_invitation_template", name: "stakeholder_invitation_template_id", onchange: "selectStakeholderInvitationTemplate()" }
   - @stakeholder_templates.each do |template|
     %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}

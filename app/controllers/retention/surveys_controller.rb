@@ -1,6 +1,6 @@
 class Retention::SurveysController < ApplicationController
   before_filter :authenticate_user!
-  # before_filter { authorize_admin!(params[:company_id]) }
+  # before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey, :except => [:index,:home]
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
@@ -16,12 +16,12 @@ class Retention::SurveysController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @surveys = Vger::Resources::Retention::Survey.where(query_options: {company_id: params[:company_id]}, order: order, page: params[:page], per: 10).all
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "retention_candidate_surveys.survey_id", joins: :retention_candidate_surveys, query_options: {
-      "retention_candidate_surveys.survey_id" => @surveys.map(&:id)
+    @user_counts = Vger::Resources::User.group_count(group: "retention_user_surveys.survey_id", joins: :retention_user_surveys, query_options: {
+      "retention_user_surveys.survey_id" => @surveys.map(&:id)
     })
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "retention_candidate_surveys.survey_id", joins: :retention_candidate_surveys, query_options: {
-      "retention_candidate_surveys.survey_id" => @surveys.map(&:id),
-      "retention_candidate_surveys.status" => Vger::Resources::Retention::CandidateSurvey.completed_statuses
+    @completed_counts = Vger::Resources::User.group_count(group: "retention_user_surveys.survey_id", joins: :retention_user_surveys, query_options: {
+      "retention_user_surveys.survey_id" => @surveys.map(&:id),
+      "retention_user_surveys.status" => Vger::Resources::Retention::UserSurvey.completed_statuses
     })
   end
 
@@ -61,7 +61,7 @@ class Retention::SurveysController < ApplicationController
       @survey = Vger::Resources::Retention::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
         flash[:notice] = "Retention Survey created successfully!"
-        redirect_to add_candidates_company_retention_survey_path(@company.id,@survey.id)
+        redirect_to add_users_company_retention_survey_path(@company.id,@survey.id)
       else
         flash[:error] = @survey.error_messages.join("<br/>").html_safe
         render action: :new
@@ -70,7 +70,7 @@ class Retention::SurveysController < ApplicationController
   end
 
   def details
-    @total_candidates = Vger::Resources::Retention::CandidateSurvey.count({
+    @total_users = Vger::Resources::Retention::UserSurvey.count({
       survey_id: @survey.id
     })
   end

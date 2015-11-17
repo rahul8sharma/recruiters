@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   layout "companies"
 
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:id]) }
+  before_filter(:except => [:select]) { authorize_user!(params[:id]) }
   before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive, :select]
   before_filter :get_companies, :only => [ :index ]
   before_filter :get_countries, :only => [ :edit, :update ]
@@ -29,40 +29,40 @@ class CompaniesController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
 
-  def candidates_search
+  def users_search
     params[:search] ||= {}
     order = params[:order_by] || "completed_at"
     order_type = params[:order_type] || "DESC"
     case order
       when "id"
-        order = "candidates.id #{order_type}"
+        order = "jombay_users.id #{order_type}"
       when "name"
-        order = "candidates.name #{order_type}"
+        order = "jombay_users.name #{order_type}"
       when "assessment_name"
         order = "suitability_custom_assessments.name #{order_type}"
       when "status"
-        order = "suitability_candidate_assessments.status #{order_type}"
+        order = "suitability_user_assessments.status #{order_type}"
       else
         order = "#{order} #{order_type}"
     end
-    if params[:search][:candidate_name_or_email].present?
-      @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+    if params[:search][:user_name_or_email].present?
+      @user_assessments = Vger::Resources::Companies::UserAssessment.where(
         company_id: @company.id,
         query_options: {
           "suitability_custom_assessments.company_id" => @company.id
         },
-        scopes: { :candidate_email_or_name_like => params[:search][:candidate_name_or_email] },
-        joins: [ :assessment, :candidate  ],
-        include: [:candidate, :assessment, :candidate_assessment_reports],
+        scopes: { :user_email_or_name_like => params[:search][:user_name_or_email] },
+        joins: [ :assessment, :user  ],
+        include: [:user, :assessment, :user_assessment_reports],
         page: params[:page],
         order: order,
         per: 10
       ).all
     elsif params[:search].present?
-      @candidate_assessments = []
+      @user_assessments = []
       flash[:error] = "Please enter an Assessment Taker's name or email address to search!"
     else
-      @candidate_assessments = []
+      @user_assessments = []
     end
   end
 
@@ -71,20 +71,20 @@ class CompaniesController < ApplicationController
     order_type = params[:order_type] || "DESC"
     case order
       when "id"
-        order = "candidates.id #{order_type}"
+        order = "jombay_users.id #{order_type}"
       when "name"
-        order = "candidates.name #{order_type}"
+        order = "jombay_users.name #{order_type}"
       else
         order = "#{order} #{order_type}"
     end
-    @candidate_assessments = Vger::Resources::Companies::CandidateAssessment.where(
+    @user_assessments = Vger::Resources::Companies::UserAssessment.where(
       :company_id => @company.id,
-      :joins => [:candidate_assessment_reports, :candidate, :assessment],
-      :include => [:candidate_assessment_reports, :candidate, :assessment],
+      :joins => [:user_assessment_reports, :user, :assessment],
+      :include => [:user_assessment_reports, :user, :assessment],
       :order => order
     ).where(
       :query_options => {
-        "suitability_candidate_assessment_reports.status" => Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
       }, :page => params[:page], :per => 5
     ).all
   end
@@ -107,15 +107,15 @@ class CompaniesController < ApplicationController
     end
     @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
     if @custom_assessment
-      admin_candidate_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
-      @candidate_assessment = Vger::Resources::Suitability::CandidateAssessment.where(:joins => [:candidate], :assessment_id => @custom_assessment.id, :query_options => { "candidates.email" => admin_candidate_email }, methods: [:url], :include => [:candidate_assessment_reports]).all.to_a.first
+      user_user_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
+      @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:joins => [:user], :assessment_id => @custom_assessment.id, :query_options => { "jombay_users.email" => user_user_email }, methods: [:url], :include => [:user_assessment_reports]).all.to_a.first
     end
   end
 
 
   def add_subscription
-    #if !@company.admin
-    #  flash[:error] = "Admin account is not created for #{@company.name}. Please create admin acoount before adding a subscription."
+    #if !@company.user
+    #  flash[:error] = "Admin account is not created for #{@company.name}. Please create user acoount before adding a subscription."
     #  redirect_to company_path(@company)
     #end
     #@callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
@@ -132,7 +132,7 @@ class CompaniesController < ApplicationController
         price: params[:amount],
         valid_from: Time.now.strftime("%d/%m/%Y"),
         valid_to: params[:merchant_param2],
-        added_by_superadmin: true
+        added_by_superuser: true
       }
       job_id = Vger::Resources::Subscription.create(subscription_data)
       flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
@@ -198,7 +198,7 @@ class CompaniesController < ApplicationController
   end
 
   def manage
-    render :layout => "admin"
+    render :layout => "user"
   end
 
 	def import_from_google_drive
@@ -231,7 +231,7 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def candidate
+  def user
   end
   
   def email_assessment_stats
@@ -272,7 +272,7 @@ class CompaniesController < ApplicationController
     end
     @company = Vger::Resources::Company.find(
       params[:id],
-      :include => [:subscription, :admin],
+      :include => [:subscription, :user],
       :methods => methods
     )
   end

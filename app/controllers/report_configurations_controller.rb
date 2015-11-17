@@ -150,9 +150,9 @@ class ReportConfigurationsController < MasterDataController
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
       when "html" 
-        layout = "candidate_reports.html.haml"
+        layout = "user_reports.html.haml"
       when "pdf"
-        layout  = "candidate_reports.pdf.haml"
+        layout  = "user_reports.pdf.haml"
       when "feedback"  
         layout  = "feedback_reports.html.haml"
         template = "feedback_report.html.haml"

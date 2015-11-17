@@ -1,10 +1,10 @@
 class Mrf::AssessmentsManagementController < ApplicationController
-  layout "candidates"
+  layout "users"
   before_filter :authenticate_user!
-  before_filter :check_superadmin
+  before_filter :check_superuser
 
   def manage
-    render :layout => "admin"
+    render :layout => "user"
   end
 
   def export_mrf_scores

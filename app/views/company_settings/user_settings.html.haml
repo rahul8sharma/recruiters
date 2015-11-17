@@ -3,7 +3,7 @@
     .alert.alert-error
       %a{"data-dismiss" => "alert", :type => "button"}
       .pull-left
-        Are you sure you want to remove these Users
+        Are you sure you want to remove these Admins
       .pull-right
         = link_to "YES",confirm_remove_users_company_path(@company, :user_ids => params[:users].keys.join("|"))
         \|
@@ -20,16 +20,16 @@
 
     .padding-all2.border-warning.shifted-up1
       .pull-right
-        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Users"}
+        %input.btn.btn-warning.inverse.big-text.pull-left{:type => "submit", :value => "Remove Admins"}
 
         %a.btn.btn-warning.big-text.span{ href: add_users_company_path(@company) }
-          Add New User
+          Add New Admin
         .clr
       .clr
       .divider3
       .list-snippet-titles.big-text.clearfix
-        %a.span3.left-offset1.first{:href => "#", :title => "User ID"}
-          User ID
+        %a.span3.left-offset1.first{:href => "#", :title => "Admin ID"}
+          Admin ID
           %i.icon-chevron-down.small-text.line-height1
         %a.span8{:href => "#", :title => "Name"}
           Name

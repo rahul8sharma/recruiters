@@ -3,9 +3,9 @@ class Engagement::Surveys::ReportsController < ApplicationController
   before_filter :get_survey, except: [:s3_report]
 
   def report
-    @candidate_survey = Vger::Resources::Engagement::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+    @user_survey = Vger::Resources::Engagement::UserSurvey.where(:survey_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
     params[:survey_id] = params[:id]
-    params[:candidate_survey_id] = @candidate_survey.id
+    params[:user_survey_id] = @user_survey.id
     @report = Vger::Resources::Engagement::Report.find(params[:report_id], params)
     @report.report_hash = @report.report_data
     if params[:view_mode]

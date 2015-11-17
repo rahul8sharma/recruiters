@@ -6,7 +6,7 @@ function selectStakeholderInvitationTemplate() {
   }
 }
 
-function selectCandidateInvitationTemplate() {
+function selectUserInvitationTemplate() {
   var id = $("#select_candidate_invitation_template").find(":selected").val();
   var body = $("#select_candidate_invitation_template").find(":selected").attr("body");
   if(body !== undefined) {
@@ -16,6 +16,6 @@ function selectCandidateInvitationTemplate() {
 
 $(document).ready(function(){
   selectStakeholderInvitationTemplate();
-  selectCandidateInvitationTemplate();
+  selectUserInvitationTemplate();
 });
 

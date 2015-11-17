@@ -22,6 +22,6 @@
         %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           REPORTS
       %li
-        %a.search-menu{:href=>candidates_search_company_path(@company), :title=> "Search"}
+        %a.search-menu{:href=>users_search_company_path(@company), :title=> "Search"}
   .clr
 .clr

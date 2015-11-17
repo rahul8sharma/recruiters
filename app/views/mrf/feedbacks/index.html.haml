@@ -7,10 +7,10 @@
   .clr
   .divider2
   .search
-    = form_for :search, url: candidates_company_mrf_assessments_path(company_id: params[:company_id]), method: :get do |f|
+    = form_for :search, url: users_company_mrf_assessments_path(company_id: params[:company_id]), method: :get do |f|
       .field
-        = f.text_field :candidate_name, :placeholder => "Candidate Name", value: params[:search][:candidate_name]
-        = f.text_field :candidate_email, :placeholder => "Candidate Email", value: params[:search][:candidate_email]
+        = f.text_field :user_name, :placeholder => "Candidate Name", value: params[:search][:user_name]
+        = f.text_field :user_email, :placeholder => "Candidate Email", value: params[:search][:user_email]
         = f.text_field :stakeholder_name, :placeholder => "Stakeholder Name", value: params[:search][:stakeholder_name]
         = f.text_field :stakeholder_email, :placeholder => "Stakeholder Email", value: params[:search][:stakeholder_email]
         = f.submit "Search"
@@ -38,17 +38,17 @@
           %li.list-snippet.border-top-grayLighter.extra.medium-text
             .divider1
             .span2.first
-              = link_to feedback.assessment_id, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.assessment_id, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span2
-              = link_to feedback.candidate_id, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.user_id, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span5
-              = link_to feedback.candidate.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
-            .span6{ title: feedback.candidate.email }
-              = link_to feedback.candidate.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.user.name, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+            .span6{ title: feedback.user.email }
+              = link_to feedback.user.email[0..30], user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span5
-              = link_to feedback.stakeholder.name, candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.stakeholder.name, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span6{ title: feedback.stakeholder.email }
-              = link_to feedback.stakeholder.email[0..30], candidate_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.candidate_id)
+              = link_to feedback.stakeholder.email[0..30], user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span3
               = feedback.role.titleize
             .clr

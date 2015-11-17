@@ -1,7 +1,7 @@
 class AssessmentReportsController < ApplicationController
-  layout 'candidate_reports'
+  layout 'user_reports'
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
-  before_filter :check_superadmin, :only => [ :manage, :assessment_report ]
+  before_filter :check_superuser, :only => [ :manage, :assessment_report ]
 
   def training_requirements_report
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all   
@@ -87,25 +87,25 @@ class AssessmentReportsController < ApplicationController
     @competency_grades = Hash[Vger::Resources::Suitability::CompetencyGrade.all.collect{|x| [x.name, x.name]}]
     @competency_grades["Average"] = "Average"
     @aggregate_competency_score_buckets = Hash[Vger::Resources::Suitability::AggregateCompetencyScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :candidate_id, :company_id ]))
+    @report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :user_id, :company_id ]))
     @report.report_hash = @report.report_data
     if request.put?
       report_data = {
         :id => @report.id,
         :company_id => @report.company_id,
         :assessment_id => @report.assessment_id,
-        :candidate_id => @report.candidate_id
+        :user_id => @report.user_id
       }
       current_user = Vger::Resources::User.current(:methods => [:authentication_token])
       Suitability::ReportUploader.perform_async(report_data, current_user.authentication_token, params[:report])
       flash[:notice] = "Report is being modified. Please check after some time."
-      #redirect_to assessment_report_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
+      #redirect_to assessment_report_company_custom_assessment_user_user_assessment_report_url(@report, :company_id => params[:company_id], :user_id => params[:user_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
     end
-    render :layout => "admin"
+    render :layout => "user"
   end
 
   def show
-    report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id], params)
+    report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params[:id], params)
     if request.format.to_s == "application/pdf"
       view_mode = "pdf"
     else
@@ -138,8 +138,15 @@ class AssessmentReportsController < ApplicationController
                         })\
                         .where(order: "weight ASC").all                    
     end                    
-    @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(params[:id],params.merge(:patch => params[:patch], :report_type => report_type))
-    @report.report_hash = @report.report_data
+    @report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(
+      params[:id],
+      params.merge(
+        patch: params[:patch], 
+        report_type: report_type,
+        methods: [:report_hash]
+      )
+    )
+    @report.report_data = @report.report_hash
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
@@ -157,9 +164,9 @@ class AssessmentReportsController < ApplicationController
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
       when "html" 
-        layout = "candidate_reports.html.haml"
+        layout = "user_reports.html.haml"
       when "pdf"
-        layout  = "candidate_reports.pdf.haml"
+        layout  = "user_reports.pdf.haml"
       when "feedback"  
         layout  = "feedback_reports.html.haml"
         template = "feedback_report.html.haml"

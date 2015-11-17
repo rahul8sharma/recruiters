@@ -1,7 +1,7 @@
 = form_tag import_user_scores_users_path, multipart: true, :method => :post do
   %fieldset
     %legend 
-      %strong Import User Scores
+      %strong Import Candidate Scores
     = fields_for "import" do |f|
       %p
         = f.label :assessment_id

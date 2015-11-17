@@ -28,16 +28,16 @@
           OTHERS
         %ul.medium-text
           %li
-            %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments","mrf/assessments/candidate_feedback"].include?("#{params[:controller]}") ? "active" : "")}
+            %a.mrf{:href=>home_company_mrf_assessments_path(@company), :title=> "360 Degree",class: (["mrf/assessments","mrf/assessments/user_feedback"].include?("#{params[:controller]}") ? "active" : "")}
               360 DEGREE
           %li
-            %a.mrf{:href=>home_company_engagement_surveys_path(@company), :title=> "Engagement",class: (["engagement/surveys","engagement/candidate_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+            %a.mrf{:href=>home_company_engagement_surveys_path(@company), :title=> "Engagement",class: (["engagement/surveys","engagement/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
               ENGAGEMENT
           %li
-            %a.mrf{:href=>home_company_exit_surveys_path(@company), :title=> "Exit",class: (["exit/surveys","exit/candidate_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+            %a.mrf{:href=>home_company_exit_surveys_path(@company), :title=> "Exit",class: (["exit/surveys","exit/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
               EXIT
           %li
-            %a.mrf{:href=>home_company_retention_surveys_path(@company), :title=> "Retention",class: (["retention/surveys","retention/candidate_surveys"].include?("#{params[:controller]}") ? "active" : "")}
+            %a.mrf{:href=>home_company_retention_surveys_path(@company), :title=> "Retention",class: (["retention/surveys","retention/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
               RETENTION
           %li
             %a.mrf{:href=>home_company_sjt_assessments_path(@company), :title=> "SJT",class: (["sjt/assessments"].include?("#{params[:controller]}") ? "active" : "")}
@@ -52,12 +52,12 @@
         %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           ASSESSMENTS
       %li
-        %a{:href=>company_jq_jobs_path(@company.id), :title=> "HIRING", class: (["companies/jq/jobs","companies/jq/jobs/candidate_jobs"].include?("#{params[:controller]}") ? "active" : "")}
+        %a{:href=>company_jq_jobs_path(@company.id), :title=> "HIRING", class: (["companies/jq/jobs","companies/jq/jobs/user_jobs"].include?("#{params[:controller]}") ? "active" : "")}
           HIRING    
       %li
         %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           REPORTS
       %li
-        %a.search-menu{:href=>candidates_search_company_path(@company), :title=> "Search"}
+        %a.search-menu{:href=>users_search_company_path(@company), :title=> "Search"}
   .clr
 .clr

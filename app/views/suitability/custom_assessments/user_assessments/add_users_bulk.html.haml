@@ -38,8 +38,8 @@
           .divider2
           .purpose.left-offset1
             %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
+              - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::EMPLOYED)
+              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::EMPLOYED, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::EMPLOYED}');", checked: checked}
               #employee
                 -#toggle class ".checked" to "#employee"
                 .title.span.extra-medium-text
@@ -49,14 +49,14 @@
                 .clr
             .divider1
             %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
+              - checked = (params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE)
+              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::Candidate::Stage::CANDIDATE, :onClick => "getCandidateType('#{Vger::Resources::Candidate::Stage::CANDIDATE}');", checked: checked}
               #user
                 -#toggle class ".checked" to "#user"
                 .title.span.extra-medium-text
                   For Hiring
                 %i.muted.span.medium-text
-                  (Potential Users)
+                  (Potential Candidates)
                 .clr
         .clr
         .divider2

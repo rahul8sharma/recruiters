@@ -3,7 +3,7 @@
     Statistics
   %a.menu{class: (["traits"].include?(params[:action]) ? "active" : ""), href: traits_company_exit_survey_path(@company.id,@survey.id)}
     Traits Included
-  %a.menu{class: (["candidates","candidate"].include?(params[:action]) ? "active" : ""), href: candidates_company_exit_survey_path(@company.id,@survey.id)}
+  %a.menu{class: (["users","user"].include?(params[:action]) ? "active" : ""), href: users_company_exit_survey_path(@company.id,@survey.id)}
     Candidates
   %a.menu{class: (["group_reports","new", "edit","index"].include?(params[:action]) ? "active" : ""), href: group_reports_company_exit_survey_path(@company.id,@survey.id)}
     Group Reports

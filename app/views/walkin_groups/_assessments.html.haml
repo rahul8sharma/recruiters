@@ -82,7 +82,7 @@
             .span5.medium-text.line-height2.first.text-center
               Send Report to Candidate
             .span25
-              %input{type: "checkbox", name: "walkin_group[assessment_hash][#{assessment.id}][send_report_to_candidate]", checked: @walkin_group.assessment_hash["#{assessment.id}"]['send_report_to_candidate']}
+              %input{type: "checkbox", name: "walkin_group[assessment_hash][#{assessment.id}][send_report_to_user]", checked: @walkin_group.assessment_hash["#{assessment.id}"]['send_report_to_user']}
             .clr
           .control-group
             .span5.medium-text.line-height2.first.text-center

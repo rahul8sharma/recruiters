@@ -12,7 +12,7 @@
       - if defined?(@company)
         .span6.company_name{:title => "#{@company.name}"}
           = truncate @company.name, :length   => 28
-      = render :partial => "shared/header/#{current_user.type.underscore}"
+      = render :partial => "shared/header/#{current_user.role}"
     - else
       = render :partial => "shared/header/guest"
 

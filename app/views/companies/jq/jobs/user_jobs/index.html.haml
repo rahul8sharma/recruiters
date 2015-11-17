@@ -49,7 +49,7 @@
         %select.span3{name: "search[jq_user_jobs.recruiter_status]", onchange: "document.getElementById('user_jobs_search_form').submit();"}
           %option
             All
-          - Vger::Resources::Jq::UserJob::RECRUITER_STATUSES.each do |status|
+          - Vger::Resources::Jq::CandidateJob::RECRUITER_STATUSES.each do |status|
             %option{ value: status, selected: (params[:search]["jq_user_jobs.recruiter_status"] == status) }
               = status
       .clr
@@ -83,7 +83,7 @@
           = hdate(user_job.created_at,"-")
         .span6
           - report = @reports[user_job.id]
-          - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+          - if report && report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
             - view_mode = "html"
             - url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
             %a{:href => url, target: "_blank"}
@@ -91,7 +91,7 @@
           - else
             %i.icon-spinner.icon-spin
             Calculating...     
-        .span{ class: (user_job.recruiter_status == Vger::Resources::Jq::UserJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
+        .span{ class: (user_job.recruiter_status == Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
           -#toggle above class .color-stop  and below text "Rejected"
           = user_job.recruiter_status.titleize
 

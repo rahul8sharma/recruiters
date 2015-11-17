@@ -1,4 +1,4 @@
-= form_for :report, url: manage_company_custom_assessment_candidate_candidate_assessment_report_url(@report, :company_id => params[:company_id], :candidate_id => params[:candidate_id], :custom_assessment_id => params[:custom_assessment_id]), method: :put do |f|
+= form_for :report, url: manage_company_custom_assessment_user_user_assessment_report_url(@report, :company_id => params[:company_id], :user_id => params[:user_id], :custom_assessment_id => params[:custom_assessment_id]), method: :put do |f|
   = hidden_field_tag "view_mode", "html"
   - @report.overall_factor_score_bucket_id = @report.report_hash[:overall_score_bucket][:id]
   .bold
@@ -6,7 +6,7 @@
     #{@report.report_hash["company"]["name"]}
   .bold
     Candidate:
-    #{@report.report_hash["candidate"]["name"]}
+    #{@report.report_hash["user"]["name"]}
   .bold
     Assessment:
     #{@report.report_hash["assessment"]["name"]}

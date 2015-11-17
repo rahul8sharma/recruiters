@@ -1,7 +1,7 @@
 = form_for :assessment, url: resend_invitations_company_custom_assessment_path(@company.id, @assessment.id), :method => :put do |f|
   %fieldset
     %legend
-      %strong Resend Invitation Emails to Pending Users
+      %strong Resend Invitation Emails to Pending Candidates
     .pull-left.span8
       = f.fields_for "args" do |f|
         %p
@@ -13,11 +13,11 @@
         %p
           %label 
             %input{:type => "checkbox", :name => "assessment[args][pending]", value: "pending"}
-            Pending Users
+            Pending Candidates
         %p
           %label 
             %input{:type => "checkbox", :name => "assessment[args][started]", value: "started"}
-            Users who have started the test
+            Candidates who have started the test
         %p
           Notification Email :
           = f.text_field :email, :value => "product@jombay.com"
@@ -79,7 +79,7 @@
                 - if template
                   = template.preview(:body).html_safe
                 - else
-                  - if params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
+                  - if params[:candidate_stage] == Vger::Resources::Candidate::Stage::CANDIDATE
                     = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_user"
                   - else
                     = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_employee"

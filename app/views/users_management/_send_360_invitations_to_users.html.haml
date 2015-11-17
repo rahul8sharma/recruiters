@@ -1,7 +1,7 @@
 = form_for :user, url: send_360_invitations_to_users_users_path, multipart: true, :method => :post do |f|
   %fieldset
     %legend
-      %strong Send 360 degree Invitation Emails to Pending Users
+      %strong Send 360 degree Invitation Emails to Pending Candidates
     = f.fields_for "args" do |f|
       %p
         Assessment ID :
@@ -10,10 +10,10 @@
         Company ID :
         = f.text_field :company_id
       -#%p
-        = f.label "Pending Users"
+        = f.label "Pending Candidates"
         %input{:type => "checkbox", :name => "pending", value: "pending"}
       -#%p
-        = f.label "Users who have started the test"
+        = f.label "Candidates who have started the test"
         %input{:type => "checkbox", :name => "started", value: "started"}
 
 

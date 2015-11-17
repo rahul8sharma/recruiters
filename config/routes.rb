@@ -1,28 +1,43 @@
 require 'sidekiq/web'
 
 Recruiters::Application.routes.draw do
-  resources :candidates do
+  get "/users/password/link_sent", :to => "users#link_sent", :as => :link_sent
+  get "/users/confirmation", :to => "users#confirm", :as => :confirm
+
+  get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
+  put "/users/password/edit", :to => "users#update_password", :as => :update_password
+
+  get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
+  post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
+
+  get "/users/activate", :to => "users#activate", :as => :activate_account
+  put "/users/activate", :to => "users#activate"
+
+  get "/users/password_settings" => "users#password_settings", :as => :password_settings
+  put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
+
+  resources :users do
     member do
-      match 'generate_assessment_link' => "candidates_management#generate_assessment_link", :as => :generate_assessment_link
-      match 'deactivate_assessment_link' => "candidates_management#deactivate_assessment_link", :as => :deactivate_assessment_link
-      get 'assessment_link/:assessment_id' => "candidates_management#assessment_link", :as => :assessment_link
-      match 'update_candidate_stage' => "candidates_management#update_candidate_stage", :as => :update_candidate_stage
+      match 'generate_assessment_link' => "users_management#generate_assessment_link", :as => :generate_assessment_link
+      match 'deactivate_assessment_link' => "users_management#deactivate_assessment_link", :as => :deactivate_assessment_link
+      get 'assessment_link/:assessment_id' => "users_management#assessment_link", :as => :assessment_link
+      match 'update_user_stage' => "users_management#update_user_stage", :as => :update_user_stage
     end
     collection do
-      get "manage" => "candidates_management#manage", :as => :manage
-      post "update_candidate_assessments" => "candidates_management#update_candidate_assessments", :as => :update_candidate_assessments
-      post 'export' => "candidates_management#export"
-      post 'import' => "candidates_management#import"
-      post 'export_validation_progress' => "candidates_management#export_validation_progress"
-      post 'export_candidate_responses' => "candidates_management#export_candidate_responses"
-      post 'export_candidate_reports' => "candidates_management#export_candidate_reports"
-      post 'export_candidate_report_urls' => "candidates_management#export_candidate_report_urls"
-      post 'download_pdf_reports' => "candidates_management#download_pdf_reports"
-      post 'resend_invitations_to_candidates' => "candidates_management#resend_invitations_to_candidates"
-      post 'send_360_invitations_to_candidates' => "candidates_management#send_360_invitations_to_candidates"
-      post 'import_candidate_scores' => "candidates_management#import_candidate_scores", as: :import_candidate_scores
-      post 'import_assessments_factor_scores' => "candidates_management#import_assessments_factor_scores", as: :import_assessments_factor_scores
-      post 'export_assessments_factor_scores' => "candidates_management#export_assessments_factor_scores", as: :export_assessments_factor_scores
+      get "manage" => "users_management#manage", :as => :manage
+      post "update_user_assessments" => "users_management#update_user_assessments", :as => :update_user_assessments
+      post 'export' => "users_management#export"
+      post 'import' => "users_management#import"
+      post 'export_validation_progress' => "users_management#export_validation_progress"
+      post 'export_user_responses' => "users_management#export_user_responses"
+      post 'export_user_reports' => "users_management#export_user_reports"
+      post 'export_user_report_urls' => "users_management#export_user_report_urls"
+      post 'download_pdf_reports' => "users_management#download_pdf_reports"
+      post 'resend_invitations_to_users' => "users_management#resend_invitations_to_users"
+      post 'send_360_invitations_to_users' => "users_management#send_360_invitations_to_users"
+      post 'import_user_scores' => "users_management#import_user_scores", as: :import_user_scores
+      post 'import_assessments_factor_scores' => "users_management#import_assessments_factor_scores", as: :import_assessments_factor_scores
+      post 'export_assessments_factor_scores' => "users_management#export_assessments_factor_scores", as: :export_assessments_factor_scores
       get :destroy_all
     end
   end
@@ -32,7 +47,7 @@ Recruiters::Application.routes.draw do
       namespace :jq, path: "hiring" do
         resources :jobs do
           scope module: :jobs do
-            resources :candidate_jobs, path: "candidates"
+            resources :user_jobs, path: "users"
           end
         end
       end
@@ -62,7 +77,7 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
-      get "candidates_search" => "companies#candidates_search", :as => :candidates_search
+      get "users_search" => "companies#users_search", :as => :users_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
@@ -82,7 +97,7 @@ Recruiters::Application.routes.draw do
       get "settings/user_settings/confirm_remove_company_managers" => "company_settings#confirm_remove_company_managers", :as => :confirm_remove_company_managers
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
 
-      get "candidates/:candidate_id" => "companies#candidate", :as => :candidate
+      get "users/:user_id" => "companies#user", :as => :user
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
       get "home" => "companies#home", :as => :home
@@ -149,23 +164,23 @@ Recruiters::Application.routes.draw do
         get "download_benchmark_report" => "suitability/benchmarks#download_benchmark_report", :as => :download_benchmark_report
         get "benchmark_report" => "suitability/assessment_reports#benchmark_report", :as => :benchmark_report
 
-        get "candidates" => "suitability/benchmarks/candidate_assessments#candidates", :as => :candidates
-        get "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
-        put "candidates/add" => "suitability/benchmarks/candidate_assessments#add_candidates", :as => :add_candidates
+        get "candidates" => "suitability/benchmarks/user_assessments#users", :as => :users
+        get "candidates/add" => "suitability/benchmarks/user_assessments#add_users", :as => :add_users
+        put "candidates/add" => "suitability/benchmarks/user_assessments#add_users", :as => :add_users
 
-        put "candidates/bulk_upload" => "suitability/benchmarks/candidate_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "suitability/benchmarks/candidate_assessments#email_reports", :as => :email_reports
+        put "candidates/bulk_upload" => "suitability/benchmarks/user_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "suitability/benchmarks/user_assessments#email_reports", :as => :email_reports
 
-        get "candidates/send-test" => "suitability/benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "suitability/benchmarks/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/bulk-send-test" => "suitability/benchmarks/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
-        get "candidates/:candidate_id/send-reminder" => "suitability/benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "suitability/benchmarks/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "suitability/benchmarks/candidate_assessments#candidate", :as => :candidate
+        get "candidates/send-test" => "suitability/benchmarks/user_assessments#send_test_to_users", :as => :send_test_to_users
+        put "candidates/send-test" => "suitability/benchmarks/user_assessments#send_test_to_users", :as => :send_test_to_users
+        put "candidates/bulk-send-test" => "suitability/benchmarks/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
+        get "candidates/:user_id/send-reminder" => "suitability/benchmarks/user_assessments#send_reminder", :as => :send_reminder_to_user
+        put "candidates/:user_id/send-reminder" => "suitability/benchmarks/user_assessments#send_reminder", :as => :send_reminder_to_user
+        get "candidates/:user_id" => "suitability/benchmarks/user_assessments#user", :as => :user
       end
 
-      resources :candidates, :except => [:destroy, :show] do
-        resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+      resources :users, :except => [:destroy, :show] do
+        resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
@@ -188,7 +203,7 @@ Recruiters::Application.routes.draw do
         get "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
         put "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
 
-        get "reports" => "suitability/custom_assessments/candidate_assessments#reports", :as => :reports
+        get "reports" => "suitability/custom_assessments/user_assessments#reports", :as => :reports
 
         get "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
         put "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
@@ -209,39 +224,39 @@ Recruiters::Application.routes.draw do
 
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
 
-        get "candidates" => "suitability/custom_assessments/candidate_assessments#candidates", :as => :candidates
-        get "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
-        put "candidates/add" => "suitability/custom_assessments/candidate_assessments#add_candidates", :as => :add_candidates
-        get "candidates/add_bulk" => "suitability/custom_assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
+        get "candidates" => "suitability/custom_assessments/user_assessments#users", :as => :users
+        get "candidates/add" => "suitability/custom_assessments/user_assessments#add_users", :as => :add_users
+        put "candidates/add" => "suitability/custom_assessments/user_assessments#add_users", :as => :add_users
+        get "candidates/add_bulk" => "suitability/custom_assessments/user_assessments#add_users_bulk", :as => :add_users_bulk
 
-        get "candidates/expire_links" => "suitability/custom_assessments/candidate_assessments#expire_links", :as => :expire_links
+        get "candidates/expire_links" => "suitability/custom_assessments/user_assessments#expire_links", :as => :expire_links
 
-        get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/candidate_assessments#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
-        put "candidates/bulk_upload" => "suitability/custom_assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "suitability/custom_assessments/candidate_assessments#email_reports", :as => :email_reports
-        get "trigger_report_downloader" => "suitability/custom_assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        put "candidates/bulk_upload" => "suitability/custom_assessments/user_assessments#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "suitability/custom_assessments/user_assessments#email_reports", :as => :email_reports
+        get "trigger_report_downloader" => "suitability/custom_assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
 
-        get "export_feedback_scores" => "suitability/custom_assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
+        get "export_feedback_scores" => "suitability/custom_assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
 
-        get "email_assessment_status" => "suitability/custom_assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
+        get "email_assessment_status" => "suitability/custom_assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/send-test" => "suitability/custom_assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        put "candidates/bulk-send-test" => "suitability/custom_assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        get "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
+        put "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
+        put "candidates/bulk-send-test" => "suitability/custom_assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
 
-        get "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
-        put "candidates/resend-invitations" => "suitability/custom_assessments/candidate_assessments#resend_invitations"
+        get "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations", :as => :resend_invitations
+        put "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations"
 
-        get "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "suitability/custom_assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        get "candidates/:candidate_id" => "suitability/custom_assessments/candidate_assessments#candidate", :as => :candidate
-        get "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
-        put "candidates/:candidate_id/extend-validity" => "suitability/custom_assessments/candidate_assessments#extend_validity", :as => :extend_validity
-        get "candidates/:candidate_id/expire-link" => "suitability/custom_assessments/candidate_assessments#expire_assessment_link", :as => :expire_assessment_link
+        get "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        put "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        get "candidates/:user_id" => "suitability/custom_assessments/user_assessments#user", :as => :user
+        get "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
+        put "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
+        get "candidates/:user_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
       end
 
-      resources :candidates, :except => [:destroy, :show] do
-        resources :candidate_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+      resources :users, :except => [:destroy, :show] do
+        resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
@@ -263,17 +278,17 @@ Recruiters::Application.routes.draw do
     end
   
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
-      resources :candidate_assessments, :controller => "mrf/assessments/candidate_assessments" do
+      resources :user_assessments, :controller => "mrf/assessments/user_assessments" do
         collection do
-          match "add" => "mrf/assessments/candidate_assessments#add_candidates", :as => :add
-          match "bulk_upload" => "mrf/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
+          match "add" => "mrf/assessments/user_assessments#add_users", :as => :add
+          match "bulk_upload" => "mrf/assessments/user_assessments#bulk_upload", :as => :bulk_upload
         end
       end
 
       collection do
         get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
         get "home" => "mrf/assessments#home", :as => :home
-        get "candidates" => "mrf/feedbacks#index", :as => :candidates
+        get "candidates" => "mrf/feedbacks#index", :as => :users
         put "home" => "mrf/assessments#home", :as => :home
       end
 
@@ -288,33 +303,33 @@ Recruiters::Application.routes.draw do
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
 
-        get "candidates" => "mrf/assessments/candidate_feedback#candidates", :as => :candidates
-        get ":candidate_id/statistics" => "mrf/assessments/candidate_feedback#statistics", :as => :candidate_statistics
-        get ":candidate_id/stakeholders" => "mrf/assessments/candidate_feedback#stakeholders", :as => :candidate_stakeholders
-        get "stakeholders/:stakeholder_id" => "mrf/assessments/candidate_feedback#stakeholder", :as => :stakeholder
-        get ":candidate_id/update_feedback" => "mrf/assessments/candidate_feedback#update_feedback", :as => :update_feedback
+        get "candidates" => "mrf/assessments/user_feedback#users", :as => :users
+        get ":user_id/statistics" => "mrf/assessments/user_feedback#statistics", :as => :user_statistics
+        get ":user_id/stakeholders" => "mrf/assessments/user_feedback#stakeholders", :as => :user_stakeholders
+        get "stakeholders/:stakeholder_id" => "mrf/assessments/user_feedback#stakeholder", :as => :stakeholder
+        get ":user_id/update_feedback" => "mrf/assessments/user_feedback#update_feedback", :as => :update_feedback
 
         get "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
-        get "candidates/:candidate_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
-        get "candidates/:candidate_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
+        get "candidates/:user_id/reports/:report_id/mrf_report" => "mrf/assessments/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "mrf/assessments/reports#s3_report", :as => :s3_report
 
 
         match "competencies" => "mrf/assessments#competencies", :as => :competencies
         match "add_traits" => "mrf/assessments#add_traits", :as => :add_traits
         match "add_traits_range" => "mrf/assessments#add_traits_range", :as => :add_traits_range
-        match "select_candidates" => "mrf/assessments/candidate_feedback#select_candidates", :as => :select_candidates
+        match "select_users" => "mrf/assessments/user_feedback#select_users", :as => :select_users
         match "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         match "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
-        match "add_stakeholders" => "mrf/assessments/candidate_feedback#add_stakeholders", :as => :add_stakeholders
-        match "/send-reminder" => "mrf/assessments/candidate_feedback#send_reminder", :as => :send_reminder
-        match "bulk_upload" => "mrf/assessments/candidate_feedback#bulk_upload", :as => :bulk_upload
+        match "add_stakeholders" => "mrf/assessments/user_feedback#add_stakeholders", :as => :add_stakeholders
+        match "/send-reminder" => "mrf/assessments/user_feedback#send_reminder", :as => :send_reminder
+        match "bulk_upload" => "mrf/assessments/user_feedback#bulk_upload", :as => :bulk_upload
 
-        get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/candidate_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
-        get "/export_feedback_urls" => "mrf/assessments/candidate_feedback#export_feedback_urls", :as => :export_feedback_urls
-        get "/export_feedback_status" => "mrf/assessments/candidate_feedback#export_feedback_status", :as => :export_feedback_status
-        get "/export_report_urls" => "mrf/assessments/candidate_feedback#export_report_urls", :as => :export_report_urls
-        get "/enable-self-ratings" => "mrf/assessments/candidate_feedback#enable_self_ratings", :as => :enable_self_ratings
-        get "/expire_feedback_urls" => "mrf/assessments/candidate_feedback#expire_feedback_urls", :as => :expire_feedback_urls
+        get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/user_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
+        get "/export_feedback_urls" => "mrf/assessments/user_feedback#export_feedback_urls", :as => :export_feedback_urls
+        get "/export_feedback_status" => "mrf/assessments/user_feedback#export_feedback_status", :as => :export_feedback_status
+        get "/export_report_urls" => "mrf/assessments/user_feedback#export_report_urls", :as => :export_report_urls
+        get "/enable-self-ratings" => "mrf/assessments/user_feedback#enable_self_ratings", :as => :enable_self_ratings
+        get "/expire_feedback_urls" => "mrf/assessments/user_feedback#expire_feedback_urls", :as => :expire_feedback_urls
       end
     end
 
@@ -328,27 +343,27 @@ Recruiters::Application.routes.draw do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
         match "competencies_measured" => "sjt/assessments#competencies_measured", :as => :competencies_measured
         
-        match "send_test_to_candidates" => "sjt/assessments/candidate_assessments#send_test_to_candidates", :as => :send_test_to_candidates
-        match "candidates" => "sjt/assessments/candidate_assessments#candidates", :as => :candidates
-        match "add_candidates" => "sjt/assessments/candidate_assessments#add_candidates", :as => :add_candidates
-        match "candidates/:candidate_id" => "sjt/assessments/candidate_assessments#candidate", :as => :candidate
+        match "send_test_to_users" => "sjt/assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
+        match "candidates" => "sjt/assessments/user_assessments#users", :as => :users
+        match "add_users" => "sjt/assessments/user_assessments#add_users", :as => :add_users
+        match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
         
-        match "reports" => "sjt/assessments/candidate_assessments#reports", :as => :reports
+        match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
         
-        match "candidates/add_bulk" => "sjt/assessments/candidate_assessments#add_candidates_bulk", :as => :add_candidates_bulk
-        put "candidates/bulk_upload" => "sjt/assessments/candidate_assessments#bulk_upload", :as => :bulk_upload
-        put "candidates/bulk-send-test" => "sjt/assessments/candidate_assessments#bulk_send_test_to_candidates", :as => :bulk_send_test_to_candidates
+        match "candidates/add_bulk" => "sjt/assessments/user_assessments#add_users_bulk", :as => :add_users_bulk
+        put "candidates/bulk_upload" => "sjt/assessments/user_assessments#bulk_upload", :as => :bulk_upload
+        put "candidates/bulk-send-test" => "sjt/assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
 
-        get "candidates/expire_links" => "sjt/assessments/candidate_assessments#expire_links", :as => :expire_links
-        get "email_assessment_status" => "sjt/assessments/candidate_assessments#email_assessment_status", :as => :email_assessment_status
-        get "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations", :as => :resend_invitations
-        put "candidates/resend-invitations" => "sjt/assessments/candidate_assessments#resend_invitations"
+        get "candidates/expire_links" => "sjt/assessments/user_assessments#expire_links", :as => :expire_links
+        get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
+        get "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
+        put "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations"
 
-        match "candidates/:candidate_id/extend-validity" => "sjt/assessments/candidate_assessments#extend_validity", :as => :extend_validity
-        get "trigger_report_downloader" => "sjt/assessments/candidate_assessments#trigger_report_downloader", :as => :trigger_report_downloader
-        get "export_feedback_scores" => "sjt/assessments/candidate_assessments#export_feedback_scores", :as => :export_feedback_scores
-        get "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
-        put "candidates/:candidate_id/send-reminder" => "sjt/assessments/candidate_assessments#send_reminder", :as => :send_reminder_to_candidate
+        match "candidates/:user_id/extend-validity" => "sjt/assessments/user_assessments#extend_validity", :as => :extend_validity
+        get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
+        get "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        put "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
       end
 
     end
@@ -366,30 +381,30 @@ Recruiters::Application.routes.draw do
         get "details" => "engagement/surveys#details", :as => :details
         get "elements" => "engagement/surveys#elements", :as => :elements
 
-        get "candidates" => "engagement/surveys/candidates#candidates", :as => :candidates
-        get "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
-        put "candidates/add" => "engagement/surveys/candidates#add_candidates", :as => :add_candidates
-        get "candidates/add_bulk" => "engagement/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
-        get "candidates/send-reminder-to-pending" =>"engagement/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
-        put "candidates/bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "engagement/surveys/candidates#email_reports", :as => :email_reports
-        get "export_feedback_scores" => "engagement/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+        get "candidates" => "engagement/surveys/users#users", :as => :users
+        get "candidates/add" => "engagement/surveys/users#add_users", :as => :add_users
+        put "candidates/add" => "engagement/surveys/users#add_users", :as => :add_users
+        get "candidates/add_bulk" => "engagement/surveys/users#add_users_bulk", :as => :add_users_bulk
+        get "candidates/send-reminder-to-pending" =>"engagement/surveys/users#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        put "candidates/bulk_upload" => "engagement/surveys/users#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "engagement/surveys/users#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "engagement/surveys/users#export_feedback_scores", :as => :export_feedback_scores
 
-        get "email_assessment_status" => "engagement/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+        get "email_assessment_status" => "engagement/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/send-survey" => "engagement/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/bulk-send-test" => "engagement/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+        get "candidates/send-survey" => "engagement/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/send-survey" => "engagement/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/bulk-send-test" => "engagement/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder", :as => :send_reminder
-        put "candidates/:candidate_id/send-reminder" => "engagement/surveys/candidates#send_reminder"
-        get "candidates/:candidate_id" => "engagement/surveys/candidates#candidate", :as => :candidate
+        get "candidates/:user_id/send-reminder" => "engagement/surveys/users#send_reminder", :as => :send_reminder
+        put "candidates/:user_id/send-reminder" => "engagement/surveys/users#send_reminder"
+        get "candidates/:user_id" => "engagement/surveys/users#user", :as => :user
 
-        get "candidates/:candidate_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
-        get "candidates/:candidate_id/reports/:report_id" => "engagement/surveys/reports#s3_report", :as => :s3_report
+        get "candidates/:user_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "engagement/surveys/reports#s3_report", :as => :s3_report
 
-        put "bulk_upload" => "engagement/surveys/candidates#bulk_upload", :as => :bulk_upload
-        get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/candidates#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
+        put "bulk_upload" => "engagement/surveys/users#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_engagement_bulk_upload", :to => "engagement/surveys/users#download_sample_csv_for_engagement_bulk_upload", :as => :download_sample_csv_for_engagement_bulk_upload
       end
     end
 
@@ -406,27 +421,27 @@ Recruiters::Application.routes.draw do
         get "details" => "exit/surveys#details", :as => :details
         get "traits" => "exit/surveys#traits", :as => :traits
 
-        get "candidates" => "exit/surveys/candidates#candidates", :as => :candidates
-        get "candidates/add" => "exit/surveys/candidates#add_candidates", :as => :add_candidates
-        put "candidates/add" => "exit/surveys/candidates#add_candidates", :as => :add_candidates
-        get "candidates/add_bulk" => "exit/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
-        get "candidates/send-reminder-to-pending" =>"exit/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
-        put "candidates/bulk_upload" => "exit/surveys/candidates#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "exit/surveys/candidates#email_reports", :as => :email_reports
-        get "export_feedback_scores" => "exit/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+        get "candidates" => "exit/surveys/users#users", :as => :users
+        get "candidates/add" => "exit/surveys/users#add_users", :as => :add_users
+        put "candidates/add" => "exit/surveys/users#add_users", :as => :add_users
+        get "candidates/add_bulk" => "exit/surveys/users#add_users_bulk", :as => :add_users_bulk
+        get "candidates/send-reminder-to-pending" =>"exit/surveys/users#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        put "candidates/bulk_upload" => "exit/surveys/users#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "exit/surveys/users#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "exit/surveys/users#export_feedback_scores", :as => :export_feedback_scores
 
-        get "email_assessment_status" => "exit/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+        get "email_assessment_status" => "exit/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "exit/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/send-survey" => "exit/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/bulk-send-test" => "exit/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+        get "candidates/send-survey" => "exit/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/send-survey" => "exit/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/bulk-send-test" => "exit/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:candidate_id/send-reminder" => "exit/surveys/candidates#send_reminder", :as => :send_reminder
-        put "candidates/:candidate_id/send-reminder" => "exit/surveys/candidates#send_reminder"
-        get "candidates/:candidate_id" => "exit/surveys/candidates#candidate", :as => :candidate
+        get "candidates/:user_id/send-reminder" => "exit/surveys/users#send_reminder", :as => :send_reminder
+        put "candidates/:user_id/send-reminder" => "exit/surveys/users#send_reminder"
+        get "candidates/:user_id" => "exit/surveys/users#user", :as => :user
 
-        get "candidates/:candidate_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
-        get "candidates/:candidate_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
+        get "candidates/:user_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "exit/surveys/reports#s3_report", :as => :s3_report
 
         get "group_reports/:report_id/exit_report" => "exit/surveys/group_reports#report", :as => :group_report
         get "group_reports/new" => "exit/surveys/group_reports#new", :as => :new_group_report
@@ -438,8 +453,8 @@ Recruiters::Application.routes.draw do
         get "group_reports/:report_id" => "exit/surveys/group_reports#s3_report", :as => :s3_group_report
 
 
-        put "bulk_upload" => "exit/surveys/candidates#bulk_upload", :as => :bulk_upload
-        get "/download_sample_csv_for_exit_bulk_upload", :to => "exit/surveys/candidates#download_sample_csv_for_exit_bulk_upload", :as => :download_sample_csv_for_exit_bulk_upload
+        put "bulk_upload" => "exit/surveys/users#bulk_upload", :as => :bulk_upload
+        get "/download_sample_csv_for_exit_bulk_upload", :to => "exit/surveys/users#download_sample_csv_for_exit_bulk_upload", :as => :download_sample_csv_for_exit_bulk_upload
       end
     end
 
@@ -456,24 +471,24 @@ Recruiters::Application.routes.draw do
         get "details" => "retention/surveys#details", :as => :details
         get "traits" => "retention/surveys#traits", :as => :traits
 
-        get "candidates" => "retention/surveys/candidates#candidates", :as => :candidates
-        get "candidates/add" => "retention/surveys/candidates#add_candidates", :as => :add_candidates
-        put "candidates/add" => "retention/surveys/candidates#add_candidates", :as => :add_candidates
-        get "candidates/add_bulk" => "retention/surveys/candidates#add_candidates_bulk", :as => :add_candidates_bulk
-        get "candidates/send-reminder-to-pending" =>"retention/surveys/candidates#send_reminder_to_pending_candidates",:as => :send_reminder_to_pending_candidates
-        put "candidates/bulk_upload" => "retention/surveys/candidates#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "retention/surveys/candidates#email_reports", :as => :email_reports
-        get "export_feedback_scores" => "retention/surveys/candidates#export_feedback_scores", :as => :export_feedback_scores
+        get "candidates" => "retention/surveys/users#users", :as => :users
+        get "candidates/add" => "retention/surveys/users#add_users", :as => :add_users
+        put "candidates/add" => "retention/surveys/users#add_users", :as => :add_users
+        get "candidates/add_bulk" => "retention/surveys/users#add_users_bulk", :as => :add_users_bulk
+        get "candidates/send-reminder-to-pending" =>"retention/surveys/users#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        put "candidates/bulk_upload" => "retention/surveys/users#bulk_upload", :as => :bulk_upload
+        get "email_reports" => "retention/surveys/users#email_reports", :as => :email_reports
+        get "export_feedback_scores" => "retention/surveys/users#export_feedback_scores", :as => :export_feedback_scores
 
-        get "email_assessment_status" => "retention/surveys/candidates#email_assessment_status", :as => :email_assessment_status
+        get "email_assessment_status" => "retention/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "retention/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/send-survey" => "retention/surveys/candidates#send_survey_to_candidates", :as => :send_survey_to_candidates
-        put "candidates/bulk-send-test" => "retention/surveys/candidates#bulk_send_survey_to_candidates", :as => :bulk_send_survey_to_candidates
+        get "candidates/send-survey" => "retention/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/send-survey" => "retention/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        put "candidates/bulk-send-test" => "retention/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:candidate_id/send-reminder" => "retention/surveys/candidates#send_reminder", :as => :send_reminder
-        put "candidates/:candidate_id/send-reminder" => "retention/surveys/candidates#send_reminder"
-        get "candidates/:candidate_id" => "retention/surveys/candidates#candidate", :as => :candidate
+        get "candidates/:user_id/send-reminder" => "retention/surveys/users#send_reminder", :as => :send_reminder
+        put "candidates/:user_id/send-reminder" => "retention/surveys/users#send_reminder"
+        get "candidates/:user_id" => "retention/surveys/users#user", :as => :user
 
 
       end
@@ -952,9 +967,9 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :candidate_assessment_report_feedbacks do
+    resources :user_assessment_report_feedbacks do
       collection do
-        get "thank-you" => "candidate_assessment_report_feedbacks#thank_you", :as => :thank_you_page
+        get "thank-you" => "user_assessment_report_feedbacks#thank_you", :as => :thank_you_page
       end
     end
 
@@ -1263,7 +1278,7 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :jq do
-    resources :candidate_assessment_reports do
+    resources :user_assessment_reports do
       collection do
         get :manage
         post :export_norm_population
@@ -1312,7 +1327,7 @@ Recruiters::Application.routes.draw do
       end
     end
 
-    resources :candidate_jobs
+    resources :user_jobs
 
     resources :multimedia_answers
   end
@@ -1323,31 +1338,13 @@ Recruiters::Application.routes.draw do
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
   get "/trr/manage", :to => "suitability/custom_assessments/training_requirements_reports_management#manage", :as => :trr_manage
-  post "/trr/manage/export_assessment_trr_candidates", :to =>  "suitability/custom_assessments/training_requirements_reports_management#export_assessment_trr_candidates", :as => :export_assessment_trr_candidates
-  post "/trr/manage/export_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#export_group_trr_candidates", :as => :export_group_trr_candidates
-  post "/trr/manage/import_assessment_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_assessment_trr_candidates", :as => :import_assessment_trr_candidates
-  post "/trr/manage/import_group_trr_candidates", :to => "suitability/custom_assessments/training_requirements_reports_management#import_group_trr_candidates", :as => :import_group_trr_candidates
-
-  get "/users", :to => "users#index", :as => :users
+  post "/trr/manage/export_assessment_trr_users", :to =>  "suitability/custom_assessments/training_requirements_reports_management#export_assessment_trr_users", :as => :export_assessment_trr_users
+  post "/trr/manage/export_group_trr_users", :to => "suitability/custom_assessments/training_requirements_reports_management#export_group_trr_users", :as => :export_group_trr_users
+  post "/trr/manage/import_assessment_trr_users", :to => "suitability/custom_assessments/training_requirements_reports_management#import_assessment_trr_users", :as => :import_assessment_trr_users
+  post "/trr/manage/import_group_trr_users", :to => "suitability/custom_assessments/training_requirements_reports_management#import_group_trr_users", :as => :import_group_trr_users
 
   match "/login", :to => "users#login", :as => :login
   match "/logout", :to => "users#logout", :via => [:get, :delete], :as => :logout
-
-  get "/users/password/link_sent", :to => "users#link_sent", :as => :link_sent
-  get "/users/confirmation", :to => "users#confirm", :as => :confirm
-
-  get "/users/password/edit", :to => "users#reset_password", :as => :reset_password
-  put "/users/password/edit", :to => "users#update_password", :as => :update_password
-
-  get "/users/password/new", :to => "users#forgot_password", :as => :forgot_password
-  post "/users/password/create", :to => "users#send_reset_password", :as => :send_reset_password
-
-  get "/users/activate", :to => "users#activate", :as => :activate_account
-  put "/users/activate", :to => "users#activate"
-
-  get "/users/password_settings" => "users#password_settings", :as => :password_settings
-  put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
-
 
   get "/sidekiq/queue-job" => "sidekiq#queue_job"
   get "/sidekiq/generate_factor_benchmarks" => "sidekiq#generate_factor_benchmarks"
@@ -1370,9 +1367,9 @@ Recruiters::Application.routes.draw do
   match "/sidekiq/regenerate_exit_group_reports/", :to => "reports_management#regenerate_exit_group_reports", :as => :regenerate_exit_group_reports
 
   get "/master-data", :to => "pages#home", :as => :master_data
-  get "/help/adding_candidates", :to => "help#adding_candidates", :as => :help_adding_candidates
+  get "/help/adding_users", :to => "help#adding_users", :as => :help_adding_users
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
-  get "/download_sample_csv_for_candidate_bulk_upload", :to => "help#download_sample_csv_for_candidate_bulk_upload", :as => :download_sample_csv_for_candidate_bulk_upload
+  get "/download_sample_csv_for_user_bulk_upload", :to => "help#download_sample_csv_for_user_bulk_upload", :as => :download_sample_csv_for_user_bulk_upload
   get "/report-management", :to => "reports_management#report_management", :as => :report_management
   get "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
   post "/report-generator", :to => "reports_management#report_generator", :as => :report_generator

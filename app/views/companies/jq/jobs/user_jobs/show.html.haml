@@ -29,7 +29,7 @@
         .left-offset1
           .divider1
           - view_mode = "html"
-          - if @report && @report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+          - if @report && @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADED
             - url = S3Utils.get_url(@report.s3_keys[view_mode][:bucket], @report.s3_keys[view_mode][:key])
             %a{:href => url, target: "_blank"}
               View Report
@@ -61,12 +61,12 @@
     .clr
   .pull-right
     .divider7
-    - if ![Vger::Resources::Jq::UserJob::RecruiterStatus::ACCEPTED, Vger::Resources::Jq::UserJob::RecruiterStatus::REJECTED].include?(@user_job.recruiter_status)
+    - if ![Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED, Vger::Resources::Jq::CandidateJob::RecruiterStatus::REJECTED].include?(@user_job.recruiter_status)
       = form_for @user_job, as: :user_job, url: company_jq_job_user_job_path(params[:company_id], @job.id, @user_job.id), method: :put, html: { id: "user_job_form_reject" } do |f|
         %input.btn.btn-link.bold.big-text{type: "submit", name: "status", value: "REJECT"}
         %input.btn.btn-warning.bold.big-text{type: "submit", name: "status", value: "ACCEPT"}
     - else
-      .bold.big-text{ class: (@user_job.recruiter_status == Vger::Resources::Jq::UserJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
+      .bold.big-text{ class: (@user_job.recruiter_status == Vger::Resources::Jq::CandidateJob::RecruiterStatus::ACCEPTED ? 'color-green' : 'color-stop') }
         = @user_job.recruiter_status.upcase
   .clr
   .divider2.border-bottom-success

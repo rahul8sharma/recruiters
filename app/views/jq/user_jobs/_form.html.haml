@@ -5,9 +5,9 @@
     .field
       = f.label index_column
       - if index_column == :user_status 
-        = f.select index_column, Vger::Resources::Jq::UserJob::CANDIDATE_STATUSES
+        = f.select index_column, Vger::Resources::Jq::CandidateJob::CANDIDATE_STATUSES
       - elsif index_column == :recruiter_status 
-        = f.select index_column, Vger::Resources::Jq::UserJob::RECRUITER_STATUSES
+        = f.select index_column, Vger::Resources::Jq::CandidateJob::RECRUITER_STATUSES
       - else
         = f.text_field index_column
   .action

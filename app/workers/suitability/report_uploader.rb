@@ -7,32 +7,32 @@ module Suitability
       report_id = report_data["id"]
       company_id = report_data["company_id"]
       assessment_id = report_data["assessment_id"]
-      candidate_id = report_data["candidate_id"]
+      user_id = report_data["user_id"]
       patch ||= {}
       begin
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         methods = []
         methods = [:report_hash] if !patch.empty?
-        @report = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.find(report_id,
+        @report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(report_id,
           :custom_assessment_id => assessment_id,
-          :candidate_id => candidate_id,
+          :user_id => user_id,
           :company_id => company_id,
           :patch => patch,
           :methods => methods
         )
         
         @report.report_hash = @report.report_data if patch.empty?
-        #if @report.status == Vger::Resources::Suitability::CandidateAssessmentReport::Status::UPLOADING
+        #if @report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADING
         #  puts "Report #{report_id} is being uploaded already..."
         #  return
         #end
 
-        Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+        Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(report_id,
           :custom_assessment_id => assessment_id,
-          :candidate_id => candidate_id,
+          :user_id => user_id,
           :company_id => company_id,
-          :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADING
+          :status => Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::UPLOADING
         )
 
 
@@ -52,7 +52,7 @@ module Suitability
                             .where(order: "weight ASC").all                    
         end      
 
-        candidate_name = @report.report_hash[:candidate][:name]
+        user_name = @report.report_hash[:user][:name]
         company_name = @report.report_hash[:company][:name]
 
         template = if @report.configuration[:is_functional_assessment]
@@ -70,7 +70,7 @@ module Suitability
         @view_mode = "html"
         html = render_to_string(
            template: "assessment_reports/#{template}",
-           layout: "layouts/candidate_reports",
+           layout: "layouts/user_reports",
            handlers: [ :haml ],
            formats: [ :html ]
         )
@@ -87,12 +87,12 @@ module Suitability
           margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
           footer: {
             :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-              layout: "layouts/candidate_reports.pdf.haml"
+              layout: "layouts/user_reports.pdf.haml"
             )
           },
           header: {
             :content => render_to_string("shared/reports/pdf/_report_header.pdf.haml",
-              layout: "layouts/candidate_reports.pdf.haml"
+              layout: "layouts/user_reports.pdf.haml"
             ),
             :spacing => 15
           }
@@ -108,14 +108,14 @@ module Suitability
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string("assessment_reports/#{template}.pdf.haml",
-            layout: "layouts/candidate_reports.pdf.haml",
+            layout: "layouts/user_reports.pdf.haml",
             handlers: [ :haml ],
             formats: [:pdf]
           ), hash_toc
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        file_id = "#{candidate_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
+        file_id = "#{user_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
         pdf_file_id = "#{file_id}.pdf"
         html_file_id = "#{file_id}.html"
         feedback_html_file_id = "feedback-#{file_id}.html"
@@ -142,13 +142,13 @@ module Suitability
         notifications_sent_at = (should_send_notifications ? now : @report.configuration[:notifications_sent_at])
         status = nil
         if notifications_sent_at
-          status = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::UPLOADED
+          status = Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::UPLOADED
         else
-          status = Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::HIVE_SCORES_PENDING
+          status = Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::HIVE_SCORES_PENDING
         end
-        Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+        Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(report_id,
           :custom_assessment_id => assessment_id,
-          :candidate_id => candidate_id,
+          :user_id => user_id,
           :company_id => company_id,
           :notifications_sent_at => notifications_sent_at,
           :uploaded_at => now,
@@ -161,7 +161,7 @@ module Suitability
         
         mailer_data = {
           report_id: @report.report_hash[:id],
-          candidate: @report.report_hash[:candidate],
+          user: @report.report_hash[:user],
           company: @report.report_hash[:company],
           assessment: @report.report_hash[:assessment],
           report_email_recipients: @report.report_hash[:report_email_recipients],
@@ -173,13 +173,13 @@ module Suitability
           puts "Regenerated at - #{@report.configuration[:regenerated_at]}"
           puts "Regenerate Notify - #{@report.configuration[:regenerate_notify]}"
           unless @report.configuration[:regenerated_at] && !@report.configuration[:regenerate_notify]
-            # if report_email_recipients is same as candidate email
-            # use send_report_to_candidate template
+            # if report_email_recipients is same as user email
+            # use send_report_to_user template
             # else use send_report template
             puts "Sending Report"
             report_email_recipients = @report.report_hash[:report_email_recipients].to_s.split(',')
-            if report_email_recipients.include? @report.report_hash[:candidate][:email]
-              JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_candidate(mailer_data), "send_report_to_candidate")
+            if report_email_recipients.include? @report.report_hash[:user][:email]
+              JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_user(mailer_data), "send_report_to_user")
             end  
             JombayNotify::Email.create_from_mail(SystemMailer.send_report(mailer_data), "send_report")
             if @report.report_hash[:report_receiver] && @report.report_hash[:report_receiver][:email].present? && @report.report_hash[:send_report_links_to_manager]
@@ -194,11 +194,11 @@ module Suitability
         if tries < 5
           retry
         else
-          Vger::Resources::Suitability::Assessments::CandidateAssessmentReport.save_existing(report_id,
+          Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(report_id,
             :custom_assessment_id => assessment_id,
-            :candidate_id => candidate_id,
+            :user_id => user_id,
             :company_id => company_id,
-            :status => Vger::Resources::Suitability::Assessments::CandidateAssessmentReport::Status::FAILED
+            :status => Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::FAILED
           ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Report Uploader","Failed to upload report #{report_id}",{
@@ -206,7 +206,7 @@ module Suitability
             :status => "Failed",
             :company_id => company_id,
             :custom_assessment_id => assessment_id,
-            :candidate_id => candidate_id,
+            :user_id => user_id,
             :report_id => report_id
           },
           :errors => {

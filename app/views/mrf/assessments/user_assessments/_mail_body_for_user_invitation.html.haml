@@ -1,6 +1,6 @@
 .big-text.line-height2
-  Choose Email Template To Send Invitation To User
-%select.span9.first{ id: "select_user_invitation_template", name: "user_invitation_template_id", onchange: "selectUserInvitationTemplate()" }
+  Choose Email Template To Send Invitation To Candidate
+%select.span9.first{ id: "select_user_invitation_template", name: "user_invitation_template_id", onchange: "selectCandidateInvitationTemplate()" }
   - @user_templates.each do |template|
     %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
       = template.name

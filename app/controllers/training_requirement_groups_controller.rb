@@ -1,6 +1,6 @@
 class TrainingRequirementGroupsController < ApplicationController
   before_filter :authenticate_user!, except: [:download_report]
-  before_filter(except: [:download_report])  { authorize_admin!(params[:company_id]) }
+  before_filter(except: [:download_report])  { authorize_user!(params[:company_id]) }
   before_filter :get_company, except: [:download_report]
   before_filter :get_training_requirement_group, :except => [:index]
   
@@ -10,7 +10,7 @@ class TrainingRequirementGroupsController < ApplicationController
     @training_requirement_groups = Vger::Resources::Suitability::TrainingRequirementGroup.where(:query_options => {  
                             company_id: @company.id
                           },
-                          methods: [:total_candidates, :completed_candidates],
+                          methods: [:total_users, :completed_users],
                           page: params[:page],
                           per: 10,
                           order: ["created_at DESC"]
@@ -143,7 +143,7 @@ class TrainingRequirementGroupsController < ApplicationController
   
   def get_training_requirement_group
     if params[:id].present?
-      @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(params[:id], methods: [:total_candidates, :completed_candidates ])  
+      @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(params[:id], methods: [:total_users, :completed_users ])  
     else
       params[:training_requirement] ||= {}
       params[:training_requirement][:company_id] = params[:company_id]

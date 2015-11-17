@@ -1,12 +1,12 @@
 - params[:user_ids] ||= []
 - if params[:user_ids].size > 1  || params[:include_all]
-  - page_title = "Add Stakeholders for Users in #{@custom_assessment.name}"
+  - page_title = "Add Stakeholders for Candidates in #{@custom_assessment.name}"
   - help_text = "Please add stakeholders for all users, in bulk via file upload."
   - bulk_addition_text = "Add stakeholders for users in #{@custom_assessment.name} in bulk. More users and their stakeholders can also be added using this method."
   - manual_addition_text = nil
   - stakeholders_text = nil
 - elsif  params[:user_ids].size == 1
-  - @user = Vger::Resources::User.find(params[:user_ids].first)
+  - @user = Vger::Resources::Candidate.find(params[:user_ids].first)
   - params[:user][:name] = @user.name
   - params[:user][:email] = @user.email
   - page_title = "Add Stakeholders for #{@user.name}"  
@@ -15,7 +15,7 @@
   - manual_addition_text = "Add Stakeholders for #{@user.name}"
   - stakeholders_text = ""
 - else
-  - page_title = "Add Users & Stakeholders"  
+  - page_title = "Add Candidates & Stakeholders"  
   - help_text = "You can use either one of the two methods of adding users and stakeholders - in bulk via file upload or manually by entering details in the text fields. Only one method of upload is used by the system at a time."  
   - bulk_addition_text = "Add users and stake in bulk via file upload"
   - manual_addition_text = "Add a single user for 360º Profiling"
@@ -43,13 +43,13 @@
           .control-group
             .span14.extra-medium-text.pull-left
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
-                User Name
+                Candidate Name
               %span
                 %input.span9.medium-text{type: "text", placeholder: "Name", name: "user[name]", value: params[:user][:name] }
               .clr
             .span14.extra-medium-text
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
-                User Email
+                Candidate Email
               %span
                 %input.span9.medium-text{type: "text", placeholder: "Email", name: "user[email]", value: params[:user][:email] }
               .clr
@@ -91,7 +91,7 @@
       .divider2
       .span.pull-left
         %a.big-text{:href => home_company_mrf_assessments_path(@company.id)}
-          Add Users/Stakeholders Later
+          Add Candidates/Stakeholders Later
       .span.pull-right.boxed
         - if is_superuser?
           .span.medium-text.pull-left
