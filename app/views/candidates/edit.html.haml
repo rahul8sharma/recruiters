@@ -1,14 +1,14 @@
-.candidate_profile
+.user_profile
   .page-title
     .divider1
     Edit Candidate
   .divider2
   .padding-all2.border-warning.shifted-up1
     .divider2
-    = form_for(@candidate, :as => :candidate, url: candidate_path(@candidate), method: :put, html: { :class => "edit_candidate_page text-right span15 margin-auto" }) do |f|
+    = form_for(@user, :as => :user, url: user_path(@user), method: :put, html: { :class => "edit_user_page text-right span15 margin-auto" }) do |f|
       .error
-        - @candidate.error_messages ||= []
-        - @candidate.error_messages.each do |message|
+        - @user.error_messages ||= []
+        - @user.error_messages.each do |message|
           = message
       .control-group
         %label.span7.first.big-text.line-height2.gray-darker

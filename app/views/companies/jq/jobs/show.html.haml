@@ -39,8 +39,8 @@
   .span6
     %span.medium-text.color-success
       Number of application:  
-    %a{ href: company_jq_job_candidate_jobs_path(params[:company_id],@job.id) }  
-      = @all_candidate_jobs_count
+    %a{ href: company_jq_job_user_jobs_path(params[:company_id],@job.id) }  
+      = @all_user_jobs_count
   .clr
 
 .span1.bg-success.text-center.white.large-text
@@ -49,8 +49,8 @@
   .span6
     %span.medium-text.color-success
       Number of ignored: 
-    %a{ href: company_jq_job_candidate_jobs_path(params[:company_id],@job.id) }    
-      = @ignored_candidate_jobs_count
+    %a{ href: company_jq_job_user_jobs_path(params[:company_id],@job.id) }    
+      = @ignored_user_jobs_count
   .clr
 .clr
 

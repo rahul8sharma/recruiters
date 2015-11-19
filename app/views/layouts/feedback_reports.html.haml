@@ -7,12 +7,12 @@
   = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
 
 - content_for :body do
-  = form_for(:feedback, :url => suitability_candidate_assessment_report_feedbacks_url(:host => Rails.application.config.action_mailer.default_url_options[:host]), :method => :post, :html => { :onsubmit => "return checkEmail();" }) do |f|
-    = f.hidden_field :candidate_assessment_id, value: @report.report_hash[:candidate_assessment_id]
-    = f.hidden_field :candidate_assessment_report_id, value: @report.report_hash[:id]
+  = form_for(:feedback, :url => suitability_user_assessment_report_feedbacks_url(:host => Rails.application.config.action_mailer.default_url_options[:host]), :method => :post, :html => { :onsubmit => "return checkEmail();" }) do |f|
+    = f.hidden_field :user_assessment_id, value: @report.report_hash[:user_assessment_id]
+    = f.hidden_field :user_assessment_report_id, value: @report.report_hash[:id]
     = f.hidden_field :custom_assessment_id, value: @report.report_hash[:assessment][:id]
     = f.hidden_field :company_id, value: @report.report_hash[:company][:id]
-    = f.hidden_field :candidate_id, value: @report.report_hash[:candidate][:id]
+    = f.hidden_field :user_id, value: @report.report_hash[:user][:id]
     = render :partial => "shared/reports/candidate_report_feedback_header"
     .report.feedback_report
       = yield 

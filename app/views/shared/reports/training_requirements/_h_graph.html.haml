@@ -7,14 +7,14 @@
         - factor_scores = @report_data[:factor_scores]
         - factor_scores.keys[0..9].each do |factor_name|
           - factor_data = factor_scores[factor_name]
-          %li{:style=>"background: '#{factor_data[:color]}'; width: #{factor_data[:percentage_candidates]}%"}
+          %li{:style=>"background: '#{factor_data[:color]}'; width: #{factor_data[:percentage_users]}%"}
       %ul.x-axis.clearfix
         - 11.times do  |index|
           %li{:class=>"values#{index}"}
             #{index *10}%
       .percent      
         \ % 
-        of candidates
+        of users
 
       %ul.y-axis
         - factor_scores.keys[0..9].each do |factor_name|

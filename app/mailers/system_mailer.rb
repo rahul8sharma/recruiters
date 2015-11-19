@@ -1,5 +1,5 @@
 class SystemMailer < ActionMailer::Base
-  default :from => "Jombay <sysadmin@jombay.com>"
+  default :from => "Jombay <sysuser@jombay.com>"
 
   def notify_report_status(context,subject,messages)
     @messages = messages
@@ -15,18 +15,18 @@ class SystemMailer < ActionMailer::Base
 
   def send_report(report_hash)
     @report_hash = report_hash
-    subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
+    subject = "#{report_hash[:user][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
     recipients = report_hash[:report_email_recipients].to_s.split(",")
-    recipients.delete report_hash[:candidate][:email]
+    recipients.delete report_hash[:user][:email]
     to = recipients.present? ? recipients.join(",") : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
   
   def send_jq_report(report_hash)
     @report_hash = report_hash
-    subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
+    subject = "#{report_hash[:user][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
     recipients = report_hash[:report_email_recipients].to_s.split(",")
-    recipients.delete report_hash[:candidate][:email]
+    recipients.delete report_hash[:user][:email]
     to = recipients.present? ? recipients.join(",") : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
@@ -34,7 +34,7 @@ class SystemMailer < ActionMailer::Base
   def send_mrf_report(report_id, report_hash)
     @report_id = report_id
     @report_hash = report_hash
-    subject = "360 Degree Report ready for #{report_hash[:candidate][:id]} #{report_hash[:candidate][:name]} "
+    subject = "360 Degree Report ready for #{report_hash[:user][:id]} #{report_hash[:user][:name]} "
     to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
@@ -50,21 +50,21 @@ class SystemMailer < ActionMailer::Base
   def send_engagement_report(report_id,report_hash)
     @report_id = report_id
     @report_hash = report_hash
-    subject = "Engagement Survery Report ready for #{report_hash[:candidate][:name]} "
+    subject = "Engagement Survery Report ready for #{report_hash[:user][:name]} "
     to = report_hash[:report_email_recipients].present? ? report_hash[:report_email_recipients] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
   
-  def send_report_to_candidate(report_hash)
+  def send_report_to_user(report_hash)
     @report_hash = report_hash
-    subject = "#{report_hash[:candidate][:name]}, your psychometric report by Jombay is ready!"
-    to = report_hash[:candidate][:email].present? ? report_hash[:candidate][:email] : "engineering@jombay.com"
+    subject = "#{report_hash[:user][:name]}, your psychometric report by Jombay is ready!"
+    to = report_hash[:user][:email].present? ? report_hash[:user][:email] : "engineering@jombay.com"
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end
 
   def send_report_to_manager(report_hash)
     @report_hash = report_hash
-    subject = "#{report_hash[:candidate][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
+    subject = "#{report_hash[:user][:name]} has completed the #{report_hash[:assessment][:name]} assessment."
     to = report_hash[:report_receiver][:email]
     mail(:to => to, :bcc => "engineering@jombay.com", :subject => subject)
   end

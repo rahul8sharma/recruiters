@@ -8,7 +8,7 @@
     .clr
     .divider30
     .huge-text
-      = @report.report_hash[:candidate][:name]
+      = @report.report_hash[:user][:name]
     .divider2
     - section_value.each do |section|
       = render :partial => section["path"]

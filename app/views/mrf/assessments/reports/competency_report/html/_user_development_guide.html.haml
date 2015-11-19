@@ -1,0 +1,15 @@
+.user_development_guide
+  .container
+    .divider2
+    .title
+      Development Guide for the Candidate
+    .divider1
+    %ul
+      - @report.report_data[:competency_guidelines].each do |key, value|
+        %li
+          .span7.bold
+            #{key}
+          .span22
+            #{value[:user]}
+          .clr
+.divider1

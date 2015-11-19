@@ -1,0 +1,69 @@
+.user-mrf-show
+  .span15.huge-text.first
+    .divider1
+    #{@user.id} - #{@user.name}
+  .span7.pull-right.medium-text
+    %a.btn.btn-info.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id, user_ids: @user.id)}
+      Add Stakeholders
+  .clr
+  .span7.pull-right.medium-text  
+    %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
+      Return to 360&#176; Profiling Exercise Details
+  .span7.pull-right.medium-text
+    = link_to "Disable all stakeholders for this user", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id, options: { user_id: @user.id }), confirm: "Are you sure?"
+  .clr  
+  .divider2
+  = render :partial => "shared/360/user-details-sub-nav"
+
+  .padding-all2.border-warning.shifted-up1    
+    .list-snippet-titles.big-text.clearfix
+      .span1.first
+        = sort_link "ID", user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
+      .span5
+        = sort_link "Stakeholder", user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
+      .span6
+        Email Id
+      .span4
+        Role
+      .span5
+        Response Status
+      .span4
+        Send Reminder
+      .span2
+        Enable/Disable
+      .clr
+      .divider1          
+      %ul
+        - @stakeholders.each do |stakeholder|
+          - stakeholder_assessment = @stakeholder_assessments[stakeholder.id].first
+          - feedback = @feedbacks[stakeholder_assessment.id].first
+          %li.list-snippet.extra-medium-text
+            .divider1
+            .span1.first
+              = stakeholder.id
+            .span5
+              = link_to stakeholder.name, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+            .span6
+              = link_to stakeholder.email, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+            .span4
+              = feedback.role.titleize
+            .span5
+              = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
+            .span4.text-center
+              - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { user_id: @user.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
+                  Send Reminder
+              - else
+                = "-"
+            .span2
+              - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
+                = link_to "#{feedback.active ? 'Disable':'Enable'}", update_feedback_company_mrf_assessment_path(@company.id, @assessment.id, @user.id, feedback_id: feedback.id, active: !feedback.active)
+              - else
+                = "-"  
+            .clr
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @stakeholders}
+    .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'       

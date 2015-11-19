@@ -1,0 +1,93 @@
+.user-list
+  .span15.page-title.first
+    .divider1
+    Benchmark #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send This Benchmark
+  - if is_superuser?
+    %a.extra-medium-text.pull-right.line-height3{ href: email_reports_company_benchmark_path(:company_id => params[:company_id], :id => params[:id])}
+      Email Reports Summary 
+  .clr
+  
+  .divider2
+  = render :partial => "shared/user-content-benchmark-sub-nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .filter-status.pull-right
+      = form_for :search, url: users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        - params[:search] ||= {}
+        .medium-text.muted.line-height2.pull-left 
+          Show Assessment takers with Status
+        %select.span3{name: "search[status]"}
+          - test_statuses.each do |status,name|  
+            %option{ value: status, selected: (params[:search][:status] == status) }
+              = name
+        .clr
+    .clr
+
+    .divider2
+
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        = sort_link "ATID", users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+      .span8
+        = sort_link "Assessment Taker", users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span10
+        = sort_link "Assessment Status", users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), :status, params[:search]
+      .clr
+      .divider1
+    - if @users.empty?
+      .alert
+        - if params[:search].present?
+          No results found!
+        - else
+          Benchmark not sent to any Top Performers. To send this benchmark, 
+          %a{ href: add_users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]), title: "Send Benchmark" } Click here
+    - else    
+      %ul
+        - @users.each do |user|
+          - user_assessment = @user_assessments.select{|x| x.user_id == user.id }.first
+          - status = test_statuses[user_assessment.status]
+          - if user_assessment && user_assessment.user_assessment_reports.present?
+            - report = user_assessment.user_assessment_reports[0] 
+            -# status = report_statuses[report.status]
+          %li.list-snippet
+            .divider1
+            .span3.first
+              %a{:href=> user_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title=>"#{user.id}"} JOM#{user.id}
+            .span8
+              %a{:href=> user_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title=>"#{user.name}"} 
+                = h user.name
+            .span10
+              %a{:href=> user_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title=> "#{user_assessment.user_assessment_reports.present? ? 'Complete' : 'Pending'}" }
+                = status
+                as of #{htime user_assessment.updated_at} Hrs, #{hdate user_assessment.updated_at}
+                -#remember Hrs & Hr 
+            .span7
+              - if report
+                - if user_assessment.status == Vger::Resources::Suitability::UserAssessment::Status::SCORED
+                  - if is_superuser?
+                    - if report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+                      - url =  company_benchmark_user_user_assessment_report_url(:company_id => params[:company_id], :user_id => user.id, :benchmark_id => @assessment.id, :id => report.id)
+                      %a{:href => url, :title => "View Report", target: "_blank"}
+                        View Report
+                    - else
+                      Included in Benchmark  
+                  - else
+                    Included in Benchmark
+                - else
+                  %i.icon-spinner.icon-spin 
+                  Analysing Responses...
+              - else 
+                - if user_assessment.status == Vger::Resources::Suitability::UserAssessment::Status::EXPIRED
+                  = status  
+                - else   
+                  %a{:href => send_reminder_to_user_company_benchmark_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id), :title => "Send Reminder"}
+                    %i.icon-time
+                    Send Reminder
+
+            .clr
+      .divider3
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+    .clr

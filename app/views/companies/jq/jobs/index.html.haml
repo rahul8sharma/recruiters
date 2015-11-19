@@ -44,9 +44,9 @@
             = hdate job.posted_on, "-"
           .span5.text-center.first
             %a{:href=>"#"}
-              = @candidate_jobs[job.id.to_s] || 0
+              = @user_jobs[job.id.to_s] || 0
           .span4.text-center
-            = @ignored_candidate_jobs[job.id.to_s] || 0
+            = @ignored_user_jobs[job.id.to_s] || 0
 
           .clr
     .divider3

@@ -2,15 +2,15 @@
   %p
     %label.field
       Candidate Name
-    = f.text_field :candidate_name, required: true
+    = f.text_field :user_name, required: true
   %p
     %label.field
       Candidate Email
-    = f.text_field :candidate_email, required: true
+    = f.text_field :user_email, required: true
   %p
     %label.field
       Candidate Type
-    = f.select :candidate_type, Vger::Resources::Candidate::STAGES - ["manager"], required: true
+    = f.select :user_type, Vger::Resources::User::STAGES - ["manager"], required: true
   %p
     %label.field
       Assessment

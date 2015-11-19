@@ -7,7 +7,7 @@
       Create a new 360&#176; Profiling Exercise
     %br  
     %br
-    %a.big.big-text.text-center.pull-right{:href => candidates_company_mrf_assessments_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
+    %a.big.big-text.text-center.pull-right{:href => users_company_mrf_assessments_path(@company.id), :title => "Click Here To Create new 360 Assessment"} 
       Search Candidates / Stakeholders
     .clr  
   .clr
@@ -41,7 +41,7 @@
             .span8
               = link_to assessment.name, details_company_mrf_assessment_path(@company,assessment)
             .span3.text-center
-              = @candidate_counts[assessment.id.to_s] || 0
+              = @user_counts[assessment.id.to_s] || 0
             .span4.text-center
               = @stakeholder_counts[assessment.id.to_s] || 0
             .span5.text-center

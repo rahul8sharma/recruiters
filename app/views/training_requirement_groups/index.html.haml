@@ -45,10 +45,10 @@
               = training_requirement_group.title
           .span5.text-center
             %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
-              = training_requirement_group.total_candidates
+              = training_requirement_group.total_users
           .span3.text-center
             %a{:href=> company_training_requirement_group_path(:company_id => params[:company_id], :id => training_requirement_group.id), :title => training_requirement_group.title}  
-              = training_requirement_group.completed_candidates
+              = training_requirement_group.completed_users
           .clr
           .divider1
     .divider2

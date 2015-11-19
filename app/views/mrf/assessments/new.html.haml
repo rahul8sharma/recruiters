@@ -42,7 +42,7 @@
             %option{ value: "classic" }
               Classic
           .divider1
-          - if is_superadmin?
+          - if is_superuser?
             %label.big-text.default
               = f.check_box :use_competencies, :id => "check_use_competencies"
               Use competencies

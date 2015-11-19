@@ -3,7 +3,7 @@ class Mrf::WalkinGroupsController < ApplicationController
   before_filter :get_company
   
   before_filter :get_walkin_group, :except => [ :index, :create, :new ]
-  before_filter :get_templates_for_candidates, :only => [:edit]
+  before_filter :get_templates_for_users, :only => [:edit]
   layout "walk_ins"
   
   def index
@@ -54,7 +54,7 @@ class Mrf::WalkinGroupsController < ApplicationController
       @walkin_group = Vger::Resources::Mrf::WalkinGroup.save_existing(@walkin_group.id, params[:walkin_group])
       redirect_to summary_company_mrf_walkin_group_path(@company, @walkin_group)
     else
-      get_templates_for_candidates
+      get_templates_for_users
     end               
   end
   
@@ -93,16 +93,16 @@ class Mrf::WalkinGroupsController < ApplicationController
                    ).all.to_a
   end
   
-  def get_templates_for_candidates
+  def get_templates_for_users
     query_options = {
       category: template_category::SEND_MRF_INVITATION_TO_CANDIDATE
     }
-    @candidate_templates = Vger::Resources::Template\
+    @user_templates = Vger::Resources::Template\
                   .where(
                     query_options: query_options, 
                     scopes: { global_or_for_company_id: @company.id },
                   ).all.to_a
-    @candidate_templates |= Vger::Resources::Template\
+    @user_templates |= Vger::Resources::Template\
                   .where(
                     query_options: query_options, 
                     scopes: { global: nil }

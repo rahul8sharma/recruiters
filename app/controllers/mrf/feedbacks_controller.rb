@@ -1,6 +1,6 @@
 class Mrf::FeedbacksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:company_id]) }
+  before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
 
   layout 'mrf/mrf'
@@ -10,8 +10,8 @@ class Mrf::FeedbacksController < ApplicationController
     search_params = params[:search].dup
     search_params[:company_id] = params[:company_id]
     scopes = {}
-    scopes["candidate_name_like"] = search_params.delete :candidate_name
-    scopes["candidate_email_like"] = search_params.delete :candidate_email
+    scopes["user_name_like"] = search_params.delete :user_name
+    scopes["user_email_like"] = search_params.delete :user_email
     scopes["stakeholder_name_like"] = search_params.delete :stakeholder_name
     scopes["stakeholder_email_like"] = search_params.delete :stakeholder_email
     scopes = scopes.select{|key,val| val.present? }
@@ -19,8 +19,8 @@ class Mrf::FeedbacksController < ApplicationController
       company_id: params[:company_id],
       query_options: search_params,
       scopes: scopes,
-      joins: [:candidate, :stakeholder],
-      include:  [:stakeholder_assessment, :candidate, :stakeholder, :assessment], 
+      joins: [:user, :stakeholder],
+      include:  [:stakeholder_assessment, :user, :stakeholder, :assessment], 
       page: params[:page],
       per: 10
     }

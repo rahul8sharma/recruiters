@@ -16,7 +16,7 @@ class Jq::MultimediaAnswersController < MasterDataController
   def create
     file = params[:jq_multimedia_answer][:attachment]
     if file
-      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:candidate_id]}/#{file.original_filename}"
+      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:user_id]}/#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
@@ -35,7 +35,7 @@ class Jq::MultimediaAnswersController < MasterDataController
   def update
     file = params[:jq_multimedia_answer][:attachment]
     if file
-      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:candidate_id]}/#{file.original_filename}"
+      key = "jq/multimedia_answers/#{params[:jq_multimedia_answer][:interview_question_id]}/#{params[:jq_multimedia_answer][:user_id]}/#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
@@ -55,7 +55,7 @@ class Jq::MultimediaAnswersController < MasterDataController
   def index_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :interview_question_id,
       :job_id,
       :company_id,
@@ -66,7 +66,7 @@ class Jq::MultimediaAnswersController < MasterDataController
   def search_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :interview_question_id,
       :job_id,
       :company_id,

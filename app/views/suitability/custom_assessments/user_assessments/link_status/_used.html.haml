@@ -1,0 +1,6 @@
+.span6
+  = test_link_statuses[user_assessment.link_status]
+  #{hdate user_assessment.completed_at}, #{htime user_assessment.completed_at} Hrs
+- if is_superuser?    
+  .span2.big-text.first
+    &nbsp;

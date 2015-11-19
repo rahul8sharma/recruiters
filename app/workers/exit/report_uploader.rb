@@ -6,17 +6,17 @@ module Exit
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
       survey_id = report_data["survey_id"]
-      candidate_id = report_data["candidate_id"]
+      user_id = report_data["user_id"]
       company_id = report_data["company_id"]
       patch ||= {}
       begin
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         params = {}
-        candidate_survey = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => survey_id,
-                      :query_options => { :candidate_id => candidate_id }).all[0]
+        user_survey = Vger::Resources::Exit::UserSurvey.where(:survey_id => survey_id,
+                      :query_options => { :user_id => user_id }).all[0]
         params[:survey_id] = survey_id
-        params[:candidate_id] = candidate_id
+        params[:user_id] = user_id
         params[:company_id] = company_id
         @report = Vger::Resources::Exit::Report.find(report_id, params)
 
@@ -29,15 +29,15 @@ module Exit
 
         Vger::Resources::Exit::Report.save_existing(report_id,
           :survey_id => survey_id,
-          :candidate_id => candidate_id,
+          :user_id => user_id,
           :status => Vger::Resources::Exit::Report::Status::UPLOADING
         )
 
-        candidate_name = @report.report_hash[:candidate][:name]
+        user_name = @report.report_hash[:user][:name]
         company_name = @report.report_hash[:company][:name]
         @report.report_hash[:company_id] = company_id
         @report.report_hash[:survey_id] = survey_id
-        @report.report_hash[:candidate_id] = candidate_id
+        @report.report_hash[:user_id] = user_id
         @report.report_hash[:report_id] = @report.id
 
 
@@ -73,7 +73,7 @@ module Exit
 
         Vger::Resources::Exit::Report.save_existing(report_id,
           :survey_id => survey_id,
-          :candidate_id => candidate_id,
+          :user_id => user_id,
           :s3_keys => { :html => html_s3 },
           :status => Vger::Resources::Exit::Report::Status::UPLOADED
         )
@@ -89,7 +89,7 @@ module Exit
         else
           Vger::Resources::Exit::Report.save_existing(report_id,
             :survey_id => survey_id,
-            :candidate_id => candidate_id,
+            :user_id => user_id,
             :status => Vger::Resources::Exit::Report::Status::FAILED
           )
         end
@@ -97,7 +97,7 @@ module Exit
           :report => {
             :status => "Failed",
             :survey_id => survey_id,
-            :candidate_id => candidate_id,
+            :user_id => user_id,
             :report_id => report_id
           },
           :errors => {

@@ -31,7 +31,7 @@
           Classic  
       .divider1
       .span26.margin-auto
-        - if is_superadmin?
+        - if is_superuser?
           %label.big-text.default
             = f.check_box :use_competencies, checked: @assessment.use_competencies, id: "check_use_competencies"
             Use competencies

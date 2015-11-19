@@ -1,10 +1,10 @@
-- if @report.report_hash[:guidelines_for_candidate_manager].present?
+- if @report.report_hash[:guidelines_for_user_manager].present?
   - guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
-  - candidate_manager_guidelines = @report.report_hash[:guidelines_for_candidate_manager]
-  - ordered_guides = candidate_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-  - ordered_guides += candidate_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+  - user_manager_guidelines = @report.report_hash[:guidelines_for_user_manager]
+  - ordered_guides = user_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+  - ordered_guides += user_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
   - (0..ordered_guides.length-1).step(guides_step) do |step|
-    - step_candidate_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
+    - step_user_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
     = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .inner
       .scores.interview_guide
@@ -21,7 +21,7 @@
         .clr
         .divider1
         %ul.clearfix.interview_guide_listing
-          - step_candidate_manager_guidelines.each do |factor_name, guide|
+          - step_user_manager_guidelines.each do |factor_name, guide|
             %li
               .divider1
               - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')

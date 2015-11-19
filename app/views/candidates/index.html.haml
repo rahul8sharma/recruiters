@@ -1,8 +1,8 @@
 %h1 All Candidates
 - if can? :create, "Candidate"
-  = link_to "Manage Candidates", manage_candidates_path
+  = link_to "Manage Candidates", manage_users_path
 .search
-  = form_for :search, url: candidates_path, method: :get do |f|
+  = form_for :search, url: users_path, method: :get do |f|
     %fieldset
       %legend
         Search
@@ -22,19 +22,19 @@
       Candidates List
     %table{width: "100%"}
       %th{width: "10%"}
-        = sort_link "ID", candidates_path, :id, params[:search]
+        = sort_link "ID", users_path, :id, params[:search]
       %th{width: "40%"} 
-        = sort_link "Name", candidates_path, :name, params[:search]
+        = sort_link "Name", users_path, :name, params[:search]
       %th{width: "40%"}
-        = sort_link "Email", candidates_path, :email, params[:search]
+        = sort_link "Email", users_path, :email, params[:search]
       %th{width: "10%"} 
-      - @candidates.each do |candidate|
+      - @users.each do |user|
         %tr
           %td 
-            = link_to candidate.id, candidate_path(candidate)
-          %td #{candidate.name}
-          %td #{candidate.email}
+            = link_to user.id, user_path(user)
+          %td #{user.name}
+          %td #{user.email}
           %td 
-            = link_to "Edit", edit_candidate_path(candidate)
+            = link_to "Edit", edit_user_path(user)
   %br          
-  = paginate(@candidates)                  
+  = paginate(@users)                  

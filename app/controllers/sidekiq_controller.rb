@@ -1,32 +1,32 @@
 class SidekiqController < ApplicationController
-  before_filter :check_superadmin
+  before_filter :check_superuser
   before_filter :check_auth_token
 
   def generate_factor_benchmarks
-    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
+    Vger::Resources::User.get("/sidekiq/queue-job?job_klass=SuitabilityFactorBenchmarker")
     render :json => { :status => "Job Started" }
   end
 
   def generate_mrf_scores
-    Vger::Resources::Candidate.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
+    Vger::Resources::User.get("/sidekiq/queue-job?job_klass=Mrf::MrfScorer")
     render :json => { :status => "Job Started" }
   end
   
   def queue_job
-    Vger::Resources::Candidate.get("/sidekiq/queue-job?#{params.to_param}")
+    Vger::Resources::User.get("/sidekiq/queue-job?#{params.to_param}")
     render :json => { :status => "Job Started" }
   end
 
   def upload_reports
-    reports = Vger::Resources::Suitability::CandidateAssessmentReport.where(
+    reports = Vger::Resources::Suitability::UserAssessmentReport.where(
       :query_options => {
-        :status =>  Vger::Resources::Suitability::CandidateAssessmentReport::Status::SCORED
+        :status =>  Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
       },
       :page => params[:page],
       :per => 25,
       :methods => [
                     :assessment_id,
-                    :candidate_id,
+                    :user_id,
                     :company_id
                   ]
     ).all.to_a
@@ -36,7 +36,7 @@ class SidekiqController < ApplicationController
         :id => report.id,
         :company_id => report.company_id,
         :assessment_id => report.assessment_id,
-        :candidate_id => report.candidate_id
+        :user_id => report.user_id
       }
       Suitability::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
     end
@@ -44,10 +44,10 @@ class SidekiqController < ApplicationController
   end
   
   def upload_jq_reports
-    reports = Vger::Resources::Jq::CandidateAssessmentReport.where(
+    reports = Vger::Resources::Jq::UserAssessmentReport.where(
       :query_options => {
         :is_norm => false,
-        :status =>  Vger::Resources::Jq::CandidateAssessmentReport::Status::SCORED
+        :status =>  Vger::Resources::Jq::UserAssessmentReport::Status::SCORED
       },
       :page => params[:page],
       :per => 25
@@ -76,7 +76,7 @@ class SidekiqController < ApplicationController
       report_data = {
         :id => report.id,
         :assessment_id => report.assessment_id,
-        :candidate_id => report.candidate_id,
+        :user_id => report.user_id,
         :company_id => report.assessment.company_id
       }
       Mrf::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
@@ -120,7 +120,7 @@ class SidekiqController < ApplicationController
       report_data = {
         :id => report.id,
         :survey_id => report.survey.id,
-        :candidate_id => report.candidate_id,
+        :user_id => report.user_id,
         :company_id => report.survey.company_id
 
       }
@@ -145,7 +145,7 @@ class SidekiqController < ApplicationController
       report_data = {
         :id => report.id,
         :survey_id => report.survey.id,
-        :candidate_id => report.candidate_id,
+        :user_id => report.user_id,
         :company_id => report.survey.company_id
 
       }

@@ -1,6 +1,6 @@
 .span11.margin-auto
   = form_for(@company, as: :company, url: sign_up_path, method: :post, html: { class: "" }) do |f|
-    = f.fields_for :admin do |af|
+    = f.fields_for :user do |af|
       .control-group
         = af.text_field :name, class: "fw", placeholder: "Full Name", required: true
       .control-group

@@ -24,29 +24,29 @@
     .clr
     .divider2          
   %ul
-    - if (@candidate_assessments.present?)
-      -@candidate_assessments.each do |candidate_assessment|
+    - if (@user_assessments.present?)
+      -@user_assessments.each do |user_assessment|
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span3.first
-            - candidate_profile_url =  candidate_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id, :candidate_id => candidate_assessment.candidate_id)
+            - user_profile_url =  user_company_custom_assessment_path(:company_id => user_assessment.assessment.company_id, :id => user_assessment.assessment_id, :user_id => user_assessment.user_id)
 
-            - assessment_url = candidates_company_custom_assessment_path(:company_id => candidate_assessment.assessment.company_id, :id => candidate_assessment.assessment_id)
+            - assessment_url = users_company_custom_assessment_path(:company_id => user_assessment.assessment.company_id, :id => user_assessment.assessment_id)
 
-            %a{:href=> assessment_url, :title => candidate_assessment.assessment_id}
-              = candidate_assessment.assessment_id
+            %a{:href=> assessment_url, :title => user_assessment.assessment_id}
+              = user_assessment.assessment_id
           .span7
-            %a{:href => candidate_profile_url, :title => candidate_assessment.candidate.name} 
-              = candidate_assessment.candidate.name
+            %a{:href => user_profile_url, :title => user_assessment.user.name} 
+              = user_assessment.user.name
           .span9
-            %a{:href=>assessment_url, :title => candidate_assessment.assessment.name}
-              = candidate_assessment.assessment.name
+            %a{:href=>assessment_url, :title => user_assessment.assessment.name}
+              = user_assessment.assessment.name
           .span5.left-offset1
-            %a{:href => "#", :title => candidate_assessment.completed_at}
-              #{htime(candidate_assessment.completed_at)} Hrs,
-              #{hdate(candidate_assessment.completed_at)}
+            %a{:href => "#", :title => user_assessment.completed_at}
+              #{htime(user_assessment.completed_at)} Hrs,
+              #{hdate(user_assessment.completed_at)}
           .span4.text-center          
-            - report = candidate_assessment.candidate_assessment_reports.first
-            = render :partial => "suitability/custom_assessments/candidate_assessments/report_status/#{report.status}", locals: { report: report, candidate_assessment: candidate_assessment }
+            - report = user_assessment.user_assessment_reports.first
+            = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
           .clr
           .divider1
     - else
@@ -56,5 +56,5 @@
         tab.
   .divider1
   .pull-right
-    = render :partial => "shared/pagination", :locals => { :objects => @candidate_assessments}
+    = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
   .clr

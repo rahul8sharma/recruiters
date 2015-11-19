@@ -1,5 +1,5 @@
 .divider2
-.span30{ class: is_superadmin? ? "" : 'hide' }
+.span30{ class: is_superuser? ? "" : 'hide' }
   .pull-left
     %h1.text-center
       HTML Report Sections 
@@ -16,7 +16,7 @@
       Generate PDF Preview
   .clr
   .divider2
-- if is_superadmin?
+- if is_superuser?
   - content_for :iframe do
     %iframe#iframe1.hide{:style =>"height: 1000px;width:99.7%;margin:auto;overflow:auto;"}
 

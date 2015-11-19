@@ -3,7 +3,7 @@ require "uri"
 
 class Companies::PlansController < ApplicationController
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:id]) }
+  before_filter { authorize_user!(params[:id]) }
   before_filter :get_plan, :except => [:payment_status]
   before_filter :get_company
   before_filter :get_countries, :only => [:contact]
@@ -37,8 +37,8 @@ class Companies::PlansController < ApplicationController
   end
 
   def contact
-    if !@company.admin
-      flash[:error] = "Admin account is not created for #{@company.name}. Please create admin acoount before adding a subscription."
+    if !@company.user
+      flash[:error] = "Admin account is not created for #{@company.name}. Please create user acoount before adding a subscription."
       redirect_to company_path(@company)
     end
   end
@@ -58,7 +58,7 @@ class Companies::PlansController < ApplicationController
   protected
 
   def get_company
-    @company =  Vger::Resources::Company.find(params[:id], :include => [:admin])
+    @company =  Vger::Resources::Company.find(params[:id], :include => [:user])
   end
 
   def get_plan
@@ -80,14 +80,14 @@ class Companies::PlansController < ApplicationController
       :merchantTxnId => "J"+Time.now.strftime("%Y%m%d%H%M%S"),
       :orderAmount => @plan.price,
       :currency => "INR",
-      :billing_name => @company.admin.name,
+      :billing_name => @company.user.name,
       :addressStreet1 => @company.address,
       :addressCity => @company.city,
       :addressState => @company.state,
       :addressZip => @company.pincode,
       :addressCountry => @company.country,
       :phoneNumber => @company.contact_person_mobile,
-      :email => @company.admin[:email],
+      :email => @company.user[:email],
 
       :planID => @plan.id,
       :appName => Rails.application.config.payments['application_id'],

@@ -1,6 +1,6 @@
 class CompanyManagersController < MasterDataController
   def api_resource
-    Vger::Resources::CompanyManager
+    Vger::Resources::User
   end
 
   def email_usage_stats
@@ -12,7 +12,7 @@ class CompanyManagersController < MasterDataController
         }
       }
     }
-    Vger::Resources::CompanyManager.find(current_user.id)\
+    Vger::Resources::User.find(current_user.id)\
       .export_usage_stats(options)
     redirect_to request.env['HTTP_REFERER'], notice: "Overall Usage Summary will be generated and emailed to #{current_user.email}."
   end
@@ -27,7 +27,7 @@ class CompanyManagersController < MasterDataController
         }
       }
     }
-    Vger::Resources::CompanyManager.find(current_user.id)\
+    Vger::Resources::User.find(current_user.id)\
       .export_assessment_stats(options)
     redirect_to request.env['HTTP_REFERER'], notice: "Reports Summary will be generated and emailed to #{current_user.email}."
   end
@@ -41,7 +41,7 @@ class CompanyManagersController < MasterDataController
         }
       }
     }
-    Vger::Resources::CompanyManager.find(current_user.id)\
+    Vger::Resources::User.find(current_user.id)\
       .export_assessment_stats(options)
     redirect_to request.env['HTTP_REFERER'], notice: "Assessment Status Summary will be generated and emailed to #{current_user.email}."
   end

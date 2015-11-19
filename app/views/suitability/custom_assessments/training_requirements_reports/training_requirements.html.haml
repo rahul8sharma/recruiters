@@ -2,7 +2,7 @@
   .page-title.pull-left
     .divider1
     Test #{@assessment.id} - #{@assessment.name}
-  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
     Send This Test
   - if @assessment_report && @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
     %a.extra-medium-text.pull-right.line-height3{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :pdf), :title => "Download Training Requirements Report as PDF", target: "_blank"}
@@ -10,7 +10,7 @@
   .clr
   .divider2
   .clr
-  = render :partial => "shared/suitability/candidate_sub_nav_#{@assessment.assessment_type}"
+  = render :partial => "shared/suitability/user_sub_nav_#{@assessment.assessment_type}"
   .padding-all2.border-warning.shifted-up1
     - if @assessment_report.status == Vger::Resources::Suitability::AssessmentReport::Status::UPLOADED
       .span10.extra-medium-text.first

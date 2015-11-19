@@ -1,0 +1,120 @@
+.user-list
+  .span13.page-title.first
+    .divider1
+    AID #{@assessment.id} - #{@assessment.name}
+  .pull-right
+    - if is_superuser?
+      = link_to "Expire All Links", expire_links_url, :title => "Expire All Links Under This Assessment", confirm: "Are you sure?", class: "extra-medium-text line-height3 pull-left"
+      %span.pull-left.line-height3
+        &nbsp;
+        \|  
+        &nbsp;
+    %a.extra-medium-text.line-height3.pull-left{:href => new_assessment_url, :title => "Click Here To Create Custom Assessment"}
+      Create New Custom Assessment
+    %a.btn.btn-warning.big-text.big.span.pull-left{ href: add_users_url }
+      Send this Assessment
+  .clr
+  .divider2
+  = render :partial => "shared/suitability/user_sub_nav_#{@assessment.assessment_type}"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .extra-medium-text.line-height2.pull-left
+      %span
+        Assessments Sent:
+      %span #{@company.assessmentwise_statistics[:sent][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
+        Assessments Taken:
+      %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
+        %a.label.label-warning.label-small.medium-text{:href=> email_assessment_status_url, :title=>"Email Status Summary"} Email Status Summary
+        - if is_superuser?
+          %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Email Status Summary"} Resend Invitations
+
+    .filter-status.pull-right
+      = form_for :search, url: users_url, method: :get, html: { id: "users_search_form" } do |f|
+        - params[:search] ||= {}
+        .medium-text.muted.line-height2.pull-left
+          Show Assessment takers with Status
+        %select.span3{name: "search[status]", onchange: "document.getElementById('users_search_form').submit();"}
+          - test_status_options.each do |status,name|
+            %option{ value: status, selected: (params[:search][:status] == status) }
+              = name
+        .clr
+    .clr
+    .divider2
+    .list-snippet-titles.extra-medium-text.clearfix
+      .span3.first
+        = sort_link "ATID", users_url, :id, params[:search]
+      %div{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
+        = sort_link "Assessment Taker", users_url, :name, params[:search]
+      .span8
+        = sort_link "Assessment Status", users_url, :status, params[:search]
+      - if @company.subscription_mgmt
+        .span6
+          = sort_link "Assessment Link Status", users_url, :status, params[:search]
+
+      -#
+        - if is_superuser?
+          .pull-right
+            %a.label.label-info.label-small.pull-right{:href=>create_for_assessment_company_mrf_assessments_path(params[:company_id], assessment_id: @assessment.id)}
+              %b REQUEST 360&#176; PROFILING OF ALL CANDIDATES
+      .clr
+      .divider1
+    - if @users.empty?
+      .alert.medium-text
+        - if params[:search].present?
+          No results found!
+        - else
+          Assessment not sent to any Assessment Takers. To send this Assessment,
+          %a{ href: add_users_url, title: "Send Assessment" } Click here
+    - else
+      %ul
+        - @users.each do |user|
+          - user_assessment = @user_assessments.select{|x| x.user_id == user.id }.first
+          - status = test_statuses[user_assessment.status]
+          - link_status = test_link_statuses[user_assessment.link_status]
+          - if user_assessment.user_assessment_reports.present?
+            - report = user_assessment.user_assessment_reports[0]
+          - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::HIVE_SCORES_PENDING
+            - status = 'Pending'  
+          - show_status = ''
+          - if status == Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
+            - show_status = status+" as of "+htime(user_assessment.completed_at)+"Hrs, "+hdate(user_assessment.completed_at)
+          - else
+            - show_status = status+" as of "+htime(user_assessment.updated_at)+"Hrs, "+hdate(user_assessment.updated_at)
+
+          %li.list-snippet.medium-text
+            .divider1
+            .span3.first
+              %a{:href=> user_url(user), :title=>"#{user.id}"} 
+                #{user.id}
+            .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
+              %a{:href=> user_url(user), :title=>"#{ h user.name}"}
+                = h user.name
+              - if is_superuser?
+                .info
+                  = user_assessment.candidate_stage.titleize
+                .arrow
+            .span8
+              %a{:href=> user_url(user), :title=> "#{user_assessment.user_assessment_reports.present? ? 'Complete' : 'Pending'}" }
+                #{show_status}
+                -#remember Hrs & Hr
+            - if @company.subscription_mgmt
+              = render :partial => "suitability/custom_assessments/user_assessments/link_status/#{user_assessment.link_status}", locals: { user_assessment: user_assessment, assessment: @assessment, company: @company, user: user }
+            .span
+              - if report
+                = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
+              - else
+                = render :partial => "suitability/custom_assessments/user_assessments/user_assessment_status/#{user_assessment.status}", locals: { user_assessment: user_assessment, assessment: @assessment, company: @company, user: user }  
+            .clr
+            -#
+              - if is_superuser?
+                .span.pull-right
+                  %a{:href=> create_for_assessment_company_mrf_assessments_path(params[:company_id], @assessment.id, user.id), :title=>"#{ h user.name}"}
+                    Request 360&#176; Profiling
+      .divider3
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+    .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'

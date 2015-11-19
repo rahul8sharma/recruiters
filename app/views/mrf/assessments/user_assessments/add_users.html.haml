@@ -1,0 +1,50 @@
+.span22.huge-text.page-title.pull-left
+  Add Candidates
+  .divider1
+.pull-right
+  %a.btn.btn-warning{ href: bulk_upload_company_mrf_assessment_user_assessments_path(@company.id, @assessment.id) }
+    Bulk Upload
+.clr  
+.span30
+  = form_for @assessment, as: :assessment, url: add_company_mrf_assessment_user_assessments_path(@company.id, @assessment.id), method: :put do |f|
+    .divider2
+    %div.left-offset5
+      .first
+        .span2
+          &nbsp;
+        .span8.first.extra-medium-text
+          Candidate Name
+        .span8.extra-medium-text.left-offset1
+          Candidate Email ID
+        .clr
+      .divider1
+      %ul.add-users.clearfix
+        - params[:users] ||= {}
+        - 10.times do |index|
+          - params[:users][index] ||= {}
+          %li
+            .control-group
+              .span2
+                .count.badge.badge-small.inverse 
+                  =  index+1
+              .span8.extra-medium-text.first
+                %input.span8.medium-text{type: "text", placeholder: "Name", name: "users[#{index}][name]", value: params[:users][:name] }
+              .span8.extra-medium-text.left-offset1
+                %input.span8.medium-text{type: "text", placeholder: "Email", name: "users[#{index}][email]", value: params[:users][:email] }
+              .clr
+    .divider2
+    .send-assessment
+      .heading
+        Select Stakeholder Types: 
+      .divider1
+      - Vger::Resources::Mrf::Feedback::ROLES.each do |role|
+        .pull-left.span4
+          = check_box_tag "stakeholder_types[]", role, checked: :checked
+          %b #{role.titleize}
+      .clr    
+    .divider2
+    = render :partial => "mrf/assessments/user_assessments/email_settings_for_user", locals: { reminder: false }
+    .divider2
+    .span.pull-right
+      %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+    .clr

@@ -8,17 +8,17 @@ class Companies::Jq::JobsController < ApplicationController
       company_id: params[:company_id] 
     }, include: { :locations => { methods: :address } }).where(page: params[:page], per: 10).all
     
-    @ignored_candidate_jobs = Vger::Resources::Jq::CandidateJob.group_count({ 
+    @ignored_user_jobs = Vger::Resources::Jq::UserJob.group_count({ 
       query_options: {
-        candidate_status: Vger::Resources::Jq::CandidateJob::CandidateStatus::APPLIED,
-        recruiter_status: Vger::Resources::Jq::CandidateJob::RecruiterStatus::IGNORED,
+        user_status: Vger::Resources::Jq::UserJob::UserStatus::APPLIED,
+        recruiter_status: Vger::Resources::Jq::UserJob::RecruiterStatus::IGNORED,
         job_id: @jobs.map(&:id)
       },
       :group => [ :job_id ],
       :select => [ :job_id ] 
     })
     
-    @candidate_jobs = Vger::Resources::Jq::CandidateJob.group_count({ 
+    @user_jobs = Vger::Resources::Jq::UserJob.group_count({ 
       query_options: {
         job_id: @jobs.map(&:id)
       },
@@ -34,17 +34,17 @@ class Companies::Jq::JobsController < ApplicationController
       }
     )
     
-    @ignored_candidate_jobs_count = Vger::Resources::Jq::CandidateJob.count({ 
+    @ignored_user_jobs_count = Vger::Resources::Jq::UserJob.count({ 
       query_options: {
-        candidate_status: Vger::Resources::Jq::CandidateJob::CandidateStatus::APPLIED,
-        recruiter_status: Vger::Resources::Jq::CandidateJob::RecruiterStatus::IGNORED,
+        user_status: Vger::Resources::Jq::UserJob::UserStatus::APPLIED,
+        recruiter_status: Vger::Resources::Jq::UserJob::RecruiterStatus::IGNORED,
         job_id: @job.id
       }
     })
     
-    @all_candidate_jobs_count = Vger::Resources::Jq::CandidateJob.count({ 
+    @all_user_jobs_count = Vger::Resources::Jq::UserJob.count({ 
       query_options: {
-        candidate_status: Vger::Resources::Jq::CandidateJob::CandidateStatus::APPLIED,
+        user_status: Vger::Resources::Jq::UserJob::UserStatus::APPLIED,
         job_id: @job.id
       }
     })

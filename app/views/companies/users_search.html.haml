@@ -1,0 +1,93 @@
+.user-search
+  .page-title
+    Search Assessment Takers
+  .divider2
+  %form{ url: users_search_company_path(@company), method: :get }
+    %input.search-field.pull-left{type: "text",
+                       placeholder: "Assessment Taker Name or Email id",
+                       name: "search[user_name_or_email]",
+                       value: params[:search][:user_name_or_email]}
+    .search-btn.pull-left.span
+      %input{:type=>"submit", :value => "Search"}
+    .clr
+    .span.info-text.line-height2
+      Please enter an Assessment Taker's name or email address and press the button to search
+    .clr
+
+  .divider2
+  - if params[:search][:user_name_or_email].present?
+    - if @user_assessments.present?
+      .big-text
+        Showing results for “#{params[:search][:user_name_or_email]}”
+
+      .divider2
+
+      .list-snippet-titles.big-text.clearfix
+        .span3.first
+          = sort_link "ATID", users_search_company_path(@company), "id", params[:search]
+        .span7
+          = sort_link "Assessment Taker", users_search_company_path(@company), "name", params[:search]
+        .span7
+          = sort_link "Assessment Title", users_search_company_path(@company), "assessment_name", params[:search]
+        .span8
+          = sort_link "Assessment Status", users_search_company_path(@company), "status", params[:search]
+        .span
+        .clr
+        .divider1
+      %ul
+        - @user_assessments.each do |user_assessment|
+          - user = user_assessment.user
+          - assessment = user_assessment.assessment
+          %li.list-snippet.extra-medium-text
+            .divider1
+            .span3.first
+              %a{:href => user_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :user_id => user.id), :title => user.id}
+                = user.id
+            .span7.info-block
+              %a{:href => user_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :user_id => user.id), :title => user.name}
+                = user.name
+            .span7
+              %a{:href => company_custom_assessment_path(:company_id => @company.id, :id => assessment.id), :title => assessment.name}
+                = assessment.name
+            .span8
+              %a.down{:href => "javascript:void(0);", :title => ""}
+                = test_statuses[user_assessment.status]
+                - time = test_statuses[user_assessment.status] == "Completed" ? user_assessment.completed_at : user_assessment.updated_at
+                as of #{htime(time)} Hrs, #{hdate(time)}
+            .span
+              - if test_statuses[user_assessment.status] == "Completed"
+                - report = user_assessment.user_assessment_reports.first
+                - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+                  - url =  company_custom_assessment_user_user_assessment_report_url(:company_id => @company.id, :user_id => user.id, :custom_assessment_id => assessment.id, :id => report.id, :view_mode => "html")
+                  %a{href: url, title: "View Report", target: "_blank"}
+                    %i.icon-file
+                    View Report
+                - else
+                  %a{:href => "javascript:void(0);", :title => "Generating Report..."}
+                    %i.icon-spinner.icon-spin
+                    Generating Report...
+              - else
+                - if test_statuses[user_assessment.status] == "Expired"
+                  %a{:href => "javascript:void(0);", :title => "Expired"}
+                    %i.icon-time
+                    Expired
+                - else
+                  %a{:href => send_reminder_to_user_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :user_id => user.id), :title => "Send Reminder"}
+                    %i.icon-time
+                    Send Reminder
+            .clr
+        .divider2
+        .pull-right
+          = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+        .clr
+
+    - else
+      .big-text
+        Your search - "#{params[:search][:user_name_or_email]}" - did not match any Assessment Takers
+        .divider2
+        Suggestions:
+        .divider2
+        %ul.styled
+          %li If searching using name, please ensure correct spelling
+          %li If searching using email ID, please use a valid email address associated with an assessment, without any spaces
+          %li Type the name or email ID - avoid copying & pasting from another source

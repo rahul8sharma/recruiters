@@ -24,14 +24,14 @@
 
         %ul.add-users-listing
           - 10.times do |index|
-            - candidate = params[:company_managers].to_a[index][1] rescue {}
+            - user = params[:company_managers].to_a[index][1] rescue {}
             %li.clearfix
               .control-group
                 .span2.first
                   .count.badge.badge-small.inverse
                     #{index+1}
-                %input.span6.medium-text.first{:type => "text", name: "company_managers[#{index}][name]", :placeholder => "Enter Name Here", value: (candidate[:name])}
-                %input.span6.medium-text.left-offset1.first{:type => "text", name: "company_managers[#{index}][email]", :placeholder => "your_email@domain.com", value: (candidate[:email])}
+                %input.span6.medium-text.first{:type => "text", name: "company_managers[#{index}][name]", :placeholder => "Enter Name Here", value: (user[:name])}
+                %input.span6.medium-text.left-offset1.first{:type => "text", name: "company_managers[#{index}][email]", :placeholder => "your_email@domain.com", value: (user[:email])}
                 %input.span2.left-offset1.first{:type=>"checkbox", name: "company_managers[#{index}][notify]", id:"company_managers[#{index}][notify]" }
                 %label.span4.medium-text{for: "company_managers[#{index}][notify]"}
                   Notify?

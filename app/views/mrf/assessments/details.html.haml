@@ -6,18 +6,18 @@
     Create a new 360&#176; Profiling Exercise 
   .clr
   .pull-right.big-text.big
-    = link_to "Candidates", company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)
+    = link_to "Candidates", company_mrf_assessment_user_assessments_path(@company.id,@assessment.id)
     \|
-    = link_to "Invite Candidates", add_company_mrf_assessment_candidate_assessments_path(@company.id,@assessment.id)
+    = link_to "Invite Candidates", add_company_mrf_assessment_user_assessments_path(@company.id,@assessment.id)
   .clr
   .divider2
-  = render :partial => "shared/360/candidate-content-sub-nav"
+  = render :partial => "shared/360/user-content-sub-nav"
 
 
   .padding-all2.border-warning.shifted-up1
     .pull-left.extra-medium-text
       .span5.first
-        Total Candidates: #{@total_candidates}
+        Total Candidates: #{@total_users}
       .span5.first
         Traits Included: #{@assessment.assessment_traits.size}
       .clr.divider1
@@ -28,7 +28,7 @@
     %a.btn.btn-info.pull-right.big-text.big.bold{:href => add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id)}
       Add Candidates / Stakeholders
     .clr
-    - if is_superadmin?
+    - if is_superuser?
       .pull-right
         = link_to "Expire Links", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id), confirm: "Are you sure?"
         \|  
@@ -88,14 +88,14 @@
             - else
               = "-"    
     .divider1
-    - if @self_feedbacks != @total_candidates
+    - if @self_feedbacks != @total_users
       .extra-medium-text.margin-auto{:style => "width: 710px"}
-        Self Ratings: Not Enabled For #{@total_candidates - @self_feedbacks} candidates.
+        Self Ratings: Not Enabled For #{@total_users - @self_feedbacks} users.
         %a{:href => enable_self_ratings_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Enable for all?"}
           Enable for all?
     - else
       .extra-medium-text.margin-auto{:style => "width: 710px"}
-        Self Ratings: Enabled For All #{@total_candidates} candidates.
+        Self Ratings: Enabled For All #{@total_users} users.
     .divider2
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'   

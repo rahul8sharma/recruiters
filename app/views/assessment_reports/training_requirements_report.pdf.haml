@@ -39,7 +39,7 @@
 - limiter = Rails.application.config.reports["pdf"]["training_requirements_report"]["graph_limiter_on_training_requirement_report"]
 - scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["pie_charts_step"]
 
-- less_favorable_factors = @report_data[:factor_scores].select{|factor, factor_data| factor_data[:percentage_candidates] > 0 }
+- less_favorable_factors = @report_data[:factor_scores].select{|factor, factor_data| factor_data[:percentage_users] > 0 }
 
 - factor_scores = less_favorable_factors.select{|key,value| less_favorable_factors.keys[0..limiter-1].include?(key) }
 - (0..factor_scores.keys.length-1).step(scores_step) do |step|

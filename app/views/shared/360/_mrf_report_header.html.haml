@@ -4,7 +4,7 @@
       .logo.pull-left.pull-left
         = image_tag(asset_path("jombay-logo.png"))
       .big-text.gray-dark.padding-all1.pull-left
-        = truncate @report.report_data[:candidate][:name], length: 20
+        = truncate @report.report_data[:user][:name], length: 20
       .pull-right
         - section_value.each do |section|
           = render :partial => section["path"], locals: { section_value: section["children"] }

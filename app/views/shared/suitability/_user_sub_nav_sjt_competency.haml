@@ -1,0 +1,8 @@
+.content-sub-nav.clearfix
+  %a.menu{ class: (["users", "user"].include?(params[:action]) ? "active" : ""),:href => users_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
+    Assessment Takers
+  %a.menu{ class: (["competencies_measured"].include?(params[:action]) ? "active" : ""),:href => competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
+    Competencies Measured
+  %a.menu{ class: (["reports"].include?(params[:action]) ? "active" : ""),:href => reports_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Assessment Takers"}
+    Reports
+
