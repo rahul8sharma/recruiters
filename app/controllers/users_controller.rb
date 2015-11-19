@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   layout "users"
-  before_filter :authenticate_user!, :only => [ :password_settings, :index ]
+  before_filter :authenticate_user!, :only => [ 
+    :password_settings, 
+    :index,
+    :show,
+    :edit,
+    :update
+  ]
+  before_filter :get_master_data, :only => [:edit]
   
   def index
     params[:search] ||= {}
@@ -149,6 +156,23 @@ class UsersController < ApplicationController
       redirect_to reset_password_path(:reset_password_token => params[:user][:reset_password_token])
     end
   end
+  
+  def show
+    @user = Vger::Resources::User.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
+  end
+  
+  def update
+    @user = Vger::Resources::User.save_existing(params[:id],params[:user])
+    if @user.error_messages.present?
+      render :action => :edit
+    else
+      redirect_to user_path(@user)
+    end
+  end
+  
+  def edit
+    @user = Vger::Resources::User.find(params[:id])
+  end
 
   protected
 
@@ -157,4 +181,12 @@ class UsersController < ApplicationController
       redirect_to after_sign_in_path_for, :notice => flash[:notice]
     end
   end
+  
+  def get_master_data
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.map{|functional_area| [functional_area.name,functional_area.id] }]
+    @industries = Hash[Vger::Resources::Industry.all.map{|industry| [industry.name,industry.id] }]
+    @locations = Hash[Vger::Resources::Location.where(:query_options => { :location_type => "city" }).all.map{|location| [location.name,location.id] }]
+    @degrees = Hash[Vger::Resources::Degree.all.map{|degree| [degree.name,degree.id] }]
+  end
+  
 end
