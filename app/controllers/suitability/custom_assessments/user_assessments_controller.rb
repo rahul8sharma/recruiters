@@ -141,7 +141,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           if user_data[:email].present?
             user = Vger::Resources::User.where(:query_options => { :email => user_data[:email] }).all[0]
           end
-          
+          user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
           if user
             user_data[:id] = user.id
             users[user.id] = user_data
