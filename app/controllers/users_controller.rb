@@ -23,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def login
-  
     if request.post?
       begin
         token = sign_in(params[:user])
@@ -157,14 +156,7 @@ class UsersController < ApplicationController
 
   def redirect_user
     if current_user
-      if current_user.role == "Candidate"
-        flash.clear
-        flash[:error] = "You are not authorized to access this page."
-        sign_out
-        redirect_to root_path
-      else
-        redirect_to after_sign_in_path_for, :notice => flash[:notice]
-      end
+      redirect_to after_sign_in_path_for, :notice => flash[:notice]
     end
   end
 end
