@@ -41,7 +41,6 @@ class UsersController < ApplicationController
         flash[:error] = e.response[:body][:data][:error]
       end
     else
-      redirect_user
     end
   end
 
