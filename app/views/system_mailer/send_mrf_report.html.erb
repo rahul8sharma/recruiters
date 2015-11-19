@@ -1,10 +1,10 @@
 Hi, 
 <p>
-  360 Degree Report is ready for <%= @report_hash[:candidate][:id] %> <%=@report_hash[:candidate][:name] %>
+  360 Degree Report is ready for <%= @report_hash[:user][:id] %> <%=@report_hash[:user][:name] %>
 </p>
 <p>
   Report URL: 
-  <%= s3_report_company_mrf_assessment_url(:company_id => @report_hash[:company][:id], :id => @report_hash[:assessment][:id],:candidate_id => @report_hash[:candidate][:id], :report_id => @report_id, :view_mode => "html")
+  <%= s3_report_company_mrf_assessment_url(:company_id => @report_hash[:company][:id], :id => @report_hash[:assessment][:id],:user_id => @report_hash[:user][:id], :report_id => @report_id, :view_mode => "html")
     %>
 </p>
 <p>
