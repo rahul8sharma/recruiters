@@ -40,7 +40,6 @@ class UsersController < ApplicationController
       rescue Faraday::Unauthorized => e
         flash[:error] = e.response[:body][:data][:error]
       end
-    else
     end
   end
 
