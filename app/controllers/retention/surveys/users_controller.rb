@@ -38,20 +38,13 @@ class Retention::Surveys::UsersController < ApplicationController
           user = Vger::Resources::User.where(:query_options => { :email => user_data[:email] }).all[0]
         end
         @errors[key] ||= []
-        if user
+        user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
+        user = Vger::Resources::User.find_or_create(user_data)
+        if user.error_messages.present?
+          @errors[key] |= user.error_messages
+        else
           user_data[:id] = user.id
           users[user.id] = user_data
-          attributes_to_update = user_data.dup
-          attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless user.send(attribute).blank? }
-          Vger::Resources::User.save_existing(user.id, attributes_to_update)
-        else
-          user = Vger::Resources::User.find_or_create(user_data)
-          if user.error_messages.present?
-            @errors[key] |= user.error_messages
-          else
-            user_data[:id] = user.id
-            users[user.id] = user_data
-          end
         end
       end
 

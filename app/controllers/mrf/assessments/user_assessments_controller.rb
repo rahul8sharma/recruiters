@@ -136,16 +136,11 @@ class Mrf::Assessments::UserAssessmentsController < ApplicationController
   end
 
   def get_or_create_user(user_hash)
-    user = nil
-    if user_hash[:email].present?
-      user = Vger::Resources::User.where(query_options: { email: user_hash[:email] }).all.to_a.first
-    end
-    if !user
-      user = Vger::Resources::User.find_or_create(user_hash)
-      if !user.error_messages.empty?
-        flash[:error] = user.error_messages.join("<br/>").html_safe
-        return nil
-      end
+    user_hash[:role] = Vger::Resources::Role::RoleName::CANDIDATE
+    user = Vger::Resources::User.find_or_create(user_hash)
+    if !user.error_messages.empty?
+      flash[:error] = user.error_messages.join("<br/>").html_safe
+      return nil
     end
     return user
   end
