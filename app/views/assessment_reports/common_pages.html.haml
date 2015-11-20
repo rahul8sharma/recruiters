@@ -9,7 +9,7 @@
     - post_assessment_guidelines = @report.report_hash[:post_assessment_guidelines]
     - ordered_guides = post_assessment_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
     - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-    / - if @report.report_hash[:candidate_stage].to_sym == :user    
+    / - if @report.report_hash[:candidate_stage].to_sym == :candidate
     - ordered_guides += post_assessment_guidelines.select{|factor_name, guide| guide[:pass] && guide[:factor_type] == "Suitability::DirectPredictor"}.map{|factor,guide| [factor,guide] }
       
     - (0..ordered_guides.length-1).step(guides_step) do |step|    
