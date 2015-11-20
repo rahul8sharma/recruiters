@@ -1,5 +1,5 @@
 class SystemMailer < ActionMailer::Base
-  default :from => "Jombay <sysuser@jombay.com>"
+  default :from => "Jombay <sysadmin@jombay.com>"
 
   def notify_report_status(context,subject,messages)
     @messages = messages

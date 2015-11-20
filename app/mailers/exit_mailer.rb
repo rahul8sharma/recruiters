@@ -1,5 +1,5 @@
 class ExitMailer < ActionMailer::Base
-  default :from => "Jombay <sysuser@jombay.com>"
+  default :from => "Jombay <sysadmin@jombay.com>"
 
   def send_exit_report(report_id,report_hash)
     @report_id = report_id
