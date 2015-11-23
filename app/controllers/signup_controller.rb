@@ -8,9 +8,10 @@ class SignupController < ApplicationController
       company_attributes[:contact_person] = company_attributes[:user_attributes][:name]
       company_attributes[:contact_person_mobile] = company_attributes[:user_attributes][:mobile]
       company_attributes[:user_attributes][:password_confirmation] = company_attributes[:user_attributes][:password]
+      company_attributes[:user_attributes][:type] = "Admin"
       @company = Vger::Resources::Company.create(company_attributes)
       if @company.error_messages.present?
-        @company.user = Vger::Resources::Admin.new(company_attributes[:user_attributes])
+        @company.user = Vger::Resources::User.new(company_attributes[:user_attributes])
         flash[:error] = @company.error_messages.uniq.join("<br/>").html_safe
       else
         @company.setup({})
@@ -18,7 +19,7 @@ class SignupController < ApplicationController
       end
     else
       @company = Vger::Resources::Company.new(params[:company])
-      @company.user = Vger::Resources::Admin.new
+      @company.user = Vger::Resources::User.new
     end
   end
 
