@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     name = search_params.delete :name
     email = search_params.delete :email
     conditions = {
-      methods: [:role_names, :role],
+      methods: [:company_ids, :assessment_ids, :role_names, :role],
       root: :user,
       query_options: search_params,
       joins: :roles,

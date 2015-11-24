@@ -7,10 +7,10 @@ function selectStakeholderInvitationTemplate() {
 }
 
 function selectUserInvitationTemplate() {
-  var id = $("#select_candidate_invitation_template").find(":selected").val();
-  var body = $("#select_candidate_invitation_template").find(":selected").attr("body");
+  var id = $("#select_user_invitation_template").find(":selected").val();
+  var body = $("#select_user_invitation_template").find(":selected").attr("body");
   if(body !== undefined) {
-    $(".candidate_invitation_template_id").val(id);
+    $(".user_invitation_template_id").val(id);
   }
 }
 
