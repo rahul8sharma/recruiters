@@ -6,7 +6,6 @@ function selectUserInvitationTemplate() {
   $(".email-subject-user-invitation").html("<i>"+subject+"</i>");
   $(".email-from-user-invitation").html("<i>"+from+"</i>");
   var id = $("#select_stakeholder_invitation_template").find(":selected").val();
-  console.log(id);
   if(body !== undefined) {
     $(".user_invitation_template_id").val(id);
   }
