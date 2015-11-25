@@ -32,6 +32,10 @@
       .divider1
       .span26.margin-auto
         - if is_superuser?
+          %label.medium-text.default
+            Page Size
+          = f.text_field :page_size, placeholder: "Page Size", class: "fw"
+          .divider1
           %label.big-text.default
             = f.check_box :use_competencies, checked: @assessment.use_competencies, id: "check_use_competencies"
             Use competencies
