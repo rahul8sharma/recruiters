@@ -177,7 +177,7 @@ class UsersManagementController < ApplicationController
     end
   end
 
-  def update_candidate_stage
+  def update_user_stage
     @user_assessment = Vger::Resources::Suitability::UserAssessment.where(
       :assessment_id => params[:assessment_id],
       :query_options => {

@@ -1,5 +1,5 @@
 class AssessmentReportsController < ApplicationController
-  layout 'user_reports'
+  layout 'candidates'
   before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
   before_filter :check_superuser, :only => [ :manage, :assessment_report ]
 
@@ -101,7 +101,7 @@ class AssessmentReportsController < ApplicationController
       flash[:notice] = "Report is being modified. Please check after some time."
       #redirect_to assessment_report_company_custom_assessment_user_user_assessment_report_url(@report, :company_id => params[:company_id], :user_id => params[:user_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
     end
-    render :layout => "user"
+    render :layout => "candidates"
   end
 
   def show
