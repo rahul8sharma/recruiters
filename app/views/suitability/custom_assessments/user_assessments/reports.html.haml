@@ -19,7 +19,7 @@
       .span4
         Assessment Status 
       .clr
-    - if is_superuser?  
+    - if is_superuser? && @user_assessments.present?
       .span4.pull-right
         %a.label.label-warning.label-small.small-text{ href: trigger_report_downloader_url, confirm: "Are you sure?" }
           Download PDF Reports
@@ -28,7 +28,7 @@
           Export Feedback Scores
     .clr
     .divider1
-    - if (@user_assessments.present?)
+    - if @user_assessments.present?
       %ul
         - @user_assessments.each do |user_assessment|
           %li.list-snippet.medium-text
@@ -49,23 +49,24 @@
               - report = user_assessment.user_assessment_reports.first
               = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
             .clr
+      .divider2
+      .pull-right
+        = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+          .medium-text.pull-left.line-height2.bold
+            Select Date Range: &nbsp;&nbsp;
+            %input{ name: "date_range", class: "daterangepicker" }
+          .medium-text.pull-left
+            &nbsp;&nbsp;&nbsp;
+          %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
+          .clr
+      .divider2
+      .pull-right
+        = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+      .clr
     - else
       .alert.medium-text
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
-    .divider2
-    .pull-right
-      = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
-        .medium-text.pull-left.line-height2.bold
-          Select Date Range: &nbsp;&nbsp;
-          %input{ name: "date_range", class: "daterangepicker" }
-        .medium-text.pull-left
-          &nbsp;&nbsp;&nbsp;
-        %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
-        .clr
-    .divider2
-    .pull-right
-      = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
-    .clr
+
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.comiseo.daterangepicker"
   = stylesheet_link_tag "jquery-ui/jquery-ui"
