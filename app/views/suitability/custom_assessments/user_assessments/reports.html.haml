@@ -11,24 +11,24 @@
   = render :partial => "shared/suitability/user_sub_nav_#{@assessment.assessment_type}"
   .clr
   .padding-all1.border-warning.shifted-up1
-    .list-snippet-titles.extra-medium-text.clearfix.pull-left
-      .span3.first
-        = sort_link "ATID", reports_url, :id, params[:search]
-      .span8
-        = sort_link "Assessment Taker", reports_url, :name, params[:search]
-      .span4
-        Assessment Status 
-      .clr
-    - if is_superuser? && @user_assessments.present?
-      .span4.pull-right
-        %a.label.label-warning.label-small.small-text{ href: trigger_report_downloader_url, confirm: "Are you sure?" }
-          Download PDF Reports
-      .span4.pull-right
-        %a.label.label-warning.label-small.small-text{ href: export_feedback_scores_url, }
-          Export Feedback Scores
-    .clr
-    .divider1
     - if @user_assessments.present?
+      .list-snippet-titles.extra-medium-text.clearfix.pull-left
+        .span3.first
+          = sort_link "ATID", reports_url, :id, params[:search]
+        .span8
+          = sort_link "Assessment Taker", reports_url, :name, params[:search]
+        .span4
+          Assessment Status 
+        .clr
+      - if is_superuser?
+        .span4.pull-right
+          %a.label.label-warning.label-small.small-text{ href: trigger_report_downloader_url, confirm: "Are you sure?" }
+            Download PDF Reports
+        .span4.pull-right
+          %a.label.label-warning.label-small.small-text{ href: export_feedback_scores_url, }
+            Export Feedback Scores
+      .clr
+      .divider1
       %ul
         - @user_assessments.each do |user_assessment|
           %li.list-snippet.medium-text
