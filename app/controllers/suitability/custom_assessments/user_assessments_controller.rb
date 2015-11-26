@@ -542,6 +542,12 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
         when Vger::Resources::User::Stage::EMPLOYED
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+        when nil
+          category = [
+                        Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE,
+                        Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+                     ]   
+                        
       end
     end
     query_options[:category] = category if category.present?
