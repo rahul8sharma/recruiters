@@ -8,7 +8,7 @@ class Mrf::CompetencyGuidelinesController < MasterDataController
   end
 
   def index_columns
-    [:id,  :assessment_id, :competency_id, :guideline_for_candidate, :guideline_for_manager]
+    [:id,  :assessment_id, :competency_id, :guideline_for_user, :guideline_for_manager]
   end
 end
 

@@ -2,6 +2,6 @@
   .overall_report.container
     .divider8
     .user-name.pull-left
-      = @report.report_hash[:candidate][:name]
+      = @report.report_hash[:user][:name]
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { nested_child: section["children"] }

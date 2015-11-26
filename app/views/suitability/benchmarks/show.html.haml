@@ -7,11 +7,11 @@
     .divider1
     Benchmark #{@assessment.id} - #{@assessment.name}
   
-  %a.btn.btn-warning.big.big-text.pull-right.span{ href: add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
+  %a.btn.btn-warning.big.big-text.pull-right.span{ href: add_users_company_benchmark_path(:company_id => params[:company_id], :id => params[:id]) }
     Send This Benchmark
   .clr
   .divider2
-  = render :partial => "shared/candidate-content-benchmark-sub-nav"
+  = render :partial => "shared/user-content-benchmark-sub-nav"
   
   .padding-all2.border-warning.shifted-up1
     .pull-right

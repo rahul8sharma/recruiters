@@ -43,7 +43,7 @@
           - @job_assessment_factor_norms.each_with_index do |job_factor_norm,index|
             = render :partial => 'assessment_direct_predictor_fields', :locals => { :job_factor_norm => job_factor_norm, :index => index }
       .divider2
-      - if is_superadmin?
+      - if is_superuser?
         = label_tag :page_size
         = text_field_tag :page_size, "", :style => "width:100px;"
         .divider2

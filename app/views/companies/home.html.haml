@@ -1,17 +1,17 @@
 - url = nil
-- if @candidate_assessment
-  - report = @candidate_assessment.candidate_assessment_reports.present? ? @candidate_assessment.candidate_assessment_reports.first : nil
+- if @user_assessment
+  - report = @user_assessment.user_assessment_reports.present? ? @user_assessment.user_assessment_reports.first : nil
   - if report && report.status == "uploaded"
-    - url = company_custom_assessment_candidate_candidate_assessment_report_url(:company_id => params[:id], :candidate_id => @candidate_assessment.candidate_id, :custom_assessment_id => @candidate_assessment.assessment_id, :id => report.id, :view_mode => "html")
+    - url = company_custom_assessment_user_user_assessment_report_url(:company_id => params[:id], :user_id => @user_assessment.user_id, :custom_assessment_id => @user_assessment.assessment_id, :id => report.id, :view_mode => "html")
   - else
-    - url = @candidate_assessment.url
+    - url = @user_assessment.url
 
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 .home
   .divider1
-  - if !report && @company.admin.email == current_user.email
+  - if !report && @company.user.email == current_user.email
     .extra-large-text.text-center
       %span.bold Test Yourself
       %a.icon-question-sign.large-text.scroll{:href=>"#section01", :title=>"Go to - Test Yourself Section"}

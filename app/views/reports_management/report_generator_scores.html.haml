@@ -2,15 +2,15 @@
   %p
     %label.field
       Candidate Name
-    = f.text_field :candidate_name, required: true, value: @candidate_details["candidate_name"]
+    = f.text_field :user_name, required: true, value: @user_details["user_name"]
   %p
     %label.field
       Candidate Email
-    = f.text_field :candidate_email, required: true, value: @candidate_details["candidate_email"]
+    = f.text_field :user_email, required: true, value: @user_details["user_email"]
   %p
     %label.field
       Candidate Type
-    = f.text_field :candidate_type,required: true,  value:@candidate_details["candidate_type"]
+    = f.text_field :user_type,required: true,  value:@user_details["user_type"]
   %input{name: "report[assessment_id]", type: 'hidden', value: @assessment.id}
   %input{name: "report[assessment_name]", type: 'hidden', value: @assessment.name}
   %input{name: "report[company_id]", type: 'hidden', value: @assessment.company_id}
@@ -24,8 +24,8 @@
     = f.label :interview_guide, "Show Interview Guide"
     = f.check_box :development_guide_manager
     = f.label :development_guide_manager, "Show Development Guide - Manager"
-    = f.check_box :development_guide_candidate
-    = f.label :development_guide_candidate, "Show Development Guide - Candidate"
+    = f.check_box :development_guide_user
+    = f.label :development_guide_user, "Show Development Guide - Candidate"
     = f.check_box :include_subjective_questions
     = f.label :include_subjective_questions
     = f.check_box :include_objective_questions

@@ -18,7 +18,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       #end
     elsif request.put?
       params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
-      traits_range = Rails.application.config.validators["traits_range"][current_user.type]
+      traits_range = Rails.application.config.validators["traits_range"][current_user.role]
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.keys.size
 
       if selected_traits_size >= traits_range["min"] && selected_traits_size <= traits_range["max"]
@@ -84,13 +84,13 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
 
-      # This is a bad workaround to allow superadmin to proceed even if items are not available
+      # This is a bad workaround to allow superuser to proceed even if items are not available
       # Need a better way to manage this
       if @assessment.error_messages.blank?
         if params[:save_and_close].present?
           redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         else
-          redirect_to self.send("add_candidates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+          redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         end
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
@@ -113,14 +113,14 @@ class Suitability::CustomAssessmentsController < AssessmentsController
 
   # fetches styles data
   # GET : renders styles
-  # PUT : updates assessment and redirects to add_candidates
+  # PUT : updates assessment and redirects to add_users
   def styles
     get_styles
     if request.put?
       params[:assessment] ||= {}
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+        redirect_to add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
         @assessment.error_messages << @assessment.errors.full_messages.dup
         @assessment.error_messages.flatten!
@@ -232,19 +232,19 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     end
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     # TODO
-    # This is a bad workaround to allow superadmin to proceed even if items are not available
+    # This is a bad workaround to allow superuser to proceed even if items are not available
     # Need a better way to manage this
-    allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superadmin?
+    allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superuser?
     if @assessment.error_messages.blank? || allowed
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
       flash[:error] = @assessment.error_messages.join("<br/>")
       if params[:save_and_close].present?
         redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path",params[:company_id], @assessment.id)
       else
-        if is_superadmin?
+        if is_superuser?
           redirect_to self.send("set_weightage_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         else
-          redirect_to self.send("add_candidates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+          redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
         end
       end
     else

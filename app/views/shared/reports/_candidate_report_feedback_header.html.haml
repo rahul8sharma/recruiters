@@ -6,17 +6,14 @@
     .container
       .logo.pull-left.pull-left
         = image_tag(asset_path("jombay-logo.png"))
-      .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:candidate][:name] }
-        = @report.report_hash[:candidate][:name].truncate(28)
+      .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:user][:name] }
+        = @report.report_hash[:user][:name].truncate(28)
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left
           %li
             %a.scroll{:href => "#guidelines", :title => " Guide to giving Feedback "}
               Guide to giving Feedback
-          %li
-            %a.scroll{:href => "#scores", :title => "Scores on Traits"}
-              Scores on Traits
           %li.right
 
 .divider3

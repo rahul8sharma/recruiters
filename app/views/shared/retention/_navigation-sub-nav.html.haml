@@ -5,10 +5,10 @@
   .menu{ class: ([:add_elements].include?(params[:action].to_sym)) ? "active" : "" }
     .count 2
     Choose Items
-  .menu{ class: (([:add_candidates].include?(params[:action].to_sym) || [:add_candidates_bulk].include?(params[:action].to_sym)) && (request.get? || flash[:error].present?)) ? "active" : "" }
+  .menu{ class: (([:add_users].include?(params[:action].to_sym) || [:add_users_bulk].include?(params[:action].to_sym)) && (request.get? || flash[:error].present?)) ? "active" : "" }
     .count 3
     Add Survey Taker Details
-  .menu{ class: (params[:bulk_upload].present? || params[:send_survey_to_candidates].present?) ? "active" : "" }
+  .menu{ class: (params[:bulk_upload].present? || params[:send_survey_to_users].present?) ? "active" : "" }
     .count 4
     Confirm &amp; Send Survey
 .clr

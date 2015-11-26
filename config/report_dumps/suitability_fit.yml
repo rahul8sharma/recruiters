@@ -1,5 +1,5 @@
 --- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-candidate_assessment_id: 54808
+user_assessment_id: 54808
 configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   should_send_notifications: true
   any_scores_overwritten: false
@@ -84,8 +84,8 @@ report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         selected: true
     - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      id: html_guidelines_for_candidate_manager
-      text: Developemnt Guide For Candidate Manager
+      id: html_guidelines_for_user_manager
+      text: Developemnt Guide For User Manager
       path: assessment_reports/fit_report/html/page6
       children:
       state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -170,7 +170,7 @@ report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         selected: true
     - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      id: pdf_development_interview_guide_candidate
+      id: pdf_development_interview_guide_user
       text: Developement Guide For Assessment Taker
       path: assessment_reports/fit_report/pdf/page5
       children:
@@ -192,7 +192,7 @@ report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         selected: true
 report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   id: 32168
-  candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  user: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Barrey Allen Suitability Competency Based Report
     email: john@doer.com
     id: 34423
@@ -237,7 +237,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       key: suitability_reports/feedback/feedback-a-jombay-32168.html
   report_email_recipients:
   candidate_stage: employee
-  candidate_assessment_id: 54808
+  user_assessment_id: 54808
   completed_at: 08/09/2015
   direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   post_assessment_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -281,7 +281,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could consider being a bit flexible depending on the situations as long as the spirit of the guidelines is followed.
       factor_type: Suitability::Factor
-  guidelines_for_candidate_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  guidelines_for_user_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could consider assigning him/her decisions regarding what tasks need to be delegated to whom in the team.

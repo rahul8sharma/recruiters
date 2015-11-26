@@ -8,7 +8,7 @@ class MultimediaProfilesController < MasterDataController
   def index_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :status
     ]
   end
@@ -16,7 +16,7 @@ class MultimediaProfilesController < MasterDataController
   def search_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :status
     ]
   end
@@ -28,7 +28,7 @@ class MultimediaProfilesController < MasterDataController
   def create
     file = params[:multimedia_profile][:attachment]
     if file
-      key = "candidates/multimedia_profiles/#{params[:multimedia_profile][:candidate_id]}-#{file.original_filename}"
+      key = "users/multimedia_profiles/#{params[:multimedia_profile][:user_id]}-#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s
@@ -47,7 +47,7 @@ class MultimediaProfilesController < MasterDataController
   def update
     file = params[:multimedia_profile][:attachment]
     if file
-      key = "candidates/multimedia_profiles/#{params[:multimedia_profile][:candidate_id]}-#{file.original_filename}"
+      key = "users/multimedia_profiles/#{params[:multimedia_profile][:user_id]}-#{file.original_filename}"
       content_type = file.content_type
       obj = S3Utils.upload(key, file.read, content_type: content_type, acl: "public-read")
       url = obj.public_url({secure: false}).to_s

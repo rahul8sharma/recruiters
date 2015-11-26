@@ -1,0 +1,44 @@
+= form_for :user, url: export_assessments_factor_scores_users_path, multipart: true, :method => :post do |f|
+  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::AssessmentsFactorScoresExporter" }
+  %fieldset
+    %legend 
+      %strong Download Candidate FactorScores for Multiple Assessments
+    = f.fields_for "args" do |f|
+      %p
+        Assessment IDs * : (Comma Separated )
+        = f.text_field :assessment_ids
+        
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url * : 
+          = f.text_field "url"
+
+      %p
+        From Hours: 
+        = f.text_field :hours
+
+      %p
+        Export Failed: 
+        = f.check_box :export_failed, { checked: true }, true, false
+        
+      %p
+        Export Successful: 
+        = f.check_box :export_uploaded, { checked: true }, true, false
+        
+      %p
+        Export Pending: 
+        = f.check_box :export_pending, { checked: true }, true, false
+      %p
+        Export Hive Scores Pending: 
+        = f.check_box :export_hive_scores_pending, { checked: true }, true, false
+
+      %p
+        Rows per sheet: 
+        = f.text_field "batch_size", :value => "10000"
+
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+
+  .actions
+    = submit_tag 'Download'

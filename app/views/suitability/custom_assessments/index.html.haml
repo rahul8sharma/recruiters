@@ -39,14 +39,14 @@
       - @assessments.each do |assessment|
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span2.first
-            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
           .span4
             %a{:href => "#"} 
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
           .span8.info-block
-            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
-            - if is_superadmin?
+            - if is_superuser?
               .info  
                 = assessment.assessment_type.titleize + ' Based'
               .arrow
@@ -55,12 +55,12 @@
               %i.icon-eye-open
           .span3.text-center.left-offset1
             - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
-            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "scored" }), :title=>"#{completed_count}"}  #{completed_count}
           .span2.text-center.left-offset1
             - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
-            %a{:href=> candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "" }), :title=>"#{sent_count}"}  #{sent_count}
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id, :search => { :status => "" }), :title=>"#{sent_count}"}  #{sent_count}
           .span4.text-center.left-offset1
-            %a.span{:href => add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
+            %a.span{:href => add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
               %i.icon-envelope
             .clr  
           .clr

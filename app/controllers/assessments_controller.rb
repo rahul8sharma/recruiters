@@ -1,7 +1,7 @@
 class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :check_superadmin, :only => [:edit,:update]
-  before_filter { authorize_admin!(params[:company_id]) }
+  before_filter :check_superuser, :only => [:edit,:update]
+  before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_assessment, :except => [:index]
   before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
   before_filter :get_factors, :only => [:norms, :competency_norms]
@@ -315,7 +315,7 @@ class AssessmentsController < ApplicationController
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => query_options).all.to_a
     if default_norm_bucket_ranges.empty?
-      if is_superadmin? && ["norms","competency_norms"].include?(params[:action])
+      if is_superuser? && ["norms","competency_norms"].include?(params[:action])
         flash[:alert] = "Custom norms not present for this combination. Global norms have been picked."
       end
       query_options = {
@@ -364,12 +364,12 @@ class AssessmentsController < ApplicationController
         redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
       else
         if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_candidates_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
+          redirect_to add_users_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
         else
-          if is_superadmin?
+          if is_superuser?
             redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
           else
-            redirect_to add_candidates_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
+            redirect_to add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
           end
         end
       end

@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   layout "users"
-  before_filter :authenticate_user!, :only => [ :password_settings, :index ]
+  before_filter :authenticate_user!, :only => [ 
+    :password_settings, 
+    :index,
+    :show,
+    :edit,
+    :update
+  ]
+  before_filter :get_master_data, :only => [:edit]
   
   def index
     params[:search] ||= {}
@@ -9,9 +16,10 @@ class UsersController < ApplicationController
     name = search_params.delete :name
     email = search_params.delete :email
     conditions = {
-      methods: [:company_ids, :type, :assessment_ids],
+      methods: [:company_ids, :assessment_ids, :role_names, :role],
       root: :user,
       query_options: search_params,
+      joins: :roles,
       page: params[:page], per: 10
     }
     conditions[:scopes] = {}
@@ -22,7 +30,6 @@ class UsersController < ApplicationController
   end
 
   def login
-  
     if request.post?
       begin
         token = sign_in(params[:user])
@@ -40,8 +47,6 @@ class UsersController < ApplicationController
       rescue Faraday::Unauthorized => e
         flash[:error] = e.response[:body][:data][:error]
       end
-    else
-      redirect_user
     end
   end
 
@@ -151,19 +156,37 @@ class UsersController < ApplicationController
       redirect_to reset_password_path(:reset_password_token => params[:user][:reset_password_token])
     end
   end
+  
+  def show
+    @user = Vger::Resources::User.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
+  end
+  
+  def update
+    @user = Vger::Resources::User.save_existing(params[:id],params[:user])
+    if @user.error_messages.present?
+      render :action => :edit
+    else
+      redirect_to user_path(@user)
+    end
+  end
+  
+  def edit
+    @user = Vger::Resources::User.find(params[:id])
+  end
 
   protected
 
   def redirect_user
     if current_user
-      if current_user.type == "Candidate"
-        flash.clear
-        flash[:error] = "You are not authorized to access this page."
-        sign_out
-        redirect_to root_path
-      else
-        redirect_to after_sign_in_path_for, :notice => flash[:notice]
-      end
+      redirect_to after_sign_in_path_for, :notice => flash[:notice]
     end
   end
+  
+  def get_master_data
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.map{|functional_area| [functional_area.name,functional_area.id] }]
+    @industries = Hash[Vger::Resources::Industry.all.map{|industry| [industry.name,industry.id] }]
+    @locations = Hash[Vger::Resources::Location.where(:query_options => { :location_type => "city" }).all.map{|location| [location.name,location.id] }]
+    @degrees = Hash[Vger::Resources::Degree.all.map{|degree| [degree.name,degree.id] }]
+  end
+  
 end

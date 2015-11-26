@@ -6,9 +6,9 @@
   .instruction_container
     .instructions
       .instruction1.pull-left
-        Candidates with Less Favorable scores
-      .instruction2.less_favorable.pull-left
         Candidates with Favorable scores
+      .instruction2.less_favorable.pull-left
+        Candidates with Less Favorable scores
       .label.span.medium-text
         Average Score
       .clr
@@ -28,9 +28,9 @@
               = factor_name
             .clr
             .pie-visual
-              .pie-chart{ id: "pie_#{index}", "data-percentage-candidates" => factor_score[:percentage_candidates], style: "width: 100px;height: 100px;" }
+              .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 100px;height: 100px;" }
             .score
-              #{factor_score[:percentage_candidates]}% Less Favourable
+              #{factor_score[:percentage_users]}% Less Favourable
             - if @report.average_scores_in_top_training_needs
               .label.medium-text
                 = factor_score[:avg_score][:bucket]

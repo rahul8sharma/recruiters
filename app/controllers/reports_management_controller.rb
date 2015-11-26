@@ -224,7 +224,7 @@ class ReportsManagementController < ApplicationController
 
         @subjective_items = Vger::Resources::SubjectiveItem.where(:query_options => { :id => subjective_ids}).all.to_a if subjective_ids.present?
       end
-      @candidate_details = params[:report]
+      @user_details = params[:report]
     end
   end
 
@@ -234,10 +234,10 @@ class ReportsManagementController < ApplicationController
   end
 
   def manage_report
-    redirect_to manage_company_assessment_candidate_candidate_assessment_report_url(
+    redirect_to manage_company_assessment_user_user_assessment_report_url(
       :id => params[:assessment][:report_id],
       :company_id => params[:assessment][:company_id],
-      :candidate_id => params[:assessment][:candidate_id],
+      :user_id => params[:assessment][:user_id],
       :assessment_id => params[:assessment][:assessment_id]
     )
   end

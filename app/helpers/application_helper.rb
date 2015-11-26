@@ -120,4 +120,39 @@ module ApplicationHelper
       "failed" => "Failed to generate report"
     }
   end
+  
+  def redirect_super_admin
+    companies_path
+  end
+  
+  def redirect_jit
+    companies_path
+  end
+  
+  def redirect_admin
+    landing_company_path(current_user.company_id)
+  end
+  
+  def redirect_company_manager
+    if current_user.company_ids.size == 1
+      landing_company_path(current_user.company_ids.first)
+    else
+      select_companies_path
+    end
+  end
+  
+  def redirect_jq
+    session[:auth_token] = nil
+    login_path
+  end
+  
+  def redirect_sq
+    session[:auth_token] = nil
+    login_path
+  end
+  
+  def redirect_candidate  
+    session[:auth_token] = nil
+    login_path
+  end
 end

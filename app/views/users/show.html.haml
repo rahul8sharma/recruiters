@@ -1,0 +1,123 @@
+.user_profile
+  .page-title
+    .divider1
+    Candidate Details
+  .divider2
+  .padding-all2.border-warning.shifted-up1
+    %table
+      %tr
+        %td{width: "30%"} Name:
+        %td
+          = @user.name
+      %tr
+        %td Email:
+        %td
+          = @user.email
+      %tr
+        %td Alternate Email:
+        %td
+          = @user.alternate_email
+      %tr
+        %td Mobile:
+        %td
+          = @user.mobile
+      %tr
+        %td Age:
+        %td
+          = @user.age
+      %tr
+        %td Gender:
+        %td
+          = @user.gender
+      %tr
+        %td Marital Status:
+        %td
+          = @user.marital_status
+      %tr
+        %td Companies worked for:
+        %td
+          = @user.companies_worked_for
+      %tr
+        %td Current Company:
+        %td
+          = @user.current_company
+      %tr
+        %td Total Experience:
+        %td
+          = @user.total_experience
+      %tr
+        %td Current Company Experience:
+        %td
+          = @user.current_company_experience
+      %tr
+        %td Current CTC:
+        %td
+          = @user.current_ctc
+      %tr
+        %td Current Designation:
+        %td
+          = @user.current_designation
+      %tr
+        %td Industry:
+        %td
+          = @user.industry.name rescue "-"
+      %tr
+        %td Functional area:
+        %td
+          = @user.functional_area.name rescue "-"
+      %tr
+        %td Degree with Specialization:
+        %td
+          = @user.degree.name rescue "-"
+      %tr
+        %td Current Location:
+        %td
+          = @user.location.name rescue "-"
+      %tr
+        %td Number of Dependants:
+        %td
+          = @user.no_of_dependents
+    %br      
+    %br
+    .span8.generate_link.pull-left
+      %b
+        Generate Assessment Link
+      %br  
+      = form_tag generate_assessment_link_user_path(@user) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group  
+          = submit_tag "Generate Assessment Link"  
+    .span8.deactivate_link.pull-left
+      %b
+        Deactivate Assessment Link
+      %br  
+      = form_tag deactivate_assessment_link_user_path(@user) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group  
+          = submit_tag "Deactivate Assessment Link"        
+    .pull-left
+      %b
+        Update Candidate Type
+      %br  
+      = form_tag update_user_stage_user_path(@user) do
+        .control-group
+          %label Assessment ID:
+          = text_field_tag :assessment_id
+          .clr
+        .control-group
+          %label Candidate Type:
+          = select_tag :candidate_stage, options_for_select(Vger::Resources::User::STAGES)
+          .clr
+        .control-group  
+          = submit_tag "Update Candidate Stage"             
+    .clr      
+  .divider3
+  = link_to "Back", users_path
+  \|
+  = link_to "Edit", edit_user_path(@user)

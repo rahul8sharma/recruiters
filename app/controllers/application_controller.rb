@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_auth_token
   
   include Vger::Helpers::AuthenticationHelper
+  include ApplicationHelper
   
   rescue_from Faraday::Unauthorized, :with => :unauthorized
   rescue_from Faraday::ResourceNotFound, :with => :resource_not_found
@@ -11,52 +12,42 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   helper_method :can?
-  helper_method :is_superadmin?, :is_company_manager?, :is_admin?
+  helper_method :is_superuser?, :is_jit_user?, :is_company_manager?, :is_admin?
   
   # redirect user according to type of the user
   # keep the flash message before redirecting to display any errors/warnings
   def after_sign_in_path_for()
     flash.keep
     return params[:redirect_to] if params[:redirect_to].present?
-    case current_user.type
-      when "SuperAdmin","JitUser"
-            companies_path
-      when "Admin"
-            landing_company_path(current_user.company_id) 
-      when "CompanyManager"
-        if current_user.company_ids && current_user.company_ids.size == 1
-            landing_company_path(current_user.company_ids.first) 
-        else
-            select_companies_path
-        end
-      else
-            root_path        
-    end    
+    redirect_user_path
   end
-
   
   protected
+  
+  def redirect_user_path
+    self.send "redirect_#{current_user.role}"
+  end
+  
   def set_auth_token
     token = get_token(params)
     RequestStore.store[:auth_token] = (token ? token.token : nil)
   end
   
-  def is_superadmin?
-    current_user and (is_jit_user? || current_user.type == "SuperAdmin")
+  def is_superuser?
+    current_user and (is_jit_user? || current_user.role == Vger::Resources::Role::RoleName::SUPER_ADMIN)
   end
   
   def is_jit_user?
-    current_user and current_user.type == "JitUser"
-  end
-  
-  def is_admin?
-    current_user and current_user.type == "Admin"
+    current_user and current_user.role == Vger::Resources::Role::RoleName::JIT
   end
   
   def is_company_manager?
-    current_user and current_user.type == "CompanyManager"
+    current_user and current_user.role == Vger::Resources::Role::RoleName::COMPANY_MANAGER
   end
   
+  def is_admin?
+    current_user and current_user.role == Vger::Resources::Role::RoleName::ADMIN
+  end
   
   # catch unauthorized exception from Faraday
   # if user is logged in the error is because of cancan
@@ -89,8 +80,8 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
   
-  def check_superadmin
-    if current_user && !is_superadmin?
+  def check_superuser
+    if !is_superuser?
       flash[:error] = "You are not authorized to access this page."
       redirect_to root_url and return
     end 
@@ -102,13 +93,15 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
   
-  def authorize_admin!(company_id)
-    return if is_superadmin?
-    if is_company_manager?
-      return if company_id.nil?
-      redirect_to select_companies_path if current_user.company_ids.exclude?(company_id.to_i)
-    elsif is_admin?
-      redirect_to home_company_path(current_user.company_id) if company_id.to_i != current_user.company_id.to_i
-    end  
+  def authorize_user!(company_id)
+    if is_superuser? || is_jit_user?
+      return true
+    elsif is_company_manager? && current_user.company_ids.include?(company_id.to_i)
+      return true
+    elsif is_admin? && current_user.company_id.to_i == company_id.to_i  
+      return true 
+    else
+      redirect_to redirect_user_path
+    end
   end
 end

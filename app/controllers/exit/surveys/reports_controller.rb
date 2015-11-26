@@ -5,9 +5,9 @@ class Exit::Surveys::ReportsController < ApplicationController
   layout "exit"
 
   def report
-    @candidate_survey = Vger::Resources::Exit::CandidateSurvey.where(:survey_id => params[:id], :query_options => { :candidate_id => params[:candidate_id] }).all[0]
+    @user_survey = Vger::Resources::Exit::UserSurvey.where(:survey_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
     params[:survey_id] = params[:id]
-    params[:candidate_survey_id] = @candidate_survey.id
+    params[:user_survey_id] = @user_survey.id
     @report = Vger::Resources::Exit::Report.find(params[:report_id], params)
     @report.report_hash = @report.report_data
     if params[:view_mode]

@@ -5,12 +5,13 @@ class SignupController < ApplicationController
     @countries = Vger::Resources::Location.where(:query_options => { :location_type => Vger::Resources::Location::LocationType::COUNTRY }).all.to_a
     if request.post?
       company_attributes = params[:company]
-      company_attributes[:contact_person] = company_attributes[:admin_attributes][:name]
-      company_attributes[:contact_person_mobile] = company_attributes[:admin_attributes][:mobile]
-      company_attributes[:admin_attributes][:password_confirmation] = company_attributes[:admin_attributes][:password]
+      company_attributes[:contact_person] = company_attributes[:user_attributes][:name]
+      company_attributes[:contact_person_mobile] = company_attributes[:user_attributes][:mobile]
+      company_attributes[:user_attributes][:password_confirmation] = company_attributes[:user_attributes][:password]
+      company_attributes[:user_attributes][:type] = "Admin"
       @company = Vger::Resources::Company.create(company_attributes)
       if @company.error_messages.present?
-        @company.admin = Vger::Resources::Admin.new(company_attributes[:admin_attributes])
+        @company.user = Vger::Resources::User.new(company_attributes[:user_attributes])
         flash[:error] = @company.error_messages.uniq.join("<br/>").html_safe
       else
         @company.setup({})
@@ -18,7 +19,7 @@ class SignupController < ApplicationController
       end
     else
       @company = Vger::Resources::Company.new(params[:company])
-      @company.admin = Vger::Resources::Admin.new
+      @company.user = Vger::Resources::User.new
     end
   end
 

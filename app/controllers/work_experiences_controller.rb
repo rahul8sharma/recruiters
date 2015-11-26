@@ -8,7 +8,7 @@ class WorkExperiencesController < MasterDataController
   def index_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :company,
       :role,
       :years
@@ -18,7 +18,7 @@ class WorkExperiencesController < MasterDataController
   def search_columns
     [
       :id,
-      :candidate_id,
+      :user_id,
       :company,
       :role,
       :years

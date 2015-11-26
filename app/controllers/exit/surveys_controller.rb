@@ -1,6 +1,6 @@
 class Exit::SurveysController < ApplicationController
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:company_id]) }
+  before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_survey, :except => [:index,:home]
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
@@ -16,12 +16,12 @@ class Exit::SurveysController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @surveys = Vger::Resources::Exit::Survey.where(query_options: {company_id: params[:company_id]}, order: order, page: params[:page], per: 10).all
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: {
-      "exit_candidate_surveys.survey_id" => @surveys.map(&:id)
+    @user_counts = Vger::Resources::User.group_count(group: "exit_user_surveys.survey_id", joins: :exit_user_surveys, query_options: {
+      "exit_user_surveys.survey_id" => @surveys.map(&:id)
     })
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "exit_candidate_surveys.survey_id", joins: :exit_candidate_surveys, query_options: {
-      "exit_candidate_surveys.survey_id" => @surveys.map(&:id),
-      "exit_candidate_surveys.status" => Vger::Resources::Exit::CandidateSurvey.completed_statuses
+    @completed_counts = Vger::Resources::User.group_count(group: "exit_user_surveys.survey_id", joins: :exit_user_surveys, query_options: {
+      "exit_user_surveys.survey_id" => @surveys.map(&:id),
+      "exit_user_surveys.status" => Vger::Resources::Exit::UserSurvey.completed_statuses
     })
   end
 
@@ -56,7 +56,7 @@ class Exit::SurveysController < ApplicationController
       params[:items] ||= {}
       items = Hash[params[:items].select{|item_id, item_data| item_data[:selected].present? }]
       if items.empty?
-        flash[:error] = "You need to select items before sending an survey. Please select items from below."
+        flash[:error] = "You need to select items before sending a survey. Please select items from below."
         get_items
         redirect_to add_items_company_exit_survey_path(@company.id,@survey.id) and return
       end
@@ -72,7 +72,7 @@ class Exit::SurveysController < ApplicationController
       @survey = Vger::Resources::Exit::Survey.save_existing(@survey.id, params[:survey])
       if !@survey.error_messages.present?
         flash[:notice] = "Exit Survey created successfully!"
-        redirect_to add_candidates_company_exit_survey_path(@company.id,@survey.id)
+        redirect_to add_users_company_exit_survey_path(@company.id,@survey.id)
       else
         flash[:error] = @survey.error_messages.join("<br/>").html_safe
         render action: :new
@@ -81,7 +81,7 @@ class Exit::SurveysController < ApplicationController
   end
 
   def details
-    @total_candidates = Vger::Resources::Exit::CandidateSurvey.count({
+    @total_users = Vger::Resources::Exit::UserSurvey.count({
       survey_id: @survey.id
     })
   end

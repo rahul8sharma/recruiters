@@ -1,6 +1,6 @@
 %p
   Best Regards, %br/
-  - if ["SuperAdmin","JitUser"].include? @mailer_data[:sender][:type]
+  - if ["SuperAdmin","JitCandidate"].include? @mailer_data[:sender][:type]
     Team Jombay 
     %br/
   - else

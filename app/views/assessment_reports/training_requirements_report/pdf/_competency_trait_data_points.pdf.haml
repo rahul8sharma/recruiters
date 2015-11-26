@@ -30,11 +30,11 @@
                       .flow-chart
                         .parent-node
                           .final-score
-                            .pie-chart{ id: "pie_competency_#{index}", "data-percentage-candidates" => factor_data[:percentage_candidates] }
+                            .pie-chart{ id: "pie_competency_#{index}", "data-percentage-users" => factor_data[:percentage_users] }
                             .min-score
-                              = "#{100 - factor_data[:percentage_candidates]}%"
+                              = "#{100 - factor_data[:percentage_users]}%"
                             .max-score
-                              = "#{factor_data[:percentage_candidates]}%"
+                              = "#{factor_data[:percentage_users]}%"
                         - if factor_data[:acceptable_range]
                           - from_weight = factor_data[:acceptable_range][:from_norm_bucket][:weight]
                           - to_weight = factor_data[:acceptable_range][:to_norm_bucket][:weight]

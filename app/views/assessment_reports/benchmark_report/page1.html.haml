@@ -14,17 +14,17 @@
         .clr
 
       .visual
-        %p This report helps you identify where some of your better performers score on different behavioral factors, in turn allowing you to compare other existing or potential candidates to them.
+        %p This report helps you identify where some of your better performers score on different behavioral factors, in turn allowing you to compare other existing or potential users to them.
 
-        %p Listed below are factors that candidates were benchmarked on. 
+        %p Listed below are factors that users were benchmarked on. 
 
-        %p Subsequent pages contain the score distribution of candidates for each measured factor. Also included are benchmarks and suggested subsequent score ranges for this assessment. 
+        %p Subsequent pages contain the score distribution of users for each measured factor. Also included are benchmarks and suggested subsequent score ranges for this assessment. 
 
         .sub-heading.pull-left
           No. of Candidates 
           %br/
           Benchmarked
           .candate_count
-            = @report[:no_of_candidates_benchmarked]
+            = @report[:no_of_users_benchmarked]
         .clr
       = render :template => "assessment_reports/benchmark_report/factors", locals: { factors: factors, continued: false } 

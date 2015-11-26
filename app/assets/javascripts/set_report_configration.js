@@ -28,7 +28,8 @@ function loadConfig(assessment_Type, reportType) {
         data.pdf = data.pdf || { sections: [] };
         $htmlTree.selected = data.html.sections;
         $pdfTree.selected = data.pdf.sections;          
-        
+        data.html.sections = data.html.sections || [];
+        data.pdf.sections = data.pdf.sections || [];
         var selectedHtmlSectionIds = $.map(data.html.sections, function(section){ return section.id; });
         var selectedPdfSectionIds = $.map(data.pdf.sections, function(section){ return section.id; });
         if(selectedHtmlSectionIds.length > 0) {

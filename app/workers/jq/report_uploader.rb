@@ -12,22 +12,22 @@ module Jq
         puts "Getting Report #{report_id}"
         methods = []
         methods = [:report_hash] if !patch.empty?
-        @report = Vger::Resources::Jq::CandidateAssessmentReport.find(report_id,
+        @report = Vger::Resources::Jq::UserAssessmentReport.find(report_id,
           :patch => patch,
           :methods => methods
         )
         
         @report.report_hash = @report.report_data if patch.empty?
 
-        Vger::Resources::Jq::CandidateAssessmentReport.save_existing(report_id,
-          :status => Vger::Resources::Jq::CandidateAssessmentReport::Status::UPLOADING
+        Vger::Resources::Jq::UserAssessmentReport.save_existing(report_id,
+          :status => Vger::Resources::Jq::UserAssessmentReport::Status::UPLOADING
         )
 
 
         @norm_buckets = Vger::Resources::Suitability::NormBucket\
                         .where(order: "weight ASC").all
 
-        candidate_name = @report.report_hash[:candidate][:name]
+        user_name = @report.report_hash[:user][:name]
 
         template = "jq_report"
         
@@ -39,7 +39,7 @@ module Jq
 
         @view_mode = "html"
         html = render_to_string(
-           template: "jq/candidate_assessment_reports/#{template}",
+           template: "jq/user_assessment_reports/#{template}",
            layout: "layouts/jq_reports",
            handlers: [ :haml ],
            formats: [ :html ]
@@ -48,7 +48,7 @@ module Jq
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string(
-            "jq/candidate_assessment_reports/#{template}.pdf.haml",
+            "jq/user_assessment_reports/#{template}.pdf.haml",
             layout: "layouts/jq_reports.pdf.haml",
             handlers: [ :haml ],
             formats: [:pdf]
@@ -60,7 +60,7 @@ module Jq
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        file_id = "#{candidate_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
+        file_id = "#{user_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
         pdf_file_id = "#{file_id}.pdf"
         html_file_id = "#{file_id}.html"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
@@ -76,8 +76,8 @@ module Jq
         html_s3 = upload_file_to_s3("jq_reports/html/#{html_file_id}",html_save_path)
         
           
-        status = Vger::Resources::Jq::CandidateAssessmentReport::Status::UPLOADED
-        Vger::Resources::Jq::CandidateAssessmentReport.save_existing(report_id,
+        status = Vger::Resources::Jq::UserAssessmentReport::Status::UPLOADED
+        Vger::Resources::Jq::UserAssessmentReport.save_existing(report_id,
           :uploaded_at => now,
           :s3_keys => { :pdf => pdf_s3, :html => html_s3 },
           :status => status
@@ -87,7 +87,7 @@ module Jq
         
         mailer_data = {
           report_id: @report.report_hash[:id],
-          candidate: @report.report_hash[:candidate],
+          user: @report.report_hash[:user],
           assessment: @report.report_hash[:assessment]
         }
         
@@ -99,8 +99,8 @@ module Jq
         if tries < 5
           retry
         else
-          Vger::Resources::Jq::CandidateAssessmentReport.save_existing(report_id,
-            :status => Vger::Resources::Jq::CandidateAssessmentReport::Status::FAILED
+          Vger::Resources::Jq::UserAssessmentReport.save_existing(report_id,
+            :status => Vger::Resources::Jq::UserAssessmentReport::Status::FAILED
           ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("Jq Report Uploader","Failed to upload jq report #{report_id}",{

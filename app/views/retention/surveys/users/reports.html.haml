@@ -1,0 +1,62 @@
+.creat-test-show
+  .span15.page-title.first
+    .divider1
+    AID  #{@assessment.id} - #{@assessment.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+    Send this Assessment
+  %a.extra-medium-text.pull-right.line-height3{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create Custom Assessment"} 
+    Create New Custom Assessment
+  .clr
+  .divider2
+  = render :partial => "shared/retention/user_sub_nav"
+  .clr
+  .padding-all2.border-warning.shifted-up1
+    .list-snippet-titles.extra-medium-text.clearfix.pull-left
+      .span3.first
+        = sort_link "ATID", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :id, params[:search]
+      .span8
+        = sort_link "Assessment Taker", reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :name, params[:search]
+      .span8
+        Assessment Status 
+      .clr
+    %a.label.label-warning.label-small.medium-text.pull-right{ href: email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
+      Email Reports Summary
+    - if is_superuser?  
+      %a.label.label-warning.label-small.medium-text.pull-left{ href: export_feedback_scores_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), }
+        Export Feedback Scores
+    .clr
+    .divider1
+    %ul
+      - if (@user_assessments.present?)
+        - @user_assessments.each do |user_assessment|
+          %li.list-snippet.medium-text
+            .divider1
+              - user_profile_url =  user_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :user_id => user_assessment.user_id)
+
+            .span3.first
+              %a{:href=> user_profile_url, :title => user_assessment.id} 
+                = user_assessment.id 
+            .span8            
+              %a{:href=> user_profile_url } 
+                = user_assessment.user.name
+            .span10
+              %a{:href=> user_profile_url, :title => user_assessment.completed_at}
+                Completed as of
+                #{htime(user_assessment.completed_at)} Hrs,
+
+                #{hdate(user_assessment.completed_at)}
+            .span
+              - report = user_assessment.user_assessment_reports.first
+              - url =  company_custom_assessment_user_user_assessment_report_url(:company_id => params[:company_id], :user_id => user_assessment.user_id, :custom_assessment_id => @assessment.id, :id => report.id, :view_mode => "html")
+              %a{:href => url, :title => "View Report", target: "_blank"}
+                %i.icon-file              
+                View Report
+            .clr
+      - else
+        .alert.medium-text
+          No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
+
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+    .clr

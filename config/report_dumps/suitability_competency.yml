@@ -1,5 +1,5 @@
 --- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-candidate_assessment_id: 54809
+user_assessment_id: 54809
 configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   should_send_notifications: true
   any_scores_overwritten: false
@@ -13,7 +13,7 @@ id: 32169
 report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
 report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   id: 32169
-  candidate: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  user: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Barrey Allen Suitability Competency Based Report
     email: barryallensuitacom@gmail.com
     id: 52676
@@ -49,8 +49,8 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     description:
   s3_keys: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   report_email_recipients:
-  candidate_stage: candidate
-  candidate_assessment_id: 54809
+  candidate_stage: user
+  user_assessment_id: 54809
   completed_at: 16/09/2015
   direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   development_guide: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -155,7 +155,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
       body: You could try to make an effort to introspect and identify habits and patterns that are unchanged for a very long time. You may start with making minor changes to your daily routine. It would help to be more open to feedback and new ideas.
       factor_type: Suitability::Factor
-  guidelines_for_candidate_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  guidelines_for_user_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could consider gradually increasing his/her work pressure and observing how much he/she can deal with increased pressure. You may also encourage him/her to take-up high pressure tasks to enhance his/her career prospects.

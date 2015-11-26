@@ -46,7 +46,7 @@
     = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
     = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
     = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
-    - if !is_superadmin?
+    - if !is_superuser?
       = set_form.hidden_field :page_size, value: Rails.application.config.default_set["page_size"]
     - else
       .control-group
@@ -56,7 +56,7 @@
         .clr
 
 .clr
-- if is_superadmin?
+- if is_superuser?
   - if ["new","create"].include? params[:action]
     .control-group
       %label
@@ -64,7 +64,7 @@
       %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
         %option{:value => ""}
           Select Assessment Type
-        - Vger::Resources::Assessment::ASSESSMENT_TYPES.sort.each do |assessment_type|
+        - Vger::Resources::Assessment::SUITABILITY_ASSESSMENT_TYPES.sort.each do |assessment_type|
           %option{:value => assessment_type, selected: (assessment.assessment_type == assessment_type)}
             = assessment_type.titleize
       .clr

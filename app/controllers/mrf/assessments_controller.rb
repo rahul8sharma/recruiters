@@ -1,6 +1,6 @@
 class Mrf::AssessmentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter { authorize_admin!(params[:company_id]) }
+  before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_assessment, :except => [:index]
   
@@ -16,8 +16,22 @@ class Mrf::AssessmentsController < ApplicationController
     order = "#{order_by} #{order_type}"
     @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
     @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
-    @candidate_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, select: "distinct(candidates.id)", query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
-    @completed_counts = Vger::Resources::Candidate.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: {:feedbacks => :stakeholder_assessment}, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses })
+    @user_counts = Vger::Resources::User.group_count(
+      group: "mrf_stakeholder_assessments.assessment_id", 
+      joins: {:feedbacks => :stakeholder_assessment}, 
+      select: "distinct(jombay_users.id)", 
+      query_options: { 
+        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) 
+      }
+    )
+    @completed_counts = Vger::Resources::User.group_count(
+      group: "mrf_stakeholder_assessments.assessment_id", 
+      joins: {:feedbacks => :stakeholder_assessment}, 
+      query_options: { 
+      "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), 
+      "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses 
+      }
+    )
   end
 
   def new
@@ -103,9 +117,9 @@ class Mrf::AssessmentsController < ApplicationController
   def create_for_assessment
     name = ""
     custom_assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:assessment_id])
-    if params[:candidate_id].present?
-      candidate = Vger::Resources::Candidate.find(params[:candidate_id])
-      name = "360 Degree Profiling for #{candidate.name} under assessment #{custom_assessment.name}"
+    if params[:user_id].present?
+      user = Vger::Resources::User.find(params[:user_id])
+      name = "360 Degree Profiling for #{user.name} under assessment #{custom_assessment.name}"
     else
       name = "360 Degree Profiling for all Assessment Takers under assessment #{custom_assessment.name}"
     end
@@ -249,7 +263,7 @@ class Mrf::AssessmentsController < ApplicationController
         });
       end
       if @assessment.custom_assessment_id
-        redirect_to select_candidates_company_mrf_assessment_path(@company.id,@assessment.id) and return
+        redirect_to select_users_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
         redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
       end
@@ -303,10 +317,10 @@ class Mrf::AssessmentsController < ApplicationController
       }
     )
     
-    @total_candidates = Vger::Resources::Mrf::Feedback.count(
+    @total_users = Vger::Resources::Mrf::Feedback.count(
       company_id: @company.id,
       assessment_id: @assessment.id,
-      select: ["distinct(candidate_id)"],
+      select: ["distinct(user_id)"],
       joins: [:stakeholder_assessment],
       query_options: {
         "mrf_stakeholder_assessments.assessment_id" => @assessment.id

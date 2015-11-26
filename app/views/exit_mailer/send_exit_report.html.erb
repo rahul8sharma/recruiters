@@ -1,10 +1,10 @@
 Hi,
 <p>
-  Exit Survey Report is ready for  <%=@report_hash[:candidate][:name] %>
+  Exit Survey Report is ready for  <%=@report_hash[:user][:name] %>
 </p>
 <p>
   Report URL:
-  <%= s3_report_company_exit_survey_url(:company_id => @report_hash[:company_id], :id => @report_hash[:survey_id],:candidate_id => @report_hash[:candidate_id], :report_id => @report_hash[:report_id], :view_mode => "html")
+  <%= s3_report_company_exit_survey_url(:company_id => @report_hash[:company_id], :id => @report_hash[:survey_id],:user_id => @report_hash[:user_id], :report_id => @report_hash[:report_id], :view_mode => "html")
     %>
 </p>
 <p>
