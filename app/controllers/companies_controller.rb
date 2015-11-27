@@ -198,7 +198,7 @@ class CompaniesController < ApplicationController
   end
 
   def manage
-    render :layout => "user"
+    render :layout => "admin"
   end
 
 	def import_from_google_drive

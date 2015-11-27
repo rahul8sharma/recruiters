@@ -4,7 +4,7 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
   before_filter :check_superuser
 
   def manage
-    render :layout => "user"
+    render :layout => "admin"
   end
 
   def export_assessment_trr_users
