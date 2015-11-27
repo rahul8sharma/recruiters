@@ -4,7 +4,7 @@ class Suitability::AssessmentsManagementController < ApplicationController
   before_filter :check_superuser
 
   def manage
-    render :layout => "user"
+    render :layout => "admin"
   end
 
   def replicate_assessment
