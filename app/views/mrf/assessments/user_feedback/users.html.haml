@@ -17,9 +17,9 @@
     .list-snippet-titles.big-text.clearfix
       - if @users.present?
         .span3.first
-          = sort_link "360&#176;CID", users_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "users.id", params[:search]
+          = sort_link "360&#176;CID", users_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "jombay_users.id", params[:search]
         .span5
-          = sort_link "Candidate", users_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "users.name", params[:search]
+          = sort_link "Candidate", users_company_mrf_assessment_path(:company_id => params[:company_id], :id => @assessment.id), "jombay_users.name", params[:search]
         .span7
           Email-ID
         .span4
