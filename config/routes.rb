@@ -179,7 +179,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:user_id" => "suitability/benchmarks/user_assessments#user", :as => :user
       end
 
-      resources :users, :except => [:destroy, :show] do
+      resources :users, path: "candidates", :except => [:destroy, :show] do
         resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
@@ -256,6 +256,17 @@ Recruiters::Application.routes.draw do
       end
 
       resources :users, path: "candidates", :except => [:destroy, :show] do
+        resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
+          member do
+            get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
+            get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
+            get "manage" => "assessment_reports#manage", :as => :manage
+            put "manage" => "assessment_reports#manage", :as => :manage
+          end
+        end
+      end
+      
+      resources :users, :except => [:destroy, :show] do
         resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
