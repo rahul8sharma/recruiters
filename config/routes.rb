@@ -255,7 +255,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:user_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
       end
 
-      resources :users, :except => [:destroy, :show] do
+      resources :users, path: "candidates", :except => [:destroy, :show] do
         resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
