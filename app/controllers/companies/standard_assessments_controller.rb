@@ -21,7 +21,7 @@ class Companies::StandardAssessmentsController < ApplicationController
       @custom_assessment = Vger::Resources::Suitability::CustomAssessment.where(:joins => :standard_assessment, :query_options => { "suitability_standard_assessments.uid" => standard_assessment_uid, company_id: @company.id }).all.to_a.first
       if @custom_assessment
         user_user_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
-        @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:joins => [:user], :assessment_id => @custom_assessment.id, :query_options => { "users.email" => user_user_email }, methods: [:url], :include => [:user_assessment_reports]).all.to_a.first
+        @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:joins => [:user], :assessment_id => @custom_assessment.id, :query_options => { "jombay_users.email" => user_user_email }, methods: [:url], :include => [:user_assessment_reports]).all.to_a.first
       end
     end  
   end

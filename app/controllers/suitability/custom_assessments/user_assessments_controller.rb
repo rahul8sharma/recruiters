@@ -345,9 +345,9 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       when "default"
         order = "suitability_user_assessments.completed_at DESC"
       when "id"
-        order = "users.id #{order_type}"
+        order = "jombay_users.id #{order_type}"
       when "name"
-        order = "users.name #{order_type}"
+        order = "jombay_users.name #{order_type}"
       when "status"
         column = "suitability_user_assessments.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_user_assessments.updated_at #{order_type}"
@@ -395,9 +395,9 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     order_type = params[:order_type] || "DESC"
     case order
       when "id"
-        order = "users.id #{order_type}"
+        order = "jombay_users.id #{order_type}"
       when "name"
-        order = "users.name #{order_type}"
+        order = "jombay_users.name #{order_type}"
     end
     @user_assessments = Vger::Resources::Suitability::UserAssessment.where(
       :assessment_id => @assessment.id,

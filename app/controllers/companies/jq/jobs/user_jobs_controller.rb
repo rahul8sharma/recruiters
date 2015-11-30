@@ -11,7 +11,7 @@ class Companies::Jq::Jobs::UserJobsController < ApplicationController
         order = "jq_user_jobs.created_at DESC"
       when "name"
         joins << :user
-        order = "users.name #{order_type}"
+        order = "jombay_users.name #{order_type}"
       when "created_at"
         order = "jq_user_jobs.created_at #{order_type}"
     end
