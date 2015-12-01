@@ -1,2 +1,84 @@
-%h2
-  Add Candidates
+.add-users
+  .page-title.pull-left
+    Assessment Name
+  .clr
+  .divider1
+  
+  = render :partial => "shared/sjt/sjt_navigation-sub-nav"
+  
+  .divider2
+  .clr
+  .span15.first.big-text.text-center
+    What is the purpose of assessing these assessment takers?
+  .purpose.span8
+    %label
+      -# - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED)
+      - checked = false
+      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
+      #employee
+        -#toggle class ".checked" to "#employee"
+        .title.span.extra-medium-text.default
+          For Development
+        %i.muted.span.medium-text
+          (Existing Employees)
+        .clr
+    .divider1
+    %label
+      -# - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE)
+      - checked = false
+      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
+      #user
+        -#toggle class ".checked" to "#user"
+        .title.span.extra-medium-text.default
+          For Hiring
+        %i.muted.span.medium-text
+          (Potential Candidates)
+        .clr
+    .clr
+
+  %a.label.label-warning.label-small.pull-left{:href => "#{}" , :title => "USE BULK UPLOAD"}
+    %b USE BULK UPLOAD
+  .clr
+  .divider1
+
+  .margin-auto.span22
+    - checked = (params[:upload_method] == "manual")
+    %form
+      .divider1
+      -# %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
+      -# %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+      %div.activated
+        .left-offset2.first
+          .span3.big-text.first
+            .span Applicant Id
+          .big-text.left-offset1.span6
+            Assessment taker’s name
+          .span9.big-text.left-offset1
+            Assessment taker’s email address
+          .clr
+        .divider1  
+        %ul.add-users.clearfix
+          - 10.times do |index|
+            - checked = (params[:upload_method] == "manual")
+            %li
+              %input{name: "", type: "hidden", value: ""}
+              .control-group
+                .span2
+                  .count.badge.badge-small.inverse 
+                    = index
+                - klass = "span6"    
+                .span3.big-text.first
+                  %input.span3{name: "", type: "text", placeholder: "Applicant Id", value: ""}
+                .medium-text.left-offset1{ class: klass }
+                  %input.first{name: "", type: "text", placeholder: "Name", value: ""}
+                .span9.medium-text.left-offset1  
+                  %input.span9.first{name: "users[#{index-1}][email]", type: "text", placeholder: "Email id", value: ""}
+                .clr
+      
+        .divider2
+      %a.button.pull-left.btn.btn-warning.inverse.large-text{ href: "#" }
+        Add Assessment Takers Later
+      %input.pull-right.btn.btn-warning.large-text{type: "submit", value: "Submit"}
+      .clr
+
+= javascript_include_tag 'add_users'
