@@ -12,7 +12,7 @@
       AID
     .span4
       Created On
-    .span8
+    .span11
       Assessment Title
     .span4
       View Details
@@ -22,9 +22,6 @@
     .span3
       %a{:href=>"#"}
         Sent to 
-    .span5
-      Send Assessment 
-    .clr
     .divider2          
   %ul
     - 10.times do |assessment|
@@ -39,7 +36,7 @@
           %a{:href => assessment_url, :title => "Date"} 
             -# = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
             31/08/1989
-        .span8.info-block
+        .span11.info-block
           %a{:href=> assessment_url, :title => "Assessment Name"}  
             -# = assessment.name
             Online Assessment Center Dummy Value
@@ -56,11 +53,6 @@
           - sent_count = 0
           %a{:href=> assessment_url, :title=>"#{sent_count}"}  
             = sent_count
-        .span4.text-center.left-offset1
-          -# %a.span{:href => add_users_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => "Send This Test"}
-          %a.span{:href => "#{}", :title => "Send This Test"}
-            %i.icon-envelope
-          .clr  
         .clr
         .divider1
   .divider2
