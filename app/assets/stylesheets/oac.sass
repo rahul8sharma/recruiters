@@ -1,0 +1,67 @@
+.oac
+  .navigation-sub-nav
+    .menu
+      width: (100% / 8.05)
+      padding: 15px 5px 15px 25px
+      box-sizing: border-box
+      line-height: 18px
+      font-size: 14px
+      .count
+        width: 15px 
+        height: 15px 
+        line-height: 15px 
+        left: 5px
+#crumbs
+  text-align: center
+  ul
+    list-style: none
+    li
+      &.active
+        a
+          color: #fff
+          background: #3498db
+          &:after
+            border-left-color: #3498db
+      a
+        cursor: default
+        display: block
+        float: left
+        height: 30px
+        background: #eee
+        text-align: center
+        padding: 11px 0px 0 35px
+        position: relative
+        margin: 0 2px 0 0
+        font-size: 14px
+        text-decoration: none
+        color: #000
+        &:after
+          content: ""
+          border-top: 20px solid transparent
+          border-bottom: 20px solid transparent
+          border-left: 20px solid #eee
+          position: absolute
+          right: -20px
+          top: 0
+          z-index: 1
+        &:before
+          content: ""
+          border-top: 20px solid transparent
+          border-bottom: 20px solid transparent
+          border-left: 20px solid #fff
+          position: absolute
+          left: 0
+          top: 0
+      &:first-child a
+        border-top-left-radius: 10px
+        border-bottom-left-radius: 10px
+        &:before
+          display: none
+      &:last-child a
+        padding-right: 10px
+        border-top-right-radius: 10px
+        border-bottom-right-radius: 10px
+        &:after
+          display: none
+
+    
