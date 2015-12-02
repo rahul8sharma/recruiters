@@ -13,7 +13,7 @@ class Oac::AssessmentsController < ApplicationController
   def set_weightage
   end
 
-  def customize_assessments
+  def customize_assessment
   end
 
   def add_candidates
