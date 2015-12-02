@@ -73,5 +73,5 @@
                 P.S.: If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in between.
             .clr
   .divider2
-  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" , name:"send"}
-  .clr
+  %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => assign_assessor_company_oac_path(@company.id, 12)}
+    Proceed
