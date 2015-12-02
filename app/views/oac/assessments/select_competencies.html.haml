@@ -1,2 +1,28 @@
-%h2
-  select_competencies
+.container
+  .page-title
+    Select Competencies
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  .assessments-list
+    .list-snippet-titles.extra-medium-text.clearfix
+      .span6.first.bold
+        Competencies
+      - 6.times do |index|
+        .span4.text-center.bold
+          Tool #{index}
+      .divider3          
+    %ul
+      - 5.times do |assessment|
+        %li.list-snippet.border-bottom-grayLighter.medium-text
+          .span6.first
+            Responsbility of Outcomes
+          - 6.times do |index|
+            %label.span4.text-center
+              %input{:type => "checkbox"}
+          .clr
+          .divider1
+  .divider2
+  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" , name:"send"}
+  .clr
+
