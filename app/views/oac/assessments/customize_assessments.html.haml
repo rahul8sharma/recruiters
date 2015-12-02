@@ -1,2 +1,22 @@
-%h2
-  set_weightage
+.container
+  .page-title
+    Set Weightage
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  %ul
+    %li
+      .span6
+        .control-group
+          .span4.big-text.black.first
+            Psychometry
+          %input.span2.first{:type=>"text", :placeholder=>"Weightage %"}
+        %select.fw
+          %option 1
+        .divider1
+        %select.fw
+          %option 1
+        .divider1
+        %select.fw
+          %option 1
+        .divider1
