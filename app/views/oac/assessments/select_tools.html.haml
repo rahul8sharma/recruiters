@@ -2,26 +2,7 @@
   .page-title
     Select Tools
   .divider1
-  #crumbs
-    %ul.clearfix
-      %li
-        %a{:href=>"#"} Enter Details
-      %li.active
-        %a{:href=>"#"} Select Tools
-      %li
-        %a{:href=>"#"} Select Competencies
-      %li
-        %a{:href=>"#"} Set Weightage
-      %li
-        %a{:href=>"#"} Customize Assessment
-      %li
-        %a{:href=>"#"} Add Candidates
-      %li
-        %a{:href=>"#"} Send Assessment
-      %li
-        %a{:href=>"#"} Assign Assessor 
-
-  .divider4
+  = render :partial => "shared/oac/oac-creation-sub-nav"
 
   %ul.span22.margin-auto.clearfix
     %li.span7
@@ -54,4 +35,8 @@
         %input{:type=>"checkbox"}
         E-Trays
       .divider2
+  
+  .divider2
+  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" , name:"send"}
+  .clr
 
