@@ -1,2 +1,33 @@
-%h2
-  set_weightage
+.container
+  .page-title
+    Select Weightage
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  .weightage-container.clearfix
+    .tabs.span4
+      %a.box1_tab{:href => "#"}
+        SJT
+      %a.box2_tab{:href => "#"}
+        Psychometry
+      %a.box3_tab{:href => "#"}
+        E-Trays
+      %a.box4_tab{:href => "#"}
+        Personal Interview
+      %a.box5_tab{:href => "#"}
+        Group Discussion
+      %a.box6_tab{:href => "#"}
+        Case Studies
+    .boxes
+      .box1.hide
+        box 1
+      .box2.hide
+        box 2
+      .box3.hide
+        box 3
+      .box4.hide
+        box 4
+      .box5.hide
+        box 5
+      .box6.hide
+        box 6
