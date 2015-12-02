@@ -383,7 +383,7 @@ Recruiters::Application.routes.draw do
         match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
-        match "customize_assessments" => "oac/assessments#customize_assessments", :as => :customize_assessments
+        match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
         match "add_candidates" => "oac/assessments#add_candidates", :as => :add_candidates
         match "send_assessment" => "oac/assessments#send_assessment", :as => :send_assessment
         match "assign_assessor" => "oac/assessments#assign_assessor", :as => :assign_assessor

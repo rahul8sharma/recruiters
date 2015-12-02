@@ -1,53 +1,41 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
 .container
   .page-title
     Set Weightage
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
-
   .weightage-container.clearfix
     .tabs.span5.extra-medium-text
-      %a.box1_tab.active{:href => "#"}
+      %a.box1_tab.active{:href => "#", :title => "SJT"}
         SJT
-      %a.box2_tab{:href => "#"}
+      %a.box2_tab{:href => "#", :title => "Psychometry"}
         Psychometry
-      %a.box3_tab{:href => "#"}
+      %a.box3_tab{:href => "#", :title => "E-Trays"}
         E-Trays
-      %a.box4_tab{:href => "#"}
+      %a.box4_tab{:href => "#", :title => "Personal Interview"}
         Personal Interview
-      %a.box5_tab{:href => "#"}
+      %a.box5_tab{:href => "#", :title => "Group Discussion"}
         Group Discussion
-      %a.box6_tab{:href => "#"}
+      %a.box6_tab{:href => "#", :title => "Case Studies"}
         Case Studies
     .boxes.span25.pull-right.first
       .box1.show
-        .large-text.left-offset1
-          Set Weightage for Competencies &amp; Traits
-        .divider2
-        %ul.span20.margin-auto
-          -6.times do
-            %li
-              .control-group
-                %label.span4.big-text.black
-                  competency01
-                %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
-              .divider1
-              %ul.clearfix
-                -6.times do
-                  %li
-                    .control-group
-                      %label.span4.medium-text
-                        trait1
-                      %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
-              
-              .divider1
-
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "SJT"}
       .box2
-        box 2
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Psychometry"}
       .box3
-        box 3
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "E-Trays"}
       .box4
-        box 4
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Personal Interview"}
       .box5
-        box 5
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Group Discussion"}
       .box6
-        box 6
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Case Studies"}
+
+  .divider2
+  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" , name:"send"}
+  .clr
+
+  = javascript_include_tag "oac/set_weightage_oac"
