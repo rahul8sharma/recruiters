@@ -3,3 +3,43 @@
     Customize Assessment
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  .span22.margin-auto.clearfix
+    %ul
+      -6.times do
+        %li.span7
+          .span6
+            .control-group
+              .span4.big-text.black.first
+                Psychometry
+              %input.span2.first{:type=>"text", :placeholder=>"Weightage %"}
+            %select.fw
+              %option 1
+            .divider1
+            %select.fw
+              %option 1
+            .divider1
+            %select.fw
+              %option 1
+            .divider1
+            %input.fw{:type=>"text", :placeholder=>"Page Size"}
+          .clr.divider3
+    .span7
+      .span6
+        .extra-medium-text.black
+          API Key
+        %br/
+        %input.fw{:type=>"text", :placeholder=>"Page Size"}
+    .span7
+      .span6
+        .extra-medium-text.black
+          API Secret
+        %br/
+        %input.fw{:type=>"text", :placeholder=>"Page Size"}
+    .span7
+      .span6
+        .extra-medium-text.black
+          API URL
+        %br/
+        %input.fw{:type=>"text", :placeholder=>"Page Size"}
+    .clr
