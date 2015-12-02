@@ -1,12 +1,12 @@
 .container
   .page-title
-    Select Weightage
+    Set Weightage
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
 
   .weightage-container.clearfix
-    .tabs.span4
-      %a.box1_tab{:href => "#"}
+    .tabs.span5.extra-medium-text
+      %a.box1_tab.active{:href => "#"}
         SJT
       %a.box2_tab{:href => "#"}
         Psychometry
@@ -18,16 +18,36 @@
         Group Discussion
       %a.box6_tab{:href => "#"}
         Case Studies
-    .boxes
-      .box1.hide
-        box 1
-      .box2.hide
+    .boxes.span25.pull-right.first
+      .box1.show
+        .large-text.left-offset1
+          Set Weightage for Competencies &amp; Traits
+        .divider2
+        %ul.span20.margin-auto
+          -6.times do
+            %li
+              .control-group
+                %label.span4.big-text.black
+                  competency01
+                %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+              .divider1
+              %ul.clearfix
+                -6.times do
+                  %li
+                    .control-group
+                      %label.span4.medium-text
+                        trait1
+                      %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+              
+              .divider1
+
+      .box2
         box 2
-      .box3.hide
+      .box3
         box 3
-      .box4.hide
+      .box4
         box 4
-      .box5.hide
+      .box5
         box 5
-      .box6.hide
+      .box6
         box 6
