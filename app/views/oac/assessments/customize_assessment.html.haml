@@ -6,12 +6,12 @@
 
   .span22.margin-auto.clearfix
     %ul
-      -6.times do
+      -6.times do |index|
         %li.span7
           .span6
             .control-group
               .span4.big-text.black.first
-                Psychometry
+                Tool #{index}
               %input.span2.first{:type=>"text", :placeholder=>"Weightage %"}
             %select.fw
               %option 1
@@ -43,3 +43,8 @@
         %br/
         %input.fw{:type=>"text", :placeholder=>"Page Size"}
     .clr
+    
+    .divider2
+    
+    %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => add_candidates_company_oac_path(@company.id, 12)}
+      Proceed

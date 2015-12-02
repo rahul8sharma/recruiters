@@ -35,7 +35,7 @@
         = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Case Studies"}
 
   .divider2
-  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" , name:"send"}
-  .clr
+  %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => customize_assessment_company_oac_path(@company.id, 12)}
+    Proceed
 
   = javascript_include_tag "oac/set_weightage_oac"
