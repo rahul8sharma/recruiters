@@ -1,4 +1,5 @@
 class SidekiqController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :check_superuser
   before_filter :check_auth_token
 
