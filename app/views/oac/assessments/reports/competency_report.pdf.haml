@@ -1,4 +1,264 @@
 .competency_report
-  .classic_report
-    %h2
-      OAC report HTML view
+  .overall_report
+    .divider3
+    .j-logo.pull-left
+    
+    .clr
+    .divider26
+    .huge-text
+      Bahubali The Great
+    .divider2
+    .heading.extra-large-text.comptency.bold
+      Aggregate Score:
+      Above Average
+    .color-band.extra-large-text.bold{:style => "background-color: #0EB156"}
+      Score Rating:
+      GREEN
+    .divider2
+    .large-text
+      .span.first
+        Assessment:
+      .span10
+        Testing ToC 15th October
+      .clr
+      .divider2
+      Assessment Answered On:
+      04/11/2015
+
+  .overview
+    .inner{:style => "margin-top:0px;"}
+      .divider2
+      .large-text
+        Bahubali The Great
+      .divider1
+      %h1.font-normal.color-warning.medium-text.text-center
+        Overview of Competencies / Values Measured
+      .divider1
+      .content.overview_scale 
+        %ul.competency-list
+          %li.big-text.clearfix.black.border-bottom-grayDark
+            .span6
+              Competency
+            .span2.text-center
+              tool1
+            .span2.text-center
+              tool2
+            .span2.text-center
+              tool3
+            .span2.text-center
+              tool4
+            .span2.text-center
+              tool5
+            .span2.text-center
+              tool6
+
+          -5.times do
+            %li.clearfix
+              -#.favorable.first.hexagon-icon.span1
+              .span6.black
+                Competency
+              .span2.text-center
+                %i.icon-ok.color-info
+              .span2.text-center
+                %i.icon-remove.gray-lighter
+              .span2.text-center
+                %i.icon-ok.color-info
+              .span2.text-center
+                %i.icon-remove.gray-lighter
+              .span2.text-center
+                %i.icon-ok.color-info
+              .span2.text-center
+                %i.icon-remove.gray-lighter
+          
+        .divider1
+            
+        .clr
+      .divider2
+    
+  .inner
+    .scores.favorable_factors
+      .divider1
+      .span8.first
+        %h1.font-normal.blue_heading.large-text
+          Competency Data Points
+        .divider1
+        -#
+          .instruction_container
+            .instructions
+              .instruction1.pull-left.first
+                Favorable Traits
+              .instruction2.less_favorable.pull-left
+                Less Favorable Traits
+              .clr
+      .pull-right
+        .divider1
+        .scale
+          .line{:style => "width:250px"}
+          .marker-container
+            .marker
+              %br
+                Low
+            .marker
+              Below Average
+            .marker
+              Average (Low)
+            .marker
+              Average (High)
+            .marker
+              Above Average
+            .marker
+              %br
+                High
+            .clr
+      .clr
+      .divider2
+      .frame
+        %ul.clearfix.scores_listing.first
+          -3.times do
+            %li{:id => "Client Acquisition &amp; RetentionNetworking"}
+              .lhs-sec.pull-left{:style => "width:520px;"}
+                -#.favorable.hexagon-icon
+                .span.first.left-offset1
+                  .factor-name
+                    Networking
+              .rhs-sec.pull-left
+                .slider{:style => "width:250px"}
+                  .pointer{:style => "left: 130px;"}
+                    .score-indicater
+                      Average (High)
+                    .arrow
+                  .range{:style => "margin-left: 100px;width: 50px;"}
+              .clr
+              .divider1
+              .factor-description
+                More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+          
+      .divider2
+
+  .inner
+    .scores.favorable_factors
+      .divider1
+      .span8.first
+        %h1.font-normal.blue_heading.large-text
+          Competency Data Points
+        .divider1
+        -#
+          .instruction_container
+            .instructions
+              .instruction1.pull-left.first
+                Favorable Traits
+              .instruction2.less_favorable.pull-left
+                Less Favorable Traits
+              .clr
+      .pull-right
+        .divider1
+        .scale
+          .line{:style => "width:250px"}
+          .marker-container
+            .marker
+              %br
+                Low
+            .marker
+              Below Average
+            .marker
+              Average (Low)
+            .marker
+              Average (High)
+            .marker
+              Above Average
+            .marker
+              %br
+                High
+            .clr
+      .clr
+      .divider2
+      .frame
+        %ul.clearfix.scores_listing.first
+          -3.times do
+            %li{:id => "Client Acquisition &amp; RetentionNetworking"}
+              .lhs-sec.pull-left{:style => "width:520px;"}
+                -#.favorable.hexagon-icon
+                .span.first.left-offset1
+                  .factor-name
+                    Networking
+              .rhs-sec.pull-left
+                .slider{:style => "width:250px"}
+                  .pointer{:style => "left: 130px;"}
+                    .score-indicater
+                      Average (High)
+                    .arrow
+                  .range{:style => "margin-left: 100px;width: 50px;"}
+              .clr
+              .divider1
+              .overview.span18.margin-auto
+                .content.overview_scale 
+                  %ul.competency-list
+                    %li.default
+                      .span5.medium-text.black
+                        Measured Using
+                      .span2.text-center
+                        tool1
+                      .span2.text-center
+                        tool2
+                      .span2.text-center
+                        tool3
+                      .span2.text-center
+                        tool4
+                      .span2.text-center
+                        tool5
+                      .span2.text-center
+                        tool6
+                      .clr
+         
+                    %li.default
+                      .span5.medium-text.black
+                        Score
+                      .span2.text-center
+                        High
+                      .span2.text-center
+                        Low
+                      .span2.text-center
+                        Above Average
+                      .span2.text-center
+                        High
+                      .span2.text-center
+                        Average high
+                      .span2.text-center
+                        Low
+                      .clr
+              .clr
+              .divider1
+              .factor-description
+                More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+          
+      .divider1
+  .inner
+  .scores.interview_guide
+    .divider1
+    %h1.font-normal.blue_heading.large-text
+      Interview Questions
+    -#
+      .instruction_container.pull-right
+        .instructions
+          .instruction1.pull-left
+            Favorable Traits
+          .instruction2.less_favorable.pull-left
+            Less Favorable Traits
+          .clr
+      .clr
+    .divider1
+    %ul.scores_listing.clearfix
+      -4.times do
+        %li
+          .medium-text.bold
+            Observations
+          %p
+            hjr circle of professional contacts; may sometimes look forward to meeting new shhdsfh
+            How well d
+            How well do you think you understand your team members' emotions? What makes you think so? (Please ask for examples)
+          .divider1
+          .medium-text.bold
+            Feedback
+          %p
+            hjk;l; ghjksdfgjhv fdsjgdfMore likely to be open to expanding his/her circle of professional contacts; may sometimes look fok;l; ghjksdfgjhv fdsjgdfMore likely to be open to expanding his/heo you think you understand your team members' emotions? What makes you think so? (Please ask for examples) rward to meeting new shhdsfh
+          
