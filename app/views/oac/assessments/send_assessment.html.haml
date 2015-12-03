@@ -10,7 +10,19 @@
       %i.icon-envelope
       Email Settings
     .divider2
-    .email-template
+    
+    .left-offset1.span9
+      .big-text.line-height2
+        Choose Email Template
+      %select.span9.first{ id: "select_template", name: "template_id"}
+        - 4.times.each do |index|
+          %option{value: "Some Value"}
+            Template No #{index}
+      .clr
+      .divider1
+
+
+    .email-template.span18
       .gray-dark
         .large-text
           Following is the Preview of the email that Assessment takers will receive.
