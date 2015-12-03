@@ -23,10 +23,10 @@
         Sent to 
     .divider2          
   %ul
-    - 10.times do |assessment|
+    - 10.times do |index|
       %li.list-snippet.border-bottom-grayLighter.medium-text
         -# - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id)
-        - assessment_url = "#{}"
+        - assessment_url = candidates_company_oac_path(:company_id => params[:company_id], :id => index)
         .span2.first
           %a{:href=> assessment_url, :title =>  ""} 
             -# = assessment.id
