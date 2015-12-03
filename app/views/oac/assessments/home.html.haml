@@ -7,26 +7,26 @@
   .clr
   .divider2
   .list-snippet-titles.extra-medium-text.clearfix
-    .span2.first
+    .span2.first.bold
       AID
-    .span4
+    .span4.bold
       Created On
-    .span11
+    .span11.bold
       Assessment Title
-    .span4
+    .span4.bold
       View Details
-    .span4
+    .span4.bold
       %a{:href=>"#"}
         Completed by
-    .span3
+    .span3.bold
       %a{:href=>"#"}
         Sent to 
     .divider2          
   %ul
-    - 10.times do |assessment|
+    - 10.times do |index|
       %li.list-snippet.border-bottom-grayLighter.medium-text
         -# - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id)
-        - assessment_url = "#{}"
+        - assessment_url = candidates_company_oac_path(:company_id => params[:company_id], :id => index)
         .span2.first
           %a{:href=> assessment_url, :title =>  ""} 
             -# = assessment.id

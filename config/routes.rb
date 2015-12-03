@@ -387,6 +387,12 @@ Recruiters::Application.routes.draw do
         match "add_candidates" => "oac/assessments#add_candidates", :as => :add_candidates
         match "send_assessment" => "oac/assessments#send_assessment", :as => :send_assessment
         match "assign_assessor" => "oac/assessments#assign_assessor", :as => :assign_assessor
+        get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
+        get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
+
+        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/assessments/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "oac/assessments/reports#s3_report", :as => :s3_report
+
       end
     end
 
