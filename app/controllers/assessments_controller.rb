@@ -340,7 +340,12 @@ class AssessmentsController < ApplicationController
     params[:assessment] ||= {}
     params[:assessment][:assessment_factor_weights_attributes] ||= {}
     params[:assessment][:assessment_competency_weights_attributes] ||= {}
-    @weights = @assessment.get_weights(@factors)
+    begin
+      @weights = @assessment.get_weights(@factors)
+    rescue Vger::Errors::TraitsNotVisible => e
+      flash[:error] = e.message
+      redirect_to competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+    end
   end
   
   def store_weights
