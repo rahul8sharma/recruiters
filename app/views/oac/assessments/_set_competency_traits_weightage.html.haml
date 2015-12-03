@@ -11,6 +11,16 @@
         %label.span4.big-text.black
           competency01
         %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+        %select.span4
+          -5.times do |index|
+            %option
+              From #{index}
+        %select.span4
+          -5.times do |index|
+            %option
+              To #{index}
+
+
       .divider1
       %ul.clearfix
         -6.times do
