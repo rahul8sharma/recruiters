@@ -1,4 +1,4 @@
-class Oac::ReportsController < ApplicationController
+class Oac::Assessments::ReportsController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -16,9 +16,7 @@ class Oac::ReportsController < ApplicationController
       @view_mode = "html"
     end
 
-    template = "competency_report.#{@view_mode}.haml"
-    template = "fit_report.#{@view_mode}.haml" 
-    
+    template = "competency_report.#{@view_mode}.haml"    
     layout = "layouts/oac/reports.#{@view_mode}.haml"
     
     @page = 1
