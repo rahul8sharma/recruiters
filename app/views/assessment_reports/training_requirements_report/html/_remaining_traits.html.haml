@@ -14,10 +14,8 @@
         .label.label-info.pull-left
           Average Score
         .clr
-   
     .clr
     .divider3
-
   - if @report.trr_graph == "bar"
     = render :partial => "assessment_reports/training_requirements_report/html/bar_graph", :locals => { :factor_scores => factor_scores, :step => step }
   - else
