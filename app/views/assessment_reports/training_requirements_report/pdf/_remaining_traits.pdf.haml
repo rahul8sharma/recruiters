@@ -1,28 +1,4 @@
 = render :partial => "assessment_reports/training_requirements_report/pdf/header"
--# .training_need
--#   .container
--#     .divider2
--#     .title.pull-left
--#       Remaining Traits
--#     .clr
--#     .divider1
--#     .instruction_container
--#       .instructions
--#         .instruction1.pull-left
--#           Favorable Scores
--#         .instruction2.less_favorable.pull-left
--#           Less Favorable Scores
--#         .label.label-info.pull-left
--#           Average Score
--#         .clr
-   
--#     .clr
--#     .divider3
-
--#   - if @report.trr_graph == "bar"
--#     = render :partial => "assessment_reports/training_requirements_report/pdf/bar_graph", :locals => { :factor_scores => factor_scores, :step => step }
--#   - else
--#     = render :partial => "assessment_reports/training_requirements_report/pdf/pie_chart", :locals => { :factor_scores => factor_scores, :step => step }
 .divider2
 #details
   .title.extra-large-text.pull-left
