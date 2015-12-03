@@ -5,10 +5,6 @@ class Sq::ItemsController < MasterDataController
     Vger::Resources::Sq::Item
   end
 
-  def index
-    @items = Vger::Resources::Sq::Item.where(:page => params[:page], :per => 10, :order => "updated_at DESC")
-  end
-
   def import_with_options_from_google_drive
     if params[:zip]
       now = Time.now
@@ -58,5 +54,13 @@ class Sq::ItemsController < MasterDataController
 
   def import_from
     "import_from_google_drive"
+  end
+  
+  def index_columns
+    [:id, :body]
+  end
+  
+  def search_columns
+    [:id, :body]
   end
 end

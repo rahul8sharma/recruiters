@@ -1239,6 +1239,8 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
+    
+    resources :options
   end
 
 
