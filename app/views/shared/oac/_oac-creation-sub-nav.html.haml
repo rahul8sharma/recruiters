@@ -1,0 +1,19 @@
+#crumbs
+  %ul.clearfix
+    %li{ class: ([:new].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Enter Details
+    %li{ class: ([:select_tools].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Select Tools
+    %li{ class: ([:select_competencies].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Select Competencies
+    %li{ class: ([:set_weightage].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Set Weightage
+    %li{ class: ([:customize_assessment].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Customize Assessment
+    %li{ class: ([:add_candidates].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Add Candidates
+    %li{ class: ([:send_assessment].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Send Assessment
+    %li{ class: ([:assign_assessor].include?(params[:action].to_sym)) ? "active" : "" }
+      %a{:href=>"#"} Assign Assessor 
+.divider2

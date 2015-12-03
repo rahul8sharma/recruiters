@@ -1,2 +1,43 @@
-%h2
-  select tools
+.container
+  .page-title
+    Select Tools
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  %ul.span22.margin-auto.clearfix
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        Psychometry
+      .divider2
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        SJT
+      .divider2
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        Case Studies
+      .divider2
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        Group Discussion
+      .divider2
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        Personal Interview
+      .divider2
+    %li.span7
+      %label.big-text.default
+        %input{:type=>"checkbox"}
+        E-Trays
+      .divider2
+  
+  .divider2
+  %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => select_competencies_company_oac_path(@company.id, 12)}
+    Proceed
+  .clr
+
