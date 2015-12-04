@@ -9,6 +9,9 @@ class Mrf::Assessments::ReportsController < ApplicationController
     @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
     @report.report_hash = @report.report_data
 
+    Rails.logger.ap "Report hash"
+    Rails.logger.ap @report.report_hash
+
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
