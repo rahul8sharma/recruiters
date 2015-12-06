@@ -7,11 +7,12 @@
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_ratings"
   = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_overall_distribution"
   = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/perception_gap"
-  .classic_report
-    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_descending_order"
-    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_traits_descending_order"
-    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competency_wise_frequency_data_points"
-    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/trait_wise_frequency_data_points"
-  = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/page9"
-  = render :partial => "shared/reports/html/about_us"
-  = render :partial => "shared/reports/html/legal_disclaimer"
+  = render :partial => "shared/reports/html/about_us_group"
+  -#
+    .classic_report
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_descending_order"
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competencies_traits_descending_order"
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/competency_wise_frequency_data_points"
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/trait_wise_frequency_data_points"
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/page9"
+    = render :partial => "shared/reports/html/legal_disclaimer"

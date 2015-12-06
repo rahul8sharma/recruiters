@@ -1,12 +1,78 @@
-.perception_gap
+.perception_gap.border-bottom-grayLighter
   .container
     .divider2
     .title
       Perception Gap
     .divider2
-    .frame.bg-gray
-      .heading.pull-left
-        Self Direction
-      .clr
-      .divider2
-      .divider2
+    -2.times do
+      .frame.bg-gray
+        .heading.pull-left
+          Self Direction
+        .clr
+        .divider2
+        .span28.margin-auto.border-bottom-grayLighter
+          .big-text.black
+            .pull-left
+              Overall
+            .chart_indication.pull-right
+              .icons.span1.color-agreement
+                &#8226;
+              .span
+                Agreement
+              .icons.span1.left-offset1.color-positive
+                &#8226;
+              .span
+                Perceive positive difference
+              .icons.span1.left-offset1.color-negative
+                &#8226;
+              .span
+                Perceive negative difference  
+              .clr
+
+
+            .clr
+          .divider3
+          .chart
+            .pie_chart.span7.margin-auto
+              Pie chart goes here
+            .divider2
+            .pie_chart_rate.span9.margin-auto
+              .span3.color-positive
+                %div &#8226;
+                .rate
+                  20%
+              .span3.first.color-agreement
+                %div &#8226;
+                .rate
+                  30%
+              .span3.first.color-negative
+                %div &#8226;
+                .rate
+                  50%
+              .clr
+            .divider2
+        .divider2
+
+        %ul.chart.small.clearfix
+          -6.times do
+            %li
+              .pie_chart.span3.margin-auto
+                Pie chart goes here
+              .divider1
+              .pie_chart_rate.span6
+                .span2.first.color-positive
+                  %div &#8226;
+                  .rate
+                    20%
+                .span2.first.color-agreement
+                  %div &#8226;
+                  .rate
+                    30%
+                .span2.first.color-negative
+                  %div &#8226;
+                  .rate
+                    50%
+                .clr
+        .divider3
+
+    .divider1
