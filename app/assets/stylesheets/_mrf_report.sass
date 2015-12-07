@@ -4,6 +4,8 @@ $mrf_image_path: report/html/mrf
 
 .frame.mrf.gray-bg
   background-color:  #fbfbfb
+.title+.graph_instructions
+  margin-top: -10px    
 .mrf_scores_listing
   li
     padding: 0 0 0 47px
@@ -191,7 +193,7 @@ $mrf_image_path: report/html/mrf
     padding: 10px 0
   .left
     width: 150px
-    padding-left: 35px
+    padding-left: 30px
     float: left
     color: #fff
   .right
@@ -676,15 +678,16 @@ $mrf_image_path: report/html/mrf
         background: #24D8BA !important
         color: #fff !important
   .trait_rating 
-    width: 85%
-    margin: auto
+    margin-left: 10px
     .left
-      width: 125px
+      width: 70px
+      padding-top: 5px
+      padding-bottom: 5px
     .right
-      width: 65px
-  #distribution_data_points 
-    border-bottom: 1px solid #e3e3e3
-    padding-bottom: 40px
+      padding-top: 5px
+      padding-bottom: 5px
+      width: 50px
+ 
   .classic_user_icon
     background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
   .stakeholder_rating_icon
@@ -870,9 +873,13 @@ $mrf_image_path: report/html/mrf
           background: image-url('#{$mrf_image_path}/max_rating_icon_small_trait_wise.png')  no-repeat center center
 
     &.descending_order
+      .graph_stakeholder_rating_icon
+        background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png')  no-repeat center center
       .graph_classic_user_icon
         border-radius: 50%
       .graph_container 
+        .graph_instructions
+          margin-left: 260px
         .descending_graph_bar.max
           height: 10px 
           border-radius: 0 5px 5px 0
@@ -883,43 +890,54 @@ $mrf_image_path: report/html/mrf
         .left_sec 
           li 
             font-weight: 200
-            .min_rating, .self_rating, .including_self_rating, .max_rating
-              border: 0 none
-              height: 38px
-              width: 38px
-              color: #FFFFFF
-              line-height: 38px
-              text-align: center
-              font-weight: 700
-            .self_rating
-              background: image-url('#{$mrf_image_path}/graph_left_sec_self_rating_icon.png')  no-repeat center center
-              
-            .including_self_rating
-              background: image-url('#{$mrf_image_path}/graph_left_sec_including_self_rating_icon.png')  no-repeat center center
+            margin-top: 8px
+            &:first-child
+              margin-top: 0
 
-            .min_rating
-              background: image-url('#{$mrf_image_path}/graph_left_sec_including_min_rating_icon.png')  no-repeat center center
-            .max_rating
-              background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
+          .stakeholder_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png')  no-repeat center center
+            color: #fff
+            font-weight: 700
+          .min_rating, .self_rating, .including_self_rating, .max_rating
+            border: 0 none
+            height: 38px
+            width: 38px
+            color: #FFFFFF
+            line-height: 38px
+            text-align: center
+            font-weight: 700
+          .self_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_self_rating_icon.png')  no-repeat center center
+            
+          .including_self_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_including_self_rating_icon.png')  no-repeat center center
+
+          .min_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_including_min_rating_icon.png')  no-repeat center center
+          .max_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_including_max_rating_icon.png')  no-repeat center center
 
         
                 
     &.descending_overall_score
       .graph_container 
-        .descending_graph_bar.max
-          margin-top: 10px
+        .left_sec
+          li
+            margin-top: 10px
+            &:first-child
+              margin-top: 10px
+
     &.descending_average_rating
     
       .graph_container 
         .left_sec 
           li 
             font-weight: 200
-            .stakeholder_rating
-              background: image-url('#{$mrf_image_path}/graph_left_sec_average_stakeholder_rating_icon.png')  no-repeat center center
-              font-weight: 700
+            &:first-child
+              margin-top: 10px
+            
         .descending_graph_bar
-          background: #6ea4be
-          margin-top: 10px
+          background: #a729ac
 
 
   .frequency_rating_table
@@ -927,6 +945,9 @@ $mrf_image_path: report/html/mrf
     font-size: 16px
     border-bottom: 1px solid #e3e3e3
     tr
+      &:nth-child(even)
+        .average_rating
+          background-color: #f1f2f2
       &:nth-child(odd)
         background: #f8f8f8
     .rating_score
@@ -941,15 +962,21 @@ $mrf_image_path: report/html/mrf
         font-size: 15px
     .captions
       td
+        padding: 5px 0
         border-top: 1px solid #fff
         border-left: 1px solid #fff
-        line-height: 36px
+        line-height: 22px
         color: #000
     .rating_ranges
       background: #ccc
       td
         border-bottom: 1px solid #fff
         width: 115px
+    .average_rating
+      border-top: 1px solid #fff
+      border-color: #fff
+      color: #fff
+      background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
     .overall
       td
         border-top: 1px solid #d56e17
