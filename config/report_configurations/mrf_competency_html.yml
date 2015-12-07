@@ -163,6 +163,12 @@
     ]
   },
   {
+    id: "html_perception_gap_on_traits",
+    text: "Perception Gap on Traits",
+    path: "mrf/assessments/reports/competency_report/html/perception_gap_on_traits",
+    children: []
+  },
+  {
     id: "html_strength_and_areas_of_improvement",
     text: "Strengths and Areas of Improvement",
     path: "mrf/assessments/reports/competency_report/html/strength_improvement_areas",

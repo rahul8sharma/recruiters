@@ -3,7 +3,5 @@
   .container
     .title.pull-left
       360&#176; and Self Ratings on Traits
-    .extra-medium-text.gray-dark.line-height3
-      Place the cursor on any trait to see its definition    
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { :section_value => section["children"]}

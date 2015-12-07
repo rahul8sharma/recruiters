@@ -696,14 +696,12 @@ $mrf_image_path: report/html/mrf
 
 
   .scores_competencies_graph
-    .competency_overlapped_score_icon
+    .competency_overlapped_score_icon, .trait_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
-      height: 40px
-      width: 40px
-    .trait_overlapped_score_icon
-      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center
-      height: 40px
-      width: 40px
+      height: 40px !important
+      width: 40px !important
+      border: 0 none !important
+   
     .graph_instructions
       line-height: 40px
       .graph_stakeholder_rating_icon
@@ -787,7 +785,7 @@ $mrf_image_path: report/html/mrf
 
               .graph_bar
                 height: 1px
-                border-top: 1px solid #888a8d
+                border-top: 2px solid #888a8d
                 position: relative
                 &.equal_rating
                   width: 2px !important
@@ -798,9 +796,7 @@ $mrf_image_path: report/html/mrf
                     position: absolute
                     top: -19px
                     left: -19px
-                  &.trait_under
-                    .overlapped_score_icon
-                      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center !important
+                 
                 .graph_stakeholder_rating, .graph_self_rating
                   width: 37px
                   height: 37px
@@ -822,39 +818,12 @@ $mrf_image_path: report/html/mrf
     &.traits_under_competencies
       .traits_under_graph
         .graph_container 
-          .classic_user_icon, .stakeholder_rating_icon
-            background: none
-          &:first-child
-            .classic_user_icon
-              background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
-            .stakeholder_rating_icon
-              background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
-
-
           .left_sec
             ul 
               li
                 div:first-child 
                   font-weight: 200
                   color: #808285
-                &:first-child 
-                  div
-                    font-weight: 700
-                    color: #414042
-                  .stakeholder_rating
-                    background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
-                    color: #fff
-                    font-weight: 700
-                  .self_rating
-                    background: #24D8BA
-                    color: #fff
-                .stakeholder_rating
-                  background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
-                  color: #A119A6
-                  font-weight: 700
-                .self_rating
-                  background: none
-                  color: #24D8BA
                 .trait_title
                   position: relative
                   &:hover
@@ -884,15 +853,7 @@ $mrf_image_path: report/html/mrf
                     top: -60%
                     min-height: 30px
                     z-index: 3
-          .right_sec
-            .classic_competency_graph
-              .graph
-                .graph_content 
-                  .graph_bar.trait_under
-                    .graph_stakeholder_rating
-                      background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
-                    .graph_self_rating
-                      background: #fff
+         
     &.best_worst_scores
       .min_rating_icon_small
         background: image-url('#{$mrf_image_path}/min_rating_icon_small.png')  no-repeat center center
