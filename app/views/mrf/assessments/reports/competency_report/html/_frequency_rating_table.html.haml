@@ -1,5 +1,4 @@
 - if role_wise_scores.present?
-  .divider2
   .extra-large-text
     Frequency of Ratings
   .divider1
@@ -53,4 +52,5 @@
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
           %td.rating_score{ class: max_score == total ? "max_value" : "" }
             = total
+  .divider2
        

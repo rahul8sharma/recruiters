@@ -300,6 +300,12 @@
     children: []
   },
   {
+    id: "html_response_distribution_on_questions_new",
+    text: "Response Distribution on Questions [6 points]",
+    path: "mrf/assessments/reports/competency_report/html/response_distribution_six_points",
+    children: []
+  },
+  {
     id: "html_competencies_measured",
     text: "Map of Competencies Measured",
     path: "mrf/assessments/reports/competency_report/html/page2",
@@ -507,6 +513,12 @@
     id: "html_about_us",
     text: "About Us",
     path: "shared/reports/html/about_us",
+    locals: {}
+  },
+  {
+    id: "html_about_us_compact",
+    text: "About Us[compact]",
+    path: "shared/reports/html/about_us_compact",
     locals: {}
   },
   {
