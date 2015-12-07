@@ -705,16 +705,21 @@ $mrf_image_path: report/html/mrf
       height: 40px
       width: 40px
     .graph_instructions
-      line-height: 23px
-      .graph_classic_user_icon, .graph_stakeholder_rating_icon
+      line-height: 40px
+      .graph_stakeholder_rating_icon
         width: 20px
         height: 20px
         background: #24d8ba
         margin-top: 10px
+      .graph_classic_user_icon
+        background: #fff
+        border: 2px solid #24d8ba
+        margin-top: 10px
+        width: 16px
+        height: 16px
       .graph_stakeholder_rating_icon
-        background: #a119a6
-        border-radius: 50%
-
+        background: image-url('#{$mrf_image_path}/stakeholder_trait_rating_icon.png') no-repeat center center
+        
       .classic_user_icon, .stakeholder_rating_icon 
         height: 23px
         width: 22px
@@ -741,20 +746,24 @@ $mrf_image_path: report/html/mrf
           &:first-child
             margin-top: 0px
           .stakeholder_rating, .self_rating
-            line-height: 38px
-            color: #fff
             text-align: center
-            font-weight: 700
+            font-size: 12px !important
 
-          .stakeholder_rating,
+          .stakeholder_rating
+            line-height: 38px
+            color: #a729ac
             height: 38px
             width: 38px
-            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+            font-weight: 200
           .self_rating
-            background: #24d8ba
+            background: #fff
+            color: #24d8ba
             border: 2px solid #24d8ba
             height: 34px
+            line-height: 34px
             width: 34px
+            font-weight: 200
           
       .right_sec
         .classic_competency_graph
@@ -768,9 +777,7 @@ $mrf_image_path: report/html/mrf
                 width: 5px !important
           .graph
             border: 1px solid #e5e5e5
-            background: image-url('#{$mrf_image_path}/classic_competency_graph_bg.png') #fff repeat-y 0 0
             .graph_content
-              background: image-url('#{$mrf_image_path}/classic_competency_graph_dashed_bg.png') repeat-y center 0
               min-height: 20px
               padding: 1px 0
               position: relative
@@ -800,7 +807,7 @@ $mrf_image_path: report/html/mrf
                   top: -19px
                   position: absolute
                 .graph_stakeholder_rating
-                  background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat center center
+                  background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
                   left: -19px
                   z-index: 2 
 
@@ -809,9 +816,9 @@ $mrf_image_path: report/html/mrf
                   width: 34px
                   height: 34px
                   right: -18px
+                  background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
                   border: 2px solid #24d8ba
-                  background: #24d8ba
-    
+      
     &.traits_under_competencies
       .traits_under_graph
         .graph_container 
