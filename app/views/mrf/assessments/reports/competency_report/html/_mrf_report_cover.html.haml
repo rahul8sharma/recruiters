@@ -3,15 +3,15 @@
     .bottom-triangle
       .container
         .divider2
-        .content
+        .content.span22.margin-auto
           .overview-title
-            Ratings Overview of Competencies / Values Measured
+            Overview
           %ul.competency-list.mrf.pull-left.default
             %li
               .competency-name.title.pull-left
                 Competency
               .competency-value.title.pull-right
-                360&#176; Rating
+                360&#176; Rating Average  
               .clr
             - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
               %li

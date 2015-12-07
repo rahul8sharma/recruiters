@@ -223,7 +223,7 @@ select
       .instruction2
         background-position: 0px -43px
   .section01
-    background: #28b29b
+    background: #00B99A
     color: #fff
     .overall_report
       background: image-url('report/html/overall_report_bg.png') no-repeat 25px 65px 
@@ -231,10 +231,10 @@ select
       font-size: 30px
     .final-score
       background: #f58220
-      padding: 0 40px
+      padding: 0 46px
       margin-right: -48px
       line-height: 40px
-      font-size: 18px
+      font-size: 20px
       &.score_band
         font-size: 20px
         line-height: 36px
@@ -485,10 +485,11 @@ select
         border: 1px dashed #28b29b
 
         .overview-title
-          font-size: 24px
+          border-bottom: 1px dashed #28b29b
+          font-size: 20px
           color: $color-warning
           text-align: center
-          padding: 18px
+          padding: 10px
         .competency-list
           margin: 0
           width: 100%
@@ -504,11 +505,9 @@ select
             .always_favorable
               background: image-url('report/html/trait-score-hexagon.png') no-repeat !important
              
-
             .hexagon-icon.less_favorable
               background-position: 0 -53px
             .competency-name 
-              padding-top: 7px
               width: 55% 
           .scale
             margin-right: 40px
@@ -549,12 +548,11 @@ select
                 width: 75%
               .competency-value
                 width: 20%
+                background: #fbfbfb
               .competency-value,
               .competency-name
                 line-height: 52px
-              &:nth-child(odd)
-                .competency-value
-                  background: #fbfbfb
+             
           .competency-name
             font-size: 18px
             line-height: 20px
