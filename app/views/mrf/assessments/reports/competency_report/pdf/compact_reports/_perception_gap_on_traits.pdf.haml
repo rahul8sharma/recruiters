@@ -1,11 +1,10 @@
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
+= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Perception Gap"}
 .competency_perception_gap_on_traits
   .divider2
   .title_section{:style=>"margin-left: 27px"}
     .color-info.big-text
       Perception Gap on Traits
     .divider1
-
   %table{:cellpadding=>"0", :cellspacing=>"0"}
     %tr.titles
       %td
@@ -15,28 +14,28 @@
       %td.space
       %td
         .span6
-          Perceive positive difference
+          Perceive negative difference
         .clr
       %td.space
       %td
         .span6
-          Perceive negative difference
+          Perceive positive difference
         .clr
     %tr
-      -3.times do
+      - @report.report_hash[:perception_gap].each do |title, traits|
         %td.description
           .span6.first
-            This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. 
+            = Rails.application.config.reports["perception_gap"][title.to_s]
         %td.space
     %tr
-      -3.times do
+      - @report.report_hash[:perception_gap].each do |title, traits|
         %td
           .span6
             .divider1
             %ul.disc.medium-text
-              -3.times do
+              -traits.each do |trait_name|
                 %li
-                  Affectionate
+                  = trait_name
             .divider1
           .clr
         %td.space
