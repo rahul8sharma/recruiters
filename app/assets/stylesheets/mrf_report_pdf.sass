@@ -908,6 +908,10 @@ $mrf_image_path: report/pdf/mrf
           background: image-url('#{$mrf_image_path}/max_rating_icon_small_trait_wise.png')  no-repeat center center
 
     &.descending_order
+      .graph_instructions 
+        margin-bottom: 22px
+        .graph_stakeholder_rating_icon 
+          background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png')  no-repeat center center
       .graph_container 
         .descending_graph_bar.max
           height: 5px 
@@ -917,8 +921,14 @@ $mrf_image_path: report/pdf/mrf
           border-radius: 0 1.5px 1.5px 0
           margin-top: 2.5px
         .left_sec 
+          .stakeholder_rating
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png')  no-repeat center center
+            color: #fff
           li 
             font-weight: 200
+            margin-top: 14px
+            &:first-child
+              margin-top: 0
             .min_rating, .self_rating, .including_self_rating, .max_rating
               border: 0 none
               height: 27px
