@@ -50,12 +50,6 @@
     ]
   },
   {
-    id: "pdf_response_distribution_on_questions_new",
-    text: "Response Distribution on Questions [6 points]",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/response_distribution_six_points",
-    children: []
-  },
-  {
     id: "pdf_trait_scores_under_competencies",
     text: "360 Scores: Traits Under Competencies(Graph)",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
@@ -75,9 +69,9 @@
     ]
   },
   {
-    id: "pdf_strength_improvement_areas",
-    text: "Strength and Improvement Areas",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+    id: "pdf_response_distribution_on_questions_new",
+    text: "Response Distribution on Questions [6 points]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/response_distribution_six_points",
     children: []
   },
   {
@@ -99,8 +93,14 @@
     children: []
   },
   {
+    id: "pdf_strength_improvement_areas",
+    text: "Strength and Improvement Areas",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+    children: []
+  },
+  {
     id: "pdf_competency_wise_data_points",
-    text: "Data Points on 360 Degree Scores:Competencies",
+    text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
     children: []
   },
