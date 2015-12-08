@@ -1,8 +1,6 @@
 #distribution_data_points.pull-left 
-  .span.heading.medium-text.line-height1{:style => "margin-top: 7px; padding: 2px 10px"}
-    360&#176; Rating : xx
-  .extra-medium-text.span.line-height2
-    360&#176; Scores across exercise
+  .span.heading.medium-text.line-height1{:style => "margin-top: 3px; padding: 4px"}
+    360&#176; Rating : #{trait_score[:average_score_excluding_self][:points]}
   .trait_rating.max.span{:style => "width: 150px"}
     .left
       Highest

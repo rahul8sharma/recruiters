@@ -6,7 +6,6 @@
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
       - if competency_scores[:trait_scores].present?
-        
         - if competency_scores[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
           - competency_scores[:trait_scores].each do |trait|
             - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
@@ -15,7 +14,6 @@
                   Comments on 
                   = competency_name
                 .clr
-                
                 - if !trait[:comments].present?
                   .no-responses
                     .box
