@@ -19,6 +19,12 @@
     ]
   },
   {
+    id: "competency_overview",
+    text: "Competency Overview",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_overview",
+    children: []
+  },
+  {
     id: "pdf_trait_definitions",
     text: "Trait Definitions",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
@@ -66,6 +72,24 @@
     id: "pdf_strength_improvement_areas",
     text: "Strength and Improvement Areas",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
+    children: []
+  },
+  {
+    id: "pdf_perception_gap_on_traits",
+    text: "Perception Gap on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/perception_gap_on_traits",
+    children: []
+  },
+  {
+    id: "pdf_360_degree_competencies_scores_in_descending_order",
+    text: "360 Degree Ratings on Competencies",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_descending_order",
+    children: []
+  },
+ {
+    id: "pdf_360_degree_traits_scores_in_descending_order",
+    text: "360 Degree Ratings on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_traits_descending_order",
     children: []
   },
   {
