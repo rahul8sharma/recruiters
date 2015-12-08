@@ -10,16 +10,16 @@
       .black.pull-left
         360&#176; Scores across exercise
       .border_gray_light.span
-        .low.left.pull-left
-          Lowest
-        .right.pull-left
-          #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
-        .clr
-      .border_gray_light.span
         .high.left.pull-left
           Highest
         .right.pull-left
           #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+        .clr
+      .border_gray_light.span
+        .low.left.pull-left
+          Lowest
+        .right.pull-left
+          #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
         .clr
       .clr
   .clr

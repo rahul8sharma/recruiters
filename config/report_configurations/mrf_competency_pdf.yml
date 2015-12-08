@@ -50,6 +50,12 @@
     ]
   },
   {
+    id: "pdf_response_distribution_on_questions_new",
+    text: "Response Distribution on Questions [6 points]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/response_distribution_six_points",
+    children: []
+  },
+  {
     id: "pdf_trait_scores_under_competencies",
     text: "360 Scores: Traits Under Competencies(Graph)",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_scores_under_competencies",
