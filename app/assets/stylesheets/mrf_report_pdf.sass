@@ -757,14 +757,18 @@ $mrf_image_path: report/pdf/mrf
       width: 28px
     .graph_instructions
       line-height: 28px
-      .graph_classic_user_icon, .graph_stakeholder_rating_icon
-        width: 13px
-        height: 13px
-        background: #24d8ba
+      font-size: 10px
+      .graph_classic_user_icon
+        height: 11px
+        width: 11px
+        background: #fff
+        border: 2px solid #24d8ba
         margin-top: 7px
       .graph_stakeholder_rating_icon
-        background: #a119a6
-        border-radius: 50%
+        margin-top: 7px
+        height: 13px
+        width: 13px
+        background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
       .classic_user_icon, .stakeholder_rating_icon 
         height: 28px
         width: 18px
@@ -787,17 +791,19 @@ $mrf_image_path: report/pdf/mrf
           div:first-child
             padding-top: 5px
           .stakeholder_rating, .self_rating
-            color: #fff
             text-align: center
+            font-weight: 200
 
           .stakeholder_rating
             height: 27px
             width: 27px
             line-height: 27px
-            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
+            background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+            color: #a729ac
           .self_rating
             line-height: 24px
-            background: #24d8ba
+            background: #fff
+            color: #24D8BA
             border: 2px solid #24d8ba
             height: 24px
             width: 24px
@@ -813,25 +819,7 @@ $mrf_image_path: report/pdf/mrf
                 width: 2px !important
           .graph
             border: 1px solid #e5e5e5
-            background: -moz-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
-
-            background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #e9eaec), color-stop(30%, #F6F6F7), color-stop(50%, #FFFFFF))
-
-            background: -webkit-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
-
-            background: -o-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
-
-            background: -ms-linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
-
-            background: linear-gradient(90deg, #e9eaec 0%, #F6F6F7 30%, #FFFFFF 50%)
-
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#e9eaec',GradientType=1 )
-            background-repeat: no-repeat
-
-
-
             .graph_content
-              background: image-url('#{$mrf_image_path}/classic_competency_graph_dashed_bg.png') repeat-y center 0
               min-height: 20px
               padding: 8px 0
               position: relative
@@ -860,7 +848,7 @@ $mrf_image_path: report/pdf/mrf
                   top: -15px
                   position: absolute
                 .graph_stakeholder_rating
-                  background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat center center
+                  background: image-url('#{$mrf_image_path}/stakeholder_rating_icon_small.png') no-repeat center center
                   z-index: 2 
 
                 .graph_self_rating
@@ -868,7 +856,7 @@ $mrf_image_path: report/pdf/mrf
                   width: 24px
                   height: 24px
                   border: 2px solid #24d8ba
-                  background: #24d8ba
+                  background: image-url('#{$mrf_image_path}/classic_user_icon.png') #fff no-repeat center center
     
     &.traits_under_competencies
       .traits_under_graph
