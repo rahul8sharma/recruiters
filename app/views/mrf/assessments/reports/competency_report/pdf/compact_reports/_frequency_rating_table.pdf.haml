@@ -23,20 +23,21 @@
           %td
             #{bucket.name}
         
-        - stakeholder_count = 0
+      - stakeholder_count = 0
+      - overall_points = 0
       - role_wise_scores.each do |role, score|
         - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
         - stakeholder_count += score[:count].to_i
+        - overall_points += score[:points].to_f
         %tr
           %td.green_bg.captions
             = role.titleize
           %td.rating_score.average_rating
-            xx
+            = score[:points]
           %td.rating_score.average_rating
-            xx
+            = score[:count]
           - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
-            
             %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
               = bucket_score
               -#add class ".max_value" to ".rating_score" if td have maximum value of that row
@@ -45,9 +46,9 @@
         %td.orange_bg.captions
           Overall
         %td.orange_bg.captions
-          xx
+          = (overall_points / stakeholder_count).round(2)
         %td.orange_bg.captions
-          xx
+          = stakeholder_count
         - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
         - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
