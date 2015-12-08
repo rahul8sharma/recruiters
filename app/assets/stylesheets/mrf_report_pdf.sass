@@ -81,6 +81,24 @@ $mrf_image_path: report/pdf/mrf
 
       .right
         padding: 0 5px  
+      &.small
+        line-height: 15px
+        .low, .high
+          height: auto
+          color: #fff
+        .left
+          width: 40px
+          padding: 0 7px 0 20px
+        .low
+          background: image-url('#{$mrf_image_path}/min_rating_arrow_small.png') #ffcf36 no-repeat 5px center
+        .high
+          background: image-url('#{$mrf_image_path}/max_rating_arrow_small.png') #abed74 no-repeat 5px center
+        .right
+          width: 30px
+          text-align: center
+        .border_gray_light
+          line-height: 15px
+
     .rating_by_all_takeholders
       .border_gray_light
         padding: 0 45px
@@ -972,53 +990,56 @@ $mrf_image_path: report/pdf/mrf
 
   .frequency_rating_table
     text-align: center
-    font-size: 10px
+    font-size: 11px
+    border-bottom: 1px solid #e3e3e3
     tr
+      &:nth-child(even)
+        .average_rating
+          background-color: #f1f2f2
       &:nth-child(odd)
         background: #f8f8f8
-     
-      &:nth-child(2)
-        td
-          border-color: #fff
-      &:nth-child(1)
-        td
-          border: 0 none !important
-      td
-        border-right: 1px solid #E3E3E3
-        border-bottom: 1px solid #E3E3E3
-        &:first-child
-          border-left: 1px solid #E3E3E3
-          padding: 5px
     .rating_score
       border-right: 1px solid #e3e3e3
       color: #a119a6
       background-image: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') 
       background-repeat: no-repeat
       background-position: center center
-      font-weight: 700
       &.max_value
+        font-weight: 700
         background-image: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_max_trait_rating_icon.png') 
+        font-size: 15px
     .captions
       td
+        padding: 5px 0
         border-top: 1px solid #fff
         border-left: 1px solid #fff
+        line-height: 15px
         color: #000
+        padding-left: 10px
+        padding-right: 10px
     .rating_ranges
       background: #ccc
       td
         border-bottom: 1px solid #fff
         width: 115px
+    .average_rating
+      border-top: 1px solid #fff
+      border-color: #fff
+      color: #fff
+      background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
     .overall
       td
         border-top: 1px solid #d56e17
     .mute_bg
       background: #f8f8f8
       width: 200px !important
-    .green_bg, .orange_bg
+    .green_bg, .orange_bg, .blue_bg
       border-top: 1px solid #fff
       border-left: 1px solid #fff
       color: #fff
-      padding: 7px 0
+      padding: 18px 0
+    .blue_bg
+      background: #a119a6  
     .green_bg
       background: #6ea4be
     .orange_bg
