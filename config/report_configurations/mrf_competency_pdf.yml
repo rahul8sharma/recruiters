@@ -32,7 +32,7 @@
   },
   {
     id: "pdf_scores_competencies",
-    text: "360 Scores:Competencies(Graph)",
+    text: "360 Degree and self ratings on Competencies",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
     children: [
       {
