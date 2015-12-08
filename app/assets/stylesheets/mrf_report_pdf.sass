@@ -778,7 +778,7 @@ $mrf_image_path: report/pdf/mrf
       margin-bottom: 15px
       .graph_instructions
         margin-left: 178px
-        margin-bottom: 19px
+        margin-bottom: 16px
         .stakeholder_rating_icon, .classic_user_icon
           width: 38px
       .left_sec
@@ -839,9 +839,7 @@ $mrf_image_path: report/pdf/mrf
                     position: absolute
                     top: -15px
                     left: -14px
-                  &.trait_under
-                    .overlapped_score_icon
-                      background: image-url('#{$mrf_image_path}/trait_graph_equal_icon.png') no-repeat center center !important
+                  
                 .graph_stakeholder_rating, .graph_self_rating
                   width: 27px
                   height: 27px
@@ -861,77 +859,29 @@ $mrf_image_path: report/pdf/mrf
     &.traits_under_competencies
       .traits_under_graph
         .graph_container 
-          .classic_user_icon, .stakeholder_rating_icon
-            background: none
-          &:first-child
-            .classic_user_icon
-              background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat center center
-            .stakeholder_rating_icon
-              background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat center center
-
-
+          .graph_instructions
+            margin-left: 0
+            margin-bottom: 0
+            
+            .graph_stakeholder_rating_icon, 
+            .graph_classic_user_icon
+              margin-left: 5px
+              margin-right: 12px
+            .graph_classic_user_icon
+              height: 17px
+              width: 17px
+              border-width: 1px
+            .graph_stakeholder_rating_icon
+              background: image-url('#{$mrf_image_path}/left_sec_instruction_stakeholder_rating_icon.png') #fff no-repeat center center
+              height: 20px
+              width: 20px
           .left_sec
-            ul 
-              li
-                div:first-child 
-                  font-weight: 200
-                  color: #808285
-                &:first-child 
-                  div
-                    font-weight: 700
-                    color: #414042
-                  .stakeholder_rating
-                    background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_rating_icon.png') no-repeat center center
-                    color: #fff
-                    font-weight: 700
-                  .self_rating
-                    background: #24D8BA
-                    color: #fff
-                .stakeholder_rating
-                  background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
-                  color: #A119A6
-                  font-weight: 700
-                .self_rating
-                  background: none
-                  color: #24D8BA
-                .trait_title
-                  position: relative
-                  &:hover
-                    color: #1b7daa
-                    cursor: pointer
-                    .info
-                      display: block
-                  .arrow
-                    position: absolute
-                    background: image-url('#{$mrf_image_path}/classic_competency_trait_info_arrow.png') no-repeat center center
-                    width: 18px
-                    height: 28px
-                    padding: 0
-                    top: 27%
-                    left: -17px
-                  .info
-                    border: 1px solid #1b7daa
-                    border-radius: 2px
-                    padding: 10px 15px
-                    width: 390px
-                    color: #1b7daa
-                    font-size: 14px
-                    background: #fff
-                    display: none
-                    left: 102%
-                    position: absolute
-                    top: -60%
-                    min-height: 30px
-                    z-index: 3
-          .right_sec
-            .classic_competency_graph
-              .graph
-                .graph_content 
-                  .graph_bar.trait_under
-                    .graph_stakeholder_rating
-                      background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center
-                    .graph_self_rating
-                      background: #fff
+            li
+              font-weight: 200
+              color: #58595b
+              font-size: 10px
+            .graph_instructions
+              font-size: 12px
 
     &.best_worst_scores
       .trait_title

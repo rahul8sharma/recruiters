@@ -1,19 +1,14 @@
 .traits_under_graph
   .graph_container
     .left_sec.pull-left
-      .graph_instructions
+      .graph_instructions.pull-left
+        .span5.first.bold
+          = truncate competency, length: 30
         .span1.divider1.graph_stakeholder_rating_icon
         .span1.divider1.graph_classic_user_icon
         .clr
+      .clr
       %ul
-        %li
-          .span5.first
-            = truncate competency, length: 30
-          .stakeholder_rating.small-text.pull-left
-            = competency_scores[:score][:points]
-          .self_rating.small-text.span
-            = competency_scores[:average_score_self][:points]
-          .clr
         - trait_scores.each do |trait_score|
           - self_score = trait_score[:average_score_self][:points]
           - other_score = trait_score[:average_score_excluding_self][:points]
