@@ -6,14 +6,16 @@
       .span17
         #{subjective_response_value[:body]}
       .clr
+    .divider1
     - if subjective_response_value[:role_wise_subjective_responses].values.flatten.any?{|role_wise_response| role_wise_response.present?}
       %table{:cellspacing=>"7"}
-        - subjective_response_value[:role_wise_subjective_responses].each do |role, role_wise_response|
-          %tr
-            - role_wise_response.each do |comments|
-              %td
-                .small-text
-                  "#{comments}"
+        - subjective_response_value[:role_wise_subjective_responses].each_slice(2) do |step_data|
+          %tr.clearfix
+            -step_data.each do |role, role_wise_response|
+              - role_wise_response.each do |comments|
+                %td
+                  .small-text
+                    "#{comments}"
     - else
       .no-responses
         .box

@@ -13,29 +13,12 @@
             360&#176; Rating
           .clr
         %ul.competency-list.mrf.pull-left.default
-          %li
-            .competency-name.pull-left
-              Operations Excellence
-            .competency-value.pull-right
-              Average (High)
-            .clr
-          %li
-            .competency-name.pull-left
-              Customer Focus
-            .competency-value.pull-right
-              Average (High)
-            .clr
-          %li
-            .competency-name.pull-left
-              Team Work
-            .competency-value.pull-right
-              Average (Low)
-            .clr
-          %li
-            .competency-name.pull-left
-              Work Efficiency
-            .competency-value.pull-right
-              Average (High)
-            .clr
+          - @report.report_data[:competency_scores].each do |competency, competency_scores|
+            %li
+              .competency-name.pull-left
+                = truncate competency, length: 30
+              .competency-value.pull-right
+                = competency_scores[:score][:points]
+              .clr
         .clr
       .divider2

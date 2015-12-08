@@ -3,60 +3,39 @@
     .color-info.big-text
       Response distribution on Questions
     .divider1
-    -2.times do
-      .frame
-        %ul
-          %li.titles.clearfix
-            .span9
-              Questions on Emotional Control
-            .span2
-              Never
-            .span2
-              Rarely 
-            .span2
-              Occasionally
-            .span2
-              Many times
-            .span2
-              Almost always
-            .span2
-              Always
-          -2.times do 
-            %li.clearfix
+    - @report.report_data[:competency_scores].each do |competency,competency_scores|
+      - competency_scores[:trait_scores].each do |trait_score|
+        .frame
+          %ul
+            %li.titles.clearfix
               .span9
-                .question
-                  Question 1 Stakeholder
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris  
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
+                Questions on
+                = truncate "Trait: #{trait_score[:trait][:name]}", length: 80
+              - item_data = trait_score[:items][:other_responses].first
+              - item_data[:responses].each do |body,response_count|                
+                .span2
+                  = body
+              - trait_score[:items][:other_responses].each_with_index do |item_data, index|
+                - if item_data[:responses].present?
+                  %li.clearfix
+                    .span9
+                      .question{:style => "padding-top: 5px;"}
+                        Question #{index+1}: Stakeholder
+                      = item_data[:item]
+                    - item_data[:responses].each_with_index do |(body,response_count),index|
+                      .span2
+                        = response_count
 
-          -2.times do 
-            %li.clearfix.candidate_answer
-              .span9
-                .question
-                  Question 1 Stakeholder
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris  
-              .span2
-                xx
-              .span2.active
-                xx
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
-              .span2
-                xx
+              - trait_score[:items][:self_responses].each_with_index do |item_data, index|
+                - if item_data[:responses].present?
+                  %li.clearfix.candidate_answer
+                    .span9
+                      .question{:style => "padding-top: 5px;"}
+                        Question #{index+1}: Candidate
+                      = item_data[:item]
+                    - item_data[:responses].each_with_index do |(body,response_count),index|
+                      - klass = response_count > 0 ? "active" : ""
+                      .span2{:class => klass}
+                        = response_count
 
-      .divider1
+        .divider1

@@ -5,24 +5,16 @@
   .divider1
   .frame
     .heading.pull-left
-      Comments on #{trait[:trait][:name]}
+      Comments on #{competency_name}
     .clr
- 
     .divider1
-    %table{:cellspacing=>"7"}
-      - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
-        %tr.clearfix
-          - trait[:comments].each do |role_name, role_wise_comment|
-            - if role_wise_comment.any?{ |comment| comment[:comment].present? }
-              %td
-                %div{:style=>"padding-bottom: 10px"}
-                  #{role_name.titleize}
-                .small-text
-                  = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-      - else
-        .padding-all1
-          .no-responses
-            .box
-              No Responses
-          .divider3
-   
+    - competency_scores[:trait_scores].each do |trait|
+      %table{:cellspacing=>"7"}
+        - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+          - trait[:comments].each_slice(2) do |step_data|
+            %tr.clearfix
+              -step_data.each do |role_name, role_wise_comment|
+                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                  %td
+                    .small-text
+                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}   
