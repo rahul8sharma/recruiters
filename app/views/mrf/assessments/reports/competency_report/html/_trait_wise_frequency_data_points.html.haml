@@ -3,7 +3,7 @@
     .divider2
     .scores.container
       .title
-        Data Points on 360&#176; Scores: Traits Under Competencies
+        Details on 360&#176; Ratings on Traits (Under Competencies / Values)
       .divider2
       - @report.report_data[:competency_scores].each do |competency,competency_scores|
         .frame
@@ -15,11 +15,10 @@
             .divider2
             .section03
               .span28.margin-auto
-                %b.large-text
+                .large-text.pull-left.line-height2
                   = trait_score[:trait][:name]
-                .divider1
                 - section_value.each do |section|
                   - locals = Hash[section["locals"].map { |key, value| [key.to_sym, trait_hash[key.to_sym]] }]
                   = render :partial => section["path"], :locals => locals
-                .divider1
+                .clr
         .divider2

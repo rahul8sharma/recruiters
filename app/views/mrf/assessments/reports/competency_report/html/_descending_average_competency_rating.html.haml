@@ -1,8 +1,8 @@
+.divider2
 .classic_report
   .scores_competencies_graph.descending_order.descending_average_rating.border-bottom-grayLighter
     .traits_under_graph
-      .divider2
-      .extra-large-text.span22.pull-right
+      .extra-large-text
         Average rating given by Stakeholders
       .clr
       .divider1
@@ -14,11 +14,9 @@
               %li
                 .span5.big-text.first.trait_title
                   = role.pluralize.titleize
-                  
                 .stakeholder_rating.medium-text.pull-left
                   = scores[:points]
                 .clr
-
         .right_sec.span22.pull-right
           .classic_competency_graph
             .classic_competency_graph_scale
