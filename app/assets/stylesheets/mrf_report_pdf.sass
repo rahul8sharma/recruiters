@@ -456,25 +456,38 @@ $mrf_image_path: report/pdf/mrf
 
   .competency_report
     .mrf_rating_competency_overview
+      *
+        box-sizing: border-box
       .bg
-        background: image-url("#{$mrf_image_path}/mrf-rating-competenc-overview-bg.png") no-repeat 0 0
-        min-height: 300px
+        background: image-url("#{$mrf_image_path}/mrf-rating-competenc-overview-bg.png") no-repeat 50px center
+        min-height: 700px
       .content
         background: #fff
         padding: 0
         border: 0 none
-
         .overview-title
           background: #23b099
           font-size: 16px
+          width: 100%
           color: #fff
           border: 1px solid #23b099
-          padding: 10px 0 
+          padding-top: 10px
+          padding-bottom: 10px 
           font-weight: 700
         .left
           padding-left: 25px
           width: 550px
           float: left
+        .competency-name
+          padding-left: 25px
+          width: 550px
+          float: left
+        .competency-value
+          padding-right: 5px
+          float: right
+          width: 130px
+          text-align: center
+          font-weight: 700
         .right
           padding-right: 5px
           float: right
@@ -484,21 +497,12 @@ $mrf_image_path: report/pdf/mrf
           border-top: 0 none  
           margin: 0
           font-size: 14px
-         
+          width: 100%
           li
             padding: 10px 0
             color: #000
             &:nth-child(odd)
               background: #f1f2f2
-          .competency-name
-            padding-left: 25px
-            width: 550px
-            float: left
-          .competency-value
-            padding-right: 5px
-            float: right
-            width: 130px
-            font-weight: 700
     .competency-container.mrf
       border-width: 1px
       .factors_list

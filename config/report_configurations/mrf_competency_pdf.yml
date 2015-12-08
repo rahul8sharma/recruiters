@@ -19,6 +19,12 @@
     ]
   },
   {
+    id: "competency_overview",
+    text: "Competency Overview",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_overview",
+    children: []
+  },
+  {
     id: "pdf_trait_definitions",
     text: "Trait Definitions",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
