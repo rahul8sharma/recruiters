@@ -256,6 +256,26 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     - Data Driven
     - Networking
     unrecognised_areas_of_improvements: []
+  perception_gap: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    aggrement:
+    - Networking
+    - Smart Problem Solving
+    negative_differences:
+    - People Understanding
+    - Helpfulness
+    - Agreeableness
+    positive_differences:
+    - Process Orientation
+    - Target Orientation
+    - Learnability
+    - Customer Service Orientation
+    - Persistence
+    - Compliance
+    - Desire for Perfection
+    - Team Player
+    - Responsibility of Outcomes
+    - Data Driven
+    - Initiative
   competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Operations Excellence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       user: '[CANDIDATE4]t is a long established fact that a reader will be distracted

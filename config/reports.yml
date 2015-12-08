@@ -50,3 +50,8 @@ mrf_report:
   unrecognised_strengths: "Strengths according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the higher side, but the candidate has rated themselves on the lower side. Average scores are not considered here."
   recognised_areas_of_improvements: "Areas of improvement according to the candidate as well as stakeholders. They are traits that both candidates and stakeholders have rated on the lower side. Average scores are not considered here."
   unrecognised_areas_of_improvements: "Areas of improvement according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the lower side but the candidate has rated themselves on the higher side. Average scores are not considered here."
+
+perception_gap:
+  aggrement: "This section lists aspects on which Stakeholder rating overlaps with the candidates self rating"
+  negative_differences: "This section lists aspects on which Stakeholder rating is higher than the candidates self rating"
+  positive_differences: "This section lists aspects on which Stakeholder rating is lower than the candidates self rating"
