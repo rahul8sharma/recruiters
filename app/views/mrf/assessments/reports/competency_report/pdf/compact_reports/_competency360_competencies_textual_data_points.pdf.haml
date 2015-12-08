@@ -1,29 +1,72 @@
-.small-padding
-  .border-left-grayLighter.span
-    .final_data_points
+.frame
+  .heading.pull-left
+    #{competency}
+  .heading.pull-right
+    360&#176; Score: 
+    = competency_scores[:score][:points] || "-"
+  .clr
+  .final_data_points.pull-right.small
+    .high_low_scores{:style => "padding: 10px"}
+      .black.pull-left
+        360&#176; Scores across exercise
       .border_gray_light.span
-        .left.pull-left.stakeholder_rating_icon          
+        .low.left.pull-left
+          Lowest
         .right.pull-left
-          .medium-text.color-average
-            360&#176; Score: 
-            = competency_scores[:score][:points] || "-"
+          #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
         .clr
       .border_gray_light.span
-        .left.pull-left.classic_user_icon
+        .high.left.pull-left
+          Highest
         .right.pull-left
-          .medium-text.color-average
-            Self Rating: 
-            = competency_scores[:average_score_self][:points] || "-"
-        .clr
-      .border_gray_light.span
-        .left.pull-left.self_rating_icon
-        .right.pull-left
-          .medium-text.color-average
-            360&#176; (Including Self): 
-            = competency_scores[:average_score_including_self][:points] || "-"
+          #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
         .clr
       .clr
+  .clr
+  
+  .padding-all1
+    .extra-medium-text
+      Average rating given by Stakeholders
     .divider1
+    .scores_competencies_graph.descending_order.border-bottom-grayLighter
+      .traits_under_graph
+        .graph_container
+          .left_sec.pull-left
+            .graph_instructions{:style=>"margin-left: 137px"}
+              .span1.divider2.graph_stakeholder_rating_icon
+              .clr
+            %ul
+              - 4.times do
+                %li
+                  .trait_title.first.span4
+                    competency Name
+                  .stakeholder_rating.pull-left
+                    xx
+                  .clr
+                
+          .right_sec.span13.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  0
+                - 5.times do
+                  .block.pull-left{:style=>"width: #{510/5}px; text-align: right"}
+                    xx
+
+                .clr
+              .graph
+                .graph_content
+                  -5.times do
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: 20%; background: #a119a6"}
+                    .divider1
+          .clr
+      .divider1
+
+    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
+    .clr
+
+  -#
     .rating_by_all_takeholders
       .medium-text.black.span.bold.line-height2
         - total_stakeholders = competency_scores[:role_wise_scores].map{|role, score| score[:count].to_i }.sum
@@ -41,35 +84,6 @@
           %br
       .clr
 
-    .span14.final_data_points
-      .medium-text.black.span.first.bold.line-height2
-        360&#176; Scores across exercise
-      .clr
-      .high_low_scores{:style => "padding-top: 10px"}
-        .border_gray_light.span.first
-          .low.left.pull-left
+  
+  .divider1
 
-          .right.pull-left
-            .color-average.medium-text
-              Lowest: #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
-          .clr
-        .border_gray_light.span
-          .stakeholder_rating_icon.left.pull-left
-          .right.pull-left
-            .color-average.medium-text
-              Candidate: #{competency_scores[:score][:points] || "-"}
-          .clr
-        .border_gray_light.span
-          .high.left.pull-left
-          .right.pull-left
-            .color-average.medium-text
-              Highest: #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
-          .clr
-        .clr
-    .clr
-    .divider1
-
-    = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: competency_scores[:role_wise_scores], name: competency, average_score_excluding_self: competency_scores[:score][:points], graph_buckets: @competency_graph_buckets, :is_trait => false  }
-    .clr
-  .clr
-.clr

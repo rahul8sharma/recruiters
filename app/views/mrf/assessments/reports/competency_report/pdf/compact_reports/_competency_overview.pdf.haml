@@ -1,0 +1,41 @@
+= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Scores"}
+.mrf_rating_competency_overview
+  .overview.bg
+    .inner
+      .color-warning.extra-large-text
+        Overview
+      .divider2
+      .content
+        .overview-title
+          .competency-name.title.pull-left
+            Competency
+          .competency-value.title.pull-right
+            360&#176; Rating
+          .clr
+        %ul.competency-list.mrf.pull-left.default
+          %li
+            .competency-name.pull-left
+              Operations Excellence
+            .competency-value.pull-right
+              Average (High)
+            .clr
+          %li
+            .competency-name.pull-left
+              Customer Focus
+            .competency-value.pull-right
+              Average (High)
+            .clr
+          %li
+            .competency-name.pull-left
+              Team Work
+            .competency-value.pull-right
+              Average (Low)
+            .clr
+          %li
+            .competency-name.pull-left
+              Work Efficiency
+            .competency-value.pull-right
+              Average (High)
+            .clr
+        .clr
+      .divider2
