@@ -1017,6 +1017,92 @@ $mrf_image_path: report/pdf/mrf
     .dark_mute_bg
       background: #e3e3e3
 
+.competency_perception_gap_on_traits
+  table
+    margin: auto
+    tr
+      td
+        vertical-align: top
+        border: 1px solid #28b29b
+        line-height: 17px
+        &.description
+          background: #28b29b
+          color: #fff
+          padding: 10px
+          font-size: 12px
+        &.space
+          border: 0 none
+          padding: 5px
+        ul
+          margin-left: 25px
+          li
+            line-height: 17px
+      &.titles
+        td
+          border: 0 none
+          font-size: 16px
+          padding: 10px 0
+          [class*="span"]
+            margin: 0
+
+.response_distribution_six_points
+  ul
+    li
+      padding: 25px 0
+      border-bottom: 1px solid #e3e3e3
+      .question
+        color: #414042
+        padding-left: 25px
+        margin-bottom: 10px
+        background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat 0 center
+
+      [class*="span"]
+        text-align: center
+        box-sizing: border-box
+        margin-left: 0
+        border-left: 1px solid #fff
+        background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
+        height: 100px
+        line-height: 100px
+        color: #a119a6
+        &:first-child
+          color: #808285
+          line-height: normal 
+          height: auto
+          background: none
+          text-align: left
+          border-left: 0
+          padding-left: 40px
+      &:first-child
+        padding: 0
+      &.titles
+        padding: 0
+        background: #e3e3e3
+        [class*="span"]
+          height: auto
+          font-size: 14px
+          line-height: normal
+          color: #58595b
+          padding: 10px 0
+          background: none
+          &:first-child
+            font-size: 16px
+            padding-left: 40px
+      &.candidate_answer
+        .question
+          background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 center
+        
+        [class*="span"]
+          background: image-url('#{$mrf_image_path}/candidate_rating_icon_big.png') no-repeat center center
+          color: #fff
+          visibility: hidden
+          &.active
+            visibility: visible
+          &:first-child
+            background: none
+            color: #808285
+            visibility: visible
+
 
 
 

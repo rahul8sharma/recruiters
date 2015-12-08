@@ -74,6 +74,12 @@
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
     children: []
   },
+   {
+    id: "pdf_perception_gap_on_traits",
+    text: "Perception Gap on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/perception_gap_on_traits",
+    children: []
+  },
   {
     id: "pdf_competency_wise_data_points",
     text: "Data Points on 360 Degree Scores:Competencies",
