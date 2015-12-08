@@ -86,6 +86,12 @@
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_descending_order",
     children: []
   },
+ {
+    id: "pdf_360_degree_traits_scores_in_descending_order",
+    text: "360 Degree Ratings on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_traits_descending_order",
+    children: []
+  },
   {
     id: "pdf_competency_wise_data_points",
     text: "Data Points on 360 Degree Scores:Competencies",
