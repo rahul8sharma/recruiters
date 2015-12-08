@@ -1,11 +1,11 @@
-.user_development_guide
+.user_manager_guidelines
   .container
     .divider2
     .title
-      Development Guide for the Candidate
-    .divider1
+      Development guide for candidate
+    .divider2
     %ul
-      - @report.report_data[:trait_guidelines].each do |key, value|
+      - @report.report_data[:competency_guidelines].each do |key, value|
         %li
           .span7.bold.extra-medium-text
             #{key}
@@ -13,5 +13,4 @@
             #{value[:user]}
           .clr
         .divider1
-.clr
-.divider2
+.divider1
