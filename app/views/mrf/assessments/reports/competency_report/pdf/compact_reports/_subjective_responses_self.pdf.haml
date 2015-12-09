@@ -1,12 +1,31 @@
-- if @report.report_data[:subjective_responses_self].length > 0
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
-  .divider2
-  .stakeholder-comments.responses
-    .color-info.big-text
-      Responses to Other Questions
-    %br
-    .clr
-    - section_value.each do |section|
-      = render :partial => section["path"], :locals => {:responses => @report.report_data[:subjective_responses_self]}
-  .page-break
-  .clr
+- subjective_responses = get_subjective_response(@report , @report.report_data[:subjective_responses_self])
+- if subjective_responses.length > 0
+  - subjective_responses.each_slice(18) do |step_data|
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
+    .divider1
+    .scores
+      .stakeholder-comments.responses
+        .color-info.big-text
+          Responses to Other Questions [Others]
+        %br
+        .clr
+        - step_data.group_by{|response| response[:question] }.each do |question, responses|
+          .frame
+            .heading
+              .pull-left
+                Question:
+              .span17
+                = question
+              .clr
+            .divider1
+            %table{:cellspacing=>"7"}
+              - responses.each_slice(2) do |step_responses|
+                %tr.clearfix
+                  - step_responses.each do |response|
+                    %td
+                      - section_value.each do |section|
+                        = render :partial => section["path"], :locals => {:role => response[:role]}
+                      .small-text
+                        = truncate response[:response], :length => 200
+          .divider1
+    .page-break

@@ -1,15 +1,5 @@
 - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
   - if competency_scores[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments On Traits"}
     - section_value.each do |section|
       = render :partial => section["path"], :locals =>{competency_name: competency_name, competency_scores: competency_scores}
-      .page-break
     .clr
-  -# - else
-  -#   .stakeholder-comments
-  -#     .divider2
-  -#     .responses
-  -#       .no-responses
-  -#         .box
-  -#           No Responses
-  -#       .divider2
