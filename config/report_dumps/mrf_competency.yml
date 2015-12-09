@@ -10638,7 +10638,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             comment: n invitation to participate in a 360° Feedback Exercise via Jombay. This exercise is titled "[Report Dump][Global Competency Bukcets]" and aims to develop
           - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             feedback_id: 26322
-            comment: <span style="font-size:50px">Hello world</span>
+            comment: Hello world
           significant_others:
           - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             feedback_id: 26323

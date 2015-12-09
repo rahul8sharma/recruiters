@@ -1,22 +1,25 @@
-.stakeholder-comments
-  .divider2
-  .color-info.big-text
-    Stakeholder Comments on various Competencies
-  .divider1
-  .frame
-    .heading.pull-left
-      Comments on #{competency_name}
-    .clr
-    .divider1
-    - competency_scores[:trait_scores].each do |trait|
-      %table{:cellspacing=>"7"}
-        - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
-          - trait[:comments].each_slice(2) do |step_data|
-            %tr.clearfix
-              -step_data.each do |role_name, role_wise_comment|
-                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+- comments = get_role_wise_comments(@report)
+- comments.each_slice(15) do |step_data|
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments on various Competencies"}
+  .scores
+    .stakeholder-comments
+      .color-info.big-text
+        Stakeholder Comments on various Competencies
+      .divider1
+      - step_data.group_by{|comment| comment[:competency_name] }.each do |competency_name, competency_comments|
+        .frame
+          .heading.pull-left
+            Comments on #{competency_name}
+          .clr
+          .divider1
+          %table{:cellspacing=>"7"}
+            - competency_comments.each_slice(2) do |role_comments|
+              %tr.clearfix
+                - role_comments.each do |role_comment|
                   %td
                     %div{:style=>"padding-bottom: 10px"}
-                      #{role_name.titleize}
+                      #{role_comment[:role].titleize}
                     .small-text
-                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}   
+                      = truncate role_comment[:comment], length: 200
+        .divider1
+  .page-break                  

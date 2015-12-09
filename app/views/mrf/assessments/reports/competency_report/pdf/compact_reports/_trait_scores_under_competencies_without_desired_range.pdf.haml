@@ -1,4 +1,6 @@
-- @report.report_data[:competency_scores].each_slice(2) do |step_scores|
+
+- trait_scores = get_traits_under_competencies(@report)
+- trait_scores.each_slice(15).each do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree Scores"}
   .scores
     .traits_under_competencies.scores_competencies_graph.section02
@@ -22,7 +24,7 @@
         .clr
       .clr
       .divider1
-      - step_scores.each do |competency, competency_scores|
-        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competency_classic_graph_without_desired_range", locals: { competency: competency, competency_scores: competency_scores, trait_scores: competency_scores[:trait_scores] }
+      - step_data.group_by{|trait_scores| trait_scores[:competency_name] }.each do |competency, trait_scores|  
+        = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competency_classic_graph_without_desired_range", locals: { competency: competency, trait_scores: trait_scores }
   .page-break
   .clr
