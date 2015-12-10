@@ -1,0 +1,86 @@
+.distribution
+  .graph_indications
+    border: 1px dashed #ccc
+    .legend
+      border-bottom: 1px dashed #ccc
+    ul
+      li
+        line-height: 24px
+        padding: 10px 0
+        [class*="icon-"]
+          font-size: 24px
+          line-height: 24px
+
+  .grid_graph
+    padding: 10px 0 0 10px
+    border-left: 1px solid #ccc
+    height: 302px
+    position: relative
+
+    .columns
+      background: image-url('report/gray_border.gif') 
+      height: 100%
+      .column
+        position: relative
+        .rating_range
+          font-size: 16px
+          position: absolute
+          bottom: -25px
+          text-align: center
+          width: 110%
+
+
+    .counts
+      position: absolute
+      margin: 0 0 0 -50px
+      height: 100%
+      width: 30px
+      line-height: 14px
+      text-align: right
+      font-size: 14px
+      top: 0
+    .count
+      height: 30px
+.perception_gap
+  .color-agreement
+    color: #26c485
+  .color-positive
+    color: #a3e7fc
+  .color-negative
+    color: #553a41
+  .chart_indication
+    .icons
+      font-size: 80px
+  .chart
+    text-align: center
+    .pie_chart
+      height: 270px
+    .pie_chart_rate
+      font-size: 240px
+      line-height: 60px
+      [class*="color-"]
+        position: relative
+
+      .rate
+        position: absolute
+        width: 100%
+        color: #fff
+        font-size: 18px
+        top: 0
+    &.small
+      li
+        border-left: 1px solid #ccc
+        width: 16.6%
+        box-sizing: border-box
+        float: left
+        &:first-child
+          border: 0 none
+      .pie_chart
+        height: 110px
+      .pie_chart_rate
+        font-size: 140px
+        line-height: 40px
+        margin-left: -3%
+        .rate
+          font-size: 12px
+          top: 0

@@ -1,0 +1,25 @@
+.bg-gray.distribution.black
+  .divider2
+  .container
+    .title
+      Distribution of Overall 360&#176; scores
+    .divider2
+    
+    .grid_graph.span20.margin-auto
+      .columns
+        -6.times do
+          .column.span2.left-offset1{:style=>"background: #a729ac; margin-top: #{(300*70/100)}px; height: 30%"}
+            .rating_range
+              0 - 1
+        .clr
+
+      .counts
+        -counter = 110
+        -11.times do |index|
+          - counter = counter-10
+          .count
+            #{counter} 
+    .clr  
+    .divider3
+
+
