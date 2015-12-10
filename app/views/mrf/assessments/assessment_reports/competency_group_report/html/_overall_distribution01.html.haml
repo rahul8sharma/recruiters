@@ -1,4 +1,4 @@
-.bg-gray.distribution.black
+#graph.bg-gray.distribution.black
   .divider2
   .container
     .title
@@ -10,7 +10,7 @@
         - total = @report.report_data[:overall_competencies_score_distribution].values.sum
         - @report.report_data[:overall_competencies_score_distribution].each do |bucket, count|
           - percentage = ((count*100).to_f/total).round(2)
-          .column.span2.left-offset1{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)}px; height: #{percentage}%"}
+          .column.span2.left-offset1{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)-1}px; height: #{percentage}%"}
             .rating_range
               = bucket
         .clr
