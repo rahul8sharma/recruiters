@@ -25,6 +25,8 @@
         - desired_range_width = 2 if desired_range_width == 0    
 
         - competency_scores[:trait_scores].each do |trait_score|
+          - self_score = trait_score[:average_score_self][:points]
+          - other_score = trait_score[:average_score_excluding_self][:points]
           - min = @trait_graph_buckets.map(&:min_val).min
           - max = @trait_graph_buckets.map(&:min_val).max
 
