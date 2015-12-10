@@ -1,9 +1,8 @@
-%ul
-  - trait[:comments].each do |role_name, role_wise_comment|
-    - if role_wise_comment.any?{ |comment| comment[:comment].present? }
-      %li
-        .stakeholder.span3.first
-        .comment-box.span23.pull-right.medium-text.line-height1
-          = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-          .arrow
-        .clr
+%table{:cellspacing=>"15"}
+  - trait[:comments].each_slice(2) do |step_rolewise|
+    %tr.clearfix
+      - step_rolewise.each do |role_name, role_wise_comment|
+        - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+          %td
+            .medium-text
+              = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}

@@ -1,21 +1,20 @@
-.stakeholder-comments.responses
-  .medium-text.black
-    Comments on 
-    %span.font-bold
-      #{trait[:trait][:name]}
+.stakeholder-comments
+  .divider2
+  .color-info.big-text
+    Stakeholder Comments on various Competencies
   .divider1
-  %ul
-    - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
-      - trait[:comments].each do |role_name, role_wise_comment|
-        - if role_wise_comment.any?{ |comment| comment[:comment].present? }
-          %li.left-offset1.border-bottom-grayLighter.vSmall-padding
-            .classic_user_icon.black.pull-left 
-            .span2.first
-            .span15.green_heading
-              = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}
-            .clr
-    - else
-      .no-responses
-        .box
-          No Responses
-      .divider3
+  .frame
+    .heading.pull-left
+      Comments on #{competency_name}
+    .clr
+    .divider1
+    - competency_scores[:trait_scores].each do |trait|
+      %table{:cellspacing=>"7"}
+        - if trait[:comments].values.flatten.any?{|comment| comment[:comment].present?}
+          - trait[:comments].each_slice(2) do |step_data|
+            %tr.clearfix
+              -step_data.each do |role_name, role_wise_comment|
+                - if role_wise_comment.any?{ |comment| comment[:comment].present? }
+                  %td
+                    .small-text
+                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}   

@@ -1,5 +1,7 @@
 module Mrf
   class ReportUploader < ::ReportUploader
+    helper Mrf::ReportHelper
+    
     def get_norm_buckets(report_data)
       @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
                         order: "weight ASC", query_options: {

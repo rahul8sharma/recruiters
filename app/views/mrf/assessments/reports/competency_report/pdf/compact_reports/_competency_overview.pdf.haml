@@ -1,0 +1,26 @@
+- @report.report_data[:competency_scores].each_slice(10) do |step_data|
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Overview"}
+  .mrf_rating_competency_overview
+    .overview.bg
+      .inner
+        .color-warning.extra-large-text
+          Overview
+        .divider2
+        .content
+          .overview-title
+            .competency-name.title.pull-left
+              Competency
+            .competency-value.title.pull-right
+              360&#176; Rating
+            .clr
+          %ul.competency-list.mrf.pull-left.default
+            - step_data.each do |competency, competency_scores|
+              %li
+                .competency-name.pull-left
+                  = truncate competency, length: 30
+                .competency-value.pull-right
+                  = competency_scores[:score][:points]
+                .clr
+          .clr
+        .divider2
+  .page-break

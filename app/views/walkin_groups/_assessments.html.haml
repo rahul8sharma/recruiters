@@ -27,6 +27,16 @@
     .clr 
   
     .divider1
+  .expire-container
+    .expire
+      %b.show.line-height2.medium-text.pull-left
+        Custom Text
+      &nbsp;
+      = f.text_area :custom_text, rows: 5, cols: 100, class: "span24"
+      .clr
+    .clr 
+  
+    .divider1  
   .divider2
   .text-right
     %a.extra-medium-text.line-height3{:href => company_walkin_group_path(@company, @walkin_group), :title => "Cancel"}

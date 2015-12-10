@@ -256,6 +256,26 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     - Data Driven
     - Networking
     unrecognised_areas_of_improvements: []
+  perception_gap: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    aggrement:
+    - Networking
+    - Smart Problem Solving
+    negative_differences:
+    - People Understanding
+    - Helpfulness
+    - Agreeableness
+    positive_differences:
+    - Process Orientation
+    - Target Orientation
+    - Learnability
+    - Customer Service Orientation
+    - Persistence
+    - Compliance
+    - Desire for Perfection
+    - Team Player
+    - Responsibility of Outcomes
+    - Data Driven
+    - Initiative
   competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Operations Excellence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       user: '[CANDIDATE4]t is a long established fact that a reader will be distracted
@@ -10618,7 +10638,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             comment: n invitation to participate in a 360° Feedback Exercise via Jombay. This exercise is titled "[Report Dump][Global Competency Bukcets]" and aims to develop
           - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             feedback_id: 26322
-            comment: <span style="font-size:50px">Hello world</span>
+            comment: Hello world
           significant_others:
           - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             feedback_id: 26323

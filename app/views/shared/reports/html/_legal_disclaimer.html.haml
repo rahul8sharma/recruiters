@@ -2,7 +2,13 @@
   .header
     .container
       .icon
-      .title
+      .title.black
+        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+          - if @report.report_hash[:assessment][:brand_partner] == "cocubes"
+            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}_disclaimer.png")
+          - else
+            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+          %img{:src => brand_partner_image_path, :style =>"height: 55px;position: relative;top: -7px;left: -5px;", :align => "center"}
         Legal Disclaimer
       .clr
   .divider3

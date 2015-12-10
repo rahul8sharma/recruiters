@@ -1,0 +1,43 @@
+- items = get_response_distribution(@report)
+- items.each_slice(8) do |step_data|
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response Distribution"}    
+  .scores
+    .response_distribution_six_points
+      .color-info.big-text
+        Response distribution on Questions
+      .divider1
+      - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
+        .frame
+          %ul
+            %li.titles.clearfix
+              .span7
+                Questions on
+                = truncate "Trait: #{trait_name}", length: 80
+              - items.first[:responses].each do |body,response_count|                
+                .span2
+                  = body
+              - items.each_with_index do |item_data, index|
+                - if item_data["role"] == "other"
+                  - if item_data[:responses].present?
+                    %li.clearfix
+                      .span7
+                        .question{:style => "padding-top: 5px;"}
+                          Question #{index+1}: Stakeholder
+                        = item_data[:item]
+                      - item_data[:responses].each_with_index do |(body,response_count),index|
+                        .span2
+                          = response_count
+                -else 
+                  - if item_data[:responses].present?
+                    %li.clearfix.candidate_answer
+                      .span7
+                        .question{:style => "padding-top: 5px;"}
+                          Question #{index+1}: Candidate
+                        = item_data[:item]
+                      - item_data[:responses].each_with_index do |(body,response_count),index|
+                        - klass = response_count > 0 ? "active" : ""
+                        .span2{:class => klass}
+                          = response_count
+          .divider1
+        .divider1  
+  .page-break           

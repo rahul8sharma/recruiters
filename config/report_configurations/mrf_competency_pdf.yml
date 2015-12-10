@@ -19,6 +19,12 @@
     ]
   },
   {
+    id: "competency_overview",
+    text: "Competency Overview",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_overview",
+    children: []
+  },
+  {
     id: "pdf_trait_definitions",
     text: "Trait Definitions",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/trait_definitions",
@@ -26,7 +32,7 @@
   },
   {
     id: "pdf_scores_competencies",
-    text: "360 Scores:Competencies(Graph)",
+    text: "360 Degree and self ratings on Competencies",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
     children: [
       {
@@ -63,6 +69,30 @@
     ]
   },
   {
+    id: "pdf_response_distribution_on_questions_new",
+    text: "Response Distribution on Questions [6 points]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/response_distribution_six_points",
+    children: []
+  },
+  {
+    id: "pdf_perception_gap_on_traits",
+    text: "Perception Gap on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/perception_gap_on_traits",
+    children: []
+  },
+  {
+    id: "pdf_360_degree_competencies_scores_in_descending_order",
+    text: "360 Degree Ratings on Competencies",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_descending_order",
+    children: []
+  },
+ {
+    id: "pdf_360_degree_traits_scores_in_descending_order",
+    text: "360 Degree Ratings on Traits",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_traits_descending_order",
+    children: []
+  },
+  {
     id: "pdf_strength_improvement_areas",
     text: "Strength and Improvement Areas",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/strength_improvement_areas",
@@ -70,7 +100,7 @@
   },
   {
     id: "pdf_competency_wise_data_points",
-    text: "Data Points on 360 Degree Scores:Competencies",
+    text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
     children: []
   },
