@@ -14,7 +14,7 @@
             .large-text.left-offset1
               #{competency}
             .divider2
-            .grid_graph.span13.left-offset1
+            .grid_graph.small.span13.left-offset1
               .columns
                 - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
                   - bar_height = values[:percentage]
