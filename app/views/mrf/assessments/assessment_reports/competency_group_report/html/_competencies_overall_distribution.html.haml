@@ -1,4 +1,4 @@
-.bg-gray.distribution.black
+#overall.bg-gray.distribution.black
   .divider2
   .container
     .title
@@ -19,7 +19,7 @@
                 - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
                   - bar_height = values[:percentage]
                   - multiplier = 100 - bar_height
-                  .column.span1.left-offset1{:style=>"background: #{hex_code}; margin-top: #{(300*multiplier/100)}px; height: #{bar_height}%"}
+                  .column.span1.left-offset1{:style=>"background: #{hex_code}; margin-top: #{(300*multiplier/100)-1}px; height: #{bar_height}%"}
                     .rating_range
                       = bucket
                 .clr

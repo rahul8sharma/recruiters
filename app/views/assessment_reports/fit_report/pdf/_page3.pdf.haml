@@ -3,7 +3,6 @@
   - factor_scores = @report.report_hash[:factor_scores]
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .inner
       .scores.favorable_factors
         .divider1
