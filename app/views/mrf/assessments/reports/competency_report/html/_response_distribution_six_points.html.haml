@@ -6,36 +6,37 @@
     .divider2
     - @report.report_data[:competency_scores].each do |competency,competency_scores|
       - competency_scores[:trait_scores].each do |trait_score|
-        .frame.extra-medium-text
-          %ul
-            %li.titles.clearfix
-              .span13
-                Questions on 
-                = truncate "Trait: #{trait_score[:trait][:name]}", length: 80
-              - item_data = trait_score[:items][:other_responses].first
-              - item_data[:responses].each do |body,response_count|
-                .span3
-                  = body
-            - trait_score[:items][:other_responses].each_with_index do |item_data, index|
-              - if item_data[:responses].present?
-                %li.clearfix
-                  .span13
-                    .question{:style => "padding-top: 5px;"}
-                      Question #{index+1}: Stakeholder
-                    = item_data[:item]
-                  - item_data[:responses].each_with_index do |(body,response_count),index|
-                    .span3
-                      = response_count
+        - if trait_score[:items][:other_responses].present?
+          .frame.extra-medium-text
+            %ul
+              %li.titles.clearfix
+                .span13
+                  Questions on 
+                  = truncate "Trait: #{trait_score[:trait][:name]}", length: 80
+                - item_data = trait_score[:items][:other_responses].first
+                - item_data[:responses].each do |body,response_count|
+                  .span3
+                    = body
+              - trait_score[:items][:other_responses].each_with_index do |item_data, index|
+                - if item_data[:responses].present?
+                  %li.clearfix
+                    .span13
+                      .question{:style => "padding-top: 5px;"}
+                        Question #{index+1}: Stakeholder
+                      = item_data[:item]
+                    - item_data[:responses].each_with_index do |(body,response_count),index|
+                      .span3
+                        = response_count
 
-            - trait_score[:items][:self_responses].each_with_index do |item_data, index|
-              - if item_data[:responses].present?
-                %li.clearfix.candidate_answer
-                  .span13
-                    .question
-                      Question #{index+1}: Candidate
-                    = item_data[:item]
-                  - item_data[:responses].each_with_index do |(body,response_count),index|
-                    - klass = response_count > 0 ? "active" : ""
-                    .span3{:class => klass}
-                      = response_count
-        .divider1
+              - trait_score[:items][:self_responses].each_with_index do |item_data, index|
+                - if item_data[:responses].present?
+                  %li.clearfix.candidate_answer
+                    .span13
+                      .question
+                        Question #{index+1}: Candidate
+                      = item_data[:item]
+                    - item_data[:responses].each_with_index do |(body,response_count),index|
+                      - klass = response_count > 0 ? "active" : ""
+                      .span3{:class => klass}
+                        = response_count
+          .divider1
