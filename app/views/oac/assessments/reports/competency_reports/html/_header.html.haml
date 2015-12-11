@@ -1,0 +1,25 @@
+.header-container
+  #header
+    .container
+      .logo.pull-left.pull-left
+        = image_tag(asset_path("jombay-logo.png"))
+      .big-text.gray-dark.padding-all1.pull-left{:title => "Bahubali The Great"}
+        Bahubali The Great
+      .pull-right
+        %ul#nav.clearfix.pull-left
+          %li.left
+          %li
+            %a.scroll{:href => "#overview", :title => "Overview"}
+              Overview
+          %li
+            %a.scroll{:href => "#competency_data_points", :title => "Competency Data Points"}
+              Competencies
+          %li
+            %a.scroll{:href => "#tools", :title => "Tool Wise Data Points"}
+              Tools
+          %li
+            %a.scroll{:href => "#remarks", :title => "Assessor's Remark"}
+              Remarks
+        
+          %li.right
+        %a.btn.btn-warning.span.print-btn{:href => "#"} Printable PDF
