@@ -54,5 +54,5 @@ mrf_report:
 
 perception_gap:
   aggrement: "This section lists aspects on which Stakeholder rating overlaps with the candidates self rating"
-  negative_differences: "This section lists aspects on which Stakeholder rating is lower than the candidates self rating"
-  positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidates self rating"
+  negative_differences: "This section lists aspects on which Stakeholder rating is lower than the candidate's self rating"
+  positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidate's self rating"
