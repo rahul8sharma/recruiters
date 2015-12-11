@@ -1,14 +1,15 @@
-.inner{ style: "margin-top:0px;" }
-  .overall_report
-    .j-logo.pull-left
-    - if @report.report_hash[:assessment][:brand_partner]
-      .pull-right
-        - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
-        .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 200px; height: 200px "}
-    .clr
-    .divider30
-    .huge-text
-      = @report.report_hash[:user][:name]
-    .divider2
-    - section_value.each do |section|
-      = render :partial => section["path"]
+.overall_report
+  .divider3
+  .j-logo.pull-left
+  - if @report.report_hash[:assessment][:brand_partner].present?
+    .pull-right
+      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
+      .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 200px; height: 200px "}
+  .clr
+  .divider26
+  .huge-text
+    = @report.report_hash[:user][:name]
+  .divider2
+  - section_value.each do |section|
+    = render :partial => section["path"]
+.page-break

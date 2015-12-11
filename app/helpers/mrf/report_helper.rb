@@ -22,8 +22,9 @@ module Mrf::ReportHelper
     all_trait_scores = []
     report.report_data[:competency_scores].map do |competency, competency_scores|
       competency_scores[:trait_scores].map do |trait_scores|  
-        trait_scores[:competency_name] = competency
-        all_trait_scores.push trait_scores
+        new_trait_scores = trait_scores.dup
+        new_trait_scores[:competency_name] = competency
+        all_trait_scores.push new_trait_scores
       end
     end
     all_trait_scores

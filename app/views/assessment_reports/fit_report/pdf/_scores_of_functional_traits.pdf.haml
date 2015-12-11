@@ -1,5 +1,4 @@
 - if @report.report_data[:functional_trait_scores].present?
-  = render partial: "shared/reports/pdf/report_header.pdf.haml"
   - @report.report_data[:functional_trait_scores].each_slice(5) do |functional_trait_scores|
     #scores.section03
       .divider2

@@ -1,99 +1,36 @@
-.bg-gray.distribution.black
+#overall.bg-gray.distribution.black
   .divider2
   .container
     .title
       Distribution of Overall  360&#176; scores: Competencies
-
-    .border-bottom-grayDark
-      .span15.first
-        .divider2
-        .large-text.left-offset1
-          Communication Skills
-        .divider2
-        .grid_graph.span13.left-offset1
-          .columns
-            -6.times do
-              .column.span1.left-offset1{:style=>"background: #2b7bbe; margin-top: #{(300*70/100)}px; height: 30%"}
-                .rating_range
-                  0 - 1
+    - color_index = 0
+    - @report.report_hash[:competency_scores].each_slice(2) do |step_data|
+      .border-bottom-grayDark
+        - step_data.each_with_index do |(competency, competency_scores), index|
+          - hex_code = @bucket_colors[color_index]
+          - color_index += 1
+          .span15.first{:class => (index+1) == 2 ? "pull-right" : ""}
+            .divider2
+            .large-text.left-offset1
+              #{competency}
+            .divider2
+            .grid_graph.small.span13.left-offset1
+              .columns
+                - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
+                  - bar_height = values[:percentage]
+                  - multiplier = 100 - bar_height
+                  .column.span1.left-offset1{:style=>"background: #{hex_code}; margin-top: #{(300*multiplier/100)-1}px; height: #{bar_height}%"}
+                    .rating_range
+                      = bucket
+                .clr
+              .counts
+                -counter = 110
+                -11.times do |index|
+                  - counter = counter-10
+                  .count
+                    #{counter} 
             .clr
 
-          .counts
-            -counter = 110
-            -11.times do |index|
-              - counter = counter-10
-              .count
-                #{counter} 
-        .clr
-
-      .span15.first.pull-right
-        .divider2
-        .large-text.left-offset1
-          Teamwork
-        .divider2
-        .grid_graph.span13.left-offset1.pull-right
-          .columns
-            -6.times do
-              .column.span1.left-offset1{:style=>"background: #f2de6e; margin-top: #{(300*70/100)}px; height: 30%"}
-                .rating_range
-                  0 - 1
-            .clr
-
-          .counts
-            -counter = 110
-            -11.times do |index|
-              - counter = counter-10
-              .count
-                #{counter} 
         .clr  
-
-      .clr  
-      .divider3
-
-
-    .border-bottom-grayDark
-      .span15.first
-        .divider2
-        .large-text.left-offset1
-          Promlem Solving Skills
-        .divider2
-        .grid_graph.span13.left-offset1
-          .columns
-            -6.times do
-              .column.span1.left-offset1{:style=>"background: #a8e500; margin-top: #{(300*70/100)}px; height: 30%"}
-                .rating_range
-                  0 - 1
-            .clr
-
-          .counts
-            -counter = 110
-            -11.times do |index|
-              - counter = counter-10
-              .count
-                #{counter} 
-        .clr
-
-      .span15.first.pull-right
-        .divider2
-        .large-text.left-offset1
-          Strategic Decision Making
-        .divider2
-        .grid_graph.span13.left-offset1.pull-right
-          .columns
-            -6.times do
-              .column.span1.left-offset1{:style=>"background: #e79b48; margin-top: #{(300*70/100)}px; height: 30%"}
-                .rating_range
-                  0 - 1
-            .clr
-
-          .counts
-            -counter = 110
-            -11.times do |index|
-              - counter = counter-10
-              .count
-                #{counter} 
-        .clr  
-
-      .clr  
-      .divider3
+        .divider3
     .divider3

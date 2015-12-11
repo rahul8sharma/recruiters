@@ -5,7 +5,6 @@
   - ordered_guides += user_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
   - (0..ordered_guides.length-1).step(guides_step) do |step|
     - step_user_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .inner
       .scores.interview_guide
         .divider1

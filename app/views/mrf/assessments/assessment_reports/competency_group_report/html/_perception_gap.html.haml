@@ -1,78 +1,89 @@
-.perception_gap.border-bottom-grayLighter
-  .container
-    .divider2
-    .title
-      Perception Gap
-    .divider2
-    -2.times do
-      .frame.bg-gray
-        .heading.pull-left
-          Self Direction
-        .clr
-        .divider2
-        .span28.margin-auto.border-bottom-grayLighter
-          .big-text.black
-            .pull-left
-              Overall
-            .chart_indication.pull-right
-              .icons.span1.color-agreement
-                &#8226;
-              .span
-                Agreement
-              .icons.span1.left-offset1.color-positive
-                &#8226;
-              .span
-                Perceive positive difference
-              .icons.span1.left-offset1.color-negative
-                &#8226;
-              .span
-                Perceive negative difference  
-              .clr
-
-
-            .clr
-          .divider3
-          .chart
-            .pie_chart.span7.margin-auto
-              Pie chart goes here
-            .divider2
-            .pie_chart_rate.span9.margin-auto
-              .span3.color-positive
-                %div &#8226;
-                .rate
-                  20%
-              .span3.first.color-agreement
-                %div &#8226;
-                .rate
-                  30%
-              .span3.first.color-negative
-                %div &#8226;
-                .rate
-                  50%
-              .clr
-            .divider2
-        .divider2
-
-        %ul.chart.small.clearfix
-          -6.times do
-            %li
-              .pie_chart.span3.margin-auto
-                Pie chart goes here
-              .divider1
-              .pie_chart_rate.span6
-                .span2.first.color-positive
-                  %div &#8226;
-                  .rate
-                    20%
-                .span2.first.color-agreement
-                  %div &#8226;
-                  .rate
-                    30%
-                .span2.first.color-negative
-                  %div &#8226;
-                  .rate
-                    50%
+- if @report.report_data[:competency_scores].any?{|key,value| value[:perception_gap].present? }
+  #perception-gap.perception_gap.border-bottom-grayLighter
+    .container
+      .divider2
+      .title
+        Perception Gap
+      .divider2
+      - @report.report_data[:competency_scores].each do |competency, competency_scores|
+        .frame.bg-gray
+          .heading.pull-left
+            = competency
+          .clr
+          .divider2
+          .span28.margin-auto.border-bottom-grayLighter
+            .big-text.black
+              .pull-left
+                Overall
+              .chart_indication.pull-right
+                .icons.span1.color-agreement
+                  &#8226;
+                .span
+                  Agreement
+                .icons.span1.left-offset1.color-positive
+                  &#8226;
+                .span
+                  Perceive positive difference
+                .icons.span1.left-offset1.color-negative
+                  &#8226;
+                .span
+                  Perceive negative difference  
                 .clr
-        .divider3
 
-      .divider1
+
+              .clr
+            .divider3
+            .chart
+              - total = competency_scores[:perception_gap][:overall].values.sum
+              - aggrement_percentage = ((competency_scores[:perception_gap][:overall][:aggrement]*100).to_f/total).round(2)
+              - negative_percentage = ((competency_scores[:perception_gap][:overall][:negative_difference]*100).to_f/total).round(2)
+              - positive_percentage = ((competency_scores[:perception_gap][:overall][:positive_difference]*100).to_f/total).round(2)
+              .pie_chart.span7.margin-auto
+                .pie-chart{ id: "pie_#{competency}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 200px;height: 200px;" }
+              .divider2
+              .pie_chart_rate.span9.margin-auto
+                .span3.color-positive
+                  %div &#8226;
+                  .rate
+                    = "#{positive_percentage}%"
+                .span3.first.color-agreement
+                  %div &#8226;
+                  .rate
+                    = "#{aggrement_percentage}%"
+                .span3.first.color-negative
+                  %div &#8226;
+                  .rate
+                    = "#{negative_percentage}%"
+                .clr
+              .divider2
+          .divider2
+
+          %ul.chart.small.clearfix
+            - competency_scores[:perception_gap][:role_wise_frequencies].each_with_index do |(role, role_wise_scores),index|
+              - total = role_wise_scores.values.sum
+              - aggrement_percentage = ((role_wise_scores[:aggrement]*100).to_f/total).round(2)
+              - negative_percentage = ((role_wise_scores[:negative_difference]*100).to_f/total).round(2)
+              - positive_percentage = ((role_wise_scores[:positive_difference]*100).to_f/total).round(2)
+              %li
+                .pie_chart.span3.margin-auto
+                  .pie-chart{ id: "pie_#{index}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 100px;height: 100px;" }
+                .divider1
+                .pie_chart_rate.span6
+                  .span2.first.color-positive
+                    %div &#8226;
+                    .rate
+                      = positive_percentage
+                  .span2.first.color-agreement
+                    %div &#8226;
+                    .rate
+                      = aggrement_percentage
+                  .span2.first.color-negative
+                    %div &#8226;
+                    .rate
+                      = negative_percentage
+                %b.bold-text
+                  = role.titleize
+                  .clr
+          .divider3
+
+        .divider1
