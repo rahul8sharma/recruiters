@@ -1,0 +1,124 @@
+#tools.section03
+  .divider2
+  .scores.container
+    .pull-left
+      .title
+        Tool Wise Data Points
+      .divider2
+      -#
+        .instruction_container
+          .instructions
+            .box.pull-left
+              .box-icon.pull-left
+              .box-title.pull-left
+                Expected Score Range
+              .clr
+            .instruction1.pull-left
+              Favorable Traits
+            .instruction2.less_favorable.pull-left
+              Less Favorable Traits
+            .clr
+    -#
+      .scale
+        .line{:style => "width:400px"}
+        .marker-container
+          .marker
+            .arrow
+            .marker-info
+              Low' is the minimum score on the scale
+            %br
+              Low
+          .marker
+            .arrow
+            .marker-info
+              Below Average' is a score falling between 'Low' and 'Average'
+            Below Average
+          .marker
+            .arrow
+            .marker-info
+              Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
+            Average (Low)
+          .marker
+            .arrow
+            .marker-info
+              Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
+            Average (High)
+          .marker
+            .arrow
+            .marker-info
+              Above Average' is a score falling between 'Average' and 'High'
+            Above Average
+          .marker
+            .arrow
+            .marker-info
+              High' is the maximum score on the scale
+            %br
+              High
+          .clr
+    .clr
+
+    -2.times do
+      .frame
+        .heading.pull-left
+          Competency: Networking
+        .heading.pull-right
+          Score: Average (High) 
+        .clr
+        %ul.clearfix.scores_listing.first
+          %li
+            .overview.span27.margin-auto
+              .content
+                %ul.competency-list
+                  %li.medium-text.default
+                    .span7.extra-medium-text.black
+                      Measured Using
+                    .span3.text-center
+                      Psychometry
+                    .span3.text-center
+                      Personal Interview
+                    .span3.text-center
+                      Group Discussion
+                    .span3.text-center
+                      SJT
+                    .span3.text-center
+                      Case Studies
+                    .span3.text-center
+                      E-Trays
+                    .clr
+       
+                  %li.medium-text.default
+                    .span7.extra-medium-text.black
+                      Score
+                    .span3.text-center
+                      High
+                    .span3.text-center
+                      Low
+                    .span3.text-center
+                      Above Average
+                    .span3.text-center
+                      High
+                    .span3.text-center
+                      Average high
+                    .span3.text-center
+                      Low
+                    .clr
+            .clr
+            .divider2
+            .extra-medium-text.bold
+              Strengths
+
+            %ul.medium-text.disc
+              -2.times do
+                %li.padding-all1
+                  More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+            
+            .divider1
+            %hr
+            .extra-medium-text.bold
+              Areas of Improvements
+
+            %ul.medium-text.disc
+              -2.times do
+                %li.padding-all1
+                  More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+      .divider1
