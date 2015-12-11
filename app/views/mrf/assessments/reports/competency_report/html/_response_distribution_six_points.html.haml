@@ -9,7 +9,7 @@
         - if trait_score[:items][:other_responses].present?
           .frame.extra-medium-text
             %ul
-              %li.titles.clearfix
+              %li.titles.clearfix.bold
                 .span13
                   Questions on 
                   = truncate "Trait: #{trait_score[:trait][:name]}", length: 80
