@@ -2,20 +2,19 @@
   .divider2
   .container
     .title
-      Data Points on 360&#176; Scores: Competencies
+      Details on 360&#176;  Ratings on Competencies/Values
     .divider2
-    - @report.report_data[:competency_scores].each do |competency,competency_scores|
+    - @report.report_data[:competency_scores].each do |competency, competency_scores|
       - hash = HashWithIndifferentAccess.new({ competency: competency, competency_scores: competency_scores, role_wise_scores: competency_scores[:role_wise_scores], trait_wise: false, graph_buckets: @competency_graph_buckets })
       .frame
         .heading.pull-left
           = competency
         .heading.pull-right
-          360&#176; Score: #{competency_scores[:score][:points]}
+          360&#176; Rating: #{competency_scores[:score][:points]}
         .clr
-        .divider2
         .span28.margin-auto
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, hash[key.to_sym]] }]
             = render :partial => section["path"], :locals => locals
           .divider1
-      .divider2
+      .divider1

@@ -1,0 +1,41 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+.container
+  .page-title
+    Set Weightage
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+  .weightage-container.clearfix
+    .tabs.span5.extra-medium-text
+      %a.box1_tab.active{:href => "#", :title => "SJT"}
+        SJT
+      %a.box2_tab{:href => "#", :title => "Psychometry"}
+        Psychometry
+      %a.box3_tab{:href => "#", :title => "E-Trays"}
+        E-Trays
+      %a.box4_tab{:href => "#", :title => "Personal Interview"}
+        Personal Interview
+      %a.box5_tab{:href => "#", :title => "Group Discussion"}
+        Group Discussion
+      %a.box6_tab{:href => "#", :title => "Case Studies"}
+        Case Studies
+    .boxes.span25.pull-right.first
+      .box1.show
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "SJT"}
+      .box2
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Psychometry"}
+      .box3
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "E-Trays"}
+      .box4
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Personal Interview"}
+      .box5
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Group Discussion"}
+      .box6
+        = render :partial => "set_competency_traits_weightage", :locals => {:tool => "Case Studies"}
+
+  .divider2
+  %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => add_candidates_company_oac_path(@company.id, 12)}
+    Proceed
+
+  = javascript_include_tag "oac/set_weightage_oac"

@@ -1,0 +1,60 @@
+.assessments-list
+  .span14.page-title.first
+    .divider1
+    Online Assessment Center
+  %a.btn.btn-info.big.big-text.pull-right.span{:href => select_tools_company_oac_path(@company.id, 12), :title => "Click Here To Create new Assessment Center"}
+    Create New Assessment Center
+  .clr
+  .divider2
+  .list-snippet-titles.extra-medium-text.clearfix
+    .span2.first.bold
+      AID
+    .span4.bold
+      Created On
+    .span11.bold
+      Assessment Title
+    .span4.bold
+      View Details
+    .span4.bold
+      %a{:href=>"#"}
+        Completed by
+    .span3.bold
+      %a{:href=>"#"}
+        Sent to 
+    .divider2          
+  %ul
+    - 10.times do |index|
+      %li.list-snippet.border-bottom-grayLighter.medium-text
+        -# - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id)
+        - assessment_url = candidates_company_oac_path(:company_id => params[:company_id], :id => index)
+        .span2.first
+          %a{:href=> assessment_url, :title =>  ""} 
+            -# = assessment.id
+            123
+        .span4
+          %a{:href => assessment_url, :title => "Date"} 
+            -# = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
+            31/08/1989
+        .span11.info-block
+          %a{:href=> assessment_url, :title => "Assessment Name"}  
+            -# = assessment.name
+            Online Assessment Center Dummy Value
+        .span3.text-center
+          %a{:href=> assessment_url, :title => "View Details"}
+            %i.icon-eye-open
+        .span3.text-center.left-offset1
+          -# - completed_count = @company.assessmentwise_statistics[:completed][assessment.id.to_s] rescue 0
+          - completed_count = 0
+          %a{:href=> assessment_url, :title=>"#{completed_count}"}  
+            = completed_count
+        .span2.text-center.left-offset1
+          -# - sent_count = @company.assessmentwise_statistics[:sent][assessment.id.to_s] rescue 0
+          - sent_count = 0
+          %a{:href=> assessment_url, :title=>"#{sent_count}"}  
+            = sent_count
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    -# = render :partial => "shared/pagination", :locals => { :objects => @assessments}
+  .clr

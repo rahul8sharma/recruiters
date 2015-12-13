@@ -2,25 +2,24 @@
 .scores
   #scores_competencies.scores_competencies_graph.border-bottom-grayLighter
     .divider1
-    .large-text
-      360&#176; Scores: Competencies
-    .divider1
-    .graph_instructions.medium-text
-      .graph_classic_user_icon.pull-left
-      .user_rating.span
-        Self Rating
-      .graph_stakeholder_rating_icon.span
+    .color-info.big-text.pull-left
+      360&#176; and self ratings on Competencies
+    .graph_instructions.pull-right
+      .graph_stakeholder_rating_icon.pull-left
       .stakeholder_rating.span
         Rating by other Stakeholders
-      .overlapped_score.pull-left
-        .competency_overlapped_score_icon.span.left-offset1
-        .span
-          Score Overlap
-        .clr
-      .desired_range.span2
+      .graph_classic_user_icon.span
+      .user_rating.span
+        Self Rating
       .span
+        Score Overlap is indicated by 
+      .competency_overlapped_score_icon.span
+      .clr
+      .desired_range.span2.hide
+      .span.hide
         Desired Range
       .clr
+    .clr
     .divider1
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph_with_desired_range"
 .page-break

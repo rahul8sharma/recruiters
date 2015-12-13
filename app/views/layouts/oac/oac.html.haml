@@ -1,0 +1,12 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "companies"
+  = stylesheet_link_tag "tests"
+  = stylesheet_link_tag "oac"
+- content_for :content do
+  .container.oac
+    //For Alerts
+    //= render :partial => "shared/alert-success-iconic"
+    //= render :partial => "shared/alert-error"
+    //= render :partial => "shared/alert-success"
+    = yield
+= render :file => 'layouts/jit'

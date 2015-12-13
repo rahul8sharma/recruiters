@@ -27,6 +27,7 @@ pdf:
   guides_step: 8
   training_requirements_report:
     scores_step: 4
+    scores_step_pie: 8
     graph_limiter_on_training_requirement_report: 10
     pie_charts_step: 10
 candidate:
@@ -50,3 +51,8 @@ mrf_report:
   unrecognised_strengths: "Strengths according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the higher side, but the candidate has rated themselves on the lower side. Average scores are not considered here."
   recognised_areas_of_improvements: "Areas of improvement according to the candidate as well as stakeholders. They are traits that both candidates and stakeholders have rated on the lower side. Average scores are not considered here."
   unrecognised_areas_of_improvements: "Areas of improvement according to stakeholders, but unknown to the candidate. They are traits that stakeholders have rated on the lower side but the candidate has rated themselves on the higher side. Average scores are not considered here."
+
+perception_gap:
+  aggrement: "This section lists aspects on which Stakeholder rating overlaps with the candidate's self rating"
+  negative_differences: "This section lists aspects on which Stakeholder rating is lower than the candidate's self rating"
+  positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidate's self rating"

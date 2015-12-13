@@ -1,0 +1,17 @@
+.container
+  .page-title
+    Assign Assesor
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  %ul.span22.margin-auto.clearfix
+    - 6.times do |index|
+      %li.span7
+        %label.big-text.default
+          %input{:type=>"checkbox"}
+          Assesor #{index}
+        .divider2
+  .divider2
+  %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Submit" , name:"submit"}
+  .clr
+

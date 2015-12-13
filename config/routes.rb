@@ -353,23 +353,18 @@ Recruiters::Application.routes.draw do
       member do
         match "competencies" => "sjt/assessments#competencies", :as => :competencies
         match "competencies_measured" => "sjt/assessments#competencies_measured", :as => :competencies_measured
-        
         match "send_test_to_users" => "sjt/assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         match "candidates" => "sjt/assessments/user_assessments#users", :as => :users
         match "add_users" => "sjt/assessments/user_assessments#add_users", :as => :add_users
         match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
-        
         match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
-        
         match "candidates/add_bulk" => "sjt/assessments/user_assessments#add_users_bulk", :as => :add_users_bulk
         put "candidates/bulk_upload" => "sjt/assessments/user_assessments#bulk_upload", :as => :bulk_upload
         put "candidates/bulk-send-test" => "sjt/assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
-
         get "candidates/expire_links" => "sjt/assessments/user_assessments#expire_links", :as => :expire_links
         get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
         get "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
         put "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations"
-
         match "candidates/:user_id/extend-validity" => "sjt/assessments/user_assessments#extend_validity", :as => :extend_validity
         get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
@@ -377,6 +372,28 @@ Recruiters::Application.routes.draw do
         put "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
       end
 
+    end
+
+    resources :oac, :controller => "oac/assessments", :path => "oac" do
+      collection do
+        match "home" => "oac/assessments#home", :as => :home
+      end
+
+      member do 
+        match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
+        match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
+        match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
+        match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
+        match "add_candidates" => "oac/assessments#add_candidates", :as => :add_candidates
+        match "send_assessment" => "oac/assessments#send_assessment", :as => :send_assessment
+        match "assign_assessor" => "oac/assessments#assign_assessor", :as => :assign_assessor
+        get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
+        get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
+
+        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/assessments/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "oac/assessments/reports#s3_report", :as => :s3_report
+
+      end
     end
 
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
@@ -1228,6 +1245,8 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
+    
+    resources :options
   end
 
 

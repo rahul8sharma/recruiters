@@ -3,7 +3,7 @@
     .divider2
     .title
       Responses to Other Questions
-    .divider4
+    .divider2
     - section_value.each do |section|
       = render :partial => section["path"], :locals => {:section_value => section["children"]}
       .divider2

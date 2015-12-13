@@ -3,6 +3,9 @@
   %span.bold Body: 
   = @item.body
   %br
+  %span.bold Image
+  = image_tag "data:image/jpeg;base64,#{@item.image}"
+  %br
 = link_to "Edit", edit_sq_item_path(params[:id])
 \| 
 = link_to "Back", sq_items_path()
@@ -21,7 +24,9 @@
     %th
       Body
     %th
-      Order 
+      Order
+    %th
+      Edit   
   - @item.options.each do |option|
     %tr 
       %td
@@ -30,3 +35,5 @@
         = option.body
       %td
         = option.option_order
+      %td
+        = link_to("Edit", edit_sq_option_path(option.id))

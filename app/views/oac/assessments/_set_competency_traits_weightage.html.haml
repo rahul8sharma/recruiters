@@ -1,0 +1,33 @@
+.large-text.left-offset1.color-info
+  Tool: #{tool}
+.divider1
+.large-text.left-offset1
+  Set Weightage for Competencies &amp; Traits
+.divider2
+%ul.span20.margin-auto
+  -6.times do
+    %li
+      .control-group
+        %label.span4.big-text.black
+          competency01
+        %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+        %select.span4
+          -5.times do |index|
+            %option
+              From #{index}
+        %select.span4
+          -5.times do |index|
+            %option
+              To #{index}
+
+
+      .divider1
+      %ul.clearfix
+        -6.times do
+          %li
+            .control-group
+              %label.span4.medium-text
+                trait1
+              %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+      
+      .divider1

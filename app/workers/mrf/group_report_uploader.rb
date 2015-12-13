@@ -5,7 +5,7 @@ module Mrf
 
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
-
+      @report = nil
       begin
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
@@ -92,10 +92,12 @@ module Mrf
             :status => Vger::Resources::Mrf::AssessmentReport::Status::FAILED
           ) rescue nil
         end
-        JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Group Report Uploader","Failed to upload MRF group report {report_id}",{
+        JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("MRF Group Report Uploader","Failed to upload MRF group report {@report.id}",{
           :report => {
             :status => "Failed",
-            :report_id => report_id
+            :report_id => @report.id,
+            :assessment_id => @report.assessment_id,
+            :company_id => @report.assessment.company_id
           },
           :errors => {
             :backtrace => [e.message] + e.backtrace[0..20]

@@ -1,0 +1,48 @@
+.container
+  .page-title
+    Customize Assessment
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  .span22.margin-auto.clearfix
+    %ul
+      -4.times do |index|
+        %li.span7
+          .span6
+            .control-group
+              .span4.big-text.black.first
+                Tool #{index}
+              %input.span2.first{:type=>"text", :placeholder=>"Weightage %"}
+            %select.fw
+              %option 
+                Select Location
+            .divider1
+            %select.fw
+              %option 
+                Select Industry
+            .divider1
+            %select.fw
+              %option 
+                Select Experience
+            .divider1
+            %input.fw{:type=>"text", :placeholder=>"Page Size"}
+          .clr.divider3
+      -2.times do |index|
+        %li.span7
+          .span6
+            .control-group
+              .span4.big-text.black.first
+                Tool #{index} External
+              %input.span2.first{:type=>"text", :placeholder=>"Weightage %"}
+            .control-group
+              %input.span6.first{:type=>"text", :placeholder=>"API KEY"}
+            .control-group
+              %input.span6.first{:type=>"text", :placeholder=>"API Secret"}
+            .control-group
+              %input.span6.first{:type=>"text", :placeholder=>"API URL"} 
+            .control-group
+              %input.fw{:type=>"text", :placeholder=>"Page Size"}   
+    .divider2
+    
+    %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => select_competencies_company_oac_path(@company.id, 12)}
+      Proceed

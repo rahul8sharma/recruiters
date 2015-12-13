@@ -44,7 +44,6 @@
                 - old_min = @trait_graph_buckets.first.min_val
                 - old_max = @trait_graph_buckets.last.max_val
                 - score = @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score] || old_min
-                - score = old_min
                 - percent = convertToRange(old_min, old_max, 0, 100, score)
                 - percent = percent == 0 ? 2 : percent
                 
@@ -64,7 +63,6 @@
                 .divider1
                 
                 - score = @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score] || old_min
-                - score = old_min
                 - percent = convertToRange(old_min, old_max, 0, 100, score)
                 - percent = percent == 0 ? 2 : percent
                 

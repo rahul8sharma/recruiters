@@ -1,0 +1,435 @@
+.competency_report
+  .header-container
+    #header
+      .container
+        .logo.pull-left.pull-left
+          = image_tag(asset_path("jombay-logo.png"))
+        .big-text.gray-dark.padding-all1.pull-left{:title => "Bahubali The Great"}
+          Bahubali The Great
+        .pull-right
+          %ul#nav.clearfix.pull-left
+            %li.left
+            %li
+              %a.scroll{:href => "#overview", :title => "Overview"}
+                Overview
+            %li
+              %a.scroll{:href => "#competency_data_points", :title => "Competency Data Points"}
+                Competencies
+            %li
+              %a.scroll{:href => "#tools", :title => "Tool Wise Data Points"}
+                Tools
+            %li
+              %a.scroll{:href => "#remarks", :title => "Assessor's Remark"}
+                Remarks
+          
+            %li.right
+          %a.btn.btn-warning.span.print-btn{:href => "#"} Printable PDF
+
+  #overview.section01
+    .overall_report.container
+      .divider8
+      .user-name.pull-left
+        Bahubali The Great
+      .pull-right
+        .divider2
+        .final-score.score_band{:style => "background-color: #128975"}
+          Aggregate Score: Above Average
+        .final-score.overall_score_rating{:style => "background-color: #0EB156; width: 355px"}
+          .score_rating_title.pull-left{:style => "color: #0EB156"}
+            Score Rating
+          .span
+            GREEN
+          .clr
+        .clr
+        .divider1
+      .clr
+      .divider3
+      .extra-medium-text
+        Assessment:
+        Testing ToC 15th October
+        .divider1
+        Assessment Answered On:
+        04/11/2015
+      .divider2
+  
+
+  .overview
+    .bottom-triangle
+      .container
+        .divider2
+        .huge-text.text-center.white
+          Overview of Competencies / Values Measured
+        .divider2
+        .content
+          %ul.competency-list
+            %li.large-text.clearfix.black.border-bottom-grayDark
+              .span11
+                Competency
+              .span3.text-center
+                tool1
+              .span3.text-center
+                tool2
+              .span3.text-center
+                tool3
+              .span3.text-center
+                tool4
+              .span3.text-center
+                tool5
+              .span.text-center
+                tool6
+
+            -5.times do
+              %li.big-text.clearfix
+                -#.favorable.first.hexagon-icon.span1
+                .span11
+                  Competency
+                .span3.text-center
+                  %i.icon-ok.color-info
+                .span3.text-center
+                  %i.icon-remove.gray-lighter
+                .span3.text-center
+                  %i.icon-ok.color-info
+                .span3.text-center
+                  %i.icon-remove.gray-lighter
+                .span3.text-center
+                  %i.icon-ok.color-info
+                .span.text-center
+                  %i.icon-remove.gray-lighter
+            
+        .divider2
+  
+  #competency_data_points.section03
+    .divider2
+    .scores.container
+      .pull-left
+        .title
+          Competency Data Points
+        .divider2
+        -#
+          .instruction_container
+            .instructions
+              .box.pull-left
+                .box-icon.pull-left
+                .box-title.pull-left
+                  Expected Score Range
+                .clr
+              .instruction1.pull-left
+                Favorable Traits
+              .instruction2.less_favorable.pull-left
+                Less Favorable Traits
+              .clr
+      .scale
+        .line{:style => "width:400px"}
+        .marker-container
+          .marker
+            .arrow
+            .marker-info
+              Low' is the minimum score on the scale
+            %br
+              Low
+          .marker
+            .arrow
+            .marker-info
+              Below Average' is a score falling between 'Low' and 'Average'
+            Below Average
+          .marker
+            .arrow
+            .marker-info
+              Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
+            Average (Low)
+          .marker
+            .arrow
+            .marker-info
+              Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
+            Average (High)
+          .marker
+            .arrow
+            .marker-info
+              Above Average' is a score falling between 'Average' and 'High'
+            Above Average
+          .marker
+            .arrow
+            .marker-info
+              High' is the maximum score on the scale
+            %br
+              High
+          .clr
+      .clr
+      .divider3
+
+      .frame
+        %ul.clearfix.scores_listing.first
+          -2.times do
+            %li
+              .divider1
+              .lhs-sec.pull-left{:style => "width: 730px;"}
+                -#.span1.first.hexagon-icon.favorable
+                .span16.first
+                  .factor-name.pull-left
+                    Networking
+                    .info
+                      Degree to which an individual takes initiative to network with people
+                    .arrow
+                  .clr
+              .rhs-sec.pull-left
+                .slider{:style => "width:400px"}
+                  .favorable.pointer{:style => "left:240px"}
+                    .score-indicater
+                      Average (High) 
+                    .arrow
+                  
+                  .range{:style => "margin-left: 160px;width: 80px;"}
+              .clr
+              .divider1
+              .factor-description
+                More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+         
+      
+      
+    .divider2
+  #tools.section03
+    .divider2
+    .scores.container
+      .pull-left
+        .title
+          Tool Wise Data Points
+        .divider2
+        -#
+          .instruction_container
+            .instructions
+              .box.pull-left
+                .box-icon.pull-left
+                .box-title.pull-left
+                  Expected Score Range
+                .clr
+              .instruction1.pull-left
+                Favorable Traits
+              .instruction2.less_favorable.pull-left
+                Less Favorable Traits
+              .clr
+      .scale
+        .line{:style => "width:400px"}
+        .marker-container
+          .marker
+            .arrow
+            .marker-info
+              Low' is the minimum score on the scale
+            %br
+              Low
+          .marker
+            .arrow
+            .marker-info
+              Below Average' is a score falling between 'Low' and 'Average'
+            Below Average
+          .marker
+            .arrow
+            .marker-info
+              Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
+            Average (Low)
+          .marker
+            .arrow
+            .marker-info
+              Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
+            Average (High)
+          .marker
+            .arrow
+            .marker-info
+              Above Average' is a score falling between 'Average' and 'High'
+            Above Average
+          .marker
+            .arrow
+            .marker-info
+              High' is the maximum score on the scale
+            %br
+              High
+          .clr
+      .clr
+      .divider3
+
+      .frame
+        %ul.clearfix.scores_listing.first
+          -2.times do
+            %li
+              .divider1
+              .lhs-sec.pull-left{:style => "width: 730px;"}
+                -#.span1.first.hexagon-icon.favorable
+                .span16.first
+                  .factor-name.pull-left
+                    Networking
+                    .info
+                      Degree to which an individual takes initiative to network with people
+                    .arrow
+                  .clr
+              .rhs-sec.pull-left
+                .slider{:style => "width:400px"}
+                  .favorable.pointer{:style => "left:240px"}
+                    .score-indicater
+                      Average (High) 
+                    .arrow
+                  
+                  .range{:style => "margin-left: 160px;width: 80px;"}
+              .clr
+              .divider2
+              .overview.span27
+                .content
+                  %ul.competency-list
+                    %li.medium-text.default
+                      .span7.extra-medium-text.black
+                        Measured Using
+                      .span3.text-center
+                        tool1
+                      .span3.text-center
+                        tool2
+                      .span3.text-center
+                        tool3
+                      .span3.text-center
+                        tool4
+                      .span3.text-center
+                        tool5
+                      .span3.text-center
+                        tool6
+                      .clr
+         
+                    %li.medium-text.default
+                      .span7.extra-medium-text.black
+                        Score
+                      .span3.text-center
+                        High
+                      .span3.text-center
+                        Low
+                      .span3.text-center
+                        Above Average
+                      .span3.text-center
+                        High
+                      .span3.text-center
+                        Average high
+                      .span3.text-center
+                        Low
+                      .clr
+              .clr
+              .divider2
+           
+              .factor-description
+                More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+    
+
+
+  .scores#remarks
+    .remarks.section05
+      .divider2
+      .container
+        .title
+          Assessor's Remark
+        %ul.scores_listing
+          %li
+            .big-text.bold
+              Observations
+            .divider1
+            %p.extra-medium-text
+              hjr circle of professional contacts; may sometimes look forward to meeting new shhdsfh
+              How well d
+              How well do you think you understand your team members' emotions? What makes you think so? (Please ask for examples) 
+            .divider2
+
+            .big-text.bold
+              Feedback
+            .divider1
+            %p.extra-medium-text
+              hjk;l; ghjksdfgjhv fdsjgdfMore likely to be open to expanding his/her circle of professional contacts; may sometimes look fok;l; ghjksdfgjhv fdsjgdfMore likely to be open to expanding his/heo you think you understand your team members' emotions? What makes you think so? (Please ask for examples) rward to meeting new shhdsfh
+  .divider2
+  .legal_disclaimer
+    .header
+      .container
+        .icon
+        .title
+          Legal Disclaimer
+        .clr
+    .divider3
+    .container
+      %p
+        This report is strictly confidential and should be used only for its intended purpose. Unauthorised sharing or publishing of this report in any manner would constitute a breach of privacy. Jombay reserves the right to use any data associated with the report for research purposes.
+      %p
+        %span.bold Note:
+        Jombay's Reports should not be used as the sole basis for making any employee related decision. Please refer to the relevant legal, professional and ethical standards for guidance to ensure compliance.
+  .divider10
+  .footer
+    .container
+      .pull-left
+        Private &amp; Confidential
+      .pull-right
+        \&copy; Jombay
+      .clr
+  .about-us
+    .header
+      .container
+        .icon
+        .title
+          .logo
+        .clr
+    .about-us-top-triangle
+      .about-us-bottom-triangle
+        .container
+          .divider3
+          .content
+            %ul
+              %li.feature01
+                %p
+                  %span.bold About Jombay:
+                  Jombay is a Talent Assessment & Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe.
+              %li.feature02
+                %p
+                  %span.bold Underlying Theories & Concepts:
+                  Jombay Assessments are based on globally proven theories in Psychology such as the Big Five Theory by Costa and McCrae, Cattell's Theory of Surface and Source Traits, Rotter's Expectancy Theory, Organ's Theory of Organizational Citizenship Behavior and Goleman's concept of Emotional Intelligence.
+              %li.sub-title
+                What differentiates Jombay?
+              %li.feature03
+                %p
+                  %span.bold Scientifically Validated:
+                  Jombay Assessment has been created by referring to the test development guidelines published by the International Test Commission (ITC) and American Psychological Association (APA). It means that you can trust Jombay to be based on sound People Science - it delivers stable and consistent scores (i.e. are reliable); and, its reports are useful and accurate to individuals (i.e. are valid).
+              %li.feature04
+                %p
+                  %span.bold Customization:
+                  Jombay allows you to customize assessments to every job role, competencies or core values. You can measure what is relevant to you or your company requirements - No force fitting!
+              %li.feature05
+                %p
+                  %span.bold Integrated Talent Analytics:
+                  Jombay provides you actionable insights through Analytics reports around Benchmarking of Talent, Training Needs Identifications, Attrition Analysis among others.
+          .divider1
+          .content.company-summary
+            .company-badge
+              %img{:src => "http://companies.internal.ur-nl.com:6080/assets/pearson-58e1628f3b0da61e9990b3ea16fbf44f.png"}
+            .divider2
+            %p
+              %p &nbsp;&nbsp;&nbsp;&nbsp;We develop and deliver leading, scientifically-valid assessments used to improve performance, identify talent, develop leaders, and engage teams.
+              %p &nbsp;&nbsp;&nbsp;&nbsp;TalentLens, a Pearson business, publishes scientific assessments that are used globally to hire and develop the 21st century workforce. Our instruments measure critical thinking, problem solving, and a range of job skills to deliver data-driven insights that inform and clarify an organization's human capital decisions. Learn more at TalentLens.com.
+          .divider1
+          .content.contact_section
+            .divider1
+            .inn
+              .caption For Sales Enquiries
+              .divider1
+              %ul.clearfix
+                %li.span6.first
+                  America &amp; Europe
+                  %a{:href => "mailto:mansi@jombay.com"}
+                    mansi@jombay.com
+                %li.span7
+                  Africa, Middle East &amp; Asia
+                  %a{:href => "mailto:pratik@jombay.com"}
+                    pratik@jombay.com
+                %li.span7
+                  India
+                  %a{:href => "mailto:pranali@jombay.com"}
+                    pranali@jombay.com
+                %li.span5
+                  Australia &amp; New Zealand
+                  %a{:href => "mailto:anuja@jombay.com"}
+                    anuja@jombay.com
+              .clr
+              .divider3
+              .home-page-redirect
+                %a{:href => "http://products.jombay.com/", :target => "_blank"}
+                  www.jombay.com
+                .clr
+              .divider1
+        .divider3

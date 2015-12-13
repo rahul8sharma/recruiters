@@ -1,0 +1,33 @@
+.container
+  .page-title
+    Select Tools
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  .span22.margin-auto
+    .control-group.span20
+      %label.big-text.default.span8
+        Enter Assessment Center Title
+      %input.span8{:type=>"text", :placeholder=>"Assessment Center Title"}
+    .clr
+    .divider2
+
+    %ul.clearfix
+      - 6.times do |counter|
+        %li.span10
+          %label.big-text.default.span5
+            %input{:type=>"checkbox"}
+            Tool #{counter}
+          %select.span4
+            -5.times do |index|
+              %option
+                #{index}
+          .clr
+          .divider1
+    
+  
+  .divider2
+  %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => customize_assessment_company_oac_path(@company.id, 12)}
+    Proceed
+  .clr
+
