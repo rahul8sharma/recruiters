@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from Faraday::Unauthorized, :with => :unauthorized
   rescue_from Faraday::ResourceNotFound, :with => :resource_not_found
   rescue_from Vger::Errors::InvalidAuthenticationException, :with => :invalid_authentication
+  rescue_from Her::Errors::ParseError, :with => :parse_error
   
   helper_method :current_user
   helper_method :can?
@@ -66,10 +67,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # Redirect to after sign in path if user tries to access a non-existing resource
   def resource_not_found
-    respond_to do |format|
-      format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
-    end
+    flash[:error] = "This page does not exist."
+    redirect_to request.env['HTTP_REFERER'] || redirect_user_path
   end
   
   # set session[:auth_token] to nil
@@ -78,6 +79,12 @@ class ApplicationController < ActionController::Base
     session[:auth_token] = nil
     flash[:error] = e.message
     redirect_to login_path
+  end
+  
+  # Handle parse error thrown by vger when the response from the server is invalid
+  def parse_error(e)
+    flash[:error] = "Something went wrong."
+    redirect_to request.env['HTTP_REFERER'] || redirect_user_path
   end
   
   def check_superuser
