@@ -2,12 +2,14 @@ class Oac::AssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
+  before_filter :get_tools, :only => [:select_tools]
   layout 'oac/oac'
 
   def home  
   end
 
   def select_tools
+    @exercise = Vger::Resources::Oac::Exercise.new
   end
 
   def select_competencies
@@ -32,6 +34,10 @@ class Oac::AssessmentsController < ApplicationController
 
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
+  end
+  
+  def get_tools
+    @tools = Vger::Resources::Oac::Tool.all
   end
 
 end
