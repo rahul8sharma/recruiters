@@ -2,7 +2,7 @@
 - role_limit = 5
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each do |trait_score|
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
+    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Details on 360 Degree Ratings on Traits (Under Competencies / Values)"}
     - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
     .scores.border-bottom-grayLighter.mrf_data_points
       .color-info.big-text
@@ -11,8 +11,6 @@
       .frame
         .heading.pull-left
           #{competency}
-        .heading.pull-right
-          360&#176 Rating : #{trait_score[:average_score_excluding_self][:points]}
         .clr
         .padding-all1
           .medium-text.pull-left{:style=>"padding-top: 10px"}
@@ -23,7 +21,7 @@
           .final_data_points.pull-left.small
             .high_low_scores{:style => "padding: 10px"}
               .heading.span
-                360º Rating : #{trait_score[:average_score_excluding_self][:points]}
+                360&#176; Rating : #{trait_score[:average_score_excluding_self][:points]}
               .border_gray_light.span
                 .high.left.pull-left
                   Highest

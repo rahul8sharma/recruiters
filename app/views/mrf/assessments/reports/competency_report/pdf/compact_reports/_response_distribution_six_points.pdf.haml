@@ -1,6 +1,6 @@
 - items = get_response_distribution(@report)
 - items.each_slice(8) do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response Distribution"}    
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response distribution on Questions"}    
   .scores
     .response_distribution_six_points
       .color-info.big-text

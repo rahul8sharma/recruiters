@@ -1,10 +1,10 @@
 - sorted_trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_score| competency_score[:trait_scores] }.flatten.sort_by{|trait_score| trait_score[:average_score_excluding_self][:points].to_f }.reverse.uniq
 - sorted_trait_scores.each_slice(15) do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Ratings"}
+  = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "360 Degree Ratings on Traits"}
   .scores_competencies_graph.descending_order.padding-all1
     .divider2
     .color-info.big-text.pull-left
-      360&#176; Ratings on Trait
+      360&#176; Ratings on Traits
     .graph_instructions.medium-text.pull-left.left-offset1
       .graph_stakeholder_rating_icon.span.first
       .span.bold
