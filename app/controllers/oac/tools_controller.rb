@@ -8,6 +8,6 @@ class Oac::ToolsController < MasterDataController
   end
 
   def index_columns
-    [:id, :name, :host, :assessment_class, :assessment_type, :user_exercise_type]
+    [:id, :name, :host, :assessment_class, :assessment_type, :user_exercise_type, :report_type]
   end
 end

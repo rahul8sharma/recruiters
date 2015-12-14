@@ -18,6 +18,7 @@
             .span6.first
               = competency.name
             - @exercise_tools.each_with_index do |exercise_tool, index|
+              - exercise_tool.competency_configuration ||= {}
               - checked = exercise_tool.competency_configuration.keys.map(&:to_i).include?(competency.id.to_i)
               = render :partial => "competency_configuration", locals: { competency: competency, exercise_tool: exercise_tool }
               - if competency.modules.include?(exercise_tool.tool.name)

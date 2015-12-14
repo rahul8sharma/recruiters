@@ -377,10 +377,10 @@ Recruiters::Application.routes.draw do
     resources :oac_exercises, :controller => "oac/assessments", :path => "oac" do
       collection do
         match "home" => "oac/assessments#home", :as => :home
-        match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
       end
 
       member do
+        match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment

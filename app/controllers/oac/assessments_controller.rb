@@ -3,8 +3,9 @@ class Oac::AssessmentsController < ApplicationController
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_exercises, only: [:home]
-  before_filter :get_exercise, except: [:home]
+  before_filter :get_exercise, except: [:home, :new, :create]
   before_filter :get_tools, :only => [:select_tools, :customize_assessment]
+  before_filter :get_master_data, :only => [:customize_assessment]
   before_filter :get_norm_buckets, :only => [
                                       :select_competencies,
                                       :set_weightage
@@ -23,20 +24,33 @@ class Oac::AssessmentsController < ApplicationController
 
   def home  
   end
+  
+  def new
+    @exercise = Vger::Resources::Oac::Exercise.new(params[:exercise])
+  end
+  
+  def create
+    @exercise = Vger::Resources::Oac::Exercise.new(params[:exercise])
+    @exercise.company_id = params[:company_id]
+    if @exercise.save
+      flash[:notice] = "Online assessment center is created successfully."
+      redirect_to select_tools_company_oac_exercise_path(@company.id, @exercise.id)
+    else
+      flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
+      render :action => :new
+    end
+  end
 
   def select_tools
-    if request.post?
-      @exercise = Vger::Resources::Oac::Exercise.new(params[:exercise])
-      @exercise.company_id = params[:company_id]
-      if @exercise.save
-        flash[:notice] = "Online assessment center is created successfully."
+    if request.put?
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      if @exercise.error_messages.blank?
         redirect_to customize_assessment_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
         render :action => :select_tools
       end
     else
-      @exercise = Vger::Resources::Oac::Exercise.new
     end
   end
 
@@ -44,7 +58,6 @@ class Oac::AssessmentsController < ApplicationController
     if request.put?
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        flash[:notice] = "Online assessment center is created successfully."
         redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
@@ -55,9 +68,14 @@ class Oac::AssessmentsController < ApplicationController
   
   def select_competencies
     if request.put?
+      params[:exercise][:exercise_tools_attributes].each do |id, exercise_tools_attributes|
+        params[:exercise][:exercise_tools_attributes][id][:competency_configuration] = 
+        Hash[exercise_tools_attributes[:competency_configuration].select do |competency_id, competency_configuration|
+          competency_configuration[:enabled]
+        end]
+      end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        flash[:notice] = "Online assessment center is created successfully."
         redirect_to set_weightage_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
@@ -71,7 +89,6 @@ class Oac::AssessmentsController < ApplicationController
     if request.put?
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        flash[:notice] = "Online assessment center is created successfully."
         redirect_to send_assessment_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
@@ -111,7 +128,13 @@ class Oac::AssessmentsController < ApplicationController
   end
   
   def get_exercises
-    @exercises = Vger::Resources::Oac::Exercise.where(page: params[:page], per: 10).all
+    @exercises = Vger::Resources::Oac::Exercise.where(
+      query_options: {
+        company_id: params[:company_id]
+      },
+      page: params[:page], 
+      per: 10
+    ).all
   end
   
   def get_exercise
@@ -147,4 +170,11 @@ class Oac::AssessmentsController < ApplicationController
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
   end
 
+  def get_master_data
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
+                          .all.to_a.collect{|x| [x.id,x]}]
+    @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
+                        .all.to_a.collect{|x| [x.id,x]}]
+    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]  
+  end
 end

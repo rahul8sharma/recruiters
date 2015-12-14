@@ -9,7 +9,7 @@
   = form_for @exercise, as: :exercise, url: set_weightage_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
     .weightage-container.clearfix
       .tabs.span5.extra-medium-text
-        - @exercise_tools.each_with_index do |exercise_tool, index|
+        - @exercise_tools.sort_by(&:tool_order).each_with_index do |exercise_tool, index|
           %a{:href => "#", :title => exercise_tool.tool.name.titleize, class: "box#{index+1}_tab #{(index == 0 ? 'active':'')}"}
             = exercise_tool.tool.name.titleize
       .boxes.span25.pull-right.first
