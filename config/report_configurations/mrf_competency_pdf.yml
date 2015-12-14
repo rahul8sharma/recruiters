@@ -32,7 +32,7 @@
   },
   {
     id: "pdf_scores_competencies",
-    text: "360 Degree and self ratings on Competencies",
+    text: "360 Degree and Self Ratings on Competencies",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
     children: [
       {
@@ -102,6 +102,12 @@
     id: "pdf_competency_wise_data_points",
     text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
+    children: []
+  },
+  {
+    id: "pdf_frequency_rating__table_compact",
+    text: "Frequency Rating Table [COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_compact",
     children: []
   },
   {

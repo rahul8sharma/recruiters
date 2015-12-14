@@ -1,6 +1,6 @@
 .report_header.clearfix
   .extra-medium-text.white.pull-left.line-height3
-    = display_text rescue "NA"
+    -# = display_text rescue "NA"
   .text-right.pull-right
     .user_name
       = truncate @report.report_hash[:user][:name] ,length: 25
