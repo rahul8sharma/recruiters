@@ -2,6 +2,7 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
+  before_filter :get_exercise
   layout 'oac/oac'
 
   def candidates
@@ -24,6 +25,10 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
 
   def get_company
     @company = Vger::Resources::Company.find(params[:company_id], :methods => [])
+  end
+  
+  def get_exercise
+    @exercise = Vger::Resources::Oac::Exercise.find(params[:id])
   end
 
 end

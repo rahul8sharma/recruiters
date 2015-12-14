@@ -1,33 +1,40 @@
 .large-text.left-offset1.color-info
-  Tool: #{tool}
+  Tool: #{exercise_tool.tool.name.titleize}
 .divider1
 .large-text.left-offset1
   Set Weightage for Competencies &amp; Traits
 .divider2
 %ul.span20.margin-auto
-  -6.times do
+  - exercise_tool.competency_configuration.each do |competency_id, configuration|
+    %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][id]", value: exercise_tool.id }
+    %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][name]", value: configuration[:name] }
     %li
       .control-group
         %label.span4.big-text.black
-          competency01
-        %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
-        %select.span4
-          -5.times do |index|
-            %option
-              From #{index}
-        %select.span4
-          -5.times do |index|
-            %option
-              To #{index}
+          = configuration[:name]
+        %input.span4{:type=>'text', :placeholder=>"Enter Weightage", value: (configuration[:weightage]), name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][weightage]"}
+        - selected = configuration[:desired_range][:from_bucket] || @norm_buckets.map(&:id).min
+        %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][desired_range][from_bucket]" }
+          - @norm_buckets.each do |norm_bucket|
+            %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+              = norm_bucket.name
+        - selected = configuration[:desired_range][:to_bucket] || @norm_buckets.map(&:id).max
+        %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][desired_range][to_bucket]" }
+          - @norm_buckets.each do |norm_bucket|
+            %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+              = norm_bucket.name
 
 
       .divider1
       %ul.clearfix
-        -6.times do
+        - configuration[:traits].each do |trait_id, trait_configuration|
+          %input.span4{:type=>'hidden', value: trait_configuration[:name], name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][name]"}
+          %input.span4{:type=>'hidden', value: trait_configuration[:desired_range][:from_bucket] || @norm_buckets.map(&:id).min, name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][:desired_range][from_bucket]"}
+          %input.span4{:type=>'hidden', value: trait_configuration[:desired_range][:to_bucket] || @norm_buckets.map(&:id).max, name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][:desired_range][to_bucket]"}
           %li
             .control-group
               %label.span4.medium-text
-                trait1
-              %input.span4{:type=>'text', :placeholder=>"Enter Weightage"}
+                = trait_configuration[:name]
+              %input.span4{:type=>'text', :placeholder=>"Enter Weightage", value: trait_configuration[:weightage], name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][weightage]"}
       
       .divider1

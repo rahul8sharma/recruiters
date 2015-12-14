@@ -1215,6 +1215,11 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  namespace :oac do
+    resources :tools do
+    end
+  end
 
   namespace :sq do
     resources :quadrants do

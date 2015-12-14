@@ -14,21 +14,22 @@
       .divider2
 
       %ul.clearfix
-        - @tools.each do |tool|
+        - @tools.each_with_index do |tool, index|
+          %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{index}][assessment_type]", value: tool.assessment_class }
+          %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{index}][user_exercise_type]", value: tool.user_exercise_type }
           %li.span10
             %label.big-text.default.span5
-              %input{:type=>"checkbox"}
+              %input{:type=>"checkbox", name: "exercise[exercise_tools_attributes][#{index}][tool_id]", value: tool.id}
               = tool.name
-            %select.span4
-              -5.times do |index|
-                %option
-                  #{index}
+            %select.span4{ name: "exercise[exercise_tools_attributes][#{index}][tool_order]" }
+              - @tools.size.times do |index|
+                %option{ value: index+1 }
+                  #{index+1}
             .clr
             .divider1
       
     
     .divider2
-    %btn.pull-right.btn.btn-info.big-text.big.font-bold
-      Proceed
+    %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Proceed" }
     .clr
 

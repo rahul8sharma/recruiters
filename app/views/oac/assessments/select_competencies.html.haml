@@ -3,27 +3,32 @@
     Select Competencies
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
-  %form
+  = form_for @exercise, as: :exercise, url: select_competencies_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
     .assessments-list
       .list-snippet-titles.extra-medium-text.clearfix
         .span6.first.bold
           Competencies
-        - 6.times do |index|
+        - @exercise_tools.each do |exercise_tool|
           .span4.text-center.bold
-            Tool #{index}
+            = exercise_tool.tool.name
         .divider3          
       %ul
-        - 5.times do |assessment|
+        - @competencies.sort_by{|competency| competency.modules.size }.reverse.each do |competency|
           %li.list-snippet.border-bottom-grayLighter.medium-text
             .span6.first
-              Responsbility of Outcomes
-            - 6.times do |index|
-              %label.span4.text-center
-                %input{:type => "checkbox"}
+              = competency.name
+            - @exercise_tools.each_with_index do |exercise_tool, index|
+              - checked = exercise_tool.competency_configuration.keys.map(&:to_i).include?(competency.id.to_i)
+              = render :partial => "competency_configuration", locals: { competency: competency, exercise_tool: exercise_tool }
+              - if competency.modules.include?(exercise_tool.tool.name)
+                %label.span4.text-center
+                  %input{:type => "checkbox", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency.id}][enabled]", value: 1, checked: checked}
+              - else
+                %label.span4.text-center
+                  = "-"    
             .clr
             .divider1
     .divider2
-    %a.pull-right.btn.btn-info.big-text.big.font-bold{:href => set_weightage_company_oac_path(@company.id, 12)}
-      Proceed
+    %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" }
     .clr
 
