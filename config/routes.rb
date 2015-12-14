@@ -1242,6 +1242,40 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    namespace :inspirations do
+
+       resources :quotes do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :stories do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :videos do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+    end
+
     resources :exercises do
       collection do
         post :import
