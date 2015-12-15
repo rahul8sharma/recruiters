@@ -260,7 +260,7 @@ DEPENDENCIES
   better_errors (= 0.8.0)
   binding_of_caller (= 0.7.1)
   bootstrap-sass (= 2.3.1.0)
-  celluloid-redis
+  celluloid-redis (= 0.0.2)
   exception_notification!
   faraday!
   faraday_middleware (= 0.9.1)
