@@ -45,7 +45,8 @@
           %a.extra-medium-text{:href => self.send("get_link_for_#{user.role}",user), target: "_blank", :title => user.email}
             = user.email ? user.email[0..30] : "-"
         .span6
-          = user.company_ids.present? ? user.company_ids.join(", ") : "-"
+          - company_ids = (user.company_ids + [user.company_id].compact).uniq
+          = company_ids.join(", ")
         .span6
           = user.assessment_ids.present? ? user.assessment_ids.join(", ") : "-"
         .span2.first
