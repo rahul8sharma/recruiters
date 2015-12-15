@@ -51,7 +51,7 @@
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
-      %div{class: "#{checked ? 'activated':'de-activated'}"}
+      %div.activated
         .left-offset2.first
           - klass = @assessment.set_applicant_id ? "span6" : "span8"
           - if @assessment.set_applicant_id
@@ -68,9 +68,9 @@
             = render :partial => "suitability/custom_assessments/user_assessments/assessment_user_assessment_fields", :locals => { :index => (index+1), :user => (params[:users].to_a[index][1] rescue {}) }
         .divider2
 
-      %a.button.pull-left.btn.btn-warning.inverse.large-text{ disabled: !checked, href: company_custom_assessment_path(@company,@assessment) }
+      %a.button.pull-left.btn.btn-warning.inverse.large-text{ href: company_custom_assessment_path(@company,@assessment) }
         Add Assessment Takers Later
-      %input.pull-right.btn.btn-warning.large-text{ disabled: !checked, type: "submit", value: "Submit"}
+      %input.pull-right.btn.btn-warning.large-text{ type: "submit", value: "Submit"}
       .clr
 
 = javascript_include_tag 'add_users'
