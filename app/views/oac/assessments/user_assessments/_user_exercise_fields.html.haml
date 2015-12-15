@@ -1,0 +1,13 @@
+%li
+  %input{name: "users[#{index-1}][industry_id]", type: "hidden", value: @company.industry_id}
+  - klass = @errors.keys.include?((index-1).to_s) ? "error" : ""
+  .control-group{ class: klass }
+    .span2
+      .count.badge.badge-small.inverse 
+        = index
+    .medium-text.left-offset1.span8
+      %input.first{name: "users[#{index-1}][name]", type: "text", placeholder: "Name", value: (user[:name]), class: klass}
+    .span9.medium-text.left-offset1  
+      %input.span9.first{name: "users[#{index-1}][email]", type: "text", placeholder: "Email id", value: (user[:email])}
+    / %input.span3.left-offset1{name: "users[#{index-1}][mobile]", type: "text", placeholder: "Mobile Number", value: (user[:mobile])}
+    .clr

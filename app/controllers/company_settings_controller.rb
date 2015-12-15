@@ -57,7 +57,7 @@ class CompanySettingsController < ApplicationController
 
   def confirm_remove_company_managers
     params[:company_manager_ids].split("|").each do |user_id,on|
-      Vger::Resources::Company.save_existing(@company.id, { company_manager_ids: (@company.company_manager_ids-[user_id.to_i]) } )
+      Vger::Resources::Company.save_existing(@company.id, { user_ids: (@company.user_ids-[user_id.to_i]) } )
     end
     flash[:notice] = "Company Managers removed successfully."
     redirect_to company_managers_company_path(@company)
@@ -168,7 +168,7 @@ class CompanySettingsController < ApplicationController
   protected
 
   def get_company
-    @company = Vger::Resources::Company.find(params[:id], :include => [ :subscription ], :methods => [ :assessment_statistics, :company_manager_ids ])
+    @company = Vger::Resources::Company.find(params[:id], :include => [ :subscription ], :methods => [ :assessment_statistics, :user_ids ])
   end
   
   def get_company_managers

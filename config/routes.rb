@@ -374,7 +374,7 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac, :controller => "oac/assessments", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/assessments", :path => "oac" do
       collection do
         match "home" => "oac/assessments#home", :as => :home
       end
@@ -384,9 +384,10 @@ Recruiters::Application.routes.draw do
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
-        match "add_candidates" => "oac/assessments#add_candidates", :as => :add_candidates
-        match "send_assessment" => "oac/assessments#send_assessment", :as => :send_assessment
-        match "assign_assessor" => "oac/assessments#assign_assessor", :as => :assign_assessor
+        match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
+        match "bulk_upload" => "oac/assessments/user_assessments#add_candidates_bulk", :as => :bulk_upload
+        match "send_assessment" => "oac/assessments/user_assessments#send_assessment", :as => :send_assessment
+        match "assign_assessor" => "oac/assessments/user_assessments#assign_assessor", :as => :assign_assessor
         get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
         get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
 
@@ -1213,6 +1214,11 @@ Recruiters::Application.routes.draw do
           post :export_to_google_drive
         end
       end
+    end
+  end
+  
+  namespace :oac do
+    resources :tools do
     end
   end
 

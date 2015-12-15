@@ -15,6 +15,7 @@
         .span28.margin-auto
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, hash[key.to_sym]] }]
+            - Rails.logger.ap section["locals"]
             = render :partial => section["path"], :locals => locals
           .divider1
       .divider1

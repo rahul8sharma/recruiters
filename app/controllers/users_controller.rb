@@ -144,6 +144,10 @@ class UsersController < ApplicationController
       end
     else
       @user = Vger::Resources::User.where(:root => :user, :query_options => { :reset_password_token => params[:reset_password_token] }).all[0]
+      if !@user
+        flash[:error] = "Reset password token has expired."
+        redirect_user
+      end
     end
   end
 
