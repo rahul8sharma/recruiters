@@ -7,15 +7,38 @@
     .pannel
       .divider1
       .span9.margin-auto
-        .span4.first.rounded
+        .span3.first.rounded
           #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
-        .span4.left-offset1.rounded
+        .span3.left-offset1.rounded
           #{@report.report_data[:cocubes_percentage_score]}%
         .clr
         .divider1
-        .span4.first.text-center.extra-large-text
+        .span3.first.text-center.extra-large-text
           Score
-        .span4.left-offset1.text-center.extra-large-text
+        .span3.left-offset1.text-center.extra-large-text
           Percentage
         .clr
+      .divider1
+    .divider1
+
+    - @report.report_data[:cocubes_section_scores].each do |name, score|
+      .divider1
+      .title
+        Score for #{name}
+      .divider1
+      .pannel
+        .divider1
+        .span9.margin-auto
+          .span3.first.rounded
+            #{score[:section_score].round(1)} / #{score[:max_score].round(1)} 
+          .span3.left-offset1.rounded
+            = number_to_percentage((score[:section_score].to_f*100 /score[:max_score]), precision: 0)
+          .clr
+          .divider1
+          .span3.first.text-center.extra-large-text
+            Score
+          .span3.left-offset1.text-center.extra-large-text
+            Percentage
+          .clr
+        .divider1
       .divider1
