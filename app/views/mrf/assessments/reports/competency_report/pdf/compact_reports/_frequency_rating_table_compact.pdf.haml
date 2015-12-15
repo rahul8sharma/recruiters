@@ -51,7 +51,7 @@
                       = score[:count]
                     - @competency_graph_buckets.each do |bucket|
                       - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
-                      %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+                      %td.rating_score
                         = bucket_score
                         -#add class ".max_value" to ".rating_score" if td have maximum value of that row
                     
@@ -65,7 +65,7 @@
                   - max_score = @competency_graph_buckets.map{|bucket| competency_scores[:role_wise_scores].collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
                   - @competency_graph_buckets.each do |bucket|
                     - total = competency_scores[:role_wise_scores].collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
-                    %td.rating_score{ class: max_score == total ? "max_value" : "" }
+                    %td.rating_score
                       = total
             .divider1
           
