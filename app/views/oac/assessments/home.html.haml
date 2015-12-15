@@ -2,7 +2,7 @@
   .span14.page-title.first
     .divider1
     Online Assessment Center
-  %a.btn.btn-info.big.big-text.pull-right.span{:href => select_tools_company_oac_exercises_path(@company.id, 12), :title => "Click Here To Create new Assessment Center"}
+  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_oac_exercise_path(@company.id), :title => "Click Here To Create new Assessment Center"}
     Create New Assessment Center
   .clr
   .divider2
@@ -21,6 +21,8 @@
     .span3.bold
       %a{:href=>"#"}
         Sent to 
+    .span2.bold
+      Status
     .divider2          
   %ul
     - @exercises.each do |exercise|
@@ -48,6 +50,8 @@
           - sent_count = 0
           %a{:href=> assessment_url, :title=>"#{sent_count}"}  
             = sent_count
+        .span2.left-offset1
+          = exercise.workflow_status
         .clr
         .divider1
   .divider2

@@ -6,6 +6,12 @@ class Oac::AssessmentsController < ApplicationController
   before_filter :get_exercise, except: [:home, :new, :create]
   before_filter :get_tools, :only => [:select_tools, :customize_assessment]
   before_filter :get_master_data, :only => [:customize_assessment]
+  before_filter :validate_status, :only => [
+                                    :select_tools,
+                                    :customize_assessment,
+                                    :select_competencies,
+                                    :set_weightage
+                                  ]
   before_filter :get_norm_buckets, :only => [
                                       :select_competencies,
                                       :set_weightage
@@ -87,24 +93,16 @@ class Oac::AssessmentsController < ApplicationController
 
   def set_weightage
     if request.put?
+      params[:exercise][:workflow_status] = Vger::Resources::Oac::Exercise::WorkflowStatus::MARKED_FOR_CREATION
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        redirect_to send_assessment_company_oac_exercise_path(@company.id, @exercise.id)
+        redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
         render :action => :set_weightage
       end
     else
     end
-  end
-
-  def add_candidates
-  end
-
-  def send_assessment
-  end
-
-  def assign_assessor
   end
 
   protected
@@ -176,5 +174,12 @@ class Oac::AssessmentsController < ApplicationController
     @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
                         .all.to_a.collect{|x| [x.id,x]}]
     @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]  
+  end
+  
+  def validate_status
+    if @exercise.workflow_status != Vger::Resources::Oac::Exercise::WorkflowStatus::NEW
+      flash[:error] = "You can't update the configuration of this Online Assessment Center"
+      redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id)
+    end  
   end
 end

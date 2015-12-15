@@ -18,5 +18,5 @@
             = render :partial => "set_competency_traits_weightage", :locals => {:exercise_tool => exercise_tool}
 
     .divider2
-    %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" }
+    = f.submit "Proceed", class: "pull-right btn btn-info big-text big font-bold", confirm: "You can't change the configuration after clicking on Proceed. Do you want to continue?"
   = javascript_include_tag "oac/set_weightage_oac"
