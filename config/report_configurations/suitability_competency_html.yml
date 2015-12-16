@@ -303,7 +303,7 @@
   },
   {
     id: "html_guidelines",
-    text: "Guidelines for Candidate and Manager",
+    text: "Guidelines for Candidate and Manager [BASED ON CANDIDATE TYPE]",
     path: "assessment_reports/competency_report/html/guidelines_for_candidate_and_manager",
     children: [
       {
@@ -322,6 +322,31 @@
         id: "html_guidelines_for_candidate_manager",
         text: "Guidelines for Assessment takers manager",
         path: "assessment_reports/competency_report/html/development_interview_guide_manager",
+        locals: {}
+      }
+    ]
+  },
+  {
+    id: "html_guidelines_stage",
+    text: "Guidelines for Candidate and Manager",
+    path: "assessment_reports/competency_report/html/guidelines_for_candidate_and_manager",
+    children: [
+      {
+        id: "html_interview_questions_for_candidate_stage_based",
+        text: "Interview Questions",
+        path: "assessment_reports/competency_report/html/interview_guide",
+        locals: {}
+      },
+      {
+        id: "html_guidelines_for_candidate_stage_based",
+        text: "Development Guide for Candidate",
+        path: "assessment_reports/competency_report/html/development_guide_candidate",
+        locals: {}
+      },
+      {
+        id: "html_guidelines_for_candidate_manager_stage_based",
+        text: "Guidelines for Assessment takers manager",
+        path: "assessment_reports/competency_report/html/development_guide_manager",
         locals: {}
       }
     ]

@@ -1,26 +1,2 @@
-- if @report.report_hash[:interview_guide].present?
-  #developement_guide.section05
-    .divider2
-    .scores.container.interview_guide
-      .title.pull-left
-        Interview Questions
-      .instruction_container.pull-right
-        .instructions
-          .instruction1.pull-left
-            Favorable Traits
-          .instruction2.pull-left
-            Less Favorable Traits
-          .clr
-      .clr
-      .divider1
-      %ul.clearfix.scores_listing.interview_guide_listing
-        - @report.report_hash[:interview_guide].each do |factor_name, question|
-          - klass = question[:pass] ? "favorable" : "less_favorable"
-          %li
-            .span1.first.hexagon-icon{ class: klass }
-            .factor-name.span4
-              = factor_name
-            .factor-description.span22.left-offset1
-              = question[:body]
-            .clr
-      .divider2
+- if @report.report_data[:candidate_stage] == Vger::Resources::User::Stage::CANDIATE
+  = render :partial => "assessment_reports/competency_report/html/interview_guide"
