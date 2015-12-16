@@ -1,35 +1,31 @@
-- company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
-.frame
-  .heading.pull-left
-    #{competency_name} #{(step > 0 ? "(continued)":"")}
-  .heading.pull-right 
-    = company_norm_bucket ? company_norm_bucket.name : competency_data[:grade]
-  .clr 
-  %ul.clearfix.scores_listing.first
-    - factor_scores.each do |factor_name, factor_score|
-      %li{:id => "#{competency_name}#{factor_name}"}
-        .lhs-sec.pull-left{:style=>"width:520px;"}
-          .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-            -#use ".mid_favorable" or ".less_favorable" or ".favorable" to change the color of hexagon
-          .span.first
-            .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
-              = factor_name
-        .rhs-sec.pull-left
-          - scale_values = get_scale_calculations(50, factor_score, @company_norm_buckets, 34)
-          .slider{:style=>"width:#{scale_values[:scale_width]}px"}
-            - if ((scale_values[:width] == 34) && (scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name))
-              - scale_values[:offset] = scale_values[:offset] - 34
-            .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]-20}px;" }
-
-              -# Use position1, postion2...5. for pointer position, and also add ".less_favorable" for first two buckets- "low" and "below average"
-              .score-indicater
-                = scale_values[:company_norm_bucket_name]
-              .arrow
-            .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
-            -#use offset0..offset4 and with this class use .width0...width4 (.width4 is 100%)
-        .clr
-        .divider1
-        .factor-description
-          = factor_score[:description]
-.divider2
-        
+- step_data.group_by{|trait_scores| trait_scores[:competency_name] }.each do |competency, trait_scores|  
+  - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(trait_scores.first[:competency_data][:grade_uid])}
+  .frame
+    .heading.pull-left
+      #{competency} 
+    .heading.pull-right 
+      = company_norm_bucket ? company_norm_bucket.name : trait_scores.first[:competency_data][:grade]
+    .clr 
+    %ul.clearfix.scores_listing.first
+      - trait_scores.each do |factor_score|
+        - scale_values = get_scale_calculations(50, factor_score, @company_norm_buckets, 34)
+        %li{:id => "#{competency}#{factor_score[:factor_name]}"}
+          .lhs-sec.pull-left{:style=>"width:520px;"}
+            .hexagon-icon{ class: "#{scale_values[:klass]}" }
+            .span.first
+              .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+                = factor_score[:factor_name]
+          .rhs-sec.pull-left
+            .slider{:style => "width:#{scale_values[:scale_width]}px"}
+              - if ((scale_values[:width] == 34) && (scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name))
+                - scale_values[:offset] = scale_values[:offset] - 34
+              .pointer{ class: "#{scale_values[:klass]}", style: "left: #{scale_values[:position]-20}px;" }
+                .score-indicater
+                  = scale_values[:company_norm_bucket_name]
+                .arrow
+              .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+          .clr
+          .divider1
+          .factor-description
+            = factor_score[:description]
+  .divider1

@@ -314,7 +314,7 @@
       },
       {
         id: "html_guidelines_for_candidate",
-        text: "Development/Interview Guide for Candidate",
+        text: "Development Guide for Candidate",
         path: "assessment_reports/competency_report/html/development_interview_guide_candidate",
         locals: {}
       },

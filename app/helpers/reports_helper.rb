@@ -57,4 +57,18 @@ module ReportsHelper
     })
   end
 
+  def get_factors_under_competencies(report)
+    all_factor_scores = []
+    report.report_hash[:competency_scores].each do |competency, competency_data|
+      competency_data[:factor_scores].each do |name, factor_score|  
+        new_factor_scores = factor_score.dup
+        new_factor_scores[:factor_name] = name
+        new_factor_scores[:competency_name] = competency
+        new_factor_scores[:competency_data] = competency_data
+        all_factor_scores.push new_factor_scores
+      end
+    end
+    all_factor_scores
+  end
+
 end
