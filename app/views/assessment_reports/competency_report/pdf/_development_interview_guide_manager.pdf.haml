@@ -1,2 +1,2 @@
-- if @report.report_data[:candidate_stage] == "employee"
+- if @report.report_data[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED
   = render :partial => "assessment_reports/competency_report/pdf/development_guide_manager"
