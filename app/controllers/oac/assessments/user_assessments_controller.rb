@@ -3,6 +3,7 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
   before_filter :get_exercise
+  before_filter :validate_exercise
   layout 'oac/oac'
 
   def candidates
@@ -182,5 +183,10 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
     @templates |= Vger::Resources::Template\
                   .where(query_options: query_options, scopes: { global: nil }).all.to_a
   end
-
+  
+  def validate_exercise
+    if @exercise.workflow_status != Vger::Resources::Oac::Exercise::WorkflowStatus::READY
+      redirect_to home_company_oac_exercises_path(@company.id)
+    end
+  end
 end
