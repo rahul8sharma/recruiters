@@ -1,4 +1,4 @@
-- if @report.report_data[:cocubes_section_scores].present? && @report.report_data[:cocubes_score].present?
+- if @report.report_data[:cocubes_score].present?
   .aptitude_score
     .container
       .divider2
@@ -22,6 +22,9 @@
         .divider1
       .divider1
 
+- if @report.report_data[:cocubes_section_scores].present?
+  .aptitude_score
+    .container
       - @report.report_data[:cocubes_section_scores].each do |name, score|
         .divider1
         .title
