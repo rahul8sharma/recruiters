@@ -177,7 +177,7 @@ class Oac::AssessmentsController < ApplicationController
   end
   
   def validate_status
-    if @exercise.workflow_status != Vger::Resources::Oac::Exercise::WorkflowStatus::NEW
+    if @exercise.workflow_status == Vger::Resources::Oac::Exercise::WorkflowStatus::READY
       flash[:error] = "You can't update the configuration of this Online Assessment Center"
       redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id)
     end  
