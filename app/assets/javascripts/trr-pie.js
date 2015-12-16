@@ -33,8 +33,8 @@ jQuery(function () {
             type: 'pie',
             name: 'Browser share',
             data: [
-                ['Favorable', 100 - jQuery(this).data('percentage-candidates')],
-                ['Less-Favorable', (jQuery(this).data('percentage-candidates'))]
+                ['Favorable', 100 - jQuery(this).data('percentage-users')],
+                ['Less-Favorable', (jQuery(this).data('percentage-users'))]
             ]
         }]
     });    
