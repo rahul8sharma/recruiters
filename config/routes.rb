@@ -1216,7 +1216,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :oac do
     resources :tools do
     end
@@ -1243,6 +1243,39 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    namespace :premium do
+
+       resources :books do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :events do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :foods do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+    end
     namespace :inspirations do
 
        resources :quotes do
