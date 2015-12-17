@@ -28,7 +28,7 @@
             %a{:href=> "", :title=>"User Id"} 
               =user_exercise.user.id
           .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
-            %a{:href=> candidate_company_oac_exercise_path(:company_id => params[:company_id], :candidate_id => user_exercise.user.id), :title=>"View Details"}
+            %a{:href=> candidate_company_oac_exercise_path(:company_id => params[:company_id], :candidate_id => user_exercise.user.id, :id => @exercise.id), :title=>"View Details"}
               =user_exercise.user.name
           .span8
             %a{:href=> "", :title=> "Status" }
