@@ -1037,6 +1037,13 @@ $mrf_image_path: report/pdf/mrf
             margin: 0
 
 .response_distribution_six_points
+  .stakeholder_label, .candidate_label
+    color: #414042
+    padding-left: 25px
+    margin-bottom: 10px
+    background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat 0 center
+  .candidate_label
+    background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 center
   ul
     li
       padding: 17px 0
@@ -1075,6 +1082,7 @@ $mrf_image_path: report/pdf/mrf
           line-height: 12px
           color: #58595b
           padding: 5px 0
+          min-height: 30px
           background: none
           &:first-child
             font-size: 12px

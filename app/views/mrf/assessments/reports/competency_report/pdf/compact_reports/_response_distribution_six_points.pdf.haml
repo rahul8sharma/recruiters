@@ -3,9 +3,15 @@
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response distribution on Questions"}    
   .scores
     .response_distribution_six_points
-      .color-info.big-text
-        Response distribution on Questions
-      .divider1
+      .pull-left
+        .span.color-info.big-text
+          Response distribution on Questions
+      .pull-right
+        .span.stakeholder_label
+          Question to stakeholder
+        .span.candidate_label
+          Question to candidate
+      .clr
       - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
         .frame
           %ul
@@ -22,8 +28,7 @@
                     %li.clearfix
                       .span7
                         .question{:style => "padding-top: 5px;"}
-                          Question #{index+1}: Stakeholder
-                        = item_data[:item]
+                          Q#{index+1}: #{item_data[:item]}
                       - item_data[:responses].each_with_index do |(body,response_count),index|
                         .span2
                           = response_count
@@ -32,8 +37,7 @@
                     %li.clearfix.candidate_answer
                       .span7
                         .question{:style => "padding-top: 5px;"}
-                          Question #{index+1}: Candidate
-                        = item_data[:item]
+                          Q#{index+1}: #{item_data[:item]}
                       - item_data[:responses].each_with_index do |(body,response_count),index|
                         - klass = response_count > 0 ? "active" : ""
                         .span2{:class => klass}
