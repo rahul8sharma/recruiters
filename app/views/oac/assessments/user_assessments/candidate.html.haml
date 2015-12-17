@@ -1,4 +1,157 @@
-.container
-  .span14.page-title.first
+.user-details
+  .span22.first.page-title
     .divider1
-    Candidate
+    Exercise #{@exercise.id} - #{@exercise.name}
+
+  %a.btn.btn-warning.big.big-text.pull-right.span{:href=>candidates_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+    View All Candidates
+  .clr
+  .divider2
+  = render :partial => "shared/oac/oac_assessment_sub_nav"
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    .span19.margin-auto
+      %ul
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Assessment Taker:
+          .span8
+            #{@user.name}
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Email id:
+          .span8
+            #{ h @user.email}
+
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Contact no.:
+          .span8
+            #{ h @user.mobile, nil }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Industry:
+          .span8
+            #{ h(@user.industry.name) rescue 'Not available' }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Current Location:
+          .span8
+            #{ h(@user.location.name) rescue 'Not available' }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Current Functional area:
+          .span8
+            #{ h(@user.functional_area.name) rescue 'Not available' }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Age:
+          .span8
+            #{ @user.age.present? ? @user.age : "Not available" }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Experience in Current Company:
+          .span8
+            #{ h(@user.current_company_experience, nil, :suffix => " Years") }
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Gender:
+          .span8
+            = @user.gender.present? ? raw(t "gender.#{@user.gender}") : "Not available"
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Total Work Experience:
+          .span8
+            #{ h(@user.total_experience, nil, :suffix => " Years")}
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Current CTC:
+          .span8
+            #{ h(@user.current_ctc,nil, :suffix => " Lakhs") }
+          .clr
+        -#
+          %li.border-bottom-grayLighter.padding-all1
+            .span9.big-text
+              Marital Status:
+            .span8
+              = @user.marital_status.present? ? raw(t "marital_status.#{@user.marital_status}") : "Not available"
+            .clr
+        -#
+          %li.border-bottom-grayLighter.padding-all1
+            .span9.big-text
+              Current Company Name:
+            .span8
+              #{ h @user.current_company }
+            .clr
+        -#
+          %li.border-bottom-grayLighter.padding-all1
+            .span9.big-text
+              Degree with Specialization:
+            .span8
+              TODO
+            .clr
+
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Number of Dependants:
+          .span8
+            #{ h @user.no_of_dependents }
+          .clr
+  .divider1
+-#
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    .page-title
+      Reports
+    .divider2
+    .list-snippet-titles.large-text.clearfix
+      .span3.first
+        %a{:href => "#", :title => "Sort by assessment ID in ascending order"}
+          AID
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        %a{:href => "#", :title => "Sort by Company Name in ascending order"}
+          Company Name
+          %i.icon-chevron-down.small-text.line-height1
+      .span10
+        %a{:href => "#", :title => "Sort by Assessment Name in ascending order"}
+          Assessment Name
+          %i.icon-chevron-down.small-text.line-height1
+      .span5
+        Recommendation
+      .span5
+        %a{:href => "#", :title => "Sort by Assessment Status in ascending order"}
+          Assessment Status
+          %i.icon-chevron-down.small-text.line-height1
+  -#
+    %ul
+      - @user_assessments.each do |user_assessment|
+        - report = user_assessment.user_assessment_reports[0]
+        %li.list-snippet
+          .divider1
+          .span3.first
+            %a{:href=> company_custom_assessment_path(:id => user_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"}
+              #{user_assessment.assessment.id}
+          .span5
+            #{@company.name}
+          .span10
+            #{user_assessment.assessment.name}
+          .span5
+            - if user_assessment.candidate_stage != Vger::Resources::User::Stage::EMPLOYED
+              = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => user_assessment.overall_fitment_grade_id, :candidate_stage => user_assessment.candidate_stage }).all[0].body rescue '-'
+            - else
+              \-
+          .span5
+            - if report
+              = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
+            - else
+              = render :partial => "suitability/custom_assessments/user_assessments/user_assessment_status/#{user_assessment.status}", locals: { user_assessment: user_assessment, assessment: @assessment, company: @company, user: @user }  
+          .clr
