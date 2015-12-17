@@ -10,6 +10,7 @@ class Suitability::Job::FactorNormsController < SpecialMasterDataController
       :industry_id,
       :functional_area_id, 
       :job_experience_id,
+      :norm_bucket_id,
       :norm_min,
       :norm_max
     ]
