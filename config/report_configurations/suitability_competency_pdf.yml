@@ -19,7 +19,7 @@
       {
         id: "pdf_cover_page_compact_overview_competencies_measured",
         text: "Overview Of Competencies/Value Measured",
-        path: "assessment_reports/competency_report/pdf/competency_scores_overview/main",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/main_compact",
         children: [
           {
             id: "pdf_competency_scores_overview_favourable_within_desired_range_compact",
