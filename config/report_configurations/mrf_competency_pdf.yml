@@ -24,13 +24,13 @@
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/cover_page_compact",
     children: [
       {
-        id: "pdf_mrf_report_numerical_aggregate_score",
+        id: "pdf_mrf_report_numerical_aggregate_score_compact",
         text: "MRF Numerical Aggregate Score",
         path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score_compact",
         locals: {}
       },
       {
-        id: "pdf_mrf_report_show_completion_status",
+        id: "pdf_mrf_report_show_completion_status_compact",
         text: "MRF Report Completion Status",
         path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status_compact",
         locals: {}
