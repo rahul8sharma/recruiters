@@ -1,6 +1,6 @@
 - step_toc = 0
 - trait_scores = get_factors_under_competencies(@report)
-- trait_scores.each_slice(4) do |step_data|
+- trait_scores.each_slice(5) do |step_data|
   .inner
     .scores.favorable_factors
       .divider1
@@ -38,4 +38,4 @@
       .clr
       - section_value.each do |section|
         = render :partial => section["path"], :locals => {:step_data => step_data}
-      .page-break
+  .page-break
