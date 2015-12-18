@@ -643,6 +643,9 @@ $mrf_image_path: report/pdf/mrf
               margin-right: 30px
 
   .stakeholder-comments
+    border: 0 none
+    .frame
+      border-width: 1px
     table
       display: block
       tbody
@@ -651,12 +654,12 @@ $mrf_image_path: report/pdf/mrf
         width: 100%
         td
           vertical-align: top
-          background: #48bdaa
+          border: 1px solid #28b29b
           padding: 7px
-          color: #fff
+          color: #28b29b
           width: 50%
           &.space
-            background: none
+            border: none
     &.responses
       .frame
         border-color: #6ea6bf
@@ -669,7 +672,8 @@ $mrf_image_path: report/pdf/mrf
       table
         tr
           td
-            background: #6ea6bf
+            border-color: #6ea6bf
+            color: #6ea6bf
 
 .strength_weakness_areas
   ul
@@ -987,13 +991,11 @@ $mrf_image_path: report/pdf/mrf
         font-size: 15px
     .captions
       td
-        padding: 5px 0
+        padding: 0 10px
         border-top: 1px solid #fff
         border-left: 1px solid #fff
         line-height: 15px
         color: #000
-        padding-left: 10px
-        padding-right: 10px
     .rating_ranges
       background: #ccc
       td
@@ -1014,7 +1016,7 @@ $mrf_image_path: report/pdf/mrf
       border-top: 1px solid #fff
       border-left: 1px solid #fff
       color: #fff
-      padding: 18px 0
+      padding: 10px 0
     .blue_bg
       background: #a119a6  
     .green_bg
@@ -1054,22 +1056,46 @@ $mrf_image_path: report/pdf/mrf
             margin: 0
 
 .response_distribution_six_points
+  .scores
+    padding-bottom: 0
+  .response_distribution_six_points_titles
+    margin-bottom: -40px
+    padding: 0
+    [class*="span"]
+      background: #e3e3e3
+      border-top: 1px solid white
+      border-left: 1px solid white
+      height: auto
+      font-size: 10px
+      line-height: 12px
+      color: #58595b
+      padding: 3px 0
+      min-height: 30px
+      margin-left: 0
+      box-sizing: border-box
+      text-align: center
+      &:first-child
+        border: 0 none
+
   .stakeholder_label, .candidate_label
     color: #414042
     padding-left: 25px
     margin-bottom: 10px
-    background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat 0 center
+    background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat 0 center
+    
   .candidate_label
     background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 center
   ul
     li
-      padding: 17px 0
-      border-bottom: 1px solid #e3e3e3
+      padding: 3px 0
+      border-top: 1px solid #e3e3e3
+
       .question
         color: #414042
-        padding-left: 17px
+        padding-left: 20px
         margin-bottom: 7px
-        background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat 0 center
+        background: image-url('#{$mrf_image_path}/graph_stakeholder_rating_icon.png') no-repeat 0 4px
+        font-size: 10px
 
       [class*="span"]
         text-align: center
@@ -1087,26 +1113,13 @@ $mrf_image_path: report/pdf/mrf
           background: none
           text-align: left
           border-left: 0
-          padding-left: 25px
       &:first-child
         padding: 0
-      &.titles
-        padding: 0
-        background: #e3e3e3
-        [class*="span"]
-          height: auto
-          font-size: 10px
-          line-height: 12px
-          color: #58595b
-          padding: 5px 0
-          min-height: 30px
-          background: none
-          &:first-child
-            font-size: 12px
-            padding-left: 25px
+        border-top: 0 none
+      
       &.candidate_answer
         .question
-          background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 center
+          background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 4px
         
         [class*="span"]
           background: image-url('#{$mrf_image_path}/candidate_rating_icon_big.png') no-repeat center center

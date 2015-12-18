@@ -1,47 +1,75 @@
 - items = get_response_distribution(@report)
 - items.each_slice(8) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response distribution on Questions"}    
-  .scores
-    .response_distribution_six_points
+  .response_distribution_six_points
+    .scores
+      .pull-left.color-info.big-text
+        Response distribution on Questions
       .pull-left
-        .span.color-info.big-text
-          Response distribution on Questions
-      .pull-right
         .span.stakeholder_label
           Question to stakeholder
         .span.candidate_label
           Question to candidate
+
       .clr
-      - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
-        .frame
-          %ul
-            %li.titles.clearfix
-              .span7
-                Questions on
-                = truncate "Trait: #{trait_name}", length: 80
+      .divider1
+      .response_distribution_six_points_titles.clearfix
+        .span9.no-bg
+          &nbsp; 
+        .pull-left
+          .span.medium-text.float-none.line-height1
+            Numbers of stakeholders
+          .clr
+          .span2
+            xx
+          .span2
+            xx
+          .span2
+            xx xx
+          .span2
+            xx xx
+          .span2
+            xx
+          .span2
+            xx xx
+          .clr
+        .clr
+
+    - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
+      .scores.border-bottom-grayLighter
+        .extra-medium-text{:style=>"padding-bottom: 10px"}
+          Questions on
+          = truncate "#{trait_name}", length: 80
+        %ul
+          -#
+            %li.response_distribution_six_points_titles.clearfix
+              .span9
               - items.first[:responses].each do |body,response_count|                
                 .span2
                   = body
-              - items.each_with_index do |item_data, index|
-                - if item_data["role"] == "other"
-                  - if item_data[:responses].present?
-                    %li.clearfix
-                      .span7
-                        .question{:style => "padding-top: 5px;"}
-                          Q#{index+1}: #{item_data[:item]}
-                      - item_data[:responses].each_with_index do |(body,response_count),index|
-                        .span2
-                          = response_count
-                -else 
-                  - if item_data[:responses].present?
-                    %li.clearfix.candidate_answer
-                      .span7
-                        .question{:style => "padding-top: 5px;"}
-                          Q#{index+1}: #{item_data[:item]}
-                      - item_data[:responses].each_with_index do |(body,response_count),index|
-                        - klass = response_count > 0 ? "active" : ""
-                        .span2{:class => klass}
-                          = response_count
-          .divider1
-        .divider1  
+
+          - items.each_with_index do |item_data, index|
+            - if item_data["role"] == "other"
+              - if item_data[:responses].present?
+                %li.clearfix
+                  .span9
+                    .question{:style => "padding-top: 5px;"}
+                      %span.bold
+                        Q#{index+1}
+                      #{item_data[:item]}
+                  - item_data[:responses].each_with_index do |(body,response_count),index|
+                    .span2
+                      = response_count
+            -else 
+              - if item_data[:responses].present?
+                %li.clearfix.candidate_answer
+                  .span9
+                    .question{:style => "padding-top: 5px;"}
+                      %span.bold
+                        Q#{index+1}
+                      #{item_data[:item]}
+                  - item_data[:responses].each_with_index do |(body,response_count),index|
+                    - klass = response_count > 0 ? "active" : ""
+                    .span2{:class => klass}
+                      = response_count
   .page-break           
