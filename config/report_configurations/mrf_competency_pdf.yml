@@ -19,6 +19,44 @@
     ]
   },
   {
+    id: "pdf_cover_page_compact",
+    text: "Cover Page [COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/cover_page_compact",
+    children: [
+      {
+        id: "pdf_mrf_report_numerical_aggregate_score_compact",
+        text: "MRF Numerical Aggregate Score",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_mrf_report_show_completion_status_compact",
+        text: "MRF Report Completion Status",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_scores_competencies_compact",
+        text: "360 Degree and Self Ratings on Competencies",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
+        children: [
+          {
+            id: "pdf_scores_competencies_with_desired_range_compact",
+            text: "Graph With Desired Range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "pdf_scores_competencies_without_desired_range_compact",
+            text: "Graph Without Desired Range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "competency_overview",
     text: "Competency Overview",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_overview",
