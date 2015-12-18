@@ -104,15 +104,33 @@
     children: []
   },
   {
+    id: "pdf_interview_guide_for_hiring",
+    text: "Interview Guide [Based on Candidate Type]",
+    path: "assessment_reports/fit_report/pdf/interview_guide_for_hiring",
+    children: []
+  },
+  {
     id: "pdf_development_interview_guide_candidate",
     text: "Development Guide for Candidate",
     path: "assessment_reports/fit_report/pdf/page5",
     children: []
   },
   {
+    id: "pdf_development_guide_for_candidate",
+    text: "Development Guide for Candidate [Based on Candidate Type]",
+    path: "assessment_reports/fit_report/pdf/development_guide_for_candidate",
+    children: []
+  },
+  {
     id: "pdf_development_interview_guide_manager",
     text: "Guidelines For Assessment Takers Manager",
     path: "assessment_reports/fit_report/pdf/page6",
+    children: []
+  },
+  {
+    id: "pdf_development_guide_for_manager",
+    text: "Guidelines For Assessment Takers Manager [Based on Candidate Type]",
+    path: "assessment_reports/fit_report/pdf/development_guide_for_manager",
     children: []
   },
   {
