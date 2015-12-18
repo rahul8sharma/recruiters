@@ -203,7 +203,6 @@ body
           background: image-url('report/pdf/competency/star.png') no-repeat right 0
         
       .factor-description
-        font-size: 14px
         line-height: 18px
         margin: 0 0 0 35px
       .responses
@@ -385,6 +384,29 @@ body
     margin-top: 10px
 
   .competency_report
+    .overall_report
+      &.compact
+        background: none
+        .heading
+          background: #128975
+          line-height: 35px
+          padding: 0 50px 0 40px
+          width: 295px
+          margin: 0 -40px 0 0
+        .color-band
+          margin: -45px -40px 0 0
+          width: 335px
+          padding: 3px 50px 0 0
+          line-height: 35px
+          .head
+            background: #414042
+            padding: 0 40px
+            line-height: 35px
+            margin-right: 17px
+        .overview
+          background: none
+          .inner
+            padding: 0
     .section02
       background: #fff
     .overview 
@@ -557,9 +579,13 @@ body
       font-size: $extra-medium-text
       color: #fff
       padding: 0 10px
+    #traits.section02
+      .scores
+        padding-bottom: 0
     .competency-container
-      border: 2px solid #28b29b
+      border: 1px solid #28b29b
       background: image-url('report/pdf/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+      margin-bottom: 5px
 
     .factors_list
       position: relative
@@ -996,18 +1022,19 @@ body
         margin-right: 0px
       .line
         border-color: #CCCCCC
+        bottom: 10px
       .marker
-        background: image-url("report/pdf/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+        background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
         font-size: 10px
         font-weight: 200
         height: 30px
         &:hover
-          background: image-url("report/pdf/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+          background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
         &.active
-          background: image-url("report/pdf/competency/list-scale-small-hexa.png") no-repeat center bottom
+          background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
 
           &:hover
-            background: image-url("report/pdf/competency/list-scale-small-hexa.png") no-repeat center bottom
+            background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
     .section_03
       .frame
         background: #fbfbfb

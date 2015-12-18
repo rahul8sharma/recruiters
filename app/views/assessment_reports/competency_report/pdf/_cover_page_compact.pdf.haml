@@ -1,3 +1,15 @@
-- section_value.each do |section|
-  = render :partial => section["path"], :locals => { :section_value => section["children"] }
+.divider1
+.overall_report.compact
+  .pull-left
+    .extra-large-text
+      = @report.report_hash[:user][:name]
+    .divider1
+    .extra-medium-text
+      Assessment: 
+      = @report.report_hash[:assessment][:name]
+      %br/
+      Assessment Answered On: 
+      = @report.report_hash[:completed_at]
+  - section_value.each do |section|
+    = render :partial => section["path"], :locals => { :section_value => section["children"] }
 .page-break
