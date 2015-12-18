@@ -1,0 +1,3 @@
+- section_value.each do |section|
+  = render :partial => section["path"], :locals => { :section_value => section["children"] }
+.page-break
