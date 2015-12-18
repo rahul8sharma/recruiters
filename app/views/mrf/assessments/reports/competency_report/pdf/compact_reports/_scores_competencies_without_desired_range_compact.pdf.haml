@@ -1,0 +1,23 @@
+.border-bottom-grayLighter.divider1
+.divider1
+.scores{:style=>"padding: 0"}
+  #scores_competencies.scores_competencies_graph
+    .title
+      360&#176; and self ratings on Competencies
+    .scores_competencies_graph_content
+      .graph_instructions
+        .graph_stakeholder_rating_icon.pull-left
+        .stakeholder_rating.span
+          Rating by other Stakeholders
+        .graph_classic_user_icon.span
+        .user_rating.span
+          Self Rating
+        .span
+          Score Overlap is indicated by 
+        .competency_overlapped_score_icon.span
+        .clr
+      .clr
+      .divider1
+      = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph_without_desired_range"
+
+.page-break

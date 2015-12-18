@@ -43,13 +43,13 @@
           {
             id: "pdf_scores_competencies_with_desired_range_compact",
             text: "Graph With Desired Range",
-            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_with_desired_range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_with_desired_range_compact",
             locals: {}
           },
           {
             id: "pdf_scores_competencies_without_desired_range_compact",
             text: "Graph Without Desired Range",
-            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_without_desired_range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_without_desired_range_compact",
             locals: {}
           }
         ]
