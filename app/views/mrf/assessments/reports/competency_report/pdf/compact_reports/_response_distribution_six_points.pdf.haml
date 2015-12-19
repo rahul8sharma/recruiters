@@ -1,5 +1,6 @@
 - items = get_response_distribution(@report)
-- items.each_slice(8) do |step_data|
+- slice_value = 8
+- items.each_slice(slice_value) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response distribution on Questions"}    
   .response_distribution_six_points
     .scores
@@ -13,6 +14,8 @@
 
       .clr
       .divider1
+
+    - step_data.group_by{|item_data| item_data["trait_name"] }.each_with_index do |(trait_name, items), index|
       .response_distribution_six_points_titles.clearfix
         .span9.no-bg
           &nbsp; 
@@ -20,23 +23,13 @@
           .span.medium-text.float-none.line-height1
             Numbers of stakeholders
           .clr
-          .span2
-            xx
-          .span2
-            xx
-          .span2
-            xx xx
-          .span2
-            xx xx
-          .span2
-            xx
-          .span2
-            xx xx
+          - items.first[:responses].each do |body,response_count|
+            .span2
+              = body
           .clr
         .clr
-
-    - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
       .scores.border-bottom-grayLighter
+        .clr
         .extra-medium-text{:style=>"padding-bottom: 10px"}
           Questions on
           = truncate "#{trait_name}", length: 80
