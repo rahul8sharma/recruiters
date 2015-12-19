@@ -1,3 +1,8 @@
-.extra-medium-text
-  Show Completion Status Compact
+.big-text.pull-right.gray-darker{:style => "margin: -35px -19px 0 0; padding: 10px 50px 10px 0; width: 335px;"}
+  - completed_count = 0
+  - sent_count = 0
+  - @report.report_data[:feedback_stats].each do |role, status|
+    - completed_count += status[:completed]
+    - sent_count += status[:sent]
+  Completion Status: #{completed_count} out of #{sent_count}
 .clr
