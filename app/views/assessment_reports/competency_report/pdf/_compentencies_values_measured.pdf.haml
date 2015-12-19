@@ -1,6 +1,5 @@
 - step_toc = 0
 - competency_step = 4
--# competency_step = Rails.application.config.reports[@view_mode]["competency_step"]
 - competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
 - (0..competency_scores.length-1).step(competency_step) do |step|
   - step_toc += 1
