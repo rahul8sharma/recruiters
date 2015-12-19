@@ -1,7 +1,9 @@
 - items = get_response_distribution(@report)
 - slice_value = 8
+- scale_visibility_counter = 0
 - items.each_slice(slice_value) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Response distribution on Questions"}    
+  - scale_visibility_counter += 1
   .response_distribution_six_points
     .scores
       .pull-left.color-info.big-text
@@ -11,23 +13,23 @@
           Question to stakeholder
         .span.candidate_label
           Question to candidate
-
       .clr
       .divider1
-
-    - step_data.group_by{|item_data| item_data["trait_name"] }.each_with_index do |(trait_name, items), index|
-      .response_distribution_six_points_titles.clearfix
-        .span9.no-bg
-          &nbsp; 
-        .pull-left
-          .span.medium-text.float-none.line-height1
-            Numbers of stakeholders
+    - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
+      - if scale_visibility_counter == 1
+        - scale_visibility_counter = 0
+        .response_distribution_six_points_titles.clearfix
+          .span10.no-bg
+            &nbsp; 
+          .pull-left
+            .span.medium-text.float-none.line-height1
+              Numbers of stakeholders
+            .clr
+            - items.first[:responses].each do |body,response_count|
+              .span2
+                = body
+            .clr
           .clr
-          - items.first[:responses].each do |body,response_count|
-            .span2
-              = body
-          .clr
-        .clr
       .scores.border-bottom-grayLighter
         .clr
         .extra-medium-text{:style=>"padding-bottom: 10px"}
@@ -65,4 +67,5 @@
                     - klass = response_count > 0 ? "active" : ""
                     .span2{:class => klass}
                       = response_count
+  
   .page-break           
