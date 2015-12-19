@@ -84,7 +84,7 @@ module Suitability
         )
 
         hash_toc = {
-          margin: { :left => "5mm",:right => "5mm", :top => "13mm", :bottom => "12mm" },
+          margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
           footer: {
             :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
               layout: "layouts/user_reports.pdf.haml"
