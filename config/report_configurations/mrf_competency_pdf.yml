@@ -144,7 +144,7 @@
   },
   {
     id: "pdf_frequency_rating__table_compact",
-    text: "Frequency Rating Table [COMPACT]",
+    text: "Details on 360 Degree Ratings on Competencies/Values[COMPACT]",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_compact",
     children: []
   },
@@ -164,6 +164,30 @@
       },
       {
         id: "pdf_competency360_traits_data_pts_items_as_title",
+        text: "Item as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
+        locals: {
+          trait_score: "trait_score"
+        }
+      },
+    ]
+  },
+  {
+    id: "pdf_traits_under_competencies_data_points_compact",
+    text: "Data Points on Scores: Traits Under Competencies [COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points_compact",
+    children: [
+      {
+        id: "pdf_competency360_traits_data_pts_trait_name_as_title_compact",
+        text: "Name as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title",
+        locals: {
+          trait_score: "trait_score",
+          competency: "competency"
+        }
+      },
+      {
+        id: "pdf_competency360_traits_data_pts_items_as_title_compact",
         text: "Item as Title",
         path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
         locals: {
