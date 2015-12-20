@@ -15,6 +15,25 @@
           = competency_scores[:score][:points] || "-"
         .clr
         .padding-all1
+          .final_data_points.pull-left.small
+            .high_low_scores{:style => "padding: 10px"}
+              .span
+                360&#176; Scores Across Exercise
+              .border_gray_light.span
+                .high.left.pull-left
+                  Highest
+                .right.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
+                .clr
+              .border_gray_light.span
+                .low.left.pull-left
+                  Lowest
+                .right.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
+                .clr
+              .clr
+          .clr 
+
           .extra-medium-text
             Frequency of Ratings
           .divider1
