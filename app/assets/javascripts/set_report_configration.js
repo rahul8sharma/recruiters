@@ -93,7 +93,6 @@ function getConfiguration($jsTree){
   var objects = {};
   var root = null;
   var selected = $jsTree.get_checked('full');
-  //console.log(selected);
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
     objects[obj.id] = createNode($jsTree, obj.id);;
@@ -105,7 +104,6 @@ function getConfiguration($jsTree){
       }
     }
   }
-  //console.log(selected);
   //var selected = $jsTree.selected;
   for(var i = 0; i < selected.length; i++) {
     var obj = selected[i];
@@ -123,7 +121,6 @@ function getConfiguration($jsTree){
   }
   var root = $jsTree.get_node("#");
   configuration = sortChildren(configuration, root.children);
-  //console.log(configuration);
   hash["sections"] = configuration
   return hash;
 }
@@ -186,10 +183,16 @@ function createJSTree(container){
 
 }
 
-function generatePreview(assessmentType, viewMode, $jsTree){  
-  var uri = "view_mode="+viewMode+"&assessment_type="+assessmentType+"&report_type="+reportType+"&company_id="+company_id;  
+function generatePreview(assessmentType, viewMode, $jsTree, candidate_type){  
+  var uri = "view_mode="+viewMode;
+  uri += "&assessment_type="+assessmentType;
+  uri += "&report_type="+reportType;
+  uri += "&company_id="+company_id;
+  uri += "&candidate_type="+candidate_type;
+  
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
   var configuration = updateInput();
+  
   var form_data = {
     "config": JSON.stringify(configuration),
     "authenticity_token": $('input[name="authenticity_token"]').val()
@@ -222,17 +225,18 @@ function enablePreviewButtons(){
   $("#generate_pdf_preview").html("Generate PDF Preview");
 }
 
-function loadPreview($btn, $tree){
+function loadPreview($btn, $tree, candidate_type){
   $btn.html("Please wait...");
   $btn.attr("disabled", true);
   document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
   updateInput();
-  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree);
+  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type);
 }
 
 $(document).ready(function(){
   reportType = $('#report_type').val();
   company_id = $('#input_company_id').val();
+  
 
   $("#set_assessment_type").change(function(){    
     loadConfig($('#set_assessment_type').val(), reportType);
@@ -250,8 +254,9 @@ $(document).ready(function(){
   
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
+    candidate_type = $('#set_candidate_type').val();
     if($('#set_assessment_type').val() !== "") {
-      loadPreview($(this), $htmlTree);
+      loadPreview($(this), $htmlTree, candidate_type);
     } else {
       alert("Please select assessment type!");
     }
@@ -260,8 +265,9 @@ $(document).ready(function(){
 
   $('#generate_pdf_preview').on('click', function(e){
     e.preventDefault();
+    candidate_type = $('#set_candidate_type').val();
     if($('#set_assessment_type').val() !== "") {
-      loadPreview($(this), $pdfTree);
+      loadPreview($(this), $pdfTree, candidate_type);
     } else {
       alert("Please select assessment type!");
     }  

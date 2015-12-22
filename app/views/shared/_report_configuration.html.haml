@@ -1,5 +1,16 @@
 .divider2
 .span30{ class: is_superuser? ? "" : 'hide' }
+  .control-group
+    %label
+      Select Candidate Type
+    %select.span10.first{name: 'candidate_type', id: 'set_candidate_type'}
+      %option{:value => ""}
+        Select Assessment Type
+        %option{:value => "employed"}
+          EMPLOYED
+        %option{:value => "candidate"}
+          CANDIDATE
+    .clr  
   .pull-left
     %h1.text-center
       HTML Report Sections 
