@@ -1,11 +1,3 @@
-:css
-  .report .inner{margin-top:0px;} 
-
-= render :template => "assessment_reports/fit_report/feedback/spotlight"
-
-= render :template => "assessment_reports/fit_report/feedback/guidelines"
-
-
 - factor_scores = Hash.new
 - if @report.report_hash[:competency_scores].present?
   - @report.report_hash[:competency_scores].each do |competency_name, competency_values|
@@ -14,9 +6,20 @@
 - else
   - factor_scores = @report.report_hash[:factor_scores]
   
-= render :template => "assessment_reports/fit_report/feedback/feedback_rating", :locals => { :factor_scores => factor_scores }     
 
-=# render :template => "assessment_reports/fit_report/feedback/factor_scores", :locals => { :factor_scores => factor_scores }     
+:css
+  .report .inner{margin-top:0px;} 
+
+= render :template => "assessment_reports/fit_report/feedback/spotlight"
+
+
+
+- if @report.report_data[:suitability_report_show_buckets_on_feedback]  
+  = render :template => "assessment_reports/fit_report/feedback/guidelines_ratings"
+  = render :template => "assessment_reports/fit_report/feedback/feedback_rating", :locals => { :factor_scores => factor_scores }     
+- else
+  = render :template => "assessment_reports/fit_report/feedback/guidelines_scores"
+  = render :template => "assessment_reports/fit_report/feedback/factor_scores", :locals => { :factor_scores => factor_scores }     
 
 = render :partial => "shared/reports/html/about_us"
 .page-break

@@ -51,16 +51,6 @@
                   = factor_score[:factor_definition]
                 .arrow
               .clr
-          - if @report.report_data[:suitability_report_show_buckets_on_feedback]
-            .divider1
-            .rhs-sec.pull-right.extra-medium-text
-              Your Rating:
-              %input{:type=>"hidden", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 0}
-              %select{ name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][company_norm_bucket_id]" }
-                - @company_norm_buckets.each do |norm_bucket|
-                  %option{ value: norm_bucket.id }
-                    = norm_bucket.name
-          - else    
             .rhs-sec.pull-right
               .slider
                 - marker_width = 80
@@ -86,7 +76,6 @@
             = factor_score[:description]
           = fields_for :feedback do
             .divider2
-            - if !@report.report_data[:suitability_report_show_buckets_on_feedback]
               .optional-feedback
                 .feedback-title.span13
                   How close is the score to your observation:
