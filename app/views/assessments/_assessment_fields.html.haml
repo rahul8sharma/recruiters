@@ -160,6 +160,10 @@
     %label
       = f.check_box :enable_table_of_contents
       Enable Table of Contents
+  .control-group
+    %label
+      = f.check_box :update_trait_scores_from_cocubes
+      Update trait scores from cocubes
     .clr  
 - else
   = f.hidden_field :language, value: 'en'
