@@ -77,11 +77,25 @@ body
       position: absolute
       width: 55px
       bottom: -16px
+      &.full-logo
+        background: image-url('report/pdf/jombay-logo.png') no-repeat center center
+        position: static
+        float: left
+        width: 110px
+        height: 60px
+        height: 45px
+        img
+          display: none
+
+      
     .logo-partner
       position: absolute
       width: 55px
       bottom: 6px
       left: 86px
+      &.with-full-logo
+        position: static
+        float: left
     .user_name
       font-size: 18px
       font-weight: 700
@@ -203,7 +217,6 @@ body
           background: image-url('report/pdf/competency/star.png') no-repeat right 0
         
       .factor-description
-        font-size: 14px
         line-height: 18px
         margin: 0 0 0 35px
       .responses
@@ -268,6 +281,7 @@ body
               border-radius: 2px
               background: #fff
               width: 80px
+              color: #000
             .arrow
               width: 30px
               height: 7px
@@ -276,6 +290,8 @@ body
               top: -4px
             &.less_favorable
               background-position: center -44px
+              &.underlined
+                text-decoration: none
               .score-indicater
                 border-color: #fdc206
               .arrow
@@ -299,6 +315,10 @@ body
 
   @import shared/reports/scale_pdf.sass
   .favorable_factors
+    .instruction_container
+      .instructions
+        .less_favorable
+          text-decoration: none
     .indication
       font-size: 14px
       line-height: 22px
@@ -385,6 +405,40 @@ body
     margin-top: 10px
 
   .competency_report
+    .overall_report
+      &.compact
+        background: none
+        .heading
+          background: #128975
+          line-height: 35px
+          padding: 0 50px 0 40px
+          width: 310px
+          margin: 0 -40px 0 0
+        .color-band
+          margin: -45px -40px 0 0
+          width: 350px
+          padding: 3px 50px 0 0
+          line-height: 35px
+          .head
+            background: #414042
+            padding: 0 40px
+            line-height: 35px
+            margin-right: 17px
+        .overview
+          background: none
+          .inner
+            padding: 0
+          &.compact
+            h1
+              background: #42b59f
+              font-size: 22px
+              text-align: center
+              color: #fff
+              line-height: 50px
+            .content.overview_scale
+              border-top: 0 none
+            .overview-title
+              padding: 0 18px
     .section02
       background: #fff
     .overview 
@@ -557,14 +611,18 @@ body
       font-size: $extra-medium-text
       color: #fff
       padding: 0 10px
+    #traits.section02
+      .scores
+        padding-bottom: 0
     .competency-container
-      border: 2px solid #28b29b
+      border: 1px solid #28b29b
       background: image-url('report/pdf/competency/competency-container-bg.png') no-repeat #fbfbfb center center
+      margin-bottom: 5px
 
     .factors_list
       position: relative
       background: image-url('report/pdf/competency/competency-hexagon-bg.png') no-repeat center center
-      min-height: 240px
+      min-height: 220px
 
       [class*="factor_"]
         font-size: 10px
@@ -575,61 +633,61 @@ body
         width: 80px
       .factor_1
         left: 348px
-        top: 60px
+        top: 40px
       .factor_2
         left: 390px
-        top: 130px
+        top: 110px
       .factor_3
         left: 307px
-        top: 130px
+        top: 110px
       .factor_4
-        top: 130px
+        top: 110px
         left: 225px
       .factor_5
         left: 265px
-        top: 60px
+        top: 40px
       .factor_6
         left: 430px
-        top: 60px
+        top: 40px
       .factor_7
         left: 472px
-        top: 130px
+        top: 110px
       .factor_8
         left: 142px
-        top: 130px
+        top: 110px
       .factor_9
         left: 183px
-        top: 60px
+        top: 40px
       .factor_10
         left: 515px
-        top: 60px
+        top: 40px
       .factor_11
         left: 555px
-        top: 130px
+        top: 110px
       .factor_12
         left: 60px
-        top: 130px
+        top: 110px
       .factor_13
         left: 100px
-        top: 60px
+        top: 40px
       .factor_14
         left: 595px
-        top: 60px
+        top: 40px
       .factor_15
-        top: 130px
+        top: 110px
         left: 640px
       .factor_16
         left: 225px
-        top: -12px
+        top: -22px
       .factor_17
         left: 307px
-        top: -12px
+        top: -22px
       .factor_18
         left: 390px
-        top: -12px
+        top: -22px
       .factor_19
         left: 432px
-        top: -12px
+        top: -22px
     .frame
       border: 2px solid #28b29b
      
@@ -935,10 +993,16 @@ body
 
 .report
   .suitability-competency-report-guideline
+    .interpretation_guideline_hexagon
+      background: image-url("report/pdf/interpretation_guideline_hexagon.png") no-repeat
+      height: 180px
+      width: 700px
+      margin: 0 0 0 110px
     .marker .inn
       width: 100px
       margin-left: -25px
     img
+      margin-left: -35px
       max-width: none
     .title
       color: $color-warning
@@ -996,18 +1060,19 @@ body
         margin-right: 0px
       .line
         border-color: #CCCCCC
+        bottom: 10px
       .marker
-        background: image-url("report/pdf/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+        background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
         font-size: 10px
         font-weight: 200
         height: 30px
         &:hover
-          background: image-url("report/pdf/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
+          background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
         &.active
-          background: image-url("report/pdf/competency/list-scale-small-hexa.png") no-repeat center bottom
+          background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
 
           &:hover
-            background: image-url("report/pdf/competency/list-scale-small-hexa.png") no-repeat center bottom
+            background: image-url("report/html/competency/list-scale-very-small-hexa.png") no-repeat  center bottom
     .section_03
       .frame
         background: #fbfbfb
@@ -1049,12 +1114,16 @@ body
       line-height: 20px
 .aptitude_score
   .rounded
-    background: #28b29b
-    height: 110px
+    background: image-url("report/pdf/competency/apti.png") no-repeat center center
+    width: 100px
+    height: 100px
     font-size: 18px 
     color: #fff
-    line-height: 110px
+    line-height: 100px
     text-align: center
+    border-radius: 0
+  .titles
+    width: 100px
 .explanation_of_cocubes_score
   ul
     li

@@ -19,6 +19,44 @@
     ]
   },
   {
+    id: "pdf_cover_page_compact",
+    text: "Cover Page [COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/cover_page_compact",
+    children: [
+      {
+        id: "pdf_mrf_report_numerical_aggregate_score_compact",
+        text: "MRF Numerical Aggregate Score",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_numerical_aggregate_score_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_mrf_report_show_completion_status_compact",
+        text: "MRF Report Completion Status",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_report_show_completion_status_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_scores_competencies_compact",
+        text: "360 Degree and Self Ratings on Competencies",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
+        children: [
+          {
+            id: "pdf_scores_competencies_with_desired_range_compact",
+            text: "Graph With Desired Range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_with_desired_range_compact",
+            locals: {}
+          },
+          {
+            id: "pdf_scores_competencies_without_desired_range_compact",
+            text: "Graph Without Desired Range",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies_without_desired_range_compact",
+            locals: {}
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "competency_overview",
     text: "Competency Overview",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_overview",
@@ -32,7 +70,7 @@
   },
   {
     id: "pdf_scores_competencies",
-    text: "360 Degree and self ratings on Competencies",
+    text: "360 Degree and Self Ratings on Competencies",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
     children: [
       {
@@ -105,6 +143,12 @@
     children: []
   },
   {
+    id: "pdf_frequency_rating__table_compact",
+    text: "Details on 360 Degree Ratings on Competencies/Values[COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_compact",
+    children: []
+  },
+  {
     id: "pdf_traits_under_competencies_data_points",
     text: "Data Points on Scores: Traits Under Competencies",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points",
@@ -120,6 +164,30 @@
       },
       {
         id: "pdf_competency360_traits_data_pts_items_as_title",
+        text: "Item as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
+        locals: {
+          trait_score: "trait_score"
+        }
+      },
+    ]
+  },
+  {
+    id: "pdf_traits_under_competencies_data_points_compact",
+    text: "Data Points on Scores: Traits Under Competencies [COMPACT]",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/traits_under_competencies_data_points_compact",
+    children: [
+      {
+        id: "pdf_competency360_traits_data_pts_trait_name_as_title_compact",
+        text: "Name as Title",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_trait_name_as_title",
+        locals: {
+          trait_score: "trait_score",
+          competency: "competency"
+        }
+      },
+      {
+        id: "pdf_competency360_traits_data_pts_items_as_title_compact",
         text: "Item as Title",
         path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency360_traits_data_pts_items_as_title",
         locals: {

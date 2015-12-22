@@ -1,2 +1,5 @@
 // Set LeadSquared tracker ID
-pidTracker('2249');
+if(typeof(pidTracker) == "function") {
+  pidTracker('2249');
+}
+

@@ -17,7 +17,7 @@
           %br/
           Respondents
         %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
-          Rating
+          Number of Stakeholders
       %tr.captions.rating_ranges
         - graph_buckets.each do |bucket|
           %td
@@ -38,7 +38,7 @@
             = score[:count]
           - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
-            %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+            %td.rating_score
               = bucket_score
               -#add class ".max_value" to ".rating_score" if td have maximum value of that row
           
@@ -52,7 +52,7 @@
         - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
         - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
-          %td.rating_score{ class: max_score == total ? "max_value" : "" }
+          %td.rating_score
             = total
   .divider1
 -#       

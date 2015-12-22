@@ -1,19 +1,33 @@
 #crumbs
   %ul.clearfix
     %li{ class: ([:new].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Enter Details
+      %a{:href=> new_company_oac_exercise_path(@company.id) } 
+        Enter Details
     %li{ class: ([:select_tools].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Select Tools
+      - url = @exercise.id.present? ? select_tools_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Select Tools
     %li{ class: ([:customize_assessment].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Customize Assessment
+      - url = @exercise.id.present? ? customize_assessment_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Customize Assessment
     %li{ class: ([:select_competencies].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Select Competencies
+      - url = @exercise.id.present? ? select_competencies_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Select Competencies
     %li{ class: ([:set_weightage].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Set Weightage
+      - url = @exercise.id.present? ? set_weightage_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Set Weightage
     %li{ class: ([:add_candidates].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Add Candidates
+      - url = @exercise.id.present? ? add_candidates_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Add Candidates
     %li{ class: ([:send_assessment].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Send Assessment
+      - url = @exercise.id.present? ? send_assessment_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Send Assessment
     %li{ class: ([:assign_assessor].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} Assign Assessor 
+      %a{:href=>"#"} 
+        Assign Assessor 
 .divider2

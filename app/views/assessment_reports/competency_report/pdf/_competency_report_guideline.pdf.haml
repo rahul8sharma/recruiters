@@ -12,9 +12,9 @@
         .title-text.pull-left Scale and Scores Overview
         .clr
       .divider1
-      .box-bordered.span10{:style=>"margin:0 0 0 25px;padding: 14px 10px"}
+      .box-bordered.pull-left{:style=>"margin:14px 0 0 240px;padding: 4px 10px;width: 200px"}
         Jombay's assessments are built around 6-point scales ranging from Low to High.
-      .dot-nav.span1.first{:style=>"margin-top: 19px;"}
+      .dot-nav.span1.first{:style=>"margin-top: 30px;"}
         .rounded
       .scale.pull-right
         .line
@@ -27,29 +27,6 @@
           .clr
       .clr
     .divider2
-    .section_02
-      .black.line-height2.pull-left 
-        Interpersonal Relations and Emotional Control
-      .scale.pull-right
-        .line
-        .marker-container
-          .marker
-          .marker
-          .marker.active
-            .inn Average (Low)
-          .marker
-          .marker
-          .marker
-          .clr
-      .clr
-    .divider1
-    .box-bordered.span{:style=>"margin:0 0 0 25px;"}
-      Competency Overview section gives you your scores in each of the competencies
-    .dot-nav.divider1.pull-left{:style=>"width: 165px; margin-top: -4px;"}
-      .rounded
-    .clr
-
-    .divider2
 
     .section_03
       .title
@@ -59,10 +36,33 @@
         .title-text.pull-left Competencies Overview
         .clr
       .divider1
+      .section_02
+        .black.line-height2.pull-left 
+          Interpersonal Relations and Emotional Control
+        .scale.pull-right
+          .line
+          .marker-container
+            .marker
+            .marker
+            .marker.active
+              .inn Average (Low)
+            .marker
+            .marker
+            .marker
+            .clr
+        .clr
+      .divider1
+      .box-bordered.span{:style=>"margin:0 0 0 28px;"}
+        Competency Overview section gives you your scores in each of the competencies
+      .dot-nav.divider1.pull-left{:style=>"width: 165px; margin-top: -4px;"}
+        .rounded
+      .clr
+
+      .divider2
 
       .frame.text-center
         .heading.pull-left
-          Task Management
+          Interpersonal Relations and Emotional Control
         .heading.pull-right
           Average (Low)
         .clr
@@ -81,8 +81,7 @@
           .clr
         .clr
         .divider1
-        .span13.margin-auto
-          = wicked_pdf_image_tag ("report/pdf/interpretation_guideline_hexagon.png")
+        .interpretation_guideline_hexagon
         .bottom-tag.margin-auto.divider1.span14
           .divider1
           .text.span5.margin-auto

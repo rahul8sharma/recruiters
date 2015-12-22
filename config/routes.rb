@@ -15,7 +15,7 @@ Recruiters::Application.routes.draw do
 
   get "/users/password_settings" => "users#password_settings", :as => :password_settings
   put "/users/update_password_settings" => "users#update_password_settings", :as => :update_password_settings
-  
+
   resources :users do
     member do
       match 'generate_assessment_link' => "users_management#generate_assessment_link", :as => :generate_assessment_link
@@ -265,7 +265,7 @@ Recruiters::Application.routes.draw do
           end
         end
       end
-      
+
       resources :users, :except => [:destroy, :show] do
         resources :user_assessment_reports, :controller => :assessment_reports, :path => "reports", :only => [ :show ] do
           member do
@@ -277,7 +277,7 @@ Recruiters::Application.routes.draw do
         end
       end
     end
-  
+
     resources :mrf_walkin_groups, path: "360/walk-ins", :controller => "mrf/walkin_groups" do
       member do
         get "summary" => "mrf/walkin_groups#summary", as: :summary
@@ -287,7 +287,7 @@ Recruiters::Application.routes.draw do
         get "expire" => "mrf/walkin_groups#expire", as: :expire
       end
     end
-  
+
     resources :mrf_assessments, :controller => "mrf/assessments", :path => "360" do
       resources :user_assessments, :controller => "mrf/assessments/user_assessments" do
         collection do
@@ -374,19 +374,20 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac, :controller => "oac/assessments", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/assessments", :path => "oac" do
       collection do
         match "home" => "oac/assessments#home", :as => :home
       end
 
-      member do 
+      member do
         match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
-        match "add_candidates" => "oac/assessments#add_candidates", :as => :add_candidates
-        match "send_assessment" => "oac/assessments#send_assessment", :as => :send_assessment
-        match "assign_assessor" => "oac/assessments#assign_assessor", :as => :assign_assessor
+        match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
+        match "bulk_upload" => "oac/assessments/user_assessments#add_candidates_bulk", :as => :bulk_upload
+        match "send_assessment" => "oac/assessments/user_assessments#send_assessment", :as => :send_assessment
+        match "assign_assessor" => "oac/assessments/user_assessments#assign_assessor", :as => :assign_assessor
         get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
         get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
 
@@ -602,7 +603,7 @@ Recruiters::Application.routes.draw do
       post :report_preview_suitability
     end
   end
-  
+
   resources :sections do
     collection do
       get :manage
@@ -795,7 +796,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
     resources :trait_guidelines do
       collection do
         get :manage
@@ -984,7 +985,7 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
-    
+
     resources :item_groups do
       collection do
         get :manage
@@ -1215,6 +1216,11 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  namespace :oac do
+    resources :tools do
+    end
+  end
 
   namespace :sq do
     resources :quadrants do
@@ -1226,7 +1232,51 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
-    
+
+     resources :activities do
+      collection do
+        post :import
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
+    namespace :inspirations do
+
+       resources :quotes do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :stories do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :videos do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+    end
+
     resources :exercises do
       collection do
         post :import
@@ -1245,7 +1295,7 @@ Recruiters::Application.routes.draw do
         post :import_with_options_from_google_drive
       end
     end
-    
+
     resources :options
   end
 
@@ -1423,5 +1473,5 @@ Recruiters::Application.routes.draw do
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
 
-  
+
 end

@@ -1,0 +1,17 @@
+.container
+  .page-title
+    Select Tools
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  = form_for @exercise, as: :exercise, url: company_oac_exercises_path(@company.id) do |f|
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Enter Assessment Center Title
+        = f.text_field :name, placeholder: "Assessment Center Title", class: "span8"
+      .clr
+    .divider2
+    %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Proceed" }
+    .clr
+

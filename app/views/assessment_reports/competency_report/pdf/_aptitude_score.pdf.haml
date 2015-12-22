@@ -1,22 +1,47 @@
-.aptitude_score
-  .divider2
-  %h1.font-normal.blue_heading.large-text
-    Score for Aptitude 
-  .divider1
-  .pannel
+- if @report.report_data[:cocubes_scores].present?
+  .aptitude_score
+    .divider2
+    %h1.font-normal.blue_heading.large-text
+      Score for Aptitude 
     .divider1
-    .span7.margin-auto
-      .span3.first.rounded
-        #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
-      .span3.left-offset1.rounded
-        #{@report.report_data[:cocubes_percentage_score]}%
-      .clr
+    .pannel
       .divider1
-      .span3.first.text-center.large-text
-        Score
-      .span3.left-offset1.text-center.large-text
-        Percentage
-      .clr
+      .span7.margin-auto
+        .pull-left.rounded
+          #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
+        .pull-left.left-offset1.rounded
+          = number_to_percentage(@report.report_data[:cocubes_percentage_score], precision: 0)
+        .clr
+        .divider1
+        .titles.pull-left.text-center.large-text
+          Score
+        .titles.pull-left.left-offset1.text-center.large-text
+          Percentage
+        .clr
+      .divider1
     .divider1
-  .divider2
-.page-break
+
+- if @report.report_data[:cocubes_section_scores].present?
+  .aptitude_score
+    .divider2
+    - @report.report_data[:cocubes_section_scores].each do |name, score|
+      .font-normal.blue_heading.large-text
+        Score for #{name}
+      .divider1
+      .pannel
+        .divider1
+        .span7.margin-auto
+          .pull-left.rounded
+            #{score[:section_score].round(1)} / #{score[:max_score].round(1)} 
+          .pull-left.left-offset1.rounded
+            = number_to_percentage((score[:section_score].to_f*100 /score[:max_score]), precision: 0)
+          .clr
+          .divider1
+          .titles.pull-left.text-center.large-text
+            Score
+          .titles.pull-left.left-offset1.text-center.large-text
+            Percentage
+          .clr
+        .divider1
+      .divider1
+  .page-break

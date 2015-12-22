@@ -1,11 +1,9 @@
 .report_header.clearfix
-  .extra-medium-text.white.pull-left.line-height3
-    = display_text rescue "NA"
-  .text-right.pull-right
+  .logo.full-logo
+    = wicked_pdf_image_tag ('report/pdf/j-logo.png')
+  .text-right
     .user_name
-      = truncate @report.report_hash[:user][:name] ,length: 25
-    .small-text
+      = @report.report_hash[:user][:name]
+    .medium-text
       360&#176; Profiling: 
       = @report.report_hash[:assessment][:name]
-  .clr
-

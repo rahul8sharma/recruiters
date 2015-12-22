@@ -37,8 +37,8 @@
             %a.mrf{:href=>home_company_exit_surveys_path(@company), :title=> "Exit",class: (["exit/surveys","exit/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
               EXIT
           %li
-            %a.mrf{:href=>home_company_retention_surveys_path(@company), :title=> "Retention",class: (["retention/surveys","retention/user_surveys"].include?("#{params[:controller]}") ? "active" : "")}
-              RETENTION
+            %a.mrf{:href=>home_company_oac_exercises_path(@company), :title=> "Online Assessment Center",class: (["oac/exercises"].include?("#{params[:controller]}") ? "active" : "")}
+              OAC
           %li
             %a.mrf{:href=>home_company_sjt_assessments_path(@company), :title=> "SJT",class: (["sjt/assessments"].include?("#{params[:controller]}") ? "active" : "")}
               SJT
