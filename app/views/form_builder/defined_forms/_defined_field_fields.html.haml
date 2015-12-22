@@ -13,7 +13,7 @@
     = f.select :field_order, [*1..100]
   .field
     %label Type
-    = f.select :field_type, Vger::Resources::FormBuilder::DefinedField::FIELD_TYPES
+    = f.select :field_type, Vger::Resources::FormBuilder::DefinedField::FIELD_TYPES.sort
   .field
     %label Identifier
     = f.text_field :identifier

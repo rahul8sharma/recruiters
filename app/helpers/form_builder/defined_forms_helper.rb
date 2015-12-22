@@ -17,6 +17,8 @@ module FormBuilder::DefinedFormsHelper
           html = "#{html}&nbsp;#{label_tag(option,option, for: defined_field.identifier+'_'+option)} &nbsp;&nbsp;"
         end  
         return html.html_safe  
+      when Vger::Resources::FormBuilder::DefinedField::FieldType::SERIALIZED_FIELD
+        return text_field_tag(defined_field.identifier, defined_field.default_value, placeholder: defined_field.placeholder, required: defined_field.is_mandatory)
       else
         raise "Invalid Field Type #{defined_field.field_type}"  
     end
