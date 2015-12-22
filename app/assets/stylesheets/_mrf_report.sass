@@ -1053,9 +1053,17 @@ $mrf_image_path: report/html/mrf
           li
             line-height: 22px
 .response_distribution_six_points
+  .stakeholder_label, .candidate_label
+    color: #414042
+    padding-left: 25px
+    margin-bottom: 10px
+    background: image-url('#{$mrf_image_path}/stakeholder_rating_icon.png') no-repeat 0 center
+  .candidate_label
+    background: image-url('#{$mrf_image_path}/candidate_rating_icon.png') no-repeat 0 center
+
   ul
     li
-      padding: 25px 0
+      padding: 15px 0
       border-bottom: 1px solid #e3e3e3
       .question
         color: #414042
@@ -1069,8 +1077,8 @@ $mrf_image_path: report/html/mrf
         margin-left: 0
         border-left: 1px solid #fff
         background: image-url('#{$mrf_image_path}/graph_left_sec_stakeholder_trait_rating_icon.png') no-repeat center center
-        height: 100px
-        line-height: 100px
+        height: 42px
+        line-height: 42px
         color: #a119a6
         &:first-child
           color: #808285
@@ -1091,6 +1099,7 @@ $mrf_image_path: report/html/mrf
           line-height: normal
           color: #58595b
           padding: 10px 0
+          min-height: 52px
           background: none
           &:first-child
             font-size: 16px

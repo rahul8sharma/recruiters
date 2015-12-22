@@ -1,9 +1,16 @@
 .response_distribution_six_points
   .container
     .divider2
-    .title
-      Response distribution on Questions
-    .divider2
+    .pull-left
+      .span.title
+        Response distribution on Questions
+    .pull-right.medium-text
+      .span.stakeholder_label
+        Question to stakeholder
+      .span.candidate_label
+        Question to candidate
+    .clr
+    .divider1
     - @report.report_data[:competency_scores].each do |competency,competency_scores|
       - competency_scores[:trait_scores].each do |trait_score|
         - if trait_score[:items][:other_responses].present?
@@ -22,8 +29,7 @@
                   %li.clearfix
                     .span13
                       .question{:style => "padding-top: 5px;"}
-                        Question #{index+1}: Stakeholder
-                      = item_data[:item]
+                        Q#{index+1}: #{item_data[:item]}
                     - item_data[:responses].each_with_index do |(body,response_count),index|
                       .span3
                         = response_count
@@ -33,8 +39,7 @@
                   %li.clearfix.candidate_answer
                     .span13
                       .question
-                        Question #{index+1}: Candidate
-                      = item_data[:item]
+                        Q#{index+1}: #{item_data[:item]}
                     - item_data[:responses].each_with_index do |(body,response_count),index|
                       - klass = response_count > 0 ? "active" : ""
                       .span3{:class => klass}

@@ -17,6 +17,7 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
   end
 
   def candidate
+    @user = Vger::Resources::User.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
   end
 
   def add_candidates

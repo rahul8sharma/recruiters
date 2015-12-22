@@ -236,91 +236,176 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       bucket: report_pdfs_staging_internal
       key: suitability_reports/feedback/feedback-a-jombay-32168.html
   report_email_recipients:
-  candidate_stage: employee
+  candidate_stage: candidate
   user_assessment_id: 54808
   completed_at: 08/09/2015
   direct_predictor_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  post_assessment_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  development_guide: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: You could consider delegating tasks carefully to those who would rather efficiently complete their tasks instead of those who might delay doing their tasks.
-      factor_type: Suitability::Factor
-    Assertiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: false
-      body: You may want to express your opinion individually in every group conversation. You can avoid giving in easily if you believe in something. Before you agree to something, come up with a justification for why you should agree. You could try to maintain eye contact when communicating.
-      factor_type: Suitability::Factor
-    Data Driven: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: When complete data is not available, it could be a good idea to consider your gut feeling instead of always waiting on data to take the further course of action.
-      factor_type: Suitability::Factor
-    Customer Service Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You may want to make sure you do not promise beyond what you can provide. You should also make sure to follow up and network with the clients
-      factor_type: Suitability::Factor
-    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You may want to ensure that you weigh the implications of every decision you take. It can also be a good idea to incorporate the opinions of others in taking decisions to get different point of views.
+      body: You could increase your capacity to take stress by gradually taking up opportunities that are more demanding. If you feel stressed, try to analyse where the stress is coming from and break it down into the causes, effects and steps to be taken. Try to identify a stress buster technique (e.g. meditation, jogging, sports, hobbies etc. ) which suits you the best so that it could help you perform better in high pressure work.
       factor_type: Suitability::Factor
     Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could seek feedback from your colleagues from time to time to ensure that you do not come across as manipulative.
       factor_type: Suitability::Factor
-    Considerateness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You might want to ensure that others do not take undue advantage of you because of your considerate nature.
-      factor_type: Suitability::Factor
-    Agreeableness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
-      body: If you feel that you come across as inflexible or hard to convince, try to hear the other person out completely. Consider playing the devil's advocate by listing out arguments against your opinion.
+      body: You could try to making task completion itself a goal. You could also make sure your colleagues know about the deliverables that you need to finish. You can ask them to push you to finish those deliverables. This could motivate you to keep at a task till it is completed, even if you happen to get bored with it.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could consider attending events where you are likely to meet other professionals. Before going to any event, try to ensure you are well-versed with topic and the attendees of the event so that you can strike an appropriate conversation. You also can try to spend more time with people who are good at networking to understand how to approach and initiate fruitful conversations.
+      factor_type: Suitability::Factor
+    Team Player: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to look at team performance as your own performance. You may consider assigning equal importance to team tasks and individual tasks.
+      factor_type: Suitability::Factor
+    Guilt Consciousness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could make sure that you try your best to make everything better whenever you make any mistake, and try and move on.
+      factor_type: Suitability::Factor
+    Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: Ensure that you do not delay work unnecessarily by being overly organized.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could consider discussing the pros and cons of your decisions with colleagues and exercise smart caution if too much risk is involved. Also, it would be a good idea to keep a back up plan ready in case your high risk decisions do not work out as desired.
+      factor_type: Suitability::Factor
+    Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider listing consequences of not following all steps in the prescribed process even though it might get work done faster.
+      factor_type: Suitability::Factor
+    Initiative: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You may want to analyse your week to identify instances where you could have taken initiative. To improve on this quality, you could consider volunteering for a few tasks. These small wins will help you to take more initiative.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to spend more time just by yourself so that you can introspect, focus on self-growth and not grow too dependent on social company.
       factor_type: Suitability::Factor
     Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could consider taking up opportunities that involve change and adaptation. However, avoid submitting to change without considering it holistically.
       factor_type: Suitability::Factor
+    Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try taking up more challenging and difficult goals. You may want to advertise your goal and its deadline to people you interact regularly with. You could also consider pinning up your goal along with a deadline at your workstation such that it is always visible.
+      factor_type: Suitability::Factor
     Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: You could consider being a bit flexible depending on the situations as long as the spirit of the guidelines is followed.
+      body: If you find a guideline or rule not very useful or redundant, you may want to discuss your reasons with your manager or colleagues before deciding to bend it.
       factor_type: Suitability::Factor
-  guidelines_for_user_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: You could consider assigning him/her decisions regarding what tasks need to be delegated to whom in the team.
+      body: You may consider increasing your interaction with different kinds of people in varied situations. You could try to observe their expressions, body language, etc. with an aim to understand them better.
       factor_type: Suitability::Factor
-    Assertiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
-      body: You could consider encouraging him/her to speak up his/her mind, defend opinions in groups to help gain confidence.
+      body: You are good at identifying and solving problems, however you can develop these skills further by observing role models. You may consult your manager to identify people you can pair with and mentor them. At the same time you may attempt to analyse scenarios in which you can use your problem solving skills more effectively.
       factor_type: Suitability::Factor
-    Data Driven: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  interview_guide: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: It could be a good idea to assign him/her to tasks that need objective decision-making and logical approach. You could give him/her responsibility of tasks that, more often than not require experience and gut feel than using existing data.
-      factor_type: Suitability::Factor
-    Customer Service Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You may consider conveying appreciation and positive feedback from customers in front of other team members - this will encourage him/her to continue his/her efforts. You could consider assigning him/her customers, who you feel could be difficult to attend to. This would ensure high customer satisfaction. You can also consider pairing him/her with others in order to help others understand the nuances better.
+      body: You may consider increasing your interaction with different kinds of people in varied situations. You could try to observe their expressions, body language, etc. with an aim to understand them better.
       factor_type: Suitability::Factor
     Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: Consider pushing yourself to take decisions on your own. You can also try not to be overcautious. You may leverage information about thumb-rules from similar situations in the past when you were required to take a decision. This could reduce chances of a wrong decision.
+      factor_type: Suitability::Factor
+    Foresight: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to actively participate in discussions about future goals of your department so that you find it easier to relate your current tasks to those goals. You could consider listing some indicators and thumb-rules about dealing with anticipated situations by discussing with your manager.
+      factor_type: Suitability::Factor
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to making task completion itself a goal. You could also make sure your colleagues know about the deliverables that you need to finish. You can ask them to push you to finish those deliverables. This could motivate you to keep at a task till it is completed, even if you happen to get bored with it.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: You could consider assigning him/her responsibilities which require independent decision making. However, you may want to make sure that he/she continues taking informed and efficient decisions.
+      body: You could try using different approaches such as social networks, email, messages etc. in addition to attending events to connect with new people and to maintain your existing network. You could explore ways to get new references from your existing connections.
+      factor_type: Suitability::Factor
+    Responsibility of Outcomes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to ensure that you do not stress yourself out by holding yourself accountable for everything beyond a point. One should accept that some things are beyond one's control.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try experimenting with new ideas and approaches before rejecting them for being unfamiliar. You may try to avoid being over-cautious due to fear of failure. You could start taking up tasks that involve less risk and gradually increase the degree of risk.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to balance your social and personal time more effectively. You may want to analyse your past pattern to distribute your time more effectively between social and personal needs.
+      factor_type: Suitability::Factor
+    Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to make an effort to introspect and identify habits and patterns that are unchanged for a very long time. You may start with making minor changes to your daily routine. It would help to be more open to feedback and new ideas.
+      factor_type: Suitability::Factor
+  guidelines_for_user_manager: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Stress Tolerance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider gradually increasing his/her work pressure and observing how much he/she can deal with increased pressure. You may also encourage him/her to take-up high pressure tasks to enhance his/her career prospects.
       factor_type: Suitability::Factor
     Convincing: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: It could be a good idea to assign him/her responsibilities where being influential is critical. However, you may want to make sure that he/she is not perceived as manipulative or dominating by team members.
       factor_type: Suitability::Factor
-    Considerateness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You might want to caution and guide him/her about people who might take undue advantage of his/her considerate nature.
-      factor_type: Suitability::Factor
-    Agreeableness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
-      body: You could try to get him/her to list the pros and cons of his/her firm stand so that he/she is more open to considering the opinions of others. You may also want to encourage him/her to consider the opinions of at least two other team members before he/she sticks to his/her own opinion.
+      body: When he/she seems to be losing interest in a task, you could try to highlight a future outcome of that task which could be desirable for him/her. You may also consider discussing the implications of not completing the task, for him/her as well as for co-workers whose work is likely to be impacted by the delay.
+      factor_type: Suitability::Factor
+    Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You may want to share experiences and pointers about the importance of making business connections. You could try taking him/her to events or meetings where he/she can observe, learn and develop networking skills. You might also share some new contacts you come across and encourage him/her in his/her efforts.
+      factor_type: Suitability::Factor
+    Team Player: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to point out the positives of performing as a team. Try to assign him/her to more team tasks that might trigger his/her interest in achieving a collaborative goal.
+      factor_type: Suitability::Factor
+    Guilt Consciousness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: He/she seems to be conscious of doing something wrong. You could consider pairing him/her with individuals who need to be more efficient at finding remedy for his/her mistakes.
+      factor_type: Suitability::Factor
+    Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider putting him/her in roles where high amount of planning and prioritization is required. He/she could also contribute in charting out long term plans for the team. However, you could ensure that he/she does not delay work unnecessarily by being overly organized.
+      factor_type: Suitability::Factor
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could ensure that he/she take relevant and calculated risks and also develop the habit of having a back up plan in case of backfire.
+      factor_type: Suitability::Factor
+    Process Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try and encourage him/her to follow processes more stringently by emphasizing the benefits of each step in the process.
+      factor_type: Suitability::Factor
+    Initiative: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could try to identify the cause and then take steps to motivate him/her by designing a reward system that aligns these goals with the business objectives.
+      factor_type: Suitability::Factor
+    Introversion - Extraversion: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You may want to ensure that he/she finishes his/her tasks on time and do not intrude in others' work privacy.
       factor_type: Suitability::Factor
     Adaptability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: He/she could be more effective in dynamic environments as compared to others. Hence, you could consider assigning to him/her such projects or responsibilities as they come by.
       factor_type: Suitability::Factor
+    Target Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could try to appreciate every target he/she achieves (small or big). You may also encourage him/her to take on more challenging goals.
+      factor_type: Suitability::Factor
     Compliance: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
-      body: Try to ensure that he/she does not stress himself/herself or the team while insisting adherence to rules and procedures.
+      body: You may want to make him/her understand the significance of following rules and regulations. Providing him/her with simple guidelines on how to follow rules and procedures could help him/her follow these easily.
+      factor_type: Suitability::Factor
+    People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: true
+      body: You could consider introducing him/her to more diverse and challenging group interactions as it could help him/her get better at understanding people.
+      factor_type: Suitability::Factor
+    Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      pass: false
+      body: You could involve him/her in brainstorming sessions for finding solutions to complex problems. Encourage him/her to monitor his/her problem solving process to come up with more practical solutions. You may also ask him/her to assist others in order to improve the team's overall performance.
       factor_type: Suitability::Factor
   subjective_items: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   objective_score: 20

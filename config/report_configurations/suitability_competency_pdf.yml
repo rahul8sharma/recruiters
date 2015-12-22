@@ -1,5 +1,87 @@
 :sections: [
   {
+    id: "pdf_cover_page_compact",
+    text: "Cover Page [COMPACT]",
+    path: "assessment_reports/competency_report/pdf/cover_page_compact",
+    children: [
+      {
+        id: "pdf_cover_page_compact_aggregate_score",
+        text: "Aggregate Score",
+        path: "assessment_reports/competency_report/pdf/aggregate_score_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_cover_page_compact_color_band",
+        text: "Color Band",
+        path: "assessment_reports/competency_report/pdf/color_band_compact",
+        locals: {}
+      },
+      {
+        id: "pdf_cover_page_compact_overview_competencies_measured",
+        text: "Overview Of Competencies/Value Measured",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/main_compact",
+        children: [
+          {
+            id: "pdf_competency_scores_overview_favourable_within_desired_range_compact",
+            text: "Scale [Show Favourable within Desired Range]",
+            path: "assessment_reports/competency_report/pdf/competency_scores_overview/favourable_within_desired_range",
+            locals: {
+              competency_scores: "competency_scores"
+            },
+            children: [
+              {
+                id: "pdf_favourable_within_desired_range_show_desired_range_compact",
+                text: "Show Desired Range",
+                path: "assessment_reports/competency_report/pdf/competency_scores_overview/show_desired_range",
+                locals: {
+                  width: "width",
+                  offset: "offset"
+                }
+              },
+              {
+                id: "pdf_favourable_within_desired_range_hide_desired_range_compact",
+                text: "Hide Desired Range",
+                path: "assessment_reports/competency_report/pdf/competency_scores_overview/hide_desired_range",
+                locals: {
+                  width: "width",
+                  offset: "offset"
+                }
+              }
+            ]
+          },
+          {
+            id: "pdf_competency_scores_overview_favourable_above_desired_range_compact",
+            text: "Scale [Show Favourable above Desired Range]",
+            path: "assessment_reports/competency_report/pdf/competency_scores_overview/favourable_above_desired_range",
+            locals: {
+              competency_scores: "competency_scores"
+            },
+            children: [
+              {
+                id: "pdf_favourable_above_desired_range_show_desired_range_compact",
+                text: "Show Desired Range",
+                path: "assessment_reports/competency_report/pdf/competency_scores_overview/show_desired_range",
+                locals: {
+                  width: "width",
+                  offset: "offset"
+                }
+              },
+              {
+                id: "pdf_favourable_above_desired_range_hide_desired_range_compact",
+                text: "Hide Desired Range",
+                path: "assessment_reports/competency_report/pdf/competency_scores_overview/hide_desired_range",
+                locals: {
+                  width: "width",
+                  offset: "offset"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "pdf_cover_page",
     text: "Cover Page [Details]",
     path: "assessment_reports/competency_report/pdf/cover_page",

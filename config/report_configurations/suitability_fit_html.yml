@@ -144,14 +144,38 @@
   },
   {
     id: "html_development_guide_for_assessment_taker",
-    text: "Development/Interview Guide for Candidate",
+    text: "Development Guide for Candidate [Based on Candidate Type]",
     path: "assessment_reports/fit_report/html/page5",
     children: []
   },
   {
+    id: "html_development_guide_for_assessment_taker_based_on_type",
+    text: "Development Guide for Candidate",
+    path: "assessment_reports/fit_report/html/development_guide",
+    children: []
+  },
+  {
+    id: "html_interview_guide_for_assessment_taker",
+    text: "Interview Guide for Candidate[Based On Candidate Type]",
+    path: "assessment_reports/fit_report/html/interview_guide",
+    children: []
+  },
+  {
+    id: "html_interview_guide_for_assessment_taker_based_on_type",
+    text: "Interview Guide for Candidate",
+    path: "assessment_reports/fit_report/html/interview",
+    children: []
+  },
+  {
     id: "html_guidelines_for_candidate_manager",
-    text: "Guidelines for Assessment takers manager",
+    text: "Guidelines for Assessment takers manager [Based On Candidate Type]",
     path: "assessment_reports/fit_report/html/page6",
+    children: []
+  },
+  {
+    id: "html_guidelines_for_candidate_manager_based_on_type",
+    text: "Guidelines for Assessment takers manager",
+    path: "assessment_reports/fit_report/html/guidelines_assessment_takers_manager",
     children: []
   },
   {

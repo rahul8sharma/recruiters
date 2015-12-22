@@ -1,13 +1,14 @@
 - competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
-.divider1
-.overview
+.divider1.clr
+.overview.compact
   .inner{ style: "margin-top:0px;" }
-    .divider2
+    %h1.font-normal
+      Overview of Competencies / Values Measured
+
     .content.overview_scale
       .pull-left
         .overview-title.text-left
-          %h1.font-normal.color-warning.medium-text
-            Overview of Competencies / Values Measured
+          .divider2
           .instruction_container
             .instructions
               .box.pull-left
