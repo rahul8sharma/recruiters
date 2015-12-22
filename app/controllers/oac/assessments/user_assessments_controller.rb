@@ -7,9 +7,17 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
   layout 'oac/oac'
 
   def candidates
+    @user_exercises = Vger::Resources::Oac::UserExercise.where(
+      :exercise_id => @exercise.id,
+      query_options: {
+        :exercise_id => @exercise.id
+      },
+      include: [:user]
+    ).all
   end
 
   def candidate
+    @user = Vger::Resources::User.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
   end
 
   def add_candidates

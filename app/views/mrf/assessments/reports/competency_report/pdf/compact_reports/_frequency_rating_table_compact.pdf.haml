@@ -4,8 +4,8 @@
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
   .scores.border-bottom-grayLighter.mrf_data_points
     .color-info.big-text
-      Frequency of Ratings
-    .divider1
+      Details on 360&#176 Ratings on Competencies/Values
+    .divider1    
     - step_data.each do |competency, competency_scores|
       .frame
         .heading.pull-left
@@ -15,6 +15,28 @@
           = competency_scores[:score][:points] || "-"
         .clr
         .padding-all1
+          .final_data_points.pull-left.small
+            .high_low_scores{:style => "padding: 10px"}
+              .span
+                360&#176; Scores Across Exercise
+              .border_gray_light.span
+                .high.left.pull-left
+                  Highest
+                .right.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
+                .clr
+              .border_gray_light.span
+                .low.left.pull-left
+                  Lowest
+                .right.pull-left
+                  = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
+                .clr
+              .clr
+          .clr 
+
+          .extra-medium-text
+            Frequency of Ratings
+          .divider1
           - if competency_scores[:role_wise_scores].present?
             %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
               %tbody
@@ -30,7 +52,7 @@
                     %br/
                     Respondents
                   %td.dark_mute_bg{:colspan=>"#{@competency_graph_buckets.size}"}
-                    Rating
+                    Number of Stakeholders
                 %tr.captions.rating_ranges
                   - @competency_graph_buckets.each do |bucket|
                     %td
