@@ -5,19 +5,6 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "jstree"
 
-- content_for :candidate_type do
-  .control-group
-    %label
-      Select Candidate Type
-    %select.span10.first{name: 'candidate_type', id: 'set_candidate_type'}
-      %option{:value => ""}
-        Select Assessment Type
-        %option{:value => "employed"}
-          EMPLOYED
-        %option{:value => "candidate"}
-          CANDIDATE
-    .clr  
-
 .new
   .page-title.pull-left
     Create Custom Assessment

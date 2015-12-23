@@ -1,7 +1,21 @@
+- content_for :candidate_type do
+  .control-group
+    %label
+      Select Candidate Type
+    %select.span10.first{name: 'candidate_type', id: 'set_candidate_type'}
+      %option{:value => ""}
+        Select Assessment Type
+        %option{:value => "employed"}
+          EMPLOYED
+        %option{:value => "candidate"}
+          CANDIDATE
+    .clr  
+
+
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
-    
+  
 .divider1
 .control-group
   %label
