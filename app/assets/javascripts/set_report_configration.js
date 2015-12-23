@@ -254,7 +254,7 @@ $(document).ready(function(){
   
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
-    candidate_type = $('#set_candidate_type').val();
+    candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
     if($('#set_assessment_type').val() !== "") {
       loadPreview($(this), $htmlTree, candidate_type);
     } else {
@@ -265,7 +265,7 @@ $(document).ready(function(){
 
   $('#generate_pdf_preview').on('click', function(e){
     e.preventDefault();
-    candidate_type = $('#set_candidate_type').val();
+    candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
     if($('#set_assessment_type').val() !== "") {
       loadPreview($(this), $pdfTree, candidate_type);
     } else {
