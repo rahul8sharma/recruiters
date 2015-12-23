@@ -54,6 +54,7 @@ class CompaniesController < ApplicationController
         scopes: { :user_email_or_name_like => params[:search][:user_name_or_email] },
         joins: [ :assessment, :user  ],
         include: [:user, :assessment, :user_assessment_reports],
+        methods: [:link_status],
         page: params[:page],
         order: order,
         per: 10
