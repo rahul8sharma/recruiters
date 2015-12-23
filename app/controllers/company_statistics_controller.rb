@@ -7,6 +7,11 @@ class CompanyStatisticsController < ApplicationController
   before_filter :get_company
 
   def statistics
+    get_suitability_subscriptions
+  end
+  
+  def statistics_360
+    get_360_subscriptions
   end
 
   def email_usage_stats
@@ -27,13 +32,29 @@ class CompanyStatisticsController < ApplicationController
   protected
 
   def get_company
-    methods = [:unlocked_invites_count,:recent_usage_statistics]
-    if Rails.application.config.statistics[:load_assessment_statistics]
-      methods.push :assessment_statistics
-    end
+    methods = [
+      :unlocked_invites_count,
+      :unlocked_360_invites_count,
+      :recent_usage_statistics, 
+      :assessment_statistics
+    ]
     @company = Vger::Resources::Company.find(params[:id], :methods => methods)
-    @company.assessment_statistics ||= {}
+  end
+  
+  def get_suitability_subscriptions
     @subscriptions = Vger::Resources::Subscription.where(
+      :query_options => {
+        :company_id => @company.id
+      },
+      :order => ["valid_to DESC"],
+      :methods => [:assessments_sent,:assessments_completed],
+      :page => params[:page],
+      :per => 5
+    )
+  end
+  
+  def get_360_subscriptions
+    @subscriptions = Vger::Resources::Mrf::Subscription.where(
       :query_options => {
         :company_id => @company.id
       },
