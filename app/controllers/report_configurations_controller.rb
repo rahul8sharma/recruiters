@@ -112,6 +112,8 @@ class ReportConfigurationsController < MasterDataController
     end
     @report.report_hash = @report.report_data
     @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
+    @report.report_hash[:candidate_stage] = params[:candidate_type]
+    
     layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
     template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
     render json:{ 
@@ -132,6 +134,7 @@ class ReportConfigurationsController < MasterDataController
 
     @report.report_hash = @report.report_data
     @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
+    @report.report_hash[:candidate_stage] = params[:candidate_type]
 
     if params[:view_mode]
       @view_mode = params[:view_mode]
