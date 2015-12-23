@@ -60,7 +60,8 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     options = {
       email: Rails.application.config.emails[:jit_recipients][:product]+","+
                 Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs],
+                Rails.application.config.emails[:jit_recipients][:psychs]+","+
+                Rails.application.config.emails[:jit_recipients][:operations],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_feedback_urls(company_id: @company.id, id: @assessment.id, options: options)
@@ -72,7 +73,8 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     options = {
       email: Rails.application.config.emails[:jit_recipients][:product]+","+
                 Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs],
+                Rails.application.config.emails[:jit_recipients][:psychs]+","+
+                Rails.application.config.emails[:jit_recipients][:operations],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_feedback_status(company_id: @company.id, id: @assessment.id, options: options)
@@ -84,7 +86,8 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     options = {
       email: Rails.application.config.emails[:jit_recipients][:product]+","+
                 Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs],
+                Rails.application.config.emails[:jit_recipients][:psychs]+","+
+                Rails.application.config.emails[:jit_recipients][:operations],
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
