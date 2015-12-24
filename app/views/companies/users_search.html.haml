@@ -38,6 +38,17 @@
         - @user_assessments.each do |user_assessment|
           - user = user_assessment.user
           - assessment = user_assessment.assessment
+          - status = test_statuses[user_assessment.status]
+          - link_status = test_link_statuses[user_assessment.link_status]
+          - if user_assessment.user_assessment_reports.present?
+            - report = user_assessment.user_assessment_reports[0]
+          - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::HIVE_SCORES_PENDING
+            - status = 'Pending'  
+          - show_status = ''
+          - if status == Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
+            - show_status = status+" as of "+htime(user_assessment.completed_at)+"Hrs, "+hdate(user_assessment.completed_at)
+          - else
+            - show_status = status+" as of "+htime(user_assessment.updated_at)+"Hrs, "+hdate(user_assessment.updated_at)
           %li.list-snippet.extra-medium-text
             .divider1
             .span3.first
@@ -51,30 +62,12 @@
                 = assessment.name
             .span8
               %a.down{:href => "javascript:void(0);", :title => ""}
-                = test_statuses[user_assessment.status]
-                - time = test_statuses[user_assessment.status] == "Completed" ? user_assessment.completed_at : user_assessment.updated_at
-                as of #{htime(time)} Hrs, #{hdate(time)}
+                #{show_status}
             .span
-              - if test_statuses[user_assessment.status] == "Completed"
-                - report = user_assessment.user_assessment_reports.first
-                - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
-                  - url =  company_custom_assessment_user_user_assessment_report_url(:company_id => @company.id, :user_id => user.id, :custom_assessment_id => assessment.id, :id => report.id, :view_mode => "html")
-                  %a{href: url, title: "View Report", target: "_blank"}
-                    %i.icon-file
-                    View Report
-                - else
-                  %a{:href => "javascript:void(0);", :title => "Generating Report..."}
-                    %i.icon-spinner.icon-spin
-                    Generating Report...
+              - if report
+                = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
               - else
-                - if test_statuses[user_assessment.status] == "Expired"
-                  %a{:href => "javascript:void(0);", :title => "Expired"}
-                    %i.icon-time
-                    Expired
-                - else
-                  %a{:href => send_reminder_to_user_company_custom_assessment_path(:company_id => @company.id, :id => assessment.id, :user_id => user.id), :title => "Send Reminder"}
-                    %i.icon-time
-                    Send Reminder
+                = render :partial => "companies/users/user_assessment_status/#{user_assessment.status}", locals: { user_assessment: user_assessment, assessment: @assessment, company: @company, user: user }
             .clr
         .divider2
         .pull-right

@@ -54,6 +54,7 @@ class CompaniesController < ApplicationController
         scopes: { :user_email_or_name_like => params[:search][:user_name_or_email] },
         joins: [ :assessment, :user  ],
         include: [:user, :assessment, :user_assessment_reports],
+        methods: [:link_status],
         page: params[:page],
         order: order,
         per: 10
@@ -109,6 +110,20 @@ class CompaniesController < ApplicationController
     if @custom_assessment
       user_user_email = "#{current_user.email.split("@")[0]}+selfassessment@#{current_user.email.split("@")[1]}"
       @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:joins => [:user], :assessment_id => @custom_assessment.id, :query_options => { "jombay_users.email" => user_user_email }, methods: [:url], :include => [:user_assessment_reports]).all.to_a.first
+    end
+  end
+  
+  def add_mrf_subscription
+    if request.put?
+      subscription_data = {
+        company_id: @company.id,
+        assessments_purchased: params[:merchant_param1],
+        valid_from: Time.now.strftime("%d/%m/%Y"),
+        valid_to: params[:merchant_param2]
+      }
+      job_id = Vger::Resources::Mrf::Subscription.create(subscription_data)
+      flash[:notice] = "360 Subscription is being added. You should receive an email when the subscription gets added to the system."
+      redirect_to company_path(@company)
     end
   end
 

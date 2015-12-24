@@ -81,6 +81,7 @@ Recruiters::Application.routes.draw do
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
+      get "statistics_360" => "company_statistics#statistics_360", :as => :statistics_360
       get "email_usage_stats" => "company_statistics#email_usage_stats", :as => :email_usage_stats
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
@@ -100,6 +101,10 @@ Recruiters::Application.routes.draw do
       get "users/:user_id" => "companies#user", :as => :user
       get "add_subscription" => "companies#add_subscription", :as => :add_subscription
       put "add_subscription" => "companies#add_subscription"
+      
+      get "add_mrf_subscription" => "companies#add_mrf_subscription", :as => :add_mrf_subscription
+      put "add_mrf_subscription" => "companies#add_mrf_subscription"
+      
       get "home" => "companies#home", :as => :home
       get :landing
       get :email_assessment_stats
@@ -778,6 +783,17 @@ Recruiters::Application.routes.draw do
     post 'assessments_management/export_mrf_raw_scores' => 'assessments_management#export_mrf_raw_scores', :as => :export_raw_scores
     post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
 
+    resources :subscriptions, :only => [:index] do
+      collection do
+        post :expire_subscription, :as => :expire_subscription
+        post :import
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+
     resources :traits do
       collection do
         get :get_traits
@@ -1216,7 +1232,7 @@ Recruiters::Application.routes.draw do
       end
     end
   end
-  
+
   namespace :oac do
     resources :tools do
     end
@@ -1243,6 +1259,39 @@ Recruiters::Application.routes.draw do
       end
     end
 
+    namespace :premium do
+
+       resources :books do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :events do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+       resources :foods do
+        collection do
+          post :import
+          get :manage
+          get :destroy_all
+          post :import_from_google_drive
+          post :export_to_google_drive
+        end
+      end
+
+    end
     namespace :inspirations do
 
        resources :quotes do

@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   protected
   
   def redirect_user_path
-    self.send "redirect_#{current_user.role}"
+    if current_user
+      self.send "redirect_#{current_user.role}"
+    else
+      login_path
+    end
   end
   
   def set_auth_token
