@@ -15,7 +15,7 @@
             .divider2
             .section03
               .span28.margin-auto
-                .extra-large-text.pull-left.bold
+                .extra-large-text.pull-left.bold{:style=>"margin-bottom: 10px"}
                   = trait_score[:trait][:name]
                 - section_value.each do |section|
                   - locals = Hash[section["locals"].map { |key, value| [key.to_sym, trait_hash[key.to_sym]] }]
