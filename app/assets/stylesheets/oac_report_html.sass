@@ -1,17 +1,73 @@
+$oac_image_url: report/html/oac
 .report 
+  .section01
+    background: #28b29b
+    border-top: 2px solid #18907c
+    .overall_report
+      background: none
   .competency_report 
     .overview
+        
       &.tool_wise
         background: none
         .competency-list
           .title
             font-size: 16px
+      &.competency
+        .overview-title
+          padding: 20px 20px 20px 32px
+          border: 0 none
+        .content 
+          .competency-list
+            .scale
+              .desire_range
+                z-index: 1
+              .marker
+                position: relative
+                z-index: 2
+                color: #000
   .scores
     ul.scores_listing 
       li
         padding: 18px 
         li
           border: 0 none !important
+
+
+.partners
+  .partner_logos
+    img
+      margin-left: 45px
+      &:first-child
+        margin-left: 0
+.participation
+  background: #3cd3ba
+  padding: 36px
+  .content
+    background: image-url('#{$oac_image_url}/participation_icon.png') 40px 40px no-repeat #f5fdfb
+    border: 1px dashed #29b49d
+    padding: 36px 36px 36px 200px
+  p, ul
+    font-size: 16px
+    line-height: 20px
+    margin: 0 0 17px
+.competency_description 
+  border-bottom: 1px dashed #28b29b
+  table 
+    tr
+      td
+        line-height: 22px
+        padding: 18px
+        border-bottom: 2px solid #fff
+        &.left
+          background: #28b29b
+          color: #fff
+          font-size: 18px
+        &.right
+          vertical-align: top
+          background: #f8f8f8
+          color: #808285
+          font-size: 16px
 .individual_development_plan
   table
     border-collapse: collapse
