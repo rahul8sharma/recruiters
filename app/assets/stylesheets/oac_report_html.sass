@@ -7,12 +7,6 @@ $oac_image_url: report/html/oac
       background: none
   .competency_report 
     .overview
-        
-      &.tool_wise
-        background: none
-        .competency-list
-          .title
-            font-size: 16px
       &.competency
         .overview-title
           padding: 20px 20px 20px 32px
@@ -26,6 +20,30 @@ $oac_image_url: report/html/oac
                 position: relative
                 z-index: 2
                 color: #000
+      &.tool_wise
+        background: none
+        .content 
+          border: 1px solid #28b29b
+        .competency-list
+          *
+            box-sizing: border-box
+          [class*="icon-"]
+            color: #2f7d32
+            font-size: 20px
+          li
+            padding: 0px 30px
+            &:first-child
+              font-size: 16px
+              background: #28b29b
+              color: #fff
+            [class*="span"]
+              padding: 10px
+              margin-left: 0
+              text-align: center
+              &:first-child
+                text-align: left
+          .title
+            font-size: 16px
   .scores
     ul.scores_listing 
       li
