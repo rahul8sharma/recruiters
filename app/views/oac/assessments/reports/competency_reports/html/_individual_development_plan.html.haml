@@ -2,7 +2,7 @@
 .individual_development_plan
   .container
     .divider1
-    %table.text-center{:cellpadding=>"0", :cellmargin=>"0", :border=>"0"}
+    %table
       %tr
         %td{:colspan=>"3"}
           Individual Development Plan
@@ -12,9 +12,9 @@
         %td
           Target to be achieved
         %td
-          Aids (Help needed and Monitoring)
+          Aids Help needed and Monitoring
       -2.times do
-        %tr{:style => "height: 100px; color:#bdbec1;"}
+        %tr
           -3.times do
             %td
               Print Only
