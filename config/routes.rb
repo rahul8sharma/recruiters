@@ -1001,6 +1001,22 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
+    
+    resources :super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
 
     resources :item_groups do
       collection do
@@ -1234,6 +1250,24 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :oac do
+    resources :combined_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    resources :combined_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    resources :user_super_competency_scores do
+    end
+    resources :user_competency_scores do
+    end
     resources :tools do
     end
   end
