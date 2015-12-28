@@ -244,7 +244,7 @@ class ReportsManagementController < ApplicationController
 
   def modify_norms
     if params[:assessment][:assessment_id].present? && params[:assessment][:company_id].present?
-	    assessment_id = params[:assessment][:assessment_id]
+      assessment_id = params[:assessment][:assessment_id]
       company_id = params[:assessment][:company_id]
       assessment = Vger::Resources::Suitability::CustomAssessment.find(assessment_id)
       if assessment.assessment_type == "fit"

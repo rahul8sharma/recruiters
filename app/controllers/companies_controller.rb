@@ -216,11 +216,11 @@ class CompaniesController < ApplicationController
     render :layout => "admin"
   end
 
-	def import_from_google_drive
+  def import_from_google_drive
     Vger::Resources::Company\
       .import_from_google_drive(params[:import])
     redirect_to manage_companies_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export_to_google_drive
     Vger::Resources::Company\
