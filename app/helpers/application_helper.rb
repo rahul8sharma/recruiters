@@ -1,5 +1,5 @@
 module ApplicationHelper
-	# renders set of hidden fields and button to add new record using nested_attributes
+  # renders set of hidden fields and button to add new record using nested_attributes
   def link_to_add_fields(name, append_to_selector,f, parent_klass, association_klass, association, callback, options={})
     new_object = association_klass.constantize.new
     obj = nil

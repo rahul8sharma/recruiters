@@ -48,15 +48,15 @@ class Sjt::Assessments::UserAssessmentsController < Suitability::CustomAssessmen
   end
 
   def expire_links_url
-  	expire_links_company_sjt_assessment_path(params[:company_id], params[:id])
+    expire_links_company_sjt_assessment_path(params[:company_id], params[:id])
   end
 
   def email_assessment_status_url
-  	email_assessment_status_company_sjt_assessment_path(params[:company_id], params[:id])
+    email_assessment_status_company_sjt_assessment_path(params[:company_id], params[:id])
   end
 
   def resend_invitations_url
-  	resend_invitations_company_sjt_assessment_path(params[:company_id],params[:id])
+    resend_invitations_company_sjt_assessment_path(params[:company_id],params[:id])
   end
 
   def trigger_report_downloader_url
