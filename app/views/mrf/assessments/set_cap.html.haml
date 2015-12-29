@@ -1,0 +1,11 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.container
+  #info_bar
+    #info.content
+      .span14.page-title.first.huge-text
+        = @assessment.name
+      .clr.divider1
+      .divider2
