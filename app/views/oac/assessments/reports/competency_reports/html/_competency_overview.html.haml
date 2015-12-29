@@ -1,47 +1,87 @@
-.overview
-  .top-triangle
-    .bottom-triangle
-      .container
-        .divider2
-        .huge-text.text-center.white
-          Overview of Competencies / Values Measured
-        
-        .divider2
-        .content.margin-auto
-          .overview-title
-            Overview
-          %ul.competency-list.mrf.pull-left.default
-            %li
-              .competency-name.title.pull-left
-                Competency
-              .competency-value.title.pull-right
-                360Â° Rating Average
-              .clr
-            %li
-              .competency-name.pull-left
-                Operations Excellence
-              .competency-value.pull-right
-                Average (High)
-              .clr
-            %li
-              .competency-name.pull-left
-                Customer Focus
-              .competency-value.pull-right
-                Average (High)
-              .clr
-            %li
-              .competency-name.pull-left
-                Team Work
-              .competency-value.pull-right
+.overview.competency
+  .bottom-triangle
+    .container
+      .divider1
+      .content
+        .overview-title{:style=>"padding-left: 32px"}
+          .pull-left.text-left
+            .extra-large-text 
+              Overview of Competencies / Values Measured
+            .divider1
+            .instruction_container
+              .instructions
+                .box.pull-left
+                  .box-icon.pull-left
+                  .box-title.pull-left 
+                    Expected Score Range
+                  .clr
+                .instruction1.pull-left
+                  Favorable
+                .instruction2.less_favorable.pull-left
+                  Less Favorable
+                .clr
+            .clr
+
+          .scale.right-offset1
+            .line{:style => "width:400px"}
+            .marker-container
+              .marker
+                .arrow
+                .marker-info
+                  Low' is the minimum score on the scale
+                %br
+                  Low
+              .marker
+                .arrow
+                .marker-info
+                  Below Average' is a score falling between 'Low' and 'Average'
+                Below Average
+              .marker
+                .arrow
+                .marker-info
+                  Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
                 Average (Low)
-              .clr
-            %li
-              .competency-name.pull-left
-                Work Efficiency
-              .competency-value.pull-right
+              .marker
+                .arrow
+                .marker-info
+                  Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
                 Average (High)
+              .marker
+                .arrow
+                .marker-info
+                  Above Average' is a score falling between 'Average' and 'High'
+                Above Average
+              .marker
+                .arrow
+                .marker-info
+                  High' is the maximum score on the scale
+                %br
+                  High
               .clr
           .clr
-        .divider2
-        
-        
+        %ul.competency-list.pull-left
+          -3.times do
+            %li
+              .favorable.first.hexagon-icon.span1
+              .competency-name.pull-left
+                Additional Traits
+              .competency-value.pull-right
+                .scale.right-offset1
+                  .line{:style => "width:400px"}
+                  .marker-container
+                    .desire_range{:style => "left: 40px; width: 80px; margin-left: 80px"}
+                    .marker
+                    .marker
+                    .marker.active.favorable
+                      Average (Low)
+                      -# toggle ".less_favorable"
+                    .marker
+                    .marker
+                    .marker
+                    .clr
+                .clr
+              .clr
+          
+        .clr
+        .clr
+      .divider2
