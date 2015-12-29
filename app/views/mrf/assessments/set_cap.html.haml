@@ -1,11 +1,46 @@
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
-
 .container
-  #info_bar
-    #info.content
-      .span14.page-title.first.huge-text
-        = @assessment.name
-      .clr.divider1
-      .divider2
+  .page-title
+    Please enter lower cap and upper cap for stakeholders
+  .divider3
+  .norms
+    .factor-list
+      %ul.factor-snippet.clearfix
+        -2.times do
+          %li.span15.item.big-text.black
+            .divider
+            .span6.left-offset1
+              Stakeholder Type
+            .span3
+              Lower Cap
+            .span3.left-offset1
+              Upper Cap
+            .clr
+          
+        -7.times do
+          %li.span15.item
+            .divider
+            .index_icon.pull-left
+              1
+            .span6
+              %label.large-text
+                Adaptability
+            
+            %select.span3
+              %option
+                Low
+              %option
+                Below Average
+             
+            %select.span3.left-offset1
+              %option
+                Low
+              %option
+                high
+            .clr
+            .divider1
+    .divider3
+    %input.large-text.bold.btn.btn-info.pull-right{:type=>"submit", :value=>"Proceed"}/
+    .clr
