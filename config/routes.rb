@@ -340,6 +340,8 @@ Recruiters::Application.routes.draw do
         match "/send-reminder" => "mrf/assessments/user_feedback#send_reminder", :as => :send_reminder
         match "bulk_upload" => "mrf/assessments/user_feedback#bulk_upload", :as => :bulk_upload
 
+        match "set_cap" => "mrf/assessments#set_cap", :as => :set_cap
+
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/user_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/user_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_feedback_status" => "mrf/assessments/user_feedback#export_feedback_status", :as => :export_feedback_status
