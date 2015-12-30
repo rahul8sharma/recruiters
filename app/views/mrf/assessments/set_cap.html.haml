@@ -31,15 +31,15 @@
               
               %select.span3{:name => "assessment[lower_cap]"}
                 - 100.times do |index|
-                  %option{ value: => index }
+                  %option{ :value => index }
                     = index+1
                
               %select.span3.left-offset1{:name => "assessment[upper_cap]"}
                 - 100.times do |index|
-                  %option{ value: => index }
+                  %option{ :value => index }
                     = index+1
               .clr
               .divider1
       .divider3
-      %input.large-text.bold.btn.btn-info.pull-right{:type=>"submit", :value=>"Proceed"}/
+      -# %input.large-text.bold.btn.btn-info.pull-right{:type=>"submit", :value=>"Proceed"}/
       .clr
