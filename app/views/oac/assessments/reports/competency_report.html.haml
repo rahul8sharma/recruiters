@@ -1,16 +1,20 @@
 .competency_report  
   =render :partial => "oac/assessments/reports/competency_reports/html/header"
+  .divider3
+  =render :partial => "oac/assessments/reports/competency_reports/html/partners"
   =render :partial => "oac/assessments/reports/competency_reports/html/cover_page"
+  =render :partial => "oac/assessments/reports/competency_reports/html/participation"
+  =render :partial => "oac/assessments/reports/competency_reports/html/competency_description"
   =render :partial => "oac/assessments/reports/competency_reports/html/competency_overview"
   =render :partial => "oac/assessments/reports/competency_reports/html/competency_overview_tool_wise"
-  =render :partial => "oac/assessments/reports/competency_reports/html/data_points_tool_wise"
-  =render :partial => "oac/assessments/reports/competency_reports/html/personalised_comments"
-  =render :partial => "oac/assessments/reports/competency_reports/html/individual_development_plan"
-  =render :partial => "oac/assessments/reports/competency_reports/html/assessor_remarks"
-  =render :partial => "shared/reports/html/legal_disclaimer"
-  =render :partial => "shared/reports/html/about_us_compact"
-  / =render :partial => "oac/assessments/reports/competency_data_points"
+  =render :partial => "oac/assessments/reports/competency_reports/html/toolwise_decriptions"
+  =render :partial => "oac/assessments/reports/competency_reports/html/top_bottom_competencies"
+  =render :partial => "oac/assessments/reports/competency_reports/html/data_points_competency_wise"
+  =render :partial => "oac/assessments/reports/competency_reports/html/assessor_feedback"
 
+  =render :partial => "oac/assessments/reports/competency_reports/html/individual_development_plan"
+
+  .divider6
   .footer
     .container
       .pull-left

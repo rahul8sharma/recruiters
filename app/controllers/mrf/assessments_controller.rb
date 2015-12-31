@@ -285,6 +285,12 @@ class Mrf::AssessmentsController < ApplicationController
     end
   end
 
+  def set_cap
+    if request.put?
+      redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
+    end
+  end
+
   def details
     get_custom_assessment
     @feedbacks = Vger::Resources::Mrf::Feedback.group_count(

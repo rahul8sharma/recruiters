@@ -6,39 +6,44 @@
     .divider2
     .content
       %ul.competency-list
-        %li.large-text.clearfix.black.overview-title.border-bottom-grayDark
-          .span11.title.text-left
+        %li.overview-title
+          .span11.text-left.no-border.line-height2
             Competency
-          .span3.title
-            Psychometry
-          .span3.title.first
-            Personal Interview
-          .span3.title.first
-            Group Discussion
-          .span3.title.first
-            SJT
-          .span3.title.first
-            Case Studies
-          .span3.title.first
-            E-Trays
+          .pull-right
+            .span3.no-border.text-center
+              Psychometry
+            .span3
+              Personal Interview
+            .span3
+              Group Discussion
+            .span3
+              SJT
+            .span3
+              Case Studies
+            .span3
+              E-Trays
+            .clr
+          .clr
 
         -5.times do
-          %li.extra-medium-text.clearfix
+          %li.medium-text
             -#.favorable.first.hexagon-icon.span1
             .span11
               = truncate "Responsibility of outcomes sample Lorem ipsum text check length punctuality agreeablenes", :length => 55
-            .span3.text-center
-              %i.icon-ok.color-info
-            .span3.text-center.first
-              %i.icon-remove.gray-lighter
-            .span3.text-center.first
-              %i.icon-ok.color-info
-            .span3.text-center.first
-              %i.icon-remove.gray-lighter
-            .span3.text-center.first
-              %i.icon-ok.color-info
-            .span3.text-center.first
-              %i.icon-remove.gray-lighter
+            .pull-right
+              .span3.text-center
+                %i.icon-ok-sign
+              .span3
+                
+              .span3
+                %i.icon-ok-sign
+              .span3
+                
+              .span3
+                %i.icon-ok-sign
+              .span3
+              
+              .clr
+            .clr
         
-    .divider1
-    .divider1.border-bottom-grayLighter
+    .divider2
