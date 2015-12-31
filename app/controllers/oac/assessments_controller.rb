@@ -4,7 +4,10 @@ class Oac::AssessmentsController < ApplicationController
   before_filter :get_company
   before_filter :get_exercises, only: [:home]
   before_filter :get_exercise, except: [:home, :new, :create]
-  before_filter :get_tools, :only => [:select_tools, :customize_assessment]
+  before_filter :get_tools, :only => [
+                                        :select_tools, 
+                                        :customize_assessment
+                                      ]
   before_filter :get_master_data, :only => [:customize_assessment]
   before_filter :validate_status, :only => [
                                     :select_tools,
@@ -20,10 +23,14 @@ class Oac::AssessmentsController < ApplicationController
                                       :select_competencies,
                                       :set_weightage
                                     ]
+  before_filter :get_super_competencies, :only => [
+                                        :select_super_competencies
+                                      ]
   before_filter :get_exercise_tools, :only => [
                                         :select_tools, 
                                         :customize_assessment,
                                         :select_competencies,
+                                        :select_super_competencies,
                                         :set_weightage
                                       ]
   layout 'oac/oac'
@@ -64,11 +71,28 @@ class Oac::AssessmentsController < ApplicationController
     if request.put?
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)
+        redirect_to select_super_competencies_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
         render :action => :customize_assessment
       end
+    end
+  end
+  
+  def select_super_competencies
+    if request.put?
+      params[:exercise][:super_competency_configuration] = 
+      Hash[params[:exercise][:super_competency_configuration].select do |competency_id, competency_configuration|
+        competency_configuration[:enabled]
+      end]
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      if @exercise.error_messages.blank?
+        redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)
+      else
+        flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
+        render :action => :select_competencies
+      end
+    else
     end
   end
   
@@ -140,27 +164,37 @@ class Oac::AssessmentsController < ApplicationController
   end
   
   def get_competencies
-=begin
-    @competencies = Vger::Resources::Suitability::Competency.where(
-      :query_options => {
-        :active => true
+    @super_competencies = Vger::Resources::Suitability::SuperCompetency.where(
+      :query_options => { 
+        "suitability_super_competencies.id" => @exercise.super_competency_configuration.keys, 
+        :active => true 
       }, 
+      :methods => [:competency_ids],
       :scopes => {
-        :global => nil
-      },
-      :methods => [:factor_names], 
-      :order => ["name ASC"]
-    ).to_a
-=end    
+      }, 
+      :order => ["name ASC"],
+    ).all.to_a
     @competencies = Vger::Resources::Suitability::Competency.where(
       :query_options => { 
-        "companies_competencies.company_id" => @company.id, :active => true 
+        "id" => @super_competencies.map(&:competency_ids).flatten
       }, 
       :scopes => {
       }, 
       :methods => [:factors], 
       :order => ["name ASC"], 
       :joins => "companies"
+    ).all.to_a
+  end
+  
+  def get_super_competencies
+    @super_competencies = Vger::Resources::Suitability::SuperCompetency.where(
+      :query_options => { 
+        "suitability_super_competencies.company_id" => @company.id, 
+        :active => true 
+      }, 
+      :scopes => {
+      }, 
+      :order => ["name ASC"],
     ).all.to_a
   end
   

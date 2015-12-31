@@ -387,6 +387,7 @@ Recruiters::Application.routes.draw do
       member do
         match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
+        match "select_super_competencies" => "oac/assessments#select_super_competencies", :as => :select_super_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
         match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
