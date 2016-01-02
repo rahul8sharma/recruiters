@@ -1020,6 +1020,14 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :super_competency_score_bucket_descriptions do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
 
     resources :item_groups do
       collection do
@@ -1253,6 +1261,13 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :oac do
+    resources :exercise_super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
     resources :combined_super_competency_score_buckets do
       collection do
         get :manage
