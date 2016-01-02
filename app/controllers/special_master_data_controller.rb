@@ -8,6 +8,21 @@ class SpecialMasterDataController < MasterDataController
     ]
   end
   
+  
+  def index
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
+    params[:search][:functional_area_id] ||= ""
+    params[:search][:industry_id] ||= ""
+    params[:search][:job_experience_id] ||= ""
+    params[:search].each{|key,val| params[:search][key].strip! }
+    @objects = api_resource.where(
+      :query_options => params[:search], 
+      :methods => index_columns,
+      :page => params[:page], 
+      :per => 10).all
+  end
+  
   def select_industry_id
     industries = [ ["Global",""] ]
     industries |= Vger::Resources::Industry.all.to_a.collect{|industry| [industry.name, industry.id] }
