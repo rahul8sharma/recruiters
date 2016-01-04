@@ -27,8 +27,7 @@
   %ul
     - @exercises.each do |exercise|
       %li.list-snippet.border-bottom-grayLighter.medium-text
-        -# - assessment_url = competencies_measured_company_sjt_assessment_path(:company_id => params[:company_id], :id => assessment.id)
-        - assessment_url = candidates_company_oac_exercise_path(:company_id => params[:company_id], :id => exercise.id)
+        - assessment_url = landing_page_for_oac_exercise(exercise)
         .span2.first
           %a{:href=> assessment_url, :title =>  ""} 
             = exercise.id

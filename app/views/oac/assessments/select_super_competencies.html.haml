@@ -1,0 +1,26 @@
+.container
+  .page-title
+    Select Super Competencies
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+  = form_for @exercise, as: :exercise, url: select_super_competencies_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
+    .assessments-list
+      .list-snippet-titles.extra-medium-text.clearfix
+        .span6.first.bold
+          Super Competencies
+        .divider3          
+      %ul
+        - @exercise.super_competency_configuration ||= {}
+        - @super_competencies.sort_by{|super_competency| super_competency.modules.size }.reverse.each do |super_competency|
+          %li.list-snippet.border-bottom-grayLighter.medium-text
+            .span6.first
+              = super_competency.name
+            - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
+            %input{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
+            %input{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
+            .clr
+            .divider1
+    .divider2
+    %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" }
+    .clr
+

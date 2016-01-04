@@ -389,6 +389,7 @@ Recruiters::Application.routes.draw do
       member do
         match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
         match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
+        match "select_super_competencies" => "oac/assessments#select_super_competencies", :as => :select_super_competencies
         match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
         match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
@@ -1019,6 +1020,14 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :super_competency_score_bucket_descriptions do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
 
     resources :item_groups do
       collection do
@@ -1252,6 +1261,13 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :oac do
+    resources :exercise_super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
     resources :combined_super_competency_score_buckets do
       collection do
         get :manage
