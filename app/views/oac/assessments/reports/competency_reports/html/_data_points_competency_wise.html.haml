@@ -4,13 +4,15 @@
     .title
       Competency wise Data Points
     .divider2
-    .frame
-      .padding-all2
-        .pull-left
+    -2.times do
+      .frame
+        .padding-all2.no-t-padding
+          .divider1
           .title.large-text.bold
             Competency: Networking
-          .divider1
-          .instruction_container
+          
+          .instruction_container.pull-left
+            .divider2
             .instructions
               .box.pull-left
                 .box-icon.pull-left
@@ -22,141 +24,142 @@
               .instruction2.less_favorable.pull-left
                 Less Favorable
               .clr
-        .overview.competency.pull-right
-          .content.no-border
-            .competency-list
-              .scale
-                .line{:style => "width:400px"}
-                .marker-container
-                  .desire_range{:style => "left: 40px; width: 80px; margin-left: 80px"}
-                  .marker
-                    %br/
-                    Low 
-                  .marker
-                    Below Average
-                  .marker.active.favorable
-                    %br/
-                    Average
-                    -# toggle ".less_favorable"
-                  .marker
-                    Average (Low)
-                  .marker
-                    Above Average
-                  .marker.active
-                    %br/
-                    High
-                  .clr
+          .overview.competency.pull-right
+            .content.no-border
+              .competency-list
+                .scale
+                  .line{:style => "width:400px"}
+                  .marker-container
+                    .desire_range{:style => "left: 40px; width: 80px; margin-left: 80px"}
+                    .marker
+                      %br/
+                      Low 
+                    .marker
+                      Below Average
+                    .marker.active.favorable
+                      %br/
+                      Average
+                      -# toggle ".less_favorable"
+                    .marker
+                      Average (Low)
+                    .marker
+                      Above Average
+                    .marker.active
+                      %br/
+                      High
+                    .clr
+                .clr
+                    
+          .clr
+          .divider1
+          .competency_specific_score 
+            .tools
+              .span9.text-left.no-border.line-height2
+                Measured Using
+              .pull-right
+                .span4.no-border.text-center
+                  Psychometry
+                .span3
+                  Personal Interview
+                .span3
+                  Group Discussion
+                .span3
+                  SJT
+                .span3
+                  Case Studies
+                .span3
+                  E-Trays
+                .clr
               .clr
-                  
-        .clr
-        .divider1
-        .competency_specific_score 
-          .tools
-            .span9.text-left.no-border.line-height2
-              Measured Using
-            .pull-right
-              .span4.no-border.text-center
-                Psychometry
-              .span3
-                Personal Interview
-              .span3
-                Group Discussion
-              .span3
-                SJT
-              .span3
-                Case Studies
-              .span3
-                E-Trays
+            .tool_scores
+              .span9.text-left.no-border.line-height2
+                Score
+              .pull-right
+                .span4.no-border.text-center
+                  High
+                .span3
+                  Low
+                .span3
+                  Average
+                .span3
+                  Above Average
+                .span3
+                  Average Low
+                .span3
+                  Average High
+                .clr
               .clr
-            .clr
-          .tool_scores
-            .span9.text-left.no-border.line-height2
-              Score
-            .pull-right
-              .span4.no-border.text-center
-                High
-              .span3
-                Low
-              .span3
-                Average
-              .span3
-                Above Average
-              .span3
-                Average Low
-              .span3
-                Average High
-              .clr
-            .clr
-      .bg-gray
-        .padding-all2.border-bottom-grayLighter
-          .large-text.bold.black
-            Strengths
           .divider1
-          .extra-medium-text.gray-dark
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-          .divider1.border-bottom-grayLighter
-
+          %p.medium-text
+            Promotes  a  culture  of  openness  throughout  the department.  Shows  comfort  in  giving  guidance,  delegate well in order to develop team member’s ability to take up larger responsibilities and show trust in their capabilities. Is also able to create  accountability  for  the  work  handed  over,  by  providing feedback  in  a  timely  and  precise  manner.  He  incorporates coaching  as  a  regular  feature  which helps in gaining acceptance as a holistic leader
           .divider1
-          .extra-medium-text.gray-dark
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-          
+          .bg-gray
+            .padding-all1.border-bottom-grayLighter
+              .big-text.black
+                Strengths
+              .divider1
+              %ul.disc.gray-dark.extra-medium-text
+                -3.times do
+                  %li
+                    Mentoring
 
-        .padding-all2.border-bottom-grayLighter
-          .large-text.bold.black
-            Areas of Improvement
-          .divider1
-          .extra-medium-text.gray-dark
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-          .divider1.border-bottom-grayLighter
+            .padding-all1
+              .big-text.black
+                Areas of Improvement
+              .divider1
+              %ul.disc.gray-dark.extra-medium-text
+                -3.times do
+                  %li
+                    Openness to new Ideas
+              
 
-          .divider1
-          .extra-medium-text.gray-dark
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+            
 
-      .padding-all2
-        .title
-          Competency wise Behavior
-        .divider2
-        .classic_report
-          .scores_competencies_graph.descending_order.descending_average_rating
-            .traits_under_graph
-              .graph_container
-                .left_sec.pull-left
-                  .divider3
-                  %ul
-                    %li
-                      .span6.large-text.first.trait_title.bold.black
-                        Communication Skills
-                      .clr
-                    - 20.times do
+        .padding-all2.no-t-padding
+          .color-info.large-text
+            Competency wise Behavior
+          .divider2
+          .classic_report
+            .scores_competencies_graph.descending_order.descending_average_rating
+              .traits_under_graph
+                .graph_container
+                  .left_sec.pull-left
+                    .divider3
+                    %ul
                       %li
-                        .span6.large-text.first.trait_title
+                        .span6.big-text.first.trait_title.bold
                           Communication Skills
                         .clr
-
-                .right_sec.span22.pull-right
-                  .classic_competency_graph
-                    .classic_competency_graph_scale
-                      .block.pull-left
-                        low
-                      - 4.times do
-                        .block.pull-left{:style=>"width: #{870/4}px;"}
-                          .pull-right
-                            High
-                            %br/
-                            Average
+                      - 20.times do
+                        %li
+                          .span6.first.trait_title
+                            Communication Skills
                           .clr
 
-                      .clr
-                    .graph
-                      .graph_content
-                        .divider1
-                        .descending_graph_bar.max{:style => "background-color:#1681be;width: 20%"}
-                        .divider1
-                        - 20.times do
+                  .right_sec.span22.pull-right
+                    .classic_competency_graph
+                      .classic_competency_graph_scale
+                        .block.pull-left
+                          low
+                        - 4.times do
+                          .block.pull-left{:style=>"width: #{870/4}px;"}
+                            .pull-right
+                              High
+                              %br/
+                              Average
+                            .clr
+
+                        .clr
+                      .graph
+                        .graph_content
                           .divider1
-                          .descending_graph_bar.max{:style => "background-color:#37a8e9;width: 20%"}
+                          .descending_graph_bar.max{:style => "background-color:#1681be;width: 20%"}
                           .divider1
-                .clr
-          
+                          - 20.times do
+                            .divider1
+                            .descending_graph_bar.max{:style => "background-color:#37a8e9;width: 20%"}
+                            .divider1
+                  .clr
+            
+      .divider1
   .divider2
