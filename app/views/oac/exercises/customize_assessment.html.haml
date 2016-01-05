@@ -15,7 +15,7 @@
               .control-group
                 .span4.big-text.black.first
                   = exercise_tool.tool.name.titleize
-                %input.span2.first{ :type => "text", :name=>"exercise[exercise_tools_attributes][#{index}][custom_configuration][tool_weightage]", :placeholder=>"Weightage %", value: exercise_tool.tool_weightage }
+                %input.span2.first{ :type => "text", :name=>"exercise[exercise_tools_attributes][#{index}][tool_weightage]", :placeholder=>"Weightage %", value: exercise_tool.tool_weightage }
               %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][industry_id]" }
                 %option{ value: "" }
                   Select Industry
