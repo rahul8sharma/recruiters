@@ -1,0 +1,67 @@
+.add-users
+  .page-title.pull-left #{@exercise.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Assessment Takers to this Assessment?"}
+    Need help in adding Assessment Takers?
+  .clr
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+  /
+    .divider2
+    -#%a.underlined.pull-right{:href => help_adding_users_path, :target => "_blank"}
+      -#View Instructions
+    .clr
+    .span15.first.big-text.text-center
+      What is the purpose of assessing these exercise takers?
+    .purpose.span8
+      %label
+        -  checked = params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
+        #employee
+          .title.span.extra-medium-text.default
+            For Development
+          %i.muted.span.medium-text
+            (Existing Employees)
+          .clr
+      .divider1
+      %label
+        -  checked = params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
+        %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
+        #user
+          .title.span.extra-medium-text.default
+            For Hiring
+          %i.muted.span.medium-text
+            (Potential Candidates)
+          .clr
+      .clr
+
+    %a.label.label-warning.label-small.pull-left{:href => bulk_upload_company_oac_exercise_path(params[:company_id],params[:id]) , :title => "USE BULK UPLOAD"}
+      %b USE BULK UPLOAD
+    .clr
+
+  .divider1
+
+  .margin-auto.span22
+    -#Bulk Upload old code
+      .select-user-type
+        - if is_superuser?
+          = render :partial => "oac/exercises/user_exercises/bulk_upload"
+      .divider1
+    = form_for @exercise, :as => :exercise, :url => add_candidates_company_oac_exercise_path(params[:company_id], params[:id]), method: :put do |f|
+      .divider1
+      %input{ id:"candidate_stage", type: "hidden", value: Vger::Resources::User::Stage::EMPLOYED, name: "candidate_stage" }
+      %div.activated
+        .left-offset2.first
+          .big-text.left-offset1.span8
+            Assessment taker’s name
+          .span9.big-text.left-offset1
+            Assessment taker’s email address
+          .clr
+        .divider1  
+        %ul.add-users.clearfix
+          - 10.times do |index|
+            = render :partial => "oac/exercises/user_exercises/user_exercise_fields", :locals => { :index => (index+1), :user => (params[:users].to_a[index][1] rescue {}) }
+        .divider2
+      %input.pull-right.btn.btn-warning.large-text{ type: "submit", value: "Submit"}
+      .clr
+
+= javascript_include_tag 'oac/add_users'

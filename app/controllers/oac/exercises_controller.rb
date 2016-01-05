@@ -1,4 +1,4 @@
-class Oac::AssessmentsController < ApplicationController
+class Oac::ExercisesController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -17,6 +17,9 @@ class Oac::AssessmentsController < ApplicationController
                                   ]
   before_filter :get_norm_buckets, :only => [
                                       :select_competencies,
+                                      :set_weightage
+                                    ]
+  before_filter :get_super_competency_score_buckets, :only => [
                                       :set_weightage
                                     ]
   before_filter :get_competencies, :only => [
@@ -200,6 +203,21 @@ class Oac::AssessmentsController < ApplicationController
   
   def get_norm_buckets
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all
+  end
+  
+  def get_super_competency_score_buckets
+    @super_competency_score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: params[:company_id]
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    if @super_competency_score_buckets.empty?                                                                    
+      @super_competency_score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: nil
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    end
   end
 
   def get_master_data
