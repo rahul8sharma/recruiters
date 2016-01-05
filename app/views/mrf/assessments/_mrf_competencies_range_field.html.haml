@@ -23,6 +23,6 @@
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id, selected: to_norm_bucket_id.to_i == norm_bucket.id}
           = norm_bucket.name
-    %input.span4{:name => weight_name, :index => "#{assessment_competency["id"]}", :type => "text", :value => "1.0"}
+    %input.span4{:name => weight_name, :index => "#{assessment_competency["id"]}", :type => "text", :value => (assessment_competency.weight || 1)}
     .clr
     .divider1
