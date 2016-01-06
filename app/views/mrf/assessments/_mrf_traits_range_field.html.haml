@@ -3,6 +3,7 @@
 - norm_max_name = "assessment[assessment_traits_attributes][#{assessment_trait.id}][to_norm_bucket_id]"
 - enable_comment_name = "assessment[assessment_traits_attributes][#{assessment_trait.id}][enable_comment]"
 - comment_compulsory_name = "assessment[assessment_traits_attributes][#{assessment_trait.id}][comment_compulsory]"
+- weight_name = "assessment[assessment_traits_attributes][#{assessment_trait.id}][weight]"
 %li
   %input{ type: "hidden", name: id_name, value: assessment_trait.id }
   .span6
@@ -13,14 +14,15 @@
       .down-caret
 
   .span
-    %select.span6.first{name: norm_min_name, index: "#{assessment_trait.id}"}
+    %select.span4.first{name: norm_min_name, index: "#{assessment_trait.id}"}
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id, selected: assessment_trait.from_norm_bucket_id == norm_bucket.id}
           = norm_bucket.name         
-    %select.span6{name: norm_max_name, index: "#{assessment_trait.id}"}
+    %select.span4{name: norm_max_name, index: "#{assessment_trait.id}"}
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id, selected: assessment_trait.to_norm_bucket_id == norm_bucket.id}
-          = norm_bucket.name         
+          = norm_bucket.name 
+    %input.span4{:name => weight_name, :index => "#{assessment_trait.id}", :type => "text", :value => (assessment_trait.weight || 1)}        
     %label.span5.left-offset1{ for: enable_comment_name }
       %input{ type: "checkbox", 
         name: enable_comment_name, 
