@@ -12,12 +12,15 @@
       %ul
         - @exercise.super_competency_configuration ||= {}
         - @super_competencies.sort_by{|super_competency| super_competency.modules.size }.reverse.each do |super_competency|
+          - @exercise.super_competency_configuration[super_competency.id.to_s] ||= {}
           %li.list-snippet.border-bottom-grayLighter.medium-text
             .span6.first
               = super_competency.name
             - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
             %input{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
             %input{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
+            %textarea{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition"}
+              = @exercise.super_competency_configuration[super_competency.id.to_s][:definition]
             .clr
             .divider1
     .divider2

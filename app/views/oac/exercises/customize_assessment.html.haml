@@ -14,8 +14,8 @@
             .span6
               .control-group
                 .span4.big-text.black.first
-                  = exercise_tool.tool.name
-                %input.span2.first{ :type => "text", :name=>"exercise[exercise_tools_attributes][#{index}][custom_configuration][tool_weightage]", :placeholder=>"Weightage %", value: exercise_tool.tool_weightage }
+                  = exercise_tool.tool.name.titleize
+                %input.span2.first{ :type => "text", :name=>"exercise[exercise_tools_attributes][#{index}][tool_weightage]", :placeholder=>"Weightage %", value: exercise_tool.tool_weightage }
               %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][industry_id]" }
                 %option{ value: "" }
                   Select Industry
@@ -38,6 +38,14 @@
                     = job_experience.display_text
               .divider1
               %input.fw{:type=>"text", :placeholder=>"Page Size", name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][page_size]", value: exercise_tool.page_size }
+              .divider1
+              %input.fw{:type=>"text", :placeholder=>"Assessment URL", name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][url]", value: exercise_tool.url }
+              .divider1
+              %label.fw
+                %input{:type=>"checkbox", name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][send_email]", checked: exercise_tool.send_email, value: true }
+                Send Email
+                %input{:type=>"checkbox", name: "exercise[exercise_tools_attributes][#{index}][custom_configuration][send_sms]", checked: exercise_tool.send_sms, value: false }
+                Send SMS
           - if (index+1) % 2 == 0
             .clr.divider3
       .divider2

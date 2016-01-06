@@ -1,4 +1,4 @@
-class Oac::Assessments::UserAssessmentsController < ApplicationController
+class Oac::Exercises::UserExercisesController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -148,7 +148,38 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
       end
     end
   end
-
+  
+  def send_reminder
+    if request.get?
+      @user = Vger::Resources::User.find(params[:user_id])
+      @user_assessment = Vger::Resources::Oac::UserExercise.where(
+        :exercise_id => params[:id], 
+        :query_options => { 
+          :exercise_id => params[:id], 
+          :user_id => params[:user_id] 
+        }
+      ).all[0]
+      get_templates(Vger::Resources::User::Stage::EMPLOYED, true)
+    elsif request.put?
+      @user_exercises = Vger::Resources::Oac::UserExercise.where(
+        :exercise_id => params[:id], 
+        :query_options => { 
+        :exercise_id => params[:id], 
+          :user_id => params[:user_id] 
+        }
+      ).all.to_a
+      Vger::Resources::Oac::Exercise.send_reminder_to_users(
+        params.merge(
+          :exercise_id => params[:id], 
+          :user_exercise_ids => @user_exercises.map(&:id), 
+          :template_id => params[:template_id]
+        )
+      )
+      flash[:notice] = "Reminder was sent successfully!"
+      redirect_to candidates_company_oac_exercise_path(@company.id, @exercise.id)
+    end
+  end
+  
   protected
 
   def get_company
@@ -164,26 +195,9 @@ class Oac::Assessments::UserAssessmentsController < ApplicationController
     query_options = {
     }
     if reminder
-      user_exercise = Vger::Resources::Suitability::UserAssessment.where(:exercise_id => @exercise.id).all.first
-      category = case user_exercise.candidate_stage
-        when Vger::Resources::User::Stage::CANDIDATE
-          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
-        when Vger::Resources::User::Stage::EMPLOYED
-          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
-        end
+      category = Vger::Resources::Template::TemplateCategory::SEND_OAC_REMINDER_TO_EMPLOYEE
     else
-      case candidate_stage
-        when Vger::Resources::User::Stage::CANDIDATE
-          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
-        when Vger::Resources::User::Stage::EMPLOYED
-          category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
-        when nil
-          category = [
-                        Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE,
-                        Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
-                     ]   
-                        
-      end
+      category = Vger::Resources::Template::TemplateCategory::SEND_OAC_TO_EMPLOYEE
     end
     query_options[:category] = category if category.present?
     @templates = Vger::Resources::Template\

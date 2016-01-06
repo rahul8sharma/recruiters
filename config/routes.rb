@@ -381,27 +381,28 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac_exercises, :controller => "oac/assessments", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/exercises", :path => "oac" do
       collection do
-        match "home" => "oac/assessments#home", :as => :home
+        match "home" => "oac/exercises#home", :as => :home
       end
 
       member do
-        match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
-        match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
-        match "select_super_competencies" => "oac/assessments#select_super_competencies", :as => :select_super_competencies
-        match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
-        match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
-        match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
-        match "bulk_upload" => "oac/assessments/user_assessments#add_candidates_bulk", :as => :bulk_upload
-        match "send_assessment" => "oac/assessments/user_assessments#send_assessment", :as => :send_assessment
-        match "assign_assessor" => "oac/assessments/user_assessments#assign_assessor", :as => :assign_assessor
-        get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
-        get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
+        match "select_tools" => "oac/exercises#select_tools", :as => :select_tools
+        match "select_competencies" => "oac/exercises#select_competencies", :as => :select_competencies
+        match "select_super_competencies" => "oac/exercises#select_super_competencies", :as => :select_super_competencies
+        match "set_weightage" => "oac/exercises#set_weightage", :as => :set_weightage
+        match "customize_assessment" => "oac/exercises#customize_assessment", :as => :customize_assessment
+        match "add_candidates" => "oac/exercises/user_exercises#add_candidates", :as => :add_candidates
+        match "bulk_upload" => "oac/exercises/user_exercises#add_candidates_bulk", :as => :bulk_upload
+        match "send_assessment" => "oac/exercises/user_exercises#send_assessment", :as => :send_assessment
+        
+        get "candidates" => "oac/exercises/user_exercises#candidates", :as => :candidates
+        get "candidates/:user_id/" => "oac/exercises/user_exercises#candidate", :as => :candidate
+        match "candidates/:user_id/send_reminder" => "oac/exercises/user_exercises#send_reminder", :as => :send_reminder
+        match "candidates/:user_id/assign_assessor" => "oac/exercises/user_exercises#assign_assessor", :as => :assign_assessor
 
-        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/assessments/reports#report", :as => :report
-        get "candidates/:user_id/reports/:report_id" => "oac/assessments/reports#s3_report", :as => :s3_report
-
+        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/exercises/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "oac/exercises/reports#s3_report", :as => :s3_report
       end
     end
 
@@ -1260,7 +1261,11 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  namespace :oac do
+  namespace :oac, path: "oac" do
+    get "manage" => "exercise_management#manage", as: :manage
+    post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
+    post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
+        
     resources :exercise_super_competencies do
       collection do
         get :manage
@@ -1268,6 +1273,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
     resources :combined_super_competency_score_buckets do
       collection do
         get :manage
@@ -1275,6 +1281,7 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
     resources :combined_competency_score_buckets do
       collection do
         get :manage
@@ -1282,10 +1289,13 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
     resources :user_super_competency_scores do
     end
+    
     resources :user_competency_scores do
     end
+    
     resources :tools do
     end
   end

@@ -13,7 +13,7 @@
           %a{:href => "#", :title => exercise_tool.tool.name.titleize, class: "box#{index+1}_tab #{(index == 0 ? 'active':'')}"}
             = exercise_tool.tool.name.titleize
       .boxes.span25.pull-right.first
-        - @exercise_tools.each_with_index do |exercise_tool, index|
+        - @exercise_tools.sort_by(&:tool_order).each_with_index do |exercise_tool, index|
           %div{ class: "box#{index+1} #{(index==0 ? 'show': '')}" }
             = render :partial => "set_competency_traits_weightage", :locals => {:exercise_tool => exercise_tool}
 

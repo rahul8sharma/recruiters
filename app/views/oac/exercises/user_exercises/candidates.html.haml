@@ -7,7 +7,6 @@
   %a.btn.btn-info.big.big-text.pull-right.span{:href=>add_candidates_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
     Add Candidates
   .clr
-  .divider2
   = render :partial => "shared/oac/oac_assessment_sub_nav"
   .clr
   .padding-all2.border-warning.shifted-up1
@@ -18,6 +17,8 @@
         Assessment Taker
       .span8
         Status
+      .span4
+        Action
       .clr
       .divider1
     %ul
@@ -28,11 +29,14 @@
             %a{:href=> "", :title=>"User Id"} 
               =user_exercise.user.id
           .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
-            %a{:href=> candidate_company_oac_exercise_path(:company_id => params[:company_id], :candidate_id => user_exercise.user.id, :id => @exercise.id), :title=>"View Details"}
+            %a{:href=> candidate_company_oac_exercise_path(@company.id, @exercise.id, user_exercise.user_id), :title=>"View Details"}
               =user_exercise.user.name
           .span8
             %a{:href=> "", :title=> "Status" }
-              = render :partial => "oac/assessments/user_assessments/user_status/#{user_exercise.status}", :locals => {:updated_at => user_exercise.updated_at}
+              = render :partial => "oac/exercises/user_exercises/user_status/#{user_exercise.status}", :locals => {:updated_at => user_exercise.updated_at}
+          .span4
+            %a{:href=> send_reminder_company_oac_exercise_url(@company.id, @exercise.id, user_exercise.user_id), :title=> "Send Reminder" }
+              Send Reminder
           .clr
     .divider3
     .pull-right

@@ -1,0 +1,19 @@
+= form_tag oac_import_tool_wise_scores_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Upload Toolwise scores
+    = fields_for "import" do |f|
+      %p
+        Exercise ID
+        = f.text_field "exercise_id"
+      %p
+        Override Overall Scores
+        = f.check_box "override_overall_scores"
+      %p
+        Override Super Competency Scores
+        = f.check_box "override_super_competency_scores"
+      %p
+        Zipped CSV File
+        = f.file_field "file"
+    .actions
+      = submit_tag "Upload  Toolwise scores"
