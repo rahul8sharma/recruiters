@@ -1274,6 +1274,14 @@ Recruiters::Application.routes.draw do
       end
     end
     
+    resources :aggregate_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
     resources :combined_super_competency_score_buckets do
       collection do
         get :manage
