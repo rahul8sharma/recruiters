@@ -23,6 +23,19 @@ class SpecialMasterDataController < MasterDataController
       :per => 10).all
   end
   
+  def export_to_google_drive
+    if params[:export][:folder][:url].blank?
+      flash[:error] = "Please enter a valid google drive folder url!"
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    params[:export][:filters] ||= {}
+    params[:export][:filters][:functional_area_id] ||= nil
+    params[:export][:filters][:job_experience_id] ||= nil
+    api_resource\
+      .export_to_google_drive(params[:export])
+    redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
   def select_industry_id
     industries = [ ["Global",""] ]
     industries |= Vger::Resources::Industry.all.to_a.collect{|industry| [industry.name, industry.id] }
