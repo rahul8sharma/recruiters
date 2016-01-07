@@ -2,14 +2,14 @@
   .container
     .divider2
     .title
-      Competency Descriptions
+      Toolwise Descriptions
     .divider2
     %table{ :cellspacing=> "0", :cellpadding=> "0" }
-      - @report.report_data[:super_competency_scores].each do |name, data|
+      - @report.report_data[:tools].each do |tool, data|
         %tr
           %td.left
             .span3.margin-auto
-              = data[:name]
+              = tool.titleize
 
           %td.right
             = data[:description]

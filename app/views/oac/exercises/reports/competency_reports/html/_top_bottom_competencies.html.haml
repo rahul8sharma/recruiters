@@ -1,3 +1,5 @@
+- top_competencies = get_top_competencies(@report)
+- bottom_competencies = get_top_competencies(@report)
 .top_bottom_competencies
   .container
     .divider2
@@ -10,12 +12,25 @@
       Bottom 2 Super Competencies
     .clr
     %table
-      -2.times do
+      -2.times do |index|
         %tr
-          -2.times do
-            %td
+          %td{ style: "width: 50%" }
+            - competency = top_competencies[index]
+            - if competency
               .legend
-                Operations Excellence
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            %td.space 
+                = top_competencies[index][1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][top_competencies[index][0]][:definition]
+            - else
+              .muted
+                Not available
+          %td.space 
+          %td{ style: "width: 50%" }
+            - competency = bottom_competencies[index]
+            - if competency
+              .legend
+                = bottom_competencies[index][1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][bottom_competencies[index][0]][:definition]
+            - else
+              .muted
+                Not available
   .divider1

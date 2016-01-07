@@ -5,7 +5,7 @@
       Partners
     .divider1
     .partner_logos
-      = image_tag("report/html/oac/partner_logos/tal_view.png")
-      = image_tag("report/html/oac/partner_logos/knol_skape.png")
-      = image_tag("report/html/oac/partner_logos/a_dc.png")
+      - @report.report_data[:tools].each do |tool, data|
+        - if data[:logo].present?
+          = image_tag("report/html/oac/partner_logos/#{data[:logo]}")
     .divider1
