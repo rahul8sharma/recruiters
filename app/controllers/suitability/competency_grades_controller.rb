@@ -8,6 +8,6 @@ class Suitability::CompetencyGradesController < MasterDataController
   end
   
   def index_columns
-    [:id, :uid, :name, :min_score, :max_score]
+    [:id, :uid, :name, :min_score, :max_score, :weight]
   end
 end

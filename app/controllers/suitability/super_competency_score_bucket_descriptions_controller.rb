@@ -1,10 +1,10 @@
-class Suitability::SuperCompetencyScoreBucketDescriptionsController < SpecialMasterDataController
+class Suitability::SuperCompetencyScoreBucketDescriptionsController < MasterDataController
   def api_resource
     Vger::Resources::Suitability::SuperCompetencyScoreBucketDescription
   end
-
-  def import_from
-    "import_from_google_drive"
+  
+  def s3_key
+    "super_competency_score_bucket_descriptions.csv.zip"
   end
 
   def index_columns
@@ -12,19 +12,18 @@ class Suitability::SuperCompetencyScoreBucketDescriptionsController < SpecialMas
       :id, 
       :super_competency_id, 
       :company_id,
-      :industry_id, 
-      :functional_area_id, 
-      :job_experience_id, 
       :scored_score_bucket_id, 
-      :desired_score_bucket_id
+      :desired_score_bucket_id,
+      :description
     ]
   end
 
   def search_columns
     [
-      :industry_id, 
-      :functional_area_id, 
-      :job_experience_id
+      :super_competency_id, 
+      :company_id,
+      :scored_score_bucket_id, 
+      :desired_score_bucket_id
     ]
   end
 end
