@@ -119,7 +119,8 @@ class CompaniesController < ApplicationController
         company_id: @company.id,
         assessments_purchased: params[:merchant_param1],
         valid_from: Time.now.strftime("%d/%m/%Y"),
-        valid_to: params[:merchant_param2]
+        valid_to: params[:merchant_param2],
+        added_by_user_id: current_user.id
       }
       job_id = Vger::Resources::Mrf::Subscription.create(subscription_data)
       flash[:notice] = "360 Subscription is being added. You should receive an email when the subscription gets added to the system."
@@ -147,6 +148,7 @@ class CompaniesController < ApplicationController
         price: params[:amount],
         valid_from: Time.now.strftime("%d/%m/%Y"),
         valid_to: params[:merchant_param2],
+        added_by_user_id: current_user.id,
         added_by_superuser: true
       }
       job_id = Vger::Resources::Subscription.create(subscription_data)
