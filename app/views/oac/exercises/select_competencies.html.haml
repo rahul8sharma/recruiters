@@ -10,7 +10,7 @@
           Competencies
         - @exercise_tools.each do |exercise_tool|
           .span4.text-center.bold
-            = exercise_tool.tool.name
+            = exercise_tool.tool.display_name
         .divider3          
       %ul
         - @competencies.sort_by{|competency| competency.modules.size }.reverse.each do |competency|

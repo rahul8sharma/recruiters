@@ -12,17 +12,30 @@
       %ul
         - @exercise.super_competency_configuration ||= {}
         - @super_competencies.sort_by{|super_competency| super_competency.modules.size }.reverse.each do |super_competency|
+          - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
           - @exercise.super_competency_configuration[super_competency.id.to_s] ||= {}
           %li.list-snippet.border-bottom-grayLighter.medium-text
+            %input.span2{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
+            %input.span2{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
             .span6.first
               = super_competency.name
-            - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
-            %input{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
             %input{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
-            %textarea{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition"}
+            - @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range] ||= {}
+            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
+            %select.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][desired_range][from_bucket]" }
+              - @super_competency_score_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                  = norm_bucket.name
+            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:to_bucket] || @super_competency_score_buckets.map(&:id).max
+            %select.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][desired_range][to_bucket]" }
+              - @super_competency_score_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                  = norm_bucket.name
+            %textarea.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition"}
               = @exercise.super_competency_configuration[super_competency.id.to_s][:definition]
             .clr
-            .divider1
+        .clr
+        .divider1
     .divider2
     %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Proceed" }
     .clr

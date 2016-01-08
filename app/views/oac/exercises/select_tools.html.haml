@@ -16,7 +16,7 @@
           %li.span10
             %label.big-text.default.span5
               %input{:type=>"checkbox", name: "exercise[exercise_tools_attributes][#{tool_index}][tool_id]", value: tool.id, checked: exercise_tool.present?}
-              = tool.name.titleize
+              = tool.display_name
             %select.span4{ name: "exercise[exercise_tools_attributes][#{tool_index}][tool_order]" }
               - selected_index = exercise_tool ? exercise_tool.tool_order : (tool_index+1)
               - @tools.size.times do |index|

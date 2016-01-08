@@ -7,28 +7,30 @@
 %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][id]", value: exercise_tool.id }
 %ul.span20.margin-auto
   - @exercise.super_competency_configuration.each do |super_competency_id, configuration|
-    - exercise_tool.super_competency_configuration ||= {}
-    - exercise_tool.super_competency_configuration[super_competency_id] ||= { name: configuration[:name] }
-    - exercise_tool.super_competency_configuration[super_competency_id][:desired_range] ||= { from_bucket: @norm_buckets.map(&:id).min, to_bucket: @norm_buckets.map(&:id).max }
-    %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][name]", value: configuration[:name] }
-    %li
-      .control-group
-        %label.span4.big-text.black
-          = configuration[:name]
-        %input.span4{:type=>'text', :placeholder=>"Enter Weightage", value: (exercise_tool.super_competency_configuration[super_competency_id][:weightage] || 1), name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][weightage]"}
-        - selected = exercise_tool.super_competency_configuration[super_competency_id][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
-        %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][desired_range][from_bucket]" }
-          - @super_competency_score_buckets.each do |norm_bucket|
-            %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
-              = norm_bucket.name
-        - selected = exercise_tool.super_competency_configuration[super_competency_id][:desired_range][:to_bucket] || @super_competency_score_buckets.map(&:id).max
-        %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][desired_range][to_bucket]" }
-          - @super_competency_score_buckets.each do |norm_bucket|
-            %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
-              = norm_bucket.name
-        .clr
-        .divider1
-        %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][definition]", value: @exercise.super_competency_configuration[super_competency_id][:definition]}
+    - super_competency = @super_competencies.find{|x| x.id == super_competency_id.to_i }
+    - common = (exercise_tool.competency_configuration.keys.map(&:to_i) & super_competency.competency_ids)
+    - if common.present?
+      - exercise_tool.super_competency_configuration ||= {}
+      - exercise_tool.super_competency_configuration[super_competency_id] ||= { name: configuration[:name] }
+      - exercise_tool.super_competency_configuration[super_competency_id][:desired_range] ||= { from_bucket: @super_competency_score_buckets.map(&:id).min, to_bucket: @super_competency_score_buckets.map(&:id).max }
+      = render :partial => "super_competency_configuration", locals: { super_competency: super_competency, exercise_tool: exercise_tool, configuration: configuration, include_desired_range: false }
+      %li
+        .control-group
+          %label.span4.big-text.black
+            = super_competency.name
+          %input.span4{:type=>'text', :placeholder=>"Enter Weightage", value: (exercise_tool.super_competency_configuration[super_competency_id][:weightage] || 1), name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][weightage]"}
+          - selected = exercise_tool.super_competency_configuration[super_competency_id][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
+          %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][desired_range][from_bucket]" }
+            - @super_competency_score_buckets.each do |norm_bucket|
+              %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                = norm_bucket.name
+          - selected = exercise_tool.super_competency_configuration[super_competency_id][:desired_range][:to_bucket] || @super_competency_score_buckets.map(&:id).max
+          %select.span4{ name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency_id}][desired_range][to_bucket]" }
+            - @super_competency_score_buckets.each do |norm_bucket|
+              %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                = norm_bucket.name
+          .clr
+          .divider1
   - exercise_tool.competency_configuration.each do |competency_id, configuration|
     %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][name]", value: configuration[:name] }
     %li

@@ -9,6 +9,10 @@ class Oac::ExercisesController < ApplicationController
                                         :customize_assessment
                                       ]
   before_filter :get_master_data, :only => [:customize_assessment]
+  before_filter :get_super_competencies, :only => [
+                                        :select_super_competencies,
+                                        :select_competencies
+                                      ]
   before_filter :validate_status, :only => [
                                     :select_tools,
                                     :customize_assessment,
@@ -22,13 +26,16 @@ class Oac::ExercisesController < ApplicationController
   before_filter :get_super_competency_score_buckets, :only => [
                                       :set_weightage
                                     ]
+  before_filter :get_combined_super_competency_score_buckets, :only => [
+                                      :select_super_competencies
+                                    ]
+  before_filter :get_selected_super_competencies, :only => [
+                                      :set_weightage
+                                    ]
   before_filter :get_competencies, :only => [
                                       :select_competencies,
                                       :set_weightage
                                     ]
-  before_filter :get_super_competencies, :only => [
-                                        :select_super_competencies
-                                      ]
   before_filter :get_exercise_tools, :only => [
                                         :select_tools, 
                                         :customize_assessment,
@@ -167,16 +174,6 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def get_competencies
-    @super_competencies = Vger::Resources::Suitability::SuperCompetency.where(
-      :query_options => { 
-        "suitability_super_competencies.id" => @exercise.super_competency_configuration.keys, 
-        :active => true 
-      }, 
-      :methods => [:competency_ids],
-      :scopes => {
-      }, 
-      :order => ["name ASC"],
-    ).all.to_a
     @competencies = Vger::Resources::Suitability::Competency.where(
       :query_options => { 
         "id" => @super_competencies.map(&:competency_ids).flatten
@@ -195,6 +192,7 @@ class Oac::ExercisesController < ApplicationController
         "suitability_super_competencies.company_id" => @company.id, 
         :active => true 
       }, 
+      :methods => [:competency_ids],
       :scopes => {
       }, 
       :order => ["name ASC"],
@@ -219,7 +217,33 @@ class Oac::ExercisesController < ApplicationController
                                                                     .where(order: "min_val ASC").all
     end
   end
-
+  
+  def get_combined_super_competency_score_buckets
+    @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: params[:company_id]
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    if @super_competency_score_buckets.empty?                                                                    
+      @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: nil
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    end
+  end
+  
+  def get_selected_super_competencies
+    @super_competencies = Vger::Resources::Suitability::SuperCompetency\
+                          .where(
+                            query_options: {
+                              id: @exercise.super_competency_configuration.keys.map(&:to_i)
+                            },
+                            :methods => [:competency_ids]
+                          ).all.to_a
+  end
+  
+  
   def get_master_data
     @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
                           .all.to_a.collect{|x| [x.id,x]}]
