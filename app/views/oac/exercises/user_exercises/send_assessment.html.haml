@@ -11,7 +11,7 @@
 - if params[:users]
   - url = send_assessment_company_oac_exercise_path(@company.id, @exercise.id)
 - else
-  -# url = bulk_send_test_to_users_path
+  - url = bulk_send_company_oac_exercise_path(@company.id, @exercise.id)
 = form_for @exercise, :as => :exercise, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   - if params[:users]

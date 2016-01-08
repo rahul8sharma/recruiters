@@ -78,7 +78,42 @@ class Oac::Exercises::UserExercisesController < ApplicationController
     end
   end
 
-  def bulk_upload_candidates
+  def add_users_bulk
+  end
+  
+  def bulk_upload
+    get_s3_keys
+    if !params[:bulk_upload] || !params[:bulk_upload][:file]
+      flash[:error] = "Please select a csv file."
+      redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id) and return
+    end
+    data = params[:bulk_upload][:file].read
+    obj = S3Utils.upload(@s3_key, data)
+    @s3_bucket = obj.bucket.name
+    get_templates(Vger::Resources::User::Stage::EMPLOYED, false)
+    render :action => :send_assessment
+  end
+  
+  def bulk_send_assessment
+    params[:options] ||= {}
+    Vger::Resources::Oac::UserExercise\
+      .import_from_s3_files(:email => current_user.email,
+                    :exercise_id => @exercise.id,
+                    :sender_id => current_user.id,
+                    :report_email_recipients => params[:report_email_recipients],
+                    :send_report_to_user => params[:send_report_to_user],
+                    :send_sms => params[:options][:send_sms],
+                    :send_email => params[:options][:send_email],
+                    :worksheets => [{
+                      :candidate_stage => Vger::Resources::User::Stage::EMPLOYED,
+                      :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
+                      :file => "BulkUpload.csv",
+                      :bucket => params[:s3_bucket],
+                      :key => params[:s3_key]
+                    }]
+                   )
+    redirect_to candidates_company_oac_exercise_path(@company.id,@exercise.id),
+                notice: "Users upload in progress. User Listings will be updated and assessment will be sent to the users as they are added to the system. Notification email will be sent to #{current_user.email} on completion."
   end
 
   def assign_assessors
@@ -210,5 +245,9 @@ class Oac::Exercises::UserExercisesController < ApplicationController
     if @exercise.workflow_status != Vger::Resources::Oac::Exercise::WorkflowStatus::READY
       redirect_to home_company_oac_exercises_path(@company.id)
     end
+  end
+  
+  def get_s3_keys
+    @s3_key = "oac/#{@exercise.id}/user_exercises/#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
   end
 end
