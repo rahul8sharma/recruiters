@@ -1025,8 +1025,8 @@ Recruiters::Application.routes.draw do
     resources :super_competency_score_bucket_descriptions do
       collection do
         get :manage
-        post :import_from_google_drive
         post :export_to_google_drive
+        post :import_via_s3
       end
     end
 
@@ -1064,7 +1064,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1072,7 +1072,7 @@ Recruiters::Application.routes.draw do
       collection do
         get :manage
         get :destroy_all
-        post 'import_via_s3'
+        post :import_via_s3
         post :export_to_google_drive
       end
     end
@@ -1219,7 +1219,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1254,7 +1254,7 @@ Recruiters::Application.routes.draw do
           get :edit
           get :manage
           get :destroy_all
-          post 'import_via_s3'
+          post :import_via_s3
           post :export_to_google_drive
         end
       end
@@ -1275,6 +1275,14 @@ Recruiters::Application.routes.draw do
     end
     
     resources :aggregate_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :aggregate_super_competency_score_ratings do
       collection do
         get :manage
         post :import_from_google_drive
