@@ -5,7 +5,6 @@
       Partners
     .divider1
     .partner_logos
-      - @report.report_data[:tools].each do |tool, data|
-        - if data[:logo].present?
-          = image_tag("report/html/oac/partner_logos/#{data[:logo]}")
+      - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
+        = image_tag("report/html/oac/partner_logos/#{logo}")
     .divider1

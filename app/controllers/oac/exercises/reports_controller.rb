@@ -13,6 +13,16 @@ class Oac::Exercises::ReportsController < ApplicationController
                             order: "weight ASC"
                           ).all
     @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    
+    @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                          .where(
+                            query_options: {
+                              company_id: nil
+                            },
+                            order: "weight ASC"
+                          ).all
+    @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
     

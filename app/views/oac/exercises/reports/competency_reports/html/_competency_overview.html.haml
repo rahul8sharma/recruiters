@@ -39,8 +39,8 @@
         %ul.competency-list.pull-left
           - @report.report_data[:super_competency_scores].each do |id, data|
             - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
-            - from_bucket_weight = @score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
-            - to_bucket_weight = @score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+            - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+            - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
             - scored_bucket_weight = data[:score][:weight].to_i
             - scored_bucket = data[:score][:bucket]
             - range = (to_bucket_weight - from_bucket_weight)*80
