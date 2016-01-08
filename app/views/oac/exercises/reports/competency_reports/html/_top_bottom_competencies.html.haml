@@ -18,8 +18,8 @@
             - competency = top_competencies[index]
             - if competency
               .legend
-                = top_competencies[index][1][:name]
-              = @report.report_data[:super_competency_configuration][:overall_configuration][top_competencies[index][0]][:definition]
+                = competency[1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
             - else
               .muted
                 Not available
@@ -28,8 +28,8 @@
             - competency = bottom_competencies[index]
             - if competency
               .legend
-                = bottom_competencies[index][1][:name]
-              = @report.report_data[:super_competency_configuration][:overall_configuration][bottom_competencies[index][0]][:definition]
+                = competency[1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
             - else
               .muted
                 Not available

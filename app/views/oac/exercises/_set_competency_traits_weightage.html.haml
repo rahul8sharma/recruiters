@@ -52,6 +52,7 @@
 
       .divider1
       %ul.clearfix
+        - configuration[:traits] ||= {}
         - configuration[:traits].each do |trait_id, trait_configuration|
           %input.span4{:type=>'hidden', value: trait_configuration[:name], name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][name]"}
           %input.span4{:type=>'hidden', value: trait_configuration[:desired_range][:from_bucket] || @norm_buckets.map(&:id).min, name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency_id}][traits][#{trait_id}][desired_range][from_bucket]"}

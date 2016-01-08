@@ -44,7 +44,7 @@
             - scored_bucket_weight = data[:score][:weight].to_i
             - scored_bucket = data[:score][:bucket]
             - range = (to_bucket_weight - from_bucket_weight)*80
-            - left = (to_bucket_weight-1)*40
+            - left = (from_bucket_weight-1)*80
             %li
               .favorable.first.hexagon-icon.span1
               .competency-name.pull-left

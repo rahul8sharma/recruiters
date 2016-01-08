@@ -4,14 +4,14 @@
     .title
       Competency Descriptions
     .divider2
-    %table{ :cellspacing=> "0", :cellpadding=> "0" }
+    %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
       - @report.report_data[:super_competency_scores].each do |name, data|
         %tr
-          %td.left
-            .span3.margin-auto
+          %td.left{ style: "width:20%" }
+            .span3
               = data[:name]
 
-          %td.right
+          %td.right{ style: "width:80%" }
             = data[:description]
     .divider2
 .divider2
