@@ -10,8 +10,7 @@ class Oac::ExercisesController < ApplicationController
                                       ]
   before_filter :get_master_data, :only => [:customize_assessment]
   before_filter :get_super_competencies, :only => [
-                                        :select_super_competencies,
-                                        :select_competencies
+                                        :select_super_competencies
                                       ]
   before_filter :validate_status, :only => [
                                     :select_tools,
@@ -30,6 +29,7 @@ class Oac::ExercisesController < ApplicationController
                                       :select_super_competencies
                                     ]
   before_filter :get_selected_super_competencies, :only => [
+                                      :select_competencies,
                                       :set_weightage
                                     ]
   before_filter :get_competencies, :only => [
