@@ -393,7 +393,9 @@ Recruiters::Application.routes.draw do
         match "set_weightage" => "oac/exercises#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/exercises#customize_assessment", :as => :customize_assessment
         match "add_candidates" => "oac/exercises/user_exercises#add_candidates", :as => :add_candidates
-        match "bulk_upload" => "oac/exercises/user_exercises#add_candidates_bulk", :as => :bulk_upload
+        get "add_bulk" => "oac/exercises/user_exercises#add_users_bulk", :as => :add_users_bulk
+        put "bulk_upload" => "oac/exercises/user_exercises#bulk_upload", :as => :bulk_upload
+        put "bulk_send_assessment" => "oac/exercises/user_exercises#bulk_send_assessment", :as => :bulk_send
         match "send_assessment" => "oac/exercises/user_exercises#send_assessment", :as => :send_assessment
         
         get "candidates" => "oac/exercises/user_exercises#candidates", :as => :candidates
