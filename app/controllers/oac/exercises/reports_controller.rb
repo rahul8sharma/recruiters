@@ -61,7 +61,7 @@ class Oac::Exercises::ReportsController < ApplicationController
 
 
   def s3_report
-    report = Vger::Resources::Oac::Report.find(params[:report_id], params)
+    report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id], params)
     url = S3Utils.get_url(report.html_bucket, report.html_key)
     # if request.format.to_s == "application/pdf"
     #   url = S3Utils.get_url(report.pdf_bucket, report.pdf_key)
