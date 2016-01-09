@@ -51,8 +51,12 @@ class Oac::ExercisesController < ApplicationController
   def new
     @exercise = Vger::Resources::Oac::Exercise.new(params[:exercise])
   end
-  
+
+  def edit
+  end
+
   def create
+    params[:exercise][:report_configuration] = JSON.parse(params[:exercise][:report_configuration])
     @exercise = Vger::Resources::Oac::Exercise.new(params[:exercise])
     @exercise.company_id = params[:company_id]
     if @exercise.save
@@ -65,6 +69,7 @@ class Oac::ExercisesController < ApplicationController
   end
 
   def select_tools
+    params[:exercise][:report_configuration] = JSON.parse(params[:exercise][:report_configuration])
     if request.put?
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
