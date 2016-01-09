@@ -1,5 +1,5 @@
 - width = 66.66
-%ul.competency-list.pull-left
+%ul.competency-list
   - @report.report_data[:super_competency_scores].each do |id, data|
     - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
     - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
@@ -9,11 +9,11 @@
     - range = (to_bucket_weight - from_bucket_weight)*80
     - left = (from_bucket_weight-1)*80
     %li
-      .favorable.first.hexagon-icon.span1
+      .first.hexagon-icon.span1
       .competency-name.pull-left
         = data[:name]
       .competency-value.pull-right
-        .scale.right-offset1
+        .scale
           .line{:style => "width:#{@score_buckets.size*width-14}px"}
           .marker-container
             - section_value.each do |value|

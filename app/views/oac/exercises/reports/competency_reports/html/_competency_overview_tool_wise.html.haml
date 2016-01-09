@@ -7,7 +7,7 @@
     .content
       %ul.competency-list
         %li.overview-title
-          .span11.text-left.no-border.line-height2
+          .span11.text-left.no-border.line-height2.large-text
             Competency
           .pull-right
             - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
@@ -18,7 +18,7 @@
         - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq
         - competencies.each do |competency|
           %li.extra-medium-text
-            .span11
+            .span11.big-text
               = truncate competency, :length => 55
             .pull-right
               - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
