@@ -7,12 +7,12 @@
 
 .container
   .page-title
-    Enter Details
+    Edit Assessment
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
 
-  = form_for @exercise, as: :exercise, url: company_oac_exercises_path(@company.id), html:  {id: "assessment_form"} do |f|
-    %input{:id => "input_config", :name => "exercise[report_configuration]", :value => "" ,:type => "hidden"}
+  = form_for @exercise, as: :exercise, url: select_tools_company_oac_exercise_path(@company.id, @exercise.id), html:  {id: "assessment_form"} do |f|
+    %input{:id => "input_config", :name => "exercise[report_configuration]", :value => @exercise.report_configuration.to_json ,:type => "hidden"}
     %input{:id => "report_type", :value => "oac", :type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     %input{:id => "set_assessment_type", :value => "super_competency", :type => "hidden"}
@@ -20,10 +20,10 @@
       .control-group.span20
         %label.big-text.default.span8
           Enter Assessment Center Title
-        = f.text_field :name, placeholder: "Assessment Center Title", class: "span8"
+        = f.text_field :name, placeholder: "#{@exercise.name}", class: "span8"
       .clr
     .divider2
-    %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Proceed" }
+    %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Update Assessment" }
     .clr
 
   = render :partial => "shared/report_configuration"

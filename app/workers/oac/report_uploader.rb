@@ -41,8 +41,6 @@ module Oac
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         @report = Vger::Resources::Oac::UserExerciseReport.find(report_id, report_data)
-        
-        @assessment = Vger::Resources::Oac::Assessment.find(@report.assessment_id, company_id: report_data[:company_id])
         @report.report_hash = @report.report_data
         Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
           :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
@@ -128,7 +126,7 @@ module Oac
           :report => {
             :status => "Failed",
             :report_id => report_id,
-            :assessment_id => report_data[:assessment_id],
+            :exercise_id => report_data[:exercise_id],
             :company_id => report_data[:company_id]
           },
           :errors => {

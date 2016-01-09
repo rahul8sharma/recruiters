@@ -230,6 +230,25 @@ class SidekiqController < ApplicationController
     render :json => { :status => "Job Started", :job_ids => job_ids }
   end
   
+  def upload_oac_reports
+    reports = Vger::Resources::Oac::UserExerciseReport.where(
+      :query_options => {
+        :status =>  Vger::Resources::Oac::UserExerciseReport::Status::SCORED
+      },
+      :page => params[:page],
+      :per => 25
+    ).all.to_a
+
+    reports.each do |report|
+      report_data = {
+        :id => report.id,
+        :exercise_id => report.report_data[:exercise][:id],
+        :company_id => report[:company][:id]
+      }
+      Oac::ReportUploader.new.perform(report_data, params[:auth_token], params[:patch])
+    end
+    render :json => { :status => "Job Started", :reports => reports.map(&:id) }
+  end
   protected
   
   def check_auth_token
