@@ -1,0 +1,15 @@
+Hi, 
+<p>
+  OAC Report is ready for <%= @report_hash[:user][:id] %> <%=@report_hash[:user][:name] %>
+</p>
+<p>
+  Report URL: 
+  <%= s3_report_company_oac_exercise_url(@report_hash[:company][:id], @report_hash[:exercise][:id], @report_hash[:user][:id], @report_id, :view_mode => "html")
+    %>
+</p>
+<p>
+  You may alternatively view the report by copy-pasting the link in your web browser's address bar and visiting the link or by logging into your Jombay Account. 
+</p>
+<%= render :partial => 'shared/mailer/contact' %>
+<%= render :partial => 'shared/mailer/regards' %>
+<%= render :partial => 'shared/mailer/footer' %>

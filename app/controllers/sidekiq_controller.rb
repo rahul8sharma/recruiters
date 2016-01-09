@@ -243,9 +243,9 @@ class SidekiqController < ApplicationController
       report_data = {
         :id => report.id,
         :exercise_id => report.report_data[:exercise][:id],
-        :company_id => report[:company][:id]
+        :company_id => report.report_data[:company][:id]
       }
-      Oac::ReportUploader.new.perform(report_data, params[:auth_token], params[:patch])
+      Oac::ReportUploader.perform_async(report_data, params[:auth_token], params[:patch])
     end
     render :json => { :status => "Job Started", :reports => reports.map(&:id) }
   end

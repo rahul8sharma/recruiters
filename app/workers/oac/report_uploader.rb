@@ -55,10 +55,10 @@ module Oac
           :status => "success"
         }
         
-        template = "super_competency_report.#{@view_mode}.haml"
-        layout = "layouts/oac/reports.#{@view_mode}.haml"
 
         @view_mode = "html"
+        template = "super_competency_report.#{@view_mode}.haml"
+        layout = "layouts/oac/reports.#{@view_mode}.haml"
         html = render_to_string(
            template: "oac/exercises/reports/#{template}",
            layout: layout,
@@ -107,8 +107,8 @@ module Oac
         
         File.delete(html_save_path)
         # File.delete(pdf_save_path)
-       
-        JombayNotify::Email.create_from_mail(SystemMailer.send_mrf_report(@report.id, @report.report_data), "send_mrf_report")
+        mail = SystemMailer.send_oac_report(@report.id, @report.report_data)
+        JombayNotify::Email.create_from_mail(mail, "send_oac_report")
     
       
       rescue Exception => e
