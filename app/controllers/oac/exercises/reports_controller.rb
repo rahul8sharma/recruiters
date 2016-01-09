@@ -32,7 +32,7 @@ class Oac::Exercises::ReportsController < ApplicationController
       @view_mode = "html"
     end
 
-    template = "competency_report.#{@view_mode}.haml"    
+    template = "super_competency_report.#{@view_mode}.haml"    
     layout = "layouts/oac/reports.#{@view_mode}.haml"
     
     @page = 1

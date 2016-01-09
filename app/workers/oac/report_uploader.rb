@@ -12,30 +12,52 @@ module Oac
       end
     end
 
+    def get_oac_score_buckets
+      @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
+                            .where(
+                              query_options: {
+                                company_id: nil
+                              },
+                              order: "weight ASC"
+                            ).all
+      @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+      
+      @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                            .where(
+                              query_options: {
+                                company_id: nil
+                              },
+                              order: "weight ASC"
+                            ).all
+      @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    end
+
     def perform(report_data, auth_token, patch = {})
       tries = 0
-
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
+
       begin
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
-        @report = Vger::Resources::Oac::Report.find(report_id, report_data)
+        @report = Vger::Resources::Oac::UserExerciseReport.find(report_id, report_data)
         
         @assessment = Vger::Resources::Oac::Assessment.find(@report.assessment_id, company_id: report_data[:company_id])
         @report.report_hash = @report.report_data
-        Vger::Resources::Oac::Report.save_existing(report_id,
-          :status => Vger::Resources::Oac::Report::Status::UPLOADING
+        Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
+          :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
         )
         
-        get_norm_buckets(report_data)
+        get_norm_buckets
+        get_oac_score_buckets
+
         report_status = {
           :errors => [],
           :message => "",
           :status => "success"
         }
         
-        template = "competency_report.#{@view_mode}.haml"  
+        template = "super_competency_report.#{@view_mode}.haml"
         layout = "layouts/oac/reports.#{@view_mode}.haml"
 
         @view_mode = "html"
@@ -79,12 +101,10 @@ module Oac
         html_s3 = upload_file_to_s3("oac_reports/html/#{html_file_id}",html_save_path)
         # pdf_s3 = upload_file_to_s3("mrf_reports/pdf/#{pdf_file_id}",pdf_save_path)
     
-        Vger::Resources::Mrf::Report.save_existing(report_id,
+        Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
           :html_key => html_s3[:key],
-          :pdf_key => pdf_s3[:key],
           :html_bucket => html_s3[:bucket],
-          :pdf_bucket => pdf_s3[:bucket],
-          :status => Vger::Resources::Oac::Report::Status::UPLOADED
+          :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADED
         )
         
         File.delete(html_save_path)
@@ -100,8 +120,8 @@ module Oac
         if tries < 5
           retry
         else
-          Vger::Resources::Oac::Report.save_existing(report_id,
-            :status => Vger::Resources::Oac::Report::Status::FAILED
+          Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
+            :status => Vger::Resources::Oac::UserExerciseReport::Status::FAILED
           ) rescue nil
         end
         JombayNotify::Email.create_from_mail(SystemMailer.notify_report_status("OAC Report Uploader","Failed to upload OAC report {report_id}",{

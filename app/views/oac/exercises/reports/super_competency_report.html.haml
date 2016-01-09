@@ -1,0 +1,11 @@
+.competency_report  
+  - @report.report_configuration["html"]["sections"].each do |section_value|
+    = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
+  .divider6
+  .footer
+    .container
+      .pull-left
+        Private &amp; Confidential
+      .pull-right
+        \&copy; Jombay
+      .clr

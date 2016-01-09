@@ -169,8 +169,8 @@ class ReportConfigurationsController < MasterDataController
     }
   end
 
-  def report_preview_super_competency
-    report_type = 'super_competency'
+  def report_preview_oac
+    report_type = 'oac'
     get_suitability_norm_bucket
     get_oac_score_buckets
     
