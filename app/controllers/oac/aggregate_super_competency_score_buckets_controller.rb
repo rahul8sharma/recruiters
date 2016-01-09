@@ -1,6 +1,6 @@
-class Oac::CombinedCompetencyScoreBucketsController < MasterDataController
+class Oac::AggregateSuperCompetencyScoreBucketsController < MasterDataController
   def api_resource
-    Vger::Resources::Oac::CombinedCompetencyScoreBucket
+    Vger::Resources::Oac::AggregateSuperCompetencyScoreBucket
   end
 
   def import_from

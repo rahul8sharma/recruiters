@@ -393,7 +393,9 @@ Recruiters::Application.routes.draw do
         match "set_weightage" => "oac/exercises#set_weightage", :as => :set_weightage
         match "customize_assessment" => "oac/exercises#customize_assessment", :as => :customize_assessment
         match "add_candidates" => "oac/exercises/user_exercises#add_candidates", :as => :add_candidates
-        match "bulk_upload" => "oac/exercises/user_exercises#add_candidates_bulk", :as => :bulk_upload
+        get "add_bulk" => "oac/exercises/user_exercises#add_users_bulk", :as => :add_users_bulk
+        put "bulk_upload" => "oac/exercises/user_exercises#bulk_upload", :as => :bulk_upload
+        put "bulk_send_assessment" => "oac/exercises/user_exercises#bulk_send_assessment", :as => :bulk_send
         match "send_assessment" => "oac/exercises/user_exercises#send_assessment", :as => :send_assessment
         
         get "candidates" => "oac/exercises/user_exercises#candidates", :as => :candidates
@@ -1025,8 +1027,8 @@ Recruiters::Application.routes.draw do
     resources :super_competency_score_bucket_descriptions do
       collection do
         get :manage
-        post :import_from_google_drive
         post :export_to_google_drive
+        post :import_via_s3
       end
     end
 
@@ -1064,7 +1066,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1072,7 +1074,7 @@ Recruiters::Application.routes.draw do
       collection do
         get :manage
         get :destroy_all
-        post 'import_via_s3'
+        post :import_via_s3
         post :export_to_google_drive
       end
     end
@@ -1219,7 +1221,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1254,7 +1256,7 @@ Recruiters::Application.routes.draw do
           get :edit
           get :manage
           get :destroy_all
-          post 'import_via_s3'
+          post :import_via_s3
           post :export_to_google_drive
         end
       end
@@ -1267,6 +1269,22 @@ Recruiters::Application.routes.draw do
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
         
     resources :exercise_super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :aggregate_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :aggregate_super_competency_score_ratings do
       collection do
         get :manage
         post :import_from_google_drive

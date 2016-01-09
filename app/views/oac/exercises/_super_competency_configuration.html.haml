@@ -1,0 +1,6 @@
+%input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency.id.to_s}][name]", value: super_competency.name }
+%input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency.id.to_s}][weightage]", value: configuration[:weightage] }
+%input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency.id.to_s}][definition]", value: @exercise.super_competency_configuration[super_competency.id.to_s][:definition]}
+- if include_desired_range
+  %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency.id.to_s}][from_bucket]", value: configuration[:desired_range][:from_bucket]}
+  %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][super_competency_configuration][#{super_competency.id.to_s}][to_bucket]", value: configuration[:desired_range][:to_bucket]}

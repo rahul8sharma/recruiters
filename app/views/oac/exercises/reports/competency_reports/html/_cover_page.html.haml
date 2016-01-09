@@ -3,23 +3,23 @@
     .divider3
     .pull-left
       .user-name
-        Bahubali The Great
+        = @report.report_data[:user][:name]
       .divider1
       .extra-medium-text
         Assessment:
-        Testing ToC 15th October
+        = @report.report_data[:exercise][:name]
         %br/
         Assessment Answered On:
-        04/11/2015
+        = hdate @report.report_data[:completed_at]
       
     .pull-right
       .final-score.score_band{:style => "background-color: #128975"}
-        Aggregate Score: Above Average
-      .final-score.overall_score_rating{:style => "background-color: #0EB156; width: 360px"}
-        .score_rating_title.pull-left{:style => "color: #0EB156"}
+        Aggregate Score: #{@report.report_data[:aggregate_score][:bucket]}
+      .final-score.overall_score_rating{:style => "background-color: ##{@report.report_data[:aggregate_score][:color]}; width: 360px"}
+        .score_rating_title.pull-left{:style => "color: ##{@report.report_data[:aggregate_score][:color]}"}
           Score Rating
         .span
-          GREEN
+          = @report.report_data[:aggregate_score][:rating]
         .clr
       .clr
       .divider1

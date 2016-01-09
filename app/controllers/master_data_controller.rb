@@ -4,6 +4,7 @@ class MasterDataController < ApplicationController
   
   helper_method :resource_name
   helper_method :index_columns
+  helper_method :form_fields
   helper_method :resource_path
   helper_method :index_path
   
@@ -22,11 +23,11 @@ class MasterDataController < ApplicationController
   end
   
   def show
-    @resource = api_resource.find(params[:id], :methods => index_columns)
+    @resource = api_resource.find(params[:id], :methods => form_fields)
   end
   
   def edit
-    @resource = api_resource.find(params[:id], :methods => index_columns)
+    @resource = api_resource.find(params[:id], :methods => form_fields)
   end
   
   def update
@@ -87,8 +88,6 @@ class MasterDataController < ApplicationController
       redirect_to request.env['HTTP_REFERER'] and return
     end
     params[:export][:filters] ||= {}
-    params[:export][:filters][:functional_area_id] ||= nil
-    params[:export][:filters][:job_experience_id] ||= nil
     api_resource\
       .export_to_google_drive(params[:export])
     redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
@@ -132,6 +131,10 @@ class MasterDataController < ApplicationController
   
   def s3_key
     "#{resource_name}/master_data.csv.zip"
+  end
+  
+  def form_fields
+    return index_columns
   end
   
   def search_columns

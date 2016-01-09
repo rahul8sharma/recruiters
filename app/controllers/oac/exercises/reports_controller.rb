@@ -1,15 +1,31 @@
-class Oac::Assessments::ReportsController < ApplicationController
+class Oac::Exercises::ReportsController < ApplicationController
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
 
   def report
     report_type = params[:report_type] || "fit_report"
-    # get_norm_buckets
-    # @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-    # @report = Vger::Resources::Mrf::Report.find(params[:report_id], params) 
-    # @report.report_hash = @report.report_data
-
+    @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
+                          .where(
+                            query_options: {
+                              company_id: nil
+                            },
+                            order: "weight ASC"
+                          ).all
+    @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    
+    @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                          .where(
+                            query_options: {
+                              company_id: nil
+                            },
+                            order: "weight ASC"
+                          ).all
+    @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    
+    @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
+    @report.report_hash = @report.report_data
+    
     if request.format == "application/pdf"
       @view_mode = "pdf"
     else  
@@ -22,7 +38,7 @@ class Oac::Assessments::ReportsController < ApplicationController
     @page = 1
     respond_to do |format|
       format.html { 
-        render :template => "oac/assessments/reports/#{template}",
+        render :template => "oac/exercises/reports/#{template}",
         layout: layout,
         formats: [:pdf, :html]
       }
@@ -33,7 +49,7 @@ class Oac::Assessments::ReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        template: "oac/assessments/reports/#{template}",
+        template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
         margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
