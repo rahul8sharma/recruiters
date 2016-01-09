@@ -16,7 +16,20 @@
     border-left: 1px solid #ccc
     height: 302px
     position: relative
-
+    .y_indication
+      position: absolute
+      background: image-url('report/html/competency/grid_graph_y_indication.png') no-repeat 0 center
+      width: 45px
+      height: 100%
+      left: -70px
+    .x_indication
+      position: absolute
+      width: 100%
+      bottom: -60px
+      font-size: 16px
+      color: #808285
+      text-align: center
+    
     .columns
       background: image-url('report/gray_border.gif') 
       height: 100%
@@ -42,13 +55,23 @@
     .count
       height: 30px
     &.small
-      .columns
+      .y_indication
+        width: 40px
+        height: 100%
+        left: -50px
+        background-image: image-url('report/html/competency/grid_graph_y_indication_small.png')
+      .x_indication
+        bottom: -50px
+        font-size: 12px
       .column
+        margin-left: 45px
         .rating_range
           font-size: 10px
           width: 190%
           right: -40%
 .perception_gap
+  .frame
+    border-width: 1px
   .color-agreement
     color: #26c485
   .color-positive
@@ -80,6 +103,7 @@
         width: 16.6%
         box-sizing: border-box
         float: left
+        margin: 35px 0
         &:first-child
           border: 0 none
       .pie_chart
@@ -91,13 +115,50 @@
         .rate
           font-size: 12px
           top: 0
+
+
 .classic_report 
-  .scores_competencies_graph 
-    .graph_instructions
-      line-height: 24px
-.classic_report 
-  .scores_competencies_graph.descending_order 
-    .graph_container 
-      .left_sec 
-        li
-          margin-top: 18px
+  .mrf_top_bottom_competencies, .average_individual_ratings
+    .scores_competencies_graph.descending_order 
+      .graph_container 
+        .left_sec   
+          .stakeholder_rating
+            background: image-url('report/html/mrf/graph_left_sec_top_bottom_stakeholder_rating_icon.png')
+          ul
+            li
+              margin-top: 8px
+              color: #414042
+              
+  .average_individual_ratings
+    .scores_competencies_graph.descending_order 
+      .graph_container 
+        .left_sec   
+          ul
+            li
+              &:first-child
+                div:first-child
+                  font-weight: 700
+.competencies_wise_individual_ratings
+  table
+    width: 100%
+    border: 1px solid #28b29b
+    tr
+      &:first-child
+        background: #28b29b
+        color: #fff
+        td
+          background: #28b29b !important
+          padding: 20px
+          border-top: 0 none
+
+      &:nth-child(even)
+        background: #f8f8f8
+      td
+        border-top: 1px solid #fff
+        border-left: 1px solid #fff
+        &:first-child
+          border-left: 0 none
+          padding: 15px 10px
+          text-align: left
+          background: #e3e3e3
+          min-width: 130px

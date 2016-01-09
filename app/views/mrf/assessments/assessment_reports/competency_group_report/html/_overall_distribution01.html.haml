@@ -6,6 +6,9 @@
     .divider2
     
     .grid_graph.span20.margin-auto
+      .y_indication
+      .x_indication
+        Ratings
       .columns
         - total = @report.report_data[:overall_competencies_score_distribution].values.sum
         - @report.report_data[:overall_competencies_score_distribution].each do |bucket, count|
@@ -22,6 +25,6 @@
           .count
             #{counter} 
     .clr  
-    .divider3
+    .divider5
 
 
