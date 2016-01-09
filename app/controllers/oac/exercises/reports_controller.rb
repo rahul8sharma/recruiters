@@ -32,7 +32,7 @@ class Oac::Exercises::ReportsController < ApplicationController
       @view_mode = "html"
     end
 
-    template = "competency_report.#{@view_mode}.haml"    
+    template = "super_competency_report.#{@view_mode}.haml"    
     layout = "layouts/oac/reports.#{@view_mode}.haml"
     
     @page = 1
@@ -61,43 +61,25 @@ class Oac::Exercises::ReportsController < ApplicationController
 
 
   def s3_report
+    report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id], params)
+    url = S3Utils.get_url(report.html_bucket, report.html_key)
+    # if request.format.to_s == "application/pdf"
+    #   url = S3Utils.get_url(report.pdf_bucket, report.pdf_key)
+    # else
+    #   url = S3Utils.get_url(report.html_bucket, report.html_key)
+    # end
+    redirect_to url
   end
 
   protected
   
   def get_norm_buckets
-    @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                      order: "weight ASC", query_options: {
-                        company_id: @company.id
-                      }).all
+    @norm_buckets = Vger::Resources::Suitability::NormBucket.where(
+                      order: "weight ASC").all
     
     if @norm_buckets.empty?
-      @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                      order: "weight ASC", query_options: {
-                        company_id: nil
-                      }).all
-    end
-    @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: @company.id
-                      }).all
-    
-    if @trait_graph_buckets.empty?
-      @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: nil
-                      }).all
-    end
-    @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: @company.id
-                      }).all
-    
-    if @competency_graph_buckets.empty?
-      @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: nil
-                      }).all
+      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(
+                      order: "weight ASC").all
     end
   end
 

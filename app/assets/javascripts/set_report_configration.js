@@ -262,7 +262,6 @@ $(document).ready(function(){
     }
   });
 
-
   $('#generate_pdf_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";

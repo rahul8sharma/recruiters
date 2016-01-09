@@ -19,8 +19,7 @@
         .padding-all2.no-t-padding
           .divider1
           .title.large-text.bold
-            Competency: #{config[:name]}
-          
+            Competency: #{config[:name]}          
           .instruction_container.pull-left
             .divider2
             .instructions
@@ -34,6 +33,7 @@
               .instruction2.less_favorable.pull-left
                 Less Favorable
               .clr
+
           .overview.competency.pull-right
             .content.no-border
               .competency-list
@@ -50,12 +50,14 @@
                         = score_bucket.name.split(" ").join("<br/>").html_safe
                     .clr
                 .clr
-                    
+          
           .clr
           .divider1
+
           %p.medium-text
             = data[:score][:description]
           .divider1
+
           .bg-gray
             .padding-all1.border-bottom-grayLighter
               .big-text.black
@@ -69,8 +71,8 @@
                     %li
                       = name
               - else
-                No strengths found                      
-
+                .extra-medium-text
+                  No strengths found                      
             .padding-all1
               .big-text.black
                 Areas of Improvement
@@ -83,10 +85,8 @@
                     %li
                       = name
               - else
-                No areas of improvement found                      
-              
-
-            
+                .extra-medium-text
+                  No areas of improvement found
 
         .padding-all2.no-t-padding
           .color-info.large-text
@@ -164,5 +164,6 @@
                 .clr
               .clr
           .divider1   
+
       .divider1
   .divider2

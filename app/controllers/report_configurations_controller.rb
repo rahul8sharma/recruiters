@@ -169,6 +169,29 @@ class ReportConfigurationsController < MasterDataController
     }
   end
 
+  def report_preview_oac
+    report_type = 'oac'
+    get_suitability_norm_bucket
+    get_oac_score_buckets
+    
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+
+    report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_dumps/#{report_type}_#{params[:assessment_type]}.yml")).with_indifferent_access
+    
+    @report = Vger::Resources::Oac::UserExerciseReport.new(report_conf)
+ 
+    @report.report_hash = @report.report_data
+    @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
+    
+    layout = "layouts/oac/reports.#{params[:view_mode]}.haml"
+    template = "oac/exercises/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
+
+    render json:{ 
+      content: render_to_string(
+        :template => template,
+        :layout => layout)
+    }
+  end
 
   def edit
     @resource = api_resource.find(params[:id], :methods => index_columns)
@@ -176,6 +199,27 @@ class ReportConfigurationsController < MasterDataController
   
   protected
   
+  def get_oac_score_buckets
+    @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
+                          .where(
+                            query_options: {
+                              company_id: nil
+                            },
+                            order: "weight ASC"
+                          ).all
+    @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+    
+    @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                          .where(
+                            query_options: {
+                              company_id: nil
+                            },
+                            order: "weight ASC"
+                          ).all
+    @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+  end
+
+
   def get_suitability_norm_bucket
     @norm_buckets = Vger::Resources::Suitability::NormBucket\
                         .where(order: "weight ASC").all                    
