@@ -612,6 +612,7 @@ Recruiters::Application.routes.draw do
       get :load_configuration
       post :report_preview_mrf
       post :report_preview_suitability
+      post :report_preview_super_competency
     end
   end
 

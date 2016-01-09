@@ -1,0 +1,24 @@
+.competency_report  
+- @report.report_configuration["html"]["sections"].each do |section_value|
+  = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/header"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/partners"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/cover_page"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/participation"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/competency_description"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/competency_overview"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/competency_overview_tool_wise"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/toolwise_descriptions"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/top_bottom_competencies"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/data_points_competency_wise"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/assessor_feedback"
+  -# =render :partial => "oac/exercises/reports/competency_reports/html/individual_development_plan"
+
+.divider6
+.footer
+  .container
+    .pull-left
+      Private &amp; Confidential
+    .pull-right
+      \&copy; Jombay
+    .clr
