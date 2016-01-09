@@ -1,4 +1,5 @@
 - max_weight = @score_buckets.map(&:weight).max
+- min_weight = @score_buckets.map(&:weight).min
 - width = 66.66
 .data_points_competency_wise
   .container
@@ -46,34 +47,11 @@
                       .marker{ class: klass }
                         - if score_bucket.name.split(" ").size == 1
                           %br/
-                        = score_bucket.name
+                        = score_bucket.name.split(" ").join("<br/>").html_safe
                     .clr
                 .clr
                     
           .clr
-          .divider1
-          .competency_specific_score 
-            .tools
-              .span9.text-left.no-border.line-height2
-                Measured Using
-              .pull-right
-                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
-                  .span4{ class: (index==0? "no-border text-center":"") }
-                    = tool.titleize
-                .clr
-              .clr
-            .tool_scores
-              .span9.text-left.no-border.line-height2
-                Score
-              .pull-right
-                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
-                  .span4{ class: (index==0? "no-border text-center":"") }
-                    - if data[:toolwise_scores][tool]
-                      = data[:toolwise_scores][tool][:score_bucket]
-                    - else
-                      \-  
-                .clr
-              .clr
           .divider1
           %p.medium-text
             = data[:score][:description]
@@ -112,7 +90,7 @@
 
         .padding-all2.no-t-padding
           .color-info.large-text
-            Competency wise Behavior
+            Competency wise Behaviors
           .divider2
           .classic_report
             .scores_competencies_graph.descending_order.descending_average_rating
@@ -148,17 +126,43 @@
                       .graph
                         .graph_content
                           .divider1
-                          - percentage = data[:score][:score]
+                          - weight = data[:score][:weight]
+                          - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
                           - percentage = percentage == 0 ? 2 : percentage  
                           .descending_graph_bar.max{:style => "background-color:#1681be;width: #{percentage}%"}
                           .divider1
                           - data[:competency_scores].each do |competency, competency_data|
-                            - percentage = competency_data[:score][:score]
+                            - weight = competency_data[:score][:weight]
+                            - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
                             - percentage = percentage == 0 ? 2 : percentage
                             .divider1
                             .descending_graph_bar.max{:style => "background-color:#37a8e9;width: #{percentage}%"}
                             .divider1
                   .clr
             
+          .divider1
+          .competency_specific_score 
+            .tools
+              .span8.text-left.no-border.line-height2
+                Measured Using
+              .pull-right
+                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
+                  .span4{ class: (index==0? "no-border text-center":"") }
+                    = tool.titleize
+                .clr
+              .clr
+            .tool_scores
+              .span9.text-left.no-border.line-height2
+                Score
+              .pull-right
+                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
+                  .span4{ class: (index==0? "no-border text-center":"") }
+                    - if data[:toolwise_scores][tool]
+                      = data[:toolwise_scores][tool][:score_bucket]
+                    - else
+                      \-  
+                .clr
+              .clr
+          .divider1   
       .divider1
   .divider2
