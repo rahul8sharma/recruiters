@@ -49,10 +49,15 @@ class MasterDataController < ApplicationController
     params[:search] = params[:search].select{|key,val| val.present? }
     params[:search].each{|key,val| params[:search][key].strip! }
     @objects = api_resource.where(
-      :query_options => params[:search], 
+      :query_options => params[:search],
+      :joins => params[:joins],
       :methods => index_columns,
       :page => params[:page], 
       :per => 10).all
+    respond_to do |format|      
+      format.html
+      format.json{ render json: @objects.to_a.to_json }
+    end
   end
   
   def destroy_all
