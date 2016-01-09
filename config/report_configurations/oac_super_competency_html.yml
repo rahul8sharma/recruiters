@@ -152,5 +152,11 @@
     text: "Individidual Development Plan",
     path: "oac/exercises/reports/competency_reports/html/individual_development_plan",
     children: []
+  },
+  {
+    id: "html_about_us_compact",
+    text: "About Us[compact]",
+    path: "shared/reports/html/about_us_compact",
+    locals: {}
   }
 ]
