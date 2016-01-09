@@ -387,6 +387,7 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        match "edit" => "oac/exercises#edit", :as => :edit
         match "select_tools" => "oac/exercises#select_tools", :as => :select_tools
         match "select_competencies" => "oac/exercises#select_competencies", :as => :select_competencies
         match "select_super_competencies" => "oac/exercises#select_super_competencies", :as => :select_super_competencies
@@ -615,6 +616,7 @@ Recruiters::Application.routes.draw do
       get :load_configuration
       post :report_preview_mrf
       post :report_preview_suitability
+      post :report_preview_oac
     end
   end
 
@@ -1571,6 +1573,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   get "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   get "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
+  get "/sidekiq/upload_oac_reports", :to => "sidekiq#upload_oac_reports"
 
 
   match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports
