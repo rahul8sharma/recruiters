@@ -1,3 +1,4 @@
+- width = 66.66
 .overview.competency
   .bottom-triangle
     .container
@@ -23,61 +24,42 @@
             .clr
 
           .scale.right-offset1
-            .line{:style => "width:400px"}
+            .line{:style => "width:#{@score_buckets.size*width-10}px"}
             .marker-container
-              .marker
-                .arrow
-                .marker-info
-                  Low' is the minimum score on the scale
-                %br
-                  Low
-              .marker
-                .arrow
-                .marker-info
-                  Below Average' is a score falling between 'Low' and 'Average'
-                Below Average
-              .marker
-                .arrow
-                .marker-info
-                  Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
-                Average (Low)
-              .marker
-                .arrow
-                .marker-info
-                  Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
-                Average (High)
-              .marker
-                .arrow
-                .marker-info
-                  Above Average' is a score falling between 'Average' and 'High'
-                Above Average
-              .marker
-                .arrow
-                .marker-info
-                  High' is the maximum score on the scale
-                %br
-                  High
+              - @score_buckets.each do |score_bucket|
+                .marker
+                  .arrow
+                  .marker-info
+                    = score_bucket.name
+                  - if score_bucket.name.split(" ").size == 1
+                    %br
+                  = score_bucket.name
               .clr
           .clr
         %ul.competency-list.pull-left
-          -3.times do
+          - @report.report_data[:super_competency_scores].each do |id, data|
+            - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+            - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+            - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+            - scored_bucket_weight = data[:score][:weight].to_i
+            - scored_bucket = data[:score][:bucket]
+            - range = (to_bucket_weight - from_bucket_weight)*80
+            - left = (from_bucket_weight-1)*80
             %li
               .favorable.first.hexagon-icon.span1
               .competency-name.pull-left
-                Additional Traits
+                = data[:name]
               .competency-value.pull-right
                 .scale.right-offset1
-                  .line{:style => "width:400px"}
+                  .line{:style => "width:#{@score_buckets.size*width-14}px"}
                   .marker-container
-                    .desire_range{:style => "left: 40px; width: 80px; margin-left: 80px"}
-                    .marker
-                    .marker
-                    .marker.active.favorable
-                      Average (Low)
-                      -# toggle ".less_favorable"
-                    .marker
-                    .marker
-                    .marker
+                    .desire_range{:style => "left: 40px; width: #{range}px; margin-left: #{left}px"}
+                    - @score_buckets.each do |score_bucket|
+                      - klass = score_bucket.name == scored_bucket ? "active" : ""
+                      - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+                      .marker{ class: klass }
+                        - if score_bucket.name == data[:score][:bucket]
+                          = data[:score][:bucket]
                     .clr
                 .clr
               .clr

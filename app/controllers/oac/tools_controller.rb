@@ -8,6 +8,20 @@ class Oac::ToolsController < MasterDataController
   end
 
   def index_columns
-    [:id, :name, :host, :assessment_class, :assessment_type, :user_exercise_type, :report_type]
+    [:id, :name, :display_name, :host, :logo]
+  end
+  
+  def form_fields
+    [
+      :name, 
+      :display_name,
+      :host, 
+      :assessment_class, 
+      :assessment_type, 
+      :user_exercise_type, 
+      :report_type, 
+      :logo, 
+      :description
+    ]
   end
 end

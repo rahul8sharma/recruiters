@@ -2,16 +2,16 @@
   .container
     .divider2
     .title
-      Competency Description
+      Competency Descriptions
     .divider2
-    %table{ :cellspacing=> "0", :cellpadding=> "0" }
-      -3.times do
+    %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
+      - @report.report_data[:super_competency_scores].each do |name, data|
         %tr
-          %td.left
-            .span3.margin-auto
-              Competency Name
+          %td.left{ style: "width:20%" }
+            .span3
+              = data[:name]
 
-          %td.right
-            Works towards building relationships with customers by providing world class service. Demonstrates a customer focused mindset and contributes towards enhancing the overall experience. Uses customer insights to help provide inputs on new and improved customer offerings. Is looked upon as a trusted advisor who aids in providing best advice to suit customer needs. Uses skills and abilities to ensure that the customer stays engaged at all cost.
+          %td.right{ style: "width:80%" }
+            = data[:description]
     .divider2
 .divider2

@@ -21,38 +21,13 @@
     .scale
       .line{:style => "width:400px"}
       .marker-container
-        .marker
-          .arrow
-          .marker-info
-            Low' is the minimum score on the scale
-          %br
-            Low
-        .marker
-          .arrow
-          .marker-info
-            Below Average' is a score falling between 'Low' and 'Average'
-          Below Average
-        .marker
-          .arrow
-          .marker-info
-            Average (Low)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (Low)' is the lower half of the average
-          Average (Low)
-        .marker
-          .arrow
-          .marker-info
-            Average (High)' - The score 'Average' has been split into 2 parts - 'Average (Low)' and 'Average (High)' where 'Average (High)' is the upper half of the average
-          Average (High)
-        .marker
-          .arrow
-          .marker-info
-            Above Average' is a score falling between 'Average' and 'High'
-          Above Average
-        .marker
-          .arrow
-          .marker-info
-            High' is the maximum score on the scale
-          %br
-            High
+        - @score_buckets.each do |score_bucket|
+          .marker
+            .arrow
+            .marker-info
+              = score_bucket.name
+            %br
+              = score_bucket.name
         .clr
     .clr
     .divider3

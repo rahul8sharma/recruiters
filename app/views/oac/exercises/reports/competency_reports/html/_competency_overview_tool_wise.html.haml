@@ -10,39 +10,24 @@
           .span11.text-left.no-border.line-height2
             Competency
           .pull-right
-            .span3.no-border.text-center
-              Psychometry
-            .span3
-              Personal Interview
-            .span3
-              Group Discussion
-            .span3
-              SJT
-            .span3
-              Case Studies
-            .span3
-              E-Trays
+            - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
+              .span3.no-border.text-center
+                = tool.titleize
             .clr
           .clr
-
-        -5.times do
+        - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq
+        - competencies.each do |competency|
           %li.extra-medium-text
-            -#.favorable.first.hexagon-icon.span1
             .span11
-              = truncate "Responsibility of outcomes sample Lorem ipsum text check length punctuality agreeablenes", :length => 55
+              = truncate competency, :length => 55
             .pull-right
-              .span3.text-center
-                %i.icon-ok-sign
-              .span3
-                
-              .span3
-                %i.icon-ok-sign
-              .span3
-                
-              .span3
-                %i.icon-ok-sign
-              .span3
-              
+              - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
+                - checked = config.values.find{|x| x["name"] == competency }.present?
+                .span3.text-center
+                  - if checked
+                    %i.icon-ok-sign
+                  - else
+                    \-  
               .clr
             .clr
         

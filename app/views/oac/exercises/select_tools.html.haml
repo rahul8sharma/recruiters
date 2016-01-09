@@ -5,7 +5,7 @@
   = render :partial => "shared/oac/oac-creation-sub-nav"
 
   = form_for @exercise, as: :exercise, url: select_tools_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
-    .span22.margin-auto
+    .span26.margin-auto
       %ul.clearfix
         - @tools.each_with_index do |tool, tool_index|
           - exercise_tool = @exercise_tools.detect{|exercise_tool| exercise_tool.tool_id == tool.id }
@@ -13,11 +13,11 @@
             %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{tool_index}][id]", value: exercise_tool.id }
           %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{tool_index}][assessment_type]", value: tool.assessment_class }
           %input{ type: "hidden", name: "exercise[exercise_tools_attributes][#{tool_index}][user_exercise_type]", value: tool.user_exercise_type }
-          %li.span10
-            %label.big-text.default.span5
+          %li.span12
+            %label.big-text.default.span7
               %input{:type=>"checkbox", name: "exercise[exercise_tools_attributes][#{tool_index}][tool_id]", value: tool.id, checked: exercise_tool.present?}
-              = tool.name.titleize
-            %select.span4{ name: "exercise[exercise_tools_attributes][#{tool_index}][tool_order]" }
+              = tool.display_name
+            %select.span2{ name: "exercise[exercise_tools_attributes][#{tool_index}][tool_order]" }
               - selected_index = exercise_tool ? exercise_tool.tool_order : (tool_index+1)
               - @tools.size.times do |index|
                 %option{ value: index+1, selected: (selected_index == index+1) }

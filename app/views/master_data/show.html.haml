@@ -1,7 +1,7 @@
 %h2
   Showing details of #{resource_name.singularize.titleize} - #{@resource.id}
 %table{ cellspacing: 5, cellpadding: 5 }
-  - index_columns.each do |index_column|
+  - form_fields.each do |index_column|
     %tr
       %td 
         %h4
