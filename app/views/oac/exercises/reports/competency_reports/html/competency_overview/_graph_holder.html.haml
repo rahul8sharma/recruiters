@@ -8,8 +8,9 @@
     - scored_bucket = data[:score][:bucket]
     - range = (to_bucket_weight - from_bucket_weight)*80
     - left = (from_bucket_weight-1)*80
+    - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
     %li
-      .first.hexagon-icon.span1
+      .first.hexagon-icon.span1{:class => klass}
       .competency-name.pull-left
         = data[:name]
       .competency-value.pull-right
