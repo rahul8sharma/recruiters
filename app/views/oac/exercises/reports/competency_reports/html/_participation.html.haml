@@ -3,22 +3,4 @@
     .content
       %p Dear #{@report.report_data[:user][:name]},
 
-      %p Congratulations for participating in the Development Centre (DC) conducted
-
-      %p The activities conducted at the Development Centre (DC) were designed to help you assess yourself, map your current strengths and areas of development and subsequently guide you to make concrete Individual Development Plan We believe this self awareness will help you lead your team more effectively
-
-      %p A variety of techniques and scientific instruments were designed to allow you to demonstrate, under standardized conditions, the skills and abilities that are most essential for success in your job environment The evaluation criteria were chosen keeping in mind the following considerations
-
-      %ul.disc
-        %li
-          Higher level of difficulty/ complexity
-        %li
-          Assessment on the job as well as through simulation tools and exercises
-        %li
-          Involvement of multiple assessors within Best Seller and External Partners
-
-      %p We hope our findings not only help create a high self-awareness, but also genuinely motivate you to apply the developmental inputs back on the job. We’re confident you will do the same and enjoy the journey of reflections and development. After all, “Leadership and Learning are indispensable to each other
-
-      %p We are committed to your success and career growth. We urge you to be the CEO of your life and work towards your all round development
-
-      %p Wishing you all the very best
+      = @report.report_data[:cover_letter].to_s.html_safe
