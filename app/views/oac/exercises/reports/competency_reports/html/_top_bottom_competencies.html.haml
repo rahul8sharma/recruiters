@@ -14,7 +14,7 @@
           %td{ style: "width: 50%" }
             - competency = top_competencies[index]
             - if competency
-              .legend
+              .legend.big-text
                 = competency[1][:name]
               = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
             - else
@@ -24,7 +24,7 @@
           %td{ style: "width: 50%" }
             - competency = bottom_competencies[index]
             - if competency
-              .legend
+              .legend.big-text
                 = competency[1][:name]
               = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
             - else

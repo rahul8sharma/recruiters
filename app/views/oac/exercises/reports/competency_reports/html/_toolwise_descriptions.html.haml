@@ -2,9 +2,9 @@
   .container
     .divider2
     .title
-      Toolwise Descriptions
+      Tool Descriptions
     .divider2
-    %table{ :cellspacing=> "0", :cellpadding=> "0" }
+    %table{ :cellspacing=> "0", :cellpadding=> "0", :width=>"100%" }
       - @report.report_data[:tools].each do |tool, data|
         %tr
           %td.left

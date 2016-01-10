@@ -2,21 +2,22 @@
 .overview-title{:style=>"padding-left: 32px"}
   .pull-left.text-left
     .extra-large-text 
-      Overview of Competencies / Values Measured
+      Competency Scores
     .divider1
     .instruction_container
       .instructions
         - section_value.each do |value|
           = render :partial => value["path"]
     .clr
-  .scale.right-offset1
+  .scale
     .line{:style => "width:#{@score_buckets.size*width-10}px"}
     .marker-container
       - @score_buckets.each do |score_bucket|
         .marker
-          .arrow
-          .marker-info
-            = score_bucket.name
+          -#
+            .arrow
+            .marker-info
+              = score_bucket.name
           - if score_bucket.name.split(" ").size == 1
             %br
           = score_bucket.name

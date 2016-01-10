@@ -8,7 +8,7 @@
         360&#176; Profiling: 
         = @report.report_data[:assessment][:name]
       .divider1
-      .medium-text
+      .medium-text.line-height2
         Report Generated On: 
         = hdate(@report.report_data[:generated_at])
         .divider1
@@ -16,8 +16,7 @@
     .pull-right
       .final-score
         360&#176; Profiling Group Report
-      .divider1
-      .medium-text.text-center  
+      .medium-text.text-center.line-height2 
         Candidates Included: 
         = @report.report_data[:total_users]
     .clr

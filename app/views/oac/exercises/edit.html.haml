@@ -19,8 +19,16 @@
     .span22.margin-auto
       .control-group.span20
         %label.big-text.default.span8
-          Enter Assessment Center Title
+          Enter Assessment Center Title:
         = f.text_field :name, placeholder: "#{@exercise.name}", class: "span8"
+      .clr
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Enter Cover Letter Content:
+        .clr
+        .divider1
+        = f.text_area :cover_letter, rows: 10, placeholder: "#{@exercise.cover_letter}", class: "span16"
       .clr
     .divider2
     %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Update Assessment" }
