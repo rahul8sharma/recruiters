@@ -19,7 +19,6 @@
         .padding-all2.no-t-padding
           .divider1
           .title.extra-large-text.bold.pull-left.line-height3
-            Competency: 
             = truncate config[:name], length: 35          
           .overview.competency.pull-right
             .content.no-border
@@ -44,12 +43,12 @@
             .instructions
               .box.pull-left
                 .box-icon.pull-left
-                .box-title.pull-left.extra-medium-text.default 
+                .box-title.pull-left.medium-text.default 
                   Expected Score
                 .clr
-              .instruction1.pull-left.extra-medium-text.default
+              .instruction1.pull-left.medium-text.default
                 Favorable
-              .instruction2.less_favorable.pull-left.extra-medium-text.default
+              .instruction2.less_favorable.pull-left.medium-text.default
                 Less Favorable
               .clr
           .clr
@@ -58,7 +57,7 @@
             = data[:score][:description]
         .padding-all2.no-t-padding
           .color-info.large-text
-            Competency wise Behaviors
+            Traits Measured
           .divider2
           .classic_report
             .scores_competencies_graph.descending_order.descending_average_rating
@@ -146,7 +145,7 @@
           .competency_specific_score 
             .tools
               .span8.text-left.no-border.line-height2
-                Measured Using
+                Tool Used
               .pull-right
                 - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
                   .span4{ class: (index==0? "no-border text-center":"") }
