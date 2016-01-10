@@ -42,13 +42,11 @@
           %a{:href=> assessment_url, :title => "View Details"}
             %i.icon-eye-open
         .span3.text-center.left-offset1
-          - completed_count = 0
-          %a{:href=> assessment_url, :title=>"#{completed_count}"}  
-            = completed_count
+          %a{:href=> assessment_url, :title=>"#{exercise.completed_count}"}  
+            = exercise.completed_count
         .span2.text-center.left-offset1
-          - sent_count = 0
-          %a{:href=> assessment_url, :title=>"#{sent_count}"}  
-            = sent_count
+          %a{:href=> assessment_url, :title=>"#{exercise.sent_count}"}  
+            = exercise.sent_count
         .span2.left-offset1
           = exercise.workflow_status
         .clr

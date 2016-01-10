@@ -169,6 +169,7 @@ class Oac::ExercisesController < ApplicationController
       query_options: {
         company_id: params[:company_id]
       },
+      methods: [:sent_count, :completed_count],
       page: params[:page], 
       per: 10
     ).all

@@ -23,6 +23,7 @@
       .divider1
     %ul
       - @user_exercises.each do |user_exercise|
+        - report = user_exercise.user_exercise_reports.last
         %li.list-snippet.medium-text
           .divider1
           .span3.first
@@ -33,10 +34,13 @@
               =user_exercise.user.name
           .span8
             %a{:href=> "", :title=> "Status" }
-              = render :partial => "oac/exercises/user_exercises/user_status/#{user_exercise.status}", :locals => {:updated_at => user_exercise.updated_at}
+              = render :partial => "oac/exercises/user_exercises/link_status/#{user_exercise.status}", :locals => {:updated_at => user_exercise.updated_at}
           .span4
-            %a{:href=> send_reminder_company_oac_exercise_url(@company.id, @exercise.id, user_exercise.user_id), :title=> "Send Reminder" }
-              Send Reminder
+            - if report
+              = render :partial => "oac/exercises/user_exercises/report_status/#{report.status}", :locals => { exercise: @exercise, company: @company, user_exercise: user_exercise, report: report }
+            - else
+              = render :partial => "oac/exercises/user_exercises/user_exercise_status/#{user_exercise.status}", :locals => { exercise: @exercise, company: @company, user_exercise: user_exercise }
+              
           .clr
     .divider3
     .pull-right

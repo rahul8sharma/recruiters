@@ -13,7 +13,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       query_options: {
         :exercise_id => @exercise.id
       },
-      include: [:user]
+      include: [:user, :user_exercise_reports]
     ).all
   end
 
