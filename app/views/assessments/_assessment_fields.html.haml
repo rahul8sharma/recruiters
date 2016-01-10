@@ -179,6 +179,11 @@
       = f.check_box :update_trait_scores_from_cocubes
       Update trait scores from cocubes
     .clr  
+  .control-group
+    %label
+      = f.check_box :include_standard_factual_information_in_report_summary
+      Enable Standard Factual Information Data In Exports
+    .clr  
 - else
   = f.hidden_field :language, value: 'en'
   = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
