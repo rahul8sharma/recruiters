@@ -1,6 +1,7 @@
 require 'csv'
 require 'fileutils'
 class Mrf::Assessments::UserFeedbackController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -485,10 +486,8 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     else
       category = eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_INVITATION_TO_STAKEHOLDER")
     end
-    query_options[:category] = category if category.present?
-    @templates = Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @templates |= Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
+    query_options["template_categories.name"] = category if category.present?
+    @templates = get_templates_for_company(query_options, @company.id)
+    @templates = get_global_tempaltes(query_options)
   end
 end

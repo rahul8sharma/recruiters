@@ -1,4 +1,5 @@
 class Mrf::WalkinGroupsController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter :get_company
   
@@ -95,34 +96,18 @@ class Mrf::WalkinGroupsController < ApplicationController
   
   def get_templates_for_users
     query_options = {
-      category: template_category::SEND_MRF_INVITATION_TO_CANDIDATE
+      "template_categories.name" => template_category::SEND_MRF_INVITATION_TO_CANDIDATE
     }
-    @user_templates = Vger::Resources::Template\
-                  .where(
-                    query_options: query_options, 
-                    scopes: { global_or_for_company_id: @company.id },
-                  ).all.to_a
-    @user_templates |= Vger::Resources::Template\
-                  .where(
-                    query_options: query_options, 
-                    scopes: { global: nil }
-                  ).all.to_a
+    @user_templates = get_templates_for_company(query_options, @company.id)
+    @user_templates |= get_global_tempaltes(query_options)
     query_options = {
-      category: [
+      "template_categories.name" => [
         template_category::SEND_CLASSIC_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE,
         template_category::SEND_JOMBAY_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE,
       ]
     }              
-    @stakeholder_templates = Vger::Resources::Template\
-                  .where(
-                    query_options: query_options, 
-                    scopes: { global_or_for_company_id: @company.id }
-                  ).all.to_a
-    @stakeholder_templates |= Vger::Resources::Template\
-                  .where(
-                    query_options: query_options, 
-                    scopes: { global: nil }
-                  ).all.to_a              
+    @stakeholder_templates = get_templates_for_company(query_options, @company.id)
+    @stakeholder_templates |= get_global_tempaltes(query_options)            
   end
   
   def template_category

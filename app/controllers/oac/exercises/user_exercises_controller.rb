@@ -1,4 +1,5 @@
 class Oac::Exercises::UserExercisesController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -227,18 +228,16 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   
   def get_templates(candidate_stage, reminder = false)
     category = ""
-    query_options = {
-    }
     if reminder
       category = Vger::Resources::Template::TemplateCategory::SEND_OAC_REMINDER_TO_EMPLOYEE
     else
       category = Vger::Resources::Template::TemplateCategory::SEND_OAC_TO_EMPLOYEE
     end
-    query_options[:category] = category if category.present?
-    @templates = Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @templates |= Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
+    query_options = {
+      "template_categories.name" => category 
+    }
+    @templates = get_templates_for_company(query_options, @company.id)
+    @templates |= get_global_tempaltes(query_options)
   end
   
   def validate_exercise
