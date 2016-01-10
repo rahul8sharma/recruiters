@@ -1,6 +1,7 @@
 class TemplatesController < MasterDataController
   before_filter :authenticate_user!
   before_filter :get_template_variables, :only => [:new, :create, :update, :edit]
+  before_filter :get_categories, :only => [:new, :create, :update, :edit]
   before_filter :set_params, :only => [:create, :update]
   
   def api_resource
@@ -16,7 +17,7 @@ class TemplatesController < MasterDataController
       :id,
       :name,
       :company_ids,
-      :category,
+      :template_category_id,
       :from,
       :subject
     ]
@@ -26,7 +27,7 @@ class TemplatesController < MasterDataController
     [
       :id,
       :name,
-      :category
+      :template_category_id
     ]
   end
   
@@ -38,6 +39,10 @@ class TemplatesController < MasterDataController
   
   def get_template_variables
     @template_variables = Vger::Resources::TemplateVariable.all
+  end
+  
+  def get_categories
+    @template_categories = Vger::Resources::TemplateCategory.all
   end
   
   def set_params
