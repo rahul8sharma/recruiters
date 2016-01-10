@@ -26,7 +26,7 @@
   %form
     %h3
       Template Variables (Click on a template variable to add it to the template body)
-    %ul
+    %ul#template_variables
       - @template_variables.sort_by(&:id).each_with_index do |template_variable,index|    
         %li{ title: template_variable.value }
           = template_variable.id

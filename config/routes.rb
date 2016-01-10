@@ -597,6 +597,9 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
+  
+  resources :template_categories do
+  end
 
   resources :template_variables do
     collection do
