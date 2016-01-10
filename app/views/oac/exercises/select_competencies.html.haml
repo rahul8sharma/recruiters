@@ -9,8 +9,12 @@
         .span6.first.bold
           Competencies
         - @exercise_tools.each do |exercise_tool|
-          .span4.text-center.bold
+          .span3.text-center.bold
             = exercise_tool.tool.display_name
+        .span2
+          From Bucket
+        .span2
+          To Bucket      
         .divider3          
       %ul
         - @competencies.sort_by{|competency| competency.modules.size }.reverse.each do |competency|
@@ -22,11 +26,24 @@
               - checked = exercise_tool.competency_configuration.keys.map(&:to_i).include?(competency.id.to_i)
               = render :partial => "competency_configuration", locals: { competency: competency, exercise_tool: exercise_tool }
               - if competency.modules.include?(exercise_tool.tool.name)
-                %label.span4.text-center
+                %label.span3.text-center
                   %input{:type => "checkbox", name: "exercise[exercise_tools_attributes][#{exercise_tool.id}][competency_configuration][#{competency.id}][enabled]", value: 1, checked: checked}
               - else
-                %label.span4.text-center
+                %label.span3.text-center
                   = "-"    
+            - @exercise.competency_configuration ||= {}
+            - @exercise.competency_configuration[competency.id.to_s] ||= {}
+            - @exercise.competency_configuration[competency.id.to_s][:desired_range] ||= {}
+            - selected = @exercise.competency_configuration[competency.id.to_s][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
+            %select.span3{ name: "exercise[competency_configuration][#{competency.id}][desired_range][from_bucket]" }
+              - @super_competency_score_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                  = norm_bucket.name
+            - selected = @exercise.competency_configuration[competency.id.to_s][:desired_range][:to_bucket] || @super_competency_score_buckets.map(&:id).max
+            %select.span3{ name: "exercise[competency_configuration][#{competency.id}][desired_range][to_bucket]" }
+              - @super_competency_score_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
+                  = norm_bucket.name
             .clr
             .divider1
     .divider2

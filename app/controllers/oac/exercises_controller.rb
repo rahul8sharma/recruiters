@@ -28,6 +28,9 @@ class Oac::ExercisesController < ApplicationController
   before_filter :get_combined_super_competency_score_buckets, :only => [
                                       :select_super_competencies
                                     ]
+  before_filter :get_combined_competency_score_buckets, :only => [
+                                      :select_competencies
+                                    ]
   before_filter :get_selected_super_competencies, :only => [
                                       :select_competencies,
                                       :set_weightage
@@ -243,6 +246,21 @@ class Oac::ExercisesController < ApplicationController
                                                                     .where(order: "min_val ASC").all
     if @super_competency_score_buckets.empty?                                                                    
       @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: nil
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    end
+  end
+  
+  def get_combined_competency_score_buckets
+    @super_competency_score_buckets = Vger::Resources::Oac::CombinedCompetencyScoreBucket\
+                                                                    .where(query_options: {
+                                                                      company_id: params[:company_id]
+                                                                    })\
+                                                                    .where(order: "min_val ASC").all
+    if @super_competency_score_buckets.empty?                                                                    
+      @super_competency_score_buckets = Vger::Resources::Oac::CombinedCompetencyScoreBucket\
                                                                     .where(query_options: {
                                                                       company_id: nil
                                                                     })\

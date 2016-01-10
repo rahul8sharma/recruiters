@@ -116,7 +116,7 @@
                 Strengths
               .divider1
               - strengths = data[:competency_scores].select do |name, cdata|
-                - cdata[:toolwise_scores].values.all?{|value| value[:pass] }
+                - cdata[:score][:pass]
               - if strengths.present?
                 %ul.disc.gray-dark.medium-text
                   - strengths.each do |name,cdata|
@@ -130,7 +130,7 @@
                 Areas of Improvement
               .divider1
               - weaknesses = data[:competency_scores].select do |name, cdata|
-                - cdata[:toolwise_scores].values.none?{|value| value[:pass] }
+                - !cdata[:score][:pass]
               - if weaknesses.present?
                 %ul.disc.gray-dark.medium-text
                   - weaknesses.each do |name,cdata|
