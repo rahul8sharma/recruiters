@@ -67,9 +67,20 @@ class Oac::ExercisesController < ApplicationController
       render :action => :new
     end
   end
+  
+  def update
+    params[:exercise][:report_configuration] = JSON.parse(params[:exercise][:report_configuration])
+    @exercise = Vger::Resources::Oac::Exercise.save_existing(@exercise.id, params[:exercise])
+    if !@exercise.error_messages.present?
+      flash[:notice] = "Online assessment center is updated successfully."
+      redirect_to candidates_company_oac_exercise_path(@company.id, @exercise.id)
+    else
+      flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
+      render :action => :edit
+    end
+  end
 
   def select_tools
-    params[:exercise][:report_configuration] = JSON.parse(params[:exercise][:report_configuration])
     if request.put?
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
