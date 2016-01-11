@@ -10,9 +10,11 @@
       .divider1
       .content
         .overview-title
-          .pull-left
+          .divider1
+          .pull-left.color-warning.extra-medium-text
             .divider2
             Overview of Competencies / Values Measured
+          .divider1
           .scale.right-offset1
             .line
             .marker-container
@@ -23,6 +25,7 @@
                   = norm_bucket.name
               .clr
           .clr
+          .divider1
         %ul.competency-list.pull-left
           - competency_scores.each do |competency, competency_data|
             %li
