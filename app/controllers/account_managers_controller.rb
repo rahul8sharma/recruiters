@@ -1,5 +1,5 @@
 class AccountManagersController < ApplicationController
-	before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   def api_resource
     Vger::Resources::AccountManager
@@ -11,18 +11,18 @@ class AccountManagersController < ApplicationController
   end
 
   def import
-		Vger::Resources::AccountManager.import(params[:file])
-		redirect_to account_managers_path, notice: "Account Managers imported."
-	end
+    Vger::Resources::AccountManager.import(params[:file])
+    redirect_to account_managers_path, notice: "Account Managers imported."
+  end
 
   def manage
   end
 
-	def import_from_google_drive
+  def import_from_google_drive
     Vger::Resources::AccountManager\
       .import_from_google_drive(params[:import])
     redirect_to account_managers_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export_to_google_drive
     Vger::Resources::AccountManager\
@@ -40,7 +40,7 @@ class AccountManagersController < ApplicationController
 
   # GET /account_managers
   def index
-  	@account_managers = Vger::Resources::AccountManager.where(:page => params[:page], :per => 10)
+    @account_managers = Vger::Resources::AccountManager.where(:page => params[:page], :per => 10)
   end
 
   # GET /account_managers/new

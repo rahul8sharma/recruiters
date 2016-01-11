@@ -340,6 +340,8 @@ Recruiters::Application.routes.draw do
         match "/send-reminder" => "mrf/assessments/user_feedback#send_reminder", :as => :send_reminder
         match "bulk_upload" => "mrf/assessments/user_feedback#bulk_upload", :as => :bulk_upload
 
+        match "set_cap" => "mrf/assessments#set_cap", :as => :set_cap
+
         get "/download_sample_csv_for_mrf_bulk_upload", :to => "mrf/assessments/user_feedback#download_sample_csv_for_mrf_bulk_upload", :as => :download_sample_csv_for_mrf_bulk_upload
         get "/export_feedback_urls" => "mrf/assessments/user_feedback#export_feedback_urls", :as => :export_feedback_urls
         get "/export_feedback_status" => "mrf/assessments/user_feedback#export_feedback_status", :as => :export_feedback_status
@@ -379,26 +381,31 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac_exercises, :controller => "oac/assessments", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/exercises", :path => "oac" do
       collection do
-        match "home" => "oac/assessments#home", :as => :home
+        match "home" => "oac/exercises#home", :as => :home
       end
 
       member do
-        match "select_tools" => "oac/assessments#select_tools", :as => :select_tools
-        match "select_competencies" => "oac/assessments#select_competencies", :as => :select_competencies
-        match "set_weightage" => "oac/assessments#set_weightage", :as => :set_weightage
-        match "customize_assessment" => "oac/assessments#customize_assessment", :as => :customize_assessment
-        match "add_candidates" => "oac/assessments/user_assessments#add_candidates", :as => :add_candidates
-        match "bulk_upload" => "oac/assessments/user_assessments#add_candidates_bulk", :as => :bulk_upload
-        match "send_assessment" => "oac/assessments/user_assessments#send_assessment", :as => :send_assessment
-        match "assign_assessor" => "oac/assessments/user_assessments#assign_assessor", :as => :assign_assessor
-        get "candidates" => "oac/assessments/user_assessments#candidates", :as => :candidates
-        get "candidate/:candidate_id" => "oac/assessments/user_assessments#candidate", :as => :candidate
+        match "edit" => "oac/exercises#edit", :as => :edit
+        match "select_tools" => "oac/exercises#select_tools", :as => :select_tools
+        match "select_competencies" => "oac/exercises#select_competencies", :as => :select_competencies
+        match "select_super_competencies" => "oac/exercises#select_super_competencies", :as => :select_super_competencies
+        match "set_weightage" => "oac/exercises#set_weightage", :as => :set_weightage
+        match "customize_assessment" => "oac/exercises#customize_assessment", :as => :customize_assessment
+        match "add_candidates" => "oac/exercises/user_exercises#add_candidates", :as => :add_candidates
+        get "add_bulk" => "oac/exercises/user_exercises#add_users_bulk", :as => :add_users_bulk
+        put "bulk_upload" => "oac/exercises/user_exercises#bulk_upload", :as => :bulk_upload
+        put "bulk_send_assessment" => "oac/exercises/user_exercises#bulk_send_assessment", :as => :bulk_send
+        match "send_assessment" => "oac/exercises/user_exercises#send_assessment", :as => :send_assessment
+        
+        get "candidates" => "oac/exercises/user_exercises#candidates", :as => :candidates
+        get "candidates/:user_id/" => "oac/exercises/user_exercises#candidate", :as => :candidate
+        match "candidates/:user_id/send_reminder" => "oac/exercises/user_exercises#send_reminder", :as => :send_reminder
+        match "candidates/:user_id/assign_assessor" => "oac/exercises/user_exercises#assign_assessor", :as => :assign_assessor
 
-        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/assessments/reports#report", :as => :report
-        get "candidates/:user_id/reports/:report_id" => "oac/assessments/reports#s3_report", :as => :s3_report
-
+        get "candidates/:user_id/reports/:report_id/oac_report" => "oac/exercises/reports#report", :as => :report
+        get "candidates/:user_id/reports/:report_id" => "oac/exercises/reports#s3_report", :as => :s3_report
       end
     end
 
@@ -590,6 +597,9 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
     end
   end
+  
+  resources :template_categories do
+  end
 
   resources :template_variables do
     collection do
@@ -606,6 +616,7 @@ Recruiters::Application.routes.draw do
       get :load_configuration
       post :report_preview_mrf
       post :report_preview_suitability
+      post :report_preview_oac
     end
   end
 
@@ -1001,6 +1012,30 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
+    
+    resources :super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :super_competency_score_bucket_descriptions do
+      collection do
+        get :manage
+        post :export_to_google_drive
+        post :import_via_s3
+      end
+    end
 
     resources :item_groups do
       collection do
@@ -1036,7 +1071,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1044,7 +1079,7 @@ Recruiters::Application.routes.draw do
       collection do
         get :manage
         get :destroy_all
-        post 'import_via_s3'
+        post :import_via_s3
         post :export_to_google_drive
       end
     end
@@ -1191,7 +1226,7 @@ Recruiters::Application.routes.draw do
         get :destroy_all
         post :import_from_google_drive
         post :export_to_google_drive
-        post 'import_via_s3'
+        post :import_via_s3
       end
     end
 
@@ -1226,14 +1261,64 @@ Recruiters::Application.routes.draw do
           get :edit
           get :manage
           get :destroy_all
-          post 'import_via_s3'
+          post :import_via_s3
           post :export_to_google_drive
         end
       end
     end
   end
 
-  namespace :oac do
+  namespace :oac, path: "oac" do
+    get "manage" => "exercise_management#manage", as: :manage
+    post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
+    post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
+        
+    resources :exercise_super_competencies do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :aggregate_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :aggregate_super_competency_score_ratings do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :combined_super_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :combined_competency_score_buckets do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :user_super_competency_scores do
+    end
+    
+    resources :user_competency_scores do
+    end
+    
     resources :tools do
     end
   end
@@ -1488,6 +1573,7 @@ Recruiters::Application.routes.draw do
   get "/sidekiq/upload_benchmark_reports", :to => "sidekiq#upload_benchmark_reports"
   get "/sidekiq/upload_training_requirements_reports", :to => "sidekiq#upload_training_requirements_reports"
   get "/sidekiq/upload_training_requirement_groups_reports", :to => "sidekiq#upload_training_requirement_groups_reports"
+  get "/sidekiq/upload_oac_reports", :to => "sidekiq#upload_oac_reports"
 
 
   match "/sidekiq/regenerate_reports/", :to => "reports_management#regenerate_reports", :as => :regenerate_reports

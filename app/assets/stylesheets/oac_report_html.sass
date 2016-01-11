@@ -1,9 +1,54 @@
+$oac_image_url: report/html/oac
 .report 
+  .frame
+    border-width: 1px
+  .section01
+    background: #28b29b
+    border-top: 2px solid #18907c
+    .overall_report
+      background: none
   .competency_report 
     .overview
+      &.competency
+        .overview-title
+          padding: 20px 20px 20px 32px
+          border: 0 none
+        .content 
+          .competency-list
+            .scale
+              margin-right: -12px !important
+              .desire_range
+                z-index: 1
+              .marker
+                position: relative
+                z-index: 2
+                color: #000
       &.tool_wise
         background: none
+        border-bottom: 1px dashed #28b29b
+        .content 
+          border: 1px solid #28b29b
         .competency-list
+          *
+            box-sizing: border-box
+          [class*="icon-"]
+            color: #2f7d32
+            font-size: 20px
+          li
+            padding: 15px 0 15px 36px
+            &:first-child
+              font-size: 16px
+              background: #28b29b
+              color: #fff
+              [class*="span"]
+                min-height: 36px
+                border-left: 1px solid #fff
+            [class*="span"]
+              padding: 0 10px
+              margin-left: 0
+              text-align: center
+              &:first-child
+                text-align: left
           .title
             font-size: 16px
   .scores
@@ -12,13 +57,166 @@
         padding: 18px 
         li
           border: 0 none !important
+  .data_points_competency_wise
+    border-bottom: 1px dashed  #28b29b
+    ul.disc
+      margin-left: 15px
+      margin-bottom: 15px
+      li
+        line-height: 22px
+
+    .instruction_container 
+      .instructions 
+        [class*="instruction"]
+          background: image-url('report/html/scale-pointer-hexagon.png') no-repeat 
+        .instruction2
+          background-position: 0 -43px
+    .overview.competency
+      .content 
+        .competency-list 
+          .scale 
+            margin-right: 0
+            .line
+              bottom: -17px
+            .marker-container 
+              .desire_range
+                top: 45px
+              .marker
+                color: #1b7daa
+                font-size: 14px
+                height: 55px
+                background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
+    .competency_specific_score
+      border: 1px solid #bee8e1
+      *
+        box-sizing: border-box
+      .tools, .tool_scores
+        padding: 10px 0 10px 36px
+        font-size: 16px
+        text-align: center
+        [class*="span"]
+          border-left: 1px solid #ccc
+          padding: 0 10px
+          margin-left: 0
+          min-height: 36px
+          text-align: center
+          &:first-child
+            font-size: 18px
+          &.text-center
+            font-size: 16px
+       
+      .tools
+        background: #bee8e1
+
+    .classic_report 
+      .scores_competencies_graph
+        &.descending_order 
+          .graph_container 
+            .left_sec 
+              li
+                margin-top: 17px
+                div:first-child 
+                  font-size: 14px 
+                  color: #808285
+                  padding-top: 11px 
+                &:first-child
+                  div:first-child
+                    padding-top: 2px
+
+            .right_sec 
+              .classic_competency_graph 
+                .classic_competency_graph_scale 
+                  .block
+                    line-height: 20px
+                    text-align: center
+                    margin-bottom: 3px
+                    font-size: 16px
+
+.partners
+  .partner_logos
+    img
+      margin-left: 45px
+      &:first-child
+        margin-left: 0
+.participation
+  background: #3cd3ba
+  padding: 36px
+  .content
+    border: 1px dashed #29b49d
+    padding: 36px
+    background: #f5fdfb
+  p, ul
+    font-size: 16px
+    line-height: 20px
+    margin: 0 0 15px
+.competency_description 
+  border-bottom: 1px dashed #28b29b
+  table 
+    tr
+      td
+        line-height: 22px
+        padding: 18px
+        border-bottom: 2px solid #fff
+        &.left
+          background: #28b29b
+          color: #fff
+          font-size: 18px
+          width: 16%
+        &.right
+          width: 84%
+          vertical-align: top
+          background: #f8f8f8
+          color: #808285
+          font-size: 16px
+.top_bottom_competencies
+  border-bottom: 1px dashed #28b29b
+  *
+    box-sizing: border-box 
+  .caption 
+    padding: 0 0 0 65px
+    background: image-url('#{$oac_image_url}/top_bottom_competencies.png') no-repeat
+    line-height: 55px
+    color: #28b29b
+    font-size: 24px
+    &.bottom
+      background-position: 0px -65px
+
+  table
+    font-size: 16px
+    tr
+      &:first-child
+        td
+          border: 0 none
+      td
+        padding: 20px
+        border-top: 1px dashed #e3e3e3
+        &.space
+          border: 0 none
+        .legend
+          color: #28b29b
+          font-weight: 700
+
 .individual_development_plan
   table
     border-collapse: collapse
     width: 100%
-    border: 2px solid #28b29b
+    border: 1px solid #28b29b
+    tr
+      &:first-child
+        td
+          background: #28b29b
+          color: #fff
+          text-align: left
+          font-size: 24px
+        &+tr
+          td
+            color: #28b29b
+            text-align: center
     td
-      border: 2px solid #28b29b
-      font-size: 18px
+      border: 1px solid #28b29b
+      font-size: 20px
       width: 33%
       padding: 15px
+      vertical-align: top
+.assessor_feedback
+  border-bottom: 1px dashed #28b29b

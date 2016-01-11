@@ -11,7 +11,7 @@
   .clr.divider2
   = form_for :assessment, as: :assessment, url: company_mrf_assessment_path(@company.id,@assessment.id), multipart: true, method: :put , html: {id: "assessment_form"} do |f|
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => @assessment.report_configuration.to_json ,:type => "hidden"}
-    %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
+    %input{:id => "input_company_id", :value => @assessment.company_id, :type => "hidden"}
     %input{:id => "report_type", :value => "mrf", :type => "hidden"}
     %input{:id => "set_assessment_type", :value => @assessment.use_competencies ? "competency" : "fit", :type => "hidden"}
     .border-primary

@@ -1,0 +1,169 @@
+- max_weight = @score_buckets.map(&:weight).max
+- min_weight = @score_buckets.map(&:weight).min
+- width = 66.66
+.data_points_competency_wise
+  .container
+    .divider2
+    .title
+      Competency wise Data Points
+    .divider2
+    - @report.report_data[:super_competency_scores].each do |id, data|
+      - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+      - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+      - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+      - scored_bucket_weight = data[:score][:weight].to_i
+      - scored_bucket = data[:score][:bucket]
+      - range = (to_bucket_weight - from_bucket_weight)*80
+      - left = (from_bucket_weight-1)*80
+      .frame
+        .padding-all2.no-t-padding
+          .divider1
+          .title.extra-large-text.bold.pull-left.line-height3
+            = truncate config[:name], length: 35          
+          .overview.competency.pull-right
+            .content.no-border
+              .competency-list
+                .scale
+                  .line{:style => "width:#{@score_buckets.size*width-14}px"}
+                  .marker-container
+                    .desire_range{:style => "left: 40px; width: #{range}px; margin-left: #{left}px"}
+                    - @score_buckets.each do |score_bucket|  
+                      - klass = score_bucket.name == scored_bucket ? "active" : ""
+                      - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+                      .marker{ class: klass }
+                        - if score_bucket.name.split(" ").size == 1
+                          %br/
+                        = score_bucket.name.split(" ").join("<br/>").html_safe
+                    .clr
+                .clr
+          
+          .clr
+          .instruction_container.pull-right
+            .divider1
+            .instructions
+              .box.pull-left
+                .box-icon.pull-left
+                .box-title.pull-left.medium-text.default 
+                  Expected Score
+                .clr
+              .instruction1.pull-left.medium-text.default
+                Favorable
+              .instruction2.less_favorable.pull-left.medium-text.default
+                Less Favorable
+              .clr
+          .clr
+
+          %p.extra-medium-text
+            = data[:score][:description]
+        .padding-all2.no-t-padding
+          .color-info.large-text
+            Traits Measured
+          .divider2
+          .classic_report
+            .scores_competencies_graph.descending_order.descending_average_rating
+              .traits_under_graph
+                .graph_container
+                  .left_sec.pull-left
+                    .divider2
+                    %ul
+                      %li
+                        .span6.big-text.first.trait_title.bold.default
+                          = config[:name]
+                        .clr
+                      - data[:competency_scores].each do |competency, competency_data|
+                        %li
+                          .span6.first.trait_title
+                            = competency
+                          .clr
+
+                  .right_sec.span22.pull-right
+                    .classic_competency_graph
+                      .classic_competency_graph_scale
+                        .block.pull-left
+                          = @score_buckets[0].name
+                        - @score_buckets[1..@score_buckets.size-1].each do |score_bucket|
+                          .block.pull-left{:style=>"width: #{868/4}px;"}
+                            .pull-right
+                              = score_bucket.name.split(" ").join("<br/>").html_safe
+                              - if score_bucket.name.split(" ").size == 1
+                                %br/
+                              
+                            .clr
+
+                        .clr
+                      .graph
+                        .graph_content
+                          .divider1
+                          - weight = data[:score][:weight]
+                          - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
+                          - percentage = percentage == 0 ? 2 : percentage  
+                          .descending_graph_bar.max{:style => "background-color:#1681be;width: #{percentage}%"}
+                          .divider1
+                          - data[:competency_scores].each do |competency, competency_data|
+                            - weight = competency_data[:score][:weight]
+                            - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
+                            - percentage = percentage == 0 ? 2 : percentage
+                            .divider1
+                            .descending_graph_bar.max{:style => "background-color:#37a8e9;width: #{percentage}%"}
+                            .divider1
+                  .clr
+            
+          .bg-gray
+            .divider1
+            .pull-left.left-offset1
+              .big-text.black
+                Strengths
+              .divider1
+              - strengths = data[:competency_scores].select do |name, cdata|
+                - cdata[:score][:pass]
+              - if strengths.present?
+                %ul.disc.gray-dark.medium-text
+                  - strengths.each do |name,cdata|
+                    %li
+                      = name
+              - else
+                .medium-text
+                  No strengths found                      
+            .pull-right.right-offset1
+              .big-text.black
+                Areas of Improvement
+              .divider1
+              - weaknesses = data[:competency_scores].select do |name, cdata|
+                - !cdata[:score][:pass]
+              - if weaknesses.present?
+                %ul.disc.gray-dark.medium-text
+                  - weaknesses.each do |name,cdata|
+                    %li
+                      = name
+              - else
+                .medium-text
+                  No areas of improvement found
+
+            .clr
+          .divider2
+
+          .competency_specific_score 
+            .tools
+              .span8.text-left.no-border.line-height2
+                Tool Used
+              .pull-right
+                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
+                  .span4{ class: (index==0? "no-border text-center":"") }
+                    = tool.titleize
+                .clr
+              .clr
+            .tool_scores
+              .span8.text-left.no-border.line-height2
+                Score
+              .pull-right
+                - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
+                  .span4{ class: (index==0? "no-border text-center":"") }
+                    - if data[:toolwise_scores][tool]
+                      = data[:toolwise_scores][tool][:score_bucket]
+                    - else
+                      \-  
+                .clr
+              .clr
+
+      .divider1
+  .divider2

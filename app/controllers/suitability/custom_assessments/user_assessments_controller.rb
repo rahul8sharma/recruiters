@@ -1,4 +1,5 @@
 class Suitability::CustomAssessments::UserAssessmentsController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter :get_assessment
   before_filter :get_company
@@ -550,11 +551,9 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                         
       end
     end
-    query_options[:category] = category if category.present?
-    @templates = Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @templates |= Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
+    query_options["template_categories.name"] = category if category.present?
+    @templates = get_templates_for_company(query_options, @company.id)
+    @templates |= get_global_tempaltes(query_options)
   end
 
   def get_packages

@@ -4,11 +4,10 @@
     .container
       .title.pull-left
         360&#176; Ratings on Competencies/Values
-      .graph_instructions.extra-medium-text.left-offset1.pull-left
-        .stakeholder_rating_icon.span
-        .span.bold
-          360&#176; Rating
-        .clr
+      .pull-left.left-offset1{:style => "font-size: 80px;color: #B100A0"}
+        &#8226;
+      .span.extra-medium-text.bold.gray-dark
+        Average 360&#176 Rating
       .clr
       .traits_under_graph
         .graph_container
@@ -20,7 +19,7 @@
             %ul
               - @report.report_data[:competency_scores].each do |competency, competency_score|
                 %li
-                  .trait_title.first.span7.extra-medium-text.bold
+                  .trait_title.first.span7.extra-medium-text.default
                     = truncate competency, length: 25
                   .stakeholder_rating.medium-text.pull-left
                     = competency_score[:average_score_excluding_self][:points] rescue "-"
@@ -48,7 +47,6 @@
                       - percent_360 = 0
                     .divider1
                     .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
-                    .descending_graph_bar.min
                     .divider1
         .clr
     .divider2

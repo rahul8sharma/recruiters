@@ -4,6 +4,7 @@ class MasterDataController < ApplicationController
   
   helper_method :resource_name
   helper_method :index_columns
+  helper_method :form_fields
   helper_method :resource_path
   helper_method :index_path
   
@@ -22,11 +23,11 @@ class MasterDataController < ApplicationController
   end
   
   def show
-    @resource = api_resource.find(params[:id], :methods => index_columns)
+    @resource = api_resource.find(params[:id], :methods => form_fields)
   end
   
   def edit
-    @resource = api_resource.find(params[:id], :methods => index_columns)
+    @resource = api_resource.find(params[:id], :methods => form_fields)
   end
   
   def update
@@ -46,12 +47,17 @@ class MasterDataController < ApplicationController
   def index
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
-    params[:search] = params[:search].each{|key,val| params[:search][key].strip! }
+    params[:search].each{|key,val| params[:search][key].strip! }
     @objects = api_resource.where(
-      :query_options => params[:search], 
+      :query_options => params[:search],
+      :joins => params[:joins],
       :methods => index_columns,
       :page => params[:page], 
       :per => 10).all
+    respond_to do |format|      
+      format.html
+      format.json{ render json: @objects.to_a.to_json }
+    end
   end
   
   def destroy_all
@@ -87,8 +93,6 @@ class MasterDataController < ApplicationController
       redirect_to request.env['HTTP_REFERER'] and return
     end
     params[:export][:filters] ||= {}
-    params[:export][:filters][:functional_area_id] ||= nil
-    params[:export][:filters][:job_experience_id] ||= nil
     api_resource\
       .export_to_google_drive(params[:export])
     redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
@@ -132,6 +136,10 @@ class MasterDataController < ApplicationController
   
   def s3_key
     "#{resource_name}/master_data.csv.zip"
+  end
+  
+  def form_fields
+    return index_columns
   end
   
   def search_columns

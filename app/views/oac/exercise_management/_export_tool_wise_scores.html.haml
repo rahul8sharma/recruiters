@@ -1,0 +1,11 @@
+= form_tag oac_export_tool_wise_scores_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Download Toolwise Scores
+    = fields_for "export" do |f|
+      %p
+        Exercise ID : 
+        = f.text_field :exercise_id
+    .actions
+      = submit_tag "Download Toolwise Scores"
+

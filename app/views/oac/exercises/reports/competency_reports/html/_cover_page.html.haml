@@ -1,0 +1,22 @@
+#overview.section01
+  .overall_report.container
+    .divider3
+    .pull-left
+      .user-name
+        = @report.report_data[:user][:name]
+      .divider1
+      .extra-medium-text
+        Assessment:
+        = @report.report_data[:exercise][:name]
+        %br/
+        Assessment Answered On:
+        = hdate @report.report_data[:completed_at]
+    - score_hash = HashWithIndifferentAccess.new({aggregate_score_bucket: @report.report_data[:aggregate_score][:bucket], aggregate_score_color: @report.report_data[:aggregate_score][:color],aggregate_score_rating: @report.report_data[:aggregate_score][:rating] })
+    .pull-right
+      - section_value.each do |value|
+        - locals = Hash[value["locals"].map { |key, value| [key.to_sym, score_hash[key.to_sym]] }]
+        = render :partial => value["path"], :locals => locals
+      .clr
+      .divider1
+    .clr
+    .divider2

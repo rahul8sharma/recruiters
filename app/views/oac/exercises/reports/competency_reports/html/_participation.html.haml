@@ -1,0 +1,6 @@
+.participation
+  .container
+    .content
+      %p Dear #{@report.report_data[:user][:name]},
+
+      = @report.report_data[:cover_letter].to_s.html_safe

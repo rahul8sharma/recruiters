@@ -1,4 +1,5 @@
 class Engagement::Surveys::UsersController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter { authorize_user!(params[:company_id]) }
   before_filter :get_company
@@ -248,14 +249,10 @@ class Engagement::Surveys::UsersController < ApplicationController
   end
   
   def get_templates
-    category = Vger::Resources::Template::TemplateCategory::SEND_SURVEY_TO_EMPLOYEE
-    @templates = Vger::Resources::Template\
-                  .where(query_options: {
-                    category: category
-                  }, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @templates |= Vger::Resources::Template\
-                  .where(query_options: {
-                    category: category
-                  }, scopes: { global: nil }).all.to_a
+    query_options = {
+      "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_SURVEY_TO_EMPLOYEE
+    }
+    @templates = get_templates_for_company(query_options, @company.id)
+    @templates |= get_global_tempaltes(query_options)
   end
 end
