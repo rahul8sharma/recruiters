@@ -13,6 +13,7 @@
       - scored_bucket = data[:score][:bucket]
       - range = (to_bucket_weight - from_bucket_weight)*80
       - left = (from_bucket_weight-1)*80
+      - scores_hash = HashWithIndifferentAccess.new({:data => data[:score][:description],:competency_scores=> data[:competency_scores], :score_buckets=>@score_buckets,:competency_scores=> data[:competency_scores],:toolwise_scores=> data[:toolwise_scores] })
       .frame
         .heading.pull-left
           = truncate config[:name], length: 35          
@@ -20,14 +21,8 @@
           = scored_bucket
         .clr
         .divider1
-
         .padding-all2.no-t-padding
-          = render :partial => "oac/exercises/reports/competency_reports/html/score_description", :locals=>{:data=> data[:score][:description]}
-        
-          = render :partial => "oac/exercises/reports/competency_reports/html/behaviors_measured_graph", :locals=>{:competency_scores=> data[:competency_scores], :score_buckets=>@score_buckets}
-          = render :partial => "oac/exercises/reports/competency_reports/html/strengths_improvement", :locals=>{:competency_scores=> data[:competency_scores]}
-          = render :partial => "oac/exercises/reports/competency_reports/html/competency_specific_score", :locals=>{:toolwise_scores=> data[:toolwise_scores]}
+          - section_value.each do |section|
+            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, scores_hash[key.to_sym]] }]
       .divider1
-
-          
   .divider2

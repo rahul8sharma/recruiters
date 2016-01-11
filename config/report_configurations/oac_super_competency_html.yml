@@ -139,7 +139,41 @@
     id: "html_data_points_competency_wise",
     text: "Data Points Competency Wise",
     path: "oac/exercises/reports/competency_reports/html/data_points_competency_wise",
-    children: []
+    children: [
+      {
+        id: "html_data_points_competency_wise_score_description",
+        text: "Score Description",
+        path: "oac/exercises/reports/competency_reports/html/score_description",
+        locals: {
+          data: "data[:score][:description]"
+        }
+      },
+      {
+        id: "html_data_points_competency_wise_behaviors_measured_graph",
+        text: "Behaviour Measured Graph",
+        path: "oac/exercises/reports/competency_reports/html/behaviors_measured_graph",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        }
+      },
+      {
+        id: "html_data_points_competency_wise_strengths_improvement",
+        text: "Strengths and Areas of Improvement",
+        path: "oac/exercises/reports/competency_reports/html/strengths_improvement",
+        locals: {
+          competency_scores: "data[:competency_scores]"
+        }
+      },
+      {
+        id: "html_data_points_competency_wise_competency_specific_score",
+        text: "Competency Wise Score",
+        path: "oac/exercises/reports/competency_reports/html/competency_specific_score",
+        locals: {
+          toolwise_scores: "data[:toolwise_scores]"
+        }
+      }
+    ]
   },
   {
     id: "html_assessor_feedback",
