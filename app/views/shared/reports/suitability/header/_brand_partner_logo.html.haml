@@ -1,4 +1,5 @@
 .span
-  - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-  %img.pull-right{:src => brand_partner_image_path}
+  - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+    - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+    %img.pull-right{:src => brand_partner_image_path, :style=>"width: 120px"}
 .clr

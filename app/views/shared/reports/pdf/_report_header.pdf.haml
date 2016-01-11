@@ -2,7 +2,7 @@
   .logo.full-logo
     = image_tag('report/pdf/jombay-logo-icon.png')
   - if @report.report_hash[:assessment][:brand_partner] && @report.report_hash[:assessment][:brand_partner] == "cocubes"
-    - logo_url = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}_new.png")
+    - logo_url = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
     .logo-partner.with-full-logo
       = image_tag(logo_url)
   .text-right
