@@ -183,12 +183,13 @@ function createJSTree(container){
 
 }
 
-function generatePreview(assessmentType, viewMode, $jsTree, candidate_type){  
+function generatePreview(assessmentType, viewMode, $jsTree, candidate_type, custom_message){  
   var uri = "view_mode="+viewMode;
   uri += "&assessment_type="+assessmentType;
   uri += "&report_type="+reportType;
   uri += "&company_id="+company_id;
   uri += "&candidate_type="+candidate_type;
+  uri += "&custom_message="+custom_message;
   
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
   var configuration = updateInput();
@@ -225,12 +226,12 @@ function enablePreviewButtons(){
   $("#generate_pdf_preview").html("Generate PDF Preview");
 }
 
-function loadPreview($btn, $tree, candidate_type){
+function loadPreview($btn, $tree, candidate_type, custom_message){
   $btn.html("Please wait...");
   $btn.attr("disabled", true);
   document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
   updateInput();
-  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type);
+  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type, custom_message);
 }
 
 $(document).ready(function(){
@@ -255,8 +256,9 @@ $(document).ready(function(){
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
+    var custom_message = $('#exercise_cover_letter').length == 1 ?$('#exercise_cover_letter').val() : "";
     if($('#set_assessment_type').val() !== "") {
-      loadPreview($(this), $htmlTree, candidate_type);
+      loadPreview($(this), $htmlTree, candidate_type,custom_message);
     } else {
       alert("Please select assessment type!");
     }
@@ -265,8 +267,9 @@ $(document).ready(function(){
   $('#generate_pdf_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
+    var custom_message = $('#exercise_cover_letter').length ==1 ?$('#exercise_cover_letter').val() : "";
     if($('#set_assessment_type').val() !== "") {
-      loadPreview($(this), $pdfTree, candidate_type);
+      loadPreview($(this), $pdfTree, candidate_type,custom_message);
     } else {
       alert("Please select assessment type!");
     }  

@@ -181,6 +181,8 @@ class ReportConfigurationsController < MasterDataController
     @report = Vger::Resources::Oac::UserExerciseReport.new(report_conf)
  
     @report.report_hash = @report.report_data
+    @report.report_data[:cover_letter] = params[:custom_message]
+    
     @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
     
     layout = "layouts/oac/reports.#{params[:view_mode]}.haml"
