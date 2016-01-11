@@ -1,7 +1,13 @@
 function getTemplateVariablesForCategory(category) {
+  var obj = {
+    joins: "template_categories",
+    search: {
+      "template_categories.name": category
+    }
+  };
   $.ajax({
     url: "/template_variables",
-    data: { joins: "template_categories", search: { "template_categories.name": category } },
+    data: obj,
     success: function(data){
       $("#template_variables").html("");
       $(data).each(function(index,object){
@@ -28,10 +34,10 @@ jQuery(document).ready(function($){
     currentElement.insertAtCaret("<$"+$(this).attr("template_variable_name")+"$>");
   });
   
-  $("#template_category").change(function(){
-    var category = $(this).val();
+  $("#template_template_category_id").change(function(){
+    var category = $("#template_template_category_id option:selected").text();
     getTemplateVariablesForCategory(category);
   });
-  var category = $("#template_category").val();
+  var category = $("#template_template_category_id option:selected").text();
   getTemplateVariablesForCategory(category);
 });
