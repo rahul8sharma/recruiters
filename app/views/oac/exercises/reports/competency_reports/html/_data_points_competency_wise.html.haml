@@ -13,7 +13,7 @@
       - scored_bucket = data[:score][:bucket]
       - range = (to_bucket_weight - from_bucket_weight)*80
       - left = (from_bucket_weight-1)*80
-      - scores_hash = HashWithIndifferentAccess.new({:data => data[:score][:description],:competency_scores=> data[:competency_scores], :score_buckets=>@score_buckets,:competency_scores=> data[:competency_scores],:toolwise_scores=> data[:toolwise_scores] })
+      - scores_hash = HashWithIndifferentAccess.new({:description => data[:score][:description],:competency_scores=> data[:competency_scores], :score_buckets=>@score_buckets,:competency_scores=> data[:competency_scores],:toolwise_scores=> data[:toolwise_scores] })
       .frame
         .heading.pull-left
           = truncate config[:name], length: 35          

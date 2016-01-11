@@ -145,7 +145,7 @@
         text: "Score Description",
         path: "oac/exercises/reports/competency_reports/html/score_description",
         locals: {
-          data: "data[:score][:description]"
+          description: "data[:score][:description]"
         }
       },
       {
