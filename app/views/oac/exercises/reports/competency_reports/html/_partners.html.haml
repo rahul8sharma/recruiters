@@ -1,8 +1,5 @@
-.partners.text-center
+.partners.text-right
   .container
-    .divider2
-    .big-text
-      Partners
     .divider1
     .partner_logos
       - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
