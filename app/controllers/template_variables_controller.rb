@@ -36,6 +36,8 @@ class TemplateVariablesController < MasterDataController
     params[:template_variable][:template_category_ids] =
             params[:template_variable][:template_category_ids]\
                                                           .split(",")\
+                                                          .select(&:present?)\
+                                                          .compact\
                                                           .map(&:to_i)
   end
 end
