@@ -32,9 +32,9 @@
   - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
     .company-summary
       .content
-        - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
+        - imagePath = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
         .company-logo
-          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 50px "}
+          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 78px "}
         .divider1
         = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
   - else
