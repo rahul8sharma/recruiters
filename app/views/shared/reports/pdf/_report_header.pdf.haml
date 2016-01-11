@@ -2,8 +2,9 @@
   .logo.full-logo
     = image_tag('report/pdf/jombay-logo-icon.png')
   - if @report.report_hash[:assessment][:brand_partner] && @report.report_hash[:assessment][:brand_partner] == "cocubes"
+    - logo_url = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
     .logo-partner.with-full-logo
-      = image_tag('report/pdf/cocubes-logo-infiniti.png')
+      %img{:src => logo_url, :style => "padding-left: 10px;"}
   .text-right
     .user_name
       = @report.report_hash[:user][:name]

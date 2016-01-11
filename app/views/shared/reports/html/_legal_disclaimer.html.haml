@@ -4,15 +4,13 @@
       .icon
       .title.black
         - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
-          - if @report.report_hash[:assessment][:brand_partner] == "cocubes"
-            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}_disclaimer.png")
-          - else
-            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-          %img{:src => brand_partner_image_path, :style =>"height: 55px;position: relative;top: -7px;left: -5px;", :align => "center"}
-        Legal Disclaimer
+          - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+          %img{:src => brand_partner_image_path, :style =>"height: 55px;position: relative;top: -17px;left: 2px;", :align => "center"}
       .clr
   .divider3
   .container
+    %p.extra-large-text
+      Legal Disclaimer
     %p
       This report is strictly confidential and should be used only for its intended purpose. Unauthorised sharing or publishing of this report in any manner would constitute a breach of privacy. Jombay reserves the right to use any data associated with the report for research purposes. 
 
