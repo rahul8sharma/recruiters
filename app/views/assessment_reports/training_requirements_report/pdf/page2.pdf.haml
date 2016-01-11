@@ -13,7 +13,7 @@
         Average Score
       .clr
   .clr
-  %ul.training-need-list
+  %ul.training-need-list.small
     - counter = step
     - limiter = Rails.application.config.reports["html"]["graph_limiter_on_training_requirement_report"]
     - factor_scores.keys.each_slice(3) do |factor_names|
