@@ -1,0 +1,10 @@
+.pull-left
+  .user-name
+    = @report.report_data[:user][:name]
+  .divider1
+  .extra-medium-text
+    Assessment:
+    = @report.report_data[:exercise][:name]
+    %br/
+    Assessment Answered On:
+    = hdate @report.report_data[:completed_at]
