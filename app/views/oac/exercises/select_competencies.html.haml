@@ -6,20 +6,22 @@
   = form_for @exercise, as: :exercise, url: select_competencies_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
     .assessments-list
       .list-snippet-titles.extra-medium-text.clearfix
-        .span6.first.bold
+        .span5.first.bold
           Competencies
         - @exercise_tools.each do |exercise_tool|
           .span3.text-center.bold
             = exercise_tool.tool.display_name
-        .span2
+        .span3
+          Weightage
+        .span3
           From Bucket
-        .span2
+        .span3
           To Bucket      
         .divider3          
       %ul
         - @competencies.sort_by{|competency| competency.modules.size }.reverse.each do |competency|
           %li.list-snippet.border-bottom-grayLighter.medium-text{ class: (@non_selected_competencies.include?(competency) ? "alert alert-error" : "") }
-            .span6.first
+            .span5.first
               = competency.name
             - @exercise_tools.each_with_index do |exercise_tool, index|
               - exercise_tool.competency_configuration ||= {}
@@ -35,6 +37,7 @@
             - @exercise.competency_configuration[competency.id.to_s] ||= {}
             - @exercise.competency_configuration[competency.id.to_s][:desired_range] ||= {}
             - selected = @exercise.competency_configuration[competency.id.to_s][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
+            %input.span3{  type: "text", name: "exercise[competency_configuration][#{competency.id}][weightage]", value: (@exercise.competency_configuration[competency.id.to_s][:weightage] || 1) }
             %select.span3{ name: "exercise[competency_configuration][#{competency.id}][desired_range][from_bucket]" }
               - @super_competency_score_buckets.each do |norm_bucket|
                 %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
