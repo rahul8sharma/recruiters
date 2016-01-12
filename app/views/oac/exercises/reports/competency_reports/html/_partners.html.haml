@@ -5,6 +5,6 @@
       - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
         = image_tag("report/html/oac/partner_logos/#{logo}")
     .large-text.line-height2.pull-right
-      Partners
+      Powered by
     .clr
     .divider1

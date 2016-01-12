@@ -42,6 +42,12 @@
     path: "oac/exercises/reports/competency_reports/html/cover_page",
     children: [
       {
+        id: "html_cover_page_name_and_details",
+        text: "Name and Completion Date",
+        path: "oac/exercises/reports/competency_reports/html/cover_page/details",
+        locals: {}
+      },
+      {
         id: "html_cover_page_aggregate_score",
         text: "Aggregate Score",
         path: "oac/exercises/reports/competency_reports/html/cover_page/aggregate_score",
