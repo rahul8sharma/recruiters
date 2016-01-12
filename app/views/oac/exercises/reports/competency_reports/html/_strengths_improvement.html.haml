@@ -9,6 +9,7 @@
     %td.tool_scores
       - strengths = competency_scores.select do |name, cdata|
         - cdata[:score][:pass]
+      - strengths = Hash[strengths.sort_by{|name, cdata| cdata[:score][:score] }.reverse]
       - if strengths.present?
         %ul.disc.gray-dark.medium-text
           - strengths.each do |name,cdata|
@@ -21,6 +22,7 @@
     %td.tool_scores
       - weaknesses = competency_scores.select do |name, cdata|
         - !cdata[:score][:pass]
+      - weaknesses = Hash[weaknesses.sort_by{|name, cdata| cdata[:score][:score] }]
       - if weaknesses.present?
         %ul.disc.gray-dark.medium-text
           - weaknesses.each do |name,cdata|
