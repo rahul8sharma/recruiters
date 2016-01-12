@@ -1,48 +1,60 @@
-.inner
-  .divider2
-  .scores.sjt
-    %h1.font-normal.blue_heading.large-text.pull-left
-      .divider2
-      Scores of Competencies/Values measured
-    .scale
-      .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-      .marker-container
-        - @company_norm_buckets.each do |norm_bucket|
-          .marker
-            - if norm_bucket.name.split(" ").size == 1
-              %br/
-            = norm_bucket.name
-        .clr
-    .clr
+.competency_report
+  .inner
     .divider2
-
-    .frame
-      %ul.clearfix.scores_listing.first
-        - @report.report_hash[:competency_scores].each do |competency_name, competency_score|
-          - norm_bucket_uid = competency_score[:grade_uid]
-          - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-          %li{:id => "#{competency_name}"}
-            .lhs-sec.pull-left
-              .hexagon-icon
-              .span.first
-                .factor-name.pull-left
-                  = competency_name 
-                .clr
-            .rhs-sec.pull-right
-              .scale
-                .line{:style => "width:250px"}
-                .marker-container
-                  - @company_norm_buckets.each do |company_norm_bucket|
-                    .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
-                      = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
-                  .clr
-               
+    .scores.sjt
+      %h1.font-normal.blue_heading.large-text.pull-left
+        Scores of Competencies/Values measured
+      .instruction_container.pull-left.left-offset1
+        .instructions
+          .box.pull-left
+            .box-icon.pull-left
+            .box-title.pull-left 
+              Expected Score 
             .clr
-            .divider1
-            .factor-description
-              - if competency_score[:factor_scores].present?
-                - competency_score[:factor_scores].each do |factor_name, factor_score|
-                  %p
-                    = factor_score[:description]
+          .instruction1.pull-left
+            Score Obtained
+          .clr
+      .clr
+      .frame
+        %ul.clearfix.scores_listing.first
+          - marker_width = 50
+          - line_width = (@company_norm_buckets.size-1)*marker_width
+          - @report.report_hash[:competency_scores].each do |competency_name, competency_score|
+            - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
+            - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
+            - norm_bucket_uid = competency_score[:grade_uid]
+            - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+            - position = (company_norm_bucket.weight - 1) * marker_width
+            - offset = ((from_norm_bucket.weight - 1) * marker_width)
+            - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
+            - offset = offset-17 if width == 0 && offset != 0
+            - width = 17 if width == 0   
+            - scored_weight = company_norm_bucket.weight
+            - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable"
 
-    .divider1
+            %li{:id => "#{competency_name}"}
+              .lhs-sec.pull-left
+                .span10.first
+                  .factor-name
+                    = competency_name
+                   
+              .rhs-sec.pull-right
+                .scale
+                  .line{:style => "width:250px"}
+                  .marker-container
+                    .desire_range{:style => "width:#{width}px;margin-left: #{offset}px"}
+                    - @company_norm_buckets.each do |company_norm_bucket|
+                      .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
+                        = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+                    .clr
+                 
+              .clr
+              .divider1
+              .factor-description
+                - if competency_score[:factor_scores].present?
+                  - competency_score[:factor_scores].each do |factor_name, factor_score|
+                    %p
+                      = factor_score[:description]
+      .divider1
+
+
