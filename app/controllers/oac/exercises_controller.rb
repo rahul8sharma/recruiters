@@ -85,6 +85,15 @@ class Oac::ExercisesController < ApplicationController
 
   def select_tools
     if request.put?
+      params[:exercise][:exercise_tools_attributes] ||= {}
+      params[:exercise][:exercise_tools_attributes] = 
+      Hash[params[:exercise][:exercise_tools_attributes].select do |tool_index, tool_data|
+        tool_data[:tool_id].present?
+      end]
+      if params[:exercise][:exercise_tools_attributes].size < 2
+        flash[:error] = "Please select a minimum of 2 tools"
+        render :action => :select_tools and return
+      end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
         redirect_to customize_assessment_company_oac_exercise_path(@company.id, @exercise.id)
@@ -98,6 +107,17 @@ class Oac::ExercisesController < ApplicationController
 
   def customize_assessment
     if request.put?
+      jombay_tools_attributes = Hash[params[:exercise][:exercise_tools_attributes]\
+                                                  .select do |index, tool_data|
+        tool_data.keys.include?("industry_id")
+      end]
+      if jombay_tools_attributes.values\
+        .any?{|tool_data| 
+        tool_data["industry_id"].blank? 
+      } 
+        flash[:error] = "Please select an industry"
+        render :action => :customize_assessment and return
+      end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
         redirect_to select_super_competencies_company_oac_exercise_path(@company.id, @exercise.id)
@@ -114,6 +134,11 @@ class Oac::ExercisesController < ApplicationController
       Hash[params[:exercise][:super_competency_configuration].select do |competency_id, competency_configuration|
         competency_configuration[:enabled]
       end]
+      @exercise.super_competency_configuration = params[:exercise][:super_competency_configuration]
+      if params[:exercise][:super_competency_configuration].size < 2
+        flash[:error] = "Please select a minimum of 2 competencies"
+        render :action => :select_super_competencies and return
+      end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
         redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)
@@ -126,12 +151,26 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def select_competencies
+    @non_selected_competencies = []
     if request.put?
       params[:exercise][:exercise_tools_attributes].each do |id, exercise_tools_attributes|
         params[:exercise][:exercise_tools_attributes][id][:competency_configuration] = 
         Hash[exercise_tools_attributes[:competency_configuration].select do |competency_id, competency_configuration|
           competency_configuration[:enabled]
         end]
+      end
+      @exercise_tools.each do |exercise_tool|
+        exercise_tool.competency_configuration = 
+        params[:exercise][:exercise_tools_attributes][exercise_tool.id.to_s][:competency_configuration]
+      end
+      @non_selected_competencies = @competencies.select do |competency|
+        params[:exercise][:exercise_tools_attributes].none? do |id, exercise_tools_attributes|
+          exercise_tools_attributes[:competency_configuration].keys.map(&:to_i).include?(competency.id.to_i)
+        end
+      end
+      if @non_selected_competencies.present?
+        flash[:error] = "#{@non_selected_competencies.map(&:name).join(', ')} is not measured by any of the tools."
+        render :action => :select_competencies and return
       end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
@@ -149,7 +188,7 @@ class Oac::ExercisesController < ApplicationController
       params[:exercise][:workflow_status] = Vger::Resources::Oac::Exercise::WorkflowStatus::MARKED_FOR_CREATION
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
-        redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id)
+        redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
       else
         flash[:error] = @exercise.error_messages.to_a.join("<br/>").html_safe
         render :action => :set_weightage
@@ -174,6 +213,12 @@ class Oac::ExercisesController < ApplicationController
       query_options: {
         exercise_id: params[:id]
       },
+      methods: [
+        :industry_id,
+        :functional_area_id,
+        :job_experience,
+        :page_size
+      ],
       include: [:tool]
     ).all
   end
@@ -288,9 +333,9 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def validate_status
-    #if @exercise.workflow_status == Vger::Resources::Oac::Exercise::WorkflowStatus::READY
-    #  flash[:error] = "You can't update the configuration of this Online Assessment Center"
-    #  redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id)
-    #end  
+    if @exercise.workflow_status == Vger::Resources::Oac::Exercise::WorkflowStatus::READY
+      flash[:error] = "You can't update the configuration of this exercise."
+      redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
+    end  
   end
 end

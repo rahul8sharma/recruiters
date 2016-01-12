@@ -1,6 +1,6 @@
 .container
   .page-title
-    Select Competencies
+    Select Behaviors
   .divider1
   = render :partial => "shared/oac/oac-creation-sub-nav"
   = form_for @exercise, as: :exercise, url: select_competencies_company_oac_exercise_path(@company.id, @exercise.id), html: { method: :put } do |f|
@@ -18,7 +18,7 @@
         .divider3          
       %ul
         - @competencies.sort_by{|competency| competency.modules.size }.reverse.each do |competency|
-          %li.list-snippet.border-bottom-grayLighter.medium-text
+          %li.list-snippet.border-bottom-grayLighter.medium-text{ class: (@non_selected_competencies.include?(competency) ? "alert alert-error" : "") }
             .span6.first
               = competency.name
             - @exercise_tools.each_with_index do |exercise_tool, index|

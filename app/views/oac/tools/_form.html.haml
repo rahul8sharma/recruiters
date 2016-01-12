@@ -4,6 +4,7 @@
   = @resource.error_messages.to_a.join("<br/>").html_safe
   - form_fields.each do |index_column|
     - next if index_column.to_s == 'id'
+    - next if index_column.to_s == 'name' && params[:action] == "edit"
     .field
       = f.label index_column
       = f.text_field index_column
