@@ -1,0 +1,39 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "jstree"
+
+.container
+  .page-title
+    Edit Assessment
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+
+  = form_for @exercise, as: :exercise, url: company_oac_exercise_path(@company.id, @exercise.id), method: :put, html:  {id: "assessment_form"} do |f|
+    %input{:id => "input_config", :name => "exercise[report_configuration]", :value => @exercise.report_configuration.to_json ,:type => "hidden"}
+    %input{:id => "report_type", :value => "oac", :type => "hidden"}
+    %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
+    %input{:id => "set_assessment_type", :value => "super_competency", :type => "hidden"}
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Enter Assessment Center Title:
+        = f.text_field :name, placeholder: "#{@exercise.name}", class: "span8"
+      .clr
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Enter Cover Letter Content:
+        .clr
+        .divider1
+        = f.text_area :cover_letter, rows: 10, placeholder: "#{@exercise.cover_letter}", class: "span16"
+      .clr
+    .divider2
+    %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Update Assessment" }
+    .clr
+
+  = render :partial => "shared/report_configuration"
+  .clr
+  .divider1

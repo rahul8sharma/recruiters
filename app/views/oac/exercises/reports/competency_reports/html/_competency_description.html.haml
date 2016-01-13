@@ -1,0 +1,16 @@
+#competencies.competency_description
+  .container
+    .divider2
+    .title
+      Competencies Measured
+    .divider2
+    %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
+      - @report.report_data[:super_competency_scores].each do |name, data|
+        %tr
+          %td.left
+            .span3
+              = data[:name]
+
+          %td.right
+            = data[:description]
+    .divider2

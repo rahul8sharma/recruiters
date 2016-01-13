@@ -1,0 +1,44 @@
+.add
+  .page-title.pull-left #{@exercise.name}
+  %a.pull-right.medium-text.line-height2{:href=>"/help/process-explanation", :target=>"_blank", :title=>"Need help in adding Assessment Takers to this Assessment?"}
+    Need help in adding Assessment Takers?
+  .clr
+  .divider1
+  = render :partial => "shared/oac/oac-creation-sub-nav"
+  -# %a.medium-text.pull-right{:href => add_candidates_company_oac_exercise_path(params[:company_id], params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
+    Return to Manual Addition of Assessment Takers
+  .clr
+  .divider1
+  = form_for :bulk_upload, url: bulk_upload_company_oac_exercise_path(params[:company_id], params[:id]), method: :put do |f|
+    .bulk-upload
+      .bulk-upload-snippet
+        .heading
+          .pull-left
+            Add Assessment takers in bulk
+          .clr
+        .divider2
+        .left-sec.span15.no-border
+          .inner
+            .divider2
+            .fileUpload.disabled
+              %span Choose File
+              = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.csv'
+            %input#uploadFile{ :placeholder => "Choose File", :disabled => true}
+            .clr
+            .help-text
+              File format supported: CSV
+            .divider1
+            %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_bulk_upload_csv_company_oac_exercise_path(@company.id, @exercise.id)}
+              Download sample file for adding Assessment takers
+            .divider2
+            %input.pull-right.btn.btn-warning.large-text{ type: "submit", value: "Proceed"}
+        .clr
+        .divider2
+= javascript_include_tag 'common'  
+
+:javascript
+  document.getElementById("uploadBtn").onchange = function () {
+    var filename = this.value.split('\\').pop();
+    document.getElementById("uploadFile").value = filename;
+  };
+

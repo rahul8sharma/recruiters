@@ -1,4 +1,5 @@
 class WalkinGroupsController < ApplicationController
+  include TemplatesHelper
   before_filter :authenticate_user!
   before_filter :get_company
   
@@ -90,11 +91,9 @@ class WalkinGroupsController < ApplicationController
   
   def get_templates
     query_options = {
-      category: Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_WALKIN
+      "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_WALKIN
     }
-    @invitation_templates = Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @invitation_templates |= Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
+    @invitation_templates = get_templates_for_company(query_options, @company.id)
+    @invitation_templates |= get_global_tempaltes(query_options)
   end
 end

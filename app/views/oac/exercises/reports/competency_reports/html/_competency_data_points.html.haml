@@ -1,0 +1,61 @@
+#competency_data_points.section03
+  .divider2
+  .scores.container
+    .pull-left
+      .title
+        Competency Data Points
+      .divider2
+      -#
+        .instruction_container
+          .instructions
+            .box.pull-left
+              .box-icon.pull-left
+              .box-title.pull-left.extra-medium-text.default 
+                Expected Score
+              .clr
+            .instruction1.pull-left.extra-medium-text.default
+              Favorable Traits
+            .instruction2.less_favorable.pull-left.extra-medium-text.default
+              Less Favorable Traits
+            .clr
+    .scale
+      .line{:style => "width:400px"}
+      .marker-container
+        - @score_buckets.each do |score_bucket|
+          .marker
+            .arrow
+            .marker-info
+              = score_bucket.name
+            %br
+              = score_bucket.name
+        .clr
+    .clr
+    .divider3
+
+    .frame
+      %ul.clearfix.scores_listing.first
+        -2.times do
+          %li
+            .divider1
+            .lhs-sec.pull-left{:style => "width: 730px;"}
+              -#.span1.first.hexagon-icon.favorable
+              .span16.first
+                .factor-name.pull-left
+                  Networking
+                  .info
+                    Degree to which an individual takes initiative to network with people
+                  .arrow
+                .clr
+            .rhs-sec.pull-left
+              .slider{:style => "width:400px"}
+                .favorable.pointer{:style => "left:240px"}
+                  .score-indicater
+                    Average (High) 
+                  .arrow
+                
+                .range{:style => "margin-left: 160px;width: 80px;"}
+            .clr
+            .divider1
+            .factor-description
+              More likely to be open to expanding his/her circle of professional contacts; may sometimes look forward to meeting new people who could help him/her leverage his/her professional calibre; tends to keep in touch with most of his/her professional network, however might sometimes fail to follow up with others; may occasionally feel slightly uncomfortable initiating conversations with particular people
+  .divider2

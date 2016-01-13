@@ -3,6 +3,7 @@
 - norm_max_name = "assessment[assessment_competencies_attributes][#{assessment_competency["id"]}][to_norm_bucket_id]"
 - from_norm_bucket_id = assessment_competency["from_norm_bucket_id"] || @norm_buckets.sort_by(&:weight).map(&:id).first
 - to_norm_bucket_id = assessment_competency["to_norm_bucket_id"] || @norm_buckets.sort_by(&:weight).map(&:id).last
+- weight_name = "assessment[assessment_competencies_attributes][#{assessment_competency["id"]}][weight]"
 
 %li
   %input{ type: "hidden", name: id_name, value: assessment_competency["id"]}
@@ -14,13 +15,14 @@
         = assessment_competency["competency"]["name"]
       .down-caret
   .left-offset1.pull-left
-    %select.span6.first{name: norm_min_name, index: "#{assessment_competency['id']}"}
+    %select.span4.first{name: norm_min_name, index: "#{assessment_competency['id']}"}
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id, selected: from_norm_bucket_id.to_i == norm_bucket.id}
           = norm_bucket.name
-    %select.span6{name: norm_max_name, index: "#{assessment_competency["id"]}"}
+    %select.span4{name: norm_max_name, index: "#{assessment_competency["id"]}"}
       - @norm_buckets.each do |norm_bucket|
         %option{value: norm_bucket.id, selected: to_norm_bucket_id.to_i == norm_bucket.id}
           = norm_bucket.name
+    %input.span4{:name => weight_name, :index => "#{assessment_competency["id"]}", :type => "text", :value => (assessment_competency.weight || 1)}
     .clr
     .divider1

@@ -1,0 +1,10 @@
+- width = 66.66
+.overview.competency
+  .bottom-triangle
+    .container
+      .divider2
+      .content
+        - section_value.each do |value|
+          = render :partial => value["path"], locals: {:section_value => value[:children]}
+      .clr
+      .divider2

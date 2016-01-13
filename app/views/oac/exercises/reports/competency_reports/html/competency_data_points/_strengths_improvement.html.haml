@@ -1,0 +1,35 @@
+%table.strengths_improvement.competency_specific_score{:width=>"100%", :cellpadding=>"0", :cellspacing=>"0"}
+  %tr
+    %td.tools
+      Strengths
+    %td.space
+    %td.tools
+      Areas of improvement
+  %tr
+    %td.tool_scores
+      - strengths = competency_scores.select do |name, cdata|
+        - cdata[:score][:pass]
+      - strengths = Hash[strengths.sort_by{|name, cdata| cdata[:score][:score] }.reverse]
+      - if strengths.present?
+        %ul.disc.gray-dark.medium-text
+          - strengths.each do |id,cdata|
+            %li
+              = cdata[:name]
+      - else
+        .medium-text
+          No strengths found 
+    %td.space
+    %td.tool_scores
+      - weaknesses = competency_scores.select do |id, cdata|
+        - !cdata[:score][:pass]
+      - weaknesses = Hash[weaknesses.sort_by{|id, cdata| cdata[:score][:score] }]
+      - if weaknesses.present?
+        %ul.disc.gray-dark.medium-text
+          - weaknesses.each do |id,cdata|
+            %li
+              = cdata[:name]
+      - else
+        .medium-text
+          No areas of improvement found
+
+.divider1

@@ -2,9 +2,9 @@ class HiringManagersController < ApplicationController
   before_filter :authenticate_user!
 
   def import
-		Vger::Resources::HiringManager.import(params[:file])
-		redirect_to hiring_managers_path, notice: "HiringManagers imported."
-	end	
+    Vger::Resources::HiringManager.import(params[:file])
+    redirect_to hiring_managers_path, notice: "HiringManagers imported."
+  end  
 
   def assign_jobs_form
     
@@ -17,7 +17,7 @@ class HiringManagersController < ApplicationController
   
   # GET /hiring_managers
   def index
-  	@hiring_managers = Vger::Resources::HiringManager.all
+    @hiring_managers = Vger::Resources::HiringManager.all
   end
 
   # GET /hiring_managers/new

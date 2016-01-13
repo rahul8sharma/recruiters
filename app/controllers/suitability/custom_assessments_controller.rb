@@ -1,4 +1,5 @@
 class Suitability::CustomAssessmentsController < AssessmentsController
+  include TemplatesHelper
   before_filter :get_company
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
   before_filter :get_templates, :only => [:new, :edit, :create]
@@ -137,7 +138,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @assessments = api_resource.where(
       :query_options => { 
         :company_id => params[:company_id], 
-        :assessment_type => ["fit","competency"] 
+        :assessment_type => ["fit","competency","super_competency"] 
       }, 
       :order => "#{order_by} #{order_type}", 
       :page => params[:page], 
@@ -263,12 +264,10 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   def get_templates
     query_options = {
-      :category => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
+      "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
     }
-    @templates = Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global_or_for_company_id: @company.id }).all.to_a
-    @templates |= Vger::Resources::Template\
-                  .where(query_options: query_options, scopes: { global: nil }).all.to_a
+    @templates = get_templates_for_company(query_options, @company.id)
+    @templates |= get_global_tempaltes(query_options)
   end
 
   def get_competencies(scope)

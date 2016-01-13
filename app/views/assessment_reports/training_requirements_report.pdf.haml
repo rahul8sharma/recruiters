@@ -38,10 +38,8 @@
     = render :partial => "assessment_reports/training_requirements_report/pdf/competencies_measured"
     .page-break
 
-- (0..factor_scores.keys.length-1).step(scores_step_pie) do |step|
-  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step_pie - 1))])
-  = render :template => "assessment_reports/training_requirements_report/pdf/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
-  .page-break  
+= render :template => "assessment_reports/training_requirements_report/pdf/page2", :locals => { :factor_scores => factor_scores}
+.page-break  
 
 - if @report.show_remaining_traits  
   - remaining_factor_scores = @report_data[:factor_scores].except(*top_training_needs.keys)

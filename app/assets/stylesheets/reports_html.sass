@@ -413,37 +413,55 @@ select
           .factor-name:hover
             color: #000
     &.sjt
+      .frame
+        border-width: 1px
+      .instruction_container
+        .instructions
+          .instruction1
+            background: image-url('report/html/sjt/score-obtained-hexagon.png') no-repeat 0 center
       ul.scores_listing 
         li
-          padding: 30px 40px
-          .hexagon-icon
-            background: image-url('report/html/sjt/trait-score-hexagon.png') no-repeat 0 center
-            height: 35px
+          padding: 20px 30px
+          border-top: 1px solid #28b29b
+          &:first-child
+            border: 0 none
+          .factor-name
+            color: #0a90c3
+            margin-top: 12px
            
           .rhs-sec 
             .scale
               height: 35px
               margin-right: -15px
+              .desire_range
+                left: 40px
+                top: 45px
+                z-index: 1
+                height: 4px
               .line
                 border-color: #ccc
                 height: 2px
-                bottom: -12px
+                bottom: -15px
               .marker-container 
                 z-index: 1000
                 .marker
-                  background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
+                  background: image-url('report/html/sjt/scale-pointer-hexagon-gray.png') no-repeat center bottom
                   font-size: 14px
                   font-weight: 200 
-                  height: 50px
+                  height: 55px
+                  position: relative
+                  z-index: 2
                   &.active
-                    background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
+                    background: image-url('report/html/sjt/score-obtained-hexagon-small.png') no-repeat center bottom
 
           .factor-description
+            margin: 0
             p 
-              background: image-url('report/html/sjt/trait-score-hexagon-small.png') no-repeat 0 6px
-              padding: 0 0 0 20px
-              font-size: 18px 
+              background: image-url('report/html/sjt/bulet-point.png') no-repeat 0 6px
+              padding: 0 0 0 15px
+              font-size: 16px 
               line-height: 23px
+              color: #808285
 
   @for $i from 0 through 4
     .offset#{$i}
@@ -469,6 +487,14 @@ select
     background: $less_favorable_color
  
   .competency_report
+    .desire_range
+      background-color: #3aafe5
+      border-radius: 3px
+      height: 7px
+      position: absolute
+      top: 21px
+      left: 14px
+      z-index: 999
     .functional-traits-title
       font-size: 18px 
       color: #808285
@@ -516,14 +542,6 @@ select
           .scale
             margin-right: 40px
             height: 35px
-            .desire_range
-              background-color: #3aafe5
-              border-radius: 3px
-              height: 7px
-              position: absolute
-              top: 21px
-              left: 14px
-              z-index: 999
             .line
               border-color: #ccc
               height: 2px
@@ -559,7 +577,7 @@ select
              
           .competency-name
             font-size: 18px
-            line-height: 20px
+            line-height: 32px
             width: 80%
           .competency-value
             margin-left: 0

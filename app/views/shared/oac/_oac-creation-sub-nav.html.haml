@@ -11,6 +11,10 @@
       - url = @exercise.id.present? ? customize_assessment_company_oac_exercise_path(@company.id, @exercise.id) : "#"
       %a{:href=> url } 
         Customize Assessment
+    %li{ class: ([:select_super_competencies].include?(params[:action].to_sym)) ? "active" : "" }
+      - url = @exercise.id.present? ? select_super_competencies_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      %a{:href=> url } 
+        Super Competencies
     %li{ class: ([:select_competencies].include?(params[:action].to_sym)) ? "active" : "" }
       - url = @exercise.id.present? ? select_competencies_company_oac_exercise_path(@company.id, @exercise.id) : "#"
       %a{:href=> url } 
@@ -20,14 +24,11 @@
       %a{:href=> url } 
         Set Weightage
     %li{ class: ([:add_candidates].include?(params[:action].to_sym)) ? "active" : "" }
-      - url = @exercise.id.present? ? add_candidates_company_oac_exercise_path(@company.id, @exercise.id) : "#"
+      - url = @exercise.id.present? ? add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id) : "#"
       %a{:href=> url } 
         Add Candidates
     %li{ class: ([:send_assessment].include?(params[:action].to_sym)) ? "active" : "" }
       - url = @exercise.id.present? ? send_assessment_company_oac_exercise_path(@company.id, @exercise.id) : "#"
       %a{:href=> url } 
         Send Assessment
-    %li{ class: ([:assign_assessor].include?(params[:action].to_sym)) ? "active" : "" }
-      %a{:href=>"#"} 
-        Assign Assessor 
 .divider2

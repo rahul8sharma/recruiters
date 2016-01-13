@@ -1,0 +1,30 @@
+- width = 66.66
+%ul.competency-list
+  - @report.report_data[:super_competency_scores].each do |id, data|
+    - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+    - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+    - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+    - scored_bucket_weight = data[:score][:weight].to_i
+    - scored_bucket = data[:score][:bucket]
+    - range = (to_bucket_weight - from_bucket_weight)*80
+    - left = (from_bucket_weight-1)*80
+    - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+    %li
+      .first.hexagon-icon.span1{:class => klass}
+      .competency-name.pull-left
+        = data[:name]
+      .competency-value.pull-right
+        .scale
+          .line{:style => "width:#{@score_buckets.size*width-14}px"}
+          .marker-container
+            - section_value.each do |value|
+              = render :partial => value["path"], locals: {:range => range, :left => left}
+            - @score_buckets.each do |score_bucket|
+              - klass = score_bucket.name == scored_bucket ? "active" : ""
+              - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+              .marker{ class: klass }
+                - if score_bucket.name == data[:score][:bucket]
+                  = data[:score][:bucket]
+            .clr
+        .clr
+      .clr     

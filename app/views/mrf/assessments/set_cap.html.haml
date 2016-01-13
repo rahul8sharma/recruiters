@@ -1,0 +1,45 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+= form_for @assessment, as: :assessment, url: set_cap_company_mrf_assessment_path(@company.id,@assessment.id), html: { method: :put } do |f|
+  .container
+    .page-title
+      Please enter lower cap and upper cap for stakeholders
+    .divider3
+    .norms
+      .factor-list
+        %ul.factor-snippet.clearfix
+          -2.times do
+            %li.span15.item.big-text.black
+              .divider
+              .span6.left-offset1
+                Stakeholder Type
+              .span3
+                Lower Cap
+              .span3.left-offset1
+                Upper Cap
+              .clr
+          - Vger::Resources::Mrf::Feedback::ROLES.sort.each_with_index do |role, index|
+            %li.span15.item
+              .divider
+              .index_icon.pull-left
+                = index+1
+              .span6
+                %label.large-text
+                  = role.titleize
+              
+              %select.span3{:name => "assessment[lower_cap]"}
+                - 100.times do |index|
+                  %option{ :value => index }
+                    = index+1
+               
+              %select.span3.left-offset1{:name => "assessment[upper_cap]"}
+                - 100.times do |index|
+                  %option{ :value => index }
+                    = index+1
+              .clr
+              .divider1
+      .divider3
+      -# %input.large-text.bold.btn.btn-info.pull-right{:type=>"submit", :value=>"Proceed"}/
+      .clr

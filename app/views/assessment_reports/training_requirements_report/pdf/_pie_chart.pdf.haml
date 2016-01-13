@@ -1,6 +1,6 @@
 %ul.training-need-list
   - counter = step
-  - factor_scores.keys.each_slice(5) do |factor_names|
+  - factor_scores.keys.each_slice(3) do |factor_names|
     - factor_scores = @report_data[:factor_scores].slice(*factor_names)
     %li
       - factor_scores.each_with_index do |(factor_name,factor_score), index|
@@ -8,7 +8,6 @@
         .snippet
           .trait-title
             = factor_name
-          .divider1
           .pie-visual
             .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 150px;height: 150px;" }
           .divider1

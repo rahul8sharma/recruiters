@@ -241,7 +241,13 @@ class Mrf::AssessmentsController < ApplicationController
         })
       end
       @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id))
-      redirect_to order_enable_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      if @assessment.error_messages.present?
+        flash[:error] = @assessment.error_messages.join("<br/>").html_safe 
+        redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      else
+        redirect_to order_enable_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
+      end
+      
     end
   end
 
@@ -282,6 +288,12 @@ class Mrf::AssessmentsController < ApplicationController
       @subjective_items_self.each do |subjective_item|
         @assessment.subjective_items_self[subjective_item.id.to_s] ||= {}
       end
+    end
+  end
+
+  def set_cap
+    if request.put?
+      redirect_to add_stakeholders_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
   end
 

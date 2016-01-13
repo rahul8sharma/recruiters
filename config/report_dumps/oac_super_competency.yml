@@ -1,0 +1,1466 @@
+--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+exercise_id: 25
+html_bucket: report_pdfs_staging
+html_key: oac_reports/html/oac_report_10.html
+pdf_bucket:
+pdf_key:
+report_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  html: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_header
+      text: Report Header
+      path: oac/exercises/reports/competency_reports/html/header
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_header_overview
+        text: Overview
+        path: oac/exercises/reports/competency_reports/html/header/overview
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_header_competencies
+        text: Competencies
+        path: oac/exercises/reports/competency_reports/html/header/competencies
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_header_tools
+        text: Tools
+        path: oac/exercises/reports/competency_reports/html/header/tools
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_header_remarks
+        text: Remarks
+        path: oac/exercises/reports/competency_reports/html/header/remarks
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_partners
+      text: Partners
+      path: oac/exercises/reports/competency_reports/html/partners
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_cover_page
+      text: Cover Page
+      path: oac/exercises/reports/competency_reports/html/cover_page
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_cover_page_name_and_details
+        text: Name and Completion Date
+        path: oac/exercises/reports/competency_reports/html/cover_page/details
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_participation
+      text: Particiaption
+      path: oac/exercises/reports/competency_reports/html/participation
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_competency_description
+      text: Competency Description
+      path: oac/exercises/reports/competency_reports/html/competency_description
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_competency_overview
+      text: Competency Overview
+      path: oac/exercises/reports/competency_reports/html/competency_overview
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_competency_overview_legend
+        text: Legend For Markers[With / Without Desired Range]
+        path: oac/exercises/reports/competency_reports/html/competency_overview/overview
+        children:
+        - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          id: html_competency_overview_legend_with_desired
+          text: Legend With Desired Range
+          path: oac/exercises/reports/competency_reports/html/competency_overview/with_desired_range
+          locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+          children:
+          state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            selected: true
+        - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          id: html_competency_overview_legend_without_desired
+          text: Legend Without Desired Range
+          path: oac/exercises/reports/competency_reports/html/competency_overview/without_desired_range
+          locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+          children:
+          state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            selected: true
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_competency_overview_graph
+        text: Graph
+        path: oac/exercises/reports/competency_reports/html/competency_overview/graph_holder
+        children:
+        - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          id: html_competency_overview_graph_with_desired_range
+          text: Graph With Desired Range
+          path: oac/exercises/reports/competency_reports/html/competency_overview/graph_with_desired_range
+          locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+          children:
+          state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            selected: true
+        - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          id: html_competency_overview_graph_without_desired_range
+          text: Graph Without Desired Range
+          path: oac/exercises/reports/competency_reports/html/competency_overview/graph_without_desired_range
+          locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+          children:
+          state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            selected: true
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_competency_overview_tool_wise
+      text: Toolwise Competency Overview
+      path: oac/exercises/reports/competency_reports/html/competency_overview_tool_wise
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_toolwise_descriptions
+      text: Toolwise Description
+      path: oac/exercises/reports/competency_reports/html/toolwise_descriptions
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_top_bottom_competencies
+      text: Top and Bottom Competencies
+      path: oac/exercises/reports/competency_reports/html/top_bottom_competencies
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_data_points_competency_wise
+      text: Data Points Competency Wise
+      path: oac/exercises/reports/competency_reports/html/data_points_competency_wise
+      children:
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_data_points_competency_wise_score_description
+        text: Score Description
+        path: oac/exercises/reports/competency_reports/html/competency_data_points/score_description
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          description: data[:score][:description]
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_data_points_competency_wise_behaviors_measured_graph
+        text: Behaviour Measured Graph
+        path: oac/exercises/reports/competency_reports/html/competency_data_points/behaviors_measured_graph
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          competency_scores: data[:competency_scores]
+          score_buckets: '@score_buckets'
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_data_points_competency_wise_strengths_improvement
+        text: Strengths and Areas of Improvement
+        path: oac/exercises/reports/competency_reports/html/competency_data_points/strengths_improvement
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          competency_scores: data[:competency_scores]
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        id: html_data_points_competency_wise_competency_specific_score
+        text: Competency Wise Score
+        path: oac/exercises/reports/competency_reports/html/competency_data_points/competency_specific_score
+        locals: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          toolwise_scores: data[:toolwise_scores]
+        children:
+        state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          selected: true
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_assessor_feedback
+      text: Assessor Feedback
+      path: oac/exercises/reports/competency_reports/html/assessor_feedback
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+    - !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: html_individual_development_plan
+      text: Individidual Development Plan
+      path: oac/exercises/reports/competency_reports/html/individual_development_plan
+      children:
+      state: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        selected: true
+  pdf: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    sections:
+report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  user: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Chandrakant
+    email: chandrakant@jombay.com
+    id: 70614
+  company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Jombay
+    id: 2
+  exercise: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Final OAC Test
+    id: 25
+  cover_letter: "<p>\r\n<b>Introduction:</b>\r\n</p>\r\n<p>\r\nThe Assessment Centre\
+    \ process was designed to capture many of the important characteristics of the\
+    \ role and focused on the behaviors most applicable to your performance. The scenarios\
+    \ provided to you were neutral in nature to ensure a level playing ground for\
+    \ all participants. The inputs were gathered from various exercises like solving\
+    \ online business simulations along with case studies and psychometric assessments.\
+    \ This feedback report focuses on the overall performance in the online tasks\
+    \ presented, rather than on \"right or wrong\" responses to the situations.</p>\r\
+    \n<p>\r\n<b>Report Content:</b>\r\n</p>\r\n<p>\r\nThis report contains feedback\
+    \ on your performance on several exercises including Psychometric Assessment,\
+    \ Situational Judgement Test, Business Simulations, Competency Based Interview\
+    \ and Business Case Study. The reports showcases score descriptions along with\
+    \ your strengths and areas of improvements on competencies identified for superior\
+    \ performance that are imperative for success.\r\n</p>\r\n"
+  assessor_feedback: '-'
+  completed_at: '2016-01-13T13:14:49Z'
+  tools: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      description: It is a personality assessment tool has 16 primary scales and other numerous derivative scales. It effectively measures aspects of Personality, Attitde, Emotional Control and Organisational Skills
+      logo: jombay.png
+    Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      description: Situation judgement Tests present hypothetical and challenging situations that employees might encounter at work, and may involve working with others as part of a team, interacting with others, and dealing with workplace problems. In response to each situation, candidates are presented with several possible actions (in multiple choice format) that could be taken when dealing with the problem described.
+      logo: jombay.png
+    Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      description: A online Simulation presents hypothetical cases and problems that the candidate may face at the workplace to recreate their responses to those situations and assess participants on the behaviours displayed based on the actions taken
+      logo: pearson.png
+    Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      description: A case study presents an account of a scenario in a business or industry. It chronicles the events that managers had to deal with, such as changes in the competitive environment, and charts the managers' response.The purpose of this tool is to evaluate how the participant understands the business environment and the impact of the solutions he/ she has provided
+      logo: knolskape.png
+    Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      description: Behavioural Event Interview (BEI) is a structured interview format that is used to collect information about an individual's past be havior. BEI is based on the premise that past behavior is the best predictor for future behavior. Specific incedents are targetted to hold the dialogue
+      logo: knolskape.png
+  super_competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Result Orientation
+      score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 39.59
+        bucket: Below Average
+        weight: 2
+        description: States clear goals and expectations up front in discussions. Helps set deadlines and prioritisation for team. Monitors progress against milestones or deadlines. Distributes recourses in unplanned manner and as per need.
+      description: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+      toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 65.0
+          score_bucket_id: 4
+          score_bucket: Above Average
+          weight: 4
+          pass: true
+        Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 50.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 43.33
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 51.75
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+      competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Managing Targets
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 62.0
+            score_bucket: Above Average
+            score_bucket_id: 4
+            weight: 4
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 65.0
+              score_bucket_id: 4
+              score_bucket: Average (High)
+              weight: 4
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 34.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 50.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 99.0
+              score_bucket_id: 5
+              score_bucket: High
+              weight: 5
+        '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Monitoring
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 57.67
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 66.0
+              score_bucket_id: 4
+              score_bucket: Above Average
+              weight: 4
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 30.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 77.0
+              score_bucket_id: 4
+              score_bucket: Above Average
+              weight: 4
+        '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Resource Optimization
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 30.0
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 50.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 10.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+        '4194': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Planning and Prioritization
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 21.0
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 21.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+    '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Leadership Potential
+      score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 49.51
+        bucket: Average
+        weight: 3
+        description: Gives adequate directions, makes needs and requirements reasonably clear. Motivates team members to improve their performance. Confronts subordinates openly and directly about performance problems on regular basis. Respects people for their talents and provides relevant recognition.
+      description: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+      toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 43.67
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 74.33
+          score_bucket_id: 4
+          score_bucket: Above Average
+          weight: 4
+          pass: true
+        Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 46.67
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: false
+        Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 55.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 5.0
+          score_bucket_id: 1
+          score_bucket: Low
+          weight: 1
+          pass: false
+      competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Giving Feedback
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 44.0
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 11.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 77.0
+              score_bucket_id: 5
+              score_bucket: Above Average
+              weight: 5
+        '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Delegation
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 53.67
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: false
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 55.0
+              score_bucket_id: 3
+              score_bucket: Average (Low)
+              weight: 3
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 66.0
+              score_bucket_id: 4
+              score_bucket: Average (High)
+              weight: 4
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 40.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+        '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Coaching
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 60.0
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 65.0
+              score_bucket_id: 4
+              score_bucket: Average (High)
+              weight: 4
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 80.0
+              score_bucket_id: 5
+              score_bucket: Above Average
+              weight: 5
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 35.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+        '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Rewards & Recognition
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 41.67
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 65.0
+              score_bucket_id: 4
+              score_bucket: Above Average
+              weight: 4
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 55.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 5.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+    '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Interpersonal Skills
+      score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 43.78
+        bucket: Average
+        weight: 3
+        description: Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+      description: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+      toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 19.67
+          score_bucket_id: 1
+          score_bucket: Low
+          weight: 1
+          pass: false
+        Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 60.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: false
+        Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 56.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 28.25
+          score_bucket_id: 2
+          score_bucket: Below Average
+          weight: 2
+          pass: true
+        Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 53.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+      competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 42.2
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 25.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 33.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 88.0
+              score_bucket_id: 5
+              score_bucket: High
+              weight: 5
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 5.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 60.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 38.8
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 22.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 77.0
+              score_bucket_id: 5
+              score_bucket: Above Average
+              weight: 5
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 30.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 10.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 55.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+        '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Communication Skills
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 35.5
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: false
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 12.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 70.0
+              score_bucket_id: 4
+              score_bucket: Average (High)
+              weight: 4
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 50.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 10.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+        '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: People Connect
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 66.0
+            score_bucket: Above Average
+            score_bucket_id: 4
+            weight: 4
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 88.0
+              score_bucket_id: 5
+              score_bucket: High
+              weight: 5
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 44.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+    '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: Business Acumen
+      score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        score: 60.43
+        bucket: Above Average
+        weight: 4
+        description: Analyses the common problems faced and creates detailed plans to successfully act on those problems.Takes decisions even in the absence of established guidelines to aid timely execution. Constantly surpasses benchmark performance level. Commits to ambitious goals for improvement and persistently pursues them. Understands business complexities and helps others understand the same.
+      description: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+      toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 55.75
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 69.0
+          score_bucket_id: 4
+          score_bucket: Above Average
+          weight: 4
+          pass: true
+        Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 35.67
+          score_bucket_id: 2
+          score_bucket: Below Average
+          weight: 2
+          pass: true
+        Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 40.33
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+        Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          score: 45.0
+          score_bucket_id: 3
+          score_bucket: Average
+          weight: 3
+          pass: true
+      competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 36.8
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: false
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 40.0
+              score_bucket_id: 3
+              score_bucket: Average (Low)
+              weight: 3
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 100.0
+              score_bucket_id: 6
+              score_bucket: High
+              weight: 6
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 11.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 33.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 0.0
+              score_bucket_id: 1
+              score_bucket: Low
+              weight: 1
+        '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Decision Making
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 35.0
+            score_bucket: Below Average
+            score_bucket_id: 2
+            weight: 2
+            pass: false
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 33.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 33.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 30.0
+              score_bucket_id: 2
+              score_bucket: Below Average
+              weight: 2
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 44.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+        '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Big Picture Thinking
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 52.5
+            score_bucket: Average
+            score_bucket_id: 3
+            weight: 3
+            pass: false
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 50.0
+              score_bucket_id: 3
+              score_bucket: Average (Low)
+              weight: 3
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 55.0
+              score_bucket_id: 3
+              score_bucket: Average (Low)
+              weight: 3
+        '4201': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Analytical Skills
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 100.0
+            score_bucket: High
+            score_bucket_id: 5
+            weight: 5
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 100.0
+              score_bucket_id: 6
+              score_bucket: High
+              weight: 6
+        '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Risk Taking
+          score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            score: 72.0
+            score_bucket: Above Average
+            score_bucket_id: 4
+            weight: 4
+            pass: true
+          toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 88.0
+              score_bucket_id: 5
+              score_bucket: Above Average
+              weight: 5
+            Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 66.0
+              score_bucket_id: 4
+              score_bucket: Above Average
+              weight: 4
+            Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 44.0
+              score_bucket_id: 3
+              score_bucket: Average
+              weight: 3
+            Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              score: 90.0
+              score_bucket_id: 5
+              score_bucket: High
+              weight: 5
+  competency_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Withstanding Pressure
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Stress Tolerance
+            weightage: '1'
+      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Influencing Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Giving Feedback
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Delegation
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Delegation
+            weightage: '1'
+      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Decision Making
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Conflict Management
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Communication Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Coaching
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Assertiveness
+            weightage: '1'
+          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Mentoring
+            weightage: '1'
+          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Helpfulness
+            weightage: '1'
+      '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Big Picture Thinking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4201': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Analytical Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+    Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Withstanding Pressure
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Stress Tolerance
+            weightage: '1'
+      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Risk Taking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Risk Taking
+            weightage: '1'
+      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Managing Targets
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Persistence
+            weightage: '1'
+          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Target Orientation
+            weightage: '1'
+      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Influencing Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Giving Feedback
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Delegation
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Delegation
+            weightage: '1'
+      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Decision Making
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Conflict Management
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Communication Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Coaching
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Assertiveness
+            weightage: '1'
+          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Mentoring
+            weightage: '1'
+          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Helpfulness
+            weightage: '1'
+      '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Big Picture Thinking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+    Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Withstanding Pressure
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Stress Tolerance
+            weightage: '1'
+      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Risk Taking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '2'
+          to_bucket: '5'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Risk Taking
+            weightage: '1'
+      '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Rewards & Recognition
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Monitoring
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Managing Targets
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Persistence
+            weightage: '1'
+          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Target Orientation
+            weightage: '1'
+      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Influencing Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Delegation
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Delegation
+            weightage: '1'
+      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Decision Making
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Conflict Management
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Communication Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Coaching
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Assertiveness
+            weightage: '1'
+          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Mentoring
+            weightage: '1'
+          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Helpfulness
+            weightage: '1'
+    Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Withstanding Pressure
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Stress Tolerance
+            weightage: '1'
+      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Risk Taking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Risk Taking
+            weightage: '1'
+      '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Rewards & Recognition
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '5'
+          to_bucket: '6'
+      '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Resource Optimization
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: People Connect
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+      '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Monitoring
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Managing Targets
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Persistence
+            weightage: '1'
+          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Target Orientation
+            weightage: '1'
+      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Influencing Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Decision Making
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Conflict Management
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Communication Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+    Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Withstanding Pressure
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Stress Tolerance
+            weightage: '1'
+      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Risk Taking
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Risk Taking
+            weightage: '1'
+      '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Rewards & Recognition
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Resource Optimization
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '4'
+          to_bucket: '6'
+      '4194': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Planning and Prioritization
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '11': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Planning and Prioritization
+            weightage: '1'
+      '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: People Connect
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Monitoring
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Managing Targets
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Persistence
+            weightage: '1'
+          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            name: Target Orientation
+            weightage: '1'
+      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Influencing Skills
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Conflict Management
+        weightage: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '6'
+  super_competency_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    overall_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Result Orientation
+        enabled: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+        weightage: '0.8'
+        definition: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+      '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Leadership Potential
+        enabled: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+        weightage: '0.7'
+        definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+      '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Interpersonal Skills
+        enabled: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+        weightage: '0.6'
+        definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+      '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        name: Business Acumen
+        enabled: '1'
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '2'
+          to_bucket: '5'
+        weightage: '0.5'
+        definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+    toolwise_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Leadership Potential
+          weightage: '0.7'
+          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '1'
+            to_bucket: '5'
+        '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Interpersonal Skills
+          weightage: '0.6'
+          definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Business Acumen
+          weightage: '0.5'
+          definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+      Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Result Orientation
+          weightage: '0.8'
+          definition: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '5'
+        '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Leadership Potential
+          weightage: '0.7'
+          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Interpersonal Skills
+          weightage: '0.6'
+          definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '5'
+        '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Business Acumen
+          weightage: '0.5'
+          definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+      Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Result Orientation
+          weightage: '0.8'
+          definition: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Leadership Potential
+          weightage: '0.7'
+          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '5'
+        '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Interpersonal Skills
+          weightage: '0.6'
+          definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Business Acumen
+          weightage: '0.5'
+          definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '2'
+            to_bucket: '5'
+      Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Result Orientation
+          weightage: '0.8'
+          definition: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Leadership Potential
+          weightage: '0.7'
+          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Interpersonal Skills
+          weightage: '0.6'
+          definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '2'
+            to_bucket: '5'
+        '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Business Acumen
+          weightage: '0.5'
+          definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '2'
+            to_bucket: '5'
+      Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Result Orientation
+          weightage: '0.8'
+          definition: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Leadership Potential
+          weightage: '0.7'
+          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '5'
+        '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Interpersonal Skills
+          weightage: '0.6'
+          definition: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '5'
+        '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Business Acumen
+          weightage: '0.5'
+          definition: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '2'
+            to_bucket: '5'
+  aggregate_score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    score: 47.24
+    bucket: Average
+    color: '#CD6212'
+    rating: AMBER
+status: uploaded
+user_exercise_id: 31
+user_id: 70614
+created_at: '2016-01-13T18:44:49+05:30'
+id: 10
+updated_at: '2016-01-13T18:48:10+05:30'
+report_hash: *1

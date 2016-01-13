@@ -1,3 +1,4 @@
+- counter = 0
 = render :partial => "assessment_reports/training_requirements_report/pdf/header"
 .divider1
 #trait-score.training-need
@@ -13,8 +14,7 @@
         Average Score
       .clr
   .clr
-  %ul.training-need-list
-    - counter = step
+  %ul.training-need-list.small
     - limiter = Rails.application.config.reports["html"]["graph_limiter_on_training_requirement_report"]
     - factor_scores.keys.each_slice(3) do |factor_names|
       - factor_scores = @report_data[:factor_scores].slice(*factor_names)

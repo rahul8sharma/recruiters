@@ -1,0 +1,32 @@
+.user-details
+  .span22.first.page-title
+    .divider1
+    Exercise #{@exercise.id} - #{@exercise.name}
+
+  %a.btn.btn-info.big.big-text.pull-right.span{:href=> add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id), :title=>"View All Candidates"}
+    View All Candidates
+  .clr
+  .divider2
+  = render :partial => "shared/oac/oac_assessment_sub_nav"
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    .span19.margin-auto
+      %ul
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Assessment Taker:
+          .span8
+            #{@user.name}
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Email id:
+          .span8
+            #{ h @user.email}
+
+          .clr
+        %li.border-bottom-grayLighter.padding-all1
+          .span9.big-text
+            Contact no.:
+          .span8
+            #{ h @user.mobile, nil }
+          .clr

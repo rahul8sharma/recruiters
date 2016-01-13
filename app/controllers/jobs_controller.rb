@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-	before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   def api_resource
     Vger::Resources::Job
@@ -10,19 +10,19 @@ class JobsController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: 'All records deleted'
   end
 
-	def import
-		@errors = Vger::Resources::Job.import(params[:file])
-		redirect_to company_jobs_path, notice: "Jobs imported."
-	end
-
-	def manage
+  def import
+    @errors = Vger::Resources::Job.import(params[:file])
+    redirect_to company_jobs_path, notice: "Jobs imported."
   end
 
-	def import_from_google_drive
+  def manage
+  end
+
+  def import_from_google_drive
     Vger::Resources::Job\
       .import_from_google_drive(params[:import])
     redirect_to company_jobs_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
-	end
+  end
 
   def export_to_google_drive
     Vger::Resources::Job\
@@ -36,7 +36,7 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-  	@jobs = Vger::Resources::Job.all
+    @jobs = Vger::Resources::Job.all
   end
 
   # GET /jobs/new

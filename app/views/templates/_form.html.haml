@@ -9,7 +9,7 @@
       = f.text_field :company_ids, value: @resource.company_ids.to_a.join(",")
     .field
       = f.label :category
-      = f.select :category, Vger::Resources::Template::TEMPLATE_CATEGORIES.sort
+      = f.select :template_category_id, Hash[@template_categories.map{|tc| [tc.name, tc.id] }]
     .field
       = f.label :from
       = f.text_field :from, id: "template_from"
@@ -26,7 +26,7 @@
   %form
     %h3
       Template Variables (Click on a template variable to add it to the template body)
-    %ul
+    %ul#template_variables
       - @template_variables.sort_by(&:id).each_with_index do |template_variable,index|    
         %li{ title: template_variable.value }
           = template_variable.id

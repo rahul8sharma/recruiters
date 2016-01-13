@@ -20,13 +20,17 @@
               Expected Score Range
             .muted
               Choose Minimum and Maximum score
-        .divider2
+        .divider1
 
-          .left-offset7
-            .span6.semi-muted
-              Minimum
-            .span3.semi-muted.text-center
-              Maximum
+        .left-offset6
+          .span4.semi-muted.first
+            Minimum
+          .span4.semi-muted
+            Maximum
+          .span4.semi-muted
+            Weightage
+          .clr
+        .divider1
     .clr
     .factor-list
       %ul.clearfix
@@ -46,6 +50,7 @@
         %ul.clearfix
           - @assessment.assessment_competencies.sort_by(&:competency_order).each_with_index do |assessment_competency, index|
             = render :partial => 'mrf_competencies_range_field', :locals =>{:assessment_competency => assessment_competency, :index => index}
+            
 
     .divider3
     %input.pull-right.btn.btn-info.large-text{name: "save_and_next", type: "submit", value: "Proceed"}
