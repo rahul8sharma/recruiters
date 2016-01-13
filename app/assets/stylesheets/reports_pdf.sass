@@ -301,6 +301,59 @@ body
           @for $i from 0 through 5
             .position#{$i}
               left: $i * 50px - (12)
+    &.sjt
+      .frame
+        border-width: 1px
+      .instruction_container
+        .instructions
+          .instruction1
+            background: image-url('report/html/sjt/score-obtained-hexagon.png') no-repeat 0 center
+      ul.scores_listing 
+        li
+          padding: 10px 40px
+          border-top: 1px solid #28b29b
+          &:first-child
+            border: 0 none
+          .factor-name
+            color: #0a90c3
+            margin-top: 5px
+           
+          .rhs-sec 
+            .scale
+              height: 35px
+              margin-right: -15px
+              .desire_range
+                z-index: 1
+                background-color: #3aafe5
+                border-radius: 2px
+                height: 4px
+                position: absolute
+                top: 40px
+                left: 25px
+              .line
+                border-color: #ccc
+                height: 2px
+                bottom: -10px
+              .marker-container 
+                z-index: 1000
+                .marker
+                  background: image-url('report/html/sjt/scale-pointer-hexagon-gray.png') no-repeat center bottom
+                  font-size: 12px
+                  font-weight: 200 
+                  height: 50px
+                  position: relative
+                  z-index: 2
+                  &.active
+                    background: image-url('report/html/sjt/score-obtained-hexagon-small.png') no-repeat center bottom
+
+          .factor-description
+            margin: 0
+            p 
+              background: image-url('report/html/sjt/bulet-point.png') no-repeat 0 6px
+              padding: 0 0 0 15px
+              font-size: 14px 
+              line-height: 18px
+              color: #808285
 
   @for $i from 0 through 4
     .offset#{$i}
@@ -691,41 +744,8 @@ body
     .frame
       border: 2px solid #28b29b
      
-    .scores 
-      ul.scores_listing 
-        li 
-          .hexagon-icon
-            margin-left: 25px
-          .factor-description
-            margin-left: 50px
-      &.sjt
-        ul.scores_listing 
-          li
-            padding: 10px 20px
-            .hexagon-icon
-              background: image-url('report/pdf/sjt/trait-score-hexagon.png') no-repeat 0 center
-             
-            .rhs-sec 
-              .scale
-                height: 35px
-                .line
-                  border-color: #ccc
-                  height: 2px
-                  bottom: -12px
-                .marker-container 
-                  z-index: 1000
-                  .marker
-                    background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
-                    font-size: 10px
-                    font-weight: 200 
-                    height: 50px
-                    &.active
-                      background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center bottom
-
-            .factor-description
-              p 
-                background: image-url('report/html/sjt/trait-score-hexagon-small.png') no-repeat 0 6px
-                padding: 0 0 0 15px
+   
+     
 
   .factor-block
     margin: 5px 15px 0 15px
