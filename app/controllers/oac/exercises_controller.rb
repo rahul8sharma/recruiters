@@ -224,10 +224,15 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def get_exercises
+    order_by = params[:order_by] || "oac_exercises.created_at"
+    order_type = params[:order_type] || "DESC"
+    order = "#{order_by} #{order_type}"
+
     @exercises = Vger::Resources::Oac::Exercise.where(
       query_options: {
         company_id: params[:company_id]
       },
+      order: order,
       methods: [:sent_count, :completed_count],
       page: params[:page], 
       per: 10
