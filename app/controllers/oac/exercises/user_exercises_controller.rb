@@ -36,7 +36,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   end
 
   def candidate
-    @user = Vger::Resources::User.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
+    @user = Vger::Resources::User.find(params[:user_id])
   end
 
   def add_candidates

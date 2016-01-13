@@ -19,6 +19,7 @@ class Oac::ExercisesController < ApplicationController
                                     :set_weightage
                                   ]
   before_filter :get_norm_buckets, :only => [
+                                      :show,  
                                       :select_competencies,
                                       :set_weightage
                                     ]
@@ -26,7 +27,8 @@ class Oac::ExercisesController < ApplicationController
                                       :set_weightage
                                     ]
   before_filter :get_combined_super_competency_score_buckets, :only => [
-                                      :select_super_competencies
+                                      :select_super_competencies,
+                                      :show
                                     ]
   before_filter :get_combined_competency_score_buckets, :only => [
                                       :select_competencies
@@ -44,7 +46,8 @@ class Oac::ExercisesController < ApplicationController
                                         :customize_assessment,
                                         :select_competencies,
                                         :select_super_competencies,
-                                        :set_weightage
+                                        :set_weightage,
+                                        :show
                                       ]
   layout 'oac/oac'
 
@@ -56,6 +59,9 @@ class Oac::ExercisesController < ApplicationController
   end
 
   def edit
+  end
+  
+  def show
   end
 
   def create
@@ -224,10 +230,15 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def get_exercises
+    order_by = params[:order_by] || "oac_exercises.created_at"
+    order_type = params[:order_type] || "DESC"
+    order = "#{order_by} #{order_type}"
+
     @exercises = Vger::Resources::Oac::Exercise.where(
       query_options: {
         company_id: params[:company_id]
       },
+      order: order,
       methods: [:sent_count, :completed_count],
       page: params[:page], 
       per: 10
@@ -333,9 +344,9 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def validate_status
-    if @exercise.workflow_status == Vger::Resources::Oac::Exercise::WorkflowStatus::READY
-      flash[:error] = "You can't update the configuration of this exercise."
-      redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
-    end  
+    #if @exercise.workflow_status == Vger::Resources::Oac::Exercise::WorkflowStatus::READY
+    #  flash[:error] = "You can't update the configuration of this exercise."
+    #  redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
+    #end  
   end
 end

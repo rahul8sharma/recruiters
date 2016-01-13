@@ -9,23 +9,25 @@
     %td.tool_scores
       - strengths = competency_scores.select do |name, cdata|
         - cdata[:score][:pass]
+      - strengths = Hash[strengths.sort_by{|name, cdata| cdata[:score][:score] }.reverse]
       - if strengths.present?
         %ul.disc.gray-dark.medium-text
-          - strengths.each do |name,cdata|
+          - strengths.each do |id,cdata|
             %li
-              = name
+              = cdata[:name]
       - else
         .medium-text
           No strengths found 
     %td.space
     %td.tool_scores
-      - weaknesses = competency_scores.select do |name, cdata|
+      - weaknesses = competency_scores.select do |id, cdata|
         - !cdata[:score][:pass]
+      - weaknesses = Hash[weaknesses.sort_by{|id, cdata| cdata[:score][:score] }]
       - if weaknesses.present?
         %ul.disc.gray-dark.medium-text
-          - weaknesses.each do |name,cdata|
+          - weaknesses.each do |id,cdata|
             %li
-              = name
+              = cdata[:name]
       - else
         .medium-text
           No areas of improvement found
