@@ -32,7 +32,7 @@
               - @super_competency_score_buckets.each do |norm_bucket|
                 %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
                   = norm_bucket.name
-            %input.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][weightage]", placeholder: "Weightage", value: (@exercise.super_competency_configuration[super_competency.id.to_s][:weightage] || 1)}
+            %input.span4{ type: "number", min: 0, max: 1, step: 0.01, name: "exercise[super_competency_configuration][#{super_competency.id}][weightage]", placeholder: "Weightage", value: (@exercise.super_competency_configuration[super_competency.id.to_s][:weightage] || 1)}
             %textarea.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition", rows: 5}
               = @exercise.super_competency_configuration[super_competency.id.to_s][:definition] || super_competency.description
             .clr

@@ -4,7 +4,7 @@
     - competency_values[:factor_scores].each do |factor_name, score|
       - factor_scores[factor_name] = score
 - else
-  - factor_scores = @report.report_hash[:factor_scores]
+  - factor_scores = @report.report_hash[:factor_scores] || {}
   
 
 :css

@@ -11,10 +11,10 @@
           .clr
           .divider1
           %ul
-            - competency_scores.each do |competency, competency_data|
+            - competency_scores.each do |competency_id, competency_data|
               %li
                 .span7.first.trait_title
-                  = competency
+                  = competency_data[:name]
                 .clr
 
         .right_sec.span18
