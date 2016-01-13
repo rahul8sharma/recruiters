@@ -44,7 +44,7 @@
       {
         id: "html_cover_page_name_and_details",
         text: "Name and Completion Date",
-        path: "oac/exercises/reports/competency_reports/html/details",
+        path: "oac/exercises/reports/competency_reports/html/cover_page/details",
         locals: {}
       },
       {
