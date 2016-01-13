@@ -1,0 +1,20 @@
+- super_competency_score_buckets = Hash[score_buckets.map{|x| [x.id,x] }]
+.big-text.font-bold
+  .pull-left
+    #{title}: #{configuration.count}
+  .clr
+.divider1
+.scale.pull-right
+.clr
+%ul.clearfix.scores_listing.first{ style: "min-height: 100px;" }
+  - configuration.each do |id, config|
+    - from_norm_bucket = super_competency_score_buckets[config[:desired_range][:from_bucket].to_i]
+    - to_norm_bucket = super_competency_score_buckets[config[:desired_range][:to_bucket].to_i]
+    %li.pull-left{style: "border: none;"}
+      .lhs-sec.span6
+        .factor-name
+          = config[:name]
+        = "#{from_norm_bucket.name} - #{to_norm_bucket.name}"
+      .clr
+.clr
+.divider2      
