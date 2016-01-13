@@ -44,7 +44,9 @@
                     .desire_range{:style => "width:#{width}px;margin-left: #{offset}px"}
                     - @company_norm_buckets.each do |company_norm_bucket|
                       .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active" : "" }
-                        = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+                        - if company_norm_bucket.name.split(" ").size == 1
+                          %br/
+                        = company_norm_bucket.name
                     .clr
                  
               .clr
