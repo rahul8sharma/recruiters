@@ -1,5 +1,5 @@
 - roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
-- step_size = roles.size > 5 ? 1 : 2
+- step_size = roles.size > 4 ? 1 : 2
 - @report.report_data[:competency_scores].each_slice(step_size) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
   .scores.border-bottom-grayLighter.mrf_data_points
