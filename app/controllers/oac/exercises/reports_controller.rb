@@ -1,6 +1,5 @@
 class Oac::Exercises::ReportsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
+  before_filter :authenticate_user!, except: [:s3_report]
   before_filter :get_company
 
   def report
