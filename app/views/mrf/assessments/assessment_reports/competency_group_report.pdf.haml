@@ -8,7 +8,14 @@
   = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/page1"
   .classic_report
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/frequency_distribution_of_overall_ratings"
+    .page-break
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_overall_distribution"
+    .page-break
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/perception_gap"
+    .page-break
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/top_bottom_competencies"
+    .page-break
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/average_individual_ratings"\
+    .page-break
     = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_wise_individual_ratings"
+    .page-break
