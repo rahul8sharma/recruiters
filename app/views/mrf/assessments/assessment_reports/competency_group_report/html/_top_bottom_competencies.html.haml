@@ -10,41 +10,7 @@
       Average 360&#176 Rating
     .clr
     .scores_competencies_graph.descending_order.descending_average_rating
-      -2.times do
-        .traits_under_graph
-          .graph_container
-            .left_sec.pull-left
-              .divider1
-              .span6.extra-medium-text.first.trait_title.bold
-                Top 2
-              .pull-left{:style => "margin-left:4px;font-size: 86px;color: #469ada"}
-                &#8226;
-              .clr
-              %ul
-                -5.times do
-                  %li
-                    .span6.extra-medium-text.first.trait_title
-                      Competency Name
-                    .stakeholder_rating.medium-text.pull-left
-                      3.09
-                    .clr
-               
-            .right_sec.span22.pull-right
-              .classic_competency_graph
-                .classic_competency_graph_scale
-                  .block.pull-left
-                    0
-                  - 5.times do |index|
-                    .block.pull-left{:style=>"width: #{(830/5)}px; text-align: right"}
-                      = index+1
-
-                  .clr
-                 
-                .graph
-                  .graph_content
-                    -5.times do
-                      .divider1
-                      .descending_graph_bar.max{:style => "width: 12%; background: #469ada"}
-                     
-                      .divider1
-            .clr
+      - sorted_top_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_f }.reverse[0..1]]
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/sorted_top_bottom_competencies", :locals => {:display_name => "Top 2", :sorted_competency_scores => sorted_top_competency_scores}
+      - sorted_bottom_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_f }[0..1]]
+      = render :partial => "mrf/assessments/assessment_reports/competency_group_report/html/sorted_top_bottom_competencies", :locals => {:display_name => "Bottom 2", :sorted_competency_scores => sorted_bottom_competency_scores}
