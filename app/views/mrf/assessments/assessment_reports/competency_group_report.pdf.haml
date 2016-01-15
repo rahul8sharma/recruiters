@@ -1,0 +1,14 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "jquery"
+  = wicked_pdf_javascript_include_tag "jquery_ujs"
+  = wicked_pdf_javascript_include_tag 'highcharts-custom'
+  = wicked_pdf_javascript_include_tag 'mrf/group_report_pie'
+- @bucket_colors = ["#A8E501","#7CDEAF","#EED523","#F85C43","#9583B7","#1F87E0", "#FF00F6", "#00B7D3", "#930024", "#218700","#000"]
+.competency_report.group_report
+  = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/page1"
+  .classic_report
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/frequency_distribution_of_overall_ratings"
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_overall_distribution"
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/perception_gap"
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/top_bottom_competencies"
+    = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_wise_individual_ratings"

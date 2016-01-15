@@ -1,33 +1,33 @@
 - if @report.report_data[:competency_scores].any?{|key,value| value[:perception_gap].present? }
-  #perception-gap.perception_gap.border-bottom-grayLighter
-    .container
-      .divider2
-      .title
+  = render :partial => "shared/360/group_report_header"
+  .report_content
+    .perception_gap.border-bottom-grayLighter
+      .color-info.big-text
         Perception Gap
-      .divider2
       - @report.report_data[:competency_scores].each do |competency, competency_scores|
+        .divider1
         .frame.bg-gray
           .heading.pull-left
             = competency
           .clr
           .divider1
-          .span28.margin-auto.border-bottom-grayLighter
-            .large-text.pull-left
+          .span18.margin-auto.border-bottom-grayLighter
+            .extra-medium-text.pull-left
               Overall
-            .chart_indication.line-height2.medium-text.black.pull-right
-              .icons.span1.color-agreement
+            .chart_indication.line-height1.black.pull-right
+              .icons.span.color-agreement
                 &#8226;
               .span
                 \% 
                 of raters in Agreement
               .clr
-              .icons.span1.color-positive
+              .icons.span.color-positive
                 &#8226;
               .span
-                \%
+                \% 
                 of raters with Perceived Positive Difference
               .clr
-              .icons.span1.color-negative
+              .icons.span.color-negative
                 &#8226;
               .span
                 \% 
@@ -35,26 +35,23 @@
               .clr
             .clr
 
-
-            .divider1
             .chart
               - total = competency_scores[:perception_gap][:overall].values.sum
               - aggrement_percentage = ((competency_scores[:perception_gap][:overall][:aggrement]*100).to_f/total).round(2)
               - negative_percentage = ((competency_scores[:perception_gap][:overall][:negative_difference]*100).to_f/total).round(2)
               - positive_percentage = ((competency_scores[:perception_gap][:overall][:positive_difference]*100).to_f/total).round(2)
-              .pie_chart.span7.margin-auto
-                .pie-chart{ id: "pie_#{competency}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 270px;height: 270px;" }
-              .divider1
-              .pie_chart_rate.span9.margin-auto
-                .span3.color-positive
+              .pie_chart.margin-auto
+                .pie-chart{ id: "pie_#{competency}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 200px;height: 200px;" }
+              .pie_chart_rate.span6.margin-auto
+                .span2.color-positive
                   %div &#8226;
                   .rate
                     = "#{positive_percentage}%"
-                .span3.first.color-agreement
+                .span2.first.color-agreement
                   %div &#8226;
                   .rate
                     = "#{aggrement_percentage}%"
-                .span3.first.color-negative
+                .span2.first.color-negative
                   %div &#8226;
                   .rate
                     = "#{negative_percentage}%"
@@ -71,23 +68,21 @@
               %li
                 .medium-text.black{:style=>"margin-top: -35px"}
                   = role.titleize
-                .divider2
-                .pie_chart.span4.margin-auto
-                  .pie-chart{ id: "pie_#{index}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 150px;height: 150px;" }
-                .divider2
-                .pie_chart_rate.span6
-                  .span2.first.color-positive
+                .pie_chart.margin-auto
+                  .pie-chart{ id: "pie_#{index}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 110px;height: 110px;" }
+                .pie_chart_rate
+                  .pull-left.color-positive
                     %div &#8226;
                     .rate
                       = positive_percentage
-                  .span2.first.color-agreement
+                  .pull-left.color-agreement
                     %div &#8226;
                     .rate
                       = aggrement_percentage
-                  .span2.first.color-negative
+                  .pull-left.color-negative
                     %div &#8226;
                     .rate
                       = negative_percentage
                   .clr
 
-        .divider1
+.page-break

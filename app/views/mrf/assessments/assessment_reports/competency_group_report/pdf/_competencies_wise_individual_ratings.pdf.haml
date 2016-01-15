@@ -1,0 +1,24 @@
+= render :partial => "shared/360/group_report_header"
+.report_content.border-bottom-grayLighter
+  .competencies_wise_individual_ratings
+    .color-info.big-text
+      Competency-wise Individual Ratings
+    .divider1
+    %table.text-center{:cellspacing=>"0", :cellpadding=>"0"}
+      %tr
+        %td
+          Candidate names
+        -8.times do
+          %td
+            Overall 360&#176 Rating
+
+      -5.times do
+        %tr
+          %td
+            Pranav Shah
+          -8.times do
+            %td
+              Overall Score
+    .divider1
+= render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/ratings_on_traits"
+.page-break

@@ -1,0 +1,29 @@
+.overall_report
+  .divider1
+  .j-logo.pull-left
+  .clr
+  .divider28
+  .huge-text.left-offset1
+    //= @report.report_hash[:user][:name]
+  .divider1
+  .banner
+    .banner-heading.pull-left
+      360&#176;
+    .pull-right
+      .divider2
+      .banner-sub-heading
+        Group Report
+        .large-text
+          Completion Status: 4 out of 4
+    .clr
+    
+  .divider2
+  .left-offset1
+    .extra-large-text
+      360&#176; Group Sample 360 Degree Report - Business Head
+
+    .divider1
+    .large-text
+      Report Generated On:
+      = hdate @report.report_hash[:generated_at]
+.page-break

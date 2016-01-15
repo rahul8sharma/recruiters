@@ -7,7 +7,7 @@
     .pull-left{:style => "font-size: 86px;color: #469ada"}
       &#8226;
     .pull-left.large-text
-      360&#176 Rating
+      Average 360&#176 Rating
     .clr
     .scores_competencies_graph.descending_order.descending_average_rating
       - sorted_top_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_f }.reverse[0..1]]
