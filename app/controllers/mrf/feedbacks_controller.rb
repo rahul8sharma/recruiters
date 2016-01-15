@@ -9,7 +9,6 @@ class Mrf::FeedbacksController < ApplicationController
     params[:search] ||= {}
     search_params = params[:search].dup
     search_params[:company_id] = params[:company_id]
-    search_params[:assessment_id] = params[:search][:assessment_id]
     scopes = {}
     scopes["user_name_like"] = search_params.delete :user_name
     scopes["user_email_like"] = search_params.delete :user_email
