@@ -7,7 +7,7 @@
     .assessments-list
       .list-snippet-titles.extra-medium-text.clearfix
         .span6.first.bold
-          Super Competencies
+          Select Competencies
         .divider3          
       %ul
         - @exercise.super_competency_configuration ||= {}
@@ -15,10 +15,11 @@
           - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
           - @exercise.super_competency_configuration[super_competency.id.to_s] ||= {}
           %li.list-snippet.border-bottom-grayLighter.medium-text
-            %input.span2{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
             %input.span2{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
-            .span6.first
-              = super_competency.name
+            %label.span6.first
+              %input.span2{:type => "checkbox", name: "exercise[super_competency_configuration][#{super_competency.id}][enabled]", value: 1, checked: checked}
+              &nbsp;
+              = "#{super_competency.name}"
             %input{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
             - @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range] ||= {}
             - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
@@ -31,9 +32,11 @@
               - @super_competency_score_buckets.each do |norm_bucket|
                 %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
                   = norm_bucket.name
-            %textarea.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition"}
-              = @exercise.super_competency_configuration[super_competency.id.to_s][:definition]
+            %input.span4{ type: "number", min: 0, max: 1, step: 0.01, name: "exercise[super_competency_configuration][#{super_competency.id}][weightage]", placeholder: "Weightage", value: (@exercise.super_competency_configuration[super_competency.id.to_s][:weightage] || 1)}
+            %textarea.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition", rows: 5}
+              = @exercise.super_competency_configuration[super_competency.id.to_s][:definition] || super_competency.description
             .clr
+            .divider1
         .clr
         .divider1
     .divider2

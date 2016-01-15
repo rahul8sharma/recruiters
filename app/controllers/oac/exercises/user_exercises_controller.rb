@@ -5,7 +5,25 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   before_filter :get_company
   before_filter :get_exercise
   before_filter :validate_exercise
+  before_filter :get_exercise_tools, only: [:download_bulk_upload_csv]
   layout 'oac/oac'
+  
+  def download_bulk_upload_csv
+    path = "#{Rails.root.to_s}/tmp/bulk_upload_sample_#{Time.now.strftime('%d_%m_%Y_%I_%H')}.csv"
+    CSV.open(path,"w") do |csv|
+      header = ["name","email","phone"]
+      custom_columns = []
+      @exercise_tools.each do |exercise_tool|
+        exercise_tool.tool.integration_configuration["link_configuration"] ||= {}
+        exercise_tool.tool.integration_configuration["link_configuration"].each do |index, config|
+          custom_columns << config["name"]
+        end
+      end
+      header |= custom_columns.compact.uniq
+      csv << header
+    end  
+    send_file(path)
+  end
 
   def candidates
     @user_exercises = Vger::Resources::Oac::UserExercise.where(
@@ -18,7 +36,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   end
 
   def candidate
-    @user = Vger::Resources::User.find(params[:candidate_id], :include => [ :functional_area, :industry, :location ])
+    @user = Vger::Resources::User.find(params[:user_id])
   end
 
   def add_candidates
@@ -248,5 +266,15 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   
   def get_s3_keys
     @s3_key = "oac/#{@exercise.id}/user_exercises/#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
+  end
+  
+  def get_exercise_tools
+    @exercise_tools = Vger::Resources::Oac::ExerciseTool.where(
+      exercise_id: @exercise.id, 
+      query_options: {
+        exercise_id: @exercise.id
+      },
+      include: [:tool]
+    ).all
   end
 end

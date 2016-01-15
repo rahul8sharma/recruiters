@@ -9,7 +9,6 @@ function addCategory() {
   $("#template_categories option[value='"+categoryId+"']").each(function() {
     $(this).remove();
   });
-  console.log(categoryText);
   var categoryDiv = "<div class='category' id='category"+categoryId+"'>"+
                     categoryText+"<a class='removeCategory' href='javascript:void(0);' "+
                     "data-id='"+categoryId+"'"+

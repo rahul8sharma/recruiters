@@ -6,10 +6,10 @@
       - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
       .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 200px "}
   .clr
-  .divider26
+  .divider24
   .huge-text
     = @report.report_hash[:user][:name]
-  .divider2
+  .divider1
   - section_value.each do |section|
     = render :partial => section["path"]
 .page-break

@@ -31,9 +31,10 @@ $oac_image_url: report/html/oac
         .competency-list
           *
             box-sizing: border-box
-          [class*="icon-"]
-            color: #2f7d32
-            font-size: 20px
+          .ok-icon
+            height: 20px
+            background: image-url('report/html/icon-ok.png') no-repeat center center
+
           li
             padding: 15px 0 15px 36px
             &:first-child
@@ -65,34 +66,13 @@ $oac_image_url: report/html/oac
       li
         line-height: 22px
 
-    .instruction_container 
-      .instructions 
-        [class*="instruction"]
-          background: image-url('report/html/scale-pointer-hexagon.png') no-repeat 
-        .instruction2
-          background-position: 0 -43px
-    .overview.competency
-      .content 
-        .competency-list 
-          .scale 
-            margin-right: 0
-            .line
-              bottom: -17px
-            .marker-container 
-              .desire_range
-                top: 45px
-              .marker
-                color: #1b7daa
-                font-size: 14px
-                height: 55px
-                background: image-url('report/html/competency/list-scale-very-small-hexa.png') no-repeat center bottom
     .competency_specific_score
       border: 1px solid #bee8e1
       *
         box-sizing: border-box
       .tools, .tool_scores
-        padding: 10px 0 10px 36px
-        font-size: 16px
+        padding: 8px 0 8px 36px
+        font-size: 14px
         text-align: center
         [class*="span"]
           border-left: 1px solid #ccc
@@ -100,13 +80,24 @@ $oac_image_url: report/html/oac
           margin-left: 0
           min-height: 36px
           text-align: center
-          &:first-child
-            font-size: 18px
-          &.text-center
-            font-size: 16px
-       
+
+      
       .tools
         background: #bee8e1
+        font-size: 16px
+      .tool_scores
+        line-height: 36px
+      &.strengths_improvement
+        border-collapse: collapse
+        border: 0 none
+        td
+          border: 1px solid #bee8e1
+          width: 48%
+          text-align: left
+          vertical-align: top
+          &.space
+            width: 1%
+            border: 0 none
 
     .classic_report 
       .scores_competencies_graph
@@ -212,11 +203,14 @@ $oac_image_url: report/html/oac
           td
             color: #28b29b
             text-align: center
+            border-bottom-style: dotted
     td
       border: 1px solid #28b29b
-      font-size: 20px
+      font-size: 14px
       width: 33%
       padding: 15px
       vertical-align: top
+    .placeholders
+      height: 150px
 .assessor_feedback
   border-bottom: 1px dashed #28b29b

@@ -21,7 +21,8 @@ class Oac::ToolsController < MasterDataController
       :user_exercise_type, 
       :report_type, 
       :logo, 
-      :description
+      :description,
+      :is_jombay_tool
     ]
   end
 end

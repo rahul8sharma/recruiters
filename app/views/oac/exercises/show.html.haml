@@ -1,0 +1,18 @@
+.trait-show
+  .span15.page-title.first
+    .divider1
+    AID #{@exercise.id} - #{@exercise.name}
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_bulk_company_oac_exercise_path(params[:company_id],params[:id]) }
+    Send this Exercise
+  %a.extra-medium-text.pull-right.line-height3{:href => new_company_oac_exercise_path(params[:company_id]), :title => "Click Here To Create an New OAC"} 
+    Create New OAC
+  .clr
+  .divider2
+  .padding-all2.border-warning.shifted-up1
+    = render partial: "show_configuration", locals: {title: "Competencies Measured", configuration: @exercise.super_competency_configuration, score_buckets: @super_competency_score_buckets}
+    = render partial: "show_configuration", locals: {title: "Behaviors Measured", configuration: @exercise.competency_configuration, score_buckets: @super_competency_score_buckets}
+    - @exercise_tools.each do |exercise_tool|
+      = render partial: "show_configuration", locals: {title: "Competencies Measured under #{exercise_tool.tool.display_name}", configuration: exercise_tool.super_competency_configuration, score_buckets: @super_competency_score_buckets}
+      = render partial: "show_configuration", locals: {title: "Behaviors Measured under #{exercise_tool.tool.display_name}", configuration: exercise_tool.competency_configuration, score_buckets: @norm_buckets}
+    
+    
