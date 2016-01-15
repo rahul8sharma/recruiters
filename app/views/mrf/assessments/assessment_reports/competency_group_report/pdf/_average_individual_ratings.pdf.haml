@@ -1,0 +1,47 @@
+
+.report_content
+  .average_individual_ratings
+    .color-info.big-text
+      Group Average Ratings versus Individual Ratings
+    .divider1 
+    -2.times do
+      .scores_competencies_graph.descending_order.descending_average_rating
+        .traits_under_graph
+          .graph_container
+            .left_sec.pull-left
+              .extra-medium-text.bold.first.trait_title.line-height2
+                People Understanding 
+              
+              %ul
+                %li
+                  .span5.bold.medium-text.first.trait_title
+                    Group Average
+                  .stakeholder_rating.pull-left
+                    3.09
+                  .clr
+                -5.times do
+                  %li
+                    .span5.medium-text.first.trait_title
+                      Pranav Shah 
+                    .stakeholder_rating.pull-left
+                      3.09
+                    .clr
+               
+            .right_sec.span13.pull-right
+              .classic_competency_graph
+                .classic_competency_graph_scale
+                  .block.pull-left
+                    0
+                  - 5.times do |index|
+                    .block.pull-left{:style=>"width: #{(510/5)}px; text-align: right"}
+                      = index+1
+
+                  .clr
+                 
+                .graph
+                  .graph_content
+                    -6.times do
+                      .divider1
+                      .descending_graph_bar.max{:style => "width: 12%; background: #469ada"}
+                      .divider1
+            .clr
