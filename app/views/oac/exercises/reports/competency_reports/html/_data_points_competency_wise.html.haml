@@ -24,6 +24,7 @@
         .padding-all2.no-t-padding
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, scores_hash[key.to_sym]] }]
+            - locals[:section_value] = section["children"]
             = render :partial => section["path"], :locals => locals
       .divider1
   .divider2
