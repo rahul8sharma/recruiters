@@ -177,7 +177,25 @@
         path: "oac/exercises/reports/competency_reports/html/competency_data_points/competency_specific_score",
         locals: {
           toolwise_scores: "data[:toolwise_scores]"
-        }
+        },
+        children: [
+          {
+            id: "html_data_points_competency_specific_scores_tools_used",
+            text: "Tools Used",
+            path: "oac/exercises/reports/competency_reports/html/competency_data_points/tools_used",
+            locals: {
+              toolwise_scores: "toolwise_scores"
+            }
+          },
+          {
+            id: "html_data_points_competency_specific_scores_toolwise_scores",
+            text: "Toolwise Scores",
+            path: "oac/exercises/reports/competency_reports/html/competency_data_points/toolwise_scores",
+            locals: {
+              toolwise_scores: "toolwise_scores"
+            }
+          }
+        ]
       }
     ]
   },
