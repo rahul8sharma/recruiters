@@ -35,8 +35,11 @@
         %a{:href => export_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id)}
           Export Feedback Urls
         \|  
-        %a{:href => export_feedback_status_company_mrf_assessment_path(@company.id,@assessment.id)}
-          Export Feedback Status
+        %a{:href => export_feedback_status_company_mrf_assessment_path(@company.id,@assessment.id, pending: true, completed: true)}
+          Export All Feedback Status
+        \|  
+        %a{:href => export_feedback_status_company_mrf_assessment_path(@company.id,@assessment.id, pending: true)}
+          Export Pending Feedback Status
         \|  
         %a{:href => export_report_urls_company_mrf_assessment_path(@company.id,@assessment.id)}
           Export Report Urls  
