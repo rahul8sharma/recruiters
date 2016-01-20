@@ -59,10 +59,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
 
   def export_feedback_urls
     options = {
-      email: Rails.application.config.emails[:jit_recipients][:product]+","+
-                Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs]+","+
-                Rails.application.config.emails[:jit_recipients][:operations],
+      email: current_user.email,
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_feedback_urls(company_id: @company.id, id: @assessment.id, options: options)
@@ -72,11 +69,12 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   
   def export_feedback_status
     options = {
-      email: Rails.application.config.emails[:jit_recipients][:product]+","+
-                Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs]+","+
-                Rails.application.config.emails[:jit_recipients][:operations],
-      assessment_id: @assessment.id
+      email: current_user.email,
+      assessment_id: @assessment.id,
+      criteria: {
+        pending: params[:pending].present?,
+        completed: params[:completed].present?
+      }
     }
     Vger::Resources::Mrf::Assessment.export_feedback_status(company_id: @company.id, id: @assessment.id, options: options)
     flash[:notice] = "360 Degree Feedback status csv will be generated and emailed soon."
@@ -85,10 +83,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
 
   def export_report_urls
     options = {
-      email: Rails.application.config.emails[:jit_recipients][:product]+","+
-                Rails.application.config.emails[:jit_recipients][:product_support]+","+
-                Rails.application.config.emails[:jit_recipients][:psychs]+","+
-                Rails.application.config.emails[:jit_recipients][:operations],
+      email: current_user.email,
       assessment_id: @assessment.id
     }
     Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
