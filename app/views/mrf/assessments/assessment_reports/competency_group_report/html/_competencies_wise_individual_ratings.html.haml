@@ -14,14 +14,18 @@
         - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
           %td
             = competency
-
       -candidate_count.times do |index|
+        - candidate_index = index
         %tr
           %td
-            = index
+            = @report.report_hash[:competency_individual_scores].first[1][index][:name]
           %td
-            XX
-          - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
+            - overall_score = 0
+            - @report.report_hash[:competency_individual_scores].each_with_index do |(competency, competency_data), index|
+              - overall_score += @report.report_hash[:competency_individual_scores].values[index][candidate_index]["score"].to_f
+            - overall_score = overall_score / @report.report_hash[:competency_individual_scores].size
+            = overall_score.round(2) rescue "-"
+          - @report.report_hash[:competency_individual_scores].each_with_index do |(competency, competency_data), index|
             %td
-              x2
+              = @report.report_hash[:competency_individual_scores].values[index][candidate_index]["score"].to_f.round(2) rescue "-"
     .divider2
