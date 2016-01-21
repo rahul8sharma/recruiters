@@ -273,24 +273,28 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 65.0
           score_bucket_id: 4
           score_bucket: Above Average
+          uid: mbAKnHly
           weight: 4
           pass: true
         Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 50.0
           score_bucket_id: 3
           score_bucket: Average
+          uid: TQHBqVkO
           weight: 3
           pass: true
         Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 43.33
           score_bucket_id: 3
           score_bucket: Average
+          uid: TQHBqVkO
           weight: 3
           pass: true
         Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 51.75
           score_bucket_id: 3
           score_bucket: Average
+          uid: TQHBqVkO
           weight: 3
           pass: true
       competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
