@@ -56,3 +56,10 @@ perception_gap:
   aggrement: "This section lists aspects on which Stakeholder rating overlaps with the candidate's self rating"
   negative_differences: "This section lists aspects on which Stakeholder rating is lower than the candidate's self rating"
   positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidate's self rating"
+
+oac_report:
+  xjUlEDpa: "Novice"
+  OKsrTfWV: "Practitioner"
+  TQHBqVkO: "Competent"
+  mbAKnHly: "Proficient"
+  QHqInEYf: "Expert"
