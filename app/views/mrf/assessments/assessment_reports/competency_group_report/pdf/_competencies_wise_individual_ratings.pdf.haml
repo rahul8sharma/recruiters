@@ -1,34 +1,33 @@
-= render :partial => "shared/360/group_report_header"
-- candidate_count = @report.report_hash[:competency_individual_scores].first[1].size
-.report_content.border-bottom-grayLighter
-  .competencies_wise_individual_ratings
-    .color-info.big-text
-      Competency-wise Individual Ratings
-    .divider1
-    %table.text-center{:cellspacing=>"0", :cellpadding=>"0"}
-      %tr
-        %td
-          Candidate names
-        %td
-          Overall 360&#176 Rating
-        - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
-          %td
-            = competency
-
-      -candidate_count.times do |index|
-        - candidate_index = index
+- candidate_data = reverse_hash(@report.report_hash[:competency_individual_scores])
+- candidate_data.each_slice(15) do |step_data|
+  = render :partial => "shared/360/group_report_header"
+  .report_content.border-bottom-grayLighter
+    .competencies_wise_individual_ratings
+      .color-info.big-text
+        Competency-wise Individual Ratings
+      .divider1
+      %table.text-center{:cellspacing=>"0", :cellpadding=>"0"}
         %tr
           %td
-            = @report.report_hash[:competency_individual_scores].first[1][index][:name]
+            Candidate names
           %td
-            - overall_score = 0
-            - @report.report_hash[:competency_individual_scores].each_with_index do |(competency, competency_data), index|
-              - overall_score += @report.report_hash[:competency_individual_scores].values[index][candidate_index]["score"].to_f
-            - overall_score = overall_score / @report.report_hash[:competency_individual_scores].size
-            = overall_score.round(2) rescue "-"
-          - @report.report_hash[:competency_individual_scores].each_with_index do |(competency, competency_data), index|
+            Overall Score
+          - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
             %td
-              = @report.report_hash[:competency_individual_scores].values[index][candidate_index]["score"].to_f.round(2) rescue "-"
-    .divider1
-= render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/ratings_on_traits"
+              = competency
+
+        -step_data.each do |candidate, candidate_scores|
+          %tr
+            %td
+              = candidate
+            - overall_score = 0
+            - candidate_scores.each do |key, value|
+              - overall_score += value[:score]
+            - overall_score = overall_score / @report.report_hash[:competency_individual_scores].size
+            %td
+              = overall_score.round(2)
+            - candidate_scores.each do |key, value|
+              %td
+                = value[:score]
+      .divider1
 .page-break
