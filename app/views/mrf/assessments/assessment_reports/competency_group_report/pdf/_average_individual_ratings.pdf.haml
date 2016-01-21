@@ -1,3 +1,4 @@
+= render :partial => "shared/360/group_report_header"
 .report_content
   .average_individual_ratings
     .color-info.big-text
@@ -14,7 +15,6 @@
             .left_sec.pull-left
               .extra-medium-text.bold.first.trait_title.line-height2
                 = competency
-              
               %ul
                 %li
                   .span5.bold.medium-text.first.trait_title
@@ -25,7 +25,7 @@
                 - competency_scores.each do |scores|
                   %li
                     .span5.medium-text.first.trait_title
-                      = scores[:user_id]
+                      = scores[:name]
                     .stakeholder_rating.pull-left
                       = scores[:score]
                     .clr
@@ -60,3 +60,4 @@
                       .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
                       .divider1
             .clr
+.page-break
