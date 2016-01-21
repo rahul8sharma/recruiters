@@ -97,7 +97,7 @@ module Mrf
             :status => "Failed",
             :report_id => @report.id,
             :assessment_id => @report.assessment_id,
-            :company_id => @report.assessment.company_id
+            :company_id => report_data[:company_id]
           },
           :errors => {
             :backtrace => [e.message] + e.backtrace[0..20]
