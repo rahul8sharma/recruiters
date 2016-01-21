@@ -65,7 +65,7 @@ module Mrf::ReportHelper
     all_responses.select{|comment| comment[:response].present? }
   end
 
-  def reverse_hash(hash)
+  def get_user_wise_competency_scores(hash)
     new_hash = {}
     hash.each do |competency_name,data|
       data.each do |user_data|
