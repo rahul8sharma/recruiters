@@ -32,22 +32,10 @@
           .clr
         .graph
           .graph_content
-            - self_score = competency_scores[:average_score_self][:points]
-            - other_score = competency_scores[:score][:points]
-            - min = @trait_graph_buckets.map(&:min_val).min
-            - max = @trait_graph_buckets.map(&:min_val).max
-            / Variables used to get the desired range and compute the width and margin/
-            - start_from = competency_scores[:from_norm_bucket][:name]
-            - end_to = competency_scores[:to_norm_bucket][:name]
             - desired_range_width = 1
             - desired_range_margin = 1
             - step =  (100.0/(@norm_buckets.size-1))
-            - @norm_buckets.each_with_index do |norm_bucket, index|
-              - if norm_bucket.name == start_from
-                - desired_range_margin = index * step
-              - if norm_bucket.name == end_to
-                - desired_range_width = (index * step) - desired_range_margin
-            - desired_range_width = 2 if desired_range_width == 0        
+
             / Variables used to get the desired range and compute the width and margin/
             - trait_scores.each do |trait_score|
               - self_score = trait_score[:average_score_self][:points]
@@ -58,6 +46,7 @@
               / Variables used to get the desired range and compute the width and margin/
               - start_from = trait_score[:trait][:from_norm_bucket][:name]
               - end_to = trait_score[:trait][:to_norm_bucket][:name]
+              
               - desired_range_width = 1
               - desired_range_margin = 1
               - @norm_buckets.each_with_index do |norm_bucket, index|
