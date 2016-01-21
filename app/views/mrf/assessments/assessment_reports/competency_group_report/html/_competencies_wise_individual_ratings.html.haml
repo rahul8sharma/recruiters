@@ -1,3 +1,4 @@
+- candidate_count = @report.report_hash[:competency_individual_scores].first[1].size
 .competencies_wise_individual_ratings.border-bottom-grayLighter
   .container
     .divider2
@@ -8,15 +9,19 @@
       %tr.extra-medium-text
         %td
           Candidate names
-        -8.times do
+        %td
+          Overall Score
+        - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
           %td
-            Overall 360&#176 Rating
+            = competency
 
-      -5.times do
+      -candidate_count.times do |index|
         %tr
           %td
-            Pranav Shah
-          -8.times do
+            = index
+          %td
+            XX
+          - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
             %td
-              Overall Score
+              x2
     .divider2
