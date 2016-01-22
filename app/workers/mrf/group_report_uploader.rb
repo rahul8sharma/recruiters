@@ -43,8 +43,6 @@ module Mrf
         attributes = {
           :html_bucket => html_s3[:bucket],
           :html_key => html_s3[:key],
-          :pdf_bucket => pdf_s3[:bucket],
-          :pdf_key => pdf_s3[:key],
           :status => Vger::Resources::Mrf::AssessmentReport::Status::UPLOADED
         }
           
@@ -68,6 +66,9 @@ module Mrf
           file << pdf
         end
         pdf_s3 = upload_file_to_s3("mrf_group_reports/pdf/#{pdf_file_id}",pdf_save_path)
+
+        attributes[:pdf_bucket] = pdf_s3[:bucket]
+        attributes[:pdf_key] = pdf_s3[:key]
                 
         File.delete(pdf_save_path)
 
