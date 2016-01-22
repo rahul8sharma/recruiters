@@ -13,9 +13,10 @@
         - group_average = group_average.to_f / competency_scores.size.to_f
         .traits_under_graph
           .graph_container
+            .large-text.first.trait_title.line-height2
+              = competency
             .left_sec.pull-left
-              .large-text.first.trait_title.line-height2
-                = competency
+              .divider2
               %ul
                 %li
                   .span6.extra-medium-text.first.trait_title

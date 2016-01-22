@@ -10,25 +10,18 @@ module Mrf
         RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
         puts "Getting Report #{report_id}"
         @report = Vger::Resources::Mrf::AssessmentReport.find(report_id, report_data)
-        
         @assessment = Vger::Resources::Mrf::Assessment.find(@report.assessment_id, company_id: report_data[:company_id])
-        
         @report.report_hash = @report.report_data
-        
         get_norm_buckets(report_data)
-        
         Vger::Resources::Mrf::AssessmentReport.save_existing(report_id,
           :status => Vger::Resources::Mrf::AssessmentReport::Status::UPLOADING
         )
-        
         template = @report.report_data[:assessment][:use_competencies] ? "competency_group_report" : "fit_group_report"
-
         report_status = {
           :errors => [],
           :message => "",
           :status => "success"
         }
-        
         @view_mode = "html"
         html = render_to_string(
            template: "mrf/assessments/assessment_reports/#{template}.html.haml",
@@ -52,7 +45,7 @@ module Mrf
           :html_key => html_s3[:key],
           :status => Vger::Resources::Mrf::AssessmentReport::Status::UPLOADED
         }
-=begin          
+          
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string(
@@ -73,12 +66,12 @@ module Mrf
           file << pdf
         end
         pdf_s3 = upload_file_to_s3("mrf_group_reports/pdf/#{pdf_file_id}",pdf_save_path)
-        
+
         attributes[:pdf_bucket] = pdf_s3[:bucket]
         attributes[:pdf_key] = pdf_s3[:key]
-        
+                
         File.delete(pdf_save_path)
-=end
+
         Vger::Resources::Mrf::AssessmentReport.save_existing(report_id,attributes)
         JombayNotify::Email.create_from_mail(SystemMailer.send_mrf_group_report(@report.id, @report.report_data), "send_mrf_group_report")
       rescue Exception => e
