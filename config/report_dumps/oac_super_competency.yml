@@ -1551,7 +1551,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     color: '#CD6212'
     rating: AMBER
     uid: TQHBqVkO
-
 status: scored
 user_exercise_id: 31
 user_id: 70614
