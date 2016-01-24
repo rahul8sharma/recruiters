@@ -31,7 +31,7 @@ module Mrf
         )
         
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        html_file_id = "mrf_report_#{@report.id}.html"      
+        html_file_id = "mrf_group_report_#{@report.id}.html"      
         html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
         File.open(html_save_path, 'wb') do |file|
           file << html
@@ -57,10 +57,10 @@ module Mrf
           margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
           footer: {
             content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-                                        layout: "layouts/mrf/assessment_reports.pdf.haml")
+                                        layout: "layouts/mrf/group_reports.pdf.haml")
           }
         )
-        pdf_file_id = "mrf_report_#{@report.id}.pdf"
+        pdf_file_id = "mrf_group_report_#{@report.id}.pdf"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
         File.open(pdf_save_path, 'wb') do |file|
           file << pdf
