@@ -2,7 +2,6 @@ module Mrf
   class GroupReportUploader < Mrf::ReportUploader
     def perform(report_data, auth_token, patch = {})
       tries = 0
-
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
       @report = nil
