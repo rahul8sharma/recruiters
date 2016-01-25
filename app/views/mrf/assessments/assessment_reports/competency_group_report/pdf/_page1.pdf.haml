@@ -14,13 +14,20 @@
       .banner-sub-heading
         Group Report
         .large-text
-          Completion Status: 4 out of 4
+          - if @report.report_data[:mrf_report_show_completion_status]
+            - completed_count = 0
+            - sent_count = 0
+            - Hash[@report.report_data[:feedback_stats]].each do |role, status|
+              - completed_count += status[:completed]
+              - sent_count += status[:sent]
+
+          Completion Status: #{completed_count} out of #{sent_count}
     .clr
     
   .divider2
   .left-offset1
     .extra-large-text
-      360&#176; Group Sample 360 Degree Report - Business Head
+      = @report.report_data[:assessment][:name]
 
     .divider1
     .large-text
