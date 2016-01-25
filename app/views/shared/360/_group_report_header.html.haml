@@ -24,7 +24,7 @@
             %a.scroll{ href: "#perception-gap" }
               Perception Gap
           %li.right
-        = link_to "Printable PDF", s3_group_report_company_mrf_assessment_path(:company_id => @report.report_data[:company][:id], :id => @report.report_data[:assessment][:id], :report_id => @report.id, :format => :pdf, :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", target: :_blank
+        = link_to "Printable PDF", s3_group_report_company_mrf_assessment_url(:company_id => @report.report_data[:company][:id], :id => @report.report_data[:assessment][:id], :report_id => @report.id, :format => :pdf, :host => Rails.application.config.action_mailer.default_url_options[:host]), :class => "btn btn-warning span print-btn", target: :_blank
 
 = wicked_pdf_javascript_include_tag 'common'
 
