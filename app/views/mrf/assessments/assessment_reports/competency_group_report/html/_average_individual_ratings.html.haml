@@ -7,7 +7,7 @@
    
     .scores_competencies_graph.descending_order.descending_average_rating
       - @report.report_hash[:competency_individual_scores].each do |competency, competency_scores|
-        - group_average = @report.report_data[:competency_scores][competency][:average_score_excluding_self][:points] rescue 0
+        - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
         .traits_under_graph
           .graph_container
             .large-text.first.trait_title.line-height2
