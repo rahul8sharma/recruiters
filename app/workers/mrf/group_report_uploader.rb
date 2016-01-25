@@ -1,48 +1,7 @@
 module Mrf
   class GroupReportUploader < Mrf::ReportUploader
-    def get_norm_buckets(report_data)
-      @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                        order: "weight ASC", query_options: {
-                          company_id: report_data[:company_id]
-                        }).all
-      
-      if @norm_buckets.empty?
-        @norm_buckets = Vger::Resources::Mrf::NormBucket.where(
-                        order: "weight ASC", query_options: {
-                          company_id: nil
-                        }).all
-      end
-      @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
-      
-      @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                        order: "min_val ASC", query_options: {
-                          company_id: report_data[:company_id]
-                        }).all
-    
-      if @trait_graph_buckets.empty?
-        @trait_graph_buckets = Vger::Resources::Mrf::TraitGraphBucket.where(
-                        order: "min_val ASC", query_options: {
-                          company_id: nil
-                        }).all
-      end
-      
-      @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                      order: "min_val ASC", query_options: {
-                        company_id: report_data[:company_id]
-                      }).all
-    
-      if @competency_graph_buckets.empty?
-        @competency_graph_buckets = Vger::Resources::Mrf::CompetencyGraphBucket.where(
-                        order: "min_val ASC", query_options: {
-                          company_id: nil
-                        }).all
-      end
-    end
-
-
     def perform(report_data, auth_token, patch = {})
       tries = 0
-
       report_data = HashWithIndifferentAccess.new report_data
       report_id = report_data["id"]
       @report = nil
