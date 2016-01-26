@@ -3,6 +3,8 @@
   = wicked_pdf_stylesheet_link_tag "reports_pdf"
   = wicked_pdf_stylesheet_link_tag "group_report_pdf"
   = wicked_pdf_stylesheet_link_tag "shared"
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"
   
 - content_for :body do
   .report.mrf

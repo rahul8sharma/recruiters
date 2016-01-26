@@ -7,21 +7,19 @@
    
     .scores_competencies_graph.descending_order.descending_average_rating
       - @report.report_hash[:competency_individual_scores].each do |competency, competency_scores|
-        - group_average = 0  
-        - competency_scores.each do |scores|
-          - group_average += scores[:score].to_f
-        - group_average = group_average.to_f / competency_scores.size.to_f
+        - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
         .traits_under_graph
           .graph_container
+            .large-text.first.trait_title.line-height2
+              = competency
             .left_sec.pull-left
-              .large-text.first.trait_title.line-height2
-                = competency
+              .divider2
               %ul
                 %li
                   .span6.extra-medium-text.first.trait_title
                     Group Average
                   .stakeholder_rating.medium-text.pull-left
-                    = group_average.round(2)
+                    = group_average
                   .clr
                 - competency_scores.each do |scores|
                   %li

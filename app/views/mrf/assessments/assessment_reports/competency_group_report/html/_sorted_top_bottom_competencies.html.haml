@@ -13,7 +13,7 @@
             .span6.extra-medium-text.first.trait_title
               = truncate competency, length: 25
             .stakeholder_rating.medium-text.pull-left
-              = competency_score[:average_score_excluding_self][:points] rescue "-"
+              = competency_score[:average_score_including_self][:points] rescue "-"
             .clr
        
     .right_sec.span22.pull-right
@@ -21,7 +21,7 @@
         .classic_competency_graph_scale
           .block.pull-left
             = @competency_graph_buckets.first.min_val
-          - scale_width = (830/(@competency_graph_buckets.size-1))
+          - scale_width = (869/(@competency_graph_buckets.size-1))
           - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
             .block.pull-left{:style=>"width: #{scale_width}px; text-align: right"}
               = competency_graph_bucket.min_val
@@ -33,8 +33,8 @@
             - old_min = @competency_graph_buckets.first.min_val
             - old_max = @competency_graph_buckets.last.max_val
             - sorted_competency_scores.each do |competency, competency_score|
-              - if competency_score[:average_score_excluding_self][:points]
-                - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_score[:average_score_excluding_self][:points])
+              - if competency_score[:average_score_including_self][:points]
+                - percent_360 = convertToRange(old_min, old_max, 0, 100, competency_score[:average_score_including_self][:points])
                 - percent_360 = percent_360 == 0 ? 2 : percent_360
               - else
                 - percent_360 = 0

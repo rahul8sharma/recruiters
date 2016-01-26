@@ -10,8 +10,8 @@
     .clr
     .divider1
     .scores_competencies_graph.descending_order.descending_average_rating
-      - sorted_top_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_f }.reverse[0..1]]
+      - sorted_top_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_including_self][:points] }.reverse[0..1]]
       = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/sorted_top_bottom_competencies", :locals => {:display_name => "Top 2", :sorted_competency_scores => sorted_top_competency_scores}
-      - sorted_bottom_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_excluding_self][:points].to_f }[0..1]]
+      - sorted_bottom_competency_scores = Hash[@report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_including_self][:points] }[0..1]]
       = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/sorted_top_bottom_competencies", :locals => {:display_name => "Bottom 2", :sorted_competency_scores => sorted_bottom_competency_scores}
 .page-break

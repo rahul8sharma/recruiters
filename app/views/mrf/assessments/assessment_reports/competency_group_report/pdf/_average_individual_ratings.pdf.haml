@@ -8,21 +8,19 @@
       .divider1 
       .scores_competencies_graph.descending_order.descending_average_rating
         - step_data.each do |competency, competency_scores|
-          - group_average = 0  
-          - competency_scores.each do |scores|
-            - group_average += scores[:score].to_f
-          - group_average = group_average.to_f / competency_scores.size.to_f        
+          - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
           .traits_under_graph
             .graph_container
+              .extra-medium-text.bold.first.trait_title.line-height2
+                = competency
               .left_sec.pull-left
-                .extra-medium-text.bold.first.trait_title.line-height2
-                  = competency
+                .divider2
                 %ul
                   %li
                     .span5.bold.medium-text.first.trait_title
                       Group Average
                     .stakeholder_rating.pull-left
-                      = group_average.round(2)
+                      = group_average
                     .clr
                   - competency_scores.each do |scores|
                     %li
@@ -46,7 +44,7 @@
                   .graph
                     - old_min = @competency_graph_buckets.first.min_val
                     - old_max = @competency_graph_buckets.last.max_val
-                    - percent_360 = convertToRange(old_min, old_max, 0, 100, group_average.to_f)
+                    - percent_360 = convertToRange(old_min, old_max, 0, 100, group_average)
                     - percent_360 = percent_360 == 0 ? 5 : percent_360
                     .graph_content
                       .divider1
