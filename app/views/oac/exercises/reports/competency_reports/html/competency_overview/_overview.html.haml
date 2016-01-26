@@ -17,10 +17,8 @@
           -#
             .arrow
             .marker-info
-              = score_bucket.name
-          - if score_bucket.name.split(" ").size == 1
-            %br
-          = score_bucket.name
+              = @custom_score_bucket_names["#{score_bucket.uid}"]
+          = @custom_score_bucket_names["#{score_bucket.uid}"]
       .clr
   .clr
 .clr

@@ -25,10 +25,14 @@ class Oac::Exercises::ReportsController < ApplicationController
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
     
-    if request.format == "application/pdf"
-      @view_mode = "pdf"
-    else  
-      @view_mode = "html"
+    if params[:view_mode]
+      @view_mode = params[:view_mode]
+    else
+      if request.format == "application/pdf"
+        @view_mode = "pdf"
+      else  
+        @view_mode = "html"
+      end
     end
 
     template = "super_competency_report.#{@view_mode}.haml"    

@@ -25,9 +25,9 @@
         Email Id
       .span4
         Role
-      .span5
-        Response Status
-      .span4
+      .span3
+        Status
+      .span6
         Send Reminder
       .span2
         Enable/Disable
@@ -47,12 +47,15 @@
               = link_to stakeholder.email, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
             .span4
               = feedback.role.titleize
-            .span5
+            .span3
               = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
-            .span4.text-center
+            .span6
               - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
                 %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { user_id: @user.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
                   Send Reminder
+                - if stakeholder_assessment.last_reminder_sent_at
+                  .small-text
+                    = "Last reminder sent on #{hdate(stakeholder_assessment.last_reminder_sent_at, "-")} #{htime(stakeholder_assessment.last_reminder_sent_at, "-")} Hrs"  
               - else
                 = "-"
             .span2

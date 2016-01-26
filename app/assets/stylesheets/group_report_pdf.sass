@@ -1,0 +1,206 @@
+.report.mrf
+  .report_header
+    .logo
+      background: image-url('report/pdf/jombay-logo.png') no-repeat
+      height: 25px
+      width: 110px
+      position: static
+      img
+        display: none
+.banner
+  color: #fff
+  background: #f58220
+  font-size: 18px
+  border-bottom: 7px solid #002b3a
+  box-shadow: 0 1px 0 #cac1b4
+  padding: 36px 30px 36px 90px
+  width: 720px
+  margin-left: -40px
+  .banner-heading
+    font-size: 120px
+    line-height: 127px
+    text-shadow: 8px 0px 0px #d36a28
+  .banner-sub-heading
+    font-size: 28px
+    line-height: 35px
+.distribution
+  .graph_indications
+    border: 1px dashed #ccc
+    .legend
+      border-bottom: 1px dashed #ccc
+    ul
+      li
+        line-height: 24px
+        padding: 10px 0
+        [class*="icon-"]
+          font-size: 24px
+          line-height: 24px
+
+  .grid_graph
+    padding: 10px 0 0 10px
+    border-left: 1px solid #ccc
+    height: 302px
+    position: relative
+    .y_indication
+      position: absolute
+      background: image-url('report/html/competency/grid_graph_y_indication.png') no-repeat 0 center
+      width: 45px
+      height: 100%
+      left: -65px
+    .x_indication
+      position: absolute
+      width: 100%
+      bottom: -60px
+      font-size: 16px
+      color: #808285
+      text-align: center
+    
+    .columns
+      background: image-url('report/gray_border.gif') 
+      height: 100%
+      .column
+        position: relative
+        margin-left: 45px
+        width: 60px
+        float: left
+        .rating_range
+          font-size: 14px
+          position: absolute
+          bottom: -25px
+          text-align: center
+          width: 110%
+
+    .counts
+      position: absolute
+      margin: 0 0 0 -50px
+      height: 100%
+      width: 30px
+      line-height: 20px
+      text-align: right
+      top: 0
+    .count
+      height: 30px
+
+    &.small
+      padding: 10px 0 0 5px
+      margin-left: 35px
+      height: 231px
+      .y_indication
+        width: 40px
+        height: 100%
+        left: -40px
+        background-image: image-url('report/html/competency/grid_graph_y_indication_small.png')
+      .x_indication
+        bottom: -40px
+        font-size: 10px
+      .columns
+        background: image-url('report/gray_border_small.gif') 
+      .column
+        margin-left: 24px
+        width: 24px
+        .rating_range
+          font-size: 10px
+          width: 190%
+          right: -40%
+          bottom: -20px
+      .counts
+        font-size: 10px
+        margin-left: -40px
+      .count
+        height: 23px
+.perception_gap
+  .frame
+    border-width: 1px
+  .color-agreement
+    color: #26c485
+  .color-positive
+    color: #a3e7fc
+  .color-negative
+    color: #553a41
+  .chart_indication
+    font-size: 10px
+    .icons
+      font-size: 40px
+  .chart
+    text-align: center
+    .pie_chart
+      height: 200px
+      width: 200px
+    .pie_chart_rate
+      font-size: 160px
+      line-height: 42px
+      [class*="color-"]
+        position: relative
+
+      .rate
+        position: absolute
+        width: 100%
+        color: #fff
+        font-size: 10px
+        top: 0
+    &.small
+      width: 550px
+      margin: auto
+      li
+        border-left: 1px solid #ccc
+        width: 33%
+        box-sizing: border-box
+        float: left
+        margin: 35px 0
+        &:first-child
+          border: 0 none
+      .pie_chart
+        height: 110px
+        width: 110px
+      .pie_chart_rate
+        font-size: 150px
+        line-height: 45px
+        margin-left: 7%
+        .rate
+          font-size: 10px
+          top: 0
+
+.classic_report 
+  .scores_competencies_graph 
+    .graph_container 
+      .graph_instructions
+        margin: 0 0 16px 175px
+
+  .mrf_top_bottom_competencies, .average_individual_ratings
+    .scores_competencies_graph.descending_order 
+      .graph_container 
+        .descending_graph_bar
+          margin-top: 0
+        .left_sec   
+          li:first-child
+            margin-top: 7px
+          .stakeholder_rating
+            background: image-url('report/pdf/mrf/graph_left_sec_top_bottom_stakeholder_rating_icon.png')
+            font-weight: 200
+         
+  
+.competencies_wise_individual_ratings
+  table
+    width: 100%
+    border: 1px solid #28b29b
+    font-size: 10px
+    line-height: 12px
+    tr
+      &:first-child
+        background: #28b29b
+        color: #fff
+        td
+          background: #28b29b !important
+          border-top: 0 none
+
+      &:nth-child(even)
+        background: #f8f8f8
+      td
+        border-top: 1px solid #fff
+        border-left: 1px solid #fff
+        &:first-child
+          border-left: 0 none
+          padding: 10px 10px
+          text-align: left
+          background: #e3e3e3
+          min-width: 95px

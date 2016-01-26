@@ -15,6 +15,7 @@ class Mrf::FeedbacksController < ApplicationController
     scopes["stakeholder_name_like"] = search_params.delete :stakeholder_name
     scopes["stakeholder_email_like"] = search_params.delete :stakeholder_email
     scopes = scopes.select{|key,val| val.present? }
+    search_params = search_params.select{|key,val| val.present? }
     conditions = {
       company_id: params[:company_id],
       query_options: search_params,

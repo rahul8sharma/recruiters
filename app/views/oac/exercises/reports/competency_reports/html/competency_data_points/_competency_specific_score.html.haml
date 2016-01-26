@@ -1,23 +1,7 @@
+- locals_hash = { toolwise_scores: toolwise_scores }
 .competency_specific_score.pull-left 
-  .tools
-    .span4.text-left.no-border.line-height2
-      Tool Used
-    .pull-right
-      - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
-        - if toolwise_scores[tool]
-          .span4{ class: (index==0? "no-border text-center":"") }
-            = tool.titleize
-      .clr
-    .clr
-  .tool_scores
-    .span4.text-left.no-border.line-height2
-      Score
-    .pull-right
-      - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
-        - if toolwise_scores[tool]
-          .span4{ class: (index==0? "no-border text-center":"") }
-            = toolwise_scores[tool][:score_bucket]
-      .clr
-    .clr
+  - section_value.each do |section|
+    - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
+    = render :partial => section["path"], :locals => locals
 .clr
 

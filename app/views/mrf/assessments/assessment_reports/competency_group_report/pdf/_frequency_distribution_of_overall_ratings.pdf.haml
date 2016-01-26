@@ -1,11 +1,11 @@
-#graph.bg-gray.distribution.black
-  .divider2
-  .container
-    .title
-      Frequency Distribution of Overall 360&#176; Ratings
+= render :partial => "shared/360/group_report_header"
+.report_content.border-bottom-grayLighter
+  .distribution.black
+    .color-info.big-text
+      Frequency Distribution of Overall 360&#176;  Ratings
     .divider2
     
-    .grid_graph.span20.margin-auto
+    .grid_graph.span17.pull-right
       .y_indication
       .x_indication
         Ratings
@@ -13,7 +13,7 @@
         - total = @report.report_data[:overall_competencies_score_distribution].values.sum
         - @report.report_data[:overall_competencies_score_distribution].each do |bucket, count|
           - percentage = ((count*100).to_f/total).round(2)
-          .column.span2.left-offset1{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)-1}px; height: #{percentage}%"}
+          .column{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)-1}px; height: #{percentage}%"}
             .rating_range
               = bucket
         .clr
@@ -25,6 +25,8 @@
           .count
             #{counter} 
     .clr  
-    .divider5
+    .divider4
+= render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_ratings"
+.page-break
 
 
