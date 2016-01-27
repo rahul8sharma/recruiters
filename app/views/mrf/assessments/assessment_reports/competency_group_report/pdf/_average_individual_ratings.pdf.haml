@@ -1,63 +1,64 @@
-- step_count = @report.report_hash[:competency_individual_scores].first[1].size > 15 ? 1 : 2
-- @report.report_hash[:competency_individual_scores].each_slice(step_count) do |step_data|
-  = render :partial => "shared/360/group_report_header"
-  .report_content
-    .average_individual_ratings
-      .color-info.big-text
-        Group Average versus Individual 360&#176 Rating
-      .divider1 
-      .scores_competencies_graph.descending_order.descending_average_rating
-        - step_data.each do |competency, competency_scores|
-          - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
-          .traits_under_graph
-            .graph_container
-              .extra-medium-text.bold.first.trait_title.line-height2
-                = competency
-              .left_sec.pull-left
-                .divider2
-                %ul
-                  %li
-                    .span5.bold.medium-text.first.trait_title
-                      Group Average
-                    .stakeholder_rating.pull-left
-                      = group_average
-                    .clr
-                  - competency_scores.each do |scores|
+- if @report.report_hash[:competency_individual_scores].present?
+  - step_count = @report.report_hash[:competency_individual_scores].first[1].size > 15 ? 1 : 2
+  - @report.report_hash[:competency_individual_scores].each_slice(step_count) do |step_data|
+    = render :partial => "shared/360/group_report_header"
+    .report_content
+      .average_individual_ratings
+        .color-info.big-text
+          Group Average versus Individual 360&#176 Rating
+        .divider1 
+        .scores_competencies_graph.descending_order.descending_average_rating
+          - step_data.each do |competency, competency_scores|
+            - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
+            .traits_under_graph
+              .graph_container
+                .extra-medium-text.bold.first.trait_title.line-height2
+                  = competency
+                .left_sec.pull-left
+                  .divider2
+                  %ul
                     %li
-                      .span5.medium-text.first.trait_title
-                        = scores[:name]
+                      .span5.bold.medium-text.first.trait_title
+                        Group Average
                       .stakeholder_rating.pull-left
-                        = scores[:score]
+                        = group_average
                       .clr
-                 
-              .right_sec.span13.pull-right
-                .classic_competency_graph
-                  .classic_competency_graph_scale
-                    .block.pull-left
-                      = @competency_graph_buckets.first.min_val
-                    - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
-                      .block.pull-left{:style=>"width: #{510/(@competency_graph_buckets.size-1)}px; text-align: right"} 
-                        = competency_graph_bucket.min_val
-
-                    .clr
+                    - competency_scores.each do |scores|
+                      %li
+                        .span5.medium-text.first.trait_title
+                          = scores[:name]
+                        .stakeholder_rating.pull-left
+                          = scores[:score]
+                        .clr
                    
-                  .graph
-                    - old_min = @competency_graph_buckets.first.min_val
-                    - old_max = @competency_graph_buckets.last.max_val
-                    - percent_360 = convertToRange(old_min, old_max, 0, 100, group_average)
-                    - percent_360 = percent_360 == 0 ? 5 : percent_360
-                    .graph_content
-                      .divider1
-                      .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
-                      .divider1                    
-                      - competency_scores.each do |scores|
-                        - if scores[:score]
-                          - percent_360 = convertToRange(old_min, old_max, 0, 100, scores[:score].to_f)
-                          - percent_360 = percent_360 == 0 ? 5 : percent_360
-                        - else
-                          - percent_360 = 0
+                .right_sec.span13.pull-right
+                  .classic_competency_graph
+                    .classic_competency_graph_scale
+                      .block.pull-left
+                        = @competency_graph_buckets.first.min_val
+                      - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
+                        .block.pull-left{:style=>"width: #{510/(@competency_graph_buckets.size-1)}px; text-align: right"} 
+                          = competency_graph_bucket.min_val
+
+                      .clr
+                     
+                    .graph
+                      - old_min = @competency_graph_buckets.first.min_val
+                      - old_max = @competency_graph_buckets.last.max_val
+                      - percent_360 = convertToRange(old_min, old_max, 0, 100, group_average)
+                      - percent_360 = percent_360 == 0 ? 5 : percent_360
+                      .graph_content
                         .divider1
                         .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
-                        .divider1
-              .clr
-  .page-break
+                        .divider1                    
+                        - competency_scores.each do |scores|
+                          - if scores[:score]
+                            - percent_360 = convertToRange(old_min, old_max, 0, 100, scores[:score].to_f)
+                            - percent_360 = percent_360 == 0 ? 5 : percent_360
+                          - else
+                            - percent_360 = 0
+                          .divider1
+                          .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
+                          .divider1
+                .clr
+    .page-break
