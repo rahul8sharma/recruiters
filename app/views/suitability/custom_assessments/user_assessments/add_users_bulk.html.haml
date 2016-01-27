@@ -58,6 +58,16 @@
                 %i.muted.span.medium-text
                   (Potential Candidates)
                 .clr
+
+          - if is_superuser?
+            .divider1
+            .span7.extra-medium-text
+              Type of Assessment
+            %label
+              %input.span1{:type => "checkbox", :name => "isPaid", value: "Is Paid ?" }
+              .title.span.extra-medium-text.default
+                Is Paid?
+
         .clr
         .divider2
         / back to top
