@@ -26,6 +26,9 @@
         Assessments Taken:
       %span #{@company.assessmentwise_statistics[:completed][@assessment.id.to_s] rescue 0}
       %span.left-offset1
+        Trials Taken:
+      %span #{@company.assessmentwise_statistics[:trials_sent][@assessment.id.to_s] rescue 0}
+      %span.left-offset1
         %a.label.label-warning.label-small.medium-text{:href=> email_assessment_status_url, :title=>"Email Status Summary"} Email Status Summary
         - if is_superuser?
           %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Email Status Summary"} Resend Invitations
