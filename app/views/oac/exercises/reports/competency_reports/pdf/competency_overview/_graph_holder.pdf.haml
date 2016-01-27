@@ -1,0 +1,21 @@
+- width = 50
+- number_of_buckets = 6
+%ul.competency-list.medium-text
+  - 3.times do
+    %li
+      .first.hexagon-icon.span1
+      .competency-name.pull-left
+        Leadership Potential 
+      .competency-value.pull-right
+        .scale
+          .line{:style => "width:#{(number_of_buckets-1)*width}px"}
+          .marker-container
+            = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_with_desired_range"
+            -#= render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_without_desired_range"
+            - number_of_buckets.times do
+              .marker
+                %br/
+                Average
+            .clr
+        .clr
+      .clr     

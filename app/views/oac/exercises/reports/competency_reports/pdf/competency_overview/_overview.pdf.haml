@@ -1,0 +1,21 @@
+- width = 50
+- number_of_buckets = 6
+.overview-title{:style=>"padding: 0 30px"}
+  .pull-left.text-left
+    .big-text.color-warning{:style=>"padding-top: 10px"}
+      Competency Scores
+    .instruction_container
+      .instructions
+        = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/with_desired_range"
+        -#= render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/without_desired_range"
+    .clr
+  .scale
+    .line{:style => "width:#{(number_of_buckets-1)*width}px"}
+    .marker-container
+      - number_of_buckets.times do
+        .marker
+          %br/
+          high
+      .clr
+  .clr
+.clr
