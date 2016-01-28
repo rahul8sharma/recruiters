@@ -653,7 +653,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  resources :plans, :only => [:index] do
+  resources :plans do
     collection do
       post :import
       get :manage
