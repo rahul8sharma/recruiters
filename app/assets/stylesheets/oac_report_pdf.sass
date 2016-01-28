@@ -1,0 +1,249 @@
+.report 
+  .report_header
+    padding: 0px 30px
+    .pull-right
+      padding-top: 15px
+.inner
+  padding: 30px
+  box-sizing: border-box
+.banner
+  color: #fff
+  background: #21b099
+  padding: 0px 30px 0px 90px
+  width: 720px
+  margin-left: -40px
+  .banner-heading
+    font-size: 60px
+    line-height: 100px
+.partner_logos 
+  img
+    margin: 10px
+    width: 12%
+    &:first-child
+      margin-left: 0
+.participation
+  .content
+    border: 1px dashed #28b29b
+    padding: 18px 30px
+    background: #e9f7f5
+  p, ul
+    font-size: 12px
+    line-height: 15px
+    margin: 0 0 15px
+.competency_description 
+  table 
+    tr
+      td
+        line-height: 16px
+        border-bottom: 2px solid #fff
+        &.left
+          padding: 10px 18px
+          background: #28b29b
+          color: #fff
+          font-size: 14px
+          width: 16%
+        &.right
+          padding: 10px
+          width: 84%
+          vertical-align: top
+          background: #f8f8f8
+          color: #808285
+          font-size: 10px
+.report 
+  .competency_report 
+    .overview 
+      min-height: auto
+      &.competency
+        background: none
+        .content
+          padding: 0
+          border: 1px dashed #28b29b
+          ul.competency-list
+            li
+              padding: 10px 30px
+              &:nth-child(odd)
+                background: #f8f8f8
+              .competency-name
+                line-height: 25px
+                width: 50%
+              .scale
+                .line
+                  border-color: #CBCBCB
+                  bottom: 18px
+                .marker-container
+                  .desire_range
+                    background-color: #3aafe5
+                    border-radius: 2px
+                    height: 4px
+                    position: absolute
+                    top: 30px
+                    left: 27px
+                    z-index: 1
+                  .marker
+                    color: #414042
+                    line-height: 12px
+                    height: 40px
+                    background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+                    position: relative
+                    z-index: 2
+                    &.active
+                      background: image-url('report/html/competency/list-scale-small-hexa-favorable.png') no-repeat center 26px
+                      &.less_favorable
+                        background: image-url("report/html/competency/list-scale-small-hexa-less-favorable.png") no-repeat center 26px
+                        text-decoration: none
+      &.tool_wise
+        background: none
+        .content 
+          border: 1px solid #28b29b
+          padding: 0
+        .competency-list
+          *
+            box-sizing: border-box
+          .ok-icon
+            height: 20px
+            background: image-url('report/html/icon-ok.png') no-repeat center center
+
+          li
+            padding: 10px 0 10px 25px
+            line-height: 14px
+            &:nth-child(odd)
+              background: #f8f8f8
+            &:first-child
+              background: #28b29b
+              color: #fff
+            
+            [class*="span"]
+              padding: 0 10px
+              margin-left: 0
+              text-align: center
+              &:first-child
+                text-align: left
+          .title
+            font-size: 16px
+.top_bottom_competencies
+  *
+    box-sizing: border-box 
+  .caption 
+    padding: 0 0 0 65px
+    background: image-url('report/html/oac/top_bottom_competencies.png') no-repeat
+    line-height: 55px
+    color: #28b29b
+    font-size: 20px
+    &.bottom
+      background-position: 0px -65px
+
+  table
+    font-size: 14px
+    tr
+      &:first-child
+        td
+          border: 0 none
+      td
+        padding: 20px
+        border-top: 1px dashed #e3e3e3
+        &.space
+          border: 0 none
+        .legend
+          color: #28b29b
+          font-weight: 700
+
+.report
+  .competency_report
+    .frame
+      border-width: 1px
+  .scores
+    ul.scores_listing 
+      li
+        padding: 18px 
+        li
+          border: 0 none !important
+  .data_points_competency_wise
+    ul.disc
+      margin-left: 15px
+      margin-bottom: 15px
+      li
+        line-height: 14px
+
+    .competency_specific_score
+      border: 1px solid #bee8e1
+      *
+        box-sizing: border-box
+      .tools, .tool_scores
+        padding: 5px 0 5px 26px
+        text-align: center
+        [class*="span"]
+          border-left: 1px solid #ccc
+          padding: 0 10px
+          margin-left: 0
+          min-height: 26px
+          text-align: center
+      
+      .tools
+        background: #bee8e1
+      .tool_scores
+      &.strengths_improvement
+        border-collapse: collapse
+        border: 0 none
+        td
+          border: 1px solid #bee8e1
+          width: 48%
+          text-align: left
+          vertical-align: top
+          &.space
+            width: 1%
+            border: 0 none
+
+    .classic_report 
+      .scores_competencies_graph
+        &.descending_order 
+          .graph_container 
+            .graph_content
+              padding: 0
+            .descending_graph_bar
+              margin: 13px 0
+            .left_sec 
+              li
+                margin-top: 0px
+                div:first-child 
+                  font-size: 10px 
+                  color: #808285
+                  padding-top: 0px 
+                &:first-child
+                  div:first-child
+                    padding-top: 2px
+
+            .right_sec 
+              .classic_competency_graph 
+                .classic_competency_graph_scale 
+                  .block
+                    line-height: 12px
+                    text-align: center
+                    margin-bottom: 3px
+                    font-size: 10px
+.individual_development_plan
+  table
+    border-collapse: collapse
+    width: 100%
+    border: 1px solid #28b29b
+    tr
+      &:first-child
+        td
+          background: #28b29b
+          color: #fff
+          text-align: left
+          font-size: 18px
+        &+tr
+          td
+            color: #28b29b
+            text-align: center
+    td
+      border: 1px solid #28b29b
+      border-top: 1px dashed #28b29b
+      border-bottom: 1px dashed #28b29b
+      font-size: 10px
+      width: 33%
+      padding: 10px
+      vertical-align: top
+    .placeholders
+      height: 50px
+

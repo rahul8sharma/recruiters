@@ -1,0 +1,10 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+.overview.competency
+  .inner
+    .divider1
+    .content
+      = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/overview"
+      
+      = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_holder"
+    .clr
+    .divider1
