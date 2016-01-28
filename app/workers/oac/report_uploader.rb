@@ -54,10 +54,8 @@ module Oac
           :message => "",
           :status => "success"
         }
-        
 
-        @view_mode = "html"
-        
+        @view_mode = "html"        
         template = "super_competency_report.#{@view_mode}.haml"
         layout = "layouts/oac/reports.#{@view_mode}.haml"
         
@@ -69,7 +67,6 @@ module Oac
         )
         
         @view_mode = "pdf"
-        
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string(
             "oac/exercises/reports/#{template}.pdf.haml",
@@ -82,7 +79,6 @@ module Oac
             :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
           }
         )
-
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
         html_file_id = "oac_report_#{@report.id}.html"      
