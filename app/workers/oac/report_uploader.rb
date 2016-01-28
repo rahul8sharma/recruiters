@@ -101,6 +101,8 @@ module Oac
         Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
           :html_key => html_s3[:key],
           :html_bucket => html_s3[:bucket],
+          :pdf_key => pdf_s3[:key],
+          :pdf_bucket => pdf_s3[:bucket],
           :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADED
         )
         
