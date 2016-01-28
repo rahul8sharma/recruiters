@@ -158,38 +158,39 @@ class CompaniesController < ApplicationController
   end
 
   def index
-    @remaining_invitations = Vger::Resources::Invitation.group_count(
-      :query_options => {
-        :company_id => @companies.map(&:id),
-        :status => Vger::Resources::Invitation::Status::UNLOCKED
-      },
-      :group => [ :company_id ],
-      :select => [ :company_id ]
-    )
+    if @companies.present?
+      @remaining_invitations = Vger::Resources::Invitation.group_count(
+        :query_options => {
+          :company_id => @companies.map(&:id),
+          :status => Vger::Resources::Invitation::Status::UNLOCKED
+        },
+        :group => [ :company_id ],
+        :select => [ :company_id ]
+      )
+      @invitations = Vger::Resources::Invitation.group_count(
+        :query_options => {
+          :company_id => @companies.map(&:id)
+        },
+        :group => [ :company_id ],
+        :select => [ :company_id ]
+      )
 
-    @invitations = Vger::Resources::Invitation.group_count(
-      :query_options => {
-        :company_id => @companies.map(&:id)
-      },
-      :group => [ :company_id ],
-      :select => [ :company_id ]
-    )
-
-    @subscriptions = Vger::Resources::Subscription.group_count(
-      :query_options => {
-        :company_id => @companies.map(&:id)
-      },
-      :group => [ :company_id ],
-      :select => [ :company_id ]
-    )
-    @active_subscriptions = Vger::Resources::Subscription.group_count(
-      :query_options => {
-        :company_id => @companies.map(&:id)
-      },
-      :scopes => { :active => nil },
-      :group => [ :company_id ],
-      :select => [ :company_id ]
-    )
+      @subscriptions = Vger::Resources::Subscription.group_count(
+        :query_options => {
+          :company_id => @companies.map(&:id)
+        },
+        :group => [ :company_id ],
+        :select => [ :company_id ]
+      )
+      @active_subscriptions = Vger::Resources::Subscription.group_count(
+        :query_options => {
+          :company_id => @companies.map(&:id)
+        },
+        :scopes => { :active => nil },
+        :group => [ :company_id ],
+        :select => [ :company_id ]
+      )
+    end  
   end
 
   def edit
@@ -303,6 +304,7 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
+    params[:search][:account_type] ||= Vger::Resources::Company::AccountType::PAID
     search_params = params[:search].dup
     name = search_params.delete :name
     conditions = {
