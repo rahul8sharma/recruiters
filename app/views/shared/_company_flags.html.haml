@@ -23,6 +23,17 @@
               #{settings[:display_name]}
             %td.text-center
               = f.check_box name.to_sym, :checked => @company.send(name.to_sym)
+          - elsif ["Array"].include? settings[:type]
+            %td.medium-text
+              #{iterator} 
+            %td.medium-text
+              #{settings[:context].titleize}
+            %td.medium-text
+              #{settings[:display_name]}
+            %td.text-center
+              = f.text_field name.to_sym, value: @company.send(name).to_a.join("|")
+              %br/
+              (Add multiple values separated by '|')
           - else
             %td.medium-text
               #{iterator}
