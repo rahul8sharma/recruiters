@@ -1,0 +1,31 @@
+.classic_report
+  .scores_competencies_graph.descending_order.descending_average_rating
+    .traits_under_graph
+      .graph_container
+        .left_sec.pull-left
+          .span5.first.color-info.medium-text
+            Behaviors measured
+          .clr
+          %ul
+            - 25.times do
+              %li
+                .span5.first.trait_title
+                  competency name
+                .clr
+
+        .right_sec.span12
+          .classic_competency_graph
+            .classic_competency_graph_scale
+              .block.pull-left
+                Novice
+              - 5.times do
+                .block.pull-left{:style=>"width: #{470/(5)}px;"}
+                  .pull-right
+                    Competent
+                  .clr
+              .clr
+            .graph
+              .graph_content
+                - 25.times do
+                  .descending_graph_bar.max{:style => "background-color:#e9c537;width: 20%"}
+        .clr
