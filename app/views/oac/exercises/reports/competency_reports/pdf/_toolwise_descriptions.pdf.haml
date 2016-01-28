@@ -5,14 +5,11 @@
       Tool Descriptions
     .divider1
     %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-      - 3.times do
+      - @report.report_data[:tools].each do |tool, data|
         %tr
           %td.left
             .span3
-              Psychometric Assessment
-
+              = tool.titleize
           %td.right
-            Demonstrates  energy  and  tenacity  to  achieve  business  results.  Achieves them  by  working  with  high  focus  and  managing  the  complexities.  Analyzes data to drive results. Arrives  at  solutions  even  with  limited  information.  Is  able  to analyze  the  impact of  each option available before taking a decision Demonstrates  energy  and  tenacity  to  achieve  business  results.  Achieves them  by  working  with  high  focus  and  managing  the  complexities.  Analyzes data to drive results. Arrives  at  solutions  even  with  limited  information.  Is  
- 
-
+            = data[:description]
 .page-break
