@@ -9,20 +9,24 @@
           .span7.text-left.no-border.line-height2.extra-medium-text
             Competency
           .pull-right
-            - 6.times do
+            - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
               .span2.no-border.text-center
-                Tool Name
+                = tool.titleize
             .clr
           .clr
-        
-        - 5.times do
+        - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq        
+        - competencies.each do |competency|
           %li
             .span7.medium-text
-              Leadership Potential 
+              = truncate competency, :length => 55
             .pull-right
-              - 6.times do
+              - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
+                - checked = config.values.find{|x| x["name"] == competency }.present?
                 .span2.text-center
-                  .ok-icon
+                  - if checked
+                    .ok-icon
+                  - else
+                    \-  
                   
               .clr
             .clr

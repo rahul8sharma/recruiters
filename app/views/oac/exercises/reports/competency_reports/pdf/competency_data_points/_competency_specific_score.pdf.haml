@@ -1,5 +1,7 @@
+- locals_hash = { toolwise_scores: toolwise_scores }
 .competency_specific_score.pull-left 
-  = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_data_points/tools_used"
-  = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_data_points/toolwise_scores"
+  - section_value.each do |section|
+    - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
+    = render :partial => section["path"], :locals => locals
 .clr
 

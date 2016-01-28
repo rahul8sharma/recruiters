@@ -48,7 +48,10 @@
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
-      .pull-right.span8
+      
+      - if is_superuser?
+        .span11.first.big-text.text-center
+          Type of Assessment
         %label
           %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
           #employee
@@ -56,7 +59,8 @@
               Is Trial
             .clr
         .divider1
-      .clr  
+        .clr  
+      
       %div.activated
         .left-offset2.first
           - klass = @assessment.set_applicant_id ? "span6" : "span8"
