@@ -58,12 +58,16 @@
                 %i.muted.span.medium-text
                   (Potential Candidates)
                 .clr
-          .pull-left.span8
-            %label
-              %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
-              #employee
-                .title.span.extra-medium-text.default
-                  Is Trial
+          .divider1
+          .pull-left
+            .extra-medium-text.span5
+              Type of Assessment
+            .span4
+              %label
+                %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
+                #employee
+                  .title.span.extra-medium-text.default
+                    Is Trial
                 .clr
             .divider1
           .clr  

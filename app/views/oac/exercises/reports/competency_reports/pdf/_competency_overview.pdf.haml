@@ -3,8 +3,7 @@
   .inner
     .divider1
     .content
-      = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/overview"
-      
-      = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_holder"
+      - section_value.each do |value|
+        = render :partial => value["path"], locals: {:section_value => value[:children]}
     .clr
     .divider1

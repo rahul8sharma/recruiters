@@ -4,13 +4,12 @@
       Competencies Measured
     .divider1
     %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-      - 3.times do
+      - @report.report_data[:super_competency_scores].each do |name, data|
         %tr
           %td.left
             .span3
-              Customer Centricity
-
+              = data[:name]
           %td.right
-            Demonstrates  energy  and  tenacity  to  achieve  business  results.  Achieves them  by  working  with  high  focus  and  managing  the  complexities.  Analyzes data to drive results. Arrives  at  solutions  even  with  limited  information.  Is  able  to analyze  the  impact of  each option available before taking a decision Demonstrates  energy  and  tenacity  to  achieve  business  results.  Achieves them  by  working  with  high  focus  and  managing  the  complexities.  Analyzes data to drive results. Arrives  at  solutions  even  with  limited  information.  Is  
+            = data[:description]
 
 .page-break

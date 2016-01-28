@@ -5,27 +5,40 @@
     path: "oac/exercises/reports/competency_reports/html/header",
     children: [
       {
-        id: "html_header_overview",
-        text: "Overview",
-        path: "oac/exercises/reports/competency_reports/html/header/overview",
-        locals: {}
+        id: "html_header_menu",
+        text: "Menu Items",
+        path: "oac/exercises/reports/competency_reports/html/header/menu",
+        children: [
+          {
+            id: "html_header_overview",
+            text: "Overview",
+            path: "oac/exercises/reports/competency_reports/html/header/overview",
+            locals: {}
+          },
+          {
+            id: "html_header_competencies",
+            text: "Competencies",
+            path: "oac/exercises/reports/competency_reports/html/header/competencies",
+            locals: {}
+          },
+          {
+            id: "html_header_tools",
+            text: "Tools",
+            path: "oac/exercises/reports/competency_reports/html/header/tools",
+            locals: {}
+          },
+          {
+            id: "html_header_remarks",
+            text: "Remarks",
+            path: "oac/exercises/reports/competency_reports/html/header/remarks",
+            locals: {}
+          }
+        ]
       },
       {
-        id: "html_header_competencies",
-        text: "Competencies",
-        path: "oac/exercises/reports/competency_reports/html/header/competencies",
-        locals: {}
-      },
-      {
-        id: "html_header_tools",
-        text: "Tools",
-        path: "oac/exercises/reports/competency_reports/html/header/tools",
-        locals: {}
-      },
-      {
-        id: "html_header_remarks",
-        text: "Remarks",
-        path: "oac/exercises/reports/competency_reports/html/header/remarks",
+        id: "html_download_pdf_link",
+        text: "Download PDF Link",
+        path: "oac/exercises/reports/competency_reports/html/header/download_pdf_link",
         locals: {}
       }
     ]

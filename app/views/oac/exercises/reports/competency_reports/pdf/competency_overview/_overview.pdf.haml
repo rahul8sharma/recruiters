@@ -6,16 +6,16 @@
       Competency Scores
     .instruction_container
       .instructions
-        = render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/with_desired_range"
-        -#= render :partial => "oac/exercises/reports/competency_reports/pdf/competency_overview/without_desired_range"
+        - section_value.each do |value|
+          = render :partial => value["path"]
     .clr
   .scale
-    .line{:style => "width:#{(number_of_buckets-1)*width}px"}
+    .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
     .marker-container
-      - number_of_buckets.times do
+      - @score_buckets.each do |score_bucket|
         .marker
           %br/
-          high
+          = @custom_score_bucket_names["#{score_bucket.uid}"]
       .clr
   .clr
 .clr
