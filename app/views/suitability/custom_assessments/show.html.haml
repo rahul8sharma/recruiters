@@ -1,3 +1,4 @@
+- number_of_buckets = 4
 .trait-show
   .span15.page-title.first
     .divider1
@@ -20,7 +21,7 @@
         .clr
       .divider1
       .scale.pull-right
-        .line
+        .line{:style=>"width:#{(number_of_buckets-1)*53}px"}
         .marker-container
           - @norm_buckets.values.each do |norm_bucket|
             .marker
@@ -50,9 +51,9 @@
                         %br/
                       = norm_bucket.name
                   .clr
-                .slider
-                  .visual
-                  .range{ class: "offset#{offset}  width#{width}" }
+                .slider{:style=>"width:#{((number_of_buckets-1)*53)+5}px;overflow:hidden"}
+                  .visual{:style=>"width:#{((number_of_buckets-1)*53)+7}px"}
+                  .range{ style: "margin-left: 20px;  width: 50px" }
 
               .clr
     - else
