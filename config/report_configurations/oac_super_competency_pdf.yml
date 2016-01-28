@@ -19,6 +19,46 @@
     id: "pdf_competency_overview",
     text: "Competency Overview",
     path: "oac/exercises/reports/competency_reports/pdf/competency_overview",
+    children: [
+      {
+        id: "pdf_overview_legend",
+        text: "Legend For Markers[With / Without Desired Range]",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_overview/overview",
+        children: [
+          {
+            id: "pdf_competency_overview_legend_with_desired",
+            text: "Legend With Desired Range",
+            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/with_desired_range",
+            locals: {}
+          },
+          {
+            id: "pdf_competency_overview_legend_without_desired",
+            text: "Legend Without Desired Range",
+            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/without_desired_range",
+            locals: {}
+          }
+        ]
+      },
+      {
+        id: "pdf_overview_graph",
+        text: "Graph",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_holder",
+        children: [
+          {
+            id: "pdf_competency_overview_graph_with_desired_range",
+            text: "Graph With Desired Range",
+            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_with_desired_range",
+            locals: {}
+          },
+          {
+            id: "pdf_competency_overview_graph_without_desired_range",
+            text: "Graph Without Desired Range",
+            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/graph_without_desired_range",
+            locals: {}
+          }
+        ]
+      }
+    ]
   },
   {
     id: "pdf_competency_overview_tool_wise",

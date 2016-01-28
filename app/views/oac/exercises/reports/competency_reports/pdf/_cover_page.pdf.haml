@@ -7,25 +7,20 @@
   .banner
     .banner-heading
       OAC Report
-    
   .divider2
   .left-offset1
     .extra-large-text
-      Sample Report OAC
+      = @report.report_data[:exercise][:name]
       .divider2
     .large-text
       .pull-left
         Report Generated On:
       .span
-        = hdate @report.report_hash[:generated_at]
+        = hdate @report.report_data[:completed_at]
       .clr
   .divider2
   .partner_logos
-    =image_tag("report/html/oac/partner_logos/a_dc.png")
-    =image_tag("report/html/oac/partner_logos/cocubes.png")
-    =image_tag("report/html/oac/partner_logos/jombay.png")
-    =image_tag("report/html/oac/partner_logos/knolskape.png")
-    =image_tag("report/html/oac/partner_logos/pearson.png")
-    =image_tag("report/html/oac/partner_logos/talview.png")
+    - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
+      = image_tag("report/html/oac/partner_logos/#{logo}")
 
 .page-break
