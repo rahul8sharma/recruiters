@@ -56,11 +56,11 @@ module Oac
         }
 
         @view_mode = "html"        
-        template = "super_competency_report.#{@view_mode}.haml"
+        template = "super_competency_report"
         layout = "layouts/oac/reports.#{@view_mode}.haml"
         
         html = render_to_string(
-           template: "oac/exercises/reports/#{template}",
+           template: "oac/exercises/reports/#{template}.html.haml",
            layout: layout,
            handlers: [ :haml ],
            formats: [ :html ]
