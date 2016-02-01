@@ -17,4 +17,4 @@
                 - if role_wise_comment.any?{ |comment| comment[:comment].present? }
                   %td
                     .small-text
-                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join{"; "}   
+                      = role_wise_comment.map{ |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("<br/>").html_safe
