@@ -42,7 +42,7 @@
               %img{:src => brand_partner_image_path}
             .divider2
             %p
-              = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
+              = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
         .divider1
         .content.contact_section
           .divider1
