@@ -36,7 +36,7 @@
         .company-logo
           .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 78px "}
         .divider1
-        = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore].html_safe
+        = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
   - else
     .divider1
     = render :partial => "shared/reports/pdf/contact_section.pdf"
