@@ -9,7 +9,7 @@ module UsersHelper
   end
   
   def get_link_for_admin(user)
-    user_settings_company_path(user.company_id)
+    user_settings_company_path(user.company_id) if user.company_id.present?
   end
   
   def get_link_for_candidate(user)
