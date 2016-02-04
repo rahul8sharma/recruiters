@@ -87,19 +87,26 @@
         id: "pdf_data_points_competency_wise_score_description",
         text: "Score Description",
         path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/score_description",
-        locals: {}
+        locals: {
+          description: "data[:score][:description]"
+        }
       },
       {
         id: "pdf_data_points_competency_wise_behaviors_measured_graph",
         text: "Behaviour Measured Graph",
         path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/behaviors_measured_graph",
-        locals: {}
+        locals:  {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        }
       },
       {
         id: "pdf_data_points_competency_wise_strengths_improvement",
         text: "Strengths and Areas of Improvement",
         path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/strengths_improvement",
-        locals: {}
+        locals: {
+          competency_scores: "data[:competency_scores]"
+        }
       },
       {
         id: "pdf_data_points_competency_wise_competency_specific_score",

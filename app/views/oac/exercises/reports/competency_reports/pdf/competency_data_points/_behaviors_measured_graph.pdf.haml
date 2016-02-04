@@ -1,3 +1,5 @@
+- max_weight = @score_buckets.map(&:weight).max
+- min_weight = @score_buckets.map(&:weight).min
 .classic_report
   .scores_competencies_graph.descending_order.descending_average_rating
     .traits_under_graph
@@ -7,25 +9,28 @@
             Behaviors measured
           .clr
           %ul
-            - 25.times do
+            - competency_scores.each do |competency_id, competency_data|
               %li
                 .span5.first.trait_title
-                  competency name
+                  = competency_data[:name]
                 .clr
 
         .right_sec.span12
           .classic_competency_graph
             .classic_competency_graph_scale
               .block.pull-left
-                Novice
-              - 5.times do
-                .block.pull-left{:style=>"width: #{470/(5)}px;"}
+                = @custom_score_bucket_names["#{score_buckets[0].uid}"]
+              - score_buckets[1..score_buckets.size-1].each do |score_bucket|
+                .block.pull-left{:style=>"width: #{470/(score_buckets.size-1)}px;"}
                   .pull-right
-                    Competent
+                    = @custom_score_bucket_names["#{score_bucket.uid}"]
                   .clr
               .clr
             .graph
               .graph_content
-                - 25.times do
-                  .descending_graph_bar.max{:style => "background-color:#e9c537;width: 20%"}
+                - competency_scores.each do |competency, competency_data|
+                  - weight = competency_data[:score][:weight]
+                  - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
+                  - percentage = percentage == 0 ? 2 : percentage
+                  .descending_graph_bar.max{:style => "background-color:#e9c537;width: #{percentage}%"}
         .clr
