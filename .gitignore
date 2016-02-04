@@ -28,6 +28,7 @@ config/s3
 config/statistics.yml
 config/vger.yml
 public/assets
+Gemfile.lock
 **.orig
 **.DS_Store
 *:Zone.Identifier
