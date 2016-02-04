@@ -2,7 +2,8 @@
 .inner.border-bottom-grayDark
   .participation
     .content
-      %p Dear XYZ,
+      %p Dear #{@report.report_data[:user][:name]},
+      %p
+        = @report.report_data[:cover_letter].to_s.html_safe
 
-      %p dfddfssfsdkffsdfsd 
 

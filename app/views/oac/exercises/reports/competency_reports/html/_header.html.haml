@@ -6,10 +6,6 @@
       .big-text.gray-dark.padding-all1.pull-left{:title => "#{@report.report_data[:user][:name]}"}
         #{@report.report_data[:user][:name]}
       .pull-right
-        %ul#nav.clearfix.pull-left
-          %li.left
-          - section_value.each do |value|
-            = render :partial => value["path"]         
-          %li.right
-        -# %a.btn.btn-warning.span.print-btn{:href => "#"} Printable PDF
+        - section_value.each do |section|
+          = render :partial => section["path"], locals: { section_value: section["children"] }
 .divider3

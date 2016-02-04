@@ -10,7 +10,7 @@ class PlansController < MasterDataController
   end
 
   def index_columns
-    return [:uid, :name,:description,:validity_in_months,:price]
+    return [:uid, :name,:description,:validity_in_months, :no_of_assessments,:price]
   end
   
   def search_columns

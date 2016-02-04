@@ -34,7 +34,6 @@
           (Potential Candidates)
         .clr
     .clr
-
   %a.label.label-warning.label-small.pull-left{:href => add_users_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
     %b USE BULK UPLOAD
   .clr
@@ -49,6 +48,19 @@
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
+      
+      - if is_superuser?
+        .span11.first.big-text.text-center
+          Type of Assessment
+        %label
+          %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
+          #employee
+            .title.span.extra-medium-text.default
+              Is Trial
+            .clr
+        .divider1
+        .clr  
+      
       %div.activated
         .left-offset2.first
           - klass = @assessment.set_applicant_id ? "span6" : "span8"
