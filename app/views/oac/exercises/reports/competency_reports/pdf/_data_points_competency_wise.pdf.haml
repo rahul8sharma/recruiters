@@ -1,10 +1,10 @@
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
-.data_points_competency_wise
-  .inner
-    .blue_heading.big-text
-      Competency wise Data Points
-    .divider1
-    - @report.report_data[:super_competency_scores].each do |id, data|
+- @report.report_data[:super_competency_scores].each do |id, data|
+  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+  .data_points_competency_wise
+    .inner
+      .blue_heading.big-text
+        Competency wise Data Points
+      .divider1
       - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
       - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
       - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
@@ -26,3 +26,4 @@
             - locals[:section_value] = section["children"]
             = render :partial => section["path"], :locals => locals
       .divider1
+  .page-break
