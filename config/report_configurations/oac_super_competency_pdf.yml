@@ -135,15 +135,22 @@
       }
     ]
   },
-  {
-    id: "pdf_assessor_feedback",
-    text: "Assessor Feedback",
-    path: "oac/exercises/reports/competency_reports/pdf/assessor_feedback",
-  },
-  {
-    id: "pdf_individual_development_plan",
-    text: "Individidual Development Plan",
-    path: "oac/exercises/reports/competency_reports/pdf/individual_development_plan",
-  },
+   {
+    id: "pdf_assessor_feedback_and_idp",
+    text: "Assessor Feedback and IDP",
+    path: "oac/exercises/reports/competency_reports/pdf/feedback_development_plan",
+    children: [
+      {
+        id: "pdf_assessor_feedback",
+        text: "Assessor Feedback",
+        path: "oac/exercises/reports/competency_reports/pdf/assessor_feedback",
+      },
+      {
+        id: "pdf_individual_development_plan",
+        text: "Individidual Development Plan",
+        path: "oac/exercises/reports/competency_reports/pdf/individual_development_plan",
+      }
+    ]
+  }
 
 ]

@@ -10,8 +10,10 @@
   .divider2
   .left-offset1
     .extra-large-text
+      = @report.report_data[:user][:name]
+      .divider1
       = @report.report_data[:exercise][:name]
-      .divider2
+      .divider1
     .large-text
       .pull-left
         Report Generated On:
@@ -19,7 +21,7 @@
         = hdate @report.report_data[:completed_at]
       .clr
   .divider2
-  .partner_logos
+  .partner_logos.left-offset1
     - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
       = image_tag("report/html/oac/partner_logos/#{logo}")
 
