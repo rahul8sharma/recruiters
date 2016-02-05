@@ -3,7 +3,6 @@
     id: "pdf_cover_page",
     text: "Cover Page",
     path: "oac/exercises/reports/competency_reports/pdf/cover_page",
-
   },
   {
     id: "pdf_participation",
