@@ -1,0 +1,3 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+- section_value.each do |value|
+  = render :partial => value["path"]
