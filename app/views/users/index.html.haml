@@ -48,7 +48,11 @@
           - company_ids = (user.company_ids + [user.company_id].compact).uniq
           = company_ids.present? ? company_ids.join(", ") : "-"
         .span6
-          = user.assessment_ids.present? ? user.assessment_ids.join(", ") : "-"
+          - if user.user_assessments.to_a.present?
+            - user.user_assessments.each do |user_assessment|
+              = link_to user_assessment.assessment_id, user_company_custom_assessment_path(user_assessment.company_id,user_assessment.assessment_id,user_assessment.user_id)
+          - else
+            \-
         .span2.first
           = user.role_names.join(", ")
         .clr
