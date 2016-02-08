@@ -1,0 +1,34 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+
+- top_competencies = get_top_competencies(@report)
+- bottom_competencies = get_bottom_competencies(@report)
+.top_bottom_competencies
+  .inner
+    .caption.top.pull-left{ style: "width: 40%" }
+      Top 2 Competencies
+    .caption.bottom.pull-left{ style: "width: 40%" }
+      Bottom 2 Competencies
+    .clr
+    %table
+      -2.times do |index|
+        %tr
+          %td{ style: "width: 50%" }
+            - competency = top_competencies[index]
+            - if competency
+              .legend.big-text
+                = competency[1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
+            - else
+              .muted
+                Not available          
+          %td.space 
+          %td{ style: "width: 50%" }
+            - competency = bottom_competencies[index]
+            - if competency
+              .legend.big-text
+                = competency[1][:name]
+              = @report.report_data[:super_competency_configuration][:overall_configuration][competency[0]][:definition]
+            - else
+              .muted
+                Not available
+  .divider1

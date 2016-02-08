@@ -21,9 +21,9 @@
     .divider1
     %p= job_factor_norm.factor.definition
     %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, disabled: 'disabled', index: (index)}  
-    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, disabled: 'disabled', index: (index)}
-    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, disabled: 'disabled', index: (index)}
-    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, disabled: 'disabled', index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: @assessment.functional_area_id, disabled: 'disabled', index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: @assessment.industry_id, disabled: 'disabled', index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: @assessment.job_experience_id, disabled: 'disabled', index: (index)}
     %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, disabled: 'disabled', index: (index)}
     
     %input{name: (norm_min_name), type: 'hidden', value: @norm_buckets.map(&:id).first, disabled: 'disabled', index: (index)}
@@ -40,9 +40,9 @@
     %p= job_factor_norm.factor.definition
     %input{name: (id_name), type: 'hidden', value: job_factor_norm.id, index: (index)}
     %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
-    %input{name: (fa_name), type: 'hidden', value: job_factor_norm.functional_area_id, index: (index)}
-    %input{name: (industry_name), type: 'hidden', value: job_factor_norm.industry_id, index: (index)}
-    %input{name: (exp_name), type: 'hidden', value: job_factor_norm.job_experience_id, index: (index)}
+    %input{name: (fa_name), type: 'hidden', value: @assessment.functional_area_id, index: (index)}
+    %input{name: (industry_name), type: 'hidden', value: @assessment.industry_id, index: (index)}
+    %input{name: (exp_name), type: 'hidden', value: @assessment.job_experience_id, index: (index)}
     %input{name: (factor_name), type: 'hidden', value: job_factor_norm.factor_id, index: (index)}
      
     %input{name: (norm_min_name), type: 'hidden', value: @norm_buckets.map(&:id).first, index: (index)}

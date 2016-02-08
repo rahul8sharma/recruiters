@@ -1,0 +1,29 @@
+- @report.report_data[:super_competency_scores].each do |id, data|
+  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+  .data_points_competency_wise
+    .inner
+      .blue_heading.big-text
+        Competency wise Data Points
+      .divider1
+      - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+      - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+      - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+      - scored_bucket_weight = data[:score][:weight].to_i
+      - scored_bucket = data[:score][:bucket]
+      - range = (to_bucket_weight - from_bucket_weight)*80
+      - left = (from_bucket_weight-1)*80
+      - scores_hash = HashWithIndifferentAccess.new({:description => data[:score][:description],:competency_scores=> data[:competency_scores], :score_buckets=>@score_buckets,:competency_scores=> data[:competency_scores],:toolwise_scores=> data[:toolwise_scores] })    
+      .frame
+        .heading.pull-left
+          = truncate config[:name], length: 35
+        .heading.pull-right
+          = @custom_score_bucket_names["#{data[:score][:uid]}"]
+        .clr
+        .divider1
+        .padding-all2.no-t-padding
+          - section_value.each do |section|
+            - locals = Hash[section["locals"].map { |key, value| [key.to_sym, scores_hash[key.to_sym]] }]
+            - locals[:section_value] = section["children"]
+            = render :partial => section["path"], :locals => locals
+      .divider1
+  .page-break

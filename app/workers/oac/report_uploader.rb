@@ -54,59 +54,61 @@ module Oac
           :message => "",
           :status => "success"
         }
-        
 
-        @view_mode = "html"
-        template = "super_competency_report.#{@view_mode}.haml"
+        @view_mode = "html"        
+        template = "super_competency_report"
         layout = "layouts/oac/reports.#{@view_mode}.haml"
+        
         html = render_to_string(
-           template: "oac/exercises/reports/#{template}",
+           template: "oac/exercises/reports/#{template}.html.haml",
            layout: layout,
            handlers: [ :haml ],
            formats: [ :html ]
         )
         
-        # @view_mode = "pdf"
-        # pdf = WickedPdf.new.pdf_from_string(
-        #   render_to_string(
-        #     "mrf/assessments/reports/#{template}.pdf.haml",
-        #     layout: "layouts/mrf/reports.pdf.haml",
-        #     handlers: [ :haml ],
-        #     formats: [:pdf]
-        #   ),
-        #   margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
-        #   footer: {
-        #     :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
-        #   }
-        # )
-
+        @view_mode = "pdf"
+        layout = "layouts/oac/reports.#{@view_mode}.haml"
+        pdf = WickedPdf.new.pdf_from_string(
+          render_to_string(
+            "oac/exercises/reports/#{template}.pdf.haml",
+            layout: layout,
+            handlers: [ :haml ],
+            formats: [:pdf]
+          ),
+          margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+          footer: {
+            :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
+          }
+        )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
         html_file_id = "oac_report_#{@report.id}.html"      
         html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
-        # pdf_file_id = "oac_report_#{@report.id}.pdf"
-        # pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
+        pdf_file_id = "oac_report_#{@report.id}.pdf"
+        pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
         File.open(html_save_path, 'wb') do |file|
           file << html
         end
         
-        # File.open(pdf_save_path, 'wb') do |file|
-        #   file << pdf
-        # end
+        File.open(pdf_save_path, 'wb') do |file|
+          file << pdf
+        end
         
         html_s3 = upload_file_to_s3("oac_reports/html/#{html_file_id}",html_save_path)
-        # pdf_s3 = upload_file_to_s3("mrf_reports/pdf/#{pdf_file_id}",pdf_save_path)
+        pdf_s3 = upload_file_to_s3("oac_reports/pdf/#{pdf_file_id}",pdf_save_path)
     
         Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
           :html_key => html_s3[:key],
           :html_bucket => html_s3[:bucket],
+          :pdf_key => pdf_s3[:key],
+          :pdf_bucket => pdf_s3[:bucket],
           :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADED
         )
         
         File.delete(html_save_path)
-        # File.delete(pdf_save_path)
+        File.delete(pdf_save_path)
         mail = SystemMailer.send_oac_report(@report.id, @report.report_data)
         JombayNotify::Email.create_from_mail(mail, "send_oac_report")
     

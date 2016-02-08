@@ -14,6 +14,7 @@
   - url = bulk_send_test_to_users_path
 = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
+  %input{ type:'hidden', name: 'trial', value: params[:trial].to_s }
   - if params[:users]
     %input{:type => "hidden", name: "user_ids", value: params[:users].keys.join(",") }
     %input{:type => "hidden", name: "upload_type", value: "manual" }

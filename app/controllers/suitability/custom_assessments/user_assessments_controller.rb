@@ -86,6 +86,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
 
   def bulk_upload
     get_s3_keys
+    params[:trial] = params[:trial].present?
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
       flash[:error] = "Please select a csv file."
       redirect_to add_users_bulk_url and return
@@ -114,6 +115,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   # PUT : creates users and renders send_test_to_users
   def add_users
     params[:users] ||= {}
+    params[:trial] = params[:trial].present?
     params[:users].reject!{|key,data| data[:email].blank? && data[:name].blank?}
     #params[:users] = Hash[params[:users].collect{|key,data| [data[:email], data] }]
     # params[:candidate_stage] ||= Vger::Resources::User::Stage::EMPLOYED
@@ -222,6 +224,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                     :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?,
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
+                      :trial => params[:trial] == "true",
                       :candidate_stage => params[:candidate_stage],
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
                       :file => "BulkUpload.csv",
@@ -294,6 +297,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         # add it to list of user_assessments to send email
         unless user_assessment
           user_assessment = Vger::Resources::Suitability::UserAssessment.create(
+            :trial => params[:trial] == "true",
             :applicant_id => params[:users][user_id][:applicant_id],
             :assessment_id => @assessment.id,
             :user_id => user_id,

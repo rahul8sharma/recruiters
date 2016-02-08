@@ -9,6 +9,8 @@ class SignupController < ApplicationController
       company_attributes[:contact_person_mobile] = company_attributes[:user_attributes][:mobile]
       company_attributes[:user_attributes][:password_confirmation] = company_attributes[:user_attributes][:password]
       company_attributes[:user_attributes][:type] = "Admin"
+      company_attributes[:account_type] = Vger::Resources::Company::AccountType::SIGN_UP
+      company_attributes[:products_used] = ["jombay"]
       @company = Vger::Resources::Company.create(company_attributes)
       if @company.error_messages.present?
         @company.user = Vger::Resources::User.new(company_attributes[:user_attributes])

@@ -1,2 +1,13 @@
 free_plan_uid: "DwGRWVcz"
+trial_plan_uid: "RwTyWecl"
 standard_assessment_uid: "alpvEfBN"
+jq_assessment_uid: "alpvEfBM"
+jq_assessment_min_norm_population: 1000
+products:
+  jombay: "Jombay"
+  hive: "Hive"
+  bhive: "BHive"
+  mrf: "360"
+  sjt: "SJT"
+  vac: "VAC"
+  

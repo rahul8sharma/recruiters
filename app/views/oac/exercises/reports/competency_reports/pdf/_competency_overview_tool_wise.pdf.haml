@@ -1,0 +1,37 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+
+.overview.tool_wise
+  .inner
+    .blue_heading.big-text
+      Tools used to measure Competencies
+    .divider1
+    .content
+      %ul.competency-list
+        %li.overview-title
+          .span7.text-left.no-border.line-height2.extra-medium-text
+            Competency
+          .pull-right
+            - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
+              .span2.no-border.text-center
+                = tool.titleize
+            .clr
+          .clr
+        - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq        
+        - competencies.each do |competency|
+          %li
+            .span7.medium-text
+              = truncate competency, :length => 55
+            .pull-right
+              - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
+                - checked = config.values.find{|x| x["name"] == competency }.present?
+                .span2.text-center
+                  - if checked
+                    .ok-icon
+                  - else
+                    \-  
+                  
+              .clr
+            .clr
+        
+    .divider1
+

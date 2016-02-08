@@ -42,9 +42,13 @@ class CompanyStatisticsController < ApplicationController
   end
   
   def get_suitability_subscriptions
+    @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
     @subscriptions = Vger::Resources::Subscription.where(
       :query_options => {
         :company_id => @company.id
+      },
+      :scopes => {
+        plan_id_not_in: [@trial_plan.id.to_i]
       },
       :order => ["valid_to DESC"],
       :methods => [:assessments_sent,:assessments_completed],

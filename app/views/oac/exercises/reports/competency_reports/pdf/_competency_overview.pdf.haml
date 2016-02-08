@@ -1,0 +1,9 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+.overview.competency
+  .inner
+    .divider1
+    .content
+      - section_value.each do |value|
+        = render :partial => value["path"], locals: {:section_value => value[:children]}
+    .clr
+    .divider1

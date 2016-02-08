@@ -26,6 +26,7 @@ class AssessmentsController < ApplicationController
     @other_norms = direct_predictor_norms
 
     @norm_buckets = Hash[Vger::Resources::Suitability::NormBucket.where(:order => "weight ASC").all.to_a.map{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+    get_company_norm_buckets
   end
 
   def competency_norms
@@ -177,6 +178,22 @@ class AssessmentsController < ApplicationController
       elsif factor.type == 'Suitability::Factor' && !direct_predictor_parent_ids.include?(factor_id)
         @factor_norms << assessment_factor_norm
       end
+    end
+  end
+
+  def get_company_norm_buckets  
+    @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                        .where(query_options: {
+                          company_id: params[:company_id]
+                        })\
+                        .where(order: "weight ASC").all
+    
+    if @company_norm_buckets.empty?
+      @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
+                        .where(query_options: {
+                          company_id: nil
+                        })\
+                        .where(order: "weight ASC").all                        
     end
   end
 
