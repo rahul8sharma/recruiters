@@ -67,6 +67,7 @@ module Oac
         )
         
         @view_mode = "pdf"
+        layout = "layouts/oac/reports.#{@view_mode}.haml"
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string(
             "oac/exercises/reports/#{template}.pdf.haml",

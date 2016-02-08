@@ -25,19 +25,20 @@
       %ul.clearfix.interview_guide_listing
         - step_user_manager_guidelines.each do |factor_name, guide|
           - factor_score = @factor_scores[factor_name]
-          - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:from_norm_bucket_uid] }
-          - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:to_norm_bucket_uid] }
-          - norm_bucket_uid = factor_score[:norm_bucket_uid]
-          - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-          - scored_weight = company_norm_bucket.weight
-          - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-          %li
-            .divider1
-            .que-no.hexagon-icon{ class: klass }
-            .factor-name.pull-left
-              = factor_name
-            .description.pull-left
-              = guide[:body]
-            .clr
-            .divider1
+          - if factor_score
+            - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:from_norm_bucket_uid] }
+            - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:to_norm_bucket_uid] }
+            - norm_bucket_uid = factor_score[:norm_bucket_uid]
+            - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+            - scored_weight = company_norm_bucket.weight
+            - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
+            %li
+              .divider1
+              .que-no.hexagon-icon{ class: klass }
+              .factor-name.pull-left
+                = factor_name
+              .description.pull-left
+                = guide[:body]
+              .clr
+              .divider1
   .page-break              

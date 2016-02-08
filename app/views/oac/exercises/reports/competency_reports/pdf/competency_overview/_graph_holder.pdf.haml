@@ -1,5 +1,4 @@
 - width = 50
-- number_of_buckets = 6
 %ul.competency-list.medium-text
   - @report.report_data[:super_competency_scores].each do |id, data|
     - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
@@ -7,8 +6,8 @@
     - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
     - scored_bucket_weight = data[:score][:weight].to_i
     - scored_bucket = data[:score][:bucket]
-    - range = (to_bucket_weight - from_bucket_weight)*80
-    - left = (from_bucket_weight-1)*80
+    - range = (to_bucket_weight - from_bucket_weight)*width
+    - left = (from_bucket_weight-1)*width
     - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
     %li
       .first.hexagon-icon.span1
@@ -19,7 +18,7 @@
           .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
           .marker-container
             - section_value.each do |value|
-              = render :partial => value["path"], locals: {:range => range, :left => left}
+              = render :partial => value["path"], locals: {:range => range, :left => left, :width => width}
             - @score_buckets.each do |score_bucket|
               - klass = score_bucket.name == scored_bucket ? "active" : ""
               - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
