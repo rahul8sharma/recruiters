@@ -1,0 +1,59 @@
+.ratings_on_questions_details.border-bottom-grayDark
+  .divider2
+  .container
+    .title
+      Details of 360&#176; Ratings on Questions
+    .frame
+      .heading.pull-left
+        Competency: XXXXXXXX
+      .heading.pull-right
+        Trait: XXXXXX
+      .clr
+      .divider2
+     
+      %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
+        %tbody
+          %tr.captions
+            %td.dark_mute_bg.black{:rowspan=>"2"}
+              Stakeholder(s)
+            %td.dark_mute_bg{:rowspan=>"2"}
+              Average rating given 
+              %br/
+              by Stakeholders
+            %td.dark_mute_bg{:rowspan=>"2"}
+              No. of 
+              %br/
+              Respondents
+            %td.dark_mute_bg{:colspan=>"5"}
+              Rating
+          %tr.captions.rating_ranges
+            - 5.times do
+              %td
+                XXXX
+         
+          - 5.times do
+            %tr
+              %td.green_bg.captions
+                XXXXXm
+              %td.rating_score.average_rating
+                3
+              %td.rating_score.average_rating
+                33
+              - 5.times do
+                
+                %td.rating_score
+                  44
+                  -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+              
+          %tr.overall
+            %td.orange_bg.captions
+              Overall
+            %td.orange_bg.captions
+              100
+            %td.orange_bg.captions
+              1
+            -5.times do
+              %td.rating_score
+                000
+      .divider2
+             

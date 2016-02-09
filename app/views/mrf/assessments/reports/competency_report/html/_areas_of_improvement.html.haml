@@ -1,0 +1,39 @@
+#competency-rating.classic_report.border-bottom-grayDark
+  .scores_competencies_graph.descending_order.mrf_top_bottom_competencies
+    .divider2
+    .container
+      .title
+        Areas of Improvement
+      
+      .traits_under_graph.clearfix
+        .graph_container
+          .left_sec.pull-left
+            .graph_instructions
+              .divider2
+            %ul
+              - 2.times do
+                %li
+                  .trait_title.first.span7.extra-medium-text.default
+                    XXXXEmotionalXXX
+                  .stakeholder_rating.medium-text.pull-left
+                    xx
+                  .clr
+                
+          .right_sec.span21.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  0
+                - 2.times do |index|
+                  .block.pull-left{:style=>"width: #{(830/5-1)}px; text-align: right"}
+                    #{index+1}
+                .clr
+              .graph.no-background
+                .graph_content.no-background
+                  - 2.times do
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: 30%; background: #469ada"}
+                    .divider1
+        .clr
+        
+    .divider2
