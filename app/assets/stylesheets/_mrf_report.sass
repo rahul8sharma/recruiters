@@ -1,4 +1,6 @@
 $mrf_image_path: report/html/mrf
+.frame
+  border-width: 1px !important
 .frame.mrf
   background:  image-url('#{$mrf_image_path}/mrf_scores_listing_bg.png') no-repeat 97% 97%
 
@@ -1156,3 +1158,18 @@ $mrf_image_path: report/html/mrf
             background: none
             color: #808285
             visibility: visible
+.competency_importance_as_per_stakeholders
+  .table_container  
+    border: 1px solid #e3e3e3
+    .frequency_rating_table
+      border-collapse: collapse
+      tr
+        &:nth-child(even)
+          background: #f8f8f8 
+        &:nth-child(odd)
+          background: #fff
+        &:first-child
+          background: #f8f8f8 
+        td
+          border: 1px solid #fff
+          padding: 10px
