@@ -1,4 +1,6 @@
 $mrf_image_path: report/html/mrf
+.frame
+  border-width: 1px !important
 .frame.mrf
   background:  image-url('#{$mrf_image_path}/mrf_scores_listing_bg.png') no-repeat 97% 97%
 
@@ -678,6 +680,14 @@ $mrf_image_path: report/html/mrf
           list-style: initial !important
 .classic_report
   color: #000
+  .scores_competencies_graph.descending_order.mrf_top_bottom_competencies 
+    .graph_container 
+      .left_sec 
+        .graph_instructions 
+          margin-bottom: 9px
+        .stakeholder_rating
+          background: image-url('report/html/mrf/graph_left_sec_top_bottom_stakeholder_rating_icon.png') !important
+    
   .response_distribution_list
     .graph_classic_user_icon
       width: 20px
@@ -729,6 +739,25 @@ $mrf_image_path: report/html/mrf
 
 
   .scores_competencies_graph
+    &.individual
+      .graph_instructions.title_ins
+        .graph_stakeholder_average_rating_icon
+          background: image-url('#{$mrf_image_path}/stakeholder_trait_rating_icon_average.png') no-repeat center center !important
+          height: 40px
+          width: 20px
+        .competency_overlapped_score_icon, .graph_classic_user_icon, .graph_stakeholder_average_rating_icon
+          margin-left: 30px
+        .graph_stakeholder_rating_icon
+          background: image-url('#{$mrf_image_path}/graph_stakeholder_trait_rating_icon.png') no-repeat center center !important
+          margin-top: 0
+          height: 40px
+          width: 40px
+        .graph_classic_user_icon
+          background: image-url('#{$mrf_image_path}/classic_user_icon.png') no-repeat scroll center center 
+          height: 34px
+          width: 34px
+          margin-top: 0
+
     .competency_overlapped_score_icon, .trait_overlapped_score_icon
       background: image-url('#{$mrf_image_path}/competency_graph_equal_rating_icon.png') no-repeat center center !important
       height: 40px !important
@@ -812,6 +841,13 @@ $mrf_image_path: report/html/mrf
               min-height: 20px
               padding: 1px 0
               position: relative
+              .stakeholder_average_range
+                width: 22px
+                height: 22px
+                position: absolute
+                margin-top: -11px
+                background: image-url('#{$mrf_image_path}/stakeholder_trait_rating_icon_average.png') no-repeat center center
+                z-index: 7
               .desired_range
                 margin-top: -2px
                 position: absolute
@@ -1122,3 +1158,18 @@ $mrf_image_path: report/html/mrf
             background: none
             color: #808285
             visibility: visible
+.competency_importance_as_per_stakeholders
+  .table_container  
+    border: 1px solid #e3e3e3
+    .frequency_rating_table
+      border-collapse: collapse
+      tr
+        &:nth-child(even)
+          background: #f8f8f8 
+        &:nth-child(odd)
+          background: #fff
+        &:first-child
+          background: #f8f8f8 
+        td
+          border: 1px solid #fff
+          padding: 10px

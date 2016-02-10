@@ -66,6 +66,27 @@
     - else
       .alert.medium-text
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
+  
+  .divider3
+  .pull-right
+    .extra-medium-text.bold.pull-left.line-height2
+      Select date Range
+    .pull-left
+      %select.span7
+        %option
+          Select date Range
+      %input.btn.btn-warning.medium-text.span7{:type=>"submit", :value=>"Email Reports Summary"}
+      .clr
+      .divider1
+      %select.span7
+        %option
+          Select date Range
+      %input.btn.btn-warning.medium-text.span7{:type=>"submit", :value=>"Download PDF Reports"}
+      .clr
+    .clr
+  .clr
+
+
 
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.comiseo.daterangepicker"

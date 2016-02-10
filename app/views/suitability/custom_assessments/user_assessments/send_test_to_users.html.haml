@@ -199,9 +199,26 @@
       .clr
       .ie
         Enter email addresses separated by commas. Do not add Assessment Taker's emails here.
+
     = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
       %input.span18.first{ type:'text', name: 'report_email_recipients', placeholder:"Enter email addresses separated by commas. Do not add Assessment Taker's emails here."}
       .clr
+
+    .divider2
+
+    .extra-medium-text
+      Optional:  Enter the email addresses of the people who should be cced in the invitation email to candidate
+    .divider1
+    = surround '<!--[if IE]>'.html_safe, '<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'dummy'}
+      .clr
+      .ie
+        Email addresses seperated by commas. Do not add candidate email address here.
+        
+    = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
+      %input.span18.first{ type:'text', name: 'dummy', placeholder:"Email addresses seperated by commas. Do not add candidate email address here."}
+      .clr
+
     - if params[:users]
       .divider2
       .span17.extra-medium-text.first
