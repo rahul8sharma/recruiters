@@ -98,6 +98,18 @@ class MasterDataController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
   
+  def mrf_export_to_google_drive
+    if params[:export][:folder][:url].blank?
+      flash[:error] = "Please enter a valid google drive folder url!"
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    params[:export][:filters] ||= {}
+    mrf_api_resource\
+      .export_to_google_drive(params[:export])
+    redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
+  
   def index_path
     self.send("#{resource_name}_path")
   end
