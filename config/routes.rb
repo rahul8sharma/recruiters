@@ -236,7 +236,7 @@ Recruiters::Application.routes.draw do
 
         get "candidates/expire_links" => "suitability/custom_assessments/user_assessments#expire_links", :as => :expire_links
 
-        get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        match "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users", :as => :send_reminder_to_pending_users
         put "candidates/bulk_upload" => "suitability/custom_assessments/user_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/user_assessments#email_reports", :as => :email_reports
         get "trigger_report_downloader" => "suitability/custom_assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader

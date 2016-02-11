@@ -59,32 +59,24 @@
             &nbsp;&nbsp;&nbsp;
           %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
           .clr
-      .divider2
+      .clr
+      .divider1
+      .pull-right
+        = form_tag trigger_report_downloader_url, method: :get do |f|
+          .medium-text.pull-left.line-height2.bold
+            Select Date Range: &nbsp;&nbsp;
+            %input{ name: "date_range", class: "daterangepicker" }
+          .medium-text.pull-left
+            &nbsp;&nbsp;&nbsp;
+          %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Download PDF Reports" }
+          .clr
       .pull-right
         = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
       .clr
     - else
       .alert.medium-text
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
-  
   .divider3
-  .pull-right
-    .extra-medium-text.bold.pull-left.line-height2
-      Select date Range
-    .pull-left
-      %select.span7
-        %option
-          Select date Range
-      %input.btn.btn-warning.medium-text.span7{:type=>"submit", :value=>"Email Reports Summary"}
-      .clr
-      .divider1
-      %select.span7
-        %option
-          Select date Range
-      %input.btn.btn-warning.medium-text.span7{:type=>"submit", :value=>"Download PDF Reports"}
-      .clr
-    .clr
-  .clr
 
 
 

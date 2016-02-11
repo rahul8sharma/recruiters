@@ -31,6 +31,11 @@ class TemplatesController < MasterDataController
     ]
   end
   
+  def select_template_category_id
+    @template_categories = Hash[Vger::Resources::TemplateCategory\
+                              .all.map{|x| [x.name,x.id]}]
+  end
+  
   protected
   
   def select_category
