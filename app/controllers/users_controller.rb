@@ -16,11 +16,13 @@ class UsersController < ApplicationController
     name = search_params.delete :name
     email = search_params.delete :email
     conditions = {
-      methods: [:company_ids, :assessment_ids, :role_names, :role],
+      methods: [:company_ids, :role_names, :role],
       root: :user,
       query_options: search_params,
       joins: :roles,
-      page: params[:page], per: 10
+      page: params[:page], per: 10,
+      select: ["distinct(jombay_users.id),jombay_users.*"],
+      include: { :user_assessments => { methods: [:company_id] } }
     }
     conditions[:scopes] = {}
     conditions[:scopes][:name_like] = name if name
