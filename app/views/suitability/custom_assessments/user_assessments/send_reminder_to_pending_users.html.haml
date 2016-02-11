@@ -5,15 +5,14 @@
   .divider3
   - url = send_reminder_to_pending_users_url
   = form_for @assessment, :as => :assessment, :url => url, method: :put, html: { class: "create-test-form" } do |f|
-    .span8.left-offset1
-      - if @templates.size > 1
-        .big-text.line-height2
+    .span8.left-offset1{:class => @templates.size <= 1 ? 'hide':''}
+      .big-text.line-height2
         Choose Email Template
-        %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
-          -# add this class when template isnt availble "hide" to %select
-          - @templates.each do |template|
-            %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
-              = template.name
+      %select{ id: "select_template", name: "template_id", onchange: "selectTemplate()" }
+        -# add this class when template isnt availble "hide" to %select
+        - @templates.each do |template|
+          %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
+            = template.name
     .email-template.pull-left{ class: (@templates.size <= 1 ? 'span18 margin-auto no-border':'') }
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
       .gray-dark
