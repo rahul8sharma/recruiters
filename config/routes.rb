@@ -650,7 +650,6 @@ Recruiters::Application.routes.draw do
       get :destroy_all
       post :import_from_google_drive
       post :export_to_google_drive
-      post :mrf_export_to_google_drive, :as => :mrf_export_to_google_drive
     end
   end
 
@@ -804,7 +803,7 @@ Recruiters::Application.routes.draw do
         get :manage
         get :destroy_all
         post :import_from_google_drive
-        post :export_to_google_drive
+        post :export_to_google_drive, :as => :export_subscription
       end
     end
 
