@@ -43,8 +43,12 @@
               = stakeholder.id
             .span5
               = link_to stakeholder.name, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
-            .span6
-              = link_to stakeholder.email, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+            .span6.info-block
+              %a{:href => stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)}
+                =  truncate stakeholder.email, :length => 20
+              .info
+                = stakeholder.email
+              .arrow
             .span4
               = feedback.role.titleize
             .span3
