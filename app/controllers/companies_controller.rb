@@ -141,7 +141,7 @@ class CompaniesController < ApplicationController
     # code to generate URL for the billing app
     # believed route to this action via line 36 of routes.rb
     # actual route to this action via line 199 of routes.rb
-    if request.put
+    if request.put?
       subscription_data = {
         company_id: @company.id,
         assessments_purchased: params[:merchant_param1],
