@@ -62,6 +62,7 @@ Recruiters::Application.routes.draw do
       post :export_companies
       post :export_monthly_report
       post :export_monthly_partner_usage
+      post :mrf_export_monthly_report
       get :select
     end
 
