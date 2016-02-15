@@ -242,6 +242,12 @@ class CompaniesController < ApplicationController
       .export_monthly_report(params[:company])
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
+
+  def mrf_export_monthly_report
+    Vger::Resources::Company\
+      .mrf_export_monthly_report(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
   
   def export_monthly_partner_usage
     Vger::Resources::Company\
