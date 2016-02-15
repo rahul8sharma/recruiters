@@ -61,6 +61,7 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
+      post :export_monthly_partner_usage
       get :select
     end
 
