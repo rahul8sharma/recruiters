@@ -77,7 +77,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         :job_klass => "Suitability::UserReportsDownloader",
         :args => {
           :date_range => date_range,
-          :email => current_user.email,
+          :user_id => current_user.id,
           :assessment_id => params[:id]
         }
       }
