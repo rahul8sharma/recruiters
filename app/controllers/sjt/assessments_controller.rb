@@ -9,7 +9,7 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
     @assessments = api_resource.where(
       :query_options => { 
         :company_id => params[:company_id], 
-        :assessment_type => ["sjt_competency"] 
+        :assessment_type => ["sjt_competency","sjt_super_competency"] 
       }, 
       :order => "#{order_by} #{order_type}", 
       :page => params[:page], 
