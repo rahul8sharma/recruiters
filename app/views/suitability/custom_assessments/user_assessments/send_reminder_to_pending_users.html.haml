@@ -1,15 +1,14 @@
 .send-reminder
   .page-title
     .divider1
-    Send Reminder
+    Send Reminder to all pending
   .divider3
-  - url = send_reminder_to_user_url(@user, @user_assessment)
-  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
-    .span8.left-offset1
-      - if @templates.size > 1
-        .big-text.line-height2
+  - url = send_reminder_to_pending_users_url
+  = form_for @assessment, :as => :assessment, :url => url, method: :put, html: { class: "create-test-form" } do |f|
+    .span8.left-offset1{:class => @templates.size <= 1 ? 'hide':''}
+      .big-text.line-height2
         Choose Email Template
-      %select{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide': ''), onchange: "selectTemplate()" }
+      %select{ id: "select_template", name: "template_id", onchange: "selectTemplate()" }
         -# add this class when template isnt availble "hide" to %select
         - @templates.each do |template|
           %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}

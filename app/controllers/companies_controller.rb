@@ -194,7 +194,18 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-
+  end
+  
+  def comments
+    google_form_links = YAML::load(File.open("#{Rails.root.to_s}/config/google_form_links.yml")).with_indifferent_access[Rails.env.to_s]
+    @url = google_form_links["google_form_url"]
+    options = {
+      google_form_links["user_id_field"] => current_user.id,
+      google_form_links["user_email_field"] => current_user.email,
+      google_form_links["company_id_field"] => @company.id,
+      google_form_links["company_name_field"] => @company.name,
+    }
+    @url = @url + "?#{options.to_param}"
   end
 
   def update  
@@ -240,6 +251,18 @@ class CompaniesController < ApplicationController
   def export_monthly_report
     Vger::Resources::Company\
       .export_monthly_report(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+
+  def mrf_export_monthly_report
+    Vger::Resources::Company\
+      .mrf_export_monthly_report(params[:company])
+    redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
+  end
+  
+  def export_monthly_partner_usage
+    Vger::Resources::Company\
+      .export_monthly_partner_usage(params[:company])
     redirect_to manage_companies_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

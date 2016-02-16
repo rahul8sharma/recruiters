@@ -3,23 +3,24 @@
     .divider1
     Search Companies 
     | 
-    = link_to "Search Candidates", users_path
+    = link_to "Search Users", users_path
   .pull-right
     = render :partial => "shared/pagination", :locals => { :objects => @companies}
   .clr
+  .divider1
   .search
     = form_for :search, url: companies_path, method: :get do |f|
       - f.object = OpenStruct.new(params[:search])
       .field
         = f.text_field :id, :placeholder => "Company ID", value: params[:search][:id]
         = f.text_field :name, :placeholder => "Company Name", value: params[:search][:name]
-        = f.select :account_type, Vger::Resources::Company::ACCOUNT_TYPES, { :prompt => "Select Account Type" }, { :id => "select_account_type" }
-        = f.submit "Search"
+        = f.select :account_type, Hash[Vger::Resources::Company::ACCOUNT_TYPES.map{|account_type| [account_type.titleize, account_type] }], { :prompt => "Select Account Type" }, { :id => "select_account_type" }
+        = f.submit "Search", class: "btn btn-warning"
   .divider2
   .list-snippet-titles.medium-text.clearfix
     .span2.first
       = sort_link "ID", companies_path, "id", params[:search]
-    .span5
+    .span6
       = sort_link "Company Title", companies_path, :name, params[:search]
     .span3.first
       = sort_link "Created On", companies_path, "created_at", params[:search]
@@ -45,7 +46,7 @@
         .span2.first
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.id
-        .span5
+        .span6
           %a.extra-medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
             = company.name
         .span3.first

@@ -1,9 +1,9 @@
 .companies-list
   .page-title
     .divider1
-    Search Users
-    \|
     = link_to "Search Companies", companies_path
+    \|
+    Search Users
     .divider1
   .pull-right
     = render :partial => "shared/pagination", :locals => { :objects => @users }
@@ -48,7 +48,11 @@
           - company_ids = (user.company_ids + [user.company_id].compact).uniq
           = company_ids.present? ? company_ids.join(", ") : "-"
         .span6
-          = user.assessment_ids.present? ? user.assessment_ids.join(", ") : "-"
+          - if user.user_assessments.to_a.present?
+            - user.user_assessments.each do |user_assessment|
+              = link_to user_assessment.assessment_id, user_company_custom_assessment_path(user_assessment.company_id,user_assessment.assessment_id,user_assessment.user_id), target: "_blank"
+          - else
+            \-
         .span2.first
           = user.role_names.join(", ")
         .clr

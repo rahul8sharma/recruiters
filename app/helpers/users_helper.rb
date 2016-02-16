@@ -21,18 +21,18 @@ module UsersHelper
   end
   
   def get_link_for_super_admin(user)
-    return "#"
+    return user_path(user.id)
   end
   
   def get_link_for_jit(user)
-    return "#"
+    return user_path(user.id)
   end
   
   def get_link_for_sq(user)
-    return "#"
+    return user_path(user.id)
   end
   
   def get_link_for_jq(user)
-    return "#"
+    return user_path(user.id)
   end
 end

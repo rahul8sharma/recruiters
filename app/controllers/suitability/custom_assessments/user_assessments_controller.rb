@@ -9,6 +9,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   helper_method :add_users_bulk_url, 
                 :competencies_url, 
                 :send_reminder_to_user_url, 
+                :send_reminder_to_pending_users_url, 
                 :users_url, 
                 :user_url,
                 :add_users_url, 
@@ -70,11 +71,13 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
 
   def trigger_report_downloader
+    date_range = params[:date_range].present? ? JSON.parse(params[:date_range]) : nil
     options = {
       :custom_assessment => {
         :job_klass => "Suitability::UserReportsDownloader",
         :args => {
-          :email => current_user.email,
+          :date_range => date_range,
+          :user_id => current_user.id,
           :assessment_id => params[:id]
         }
       }
@@ -210,11 +213,14 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
 
   def bulk_send_test_to_users
     params[:options] ||= {}
+    cc_emails = []
+    cc_emails |= params[:cc_emails].to_s.split(",")
     Vger::Resources::Suitability::UserAssessment\
       .import_from_s3_files(:email => current_user.email,
                     :assessment_id => @assessment.id,
                     :sender_id => current_user.id,
                     :report_email_recipients => params[:report_email_recipients],
+                    :cc_emails => cc_emails,                      
                     :send_report_to_user => params[:send_report_to_user],
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
@@ -265,6 +271,8 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           recipients.push @user.email
           assessment_taker_type = Vger::Resources::Suitability::UserAssessment::AssessmentTakerType::REPORT_RECEIVER
         end
+        cc_emails = []
+        cc_emails |= params[:cc_emails].to_s.split(",")
         if params[:options][:send_report_links_to_manager].present? || params[:options][:send_assessment_links_to_manager].present?
           if params[:options][:manager_name].blank?
             flash[:error] = "Please enter the Notification Recipient's name<br/>".html_safe
@@ -280,6 +288,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           end
         end
         options = {
+          :cc_emails => cc_emails,
           :assessment_taker_type => assessment_taker_type,
           :report_link_receiver_name => params[:options][:manager_name],
           :report_link_receiver_email => params[:options][:manager_email],
@@ -465,10 +474,14 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
 
   def send_reminder_to_pending_users
-    assessment = Vger::Resources::Suitability::CustomAssessment.send_reminder_to_pending_users(
-        :id =>@assessment.id)
-    flash[:notice] = "Emails are queued"
-    redirect_to users_url
+    if request.put?
+      assessment = Vger::Resources::Suitability::CustomAssessment.send_reminder_to_pending_users(
+          :id =>@assessment.id, :template_id => params[:template_id])
+      flash[:notice] = "Emails are queued"
+      redirect_to users_url
+    else
+      get_templates(nil, true)
+    end  
   end
 
   def email_assessment_status
@@ -587,6 +600,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
 
   def send_reminder_to_user_url(user,user_assessment)
     send_reminder_to_user_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :user_id => user.id, :user_assessment_id => user_assessment.id)
+  end
+  
+  def send_reminder_to_pending_users_url
+    send_reminder_to_pending_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
   end
 
   def users_url
