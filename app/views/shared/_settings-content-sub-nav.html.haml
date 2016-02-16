@@ -9,6 +9,6 @@
       Admins
     %a.menu{:title => "Company Managers", :href => company_managers_company_path(@company), class: "#{ ['company_managers'].include?(params[:action]) ? 'active':''  }" }
       Company Managers  
-    %a.menu{:title => "Comments", :href => comments_company_path}
+    %a.menu{:title => "Comments", :href => comments_company_path(@company)}
       Comments
   .clr    
