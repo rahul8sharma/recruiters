@@ -19,9 +19,9 @@
     .list-snippet-titles.extra-medium-text.clearfix
       .span2.first
         = sort_link "AID", company_custom_assessments_path(:company_id => params[:company_id]), :id, params[:search]
-      .span4
+      .span3
         = sort_link "Created On", company_custom_assessments_path(:company_id => params[:company_id]), :created_at, params[:search]
-      .span8
+      .span9
         = sort_link "Assessment Title", company_custom_assessments_path(:company_id => params[:company_id]), :name, params[:search]
       .span4
         View Details
@@ -40,10 +40,10 @@
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span2.first
             %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
-          .span4
+          .span3
             %a{:href => "#"} 
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
-          .span8.info-block
+          .span9.info-block
             %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
               = assessment.name
             - if is_superuser?

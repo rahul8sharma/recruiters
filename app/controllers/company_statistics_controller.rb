@@ -51,7 +51,10 @@ class CompanyStatisticsController < ApplicationController
         plan_id_not_in: [@trial_plan.id.to_i]
       },
       :order => ["valid_to DESC"],
-      :methods => [:assessments_sent,:assessments_completed],
+      :methods => [
+        :assessments_sent,
+        :assessments_completed
+      ],
       :page => params[:page],
       :per => 5
     )
@@ -63,7 +66,11 @@ class CompanyStatisticsController < ApplicationController
         :company_id => @company.id
       },
       :order => ["valid_to DESC"],
-      :methods => [:assessments_sent,:assessments_completed],
+      :methods => [
+        :assessments_sent,
+        :assessments_completed,
+        :unlocked_invites_count
+      ],
       :page => params[:page],
       :per => 5
     )
