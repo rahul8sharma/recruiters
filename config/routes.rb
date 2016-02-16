@@ -96,6 +96,7 @@ Recruiters::Application.routes.draw do
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
 
       get "settings/company_managers" => "company_settings#company_managers", :as => :company_managers
+      get "comments" => "companies#comments"
       put "settings/user_settings/remove_company_managers" => "company_settings#remove_company_managers", :as => :remove_company_managers
       get "settings/user_settings/confirm_remove_company_managers" => "company_settings#confirm_remove_company_managers", :as => :confirm_remove_company_managers
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers

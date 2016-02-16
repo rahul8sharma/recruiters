@@ -1,0 +1,24 @@
+development: 
+  google_form_url : "https://docs.google.com/a/jombay.com/forms/d/1DSeq5gzI1kl_4Dy6ONHhCFX1aoqq2eDWQeeqcMCTBR0/viewform"
+  company_id_field: "entry.604416753"
+  company_name_field: "entry.2029975981"
+  user_email_field: "entry.922187991"
+  user_id_field: "entry.448583813"  
+production: 
+  google_form_url :"https://docs.google.com/a/jombay.com/forms/d/17uRwqYzDStbfnfYpAaJzw6qNNop121xHiQ8x7DojPwM/viewform"
+  company_id_field: "entry.604416753"
+  company_name_field: "entry.2029975981"
+  user_email_field: "entry.922187991"
+  user_id_field: "entry.448583813"
+staging: 
+  google_form_url : "https://docs.google.com/a/jombay.com/forms/d/1y5Eztk7osb67hs3UR6bvtqoQTqHMcA5onVK6AEvr_Z0/viewform"
+  company_id_field: "entry.604416753"
+  company_name_field: "entry.2029975981"
+  user_email_field: "entry.922187991"
+  user_id_field: "entry.448583813"  
+staging_internal: 
+  google_form_url : "https://docs.google.com/a/jombay.com/forms/d/1oQhPlUtChX14vFfst_nTzLhNlwqRNza-FjJ_J8f1kyQ/viewform"
+  company_id_field: "entry.604416753"
+  company_name_field: "entry.2029975981"
+  user_email_field: "entry.922187991"
+  user_id_field: "entry.448583813"

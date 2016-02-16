@@ -194,7 +194,18 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-
+  end
+  
+  def comments
+    google_form_links = YAML::load(File.open("#{Rails.root.to_s}/config/google_form_links.yml")).with_indifferent_access[Rails.env.to_s]
+    @url = google_form_links["google_form_url"]
+    options = {
+      google_form_links["user_id_field"] => current_user.id,
+      google_form_links["user_email_field"] => current_user.email,
+      google_form_links["company_id_field"] => @company.id,
+      google_form_links["company_name_field"] => @company.name,
+    }
+    @url = @url + "?#{options.to_param}"
   end
 
   def update  
