@@ -271,17 +271,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   end
 
   def get_competencies(scope)
-    @global_competencies = Vger::Resources::Suitability::Competency.where(
-      :query_options => {
-        :active => true
-      }, 
-      :scopes => {
-        :global => nil,
-        scope => nil
-      },
-      :methods => [:factor_names], 
-      :order => ["name ASC"]
-    ).to_a
     @local_competencies = Vger::Resources::Suitability::Competency.where(
       :query_options => { 
         "companies_competencies.company_id" => @company.id, :active => true 
