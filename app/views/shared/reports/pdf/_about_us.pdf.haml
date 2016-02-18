@@ -34,7 +34,7 @@
       .content
         - imagePath = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
         .company-logo
-          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 78px "}
+          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 55px "}
         .divider1
         = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
   - else
