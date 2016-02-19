@@ -45,13 +45,14 @@ class UsersManagementController < ApplicationController
   end
 
   def download_pdf_reports
+    params[:user][:args][:user_id] = current_user.id
     if params[:user][:args][:file]
       flash[:notice] = "Please select a file."
       data = params[:user][:args][:file].read
       now = Time.now
       s3_key = "report_urls/#{now.strftime('%d_%m_%Y_%H_%I')}"
       obj = S3Utils.upload(s3_key, data)
-      params[:user][:args].merge!({ 
+      params[:user][:args].merge!({
                 :file => {
                         :bucket => obj.bucket.name,
                         :key => obj.key

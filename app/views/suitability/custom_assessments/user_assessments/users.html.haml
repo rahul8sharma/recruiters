@@ -100,7 +100,7 @@
                   = user_assessment.candidate_stage.titleize
                 .arrow
             .span8
-              %a{:href=> user_url(user), :title=> "#{user_assessment.user_assessment_reports.present? ? 'Complete' : 'Pending'}" }
+              %a{:href=> user_url(user) }
                 #{show_status}
                 -#remember Hrs & Hr
             - if @company.subscription_mgmt

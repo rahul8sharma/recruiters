@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     if current_user
       self.send "redirect_#{current_user.role}"
     else
-      login_path
+      login_path(:redirect_to => request.fullpath)
     end
   end
   
@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
   def invalid_authentication(e)
     session[:auth_token] = nil
     flash[:error] = e.message
-    redirect_to login_path
+    redirect_to login_path(:redirect_to => request.fullpath)
   end
   
   # Handle parse error thrown by vger when the response from the server is invalid
