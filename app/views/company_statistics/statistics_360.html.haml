@@ -46,7 +46,7 @@
           - status_class = ""
           - if (valid_to < Time.now)
             - status_class = "expired"
-          - elsif (valid_to > Time.now) && @company.unlocked_invites_count == 0
+          - elsif (valid_to > Time.now) && subscription.unlocked_invites_count == 0
             - status_class = "exhausted"
           - else
             - status_class = "active"

@@ -61,6 +61,8 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
+      post :export_monthly_partner_usage
+      post :mrf_export_monthly_report
       get :select
     end
 
@@ -94,6 +96,7 @@ Recruiters::Application.routes.draw do
       get "settings/user_settings/confirm_remove_users" => "company_settings#confirm_remove_users", :as => :confirm_remove_users
 
       get "settings/company_managers" => "company_settings#company_managers", :as => :company_managers
+      get "comments" => "companies#comments"
       put "settings/user_settings/remove_company_managers" => "company_settings#remove_company_managers", :as => :remove_company_managers
       get "settings/user_settings/confirm_remove_company_managers" => "company_settings#confirm_remove_company_managers", :as => :confirm_remove_company_managers
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
@@ -236,7 +239,7 @@ Recruiters::Application.routes.draw do
 
         get "candidates/expire_links" => "suitability/custom_assessments/user_assessments#expire_links", :as => :expire_links
 
-        get "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
+        match "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users", :as => :send_reminder_to_pending_users
         put "candidates/bulk_upload" => "suitability/custom_assessments/user_assessments#bulk_upload", :as => :bulk_upload
         get "email_reports" => "suitability/custom_assessments/user_assessments#email_reports", :as => :email_reports
         get "trigger_report_downloader" => "suitability/custom_assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader

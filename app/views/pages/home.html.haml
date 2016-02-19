@@ -38,32 +38,32 @@
   = link_to "Sections", sections_path
   %br
   %br
-  Jq::Job
-  %br
-  %br
-  = link_to "Jobs", jq_jobs_path
-  %br
-  %br
-  = link_to "Candidate Jobs", jq_user_jobs_path
-  %br
-  %br
-  = link_to "Interview Questions", jq_interview_questions_path
-  %br
-  %br
-  = link_to "Multimedia Answers", jq_multimedia_answers_path
-  %br
-  %br
-  = link_to "Work Experiences", work_experiences_path
-  %br
-  %br
-  = link_to "Multimedia Profiles", multimedia_profiles_path
-  %br
-  %br
-  = link_to "Functions", jq_functions_path
-  %br
-  %br
-  = link_to "Quadrant Descriptions", jq_quadrant_descriptions_path
-
+  /
+    Jq::Job
+    %br
+    %br
+    = link_to "Jobs", jq_jobs_path
+    %br
+    %br
+    = link_to "Candidate Jobs", jq_user_jobs_path
+    %br
+    %br
+    = link_to "Interview Questions", jq_interview_questions_path
+    %br
+    %br
+    = link_to "Multimedia Answers", jq_multimedia_answers_path
+    %br
+    %br
+    = link_to "Work Experiences", work_experiences_path
+    %br
+    %br
+    = link_to "Multimedia Profiles", multimedia_profiles_path
+    %br
+    %br
+    = link_to "Functions", jq_functions_path
+    %br
+    %br
+    = link_to "Quadrant Descriptions", jq_quadrant_descriptions_path
 
 .pull-left{ style: "margin-left:20px" }
   Master Data Links
@@ -102,8 +102,16 @@
   = link_to "Items", engagement_items_path
   %br
   %br
+  Exit Survey Links
+  %br
+  %br
+  = link_to "Traits", exit_traits_path
+  %br
+  %br
+  = link_to "Items", exit_items_path
+  %br
 .pull-left{ style: "margin-left:20px" }
-  Master Data Links
+  Psychometry Links
   %br
   %br
   = link_to "Suitability Factors", suitability_factors_path
@@ -155,7 +163,7 @@
   %br
   %br
 .pull-left{ style: "margin-left:20px" }
-  Master Data Links
+  Psychometry Links
   %br
   %br
   = link_to "Overall Fitment Grades", suitability_overall_fitment_grades_path
@@ -179,15 +187,24 @@
   = link_to "Recommendations", suitability_recommendations_path
   %br
   %br
-  Exit Survey Links
+  Form Builder Links
   %br
   %br
-  = link_to "Traits", exit_traits_path
+  = link_to "Defined Form", form_builder_defined_forms_path
   %br
   %br
-  = link_to "Items", exit_items_path
+  = link_to "Factual Information Forms", form_builder_factual_information_forms_path
   %br
-
+  %br
+  Template Links
+  %br
+  %br
+  = link_to "Templates", templates_path
+  %br
+  %br
+  = link_to "Template Variables", template_variables_path
+  %br
+  %br
 
 .pull-left{ style: "margin-left:20px" }
   MRF Links
@@ -200,6 +217,9 @@
   %br
   %br
   = link_to "Subjective Items", mrf_subjective_items_path
+  %br
+  %br
+  = link_to "Mrf Subscription", mrf_subscriptions_path
   %br
   %br
   = link_to "Trait Score Buckets", mrf_trait_score_buckets_path
@@ -223,43 +243,25 @@
   = link_to "Default Competency Norm Ranges", mrf_default_competency_norm_ranges_path
   %br
   %br
-  Form Builder Links
-  %br
-  %br
-  = link_to "Defined Form", form_builder_defined_forms_path
-  %br
-  %br
-  = link_to "Factual Information Forms", form_builder_factual_information_forms_path
-  %br
-
 
 .pull-left{ style: "margin-left:20px" }
-  Template Links
-  %br
-  %br
-  = link_to "Templates", templates_path
-  %br
-  %br
-  = link_to "Template Variables", template_variables_path
-  %br
-  %br
-  Finance
-  %br
-  = link_to "Mutual Fund", finance_mutual_funds_path
-  %br
-  %br
-  Retention Survey Links
-  %br
-  %br
-  = link_to "Traits", retention_traits_path
-  %br
-  %br
-  = link_to "Items", retention_items_path
-  %br
+  /
+    Finance
+    %br
+    = link_to "Mutual Fund", finance_mutual_funds_path
+    %br
+    %br
+  /
+    Retention Survey Links
+    %br
+    %br
+    = link_to "Traits", retention_traits_path
+    %br
+    %br
+    = link_to "Items", retention_items_path
+    %br
 
 .pull-left{ style: "margin-left:20px" }
-  %br
-  %br
   SQ Links
   %br
   %br
@@ -296,6 +298,9 @@
   OAC Links
   %br
   %br
+  = link_to "Manage OAC Exercise", oac_manage_path
+  %br
+  %br
   = link_to "Tools", oac_tools_path
   %br
   %br
@@ -311,19 +316,20 @@
   = link_to "Aggregate Competency Score Ratings", oac_aggregate_super_competency_score_ratings_path
   %br
   %br
-  Social Recognition Links
-  %br
-  %br
-  = link_to "Moods", social_recognition_moods_path
-  %br
-  %br
-  = link_to "Behaviors", social_recognition_behaviors_path
-  %br
-  %br
-  = link_to "Lead Points", social_recognition_lead_points_path
-  %br
-  %br
-  = link_to "Gift Providers", social_recognition_gift_providers_path
-  %br  
+  /
+    Social Recognition Links
+    %br
+    %br
+    = link_to "Moods", social_recognition_moods_path
+    %br
+    %br
+    = link_to "Behaviors", social_recognition_behaviors_path
+    %br
+    %br
+    = link_to "Lead Points", social_recognition_lead_points_path
+    %br
+    %br
+    = link_to "Gift Providers", social_recognition_gift_providers_path
+    %br  
 .clr
 

@@ -184,6 +184,21 @@
       = f.check_box :include_standard_factual_information_in_report_summary
       Enable Standard Factual Information Data In Exports
     .clr  
+  .control-group
+    %label
+      = f.check_box :include_aggregate_score_in_report_summary
+      Include Numerical Aggregate Score in Report Summary
+    .clr    
+  .control-group
+    %label
+      = f.check_box :include_aggregate_score_rating_in_report_summary
+      Include Aggregate Score Rating in Report Summary
+    .clr    
+  .control-group
+    %label
+      = f.check_box :include_aggregate_score_bucket_in_report_summary
+      Include Aggregate Score Bucket in Report Summary
+    .clr      
 - else
   = f.hidden_field :language, value: 'en'
   = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
