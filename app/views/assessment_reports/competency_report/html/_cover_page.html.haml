@@ -1,7 +1,8 @@
 #overview.section01
   .overall_report.container
     .divider8
-    .user-name.pull-left
+    .user-name.span16.pull-left.line-height2.first
       = @report.report_hash[:user][:name]
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { nested_child: section["children"] }
+    .clr  

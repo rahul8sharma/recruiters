@@ -1,5 +1,4 @@
 .pull-right
-  .divider2
   - nested_child.each do |child|
     = render :partial => child["path"], :locals => { functional_legends: child["children"]}  
   .divider1

@@ -17,6 +17,31 @@
         locals: {}
       },
       {
+        id: "pdf_cover_page_compact_bands",
+        text: "Cover Page [COMPACT] Bands",
+        path: "assessment_reports/competency_report/pdf/cover_page_compact_bands",
+        children: [
+          {
+            id: "pdf_cover_page_compact_aggregate_numerical_score",
+            text: "Aggregate Numerical Score [Score]",
+            path: "assessment_reports/competency_report/pdf/aggregate_numerical_score_compact",
+            locals: {}
+          },
+          {
+            id: "pdf_cover_page_compact_aggregate_score",
+            text: "Aggregate Score [Bucket]",
+            path: "assessment_reports/competency_report/pdf/aggregate_score_compact",
+            locals: {}
+          },
+          {
+            id: "pdf_cover_page_compact_color_band",
+            text: "Color Band",
+            path: "assessment_reports/competency_report/pdf/color_band_compact",
+            locals: {}
+          }
+        ]
+      },
+      {
         id: "pdf_cover_page_compact_overview_competencies_measured",
         text: "Overview Of Competencies/Value Measured",
         path: "assessment_reports/competency_report/pdf/competency_scores_overview/main_compact",
