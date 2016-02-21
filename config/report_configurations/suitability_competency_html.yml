@@ -66,6 +66,13 @@
         path: "assessment_reports/competency_report/html/aggregate_competency_score",
         children: [
           {
+            id: "html_aggregate_numerical_score_bucket",
+            text: "Aggregate Competency Numerical Score[Score]",
+            path: "assessment_reports/competency_report/html/aggregate_numerical_score_bucket",
+            locals: {},
+            children: []
+          },
+          {
             id: "html_aggregate_score_bucket",
             text: "Aggregate Competency Score[Bucket]",
             path: "assessment_reports/competency_report/html/aggregate_score_bucket",
