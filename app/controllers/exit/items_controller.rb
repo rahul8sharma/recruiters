@@ -13,7 +13,7 @@ class Exit::ItemsController < MasterDataController
   def import_with_options_from_google_drive
     if params[:zip]
       now = Time.now
-      s3_key = "exit/item_images/items_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      s3_key = "exit/item_images/items_#{now.strftime('%d_%m_%Y_%H_%I')}.zip"
       data = params[:zip].read
       obj = S3Utils.upload(s3_key, data)
       params[:item][:zip_file] ||= {}

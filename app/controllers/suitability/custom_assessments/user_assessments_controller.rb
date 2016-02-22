@@ -91,7 +91,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     get_s3_keys
     params[:trial] = params[:trial].present?
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
-      flash[:error] = "Please select a csv file."
+      flash[:error] = "Please select a xls file."
       redirect_to add_users_bulk_url and return
     end
     if !params[:candidate_stage].present?
@@ -235,7 +235,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                       :trial => params[:trial] == "true",
                       :candidate_stage => params[:candidate_stage],
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
-                      :file => "BulkUpload.csv",
+                      :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]

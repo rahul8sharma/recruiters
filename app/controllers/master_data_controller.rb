@@ -136,7 +136,7 @@ class MasterDataController < ApplicationController
   end
   
   def s3_key
-    "#{resource_name}/master_data.csv.zip"
+    "#{resource_name}/master_data.xls.zip"
   end
   
   def form_fields

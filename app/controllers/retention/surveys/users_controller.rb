@@ -8,7 +8,7 @@ class Retention::Surveys::UsersController < ApplicationController
   def bulk_upload
     @s3_key = "retention/survey_users/#{@survey.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
-      flash[:error] = "Please select a csv file."
+      flash[:error] = "Please select a xls file."
       redirect_to add_users_bulk_company_retention_survey_url(company_id: @company.id,id: @survey.id,candidate_stage: params[:candidate_stage]) and return
     end
     data = params[:bulk_upload][:file].read
@@ -99,7 +99,7 @@ class Retention::Surveys::UsersController < ApplicationController
                     :send_email => params[:send_email],
                     :worksheets => [{
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
-                      :file => "BulkUpload.csv",
+                      :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]

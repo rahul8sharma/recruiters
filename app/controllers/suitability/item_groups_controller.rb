@@ -21,7 +21,7 @@ class Suitability::ItemGroupsController < MasterDataController
     #end
     if params[:zip]
       now = Time.now
-      s3_key = "suitability/item_images/images_#{now.strftime('%d_%m_%Y_%H_%I')}.csv.zip"
+      s3_key = "suitability/item_images/images_#{now.strftime('%d_%m_%Y_%H_%I')}.zip"
       data = params[:zip].read
       obj = S3Utils.upload(s3_key, data)
       params[:item_group][:zip_file] ||= {}
