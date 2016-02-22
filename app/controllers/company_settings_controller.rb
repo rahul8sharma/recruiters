@@ -161,14 +161,20 @@ class CompanySettingsController < ApplicationController
           },
           methods: [:role_names]
         ).first
-        if user.present? && 
-            user.role_names.include?(Vger::Resources::Role::RoleName::ADMIN) &&
-            user.company_id.present?
-          errors[user.email] ||= []
-          errors[user.email] |= [
-            "#{user.email} is already an admin of Account ID #{user.company_id}. "+
-            "Remove the user from Account #{user.company_id} before adding to this account."
-          ]
+        if user.present?
+          if user.role_names.include?(Vger::Resources::Role::RoleName::ADMIN) &&
+              user.company_id.present?
+            errors[user.email] ||= []
+            errors[user.email] |= [
+              "#{user.email} is already an admin of Account ID #{user.company_id}. "+
+              "Remove the user from Account #{user.company_id} before adding to this account."
+            ]
+          else
+            Vger::Resources::User.save_existing(user.id, {
+              company_id: @company.id,
+              role: Vger::Resources::Role::RoleName::ADMIN
+            })
+          end  
         else
           user = Vger::Resources::User.find_or_create(user_data)
           if user.error_messages.present?

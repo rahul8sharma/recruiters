@@ -144,17 +144,19 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           if @assessment.set_applicant_id && !(/^[0-9]{8}$/.match(user_data[:applicant_id]).present?)
             @errors[key] << "Applicant ID is invalid."
           end
-          if user_data[:email].present?
-            user = Vger::Resources::User.where(:query_options => { :email => user_data[:email] }).all[0]
-          end
+          user = Vger::Resources::User.where(
+            :query_options => { 
+              :email => user_data[:email] 
+            }
+          ).first
           user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
           if user
             user_data[:id] = user.id
             users[user.id] = user_data
-            attributes_to_update = user_data.dup
-            attributes_to_update.delete(:applicant_id)
-            attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless user.send(attribute).blank? }
-            Vger::Resources::User.save_existing(user.id, attributes_to_update)
+            attributes = user_data.dup
+            attributes.delete(:applicant_id)
+            attributes.each { |attribute,value| attributes.delete(attribute) unless user.send(attribute).blank? }
+            Vger::Resources::User.save_existing(user.id, attributes)
           else
             attributes = user_data.dup
             attributes.delete(:applicant_id)
