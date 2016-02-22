@@ -253,9 +253,9 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     #  end
     #  File.delete target
     #else
-    file_path = Rails.application.assets['mrf_bulk_upload.csv'].pathname
+    file_path = Rails.application.assets['mrf_bulk_upload.xls'].pathname
     send_file(file_path,
-        :filename => "sample_csv_for_bulk_upload.csv")
+        :filename => "sample_csv_for_bulk_upload.xls")
     #end
   end
   
