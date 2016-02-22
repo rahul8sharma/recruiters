@@ -23,6 +23,7 @@ gem 'wicked_pdf','0.9.6'
 gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessable-entity", :ref => "dca594d4664e42476826d098053135b304242614"
 
 gem 'her', '0.6.8'
+gem 'spreadsheet', '1.1.1'
 
 gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 gem 'faraday_middleware','0.9.1'
