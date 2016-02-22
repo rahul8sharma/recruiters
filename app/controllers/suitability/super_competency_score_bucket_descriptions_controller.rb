@@ -4,7 +4,7 @@ class Suitability::SuperCompetencyScoreBucketDescriptionsController < MasterData
   end
   
   def s3_key
-    "super_competency_score_bucket_descriptions.csv.zip"
+    "super_competency_score_bucket_descriptions.xls.zip"
   end
 
   def index_columns

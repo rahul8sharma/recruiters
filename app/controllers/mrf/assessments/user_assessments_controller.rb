@@ -1,5 +1,3 @@
-require 'csv'
-require 'fileutils'
 class Mrf::Assessments::UserAssessmentsController < ApplicationController
   include TemplatesHelper
   before_filter :authenticate_user!
@@ -13,7 +11,7 @@ class Mrf::Assessments::UserAssessmentsController < ApplicationController
     s3_key = "mrf/users/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if request.put?
       if !params[:bulk_upload] || !params[:bulk_upload][:file]
-        flash[:error] = "Please select a csv file."
+        flash[:error] = "Please select a xls file."
         redirect_to bulk_upload_company_mrf_assessment_user_assessments_path(
           @company.id,
           @assessment.id
@@ -35,7 +33,7 @@ class Mrf::Assessments::UserAssessmentsController < ApplicationController
                         :stakeholder_invitation_template_id => 
                                         params[:stakeholder_invitation_template_id],
                         :worksheets => [{
-                          :file => "BulkUpload.csv",
+                          :file => "BulkUpload.xls",
                           :bucket => @s3_bucket,
                           :key => @s3_key
                         }]

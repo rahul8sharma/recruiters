@@ -8,6 +8,6 @@ class Suitability::FactorNormBucketDescriptionsController < SpecialMasterDataCon
   end
   
   def s3_key
-    "factor_norm_bucket_descriptions.csv.zip"
+    "factor_norm_bucket_descriptions.xls.zip"
   end
 end

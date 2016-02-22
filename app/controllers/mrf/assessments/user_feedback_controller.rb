@@ -1,5 +1,3 @@
-require 'csv'
-require 'fileutils'
 class Mrf::Assessments::UserFeedbackController < ApplicationController
   include TemplatesHelper
   before_filter :authenticate_user!
@@ -77,7 +75,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
       }
     }
     Vger::Resources::Mrf::Assessment.export_feedback_status(company_id: @company.id, id: @assessment.id, options: options)
-    flash[:notice] = "360 Degree Feedback status csv will be generated and emailed soon."
+    flash[:notice] = "360 Degree Feedback status sheet will be generated and emailed soon."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end
 
@@ -235,28 +233,9 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   end
 
   def download_sample_csv_for_mrf_bulk_upload
-    # To be re looked in next release
-    #get_custom_assessment
-    #if @custom_assessment
-    #  get_users(10000)
-    #  target = Rails.root.join("tmp/bulk_upload_#{@assessment.id}.csv")
-    #  source = Rails.application.assets['mrf_bulk_upload_template.csv'].pathname.to_s
-    #  FileUtils.cp(source,target)
-    #  csv = CSV.open(target, "a") do |csv|
-    #    @users.each do |user|
-    #      arr = [user.name,user.email]
-    #      csv << arr
-    #    end
-    #  end
-    #  File.open(target,"r") do |f|
-    #    send_data(f.read,type: "text/csv",:filename => "sample_csv_for_bulk_upload_#{@assessment.id}.csv")
-    #  end
-    #  File.delete target
-    #else
     file_path = Rails.application.assets['mrf_bulk_upload.xls'].pathname
     send_file(file_path,
-        :filename => "sample_csv_for_bulk_upload.xls")
-    #end
+        :filename => "sample_sheet_for_bulk_upload.xls")
   end
   
   def add_stakeholders
@@ -313,7 +292,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     s3_key = "mrf/feedbacks/#{@assessment.id}_#{Time.now.strftime("%d_%m_%Y_%H_%M_%S_%P")}"
     if request.put?
       if !params[:bulk_upload] || !params[:bulk_upload][:file]
-        flash[:error] = "Please select a csv file."
+        flash[:error] = "Please select a xls file."
         redirect_to bulk_upload_company_mrf_assessment_path and return
       else
         data = params[:bulk_upload][:file].read
@@ -328,7 +307,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
                         :send_invitations => params[:send_invitations],
                         :template_id => params[:template_id],
                         :worksheets => [{
-                          :file => "BulkUpload.csv",
+                          :file => "BulkUpload.xls",
                           :bucket => @s3_bucket,
                           :key => @s3_key
                         }]
@@ -349,7 +328,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
                     :assessment_id => @assessment.id,
                     :sender_id => current_user.id,
                     :worksheets => [{
-                      :file => "BulkUpload.csv",
+                      :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]
