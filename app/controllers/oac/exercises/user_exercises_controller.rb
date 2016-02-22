@@ -9,8 +9,8 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   layout 'oac/oac'
   
   def download_bulk_upload_csv
-    path = "#{Rails.root.to_s}/tmp/bulk_upload_sample_#{Time.now.strftime('%d_%m_%Y_%I_%H')}.csv"
-    CSV.open(path,"w") do |csv|
+    path = "vac_bulk_upload_sample"
+    file = Vger::Jombay::Workbook.open(path,"w") do |csv|
       header = ["name","email","phone"]
       custom_columns = []
       @exercise_tools.each do |exercise_tool|
@@ -22,7 +22,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       header |= custom_columns.compact.uniq
       csv << header
     end  
-    send_file(path)
+    send_file(file.path)
   end
 
   def candidates
