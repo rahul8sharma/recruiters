@@ -56,9 +56,9 @@ class CompanySettingsController < ApplicationController
   end
 
   def confirm_remove_company_managers
-    params[:company_manager_ids].split("|").each do |user_id,on|
-      Vger::Resources::Company.save_existing(@company.id, { user_ids: (@company.user_ids-[user_id.to_i]) } )
-    end
+    removed_user_ids = params[:company_manager_ids].split("|").map(&:to_i)
+    user_ids = @company.user_ids - removed_user_ids
+    Vger::Resources::Company.save_existing(@company.id, { user_ids: user_ids } )
     flash[:notice] = "Company Managers removed successfully."
     redirect_to company_managers_company_path(@company)
   end
@@ -88,7 +88,10 @@ class CompanySettingsController < ApplicationController
           company_managers[company_manager.id] = user_data
           company_manager.company_ids |= [@company.id]
           company_manager.company_ids.uniq!
-          company_manager = Vger::Resources::User.save_existing(company_manager.id, company_ids: company_manager.company_ids)
+          company_manager = Vger::Resources::User.save_existing(
+            company_manager.id, 
+            company_ids: company_manager.company_ids
+          )
           if company_manager.error_messages.present?
             errors[company_manager.email] ||= []
             errors[company_manager.email] |= company_manager.error_messages
@@ -110,7 +113,13 @@ class CompanySettingsController < ApplicationController
 
   def remove_users
     params[:users] ||= {}
-    @users = Vger::Resources::User.where(:query_options => {:company_id => @company.id}, :page => params[:page], :per => 10).all
+    @users = Vger::Resources::User.where(
+      :query_options => {
+        :company_id => @company.id
+      }, 
+      :page => params[:page], 
+      :per => 10
+    ).all
     if params[:users].empty?
       flash[:error] = "Please select at least one user to remove"
     else
@@ -120,13 +129,14 @@ class CompanySettingsController < ApplicationController
 
   def confirm_remove_users
     params[:user_ids].split("|").each do |user_id,on|
-      Vger::Resources::User.destroy_existing(user_id)
+      Vger::Resources::User.save_existing(user_id, { 
+        company_id: nil 
+      })
     end
     flash[:notice] = "Users removed successfully."
     redirect_to user_settings_company_path(@company)
   end
   
-
   def add_users
     if request.put?
       users = {}
@@ -145,17 +155,39 @@ class CompanySettingsController < ApplicationController
       params[:users].each do |key,user_data|
         user_data[:notify] = user_data[:notify].present?
         user_data[:role] = Vger::Resources::Role::RoleName::ADMIN
-        user = Vger::Resources::User.find_or_create(user_data)
-        if user.error_messages.present?
-          errors[user.email] ||= []
-          errors[user.email] |= user.error_messages
+        user = Vger::Resources::User.where(
+          query_options: {
+            email: user_data[:email]
+          },
+          methods: [:role_names]
+        ).first
+        if user.present?
+          if user.role_names.include?(Vger::Resources::Role::RoleName::ADMIN) &&
+              user.company_id.present?
+            errors[user.email] ||= []
+            errors[user.email] |= [
+              "#{user.email} is already an admin of Account ID #{user.company_id}. "+
+              "Remove the user from Account #{user.company_id} before adding to this account."
+            ]
+          else
+            Vger::Resources::User.save_existing(user.id, {
+              company_id: @company.id,
+              role: Vger::Resources::Role::RoleName::ADMIN
+            })
+          end  
         else
-          user_data[:id] = user.id
-          users[user.id] = user_data
+          user = Vger::Resources::User.find_or_create(user_data)
+          if user.error_messages.present?
+            errors[user.email] ||= []
+            errors[user.email] |= user.error_messages
+          else
+            user_data[:id] = user.id
+            users[user.id] = user_data
+          end
         end
       end
       if errors.present?
-        flash[:error] = "Invalid data. Please ensure that email addresses provided are in the correct format."
+        flash[:error] = errors.values.join("<br/>").html_safe
         render :action => :add_users and return
       else
         flash[:notice] = "New users successfully added. Instructions to login have been emailed to the users."

@@ -52,6 +52,7 @@ class MasterDataController < ApplicationController
       :query_options => params[:search],
       :joins => params[:joins],
       :methods => index_columns,
+      :order => params[:order] || "id asc",
       :page => params[:page], 
       :per => 10).all
     respond_to do |format|      

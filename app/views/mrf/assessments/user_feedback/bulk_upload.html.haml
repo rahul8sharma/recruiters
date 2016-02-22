@@ -36,12 +36,12 @@
       .bulk-upload
         .span.left-offset1.pull-left
           .control-group
-            .span6.extra-medium-text.pull-left
+            .span8.extra-medium-text.pull-left
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
               = fields_for :bulk_upload do |ff|
-                = ff.file_field(:file, accept: '.csv')
+                = ff.file_field(:file, accept: '.xls')
               .span.default-text
-                (File format supported: CSV)
+                (File format supported: XLS (97/2000/XP/2003)
             .span14.extra-medium-text
               %a{:target => "_blank", :href => download_sample_csv_for_mrf_bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id)}
                 Download Sample File for adding Candidates and Stakeholders

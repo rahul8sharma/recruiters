@@ -20,6 +20,7 @@ class SpecialMasterDataController < MasterDataController
       :query_options => params[:search], 
       :methods => index_columns,
       :page => params[:page], 
+      :order => params[:order] || "id ASC",
       :per => 10).all
   end
   
