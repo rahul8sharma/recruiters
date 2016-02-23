@@ -16,7 +16,7 @@
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
 .divider1
-- if @paid_user_assessments_count == 0  
+- if assessment.id.blank? || @paid_user_assessments_count == 0  
   .control-group
     %label
       Select the Industry your Company belongs to
