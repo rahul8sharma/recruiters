@@ -65,6 +65,11 @@ class AssessmentsController < ApplicationController
   end
 
   def edit
+    @paid_user_assessments_count = Vger::Resources::Suitability::UserAssessment\
+                                      .count(
+                                        assessment_id:@assessment.id,
+                                        scopes: { paid: nil }
+                                      )
   end
 
   def update
