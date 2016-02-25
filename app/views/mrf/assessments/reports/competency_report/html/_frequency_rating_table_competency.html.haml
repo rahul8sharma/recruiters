@@ -45,7 +45,7 @@
         %td.orange_bg.captions
           Overall
         %td.orange_bg.captions
-          = (overall_points / role_wise_scores.size).round(2)
+          = competency_scores[:score][:points]
         %td.orange_bg.captions
           = stakeholder_count
         - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
