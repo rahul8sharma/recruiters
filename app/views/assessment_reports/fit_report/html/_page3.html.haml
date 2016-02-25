@@ -54,7 +54,7 @@
                 .slider{:style=>"width:#{scale_values[:scale_width]}px;"}                  
                   - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
                     - scale_values[:offset] = scale_values[:offset] - 34
-                  .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]}px;" }
+                  .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]-15}px;" }
                     .score-indicater
                       = scale_values[:company_norm_bucket_name]
                     .arrow
