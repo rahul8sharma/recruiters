@@ -17,6 +17,6 @@ class Suitability::PostAssessmentGuidelinesController < SpecialMasterDataControl
   end
   
   def s3_key
-    "post_assessment_guidelines.csv.zip"
+    "post_assessment_guidelines.xls.zip"
   end
 end

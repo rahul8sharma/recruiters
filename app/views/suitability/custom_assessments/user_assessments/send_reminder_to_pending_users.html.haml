@@ -53,7 +53,7 @@
                     = render :partial => "suitability/custom_assessments/user_assessments/reminder_mail_body_for_employee"
             .clr
             .divider2
-            %input.btn.btn-warning.large-text{:type => "submit", :value => "Send"}
+            = f.submit "Send", class: "btn btn-warning large-text", :confirm => "Are you sure you want to send reminders?"
             %a.pull-right.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
               Cancel
             .clr

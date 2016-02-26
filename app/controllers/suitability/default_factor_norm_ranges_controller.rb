@@ -16,6 +16,6 @@ class Suitability::DefaultFactorNormRangesController < SpecialMasterDataControll
   end
   
   def s3_key
-    "default_factor_norm_ranges.csv.zip"
+    "default_factor_norm_ranges.xls.zip"
   end
 end

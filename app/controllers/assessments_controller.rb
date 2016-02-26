@@ -65,6 +65,11 @@ class AssessmentsController < ApplicationController
   end
 
   def edit
+    @paid_user_assessments_count = Vger::Resources::Suitability::UserAssessment\
+                                      .count(
+                                        assessment_id:@assessment.id,
+                                        scopes: { paid: nil }
+                                      )
   end
 
   def update
@@ -332,9 +337,9 @@ class AssessmentsController < ApplicationController
     default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
                                     where(:query_options => query_options).all.to_a
     if default_norm_bucket_ranges.empty?
-      if is_superuser? && ["norms","competency_norms"].include?(params[:action])
-        flash[:alert] = "Custom norms not present for this combination. Global norms have been picked."
-      end
+      #if is_superuser? && ["norms","competency_norms"].include?(params[:action])
+      #  flash[:alert] = "Custom norms not present for this combination. Global norms have been picked."
+      #end
       query_options = {
         :functional_area_id => nil,
         :industry_id => nil,

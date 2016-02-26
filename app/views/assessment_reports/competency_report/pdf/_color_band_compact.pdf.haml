@@ -1,6 +1,6 @@
 - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
-.color-band.extra-medium-text.pull-right{:style=>"background-color: #{bg_hex}"}
-  .head.pull-left{:style=>"color: #{bg_hex}"}
+.color-band.extra-medium-text.pull-right{:style=>"padding-top: 3px; background-color: #{bg_hex}"}
+  .head.pull-left{:style=>"color: #fff"}
     Score Rating
   .white.pull-left
     = @report.report_hash[:aggregate_competency_score_rating][:name] rescue "-"

@@ -52,6 +52,7 @@ class MasterDataController < ApplicationController
       :query_options => params[:search],
       :joins => params[:joins],
       :methods => index_columns,
+      :order => params[:order] || "id asc",
       :page => params[:page], 
       :per => 10).all
     respond_to do |format|      
@@ -135,7 +136,7 @@ class MasterDataController < ApplicationController
   end
   
   def s3_key
-    "#{resource_name}/master_data.csv.zip"
+    "#{resource_name}/master_data.xls.zip"
   end
   
   def form_fields

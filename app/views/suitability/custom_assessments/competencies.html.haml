@@ -11,7 +11,7 @@
 
   = form_for @assessment, :as => :assessment, :url => competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
     - all_competency_index = 0
-    - all_competency_count = @local_competencies.count + @global_competencies.count
+    - all_competency_count = @local_competencies.count# + @global_competencies.count
 
     .large-text
       Custom competencies
@@ -61,58 +61,56 @@
             .clr
             .divider1
           - all_competency_index+=1  
-    .divider3.border-bottom-grayLighter
+    /
+      .divider5.border-bottom-grayLighter
+      .large-text
+        Standard competencies
+      .divider2
 
-    .divider2
-
-    .large-text
-      Standard competencies
-    .divider2
-
-    - if !@global_competencies.present? 
-      .alert No standard competencies present for the company
-    - else
-      -#
-        .global_selector
-          %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
-          %label{:for => "check_all_global"}
-            Select All
-      %ul
-        %li.extra-medium-text
-          .span4.first
-            Competency ID
-          .span8
-            Competency Name
-          .span14
-            Triats included
-          .span2
-            Order
-          .span.left-offset1
-           
-          .clr
-          .divider2
-        - @global_competencies.each do |competency|
-          %li.medium-text.gray-darker
+      - if !@global_competencies.present? 
+        .alert No standard competencies present for the company
+      - else
+        -#
+          .global_selector
+            %input{:type=>"checkbox", checked: ((@global_competencies.map(&:id) - @assessment.competency_ids).size == 0), id: "check_all_global"}
+            %label{:for => "check_all_global"}
+              Select All
+        %ul
+          %li.extra-medium-text
             .span4.first
-              = competency.id
+              Competency ID
             .span8
-              %label{:for=>"competency_#{competency.id}"}
-                = competency.name
+              Competency Name
             .span14
-              = competency.factor_names.join(", ")
-            %select.span2.first{name: "assessment[competency_order][#{competency.id}]"}  
-              - all_competency_count.times do |index|
-                - selected = @assessment.competency_order.index(competency.id)
-                - selected = all_competency_index if !selected
-                %option{value: index, selected: index==selected}
-                  = index+1
-                  
+              Triats included
+            .span2
+              Order
             .span.left-offset1
-              %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
              
             .clr
-            .divider1
-          - all_competency_index+=1  
+            .divider2
+          - @global_competencies.each do |competency|
+            %li.medium-text.gray-darker
+              .span4.first
+                = competency.id
+              .span8
+                %label{:for=>"competency_#{competency.id}"}
+                  = competency.name
+              .span14
+                = competency.factor_names.join(", ")
+              %select.span2.first{name: "assessment[competency_order][#{competency.id}]"}  
+                - all_competency_count.times do |index|
+                  - selected = @assessment.competency_order.index(competency.id)
+                  - selected = all_competency_index if !selected
+                  %option{value: index, selected: index==selected}
+                    = index+1
+                    
+              .span.left-offset1
+                %input{:type=>"checkbox", checked: @assessment.competency_ids.include?(competency.id), name: "assessment[competencies][]", value: competency.id, class: "global_competency", :id=>"competency_#{competency.id}"}
+               
+              .clr
+              .divider1
+            - all_competency_index+=1  
 
     .divider2
 

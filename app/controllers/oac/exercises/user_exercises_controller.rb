@@ -9,8 +9,8 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   layout 'oac/oac'
   
   def download_bulk_upload_csv
-    path = "#{Rails.root.to_s}/tmp/bulk_upload_sample_#{Time.now.strftime('%d_%m_%Y_%I_%H')}.csv"
-    CSV.open(path,"w") do |csv|
+    path = "vac_bulk_upload_sample"
+    file = Vger::Jombay::Workbook.open(path,"w") do |csv|
       header = ["name","email","phone"]
       custom_columns = []
       @exercise_tools.each do |exercise_tool|
@@ -22,7 +22,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       header |= custom_columns.compact.uniq
       csv << header
     end  
-    send_file(path)
+    send_file(file.path)
   end
 
   def candidates
@@ -103,7 +103,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   def bulk_upload
     get_s3_keys
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
-      flash[:error] = "Please select a csv file."
+      flash[:error] = "Please select a xls file."
       redirect_to add_candidates_company_oac_exercise_path(@company.id, @exercise.id) and return
     end
     data = params[:bulk_upload][:file].read
@@ -126,7 +126,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
                     :worksheets => [{
                       :candidate_stage => Vger::Resources::User::Stage::EMPLOYED,
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
-                      :file => "BulkUpload.csv",
+                      :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]

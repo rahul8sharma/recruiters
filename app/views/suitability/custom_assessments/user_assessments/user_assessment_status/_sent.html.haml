@@ -1,3 +1,8 @@
 %a{:href => send_reminder_to_user_url(user,user_assessment), :title => "Send Reminder"}
   %i.icon-time
   Send Reminder
+- if user_assessment.last_reminder_sent_at != nil 
+  .info.small-text
+    Last reminder sent on
+    %br
+    #{hdate(user_assessment.last_reminder_sent_at)} At #{htime(user_assessment.last_reminder_sent_at)} Hrs  

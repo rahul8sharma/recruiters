@@ -10,9 +10,9 @@
             .span6.extra-medium-text.pull-left
               .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
               = fields_for :bulk_upload do |ff|
-                = ff.file_field(:file, accept: '.csv')
+                = ff.file_field(:file, accept: '.xls')
               .span.default-text
-                (File format supported: CSV)
+                (File format supported: XLS (97/2000/XP/2003))
     .divider4
     = render :partial => "mrf/assessments/user_assessments/email_settings_for_user", locals: { reminder: false }
     .divider2

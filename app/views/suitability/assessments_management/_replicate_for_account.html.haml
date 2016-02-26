@@ -1,0 +1,16 @@
+= form_for :assessment, url: suitability_replicate_assessment_path, :method => :get do |f|
+  %fieldset
+    %legend 
+      %strong Create a Copy of an existing Assessment
+    %p
+      From Account ID: 
+      = f.text_field :from_company_id
+    %p
+      Assessment ID : 
+      = f.text_field :assessment_id
+    %p
+      To Account ID: 
+      = f.text_field :to_company_id
+      
+  .actions
+    = submit_tag 'Create'

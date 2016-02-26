@@ -22,11 +22,11 @@
             .divider2
             .fileUpload.disabled
               %span Choose File
-              = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.csv'
+              = f.file_field :file, :class => "upload", :id => "uploadBtn", accept: '.xls'
             %input#uploadFile{ :placeholder => "Choose File", :disabled => true}
             .clr
             .help-text
-              File format supported: CSV
+              File format supported: XLS (97/2000/XP/2003)
             .divider1
             %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_bulk_upload_csv_company_oac_exercise_path(@company.id, @exercise.id)}
               Download sample file for adding Assessment takers
