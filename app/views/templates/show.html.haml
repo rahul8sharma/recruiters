@@ -12,16 +12,16 @@
   %tr
     %td 
       %h4 From:
-    %td #{@resource.preview(:from).html_safe}  
+    %td #{@resource.preview(:from, true).html_safe}  
   %tr
     %td 
       %h4 Subject:
-    %td #{@resource.preview(:subject).html_safe}
+    %td #{@resource.preview(:subject, true).html_safe}
   %tr
     %td
       %h4 Preview:
     %td 
-      %i #{@resource.preview(:body).html_safe}
+      %i #{@resource.preview(:body, true).html_safe}
         
 .links
   = link_to "Edit", send("edit_#{resource_name.singularize}_path",@resource)

@@ -256,7 +256,7 @@
       {
         id: "html_competency_frequency_rating_table",
         text: "Frequency Rating Table",
-        path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
+        path: "mrf/assessments/reports/competency_report/html/frequency_rating_table_competency",
         locals: {
           competency: "competency",
           competency_scores: "competency_scores",
@@ -307,8 +307,9 @@
       {
         id: "html_frequency_rating_table",
         text: "Frequency Rating Table",
-        path: "mrf/assessments/reports/competency_report/html/frequency_rating_table",
+        path: "mrf/assessments/reports/competency_report/html/frequency_rating_table_trait",
         locals: {
+          trait_score: "trait_score",
           role_wise_scores: "trait_score[:role_wise_scores]",
           trait_wise: "true",
           graph_buckets: "@trait_graph_buckets" 

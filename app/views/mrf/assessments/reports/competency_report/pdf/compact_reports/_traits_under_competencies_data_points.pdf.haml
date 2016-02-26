@@ -89,7 +89,7 @@
         - if roles.size < role_limit
           .padding-all1
             .border-bottom-greyLighte
-              = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets }
+              = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_trait", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets, trait_score: trait_score }
               .clr
           .divider1
     .page-break
