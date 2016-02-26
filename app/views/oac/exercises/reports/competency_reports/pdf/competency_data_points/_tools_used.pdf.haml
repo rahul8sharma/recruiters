@@ -3,7 +3,8 @@
     Tool Used
   .pull-right
     - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
-      .span2.small-text{ class: (index==0? "no-border text-center":"") }
-        = tool.titleize
+      - if toolwise_scores[tool]
+        .span2.small-text{ class: (index==0? "no-border text-center":"") }
+          = tool.titleize
     .clr
   .clr
