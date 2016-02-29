@@ -1,0 +1,57 @@
+.divider2
+- if role_wise_scores.present?
+  .extra-large-text
+    Frequency of Ratings
+  .divider1
+  %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
+    %tbody
+      %tr.captions
+        %td.dark_mute_bg{:rowspan=>"2"}
+          Stakeholder(s)
+        %td.dark_mute_bg{:rowspan=>"2"}
+          Average rating given 
+          %br/
+          by Stakeholders
+        %td.dark_mute_bg{:rowspan=>"2"}
+          No. of 
+          %br/
+          Respondents
+        %td.dark_mute_bg{:colspan=>"#{graph_buckets.size}"}
+          Rating
+      %tr.captions.rating_ranges
+        - graph_buckets.each do |bucket|
+          %td
+            #{bucket.name}
+      - stakeholder_count = 0
+      - overall_points = 0  
+      - role_wise_scores.each do |role, score|
+        - max_score = score[:bucket_wise_percentages].values.map{|x| x[:count] }.max
+        - stakeholder_count += score[:count].to_i
+        - overall_points += score[:points].to_f
+        %tr
+          %td.green_bg.captions
+            = role.titleize
+          %td.rating_score.average_rating
+            = score[:points]
+          %td.rating_score.average_rating
+            = score[:count]
+          - graph_buckets.each do |bucket|
+            - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
+            %td.rating_score{ class: max_score == bucket_score ? "max_value":"" }
+              = bucket_score
+              -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+          
+      %tr.overall
+        %td.orange_bg.captions
+          Overall
+        %td.orange_bg.captions
+          = trait_score[:average_score_excluding_self][:points]
+        %td.orange_bg.captions
+          = stakeholder_count
+        - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
+        - graph_buckets.each do |bucket|
+          - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
+          %td.rating_score{ class: max_score == total ? "max_value" : "" }
+            = total
+  .divider2
+       

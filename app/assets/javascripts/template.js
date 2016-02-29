@@ -24,6 +24,20 @@ function getTemplateVariablesForCategory(category) {
   });
 }
 
+function checkEmailBodyForVaribales(){
+  if ($('#template_body').val().match(/\<\$(.*?)\$\>/gi) == null){
+    var prompt = confirm("You have not added template varibales to email body.");
+    if (prompt == true){
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+    return true;
+  }
+}
+
+
 jQuery(document).ready(function($){ 
   var currentElement = null;
   $("#template_body, #template_subject, #template_from").click(function(){
@@ -40,4 +54,7 @@ jQuery(document).ready(function($){
   });
   var category = $("#template_template_category_id option:selected").text();
   getTemplateVariablesForCategory(category);
+  $('#new_template, #edit_template').on("submit", function(){
+    return checkEmailBodyForVaribales();
+  })
 });

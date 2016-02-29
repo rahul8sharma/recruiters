@@ -1,0 +1,57 @@
+= form_for :assessment, url: suitability_replicate_assessment_path, :method => :post do |f|
+  = hidden_field_tag :assessment_id, params[:assessment][:assessment_id]
+  = hidden_field_tag :to_company_id, params[:assessment][:to_company_id]
+  %fieldset
+    %legend 
+      %strong Create a Copy of Assessment (#{params[:assessment][:assessment_id]}) #{@assessment.name} To Account (#{params[:assessment][:to_company_id]}) #{@to_company.name}
+    .divider1
+    .control-group
+      %label
+        Select the Industry your Company belongs to
+      %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
+        %option{:value => ""}
+          Industry
+        - @industries.each do |id, industry|
+          %option{:value => (industry.id), selected: (@assessment.industry_id.to_s == industry.id.to_s)}
+            = industry.name
+
+      .clr
+    .control-group
+      %label
+        Select the Department (or Function) for which you are creating this Assessment
+      %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+        %option{:value => ""}
+          Department
+        - @functional_areas.each do |id,functional_area|
+          %option{:value => (functional_area.id), selected: (@assessment.functional_area_id.to_s == id.to_s)}
+            = functional_area.name
+      .clr
+
+    .control-group
+      %label
+        Select Experience Range of the Job Role that you are creating this Assessment for
+      %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+        %option{:value => ""}
+          Experience
+        - @job_experiences.each do |id,job_experience|
+          %option{:value => (job_experience.id), selected: (@assessment.job_experience_id.to_s == id.to_s)}
+            = job_experience.display_text
+      .clr
+    .control-group
+      %label
+        Enter a Title for the Assessment
+      = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
+      .clr
+    .control-group
+      %label
+        Select Custom Factual Information Form
+      %select.span10.first{ name: "defined_form_id" }
+        %option{ value: "" }
+          Select Custom Factual Information Form
+        - @defined_forms.each do |defined_form|
+          %option{ value: defined_form.id }
+            = defined_form.name
+      .clr
+      
+  .actions
+    = submit_tag 'Create'

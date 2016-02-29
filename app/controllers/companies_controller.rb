@@ -307,7 +307,7 @@ class CompaniesController < ApplicationController
   protected
 
   def get_company
-    methods = [:small_logo_url, :large_logo_url, :original_logo_url]
+    methods = [:is_logo_present, :small_logo_url, :large_logo_url, :original_logo_url]
     if Rails.application.config.statistics[:load_assessment_statistics]
       methods.push :assessment_statistics
     end
@@ -328,6 +328,7 @@ class CompaniesController < ApplicationController
       methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
     params[:search][:account_type] ||= Vger::Resources::Company::AccountType::PAID
+    params[:search].delete :account_type if params[:search][:account_type] == "All"
     search_params = params[:search].dup
     name = search_params.delete :name
     conditions = {

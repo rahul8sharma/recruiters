@@ -41,9 +41,12 @@
               .span5
                 %a{:href => user_statistics_company_mrf_assessment_path(@company.id,@assessment.id,user.id), :title => user.id}
                   = user.name || "-"
-              .span7
+              .span7.info-block
                 %a{:href => user_statistics_company_mrf_assessment_path(@company.id,@assessment.id,user.id), :title => user.id}
+                  = truncate user.email, :length => 30
+                .info
                   = user.email
+                .arrow                  
               .span4
                 - if @feedbacks[user.id].all?{|feedback| Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)  }
                   Completed

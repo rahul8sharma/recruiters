@@ -61,21 +61,29 @@
         locals: {}
       },
       {
-        id: "html_cover_page_aggregate_score",
-        text: "Aggregate Score",
-        path: "oac/exercises/reports/competency_reports/html/cover_page/aggregate_score",
-        locals: {
-          aggregate_score_bucket: "aggregate_score_bucket"
-        }
-      },
-      {
-        id: "html_cover_page_color_band",
-        text: "Color Band",
-        path: "oac/exercises/reports/competency_reports/html/cover_page/color_band",
-        locals: {
-          aggregate_score_color: "aggregate_score_color",
-          aggregate_score_rating: "aggregate_score_rating"
-        }
+        id: "html_cover_page_aggregate_score_bands",
+        text: "Score, Numberical and Color Bands",
+        path: "oac/exercises/reports/competency_reports/html/cover_page/score_color_bands",
+        locals: {},
+        children: [
+          {
+            id: "html_cover_page_aggregate_score",
+            text: "Aggregate Score",
+            path: "oac/exercises/reports/competency_reports/html/cover_page/aggregate_score",
+            locals: {
+              aggregate_score_bucket: "aggregate_score_bucket"
+            }
+          },
+          {
+            id: "html_cover_page_color_band",
+            text: "Color Band",
+            path: "oac/exercises/reports/competency_reports/html/cover_page/color_band",
+            locals: {
+              aggregate_score_color: "aggregate_score_color",
+              aggregate_score_rating: "aggregate_score_rating"
+            }
+          }
+        ]
       }
     ]
   },

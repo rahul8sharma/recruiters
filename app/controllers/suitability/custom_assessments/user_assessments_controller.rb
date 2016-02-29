@@ -91,7 +91,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     get_s3_keys
     params[:trial] = params[:trial].present?
     if !params[:bulk_upload] || !params[:bulk_upload][:file]
-      flash[:error] = "Please select a csv file."
+      flash[:error] = "Please select a xls file."
       redirect_to add_users_bulk_url and return
     end
     if !params[:candidate_stage].present?
@@ -144,17 +144,19 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           if @assessment.set_applicant_id && !(/^[0-9]{8}$/.match(user_data[:applicant_id]).present?)
             @errors[key] << "Applicant ID is invalid."
           end
-          if user_data[:email].present?
-            user = Vger::Resources::User.where(:query_options => { :email => user_data[:email] }).all[0]
-          end
+          user = Vger::Resources::User.where(
+            :query_options => { 
+              :email => user_data[:email] 
+            }
+          ).first
           user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
           if user
             user_data[:id] = user.id
             users[user.id] = user_data
-            attributes_to_update = user_data.dup
-            attributes_to_update.delete(:applicant_id)
-            attributes_to_update.each { |attribute,value| attributes_to_update.delete(attribute) unless user.send(attribute).blank? }
-            Vger::Resources::User.save_existing(user.id, attributes_to_update)
+            attributes = user_data.dup
+            attributes.delete(:applicant_id)
+            attributes.each { |attribute,value| attributes.delete(attribute) unless user.send(attribute).blank? }
+            Vger::Resources::User.save_existing(user.id, attributes)
           else
             attributes = user_data.dup
             attributes.delete(:applicant_id)
@@ -233,7 +235,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                       :trial => params[:trial] == "true",
                       :candidate_stage => params[:candidate_stage],
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
-                      :file => "BulkUpload.csv",
+                      :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
                       :key => params[:s3_key]
                     }]

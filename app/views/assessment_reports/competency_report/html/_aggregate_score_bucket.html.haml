@@ -1,2 +1,7 @@
-.final-score.score_band{ :style=>"background-color: #128975" }
-  Aggregate Score: #{@report.report_hash[:aggregate_competency_score_bucket][:name]}
+.final-score.overall_score_rating{:style=>"background-color: #128975; width: 440px"}
+  .score_rating_title.pull-left{:style=>"color: #fff"}
+    Aggregate Score
+  .span.large-text.line-height2
+    #{@report.report_hash[:aggregate_competency_score_bucket][:name]}
+  .clr
+.clr 

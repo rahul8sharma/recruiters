@@ -78,10 +78,11 @@
             Logo:
           = f.file_field :logo, :class => "first span7 medium-text left-offset1"
           .clr  
-        .control-group
-          .span8
-            = image_tag(@company.large_logo_url)  
-          .clr  
+        - if @company.is_logo_present?  
+          .control-group
+            .span8
+              = image_tag(@company.large_logo_url)  
+            .clr  
         .clr
       .span25.margin-auto
         = render :partial => "shared/company_flags", :locals => { :f => f}
