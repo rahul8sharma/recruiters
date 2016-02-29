@@ -154,6 +154,18 @@
     path: "assessment_reports/competency_report/pdf/competency_scores_overview/main",
     children: [
       {
+        id: "pdf_competency_scores_overview_title_with_expected_score",
+        text: "Title With Expected Score",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/title_with_expected_score",
+        locals: {}
+      },
+      {
+        id: "pdf_competency_scores_overview_title_without_expected_score",
+        text: "Title Without Expected Score",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/title_without_expected_score",
+        locals: {}
+      },
+      {
         id: "pdf_competency_scores_overview_favourable_within_desired_range",
         text: "Scale [Show Favourable within Desired Range]",
         path: "assessment_reports/competency_report/pdf/competency_scores_overview/favourable_within_desired_range",
