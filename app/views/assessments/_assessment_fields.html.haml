@@ -11,7 +11,7 @@
           CANDIDATE
     .clr  
 
-
+%input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
