@@ -17,9 +17,13 @@ function selectTemplate() {
 }
 
 $("#edit_assessment").on("submit", function(){
-  if (confirm("You have selected template:  "+ $('input[name="template_name"]').val())){
-    return true;
+  if ($('input[name="user_role"]').val() == "jit"){
+    if (confirm("You have selected template:  "+ $('input[name="template_name"]').val())){
+      return true;
+    }else{
+      return false;
+    }
   }else{
-    return false;
+    return true;
   }
 });
