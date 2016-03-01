@@ -17,7 +17,7 @@ module UsersHelper
   end
   
   def get_link_for_company_manager(user)
-    company_managers_company_path(user.company_ids.first)
+    company_managers_company_path(user.company_ids.first) if user.company_ids.present?
   end
   
   def get_link_for_super_admin(user)
