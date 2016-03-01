@@ -1,4 +1,5 @@
 class Mrf::TraitsController < MasterDataController
+  before_filter :set_params, only: [:edit, :update, :create]
   def api_resource
     Vger::Resources::Mrf::Trait
   end
@@ -20,7 +21,9 @@ class Mrf::TraitsController < MasterDataController
   # GET /traits/:id
   # GET /traits/:id.json
   def show
-    @trait = api_resource.find(params[:id], :root => :trait)
+    @trait = api_resource.find(params[:id], 
+      :root => :trait, methods: [:company_ids]
+    )
     @items = Vger::Resources::Mrf::Item.where(query_options: {
       trait_type: "Mrf::Trait",
       trait_id: @trait.id
@@ -31,7 +34,9 @@ class Mrf::TraitsController < MasterDataController
   end
 
   def edit
-    @trait = api_resource.find(params[:id], :root => :trait)
+    @trait = api_resource.find(params[:id], 
+      :root => :trait, methods: [:company_ids]
+    )
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -88,4 +93,10 @@ class Mrf::TraitsController < MasterDataController
     end
   end
 
+  protected
+  
+  def set_params
+    params[:trait] ||= {}
+    params[:trait][:company_ids] = params[:trait][:company_ids].to_s.split(",")
+  end
 end
