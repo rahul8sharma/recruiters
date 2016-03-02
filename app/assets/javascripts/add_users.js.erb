@@ -24,7 +24,7 @@ function selectTemplate() {
     $(".email-subject").html("<i>"+subject+"</i>");
     $(".email-from").html("<i>"+from+"</i>");
     $('input[name="template_name"]').attr("value", template_name);
-    $('#template').html("E-mail Template: "+template_name);
+    $('#template_name').html("E-mail Template: "+template_name);
   } else {
     $(".custom-email").hide();
     $(".default-email").show();
@@ -32,7 +32,7 @@ function selectTemplate() {
 }
 
 $("#edit_assessment").on("submit", function(){
-  if (confirm("Are you sure you want to send assessment?")){
+  if (confirm("Are you sure you want to send the assessment?")){
     return true;
   }else{
     return false;

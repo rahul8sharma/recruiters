@@ -10,7 +10,7 @@ function selectTemplate() {
     $(".email-subject").html("<i>"+subject+"</i>");
     $(".email-from").html("<i>"+from+"</i>");
     $('input[name="template_name"]').attr("value", template_name);
-    $('#template').html("E-mail Template: "+template_name);
+    $('#template_name').html("E-mail Template: "+template_name);
   } else {
     $(".custom-email").hide();
     $(".default-email").show();

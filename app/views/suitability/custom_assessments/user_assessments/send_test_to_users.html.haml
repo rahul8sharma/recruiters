@@ -47,7 +47,7 @@
     .email-template
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
       - template = @templates[0]
-      #template.medium-text.bold
+      #template_name.medium-text.bold
         E-mail Template: #{template.preview(:name).html_safe}      
       .gray-dark
         .large-text
@@ -55,7 +55,7 @@
         .divider1
         .custom-email.hide
           .test-text-to-send
-            %input{id: "template_name", type: "hidden", name: "template_name", value: template.preview(:name).html_safe}
+            %input{type: "hidden", name: "template_name", value: template.preview(:name).html_safe}
             %span.extra-medium-text.span2.first.show
               From
             .massage-body.italic.span15.medium-text.email-from
