@@ -18,7 +18,7 @@ function selectTemplate() {
 }
 
 $("#edit_assessment").on("submit", function(){
-  if (confirm("Are you sure you want to send the exercise?")){
+  if (confirm($('#edit_assessment').attr('message'))){
     return true;
   }else{
     return false;

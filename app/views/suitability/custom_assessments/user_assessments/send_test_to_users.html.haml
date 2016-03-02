@@ -12,7 +12,7 @@
   - url = send_test_to_users_path
 - else
   - url = bulk_send_test_to_users_path
-= form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+= form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form", message: "Are you sure you want to send the assessment?"}do |f|
   %input{ type:'hidden', name: 'candidate_stage', value: params[:candidate_stage] }
   %input{ type:'hidden', name: 'trial', value: params[:trial].to_s }
   - if params[:users]
@@ -258,3 +258,4 @@
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
 = javascript_include_tag 'add_users'
+= javascript_include_tag 'shared/select_template'

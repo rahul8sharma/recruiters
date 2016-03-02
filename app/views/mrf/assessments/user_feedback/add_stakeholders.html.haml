@@ -33,7 +33,7 @@
 
 .span30{ class: manual_addition_text.nil? ? 'hide':'' }
   .divider2
-  = form_for @assessment, as: :assessment, url: add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), method: :put do |f|
+  = form_for @assessment, as: :assessment, url: add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|
     .extra-medium-text.color-info
       = manual_addition_text
     .divider2

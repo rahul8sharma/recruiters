@@ -26,6 +26,7 @@
         .custom-email.hide
           .test-text-to-send
             %input{type: "hidden", name: "template_name", value: template.preview(:name).html_safe}
+            %input{id: "assessment_type", type: "hidden", name: "assessment_type", value: template.preview(:name).html_safe}
             %span.extra-medium-text.span2.first.show
               From
             .massage-body.italic.span15.medium-text.email-from
@@ -64,4 +65,4 @@
   .clr
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
-= javascript_include_tag 'mrf/add_stakeholders'          
+= javascript_include_tag 'shared/select_template'          
