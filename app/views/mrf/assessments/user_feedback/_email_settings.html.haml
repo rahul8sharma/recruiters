@@ -1,3 +1,6 @@
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'       
+
 - template = @templates[0]
 - content_for :email_partial do
   %span.extra-medium-text.span2.first.show
@@ -13,6 +16,3 @@
   .divider2
   = render :partial => "shared/email_template", :locals => { :template => @templates[0]}
 
-= javascript_include_tag 'jquery'
-= javascript_include_tag 'jquery_ujs'
-= javascript_include_tag 'shared/select_template'          
