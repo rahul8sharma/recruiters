@@ -3,31 +3,14 @@
   %span.extra-medium-text.span2.first.show
     Message
   .massage-body.italic.span15.medium-text
-    - if template
-      = template.preview(:body).html_safe
-    - else
-      - if params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
-        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_user"
-      - else
-        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_employee"
+    = template.preview(:body).html_safe
   .clr
-
 
 .send-assessment
   .heading
     %i.icon-envelope
     Email Settings
   .divider2
-  .left-offset1
-    .big-text.line-height2
-      Choose Email Template
-  %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
-    -# add this class when template isnt availble "hide" to %select
-    - @templates.each do |template|
-      %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from), template_name: template.preview(:name)}
-        = template.name
-    .clr
-    .divider1
   = render :partial => "shared/email_template", :locals => { :template => @templates[0]}
 
 = javascript_include_tag 'jquery'

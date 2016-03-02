@@ -3,9 +3,14 @@
   %span.extra-medium-text.span2.first.show
     Message
   .massage-body.italic.span15.medium-text
-    = template.preview(:body).html_safe
+    - if template
+      = template.preview(:body).html_safe
+    - else
+      - if params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
+        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_user"
+      - else
+        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_employee"
   .clr
-
 
 - if !is_superuser? && @company.prefill_notification_details
   - params[:options] ||= { :manager_name => current_user.name, :manager_email => current_user.email, :send_report_links_to_manager => true }
@@ -42,14 +47,6 @@
       %i.icon-envelope
       Email Settings
     .divider2
-    .left-offset1.pull-left{class: @templates.size <= 1 ? 'hide':''}
-      .big-text.line-height2
-        Choose Email Template
-      %select.span8.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
-        -# add this class when template isnt availble "hide" to %select
-        - @templates.each do |template|
-          %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
-            = template.name
     = render :partial => "shared/email_template", :locals => { :template => @templates[0]}
     
     .clr
