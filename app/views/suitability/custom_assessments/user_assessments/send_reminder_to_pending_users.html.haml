@@ -10,9 +10,9 @@
       = template.preview(:body).html_safe
     - else
       - if params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE
-        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_user"
+        = render :partial => "suitability/custom_assessments/user_assessments/reminder_mail_body_for_user"
       - else
-        = render :partial => "suitability/custom_assessments/user_assessments/mail_body_for_employee"
+        = render :partial => "suitability/custom_assessments/user_assessments/reminder_mail_body_for_employee"
   .clr
 
 
