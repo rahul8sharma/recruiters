@@ -16,14 +16,27 @@ function selectTemplate() {
   var body = $("#select_template").find(":selected").attr("body");
   var subject = $("#select_template").find(":selected").attr("subject");
   var from = $("#select_template").find(":selected").attr("from");
+  var template_name = $("#select_template").find(":selected").attr("template_name");
   if(body) {
     $(".default-email").hide();
     $(".custom-email").show();
     $(".email-body").html("<i>"+body+"</i>");
     $(".email-subject").html("<i>"+subject+"</i>");
     $(".email-from").html("<i>"+from+"</i>");
+
+    $('input[name="template_name"]').attr("value", template_name);
+    $('#template').html("E-mail Template: "+template_name);
+
   } else {
     $(".custom-email").hide();
     $(".default-email").show();
   }
 }
+
+$("#edit_assessment").on("submit", function(){
+  if (confirm("Are you sure you want to send assessment?")){
+    return true;
+  }else{
+    return false;
+  }
+});

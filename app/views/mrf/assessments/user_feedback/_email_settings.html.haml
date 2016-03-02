@@ -16,11 +16,13 @@
   .span20.pull-right{:class => (@templates.size <= 1 ? 'margin-auto': '' )}
     .email-template
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
+      - template = @templates[0]
+      #template.medium-text.bold
+        E-mail Template: #{template.preview(:name).html_safe}
       .gray-dark
         .large-text
           Following is the Preview of the email that stakeholders will receive.
         .divider1
-        - template = @templates[0]
         .custom-email.hide
           .test-text-to-send
             %input{id: "template_name", type: "hidden", name: "template_name", value: template.preview(:name).html_safe}
