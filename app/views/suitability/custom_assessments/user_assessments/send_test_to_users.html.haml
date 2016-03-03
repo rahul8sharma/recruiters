@@ -1,3 +1,5 @@
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
 - template = @templates[0]
 - content_for :email_partial do
   %span.extra-medium-text.span2.first.show
@@ -195,6 +197,5 @@
     %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
     .clr
     .divider1
-= javascript_include_tag 'jquery'
-= javascript_include_tag 'jquery_ujs'
+
 = javascript_include_tag 'add_users'
