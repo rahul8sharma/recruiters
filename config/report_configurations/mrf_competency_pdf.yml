@@ -196,12 +196,12 @@
       },
     ]
   },
-  {
-    id: "pdf_competencies_data_points_questions",
-    text: "Data Points on Questions",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions",
-    children: []
-  },
+  # {
+  #   id: "pdf_competencies_data_points_questions",
+  #   text: "Data Points on Questions",
+  #   path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_data_points_questions",
+  #   children: []
+  # },
   {
     id: "pdf_subjective_responses_others",
     text: "Responses to Other Questions [Others]",
@@ -240,25 +240,25 @@
       }
     ]
   },
-  {
-    id: "pdf_stakeholder_comments_on_traits",
-    text: "Stakeholder Comments On Traits",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
-    children: [
-      {
-        id: "pdf_stakeholder_comments_on_traits_with_role_names",
-        text: "Stakholder Comments On Traits [Show Stakholder Type]",
-        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_with_type",
-        locals: {}
-      },
-      {
-        id: "pdf_stakeholder_comments_on_traits_without_role_names",
-        text: "Stakholder Comments On Traits [Hide Stakholder Type]",
-        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_without_type",
-        locals: {}
-      }
-    ]
-  },
+  # {
+  #   id: "pdf_stakeholder_comments_on_traits",
+  #   text: "Stakeholder Comments On Traits",
+  #   path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_on_traits",
+  #   children: [
+  #     {
+  #       id: "pdf_stakeholder_comments_on_traits_with_role_names",
+  #       text: "Stakholder Comments On Traits [Show Stakholder Type]",
+  #       path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_with_type",
+  #       locals: {}
+  #     },
+  #     {
+  #       id: "pdf_stakeholder_comments_on_traits_without_role_names",
+  #       text: "Stakholder Comments On Traits [Hide Stakholder Type]",
+  #       path: "mrf/assessments/reports/competency_report/pdf/compact_reports/stakeholder_comments_without_type",
+  #       locals: {}
+  #     }
+  #   ]
+  # },
   {
     id: "pdf_page9",
     text: "Summary of 360 Degree Feedback",
