@@ -24,11 +24,11 @@
             %li
               %a.scroll{:href => "#remaining_traits", :title => "Remaining Traits"}
                 Remaining Traits
-          - if @report.data_points_competencies
+          - if @report.data_points_competencies || @report.data_points_traits_under_competencies
             %li
               %a.scroll{:href => "#data_point_competencies", :title => "Data Point:Competencies"}
                 Data Point:Competencies
-          - if @report.data_points_traits_under_competencies
+          - if @report.data_points_traits_under_competencies || @report.data_points_traits
             %li
               %a.scroll{:href => "#data_point_traits", :title => "Data Point: Traits"}
                 Data Point: Traits
