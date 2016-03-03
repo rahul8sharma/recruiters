@@ -24,5 +24,10 @@
   = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
     = render :partial => "shared/email_template", :locals => { :templates => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
     .clr
+    .divider2
+    %a.line-height3{:href=> request.env["HTTP_REFERER"], :title => "cancel"}
+      Cancel
+    %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send"}
+    .clr  
 
 = javascript_include_tag 'add_users'
