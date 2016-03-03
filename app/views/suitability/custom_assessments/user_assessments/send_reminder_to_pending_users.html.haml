@@ -23,7 +23,7 @@
   .divider3
   - url = send_reminder_to_pending_users_url
   = form_for @assessment, :as => :assessment, :url => url, method: :put, html: { class: "create-test-form" } do |f|
-    = render :partial => "shared/email_template", :locals => { :email_template => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
+    = render :partial => "shared/email_template", :locals => { :templates => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
     .clr
 
 = javascript_include_tag 'add_users'
