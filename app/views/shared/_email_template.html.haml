@@ -1,13 +1,14 @@
-.left-offset1.pull-left{class: @templates.size <= 1 ? 'hide':''}
+- template = email_template.first
+.left-offset1.pull-left{class: email_template.size <= 1 ? 'hide':''}
   .big-text.line-height2
     Choose Email Template
-  %select.span8.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+  %select.span8.first{ id: "select_template", name: "template_id", class: (email_template.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
     -# add this class when template isnt availble "hide" to %select
-    - @templates.each do |template|
+    - email_template.each do |template|
       %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
         = template.name
 
-.span20.pull-right{:class => (@templates.size <= 1 ? 'margin-auto': '' )}
+.span20.pull-right{:class => (email_template.size <= 1 ? 'margin-auto': '' )}
   .email-template
     -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
     - if template

@@ -6,7 +6,8 @@
   %span.extra-medium-text.span2.first.show
     Message
   .massage-body.italic.span15.medium-text
-    = template.preview(:body).html_safe
+    - if template
+      = template.preview(:body).html_safe
   .clr
 
 .send-assessment
@@ -14,5 +15,5 @@
     %i.icon-envelope
     Email Settings
   .divider2
-  = render :partial => "shared/email_template", :locals => { :template => @templates[0], :email_headline => "Following is the Preview of the email that stakeholders will receive."}
+  = render :partial => "shared/email_template", :locals => { :email_template => @templates, :email_headline => "Following is the Preview of the email that stakeholders will receive."}
 
