@@ -261,18 +261,18 @@
   },
   {
     id: "pdf_page9",
-    text: "Feedback Stats",
+    text: "Summary of 360 Degree Feedback",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
     children: []
   },
   {
-    id: "html_about_us",
+    id: "pdf_about_us",
     text: "About Us",
     path: "shared/reports/pdf/about_us",
     locals: {}
   },
   {
-    id: "html_legal_disclaimer",
+    id: "pdf_legal_disclaimer",
     text: "Legal Disclaimer",
     path: "shared/reports/pdf/legal_disclaimer",
     locals: {}
