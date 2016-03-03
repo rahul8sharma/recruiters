@@ -4,13 +4,34 @@
       .logo.pull-left.pull-left
         = image_tag (asset_path('jombay-logo.png'))
       .big-text.gray-dark.padding-all1.pull-left
-        Training Requirements 
+        Training Requirements
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left
-          %li
-            %a.scroll{:href => "#overview", :title => "Overview"}
-              Overview
+          - if @report.cover_page
+            %li
+              %a.scroll{:href => "#overview", :title => "Overview"}
+                Overview
+          - if @report.include_competencies 
+            %li
+              %a.scroll{:href => "#competencies", :title => "Competencies"}
+                Competencies
+          - if @report.show_top_training_needs
+            %li
+              %a.scroll{:href => "#training_needs", :title => "Training Needs"}
+                Training Needs
+          - if @report.show_remaining_traits   
+            %li
+              %a.scroll{:href => "#remaining_traits", :title => "Remaining Traits"}
+                Remaining Traits
+          - if @report.data_points_competencies
+            %li
+              %a.scroll{:href => "#data_point_competencies", :title => "Data Point:Competencies"}
+                Data Point:Competencies
+          - if @report.data_points_traits_under_competencies
+            %li
+              %a.scroll{:href => "#data_point_traits", :title => "Data Point: Traits"}
+                Data Point: Traits
           %li.right
         = yield :report_link
         .clr
