@@ -41,8 +41,11 @@
             .divider1
             .span1.first
               = stakeholder.id
-            .span5
-              = link_to stakeholder.name, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+            .span5.info-block
+              = link_to (truncate stakeholder.name, :length => 25), stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+              .info
+                = stakeholder.name
+              .arrow
             .span6.info-block
               %a{:href => stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)}
                 =  truncate stakeholder.email, :length => 20
