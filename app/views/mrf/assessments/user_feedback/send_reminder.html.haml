@@ -13,7 +13,7 @@
   Send Reminder to #{message} 
   %br
 .span30
-  = form_for @assessment, as: :assessment, url: send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), method: :put do |f|
+  = form_for @assessment, as: :assessment, url: send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|
     .divider2
     %input{ type: "hidden", name: "options", value: params[:options].to_yaml }  
     = render :partial => "email_settings", locals: { reminder: true }
