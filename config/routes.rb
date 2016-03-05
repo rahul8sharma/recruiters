@@ -366,15 +366,15 @@ Recruiters::Application.routes.draw do
         match "send_test_to_users" => "sjt/assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         match "candidates" => "sjt/assessments/user_assessments#users", :as => :users
         match "add_users" => "sjt/assessments/user_assessments#add_users", :as => :add_users
-        match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
-        match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
         match "candidates/add_bulk" => "sjt/assessments/user_assessments#add_users_bulk", :as => :add_users_bulk
         put "candidates/bulk_upload" => "sjt/assessments/user_assessments#bulk_upload", :as => :bulk_upload
         put "candidates/bulk-send-test" => "sjt/assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
         get "candidates/expire_links" => "sjt/assessments/user_assessments#expire_links", :as => :expire_links
-        get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
         get "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
         put "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations"
+        match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
+        match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
+        get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
         match "candidates/:user_id/extend-validity" => "sjt/assessments/user_assessments#extend_validity", :as => :extend_validity
         get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores

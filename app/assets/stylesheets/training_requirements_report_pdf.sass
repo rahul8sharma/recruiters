@@ -55,6 +55,14 @@ $trr_image_path: report/html/training_requirements_report
       +bg(logo-icon, 0, 0)
   .score-indicator
     margin-left: 25px
+    &.round
+      .indicator
+        background: image-url("report/pdf/training_requirements/round-indications-small.png") no-repeat 0 4px !important   
+        padding-left: 18px
+        &.favorable
+          background-position: 0 -30px !important
+        &.mid-favorable
+          background-position: 0 -64px !important
     .indicator
       padding-left: 30px
       line-height: 22px
@@ -293,7 +301,7 @@ $trr_image_path: report/html/training_requirements_report
           color: #000
           font-weight: 700
           min-height: 35px
-          text-align: center
+          text-align: left
         .count
           +bg(count-bg, 0, 0)
           font-weight: 700
