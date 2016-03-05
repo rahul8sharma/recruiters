@@ -21,7 +21,7 @@
     Send Reminder
   .divider3
   - url = send_reminder_to_user_url(@user, @user_assessment)
-  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form" } do |f|
+  = form_for @assessment, :as => :assessment, :url => url, multipart: true, method: :put, html: { class: "create-test-form", message: "Are you sure you want to send this reminder ?" } do |f|
     = render :partial => "shared/email_template", :locals => { :templates => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
     .clr
     .divider2
