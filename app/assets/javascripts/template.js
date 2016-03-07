@@ -40,12 +40,30 @@ function checkEmailBodyForVaribales(){
 
 jQuery(document).ready(function($){ 
   var currentElement = null;
+
+  $('#template_body').trumbowyg({
+      fullscreenable: false,
+      closable: false,
+      btns: ['viewHTML',
+    '|', 'formatting',
+    '|', 'btnGrp-design',
+    '|', 'link',
+    '|', 'btnGrp-justify',
+    '|', 'btnGrp-lists',
+    '|', 'horizontalRule']
+  });
+
   $("#template_body, #template_subject, #template_from").click(function(){
     currentElement = $(this);
   });
   
   $(document).on("click",".template_variable_link",function(){
-    currentElement.insertAtCaret("<$"+$(this).attr("template_variable_name")+"$>");
+    var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
+    if(currentElement.attr('id') == "template_body"){
+      $('#template_body').trumbowyg('html', $('#template_body').trumbowyg('html') +" "+ template_variable);
+    }else{
+      currentElement.attr('value', currentElement.val()+template_variable);
+    }
   });
   
   $("#template_template_category_id").change(function(){

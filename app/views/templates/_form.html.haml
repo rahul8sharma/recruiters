@@ -1,6 +1,6 @@
 - url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
-.pull-left
-  = form_for @resource, as: resource_name.singularize, url: url do |f|
+= form_for @resource, as: resource_name.singularize, url: url do |f|
+  .pull-left
     .field
       = f.label :name
       = f.text_field :name
@@ -16,14 +16,8 @@
     .field
       = f.label :subject
       = f.text_field :subject, id: "template_subject"
-    .field
-      = f.label :body
-      = f.text_area :body, id: "template_body"
-    .action
-      = f.submit  
-    
-.pull-left
-  %form
+      
+  .pull-left
     %h3
       Template Variables (Click on a template variable to add it to the template body)
     %ul#template_variables
@@ -31,7 +25,21 @@
         %li{ title: template_variable.value }
           = template_variable.id
           = link_to template_variable.name, "#", template_variable_name: template_variable.id, class: "template_variable_link"
-        
-.clr        
+          
+  .clr    
+
+  %text_area{:id => "template_body", :name => "template[body]"}
+  -# .field
+  -#   = f.label :body
+  -#   = f.text_area :body, id: "template_body"
+  .action
+    = f.submit      
+
 - content_for :javascripts do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+  = javascript_include_tag "trumbowyg"
   = javascript_include_tag 'template'
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "trumbowyg"
