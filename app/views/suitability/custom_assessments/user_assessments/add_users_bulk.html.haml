@@ -32,34 +32,6 @@
             %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_user_bulk_upload_path}
               Download sample file for adding Assessment takers
             .divider2
-        .right-sec.left-offset1.span13
-          .big-text
-            What is the purpose of assessing these assessment takers?
-          .divider2
-          .purpose.left-offset1
-            %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
-              #employee
-                -#toggle class ".checked" to "#employee"
-                .title.span.extra-medium-text
-                  For Development
-                %i.muted.span.medium-text
-                  (Existing Employees)
-                .clr
-            .divider1
-            %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
-              #user
-                -#toggle class ".checked" to "#user"
-                .title.span.extra-medium-text
-                  For Hiring
-                %i.muted.span.medium-text
-                  (Potential Candidates)
-                .clr
-          .divider1
-          .pull-left
             - if is_superuser?
               .extra-medium-text.span5
                 Type of Assessment
@@ -71,7 +43,6 @@
                       Is Trial
                   .clr
               .divider1
-          .clr  
         .clr
         .divider2
         / back to top

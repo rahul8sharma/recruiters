@@ -94,20 +94,15 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       flash[:error] = "Please select a xls file."
       redirect_to add_users_bulk_url and return
     end
-    if !params[:candidate_stage].present?
-      flash[:error] = 'Please select the purpose of assessing these Assessment Takers before proceeding!'
-      redirect_to add_users_bulk_url and return
-    else
-      data = params[:bulk_upload][:file].read
-      obj = S3Utils.upload(@s3_key, data)
-      @s3_bucket = obj.bucket.name
-      @functional_area_id = params[:bulk_upload][:functional_area_id]
-      get_templates(params[:candidate_stage])
-      if @company.subscription_mgmt
-        get_packages
-      end
-      render :action => :send_test_to_users
+    data = params[:bulk_upload][:file].read
+    obj = S3Utils.upload(@s3_key, data)
+    @s3_bucket = obj.bucket.name
+    @functional_area_id = params[:bulk_upload][:functional_area_id]
+    get_templates
+    if @company.subscription_mgmt
+      get_packages
     end
+    render :action => :send_test_to_users
   end
 
   def get_s3_keys
@@ -120,8 +115,6 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     params[:users] ||= {}
     params[:trial] = params[:trial].present?
     params[:users].reject!{|key,data| data[:email].blank? && data[:name].blank?}
-    #params[:users] = Hash[params[:users].collect{|key,data| [data[:email], data] }]
-    # params[:candidate_stage] ||= Vger::Resources::User::Stage::EMPLOYED
     params[:upload_method] ||= "manual"
     @errors = {}
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
@@ -129,64 +122,59 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     functional_assessment_traits = @assessment.functional_assessment_traits.all.to_a
     add_users_allow = assessment_factor_norms.size >= 1 || functional_assessment_traits.size >= 1
     if request.put?
-      if params[:candidate_stage].empty?
-        flash[:error] = "Please select the purpose of assessing these Assessment Takers before proceeding!"
+      users = {}
+      if params[:users].empty?
+        flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
         render :action => :add_users and return
-      else
-        users = {}
-        if params[:users].empty?
-          flash[:error] = "Please add at least 1 Assessment Taker to send the assessment. You may also select 'Add Assessment Takers Later' to save the assessment and return to the Assessment Listings."
-          render :action => :add_users and return
-        end
+      end
 
-        params[:users].each do |key,user_data|
-          @errors[key] ||= []
-          if @assessment.set_applicant_id && !(/^[0-9]{8}$/.match(user_data[:applicant_id]).present?)
-            @errors[key] << "Applicant ID is invalid."
-          end
-          user = Vger::Resources::User.where(
-            :query_options => { 
-              :email => user_data[:email] 
-            }
-          ).first
-          user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
-          if user
+      params[:users].each do |key,user_data|
+        @errors[key] ||= []
+        if @assessment.set_applicant_id && !(/^[0-9]{8}$/.match(user_data[:applicant_id]).present?)
+          @errors[key] << "Applicant ID is invalid."
+        end
+        user = Vger::Resources::User.where(
+          :query_options => { 
+            :email => user_data[:email] 
+          }
+        ).first
+        user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
+        if user
+          user_data[:id] = user.id
+          users[user.id] = user_data
+          attributes = user_data.dup
+          attributes.delete(:applicant_id)
+          attributes.each { |attribute,value| attributes.delete(attribute) unless user.send(attribute).blank? }
+          Vger::Resources::User.save_existing(user.id, attributes)
+        else
+          attributes = user_data.dup
+          attributes.delete(:applicant_id)
+          user = Vger::Resources::User.find_or_create(attributes)
+          if user.error_messages.present?
+            @errors[key] |= user.error_messages
+          else
             user_data[:id] = user.id
             users[user.id] = user_data
-            attributes = user_data.dup
-            attributes.delete(:applicant_id)
-            attributes.each { |attribute,value| attributes.delete(attribute) unless user.send(attribute).blank? }
-            Vger::Resources::User.save_existing(user.id, attributes)
-          else
-            attributes = user_data.dup
-            attributes.delete(:applicant_id)
-            user = Vger::Resources::User.find_or_create(attributes)
-            if user.error_messages.present?
-              @errors[key] |= user.error_messages
-            else
-              user_data[:id] = user.id
-              users[user.id] = user_data
-            end
           end
         end
-
-        unless @errors.values.flatten.empty?
-          #flash[:error] = "Errors in provided data: <br/>".html_safe
-          flash[:error] = @errors.map.with_index do |(user_name, user_errors), index|
-            if user_errors.present?
-              ["#{user_errors.join("<br/>")}"]
-            end
-          end.compact.uniq.join("<br/>").html_safe
-          render :action => :add_users and return
-        end
-        get_templates(params[:candidate_stage])
-        params[:send_test_to_users] = true
-        params[:users] = users
-        if @company.subscription_mgmt
-          get_packages
-        end
-        render :action => :send_test_to_users
       end
+
+      unless @errors.values.flatten.empty?
+        #flash[:error] = "Errors in provided data: <br/>".html_safe
+        flash[:error] = @errors.map.with_index do |(user_name, user_errors), index|
+          if user_errors.present?
+            ["#{user_errors.join("<br/>")}"]
+          end
+        end.compact.uniq.join("<br/>").html_safe
+        render :action => :add_users and return
+      end
+      get_templates
+      params[:send_test_to_users] = true
+      params[:users] = users
+      if @company.subscription_mgmt
+        get_packages
+      end
+      render :action => :send_test_to_users
     else
       if !add_users_allow
         flash[:error] = "You need to select traits before sending an assessment. Please select traits from below."
@@ -204,7 +192,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     if request.get?
       @user = Vger::Resources::User.find(params[:user_id])
       @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
-      get_templates(@user_assessment.candidate_stage, true)
+      get_templates(true)
     elsif request.put?
       @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
       Vger::Resources::Suitability::UserAssessment.send_reminder(params.merge(:assessment_id => params[:id], :user_assessment_id => @user_assessment.id, :template_id => params[:template_id]))
@@ -233,7 +221,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :trial => params[:trial] == "true",
-                      :candidate_stage => params[:candidate_stage],
+                      :candidate_stage => @assessment.candidate_stage,
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
                       :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
@@ -278,13 +266,13 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         if params[:options][:send_report_links_to_manager].present? || params[:options][:send_assessment_links_to_manager].present?
           if params[:options][:manager_name].blank?
             flash[:error] = "Please enter the Notification Recipient's name<br/>".html_safe
-            get_templates(params[:candidate_stage])
+            get_templates
             get_packages
             render :action => :send_test_to_users and return
           end
           if !(Validators.email_regex =~ params[:options][:manager_email])
             flash[:error] += "Please enter a valid Email Address for Notification Recipient".html_safe
-            get_templates(params[:candidate_stage])
+            get_templates
             get_packages
             render :action => :send_test_to_users and return
           end
@@ -312,7 +300,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
             :applicant_id => params[:users][user_id][:applicant_id],
             :assessment_id => @assessment.id,
             :user_id => user_id,
-            :candidate_stage => params[:candidate_stage],
+            :candidate_stage => @assessment.candidate_stage,
             :responses_count => 0,
             :report_email_recipients => recipients.join(","),
             :options => options,
@@ -334,7 +322,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         #flash[:error] = "Cannot send test to #{failed_user_assessments.size} users.#{failed_user_assessments.first.error_messages.join('<br/>')}"
         #redirect_to users_url
         flash[:error] = "#{failed_user_assessments.first.error_messages.join('<br/>')}"
-        get_templates(params[:candidate_stage])
+        get_templates
         get_packages
         render :action => :send_test_to_users and return
       else
@@ -544,20 +532,20 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
   end
 
-  def get_templates(candidate_stage, reminder = false)
+  def get_templates(reminder = false)
     category = ""
     query_options = {
     }
     if reminder
       user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => @assessment.id).all.first
-      category = case user_assessment.candidate_stage
+      category = case @assessment.candidate_stage
         when Vger::Resources::User::Stage::CANDIDATE
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
         when Vger::Resources::User::Stage::EMPLOYED
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
         end
     else
-      case candidate_stage
+      case @assessment.candidate_stage
         when Vger::Resources::User::Stage::CANDIDATE
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE
         when Vger::Resources::User::Stage::EMPLOYED
