@@ -37,12 +37,14 @@ function checkEmailBodyForVaribales(){
   }
 }
 
-
 jQuery(document).ready(function($){ 
   var currentElement = null;
   $('#template_html_editor').trumbowyg({
       fullscreenable: false,
       closable: false,
+      semantic: true,
+      resetCss: true,
+      removeformatPasted: true,
       btns: ['viewHTML',
     '|', 'formatting',
     '|', 'btnGrp-design',
@@ -60,7 +62,6 @@ jQuery(document).ready(function($){
   
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
-    console.log(currentElement.attr('id'));
     if(currentElement.attr('id') == "template_html_editor"){
       $('#template_html_editor').trumbowyg('html', $('#template_html_editor').trumbowyg('html') +" "+ template_variable);
       setTemplateBodyValue($('#template_html_editor').trumbowyg('html'));
