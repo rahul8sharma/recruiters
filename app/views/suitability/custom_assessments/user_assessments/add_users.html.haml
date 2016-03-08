@@ -9,31 +9,6 @@
   -#%a.underlined.pull-right{:href => help_adding_users_path, :target => "_blank"}
     -#View Instructions
   .clr
-  .span15.first.big-text.text-center
-    What is the purpose of assessing these assessment takers?
-  .purpose.span8
-    %label
-      - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED)
-      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
-      #employee
-        -#toggle class ".checked" to "#employee"
-        .title.span.extra-medium-text.default
-          For Development
-        %i.muted.span.medium-text
-          (Existing Employees)
-        .clr
-    .divider1
-    %label
-      - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE)
-      %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
-      #user
-        -#toggle class ".checked" to "#user"
-        .title.span.extra-medium-text.default
-          For Hiring
-        %i.muted.span.medium-text
-          (Potential Candidates)
-        .clr
-    .clr
   %a.label.label-warning.label-small.pull-left{:href => add_users_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
     %b USE BULK UPLOAD
   .clr
@@ -47,8 +22,6 @@
     = form_for @assessment, :as => :assessment, :url => add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
-      %input{ id:"candidate_stage", type: "hidden", value: "#{params[:candidate_stage]}", name: "candidate_stage" }
-      
       - if is_superuser?
         .span11.first.big-text.text-center
           Type of Assessment
