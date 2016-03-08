@@ -218,6 +218,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                     :link_validity => params[:options][:link_validity],
                     :send_report_links_to_manager => params[:options][:send_report_links_to_manager].present?,
                     :send_assessment_links_to_manager => params[:options][:send_assessment_links_to_manager].present?,
+                    :schedule_at => params[:schedule_at],
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :trial => params[:trial] == "true",
