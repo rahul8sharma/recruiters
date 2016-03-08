@@ -25,7 +25,7 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_body').trumbowyg('html').match(/\<\$(.*?)\$\>/gi) == null){
+  if ($('#template_html_editor').trumbowyg('html').match(/\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -40,8 +40,7 @@ function checkEmailBodyForVaribales(){
 
 jQuery(document).ready(function($){ 
   var currentElement = null;
-
-  $('#template_body').trumbowyg({
+  $('#template_html_editor').trumbowyg({
       fullscreenable: false,
       closable: false,
       btns: ['viewHTML',
@@ -53,18 +52,20 @@ jQuery(document).ready(function($){
     '|', 'horizontalRule']
   });
 
-  $("#template_body, #template_subject, #template_from").click(function(){
+  getTemplateBodyValue($('input[name="template[body]"').val());
+
+  $("#template_html_editor, #template_subject, #template_from").click(function(){
     currentElement = $(this);
   });
   
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
-    if (checkCurrentElement(currentElement)){
-      if(currentElement.attr('id') == "template_body"){
-        $('#template_body').trumbowyg('html', $('#template_body').trumbowyg('html') +" "+ template_variable);
-      }else{
-        currentElement.attr('value', currentElement.val()+template_variable);
-      }
+    console.log(currentElement.attr('id'));
+    if(currentElement.attr('id') == "template_html_editor"){
+      $('#template_html_editor').trumbowyg('html', $('#template_html_editor').trumbowyg('html') +" "+ template_variable);
+      setTemplateBodyValue($('#template_html_editor').trumbowyg('html'));
+    }else{
+      currentElement.attr('value', currentElement.val()+template_variable);
     }
   });
   
@@ -79,10 +80,17 @@ jQuery(document).ready(function($){
   })
 });
 
-function checkCurrentElement(currentElement){
-  if(currentElement.attr('id') == "template_body" || currentElement.attr('id') == "template_subject" || currentElement.attr('id') == "template_from"){
+function setTemplateBodyValue(value){
+  $('input[name="template[body]"').attr('value', value);
+}
+function getTemplateBodyValue(value){
+  $('#template_html_editor').trumbowyg('html', value);
+}
+
+/*function checkCurrentElement(currentElement){
+  if(currentElement.attr('id') == "template_html_editor" || currentElement.attr('id') == "template_subject" || currentElement.attr('id') == "template_from"){
     return true;
   }else{
     return false;
   }
-}
+}*/

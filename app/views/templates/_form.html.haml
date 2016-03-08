@@ -1,6 +1,8 @@
 - url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
 = form_for @resource, as: resource_name.singularize, url: url do |f|
   .pull-left
+    -# %input{:type => "hidden", :name => "template[body]", :value => ""}
+    = f.hidden_field :body, :id => "template_body"
     .field
       = f.label :name
       = f.text_field :name
@@ -28,7 +30,7 @@
           
   .clr    
 
-  %text_area{:id => "template_body", :name => "template[body]"}
+  %text_area{:id => "template_html_editor"}
   -# .field
   -#   = f.label :body
   -#   = f.text_area :body, id: "template_body"
