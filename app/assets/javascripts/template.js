@@ -39,7 +39,8 @@ function checkEmailBodyForVaribales(){
 
 jQuery(document).ready(function($){ 
   var currentElement = null;
-  $('#template_html_editor').trumbowyg({
+  var editor = $('#template_html_editor');
+  editor.trumbowyg({
       fullscreenable: false,
       closable: false,
       semantic: true,
@@ -54,7 +55,7 @@ jQuery(document).ready(function($){
     '|', 'horizontalRule']
   });
 
-  getTemplateBodyValue($('input[name="template[body]"').val());
+  getTemplateBodyValue($('input[name="template[body]"').val(), editor);
 
   $("#template_html_editor, #template_subject, #template_from").click(function(){
     currentElement = $(this);
@@ -63,10 +64,14 @@ jQuery(document).ready(function($){
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
     if(currentElement.attr('id') == "template_html_editor"){
-      $('#template_html_editor').trumbowyg('html', $('#template_html_editor').trumbowyg('html') +" "+ template_variable);
-      setTemplateBodyValue($('#template_html_editor').trumbowyg('html'));
+      editor.trumbowyg('saveSelection');
+      var caretPosition = editor.trumbowyg('getSelection').startOffset;
+      var text = editor.trumbowyg('html');
+      var insertText = [text.slice(0, caretPosition), template_variable, text.slice(caretPosition)].join('');
+      editor.trumbowyg('html', insertText);
+      setTemplateBodyValue(editor.trumbowyg('html'));
     }else{
-      currentElement.attr('value', currentElement.val()+template_variable);
+      currentElement.insertAtCaret(template_variable);
     }
   });
   
@@ -84,14 +89,6 @@ jQuery(document).ready(function($){
 function setTemplateBodyValue(value){
   $('input[name="template[body]"').attr('value', value);
 }
-function getTemplateBodyValue(value){
-  $('#template_html_editor').trumbowyg('html', value);
+function getTemplateBodyValue(value, editor){
+  editor.trumbowyg('html', value);
 }
-
-/*function checkCurrentElement(currentElement){
-  if(currentElement.attr('id') == "template_html_editor" || currentElement.attr('id') == "template_subject" || currentElement.attr('id') == "template_from"){
-    return true;
-  }else{
-    return false;
-  }
-}*/
