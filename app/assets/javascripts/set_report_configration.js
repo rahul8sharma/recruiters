@@ -151,7 +151,29 @@ function updateInput(){
 }
 
 function createJSTree(container){
-  $(container).on('changed.jstree', function (e, data) {
+  $(container).on('deselect_node.jstree', function (e, data) {
+    if(data.node.original.links){
+      for(var i = 0; i < data.node.original.links.html.length; i++) {
+        var linkedNode = data.node.original.links.html[i];
+        $htmlTree.deselect_node(linkedNode);
+      }
+      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+        var linkedNode = data.node.original.links.pdf[i];
+        $pdfTree.deselect_node(linkedNode);
+      }
+    }
+  }).on('select_node.jstree', function (e, data) {
+    if(data.node.original.links){
+      for(var i = 0; i < data.node.original.links.html.length; i++) {
+        var linkedNode = data.node.original.links.html[i];
+        $htmlTree.select_node(linkedNode);
+      }
+      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+        var linkedNode = data.node.original.links.pdf[i];
+        $pdfTree.select_node(linkedNode);
+      }
+    }
+  }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
     var selected = data.instance.selected;
