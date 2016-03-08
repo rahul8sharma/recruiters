@@ -212,7 +212,7 @@ class CompanySettingsController < ApplicationController
       }, 
       page: params[:page],
       per: 10,
-      methods: [:reset_password_token]
+      methods: [:reset_password_token, :authentication_token]
     ).all
   end
 end
