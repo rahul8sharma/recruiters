@@ -1,16 +1,3 @@
-- content_for :candidate_type do
-  .control-group
-    %label
-      Select Candidate Type
-    %select.span10.first{name: 'candidate_type', id: 'set_candidate_type'}
-      %option{:value => ""}
-        Select Assessment Type
-        %option{:value => "employed"}
-          EMPLOYED
-        %option{:value => "candidate"}
-          CANDIDATE
-    .clr  
-
 %input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
@@ -48,6 +35,17 @@
       - @job_experiences.each do |id,job_experience|
         %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
           = job_experience.display_text
+    .clr
+  .control-group
+    %label
+      Select the purpose of the assessment
+    %select.span10.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
+      %option{:value => ""}
+        Select the purpose of the assessment
+      %option{:value => Vger::Resources::User::Stage::EMPLOYED, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
+        Development
+      %option{:value => Vger::Resources::User::Stage::CANDIDATE, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
+        Hiring
     .clr
 .control-group
   %label

@@ -27,19 +27,21 @@
       .clr
       .divider3
       .list-snippet-titles.big-text.clearfix
-        %a.span3.left-offset1.first{:href => "#", :title => "Company Manager ID"}
-          Company Manager ID
+        %a.span2.left-offset1.first{:href => "#", :title => "Company Manager ID"}
+          ID
           %i.icon-chevron-down.small-text.line-height1
-        %a.span8{:href => "#", :title => "Name"}
+        %a.span6{:href => "#", :title => "Name"}
           Name
           %i.icon-chevron-down.small-text.line-height1
-        .span8
+        .span6
           Email id
-        %a.span4{:href => "#", :title => "Date Added"}
+        %a.span3{:href => "#", :title => "Date Added"}
           Date Added
           %i.icon-chevron-down.small-text.line-height1
-        %a.span{:href => "#", :title => "Activation Status"}
-          Activation Status
+        %a.span6{:href => "#", :title => "Date Added"}
+          Auth Token
+        %a.span3{:href => "#", :title => "Activation Status"}
+          Status
         .clr
         .divider2
       %ul
@@ -47,15 +49,17 @@
           %li.list-snippet.border-bottom-grayLighter
             .span1.first
               %input{:type => "checkbox", name: "company_managers[#{company_manager.id}]", checked: (params[:company_managers].keys.include?(company_manager.id.to_s))}
-            .span3
+            .span2
               #{company_manager.id}
-            .span8
+            .span6
               = company_manager.name
-            .span8
+            .span6
               = company_manager.email
-            .span4
+            .span3
               = hdate company_manager.created_at
-            .span
+            .span6
+              = company_manager.authentication_token
+            .span3
               - if(company_manager.reset_password_token == nil)
                 Activated
               - else
