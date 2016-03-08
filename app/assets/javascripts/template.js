@@ -25,7 +25,7 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_body').val().match(/\<\$(.*?)\$\>/gi) == null){
+  if ($('#template_body').trumbowyg('html').match(/\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -59,10 +59,12 @@ jQuery(document).ready(function($){
   
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
-    if(currentElement.attr('id') == "template_body"){
-      $('#template_body').trumbowyg('html', $('#template_body').trumbowyg('html') +" "+ template_variable);
-    }else{
-      currentElement.attr('value', currentElement.val()+template_variable);
+    if (checkCurrentElement(currentElement)){
+      if(currentElement.attr('id') == "template_body"){
+        $('#template_body').trumbowyg('html', $('#template_body').trumbowyg('html') +" "+ template_variable);
+      }else{
+        currentElement.attr('value', currentElement.val()+template_variable);
+      }
     }
   });
   
@@ -76,3 +78,11 @@ jQuery(document).ready(function($){
     return checkEmailBodyForVaribales();
   })
 });
+
+function checkCurrentElement(currentElement){
+  if(currentElement.attr('id') == "template_body" || currentElement.attr('id') == "template_subject" || currentElement.attr('id') == "template_from"){
+    return true;
+  }else{
+    return false;
+  }
+}
