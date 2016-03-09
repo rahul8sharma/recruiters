@@ -211,8 +211,12 @@
       .divider3
     %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send Assessment"}
     .clr
-    %p.extra-medium-text.text-right.pull-right
-      Assessment Scheduled on 20 March 2016 at 14:26
+    - if is_superuser? && !params[:users]
+      %p.extra-medium-text.text-right.pull-right
+        Assessment Scheduled on 
+        %span#final-value
+        
+
     .clr
     .divider1
 
@@ -220,3 +224,15 @@
   = stylesheet_link_tag "jquery-ui/jquery.datetimepicker"
   = stylesheet_link_tag "jquery-ui/jquery-ui"
 = javascript_include_tag 'add_users'
+:javascript
+  jQuery(document).on('ready', function(){
+    var displayDate = ($('#datetimepicker').val()).split(' ')[0];
+    var displayTime = ($('#datetimepicker').val()).split(' ')[1];
+    $('#final-value').html(displayDate+" at "+ displayTime);
+
+    $('#datetimepicker').datetimepicker({
+      onChangeDateTime:function(dp, $input){
+        $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
+      }
+    });
+  });
