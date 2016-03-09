@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: git@bitbucket.org:jombay/jombay-notify.git
-  revision: 29f4bd89d2e931f709af2b6fef510eb8baf83682
+  revision: 0a3b07572a40544f86000f37bd35060c12c3413c
   branch: develop
   specs:
     jombay-notify (0.0.1)
