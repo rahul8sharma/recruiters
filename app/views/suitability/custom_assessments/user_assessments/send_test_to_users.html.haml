@@ -50,13 +50,7 @@
       Email Settings
     .divider2
     = render :partial => "shared/email_template", :locals => { :templates => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
-    - if is_superuser? && !params[:users]
-      .heading
-        %i.icon-envelope
-        Send the test at
-      .divider2
-      %input{ name: "schedule_at", id: "datetimepicker" }
-      .clr
+    
     .divider1
     - if @company.subscription_mgmt
       - @subscriptions ||= []
@@ -199,7 +193,26 @@
         %input{:type=>"checkbox", name: "options[send_email]", checked: true}
         Send default email
       .clr
-    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
+    .divider2.border-bottom-grayLighter
+    .divider2
+    - if is_superuser? && !params[:users]
+      .heading
+        %i.icon-calendar
+        Schedule Assessment (Optional)
+      %p.extra-medium-text
+        Please select the Date and Time at which the Assessment should be sent. 
+      .divider1
+      .date-time-pick
+        %label.label-main.extra-medium-text.default.pull-left
+          Date &amp; time
+        .icon-time.big-text.pull-left
+        %input.pull-left.input-main{ name: "schedule_at", id: "datetimepicker" }
+        .clr
+      .divider3
+    %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send Assessment"}
+    .clr
+    %p.extra-medium-text.text-right.pull-right
+      Assessment Scheduled on 20 March 2016 at 14:26
     .clr
     .divider1
 
