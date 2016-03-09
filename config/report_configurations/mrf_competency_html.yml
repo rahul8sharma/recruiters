@@ -12,32 +12,56 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/mrf/header/overview"
+            path: "shared/reports/mrf/header/overview",
+            links: {
+              html: ["html_cover_page"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/mrf/header/traits"
+            path: "shared/reports/mrf/header/traits",
+            links: {
+              html: ["pdf_360_degree_traits_scores_in_descending_order"],
+              pdf: [""]
+            }            
           },
           {
             id: "html_header_scores",
             text: "Scores",
-            path: "shared/reports/mrf/header/scores"
+            path: "shared/reports/mrf/header/scores",
+            links: {
+              html: [""],
+              pdf: [""]
+            }            
           },
           {
             id: "html_header_data_points_competencies",
             text: "Data Point Competencies",
-            path: "shared/reports/mrf/header/data_points_competencies"
+            path: "shared/reports/mrf/header/data_points_competencies",
+            links: {
+              html: ["html_360_degree_scores_competencies"],
+              pdf: [""]
+            }            
           },
           {
             id: "html_header_data_points_traits",
             text: "Data Points Traits",
-            path: "shared/reports/mrf/header/data_points_traits"
+            path: "shared/reports/mrf/header/data_points_traits",
+            links: {
+              html: ["html_360_degree_traits_scores_in_descending_order"],
+              pdf: [""]
+            }            
           },
           {
             id: "html_header_summary",
             text: "Summary",
-            path: "shared/reports/mrf/header/summary"
+            path: "shared/reports/mrf/header/summary",
+            links: {
+              html: ["html_summary_of_360_degree_feedback"],
+              pdf: [""]
+            }            
           }
         ]
       },
