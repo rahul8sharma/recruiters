@@ -1,38 +1,51 @@
+%input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}
 = f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
 = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
 %input{:id => "report_type", :value => "suitability", :type => "hidden"}
-
-.divider1
-.control-group
-  %label
-    Select the Industry your Company belongs to
-  %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
-    %option{:value => ""}
-      Industry
-    - @industries.each do |id, industry|
-      %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
-        = industry.name
-  .clr
-.control-group
-  %label
-    Select the Department (or Function) for which you are creating this Assessment
-  %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
-    %option{:value => ""}
-      Department
-    - @functional_areas.each do |id,functional_area|
-      %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
-        = functional_area.name
-  .clr
-.control-group
-  %label
-    Select Experience Range of the Job Role that you are creating this Assessment for
-  %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
-    %option{:value => ""}
-      Experience
-    - @job_experiences.each do |id,job_experience|
-      %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
-        = job_experience.display_text
-  .clr
+- if assessment.id.blank? || @paid_user_assessments_count == 0  
+  .divider1
+  .control-group
+    %label
+      Select the Industry your Company belongs to
+    %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
+      %option{:value => ""}
+        Industry
+      - @industries.each do |id, industry|
+        %option{:value => (industry.id), selected: (assessment.industry_id.to_s == industry.id.to_s || @company.industry_id.to_s == id.to_s)}
+          = industry.name
+    .clr
+  .control-group
+    %label
+      Select the Department (or Function) for which you are creating this Assessment
+    %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      %option{:value => ""}
+        Department
+      - @functional_areas.each do |id,functional_area|
+        %option{:value => (functional_area.id), selected: (assessment.functional_area_id.to_s == id.to_s)}
+          = functional_area.name
+    .clr
+  .control-group
+    %label
+      Select Experience Range of the Job Role that you are creating this Assessment for
+    %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+      %option{:value => ""}
+        Experience
+      - @job_experiences.each do |id,job_experience|
+        %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
+          = job_experience.display_text
+    .clr
+  .control-group
+    - @assessment.candidate_stage ||= Vger::Resources::User::Stage::EMPLOYED
+    %label
+      Select the purpose of the assessment
+    %select.span10.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
+      %option{:value => ""}
+        Select the purpose of the assessment
+      %option{:value => Vger::Resources::User::Stage::EMPLOYED, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
+        Development
+      %option{:value => Vger::Resources::User::Stage::CANDIDATE, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
+        Hiring
+    .clr  
 .control-group
   %label
     Enter a Title for the Assessment

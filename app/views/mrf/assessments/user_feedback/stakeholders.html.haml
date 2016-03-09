@@ -10,7 +10,7 @@
     %a{:href => details_company_mrf_assessment_path(@company.id,@assessment.id)}
       Return to 360&#176; Profiling Exercise Details
   .span7.pull-right.medium-text
-    = link_to "Disable all stakeholders for this user", expire_feedback_urls_company_mrf_assessment_path(@company.id,@assessment.id, options: { user_id: @user.id }), confirm: "Are you sure?"
+    = link_to "Disable all stakeholders for this user", update_feedback_company_mrf_assessment_path(@company.id, @assessment.id, @user.id, active: false, all: true), confirm: "Are you sure?"
   .clr  
   .divider2
   = render :partial => "shared/360/user-details-sub-nav"
@@ -41,8 +41,11 @@
             .divider1
             .span1.first
               = stakeholder.id
-            .span5
-              = link_to stakeholder.name, stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+            .span5.info-block
+              = link_to (truncate stakeholder.name, :length => 25), stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
+              .info
+                = stakeholder.name
+              .arrow
             .span6.info-block
               %a{:href => stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)}
                 =  truncate stakeholder.email, :length => 20

@@ -10,6 +10,7 @@
     Create a new 360&#176; Profiling Exercise
   .clr.divider2
   = form_for :assessment, as: :assessment, url: company_mrf_assessments_path(@company), html:{id:"assessment_form"} do |f|
+    %input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}
     %input{:id => "input_config", :name => "assessment[report_configuration]", :value => "" ,:type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     %input{:id => "report_type", :value => "mrf", :type => "hidden"}
@@ -25,16 +26,17 @@
         .clr
       .hw.border-right-gray.pull-left
         .span10.margin-auto
-          .divider3
-          .big-text
-            Choose an existing assessment to run the 360&#176;
           .divider1
-          %select.fw{name: "assessment[custom_assessment_id]"}
-            %option{value: ''} Choose assessment
-            - @custom_assessments.each do |custom_assessment|
-              %option{ value: custom_assessment.id }
-                #{custom_assessment.id} - #{custom_assessment.name}
-          .divider1
+          /
+            .big-text
+              Choose an existing assessment to run the 360&#176;
+            .divider1
+            %select.fw{name: "assessment[custom_assessment_id]"}
+              %option{value: ''} Choose assessment
+              - @custom_assessments.each do |custom_assessment|
+                %option{ value: custom_assessment.id }
+                  #{custom_assessment.id} - #{custom_assessment.name}
+            .divider1
           %select.fw{name: "assessment[assessment_type]"}
             %option{value: ''} Choose assessment type
             %option{ value: "jombay" }

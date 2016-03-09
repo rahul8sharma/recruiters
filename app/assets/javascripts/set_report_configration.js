@@ -21,13 +21,18 @@ function loadConfig(assessment_Type, reportType) {
       if(response_data.error) {
         alert(response_data.error);
       } else {
+        destroyJSTrees();
+        createJSTrees();
         var config = JSON.parse(response_data.config);
-        var input_json = $('#input_config').val() ? JSON.parse($('#input_config').val()) : {}
+        var input_json = {};
+        if($('#input_assessment_id').val()){
+          input_json = $('#input_config').val() ? JSON.parse($('#input_config').val()) : {}
+        } else {
+          input_json = {};
+        }
         var data = jQuery.isEmptyObject(input_json) ? JSON.parse(response_data.selected) : input_json;
         data.html = data.html || { sections: [] };
         data.pdf = data.pdf || { sections: [] };
-        $htmlTree.selected = data.html.sections;
-        $pdfTree.selected = data.pdf.sections;          
         data.html.sections = data.html.sections || [];
         data.pdf.sections = data.pdf.sections || [];
         var selectedHtmlSectionIds = $.map(data.html.sections, function(section){ return section.id; });
@@ -56,9 +61,11 @@ function loadConfig(assessment_Type, reportType) {
         }
         
         $htmlTree.settings.core.data = config.html.sections; 
+        $htmlTree.selected = data.html.sections;
         $htmlTree.refresh();
         
         $pdfTree.settings.core.data = config.pdf.sections; 
+        $pdfTree.selected = data.pdf.sections;          
         $pdfTree.refresh();
       }
     },
@@ -144,7 +151,29 @@ function updateInput(){
 }
 
 function createJSTree(container){
-  $(container).on('changed.jstree', function (e, data) {
+  $(container).on('deselect_node.jstree', function (e, data) {
+    if(data.node.original.links){
+      for(var i = 0; i < data.node.original.links.html.length; i++) {
+        var linkedNode = data.node.original.links.html[i];
+        $htmlTree.deselect_node(linkedNode);
+      }
+      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+        var linkedNode = data.node.original.links.pdf[i];
+        $pdfTree.deselect_node(linkedNode);
+      }
+    }
+  }).on('select_node.jstree', function (e, data) {
+    if(data.node.original.links){
+      for(var i = 0; i < data.node.original.links.html.length; i++) {
+        var linkedNode = data.node.original.links.html[i];
+        $htmlTree.select_node(linkedNode);
+      }
+      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+        var linkedNode = data.node.original.links.pdf[i];
+        $pdfTree.select_node(linkedNode);
+      }
+    }
+  }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
     var selected = data.instance.selected;
@@ -234,6 +263,18 @@ function loadPreview($btn, $tree, candidate_type, custom_message){
   generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type, custom_message);
 }
 
+function destroyJSTrees(){
+  $htmlTree.destroy();
+  $pdfTree.destroy();
+}
+
+function createJSTrees(){
+  $htmlTree = createJSTree("#html_configuration");
+  $htmlTree.treeType = "html";
+  $pdfTree = createJSTree("#pdf_configuration");
+  $pdfTree.treeType = "pdf";
+}
+
 $(document).ready(function(){
   reportType = $('#report_type').val();
   company_id = $('#input_company_id').val();
@@ -280,11 +321,7 @@ $(document).ready(function(){
     updateInput();
     return true;
   });
-    
-  $htmlTree = createJSTree("#html_configuration");
-  $htmlTree.treeType = "html";
-  $pdfTree = createJSTree("#pdf_configuration");
-  $pdfTree.treeType = "pdf";
+  createJSTrees();  
   if($('#set_assessment_type').val() !== "") {
     loadConfig($('#set_assessment_type').val(), reportType);
   }

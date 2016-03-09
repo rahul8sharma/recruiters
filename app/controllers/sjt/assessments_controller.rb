@@ -39,12 +39,6 @@ class Sjt::AssessmentsController < Suitability::CustomAssessmentsController
     end
   end
 
-  def edit
-  end
-
-  def new
-  end
-
   def competencies
     get_competencies(:for_sjt)
     if request.put?

@@ -1,3 +1,19 @@
+//= require jquery
+//= require jquery-ui/jquery-ui
+//= require jquery-ui/jquery.datetimepicker.full.min
+$(function() { 
+  var date = new Date();
+  var minutes = 1;
+  var minTime = new Date(date.getTime()+minutes*60000);
+  $("#datetimepicker").datetimepicker({
+    minDate: minTime,
+    minTime: minTime,
+    value: minTime,
+    step: 5,
+    format:'d/m/Y H:i'
+  }); 
+});
+
 function getUserType(type){    
   document.getElementById('candidate_stage').value = type;
   document.getElementById('candidate_stage_bulk').value = type;
@@ -10,20 +26,4 @@ function getUserType(type){
 function addClass(addTo, removeFrom){
   document.getElementById(addTo).setAttribute('class', 'checked');
   document.getElementById(removeFrom).removeAttribute('class', 'checked');
-}
-
-function selectTemplate() {
-  var body = $("#select_template").find(":selected").attr("body");
-  var subject = $("#select_template").find(":selected").attr("subject");
-  var from = $("#select_template").find(":selected").attr("from");
-  if(body) {
-    $(".default-email").hide();
-    $(".custom-email").show();
-    $(".email-body").html("<i>"+body+"</i>");
-    $(".email-subject").html("<i>"+subject+"</i>");
-    $(".email-from").html("<i>"+from+"</i>");
-  } else {
-    $(".custom-email").hide();
-    $(".default-email").show();
-  }
 }
