@@ -71,4 +71,21 @@ module ReportsHelper
     all_factor_scores
   end
 
+  def centralAlignTraitNames(factor_name, view_mode)
+    if view_mode == "html"
+      top =  0
+      upperLimit = 30
+      multiplier = 15
+    else
+      top = 5
+      upperLimit = 25
+      multiplier = 10
+    end
+    new_factor_name = factor_name.dup
+    new_factor_name = (new_factor_name.size >= 15 && new_factor_name.split(" ").size == 1) ? [new_factor_name.slice(0,11)+"-",new_factor_name.slice(11,100)].join(' ') : new_factor_name
+    new_factor_size = new_factor_name.split(" ").size
+    margin = new_factor_size >= 3 ? top : upperLimit-((new_factor_size-1)*multiplier)
+    margin
+  end
+
 end
