@@ -1,0 +1,1 @@
+$("#<%= @container %>").html("<%= escape_javascript(render(:partial => 'form_builder/defined_forms/preview', :locals => { defined_form: @resource })) %>");

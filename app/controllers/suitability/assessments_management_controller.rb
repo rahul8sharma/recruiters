@@ -13,6 +13,7 @@ class Suitability::AssessmentsManagementController < ApplicationController
             :company_id => params[:to_company_id],
             :assessment_id => params[:assessment_id],
             :defined_form_id => params[:defined_form_id],
+            :replicate => params[:replicate].present?,
             :assessment => params[:assessment]
           )
       redirect_to suitability_assessments_management_path, 
@@ -35,13 +36,43 @@ class Suitability::AssessmentsManagementController < ApplicationController
       params[:assessment][:assessment_id],
       company_id: params[:assessment][:from_company_id],
     )
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
-                          .all.to_a.collect{|x| [x.id,x]}]
-    @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
-                        .all.to_a.collect{|x| [x.id,x]}]
-    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
+    @factual_information_form = Vger::Resources::FormBuilder::FactualInformationForm.where(
+      query_options: { 
+        assessment_type: "Suitability::CustomAssessment",
+        assessment_id: @assessment.id
+      }
+    ).all.first
+    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(
+      :query_options => {
+        :active=>true
+      },
+      :order => "name ASC"
+    ).all.to_a.collect{|x| [x.id,x]}]
     
-    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(scopes: { global_or_for_company_id: params[:assessment][:to_company_id] }, query_options: { active: true }).all.to_a
-    @defined_forms |= Vger::Resources::FormBuilder::DefinedForm.where(scopes: { global: nil }, query_options: { active: true }).all.to_a
+    @industries = Hash[Vger::Resources::Industry.where(
+      :query_options => {
+        :active=>true
+      },
+      :order => "name ASC"
+    ).all.to_a.collect{|x| [x.id,x]}]
+    
+    @job_experiences = Hash[Vger::Resources::JobExperience\
+      .active\
+      .all.to_a.collect{|x| [x.id,x]}
+    ]
+    
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(
+      scopes: { 
+        for_company_id: params[:assessment][:to_company_id] 
+      }, 
+      query_options: { 
+        active: true 
+      }
+    ).all.to_a
+    @defined_forms |= Vger::Resources::FormBuilder::DefinedForm.where(
+      query_options: { 
+        id: @factual_information_form.defined_form_id 
+      }
+    ).all.to_a if @factual_information_form
   end
 end
