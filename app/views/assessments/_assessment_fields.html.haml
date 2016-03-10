@@ -80,6 +80,16 @@
           %option{:value => assessment_type, selected: (assessment.assessment_type == assessment_type)}
             = assessment_type.titleize
       .clr
+    .control-group
+      %label
+        Select Custom Factual Information Form
+      %select.span10.first{ name: "defined_form_id" }
+        %option{ value: "" }
+          Select Custom Factual Information Form
+        - @defined_forms.each do |defined_form|
+          %option{ value: defined_form.id, selected: (defined_form.parent_uid.to_s == Rails.application.config.signup[:standard_form_uid]) }
+            = defined_form.name.html_safe
+      .clr
   - else
     = f.hidden_field :assessment_type, value: @assessment.assessment_type, :id => "set_assessment_type"    
   .control-group
@@ -90,16 +100,6 @@
         %option{:value => code, selected: (assessment.language == code)}
           = language
 
-    .clr
-  .control-group
-    %label
-      Select Custom Factual Information Form
-    %select.span10.first{ name: "defined_form_id" }
-      %option{ value: "" }
-        Select Custom Factual Information Form
-      - @defined_forms.each do |defined_form|
-        %option{ value: defined_form.id }
-          = defined_form.name
     .clr
   .control-group
     %label
