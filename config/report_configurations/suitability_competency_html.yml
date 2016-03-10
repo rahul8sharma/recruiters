@@ -79,7 +79,7 @@
             locals: {},
             children: [],
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_aggregate_score_text"]
             }
 
@@ -91,7 +91,7 @@
             locals: {},
             children: [],
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_color_band"]
             }   
           },
@@ -106,7 +106,7 @@
                 path: "assessment_reports/competency_report/html/include_functional_legend",
                 locals: {},
                 links: {
-                  html: [""],
+                  html: [],
                   pdf: ["pdf_with_functional_legend"]
                 }   
               },
@@ -116,7 +116,7 @@
                 path: "assessment_reports/competency_report/html/exclude_functional_legend",
                 locals: {},
                 links: {
-                  html: [""],
+                  html: [],
                   pdf: ["pdf_without_functional_legend"]
                 }                
               }
@@ -131,7 +131,7 @@
         locals: {},
         children: [],
         links: {
-          html: [""],
+          html: [],
           pdf: ["pdf_assessment_details"]
         }         
       }
@@ -143,7 +143,7 @@
     path: "assessment_reports/competency_report/html/competency_interpretation_guide",
     children: [],
     links: {
-      html: [""],
+      html: [],
       pdf: ["pdf_competency_report_guideline"]
     }
   },
@@ -196,7 +196,7 @@
               offset: "offset"
             },
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_favourable_above_desired_range_show_desired_range"]
             } 
           },
@@ -209,7 +209,7 @@
               offset: "offset"
             },
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_favourable_above_desired_range_hide_desired_range"]
             } 
           }
@@ -232,7 +232,7 @@
               offset: "offset"
             },
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_favourable_within_desired_range_show_desired_range"]
             }           
           },
@@ -245,7 +245,7 @@
               offset: "offset"
             },
             links: {
-              html: [""],
+              html: [],
               pdf: ["pdf_favourable_within_desired_range_hide_desired_range"]
             } 
           }
@@ -259,7 +259,7 @@
     path: "assessment_reports/competency_report/html/aptitude_score",
     children: [],
     links: {
-      html: [""],
+      html: [],
       pdf: ["pdf_aptitude_score"]
     }
   },
