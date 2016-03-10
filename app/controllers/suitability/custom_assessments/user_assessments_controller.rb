@@ -357,7 +357,14 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         column = "suitability_user_assessments.status"
         order = "case when #{column}='scored' then 1 when #{column}='started' then 2 when #{column}='sent' then 3 end, suitability_user_assessments.updated_at #{order_type}"
     end
-    scope = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => @assessment.id).where(:page => params[:page], :per => 10, :joins => :user, :order => order).where(:include => [:user, :user_assessment_reports])
+    scope = Vger::Resources::Suitability::UserAssessment.where(
+      :assessment_id => @assessment.id,
+      :page => params[:page], 
+      :per => 10, 
+      :joins => :user, 
+      :order => order,
+      :include => [:user, :user_assessment_reports]
+    )
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
@@ -471,7 +478,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       flash[:notice] = "Emails are queued"
       redirect_to users_url
     else
-      get_templates(nil, true)
+      get_templates(true)
     end  
   end
 
@@ -506,7 +513,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         )
       redirect_to users_company_custom_assessment_path(@company.id, @assessment.id), notice: "Invitation Emails have been queued. Status email should arrive soon."
     else
-      get_templates(nil,false)
+      get_templates(false)
     end
   end
 

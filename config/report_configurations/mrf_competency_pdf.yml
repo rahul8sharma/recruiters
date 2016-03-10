@@ -198,7 +198,7 @@
   },
   {
     id: "pdf_subjective_responses_others",
-    text: "Responses to Other Questions [Others]",
+    text: "Responses to Other Questions [Stakholders]",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/subjective_responses_others",
     children: [
       {
