@@ -25,7 +25,7 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_body').val().match(/\<\$(.*?)\$\>/gi) == null){
+  if ($('#template_html_editor').trumbowyg('html').match(/\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -37,15 +37,45 @@ function checkEmailBodyForVaribales(){
   }
 }
 
-
 jQuery(document).ready(function($){ 
   var currentElement = null;
-  $("#template_body, #template_subject, #template_from").click(function(){
+  var editor = $('#template_html_editor');
+  editor.trumbowyg({
+      fullscreenable: false,
+      closable: false,
+      semantic: true,
+      resetCss: true,
+      removeformatPasted: true,
+      btns: ['viewHTML',
+    '|', 'formatting',
+    '|', 'btnGrp-design',
+    '|', 'link',
+    '|', 'btnGrp-justify',
+    '|', 'btnGrp-lists',
+    '|', 'horizontalRule']
+  });
+
+  getTemplateBodyValue($('input[name="template[body]"').val(), editor);
+
+  $("#template_html_editor, #template_subject, #template_from").click(function(){
     currentElement = $(this);
   });
   
   $(document).on("click",".template_variable_link",function(){
-    currentElement.insertAtCaret("<$"+$(this).attr("template_variable_name")+"$>");
+    var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
+    if(currentElement.attr('id') == "template_html_editor"){
+      
+      editor.trumbowyg('saveSelection');
+      // added 3 position to caretPosition to make up for the difference in offset returned by the editor.
+      var caretPosition = editor.trumbowyg('getSelection').startOffset == 0 ? 0 : editor.trumbowyg('getSelection').startOffset+3;
+      var text = editor.trumbowyg('html');
+      var insertText = [text.slice(0, caretPosition), template_variable, text.slice(caretPosition)].join('');
+      editor.trumbowyg('html', insertText);
+      
+      setTemplateBodyValue(editor.trumbowyg('html'));
+    }else{
+      currentElement.insertAtCaret(template_variable);
+    }
   });
   
   $("#template_template_category_id").change(function(){
@@ -58,3 +88,10 @@ jQuery(document).ready(function($){
     return checkEmailBodyForVaribales();
   })
 });
+
+function setTemplateBodyValue(value){
+  $('input[name="template[body]"').attr('value', value);
+}
+function getTemplateBodyValue(value, editor){
+  editor.trumbowyg('html', value);
+}
