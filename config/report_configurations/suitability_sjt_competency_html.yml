@@ -12,17 +12,29 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/suitability/header/overview"
+            path: "shared/reports/suitability/header/overview",
+            links: {
+              html: ["html_assessment_details"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/suitability/header/traits_measured"
+            path: "shared/reports/suitability/header/traits_measured",
+            links: {
+              html: ["html_generic_factor_block"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_trait_scores",
             text: "Traits Scores",
-            path: "shared/reports/suitability/header/scores_of_traits_measured"
+            path: "shared/reports/suitability/header/scores_of_traits_measured",
+            links: {
+              html: ["html_sjt"],
+              pdf: []
+            }            
           }
         ]
       },
@@ -74,7 +86,7 @@
         locals: {},
         children: [],
         links: {
-          html: [],
+          html: ["html_header_overview"],
           pdf: ["pdf_assessment_details"]
         }        
       }
@@ -157,7 +169,7 @@
           step_competency_scores: "step_competency_scores"
         },
         links: {
-          html: [],
+          html: ["html_header_traits"],
           pdf: ["pdf_competencies_values_measured"]
         }        
       }
@@ -169,7 +181,7 @@
     path: "assessment_reports/sjt/html/sjt_competency_block",
     locals: {},
     links: {
-      html: [],
+      html: ["html_header_trait_scores"],
       pdf: ["html_sjt"]
     } 
   },
