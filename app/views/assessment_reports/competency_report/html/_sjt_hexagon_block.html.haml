@@ -17,8 +17,10 @@
           - scored_weight = company_norm_bucket.weight
           - klass = "favorable"
           - factor_name_link = factor_name
+          
           - factor_name = (factor_name.size >= 15 && factor_name.split(" ").size == 1) ? [factor_name.slice(0,11)+"-",factor_name.slice(11,100)].join(' ') : factor_name
-          - margin = factor_name.split(" ").size > 1 ? 5 : 30
+          - factor_size = factor_name.split(" ").size
+          - margin = factor_size >= 3 ? 0 : 30-((factor_size-1)*15)
           %div{:class=>"factor_#{index+1}"}
             .text-wrap{:style=>"margin-top: #{margin}px;"}
               %a{:href => "#"+"#{competency_name}#{factor_name_link}", :class => "#{klass}" }
