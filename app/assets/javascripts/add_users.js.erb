@@ -8,12 +8,20 @@ function initDateTimePicker(){
   var d = new Date();
   var minDate = d.getDate() +"/"+ d.getMonth() +"/"+ d.getFullYear();
   var minTime = d.getHours() +":"+ d.getMinutes();
+  
   $("#datetimepicker").datetimepicker({
     minDate: minDate,
     minTime: minTime,
     step: 5,
-    format:'d/m/Y H:i'
-  }); 
+    format:'d/m/Y H:i',
+    onChangeDateTime:function(dp, $input){
+      $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
+    }
+  });
+  var displayDate = ($('#datetimepicker').val()).split(' ')[0];
+  var displayTime = ($('#datetimepicker').val()).split(' ')[1];
+  $('#final-value').html(minDate+" at "+ minTime);
+
 }
 
 function getUserType(type){    

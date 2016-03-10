@@ -226,13 +226,5 @@
 = javascript_include_tag 'add_users'
 :javascript
   jQuery(document).on('ready', function(){
-    var displayDate = ($('#datetimepicker').val()).split(' ')[0];
-    var displayTime = ($('#datetimepicker').val()).split(' ')[1];
-    $('#final-value').html(displayDate+" at "+ displayTime);
-
-    $('#datetimepicker').datetimepicker({
-      onChangeDateTime:function(dp, $input){
-        $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
-      }
-    });
+    initDateTimePicker();  
   });
