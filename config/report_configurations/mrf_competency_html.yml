@@ -24,7 +24,7 @@
             path: "shared/reports/mrf/header/traits",
             links: {
               html: ["pdf_360_degree_traits_scores_in_descending_order"],
-              pdf: [""]
+              pdf: []
             }            
           },
           {
@@ -32,8 +32,8 @@
             text: "Scores",
             path: "shared/reports/mrf/header/scores",
             links: {
-              html: [""],
-              pdf: [""]
+              html: [],
+              pdf: []
             }            
           },
           {
@@ -42,7 +42,7 @@
             path: "shared/reports/mrf/header/data_points_competencies",
             links: {
               html: ["html_360_degree_scores_competencies"],
-              pdf: [""]
+              pdf: []
             }            
           },
           {
@@ -51,7 +51,7 @@
             path: "shared/reports/mrf/header/data_points_traits",
             links: {
               html: ["html_360_degree_traits_scores_in_descending_order"],
-              pdf: [""]
+              pdf: []
             }            
           },
           {
@@ -60,7 +60,7 @@
             path: "shared/reports/mrf/header/summary",
             links: {
               html: ["html_summary_of_360_degree_feedback"],
-              pdf: [""]
+              pdf: []
             }            
           }
         ]
