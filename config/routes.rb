@@ -1434,7 +1434,12 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :form_builder do
-    resources :defined_forms
+    resources :defined_forms do
+      collection do
+        get :manage
+        post :replicate
+      end
+    end
     resources :factual_information_forms
   end
 
