@@ -66,6 +66,7 @@ jQuery(document).ready(function($){
     if(currentElement.attr('id') == "template_html_editor"){
       
       editor.trumbowyg('saveSelection');
+      // added 3 position to caretPosition to make up for the difference in offset returned by the editor.
       var caretPosition = editor.trumbowyg('getSelection').startOffset == 0 ? 0 : editor.trumbowyg('getSelection').startOffset+3;
       var text = editor.trumbowyg('html');
       var insertText = [text.slice(0, caretPosition), template_variable, text.slice(caretPosition)].join('');
