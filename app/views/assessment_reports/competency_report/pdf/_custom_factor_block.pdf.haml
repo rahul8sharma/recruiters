@@ -16,9 +16,7 @@
           - scored_weight = company_norm_bucket.weight
           - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
           - factor_name_link = factor_name
-          - factor_name = (factor_name.size >= 15 && factor_name.split(" ").size == 1) ? [factor_name.slice(0,11)+"-",factor_name.slice(11,100)].join(' ') : factor_name
-          - factor_size = factor_name.split(" ").size
-          - margin = factor_size >= 3 ? 5 : 25-((factor_size-1)*10)
+          - margin = centralAlignTraitNames(factor_name, "pdf")
           %div{:class=>"factor_#{index+1}"}
             .text-wrap{:style=>"margin-top: #{margin}px;"}
               %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{klass}"}
