@@ -1,18 +1,20 @@
 //= require jquery
 //= require jquery-ui/jquery-ui
 //= require jquery-ui/jquery.datetimepicker.full.min
-$(function() { 
+function initDateTimePicker(){
   var date = new Date();
   var minutes = 1;
   var minTime = new Date(date.getTime()+minutes*60000);
+  var d = new Date();
+  var minDate = d.getDate() +"/"+ d.getMonth() +"/"+ d.getFullYear();
+  var minTime = d.getHours() +":"+ d.getMinutes();
   $("#datetimepicker").datetimepicker({
-    minDate: minTime,
+    minDate: minDate,
     minTime: minTime,
-    value: minTime,
     step: 5,
     format:'d/m/Y H:i'
   }); 
-});
+}
 
 function getUserType(type){    
   document.getElementById('candidate_stage').value = type;
@@ -27,3 +29,13 @@ function addClass(addTo, removeFrom){
   document.getElementById(addTo).setAttribute('class', 'checked');
   document.getElementById(removeFrom).removeAttribute('class', 'checked');
 }
+
+/*var displayDate = ($('#datetimepicker').val()).split(' ')[0];
+var displayTime = ($('#datetimepicker').val()).split(' ')[1];
+$('#final-value').html(displayDate+" at "+ displayTime);
+
+$('#datetimepicker').datetimepicker({
+  onChangeDateTime:function(dp, $input){
+    $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
+  }
+});*/
