@@ -12,27 +12,47 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/suitability/header/overview"
+            path: "shared/reports/suitability/header/overview",
+            links: {
+              html: ["html_assessment_details"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/suitability/header/traits_measured"
+            path: "shared/reports/suitability/header/traits_measured",
+            links: {
+              html: ["html_generic_factor_block"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_trait_scores",
             text: "Traits Scores",
-            path: "shared/reports/suitability/header/scores_of_traits_measured"
+            path: "shared/reports/suitability/header/scores_of_traits_measured",
+            links: {
+              html: ["html_generic_competency_block_with_consistency_disabled"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_development_guide_for_assessment_taker",
             text: "Development Guide for Assessment Taker",
-            path: "shared/reports/suitability/header/development_guide_for_assessment_taker"
+            path: "shared/reports/suitability/header/development_guide_for_assessment_taker",
+            links: {
+              html: ["html_guidelines_for_candidate"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_development_guide_for_manager",
             text: "Development Guide for Manager",
-            path: "shared/reports/suitability/header/development_guide_for_manager"
+            path: "shared/reports/suitability/header/development_guide_for_manager",
+            links: {
+              html: ["html_guidelines_for_candidate_manager"],
+              pdf: []
+            }            
           }
         ]
       },
@@ -82,7 +102,6 @@
               html: [],
               pdf: ["pdf_aggregate_score_text"]
             }
-
           },
           {
             id: "html_color_band",
@@ -131,7 +150,7 @@
         locals: {},
         children: [],
         links: {
-          html: [],
+          html: ["html_header_overview"],
           pdf: ["pdf_assessment_details"]
         }         
       }
@@ -314,7 +333,7 @@
           step_competency_scores: "step_competency_scores"
         },
         links: {
-          html: [],
+          html: ["html_header_traits"],
           pdf: ["pdf_generic_factor_block"]
         }  
       }
@@ -341,7 +360,7 @@
         path: "assessment_reports/competency_report/html/generic_competency_consistency_disabled",
         locals: {},
         links: {
-          html: [],
+          html: ["html_header_trait_scores"],
           pdf: ["pdf_generic_competency_without_consistency"]
         }
       },
@@ -414,7 +433,7 @@
         path: "assessment_reports/competency_report/html/development_interview_guide_candidate",
         locals: {},
         links: {
-          html: [],
+          html: ["html_header_development_guide_for_assessment_taker"],
           pdf: ["pdf_development_interview_guide_candidate"]
         }
       },
@@ -424,7 +443,7 @@
         path: "assessment_reports/competency_report/html/development_interview_guide_manager",
         locals: {},
         links: {
-          html: [],
+          html: ["html_header_development_guide_for_manager"],
           pdf: ["pdf_development_interview_guide_manager"]
         }
       }
