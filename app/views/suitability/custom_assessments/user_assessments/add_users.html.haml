@@ -9,10 +9,18 @@
   -#%a.underlined.pull-right{:href => help_adding_users_path, :target => "_blank"}
     -#View Instructions
   .clr
-  %a.label.label-warning.label-small.pull-left{:href => add_users_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
-    %b USE BULK UPLOAD
-  .clr
-  .divider1
+  %p.big-text
+    Add Assessment Taker’s Details
+  %p.big-text
+    You can use either one of the two methods of adding assessment takers - In the bulk via file upload or manually entering details in the text fields. Only one method of upload is used by the system at a time 
+  .divider2 
+  .text-center
+    %a.btn.btn-warning.medium-text.bold{:href => add_users_bulk_company_custom_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+      USE BULK UPLOAD
+
+  .divider2.border-bottom-grayLighter.text-center
+    %strong.color-warning.bg-white.large-text.bold.less-padding-all1{:style=>"margin-top: 15px;"}
+      OR
   .margin-auto.span22
     -#Bulk Upload old code
       .select-user-type
@@ -23,15 +31,16 @@
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
       - if is_superuser?
-        .span11.first.big-text.text-center
+        .span11.big-text.text-right
           Type of Assessment
-        %label
-          %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
-          #employee
-            .title.span.extra-medium-text.default
+        %label.pull-left.left-offset1
+          %input.span{:type => "checkbox", :name => "trial", checked: params[:trial]}
+          #employee.span
+            .title.extra-medium-text.default
               Is Trial
-            .clr
-        .divider1
+            
+        .clr  
+        .divider2
         .clr  
       
       %div.activated
