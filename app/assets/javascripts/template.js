@@ -40,6 +40,7 @@ function checkEmailBodyForVaribales(){
 jQuery(document).ready(function($){ 
   var currentElement = null;
   var editor = $('#template_html_editor');
+  
   editor.trumbowyg({
       fullscreenable: false,
       closable: false,
@@ -71,9 +72,7 @@ jQuery(document).ready(function($){
         editor.trumbowyg('getSelection').deleteContents();
         editor.trumbowyg('getSelection').insertNode(link.get(0));
         editor.trumbowyg('restoreSelection');
-        return true;
-
-        setTemplateBodyValue(editor.trumbowyg('html'));
+        setTemplateBodyValue($('#template_html_editor').html());
     }else{
       currentElement.insertAtCaret(template_variable);
     }
