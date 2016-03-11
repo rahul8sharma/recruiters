@@ -45,8 +45,6 @@ jQuery(document).ready(function($){
       fullscreenable: false,
       closable: false,
       semantic: true,
-      resetCss: true,
-      removeformatPasted: true,
       semantic: true,
       btns: ['viewHTML',
     '|', 'formatting',
