@@ -1500,6 +1500,9 @@ Recruiters::Application.routes.draw do
 
   resources :multimedia_profiles
   resources :work_experiences
+  
+  resources :stakeholders do
+  end
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
