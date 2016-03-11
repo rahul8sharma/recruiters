@@ -52,7 +52,8 @@ jQuery(document).ready(function($){
     '|', 'link',
     '|', 'btnGrp-justify',
     '|', 'btnGrp-lists',
-    '|', 'horizontalRule']
+    '|', 'horizontalRule',
+    '|', 'removeformat']
   });
 
   getTemplateBodyValue($('input[name="template[body]"').val(), editor);
@@ -64,14 +65,13 @@ jQuery(document).ready(function($){
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
     if(currentElement.attr('id') == "template_html_editor"){
-      
-      editor.trumbowyg('saveSelection');
-      // added 3 position to caretPosition to make up for the difference in offset returned by the editor.
-      var caretPosition = editor.trumbowyg('getSelection').startOffset == 0 ? 0 : editor.trumbowyg('getSelection').startOffset+3;
-      var text = editor.trumbowyg('html');
-      var insertText = [text.slice(0, caretPosition), template_variable, text.slice(caretPosition)].join('');
-      editor.trumbowyg('html', insertText);
-      
+        var t = $('#template_html_editor');
+        var link = $(['<span>', template_variable, '</span>'].join(''));
+        t.trumbowyg('saveSelection');
+        t.trumbowyg('getSelection').deleteContents();
+        t.trumbowyg('getSelection').insertNode(link.get(0))
+        t.trumbowyg('restoreSelection');
+        return true;      
       setTemplateBodyValue(editor.trumbowyg('html'));
     }else{
       currentElement.insertAtCaret(template_variable);
