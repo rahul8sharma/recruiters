@@ -1,19 +1,5 @@
 //= require jquery
 //= require jquery-ui/jquery-ui
-//= require jquery-ui/jquery.datetimepicker.full.min
-$(function() { 
-  var date = new Date();
-  var minutes = 1;
-  var minTime = new Date(date.getTime()+minutes*60000);
-  $("#datetimepicker").datetimepicker({
-    minDate: minTime,
-    minTime: minTime,
-    value: minTime,
-    step: 5,
-    format:'d/m/Y H:i'
-  }); 
-});
-
 function getUserType(type){    
   document.getElementById('candidate_stage').value = type;
   document.getElementById('candidate_stage_bulk').value = type;
@@ -23,6 +9,7 @@ function getUserType(type){
     document.getElementById('bulk_upload_functional_area_id').removeAttribute('disabled');
   }
 }
+
 function addClass(addTo, removeFrom){
   document.getElementById(addTo).setAttribute('class', 'checked');
   document.getElementById(removeFrom).removeAttribute('class', 'checked');

@@ -70,16 +70,13 @@
             %input{:type=>"radio",  name: "options[package_selection]", value:"auto"}
             Choose the best possible combination of packages and send assessment invitations.
           .divider1
-
           .big-text.text-center.bold.span17
             OR
           .clr
           .divider1
-
           .big-text
             Manual Sending - Select a Package
           .divider1
-
           %ul.span17.manual-sending-list.first
             %li
               .span5
@@ -100,9 +97,7 @@
                 .pull-right.text-center
                   #{(Date.parse(subscription.valid_to) - Date.today).to_i} Days
                 .clr
-
           .clr
-
           .divider2
       .divider2    
       .heading
@@ -215,24 +210,12 @@
       %p.extra-medium-text.text-right.pull-right
         Assessment Scheduled on 
         %span#final-value
-        
-
     .clr
     .divider1
 
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.datetimepicker"
   = stylesheet_link_tag "jquery-ui/jquery-ui"
-= javascript_include_tag 'add_users'
-:javascript
-  jQuery(document).on('ready', function(){
-    var displayDate = ($('#datetimepicker').val()).split(' ')[0];
-    var displayTime = ($('#datetimepicker').val()).split(' ')[1];
-    $('#final-value').html(displayDate+" at "+ displayTime);
 
-    $('#datetimepicker').datetimepicker({
-      onChangeDateTime:function(dp, $input){
-        $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
-      }
-    });
-  });
+= javascript_include_tag 'add_users'
+= javascript_include_tag 'shared/date_time_picker'
