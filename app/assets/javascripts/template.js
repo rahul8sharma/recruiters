@@ -46,6 +46,7 @@ jQuery(document).ready(function($){
       semantic: true,
       resetCss: true,
       removeformatPasted: true,
+      semantic: true,
       btns: ['viewHTML',
     '|', 'formatting',
     '|', 'btnGrp-design',
@@ -65,14 +66,14 @@ jQuery(document).ready(function($){
   $(document).on("click",".template_variable_link",function(){
     var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
     if(currentElement.attr('id') == "template_html_editor"){
-        var t = $('#template_html_editor');
         var link = $(['<span>', template_variable, '</span>'].join(''));
-        t.trumbowyg('saveSelection');
-        t.trumbowyg('getSelection').deleteContents();
-        t.trumbowyg('getSelection').insertNode(link.get(0))
-        t.trumbowyg('restoreSelection');
-        return true;      
-      setTemplateBodyValue(editor.trumbowyg('html'));
+        editor.trumbowyg('saveSelection');
+        editor.trumbowyg('getSelection').deleteContents();
+        editor.trumbowyg('getSelection').insertNode(link.get(0));
+        editor.trumbowyg('restoreSelection');
+        return true;
+
+        setTemplateBodyValue(editor.trumbowyg('html'));
     }else{
       currentElement.insertAtCaret(template_variable);
     }
