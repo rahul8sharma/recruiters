@@ -27,6 +27,15 @@ class FormBuilder::DefinedFormsController < MasterDataController
     [:id, :name, :active]
   end
   
+  def show
+    @resource = api_resource.find(params[:id], :methods => form_fields)
+    @container = params[:container]
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
   protected
   
   def set_params
