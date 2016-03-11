@@ -593,7 +593,11 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
 
   def competencies_url
-    norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    if @assessment.competency_based?
+      competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    else
+      norms_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+    end
   end
 
   def send_reminder_to_user_url(user,user_assessment)
