@@ -25,7 +25,7 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_html_editor').trumbowyg('html').match(/\<\$(.*?)\$\>/gi) == null){
+  if ($('#template_html_editor').html().match(/\&lt;\$(.*?)\$\&gt;|\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -72,6 +72,7 @@ jQuery(document).ready(function($){
         editor.trumbowyg('getSelection').deleteContents();
         editor.trumbowyg('getSelection').insertNode(link.get(0));
         editor.trumbowyg('restoreSelection');
+        editor.trumbowyg('saveSelection');
         setTemplateBodyValue($('#template_html_editor').html());
     }else{
       currentElement.insertAtCaret(template_variable);
