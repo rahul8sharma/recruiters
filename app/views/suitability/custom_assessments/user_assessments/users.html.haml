@@ -82,7 +82,7 @@
           - if report && report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::HIVE_SCORES_PENDING
             - status = 'Pending'  
           - show_status = ''
-          - if status == Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
+          - if user_assessment.status == Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
             - show_status = status+" as of "+htime(user_assessment.completed_at)+"Hrs, "+hdate(user_assessment.completed_at)
           - else
             - show_status = status+" as of "+htime(user_assessment.updated_at)+"Hrs, "+hdate(user_assessment.updated_at)

@@ -12,17 +12,29 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/suitability/header/overview"
+            path: "shared/reports/suitability/header/overview",
+            links: {
+              html: ["html_assessment_details"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/suitability/header/traits_measured"
+            path: "shared/reports/suitability/header/traits_measured",
+            links: {
+              html: ["html_generic_factor_block"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_trait_scores",
             text: "Traits Scores",
-            path: "shared/reports/suitability/header/scores_of_traits_measured"
+            path: "shared/reports/suitability/header/scores_of_traits_measured",
+            links: {
+              html: ["html_sjt"],
+              pdf: []
+            }            
           }
         ]
       },
@@ -48,14 +60,22 @@
             text: "Aggregate Competency Score[Bucket]",
             path: "assessment_reports/competency_report/html/aggregate_score_bucket",
             locals: {},
-            children: []
+            children: [],
+            links: {
+              html: [],
+              pdf: ["pdf_aggregate_score_text"]
+            }            
           },
           {
             id: "html_color_band",
             text: "Color Band",
             path: "assessment_reports/competency_report/html/competency_score_rating_on_overall_score",
             locals: {},
-            children: []
+            children: [],
+            links: {
+              html: [],
+              pdf: ["pdf_color_band"]
+            }            
           },
         ]
       },
@@ -64,7 +84,11 @@
         text: "Assessment[Name and Completion Date]",
         path: "assessment_reports/competency_report/html/assessment_details",
         locals: {},
-        children: []
+        children: [],
+        links: {
+          html: ["html_header_overview"],
+          pdf: ["pdf_assessment_details"]
+        }        
       }
     ]
   },
@@ -109,7 +133,11 @@
             locals: {
               width: "width",
               offset: "offset"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_favourable_within_desired_range_show_desired_range"]
+            }            
           },
           {
             id: "html_competency_scores_overview_generic_hide_desired_ranges",
@@ -118,7 +146,11 @@
             locals: {
               width: "width",
               offset: "offset"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_favourable_within_desired_range_hide_desired_range"]
+            }            
           }
         ]
       }
@@ -135,7 +167,11 @@
         path: "assessment_reports/competency_report/html/sjt_hexagon_block",
         locals: {
           step_competency_scores: "step_competency_scores"
-        }
+        },
+        links: {
+          html: ["html_header_traits"],
+          pdf: ["pdf_competencies_values_measured"]
+        }        
       }
     ]
   },
@@ -143,18 +179,30 @@
     id: "html_sjt",
     text: "Scores of Competencies/Values measured",
     path: "assessment_reports/sjt/html/sjt_competency_block",
-    locals: {}
+    locals: {},
+    links: {
+      html: ["html_header_trait_scores"],
+      pdf: ["html_sjt"]
+    } 
   },
   {
     id: "html_about_us",
     text: "About Us",
     path: "shared/reports/html/about_us",
-    locals: {}
+    locals: {},
+    links: {
+      html: [],
+      pdf: ["pdf_about_us"]
+    } 
   },
   {
     id: "html_legal_disclaimer",
     text: "Legal Disclaimer",
     path: "shared/reports/html/legal_disclaimer",
-    locals: {}
+    locals: {},
+    links: {
+      html: [],
+      pdf: ["pdf_legal_disclaimer"]
+    } 
   }
 ]

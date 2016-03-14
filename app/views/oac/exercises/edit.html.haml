@@ -12,7 +12,8 @@
   = render :partial => "shared/oac/oac-creation-sub-nav"
 
   = form_for @exercise, as: :exercise, url: company_oac_exercise_path(@company.id, @exercise.id), method: :put, html:  {id: "assessment_form"} do |f|
-    %input{:id => "input_config", :name => "exercise[report_configuration]", :value => @exercise.report_configuration.to_json ,:type => "hidden"}
+    %input{:id => "input_config", :name => "exercise[report_configuration]", :value => @exercise.report_configuration.to_json, :type => "hidden"}
+    %input{:id => "input_assessment_id", :value => @exercise.id, :type => "hidden"}
     %input{:id => "report_type", :value => "oac", :type => "hidden"}
     %input{:id => "input_company_id", :value => @company.id, :type => "hidden"}
     %input{:id => "set_assessment_type", :value => "super_competency", :type => "hidden"}

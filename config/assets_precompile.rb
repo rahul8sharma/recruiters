@@ -35,3 +35,6 @@ assets.precompile += %w(suitability/reports.js suitability/assessment.js jquery-
 assets.precompile += %w(jquery-ui/jquery-ui.css)
 assets.precompile += %w(mrf/walkins/email_settings.js mrf/group_report_pie.js)
 assets.precompile += %w(oac/set_weightage_oac.js oac/add_users.js oac/tools/integration_configuration.js)
+assets.precompile += %w(trumbowyg.js)
+assets.precompile += %w(trumbowyg.css)
+assets.precompile += %w(shared/date_time_picker.js)

@@ -202,24 +202,14 @@ Recruiters::Application.routes.draw do
     resources :custom_assessments, :fit_assessments, :competency_assessments, :controller => "suitability/custom_assessments", :path => "tests", :except => [:destroy] do
       member do
         get "download_pdf_reports" => "suitability/custom_assessments#download_pdf_reports", :as => :download_pdf_reports
-        get "norms" => "suitability/custom_assessments#norms", :as => :norms
-        put "norms" => "suitability/custom_assessments#norms", :as => :norms
-
-        get "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
-        put "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
-
-        get "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
-        put "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
-
+        match "norms" => "suitability/custom_assessments#norms", :as => :norms
+        match "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
+        match "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
         get "reports" => "suitability/custom_assessments/user_assessments#reports", :as => :reports
+        match "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
+        match "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
 
-        get "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
-        put "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
-        get "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
-        put "competencies" => "suitability/custom_assessments#competencies", :as => :competencies
-
-        get "styles" => "suitability/custom_assessments#styles", :as => :styles
-        put "styles" => "suitability/custom_assessments#styles", :as => :styles
+        match "styles" => "suitability/custom_assessments#styles", :as => :styles
 
         get "enable_training_requirements_report" => "suitability/custom_assessments/training_requirements_reports#enable_training_requirements_report", :as => :enable_training_requirements_report
 
@@ -233,8 +223,7 @@ Recruiters::Application.routes.draw do
         get "training_requirements_report" => "assessment_reports#training_requirements_report", :as => :training_requirements_report
 
         get "candidates" => "suitability/custom_assessments/user_assessments#users", :as => :users
-        get "candidates/add" => "suitability/custom_assessments/user_assessments#add_users", :as => :add_users
-        put "candidates/add" => "suitability/custom_assessments/user_assessments#add_users", :as => :add_users
+        match "candidates/add" => "suitability/custom_assessments/user_assessments#add_users", :as => :add_users
         get "candidates/add_bulk" => "suitability/custom_assessments/user_assessments#add_users_bulk", :as => :add_users_bulk
 
         get "candidates/expire_links" => "suitability/custom_assessments/user_assessments#expire_links", :as => :expire_links
@@ -248,19 +237,14 @@ Recruiters::Application.routes.draw do
 
         get "email_assessment_status" => "suitability/custom_assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
-        put "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
+        match "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         put "candidates/bulk-send-test" => "suitability/custom_assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
-
-        get "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations", :as => :resend_invitations
-        put "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations"
-
-        get "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
-        put "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations", :as => :resend_invitations
+        match "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
         get "candidates/:user_id" => "suitability/custom_assessments/user_assessments#user", :as => :user
-        get "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
-        put "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
+        match "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
         get "candidates/:user_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
+        get "candidates/:user_id/update-status" => "suitability/custom_assessments/user_assessments#update_status", :as => :update_status
       end
 
       resources :users, path: "candidates", :except => [:destroy, :show] do
@@ -268,8 +252,7 @@ Recruiters::Application.routes.draw do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
-            get "manage" => "assessment_reports#manage", :as => :manage
-            put "manage" => "assessment_reports#manage", :as => :manage
+            match "manage" => "assessment_reports#manage", :as => :manage
           end
         end
       end
@@ -279,8 +262,7 @@ Recruiters::Application.routes.draw do
           member do
             get "assessment_report" => "assessment_reports#assessment_report", :as => :assessment_report
             get "competency_report" => "assessment_reports#competency_report", :as => :competency_report
-            get "manage" => "assessment_reports#manage", :as => :manage
-            put "manage" => "assessment_reports#manage", :as => :manage
+            match "manage" => "assessment_reports#manage", :as => :manage
           end
         end
       end
@@ -288,10 +270,8 @@ Recruiters::Application.routes.draw do
 
     resources :mrf_walkin_groups, path: "360/walk-ins", :controller => "mrf/walkin_groups" do
       member do
-        get "summary" => "mrf/walkin_groups#summary", as: :summary
-        put "summary" => "mrf/walkin_groups#summary", as: :summary
-        get "customize" => "mrf/walkin_groups#customize", as: :customize
-        put "customize" => "mrf/walkin_groups#customize", as: :customize
+        match "summary" => "mrf/walkin_groups#summary", as: :summary
+        match "customize" => "mrf/walkin_groups#customize", as: :customize
         get "expire" => "mrf/walkin_groups#expire", as: :expire
       end
     end
@@ -306,9 +286,8 @@ Recruiters::Application.routes.draw do
 
       collection do
         get "create_for_assessment" => "mrf/assessments#create_for_assessment", :as => :create_for_assessment
-        get "home" => "mrf/assessments#home", :as => :home
         get "candidates" => "mrf/feedbacks#index", :as => :users
-        put "home" => "mrf/assessments#home", :as => :home
+        match "home" => "mrf/assessments#home", :as => :home
       end
 
       member do
@@ -370,16 +349,14 @@ Recruiters::Application.routes.draw do
         put "candidates/bulk_upload" => "sjt/assessments/user_assessments#bulk_upload", :as => :bulk_upload
         put "candidates/bulk-send-test" => "sjt/assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
         get "candidates/expire_links" => "sjt/assessments/user_assessments#expire_links", :as => :expire_links
-        get "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
-        put "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations"
+        match "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
         match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
         match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
         get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
         match "candidates/:user_id/extend-validity" => "sjt/assessments/user_assessments#extend_validity", :as => :extend_validity
         get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
-        get "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
-        put "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
       end
 
     end
@@ -416,20 +393,17 @@ Recruiters::Application.routes.draw do
 
     resources :engagement_surveys, :controller => "engagement/surveys", :path => "engagement" do
       collection do
-        get "home" => "engagement/surveys#home", :as => :home
-        put "home" => "engagement/surveys#home", :as => :home
+        match "home" => "engagement/surveys#home", :as => :home
       end
 
       member do
-        get "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
-        put "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
+        match "add_elements" => "engagement/surveys#add_elements", :as => :add_elements
 
         get "details" => "engagement/surveys#details", :as => :details
         get "elements" => "engagement/surveys#elements", :as => :elements
 
         get "candidates" => "engagement/surveys/users#users", :as => :users
-        get "candidates/add" => "engagement/surveys/users#add_users", :as => :add_users
-        put "candidates/add" => "engagement/surveys/users#add_users", :as => :add_users
+        match "candidates/add" => "engagement/surveys/users#add_users", :as => :add_users
         get "candidates/add_bulk" => "engagement/surveys/users#add_users_bulk", :as => :add_users_bulk
         get "candidates/send-reminder-to-pending" =>"engagement/surveys/users#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
         put "candidates/bulk_upload" => "engagement/surveys/users#bulk_upload", :as => :bulk_upload
@@ -438,12 +412,10 @@ Recruiters::Application.routes.draw do
 
         get "email_assessment_status" => "engagement/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "engagement/surveys/users#send_survey_to_users", :as => :send_survey_to_users
-        put "candidates/send-survey" => "engagement/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        match "candidates/send-survey" => "engagement/surveys/users#send_survey_to_users", :as => :send_survey_to_users
         put "candidates/bulk-send-test" => "engagement/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:user_id/send-reminder" => "engagement/surveys/users#send_reminder", :as => :send_reminder
-        put "candidates/:user_id/send-reminder" => "engagement/surveys/users#send_reminder"
+        match "candidates/:user_id/send-reminder" => "engagement/surveys/users#send_reminder", :as => :send_reminder
         get "candidates/:user_id" => "engagement/surveys/users#user", :as => :user
 
         get "candidates/:user_id/reports/:report_id/engagement_report" => "engagement/surveys/reports#report", :as => :report
@@ -456,20 +428,17 @@ Recruiters::Application.routes.draw do
 
     resources :exit_surveys, :controller => "exit/surveys", :path => "exit" do
       collection do
-        get "home" => "exit/surveys#home", :as => :home
-        put "home" => "exit/surveys#home", :as => :home
+        match "home" => "exit/surveys#home", :as => :home
       end
 
       member do
-        get "add_items" => "exit/surveys#add_items", :as => :add_items
-        put "add_items" => "exit/surveys#add_items", :as => :add_items
+        match "add_items" => "exit/surveys#add_items", :as => :add_items
 
         get "details" => "exit/surveys#details", :as => :details
         get "traits" => "exit/surveys#traits", :as => :traits
 
         get "candidates" => "exit/surveys/users#users", :as => :users
-        get "candidates/add" => "exit/surveys/users#add_users", :as => :add_users
-        put "candidates/add" => "exit/surveys/users#add_users", :as => :add_users
+        match "candidates/add" => "exit/surveys/users#add_users", :as => :add_users
         get "candidates/add_bulk" => "exit/surveys/users#add_users_bulk", :as => :add_users_bulk
         get "candidates/send-reminder-to-pending" =>"exit/surveys/users#send_reminder_to_pending_users",:as => :send_reminder_to_pending_users
         put "candidates/bulk_upload" => "exit/surveys/users#bulk_upload", :as => :bulk_upload
@@ -478,12 +447,10 @@ Recruiters::Application.routes.draw do
 
         get "email_assessment_status" => "exit/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "exit/surveys/users#send_survey_to_users", :as => :send_survey_to_users
-        put "candidates/send-survey" => "exit/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        match "candidates/send-survey" => "exit/surveys/users#send_survey_to_users", :as => :send_survey_to_users
         put "candidates/bulk-send-test" => "exit/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:user_id/send-reminder" => "exit/surveys/users#send_reminder", :as => :send_reminder
-        put "candidates/:user_id/send-reminder" => "exit/surveys/users#send_reminder"
+        match "candidates/:user_id/send-reminder" => "exit/surveys/users#send_reminder", :as => :send_reminder
         get "candidates/:user_id" => "exit/surveys/users#user", :as => :user
 
         get "candidates/:user_id/reports/:report_id/exit_report" => "exit/surveys/reports#report", :as => :report
@@ -506,13 +473,11 @@ Recruiters::Application.routes.draw do
 
     resources :retention_surveys, :controller => "retention/surveys", :path => "retention" do
       collection do
-        get "home" => "retention/surveys#home", :as => :home
-        put "home" => "retention/surveys#home", :as => :home
+        match "home" => "retention/surveys#home", :as => :home
       end
 
       member do
-        get "add_items" => "retention/surveys#add_items", :as => :add_items
-        put "add_items" => "retention/surveys#add_items", :as => :add_items
+        match "add_items" => "retention/surveys#add_items", :as => :add_items
 
         get "details" => "retention/surveys#details", :as => :details
         get "traits" => "retention/surveys#traits", :as => :traits
@@ -528,15 +493,11 @@ Recruiters::Application.routes.draw do
 
         get "email_assessment_status" => "retention/surveys/users#email_assessment_status", :as => :email_assessment_status
 
-        get "candidates/send-survey" => "retention/surveys/users#send_survey_to_users", :as => :send_survey_to_users
-        put "candidates/send-survey" => "retention/surveys/users#send_survey_to_users", :as => :send_survey_to_users
+        match "candidates/send-survey" => "retention/surveys/users#send_survey_to_users", :as => :send_survey_to_users
         put "candidates/bulk-send-test" => "retention/surveys/users#bulk_send_survey_to_users", :as => :bulk_send_survey_to_users
 
-        get "candidates/:user_id/send-reminder" => "retention/surveys/users#send_reminder", :as => :send_reminder
-        put "candidates/:user_id/send-reminder" => "retention/surveys/users#send_reminder"
+        match "candidates/:user_id/send-reminder" => "retention/surveys/users#send_reminder", :as => :send_reminder
         get "candidates/:user_id" => "retention/surveys/users#user", :as => :user
-
-
       end
     end
 
@@ -558,38 +519,19 @@ Recruiters::Application.routes.draw do
       post :import
       post :import_from_google_drive
       post :export_to_google_drive
-      get "email_usage_stats" => "company_managers#email_usage_stats", :as => :email_usage_stats
-      get "email_assessment_stats" => "company_managers#email_assessment_stats", :as => :email_assessment_stats
-      get "email_reports_summary" => "company_managers#email_reports_summary", :as => :email_reports_summary
+      get :email_usage_stats, :as => :email_usage_stats
+      get :email_assessment_stats, :as => :email_assessment_stats
+      get :email_reports_summary, :as => :email_reports_summary
     end
   end
 
   resources :standard_assessments, :controller => "suitability/standard_assessments", :path => "standard-tests", :except => [:destroy] do
     member do
-      get "norms" => "suitability/standard_assessments#norms", :as => :norms
-      put "norms" => "suitability/standard_assessments#norms", :as => :norms
-
+      match "norms" => "suitability/standard_assessments#norms", :as => :norms
       get "reports" => "suitability/standard_assessments#reports", :as => :reports
-
-      get "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
-      put "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
-      get "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
-      put "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
-
-      get "styles" => "suitability/standard_assessments#styles", :as => :styles
-      put "styles" => "suitability/standard_assessments#styles", :as => :styles
-    end
-  end
-
-  resources :account_managers do
-    collection do
-      post :import
-      get 'assign_jobs' => "account_managers#assign_jobs_form", :as => :assign_jobs_form
-      post :assign_jobs
-      get :manage
-      get :destroy_all
-      post :import_from_google_drive
-      post :export_to_google_drive
+      match "competency_norms" => "suitability/standard_assessments#competency_norms", :as => :competency_norms
+      match "competencies" => "suitability/standard_assessments#competencies", :as => :competencies
+      match "styles" => "suitability/standard_assessments#styles", :as => :styles
     end
   end
 
@@ -794,7 +736,7 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :mrf do
-    get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
+    get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
     post 'assessments_management/export_mrf_raw_scores' => 'assessments_management#export_mrf_raw_scores', :as => :export_raw_scores
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
@@ -1015,7 +957,7 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :suitability do
-    get 'assessments_management' => 'assessments_management#manage', :as => :assessments_management
+    get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
     
     resources :super_competencies do
@@ -1065,7 +1007,7 @@ Recruiters::Application.routes.draw do
         post :import_from_google_drive
         post :export_to_google_drive
       end
-      get 'add_option' => 'items#add_option'
+      get :add_option
       resources :options do
       end
     end
@@ -1492,7 +1434,12 @@ Recruiters::Application.routes.draw do
   end
 
   namespace :form_builder do
-    resources :defined_forms
+    resources :defined_forms do
+      collection do
+        get :manage
+        post :replicate
+      end
+    end
     resources :factual_information_forms
   end
 
@@ -1553,6 +1500,9 @@ Recruiters::Application.routes.draw do
 
   resources :multimedia_profiles
   resources :work_experiences
+  
+  resources :stakeholders do
+  end
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
@@ -1591,8 +1541,7 @@ Recruiters::Application.routes.draw do
   get "/help/process-explanation", :to => "help#process_explanation", :as => :help_process_explanation
   get "/download_sample_csv_for_user_bulk_upload", :to => "help#download_sample_csv_for_user_bulk_upload", :as => :download_sample_csv_for_user_bulk_upload
   get "/report-management", :to => "reports_management#report_management", :as => :report_management
-  get "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
-  post "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
+  match "/report-generator", :to => "reports_management#report_generator", :as => :report_generator
   post "/report-generator-scores", :to => "reports_management#report_generator_scores", :as => :report_generator_scores
   post "/generate_report", :to =>"reports_management#generate_report", :as => :generate_report
   put "/modify_norms", :to => "reports_management#modify_norms", :as => :modify_norms
@@ -1606,12 +1555,10 @@ Recruiters::Application.routes.draw do
       post :update_fallback_strategy
     end
   end
-
+  
   match "/sign_up" => "signup#sign_up", :as => :sign_up
   root :to => "users#login"
 
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
-
-
 end

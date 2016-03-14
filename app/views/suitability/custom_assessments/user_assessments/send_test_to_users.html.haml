@@ -50,13 +50,7 @@
       Email Settings
     .divider2
     = render :partial => "shared/email_template", :locals => { :templates => @templates, :email_headline => "Following is the Preview of the email that Assessment takers will receive."}
-    - if is_superuser? && !params[:users]
-      .heading
-        %i.icon-envelope
-        Send the test at
-      .divider2
-      %input{ name: "schedule_at", id: "datetimepicker" }
-      .clr
+    
     .divider1
     - if @company.subscription_mgmt
       - @subscriptions ||= []
@@ -76,16 +70,13 @@
             %input{:type=>"radio",  name: "options[package_selection]", value:"auto"}
             Choose the best possible combination of packages and send assessment invitations.
           .divider1
-
           .big-text.text-center.bold.span17
             OR
           .clr
           .divider1
-
           .big-text
             Manual Sending - Select a Package
           .divider1
-
           %ul.span17.manual-sending-list.first
             %li
               .span5
@@ -106,9 +97,7 @@
                 .pull-right.text-center
                   #{(Date.parse(subscription.valid_to) - Date.today).to_i} Days
                 .clr
-
           .clr
-
           .divider2
       .divider2    
       .heading
@@ -199,11 +188,34 @@
         %input{:type=>"checkbox", name: "options[send_email]", checked: true}
         Send default email
       .clr
-    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
+    .divider2.border-bottom-grayLighter
+    .divider2
+    - if is_superuser? && !params[:users]
+      .heading
+        %i.icon-calendar
+        Schedule Assessment (Optional)
+      %p.extra-medium-text
+        Please select the Date and Time at which the Assessment should be sent. 
+      .divider1
+      .date-time-pick
+        %label.label-main.extra-medium-text.default.pull-left
+          Date &amp; time
+        .icon-time.big-text.pull-left
+        %input.pull-left.input-main{ name: "schedule_at", id: "datetimepicker" }
+        .clr
+      .divider3
+    %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Send Assessment"}
+    .clr
+    - if is_superuser? && !params[:users]
+      %p.extra-medium-text.text-right.pull-right
+        Assessment Scheduled on 
+        %span#final-value
     .clr
     .divider1
 
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.datetimepicker"
   = stylesheet_link_tag "jquery-ui/jquery-ui"
+
 = javascript_include_tag 'add_users'
+= javascript_include_tag 'shared/date_time_picker'

@@ -1,0 +1,9 @@
+= form_for :assessment, url: replicate_form_builder_defined_forms_path, :method => :post do |f|
+  .field
+    %label Enter the defined form id to replicate
+    = text_field_tag :defined_form_id
+  .field
+    %label Enter the company id
+    = text_field_tag :company_id
+  .actions
+    = submit_tag 'Create'

@@ -13,25 +13,41 @@
             id: "html_header_overview",
             text: "Overview",
             path: "oac/exercises/reports/competency_reports/html/header/overview",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_cover_page_name_and_details"],
+              pdf: []
+            }                 
           },
           {
             id: "html_header_competencies",
             text: "Competencies",
             path: "oac/exercises/reports/competency_reports/html/header/competencies",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_competency_description","html_competency_overview_legend_with_desired","html_competency_overview_graph_with_desired_range"],
+              pdf: []
+            }            
           },
           {
             id: "html_header_tools",
             text: "Tools",
             path: "oac/exercises/reports/competency_reports/html/header/tools",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_competency_overview_tool_wise","html_toolwise_descriptions"],
+              pdf: []
+            }             
           },
           {
             id: "html_header_remarks",
             text: "Remarks",
             path: "oac/exercises/reports/competency_reports/html/header/remarks",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_assessor_feedback","html_individual_development_plan"],
+              pdf: []
+            }             
           }
         ]
       },
@@ -58,7 +74,11 @@
         id: "html_cover_page_name_and_details",
         text: "Name and Completion Date",
         path: "oac/exercises/reports/competency_reports/html/cover_page/details",
-        locals: {}
+        locals: {},
+        links: {
+          html: [],
+          pdf: ["pdf_cover_page"]
+        }            
       },
       {
         id: "html_cover_page_aggregate_score_bands",
@@ -72,7 +92,11 @@
             path: "oac/exercises/reports/competency_reports/html/cover_page/aggregate_score",
             locals: {
               aggregate_score_bucket: "aggregate_score_bucket"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_cover_page"]
+            }                
           },
           {
             id: "html_cover_page_color_band",
@@ -81,23 +105,39 @@
             locals: {
               aggregate_score_color: "aggregate_score_color",
               aggregate_score_rating: "aggregate_score_rating"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_cover_page"]
+            }                
           }
         ]
       }
-    ]
+    ],
+    links: {
+      html: [],
+      pdf: ["pdf_cover_page"]
+    }    
   },
   {
     id: "html_participation",
     text: "Particiaption",
     path: "oac/exercises/reports/competency_reports/html/participation",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_participation"]
+    }    
   },
   {
     id: "html_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/html/competency_description",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_competency_description"]
+    } 
   },
   {
     id: "html_competency_overview",
@@ -113,13 +153,21 @@
             id: "html_competency_overview_legend_with_desired",
             text: "Legend With Desired Range",
             path: "oac/exercises/reports/competency_reports/html/competency_overview/with_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_competency_overview_legend_with_desired"]
+            }            
           },
           {
             id: "html_competency_overview_legend_without_desired",
             text: "Legend Without Desired Range",
             path: "oac/exercises/reports/competency_reports/html/competency_overview/without_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_competency_overview_legend_without_desired"]
+            }            
           }
         ]
       },
@@ -132,13 +180,21 @@
             id: "html_competency_overview_graph_with_desired_range",
             text: "Graph With Desired Range",
             path: "oac/exercises/reports/competency_reports/html/competency_overview/graph_with_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_competency_overview_graph_with_desired_range"]
+            }            
           },
           {
             id: "html_competency_overview_graph_without_desired_range",
             text: "Graph Without Desired Range",
             path: "oac/exercises/reports/competency_reports/html/competency_overview/graph_without_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_competency_overview_graph_without_desired_range"]
+            }            
           }
         ]
       }
@@ -148,19 +204,31 @@
     id: "html_competency_overview_tool_wise",
     text: "Toolwise Competency Overview",
     path: "oac/exercises/reports/competency_reports/html/competency_overview_tool_wise",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_competency_overview_tool_wise"]
+    }    
   },
   {
     id: "html_toolwise_descriptions",
     text: "Toolwise Description",
     path: "oac/exercises/reports/competency_reports/html/toolwise_descriptions",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_toolwise_descriptions"]
+    }    
   },
   {
     id: "html_top_bottom_competencies",
     text: "Top and Bottom Competencies",
     path: "oac/exercises/reports/competency_reports/html/top_bottom_competencies",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_top_bottom_competencies"]
+    }    
   },
   {
     id: "html_data_points_competency_wise",
@@ -173,7 +241,11 @@
         path: "oac/exercises/reports/competency_reports/html/competency_data_points/score_description",
         locals: {
           description: "data[:score][:description]"
-        }
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_score_description"]
+        }        
       },
       {
         id: "html_data_points_competency_wise_behaviors_measured_graph",
@@ -182,7 +254,11 @@
         locals: {
           competency_scores: "data[:competency_scores]",
           score_buckets: "@score_buckets"
-        }
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph"]
+        }        
       },
       {
         id: "html_data_points_competency_wise_strengths_improvement",
@@ -190,7 +266,11 @@
         path: "oac/exercises/reports/competency_reports/html/competency_data_points/strengths_improvement",
         locals: {
           competency_scores: "data[:competency_scores]"
-        }
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_strengths_improvement"]
+        }        
       },
       {
         id: "html_data_points_competency_wise_competency_specific_score",
@@ -206,7 +286,11 @@
             path: "oac/exercises/reports/competency_reports/html/competency_data_points/tools_used",
             locals: {
               toolwise_scores: "toolwise_scores"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_data_points_competency_specific_scores_tools_used"]
+            }            
           },
           {
             id: "html_data_points_competency_specific_scores_toolwise_scores",
@@ -214,7 +298,11 @@
             path: "oac/exercises/reports/competency_reports/html/competency_data_points/toolwise_scores",
             locals: {
               toolwise_scores: "toolwise_scores"
-            }
+            },
+            links: {
+              html: [],
+              pdf: ["pdf_data_points_competency_specific_scores_toolwise_scores"]
+            }            
           }
         ]
       }
@@ -224,13 +312,21 @@
     id: "html_assessor_feedback",
     text: "Assessor Feedback",
     path: "oac/exercises/reports/competency_reports/html/assessor_feedback",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_assessor_feedback"]
+    }
   },
   {
     id: "html_individual_development_plan",
     text: "Individidual Development Plan",
     path: "oac/exercises/reports/competency_reports/html/individual_development_plan",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_individual_development_plan"]
+    }
   },
   {
     id: "html_about_us_compact",
