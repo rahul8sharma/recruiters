@@ -6,9 +6,19 @@
   = render :partial => "shared/sjt/sjt_navigation-sub-nav"
   .divider2
   .clr
-  %a.label.label-warning.label-small.pull-left{:href => add_users_bulk_company_sjt_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
-    %b USE BULK UPLOAD
-  .clr
+  %p.big-text
+    Add Assessment Taker’s Details
+  %p.big-text
+    You can use either one of the two methods of adding assessment takers - In the bulk via file upload or manually entering details in the text fields. Only one method of upload is used by the system at a time 
+  .divider2 
+  .text-center
+    %a.btn.btn-warning.medium-text.bold{:href => add_users_bulk_company_sjt_assessment_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+      USE BULK UPLOAD
+
+  .divider2.border-bottom-grayLighter.text-center
+    %strong.color-warning.bg-white.large-text.bold.less-padding-all1{:style=>"margin-top: 15px;"}
+      OR
+  
   .divider1
 
   .margin-auto.span22
