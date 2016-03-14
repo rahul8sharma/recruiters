@@ -1,31 +1,32 @@
 = render :partial => "shared/360/group_report_header"
-.report_content.border-bottom-grayLighter
-  .distribution.black
-    .color-info.big-text
-      Frequency Distribution of Overall 360&#176;  Ratings
-    .divider2
-    
-    .grid_graph.span17.pull-right
-      .y_indication
-      .x_indication
-        Ratings
-      .columns
-        - total = @report.report_data[:overall_competencies_score_distribution].values.sum
-        - @report.report_data[:overall_competencies_score_distribution].each do |bucket, count|
-          - percentage = ((count*100).to_f/total).round(2)
-          .column{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)-1}px; height: #{percentage}%"}
-            .rating_range
-              = bucket
-        .clr
+- if @report.report_data[:frequency_distribution_overall_360_rating]
+  .report_content.border-bottom-grayLighter
+    .distribution.black
+      .color-info.big-text
+        Frequency Distribution of Overall 360&#176;  Ratings
+      .divider2
+      
+      .grid_graph.span17.pull-right
+        .y_indication
+        .x_indication
+          Ratings
+        .columns
+          - total = @report.report_data[:overall_competencies_score_distribution].values.sum
+          - @report.report_data[:overall_competencies_score_distribution].each do |bucket, count|
+            - percentage = ((count*100).to_f/total).round(2)
+            .column{:style=>"background: #a729ac; margin-top: #{(300*(100-percentage)/100)-1}px; height: #{percentage}%"}
+              .rating_range
+                = bucket
+          .clr
 
-      .counts
-        -counter = 110
-        -11.times do |index|
-          - counter = counter-10
-          .count
-            #{counter} 
-    .clr  
-    .divider4
+        .counts
+          -counter = 110
+          -11.times do |index|
+            - counter = counter-10
+            .count
+              #{counter} 
+      .clr  
+      .divider4
 = render :partial => "mrf/assessments/assessment_reports/competency_group_report/pdf/competencies_ratings"
 .page-break
 
