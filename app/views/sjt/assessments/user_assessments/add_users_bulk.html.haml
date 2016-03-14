@@ -7,7 +7,7 @@
   = render :partial => "shared/sjt/sjt_navigation-sub-nav"
   .divider2
 
-  %a.medium-text.pull-right{:href => add_users_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
+  %a.medium-text.pull-right.less-padding-all1{:href => add_users_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
     Return to Manual Addition of Assessment Takers
   .clr
   = form_for :bulk_upload, url: bulk_upload_company_sjt_assessment_path(company_id: params[:company_id], id: params[:id]), method: :put do |f|

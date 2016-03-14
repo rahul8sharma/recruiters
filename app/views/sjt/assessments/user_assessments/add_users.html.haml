@@ -5,7 +5,7 @@
   .divider1
   = render :partial => "shared/sjt/sjt_navigation-sub-nav"
   .divider2
-  .clr
+  
   %p.big-text
     Add Assessment Taker’s Details
   %p.big-text
@@ -26,6 +26,17 @@
     = form_for @assessment, :as => :assessment, :url => add_users_company_sjt_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
       .divider1
       %input{ type: "hidden", value: "#{params[:upload_method]}", name: "upload_method" }
+      - if is_superuser?
+        .span11.big-text.text-right
+          Type of Assessment
+        %label.pull-left.left-offset1
+          %input.span{:type => "checkbox", :name => "trial", checked: params[:trial]}
+          #employee.span
+            .title.extra-medium-text.default
+              Is Trial
+            
+        .clr  
+        .divider1
       %div{class: "#{checked ? 'activated':'de-activated'}"}
         .left-offset2.first
           - klass = @assessment.set_applicant_id ? "span6" : "span8"
