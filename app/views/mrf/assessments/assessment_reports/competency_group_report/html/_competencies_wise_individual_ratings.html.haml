@@ -1,31 +1,32 @@
-- candidate_data = get_user_wise_competency_scores(@report.report_hash[:competency_individual_scores])
-.competencies_wise_individual_ratings.border-bottom-grayLighter
-  .container
-    .divider2
-    .title
-      Competency-wise Individual Ratings
-    .divider2
-    %table.medium-text.text-center{:cellspacing=>"0", :cellpadding=>"0"}
-      %tr.extra-medium-text
-        %td
-          Candidate names
-        %td
-          Overall 360&#176 Rating
-        - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
+- if @report.report_data[:competencywise_individual_rating]
+  - candidate_data = get_user_wise_competency_scores(@report.report_hash[:competency_individual_scores])
+  .competencies_wise_individual_ratings.border-bottom-grayLighter
+    .container
+      .divider2
+      .title
+        Competency-wise Individual Ratings
+      .divider2
+      %table.medium-text.text-center{:cellspacing=>"0", :cellpadding=>"0"}
+        %tr.extra-medium-text
           %td
-            = competency
-
-      -candidate_data.each do |candidate, candidate_scores|
-        %tr
+            Candidate names
           %td
-            = candidate
-          - overall_score = 0
-          - candidate_scores.each do |key, value|
-            - overall_score += value[:score]
-          - overall_score = overall_score / @report.report_hash[:competency_individual_scores].size
-          %td
-            = overall_score.round(2)
-          - candidate_scores.each do |key, value|
+            Overall 360&#176 Rating
+          - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
             %td
-              = value[:score]
-    .divider2
+              = competency
+
+        -candidate_data.each do |candidate, candidate_scores|
+          %tr
+            %td
+              = candidate
+            - overall_score = 0
+            - candidate_scores.each do |key, value|
+              - overall_score += value[:score]
+            - overall_score = overall_score / @report.report_hash[:competency_individual_scores].size
+            %td
+              = overall_score.round(2)
+            - candidate_scores.each do |key, value|
+              %td
+                = value[:score]
+      .divider2
