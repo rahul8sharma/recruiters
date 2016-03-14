@@ -6,13 +6,20 @@
   .divider1
   = render :partial => "shared/retention/navigation-sub-nav"
   .divider1
-  .clr
+  
+  %p.big-text
+    Add Assessment Taker’s Details
+  %p.big-text
+    You can use either one of the two methods of adding assessment takers - In the bulk via file upload or manually entering details in the text fields. Only one method of upload is used by the system at a time 
+  .divider2 
   .text-center
-    %a.label.label-warning.label-small.bold{:href => add_users_bulk_company_retention_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
+    %a.btn.btn-warning.medium-text.bold{:href => add_users_bulk_company_retention_survey_path(:company_id => params[:company_id],:id => params[:id]) , :title => "USE BULK UPLOAD"}
       USE BULK UPLOAD
-    .divider1
-    .big-text
+
+  .divider2.border-bottom-grayLighter.text-center
+    %strong.color-warning.bg-white.large-text.bold.less-padding-all1{:style=>"margin-top: 15px;"}
       OR
+  
   .divider1
 
   .margin-auto.span22
