@@ -42,10 +42,10 @@ Recruiters::Application.routes.draw do
     end
   end
   resources :assessments, :controller => "assessments", :path => "assessments" do
-      collection do
-        get "search_assessments" => "Assessments#search_assessments"
-      end
+    collection do
+      get "search" => "Assessments#search"
     end
+  end
   resources :companies do
     scope module: :companies do
       namespace :jq, path: "hiring" do
