@@ -162,6 +162,12 @@ function createJSTree(container){
         $pdfTree.deselect_node(linkedNode);
       }
     }
+    if(data.node.children_d.length > 0){
+      for(var i = 0; i < data.node.children_d.length; i++){
+        var childrenNode = data.node.children_d[i];
+        $htmlTree.deselect_node(childrenNode);
+      }
+    }
   }).on('select_node.jstree', function (e, data) {
     if(data.node.original.links){
       for(var i = 0; i < data.node.original.links.html.length; i++) {
@@ -173,6 +179,12 @@ function createJSTree(container){
         $pdfTree.select_node(linkedNode);
       }
     }
+    if(data.node.children_d.length > 0){
+      for(var i = 0; i < data.node.children_d.length; i++){
+        var childrenNode = data.node.children_d[i];
+        $htmlTree.select_node(childrenNode);
+      }
+    }       
   }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
