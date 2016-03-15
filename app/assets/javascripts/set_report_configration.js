@@ -179,6 +179,12 @@ function createJSTree(container){
         $pdfTree.select_node(linkedNode);
       }
     }
+    if(data.node.children_d.length > 0){
+      for(var i = 0; i < data.node.children_d.length; i++){
+        var childrenNode = data.node.children_d[i];
+        $htmlTree.select_node(childrenNode);
+      }
+    }       
   }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
