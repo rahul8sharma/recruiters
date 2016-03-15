@@ -48,7 +48,6 @@ jQuery(document).ready(function($){
       fullscreenable: false,
       closable: false,
       semantic: true,
-      semantic: true,
       btns: ['viewHTML',
     '|', 'formatting',
     '|', 'btnGrp-design',
