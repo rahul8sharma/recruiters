@@ -32,6 +32,17 @@
             %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_user_bulk_upload_path}
               Download sample file for adding Assessment takers
             .divider2
+            - if is_superuser?
+              .extra-medium-text.span5
+                Type of Assessment
+              .span4
+                %label
+                  %input.span1{:type => "checkbox", :name => "trial", checked: params[:trial]}
+                  #employee
+                    .title.span.extra-medium-text.default
+                      Is Trial
+                  .clr
+              .divider1            
         .clr
         .divider2
         / back to top
