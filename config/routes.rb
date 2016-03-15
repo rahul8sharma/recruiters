@@ -43,7 +43,7 @@ Recruiters::Application.routes.draw do
   end
   resources :assessments, :controller => "assessments", :path => "assessments" do
     collection do
-      get "search" => "Assessments#search"
+      get :search
     end
   end
   resources :companies do
