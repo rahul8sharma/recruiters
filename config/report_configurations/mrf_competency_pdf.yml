@@ -235,6 +235,18 @@
     ]
   },
   {
+    id: "pdf_development_guide_for_candidate",
+    text: "Development Guide for Candidate",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/development_guide_for_candidate",
+    children: []
+  },
+  {
+    id: "pdf_development_guide_for_candidates_manager",
+    text: "Development Guide for Candidate's Manager",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/development_guide_for_candidates_manager",
+    children: []
+  },
+  {
     id: "pdf_page9",
     text: "Summary of 360 Degree Feedback",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
