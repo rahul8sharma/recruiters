@@ -89,7 +89,11 @@
             id: "html_aggregate_score",
             text: "Aggregate Score [Score]",
             path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_enable_recommendation"]
+            }
           },
           {
             id: "html_color_band",
@@ -163,7 +167,7 @@
     children: [],
     links: {
       html: [],
-      pdf: ["pdf_functional_overview_sections"]
+      pdf: ["pdf_scores_of_functional_traits"]
     }    
   },
   {
@@ -262,7 +266,7 @@
     path: "assessment_reports/fit_report/html/guidelines_assessment_takers_manager",
     children: [],
     links: {
-      html: ["html_header_development_guide_for_manager"],
+      html: [""],
       pdf: ["pdf_development_guide_for_manager"]
     }    
   },

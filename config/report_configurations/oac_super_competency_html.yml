@@ -74,11 +74,7 @@
         id: "html_cover_page_name_and_details",
         text: "Name and Completion Date",
         path: "oac/exercises/reports/competency_reports/html/cover_page/details",
-        locals: {},
-        links: {
-          html: [],
-          pdf: ["pdf_cover_page"]
-        }            
+        locals: {}    
       },
       {
         id: "html_cover_page_aggregate_score_bands",
@@ -92,11 +88,7 @@
             path: "oac/exercises/reports/competency_reports/html/cover_page/aggregate_score",
             locals: {
               aggregate_score_bucket: "aggregate_score_bucket"
-            },
-            links: {
-              html: [],
-              pdf: ["pdf_cover_page"]
-            }                
+            }              
           },
           {
             id: "html_cover_page_color_band",
@@ -105,11 +97,7 @@
             locals: {
               aggregate_score_color: "aggregate_score_color",
               aggregate_score_rating: "aggregate_score_rating"
-            },
-            links: {
-              html: [],
-              pdf: ["pdf_cover_page"]
-            }                
+            }               
           }
         ]
       }
