@@ -1,4 +1,4 @@
-- if report.report_data[:mrf_ratings_on_traits]
+- if @report.report_data[:mrf_ratings_on_traits]
   - sorted_trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_score| competency_score[:trait_scores] }.flatten.sort_by{|trait_score| trait_score[:average_score_including_self][:points].to_f }.reverse.uniq
   .border-bottom-grayLighter
     .container
