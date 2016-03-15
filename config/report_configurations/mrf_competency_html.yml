@@ -357,7 +357,7 @@
     ],
     links: {
       html: [],
-      pdf: ["pdf_frequency_rating__table_compact"]
+      pdf: ["pdf_frequency_rating_table_compact"]
     }
   },
   {
