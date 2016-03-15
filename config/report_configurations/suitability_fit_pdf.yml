@@ -68,7 +68,7 @@
     ]
   },
   {
-    id: "pdf__scores_of_functional_traits",
+    id: "pdf_scores_of_functional_traits",
     text: "Scores of Functional Traits",
     path: "assessment_reports/fit_report/pdf/scores_of_functional_traits",
     children: []
