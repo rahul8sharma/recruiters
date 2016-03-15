@@ -41,7 +41,11 @@ Recruiters::Application.routes.draw do
       get :destroy_all
     end
   end
-
+  resources :assessments, :controller => "assessments", :path => "assessments" do
+      collection do
+        get "search_assessments" => "Assessments#search_assessments"
+      end
+    end
   resources :companies do
     scope module: :companies do
       namespace :jq, path: "hiring" do
