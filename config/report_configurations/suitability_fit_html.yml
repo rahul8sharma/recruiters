@@ -196,7 +196,7 @@
     path: "assessment_reports/fit_report/html/page5",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_development_guide_for_assessment_taker"],
       pdf: ["pdf_development_interview_guide_candidate"]
     }    
   },
@@ -216,7 +216,7 @@
     path: "assessment_reports/fit_report/html/interview_guide",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_development_guide_for_manager"],
       pdf: ["pdf_development_interview_candidate"]
     }    
   },
@@ -236,7 +236,7 @@
     path: "assessment_reports/fit_report/html/page6",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_development_guide_for_manager"],
       pdf: ["pdf_development_interview_guide_manager"]
     }    
   },
