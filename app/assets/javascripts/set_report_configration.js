@@ -189,7 +189,7 @@ function select_related_nodes(data){
       $htmlTree.select_node(linkedNode);
     }
     for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.pdf.length; linkedNodeIndex++) {
-      var linkedNode = data.node.original.links.pdf[i];
+      var linkedNode = data.node.original.links.pdf[linkedNodeIndex];
       $pdfTree.select_node(linkedNode);
     }
   }
