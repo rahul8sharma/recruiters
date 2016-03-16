@@ -143,7 +143,7 @@
     children: []
   },
   {
-    id: "pdf_frequency_rating__table_compact",
+    id: "pdf_frequency_rating_table_compact",
     text: "Details on 360 Degree Ratings on Competencies/Values[COMPACT]",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_compact",
     children: []

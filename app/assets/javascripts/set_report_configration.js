@@ -184,7 +184,7 @@ function createJSTree(container){
         var childrenNode = data.node.children_d[i];
         $htmlTree.select_node(childrenNode);
       }
-    }       
+    }
   }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
