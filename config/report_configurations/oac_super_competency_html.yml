@@ -13,41 +13,25 @@
             id: "html_header_overview",
             text: "Overview",
             path: "oac/exercises/reports/competency_reports/html/header/overview",
-            locals: {},
-            links: {
-              html: ["html_cover_page_name_and_details"],
-              pdf: []
-            }                 
+            locals: {}        
           },
           {
             id: "html_header_competencies",
             text: "Competencies",
             path: "oac/exercises/reports/competency_reports/html/header/competencies",
-            locals: {},
-            links: {
-              html: ["html_competency_description","html_competency_overview_legend_with_desired","html_competency_overview_graph_with_desired_range"],
-              pdf: []
-            }            
+            locals: {}   
           },
           {
             id: "html_header_tools",
             text: "Tools",
             path: "oac/exercises/reports/competency_reports/html/header/tools",
-            locals: {},
-            links: {
-              html: ["html_competency_overview_tool_wise","html_toolwise_descriptions"],
-              pdf: []
-            }             
+            locals: {}    
           },
           {
             id: "html_header_remarks",
             text: "Remarks",
             path: "oac/exercises/reports/competency_reports/html/header/remarks",
-            locals: {},
-            links: {
-              html: ["html_assessor_feedback","html_individual_development_plan"],
-              pdf: []
-            }             
+            locals: {}    
           }
         ]
       },

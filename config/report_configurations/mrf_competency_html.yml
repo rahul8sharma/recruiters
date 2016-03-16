@@ -12,56 +12,32 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/mrf/header/overview",
-            links: {
-              html: ["html_show_completion_status"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/overview"
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/mrf/header/traits",
-            links: {
-              html: ["html_360_trait_scores_legent_without_desired_range","html_360_traits_under_competency_graph_without_desired_range"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/traits"
           },
           {
             id: "html_header_scores",
             text: "Scores",
             path: "shared/reports/mrf/header/scores",
-            links: {
-              html: [],
-              pdf: []
-            }            
           },
           {
             id: "html_header_data_points_competencies",
             text: "Data Point Competencies",
             path: "shared/reports/mrf/header/data_points_competencies",
-            links: {
-              html: ["html_competencies_textual_data_points","html_competency_frequency_rating_table"],
-              pdf: []
-            }            
           },
           {
             id: "html_header_data_points_traits",
             text: "Data Points Traits",
-            path: "shared/reports/mrf/header/data_points_traits",
-            links: {
-              html: ["html_traits_textual_data_points","html_frequency_rating_table"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/data_points_traits"
           },
           {
             id: "html_header_summary",
             text: "Summary",
-            path: "shared/reports/mrf/header/summary",
-            links: {
-              html: ["html_summary_of_360_degree_feedback"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/summary"
           }
         ]
       },
