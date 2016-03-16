@@ -161,12 +161,6 @@ function createJSTree(container){
         var linkedNode = data.node.original.links.pdf[i];
         $pdfTree.deselect_node(linkedNode);
       }
-      for (var i = 0; i < data.node.parents.length; i++) {
-        if (data.node.parents[i] != "#"){
-          var parentNode = data.node.original.links.html[i];
-          $htmlTree.deselect_node(parentNode);
-        }
-      }      
     }
     if(data.node.children_d.length > 0){
       for(var i = 0; i < data.node.children_d.length; i++){
@@ -184,19 +178,13 @@ function createJSTree(container){
         var linkedNode = data.node.original.links.pdf[i];
         $pdfTree.select_node(linkedNode);
       }
-      for (var i = 0; i < data.node.parents.length; i++) {
-        if (data.node.parents[i] != "#"){
-          var parentNode = data.node.original.links.html[i];
-          $htmlTree.select_node(parentNode);
-        }
-      }      
     }
     if(data.node.children_d.length > 0){
       for(var i = 0; i < data.node.children_d.length; i++){
         var childrenNode = data.node.children_d[i];
         $htmlTree.select_node(childrenNode);
       }
-    }       
+    }
   }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];

@@ -283,7 +283,7 @@
   },
   {
     id: "html_data_points_on_360_degree_scores_competencies",
-    text: "Details on 360 Degree Ratings on Competencies/Values ",
+    text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points",
     children: [
       {
@@ -293,11 +293,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: ["html_header_data_points_competencies"],
-          pdf: []
-        }        
+        }       
       },
       {
         id: "html_competency_wise_best_worst_scores",
@@ -306,11 +302,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: []
-        }        
+        }      
       },
       {
         id: "html_competencies_descending_order",
@@ -319,11 +311,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: []
-        }        
+        }       
       },
       {
         id: "html_descending_average_competency_rating",
@@ -332,11 +320,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: []
-        }        
+        }      
       },
       {
         id: "html_competency_frequency_rating_table",
