@@ -150,41 +150,73 @@ function updateInput(){
   return configuration;
 }
 
+function deselect_related_nodes(data){
+  if(data.node.original.links){
+    for(var i = 0; i < data.node.original.links.html.length; i++) {
+      var linkedNode = data.node.original.links.html[i];
+      $htmlTree.deselect_node(linkedNode);
+    }
+    for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+      var linkedNode = data.node.original.links.pdf[i];
+      $pdfTree.deselect_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var i = 0; i < data.node.children_d.length; i++){
+      var childrenNode = data.node.children_d[i];
+      $htmlTree.deselect_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var i = 0; i < data.node.parents.length; i++){
+      var parentNode = $htmlTree.get_node(data.node.parents[i]);
+      if(!$htmlTree.is_selected(parentNode)){
+        if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+          for(var i = 0; i < parentNode.original.links.pdf.length; i++) {
+            var linkedNode = parentNode.original.links.pdf[i];
+            $pdfTree.deselect_node(linkedNode);
+          }  
+        }
+      }
+    }
+  }
+}
+
+function select_related_nodes(data){
+  if(data.node.original.links){
+    for(var i = 0; i < data.node.original.links.html.length; i++) {
+      var linkedNode = data.node.original.links.html[i];
+      $htmlTree.select_node(linkedNode);
+    }
+    for(var i = 0; i < data.node.original.links.pdf.length; i++) {
+      var linkedNode = data.node.original.links.pdf[i];
+      $pdfTree.select_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var i = 0; i < data.node.children_d.length; i++){
+      var childrenNode = data.node.children_d[i];
+      $htmlTree.select_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var i = 0; i < data.node.parents.length; i++){
+      var parentNode = $htmlTree.get_node(data.node.parents[i]);
+      if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+        for(var i = 0; i < parentNode.original.links.pdf.length; i++) {
+          var linkedNode = parentNode.original.links.pdf[i];
+          $pdfTree.select_node(linkedNode);
+        }  
+      }
+    }
+  }
+}
+
 function createJSTree(container){
   $(container).on('deselect_node.jstree', function (e, data) {
-    if(data.node.original.links){
-      for(var i = 0; i < data.node.original.links.html.length; i++) {
-        var linkedNode = data.node.original.links.html[i];
-        $htmlTree.deselect_node(linkedNode);
-      }
-      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
-        var linkedNode = data.node.original.links.pdf[i];
-        $pdfTree.deselect_node(linkedNode);
-      }
-    }
-    if(data.node.children_d.length > 0){
-      for(var i = 0; i < data.node.children_d.length; i++){
-        var childrenNode = data.node.children_d[i];
-        $htmlTree.deselect_node(childrenNode);
-      }
-    }
+    deselect_related_nodes(data);
   }).on('select_node.jstree', function (e, data) {
-    if(data.node.original.links){
-      for(var i = 0; i < data.node.original.links.html.length; i++) {
-        var linkedNode = data.node.original.links.html[i];
-        $htmlTree.select_node(linkedNode);
-      }
-      for(var i = 0; i < data.node.original.links.pdf.length; i++) {
-        var linkedNode = data.node.original.links.pdf[i];
-        $pdfTree.select_node(linkedNode);
-      }
-    }
-    if(data.node.children_d.length > 0){
-      for(var i = 0; i < data.node.children_d.length; i++){
-        var childrenNode = data.node.children_d[i];
-        $htmlTree.select_node(childrenNode);
-      }
-    }
+    select_related_nodes(data);
   }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
