@@ -12,29 +12,17 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/suitability/header/overview",
-            links: {
-              html: ["html_assessment_details"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/overview"
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/suitability/header/traits_measured",
-            links: {
-              html: ["html_generic_factor_block"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/traits_measured"
           },
           {
             id: "html_header_trait_scores",
             text: "Traits Scores",
-            path: "shared/reports/suitability/header/scores_of_traits_measured",
-            links: {
-              html: ["html_sjt"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/scores_of_traits_measured"
           }
         ]
       },
