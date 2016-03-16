@@ -13,7 +13,7 @@
           %li{:id => "#{competency_name}#{factor_name}"}
             .divider1
             .lhs-sec.pull-left{:style=> "width: 730px;"}
-              %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
+              %div{ class: "span1 first hexagon-icon #{scale_values[:genericKlass]}" }
               .span16.first
                 .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
                   = factor_name 

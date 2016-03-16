@@ -58,7 +58,11 @@
         id: "html_cover_page_name_and_details",
         text: "Name and Completion Date",
         path: "oac/exercises/reports/competency_reports/html/cover_page/details",
-        locals: {}    
+        locals: {},
+        links: {
+          html: ["html_header_overview"],
+          pdf: []
+        }   
       },
       {
         id: "html_cover_page_aggregate_score_bands",
@@ -127,7 +131,7 @@
             path: "oac/exercises/reports/competency_reports/html/competency_overview/with_desired_range",
             locals: {},
             links: {
-              html: [],
+              html: ["html_header_competencies",],
               pdf: ["pdf_competency_overview_legend_with_desired"]
             }            
           },
@@ -137,7 +141,7 @@
             path: "oac/exercises/reports/competency_reports/html/competency_overview/without_desired_range",
             locals: {},
             links: {
-              html: [],
+              html: ["html_header_competencies",],
               pdf: ["pdf_competency_overview_legend_without_desired"]
             }            
           }
@@ -178,7 +182,7 @@
     path: "oac/exercises/reports/competency_reports/html/competency_overview_tool_wise",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_tools"],
       pdf: ["pdf_competency_overview_tool_wise"]
     }    
   },
@@ -286,7 +290,7 @@
     path: "oac/exercises/reports/competency_reports/html/assessor_feedback",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_remarks"],
       pdf: ["pdf_assessor_feedback"]
     }
   },
