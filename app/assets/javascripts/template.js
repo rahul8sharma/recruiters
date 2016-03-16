@@ -25,7 +25,10 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_html_editor').html().match(/\&lt;\$(.*?)\$\&gt;|\<\$(.*?)\$\>/gi) == null){
+  var html =  $('#template_html_editor').html();
+  html = html.replace(/\&lt;/gi,"<").replace(/\&gt;/gi,">");
+  setTemplateBodyValue(html);
+  if (html.match(/\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -44,8 +47,6 @@ jQuery(document).ready(function($){
   editor.trumbowyg({
       fullscreenable: false,
       closable: false,
-      semantic: true,
-      semantic: true,
       btns: ['viewHTML',
     '|', 'formatting',
     '|', 'btnGrp-design',
