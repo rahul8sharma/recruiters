@@ -69,13 +69,21 @@
             id: "html_aggregate_score",
             text: "Aggregate Score [Score]",
             path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_enable_recommendation"]
+            }
           },
           {
             id: "html_color_band",
             text: "Color Band",
             path: "assessment_reports/fit_report/html/color_band",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_color_band"]
+            }            
           }
         ]
       },
@@ -84,7 +92,11 @@
         text: "Assessment[Name and Completion Date]",
         path: "assessment_reports/fit_report/html/assessment_details",
         locals: {},
-        children: []
+        children: [],
+        links: {
+          html: ["html_header_overview"],
+          pdf: ["pdf_assessment_details"]
+        }        
       }
     ]
   },
@@ -92,102 +104,170 @@
     id: "html_score_scale",
     text: "Score Scale",
     path: "assessment_reports/score_scale",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_score_scale"]
+    }    
   },
   {
     id: "html_traits_measured_in_this_assessment",
     text: "Traits Measured in this Assessment",
     path: "assessment_reports/fit_report/html/page2",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_traits"],
+      pdf: ["pdf_traits_in_this_assessment"]
+    }    
   },
   {
     id: "html_scores_of_traits_measured_in_this_assessment_consistency_enabled",
     text: "Scores of Traits measured in this Assessment [Consistency Enabled]",
     path: "assessment_reports/fit_report/html/page3",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_traits_consistency_enabled"]
+    }  
   },
   {
     id: "html_scores_of_traits_measured_in_this_assessment_consistency_disabled",
     text: "Scores of Traits Measured In this Assessment [Consistency Disabled]",
     path: "assessment_reports/fit_report/html/page3_consistecny_disabled",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_trait_scores"],
+      pdf: ["pdf_traits_consistency_disabled"]
+    }  
   },
   {
     id: "html_scores_of_functional_traits_measured_in_assessment",
     text: "Overview of scores of Subjective/Objective questions",
     path: "assessment_reports/fit_report/html/scores_of_functional_traits",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_scores_of_functional_traits"]
+    }    
   },
   {
     id: "html_functional_overview_section",
     text: "Functional Overview Section",
     path: "assessment_reports/functional_report/html/functional_overview_section",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_functional_overview_sections"]
+    }    
   },
   {
     id: "html_objective_questions",
     text: "Objective Questions",
     path: "assessment_reports/functional_report/html/objective_questions",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_objective_questions"]
+    }    
   },
   {
     id: "html_subjective_questions",
     text: "Subjective Questions",
     path: "assessment_reports/functional_report/html/subjective_questions",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_subjective_questions"]
+    }    
   },
   {
     id: "html_miscellaneous_factors",
     text: "Miscellaneous Factors",
     path: "assessment_reports/fit_report/html/page4",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_miscellaneous_factors"]
+    }
   },
   {
     id: "html_development_guide_for_assessment_taker",
     text: "Development Guide for Candidate [Based on Candidate Type]",
     path: "assessment_reports/fit_report/html/page5",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_development_guide_for_assessment_taker"],
+      pdf: ["pdf_development_interview_guide_candidate"]
+    }    
   },
   {
     id: "html_development_guide_for_assessment_taker_based_on_type",
     text: "Development Guide for Candidate",
     path: "assessment_reports/fit_report/html/development_guide",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_development_guide_for_assessment_taker"],
+      pdf: ["pdf_development_guide_for_candidate"]
+    }    
   },
   {
     id: "html_interview_guide_for_assessment_taker",
     text: "Interview Guide for Candidate[Based On Candidate Type]",
     path: "assessment_reports/fit_report/html/interview_guide",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_development_guide_for_manager"],
+      pdf: ["pdf_development_interview_candidate"]
+    }    
   },
   {
     id: "html_interview_guide_for_assessment_taker_based_on_type",
     text: "Interview Guide for Candidate",
     path: "assessment_reports/fit_report/html/interview",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_interview_guide_for_hiring"]
+    }    
   },
   {
     id: "html_guidelines_for_candidate_manager",
     text: "Guidelines for Assessment takers manager [Based On Candidate Type]",
     path: "assessment_reports/fit_report/html/page6",
-    children: []
+    children: [],
+    links: {
+      html: ["html_header_development_guide_for_manager"],
+      pdf: ["pdf_development_interview_guide_manager"]
+    }    
   },
   {
     id: "html_guidelines_for_candidate_manager_based_on_type",
     text: "Guidelines for Assessment takers manager",
     path: "assessment_reports/fit_report/html/guidelines_assessment_takers_manager",
-    children: []
+    children: [],
+    links: {
+      html: [""],
+      pdf: ["pdf_development_guide_for_manager"]
+    }    
   },
   {
     id: "html_about_us",
     text: "About Us",
     path: "shared/reports/html/about_us",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_about_us"]
+    }    
   },
   {
     id: "html_legal_disclaimer",
     text: "Legal Disclaimer",
     path: "shared/reports/html/legal_disclaimer",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_legal_disclaimer"]
+    }    
   }
 ]

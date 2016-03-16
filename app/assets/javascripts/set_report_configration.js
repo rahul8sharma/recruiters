@@ -80,8 +80,8 @@ function setSelected(obj, $jsTree){
     $jsTree.select_node(obj.id);
     return obj.id;
   } else {
-    for(var i = 0; i < obj.children.length; i++) {
-      var o = obj.children[i];
+    for(var childIndex = 0; childIndex < obj.children.length; childIndex++) {
+      var o = obj.children[childIndex];
       setSelected(o, $jsTree);
     }
   }
@@ -100,11 +100,11 @@ function getConfiguration($jsTree){
   var objects = {};
   var root = null;
   var selected = $jsTree.get_checked('full');
-  for(var i = 0; i < selected.length; i++) {
-    var obj = selected[i];
+  for(var selectedNodeInex = 0; selectedNodeInex < selected.length; selectedNodeInex++) {
+    var obj = selected[selectedNodeInex];
     objects[obj.id] = createNode($jsTree, obj.id);;
-    for(var j = 0;  j < obj.parents.length; j++) {
-      var parent = $jsTree.get_node(obj.parents[j]);
+    for(var parentIndex = 0;  parentIndex < obj.parents.length; parentIndex++) {
+      var parent = $jsTree.get_node(obj.parents[parentIndex]);
       if($.inArray(parent, selected) == -1 && parent.id !== "#") {
         objects[parent.id] = createNode($jsTree, parent.id);;      
         selected.push(parent);
@@ -112,8 +112,8 @@ function getConfiguration($jsTree){
     }
   }
   //var selected = $jsTree.selected;
-  for(var i = 0; i < selected.length; i++) {
-    var obj = selected[i];
+  for(var selectedNodeInex = 0; selectedNodeInex < selected.length; selectedNodeInex++) {
+    var obj = selected[selectedNodeInex];
     if(obj.parent == "#") {
       root = objects[obj.id];
     } else {
@@ -150,13 +150,79 @@ function updateInput(){
   return configuration;
 }
 
+function deselect_related_nodes(data){
+  if(data.node.original.links){
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.html.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.html[linkedNodeIndex];
+      $htmlTree.deselect_node(linkedNode);
+    }
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.pdf.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.pdf[linkedNodeIndex];
+      $pdfTree.deselect_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var childIndex = 0; childIndex < data.node.children_d.length; childIndex++){
+      var childrenNode = data.node.children_d[childIndex];
+      $htmlTree.deselect_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var parentIndex = 0; parentIndex < data.node.parents.length; parentIndex++){
+      var parentNode = $htmlTree.get_node(data.node.parents[parentIndex]);
+      if(!$htmlTree.is_selected(parentNode)){
+        if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+          for(var linkedNodeIndex = 0; linkedNodeIndex < parentNode.original.links.pdf.length; linkedNodeIndex++) {
+            var linkedNode = parentNode.original.links.pdf[linkedNodeIndex];
+            $pdfTree.deselect_node(linkedNode);
+          }  
+        }
+      }
+    }
+  }
+}
+
+function select_related_nodes(data){
+  if(data.node.original.links){
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.html.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.html[linkedNodeIndex];
+      $htmlTree.select_node(linkedNode);
+    }
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.pdf.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.pdf[linkedNodeIndex];
+      $pdfTree.select_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var childIndex = 0; childIndex < data.node.children_d.length; childIndex++){
+      var childrenNode = data.node.children_d[childIndex];
+      $htmlTree.select_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var parentIndex = 0; parentIndex < data.node.parents.length; parentIndex++){
+      var parentNode = $htmlTree.get_node(data.node.parents[parentIndex]);
+      if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+        for(var linkedNodeIndex = 0; linkedNodeIndex < parentNode.original.links.pdf.length; linkedNodeIndex++) {
+          var linkedNode = parentNode.original.links.pdf[linkedNodeIndex];
+          $pdfTree.select_node(linkedNode);
+        }  
+      }
+    }
+  }
+}
+
 function createJSTree(container){
-  $(container).on('changed.jstree', function (e, data) {
+  $(container).on('deselect_node.jstree', function (e, data) {
+    deselect_related_nodes(data);
+  }).on('select_node.jstree', function (e, data) {
+    select_related_nodes(data);
+  }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
     var selected = data.instance.selected;
-    for(var i = 0; i < selected.length; i++) {
-      var obj = selected[i];
+    for(var selectedNodeIndex = 0; selectedNodeIndex < selected.length; selectedNodeIndex++) {
+      var obj = selected[selectedNodeIndex];
       if(obj.children == null || obj.children.length == 0) {
         data.instance.select_node(obj.id);
       } else {

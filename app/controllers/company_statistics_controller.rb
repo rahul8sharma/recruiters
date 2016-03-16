@@ -50,10 +50,11 @@ class CompanyStatisticsController < ApplicationController
       :scopes => {
         plan_id_not_in: [@trial_plan.id.to_i]
       },
-      :order => ["valid_to DESC"],
+      :order => ["valid_to DESC, id desc"],
       :methods => [
         :assessments_sent,
-        :assessments_completed
+        :assessments_completed,
+        :unlocked_invites_count
       ],
       :page => params[:page],
       :per => 5
@@ -65,7 +66,7 @@ class CompanyStatisticsController < ApplicationController
       :query_options => {
         :company_id => @company.id
       },
-      :order => ["valid_to DESC"],
+      :order => ["valid_to DESC, id desc"],
       :methods => [
         :assessments_sent,
         :assessments_completed,

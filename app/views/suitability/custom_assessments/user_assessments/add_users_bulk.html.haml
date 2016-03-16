@@ -7,18 +7,18 @@
   = render :partial => "shared/navigation-sub-nav"
   .divider2
 
-  %a.medium-text.pull-right{:href => add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
+  %a.medium-text.pull-right.less-padding-all1{:href => add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Return to Manual Addition of Assessment Takers"}
     Return to Manual Addition of Assessment Takers
   .clr
   = form_for :bulk_upload, url: bulk_upload_company_custom_assessment_path(company_id: params[:company_id], id: params[:id]), method: :put do |f|
-    .bulk-upload
+    .bulk-upload.span15.margin-auto
       .bulk-upload-snippet
         .heading
           .pull-left
             Add Assessment takers in bulk
           .clr
         .divider2
-        .left-sec.span15
+        .left-sec
           .inner
             .divider2
             .fileUpload.disabled
@@ -32,34 +32,6 @@
             %a.underlined.medium-text{:target => "_blank", :title => "Download sample file for adding Assessment takers", :href => download_sample_csv_for_user_bulk_upload_path}
               Download sample file for adding Assessment takers
             .divider2
-        .right-sec.left-offset1.span13
-          .big-text
-            What is the purpose of assessing these assessment takers?
-          .divider2
-          .purpose.left-offset1
-            %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::EMPLOYED)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::EMPLOYED, :onClick => "getUserType('#{Vger::Resources::User::Stage::EMPLOYED}');", checked: checked}
-              #employee
-                -#toggle class ".checked" to "#employee"
-                .title.span.extra-medium-text
-                  For Development
-                %i.muted.span.medium-text
-                  (Existing Employees)
-                .clr
-            .divider1
-            %label
-              - checked = (params[:candidate_stage] == Vger::Resources::User::Stage::CANDIDATE)
-              %input.span1{:type => "radio", :name => "candidate_stage", value: Vger::Resources::User::Stage::CANDIDATE, :onClick => "getUserType('#{Vger::Resources::User::Stage::CANDIDATE}');", checked: checked}
-              #user
-                -#toggle class ".checked" to "#user"
-                .title.span.extra-medium-text
-                  For Hiring
-                %i.muted.span.medium-text
-                  (Potential Candidates)
-                .clr
-          .divider1
-          .pull-left
             - if is_superuser?
               .extra-medium-text.span5
                 Type of Assessment
@@ -71,8 +43,6 @@
                       Is Trial
                   .clr
               .divider1
-          .clr  
-        .clr
         .divider2
         / back to top
         %p#back-top
@@ -83,12 +53,13 @@
         / back to top
       %a.medium-text.view-instruction.scroll{:href => "#bulk-upload-instructions", :title => "View Instructions"}
         View Instructions
-      .divider2
+      .divider1
       %input.btn.btn-warning.large-text.bold.pull-right{:type => "submit", :value => "Proceed" }
       .clr
-      .divider3
-      #bulk-upload-instructions.bulk-upload-instructions
-        = image_tag("bulk-upload/bulk-upload-instructions.jpg")
+    .divider3.border-bottom-d-grayLighter
+    .divider3
+    #bulk-upload-instructions.bulk-upload-instructions
+      = image_tag("bulk-upload/bulk-upload-instructions.jpg")
 
 = javascript_include_tag 'common'  
 

@@ -1,0 +1,22 @@
+= form_tag controller.export_to_google_drive_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Download #{controller.resource_name.humanize}
+    = fields_for "export" do |f|
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url : 
+          = f.text_field "url"
+      = f.fields_for "filters" do |f|
+        %p
+          Company ID : 
+          = f.text_field "company_id"  
+        %p
+          Assessment ID : 
+          = f.text_field "assessment_id"
+      %p
+        Notification Email : 
+        = f.text_field :email, :value => "product@jombay.com"
+    .actions
+      = submit_tag "Download #{controller.resource_name.humanize}", :confirm => "Are you sure?"
+

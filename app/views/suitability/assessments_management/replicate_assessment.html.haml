@@ -45,13 +45,42 @@
     .control-group
       %label
         Select Custom Factual Information Form
-      %select.span10.first{ name: "defined_form_id" }
+      %select.span10.first{ name: "defined_form_id", id: "select_form" }
         %option{ value: "" }
           Select Custom Factual Information Form
         - @defined_forms.each do |defined_form|
           %option{ value: defined_form.id }
-            = defined_form.name
+            = "#{defined_form.id} - #{defined_form.name}".html_safe
       .clr
+    .control-group
+      %label
+        %input{ name: "replicate", type: "checkbox", checked: true }
+        Replicate the selected form for the new assessment
+      .clr  
       
   .actions
-    = submit_tag 'Create'
+    = submit_tag 'Create', class: "btn btn-warning"
+.divider2
+#container
+  Preview will be shown here...
+  
+= link_to 'Preview', "#", remote: true, style: "display:none;", id: "preview_link"
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
+:javascript
+  jQuery(document).on('ready', function(){
+    $('#select_form').change(function(){
+      previewForm();
+    });
+    previewForm();
+  });
+  
+  function previewForm(){
+    var selectedFormId = $('#select_form').val();
+    if(selectedFormId){
+      var url = "/form_builder/defined_forms/"+selectedFormId+"?container=container";
+      $("#preview_link").attr("href",url);
+      $("#preview_link").click();
+    }
+  }
+

@@ -24,14 +24,26 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   end
   
   def update_feedback
-    feedback = Vger::Resources::Mrf::Feedback.save_existing(params[:feedback_id],
-      {
-        company_id: @company.id, 
-        assessment_id: @assessment.id, 
+    params[:options] ||= {}
+    query_options = {
+      company_id: @company.id, 
+      assessment_id: @assessment.id
+    }
+    query_options.merge!({
+      id: params[:feedback_id]
+    }) if params[:feedback_id].present?
+    query_options.merge!({
+      user_id: params[:user_id]
+    }) if params[:all]
+    feedback = Vger::Resources::Mrf::Feedback.update_all(
+      company_id: @company.id, 
+      assessment_id: @assessment.id,
+      query_options: query_options,
+      update_attributes: {
         active: params[:active]
       }
     )
-    flash[:notice] = "User successfully #{feedback.active ? 'enabled':'disabled'}."
+    flash[:notice] = "User successfully #{params[:active] ? 'enabled':'disabled'}."
     redirect_to user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, @user.id)
   end
 

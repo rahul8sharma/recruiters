@@ -33,12 +33,12 @@
           .control-group
             %label.span16.first.big-text.line-height2.gray-darker
               = f.check_box name.to_sym, :checked => @group_report.send(name.to_sym)
-              #{name}
+              #{settings[:display_name]}
           .clr
         - else
           .control-group
             %label.span16.first.big-text.line-height2.gray-darker
-              #{name}:
+              #{settings[:display_name]}
               = f.text_field name.to_sym, :checked => @group_report.send(name.to_sym)
           .clr
           %br

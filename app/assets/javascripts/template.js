@@ -25,7 +25,10 @@ function getTemplateVariablesForCategory(category) {
 }
 
 function checkEmailBodyForVaribales(){
-  if ($('#template_body').val().match(/\<\$(.*?)\$\>/gi) == null){
+  var html =  $('#template_html_editor').html();
+  html = html.replace(/\&lt;/gi,"<").replace(/\&gt;/gi,">");
+  setTemplateBodyValue(html);
+  if (html.match(/\<\$(.*?)\$\>/gi) == null){
     var prompt = confirm("You have not added template varibales to email body.");
     if (prompt == true){
       return true;
@@ -37,15 +40,42 @@ function checkEmailBodyForVaribales(){
   }
 }
 
-
 jQuery(document).ready(function($){ 
   var currentElement = null;
-  $("#template_body, #template_subject, #template_from").click(function(){
+  var editor = $('#template_html_editor');
+  
+  editor.trumbowyg({
+      fullscreenable: false,
+      closable: false,
+      btns: ['viewHTML',
+    '|', 'formatting',
+    '|', 'btnGrp-design',
+    '|', 'link',
+    '|', 'btnGrp-justify',
+    '|', 'btnGrp-lists',
+    '|', 'horizontalRule',
+    '|', 'removeformat']
+  });
+
+  getTemplateBodyValue($('input[name="template[body]"').val(), editor);
+
+  $("#template_html_editor, #template_subject, #template_from").click(function(){
     currentElement = $(this);
   });
   
   $(document).on("click",".template_variable_link",function(){
-    currentElement.insertAtCaret("<$"+$(this).attr("template_variable_name")+"$>");
+    var template_variable = "<$"+$(this).attr("template_variable_name")+"$>";
+    if(currentElement.attr('id') == "template_html_editor"){
+        var link = $(['<span>', template_variable, '</span>'].join(''));
+        editor.trumbowyg('saveSelection');
+        editor.trumbowyg('getSelection').deleteContents();
+        editor.trumbowyg('getSelection').insertNode(link.get(0));
+        editor.trumbowyg('restoreSelection');
+        editor.trumbowyg('saveSelection');
+        setTemplateBodyValue($('#template_html_editor').html());
+    }else{
+      currentElement.insertAtCaret(template_variable);
+    }
   });
   
   $("#template_template_category_id").change(function(){
@@ -58,3 +88,10 @@ jQuery(document).ready(function($){
     return checkEmailBodyForVaribales();
   })
 });
+
+function setTemplateBodyValue(value){
+  $('input[name="template[body]"').attr('value', value);
+}
+function getTemplateBodyValue(value, editor){
+  editor.trumbowyg('html', value);
+}

@@ -1,39 +1,40 @@
-#overall.bg-gray.distribution.black
-  .divider2
-  .container
-    .title
-      Distribution of Overall  360&#176; scores: Competencies
-    .divider1
-    - color_index = 0
-    - @report.report_hash[:competency_scores].each_slice(2) do |step_data|
+- if @report.report_data[:distribution_of_overall_360_scores]
+  #overall.bg-gray.distribution.black
+    .divider2
+    .container
+      .title
+        Distribution of Overall  360&#176; scores: Competencies
       .divider1
-      .border-bottom-grayLighter
-        - step_data.each_with_index do |(competency, competency_scores), index|
-          - hex_code = @bucket_colors[color_index]
-          - color_index += 1
-          .span14.first{:class => (index+1) == 2 ? "pull-right border-left-grayLighter" : "", :style => (index+1) == 2 ? "padding-left: 50px" : ""}
-            .large-text.text-center
-              #{competency}
-            .divider2
-            .grid_graph.small.span12.left-offset1
-              .y_indication
-              .x_indication
-                Ratings
-              .columns
-                - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
-                  - bar_height = values[:percentage]
-                  - multiplier = 100 - bar_height
-                  .column.span1{:style=>"background: #{hex_code}; margin-top: #{(300*multiplier/100)}px; height: #{bar_height}%"}
-                    .rating_range
-                      = bucket
-                .clr
-              .counts
-                -counter = 110
-                -11.times do |index|
-                  - counter = counter-10
-                  .count
-                    #{counter} 
-            .clr
+      - color_index = 0
+      - @report.report_hash[:competency_scores].each_slice(2) do |step_data|
+        .divider1
+        .border-bottom-grayLighter
+          - step_data.each_with_index do |(competency, competency_scores), index|
+            - hex_code = @bucket_colors[color_index]
+            - color_index += 1
+            .span14.first{:class => (index+1) == 2 ? "pull-right border-left-grayLighter" : "", :style => (index+1) == 2 ? "padding-left: 50px" : ""}
+              .large-text.text-center
+                #{competency}
+              .divider2
+              .grid_graph.small.span12.left-offset1
+                .y_indication
+                .x_indication
+                  Ratings
+                .columns
+                  - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
+                    - bar_height = values[:percentage]
+                    - multiplier = 100 - bar_height
+                    .column.span1{:style=>"background: #{hex_code}; margin-top: #{(300*multiplier/100)}px; height: #{bar_height}%"}
+                      .rating_range
+                        = bucket
+                  .clr
+                .counts
+                  -counter = 110
+                  -11.times do |index|
+                    - counter = counter-10
+                    .count
+                      #{counter} 
+              .clr
 
-        .clr  
-        .divider4
+          .clr  
+          .divider4
