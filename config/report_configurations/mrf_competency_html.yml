@@ -12,56 +12,32 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/mrf/header/overview",
-            links: {
-              html: ["html_show_completion_status"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/overview"
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/mrf/header/traits",
-            links: {
-              html: ["html_360_trait_scores_legent_without_desired_range","html_360_traits_under_competency_graph_without_desired_range"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/traits"
           },
           {
             id: "html_header_scores",
             text: "Scores",
             path: "shared/reports/mrf/header/scores",
-            links: {
-              html: [],
-              pdf: []
-            }            
           },
           {
             id: "html_header_data_points_competencies",
             text: "Data Point Competencies",
             path: "shared/reports/mrf/header/data_points_competencies",
-            links: {
-              html: ["html_competencies_textual_data_points","html_competency_frequency_rating_table"],
-              pdf: []
-            }            
           },
           {
             id: "html_header_data_points_traits",
             text: "Data Points Traits",
-            path: "shared/reports/mrf/header/data_points_traits",
-            links: {
-              html: ["html_traits_textual_data_points","html_frequency_rating_table"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/data_points_traits"
           },
           {
             id: "html_header_summary",
             text: "Summary",
-            path: "shared/reports/mrf/header/summary",
-            links: {
-              html: ["html_summary_of_360_degree_feedback"],
-              pdf: []
-            }            
+            path: "shared/reports/mrf/header/summary"
           }
         ]
       },
@@ -119,13 +95,21 @@
             id: "html_360_show_desired_range_header",
             text: "Show Desired Range in Legend",
             path: "mrf/assessments/reports/competency_report/html/label_with_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_360_show_desired_range_section"],
+              pdf: ["pdf_scores_competencies_with_desired_range_compact"]
+            }
           },
           {
             id: "html_360_hide_desired_range_header",
             text: "Hide Desired Range in Legend",
             path: "mrf/assessments/reports/competency_report/html/label_without_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_360_hide_desired_range_section"],
+              pdf: ["pdf_scores_competencies_without_desired_range_compact"]
+            }
           }
         ]
       },
@@ -140,7 +124,7 @@
             path: "mrf/assessments/reports/competency_report/html/graph_with_desired_range",
             locals: {},
             links: {
-              html: [],
+              html: ["html_360_show_desired_range_header"],
               pdf: ["pdf_scores_competencies_with_desired_range_compact"]
             }            
           },
@@ -150,7 +134,7 @@
             path: "mrf/assessments/reports/competency_report/html/graph_without_desired_range",
             locals: {},
             links: {
-              html: [],
+              html: ["html_360_hide_desired_range_header"],
               pdf: ["pdf_scores_competencies_without_desired_range_compact"]
             }            
           }
@@ -172,7 +156,11 @@
             id: "html_360_trait_scores_legent_with_desired_range",
             text: "Legend with Desired Range",
             path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_with_desired_range",
-            locals: {}
+            locals: {},
+            links: {
+              html: ["html_360_traits_under_competency_graph_with_desired_range"],
+              pdf: ["pdf_trait_scores_under_competencies_with_desired_range"]
+            }
           },
           {
             id: "html_360_trait_scores_legent_without_desired_range",
@@ -180,8 +168,8 @@
             path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
             locals: {},
             links: {
-              html: ["html_header_traits"],
-              pdf: []
+              html: ["html_header_traits","html_360_traits_under_competency_graph_without_desired_range"],
+              pdf: ["pdf_trait_scores_under_competencies_without_desired_range"]
             }
           }
         ]
@@ -197,7 +185,7 @@
             path: "mrf/assessments/reports/competency_report/html/trait_graph_with_desired_range",
             locals: {},
             links: {
-              html: [],
+              html: ["html_360_trait_scores_legent_with_desired_range"],
               pdf: ["pdf_trait_scores_under_competencies_with_desired_range"]
             }            
           },
@@ -207,7 +195,7 @@
             path: "mrf/assessments/reports/competency_report/html/trait_graph_without_desired_range",
             locals: {},
             links: {
-              html: ["html_header_traits"],
+              html: ["html_header_traits","html_360_trait_scores_legent_without_desired_range"],
               pdf: ["pdf_trait_scores_under_competencies_without_desired_range"]
             }            
           }
@@ -271,7 +259,7 @@
   },
   {
     id: "html_data_points_on_360_degree_scores_competencies",
-    text: "Details on 360 Degree Ratings on Competencies/Values ",
+    text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/html/competency_wise_frequency_data_points",
     children: [
       {
@@ -281,11 +269,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: ["html_header_data_points_competencies"],
-          pdf: ["pdf_frequency_rating__table_compact"]
-        }        
+        }       
       },
       {
         id: "html_competency_wise_best_worst_scores",
@@ -294,11 +278,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_frequency_rating__table_compact"]
-        }        
+        }      
       },
       {
         id: "html_competencies_descending_order",
@@ -307,11 +287,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_frequency_rating__table_compact"]
-        }        
+        }       
       },
       {
         id: "html_descending_average_competency_rating",
@@ -320,11 +296,7 @@
         locals: {
           competency: "competency",
           competency_scores: "competency_scores"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_frequency_rating__table_compact"]
-        }        
+        }      
       },
       {
         id: "html_competency_frequency_rating_table",
@@ -339,10 +311,14 @@
         },
         links: {
           html: ["html_header_data_points_competencies"],
-          pdf: ["pdf_frequency_rating__table_compact"]
+          pdf: []
         }        
       }
-    ]
+    ],
+    links: {
+      html: [],
+      pdf: ["pdf_frequency_rating_table_compact"]
+    }
   },
   {
     id: "html_data_points_on_360_degree_scores_traits_under_competencies",
@@ -358,7 +334,7 @@
         },
         links: {
           html: ["html_header_data_points_traits"],
-          pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
+          pdf: []
         }        
       },
       {
@@ -367,10 +343,6 @@
         path: "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores",
         locals: {
           trait_score: "trait_score"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
         }        
       },
       {
@@ -379,10 +351,6 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score",
         locals: {
           trait_score: "trait_score"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
         }        
       },
       {
@@ -391,10 +359,6 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating",
         locals: {
           trait_score: "trait_score"
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
         }        
       },
       {
@@ -409,10 +373,14 @@
         },
         links: {
           html: ["html_header_data_points_traits"],
-          pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
+          pdf: []
         }        
       }
-    ]
+    ],
+    links: {
+      html: [],
+      pdf: ["pdf_competency360_traits_data_pts_trait_name_as_title_compact"]
+    }
   },
   {
     id: "html_response_distribution_on_questions_new",

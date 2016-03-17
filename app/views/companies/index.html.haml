@@ -4,6 +4,8 @@
     Search Companies 
     | 
     = link_to "Search Users", users_path
+    \|
+    = link_to "Search Assessment", search_assessments_path
   .pull-right
     = render :partial => "shared/pagination", :locals => { :objects => @companies}
   .clr

@@ -2,7 +2,7 @@ class AssessmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :check_superuser, :only => [:edit,:update]
   before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_assessment, :except => [:index]
+  before_filter :get_assessment, :except => [:index,:search]
   before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
   before_filter :get_factors, :only => [:norms, :competency_norms]
   before_filter :add_set, :only => [:new]
@@ -63,7 +63,23 @@ class AssessmentsController < ApplicationController
   # GET /assessments/new.json
   def new
   end
-
+  
+  def search
+    params[:search] ||= {}
+    params[:search] = params[:search].select{|key,val| val.present? }
+    search_params = params[:search].dup
+    name = search_params.delete :name
+    conditions = {
+      query_options: search_params,
+      select: [:id, :name, :company_id],
+      include: {company: {only: [:name]}},
+      page: params[:page], per: 10
+    }
+    conditions[:scopes] = {}
+    conditions[:scopes][:name_like] = name if name
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(conditions).all
+  end
+  
   def edit
     @paid_user_assessments_count = Vger::Resources::Suitability::UserAssessment\
                                       .count(

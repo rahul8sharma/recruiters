@@ -9,14 +9,19 @@ function initDateTimePicker(){
   var d = new Date();
   var minDate = d.getDate() +"/"+ d.getMonth() +"/"+ d.getFullYear();
   var minTime = d.getHours() +":"+ d.getMinutes();
-  
+
+
   $("#datetimepicker").datetimepicker({
     minDate: minDate,
     minTime: minTime,
     step: 5,
     format:'d/m/Y H:i',
     onChangeDateTime:function(dp, $input){
-      $('#final-value').html($input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
+      if ($input.val() == ""){
+        $('#final-value').html(minDate+" at "+ minTime);
+      }else{
+        $('#final-value').html("on"+ $input.val().split(' ')[0]+" at "+$input.val().split(' ')[1]);
+      }
     }
   });
   var displayDate = ($('#datetimepicker').val()).split(' ')[0];

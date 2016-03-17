@@ -12,47 +12,27 @@
           {
             id: "html_header_overview",
             text: "Overview",
-            path: "shared/reports/suitability/header/overview",
-            links: {
-              html: ["html_assessment_details"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/overview"
           },
           {
             id: "html_header_traits",
             text: "Traits",
-            path: "shared/reports/suitability/header/traits_measured",
-            links: {
-              html: ["html_generic_factor_block"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/traits_measured"
           },
           {
             id: "html_header_trait_scores",
             text: "Traits Scores",
-            path: "shared/reports/suitability/header/scores_of_traits_measured",
-            links: {
-              html: ["html_generic_competency_block_with_consistency_disabled"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/scores_of_traits_measured"
           },
           {
             id: "html_header_development_guide_for_assessment_taker",
             text: "Development Guide for Assessment Taker",
-            path: "shared/reports/suitability/header/development_guide_for_assessment_taker",
-            links: {
-              html: ["html_guidelines_for_candidate"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/development_guide_for_assessment_taker"
           },
           {
             id: "html_header_development_guide_for_manager",
             text: "Development Guide for Manager",
-            path: "shared/reports/suitability/header/development_guide_for_manager",
-            links: {
-              html: ["html_guidelines_for_candidate_manager"],
-              pdf: []
-            }            
+            path: "shared/reports/suitability/header/development_guide_for_manager"
           }
         ]
       },
@@ -90,7 +70,11 @@
             text: "Aggregate Competency Numerical Score[Score]",
             path: "assessment_reports/competency_report/html/aggregate_numerical_score_bucket",
             locals: {},
-            children: []
+            children: [],
+            links: {
+              html: [],
+              pdf: ["pdf_cover_page_compact_aggregate_numerical_score"]
+            }
           },
           {
             id: "html_aggregate_score_bucket",
@@ -100,7 +84,7 @@
             children: [],
             links: {
               html: [],
-              pdf: ["pdf_aggregate_score_text"]
+              pdf: ["pdf_cover_page_compact_aggregate_score"]
             }
           },
           {
@@ -111,7 +95,7 @@
             children: [],
             links: {
               html: [],
-              pdf: ["pdf_color_band"]
+              pdf: ["pdf_cover_page_compact_color_band"]
             }   
           },
           {
@@ -126,7 +110,7 @@
                 locals: {},
                 links: {
                   html: [],
-                  pdf: ["pdf_with_functional_legend"]
+                  pdf: [""]
                 }   
               },
               {
@@ -136,7 +120,7 @@
                 locals: {},
                 links: {
                   html: [],
-                  pdf: ["pdf_without_functional_legend"]
+                  pdf: [""]
                 }                
               }
             ]
@@ -151,7 +135,7 @@
         children: [],
         links: {
           html: ["html_header_overview"],
-          pdf: ["pdf_assessment_details"]
+          pdf: []
         }         
       }
     ]
@@ -200,7 +184,7 @@
       },
       {
         id: "html_show_favourable_above_desired_range",
-        text: "Scale [Above Desired Range is Favourable]",
+        text: "Scale [Show Favourable above Desired Range]",
         path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_above_desired_range",
         locals: {
           competency_scores: "competency_scores"
@@ -216,7 +200,7 @@
             },
             links: {
               html: [],
-              pdf: ["pdf_favourable_above_desired_range_show_desired_range"]
+              pdf: ["pdf_favourable_above_desired_range_show_desired_range_compact"]
             } 
           },
           {
@@ -229,14 +213,14 @@
             },
             links: {
               html: [],
-              pdf: ["pdf_favourable_above_desired_range_hide_desired_range"]
+              pdf: ["pdf_favourable_above_desired_range_hide_desired_range_compact"]
             } 
           }
         ]
       },
       {
         id: "html_show_generic_scale",
-        text: "Scale [Outside Range is Not Favourable]",
+        text: "Scale [Show Favourable within Desired Range]",
         path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_within_desired_range",
         locals: {
           competency_scores: "competency_scores"
@@ -252,7 +236,7 @@
             },
             links: {
               html: [],
-              pdf: ["pdf_favourable_within_desired_range_show_desired_range"]
+              pdf: ["pdf_favourable_within_desired_range_show_desired_range_compact"]
             }           
           },
           {
@@ -265,7 +249,7 @@
             },
             links: {
               html: [],
-              pdf: ["pdf_favourable_within_desired_range_hide_desired_range"]
+              pdf: ["pdf_favourable_within_desired_range_hide_desired_range_compact"]
             } 
           }
         ]
@@ -286,7 +270,11 @@
     id: "html_aptitude_score_explanation",
     text: "Explanation of CoCubes Score",
     path: "assessment_reports/competency_report/html/explanation_of_cocubes_score",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_aptitude_score_explanation"]
+    }
   },
   {
     id: "html_score_scale",

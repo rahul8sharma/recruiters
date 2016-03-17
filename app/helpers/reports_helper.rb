@@ -45,6 +45,7 @@ module ReportsHelper
     position = scale_width-20 if position > scale_width
     scored_weight = company_norm_bucket.weight
     klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
+    genericKlass = (scored_weight >= from_norm_bucket.weight && scored_weight <= to_norm_bucket.weight) ? "favorable" : "less_favorable underlined" 
 
     HashWithIndifferentAccess.new({ 
       offset: offset,
@@ -53,7 +54,8 @@ module ReportsHelper
       klass: klass,
       scale_width: scale_width,
       to_norm_bucket_name: to_norm_bucket.name,
-      company_norm_bucket_name: company_norm_bucket.name
+      company_norm_bucket_name: company_norm_bucket.name,
+      genericKlass: genericKlass
     })
   end
 
