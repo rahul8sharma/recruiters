@@ -7,8 +7,9 @@
       .stakeholder-comments.responses
         .color-info.big-text
           Responses to Other Questions [Others]
-        %br
         .clr
+        %p.medium-text.gray-darker
+          This section displays responses to open-ended/ subjective questions from stakeholders.
         - step_data.group_by{|response| response[:question] }.each do |question, responses|
           .frame
             .heading

@@ -449,7 +449,7 @@
             links: {
               html: [],
               pdf: ["pdf_responses_without_stakholder_type_self"]
-            }            
+            }
           }
         ]
       }
@@ -463,7 +463,7 @@
     links: {
       html: ["html_header_summary"],
       pdf: ["pdf_page9"]
-    }    
+    }
   },
   {
     id: "html_360_pagl",

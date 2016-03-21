@@ -14,6 +14,8 @@
         .span.candidate_label
           Question to candidate
       .clr
+      %p.medium-text.gray-dark
+        This section presents the questions asked in the exercise and frequency of responses on each of the options.
       .divider1
     - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
       - if scale_visibility_counter == 1

@@ -2,7 +2,7 @@
 - sorted_trait_scores.each_slice(15) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "360 Degree Ratings on Traits"}
   .scores_competencies_graph.descending_order.padding-all1
-    .divider2
+    .divider1
     .color-info.big-text.pull-left
       360&#176; Ratings on Traits
     .graph_instructions.medium-text.pull-left.left-offset1
@@ -11,6 +11,8 @@
         360&#176; Rating
       .clr
     .clr
+    %p.medium-text.gray-dark
+      All traits included under competencies are presented together in a descending order of average stakeholder ratings
     .traits_under_graph
       .graph_container
         .left_sec.pull-left
