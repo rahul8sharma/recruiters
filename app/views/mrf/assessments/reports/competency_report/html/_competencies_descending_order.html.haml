@@ -10,6 +10,8 @@
         360&#176; Rating
       .clr
     .clr
+    %p.extra-medium-text.gray-darker
+      All competencies are presented in a descending order of average stakeholder ratings
     .divider2
     .traits_under_graph
       .graph_container
@@ -20,7 +22,7 @@
           %ul
             - sorted_competency_scores.each do |competency, competency_score|
               %li
-                .trait_title.first.span7.extra-medium-text.bold{ title: competency }
+                .trait_title.first.span7.extra-medium-text{ title: competency }
                   = truncate competency, length: 25
                 .stakeholder_rating.medium-text.pull-left
                   = competency_score[:score][:points] || "-"

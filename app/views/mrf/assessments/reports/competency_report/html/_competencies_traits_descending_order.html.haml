@@ -10,6 +10,8 @@
         360&#176; Rating
       .clr
     .clr
+    %p.extra-medium-text.gray-darker
+      All traits included under competencies are presented together in a descending order of average stakeholder ratings
     .divider2
     .traits_under_graph
       .graph_container
@@ -20,7 +22,7 @@
           %ul
             - sorted_trait_scores.each do |trait_score|
               %li
-                .trait_title.first.span7.extra-medium-text.bold{ title: trait_score[:trait][:name] }
+                .trait_title.first.span7.extra-medium-text{ title: trait_score[:trait][:name] }
                   = truncate trait_score[:trait][:name], length: 25
                   
                 .stakeholder_rating.medium-text.pull-left

@@ -126,7 +126,7 @@
             links: {
               html: ["html_360_show_desired_range_header"],
               pdf: ["pdf_scores_competencies_with_desired_range_compact"]
-            }            
+            }
           },
           {
             id: "html_360_hide_desired_range_section",
@@ -136,7 +136,7 @@
             links: {
               html: ["html_360_hide_desired_range_header"],
               pdf: ["pdf_scores_competencies_without_desired_range_compact"]
-            }            
+            }
           }
         ]
       }
@@ -312,7 +312,7 @@
         links: {
           html: ["html_header_data_points_competencies"],
           pdf: []
-        }        
+        }
       }
     ],
     links: {
@@ -335,7 +335,7 @@
         links: {
           html: ["html_header_data_points_traits"],
           pdf: []
-        }        
+        }
       },
       {
         id: "html_trait_wise_best_worst_scores",
@@ -343,7 +343,7 @@
         path: "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_descending_trait_wise_overall_score",
@@ -351,7 +351,7 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_descending_trait_wise_average_rating",
@@ -359,7 +359,7 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_frequency_rating_table",
@@ -374,7 +374,7 @@
         links: {
           html: ["html_header_data_points_traits"],
           pdf: []
-        }        
+        }
       }
     ],
     links: {
@@ -390,7 +390,7 @@
     links: {
       html: [],
       pdf: ["pdf_response_distribution_on_questions_new"]
-    }    
+    }
   },
   {
     id: "html_responses_to_other_questions",

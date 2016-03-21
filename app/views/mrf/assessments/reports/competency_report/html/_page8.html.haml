@@ -3,7 +3,10 @@
     .divider2
     .title
       Responses to Other Questions
-    .divider2
+    .divider1
+    %p.extra-medium-text.gray-darker
+      This section displays responses to open-ended/ subjective questions from stakeholders.
+    .divider1
     - section_value.each do |section|
       = render :partial => section["path"], :locals => {:section_value => section["children"]}
       .divider2
