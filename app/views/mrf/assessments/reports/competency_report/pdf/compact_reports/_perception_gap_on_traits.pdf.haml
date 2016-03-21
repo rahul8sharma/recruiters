@@ -1,10 +1,29 @@
+- @trait_scores_difference = Hash.new
+- @report.report_data[:competency_scores].each do |competency, competency_scores|
+  - competency_scores[:trait_scores].each do |trait_score|
+    - @trait_scores_difference[trait_score[:trait][:name]] =  (trait_score[:average_score_excluding_self][:score] - trait_score[:average_score_self][:score]).abs
+
+-negative_hash = Hash.new
+- @report.report_hash[:perception_gap]["negative_differences"].each do |trait|
+  - negative_hash[trait] = @trait_scores_difference[trait]
+- negative_hash = Hash[negative_hash.sort_by { |key, value| value }]
+
+-positive_hash = Hash.new
+- @report.report_hash[:perception_gap]["positive_differences"].each do |trait|
+  - positive_hash[trait] = @trait_scores_difference[trait]
+- positive_hash = Hash[positive_hash.sort_by { |key, value| value }.reverse]
+
+-aggrement_hash = Hash.new
+- @report.report_hash[:perception_gap]["aggrement"].each do |trait|
+  - aggrement_hash[trait] = @trait_scores_difference[trait]
+- aggrement_hash = Hash[aggrement_hash.sort_by { |key, value| value }.reverse]
+
 = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Perception Gap"}
 .competency_perception_gap_on_traits
   .divider2
   .title_section{:style=>"margin-left: 27px"}
     .color-info.big-text
       Perception Gap on Traits
-    .divider1
   %table{:cellpadding=>"0", :cellspacing=>"0"}
     %tr.titles
       %td
@@ -28,17 +47,36 @@
             = Rails.application.config.reports["perception_gap"][title.to_s]
         %td.space
     %tr
-      - @report.report_hash[:perception_gap].each do |title, traits|
-        %td
-          .span6
-            .divider1
-            %ul.disc.medium-text
-              -traits.each do |trait_name|
-                %li
-                  = trait_name
-            .divider1
-          .clr
-        %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            -aggrement_hash.each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            -negative_hash.each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            -positive_hash.each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
           
 
 

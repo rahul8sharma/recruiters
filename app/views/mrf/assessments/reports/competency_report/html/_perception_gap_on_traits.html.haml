@@ -18,12 +18,15 @@
   - aggrement_hash[trait] = @trait_scores_difference[trait]
 - aggrement_hash = Hash[aggrement_hash.sort_by { |key, value| value }.reverse]
 
+
 .competency_perception_gap_on_traits
   .divider2
   .container
     .title
       Perception Gap on Traits
-    .divider2
+    .divider1
+    %p.extra-medium-text.gray-darker
+      This section enlists traits in three parts, based on the gap between self ratings and stakeholder ratings on those traits:    
     .span10.large-text.first
       Agreement
     .span10.large-text.first
@@ -44,9 +47,9 @@
           .span9
             .divider1
             %ul.disc.large-text
-              - aggrement_hash.each do |key, value|
+              - aggrement_hash.each do |trait_name, value|
                 %li
-                  #{key}
+                  #{trait_name}
             .divider1
           .clr
         %td.space
@@ -54,9 +57,9 @@
           .span9
             .divider1
             %ul.disc.large-text
-              - negative_hash.each do |key, value|
+              - negative_hash.each do |trait_name, value|
                 %li
-                  #{key}
+                  #{trait_name}
             .divider1
           .clr
         %td.space
@@ -64,9 +67,9 @@
           .span9
             .divider1
             %ul.disc.large-text
-              - positive_hash.each do |key, value|
+              - positive_hash.each do |trait_name, value|
                 %li
-                  #{key}
+                  #{trait_name}
             .divider1
           .clr
         %td.space
