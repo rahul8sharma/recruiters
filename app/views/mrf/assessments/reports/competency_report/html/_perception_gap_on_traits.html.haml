@@ -1,3 +1,23 @@
+- @trait_scores_difference = Hash.new
+- @report.report_data[:competency_scores].each do |competency, competency_scores|
+  - competency_scores[:trait_scores].each do |trait_score|
+    - @trait_scores_difference[trait_score[:trait][:name]] =  (trait_score[:average_score_excluding_self][:score] - trait_score[:average_score_self][:score]).abs
+
+-negative_hash = Hash.new
+- @report.report_hash[:perception_gap]["negative_differences"].each do |trait|
+  - negative_hash[trait] = @trait_scores_difference[trait]
+- negative_hash = Hash[negative_hash.sort_by { |key, value| value }]
+
+-positive_hash = Hash.new
+- @report.report_hash[:perception_gap]["positive_differences"].each do |trait|
+  - positive_hash[trait] = @trait_scores_difference[trait]
+- positive_hash = Hash[positive_hash.sort_by { |key, value| value }.reverse]
+
+-aggrement_hash = Hash.new
+- @report.report_hash[:perception_gap]["aggrement"].each do |trait|
+  - aggrement_hash[trait] = @trait_scores_difference[trait]
+- aggrement_hash = Hash[aggrement_hash.sort_by { |key, value| value }.reverse]
+
 .competency_perception_gap_on_traits
   .divider2
   .container
@@ -20,16 +40,35 @@
               = Rails.application.config.reports["perception_gap"][title.to_s]
           %td.space
       %tr
-        - @report.report_hash[:perception_gap].each do |title, traits|
-          %td
-            .span9
-              .divider1
-              %ul.disc.large-text
-                -traits.each do |trait_name|
-                  %li
-                    = trait_name
-              .divider1
-            .clr
-          %td.space
+        %td
+          .span9
+            .divider1
+            %ul.disc.large-text
+              - aggrement_hash.each do |key, value|
+                %li
+                  #{key}
+            .divider1
+          .clr
+        %td.space
+        %td
+          .span9
+            .divider1
+            %ul.disc.large-text
+              - negative_hash.each do |key, value|
+                %li
+                  #{key}
+            .divider1
+          .clr
+        %td.space
+        %td
+          .span9
+            .divider1
+            %ul.disc.large-text
+              - positive_hash.each do |key, value|
+                %li
+                  #{key}
+            .divider1
+          .clr
+        %td.space
 .divider2.border-bottom-grayLighter
 
