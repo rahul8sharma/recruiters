@@ -1,8 +1,7 @@
 #scores_competencies.individual.scores_competencies_graph.section02
   .divider2
   .container
-    .title
+    .title.pull-left
       360&#176; and Self Ratings on Competencies/Values
-    .divider2
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { :section_value => section["children"]}
