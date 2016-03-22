@@ -1,9 +1,6 @@
 - id_name = "assessment[job_assessment_factor_norms_attributes][#{index}][id]"
 - destroy_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
 - factor_name = "assessment[job_assessment_factor_norms_attributes][#{index}][factor_id]"
-- fa_name = "assessment[job_assessment_factor_norms_attributes][#{index}][functional_area_id]"
-- industry_name = "assessment[job_assessment_factor_norms_attributes][#{index}][industry_id]"
-- exp_name = "assessment[job_assessment_factor_norms_attributes][#{index}][job_experience_id]"
 - norm_min_name = "assessment[job_assessment_factor_norms_attributes][#{index}][from_norm_bucket_id]"
 - norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][to_norm_bucket_id]"
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
@@ -12,9 +9,6 @@
   - if assessment_factor_norm.id.present?
     %input{name: (id_name), type: 'hidden', value: assessment_factor_norm.id, index: (index)}
   %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}  
-  %input{name: (fa_name), type: 'hidden', value: @assessment.functional_area_id, index: (index)}
-  %input{name: (industry_name), type: 'hidden', value: @assessment.industry_id, index: (index)}
-  %input{name: (exp_name), type: 'hidden', value: @assessment.job_experience_id, index: (index)}
   %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
   .span1.first
     %input{name: "selected_factor", class: "check_fit#{fit_index}", disabled: true, type: 'checkbox', id: "checkbox_factor_#{index}", index: (index), checked: assessment_factor_norm.id.present?}

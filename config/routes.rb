@@ -1204,10 +1204,10 @@ Recruiters::Application.routes.draw do
     namespace :job do
       resources :factor_norms do
         collection do
-          post :import
+          #post :import
           get :edit
           get :manage
-          get :destroy_all
+          #get :destroy_all
           post :import_via_s3
           post :export_to_google_drive
         end
