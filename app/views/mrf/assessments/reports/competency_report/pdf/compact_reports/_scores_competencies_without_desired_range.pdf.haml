@@ -11,11 +11,12 @@
       .graph_classic_user_icon.span
       .user_rating.span
         Self Rating
+      .competency_overlapped_score_icon.span
       .span
         Score Overlap is indicated by 
-      .competency_overlapped_score_icon.span
       .clr
     .clr
-    .divider1
+    %p.medium-tex.gray-darker
+      This section gives an overview of ratings obtained by the individual on each competency. It displays Self Ratings along with an average of all Stakeholder Ratings.
     = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph_without_desired_range"
 .page-break

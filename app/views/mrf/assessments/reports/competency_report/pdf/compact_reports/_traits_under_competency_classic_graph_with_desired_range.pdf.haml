@@ -56,7 +56,8 @@
                   - desired_range_width = ((desired_range_width * index) * step) - desired_range_margin
               - desired_range_width = 2 if desired_range_width == 0    
               / Variables used to get the desired range and compute the width and margin/
-              
+              - if start_from == end_to && start_from != @trait_graph_buckets.first.min_val
+                - desired_range_margin = desired_range_margin - 2
               - if self_score && other_score
                 - min_score = [self_score,other_score].min
                 - width = (convertToRange(min,max,0,100,other_score) - convertToRange(min,max,0,100,self_score)).abs
