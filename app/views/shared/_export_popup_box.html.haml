@@ -7,11 +7,11 @@
       Please select the fields and their order for the export
     .divider1.border-bottom-grayLighter
     .divider1
-    .span18.margin-auto
+    .span20.margin-auto
       %ul.clearfix 
         - fields.each do |key, value|
           %li
-            %label.span6.extra-medium-text.line-height2
+            %label.span7.extra-medium-text.line-height2
               %input{:type=>"checkbox", :name => value[0]}
               #{key}
             %select.span2{:name => value[1]}

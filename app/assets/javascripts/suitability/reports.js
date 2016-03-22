@@ -9,7 +9,8 @@ $(function() {
 
   $('#export_form').on('submit', function(event){
   	$('#exports').removeClass('hide');
-  	// return false;
+  	//  remove this return false when hooking it up with back-end
+  	return false;
   });
 
   $('#popup_close').on('click', function(){
