@@ -479,13 +479,21 @@
             id: "html_development_guide_candidate",
             text: "Development Guide for the Candidate",
             path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_candidate"]
+            }
           },
           {
             id: "html_development_guide_manager",
             text: "Guidelines for Candidates Manager",
             path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_manager"]
+            }
           }
         ]
       },
@@ -498,13 +506,21 @@
             id: "html_development_guide_candidate_trait_based",
             text: "Development Guide for the Candidate",
             path: "mrf/assessments/reports/competency_report/html/candidate_development_guide_trait_based",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_candidate_trait_based"]
+            }
           },
           {
             id: "html_development_guide_manager_trait_based",
             text: "Guidelines for Candidates Manager",
             path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines_trait_based",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_manager_trait_based"]
+            }
           }
         ]
       }

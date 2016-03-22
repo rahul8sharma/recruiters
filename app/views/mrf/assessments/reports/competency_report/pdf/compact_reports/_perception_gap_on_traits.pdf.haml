@@ -1,11 +1,11 @@
+- sorted_perception_gap = sort_perception_gap_section(@report.report_data[:competency_scores], @report.report_hash[:perception_gap]) 
+
 = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Perception Gap"}
 .competency_perception_gap_on_traits
   .divider2
   .title_section{:style=>"margin-left: 27px"}
     .color-info.big-text
       Perception Gap on Traits
-    %p.medium-text.gray-darker
-      This section enlists traits in three parts, based on the gap between self ratings and stakeholder ratings on those traits:
   %table{:cellpadding=>"0", :cellspacing=>"0"}
     %tr.titles
       %td
@@ -29,17 +29,36 @@
             = Rails.application.config.reports["perception_gap"][title.to_s]
         %td.space
     %tr
-      - @report.report_hash[:perception_gap].each do |title, traits|
-        %td
-          .span6
-            .divider1
-            %ul.disc.medium-text
-              -traits.each do |trait_name|
-                %li
-                  = trait_name
-            .divider1
-          .clr
-        %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            - sorted_perception_gap[:aggrement].each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            - sorted_perception_gap[:negative].each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
+      %td
+        .span6
+          .divider1
+          %ul.disc.medium-text
+            - sorted_perception_gap[:positive].each do |trait_name, value|
+              %li
+                = trait_name
+          .divider1
+        .clr
+      %td.space
           
 
 

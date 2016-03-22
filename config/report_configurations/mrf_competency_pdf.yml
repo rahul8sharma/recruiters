@@ -235,16 +235,61 @@
     ]
   },
   {
-    id: "pdf_development_guide_for_candidate",
-    text: "Development Guide for Candidate",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/development_guide_for_candidate",
-    children: []
-  },
-  {
-    id: "pdf_development_guide_for_candidates_manager",
-    text: "Development Guide for Candidate's Manager",
-    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/development_guide_for_candidates_manager",
-    children: []
+    id: "pdf_360_pagl",
+    text: "360 Degree PAGL",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl",
+    children: [
+      {
+        id: "pdf_360_pagl_competency_based",
+        text: "360 Degree PAGL [Competency Based]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl_competency_based",
+        children: [
+          {
+            id: "pdf_development_guide_candidate",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "user",
+              title: "Development Guide for the Candidate"
+            }
+          },
+          {
+            id: "pdf_development_guide_manager",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "manager",
+              title: "Development Guide for the Candidate's Manager"
+            }
+          }
+        ]
+      },
+      {
+        id: "pdf_360_pagl_trait_based",
+        text: "360 Degree PAGL [Trait Based]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl_trait_based",
+        children: [
+          {
+            id: "pdf_development_guide_candidate_trait_based",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "user",
+              title: "Development Guide for the Candidate"
+            }
+          },
+          {
+            id: "pdf_development_guide_manager_trait_based",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "manager",
+              title: "Development Guide for the Candidate's Manager"
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     id: "pdf_page9",
