@@ -4,10 +4,13 @@
     .title
       Development Guide for the Candidate
     .divider1
+    %p.extra-medium-text.gray-darker
+      This section offers some tips and suggestions for the candidate to improve on a particular trait/ parameter.
+    .divider1
     %ul
       - @report.report_data[:trait_guidelines].each do |key, value|
         %li
-          .span7.bold.extra-medium-text
+          .span7.first.bold.extra-medium-text
             #{key}
           .span22.extra-medium-text
             #{value[:user]}

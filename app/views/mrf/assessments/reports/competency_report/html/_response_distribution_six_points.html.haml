@@ -1,15 +1,16 @@
 .response_distribution_six_points
   .container
     .divider2
-    .pull-left
-      .span.title
-        Response distribution on Questions
+    .pull-left.title
+      Response distribution on Questions
     .pull-right.medium-text
       .span.stakeholder_label
         Question to stakeholder
       .span.candidate_label
         Question to candidate
     .clr
+    %p.extra-medium-text.gray-darker
+      This section presents the questions asked in the exercise and frequency of responses on each of the options.
     .divider1
     - @report.report_data[:competency_scores].each do |competency,competency_scores|
       - competency_scores[:trait_scores].each do |trait_score|
