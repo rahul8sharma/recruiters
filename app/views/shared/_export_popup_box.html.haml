@@ -1,6 +1,6 @@
-#candidates_assessments.popup_container
+#exports.popup_container.hide
   .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary{:style=>"margin-top: 50px"}
-    %a.btn-close.huge-text{:href => "#", :title => "Close"}
+    %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
       &times;
     .divider1
     .large-text.text-center
@@ -9,14 +9,15 @@
     .divider1
     .span18.margin-auto
       %ul.clearfix 
-        - 6.times do
+        - fields.each do |key, value|
           %li
             %label.span6.extra-medium-text.line-height2
-              %input{:type=>"checkbox"}
-              Assessment Taker's Name
-            %select.span2
-              %option
-                1
+              %input{:type=>"checkbox", :name => value[0]}
+              #{key}
+            %select.span2{:name => value[1]}
+              - fields.size.times do |index|
+                %option
+                  #{index+1}
             .clr
             .divider1
       .divider2

@@ -5,5 +5,15 @@ $(function() {
   $(".daterangepicker").daterangepicker({
     numberOfMonths: 2,
     presetRanges: []
-  }); 
+  });
+
+  $('#export_form').on('submit', function(event){
+  	$('#exports').removeClass('hide');
+  	// return false;
+  });
+
+  $('#popup_close').on('click', function(){
+  	$('#exports').addClass('hide');
+  });
+
 });

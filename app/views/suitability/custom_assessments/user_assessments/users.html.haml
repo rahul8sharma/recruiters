@@ -1,3 +1,4 @@
+- export_fields = {"Assessment Taker's Name" => ["option[assessment_takers_name]", "option[assessment_takers_name][order]"], "Email Id" => ["option[email_id]", "option[email_id][order]"], "Assessment Status" => ["option[assessment_status]", "option[assessment_status][order]"], "Assessment Link" => ["option[assessment_link]", "option[assessment_link][order]"], "Report Link" => ["option[report_link]", "option[report_link][order]"], "Assessment Sent At" => ["option[sent_at]", "option[sent_at][order]"], "Email Status" => ["option[email_status]", "option[email_status][order]"]}
 .user-list
   .span13.page-title.first
     .divider1
@@ -29,10 +30,12 @@
         %span.left-offset1
           Trials Taken:
         %span #{@company.assessmentwise_statistics[:trials_sent][@assessment.id.to_s] rescue 0}
-      %span.left-offset1
-        %a.label.label-warning.label-small.medium-text{:href=> email_assessment_status_url, :title=>"Email Status Summary"} Email Status Summary
-        - if is_superuser?
-          %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Email Status Summary"} Resend Invitations
+      - if is_superuser?
+        .span.pull-right
+          %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Resend Invitations"} Resend Invitations
+      = form_tag email_assessment_status_url, method: "get", id: "export_form", class: "pull-right" do |f|
+        .span
+          %input.label.label-warning.label-small.medium-text{type: "submit", value: "Email Reports Summary" }
 
     .filter-status.pull-right
       = form_for :search, url: users_url, method: :get, html: { id: "users_search_form" } do |f|
@@ -121,7 +124,8 @@
       = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
     .clr
 
-= render :partial => "shared/export_popup_box"
+= render :partial => "shared/export_popup_box", :locals => {:fields => export_fields }
 
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
+= javascript_include_tag "suitability/reports"

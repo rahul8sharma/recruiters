@@ -1,3 +1,4 @@
+- export_fields = {"Candidate Personal Details" => ["option[candidate_personal_details]", "option[candidate_personal_details][order]"], "Aggregate Competency Scores" => ["option[aggregate_competency_scores]", "option[aggregate_competency_scores][order]"], "Numerical Aggregate Competency Scores" => ["option[numerical_aggregate_competency_scores]", "option[numerical_aggregate_competency_scores][order]"], "Aggregate Competency Scores Rating" => ["option[aggregate_competency_scores_rating]", "option[aggregate_competency_scores_rating][order]"], "Competency Scores" => ["option[competency_scores]", "option[competency_scores][order]"], "Trait Competency Scores" => ["option[trait_competency_scores]", "option[trait_competency_scores][order]"], "Cocubes Scores" => ['option[cocubes_scores]', "option[cocubes_scores][order]"]}
 .creat-test-show
   .span15.page-title.first
     .divider1
@@ -48,12 +49,12 @@
             .clr
       .divider2
       .pull-right
-        = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: "get", id: "export_form" do |f|
           .medium-text.pull-left.line-height2.bold
             %input{ name: "date_range", class: "daterangepicker" }
           .medium-text.pull-left
             &nbsp;&nbsp;&nbsp;
-          %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
+          %input.pull-left.btn.btn-warning.medium-text{id:"export_summary", type: "submit", value: "Email Reports Summary" }
           .clr
       .clr
       .divider1
@@ -75,7 +76,7 @@
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
   .divider3
 
-= render :partial => "shared/export_popup_box"
+= render :partial => "shared/export_popup_box",:locals => {:fields => export_fields }
 
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.comiseo.daterangepicker"
