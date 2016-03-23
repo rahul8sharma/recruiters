@@ -1,4 +1,4 @@
-- export_fields = {"Candidate Personal Details" => ["option[candidate_personal_details]", "option[candidate_personal_details][order]"], "Aggregate Competency Scores" => ["option[aggregate_competency_scores]", "option[aggregate_competency_scores][order]"], "Numerical Aggregate Competency Scores" => ["option[numerical_aggregate_competency_scores]", "option[numerical_aggregate_competency_scores][order]"], "Aggregate Competency Scores Rating" => ["option[aggregate_competency_scores_rating]", "option[aggregate_competency_scores_rating][order]"], "Competency Scores" => ["option[competency_scores]", "option[competency_scores][order]"], "Trait Competency Scores" => ["option[trait_competency_scores]", "option[trait_competency_scores][order]"], "Cocubes Scores" => ['option[cocubes_scores]', "option[cocubes_scores][order]"]}
+- export_fields = Rails.application.config.reports["export_fields"]["reports"]
 .creat-test-show
   .span15.page-title.first
     .divider1

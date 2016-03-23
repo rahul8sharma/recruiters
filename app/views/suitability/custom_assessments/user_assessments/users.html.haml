@@ -1,4 +1,4 @@
-- export_fields = {"Assessment Taker's Name" => ["option[assessment_takers_name]", "option[assessment_takers_name][order]"], "Email Id" => ["option[email_id]", "option[email_id][order]"], "Assessment Status" => ["option[assessment_status]", "option[assessment_status][order]"], "Assessment Link" => ["option[assessment_link]", "option[assessment_link][order]"], "Report Link" => ["option[report_link]", "option[report_link][order]"], "Assessment Sent At" => ["option[sent_at]", "option[sent_at][order]"], "Email Status" => ["option[email_status]", "option[email_status][order]"]}
+- export_fields = Rails.application.config.reports["export_fields"]["users"]
 .user-list
   .span13.page-title.first
     .divider1
