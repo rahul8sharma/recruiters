@@ -12,7 +12,7 @@
           .pull-right
             - @report.report_data[:super_competency_configuration][:toolwise_configuration].each do |tool,config|
               .span3.no-border.text-center
-                = tool.titleize
+                = tool
             .clr
           .clr
         - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq
