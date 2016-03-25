@@ -83,10 +83,9 @@ module Mrf::ReportHelper
     trait_scores_difference = {}
     competency_scores.each do |competency, competency_scores|
       competency_scores[:trait_scores].each do |trait_score|
-        trait_scores_difference[trait_score[:trait][:name]] =  (trait_score[:average_score_excluding_self][:score] - trait_score[:average_score_self][:score]).abs
+        trait_scores_difference[trait_score[:trait][:name]] =  trait_score[:average_score_excluding_self][:score]
       end
     end
-
     negative_hash = {}
     perception_gap["negative_differences"].each do |trait|
        negative_hash[trait] = trait_scores_difference[trait]
