@@ -86,7 +86,6 @@ module Mrf::ReportHelper
         trait_scores_difference[trait_score[:trait][:name]] =  trait_score[:average_score_excluding_self][:points]
       end
     end
-    Rails.logger.ap trait_scores_difference
     negative_hash = {}
     perception_gap["negative_differences"].each do |trait|
        negative_hash[trait] = trait_scores_difference[trait]
