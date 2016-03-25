@@ -250,7 +250,8 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "user",
-              title: "Development Guide for the Candidate"
+              title: "Development Guide for the Candidate",
+              info_text: "This section offers some tips and suggestions for the candidate to improve on a particular trait/ parameter."
             }
           },
           {
@@ -259,7 +260,8 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "manager",
-              title: "Guidelines for Candidate's Manager"
+              title: "Guidelines for Candidate's Manager",
+              info_text: "This section offers pointers for the candidate's manager on enabling him/ her to develop a particular trait/ parameter."
             }
           }
         ]
@@ -275,7 +277,8 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "user",
-              title: "Development Guide for the Candidate"
+              title: "Development Guide for the Candidate",
+              info_text: "This section offers some tips and suggestions for the candidate to improve on a particular trait/ parameter."
             }
           },
           {
@@ -284,7 +287,8 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "manager",
-              title: "Guidelines for Candidate's Manager"
+              title: "Guidelines for Candidate's Manager",
+              info_text: "This section offers pointers for the candidate's manager on enabling him/ her to develop a particular trait/ parameter."
             }
           }
         ]

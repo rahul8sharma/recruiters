@@ -5,7 +5,8 @@
       .divider1
       .blue_heading.big-text
         #{guidelines["title"]}
-      .divider1
+      %p.medium-text.gray-darker
+        #{guidelines["info_text"]}
       %ul.clearfix.interview_guide_listing
         - step_guidelines.each do |key, value|
           %li
