@@ -1,18 +1,19 @@
-= render partial: "shared/360/compact_mrf_report_header"
-.inner
-  .scores.interview_guide
-    .divider1
-    .blue_heading.big-text
-      #{guidelines["title"]}
-    .divider1
-    %ul.clearfix.interview_guide_listing
-      - guidelines["guidelines"].each do |key, value|
-        %li
-          .divider1
-          .factor-name.pull-left
-            #{key}
-          .description.pull-left
-            #{value[guidelines["type"]]}
-          .clr
-          .divider1
-.page-break
+- guidelines["guidelines"].each_slice(10) do |step_guidelines|
+  = render partial: "shared/360/compact_mrf_report_header"
+  .inner
+    .scores.interview_guide
+      .divider1
+      .blue_heading.big-text
+        #{guidelines["title"]}
+      .divider1
+      %ul.clearfix.interview_guide_listing
+        - step_guidelines.each do |key, value|
+          %li
+            .divider1
+            .factor-name.pull-left
+              #{key}
+            .description.pull-left
+              #{value[guidelines["type"]]}
+            .clr
+            .divider1
+  .page-break
