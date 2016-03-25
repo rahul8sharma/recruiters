@@ -259,7 +259,7 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "manager",
-              title: "Development Guide for the Candidate's Manager"
+              title: "Guidelines for Candidate's Manager"
             }
           }
         ]
@@ -284,7 +284,7 @@
             path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
             locals: {
               type: "manager",
-              title: "Development Guide for the Candidate's Manager"
+              title: "Guidelines for Candidate's Manager"
             }
           }
         ]
