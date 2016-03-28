@@ -154,9 +154,6 @@ class AssessmentsController < ApplicationController
       else
         assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
           :factor_id => factor.id,
-          :functional_area_id => @assessment.functional_area_id,
-          :industry_id => @assessment.industry_id,
-          :job_experience_id => @assessment.job_experience_id,
           :selected => selected_factors.keys.include?(factor_id)
         )
       end
@@ -252,10 +249,7 @@ class AssessmentsController < ApplicationController
         default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor.id}
 
         assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(
-          :factor_id => factor.id,
-          :functional_area_id => @assessment.functional_area_id,
-          :industry_id => @assessment.industry_id,
-          :job_experience_id => @assessment.job_experience_id
+          :factor_id => factor.id
         )
 
         # to avoid calls to API, set fa, industry and exp from already fetched data
@@ -322,7 +316,7 @@ class AssessmentsController < ApplicationController
     selected_parents = @job_assessment_factor_norms.map(&:factor_id)
 
     all_direct_predictors.each do |factor|
-      assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:functional_area_id => @assessment.functional_area_id, :industry_id => @assessment.industry_id, :job_experience_id => @assessment.job_experience_id, :factor_id => factor.id)
+      assessment_factor_norm = Vger::Resources::Suitability::Job::AssessmentFactorNorm.new(:factor_id => factor.id)
       assessment_factor_norm.factor = factor
       @job_assessment_factor_norms.push assessment_factor_norm unless selected_parents.include? factor.id
     end
