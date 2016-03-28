@@ -1,27 +1,28 @@
 #exports.popup_container.hide
-  .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary
-    %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
-      &times;
-    .divider1
-    .large-text.text-center
-      Please select the fields and their order for the export
-    .divider1.border-bottom-grayLighter
-    .divider1
-    .span20.margin-auto
-      %ul.clearfix 
-        - fields.each do |key, value|
-          %li
-            %label.span7.extra-medium-text.line-height2
-              %input{:type=>"checkbox", :name => value[0]}
-              #{key}
-            %select.span2{:name => value[1]}
-              - fields.size.times do |index|
-                %option
-                  #{index+1}
-            .clr
-            .divider1
-      .divider2
-
-      %input.form-action.btn.btn-warning.pull-right.medium-text.bold{:type =>"submit", :value => "Export"}
-      .clr
+  %form{:method => "", :action => "", :name => "Export Fields"}
+    .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary
+      %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
+        &times;
       .divider1
+      .large-text.text-center
+        Please select the fields and their order for the export
+      .divider1.border-bottom-grayLighter
+      .divider1
+      .span20.margin-auto
+        %ul.clearfix 
+          - fields.each do |key, value|
+            %li
+              %label.span7.extra-medium-text.line-height2
+                %input{:type=>"checkbox", :name => value[0]}
+                #{key}
+              %select.span2{:name => value[1]}
+                - fields.size.times do |index|
+                  %option
+                    #{index+1}
+              .clr
+              .divider1
+        .divider2
+
+        %input.form-action.btn.btn-warning.pull-right.medium-text.bold{:type =>"submit", :value => "Export"}
+        .clr
+        .divider1

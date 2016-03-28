@@ -123,9 +123,9 @@
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
     .clr
-
 = render :partial => "shared/export_popup_box", :locals => {:fields => export_fields }
 
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
 = javascript_include_tag "suitability/reports"
+= javascript_include_tag "shared/export_popup"

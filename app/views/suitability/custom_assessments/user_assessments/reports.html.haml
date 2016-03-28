@@ -75,8 +75,6 @@
       .alert.medium-text
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
   .divider3
-
-
 = render :partial => "shared/export_popup_box",:locals => {:fields => export_fields }
 
 - content_for :stylesheets do
@@ -86,5 +84,6 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
   = javascript_include_tag "suitability/reports"
+  = javascript_include_tag "shared/export_popup"
     
     
