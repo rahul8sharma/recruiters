@@ -1,9 +1,8 @@
 $(function() { 
-  $('#export_form').on('submit', function(event){
+  $('#export_form').on('click', function(event){
   	$('#exports').removeClass('hide');
   	$('.popup_modal').center();
-  	//  remove this return false when hooking it up with back-end
-  	return false;
+    return false;
   });
 
   $('#popup_close').on('click', function(){

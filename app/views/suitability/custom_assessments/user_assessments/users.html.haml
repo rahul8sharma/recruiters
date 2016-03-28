@@ -33,9 +33,9 @@
       - if is_superuser?
         .span.pull-right
           %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Resend Invitations"} Resend Invitations
-      = form_tag email_assessment_status_url, method: "get", id: "export_form", class: "pull-right" do |f|
-        .span
-          %input.label.label-warning.label-small.medium-text{type: "submit", value: "Email Reports Summary" }
+      #export_form.span.pull-right
+        %a.label.label-warning.label-small.medium-text{:href=> "#", :title=>"Email Reports Summary"}
+          Email Reports Summary
 
     .filter-status.pull-right
       = form_for :search, url: users_url, method: :get, html: { id: "users_search_form" } do |f|
@@ -123,7 +123,7 @@
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
     .clr
-= render :partial => "shared/export_popup_box", :locals => {:fields => export_fields }
+= render :partial => "shared/export_popup_box", :locals => {:fields => export_fields, :url => email_assessment_status_url }
 
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'

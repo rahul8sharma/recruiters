@@ -1,5 +1,5 @@
 #exports.popup_container.hide
-  %form{:method => "", :action => "", :name => "Export Fields"}
+  %form{:method => "get", :action => url, :name => "Export Fields"}
     .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary
       %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
         &times;
