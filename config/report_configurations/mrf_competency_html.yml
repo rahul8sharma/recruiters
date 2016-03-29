@@ -126,7 +126,7 @@
             links: {
               html: ["html_360_show_desired_range_header"],
               pdf: ["pdf_scores_competencies_with_desired_range_compact"]
-            }            
+            }
           },
           {
             id: "html_360_hide_desired_range_section",
@@ -136,7 +136,7 @@
             links: {
               html: ["html_360_hide_desired_range_header"],
               pdf: ["pdf_scores_competencies_without_desired_range_compact"]
-            }            
+            }
           }
         ]
       }
@@ -168,7 +168,7 @@
             path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
             locals: {},
             links: {
-              html: ["html_header_traits","html_360_traits_under_competency_graph_without_desired_range"],
+              html: ["html_360_traits_under_competency_graph_without_desired_range"],
               pdf: ["pdf_trait_scores_under_competencies_without_desired_range"]
             }
           }
@@ -201,7 +201,11 @@
           }
         ]
       }
-    ]
+    ],
+    links: {
+      html: ["html_header_traits"],
+      pdf: []
+    }
   },
   {
     id: "html_top_bottom_competencies",
@@ -243,7 +247,7 @@
     path: "mrf/assessments/reports/competency_report/html/competencies_descending_order",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_scores"],
       pdf: ["pdf_360_degree_competencies_scores_in_descending_order"]
     }    
   },
@@ -253,7 +257,7 @@
     path: "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order",
     children: [],
     links: {
-      html: [],
+      html: ["html_header_traits"],
       pdf: ["pdf_360_degree_traits_scores_in_descending_order"]
     }    
   },
@@ -312,11 +316,11 @@
         links: {
           html: ["html_header_data_points_competencies"],
           pdf: []
-        }        
+        }
       }
     ],
     links: {
-      html: [],
+      html: ["html_header_data_points_competencies"],
       pdf: ["pdf_frequency_rating_table_compact"]
     }
   },
@@ -335,7 +339,7 @@
         links: {
           html: ["html_header_data_points_traits"],
           pdf: []
-        }        
+        }
       },
       {
         id: "html_trait_wise_best_worst_scores",
@@ -343,7 +347,7 @@
         path: "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_descending_trait_wise_overall_score",
@@ -351,7 +355,7 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_descending_trait_wise_average_rating",
@@ -359,7 +363,7 @@
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_average_rating",
         locals: {
           trait_score: "trait_score"
-        }        
+        }
       },
       {
         id: "html_frequency_rating_table",
@@ -374,7 +378,7 @@
         links: {
           html: ["html_header_data_points_traits"],
           pdf: []
-        }        
+        }
       }
     ],
     links: {
@@ -390,7 +394,7 @@
     links: {
       html: [],
       pdf: ["pdf_response_distribution_on_questions_new"]
-    }    
+    }
   },
   {
     id: "html_responses_to_other_questions",
@@ -449,7 +453,7 @@
             links: {
               html: [],
               pdf: ["pdf_responses_without_stakholder_type_self"]
-            }            
+            }
           }
         ]
       }
@@ -463,7 +467,7 @@
     links: {
       html: ["html_header_summary"],
       pdf: ["pdf_page9"]
-    }    
+    }
   },
   {
     id: "html_360_pagl",
@@ -479,13 +483,21 @@
             id: "html_development_guide_candidate",
             text: "Development Guide for the Candidate",
             path: "mrf/assessments/reports/competency_report/html/candidate_development_guide",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_candidate"]
+            }
           },
           {
             id: "html_development_guide_manager",
             text: "Guidelines for Candidates Manager",
             path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_manager"]
+            }
           }
         ]
       },
@@ -498,13 +510,21 @@
             id: "html_development_guide_candidate_trait_based",
             text: "Development Guide for the Candidate",
             path: "mrf/assessments/reports/competency_report/html/candidate_development_guide_trait_based",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_candidate_trait_based"]
+            }
           },
           {
             id: "html_development_guide_manager_trait_based",
             text: "Guidelines for Candidates Manager",
             path: "mrf/assessments/reports/competency_report/html/candidate_manager_guidelines_trait_based",
-            locals: {}
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_development_guide_manager_trait_based"]
+            }
           }
         ]
       }

@@ -462,3 +462,33 @@ ul.scores_listing
         border: 1px solid #f58220
     .fw
       width: 90% !important
+.popup_container
+  background: rgba(0, 0, 0, 0.6)
+  height: 100%
+  width: 100%
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 1000
+  .popup_modal
+    position: relative
+    .btn-close
+      position: absolute
+      right: 10px 
+      top: -5px
+      color: #808285
+      &:hover, &:focus
+        opacity: 0.7
+        text-decoration: none
+    ul
+      li
+        float: left
+        &:nth-child(odd)
+          padding-right: 20px
+          border-right: 1px solid #e3e3e3
+        &:nth-child(even)
+          padding-left: 10px
+    .form-action
+      margin-right: 40px
+
+

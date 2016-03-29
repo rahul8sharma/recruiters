@@ -1,0 +1,26 @@
+#candidates_assessments.popup_container
+  .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary{:style=>"margin-top: 50px"}
+    %a.btn-close.huge-text{:href => "#", :title => "Close"}
+      &times;
+    .divider1
+    .large-text.text-center
+      Please select the fields and their order for the export
+    .divider1.border-bottom-grayLighter
+    .divider1
+    .span18.margin-auto
+      %ul.clearfix 
+        - 6.times do
+          %li
+            %label.span6.extra-medium-text.line-height2
+              %input{:type=>"checkbox"}
+              Assessment Taker's Name
+            %select.span2
+              %option
+                1
+            .clr
+            .divider1
+      .divider2
+
+      %input.form-action.btn.btn-warning.pull-right.medium-text.bold{:type =>"submit", :value => "Export"}
+      .clr
+      .divider1

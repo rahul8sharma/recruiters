@@ -278,48 +278,48 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     - Initiative
   competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Operations Excellence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE4]t is a long established fact that a reader will be distracted
+      user: 'Type:CompetencyBased::USER [CANDIDATE4]t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:CompetencyBased::Manager There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
     Customer Focus: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE1]t is a long established fact that a reader will be distracted
+      user: 'Type:CompetencyBased::USER[CANDIDATE1]t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:CompetencyBased::Manager There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
   trait_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     People Understanding: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE4]t is a long established fact that a reader will be distracted
+      user: 'Type:TraitBased::USER[CANDIDATE4] t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:TraitBased::Manager There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
     Smart Problem Solving: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE1]t is a long established fact that a reader will be distracted
+      user: 'Type:TraitBased::USER[CANDIDATE1]t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:TraitBased::Manager There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
     Helpfulness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE2]t is a long established fact that a reader will be distracted
+      user: 'Type:TraitBased::USER[CANDIDATE4] [CANDIDATE2]t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:TraitBased::Manager[CANDIDATE4]There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
     Responsibility of Outcomes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      user: '[CANDIDATE3]t is a long established fact that a reader will be distracted
+      user: 'Type:TraitBased::USER[CANDIDATE4] [CANDIDATE3]t is a long established fact that a reader will be distracted
         by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
         as opposed to using ''Content here, content here'', making it look like readable
         English'
-      manager: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
+      manager: Type:TraitBased::Manager[CANDIDATE4]There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomise
   aggregate_competencies_score: 57.0
   competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Operations Excellence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
