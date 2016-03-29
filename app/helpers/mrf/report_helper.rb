@@ -78,4 +78,36 @@ module Mrf::ReportHelper
     new_hash 
   end
 
+  def sort_perception_gap_section(competency_scores, perception_gap)
+    new_hash = {}
+    trait_scores_difference = {}
+    competency_scores.each do |competency, competency_scores|
+      competency_scores[:trait_scores].each do |trait_score|
+        trait_scores_difference[trait_score[:trait][:name]] =  trait_score[:average_score_excluding_self][:points]
+      end
+    end
+    negative_hash = {}
+    perception_gap["negative_differences"].each do |trait|
+       negative_hash[trait] = trait_scores_difference[trait]
+    end
+    negative_hash = Hash[negative_hash.sort_by { |key, value| value }]
+
+    positive_hash = {}
+    perception_gap["positive_differences"].each do |trait|
+      positive_hash[trait] = trait_scores_difference[trait]
+    end
+    positive_hash = Hash[positive_hash.sort_by { |key, value| value }.reverse]
+
+    aggrement_hash = {}
+    perception_gap["aggrement"].each do |trait|
+      aggrement_hash[trait] = trait_scores_difference[trait]
+    end
+    aggrement_hash = Hash[aggrement_hash.sort_by { |key, value| value }.reverse]
+
+    new_hash[:aggrement] = aggrement_hash
+    new_hash[:negative] = negative_hash
+    new_hash[:positive] = positive_hash
+    new_hash
+  end
+
 end

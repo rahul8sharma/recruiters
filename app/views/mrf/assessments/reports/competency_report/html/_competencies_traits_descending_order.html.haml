@@ -1,5 +1,5 @@
 - sorted_trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_score| competency_score[:trait_scores] }.flatten.sort_by{|trait_score| trait_score[:average_score_excluding_self][:points].to_f }.reverse.uniq
-.scores_competencies_graph.descending_order.section02
+#traits.scores_competencies_graph.descending_order.section02
   .divider2
   .container
     .title.pull-left
@@ -10,6 +10,8 @@
         360&#176; Rating
       .clr
     .clr
+    %p.extra-medium-text.gray-darker
+      All traits included under competencies are presented together in a descending order of average stakeholder ratings
     .divider2
     .traits_under_graph
       .graph_container
@@ -20,7 +22,7 @@
           %ul
             - sorted_trait_scores.each do |trait_score|
               %li
-                .trait_title.first.span7.extra-medium-text.bold{ title: trait_score[:trait][:name] }
+                .trait_title.first.span7.extra-medium-text{ title: trait_score[:trait][:name] }
                   = truncate trait_score[:trait][:name], length: 25
                   
                 .stakeholder_rating.medium-text.pull-left

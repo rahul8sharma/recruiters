@@ -235,6 +235,67 @@
     ]
   },
   {
+    id: "pdf_360_pagl",
+    text: "360 Degree PAGL",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl",
+    children: [
+      {
+        id: "pdf_360_pagl_competency_based",
+        text: "360 Degree PAGL [Competency Based]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl_competency_based",
+        children: [
+          {
+            id: "pdf_development_guide_candidate",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "user",
+              title: "Development Guide for the Candidate",
+              info_text: "This section offers some tips and suggestions for the candidate to improve on a particular trait/ parameter."
+            }
+          },
+          {
+            id: "pdf_development_guide_manager",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "manager",
+              title: "Guidelines for Candidate's Manager",
+              info_text: "This section offers pointers for the candidate's manager on enabling him/ her to develop a particular trait/ parameter."
+            }
+          }
+        ]
+      },
+      {
+        id: "pdf_360_pagl_trait_based",
+        text: "360 Degree PAGL [Trait Based]",
+        path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_pagl_trait_based",
+        children: [
+          {
+            id: "pdf_development_guide_candidate_trait_based",
+            text: "Development Guide for the Candidate",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "user",
+              title: "Development Guide for the Candidate",
+              info_text: "This section offers some tips and suggestions for the candidate to improve on a particular trait/ parameter."
+            }
+          },
+          {
+            id: "pdf_development_guide_manager_trait_based",
+            text: "Guidelines for Candidates Manager",
+            path: "mrf/assessments/reports/competency_report/pdf/compact_reports/mrf_development_guide",
+            locals: {
+              type: "manager",
+              title: "Guidelines for Candidate's Manager",
+              info_text: "This section offers pointers for the candidate's manager on enabling him/ her to develop a particular trait/ parameter."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "pdf_page9",
     text: "Summary of 360 Degree Feedback",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/page9",
