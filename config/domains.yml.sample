@@ -1,0 +1,14 @@
+development: &dev
+  assessment_url : "http://validation.jombaylocal.com"
+  feedback_url: "http://360.jombaylocal.com"
+  engagement_url: "http://engage.jombaylocal.com"
+  jombay_url: "http://jombaylocal.com"
+  companies_url: "http://companies.jombaylocal.com"
+production: &prod
+  assessment_url : "http://validation.jombaylocal.com" 
+  feedback_url: "http://360.jombaylocal.com"
+  engagement_url: "http://engage.jombaylocal.com"
+  jombay_url: "http://jombaylocal.com"
+  companies_url: "http://companies.jombaylocal.com"
+test: &test
+  <<: *dev
