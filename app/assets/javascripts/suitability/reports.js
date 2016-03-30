@@ -5,5 +5,5 @@ $(function() {
   $(".daterangepicker").daterangepicker({
     numberOfMonths: 2,
     presetRanges: []
-  }); 
+  });
 });

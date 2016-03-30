@@ -63,3 +63,50 @@ oac_report:
   TQHBqVkO: "Competent"
   mbAKnHly: "Proficient"
   QHqInEYf: "Expert"
+
+export_fields:
+  reports:
+    Candidate Personal Details:
+      - "option[candidate_personal_details]"
+      - "option[candidate_personal_details][order]"
+    Aggregate Competency Scores:
+      - "option[aggregate_score]"
+      - "option[aggregate_score][order]"
+    Numerical Aggregate Competency Scores:
+      - "option[numerical_aggregate_score]"
+      - "option[numerical_aggregate_score][order]"
+    Aggregate Competency Scores Rating:
+      - "option[aggregate_score_rating]"
+      - "option[aggregate_score_rating][order]"
+    Competency Scores:
+      - "option[competency_scores]"
+      - "option[competency_scores][order]"
+    Trait Competency Scores:
+      - "option[trait_scores]"
+      - "option[trait_scores][order]"
+    Cocubes Scores:
+      - "option[cocubes_scores]"
+      - "option[cocubes_scores][order]"
+  users:
+    Assessment Taker's Name:
+      - "option[assessment_takers_name]"
+      - "option[assessment_takers_name][order]"
+    Email Id:
+      - "option[email_id]"
+      - "option[email_id][order]"
+    Assessment Status:
+      - "option[assessment_status]"
+      - "option[assessment_status][order]"
+    Assessment Link:
+      - "option[assessment_link]"
+      - "option[assessment_link][order]"
+    Report Link:
+      - "option[report_link]"
+      - "option[report_link][order]"
+    Assessment Sent At:
+      - "option[assessment_sent_at]"
+      - "option[assessment_sent_at][order]"
+    Email Status:
+      - "option[email_status]"
+      - "option[email_status][order]"
+
