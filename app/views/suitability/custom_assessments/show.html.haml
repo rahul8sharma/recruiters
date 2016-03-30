@@ -23,15 +23,15 @@
         .pull-left
           %b
             Industry:
-          = @assessment.industry.name
+          = @assessment.industry.name rescue "Global"
           %br/  
           %b
             Function:
-          = @assessment.functional_area.name
+          = @assessment.functional_area.name rescue "Global"
           %br/    
           %b  
             Experience:
-          = @assessment.job_experience.display_text
+          = @assessment.job_experience.display_text rescue "Global"
       .scale.pull-right
         - line_width = (((@company_norm_buckets.size-1)*50)+10)
         .line{:style => "width: #{line_width}px"}
