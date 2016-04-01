@@ -1,3 +1,4 @@
+- export_fields = Rails.application.config.reports["export_fields"]["reports"]
 .creat-test-show
   .span15.page-title.first
     .divider1
@@ -48,12 +49,12 @@
             .clr
       .divider2
       .pull-right
-        = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :get do |f|
+        = form_tag email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: "get" do |f|
           .medium-text.pull-left.line-height2.bold
             %input{ name: "date_range", class: "daterangepicker" }
           .medium-text.pull-left
             &nbsp;&nbsp;&nbsp;
-          %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Email Reports Summary" }
+          %input.pull-left.btn.btn-warning.medium-text{id:"export_form", type: "submit", value: "Email Reports Summary" }
           .clr
       .clr
       .divider1
@@ -74,8 +75,8 @@
       .alert.medium-text
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
   .divider3
-
--#= render :partial => "shared/export_popup_box"
+- url = email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
+= render :partial => "shared/export_popup_box",:locals => {:fields => export_fields, :url => url }
 
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui/jquery.comiseo.daterangepicker"
@@ -84,5 +85,6 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
   = javascript_include_tag "suitability/reports"
+  = javascript_include_tag "shared/export_popup"
     
     
