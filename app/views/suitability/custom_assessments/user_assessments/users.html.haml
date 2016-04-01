@@ -123,7 +123,7 @@
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
     .clr
-= render :partial => "shared/export_popup_box", :locals => {:fields => export_fields, :url => email_assessment_status_url, enable_date_range: false }
+= render :partial => "shared/export_popup_box", :locals => {:fields => export_fields, :url => email_assessment_status_url }
 
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'

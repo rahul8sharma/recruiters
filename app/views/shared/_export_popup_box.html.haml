@@ -9,11 +9,7 @@
       .divider1.border-bottom-grayLighter
       .divider1
       .span20.margin-auto
-        - if enable_date_range
-          .medium-text.pull-left.line-height2.bold
-            %input{ name: "date_range", class: "daterangepicker" }
-          .clr  
-        .divider1  
+        = yield :daterangepicker    
         %ul.clearfix 
           - fields.each_with_index do |(key, value),field_index|
             %li
