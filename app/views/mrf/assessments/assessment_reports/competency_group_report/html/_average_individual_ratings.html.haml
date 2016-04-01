@@ -1,3 +1,9 @@
+- Rails.logger.ap "@report.report_hash[:competency_individual_scores]"
+- Rails.logger.ap @report.report_hash[:competency_individual_scores]
+
+- sorted_individual_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_including_self][:points].to_f }.reverse
+
+
 - if @report.report_data[:group_average_vs_individual_rating]
   - if @report.report_hash[:competency_individual_scores].present?
     .average_individual_ratings.border-bottom-grayLighter
@@ -23,7 +29,7 @@
                       .stakeholder_rating.medium-text.pull-left
                         = group_average
                       .clr
-                    - competency_scores.each do |scores|
+                    - competency_scores.sort_by{|scores| scores[:score].to_f}.reverse.each do |scores|
                       %li
                         .span6.extra-medium-text.first.trait_title
                           = scores[:name]
@@ -49,7 +55,7 @@
                         .divider1
                         .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
                         .divider1
-                        - competency_scores.each do |scores|
+                        - competency_scores.sort_by{|scores| scores[:score].to_f}.reverse.each do |scores|
                           - if scores[:score]
                             - percent_360 = convertToRange(old_min, old_max, 0, 100, scores[:score].to_f)
                             - percent_360 = percent_360 == 0 ? 5 : percent_360
