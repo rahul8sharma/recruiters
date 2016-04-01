@@ -10,4 +10,8 @@ class Mrf::TraitScoreBucketsController < MasterDataController
   def index_columns
     [:id, :uid, :name, :min_val, :max_val, :company_id]
   end
+  
+  def search_columns
+    [:uid, :name, :company_id]
+  end
 end

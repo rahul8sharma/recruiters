@@ -14,11 +14,24 @@
       .big-text.font-bold
         .pull-left
           Traits Measured: #{@assessment_factor_norms.count}
-       
+        
         .pull-right.span7.first.text-center
           Expected Score Range
         .clr
       .divider1
+      - if is_superuser?
+        .pull-left
+          %b
+            Industry:
+          = @assessment.industry.name rescue "Global"
+          %br/  
+          %b
+            Function:
+          = @assessment.functional_area.name rescue "Global"
+          %br/    
+          %b  
+            Experience:
+          = @assessment.job_experience.display_text rescue "Global"
       .scale.pull-right
         - line_width = (((@company_norm_buckets.size-1)*50)+10)
         .line{:style => "width: #{line_width}px"}
