@@ -23,7 +23,7 @@
       Template Variables (Click on a template variable to add it to the template body)
     %ul#template_variables
       - @template_variables.sort_by(&:id).each_with_index do |template_variable,index|    
-        %li{ title: template_variable.value }
+        %li
           = template_variable.id
           = link_to template_variable.name, "#", template_variable_name: template_variable.id, class: "template_variable_link"
           

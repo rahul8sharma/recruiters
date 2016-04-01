@@ -11,7 +11,7 @@
       AID
     .span4.bold
       Created On
-    .span11.bold
+    .span9.bold
       Assessment Title
     .span4.bold
       View Details
@@ -35,7 +35,7 @@
           %a{:href => assessment_url, :title => "Date"} 
             -# = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
             = hdate exercise.created_at
-        .span11.info-block
+        .span9.info-block
           %a{:href=> assessment_url, :title => "Assessment Name"}  
             = exercise.name
         .span3.text-center
