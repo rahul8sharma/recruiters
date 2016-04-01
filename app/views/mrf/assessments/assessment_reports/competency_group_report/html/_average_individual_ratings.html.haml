@@ -1,9 +1,4 @@
-- Rails.logger.ap "@report.report_hash[:competency_individual_scores]"
-- Rails.logger.ap @report.report_hash[:competency_individual_scores]
-
 - sorted_individual_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_including_self][:points].to_f }.reverse
-
-
 - if @report.report_data[:group_average_vs_individual_rating]
   - if @report.report_hash[:competency_individual_scores].present?
     .average_individual_ratings.border-bottom-grayLighter
