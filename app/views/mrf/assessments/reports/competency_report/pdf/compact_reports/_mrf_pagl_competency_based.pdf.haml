@@ -1,0 +1,3 @@
+- section_value.each do |section|
+  - competency_guidelines = Hash["type" => section["locals"]["type"], "guidelines" => @report.report_hash[:competency_guidelines], "title" => section["locals"]["title"]]
+  = render :partial => section["path"], :locals => {:guidelines => competency_guidelines}

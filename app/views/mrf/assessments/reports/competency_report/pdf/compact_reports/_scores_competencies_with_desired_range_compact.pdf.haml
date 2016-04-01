@@ -5,6 +5,8 @@
     .title
       Overview of 360&#176; and self ratings on Competencies
     .scores_competencies_graph_content
+      %p.medium-text.gray-darker
+        This section gives an overview of ratings obtained by the individual on each competency. It displays Self Ratings along with an average of all Stakeholder Ratings.
       .graph_instructions
         .graph_stakeholder_rating_icon.pull-left
         .stakeholder_rating.span
@@ -15,11 +17,11 @@
         .competency_overlapped_score_icon.span
         .span
           Score Overlap is indicated by 
-        .clr
-        .desired_range.span2.hide
-        .span.hide
+        .desired_range.span2
+        .span
           Desired Range
         .clr
       .clr
       .divider1
+      
       = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_classic_graph_with_desired_range"

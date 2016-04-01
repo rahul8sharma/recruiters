@@ -1,0 +1,47 @@
+.companies-list
+  .page-title
+    .divider1
+    = link_to "Search Companies", companies_path
+    | 
+    = link_to "Search Users", users_path
+    |
+    Search Assessment
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @assessments}
+  .clr
+  .divider1
+  .search
+    = form_for :search, url: search_assessments_path, method: :get do |f|
+      - f.object = OpenStruct.new(params[:search])
+      .field
+        = f.text_field :name, :placeholder => "Assessment Name", value: params[:search][:name]
+        = f.submit "Search", class: "btn btn-warning"
+  .divider2
+  .list-snippet-titles.extra-medium-text.clearfix
+    .span7.first
+      Assessment ID
+    .span9
+      Assessment Name
+    .span7
+      Company ID
+    .span7
+      Company Name
+    .clr
+    .divider2
+  %ul
+    - @assessments.each do |assessment|
+      %li.list-snippet.border-bottom-grayLighter
+        .span7.first
+          = assessment.id
+        .span9
+          = assessment.name 
+        .span7
+          = assessment.company_id 
+        .span7
+          = assessment.company.name
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @assessments}
+  .clr
