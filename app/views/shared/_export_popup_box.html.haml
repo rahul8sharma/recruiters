@@ -1,5 +1,5 @@
 #exports.popup_container.hide
-  %form{:method => "get", :action => url, :name => "Export Fields"}
+  = form_tag url, method: :post, :name => "Export Fields" do
     .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary
       %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
         &times;
@@ -9,15 +9,20 @@
       .divider1.border-bottom-grayLighter
       .divider1
       .span20.margin-auto
+        - if enable_date_range
+          .medium-text.pull-left.line-height2.bold
+            %input{ name: "date_range", class: "daterangepicker" }
+          .clr  
+        .divider1  
         %ul.clearfix 
-          - fields.each do |key, value|
+          - fields.each_with_index do |(key, value),field_index|
             %li
               %label.span7.extra-medium-text.line-height2
-                %input{:type=>"checkbox", :name => value[0]}
+                %input{:type=>"checkbox", :name => "options[#{value['name']}][enabled]", checked: value['checked']}
                 #{key}
-              %select.span2{:name => value[1]}
+              %select.span2{:name => "options[#{value['name']}][order]"}
                 - fields.size.times do |index|
-                  %option
+                  %option{ selected: index == field_index }
                     #{index+1}
               .clr
               .divider1
