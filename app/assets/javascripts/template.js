@@ -47,6 +47,7 @@ jQuery(document).ready(function($){
   editor.trumbowyg({
       fullscreenable: false,
       closable: false,
+      semantic: false,
       btns: ['viewHTML',
     '|', 'formatting',
     '|', 'btnGrp-design',
