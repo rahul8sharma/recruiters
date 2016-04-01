@@ -14,9 +14,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       header = ["name","email","phone"]
       custom_columns = []
       @exercise_tools.each do |exercise_tool|
-        exercise_tool.tool.integration_configuration["link_configuration"] ||= {}
-        exercise_tool.tool.integration_configuration["link_configuration"].each do |index, config|
-          custom_columns << config["name"]
+        tool = exercise_tool.tool
+        tool.integration_configuration["link_configuration"] ||= {}
+        tool.integration_configuration["link_configuration"].each do |index, config|
+          custom_columns << "#{tool.name}_#{config['name']}".underscore
         end
       end
       header |= custom_columns.compact.uniq
