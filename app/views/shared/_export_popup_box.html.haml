@@ -11,12 +11,12 @@
       .span20.margin-auto
         = yield :daterangepicker    
         %ul.clearfix 
-          - fields.each_with_index do |(key, value),field_index|
+          - fields.each_with_index do |(field, config),field_index|
             %li
               %label.span7.extra-medium-text.line-height2
-                %input{:type=>"checkbox", :name => "options[#{value['name']}][enabled]", checked: value['checked']}
-                #{key}
-              %select.span2{:name => "options[#{value['name']}][order]"}
+                %input{:type=>"checkbox", :name => "options[#{field}][enabled]", checked: config['checked']}
+                #{config['name']}
+              %select.span2{:name => "options[#{field}][order]"}
                 - fields.size.times do |index|
                   %option{ selected: index == field_index }
                     #{index+1}

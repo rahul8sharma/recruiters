@@ -1,4 +1,4 @@
-- export_fields = Rails.application.config.reports["export_fields"]["reports"]
+- export_fields = YAML.load(File.read("#{Rails.root}/config/exports/suitability/report_summary.yml"))
 .creat-test-show
   .span15.page-title.first
     .divider1

@@ -1,4 +1,4 @@
-- export_fields = Rails.application.config.reports["export_fields"]["users"]
+- export_fields = YAML.load(File.read("#{Rails.root}/config/exports/suitability/assessment_status_summary.yml"))
 .user-list
   .span13.page-title.first
     .divider1
