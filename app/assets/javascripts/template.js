@@ -13,7 +13,7 @@ function getTemplateVariablesForCategory(category) {
       $(data).each(function(index,object){
         var template_variable = object.attributes;
         var link = "";
-        link += "<li title='"+template_variable.value+"'>"+template_variable.id+" "+
+        link += "<li>"+template_variable.id+" "+
             "<a href='javascript:void(0);' class='template_variable_link' template_variable_name='"+template_variable.id+"'>"+
               " "+template_variable.name+
             "</a>"

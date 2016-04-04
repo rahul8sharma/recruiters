@@ -44,6 +44,17 @@
       .clr
     .control-group
       %label
+        Select the purpose of the assessment
+      %select.span10.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
+        %option{:value => ""}
+          Select the purpose of the assessment
+        %option{:value => Vger::Resources::User::Stage::EMPLOYED, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
+          Development
+        %option{:value => Vger::Resources::User::Stage::CANDIDATE, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
+          Hiring
+      .clr  
+    .control-group
+      %label
         Select Custom Factual Information Form
       %select.span10.first{ name: "defined_form_id", id: "select_form" }
         %option{ value: "" }
