@@ -1,3 +1,4 @@
+- sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:average_score_including_self][:points].to_f }.reverse
 - if @report.report_data[:mrf_rating_competencies_and_values]
   #competency-rating.classic_report
     .scores_competencies_graph.descending_order
@@ -18,7 +19,7 @@
                 .clr
               .clr
               %ul
-                - @report.report_data[:competency_scores].each do |competency, competency_score|
+                - sorted_competency_scores.each do |competency, competency_score|
                   %li
                     .trait_title.first.span7.extra-medium-text.default
                       = truncate competency, length: 25

@@ -1,0 +1,21 @@
+candidate_personal_details:
+  name: Candidate Personal Details
+  checked: true
+aggregate_score:
+  name: Aggregate Competency Score
+  checked: true
+numerical_aggregate_score:
+  name: Numerical Aggregate Score
+  checked: true
+aggregate_score_rating:
+  name: Aggregate Score Rating
+  checked: true
+competency_scores:
+  name: Competency Scores
+  checked: true
+trait_scores:
+  name: Trait Scores
+  checked: true
+cocubes_scores:
+  name: Cocubes Scores
+  checked: true

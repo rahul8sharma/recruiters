@@ -1,5 +1,5 @@
 #exports.popup_container.hide
-  %form{:method => "get", :action => url, :name => "Export Fields"}
+  = form_tag url, method: :post, :name => "Export Fields" do
     .popup_modal.span23.padding-all1.margin-auto.bg-white.border-primary
       %a.btn-close.huge-text{:id => "popup_close", :href => "#", :title => "Close"}
         &times;
@@ -10,19 +10,21 @@
       .divider1
       .span20.margin-auto
         %ul.clearfix 
-          - fields.each do |key, value|
+          - fields.each_with_index do |(field, config),field_index|
             %li
               %label.span7.extra-medium-text.line-height2
-                %input{:type=>"checkbox", :name => value[0]}
-                #{key}
-              %select.span2{:name => value[1]}
+                %input{:type=>"checkbox", :name => "options[#{field}][enabled]", checked: config['checked']}
+                #{config['name']}
+              %select.span2{:name => "options[#{field}][order]"}
                 - fields.size.times do |index|
-                  %option
+                  %option{ selected: index == field_index }
                     #{index+1}
               .clr
               .divider1
         .divider2
 
-        %input.form-action.btn.btn-warning.pull-right.medium-text.bold{:type =>"submit", :value => "Export"}
+        .span13.pull-right
+          = yield :daterangepicker    
+          %input.form-action.btn.btn-warning.medium-text.bold.pull-right{:type =>"submit", :value => "Export"}
         .clr
         .divider1

@@ -234,12 +234,14 @@ Recruiters::Application.routes.draw do
 
         match "candidates/send-reminder-to-pending" =>"suitability/custom_assessments/user_assessments#send_reminder_to_pending_users", :as => :send_reminder_to_pending_users
         put "candidates/bulk_upload" => "suitability/custom_assessments/user_assessments#bulk_upload", :as => :bulk_upload
-        get "email_reports" => "suitability/custom_assessments/user_assessments#email_reports", :as => :email_reports
+        
+        match "email_reports" => "suitability/custom_assessments/user_assessments#email_reports", :as => :email_reports
+        
         get "trigger_report_downloader" => "suitability/custom_assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
 
         get "export_feedback_scores" => "suitability/custom_assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
 
-        get "email_assessment_status" => "suitability/custom_assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
+        match "email_assessment_status" => "suitability/custom_assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
 
         match "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         put "candidates/bulk-send-test" => "suitability/custom_assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users

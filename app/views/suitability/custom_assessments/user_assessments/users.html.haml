@@ -1,4 +1,4 @@
-- export_fields = Rails.application.config.reports["export_fields"]["users"]
+- export_fields = YAML.load(File.read("#{Rails.root}/config/exports/suitability/assessment_status_summary.yml"))
 .user-list
   .span13.page-title.first
     .divider1
@@ -34,8 +34,8 @@
         .span.pull-right
           %a.label.label-warning.label-small.medium-text{:href=> resend_invitations_url, :title=>"Resend Invitations"} Resend Invitations
       #export_form.span.pull-right
-        %a.label.label-warning.label-small.medium-text{:href=> "#", :title=>"Email Reports Summary"}
-          Email Reports Summary
+        %a.label.label-warning.label-small.medium-text{:href=> "#", :title=>"Email Status Summary"}
+          Email Status Summary
 
     .filter-status.pull-right
       = form_for :search, url: users_url, method: :get, html: { id: "users_search_form" } do |f|
