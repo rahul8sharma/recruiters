@@ -203,7 +203,7 @@ class Mrf::AssessmentsController < ApplicationController
           end]
         })
         if @assessment.error_messages.blank?
-          redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
+          redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
         else
           get_competencies
           flash[:error] = @assessment.error_messages.join("<br/>")
