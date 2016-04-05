@@ -61,13 +61,38 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         :args => {
           :date_range => date_range,
           :user_id => current_user.id,
-          :assessment_id => params[:id]
+          :assessment_id => params[:id],
+          :options => Hash[params[:options].select do |option,details|
+            details[:enabled]
+          end.map do |option,details|
+            [option,details[:order]]
+          end]
         }
       }
     }
     Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
       .export_user_reports(options)
     redirect_to reports_url, notice: "Report summary will be generated and emailed to #{current_user.email}."
+  end
+  
+  def email_assessment_status
+     options = {
+      :custom_assessment => {
+        :job_klass => "Suitability::Assessment::AssessmentStatusExporter",
+        :args => {
+          :user_id => current_user.id,
+          :assessment_id => params[:id],
+          :options => Hash[params[:options].select do |option,details|
+            details[:enabled]
+          end.map do |option,details|
+            [option,details[:order]]
+          end]
+        }
+      }
+    }
+    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
+      .export_assessment_status(options)
+    redirect_to users_url, notice: "Status Summary will be generated and emailed to #{current_user.email}."
   end
 
   def trigger_report_downloader
@@ -480,21 +505,6 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     else
       get_templates(true)
     end  
-  end
-
-  def email_assessment_status
-     options = {
-      :custom_assessment => {
-        :job_klass => "Suitability::Assessment::AssessmentStatusExporter",
-        :args => {
-          :user_id => current_user.id,
-          :assessment_id => params[:id]
-        }
-      }
-    }
-    Vger::Resources::Suitability::CustomAssessment.find(params[:id])\
-      .export_assessment_status(options)
-    redirect_to users_url, notice: "Status Summary will be generated and emailed to #{current_user.email}."
   end
 
   def resend_invitations

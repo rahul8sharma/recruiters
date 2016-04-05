@@ -1,0 +1,21 @@
+assessment_takers_name:
+  name: Assessment Taker's Name
+  checked: true
+assessment_takers_email:
+  name: Assessment Taker's Email
+  checked: true
+assessment_status:
+  name: Assessment Status
+  checked: true
+assessment_link:
+  name: Assessment Link
+  checked: true
+report_link:
+  name: Report Link
+  checked: true
+assessment_sent_at:
+  name: Assessment Sent At
+  checked: true
+email_status:
+  name: Email Status
+  checked: true
