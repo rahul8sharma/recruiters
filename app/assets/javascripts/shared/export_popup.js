@@ -12,6 +12,6 @@ $(function() {
 });
 
 jQuery.fn.center = function () {
-	this.css("margin-top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+	this.css("margin-top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2)) + "px");
 	return this;
 }
