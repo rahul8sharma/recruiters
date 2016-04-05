@@ -75,8 +75,6 @@
 - content_for :daterangepicker do
   .medium-text.pull-left.line-height2.bold
     %input{ name: "date_range", class: "daterangepicker" }
-  .clr  
-  .divider1  
 = render :partial => "shared/export_popup_box",:locals => {:fields => export_fields, :url => url }
 
 - content_for :stylesheets do

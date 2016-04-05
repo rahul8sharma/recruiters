@@ -9,7 +9,6 @@
       .divider1.border-bottom-grayLighter
       .divider1
       .span20.margin-auto
-        = yield :daterangepicker    
         %ul.clearfix 
           - fields.each_with_index do |(field, config),field_index|
             %li
@@ -24,6 +23,8 @@
               .divider1
         .divider2
 
-        %input.form-action.btn.btn-warning.pull-right.medium-text.bold{:type =>"submit", :value => "Export"}
+        .span13.pull-right
+          = yield :daterangepicker    
+          %input.form-action.btn.btn-warning.medium-text.bold.pull-right{:type =>"submit", :value => "Export"}
         .clr
         .divider1
