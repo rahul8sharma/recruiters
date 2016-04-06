@@ -1226,6 +1226,15 @@ Recruiters::Application.routes.draw do
     get "manage" => "exercise_management#manage", as: :manage
     post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
+    
+    resources :super_competency_guidelines do
+      collection do
+        get :manage
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
         
     resources :exercise_super_competencies do
       collection do
