@@ -16,6 +16,3 @@ competency_scores:
 trait_scores:
   name: Trait Scores
   checked: true
-cocubes_scores:
-  name: Cocubes Scores
-  checked: true
