@@ -301,7 +301,7 @@
     children: [],
     links: {
       html: [],
-      pdf: []
+      pdf: ["pdf_development_guide"]
     }
   },
   {
