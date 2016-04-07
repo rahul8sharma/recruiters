@@ -58,7 +58,7 @@
                       = "#{negative_percentage}%"
                   .clr
                 .divider1
-            .divider1
+            .divider2
             - competency_scores[:perception_gap][:role_wise_frequencies].each_slice(4) do |step_data|
               %ul.chart.small.clearfix
                 - step_data.each_with_index do |(role, role_wise_scores),index|
