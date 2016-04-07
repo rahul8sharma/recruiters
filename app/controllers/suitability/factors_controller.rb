@@ -33,8 +33,10 @@ class Suitability::FactorsController < MasterDataController
         @factors  = Vger::Resources::Suitability::Factor.where(:query_options => {:active => true,:type=>"Suitability::Factor",:is_global => true}, :scopes => { :global => nil }, :methods => [:type, :direct_predictor_ids]).all.to_a
         @factors |= Vger::Resources::Suitability::Factor.where(:query_options => {"companies_factors.company_id" => @company_ids , :active => true,:is_global => false}, :methods => [:type, :direct_predictor_ids,:company_names], :joins => [:companies]).all.to_a
       else
-        Vger::Resources::Suitability::Factor.export_display_names(params)
-        redirect_to request.env['HTTP_REFERER'], notice: "Export operation queued.
+        Vger::Resources::Suitability::Factor.export_display_names(params[:export].merge(
+          user_id: current_user.id
+        ))
+        redirect_to suitability_factors_path, notice: "Export operation queued.
         Email notification should arrive as soon as the export is complete."
       end
     end
@@ -42,8 +44,19 @@ class Suitability::FactorsController < MasterDataController
 
   def import_display_names
     if request.post?
-        Vger::Resources::Suitability::Factor.import_display_names(params)
-        redirect_to request.env['HTTP_REFERER'], notice: "Import operation queued.
+      unless params[:import][:file]
+        flash[:notice] = "Please select a excel file."
+        redirect_to request.env['HTTP_REFERER'] and return
+      end
+      data = params[:import][:file].read
+      obj = S3Utils.upload("display_names_for_factors_#{Time.now.to_i}", data)
+
+      api_resource\
+        .import_display_names(:file => {
+                          :bucket => obj.bucket.name,
+                          :key => obj.key
+                        }, :user_id => current_user.id)
+      redirect_to request.env['HTTP_REFERER'], notice: "Import operation queued.
           Email notification should arrive as soon as the import is complete."
     end
   end

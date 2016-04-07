@@ -1,3 +1,6 @@
-.content-sub-nav.clearfix
+.content-sub-nav
   %a.menu.active{:href => candidates_company_oac_exercise_path(@company.id, @exercise.id), :title => "Assessment Takers"}
     Assessment Takers
+.pull-right    
+  = link_to "Export Report Summary", export_report_summary_company_oac_exercise_path(@company.id, @exercise.id), class: "btn btn-warning"  
+.clearfix

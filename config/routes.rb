@@ -394,6 +394,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:user_id/reports/:report_id" => "oac/exercises/reports#s3_report", :as => :s3_report
         
         get "download_bulk_upload_csv" => "oac/exercises/user_exercises#download_bulk_upload_csv", as: :download_bulk_upload_csv
+        get "export_report_summary" => "oac/exercises/user_exercises#export_report_summary", :as => :export_report_summary
       end
     end
 

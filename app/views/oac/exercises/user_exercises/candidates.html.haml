@@ -7,6 +7,7 @@
   %a.btn.btn-info.big.big-text.pull-right.span{:href=>add_users_bulk_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
     Add Candidates
   .clr
+  .divider2
   = render :partial => "shared/oac/oac_assessment_sub_nav"
   .clr
   .padding-all2.border-warning.shifted-up1
@@ -44,7 +45,7 @@
           .clr
     .divider3
     .pull-right
-      -# = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
+      = render :partial => "shared/pagination", :locals => { :objects => @user_exercises }
     .clr
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
