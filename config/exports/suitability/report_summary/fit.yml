@@ -10,9 +10,6 @@ numerical_aggregate_score:
 aggregate_score_rating:
   name: Aggregate Score Rating
   checked: true
-competency_scores:
-  name: Competency Scores
-  checked: true
 trait_scores:
   name: Trait Scores
   checked: true
