@@ -129,8 +129,13 @@
     .pie_chart_rate
       font-size: 160px
       line-height: 42px
+      vertical-align: middle
+      display: table
+      margin: auto
+
       [class*="color-"]
         position: relative
+        display: table-row
 
       .rate
         position: absolute
@@ -138,6 +143,7 @@
         color: #fff
         font-size: 10px
         top: 0
+        display: table-cell
     &.small
       
       li
@@ -154,7 +160,6 @@
       .pie_chart_rate
         font-size: 130px
         line-height: 45px
-        margin-left: 7%
         .rate
           font-size: 8px
           top: 0
