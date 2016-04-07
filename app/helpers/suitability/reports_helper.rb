@@ -7,15 +7,16 @@ module Suitability
         )
       )
       begin
+        fields.merge!(YAML.load(
+          File.read(
+            "#{Rails.root}/config/exports/suitability/report_summary/#{assessment.assessment_type}.yml"
+          )
+        ))
+        
         file_name = assessment.brand_partner
         fields.merge!(YAML.load(
           File.read(
             "#{Rails.root}/config/exports/suitability/report_summary/#{file_name}.yml"
-          )
-        ))
-        fields.merge!(YAML.load(
-          File.read(
-            "#{Rails.root}/config/exports/suitability/report_summary/#{assessment.assessment_type}.yml"
           )
         ))
 
