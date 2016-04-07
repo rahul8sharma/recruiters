@@ -14,7 +14,7 @@
       .clr
       .medium-text.pull-left
         Report Generated On: 
-        = hdate(@report[:updated_at])
+        = hdate(@report.report_data[:generated_at])
       .clr
     - section_value.each do |value|
       = render :partial => value["path"]
