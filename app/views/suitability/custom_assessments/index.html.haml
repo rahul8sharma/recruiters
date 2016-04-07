@@ -5,8 +5,9 @@
   - url = new_company_custom_assessment_path(:company_id => params[:company_id])
   = render :partial => "shared/suitability/create_custom_assessment_link", :locals => { :url => url}
   .pull-right
-    %a.extra-medium-text.line-height3{:href=>home_company_path(@company), :title => "View Ready-to-Send Assessments"}
-      View Ready-to-Send Assessments
+    - if is_superuser?
+      %a.extra-medium-text.line-height3{:href=> home_company_path(@company), :title => "View Ready-to-Send Assessments"}
+        View Ready-to-Send Assessments
   .clr
   .divider2
   - if @assessments.empty?
