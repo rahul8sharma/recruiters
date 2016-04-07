@@ -60,7 +60,8 @@
                 .divider1
             .divider2
             - competency_scores[:perception_gap][:role_wise_frequencies].each_slice(4) do |step_data|
-              %ul.chart.small.clearfix
+              - width = (step_data.size * 185)
+              %ul.chart.small.clearfix{:style => "width: #{width}px; margin: 0 auto;"}
                 - step_data.each_with_index do |(role, role_wise_scores),index|
                   - total = role_wise_scores.values.sum
                   - aggrement_percentage = ((role_wise_scores[:aggrement]*100).to_f/total).round(2)
