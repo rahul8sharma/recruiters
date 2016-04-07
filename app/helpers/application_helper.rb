@@ -130,7 +130,7 @@ module ApplicationHelper
   end
   
   def redirect_admin
-    company_custom_assessments_path(current_user.company_ids.first)
+    company_custom_assessments_path(current_user.company_id)
   end
   
   def redirect_company_manager
