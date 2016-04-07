@@ -124,13 +124,18 @@
   .chart
     text-align: center
     .pie_chart
-      height: 200px
-      width: 200px
+      height: 170px
+      width: 170px
     .pie_chart_rate
-      font-size: 160px
+      font-size: 190px
       line-height: 42px
+      vertical-align: middle
+      display: table
+      margin: auto
+
       [class*="color-"]
         position: relative
+        display: table-row
 
       .rate
         position: absolute
@@ -138,26 +143,27 @@
         color: #fff
         font-size: 10px
         top: 0
+        display: table-cell
+        line-height: 50px
+
     &.small
-      width: 550px
-      margin: auto
+      
       li
         border-left: 1px solid #ccc
-        width: 33%
+        width: 185px
         box-sizing: border-box
         float: left
-        margin: 35px 0
+        margin: 15px 0
         &:first-child
           border: 0 none
       .pie_chart
         height: 110px
         width: 110px
       .pie_chart_rate
-        font-size: 130px
+        font-size: 145px
         line-height: 45px
-        margin-left: 7%
         .rate
-          font-size: 8px
+          font-size: 10px
           top: 0
 
 .classic_report 

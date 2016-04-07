@@ -1,4 +1,4 @@
-- export_fields = YAML.load(File.read("#{Rails.root}/config/exports/suitability/report_summary.yml"))
+- export_fields = get_export_fields_for_report_summary(@assessment)
 .creat-test-show
   .span13.page-title.first
     .divider1
