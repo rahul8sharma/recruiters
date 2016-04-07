@@ -4,6 +4,7 @@
 $(function() { 
   $(".daterangepicker").daterangepicker({
     numberOfMonths: 2,
+    initialText: "Select date range",
     presetRanges: []
-  }); 
+  });
 });

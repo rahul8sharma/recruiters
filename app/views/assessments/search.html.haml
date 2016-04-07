@@ -32,9 +32,9 @@
     - @assessments.each do |assessment|
       %li.list-snippet.border-bottom-grayLighter
         .span7.first
-          = assessment.id
+          = link_to assessment.id, company_custom_assessment_path(assessment.company_id,assessment.id)
         .span9
-          = assessment.name 
+          = link_to assessment.name, company_custom_assessment_path(assessment.company_id,assessment.id) 
         .span7
           = assessment.company_id 
         .span7
