@@ -11,9 +11,9 @@
             .heading.pull-left
               = competency
             .clr
-            .divider1
             .span18.margin-auto.border-bottom-grayLighter
               .extra-medium-text.pull-left
+                .divider1
                 Overall
               .chart_indication.line-height1.black.pull-right
                 .icons.span.color-agreement
@@ -42,7 +42,7 @@
                 - negative_percentage = ((competency_scores[:perception_gap][:overall][:negative_difference]*100).to_f/total).round(2)
                 - positive_percentage = ((competency_scores[:perception_gap][:overall][:positive_difference]*100).to_f/total).round(2)
                 .pie_chart.margin-auto
-                  .pie-chart{ id: "pie_#{competency}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 200px;height: 200px;" }
+                  .pie-chart{ id: "pie_#{competency}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 180px;height: 180px;" }
                 .pie_chart_rate.span6.margin-auto
                   .span2.color-positive
                     %div &#8226;
@@ -59,7 +59,7 @@
                   .clr
                 .divider1
             .divider1
-            - competency_scores[:perception_gap][:role_wise_frequencies].each_slice(3) do |step_data|
+            - competency_scores[:perception_gap][:role_wise_frequencies].each_slice(4) do |step_data|
               %ul.chart.small.clearfix
                 - step_data.each_with_index do |(role, role_wise_scores),index|
                   - total = role_wise_scores.values.sum
