@@ -10,12 +10,12 @@
         &nbsp;
         \|  
         &nbsp;
-    %a.extra-medium-text.line-height3.pull-left{:href => new_assessment_url, :title => "Click Here To Create Custom Assessment"}
-      Create New Custom Assessment
+    = render :partial => "shared/create_custom_assessment_link", :locals => { :url => new_assessment_url}    
     %a.btn.btn-warning.big-text.big.span.pull-left{ href: add_users_url }
       Send this Assessment
   .clr
   .divider2
+  
   = render :partial => "shared/suitability/user_sub_nav_#{@assessment.assessment_type}"
   .clr
   .padding-all2.border-warning.shifted-up1

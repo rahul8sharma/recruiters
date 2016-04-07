@@ -146,6 +146,12 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     )
   end
 
+  def new
+    if is_admin?
+      redirect_to company_custom_assessments_path(@company)
+    end
+  end
+
   # POST /assessments
   # POST /assessments.json
   # POST creates assessment and redirects to norms page
