@@ -130,12 +130,12 @@ module ApplicationHelper
   end
   
   def redirect_admin
-    company_custom_assessments_path(current_user.company_id)
+    company_custom_assessments_path(current_user.company_ids.first)
   end
   
   def redirect_company_manager
     if current_user.company_ids.size == 1
-      company_custom_assessments_path(current_user.company_id)
+      company_custom_assessments_path(current_user.company_ids.first)
     else
       select_companies_path
     end
