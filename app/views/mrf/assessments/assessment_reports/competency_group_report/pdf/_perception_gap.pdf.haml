@@ -2,7 +2,7 @@
   - if @report.report_data[:competency_scores].any?{|key,value| value[:perception_gap].present? }
     - @report.report_data[:competency_scores].each do |competency, competency_scores|
       = render :partial => "shared/360/group_report_header"
-      .report_content
+      .report_content{ style: "padding: 15px;" }
         .perception_gap.border-bottom-grayLighter
           .color-info.big-text
             Perception Gap
@@ -60,7 +60,7 @@
                 .divider1
             .divider2
             - competency_scores[:perception_gap][:role_wise_frequencies].each_slice(4) do |step_data|
-              - width = (step_data.size * 185)
+              - width = (step_data.size * 195)
               %ul.chart.small.clearfix{:style => "width: #{width}px; margin: 0 auto;"}
                 - step_data.each_with_index do |(role, role_wise_scores),index|
                   - total = role_wise_scores.values.sum
@@ -68,7 +68,7 @@
                   - negative_percentage = ((role_wise_scores[:negative_difference]*100).to_f/total).round(2)
                   - positive_percentage = ((role_wise_scores[:positive_difference]*100).to_f/total).round(2)
                   %li
-                    .medium-text.black{:style=>"margin-top: -35px"}
+                    .medium-text.black{:style=>"margin-top: 0px"}
                       = role.titleize
                     .pie_chart.margin-auto
                       .pie-chart{ id: "pie_#{index}", "data-positive-percentage" => positive_percentage, "data-negative-percentage" => negative_percentage, "data-aggrement-percentage" => aggrement_percentage, style: "width: 110px;height: 110px;" }
