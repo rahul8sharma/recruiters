@@ -2,15 +2,15 @@
   .divider2
   .container
     .title
-      Development Guide
+      Development Guides
     .divider2
-    - 2.times do
+    - @report.report_data[:super_competency_guidelines].each do |competency, guideline|
       .frame
         .heading.pull-left
-          Leadership Potential
+          #{competency}
         .clr
         %p.extra-medium-text.less-padding-all2
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla paria Excepteur sint occaecat cupidatatLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla paria Excepteur sint occaecat cupidatat
+          #{guideline[:guide]}
       .divider1
   .divider2
      
