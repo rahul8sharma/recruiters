@@ -1,0 +1,95 @@
+.big-text
+  Generate a new Projection Report
+.divider1
+- if @assessment
+  .span24
+    = form_for :assessment, url: suitability_projection_report_path, :method => :post do |f|
+      %input{ name: "projection[assessment_id]", value: @assessment.id, type: "hidden" }
+      %h4
+        Competency Score Ratings
+      .divider1  
+      .span20  
+        - @assessment.competency_score_ratings.each do |competency_score_rating|
+          - id = competency_score_rating['competency_score_rating']['id']
+          - name = competency_score_rating['competency_score_rating']['name']
+          - min_val = competency_score_rating['competency_score_rating']['min_val']
+          - max_val = competency_score_rating['competency_score_rating']['max_val']
+          .span4
+            %b
+              = name
+          .span4
+            %input{ name: "projection[ratings][#{id}][min_val]", value: min_val }
+          .span4
+            %input{ name: "projection[ratings][#{id}][max_val]", value: max_val }
+          .clr  
+          .divider1
+      .clr
+      .divider1    
+      %h4 Competencies
+      .divider1
+      .span20
+        - @assessment_competency_weights.each do |competency_weight|
+          .span4
+            %b
+              = @competencies[competency_weight.competency_id].name
+          .span2
+            %input{ name: "projection[assessment_competency_weights][#{competency_weight.id}][weight]", value: competency_weight.weight }
+          .clr  
+          .divider1
+      .clr              
+      .divider2
+      %h4 Desired Ranges
+      .divider1
+      .span20
+        - @factor_norms.each do |factor_id, factor_norm|
+          .span4
+            %b
+              = @factors[factor_norm.factor_id].name rescue factor_norm.factor_id
+          .span6
+            %select{ name: "projection[assessment_factor_norms][#{factor_norm.id}][from_norm_bucket_id]" }
+              - @norm_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: factor_norm.from_norm_bucket_id == norm_bucket.id }
+                  = norm_bucket.name
+          .span6  
+            %select{ name: "projection[assessment_factor_norms][#{factor_norm.id}][to_norm_bucket_id]" }
+              - @norm_buckets.each do |norm_bucket|
+                %option{ value: norm_bucket.id, selected: factor_norm.to_norm_bucket_id == norm_bucket.id }
+                  = norm_bucket.name
+          .clr  
+          .divider1
+      .clr        
+      %h4 Factors
+      .divider1
+      .span24
+        - @assessment_factor_weights.group_by(&:competency_id).each do |competency_id, factor_weights|
+          .span10.pull-left
+            %h4
+              = @competencies[competency_id].name
+            .divider1  
+            - factor_weights.each do |factor_weight|
+              .span4
+                %b
+                  = @factors[factor_weight.factor_id].name  
+              .span2  
+                %input{ name: "projection[assessment_factor_weights][#{factor_weight.id}][weight]", value: factor_weight.weight }
+                %input{ name: "projection[assessment_factor_weights][#{factor_weight.id}][factor_id]", value: factor_weight.factor_id, type: "hidden" }
+                %input{ name: "projection[assessment_factor_weights][#{factor_weight.id}][competency_id]", value: factor_weight.competency_id, type: "hidden" }
+              .clr  
+              .divider1
+        .clr 
+      .clr  
+      .action.span10
+        .pull-right
+          = f.submit "Generate", class: "btn btn-large btn-warning"
+        .clr  
+      .clr    
+- else
+  = form_for :assessment, url: suitability_projection_report_path, :method => :get do |f|
+    %fieldset
+      %legend 
+        %strong Create Projection Report
+      %p
+        Assessment ID : 
+        = f.text_field :assessment_id
+    .actions
+      = submit_tag 'Create'
