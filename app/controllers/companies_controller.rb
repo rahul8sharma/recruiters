@@ -327,7 +327,6 @@ class CompaniesController < ApplicationController
     if Rails.application.config.statistics[:load_assessmentwise_statistics]
       methods |= [:assessmentwise_statistics, :assessment_statistics]
     end
-    params[:search][:account_type] ||= Vger::Resources::Company::AccountType::PAID
     params[:search].delete :account_type if params[:search][:account_type] == "All"
     search_params = params[:search].dup
     name = search_params.delete :name
