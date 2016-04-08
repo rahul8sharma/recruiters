@@ -966,6 +966,7 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
+    match 'assessments_management/projection_report' => 'assessments_management#projection_report', :as => :projection_report
     
     resources :super_competencies do
       collection do
