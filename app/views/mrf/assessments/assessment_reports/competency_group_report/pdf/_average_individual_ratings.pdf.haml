@@ -6,7 +6,7 @@
       .color-info.big-text
         Group Average Ratings versus Individual Ratings
       .divider1 
-      - step_data.group_by{|scores| scores[:competency_name] }.each do |competency, score|
+      - step_data.group_by{|scores| scores[:competency_name] }.each do |competency, user_scores|
         - group_average = @report.report_data[:competency_scores][competency][:average_score_including_self][:points] rescue 0
         .scores_competencies_graph.descending_order.descending_average_rating
           .traits_under_graph
@@ -21,7 +21,7 @@
                     .stakeholder_rating.pull-left
                       #{group_average}
                     .clr
-                  - score.each do |data|
+                  - user_scores.each do |data|
                     %li
                       .span5.medium-text.first.trait_title
                         #{data[:name]}
@@ -49,7 +49,7 @@
                       .divider1
                       .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
                       .divider1                    
-                      - score.each do |data|
+                      - user_scores.each do |data|
                         - if data[:score]
                           - percent_360 = convertToRange(old_min, old_max, 0, 100, data[:score].to_f)
                           - percent_360 = percent_360 == 0 ? 5 : percent_360
