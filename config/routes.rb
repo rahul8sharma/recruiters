@@ -1520,6 +1520,24 @@ Recruiters::Application.routes.draw do
   
   resources :stakeholders do
   end
+  
+  namespace :idp do
+    resources :idps do
+      collection do
+        get :manage
+        post :import_via_s3
+      end
+    end
+    resources :alps
+    resources :competencies
+    resources :comments
+    resources :feedbacks
+    resources :actions
+    resources :meetings
+    resources :meeting_updates
+    resources :meeting_users
+    resources :resources
+  end
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
 
