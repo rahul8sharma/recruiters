@@ -24,11 +24,21 @@ class TemplatesController < MasterDataController
   end
   
   def search_columns
-    [
-      :id,
-      :name,
-      :template_category_id
-    ]
+    {
+      :id => { 
+        column: :id
+      },
+      :name => { 
+        column: :name 
+      },
+      :company_id => { 
+        column: "companies.id",
+        joins: :companies
+      },
+      :template_category_id => { 
+        column: :template_category_id 
+      }
+    }
   end
   
   def select_template_category_id

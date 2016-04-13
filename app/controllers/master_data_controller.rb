@@ -46,11 +46,19 @@ class MasterDataController < ApplicationController
 
   def index
     params[:search] ||= {}
+    search_columns_hash = search_columns.is_a?(Hash) ? search_columns : Hash[search_columns.map{|k| [k,{ column: k }] }]
     params[:search] = params[:search].select{|key,val| val.present? }
-    params[:search].each{|key,val| params[:search][key].strip! }
+    search_params = Hash[params[:search].dup.map do |key, value|
+      [
+        search_columns_hash[key.strip.to_sym][:column],
+        value
+      ]
+    end]
+    joins = params[:search].map{|key,val| search_columns_hash[key.strip.to_sym][:joins] }.compact.flatten
+    Rails.logger.ap search_params
     @objects = api_resource.where(
-      :query_options => params[:search],
-      :joins => params[:joins],
+      :query_options => search_params,
+      :joins => joins,
       :methods => index_columns,
       :order => params[:order] || "id asc",
       :page => params[:page], 
@@ -144,6 +152,6 @@ class MasterDataController < ApplicationController
   end
   
   def search_columns
-    []
+    {}
   end
 end
