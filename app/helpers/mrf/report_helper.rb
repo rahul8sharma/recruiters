@@ -110,4 +110,19 @@ module Mrf::ReportHelper
     new_hash
   end
 
+  def sorted_individual_scores(report_data)
+    new_scores = []
+    report_data.each do |competency, competency_scores|
+      competency_scores.each do |scores|
+        new_scores.push({
+          user_id: scores[:user_id],
+          name: scores[:name],
+          score: scores[:score],
+          competency_name: competency 
+        })
+      end
+    end
+    new_scores
+  end
+
 end

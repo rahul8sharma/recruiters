@@ -151,6 +151,16 @@
         path: "oac/exercises/reports/competency_reports/pdf/individual_development_plan",
       }
     ]
-  }
+  },
+  {
+    id: "pdf_development_guide",
+    text: "Development Guide",
+    path: "oac/exercises/reports/competency_reports/pdf/development_guide",
+    children: [],
+    links: {
+      html: [],
+      pdf: []
+    }
+  },
 
 ]

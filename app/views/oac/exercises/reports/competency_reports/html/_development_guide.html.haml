@@ -1,0 +1,16 @@
+#development_guide.section03
+  .divider2
+  .container
+    .title
+      Development Guides
+    .divider2
+    - @report.report_data[:super_competency_guidelines].each do |competency, guideline|
+      .frame
+        .heading.pull-left
+          #{competency}
+        .clr
+        %p.extra-medium-text.less-padding-all2
+          #{guideline[:guide]}
+      .divider1
+  .divider2
+     

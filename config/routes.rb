@@ -394,6 +394,7 @@ Recruiters::Application.routes.draw do
         get "candidates/:user_id/reports/:report_id" => "oac/exercises/reports#s3_report", :as => :s3_report
         
         get "download_bulk_upload_csv" => "oac/exercises/user_exercises#download_bulk_upload_csv", as: :download_bulk_upload_csv
+        get "export_report_summary" => "oac/exercises/user_exercises#export_report_summary", :as => :export_report_summary
       end
     end
 
@@ -965,6 +966,7 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
+    match 'assessments_management/projection_report' => 'assessments_management#projection_report', :as => :projection_report
     
     resources :super_competencies do
       collection do
@@ -1225,6 +1227,15 @@ Recruiters::Application.routes.draw do
     get "manage" => "exercise_management#manage", as: :manage
     post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
+    
+    resources :super_competency_guidelines do
+      collection do
+        get :manage
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
         
     resources :exercise_super_competencies do
       collection do

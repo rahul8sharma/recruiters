@@ -1,6 +1,6 @@
 - if @report.report_data[:competencywise_individual_rating]
   - candidate_data = get_user_wise_competency_scores(@report.report_hash[:competency_individual_scores])
-  - candidate_data.each_slice(15) do |step_data|
+  - candidate_data.each_slice(20) do |step_data|
     = render :partial => "shared/360/group_report_header"
     .report_content.border-bottom-grayLighter
       .competencies_wise_individual_ratings
@@ -31,4 +31,4 @@
                 %td
                   = value[:score]
         .divider1
-  .page-break
+    .page-break

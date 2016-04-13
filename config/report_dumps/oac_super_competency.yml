@@ -1551,6 +1551,19 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     color: '#CD6212'
     rating: AMBER
     uid: TQHBqVkO
+  super_competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Result Orientation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 6
+      guide: 1)Bear claw jelly beans dragée jelly-o jelly-o topping cotton candy. Sweet roll chocolate cake wafer jelly jelly beans. Lemon drops cake cookie. Topping marshmallow pudding candy cotton candy donut pudding icing. Icing sugar plum gingerbread apple pie tart pudding cotton candy liquorice brownie. Bear claw danish chupa chups dragée. Bear claw sugar plum gummi bears.
+    Leadership Potential: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 5
+      guide: 2) Cotton candy sweet tootsie roll sweet roll caramels brownie. Jelly beans cake danish lollipop halvah danish. Gummi bears dessert cookie lemon drops donut gingerbread liquorice muffin jelly. Chocolate cake lemon drops cake sweet. Tiramisu macaroon biscuit cotton candy cake cookie toffee wafer. Icing carrot cake bear claw cotton candy cupcake gingerbread. Powder lemon drops cookie pastry ice cream pudding. Liquorice toffee wafer cotton candy carrot cake icing.
+    Interpersonal Skills: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 7
+      guide: 3) Bacon ipsum dolor amet shank chuck tenderloin, chicken andouille tri-tip alcatra. Cow ham t-bone beef ribs capicola bacon. Short loin pig tongue filet mignon tail brisket andouille. Ribeye pork landjaeger shankle
+    Business Acumen: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      id: 8
+      guide: 4) Bear claw jelly beans dragée jelly-o jelly-o topping cotton candy. Sweet roll chocolate cake wafer jelly jelly beans. Lemon drops cake cookie. Topping marshmallow pudding candy cotton candy donut pudding icing. Icing sugar plum gingerbread apple pie tart pudding cotton candy liquorice brownie. Bear claw danish chupa chups dragée. Bear claw sugar plum gummi bears.
 status: scored
 user_exercise_id: 31
 user_id: 70614

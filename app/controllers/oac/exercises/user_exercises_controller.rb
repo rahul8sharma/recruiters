@@ -26,13 +26,24 @@ class Oac::Exercises::UserExercisesController < ApplicationController
     send_file(file.path)
   end
 
+  def export_report_summary
+    Vger::Resources::User.get(
+      "/sidekiq/queue-job?job_klass=Oac::UserReportsExporter&"+
+      "args[exercise_id]=#{params[:id]}&"+
+      "args[user_id]=#{current_user.id}"
+    )
+    redirect_to request.env['HTTP_REFERER']
+  end
+  
   def candidates
     @user_exercises = Vger::Resources::Oac::UserExercise.where(
       :exercise_id => @exercise.id,
       query_options: {
         :exercise_id => @exercise.id
       },
-      include: [:user, :user_exercise_reports]
+      include: [:user, :user_exercise_reports],
+      page: params[:page],
+      per: 10
     ).all
   end
 

@@ -146,6 +146,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     )
   end
 
+
   # POST /assessments
   # POST /assessments.json
   # POST creates assessment and redirects to norms page

@@ -26,6 +26,11 @@ class TemplateVariablesController < MasterDataController
     ]
   end
   
+  def new
+    @resource = api_resource.new
+    @resource.template_category_ids = []
+  end
+  
   protected
   
   def get_template_categories

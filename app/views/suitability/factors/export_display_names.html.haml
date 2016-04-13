@@ -3,22 +3,14 @@
     %legend
       %strong Export Display Names
     = fields_for "export" do |f|
-      = f.fields_for "folder" do |f|
+      - if @factors.present?
         %p
-          Google Drive Folder Url :
-          = f.text_field "url"
-        - if @factors.present?
-          %p
-            Company ID :
-            = f.text_field "company_id",  value: @company_ids
-          %p
-          %p
-            Factors :
-            = f.select :factor_id, @factors.collect { |factor|[factor.name,factor.id]},{},{ :multiple => true, :size => 10}
-
+          Company ID :
+          = f.text_field "company_id",  value: @company_ids
         %p
-        Notification Email :
-        = f.text_field :email, :value => "product@jombay.com"
+        %p
+          Factors :
+          = f.select :factor_id, @factors.collect { |factor|[factor.name,factor.id]},{},{ :multiple => true, :size => 10}
       .actions
         = submit_tag "Export"
 
