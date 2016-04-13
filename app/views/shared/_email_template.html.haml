@@ -18,7 +18,7 @@
         .large-text
           = email_headline
         .divider1
-        .custom-email.hide
+        .custom-email
           .test-text-to-send
             %input{type: "hidden", name: "template_name", value: template.preview(:name).html_safe}
             %span.extra-medium-text.span2.first.show
@@ -38,20 +38,25 @@
             .massage-body.italic.span15.medium-text.email-body
               = template.preview(:body).html_safe
             .clr
-    .default-email
-      .test-text-to-send
-        %span.extra-medium-text.span2.first.show
-          From
-        .massage-body.italic.span15.medium-text
-          = "<Sender Name> at #{@company.name}"
-        .clr
+    - else
+      .gray-dark
+        .large-text
+          = email_headline
         .divider1
-        %span.extra-medium-text.span2.first.show
-          Subject
-        .massage-body.italic.span15.medium-text
-          = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
-        .clr
-        .divider1
-        = yield :email_partial
+      .default-email
+        .test-text-to-send
+          %span.extra-medium-text.span2.first.show
+            From
+          .massage-body.italic.span15.medium-text
+            = "<Sender Name> at #{@company.name}"
+          .clr
+          .divider1
+          %span.extra-medium-text.span2.first.show
+            Subject
+          .massage-body.italic.span15.medium-text
+            = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
+          .clr
+          .divider1
+          = yield :email_partial
 .clr
 = javascript_include_tag 'shared/select_template'   
