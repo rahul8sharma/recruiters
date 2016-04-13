@@ -363,6 +363,7 @@ Recruiters::Application.routes.draw do
         get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
         match "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "email_reports" => "sjt/assessments/user_assessments#email_reports", :as => :email_reports
       end
 
     end
