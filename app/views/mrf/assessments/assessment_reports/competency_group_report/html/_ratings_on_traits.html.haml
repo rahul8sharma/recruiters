@@ -45,7 +45,7 @@
                     - sorted_trait_scores.each do |trait_score|
                       - if trait_score[:average_score_excluding_self][:points]
                         - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_excluding_self][:points].to_f)
-                        - percent_360 = percent_360 == 0 ? 2 : percent_360
+                        - percent_360 = percent_360 == 0 ? 1 : percent_360
                       - else
                         - percent_360 = 0
                       .divider1
