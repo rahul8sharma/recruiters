@@ -1,5 +1,5 @@
-- sorted_individual_scores = sorted_individual_scores(@report.report_hash[:competency_individual_scores])
-- sorted_individual_scores.each_slice(15) do |step_data|
+- sorted_individual_scores = sorted_individual_scores(@report.report_hash)
+- sorted_individual_scores[:user_scores].each_slice(sorted_individual_scores[:step]) do |step_data|
   = render :partial => "shared/360/group_report_header"
   .report_content
     .average_individual_ratings

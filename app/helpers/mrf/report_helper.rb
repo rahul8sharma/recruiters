@@ -110,19 +110,84 @@ module Mrf::ReportHelper
     new_hash
   end
 
-  def sorted_individual_scores(report_data)
-    new_scores = []
-    report_data.each do |competency, competency_scores|
-      competency_scores.each do |scores|
-        new_scores.push({
+  def sorted_individual_scores(report_hash)
+    max_per_page = 22
+    competency_individual_scores = report_hash[:competency_individual_scores]
+    competency_scores = report_hash[:competency_scores]
+    
+    all_user_scores = []
+    all_scores = []
+    
+    competency_individual_scores.each do |competency, user_scores|
+      group_average = competency_scores[competency][:average_score_including_self][:points]
+      all_scores.push({
+        user_id: "-",
+        name: "-",
+        competency_name: competency,
+        is_competency_name: true,
+        score: 1000
+      })
+      all_scores.push({
+        user_id: "-",
+        name: "-",
+        competency_name: competency,
+        is_group_average: true,
+        group_average: group_average,
+        score: 999
+      })
+      user_scores.each do |scores|
+        user_score = {
           user_id: scores[:user_id],
           name: scores[:name],
-          score: scores[:score],
+          score: scores[:score].to_f,
           competency_name: competency 
-        })
+        }
+        all_user_scores.push(user_score)
+        all_scores.push(user_score)
       end
     end
-    new_scores.sort_by{|score| [score[:competency_name],score[:score]] }.reverse
+    
+    final_array = []
+    
+    all_scores.each_slice(max_per_page) do |step_data|
+      copy = step_data.dup
+      if step_data[0][:is_competency_name]
+      elsif step_data[0][:is_group_average]
+        competency = step_data[0][:competency_name]
+        copy.unshift({
+          user_id: "-",
+          name: "-",
+          competency_name: competency,
+          is_competency_name: true,
+          score: 1000
+        })  
+      else
+        competency = step_data[0][:competency_name]
+        group_average = competency_scores[competency][:average_score_including_self][:points]
+        copy.unshift({
+          user_id: "-",
+          name: "-",
+          competency_name: competency,
+          is_group_average: true,
+          group_average: group_average,
+          score: 999
+        })
+        copy.unshift({
+          user_id: "-",
+          name: "-",
+          competency_name: competency,
+          is_competency_name: true,
+          score: 1000
+        })  
+      end
+      final_array << copy
+    end
+    final_array.flatten!
+    all_user_scores.sort_by!{|score| [score[:competency_name],1000-score[:score]] }
+    competencies_per_page = final_array.each_slice(max_per_page).first.map{|x| x[:competency_name] }.uniq.size
+    {
+      user_scores: all_user_scores,
+      step: (max_per_page - competencies_per_page*2)
+    }
   end
-
 end
