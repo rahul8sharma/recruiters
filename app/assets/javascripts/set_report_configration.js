@@ -217,7 +217,6 @@ function createJSTree(container){
     deselect_related_nodes(data);
   }).on('select_node.jstree', function (e, data) {
     select_related_nodes(data);
-  }).on('changed.jstree', function (e, data) {
   }).on('refresh.jstree', function (e, data) {
     data.instance.selected = data.instance.selected || [];
     var selected = data.instance.selected;

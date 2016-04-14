@@ -33,6 +33,68 @@ function loadConfig() {
   });
 }
 
+function deselect_related_nodes(data){
+  if(data.node.original.links){
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.html.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.html[linkedNodeIndex];
+      $htmlTree.deselect_node(linkedNode);
+    }
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.pdf.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.pdf[linkedNodeIndex];
+      $pdfTree.deselect_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var childIndex = 0; childIndex < data.node.children_d.length; childIndex++){
+      var childrenNode = data.node.children_d[childIndex];
+      $htmlTree.deselect_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var parentIndex = 0; parentIndex < data.node.parents.length; parentIndex++){
+      var parentNode = $htmlTree.get_node(data.node.parents[parentIndex]);
+      if(!$htmlTree.is_selected(parentNode)){
+        if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+          for(var linkedNodeIndex = 0; linkedNodeIndex < parentNode.original.links.pdf.length; linkedNodeIndex++) {
+            var linkedNode = parentNode.original.links.pdf[linkedNodeIndex];
+            $pdfTree.deselect_node(linkedNode);
+          }  
+        }
+      }
+    }
+  }
+}
+
+function select_related_nodes(data){
+  if(data.node.original.links){
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.html.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.html[linkedNodeIndex];
+      $htmlTree.select_node(linkedNode);
+    }
+    for(var linkedNodeIndex = 0; linkedNodeIndex < data.node.original.links.pdf.length; linkedNodeIndex++) {
+      var linkedNode = data.node.original.links.pdf[linkedNodeIndex];
+      $pdfTree.select_node(linkedNode);
+    }
+  }
+  if(data.node.children_d.length > 0){
+    for(var childIndex = 0; childIndex < data.node.children_d.length; childIndex++){
+      var childrenNode = data.node.children_d[childIndex];
+      $htmlTree.select_node(childrenNode);
+    }
+  }
+  if(data.node.parents.length > 0){
+    for(var parentIndex = 0; parentIndex < data.node.parents.length; parentIndex++){
+      var parentNode = $htmlTree.get_node(data.node.parents[parentIndex]);
+      if(parentNode.original && parentNode.original.links && parentNode.original.links.pdf.length > 0){
+        for(var linkedNodeIndex = 0; linkedNodeIndex < parentNode.original.links.pdf.length; linkedNodeIndex++) {
+          var linkedNode = parentNode.original.links.pdf[linkedNodeIndex];
+          $pdfTree.select_node(linkedNode);
+        }  
+      }
+    }
+  }
+}
+
 function setSelected($jsTree, obj){
   if(obj.children == null || obj.children.length == 0) {
     $jsTree.select_node(obj.id);
@@ -128,7 +190,10 @@ function getConfiguration(){
 }
 
 function createJSTree(container, viewMode){
-  $(container).on('changed.jstree', function (e, data) {
+  $(container).on('deselect_node.jstree', function (e, data) {
+    deselect_related_nodes(data);
+  }).on('select_node.jstree', function (e, data) {
+    select_related_nodes(data);
   }).on('refresh.jstree', function (e, data) {
     var selected = data.instance.selected;
     for(var i = 0; i < selected.length; i++) {
