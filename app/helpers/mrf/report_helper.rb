@@ -111,7 +111,7 @@ module Mrf::ReportHelper
   end
 
   def sorted_individual_scores(report_hash)
-    max_per_page = 22
+    max_per_page = 21
     competency_individual_scores = report_hash[:competency_individual_scores]
     competency_scores = report_hash[:competency_scores]
     
