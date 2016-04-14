@@ -122,7 +122,7 @@ module Mrf::ReportHelper
         })
       end
     end
-    new_scores
+    new_scores.sort_by{|score| [score[:competency_name],score[:score]] }.reverse
   end
 
 end
