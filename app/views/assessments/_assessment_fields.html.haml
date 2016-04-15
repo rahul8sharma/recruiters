@@ -91,6 +91,8 @@
             = defined_form.name.html_safe
       .clr
   - else
+    - if @paid_user_assessments_count != 0  
+      = f.hidden_field :candidate_stage, value: @assessment.candidate_stage, :id => "set_candidate_type"    
     = f.hidden_field :assessment_type, value: @assessment.assessment_type, :id => "set_assessment_type"    
   .control-group
     %label
