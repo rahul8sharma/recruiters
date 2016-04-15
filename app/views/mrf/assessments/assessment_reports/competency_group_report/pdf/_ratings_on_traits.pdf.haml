@@ -22,7 +22,7 @@
                 - step_data.each_with_index do |trait_score, index|
                   %li
                     .trait_title.first.span5.default
-                      = trait_score[:trait][:name]
+                      = truncate(trait_score[:trait][:name],length: 30)
                     .stakeholder_rating.pull-left
                       = trait_score[:average_score_excluding_self][:points]
                     .clr
