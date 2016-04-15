@@ -1,19 +1,19 @@
 - if controller.search_columns.present?
   = form_for :search, url: controller.index_path, method: :get do |f|
     - f.object = OpenStruct.new
-    - controller.search_columns.each do |column|
+    - controller.search_columns.each do |column, config|
       - f.object.send("#{column}=",params[:search][column.to_sym])
     .search
       %fieldset
         %legend
           Search
-        - controller.search_columns.each do |column|
+        - controller.search_columns.each do |column, config|
           .field.pull-left
             = f.label column.to_sym
             - if controller.respond_to?("select_#{column.to_s}".to_sym)
               = f.select column.to_sym, controller.send("select_#{column.to_s}"), { }, { style: "width:200px;" }
             - else
-              = f.text_field column.to_sym  
+              = f.text_field column.to_sym
         .field.pull-left
           = f.submit :search
         .clr

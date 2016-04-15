@@ -68,8 +68,6 @@ module Recruiters
 
     config.domain = YAML::load(File.open("#{Rails.root.to_s}/config/domains.yml"))[Rails.env.to_s]
 
-    config.languages = YAML::load(File.open("#{Rails.root.to_s}/config/languages.yml"))['languages']
-
     # Enable the asset pipeline
     config.assets.enabled = true
 

@@ -1,5 +1,5 @@
 - if @report.report_data[:mrf_ratings_on_traits]
-  - sorted_trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_score| competency_score[:trait_scores] }.flatten.sort_by{|trait_score| trait_score[:average_score_including_self][:points].to_f }.reverse.uniq
+  - sorted_trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_score| competency_score[:trait_scores] }.flatten.sort_by{|trait_score| trait_score[:average_score_excluding_self][:points].to_f }.reverse.uniq
   - sorted_trait_scores.each_slice(15) do |step_data|
     = render :partial => "shared/360/group_report_header"
     .report_content
@@ -24,7 +24,7 @@
                     .trait_title.first.span5.default
                       = trait_score[:trait][:name]
                     .stakeholder_rating.pull-left
-                      = trait_score[:average_score_including_self][:points]
+                      = trait_score[:average_score_excluding_self][:points]
                     .clr
                   
             .right_sec.span13.pull-right
@@ -43,15 +43,10 @@
                     - old_max = @trait_graph_buckets.last.max_val
                     - step_data.each do |trait_score|
                       - if trait_score[:average_score_excluding_self][:points]
-                        - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_excluding_self][:points])
-                        - percent_360 = percent_360 == 0 ? 2 : percent_360
+                        - percent_360 = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_excluding_self][:points].to_f)
+                        - percent_360 = percent_360 == 0 ? 1 : percent_360
                       - else
                         - percent_360 = 0
-                      - if trait_score[:average_score_self][:points]
-                        - percent_self = convertToRange(old_min, old_max, 0, 100, trait_score[:average_score_self][:points])
-                        - percent_self = percent_self == 0 ? 2 : percent_self
-                      - else
-                        - percent_self = 0
                       .divider1
                       .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #a119a6"}
                       .divider1

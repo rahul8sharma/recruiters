@@ -96,9 +96,9 @@
     %label
       Select the Language for the Assessment
     %select.span10.first{name: 'assessment[language]', id: 'select_language'}
-      - Rails.application.config.languages.each do |code, language|
-        %option{:value => code, selected: (assessment.language == code)}
-          = language
+      - Vger::Resources::Language.all.each do |language|
+        %option{:value => language.language_code, selected: (assessment.language == language.language_code)}
+          = language.name
 
     .clr
   .control-group

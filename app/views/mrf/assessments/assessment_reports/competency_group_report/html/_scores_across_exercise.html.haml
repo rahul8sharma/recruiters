@@ -37,7 +37,7 @@
               - old_max = @competency_graph_buckets.last.max_val
               - if competency_scores[:max_score_excluding_self][:points]
                 - percent_max = convertToRange(old_min, old_max, 0, 100, competency_scores[:max_score_excluding_self][:points])
-                - percent_max = percent_max == 0 ? 5 : percent_max
+                - percent_max = percent_max == 0 ? 1 : percent_max
               - else
                 - percent_max = 0
               .divider1
@@ -46,7 +46,7 @@
               
               - if competency_scores[:min_score_excluding_self][:points]
                 - percent_min = convertToRange(old_min, old_max, 0, 100, competency_scores[:min_score_excluding_self][:points])
-                - percent_min = percent_min == 0 ? 5 : percent_min
+                - percent_min = percent_min == 0 ? 1 : percent_min
               - else
                 - percent_min = 0
               .divider1

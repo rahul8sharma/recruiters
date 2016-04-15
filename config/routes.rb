@@ -358,11 +358,12 @@ Recruiters::Application.routes.draw do
         match "candidates/resend-invitations" => "sjt/assessments/user_assessments#resend_invitations", :as => :resend_invitations
         match "candidates/:user_id" => "sjt/assessments/user_assessments#user", :as => :user
         match "reports" => "sjt/assessments/user_assessments#reports", :as => :reports
-        get "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
+        match "email_assessment_status" => "sjt/assessments/user_assessments#email_assessment_status", :as => :email_assessment_status
         match "candidates/:user_id/extend-validity" => "sjt/assessments/user_assessments#extend_validity", :as => :extend_validity
         get "trigger_report_downloader" => "sjt/assessments/user_assessments#trigger_report_downloader", :as => :trigger_report_downloader
         get "export_feedback_scores" => "sjt/assessments/user_assessments#export_feedback_scores", :as => :export_feedback_scores
         match "candidates/:user_id/send-reminder" => "sjt/assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "email_reports" => "sjt/assessments/user_assessments#email_reports", :as => :email_reports
       end
 
     end
@@ -1519,6 +1520,24 @@ Recruiters::Application.routes.draw do
   resources :work_experiences
   
   resources :stakeholders do
+  end
+  
+  namespace :idp do
+    resources :idps do
+      collection do
+        get :manage
+        post :import_via_s3
+      end
+    end
+    resources :alps
+    resources :competencies
+    resources :comments
+    resources :feedbacks
+    resources :actions
+    resources :meetings
+    resources :meeting_updates
+    resources :meeting_users
+    resources :resources
   end
 
   get "/competency_management/", :to => "suitability/competencies_management#manage", :as => :competencies_management
