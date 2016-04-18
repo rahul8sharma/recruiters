@@ -1535,7 +1535,7 @@ Recruiters::Application.routes.draw do
     resources :competencies
     resources :comments
     resources :feedbacks
-    resources :actions
+    resources :tasks
     resources :meetings
     resources :meeting_updates
     resources :meeting_users
