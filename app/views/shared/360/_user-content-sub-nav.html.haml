@@ -5,5 +5,5 @@
     Traits Included
   %a.menu{class: (["users","index","edit"].include?(params[:action]) ? "active" : ""), href: users_company_mrf_assessment_path(@company,@assessment)}
     Candidates
-  %a.menu{class: (["manage"].include?(params[:action]) ? "active" : ""), href: manage_group_report_company_mrf_assessment_path(@company.id,@assessment.id)}
-    Group Report
+  %a.menu{class: (["edit_group_report","group_reports","new_group_report"].include?(params[:action]) ? "active" : ""), href: group_reports_company_mrf_assessment_path(@company.id,@assessment.id)}
+    Group Reports

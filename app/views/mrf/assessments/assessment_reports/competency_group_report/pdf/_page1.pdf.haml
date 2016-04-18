@@ -3,8 +3,6 @@
   .j-logo.pull-left
   .clr
   .divider28
-  .huge-text.left-offset1
-    //= @report.report_hash[:user][:name]
   .divider1
   .banner
     .banner-heading.pull-left
@@ -12,7 +10,7 @@
     .pull-right
       .divider2
       .banner-sub-heading
-        Group Report
+        = @report.report_hash[:name]
         .large-text
           - if @report.report_data[:mrf_report_show_completion_status]
             - completed_count = 0
@@ -21,7 +19,9 @@
               - completed_count += status[:completed]
               - sent_count += status[:sent]
 
-          Completion Status: #{completed_count} out of #{sent_count}
+            Completion Status: #{completed_count} out of #{sent_count}
+          %br  
+          Candidates Included: #{@report.candidate_ids.size}  
     .clr
     
   .divider2
