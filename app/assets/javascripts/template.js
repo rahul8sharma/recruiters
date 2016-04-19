@@ -1,8 +1,7 @@
 function getTemplateVariablesForCategory(category) {
   var obj = {
-    joins: "template_categories",
     search: {
-      "template_categories.name": category
+      "template_category_name": category
     }
   };
   $.ajax({

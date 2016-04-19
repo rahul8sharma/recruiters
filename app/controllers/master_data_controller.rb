@@ -55,7 +55,6 @@ class MasterDataController < ApplicationController
       ]
     end]
     joins = params[:search].map{|key,val| search_columns_hash[key.strip.to_sym][:joins] }.compact.flatten
-    Rails.logger.ap search_params
     @objects = api_resource.where(
       :query_options => search_params,
       :joins => joins,

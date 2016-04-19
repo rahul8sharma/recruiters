@@ -20,10 +20,18 @@ class TemplateVariablesController < MasterDataController
   end
   
   def search_columns
-    [
-      :id,
-      :name
-    ]
+    {
+      :id => { 
+        column: :id
+      },
+      :name => { 
+        column: :name 
+      },
+      :template_category_name => { 
+        column: "template_categories.name",
+        joins: :template_categories
+      }
+    }
   end
   
   def new
