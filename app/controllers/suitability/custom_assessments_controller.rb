@@ -268,16 +268,18 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
     }
     @templates = get_templates_for_company(query_options, @company.id)
-    @templates |= get_global_tempaltes(query_options)
+    @templates |= get_global_templates(query_options)
   end
 
   def get_competencies(scope)
     @local_competencies = Vger::Resources::Suitability::Competency.where(
       :query_options => { 
-        "companies_competencies.company_id" => @company.id, :active => true 
+        "companies_competencies.company_id" => @company.id, 
+        :active => true
       }, 
       :scopes => {
-        scope => nil
+        scope => nil,
+        :with_factors => nil
       }, 
       :methods => [:factor_names], 
       :order => ["name ASC"], 

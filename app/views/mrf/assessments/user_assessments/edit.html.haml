@@ -11,7 +11,6 @@
       Add Candidates  
   .clr
   .divider2
-  = render :partial => "shared/360/user-content-sub-nav"
 
   .padding-all2.border-warning.shifted-up1    
     = form_for @user_assessment, as: :user_assessment, url: company_mrf_assessment_user_assessment_path(@company.id, @assessment.id, @user_assessment.id) do |f|      

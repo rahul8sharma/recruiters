@@ -4,7 +4,7 @@
     #{@assessment.id} - #{@assessment.name}
   .clr
   .divider1
-  = render :partial => "shared/360/user-content-sub-nav"
+  = render :partial => "shared/360/user-content-#{@assessment.assessment_base}-sub-nav"
 
   .padding-all2.border-warning.shifted-up1
     - if @group_report.id.present?

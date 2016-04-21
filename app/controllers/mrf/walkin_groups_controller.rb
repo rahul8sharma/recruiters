@@ -99,7 +99,7 @@ class Mrf::WalkinGroupsController < ApplicationController
       "template_categories.name" => template_category::SEND_MRF_INVITATION_TO_CANDIDATE
     }
     @user_templates = get_templates_for_company(query_options, @company.id)
-    @user_templates |= get_global_tempaltes(query_options)
+    @user_templates |= get_global_templates(query_options)
     query_options = {
       "template_categories.name" => [
         template_category::SEND_CLASSIC_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE,
@@ -107,7 +107,7 @@ class Mrf::WalkinGroupsController < ApplicationController
       ]
     }              
     @stakeholder_templates = get_templates_for_company(query_options, @company.id)
-    @stakeholder_templates |= get_global_tempaltes(query_options)            
+    @stakeholder_templates |= get_global_templates(query_options)            
   end
   
   def template_category

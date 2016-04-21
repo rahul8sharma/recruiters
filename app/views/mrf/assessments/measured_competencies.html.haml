@@ -6,12 +6,12 @@
     Create a new 360&#176; Profiling Exercise
   .clr
   .divider2
-  = render :partial => "shared/360/user-content-#{@assessment.assessment_base}-sub-nav"
+  = render :partial => "shared/360/user-content-competency-sub-nav"
   .padding-all2.border-warning.shifted-up1
-    - if (@assessment.assessment_traits.present?)
+    - if (@assessment.assessment_competencies.present?)
       .big-text.font-bold
         .pull-left
-          Traits Measured: #{@assessment.assessment_traits.size}
+          Competencies Measured: #{@assessment.assessment_competencies.size}
        
         .pull-right.span7.first.text-center
           Expected Score Range
@@ -27,19 +27,17 @@
                 = norm_bucket.name
       .clr
       %ul.clearfix.scores_listing.first
-        - @assessment.assessment_traits.each do |assessment_trait|
-          - from = @norm_buckets_by_id[assessment_trait.from_norm_bucket_id]
-          - to = @norm_buckets_by_id[assessment_trait.to_norm_bucket_id]
+        - @assessment.assessment_competencies.each do |assessment_competency|
+          - from = @norm_buckets_by_id[assessment_competency.from_norm_bucket_id]
+          - to = @norm_buckets_by_id[assessment_competency.to_norm_bucket_id]
           - width = (to.weight - from.weight)
           %li
             .lhs-sec.span20.first
               .factor-name
-                = assessment_trait.trait.name
-                / (#{assessment_trait.from_norm_bucket_name} - #{assessment_trait.to_norm_bucket_name})
-                / = assessment_trait.from_norm_bucket_id
+                = assessment_competency.competency.name
               .factor-description
-                = assessment_trait.trait.definition
-                / = assessment_trait.from_norm_bucket_id
+                - if assessment_competency.competency.factor_ids.present?
+                  = (assessment_competency.competency.factor_names + assessment_competency.competency.mrf_trait_names).join(", ")
             .rhs-sec.pull-right
               .marker-set
                 - @norm_buckets.each do |norm_bucket|

@@ -308,6 +308,7 @@ Recruiters::Application.routes.draw do
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
+        get "measured_competencies" => "mrf/assessments#measured_competencies", :as => :measured_competencies
 
         get "candidates" => "mrf/assessments/user_feedback#users", :as => :users
         get ":user_id/statistics" => "mrf/assessments/user_feedback#statistics", :as => :user_statistics
@@ -370,7 +371,7 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac_exercises, :controller => "oac/exercises", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/exercises", :path => "vac" do
       collection do
         match "home" => "oac/exercises#home", :as => :home
       end
@@ -1226,7 +1227,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  namespace :oac, path: "oac" do
+  namespace :oac, path: "vac" do
     get "manage" => "exercise_management#manage", as: :manage
     post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores

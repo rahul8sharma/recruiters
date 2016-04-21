@@ -94,6 +94,6 @@ class WalkinGroupsController < ApplicationController
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_WALKIN
     }
     @invitation_templates = get_templates_for_company(query_options, @company.id)
-    @invitation_templates |= get_global_tempaltes(query_options)
+    @invitation_templates |= get_global_templates(query_options)
   end
 end

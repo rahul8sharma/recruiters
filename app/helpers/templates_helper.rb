@@ -8,7 +8,7 @@ module TemplatesHelper
       ).all.to_a
   end
   
-  def get_global_tempaltes(query_options)
+  def get_global_templates(query_options)
     return Vger::Resources::Template\
       .where(
         query_options: query_options, 
