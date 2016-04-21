@@ -79,7 +79,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   
   def export_feedback_status
     options = {
-      email: current_user.email,
+      user_id: current_user.id,
       assessment_id: @assessment.id,
       criteria: {
         pending: params[:pending].present?,
