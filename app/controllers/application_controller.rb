@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   
   def redirect_user_path
     if current_user
-      self.send "redirect_#{current_user.role}"
+      self.send "redirect_#{current_user.role.underscore}"
     else
       login_path(:redirect_to => request.fullpath)
     end

@@ -125,7 +125,7 @@ module ApplicationHelper
     companies_path
   end
   
-  def redirect_jit
+  def redirect_jit_user
     companies_path
   end
   
@@ -141,12 +141,12 @@ module ApplicationHelper
     end
   end
   
-  def redirect_jq
+  def redirect_jq_user
     session[:auth_token] = nil
     login_path
   end
   
-  def redirect_sq
+  def redirect_sq_user
     session[:auth_token] = nil
     login_path
   end
