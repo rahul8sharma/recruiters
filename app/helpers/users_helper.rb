@@ -24,15 +24,27 @@ module UsersHelper
     return user_path(user.id)
   end
   
-  def get_link_for_jit(user)
+  def get_link_for_jit_user(user)
     return user_path(user.id)
   end
   
-  def get_link_for_sq(user)
+  def get_link_for_sq_user(user)
     return user_path(user.id)
   end
   
-  def get_link_for_jq(user)
+  def get_link_for_jq_user(user)
+    return user_path(user.id)
+  end
+  
+  def get_link_for_idp_coach(user)
+    return user_path(user.id)
+  end
+  
+  def get_link_for_idp_mentor(user)
+    return user_path(user.id)
+  end
+  
+  def get_link_for_idp_candidate(user)
     return user_path(user.id)
   end
 end
