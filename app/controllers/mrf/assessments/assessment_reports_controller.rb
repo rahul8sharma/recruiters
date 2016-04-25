@@ -1,4 +1,6 @@
 class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsController
+  before_filter :get_candidates, only: [:new_group_report, :edit_group_report]
+
   def group_report
     get_norm_buckets
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
@@ -60,30 +62,75 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
     redirect_to url
   end
   
-  def manage
-    @group_report = Vger::Resources::Mrf::AssessmentReport.where(
+  def group_reports
+    @group_reports = Vger::Resources::Mrf::AssessmentReport.where(
       query_options: {
-      assessment_id: @assessment.id
-    }).all.first
-    @group_report ||= Vger::Resources::Mrf::AssessmentReport.new
+        assessment_id: @assessment.id
+      },
+      page: params[:page],
+      per: 10
+    )
+    render :layout => "mrf/mrf"
+  end
+  
+  def edit_group_report
+    @group_report = Vger::Resources::Mrf::AssessmentReport\
+                        .find(params[:report_id], { 
+                          company_id: params[:company_id], 
+                          assessment_id: params[:id] 
+                        })
+    render :layout => "mrf/mrf"
+  end
+  
+  def new_group_report
+    @group_report = Vger::Resources::Mrf::AssessmentReport.new
     render :layout => "mrf/mrf"
   end
   
   def create
-    @group_report = Vger::Resources::Mrf::AssessmentReport.create(params[:group_report])
+    @group_report = Vger::Resources::Mrf::AssessmentReport.create(params[:group_report].merge({
+      :candidate_ids => params[:candidates].keys.map(&:to_i)
+    }))
     if @group_report.error_messages.empty?
-      redirect_to manage_group_report_company_mrf_assessment_path(@company.id, @assessment.id)
+      redirect_to edit_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id)
     else
-      render :action => :manage, :layout => "mrf/mrf"
+      render :action => :new_group_report, :layout => "mrf/mrf"
     end
   end
   
   def update
-    @group_report = Vger::Resources::Mrf::AssessmentReport.save_existing(params[:report_id], params[:group_report])
-    if @group_report.error_messages.empty?
-      redirect_to manage_group_report_company_mrf_assessment_path(@company.id, @assessment.id)
+    @group_report = Vger::Resources::Mrf::AssessmentReport\
+                        .find(params[:report_id], { 
+                          company_id: params[:company_id], 
+                          assessment_id: params[:id] 
+                        })
+    if params[:candidates].blank?
+      render :action => :edit_group_report, :layout => "mrf/mrf"
     else
-      render :action => :manage, :layout => "mrf/mrf"
+      @group_report = Vger::Resources::Mrf::AssessmentReport\
+                      .save_existing(params[:report_id], params[:group_report].merge(
+                        :candidate_ids => params[:candidates].keys.map(&:to_i)
+                      ))
+      if @group_report.error_messages.empty?
+        redirect_to group_reports_company_mrf_assessment_path(@company.id, @assessment.id)
+      else
+        render :action => :edit_group_report, :layout => "mrf/mrf"
+      end
     end
+  end
+  
+  protected
+  
+  def get_candidates
+    @users = Vger::Resources::User.where(
+      joins: :feedbacks,
+      query_options: {
+        "mrf_feedbacks.assessment_id" => @assessment.id
+      },
+      select: "distinct(jombay_users.id),jombay_users.name,email",
+      order: "jombay_users.id asc",
+      page: params[:page],
+      per: 10
+    ).all
   end
 end

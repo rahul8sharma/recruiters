@@ -1,0 +1,46 @@
+.details-mrf
+  .span10.page-title.first
+    .divider1
+    Group Reports
+  .pull-right.span  
+    %a.btn.btn-info.big.big-text{:href => new_group_report_company_mrf_assessment_path(@company.id, @assessment.id), :title => "Click Here To Create new Group Report"} 
+      Create a new Group Report
+    %br  
+    %br
+  .clr
+  = render :partial => "shared/360/user-content-#{@assessment.assessment_base}-sub-nav"
+  .padding-all2.border-warning.shifted-up1  
+    .divider2
+    .list-snippet-titles.big-text.clearfix
+      - if @group_reports.present?
+        .span3.first
+          ID
+        .span4
+          Name
+        .span8
+          Candidates
+        .span3.text-center
+          Manage
+        .clr
+        .divider2          
+        %ul
+          - @group_reports.each do |group_report|
+            %li.list-snippet.border-top-grayLighter.extra.medium-text
+              .divider1
+              .span3.first
+                = group_report.id
+              .span4
+                = group_report.name
+              .span8
+                = group_report.candidate_ids.size
+              .span3.text-center
+                = link_to "Manage", edit_group_report_company_mrf_assessment_path(@company.id,@assessment.id,group_report.id)
+              .clr
+      - else
+        .alert.medium-text.text-center
+          No Group Report present. 
+    .divider2
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @group_reports }
+    .clr     
+        

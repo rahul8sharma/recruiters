@@ -341,6 +341,11 @@ class Mrf::AssessmentsController < ApplicationController
     @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
   end
   
+  def measured_competencies
+    get_norm_buckets
+    @norm_buckets_by_id = Hash[@norm_buckets.collect{|norm_bucket| [norm_bucket.id,norm_bucket] }]
+  end
+  
   protected
   
   def get_norm_buckets
@@ -375,7 +380,7 @@ class Mrf::AssessmentsController < ApplicationController
     if params[:id].present?
       @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {
                     :assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] },
-                    :assessment_competencies => { include: [:competency], methods:[:from_norm_bucket_name,:to_norm_bucket_name] }
+                    :assessment_competencies => { include: { :competency => { methods: [:factor_names, :mrf_trait_names] } }, methods:[:from_norm_bucket_name,:to_norm_bucket_name] }
                     })
     else
       @assessment = Vger::Resources::Mrf::Assessment.new

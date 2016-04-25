@@ -1,0 +1,9 @@
+.content-sub-nav.clearfix
+  %a.menu{class: (["details"].include?(params[:action]) ? "active" : ""), href: details_company_mrf_assessment_path(@company,@assessment)}
+    Statistics
+  %a.menu{class: (["measured_competencies"].include?(params[:action]) ? "active" : ""), href: measured_competencies_company_mrf_assessment_path(@company,@assessment)}
+    Measured Competencies
+  %a.menu{class: (["users","index","edit"].include?(params[:action]) ? "active" : ""), href: users_company_mrf_assessment_path(@company,@assessment)}
+    Candidates
+  %a.menu{class: (["edit_group_report","group_reports","new_group_report"].include?(params[:action]) ? "active" : ""), href: group_reports_company_mrf_assessment_path(@company.id,@assessment.id)}
+    Group Reports

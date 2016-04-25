@@ -253,6 +253,6 @@ class Engagement::Surveys::UsersController < ApplicationController
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_SURVEY_TO_EMPLOYEE
     }
     @templates = get_templates_for_company(query_options, @company.id)
-    @templates |= get_global_tempaltes(query_options)
+    @templates |= get_global_templates(query_options)
   end
 end

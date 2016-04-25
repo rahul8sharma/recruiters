@@ -139,7 +139,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   def add_users
     params[:users] ||= {}
     params[:trial] = params[:trial].present?
-    params[:users].reject!{|key,data| data[:email].blank? && data[:name].blank?}
+    params[:users].reject!{|key,data| data[:email].blank? || data[:name].blank?}
     params[:upload_method] ||= "manual"
     @errors = {}
     @functional_areas = Vger::Resources::FunctionalArea.active.all.to_a
@@ -160,7 +160,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         end
         user = Vger::Resources::User.where(
           :query_options => { 
-            :email => user_data[:email] 
+            :email => user_data[:email]
           }
         ).first
         user_data[:role] = Vger::Resources::Role::RoleName::CANDIDATE
@@ -578,7 +578,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     end
     query_options["template_categories.name"] = category if category.present?
     @templates = get_templates_for_company(query_options, @company.id)
-    @templates |= get_global_tempaltes(query_options)
+    @templates |= get_global_templates(query_options)
   end
 
   def get_packages

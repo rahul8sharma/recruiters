@@ -297,15 +297,18 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "group_reports" => "mrf/assessments/assessment_reports#group_reports", :as => :group_reports
+        get "group_reports/new" => "mrf/assessments/assessment_reports#new_group_report", :as => :new_group_report
         get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
         get "group_report/:report_id/mrf_report" => "mrf/assessments/assessment_reports#group_report", :as => :group_report
 
-        get "group_report" => "mrf/assessments/assessment_reports#manage", :as => :manage_group_report
+        get "group_report/:report_id/edit" => "mrf/assessments/assessment_reports#edit_group_report", :as => :edit_group_report
         post "group_report" => "mrf/assessments/assessment_reports#create", :as => :create_group_report
         put "group_report/:report_id" => "mrf/assessments/assessment_reports#update", :as => :update_group_report
 
         get "details" => "mrf/assessments#details", :as => :details
         get "traits" => "mrf/assessments#traits", :as => :traits
+        get "measured_competencies" => "mrf/assessments#measured_competencies", :as => :measured_competencies
 
         get "candidates" => "mrf/assessments/user_feedback#users", :as => :users
         get ":user_id/statistics" => "mrf/assessments/user_feedback#statistics", :as => :user_statistics
@@ -368,7 +371,7 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac_exercises, :controller => "oac/exercises", :path => "oac" do
+    resources :oac_exercises, :controller => "oac/exercises", :path => "vac" do
       collection do
         match "home" => "oac/exercises#home", :as => :home
       end
@@ -1224,7 +1227,7 @@ Recruiters::Application.routes.draw do
     end
   end
 
-  namespace :oac, path: "oac" do
+  namespace :oac, path: "vac" do
     get "manage" => "exercise_management#manage", as: :manage
     post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
@@ -1533,7 +1536,7 @@ Recruiters::Application.routes.draw do
     resources :competencies
     resources :comments
     resources :feedbacks
-    resources :actions
+    resources :tasks
     resources :meetings
     resources :meeting_updates
     resources :meeting_users

@@ -79,7 +79,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   
   def export_feedback_status
     options = {
-      email: current_user.email,
+      user_id: current_user.id,
       assessment_id: @assessment.id,
       criteria: {
         pending: params[:pending].present?,
@@ -474,6 +474,6 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     end
     query_options["template_categories.name"] = category if category.present?
     @templates = get_templates_for_company(query_options, @company.id)
-    @templates |= get_global_tempaltes(query_options)
+    @templates |= get_global_templates(query_options)
   end
 end

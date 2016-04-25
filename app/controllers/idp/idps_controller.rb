@@ -21,6 +21,7 @@ class Idp::IdpsController < MasterDataController
                         :bucket => obj.bucket.name,
                         :key => obj.key
                       }, 
+                      :activation_host => params[:import][:activation_host],
                       :company_id => params[:import][:company_id],
                       :user_id => current_user.id
                     )
