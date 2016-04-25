@@ -7,7 +7,7 @@
   .control-group
     %label
       Select the Industry your Company belongs to
-    %select.span10.first{name: 'assessment[industry_id]', id: 'select_industry'}
+    %select.span12.first{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
         Industry
       - @industries.each do |id, industry|
@@ -29,7 +29,7 @@
   .control-group
     %label
       Select Experience Range of the Job Role that you are creating this Assessment for
-    %select.span7.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+    %select.span12.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       %option{:value => ""}
         Experience
       - @job_experiences.each do |id,job_experience|
@@ -39,7 +39,7 @@
   .control-group
     %label
       Select the purpose of the assessment
-    %select.span10.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
+    %select.span12.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
       %option{:value => ""}
         Select the purpose of the assessment
       %option{:value => Vger::Resources::User::Stage::EMPLOYED, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
@@ -50,7 +50,7 @@
 .control-group
   %label
     Enter a Title for the Assessment
-  = f.text_field :name, :class => "span17 first", :placeholder => "(e.g. Senior Marketing Manager)"
+  = f.text_field :name, :class => "span12 first", :placeholder => "(e.g. Senior Marketing Manager)"
   .clr
 
 - if ["new","create"].include?(params[:action])
@@ -64,7 +64,7 @@
       .control-group
         %label
           Page Size
-        = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span17"
+        = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span10"
         .clr
 
 .clr
