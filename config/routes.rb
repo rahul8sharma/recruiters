@@ -371,7 +371,7 @@ Recruiters::Application.routes.draw do
 
     end
 
-    resources :oac_exercises, :controller => "oac/exercises", :path => "vac" do
+    resources :oac_exercises, :controller => "oac/exercises", :path => "oac" do
       collection do
         match "home" => "oac/exercises#home", :as => :home
       end
