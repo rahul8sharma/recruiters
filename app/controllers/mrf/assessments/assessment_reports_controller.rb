@@ -88,7 +88,9 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
   end
   
   def create
-    @group_report = Vger::Resources::Mrf::AssessmentReport.create(params[:group_report])
+    @group_report = Vger::Resources::Mrf::AssessmentReport.create(params[:group_report].merge({
+      :candidate_ids => params[:candidates].keys.map(&:to_i)
+    }))
     if @group_report.error_messages.empty?
       redirect_to edit_group_report_company_mrf_assessment_path(@company.id, @assessment.id, @group_report.id)
     else
