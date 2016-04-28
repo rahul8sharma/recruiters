@@ -1,6 +1,9 @@
 candidate_personal_details:
   name: Candidate Personal Details
   checked: true
+report_link:
+  name: Report Link
+  checked: true
 aggregate_score:
   name: Aggregate Competency Score
   checked: true
