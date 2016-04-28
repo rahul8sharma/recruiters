@@ -43,29 +43,31 @@
     %input{type: 'hidden', name: 'user', value: current_user.role.underscore}
     - if !is_superuser?
       = f.hidden_field :validate_items, value: "on"
-    - 2.times do 
-      .span15.first
-        .factor-list
-          .titles.clearfix
-            .span7.first
-              .big-text
-                Behavioral Trait
-              .muted
-                Place the cursor on individual Traits below to see their definition
-                
-            .span6.left-offset1
-              .big-text
-                Expected Score Range
-                %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
-              .muted
-                Choose Minimum and Maximum score
-            .clr
-            .divider1 
-            .semi-muted
-              .left-offset8.first.span3
-                Minimum
-              .span3 
-                Maximum
+    .span25.first
+      .factor-list
+        .titles.clearfix
+          .span12.first
+            .big-text
+              Behavioral Trait
+            .muted
+              Place the cursor on individual Traits below to see their definition
+              
+          .span12.left-offset1
+            .big-text
+              Expected Score Range
+              %a.icon-question-sign.large-text.scroll{:href=>"#scale_description", :title=>"Expected Score Description"}
+            .muted
+              Choose Minimum and Maximum score
+          .clr
+          .divider1 
+          .semi-muted
+            .left-offset13.first.span4
+              Minimum
+            .span4 
+              Maximum
+            .span3
+              Difficulty Level  
+          .divider1    
     .clr                
     - aindex = 0
     .factor-list

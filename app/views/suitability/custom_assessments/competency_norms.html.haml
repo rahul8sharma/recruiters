@@ -10,28 +10,29 @@
     %input{type: 'hidden', name: 'assessment[functional_area_id]', value: @assessment.functional_area_id}
     %input{type: 'hidden', name: 'assessment[job_experience_id]', value: @assessment.job_experience_id}
     = render :partial => "competency_ranges"
-    - 2.times do 
-      .span15.first
-        .factor-list
-          .titles.clearfix
-            .span6.first
-              .big-text
-                Behavioral Trait
-              .muted
-                Place the cursor on individual Traits below to see their definition
-                
-            .span6.left-offset1
-              .big-text
-                Expected Score Range
-              .muted
-                Choose Minimum and Maximum score
-            .clr
-            .divider1 
-            .semi-muted
-              .left-offset7.first.span3
-                Minimum
-              .span3 
-                Maximum
+    .span25.first
+      .factor-list
+        .titles.clearfix
+          .span12.first
+            .big-text
+              Behavioral Trait
+            .muted
+              Place the cursor on individual Traits below to see their definition
+              
+          .span12.left-offset1
+            .big-text
+              Expected Score Range
+            .muted
+              Choose Minimum and Maximum score
+          .clr
+          .divider1 
+          .semi-muted
+            .left-offset13.first.span4
+              Minimum
+            .span4 
+              Maximum
+            .span3
+              Difficulty Level
     .clr                
     - aindex = 0
     .factor-list
