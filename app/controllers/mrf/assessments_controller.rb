@@ -135,7 +135,6 @@ class Mrf::AssessmentsController < ApplicationController
       }
       @assessment = Vger::Resources::Mrf::Assessment.new(attributes)
       if @assessment.save
-        flash[:notice] = "360 Degree feedback created successfully!"
         redirect_to add_traits_company_mrf_assessment_path(@company.id,@assessment.id)
       else
         get_custom_assessments
@@ -150,7 +149,6 @@ class Mrf::AssessmentsController < ApplicationController
     params[:assessment][:company_id] = @company.id
     @assessment = Vger::Resources::Mrf::Assessment.new(params[:assessment])
     if @assessment.save
-      flash[:notice] = "360 Degree feedback created successfully!"
       if params[:proceed_with_competencies].present?
         redirect_to competencies_company_mrf_assessment_path(@company.id,@assessment.id)
       else
