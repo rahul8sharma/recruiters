@@ -328,6 +328,7 @@ Recruiters::Application.routes.draw do
         match "order_enable_items" => "mrf/assessments#order_enable_items", :as => :order_enable_items
         match "add_subjective_items" => "mrf/assessments#add_subjective_items", :as => :add_subjective_items
         match "add_stakeholders" => "mrf/assessments/user_feedback#add_stakeholders", :as => :add_stakeholders
+        match "email_template" => "mrf/assessments/user_feedback#email_template", :as => :email_template
         match "/send-reminder" => "mrf/assessments/user_feedback#send_reminder", :as => :send_reminder
         match "bulk_upload" => "mrf/assessments/user_feedback#bulk_upload", :as => :bulk_upload
 
