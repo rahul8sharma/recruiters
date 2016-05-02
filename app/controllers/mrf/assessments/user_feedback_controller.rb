@@ -282,12 +282,12 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
         feedback = get_or_create_feedback(stakeholder_assessment,user,feedback_hash)
         return if !feedback
       end
-      redirect_to email_template_company_mrf_assessment_path(@company.id, @assessment.id) and return
+      redirect_to select_email_template_company_mrf_assessment_path(@company.id, @assessment.id) and return
     end
     get_custom_assessment
   end
 
-  def email_template
+  def select_email_template
     get_templates(false)
     if request.put?
       flash[:notice] = "Invitations sent to stakeholders"
