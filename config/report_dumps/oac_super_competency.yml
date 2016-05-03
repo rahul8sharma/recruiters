@@ -268,7 +268,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         uid: OKsrTfWV
         weight: 2
         description: States clear goals and expectations up front in discussions. Helps set deadlines and prioritisation for team. Monitors progress against milestones or deadlines. Distributes recourses in unplanned manner and as per need.
-      description: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+      description:   Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 65.0
