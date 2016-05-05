@@ -83,7 +83,7 @@
   },
   {
     id: "html_360_degree_scores_competencies",
-    text: "360 Degree and Self Ratings on Competency",
+    text: "360 Degree and Self Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/html/scores_competencies",
     children: [
       {
