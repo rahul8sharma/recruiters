@@ -63,20 +63,7 @@
     id: "pdf_one_page_competency_overview",
     text: "One Pager Competency Overview",
     path: "oac/exercises/reports/competency_reports/pdf/one_page_competency_overview",
-    children: [
-      {
-        id: "pdf_one_page_overview_legend",
-        text: "Legend For Markers[With / Without Desired Range]",
-        path: "oac/exercises/reports/competency_reports/pdf/one_pager/graph",
-        children: []
-      },
-      {
-        id: "pdf_one_page_competencies_measured",
-        text: "Competencies Description",
-        path: "oac/exercises/reports/competency_reports/pdf/one_pager/competencies_measured",
-        children: []
-      }
-    ]
+    children: []
   },  
   {
     id: "pdf_competency_overview_tool_wise",

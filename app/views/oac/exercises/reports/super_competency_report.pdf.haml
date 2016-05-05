@@ -3,4 +3,3 @@
   - @report.report_configuration["pdf"]["sections"].each do |section_value|
     = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
     .page-break
-  .page-break
