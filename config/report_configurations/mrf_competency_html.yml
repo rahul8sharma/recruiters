@@ -21,7 +21,7 @@
           },
           {
             id: "html_header_scores",
-            text: "Scores",
+            text: "Competencies",
             path: "shared/reports/mrf/header/scores",
           },
           {
@@ -73,17 +73,17 @@
           pdf: ["pdf_mrf_report_show_completion_status_compact"]
         }        
       },
-      {
-        id: "html_mrf_report_cover",
-        text: "Report Cover",
-        path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
-        locals: {}
-      }
+      # {
+      #   id: "html_mrf_report_cover",
+      #   text: "Report Cover",
+      #   path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
+      #   locals: {}
+      # }
     ]
   },
   {
     id: "html_360_degree_scores_competencies",
-    text: "360 Degree and Self Ratings on Competencies/Values",
+    text: "360 Degree and Self Ratings on Competency",
     path: "mrf/assessments/reports/competency_report/html/scores_competencies",
     children: [
       {
