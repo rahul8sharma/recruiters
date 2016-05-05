@@ -292,7 +292,11 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     if request.put?
       flash[:notice] = "Invitations sent to stakeholders"
       if params[:send_invitations]
-        Vger::Resources::Mrf::Assessment.send_invitations(company_id: @company.id, id: @assessment.id)
+        Vger::Resources::Mrf::Assessment.send_invitations(
+          company_id: @company.id, 
+          id: @assessment.id,
+          template_id: params[:template_id]
+        )
       end
       if params[:send_and_add_more].present?
         params[:user] = {}
