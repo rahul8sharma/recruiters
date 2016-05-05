@@ -345,24 +345,6 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     end
   end
 
-  def bulk_send_invitations
-    Vger::Resources::Mf::Feedback\
-      .import_from_s3_files(:email => current_user.email,
-                    :assessment_id => @assessment.id,
-                    :sender_id => current_user.id,
-                    :worksheets => [{
-                      :file => "BulkUpload.xls",
-                      :bucket => params[:s3_bucket],
-                      :key => params[:s3_key]
-                    }]
-                   )
-    redirect_to company_mrf_assessment_url(@company.id,@assessment.id),
-                notice: "Bulk upload in progress."
-  end
-
-  def preview
-  end
-  
   protected
 
   def get_company
