@@ -1,0 +1,19 @@
+.span30
+  .divider2
+  = form_for @assessment, as: :assessment, url: select_email_template_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|  
+    = render :partial => "email_settings"
+    .divider2
+    .span.pull-right.boxed
+      - if is_superuser?
+        .span.medium-text.pull-left
+          %label.line-height2
+            %input{name: "send_invitations", type: "checkbox", checked: "checked"}
+            Send Email Invitations 
+      .span.medium-text.pull-left
+        %label.line-height2
+          %input{name: "send_and_add_more", type: "checkbox", value: "send_and_add_more"}
+          Invite More After Sending
+      .span.pull-right
+        %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+      .clr
+      .clr

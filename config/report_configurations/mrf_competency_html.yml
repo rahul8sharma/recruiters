@@ -21,17 +21,17 @@
           },
           {
             id: "html_header_scores",
-            text: "Scores",
+            text: "Competencies",
             path: "shared/reports/mrf/header/scores",
           },
           {
             id: "html_header_data_points_competencies",
-            text: "Data Point Competencies",
+            text: "Details on competencies",
             path: "shared/reports/mrf/header/data_points_competencies",
           },
           {
             id: "html_header_data_points_traits",
-            text: "Data Points Traits",
+            text: "Details on traits",
             path: "shared/reports/mrf/header/data_points_traits"
           },
           {
@@ -73,12 +73,12 @@
           pdf: ["pdf_mrf_report_show_completion_status_compact"]
         }        
       },
-      {
-        id: "html_mrf_report_cover",
-        text: "Report Cover",
-        path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
-        locals: {}
-      }
+      # {
+      #   id: "html_mrf_report_cover",
+      #   text: "Report Cover",
+      #   path: "mrf/assessments/reports/competency_report/html/mrf_report_cover",
+      #   locals: {}
+      # }
     ]
   },
   {
@@ -154,7 +154,7 @@
         children: [
           {
             id: "html_360_trait_scores_legent_with_desired_range",
-            text: "Legend with Desired Range",
+            text: "Show desired range in legend ",
             path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_with_desired_range",
             locals: {},
             links: {
@@ -164,7 +164,7 @@
           },
           {
             id: "html_360_trait_scores_legent_without_desired_range",
-            text: "Legend without Desired Range",
+            text: "Hide desired range in legend ",
             path: "mrf/assessments/reports/competency_report/html/trait_scores_legend_without_desired_range",
             locals: {},
             links: {
@@ -181,7 +181,7 @@
         children: [
           {
             id: "html_360_traits_under_competency_graph_with_desired_range",
-            text: "Trait Graph With Desired Range",
+            text: "Show desired range in graph",
             path: "mrf/assessments/reports/competency_report/html/trait_graph_with_desired_range",
             locals: {},
             links: {
@@ -191,7 +191,7 @@
           },
           {
             id: "html_360_traits_under_competency_graph_without_desired_range",
-            text: "Trait Graph Without Desired Range",
+            text: "Hide desired range in graph",
             path: "mrf/assessments/reports/competency_report/html/trait_graph_without_desired_range",
             locals: {},
             links: {
@@ -243,7 +243,7 @@
   },
   {
     id: "html_360_degree_competencies_scores_in_descending_order",
-    text: "360 Degree Ratings on Competencies",
+    text: "360 Degree ratings on competencies : Descending order",
     path: "mrf/assessments/reports/competency_report/html/competencies_descending_order",
     children: [],
     links: {
@@ -253,7 +253,7 @@
   },
   {
     id: "html_360_degree_traits_scores_in_descending_order",
-    text: "360 Degree Ratings on Traits",
+    text: "360 Degree ratings on traits : Descending order",
     path: "mrf/assessments/reports/competency_report/html/competencies_traits_descending_order",
     children: [],
     links: {
@@ -268,7 +268,7 @@
     children: [
       {
         id: "html_competencies_textual_data_points",
-        text: "Competencies Textual Data Points",
+        text: "Highest and Lowest scores across exercise : Textual",
         path: "mrf/assessments/reports/competency_report/html/competencies_textual_data_points",
         locals: {
           competency: "competency",
@@ -277,7 +277,7 @@
       },
       {
         id: "html_competency_wise_best_worst_scores",
-        text: "Competencywise best and worst score",
+        text: "Highest and Lowest scores across exercise : Graphical",
         path: "mrf/assessments/reports/competency_report/html/competency_wise_best_worst_scores",
         locals: {
           competency: "competency",
@@ -286,7 +286,7 @@
       },
       {
         id: "html_competencies_descending_order",
-        text: "Overall Scores in descending order",
+        text: "Overall scores : Graphical",
         path: "mrf/assessments/reports/competency_report/html/descending_overall_competency_score",
         locals: {
           competency: "competency",
@@ -331,7 +331,7 @@
     children: [
       {
         id: "html_traits_textual_data_points",
-        text: "Traits Textual Data Points",
+        text: "Highest and Lowest scores across exercise : Textual",
         path: "mrf/assessments/reports/competency_report/html/traits_textual_data_points",
         locals: {
           trait_score: "trait_score"
@@ -343,7 +343,7 @@
       },
       {
         id: "html_trait_wise_best_worst_scores",
-        text: "Visual data points:  Best and Worst scores across exercise",
+        text: "Highest and Lowest scores across exercise : Graphical",
         path: "mrf/assessments/reports/competency_report/html/trait_wise_best_worst_scores",
         locals: {
           trait_score: "trait_score"
@@ -351,7 +351,7 @@
       },
       {
         id: "html_descending_trait_wise_overall_score",
-        text: "Visual data points: Overall Scores in descending order",
+        text: "Overall scores : Graphical",
         path: "mrf/assessments/reports/competency_report/html/descending_trait_wise_overall_score",
         locals: {
           trait_score: "trait_score"
@@ -388,7 +388,7 @@
   },
   {
     id: "html_response_distribution_on_questions_new",
-    text: "Response Distribution on Questions [6 points]",
+    text: "Response Distribution on Question",
     path: "mrf/assessments/reports/competency_report/html/response_distribution_six_points",
     children: [],
     links: {
@@ -398,7 +398,7 @@
   },
   {
     id: "html_responses_to_other_questions",
-    text: "Response to Other Questions",
+    text: "Response to subjective questions",
     path: "mrf/assessments/reports/competency_report/html/page8",
     children: [
       {

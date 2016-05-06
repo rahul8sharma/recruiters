@@ -61,7 +61,7 @@ class MasterDataController < ApplicationController
       :methods => index_columns,
       :order => params[:order] || "id asc",
       :page => params[:page], 
-      :per => 10).all
+      :per => params[:per] || 10).all
     respond_to do |format|      
       format.html
       format.json{ render json: @objects.to_a.to_json }

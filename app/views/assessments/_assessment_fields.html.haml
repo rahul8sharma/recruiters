@@ -130,6 +130,11 @@
     .clr
   .control-group
     %label
+      Cocubes Passkey
+    = f.text_field :cocubes_passkey, class: "span10 first", value: @assessment.cocubes_passkey
+    .clr
+  .control-group
+    %label
       Custom Thank You Message
     %textarea.span10.first{ name: 'assessment[thank_you_message]' }
       = @assessment.thank_you_message

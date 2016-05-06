@@ -5,7 +5,7 @@ function getTemplateVariablesForCategory(category) {
     }
   };
   $.ajax({
-    url: "/template_variables",
+    url: "/template_variables?per=100",
     data: obj,
     success: function(data){
       $("#template_variables").html("");

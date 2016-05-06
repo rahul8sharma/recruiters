@@ -48,7 +48,7 @@
                       - percent_360 = percent_360 == 0 ? 2 : percent_360
                       .graph_content
                         .divider1
-                        .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
+                        .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #f0c20c;"}
                         .divider1
                         - competency_scores.sort_by{|scores| scores[:score].to_f}.reverse.each do |scores|
                           - if scores[:score]
@@ -57,6 +57,6 @@
                           - else
                             - percent_360 = 0
                           .divider1
-                          .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #469ada;"}
+                          .descending_graph_bar.max{:style => "width: #{percent_360}%; background: #83b4e2;"}
                           .divider1
                 .clr

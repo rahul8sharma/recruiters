@@ -162,5 +162,11 @@
       pdf: []
     }
   },
+  {
+    id: "pdf_about_us_vac",
+    text: "About Us[vac]",
+    path: "shared/reports/pdf/about_us_vac",
+    locals: {}
+  }
 
 ]

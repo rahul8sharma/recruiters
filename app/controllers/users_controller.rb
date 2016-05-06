@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     :edit,
     :update
   ]
-  before_filter :get_master_data, :only => [:edit]
+  before_filter :get_master_data, :only => [:edit, :update]
   
   def index
     params[:search] ||= {}

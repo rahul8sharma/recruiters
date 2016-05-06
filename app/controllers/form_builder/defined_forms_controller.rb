@@ -24,8 +24,23 @@ class FormBuilder::DefinedFormsController < MasterDataController
   end
 
   def search_columns
-    [:id, :name, :active]
+    {
+      :id => { 
+        column: :id
+      },
+      :name => { 
+        column: :name 
+      },
+      :company_id => { 
+        column: "companies.id",
+        joins: :companies
+      },
+      :active => { 
+        column: :active 
+      }
+    }
   end
+  
   
   def show
     @resource = api_resource.find(params[:id], :methods => form_fields)
