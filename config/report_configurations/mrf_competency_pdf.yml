@@ -37,7 +37,7 @@
       },
       {
         id: "pdf_scores_competencies_compact",
-        text: "360 Degree and Self Ratings on Competencies",
+        text: "360 Degree and Self Ratings on Competencies/Values",
         path: "mrf/assessments/reports/competency_report/pdf/compact_reports/scores_competencies",
         children: [
           {
@@ -108,7 +108,7 @@
   },
   {
     id: "pdf_response_distribution_on_questions_new",
-    text: "Response Distribution on Questions [6 points]",
+    text: "Response distribution on questions",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/response_distribution_six_points",
     children: []
   },
@@ -120,13 +120,13 @@
   },
   {
     id: "pdf_360_degree_competencies_scores_in_descending_order",
-    text: "360 Degree Ratings on Competencies",
+    text: "360 Degree Ratings on Competencies: Descending Order",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_descending_order",
     children: []
   },
  {
     id: "pdf_360_degree_traits_scores_in_descending_order",
-    text: "360 Degree Ratings on Traits",
+    text: "360 Degree Ratings on Traits: Descending Order",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competencies_traits_descending_order",
     children: []
   },

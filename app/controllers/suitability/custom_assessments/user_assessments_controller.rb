@@ -247,7 +247,6 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                     :worksheets => [{
                       :functional_area_id => params[:functional_area_id],
                       :trial => params[:trial] == "true",
-                      :candidate_stage => @assessment.candidate_stage,
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,
                       :file => "BulkUpload.xls",
                       :bucket => params[:s3_bucket],
@@ -326,7 +325,6 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
             :applicant_id => params[:users][user_id][:applicant_id],
             :assessment_id => @assessment.id,
             :user_id => user_id,
-            :candidate_stage => @assessment.candidate_stage,
             :responses_count => 0,
             :report_email_recipients => recipients.join(","),
             :options => options,

@@ -292,7 +292,11 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     if request.put?
       flash[:notice] = "Invitations sent to stakeholders"
       if params[:send_invitations]
-        Vger::Resources::Mrf::Assessment.send_invitations(company_id: @company.id, id: @assessment.id)
+        Vger::Resources::Mrf::Assessment.send_invitations(
+          company_id: @company.id, 
+          id: @assessment.id,
+          template_id: params[:template_id]
+        )
       end
       if params[:send_and_add_more].present?
         params[:user] = {}
@@ -341,24 +345,6 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     end
   end
 
-  def bulk_send_invitations
-    Vger::Resources::Mf::Feedback\
-      .import_from_s3_files(:email => current_user.email,
-                    :assessment_id => @assessment.id,
-                    :sender_id => current_user.id,
-                    :worksheets => [{
-                      :file => "BulkUpload.xls",
-                      :bucket => params[:s3_bucket],
-                      :key => params[:s3_key]
-                    }]
-                   )
-    redirect_to company_mrf_assessment_url(@company.id,@assessment.id),
-                notice: "Bulk upload in progress."
-  end
-
-  def preview
-  end
-  
   protected
 
   def get_company

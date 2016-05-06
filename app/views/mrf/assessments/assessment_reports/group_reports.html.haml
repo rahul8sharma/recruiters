@@ -32,7 +32,7 @@
               .span4
                 = group_report.name
               .span8
-                = group_report.candidate_ids.size
+                = group_report.candidate_ids.size == 0 ? "All" : group_report.candidate_ids.size
               .span3.text-center
                 = link_to "Manage", edit_group_report_company_mrf_assessment_path(@company.id,@assessment.id,group_report.id)
               .clr

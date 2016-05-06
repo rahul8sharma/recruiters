@@ -1,7 +1,7 @@
 .span30
   .divider2
-  = form_for @assessment, as: :assessment, url: email_template_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|  
-    = render :partial => "email_settings", locals: { reminder: false }
+  = form_for @assessment, as: :assessment, url: select_email_template_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|  
+    = render :partial => "email_settings"
     .divider2
     .span.pull-right.boxed
       - if is_superuser?
