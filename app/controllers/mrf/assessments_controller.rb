@@ -269,6 +269,7 @@ class Mrf::AssessmentsController < ApplicationController
     else
       @subjective_items_other = Vger::Resources::Mrf::SubjectiveItem\
                                   .active({
+                                    company_id: @company.id,  
                                     role: Vger::Resources::Mrf::Feedback.other_roles
                                   }).all.to_a
       @subjective_items_other.each do |subjective_item|
@@ -276,6 +277,7 @@ class Mrf::AssessmentsController < ApplicationController
       end
       @subjective_items_self = Vger::Resources::Mrf::SubjectiveItem\
                                   .active({
+                                    company_id: @company.id,  
                                     role: Vger::Resources::Mrf::Feedback::Role::SELF
                                   }).all.to_a
       @subjective_items_self.each do |subjective_item|
@@ -405,6 +407,7 @@ class Mrf::AssessmentsController < ApplicationController
     @assessment.assessment_traits.each do |assessment_trait|
       @trait_wise_items[assessment_trait.trait] = Vger::Resources::Mrf::Item.where(query_options: {
         active: true,
+        company_id: @company.id,
         trait_type: assessment_trait.trait_type,
         trait_id: assessment_trait.trait_id
       }, include: [:options])
