@@ -1,0 +1,17 @@
+- @report.report_data[:super_competency_scores].each_slice(5) do |step_data|
+  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+  .development_guide
+    .inner
+      .blue_heading.big-text
+        Competency Wise Assessor's Feedback
+      .divider1
+      - step_data.each do |name, data|
+        .frame
+          .heading
+            = data[:name]
+          .clr
+          %p.less-padding-all1
+            Some description Some description Some description Some description Some description Some description Some description Some description 
+        .divider1
+
+  .page-break

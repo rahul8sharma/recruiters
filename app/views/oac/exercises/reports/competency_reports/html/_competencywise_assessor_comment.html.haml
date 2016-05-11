@@ -1,0 +1,13 @@
+.container
+  .divider2
+  .title
+    Competencywise Assessor's Comments
+  .divider2
+  - @report.report_data[:super_competency_scores].each do |name, data|
+    .frame.bg-gray
+      .heading 
+        = data[:name]
+      .padding-all2.extra-medium-text
+        Some text Some textSome text Some textSome text Some text  Some textSome text
+    .divider1
+    .clr
