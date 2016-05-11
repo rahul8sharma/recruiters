@@ -1,7 +1,5 @@
 - guides_step = Rails.application.config.reports[@view_mode]["guides_step"]
-- user_manager_guidelines = @report.report_hash[:guidelines_for_user_manager]
-- ordered_guides = user_manager_guidelines.select{|factor_name, guide| !guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
-- ordered_guides += user_manager_guidelines.select{|factor_name, guide| guide[:pass] && (guide[:factor_type] == "Suitability::Factor" || guide[:factor_type] == "Suitability::AlarmFactor") }.map{|factor,guide| [factor,guide] }
+- ordered_guides = get_ordered_guidelines(@report.report_hash[:guidelines_for_user_manager])  
 - (0..ordered_guides.length-1).step(guides_step) do |step|
   - step_user_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
   .inner

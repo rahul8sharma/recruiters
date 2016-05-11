@@ -25,5 +25,17 @@ module Suitability
       end    
       return fields
     end
+    
+    def get_ordered_guidelines(guidelines)
+      norm_buckets = Hash[@norm_buckets.map{|x| [x.uid,x.weight] }]
+      return guidelines.sort_by do |factor_name, guide|
+        factor_score = @factor_scores[factor_name]
+        scored_weight = norm_buckets[factor_score[:norm_bucket_uid]]
+        from_weight = norm_buckets[factor_score[:scale][:from_norm_bucket_uid]]
+        to_weight = norm_buckets[factor_score[:scale][:to_norm_bucket_uid]]
+        closest_weight = [from_weight, to_weight].min_by { |weight| (scored_weight - weight).abs }
+        (closest_weight - scored_weight).abs
+      end.reverse
+    end
   end
 end
