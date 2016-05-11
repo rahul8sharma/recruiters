@@ -323,16 +323,6 @@
       html: [],
       pdf: ["pdf_competencywise_assessor_feedback"]
     }
-  },
-  {
-    id: "html_overall_feedback",
-    text: "Overall feedback",
-    path: "oac/exercises/reports/competency_reports/html/overall_feedback",
-    children: [],
-    links: {
-      html: [],
-      pdf: ["pdf_overall_feedback"]
-    }
   },    
   {
     id: "html_about_us_vac",

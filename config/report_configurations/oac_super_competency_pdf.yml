@@ -171,16 +171,6 @@
       html: [],
       pdf: []
     }
-  },
-  {
-    id: "pdf_overall_feedback",
-    text: "Overall Feedback",
-    path: "oac/exercises/reports/competency_reports/pdf/overall_feedback",
-    children: [],
-    links: {
-      html: [],
-      pdf: []
-    }
   },  
   {
     id: "pdf_about_us_vac",
