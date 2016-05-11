@@ -135,6 +135,11 @@
     .clr
   .control-group
     %label
+      Cocubes Sections (Add | separated Section Names)
+    = f.text_field :cocubes_sections, class: "span10 first", value: @assessment.cocubes_sections.join("|")
+    .clr
+  .control-group
+    %label
       Custom Thank You Message
     %textarea.span10.first{ name: 'assessment[thank_you_message]' }
       = @assessment.thank_you_message
