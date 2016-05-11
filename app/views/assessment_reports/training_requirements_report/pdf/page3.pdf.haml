@@ -52,6 +52,7 @@
           .clr
         .clr
         .divider1
-        %p
-          #{factor_score[:tip]}
+        - if @report.tips_in_traits  
+          %p
+            #{factor_score[:tip]}
   .divider2
