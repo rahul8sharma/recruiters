@@ -24,9 +24,6 @@ class Oac::Exercises::ReportsController < ApplicationController
     
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
-
-    Rails.logger.ap '@report.report_data'
-    Rails.logger.debug @report.report_data.to_yaml
     
     if params[:view_mode]
       @view_mode = params[:view_mode]
