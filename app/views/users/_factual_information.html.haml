@@ -2,7 +2,7 @@
   - if @custom_form
     %li.border-bottom-grayLighter.padding-all1
       .span9.large-text
-        = @custom_form.name
+        = @custom_form.name.html_safe
       .clr      
   - @factual_information.each do |factual_information|  
     %li.border-bottom-grayLighter.padding-all1

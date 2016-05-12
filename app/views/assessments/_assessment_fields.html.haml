@@ -130,13 +130,13 @@
     .clr
   .control-group
     %label
-      Cocubes Partner ID
-    = f.text_field :partner_id, class: "span10 first", value: @assessment.partner_id
+      Cocubes Passkey
+    = f.text_field :cocubes_passkey, class: "span10 first", value: @assessment.cocubes_passkey
     .clr
   .control-group
     %label
-      Cocubes Passkey
-    = f.text_field :cocubes_passkey, class: "span10 first", value: @assessment.cocubes_passkey
+      Cocubes Sections (Add | separated Section Names)
+    = f.text_field :cocubes_sections, class: "span10 first", value: @assessment.cocubes_sections.join("|")
     .clr
   .control-group
     %label

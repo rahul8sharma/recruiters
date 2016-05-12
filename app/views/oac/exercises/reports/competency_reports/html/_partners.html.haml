@@ -4,8 +4,8 @@
     .partner_logos.pull-right
       - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
         = image_tag("report/html/oac/partner_logos/#{logo}")
-    .large-text.pull-right{:style => "padding: 22px"}
+    .large-text.pull-right{:style => "padding-right: 22px"}
       Powered by
     .clr
     .divider1
-.divider5
+.divider4

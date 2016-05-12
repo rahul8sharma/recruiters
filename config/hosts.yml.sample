@@ -1,0 +1,18 @@
+development: &dev
+  action_mailer:
+    host: "companies.jombaylocal.com"
+    protocol: "http"
+  action_controller:
+    asset_protocol: "http"
+    asset_host: "companies.jombaylocal.com"
+  products.jombay.com: "http://products.jombaylocal.com/"  
+
+staging_internal: &staging_internal
+  <<: *dev
+
+    
+staging: &staging
+  <<: *dev
+  
+production: &production
+  <<: *dev  

@@ -88,6 +88,7 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
   end
   
   def create
+    params[:candidates] ||= {}
     @group_report = Vger::Resources::Mrf::AssessmentReport.create(params[:group_report].merge({
       :candidate_ids => params[:candidates].keys.map(&:to_i)
     }))
@@ -128,9 +129,7 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
         "mrf_feedbacks.assessment_id" => @assessment.id
       },
       select: "distinct(jombay_users.id),jombay_users.name,email",
-      order: "jombay_users.id asc",
-      page: params[:page],
-      per: 10
+      order: "jombay_users.id asc"
     ).all
   end
 end

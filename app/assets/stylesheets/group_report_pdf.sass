@@ -180,11 +180,23 @@
         .left_sec   
           li:first-child
             margin-top: 7px
+
           .stakeholder_rating
             background: image-url('report/pdf/mrf/graph_left_sec_top_bottom_stakeholder_rating_icon.png')
             font-weight: 200
-         
-  
+            font-size: 10px
+.average_individual_ratings
+  .scores_competencies_graph.descending_order 
+    .graph_container 
+      .left_sec   
+        ul
+          li
+            &:first-child
+              div:first-child
+                font-weight: 700
+                &+div
+                  background: image-url('report/pdf/mrf/graph_left_sec_top_bottom_stakeholder_rating_icon_orange.png') !important         
+
 .competencies_wise_individual_ratings
   table
     width: 100%

@@ -39,12 +39,13 @@
       - @assessments.each do |assessment|
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span2.first
-            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title =>  assessment.name} #{assessment.id}
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)} 
+              #{assessment.id}
           .span3
             %a{:href => "#"} 
               = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
           .span9.info-block
-            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id), :title => assessment.name}  
+            %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}  
               = assessment.name
             - if is_superuser?
               .info  

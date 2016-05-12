@@ -17,7 +17,7 @@
 
   .padding-all2.border-warning.shifted-up1    
     .list-snippet-titles.big-text.clearfix
-      .span1.first
+      .span2.first
         = sort_link "ID", user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.id", params[:search]
       .span5
         = sort_link "Stakeholder", user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), "stakeholders.name", params[:search]
@@ -27,7 +27,7 @@
         Role
       .span3
         Status
-      .span6
+      .span5
         Send Reminder
       .span2
         Enable/Disable
@@ -39,7 +39,7 @@
           - feedback = @feedbacks[stakeholder_assessment.id].first
           %li.list-snippet.extra-medium-text
             .divider1
-            .span1.first
+            .span2.first
               = stakeholder.id
             .span5.info-block
               = link_to (truncate stakeholder.name, :length => 25), stakeholder_company_mrf_assessment_path(@company.id, @assessment.id, stakeholder.id)
@@ -56,7 +56,7 @@
               = feedback.role.titleize
             .span3
               = Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status) ? "Completed" : "Pending"
-            .span6
+            .span5
               - if !Vger::Resources::Mrf::Feedback.completed_statuses.include?(feedback.status)
                 %a{:href => send_reminder_company_mrf_assessment_path(@company.id, @assessment.id, :options => { user_id: @user.id, stakeholder_id: stakeholder.id }), :title => "Send Reminders"}
                   Send Reminder

@@ -9,16 +9,20 @@
       = ff.text_field "url", value: ""
     %br
     %br
+    Company ID
+    = f.text_field :company_id
+    %br
+    %br
     Notifier Email
     = f.email_field :email, value: "product@jombay.com"
     %br
     %br
     .actions
-      = submit_tag 'Import Mrf Items'
+      = submit_tag 'Import Mrf Items', :confirm => "Are you sure?"
 %br
 
 %br/
-= render :partial => "master_data/export_form"
+= render :partial => "export_form"
 
 %br/
 = render :partial => "master_data/import_from_google_drive"

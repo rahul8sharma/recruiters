@@ -49,13 +49,15 @@
             %br
       .span13
         .big-text.line-height2.gray-darker
-          Select Candidates
+          Select Candidates (Don't select any to select all)
         .divider1  
-        - @users.each do |user|
-          %label.big-text.line-height2.gray-darker.pull-left.span6
-            %input{ type: "checkbox", name: "candidates[#{user.id}]", checked: @group_report.candidate_ids.include?(user.id) }
-            = user.name
-            
+        .divider31.scrolled
+          .divider1  
+          - @users.each do |user|
+            %label.big-text.line-height2.gray-darker.pull-left.span6
+              %input{ type: "checkbox", name: "candidates[#{user.id}]", checked: @group_report.candidate_ids.include?(user.id) }
+              = user.name
+              
       .clr
       .divider2          
       %br    
