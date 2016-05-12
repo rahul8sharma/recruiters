@@ -263,6 +263,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Result Orientation
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 39.59
         bucket: Below Average
         uid: OKsrTfWV
@@ -402,6 +403,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Leadership Potential
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 49.51
         bucket: Average
         uid: TQHBqVkO
@@ -554,6 +556,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Interpersonal Skills
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 43.78
         bucket: Average
         uid: TQHBqVkO
@@ -640,6 +643,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           name: Conflict Management
           score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
             score: 38.8
             score_bucket: Below Average
             score_bucket_id: 2
@@ -736,6 +740,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     '4': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Business Acumen
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 60.43
         bucket: Above Average
         uid: mbAKnHly

@@ -163,6 +163,16 @@
     }
   },
   {
+    id: "pdf_competencywise_assessor_feedback",
+    text: "Competency Wise Assessor Feedback",
+    path: "oac/exercises/reports/competency_reports/pdf/competencywise_assessor_feedback",
+    children: [],
+    links: {
+      html: [],
+      pdf: []
+    }
+  },  
+  {
     id: "pdf_about_us_vac",
     text: "About Us[vac]",
     path: "shared/reports/pdf/about_us_vac",
