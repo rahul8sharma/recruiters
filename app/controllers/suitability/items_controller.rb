@@ -1,4 +1,6 @@
 class Suitability::ItemsController < MasterDataController
+  include Suitability::AssessmentsHelper
+  
   before_filter :authenticate_user!
   before_filter :get_factors, :only => [ :new, :create, :update, :edit ]
   
@@ -13,9 +15,19 @@ class Suitability::ItemsController < MasterDataController
   def search_columns
     [
       :id,
+      :difficulty_level,
+      :active,
       :factor_id,
       :body
     ]
+  end
+  
+  def select_difficulty_level
+    trait_difficulty_levels
+  end
+  
+  def select_factor_id
+    Hash[Vger::Resources::Suitability::Factor.all.map{|factor| [factor.name,factor.id] }]
   end
   
   def import_from

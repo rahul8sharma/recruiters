@@ -105,6 +105,15 @@
     .clr
   .control-group
     %label
+      Select Difficulty Level for Items
+    %select.span10.first{name: 'assessment[difficulty_level]', id: 'select_difficulty_level'}
+      - trait_difficulty_levels.each do |difficulty_level|
+        %option{:value => difficulty_level, selected: (assessment.difficulty_level == difficulty_level)}
+          = difficulty_level.titleize
+
+    .clr
+  .control-group
+    %label
       Select the Brand Partner
     %select.span10.first{name: 'assessment[brand_partner]', id: 'select_brand_partner'}
       %option{:value => ""}

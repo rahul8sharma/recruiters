@@ -1,0 +1,36 @@
+%table
+  %tr
+    %th
+      ID
+    %th
+      Body
+    %th
+      Difficulty Level
+    %th
+      Behavior
+    %th
+      Active
+    %th
+      Item Group
+    %th
+      Order
+    %th
+  - objects.each do |item|
+    %tr 
+      %td{ width: "5%" }
+        = link_to item.id, suitability_item_path(item.id)
+      %td{ width: "50%" }
+        = link_to item.body, suitability_item_path(item.id)
+      %td
+        = item.difficulty_level
+      %td
+        = item.behaviour
+      %td
+        = item.active
+      %td
+        - if item.item_group_id
+          = link_to item.item_group_id, suitability_item_group_path(item.item_group_id)
+      %td
+        = item.item_order
+      %td
+        = link_to "Edit", edit_suitability_item_path(item.id)

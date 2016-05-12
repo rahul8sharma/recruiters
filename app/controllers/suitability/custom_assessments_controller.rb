@@ -247,7 +247,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         end
       end
     else
-      flash[:error] = @assessment.error_messages.join("<br/>")
+      flash[:error] = @assessment.error_messages.uniq.join("<br/>")
     end
   end
 
@@ -307,7 +307,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       if @assessment.error_messages.blank?
         redirect_to competencies_url
       else
-        flash[:error] = @assessment.error_messages.join("<br/>")
+        flash[:error] = @assessment.error_messages.uniq.join("<br/>")
       end
     end
   end

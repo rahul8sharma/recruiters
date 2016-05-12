@@ -92,7 +92,7 @@ class AssessmentsController < ApplicationController
     params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.present?
-      flash[:error] = @assessment.error_messages.join("<br/>").html_safe
+      flash[:error] = @assessment.error_messages.uniq.join("<br/>").html_safe
       redirect_to edit_assessment_url
     else
       flash[:notice] = "Assessment updated successfully! Please regenerate reports for the changes to reflect in them"
