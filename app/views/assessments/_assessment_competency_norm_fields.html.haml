@@ -4,8 +4,7 @@
 - norm_min_name = "assessment[job_assessment_factor_norms_attributes][#{index}][from_norm_bucket_id]"
 - norm_max_name = "assessment[job_assessment_factor_norms_attributes][#{index}][to_norm_bucket_id]"
 - check_name = "assessment[job_assessment_factor_norms_attributes][#{index}][_destroy]"
-- difficulty_name = "assessment[job_assessment_factor_norms_attributes][#{index}][difficulty_level]"
-%li{ :id => "li_#{index}", class: "span25 checked" }
+%li{ :id => "li_#{index}", class: "span15 checked" }
   -#please toggle .checked class, add .checked when checkbox=checked, Otherwise remove it
   .divider
   - if assessment_factor_norm.id.present?
@@ -13,7 +12,7 @@
   %input{name: (destroy_name), id: "destroy_#{index}", type: 'hidden', value: 0, index: (index)}
   %input{name: (factor_name), type: 'hidden', value: assessment_factor_norm.factor_id, index: (index)}
   
-  .span10.first
+  .span5.first
     %label{ for: "checkbox_factor_#{index}" }
       = assessment_factor_norm.factor.name
       %p
@@ -38,14 +37,6 @@
           %option{value: norm_bucket.id}
             = norm_bucket.name         
     
-    %select.span4{name: difficulty_name, index: (index)}
-      - trait_difficulty_levels.each do |difficulty_level|
-        - if assessment_factor_norm.difficulty_level == difficulty_level
-          %option{value: difficulty_level, selected:'selected'}
-            = difficulty_level.titleize
-        - else
-          %option{value: difficulty_level}
-            = difficulty_level.titleize
     .clr
   .clr
   .divider1
