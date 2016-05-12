@@ -1,5 +1,7 @@
 module Suitability
   class ReportUploader < ::ReportUploader
+    helper Suitability::ReportsHelper
+
     def perform(report_data, auth_token, patch = {})
       tries = 0
       patch ||= {}
