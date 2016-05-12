@@ -5,7 +5,7 @@
     = fields_for "import" do |f|
       = f.hidden_field :activation_host, value: Rails.application.config.domain['idp_url'].gsub("http://", '')
       %p
-        Zipped XLS File
+        XLS File
         = f.file_field "file"
       %p
         Company ID : 
