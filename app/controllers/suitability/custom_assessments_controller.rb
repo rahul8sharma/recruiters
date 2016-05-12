@@ -236,7 +236,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superuser?
     if @assessment.error_messages.blank? || allowed
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-      flash[:error] = @assessment.error_messages.join("<br/>")
+      flash[:error] = @assessment.error_messages.uniq.join("<br/>")
       if params[:save_and_close].present?
         redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path",params[:company_id], @assessment.id)
       else
@@ -247,7 +247,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         end
       end
     else
-      flash[:error] = @assessment.error_messages.join("<br/>")
+      flash[:error] = @assessment.error_messages.uniq.join("<br/>")
     end
   end
 
@@ -307,7 +307,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       if @assessment.error_messages.blank?
         redirect_to competencies_url
       else
-        flash[:error] = @assessment.error_messages.join("<br/>")
+        flash[:error] = @assessment.error_messages.uniq.join("<br/>")
       end
     end
   end

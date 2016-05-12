@@ -23,6 +23,9 @@
   .field
     = f.label :body
     = f.text_field :body, :required => true
+  .field
+    = f.label :difficulty_level
+    = f.select :difficulty_level, trait_difficulty_levels, {:required => true}
   .field.situational{ class: ((@item.id.nil? && @item.behaviour == Vger::Resources::Suitability::Behavior::SITUATIONAL) ? '':'hide') }
     = f.label :score
     = f.text_field :score
