@@ -8,5 +8,9 @@ module Suitability
       )
       return fields
     end
+    
+    def trait_difficulty_levels
+      return Vger::Resources::Suitability::Item::DIFFICULTY_LEVELS.sort
+    end
   end
 end

@@ -1,0 +1,23 @@
+%h1 #{controller.resource_name.humanize}
+
+- if controller.manage_path
+  = (link_to "Manage #{controller.resource_name.humanize}", controller.manage_path)
+  \|
+- if respond_to?("new_#{resource_name.singularize}_path")
+  = link_to "New #{controller.resource_name.singularize.titleize}", send("new_#{resource_name.singularize}_path")
+%br
+%br
+= render :partial => "master_data/search"
+
+.pagination.pull-right
+  = paginate @objects
+.clr  
+%fieldset
+  %legend
+    Results  
+  = render :partial => "suitability/items/index", locals: { objects: @objects }
+%br
+%br
+.pagination.pull-right
+  = paginate @objects
+.clr   

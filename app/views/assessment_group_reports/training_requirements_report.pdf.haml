@@ -35,12 +35,12 @@
   = render :template => "assessment_reports/training_requirements_report/pdf/page2", :locals => { :factor_scores => step_factor_scores, :step => step }
   .page-break  
   
-  
-- scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["scores_step"]
-- (0..factor_scores.keys.length-1).step(scores_step) do |step|
-  - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-  = render :template => "assessment_reports/training_requirements_report/pdf/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
-  .page-break 
+- if @report.areas_of_improvements  
+  - scores_step = Rails.application.config.reports["pdf"]["training_requirements_report"]["scores_step"]
+  - (0..factor_scores.keys.length-1).step(scores_step) do |step|
+    - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+    = render :template => "assessment_reports/training_requirements_report/pdf/page3", :locals => { :factor_scores => step_factor_scores, :step => step }
+    .page-break 
 
 .common-top-trangle
   .common-bottom-trangle 

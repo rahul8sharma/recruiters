@@ -105,6 +105,15 @@
     .clr
   .control-group
     %label
+      Select Difficulty Level for Items
+    %select.span10.first{name: 'assessment[difficulty_level]', id: 'select_difficulty_level'}
+      - trait_difficulty_levels.each do |difficulty_level|
+        %option{:value => difficulty_level, selected: (assessment.difficulty_level == difficulty_level)}
+          = difficulty_level.titleize
+
+    .clr
+  .control-group
+    %label
       Select the Brand Partner
     %select.span10.first{name: 'assessment[brand_partner]', id: 'select_brand_partner'}
       %option{:value => ""}
@@ -135,6 +144,11 @@
     .clr
   .control-group
     %label
+      Cocubes Sections (Add | separated Section Names)
+    = f.text_field :cocubes_sections, class: "span10 first", value: @assessment.cocubes_sections.join("|")
+    .clr
+  .control-group
+    %label
       Custom Thank You Message
     %textarea.span10.first{ name: 'assessment[thank_you_message]' }
       = @assessment.thank_you_message
@@ -143,6 +157,11 @@
     %label
       %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
       Enable Training Requirements Report for this assessment
+    .clr  
+  .control-group
+    %label
+      = f.check_box :enable_completion_notification, id: "enable_completion_notification"
+      Send Assessment Completion Notification to Candidates (Disable this for candidates with dummy/invalid email)
     .clr  
   .control-group
     %label

@@ -14,13 +14,14 @@
       .clr
       .divider1
       %ul.clearfix.scores_listing.interview_guide_listing
-        - @report.report_hash[:interview_guide].each do |factor_name, question|
-          - klass = question[:pass] ? "favorable" : "less_favorable"
+        - ordered_guides = get_ordered_guidelines(@report.report_hash[:interview_guide])
+        - ordered_guides.each do |factor_name, guide|
+          - klass = guide[:pass] ? "favorable" : "less_favorable"
           %li
             .span1.first.hexagon-icon{ class: klass }
             .factor-name.span4
               = factor_name
             .factor-description.span22.left-offset1
-              = question[:body]
+              = guide[:body]
             .clr
       .divider2

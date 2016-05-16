@@ -149,7 +149,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   end
 
   def stakeholders
-    order_by = params[:order_by] || "stakeholders.id"
+    order_by = params[:order_by] || "stakeholders.name"
     order_type = params[:order_type] || "ASC"
     order = "#{order_by} #{order_type}"
     @stakeholders = Vger::Resources::Stakeholder.where(

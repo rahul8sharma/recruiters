@@ -39,17 +39,17 @@
           %li.list-snippet.border-top-grayLighter.extra.medium-text
             .divider1
             .span2.first
-              = link_to feedback.assessment_id, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+              = link_to feedback.assessment_id, details_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id)
             .span2
               = link_to feedback.user_id, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span5
-              = link_to feedback.user.name, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+              = link_to feedback.user.name, user_stakeholders_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span6{ title: feedback.user.email }
-              = link_to feedback.user.email[0..30], user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+              = link_to feedback.user.email[0..30], user_stakeholders_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span5
-              = link_to feedback.stakeholder.name, user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+              = link_to feedback.stakeholder.name, user_stakeholders_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span6{ title: feedback.stakeholder.email }
-              = link_to feedback.stakeholder.email[0..30], user_statistics_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
+              = link_to feedback.stakeholder.email[0..30], user_stakeholders_company_mrf_assessment_path(feedback.company_id,feedback.assessment_id,feedback.user_id)
             .span3
               = feedback.role.titleize
             .clr
