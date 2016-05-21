@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require select2.full.min
 
 jQuery.fn.extend({
   insertAtCaret: function(myValue){

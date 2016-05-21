@@ -38,4 +38,4 @@ assets.precompile += %w(oac/set_weightage_oac.js oac/add_users.js oac/tools/inte
 assets.precompile += %w(trumbowyg.js)
 assets.precompile += %w(trumbowyg.css)
 assets.precompile += %w(shared/date_time_picker.js)
-assets.precompile += %w(shared/export_popup.js)
+assets.precompile += %w(shared/export_popup.js select2.min.css)
