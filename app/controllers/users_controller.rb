@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     :edit,
     :update
   ]
-  before_filter :get_master_data, :only => [:edit, :update]
   
   def index
     params[:search] ||= {}
@@ -179,22 +178,24 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = Vger::Resources::User.find(params[:id])
+    get_roles
+    @user = Vger::Resources::User.find(params[:id], methods: "role_ids")
   end
 
   protected
+  
+  def get_roles
+    params[:search] ||= {}
+    @roles = Vger::Resources::Role.where(
+      :methods => [:id, :name],
+      :root => :role,
+      :order => "name asc"
+    ).all
+  end
 
   def redirect_user
     if current_user
       redirect_to after_sign_in_path_for, :notice => flash[:notice]
     end
   end
-  
-  def get_master_data
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.all.map{|functional_area| [functional_area.name,functional_area.id] }]
-    @industries = Hash[Vger::Resources::Industry.all.map{|industry| [industry.name,industry.id] }]
-    @locations = Hash[Vger::Resources::Location.where(:query_options => { :location_type => "city" }).all.map{|location| [location.name,location.id] }]
-    @degrees = Hash[Vger::Resources::Degree.all.map{|degree| [degree.name,degree.id] }]
-  end
-  
 end
