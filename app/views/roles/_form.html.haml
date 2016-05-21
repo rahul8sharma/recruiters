@@ -1,0 +1,21 @@
+- url = @resource.id.present? ? self.send("#{resource_name.singularize}_path",@resource) : self.send("#{resource_name}_path")
+= form_for @resource, as: resource_name.singularize, url: url do |f|
+  = @resource.error_messages.to_a.join("<br/>").html_safe
+  - form_fields.each do |index_column|
+    - next if index_column.to_s == 'id'
+    .field
+      = f.label index_column
+      = f.text_field index_column
+    .field
+      - @permissions.each_with_index do |permission,index|
+        .span6
+          %label{ style: "cursor: pointer;" }
+            %input{ type: "checkbox", name: "role[permission_ids][]", value: permission.id, checked: @resource.permission_ids.include?(permission.id) }
+            = permission.name  
+        - if (index+1) % 4 == 0
+          .clr
+          %br
+      .clr    
+  .action
+    = f.submit  
+    
