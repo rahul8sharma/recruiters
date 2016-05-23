@@ -6,7 +6,7 @@
   .page-title
     #{@assessment.name}
   .divider1
-  = render :partial => "shared/360_navigation-sub-nav"
+  = render :partial => "shared/mrf/360_navigation-sub-nav"
   .divider2
   = form_for @assessment, :as => :assessment, :url => add_traits_range_company_mrf_assessment_path(:company_id => params[:company_id], :id => params[:id]), method: :put do |f|
     .span.first

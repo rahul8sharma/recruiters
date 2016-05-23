@@ -3,7 +3,7 @@
   -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
   .score_rating_title.pull-left.white
     Score Rating
-  .span.large-text.line-height2
+  .span.large-text.line-height2{ title: @report.report_hash[:overall_factor_score_rating][:name] }
     = truncate @report.report_hash[:overall_factor_score_rating][:name], :length => 18 rescue "-"
     
   .clr
