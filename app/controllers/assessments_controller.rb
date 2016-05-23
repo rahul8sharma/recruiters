@@ -397,19 +397,7 @@ class AssessmentsController < ApplicationController
     end
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
     if @assessment.error_messages.blank?
-      if params[:save_and_close].present?
-        redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
-      else
-        if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
-          redirect_to add_users_company_benchmark_path(:company_id => params[:company_id], :id => @assessment.id)
-        else
-          if is_superuser?
-            redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
-          else
-            redirect_to add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
-          end
-        end
-      end
+      redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
       return true
     else
       flash[:error] = @assessment.error_messages.join("<br/>")
