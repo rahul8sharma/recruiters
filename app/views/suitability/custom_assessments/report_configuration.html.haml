@@ -13,6 +13,7 @@
   = f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
   %input{:id => "report_type", :value => "suitability", :type => "hidden"}
   %input{:id => "set_assessment_type", :value => @assessment.assessment_type, :type => "hidden"}
+  %input{:id => "set_candidate_type", :value => @assessment.candidate_stage, :type => "hidden"}
   = render :partial => "shared/report_configuration"
   .divider1
   %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
