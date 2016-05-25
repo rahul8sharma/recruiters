@@ -6,31 +6,31 @@
     .field
       = f.label index_column
       = f.text_field index_column
-    .field
-      = f.label "Added Permissions"
-    .field
-      - @permissions.select{|x| @resource.permission_ids.include?(x.id) }.each_with_index do |permission,index|
-        .span6
-          %label{ style: "cursor: pointer;" }
-            %input{ type: "checkbox", name: "role[permission_ids][]", value: permission.id, checked: @resource.permission_ids.include?(permission.id) }
-            = permission.name  
-        - if (index+1) % 4 == 0
-          .clr
-          %br
-      .clr    
-    .field
-      = f.label "Search"
-      %input{ type: "text", id: "inputPermission" }
-    .field
-      - @permissions.select{|x| @resource.permission_ids.exclude?(x.id) }.each_with_index do |permission,index|
-        .span6{ class: "permission", "data-name" => "#{permission.name}", "data-subject" => "#{permission.subject_class}" }
-          %label{ style: "cursor: pointer;" }
-            %input{ type: "checkbox", name: "role[permission_ids][]", value: permission.id, checked: @resource.permission_ids.include?(permission.id) }
-            = permission.name  
-        - if (index+1) % 4 == 0
-          .clr
-          %br
-      .clr    
+  .field
+    = f.label "Added Permissions"
+  .field
+    - @permissions.select{|x| @resource.permission_ids.include?(x.id) }.each_with_index do |permission,index|
+      .span6
+        %label{ style: "cursor: pointer;" }
+          %input{ type: "checkbox", name: "role[permission_ids][]", value: permission.id, checked: @resource.permission_ids.include?(permission.id) }
+          = permission.name  
+      - if (index+1) % 4 == 0
+        .clr
+        %br
+    .clr    
+  .field
+    = f.label "Search"
+    %input{ type: "text", id: "inputPermission" }
+  .field
+    - @permissions.select{|x| @resource.permission_ids.exclude?(x.id) }.each_with_index do |permission,index|
+      .span6{ class: "permission", "data-name" => "#{permission.name}", "data-subject" => "#{permission.subject_class}" }
+        %label{ style: "cursor: pointer;" }
+          %input{ type: "checkbox", name: "role[permission_ids][]", value: permission.id, checked: @resource.permission_ids.include?(permission.id) }
+          = permission.name  
+      - if (index+1) % 4 == 0
+        .clr
+        %br
+    .clr    
   .action
     = f.submit  
 :javascript

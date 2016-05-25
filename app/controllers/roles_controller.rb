@@ -1,4 +1,5 @@
 class RolesController < MasterDataController
+  before_filter :get_permissions, only: [:new, :create, :edit, :update]
   def api_resource
     Vger::Resources::Role
   end
@@ -10,24 +11,30 @@ class RolesController < MasterDataController
   def index_columns
     [
       :id,
-      :name
+      :name,
+      :category,
+      :group_label
     ]
   end
   
   def search_columns
     [
       :id,
-      :name
+      :name,
+      :category,
+      :group_label
     ]
   end
 
   def new
     @resource = api_resource.new
+    @resource.permission_ids = []
   end
   
   def create
     @resource = api_resource.create(params[resource_name.singularize])
     if @resource.error_messages && @resource.error_messages.present?
+      @resource.permission_ids = []
       flash[:error] = @resource.error_messages.join("<br/>").html_safe
       render :action => :new
     else
@@ -48,7 +55,6 @@ class RolesController < MasterDataController
       :methods => form_fields+[:permission_ids], 
       root: :role
     )
-    @permissions = Vger::Resources::Permission.all.to_a
   end
   
   def update
@@ -136,5 +142,9 @@ class RolesController < MasterDataController
   
   def search_columns
     {}
+  end
+  
+  def get_permissions
+    @permissions = Vger::Resources::Permission.all.to_a
   end
 end
