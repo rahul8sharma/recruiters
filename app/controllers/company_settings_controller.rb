@@ -83,14 +83,14 @@ class CompanySettingsController < ApplicationController
         user_data[:notify] = user_data[:notify].present?
         company_manager = Vger::Resources::User.find_or_create(user_data)
         if !company_manager.error_messages.present?
-          company_manager = Vger::Resources::User.find(company_manager.id, methods: [:company_ids])
-          user_data[:id] = company_manager.id
-          company_managers[company_manager.id] = user_data
-          company_manager.company_ids |= [@company.id]
-          company_manager.company_ids.uniq!
           company_manager = Vger::Resources::User.save_existing(
             company_manager.id, 
-            company_ids: company_manager.company_ids
+            companies_users_attributes: {
+              0 => {
+                company_id: @company.id,
+                relation: "company_manager"
+              }
+            }
           )
           if company_manager.error_messages.present?
             errors[company_manager.email] ||= []
