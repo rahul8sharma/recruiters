@@ -36,7 +36,7 @@
     .divider2
   %ul
     - @users.each do |user|
-      - url = self.respond_to?("get_link_for_#{user.role.underscore}") ? self.send("get_link_for_#{user.role.underscore}",user) : "#"
+      - url = get_link_for_user(user)
       %li.list-snippet.border-bottom-grayLighter
         .span2.first
           %a.extra-medium-text{:href => url, target: "_blank", :title => "Go to #{user.name}"}
