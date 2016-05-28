@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   rescue_from Her::Errors::ParseError, :with => :parse_error
   
   helper_method :current_user
+  helper_method :current_role
   helper_method :can?
   helper_method :is_superuser?, :is_jit_user?, :is_company_manager?, :is_admin?
   
@@ -27,10 +28,21 @@ class ApplicationController < ActionController::Base
   
   def redirect_user_path
     if current_user
-      self.send "redirect_#{current_user.role.underscore}"
+      self.send "redirect_#{current_role.underscore}"
     else
       login_path(:redirect_to => request.fullpath)
     end
+  end
+  
+  def current_role
+    @role ||= current_user.role_names.select do |role|
+      [
+        Vger::Resources::Role::RoleName::SUPER_ADMIN,
+        Vger::Resources::Role::RoleName::JIT,
+        Vger::Resources::Role::RoleName::COMPANY_MANAGER,
+        Vger::Resources::Role::RoleName::ADMIN
+      ].include?(role)
+    end.first
   end
   
   def set_auth_token
@@ -39,19 +51,19 @@ class ApplicationController < ActionController::Base
   end
   
   def is_superuser?
-    current_user and (is_jit_user? || current_user.role == Vger::Resources::Role::RoleName::SUPER_ADMIN)
+    current_user and (is_jit_user? || current_role == Vger::Resources::Role::RoleName::SUPER_ADMIN)
   end
   
   def is_jit_user?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::JIT
+    current_user and current_role == Vger::Resources::Role::RoleName::JIT
   end
   
   def is_company_manager?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::COMPANY_MANAGER
+    current_user and current_role == Vger::Resources::Role::RoleName::COMPANY_MANAGER
   end
   
   def is_admin?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::ADMIN
+    current_user and current_role == Vger::Resources::Role::RoleName::ADMIN
   end
   
   # catch unauthorized exception from Faraday
