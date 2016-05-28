@@ -1,5 +1,5 @@
 class PermissionsController < MasterDataController
-  before_filter :get_resources, only: [:new, :edit, :update, :index]
+  before_filter :get_resources, only: [:new, :edit, :update, :create, :index]
   
   def api_resource
     Vger::Resources::Permission
