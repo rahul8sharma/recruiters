@@ -14,6 +14,7 @@
   %input{:id => "report_type", :value => "suitability", :type => "hidden"}
   %input{:id => "set_assessment_type", :value => @assessment.assessment_type, :type => "hidden"}
   %input{:id => "set_candidate_type", :value => @assessment.candidate_stage, :type => "hidden"}
+  %input{:id => "select_brand_partner", :value => @assessment.brand_partner, :type => "hidden"}
   = render :partial => "shared/report_configuration"
   .divider1
   %input.pull-right.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
