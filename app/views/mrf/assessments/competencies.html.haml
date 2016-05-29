@@ -7,10 +7,11 @@
   .page-title 
     #{@assessment.name}
   .divider1
+  = render :partial => "shared/mrf/360_navigation-sub-nav"
+  .divider1
   = form_for @assessment, :as => :assessment, :url => competencies_company_mrf_assessment_path(params[:company_id],params[:id]), method: :put do |f|
     - all_competency_index = 0
     - @all_competency_count = @local_competencies.count # + @global_competencies.count
-
     .large-text
       Custom competencies
     .divider2

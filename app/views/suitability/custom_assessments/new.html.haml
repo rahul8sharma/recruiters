@@ -2,9 +2,6 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
-- content_for :stylesheets do
-  = stylesheet_link_tag "jstree"
-
 .new
   .page-title.pull-left
     Create Custom Assessment
@@ -21,5 +18,4 @@
       %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }
     .clr
     .divider1
-  = render :partial => "shared/report_configuration"
   .divider1

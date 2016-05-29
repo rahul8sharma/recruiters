@@ -358,7 +358,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         redirect_to users_url
       end
     else
-      get_packages  
+      redirect_to add_users_url
     end
   end
 
