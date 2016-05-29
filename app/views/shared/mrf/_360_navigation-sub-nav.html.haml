@@ -1,0 +1,21 @@
+.mrf_navigation-sub-nav.navigation-sub-nav.clearfix.pull-left
+  .menu{class: (params[:action] == 'new' ? "active" : "")}
+    .count 1
+    Enter the details
+  .menu{class: (['competencies'].include?(params[:action]) ? "active" : "")}
+    .count 2
+    Select Competencies
+  .menu{class: (['add_traits_range'].include?(params[:action]) ? "active" : "")}
+    .count 3
+    Set Ranges
+  .menu{class: (['order_enable_items'].include?(params[:action]) ? "active" : "")}
+    .count 4
+    Select Questions
+  .menu{class: (['add_subjective_items'].include?(params[:action]) ? "active" : "")}
+    .count 5
+    Subjective Questions
+  .menu{class: (['add_stakeholders','select_email_template','bulk_upload','send_reminder'].include?(params[:action]) ? "active" : "")}
+    .count 6
+    Send the Exercise
+
+.clr

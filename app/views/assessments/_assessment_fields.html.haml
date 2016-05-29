@@ -1,13 +1,9 @@
-%input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}
-= f.hidden_field :company_id, value: @assessment.company_id, :id => "input_company_id"
-= f.hidden_field :report_configuration, :id => "input_config", value: @assessment.report_configuration.to_json
-%input{:id => "report_type", :value => "suitability", :type => "hidden"}
 .divider1
 - if assessment.id.blank? || @paid_user_assessments_count == 0  
   .control-group
     %label
       Select the Industry your Company belongs to
-    %select.span12.first{name: 'assessment[industry_id]', id: 'select_industry'}
+    %select.span21.first{name: 'assessment[industry_id]', id: 'select_industry'}
       %option{:value => ""}
         Industry
       - @industries.each do |id, industry|
@@ -17,8 +13,8 @@
     .clr
   .control-group
     %label
-      Select the Department (or Function) for which you are creating this Assessment
-    %select.span12.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
+      Select the Department for which you are creating this Assessment
+    %select.span21.first{name: 'assessment[functional_area_id]', id: 'select_functional_area'}
       %option{:value => ""}
         Department
       - @functional_areas.each do |id,functional_area|
@@ -28,192 +24,157 @@
 
   .control-group
     %label
-      Select Experience Range of the Job Role that you are creating this Assessment for
-    %select.span12.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
+      Select Experience Range of the Job Role you are creating this Assessment for
+    %select.span21.first{name: 'assessment[job_experience_id]', id: 'select_job_experience'}
       %option{:value => ""}
         Experience
       - @job_experiences.each do |id,job_experience|
         %option{:value => (job_experience.id), selected: (assessment.job_experience_id.to_s == id.to_s)}
           = job_experience.display_text
     .clr
-  .control-group
-    %label
-      Select the purpose of the assessment
-    %select.span12.first{name: 'assessment[candidate_stage]', id: 'set_candidate_type'}
-      %option{:value => ""}
-        Select the purpose of the assessment
-      %option{:value => Vger::Resources::User::Stage::EMPLOYED, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
-        Development
-      %option{:value => Vger::Resources::User::Stage::CANDIDATE, selected: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
-        Hiring
-    .clr
 .control-group
   %label
     Enter a Title for the Assessment
-  = f.text_field :name, :class => "span12 first", :placeholder => "(e.g. Senior Marketing Manager)"
+  = f.text_field :name, :class => "span21 first", :placeholder => "(e.g. Senior Marketing Manager)"
   .clr
-
-- if ["new","create"].include?(params[:action])
-  = f.fields_for :sets do |set_form|
-    = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
-    = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
-    = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
-    - if !is_superuser?
-      = set_form.hidden_field :page_size, value: Rails.application.config.default_set["page_size"]
-    - else
-      .control-group
-        %label
-          Page Size
-        = set_form.text_field :page_size, value: Rails.application.config.default_set["page_size"], :class => "first span10"
-        .clr
-
-.clr
-- if is_superuser?
-  - if ["new","create"].include? params[:action]
-    .control-group
-      %label
-        Select Assessment Type
-      %select.span10.first{name: 'assessment[assessment_type]', id: 'set_assessment_type'}
-        %option{:value => ""}
-          Select Assessment Type
-        - Vger::Resources::Assessment::SUITABILITY_ASSESSMENT_TYPES.sort.each do |assessment_type|
-          %option{:value => assessment_type, selected: (assessment.assessment_type == assessment_type)}
-            = assessment_type.titleize
-      .clr
-    .control-group
-      %label
-        Select Custom Factual Information Form
-      %select.span10.first{ name: "defined_form_id" }
-        %option{ value: "" }
-          Select Custom Factual Information Form
-        - @defined_forms.each do |defined_form|
-          %option{ value: defined_form.id, selected: (defined_form.parent_uid.to_s == Rails.application.config.signup[:standard_form_uid]) }
-            = defined_form.name.html_safe
-      .clr
-  - else
-    - if @paid_user_assessments_count != 0  
-      = f.hidden_field :candidate_stage, value: @assessment.candidate_stage, :id => "set_candidate_type"    
-    = f.hidden_field :assessment_type, value: @assessment.assessment_type, :id => "set_assessment_type"    
-  .control-group
+.control-group
+  .span10.first
+    %label
+      Select the purpose of the assessment
+    %label.extra-medium-text
+      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::EMPLOYED, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
+      Development 
+    %label.extra-medium-text
+      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::CANDIDATE, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
+      Hiring  
+  .span10.left-offset1
+    %label
+      Select Assessment Type
+    %label.extra-medium-text
+      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::COMPETENCY, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY}
+      Competency 
+    %label.extra-medium-text
+      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::FIT, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::FIT}
+      Traits 
+  .clr
+  
+.control-group
+  .span10.first
     %label
       Select the Language for the Assessment
-    %select.span10.first{name: 'assessment[language]', id: 'select_language'}
+    %select.fw{ name: "assessment[language]" }
       - Vger::Resources::Language.all.each do |language|
         %option{:value => language.language_code, selected: (assessment.language == language.language_code)}
           = language.name
-
-    .clr
-  .control-group
+  .span10.left-offset1
     %label
-      Select Difficulty Level for Items
-    %select.span10.first{name: 'assessment[difficulty_level]', id: 'select_difficulty_level'}
-      - trait_difficulty_levels.each do |difficulty_level|
-        %option{:value => difficulty_level, selected: (assessment.difficulty_level == difficulty_level)}
-          = difficulty_level.titleize
-
-    .clr
-  .control-group
-    %label
-      Select the Brand Partner
-    %select.span10.first{name: 'assessment[brand_partner]', id: 'select_brand_partner'}
+      Select Brand Partner
+    %select.fw{ name: "assessment[brand_partner]" }
       %option{:value => ""}
         Select Brand Partner
       - Rails.application.config.brand_partners.each do |brand_partner, content|
         %option{:value => brand_partner, selected: (assessment.brand_partner == brand_partner)}
           = brand_partner.titleize
-    .clr      
-  .control-group
+  .clr
+
+.control-group
+  .span10.first
     %label
+      Select Factual Information Form
+    %select.fw{ name: "defined_form_id" }
+      %option{ value: "" }
+        Select Custom Factual Information Form
+      - @defined_forms.each do |defined_form|
+        %option{ value: defined_form.id, selected: (defined_form.parent_uid.to_s == Rails.application.config.signup[:standard_form_uid]) }
+          = defined_form.name.html_safe
+  .span10.left-offset1
+    - if ["new","create"].include?(params[:action])
+      = f.fields_for :sets do |set_form|
+        - set_form.object.page_size ||= 10
+        = set_form.hidden_field :name, value: Rails.application.config.default_set["name"]
+        = set_form.hidden_field :start_index, value: Rails.application.config.default_set["start_index"]
+        = set_form.hidden_field :end_index, value: Rails.application.config.default_set["end_index"]
+        %label
+          Page Size
+        = set_form.select :page_size, [*1..100].to_a
+  .clr
+.control-group
+  %label
+    Select Difficulty Level for Items
+  %select.span21.first{name: 'assessment[difficulty_level]', id: 'select_difficulty_level'}
+    - trait_difficulty_levels.each do |difficulty_level|
+      %option{:value => difficulty_level, selected: (assessment.difficulty_level == difficulty_level)}
+        = difficulty_level.titleize
+
+  .clr
+  
+.control-group
+  %label
+    Select Assessment Completion  Notification Template
+  %select.span21.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
+    %option{:value => ""}
       Select Assessment Completion Notification Template
-    %select.span10.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
-      %option{:value => ""}
-        Select Assessment Completion Notification Template
-      - @templates.each do |template|
-        %option{:value => template.id, selected: (assessment.assessment_completion_notification_template_id == template.id)}
-          = template.name
-    .clr      
-  .control-group
-    %label
-      Post Assessment Redirect URL (URL should start with 'http' or 'https')
-    %input.span10.first{ name: 'assessment[redirect_url]', value: @assessment.redirect_url }
-    .clr
-  .control-group
-    %label
-      Cocubes Passkey
-    = f.text_field :cocubes_passkey, class: "span10 first", value: @assessment.cocubes_passkey
-    .clr
-  .control-group
-    %label
-      Cocubes Sections (Add | separated Section Names)
-    = f.text_field :cocubes_sections, class: "span10 first", value: @assessment.cocubes_sections.join("|")
-    .clr
-  .control-group
-    %label
-      Custom Thank You Message
-    %textarea.span10.first{ name: 'assessment[thank_you_message]' }
-      = @assessment.thank_you_message
-    .clr
-  .control-group
-    %label
-      %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-      Enable Training Requirements Report for this assessment
-    .clr  
-  .control-group
-    %label
-      = f.check_box :enable_completion_notification, id: "enable_completion_notification"
-      Send Assessment Completion Notification to Candidates (Disable this for candidates with dummy/invalid email)
-    .clr  
-  .control-group
-    %label
-      = f.check_box :show_help_text, id: "show_help_text"
-      Show Help Text for Items?
-    .clr  
-  .control-group
-    %label
-      = f.check_box :set_applicant_id
-      Set Applicant Id
-    .clr
-  .control-group  
-    %label
-      = f.check_box :should_send_notifications, id: "should_send_notifications"
-      Send Report Notifications
-    .clr  
-  .control-group  
-    %label
-      = f.check_box :include_cocubes_scores_in_reoprts
-      Include Cocubes Scores in Reports and Summary
-    .clr  
-  .control-group
-    %label
-      = f.check_box :enable_table_of_contents
-      Enable Table of Contents
-  .control-group
-    %label
-      = f.check_box :update_trait_scores_from_cocubes
-      Update trait scores from cocubes
-    .clr  
-  .control-group
-    %label
-      = f.check_box :include_standard_factual_information_in_report_summary
-      Enable Standard Factual Information Data In Exports
-    .clr  
-  .control-group
-    %label
-      = f.check_box :include_aggregate_score_in_report_summary
-      Include Numerical Aggregate Score in Report Summary
-    .clr    
-  .control-group
-    %label
-      = f.check_box :include_aggregate_score_rating_in_report_summary
-      Include Aggregate Score Rating in Report Summary
-    .clr    
-  .control-group
-    %label
-      = f.check_box :include_aggregate_score_bucket_in_report_summary
-      Include Aggregate Score Bucket in Report Summary
-    .clr      
-- else
-  = f.hidden_field :language, value: 'en'
-  = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::FIT, :id => "set_assessment_type"    
-  = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
+    - @templates.each do |template|
+      %option{:value => template.id, selected: (assessment.assessment_completion_notification_template_id == template.id)}
+        = template.name
+  .clr      
+
+.control-group
+  %label
+    Cocubes Passkey
+  = f.text_field :cocubes_passkey, class: "span21 first", value: @assessment.cocubes_passkey
+  .clr
+
+.control-group
+  %label
+    Post Assessment Redirect URL (URL should start with 'http' or 'https')
+  %input.span21.first{ name: 'assessment[redirect_url]', value: @assessment.redirect_url }
+  .clr
+.control-group
+  %label
+    Cocubes Sections (Add | separated Section Names)
+  = f.text_field :cocubes_sections, class: "span21 first", value: @assessment.cocubes_sections.join("|")
+  .clr
+.control-group
+  %label
+    Custom Thank You Message
+  %textarea.span21.first{ name: 'assessment[thank_you_message]' }
+    = @assessment.thank_you_message
+  .clr
+%label.medium-text
+  %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+  Enable Training Requirements Report for this assessment
+%label.medium-text
+  = f.check_box :enable_completion_notification, id: "enable_completion_notification"
+  Send Assessment Completion Notification to Candidates (Disable this for candidates with dummy/invalid email)
+%label.medium-text
+  = f.check_box :show_help_text, id: "show_help_text"
+  Show Help Text for Items?
+%label.medium-text
+  = f.check_box :set_applicant_id
+  Set Applicant Id
+%label.medium-text
+  = f.check_box :should_send_notifications, id: "should_send_notifications"
+  Send Report Notifications
+%label.medium-text
+  = f.check_box :include_cocubes_scores_in_reoprts
+  Include Cocubes Scores in Reports and Summary
+%label.medium-text
+  = f.check_box :enable_table_of_contents
+  Enable Table of Contents
+%label.medium-text
+  = f.check_box :update_trait_scores_from_cocubes
+  Update trait scores from cocubes
+%label.medium-text
+  = f.check_box :include_standard_factual_information_in_report_summary
+  Enable Standard Factual Information Data In Exports
+%label.medium-text
+  = f.check_box :include_aggregate_score_in_report_summary
+  Include Numerical Aggregate Score in Report Summary
+%label.medium-text
+  = f.check_box :include_aggregate_score_rating_in_report_summary
+  Include Aggregate Score Rating in Report Summary
+%label.medium-text
+  = f.check_box :include_aggregate_score_bucket_in_report_summary
+  Include Aggregate Score Bucket in Report Summary
 .divider2

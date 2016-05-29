@@ -13,6 +13,9 @@
   Send Reminder to #{message} 
   %br
 .span30
+  .divider1
+  = render :partial => "shared/mrf/360_navigation-sub-nav"
+  .divider2
   = form_for @assessment, as: :assessment, url: send_reminder_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send reminder to #{message}?" } do |f|
     .divider2
     %input{ type: "hidden", name: "options", value: params[:options].to_yaml }  

@@ -123,14 +123,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You may consider increasing your interaction with different kinds of people in varied situations. You could try to observe their expressions, body language, etc. with an aim to understand them better.
       factor_type: Suitability::Factor
-    Decisiveness: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: false
-      body: Consider pushing yourself to take decisions on your own. You can also try not to be overcautious. You may leverage information about thumb-rules from similar situations in the past when you were required to take a decision. This could reduce chances of a wrong decision.
-      factor_type: Suitability::Factor
-    Foresight: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: false
-      body: You could try to actively participate in discussions about future goals of your department so that you find it easier to relate your current tasks to those goals. You could consider listing some indicators and thumb-rules about dealing with anticipated situations by discussing with your manager.
-      factor_type: Suitability::Factor
     Persistence: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false
       body: You could try to making task completion itself a goal. You could also make sure your colleagues know about the deliverables that you need to finish. You can ask them to push you to finish those deliverables. This could motivate you to keep at a task till it is completed, even if you happen to get bored with it.
@@ -138,10 +130,6 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Networking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: true
       body: You could try using different approaches such as social networks, email, messages etc. in addition to attending events to connect with new people and to maintain your existing network. You could explore ways to get new references from your existing connections.
-      factor_type: Suitability::Factor
-    Responsibility of Outcomes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      pass: true
-      body: You may want to ensure that you do not stress yourself out by holding yourself accountable for everything beyond a point. One should accept that some things are beyond one's control.
       factor_type: Suitability::Factor
     Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       pass: false

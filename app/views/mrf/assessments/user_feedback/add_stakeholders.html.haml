@@ -21,17 +21,19 @@
   - manual_addition_text = "Add a single user for 360º Profiling"
   - stakeholders_text = "Please add stakeholders who will provide feedback for the added user"
 
-.span25.huge-text.page-title
+.huge-text.page-title
   = page_title
-  .divider1
-.span25.extra-medium-text
+.divider1
+= render :partial => "shared/mrf/360_navigation-sub-nav"
+.divider2
+.extra-medium-text
   = help_text
   .divider2
-.span30
-  = link_to "Bulk Upload", bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), class: "btn btn-info big-text big bold"   
-  .divider2.border-bottom-grayLighter
 
-.span30{ class: manual_addition_text.nil? ? 'hide':'' }
+= link_to "Bulk Upload", bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), class: "btn btn-info big-text big bold"   
+.divider2.border-bottom-grayLighter
+
+%div{ class: manual_addition_text.nil? ? 'hide':'' }
   .divider2
   = form_for @assessment, as: :assessment, url: add_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html:{message: "Are you sure you want to send the exercise?"} do |f|
     .extra-medium-text.color-info
@@ -58,8 +60,9 @@
       = stakeholders_text
     .divider1
     %div{class: 'activated'}
-      .left-offset1.first
-        .span8.first.extra-medium-text
+      %div
+        .span1 &nbsp;
+        .span8.extra-medium-text
           Name
         .span8.extra-medium-text.left-offset1
           Email ID

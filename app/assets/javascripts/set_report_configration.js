@@ -338,6 +338,13 @@ $(document).ready(function(){
     }
   });
   
+  $(".rb_assessment_type").change(function(){
+    if($(this).is(":checked")){
+      $("#set_assessment_type").val($(this).val());
+      loadConfig($('#set_assessment_type').val(), reportType);
+    } 
+  });
+  
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";

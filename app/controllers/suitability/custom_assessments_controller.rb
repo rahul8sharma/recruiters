@@ -88,11 +88,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       # This is a bad workaround to allow superuser to proceed even if items are not available
       # Need a better way to manage this
       if @assessment.error_messages.blank?
-        if params[:save_and_close].present?
-          redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
-        else
-          redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
-        end
+        redirect_to self.send("report_configuration_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
         redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
@@ -106,7 +102,22 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       check_competencies_and_proceed
     end
   end
-
+  
+  def report_configuration
+    if request.put?
+      params[:assessment] ||= {}
+      params[:assessment][:report_configuration] ||= {}.to_json
+      params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      if @assessment.error_messages.blank?
+        redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+      else
+        flash[:error] = @assessment.error_messages.join("<br/>")
+        redirect_to report_configuration_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+      end
+    else
+    end
+  end
 
   def competencies_url
     competency_norms_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id)
@@ -193,9 +204,6 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         redirect_to root_path, error: "Page you are looking for doesn't exist."
       end
     else
-      params[:assessment] ||= {}
-      params[:assessment][:report_configuration] ||= {}.to_json
-      params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
       @assessment = api_resource.new(params[:assessment])
       @assessment.report_types ||= []
       if params[:enable_training_requirements_report].present?
@@ -230,22 +238,10 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     end
     @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
-    # TODO
-    # This is a bad workaround to allow superuser to proceed even if items are not available
-    # Need a better way to manage this
-    allowed = @assessment.error_messages.find{|msg| msg =~ /Items not available/ }.present? && is_superuser?
-    if @assessment.error_messages.blank? || allowed
+    if @assessment.error_messages.blank?
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
       flash[:error] = @assessment.error_messages.uniq.join("<br/>")
-      if params[:save_and_close].present?
-        redirect_to self.send("company_#{@assessment.assessment_type}_assessment_path",params[:company_id], @assessment.id)
-      else
-        if is_superuser?
-          redirect_to self.send("set_weightage_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
-        else
-          redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
-        end
-      end
+      redirect_to self.send("set_weightage_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
     else
       flash[:error] = @assessment.error_messages.uniq.join("<br/>")
     end
