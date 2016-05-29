@@ -19,7 +19,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       #end
     elsif request.put?
       params[:assessment][:job_assessment_factor_norms_attributes] ||= {}
-      traits_range = Rails.application.config.validators["traits_range"][current_role.underscore]
+      traits_range = Rails.application.config.validators["traits_range"][current_user.role.underscore]
       selected_traits_size = params[:assessment][:job_assessment_factor_norms_attributes].select{|index,data| data[:_destroy] != "true" }.keys.size
 
       if selected_traits_size >= traits_range["min"] && selected_traits_size <= traits_range["max"]

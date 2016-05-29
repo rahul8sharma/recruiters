@@ -49,22 +49,11 @@ module UsersHelper
   end
 
   def get_link_for_user(user)
-    role = get_role(user)
+    role = user.role
     if role
       self.respond_to?("get_link_for_#{role.underscore}") ? self.send("get_link_for_#{role.underscore}",user) : "#"
     else
       return "#"
     end
-  end
-    
-  def get_role(user)
-    @role ||= user.role_names.select do |role|
-      [
-        Vger::Resources::Role::RoleName::SUPER_ADMIN,
-        Vger::Resources::Role::RoleName::JIT,
-        Vger::Resources::Role::RoleName::COMPANY_MANAGER,
-        Vger::Resources::Role::RoleName::ADMIN
-      ].include?(role)
-    end.first
   end
 end

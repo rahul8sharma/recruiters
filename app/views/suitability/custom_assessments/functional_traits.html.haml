@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery_ujs"
 
 .alert.alert-error{:hidden => "hidden", :id => "trait_flag"}
-  Please select a minimum of #{Rails.application.config.validators["traits_range"][current_role.underscore]["min"]} trait(s) to create this assessment (You can select maximum #{Rails.application.config.validators["traits_range"][current_role.underscore]["max"]} traits).
+  Please select a minimum of #{Rails.application.config.validators["traits_range"][current_user.role.underscore]["min"]} trait(s) to create this assessment (You can select maximum #{Rails.application.config.validators["traits_range"][current_user.role.underscore]["max"]} traits).
 .norms
   .page-title.pull-left
     #{@assessment.name}
@@ -37,7 +37,7 @@
 
 
   = form_for @assessment, :as => :assessment, :url => functional_traits_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put do |f|
-    %input{type: 'hidden', name: 'user', value: current_role.underscore}
+    %input{type: 'hidden', name: 'user', value: current_user.role.underscore}
     - if !is_superuser?
       = f.hidden_field :validate_items, value: "on"
     - 2.times do
