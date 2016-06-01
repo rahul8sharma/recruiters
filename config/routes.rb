@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Recruiters::Application.routes.draw do
   resources :permissions
-  resources :roles, only: [:index, :show, :edit, :update]
+  resources :roles
   
   get "/users/password/link_sent", :to => "users#link_sent", :as => :link_sent
   get "/users/confirmation", :to => "users#confirm", :as => :confirm

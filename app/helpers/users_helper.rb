@@ -47,4 +47,13 @@ module UsersHelper
   def get_link_for_idp_candidate(user)
     return user_path(user.id)
   end
+
+  def get_link_for_user(user)
+    role = user.role
+    if role
+      self.respond_to?("get_link_for_#{role.underscore}") ? self.send("get_link_for_#{role.underscore}",user) : "#"
+    else
+      return "#"
+    end
+  end
 end
