@@ -1,0 +1,129 @@
+- comptency_hash = @report.report_data[:super_competency_scores].dup
+
+- width = 70
+- height_of_graph = ((comptency_hash.size * 50)+120)
+- page_height = 700
+- remaining_space = height_of_graph > 700 ? 0 : page_height - height_of_graph
+- description_size = 200
+
+- text = ""
+- comptency_hash.each do |name , data|
+  - text += data[:description]
+
+- total_length = text.size
+-# 1 line is 20px
+- lines_available = remaining_space > 0 ? remaining_space/20 : 0 
+-# characters that can fit in a line = 110
+- characters_to_fit = lines_available * 110
+- keys = comptency_hash.keys
+
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+.overview.competency.oac_competency_overview
+  .inner
+    -# Legend
+    .content
+      .overview-title{:style=>"padding: 0 30px"}
+        .pull-left.text-left
+          .big-text.color-warning{:style=>"padding-top: 10px"}
+            Competency Scores
+          .instruction_container
+            .instructions
+              .box.pull-left
+                .box-icon.pull-left
+                .box-title.pull-left.default 
+                  Expected Range
+                .clr
+              .instruction1.pull-left.default
+                Favorable
+              -# .instruction2.less_favorable.pull-left.default
+              -#   Less Favorable
+              .clr
+          .clr
+        .scale
+          .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
+          .marker-container
+            - @score_buckets.each do |score_bucket|
+              .marker
+                %br/
+                = @custom_score_bucket_names["#{score_bucket.uid}"]
+            .clr
+        .clr
+      .clr
+      .divider1
+      %ul.competency-list.medium-text
+        - @report.report_data[:super_competency_scores].each do |id, data|
+          - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+          - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+          - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+          - scored_bucket_weight = data[:score][:weight].to_i
+          - scored_bucket = data[:score][:bucket]
+          - range = (to_bucket_weight - from_bucket_weight)*width
+          - left = (from_bucket_weight-1)*width
+          - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+          %li
+            .first.hexagon-icon.span1{:style => "margin-top: 14px"}
+            .competency-name.pull-left
+              = data[:name]
+            .competency-value.pull-right
+              .scale
+                .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
+                .marker-container
+                  .desire_range{:style => "left: #{left+32}px; width: #{range}px;"}
+                  - @score_buckets.each do |score_bucket|
+                    - klass = score_bucket.name == scored_bucket ? "active" : ""
+                    - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+                    .marker{ class: klass }
+                      %br/
+                      - if score_bucket.name == data[:score][:bucket]
+                        = @custom_score_bucket_names["#{score_bucket.uid}"]
+                  .clr
+              .clr
+            .clr     
+
+- limit = comptency_hash.size
+- index = 0
+- while comptency_hash[keys[index]][:description].size < characters_to_fit
+  .overview.competency.oac_competency_overview
+    .competency_description
+      .inner
+        .blue_heading.big-text
+          Competencies Measured
+        .divider1
+        %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
+          - comptency_hash.each do |name, data|
+            %tr
+              %td.left
+                .span3
+                  = data[:name]
+              %td.right
+                = data[:description]
+
+    .clr
+  .clr
+  - characters_to_fit = characters_to_fit - comptency_hash[keys[index]][:description].size
+  - comptency_hash.delete(keys[index])
+  - index += 1
+  - if index = limit
+    - break
+  .page-break
+
+
+- if (comptency_hash.size > 0)
+  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+    .overview.competency.oac_competency_overview
+      .competency_description
+        .inner
+          .blue_heading.big-text
+            Competencies Measured
+          .divider1
+          %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
+            - comptency_hash.each do |name, data|
+              %tr
+                %td.left
+                  .span3
+                    = data[:name]
+                %td.right
+                  = data[:description]
+      .clr
+    .clr
+  .page-break

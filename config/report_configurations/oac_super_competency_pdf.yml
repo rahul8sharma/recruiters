@@ -14,7 +14,7 @@
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/pdf/competency_description",
   },
- {
+  {
     id: "pdf_competency_overview",
     text: "Competency Overview",
     path: "oac/exercises/reports/competency_reports/pdf/competency_overview",
@@ -59,6 +59,12 @@
       }
     ]
   },
+  {
+    id: "pdf_one_page_competency_overview",
+    text: "One Pager Competency Overview",
+    path: "oac/exercises/reports/competency_reports/pdf/one_page_competency_overview",
+    children: []
+  },  
   {
     id: "pdf_competency_overview_tool_wise",
     text: "Toolwise Competency Overview",
