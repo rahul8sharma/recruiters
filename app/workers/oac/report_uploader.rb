@@ -77,7 +77,7 @@ module Oac
           ),
           margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
           footer: {
-            :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
+            :content => render_to_string("shared/reports/pdf/_oac_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
           }
         )
 
