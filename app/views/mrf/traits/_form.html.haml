@@ -3,7 +3,7 @@
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :company_ids
-    = f.text_field :company_ids, value: @trait.company_ids.join(',');
+    = f.label :company_id
+    = f.text_field :company_id
   .actions
     = f.submit 'Update'
