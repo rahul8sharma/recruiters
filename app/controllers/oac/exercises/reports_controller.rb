@@ -49,7 +49,7 @@ class Oac::Exercises::ReportsController < ApplicationController
         render pdf: "report_#{params[:id]}.pdf",
         footer: {
           :html => {
-            template: "shared/reports/pdf/_report_footer.pdf.haml"
+            template: "shared/reports/pdf/_oac_report_footer.pdf.haml"
           }
         },
         template: "oac/exercises/reports/#{template}",

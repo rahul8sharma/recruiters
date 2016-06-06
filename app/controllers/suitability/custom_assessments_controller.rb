@@ -198,13 +198,17 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   # creates new assessment otherwise
   def get_assessment
     if params[:id].present?
-      @assessment = api_resource.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
+      @assessment = api_resource.find(params[:id], 
+        :include => [:functional_area, :industry, :job_experience, :factual_information_form], 
+        :methods => [:competency_ids]
+      )
       if(@assessment.company_id.to_i == params[:company_id].to_i)
       else
         redirect_to root_path, error: "Page you are looking for doesn't exist."
       end
     else
       @assessment = api_resource.new(params[:assessment])
+      @assessment.factual_information_form = nil
       @assessment.report_types ||= []
       if params[:enable_training_requirements_report].present?
         @assessment.report_types << api_resource::ReportType::TRAINING_REQUIREMENT
