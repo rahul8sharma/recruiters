@@ -208,6 +208,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     else
       @assessment = api_resource.new(params[:assessment])
+      @assessment.factual_information_form = nil
       @assessment.report_types ||= []
       if params[:enable_training_requirements_report].present?
         @assessment.report_types << api_resource::ReportType::TRAINING_REQUIREMENT
