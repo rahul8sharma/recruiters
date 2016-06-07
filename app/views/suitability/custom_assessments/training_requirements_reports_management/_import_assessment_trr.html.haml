@@ -8,9 +8,7 @@
     %p
       Google Spreadsheet Url :
       = f.text_field "url"
-    %p
-      Notification Email :
-      = f.text_field :email, :value => "product@jombay.com"
+    = f.hidden_field :email, :value => current_user.email
 
   .actions
     = submit_tag 'Regenerate TRR'

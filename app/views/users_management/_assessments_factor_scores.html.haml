@@ -36,9 +36,7 @@
         Rows per sheet: 
         = f.text_field "batch_size", :value => "10000"
 
-      %p
-        Notification Email : 
-        = f.text_field :email, :value => "product@jombay.com"
+      = f.hidden_field :email, :value => current_user.email
 
   .actions
     = submit_tag 'Download'
