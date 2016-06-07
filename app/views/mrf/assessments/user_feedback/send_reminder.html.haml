@@ -3,6 +3,8 @@
     - if params[:options][:role]
       - role = params[:options][:role] == "self" ? "Self" : "all " + params[:options][:role].titleize.pluralize
       - message = "#{role} for Candidate #CID #{params[:options][:user_id]}"
+    - if params[:options][:stakeholder_id]
+      - message = "#{Vger::Resources::Stakeholder.find(params[:options][:stakeholder_id]).name}"
     - else  
       - message = "all pending for Candidate #CID #{params[:options][:user_id]}"
   - else
