@@ -5,7 +5,7 @@
     AID #{@assessment.id} - #{@assessment.name}
   .pull-right
     - if is_superuser?
-      = link_to "Expire All Links", expire_links_url, :title => "Expire All Links Under This Assessment", confirm: "Are you sure?", class: "extra-medium-text line-height3 pull-left"
+      = link_to "Expire All Links", expire_links_url, :title => "Expire All Links Under This Assessment", confirm: "This action will expire links for all the pending candidates in this assessment. Are you sure?", class: "extra-medium-text line-height3 pull-left"
       %span.pull-left.line-height3
         &nbsp;
         \|  
