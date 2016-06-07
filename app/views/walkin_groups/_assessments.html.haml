@@ -29,10 +29,16 @@
     .divider1
   .expire-container
     .expire
-      %b.show.line-height2.medium-text.pull-left
+      %b.show.line-height2.medium-text
         Custom Text
-      &nbsp;
       = f.text_area :custom_text, rows: 5, cols: 100, class: "span24"
+      .clr
+    .clr 
+  .expire-container
+    .expire
+      %b.show.line-height2.medium-text
+        Report Notifiers (Enter comma separated email addresses)
+      = f.text_field :report_email_recipients, class: "span24"
       .clr
     .clr 
   
