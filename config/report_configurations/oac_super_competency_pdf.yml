@@ -3,6 +3,18 @@
     id: "pdf_cover_page",
     text: "Cover Page",
     path: "oac/exercises/reports/competency_reports/pdf/cover_page",
+    children: [
+      {
+        id: "pdf_candidate_details",
+        text: "VDC Details",
+        path: "oac/exercises/reports/competency_reports/pdf/assessment_details"  
+      },
+      {
+        id: "pdf_completion_date",
+        text: "VDC Completion Date",
+        path: "oac/exercises/reports/competency_reports/pdf/completion_date"  
+      }
+    ]
   },
   {
     id: "pdf_participation",
