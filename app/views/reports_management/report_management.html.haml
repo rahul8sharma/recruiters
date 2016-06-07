@@ -7,9 +7,7 @@
         %p
           Assessment :
           = f.text_field :assessment_id, :value => ""
-        %p
-          Notification Email :
-          = f.text_field :email, :value => ""
+        = f.hidden_field :email, :value => current_user.email
         %p
           Notify Recepients :
           = f.check_box :notify_recipients
@@ -25,9 +23,7 @@
         %p
           Survey ID :
           = f.text_field :survey_id, :value => ""
-        %p
-          Notification Email :
-          = f.text_field :email, :value => ""
+        = f.hidden_field :email, :value => current_user.email
         %p
           Notify Recepients :
           = f.check_box :notify_recipients
@@ -46,9 +42,7 @@
         %p
           Group Report ID :
           = f.text_field :group_report_id, :value => ""
-        %p
-          Notification Email :
-          = f.text_field :email, :value => ""
+        = f.hidden_field :email, :value => current_user.email
         %p
           Notify Recepients :
           = f.check_box :notify_recipients
@@ -104,8 +98,6 @@
       %p
         Assessment :
         = f.text_field :assessment_id, :value => ""
-      %p
-        Notification Email :
-        = f.text_field :email, :value => ""
+      = f.hidden_field :email, :value => current_user.email
     .actions
       = submit_tag 'Regenerate MRF Reports'

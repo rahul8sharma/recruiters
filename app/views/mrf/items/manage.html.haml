@@ -11,10 +11,7 @@
     %br
     Company ID
     = f.text_field :company_id
-    %br
-    %br
-    Notifier Email
-    = f.email_field :email, value: "product@jombay.com"
+    = f.hidden_field :email, :value => current_user.email
     %br
     %br
     .actions

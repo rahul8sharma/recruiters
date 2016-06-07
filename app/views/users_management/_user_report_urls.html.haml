@@ -7,9 +7,7 @@
       %p
         Assessment ID : 
         = f.text_field :assessment_id
-      %p
-        Notification Email : 
-        = f.text_field :email, :value => "product@jombay.com"
+      = f.hidden_field :email, :value => current_user.email
 
   .actions
     = submit_tag 'Download'

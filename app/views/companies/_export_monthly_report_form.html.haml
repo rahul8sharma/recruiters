@@ -3,9 +3,7 @@
     %legend 
       %strong Download monthly report
     = f.fields_for "args" do |af|
-      %p
-        Notification Email : 
-        = af.text_field :email, :value => "product@jombay.com"
+      = af.hidden_field :email, :value => current_user.email
       %p
         Company Ids (Keep Blank to export all): 
         = af.text_field :company_ids, :value => ""

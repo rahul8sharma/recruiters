@@ -1,9 +1,6 @@
 %h1 #{controller.resource_name.humanize}
 
 = link_to "Manage #{controller.resource_name.humanize}", controller.manage_path
-- if respond_to?("new_#{resource_name.singularize}_path")
-  \|
-  = link_to "New #{controller.resource_name.singularize.titleize}", send("new_#{resource_name.singularize}_path")
 
 = render :partial => "master_data/search"
 

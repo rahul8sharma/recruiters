@@ -10,9 +10,7 @@
         %p
           Worksheet Names(separated by comma,keep empty to import all)
           = f.text_field "worksheets", :value => ''
-      %p
-        Notification Email : 
-        = f.text_field :email, :value => "product@jombay.com"
+      = f.hidden_field :email, :value => current_user.email
       %p
         = f.check_box :send_activate_account_instructions
         Send Activation Instructions

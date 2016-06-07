@@ -12,9 +12,7 @@
       %p
         Assessment ID:
         = af.text_field :assessment_id
-      %p
-        Notification Email :
-        = af.text_field :email, :value => "notifications@jombay.com"
+      = af.hidden_field :email, :value => current_user.email
       %p
         Override Percentile Score:
         = af.check_box :override_overall_scores
