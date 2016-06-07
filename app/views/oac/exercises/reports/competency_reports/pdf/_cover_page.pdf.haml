@@ -1,24 +1,22 @@
 .overall_report
   .divider1
   .clr
-  .divider28
-  
+  - if @report.report_data[:company][:logo_url]
+    .divider6
+    .span5
+      - url = @report.report_data[:company][:logo_url]
+      = image_tag(url)
+    .clr
+    .divider22
+  - else
+    .divider28
   .banner
     .banner-heading
       HiVE VDC Report
   .divider2
   .left-offset1
-    .extra-large-text
-      = @report.report_data[:user][:name]
-      .divider1
-      = @report.report_data[:exercise][:name]
-      .divider1
-    .large-text
-      .pull-left
-        Report Generated On:
-      .span
-        = hdate @report.report_data[:completed_at]
-      .clr
+    - section_value.each do |value|
+      = render :partial => value["path"], locals: {:section_value => value[:children]}
   .divider2
   .partner_logos.left-offset1
     - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
