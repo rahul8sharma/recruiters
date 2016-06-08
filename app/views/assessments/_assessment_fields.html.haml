@@ -142,10 +142,10 @@
     = @assessment.thank_you_message
   .clr
 
-- if @assessment.factual_information_form  
+- if @custom_form
   .control-group
     %label.medium-text  
-      = "Custom Form Chosen: #{@assessment.factual_information_form.id} - #{@assessment.factual_information_form.name}".html_safe
+      = "Custom Form Chosen: #{@custom_form.id} - #{@custom_form.name}".html_safe
 
 .control-group
   %label.medium-text
