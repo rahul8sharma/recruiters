@@ -30,8 +30,8 @@
                 .clr
               .instruction1.pull-left.default
                 Favorable
-              -# .instruction2.less_favorable.pull-left.default
-              -#   Less Favorable
+              .instruction2.less_favorable.pull-left.default
+                Less Favorable
               .clr
           .clr
         .scale
@@ -44,7 +44,6 @@
             .clr
         .clr
       .clr
-      .divider1
       %ul.competency-list.medium-text
         - @report.report_data[:super_competency_scores].each do |id, data|
           - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]

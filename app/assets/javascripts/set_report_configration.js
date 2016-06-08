@@ -299,12 +299,12 @@ function enablePreviewButtons(){
   $("#generate_pdf_preview").html("Generate PDF Preview");
 }
 
-function loadPreview($btn, $tree, candidate_type, custom_message){
+function loadPreview($btn, $tree, candidate_type, brand_partner, custom_message){
   $btn.html("Please wait...");
   $btn.attr("disabled", true);
   document.getElementById('iframe1').contentWindow.document.body.innerHTML = ''; 
   updateInput();
-  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type, custom_message);
+  generatePreview($('#set_assessment_type').val(), $btn.attr("type"), $tree, candidate_type, brand_partner, custom_message);
 }
 
 function destroyJSTrees(){
@@ -348,7 +348,7 @@ $(document).ready(function(){
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
-    var custom_message = $('#exercise_cover_letter').length == 1 ?$('#exercise_cover_letter').val() : "";
+    var custom_message = $('#exercise_cover_letter').val().length > 1 ? $('#exercise_cover_letter').val() : "";
     var brand_partner = $('#select_brand_partner').length == 1 ? $('#select_brand_partner').val() : "";
     if($('#set_assessment_type').val() !== "") {
       loadPreview($(this), $htmlTree, candidate_type, brand_partner,custom_message);
