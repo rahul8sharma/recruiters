@@ -1,8 +1,7 @@
 - line_height = 20
 - marker_width = 70
 - page_height = 700
-- characters_per_line = 110
-- 
+- characters_per_line = 120
 - comptency_hash = @report.report_data[:super_competency_scores].dup
 
 - height_of_graph = ((comptency_hash.size * 50)+120)
@@ -81,21 +80,23 @@
   .competency_description
     .inner
       .blue_heading.big-text
-        Competencies Measured
+        Competency wise Data Points
       .divider1
-      %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-        - index = 0
-        - while comptency_hash[keys[index]][:description].size < characters_to_fit
-          %tr
-            %td.left
-              .span3
-                = comptency_hash[keys[index]][:name]
-            %td.right
-              = comptency_hash[keys[index]][:description]
+      - index = 0
+      - while comptency_hash[keys[index]][:description].size < characters_to_fit
+        .frame
+          .heading.pull-left
+            = comptency_hash[keys[index]][:name]
+          .heading.pull-right
+            = comptency_hash[keys[index]][:score][:bucket]
+          .clr
+          .less-padding-all1
+            = comptency_hash[keys[index]][:description]
           - characters_to_fit -= comptency_hash[keys[index]][:description].size
           - comptency_hash.delete(keys[index])
           - index += 1
           - break if index == limit
+        .divider1
   .clr
   .page-break
 
@@ -106,16 +107,19 @@
     .competency_description
       .inner
         .blue_heading.big-text
-          Competencies Measured
+          Competency Wise Data Points
         .divider1
-        %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-          - comptency_hash.each do |name, data|
-            %tr
-              %td.left
-                .span3
-                  = data[:name]
-              %td.right
-                = data[:description]
+        - comptency_hash.each do |name, data|
+          .frame
+            .heading.pull-left
+              = data[:name]
+            .heading.pull-right
+              = data[:score][:bucket]
+            .clr
+            .less-padding-all1
+              = data[:description]
+          .divider1
+          .clr
     .clr
   .clr
   .page-break
