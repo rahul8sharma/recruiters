@@ -87,7 +87,7 @@
           .heading.pull-left
             = comptency_hash[keys[index]][:name]
           .heading.pull-right
-            = comptency_hash[keys[index]][:score][:bucket]
+            = @custom_score_bucket_names[comptency_hash[keys[index]][:score][:uid]]
           .clr
           .less-padding-all1
             = comptency_hash[keys[index]][:description]
@@ -113,7 +113,7 @@
             .heading.pull-left
               = data[:name]
             .heading.pull-right
-              = data[:score][:bucket]
+              = @custom_score_bucket_names[data[:score][:uid]]
             .clr
             .less-padding-all1
               = data[:description]
