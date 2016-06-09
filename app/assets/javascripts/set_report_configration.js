@@ -348,7 +348,7 @@ $(document).ready(function(){
   $('#generate_html_preview').on('click', function(e){
     e.preventDefault();
     var candidate_type = $('#set_candidate_type').length == 1 ? $('#set_candidate_type').val() : "employed";
-    var custom_message = $('#exercise_cover_letter').val().length > 1 ? $('#exercise_cover_letter').val() : "";
+    var custom_message = $('#exercise_cover_letter').length == 1 ? $('#exercise_cover_letter').val() : "";
     var brand_partner = $('#select_brand_partner').length == 1 ? $('#select_brand_partner').val() : "";
     if($('#set_assessment_type').val() !== "") {
       loadPreview($(this), $htmlTree, candidate_type, brand_partner,custom_message);
