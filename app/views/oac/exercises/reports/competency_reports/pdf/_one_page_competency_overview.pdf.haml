@@ -6,7 +6,7 @@
 
 - height_of_graph = ((comptency_hash.size * 50)+120)
 - remaining_space = height_of_graph > page_height ? 0 : page_height - height_of_graph
-- total_length = comptency_hash.map{|name , data| data[:description] }.join.size
+- total_length = comptency_hash.map{|name , data| data[:score][:description] }.join.size
 -# 1 line is 20px
 - lines_available = remaining_space > 0 ? remaining_space/line_height : 0 
 -# characters that can fit in a line = characters_per_line
@@ -82,7 +82,7 @@
         Competency wise Data Points
       .divider1
       - index = 0
-      - while comptency_hash[keys[index]][:description].size < characters_to_fit
+      - while comptency_hash[keys[index]][:score][:description].size < characters_to_fit
         .frame
           .heading.pull-left
             = comptency_hash[keys[index]][:name]
@@ -90,8 +90,8 @@
             = @custom_score_bucket_names[comptency_hash[keys[index]][:score][:uid]]
           .clr
           .less-padding-all1
-            = comptency_hash[keys[index]][:description]
-          - characters_to_fit -= comptency_hash[keys[index]][:description].size
+            = comptency_hash[keys[index]][:score][:description]
+          - characters_to_fit -= comptency_hash[keys[index]][:score][:description].size
           - comptency_hash.delete(keys[index])
           - index += 1
           - break if index == limit
@@ -116,7 +116,7 @@
               = @custom_score_bucket_names[data[:score][:uid]]
             .clr
             .less-padding-all1
-              = data[:description]
+              = data[:score][:description]
           .divider1
           .clr
     .clr
