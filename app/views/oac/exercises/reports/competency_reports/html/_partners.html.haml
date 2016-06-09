@@ -1,12 +1,11 @@
 .partners.text-right
   .container
-    .divider1
+    .divider2
     - if @report.report_data[:company][:logo_url]
-      .span2.first
+      .span4.first
         - url = @report.report_data[:company][:logo_url]
         = image_tag(url)
     .pull-right
-      .divider1
       .large-text.pull-left{:style => "padding-right: 22px"}
         Powered by
       .partner_logos.pull-left
