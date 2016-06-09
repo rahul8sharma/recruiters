@@ -1,6 +1,6 @@
-- line_height = 20
+- line_height = 15
 - marker_width = 70
-- page_height = 700
+- page_height = 800
 - characters_per_line = 120
 - comptency_hash = @report.report_data[:super_competency_scores].dup
 
@@ -98,7 +98,6 @@
         .divider1
   .clr
   .page-break
-
 
 - if (comptency_hash.size > 0)
   = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
