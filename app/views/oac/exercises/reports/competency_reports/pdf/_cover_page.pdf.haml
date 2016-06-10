@@ -21,5 +21,4 @@
   .partner_logos.left-offset1
     - @report.report_data[:tools].map{|x,y| y[:logo].present? ? y[:logo] : nil }.compact.uniq.each do |logo|
       = image_tag("report/html/oac/partner_logos/#{logo}")
-
 .page-break

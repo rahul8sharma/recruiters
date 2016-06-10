@@ -252,7 +252,7 @@ class SidekiqController < ApplicationController
   protected
   
   def check_auth_token
-    if params[:auth_token].blank?
+    if !current_user && params[:auth_token].blank?
       render :json => { :status => :unauthorized }
       return 
     end

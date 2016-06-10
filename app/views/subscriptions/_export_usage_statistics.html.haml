@@ -1,0 +1,11 @@
+= form_tag "/sidekiq/queue-job", :method => :get do
+  = hidden_field_tag :job_klass, "RenewalNotifier"
+  %fieldset
+    %legend 
+      %strong Download Company Usage Statistics
+    = fields_for "args" do |f|
+      = f.hidden_field :account_type, :value => "paid"
+      = f.hidden_field :to, :value => current_user.email
+    .actions
+      = submit_tag "Download #{controller.resource_name.humanize}", :confirm => "Are you sure?"
+

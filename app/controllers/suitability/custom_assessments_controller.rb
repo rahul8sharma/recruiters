@@ -3,6 +3,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   before_filter :get_company
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
   before_filter :get_templates, :only => [:new, :edit, :create]
+  before_filter :get_custom_form, :only => [:edit]
   after_filter :set_cache_buster
 
   layout "tests"
@@ -199,7 +200,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   def get_assessment
     if params[:id].present?
       @assessment = api_resource.find(params[:id], 
-        :include => [:functional_area, :industry, :job_experience, :factual_information_form], 
+        :include => [:functional_area, :industry, :job_experience], 
         :methods => [:competency_ids]
       )
       if(@assessment.company_id.to_i == params[:company_id].to_i)
@@ -208,7 +209,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
     else
       @assessment = api_resource.new(params[:assessment])
-      @assessment.factual_information_form = nil
+      @custom_form = nil
       @assessment.report_types ||= []
       if params[:enable_training_requirements_report].present?
         @assessment.report_types << api_resource::ReportType::TRAINING_REQUIREMENT
@@ -216,6 +217,15 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       @assessment.report_types.uniq!
       @assessment.company_id = params[:company_id]
     end
+  end
+  
+  def get_custom_form
+    @custom_form = Vger::Resources::FormBuilder::FactualInformationForm.where(
+      query_options: {
+        assessment_type: @assessment.class.name.gsub("Vger::Resources::",""),
+        assessment_id: @assessment.id
+      }
+    ).all.first
   end
 
   def get_company

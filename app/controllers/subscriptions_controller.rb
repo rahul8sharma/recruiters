@@ -1,5 +1,5 @@
 class SubscriptionsController < MasterDataController
-  skip_before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!, only: [:payment_status]
   def api_resource
     Vger::Resources::Subscription
   end

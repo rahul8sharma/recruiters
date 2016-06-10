@@ -1,13 +1,12 @@
-- line_height = 20
+- line_height = 15
 - marker_width = 70
-- page_height = 700
-- characters_per_line = 110
-- 
+- page_height = 800
+- characters_per_line = 120
 - comptency_hash = @report.report_data[:super_competency_scores].dup
 
 - height_of_graph = ((comptency_hash.size * 50)+120)
 - remaining_space = height_of_graph > page_height ? 0 : page_height - height_of_graph
-- total_length = comptency_hash.map{|name , data| data[:description] }.join.size
+- total_length = comptency_hash.map{|name , data| data[:score][:description] }.join.size
 -# 1 line is 20px
 - lines_available = remaining_space > 0 ? remaining_space/line_height : 0 
 -# characters that can fit in a line = characters_per_line
@@ -31,8 +30,8 @@
                 .clr
               .instruction1.pull-left.default
                 Favorable
-              -# .instruction2.less_favorable.pull-left.default
-              -#   Less Favorable
+              .instruction2.less_favorable.pull-left.default
+                Less Favorable
               .clr
           .clr
         .scale
@@ -45,7 +44,6 @@
             .clr
         .clr
       .clr
-      .divider1
       %ul.competency-list.medium-text
         - @report.report_data[:super_competency_scores].each do |id, data|
           - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
@@ -81,24 +79,25 @@
   .competency_description
     .inner
       .blue_heading.big-text
-        Competencies Measured
+        Competency wise Data Points
       .divider1
-      %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-        - index = 0
-        - while comptency_hash[keys[index]][:description].size < characters_to_fit
-          %tr
-            %td.left
-              .span3
-                = comptency_hash[keys[index]][:name]
-            %td.right
-              = comptency_hash[keys[index]][:description]
-          - characters_to_fit -= comptency_hash[keys[index]][:description].size
+      - index = 0
+      - while comptency_hash[keys[index]][:score][:description].size < characters_to_fit
+        .frame
+          .heading.pull-left
+            = comptency_hash[keys[index]][:name]
+          .heading.pull-right
+            = @custom_score_bucket_names[comptency_hash[keys[index]][:score][:uid]]
+          .clr
+          .less-padding-all1
+            = comptency_hash[keys[index]][:score][:description]
+          - characters_to_fit -= comptency_hash[keys[index]][:score][:description].size
           - comptency_hash.delete(keys[index])
           - index += 1
           - break if index == limit
+        .divider1
   .clr
   .page-break
-
 
 - if (comptency_hash.size > 0)
   = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
@@ -106,16 +105,19 @@
     .competency_description
       .inner
         .blue_heading.big-text
-          Competencies Measured
+          Competency Wise Data Points
         .divider1
-        %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-          - comptency_hash.each do |name, data|
-            %tr
-              %td.left
-                .span3
-                  = data[:name]
-              %td.right
-                = data[:description]
+        - comptency_hash.each do |name, data|
+          .frame
+            .heading.pull-left
+              = data[:name]
+            .heading.pull-right
+              = @custom_score_bucket_names[data[:score][:uid]]
+            .clr
+            .less-padding-all1
+              = data[:score][:description]
+          .divider1
+          .clr
     .clr
   .clr
   .page-break

@@ -224,6 +224,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Jombay
     id: 2
+    logo_url: 'http://apistaging.s3.amazonaws.com/companies/logos/000/000/002/large/2-test11.png?1465374164'
   exercise: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Final OAC Test
     id: 25

@@ -36,19 +36,19 @@
               .factor-name
                 = assessment_competency.competency.name
               .factor-description
-                - if assessment_competency.competency.factor_ids.present?
-                  = (assessment_competency.competency.factor_names + assessment_competency.competency.mrf_trait_names).join(", ")
+                = (assessment_competency.competency.factor_names + assessment_competency.competency.mrf_trait_names).join(", ")
             .rhs-sec.pull-right
               .marker-set
+                - marker_width = 270 / @norm_buckets.size
                 - @norm_buckets.each do |norm_bucket|
-                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show marker#{@norm_buckets.size}" : "marker#{@norm_buckets.size}" }
+                  .marker{ class: (from.weight == norm_bucket.id || to.weight == norm_bucket.id) ? "show marker#{@norm_buckets.size}" : "marker#{@norm_buckets.size}", style:"width: #{marker_width}px" }
                     = norm_bucket.name
                 .clr
               .slider
                 - window = 271/(@norm_buckets.size-1)
                 .vi
                   - (@norm_buckets.size - 2).times do |index|
-                    - left = window + index * window
+                    - left = window + (index * window)
                     %div{ style: "position:absolute;height:3px;width:3px;background:black;border-radius:50%;left: #{left}px;top:2px;" }
                 - range_width = width * window + 3
                 - offset = (from.weight-1) * window
