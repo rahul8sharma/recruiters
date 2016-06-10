@@ -224,6 +224,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   company: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Jombay
     id: 2
+    logo_url: 'http://apistaging.s3.amazonaws.com/companies/logos/000/000/002/large/2-test11.png?1465374164'
   exercise: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Final OAC Test
     id: 25
@@ -269,7 +270,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         uid: OKsrTfWV
         weight: 2
         description: States clear goals and expectations up front in discussions. Helps set deadlines and prioritisation for team. Monitors progress against milestones or deadlines. Distributes recourses in unplanned manner and as per need.
-      description: Degree to which an individual creates specific and attainable goals / targets, plans and prioritises them for a successful outcome, reviews and monitors these goals to ensure optimum usage of resources available.
+      description:   Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 65.0
@@ -409,7 +410,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         uid: TQHBqVkO
         weight: 3
         description: Gives adequate directions, makes needs and requirements reasonably clear. Motivates team members to improve their performance. Confronts subordinates openly and directly about performance problems on regular basis. Respects people for their talents and provides relevant recognition.
-      description: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+      description: Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 43.67
@@ -562,7 +563,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         uid: TQHBqVkO
         weight: 3
         description: Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
-      description: Degree to which an individual conveys his point across to another effectively so as to bring about a change in their perspective, resolves issues pertaining to people, processes or operations by building trusting and strong relationships with others.
+      description: Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 19.67
@@ -746,7 +747,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         uid: mbAKnHly
         weight: 4
         description: Analyses the common problems faced and creates detailed plans to successfully act on those problems.Takes decisions even in the absence of established guidelines to aid timely execution. Constantly surpasses benchmark performance level. Commits to ambitious goals for improvement and persistently pursues them. Understands business complexities and helps others understand the same.
-      description: Degree to which an individual sees the bigger picture, analyses and takes decisions which are expected to have a beneficial impact even in challenging times, takes risks to achieve the stated vision.
+      description: Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           score: 55.75
@@ -1394,7 +1395,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
           to_bucket: '5'
         weightage: '0.7'
-        definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+        definition: Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
       '3': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         name: Interpersonal Skills
         enabled: '1'
@@ -1416,7 +1417,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           name: Leadership Potential
           weightage: '0.7'
-          definition: Degree to which an individual assigns tasks/ responsibilities and ensures accomplishent of those by providing appropriate guidance, provides constructive feedback sensitively and recognises achievements of his team members.
+          definition: Donec efficitur a sapien eu sollicitudin. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum. Fusce nec turpis eu urna tempor consectetur. Suspendisse semper id ante quis elementum.
           desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             from_bucket: '1'
             to_bucket: '5'

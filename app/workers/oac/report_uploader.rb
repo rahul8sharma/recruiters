@@ -77,15 +77,15 @@ module Oac
           ),
           margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
           footer: {
-            :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
+            :content => render_to_string("shared/reports/pdf/_oac_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
           }
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        html_file_id = "vac_report_#{@report.id}.html"      
+        html_file_id = "vdc_report_#{@report.id}.html"      
         html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
-        pdf_file_id = "vac_report_#{@report.id}.pdf"
+        pdf_file_id = "vdc_report_#{@report.id}.pdf"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
         File.open(html_save_path, 'wb') do |file|

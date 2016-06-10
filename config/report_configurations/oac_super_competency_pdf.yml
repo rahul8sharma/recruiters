@@ -3,6 +3,18 @@
     id: "pdf_cover_page",
     text: "Cover Page",
     path: "oac/exercises/reports/competency_reports/pdf/cover_page",
+    children: [
+      {
+        id: "pdf_candidate_details",
+        text: "VDC Details",
+        path: "oac/exercises/reports/competency_reports/pdf/assessment_details"  
+      },
+      {
+        id: "pdf_completion_date",
+        text: "VDC Completion Date",
+        path: "oac/exercises/reports/competency_reports/pdf/completion_date"  
+      }
+    ]
   },
   {
     id: "pdf_participation",
@@ -14,7 +26,7 @@
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/pdf/competency_description",
   },
- {
+  {
     id: "pdf_competency_overview",
     text: "Competency Overview",
     path: "oac/exercises/reports/competency_reports/pdf/competency_overview",
@@ -59,6 +71,12 @@
       }
     ]
   },
+  {
+    id: "pdf_one_page_competency_overview",
+    text: "One Pager Competency Overview",
+    path: "oac/exercises/reports/competency_reports/pdf/one_page_competency_overview",
+    children: []
+  },  
   {
     id: "pdf_competency_overview_tool_wise",
     text: "Toolwise Competency Overview",

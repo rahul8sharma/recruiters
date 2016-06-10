@@ -61,7 +61,7 @@
         locals: {},
         links: {
           html: ["html_header_overview"],
-          pdf: []
+          pdf: ["pdf_candidate_details","pdf_completion_date"]
         }   
       },
       {

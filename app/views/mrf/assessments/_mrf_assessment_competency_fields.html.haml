@@ -6,10 +6,10 @@
   .span8
     %label{:for=>"competency_#{competency.id}"}
       = competency.name
-  .span14
+  .span7
     = competency.factor_names.present? ? competency.factor_names.join(", ") : "-"
-    %br/
-    = competency.mrf_trait_names.join(", ")
+  .span7  
+    = competency.mrf_trait_names.present? ? competency.mrf_trait_names.join(", ") : "-"
   %select.span2{name: "assessment[competency_order][#{competency.id}]"}  
     - @all_competency_count.times do |index|
       - selected = @ordered_competency_ids.index(competency.id)

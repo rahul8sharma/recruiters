@@ -1,8 +1,5 @@
 .report 
   .report_header
-    padding: 0px 30px
-    .pull-right
-      padding-top: 15px
   .inner
     padding: 30px
     width: auto
@@ -61,12 +58,13 @@
           border: 1px dashed #28b29b
           ul.competency-list
             li
-              padding: 10px 30px
+              padding: 1px 30px
               &:nth-child(odd)
                 background: #f8f8f8
               .competency-name
                 line-height: 25px
                 width: 50%
+                padding-top: 14px
               .scale
                 .line
                   border-color: #CBCBCB
@@ -110,7 +108,7 @@
             &:nth-child(odd)
               background: #f8f8f8
             &:first-child
-              background: #28b29b
+              background: #28b29b !important
               color: #fff
             
             [class*="span"]
@@ -234,11 +232,11 @@
 
   .oac_competency_overview
     .scale 
-      width: 355px
+      width: 300px
       .line
         left: 5px
       .marker-container
-        width: 425px
+        width: 395px
       .marker
         width: 70px
   .about_vac

@@ -141,40 +141,69 @@
   %textarea.span21.first{ name: 'assessment[thank_you_message]' }
     = @assessment.thank_you_message
   .clr
-%label.medium-text
-  %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
-  Enable Training Requirements Report for this assessment
-%label.medium-text
-  = f.check_box :enable_completion_notification, id: "enable_completion_notification"
-  Send Assessment Completion Notification to Candidates (Disable this for candidates with dummy/invalid email)
-%label.medium-text
-  = f.check_box :show_help_text, id: "show_help_text"
-  Show Help Text for Items?
-%label.medium-text
-  = f.check_box :set_applicant_id
-  Set Applicant Id
-%label.medium-text
-  = f.check_box :should_send_notifications, id: "should_send_notifications"
-  Send Report Notifications
-%label.medium-text
-  = f.check_box :include_cocubes_scores_in_reoprts
-  Include Cocubes Scores in Reports and Summary
-%label.medium-text
-  = f.check_box :enable_table_of_contents
-  Enable Table of Contents
-%label.medium-text
-  = f.check_box :update_trait_scores_from_cocubes
-  Update trait scores from cocubes
-%label.medium-text
-  = f.check_box :include_standard_factual_information_in_report_summary
-  Enable Standard Factual Information Data In Exports
-%label.medium-text
-  = f.check_box :include_aggregate_score_in_report_summary
-  Include Numerical Aggregate Score in Report Summary
-%label.medium-text
-  = f.check_box :include_aggregate_score_rating_in_report_summary
-  Include Aggregate Score Rating in Report Summary
-%label.medium-text
-  = f.check_box :include_aggregate_score_bucket_in_report_summary
-  Include Aggregate Score Bucket in Report Summary
+
+- if @custom_form
+  .control-group
+    %label.medium-text  
+      = "Custom Form Chosen: #{@custom_form.id} - #{@custom_form.name}".html_safe
+
+.control-group
+  %label.medium-text
+    %input{ type: "checkbox", name: "enable_training_requirements_report", id: "enable_training_requirements_report" }
+    Enable Training Requirements Report for this assessment
+    
+.control-group
+  %label.medium-text
+    = f.check_box :enable_completion_notification, id: "enable_completion_notification"
+    Send Assessment Completion Notification to Candidates (Disable this for candidates with dummy/invalid email)
+    
+.control-group
+  %label.medium-text
+    = f.check_box :show_help_text, id: "show_help_text"
+    Show Help Text for Items?
+
+.control-group
+  %label.medium-text
+    = f.check_box :set_applicant_id
+    Set Applicant Id
+    
+.control-group
+  %label.medium-text
+    = f.check_box :should_send_notifications, id: "should_send_notifications"
+    Send Report Notifications
+    
+.control-group    
+  %label.medium-text
+    = f.check_box :include_cocubes_scores_in_reoprts
+    Include Cocubes Scores in Reports and Summary
+    
+.control-group
+  %label.medium-text
+    = f.check_box :enable_table_of_contents
+    Enable Table of Contents
+    
+.control-group    
+  %label.medium-text
+    = f.check_box :update_trait_scores_from_cocubes
+    Update trait scores from cocubes
+    
+.control-group    
+  %label.medium-text
+    = f.check_box :include_standard_factual_information_in_report_summary
+    Enable Standard Factual Information Data In Exports
+    
+.control-group    
+  %label.medium-text
+    = f.check_box :include_aggregate_score_in_report_summary
+    Include Numerical Aggregate Score in Report Summary
+    
+.control-group
+  %label.medium-text
+    = f.check_box :include_aggregate_score_rating_in_report_summary
+    Include Aggregate Score Rating in Report Summary
+    
+.control-group    
+  %label.medium-text
+    = f.check_box :include_aggregate_score_bucket_in_report_summary
+    Include Aggregate Score Bucket in Report Summary
 .divider2

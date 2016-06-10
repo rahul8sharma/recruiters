@@ -16,9 +16,7 @@
         Rows per sheet: 
         = f.text_field "rows_per_sheet", :value => "10000"
 
-      %p
-        Notification Email : 
-        = f.text_field :email, :value => "notifications@jombay.com"
+      = f.hidden_field :email, :value => current_user.email
 
     .actions
       = submit_tag 'Download Candidates'

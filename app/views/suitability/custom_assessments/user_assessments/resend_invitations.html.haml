@@ -18,9 +18,7 @@
           %label 
             %input{:type => "checkbox", :name => "assessment[args][started]", value: "started"}
             Candidates who have started the test
-        %p
-          Notification Email :
-          = f.text_field :email, :value => "product@jombay.com"
+        = f.hidden_field :email, :value => current_user.email
     .email-template.pull-left.span16
       -# add this classes when template isnt availble "span18 margin-auto no-border" to .email-template
       .gray-dark
