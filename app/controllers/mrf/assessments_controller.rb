@@ -93,11 +93,12 @@ class Mrf::AssessmentsController < ApplicationController
           compulsory: !item_data[:allow_skip].present?
         }
       }
-      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, { 
+      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge({ 
         company_id: @company.id,
         items_self: items_self,
-        items_other: items_other
-      });
+        items_other: items_other,
+        
+      }));
       redirect_to add_subjective_items_company_mrf_assessment_path(@company.id,@assessment.id) and return
     end
     get_trait_wise_items
