@@ -10,4 +10,8 @@ class Suitability::CompanyNormBucketsController < MasterDataController
   def index_columns
     [:id, :name, :weight, :description, :norm_bucket_ids, :company_id]
   end
+  
+  def search_columns
+    [:id, :name, :weight, :company_id]
+  end
 end
