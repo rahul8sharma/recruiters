@@ -9,6 +9,13 @@
     .divider1
     = render :partial => "shared/mrf/360_navigation-sub-nav"
     .divider2
+    .span20.medium-text.gray-darker
+      .span10
+        Enter Desired Text that will appear instead of Not Applicable:
+      %input.span8{:name => "assessment[not_applicable_text]", :type => "text", :value => @assessment.not_applicable_text, :placeholder => "Not Applicable"}  
+      .clr
+    .clr  
+    .divider2
     .big-text
       .pull-left
         Items for: 
