@@ -36,6 +36,17 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   end
   
   def candidates
+    order = params[:order_by] || "status"
+    order_type = params[:order_type] || "DESC"
+    case order
+      when "default"
+        order = "oac_user_exercises.updated_at DESC"
+      when "id"
+        order = "oac_user_exercises.id #{order_type}"
+      when "status"
+        column = "oac_user_exercises.status"
+        order = "case when #{column}='scored' then 3 when #{column}='completed' then 2 when #{column}='pending' then 1 end, oac_user_exercises.status DESC"
+    end
     @user_exercises = Vger::Resources::Oac::UserExercise.where(
       :exercise_id => @exercise.id,
       query_options: {
@@ -43,7 +54,8 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       },
       include: [:user, :user_exercise_reports],
       page: params[:page],
-      per: 10
+      per: 10,
+      order: order
     ).all
   end
 
