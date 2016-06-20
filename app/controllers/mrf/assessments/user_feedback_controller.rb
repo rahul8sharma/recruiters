@@ -94,9 +94,14 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
   def export_report_urls
     options = {
       email: current_user.email,
-      assessment_id: @assessment.id
+      assessment_id: @assessment.id,
+      user_id: current_user.id
     }
-    Vger::Resources::Mrf::Assessment.export_report_urls(company_id: @company.id, id: @assessment.id, options: options)
+    Vger::Resources::Mrf::Assessment.export_report_urls(
+      company_id: @company.id, 
+      id: @assessment.id, 
+      options: options
+    )
     flash[:notice] = "360 Degree report urls for users will be generated and emailed soon."
     redirect_to details_company_mrf_assessment_path(@company.id, @assessment.id)
   end

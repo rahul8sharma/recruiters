@@ -1,10 +1,6 @@
 #overview.header-container
   #header
     .container
-      .logo.pull-left.pull-left
-        = image_tag(asset_path("report/html/oac/hive_logo.png"))
-      .big-text.gray-dark.padding-all1.pull-left{:title => "#{@report.report_data[:user][:name]}"}
-        #{@report.report_data[:user][:name]}
       .pull-right
         - section_value.each do |section|
           = render :partial => section["path"], locals: { section_value: section["children"] }

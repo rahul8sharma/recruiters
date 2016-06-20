@@ -3,12 +3,9 @@
     %legend
       Import Suitability Items
     %br
-    Assessment ID
-    = f.text_field :assessment_id
-    %br
     %br
     = f.fields_for :file do |ff|
-      File
+      Google Spreadsheet URL
       = ff.text_field "url", value: ""
     %br
     %br  
