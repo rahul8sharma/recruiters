@@ -22,6 +22,7 @@ class Idp::IdpsController < MasterDataController
                         :key => obj.key
                       }, 
                       :activation_host => params[:import][:activation_host],
+                      :activation_protocol => params[:import][:activation_protocol],
                       :company_id => params[:import][:company_id],
                       :user_id => current_user.id
                     )
