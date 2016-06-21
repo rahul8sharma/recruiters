@@ -3,7 +3,7 @@
     %legend 
       %strong Upload #{controller.resource_name.humanize}
     = fields_for "import" do |f|
-      = f.hidden_field :activation_host, value: Rails.application.config.domain['idp_url'].gsub("http://", '')
+      = f.hidden_field :activation_host, value: Rails.application.config.domain['idp_url'].gsub("https://", '')
       %p
         XLS File
         = f.file_field "file"
