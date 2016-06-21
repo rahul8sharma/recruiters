@@ -1,4 +1,6 @@
 class Suitability::CompanyNormBucketsController < MasterDataController
+  before_filter :split_norm_bucket_ids, only: [:create, :update]
+  
   def api_resource
     Vger::Resources::Suitability::CompanyNormBucket
   end
@@ -13,5 +15,9 @@ class Suitability::CompanyNormBucketsController < MasterDataController
   
   def search_columns
     [:id, :name, :weight, :company_id]
+  end
+  
+  def split_norm_bucket_ids
+    params[resource_name.singularize][:norm_bucket_ids] = params[resource_name.singularize][:norm_bucket_ids].to_s.split(";").map(&:strip)
   end
 end
