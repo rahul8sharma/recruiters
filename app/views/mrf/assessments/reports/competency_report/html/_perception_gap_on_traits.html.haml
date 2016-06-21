@@ -1,5 +1,5 @@
 - sorted_perception_gap = sort_perception_gap_section(@report.report_data[:competency_scores], @report.report_hash[:perception_gap]) 
-
+- perception_gap_trait_details = Hash[@report.report_hash[:perception_gap_section_names].to_a.reverse]
 .competency_perception_gap_on_traits
   .divider2
   .container
@@ -8,20 +8,18 @@
     .divider1
     %p.extra-medium-text.gray-darker
       This section enlists traits in three parts, based on the gap between self ratings and stakeholder ratings on those traits:    
-    .span10.large-text.first
-      Agreement
-    .span10.large-text.first
-      Perceived Negative Difference
-    .span.large-text.first
-      Perceived Positive Difference
+    
+    - perception_gap_trait_details.each do |name, details|
+      .span10.large-text.first
+        = name.titleize()
     .clr
     .divider1
     %table{:cellpadding=>"0", :cellspacing=>"0"}
       %tr
-        - @report.report_hash[:perception_gap].each do |title, traits|
+        - perception_gap_trait_details.each do |name, details|
           %td.description
             .span9.first
-              = Rails.application.config.reports["perception_gap"][title.to_s]
+              = details[:description]
           %td.space
       %tr
         %td
