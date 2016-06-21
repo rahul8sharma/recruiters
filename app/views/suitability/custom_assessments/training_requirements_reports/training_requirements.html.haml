@@ -19,6 +19,8 @@
         %a.extra-medium-text{:href => download_training_requirements_report_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id], :format => :html), :title => "Download Training Requirements Report as PDF", target: "_blank"}
           %i.icon-file              
           View Report
+      .clr
+      .divider2    
     - elsif @assessment_report.id.present?
       .alert-info.alert.text-center
         %i.icon-spinner.icon-spin
