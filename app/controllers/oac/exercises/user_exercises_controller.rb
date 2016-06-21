@@ -32,7 +32,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       "args[exercise_id]=#{params[:id]}&"+
       "args[user_id]=#{current_user.id}"
     )
-    redirect_to request.env['HTTP_REFERER']
+    redirect_to request.env['HTTP_REFERER'], notice: "Report summary will be generated and emailed to #{current_user.email}."
   end
   
   def candidates
