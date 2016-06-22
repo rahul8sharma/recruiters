@@ -38,7 +38,7 @@
   = f.text_field :name, :class => "span21 first", :placeholder => "(e.g. Senior Marketing Manager)"
   .clr
 .control-group
-  .span10.first
+  .span8.first
     %label
       Select the purpose of the assessment
     %label.extra-medium-text
@@ -47,7 +47,7 @@
     %label.extra-medium-text
       %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::CANDIDATE, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
       Hiring  
-  .span10.left-offset1
+  .span6.left-offset1
     %label
       Select Assessment Type
     %label.extra-medium-text
@@ -56,6 +56,13 @@
     %label.extra-medium-text
       %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::FIT, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::FIT}
       Traits 
+  .span8.left-offset1
+    %label
+      Select Report Upload Callbacks
+    - Vger::Resources::Assessment::REPORT_UPLOAD_CALLBACKS.each do |callback|  
+      %label.extra-medium-text
+        %input{:type => "checkbox", name: 'assessment[report_upload_callbacks][]', value: callback, checked: @assessment.report_upload_callbacks.to_a.include?(callback)}
+        = callback.titleize
   .clr
   
 .control-group
