@@ -3,9 +3,9 @@
   = link_to "Manage Suitability ItemGroups", manage_suitability_item_groups_path
   \| 
   = link_to "Add New", new_suitability_item_group_path
-
+= render :partial => "master_data/search"
 .pagination.pull-right        
-  = paginate @item_groups    
+  = paginate @objects
 .clr
 %table
   %tr
@@ -13,7 +13,7 @@
     %th Body
     %th Behavior
     %th Active
-  - @item_groups.each do |item_group|
+  - @objects.each do |item_group|
     %tr 
       %td{ width: "5%" }
         = link_to item_group.id, suitability_item_group_path(item_group.id)
@@ -25,5 +25,5 @@
         = item_group.active  
       
 .pagination.pull-right        
-  = paginate @item_groups    
+  = paginate @objects
 .clr
