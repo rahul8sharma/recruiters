@@ -40,4 +40,4 @@
         - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:users_count] }.sum
           %td.rating_score{ class: max_score == total ? "max_value" : "" }
-            = total
+            = total == 0 ? "-" : total
