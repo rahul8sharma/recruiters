@@ -36,7 +36,7 @@
           - trait_score[:role_wise_scores].each do |role_name, percentages_data|
             .rating_snippet
               .rating_title.blue
-                = role_name.titleize
+                = role.pluralize.titleize
               .value
                 = percentages_data[:points]
               .clr
