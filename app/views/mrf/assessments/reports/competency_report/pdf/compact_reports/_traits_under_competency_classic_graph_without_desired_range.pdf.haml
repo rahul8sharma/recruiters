@@ -17,9 +17,9 @@
               .span5.first
                 = truncate trait_score[:trait][:name], length: 30
               .stakeholder_rating.small-text.pull-left
-                = trait_score[:average_score_excluding_self][:points]
+                = trait_score[:average_score_excluding_self][:points] || "-"
               .self_rating.small-text.span
-                = trait_score[:average_score_self][:points]
+                = trait_score[:average_score_self][:points] || "-"
               .clr
     .right_sec.span13.first.pull-right
       .classic_competency_graph

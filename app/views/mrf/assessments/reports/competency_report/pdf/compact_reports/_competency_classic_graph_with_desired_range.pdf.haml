@@ -10,9 +10,9 @@
           .span5.first
             = truncate competency, length: 30
           .stakeholder_rating.small-text.pull-left
-            = competency_scores[:score][:points]
+            = competency_scores[:score][:points] || "-"
           .self_rating.small-text.span
-            = competency_scores[:average_score_self][:points]
+            = competency_scores[:average_score_self][:points] || "-"
           .clr
   .right_sec.span12.first.pull-right
     .classic_competency_graph

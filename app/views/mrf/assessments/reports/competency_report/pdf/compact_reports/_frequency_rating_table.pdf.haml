@@ -33,9 +33,9 @@
           %td.green_bg.captions
             = role.titleize
           %td.rating_score.average_rating
-            = score[:points]
+            = score[:points] || "-"
           %td.rating_score.average_rating
-            = score[:count]
+            = score[:count] || "-"
           - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count]
             %td.rating_score
@@ -48,7 +48,7 @@
         %td.orange_bg.captions
           = (overall_points / role_wise_scores.size).round(2)
         %td.orange_bg.captions
-          = stakeholder_count
+          = stakeholder_count || "-"
         - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
         - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
