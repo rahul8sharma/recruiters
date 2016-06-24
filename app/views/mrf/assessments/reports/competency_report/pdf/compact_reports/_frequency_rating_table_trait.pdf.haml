@@ -39,7 +39,7 @@
           - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count] || "-"
             %td.rating_score
-              = bucket_score || == 0 ? "-" : bucket_score
+              = bucket_score == 0 ? "-" : bucket_score
               -#add class ".max_value" to ".rating_score" if td have maximum value of that row
           
       %tr.overall

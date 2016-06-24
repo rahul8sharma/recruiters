@@ -69,7 +69,7 @@
                     %td.green_bg.captions
                       = role.titleize
                     %td.rating_score.average_rating
-                      = score[:points] || == 0 ? "-" : score[:points]
+                      = score[:points] == 0 ? "-" : score[:points]
                     %td.rating_score.average_rating
                       = score[:count] == 0 ? "-" : score[:count]
                     - @competency_graph_buckets.each do |bucket|
