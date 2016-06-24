@@ -24,7 +24,7 @@
                 Candidate
               .span2.first.divider2.stakeholder_rating_icon_small
               .stakeholder_rating.medium-text.pull-left
-                = (competency_scores[:score][:points] == 0 || competency_scores[:score][:points].nil?) ? "-" : competency_scores[:score][:points]
+                = competency_scores[:score][:points] || "-"
               .clr
             %li
               .span3.large-text.first.trait_title
