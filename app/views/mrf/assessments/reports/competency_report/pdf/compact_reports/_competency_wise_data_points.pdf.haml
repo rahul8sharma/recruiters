@@ -6,16 +6,13 @@
     .color-info.big-text
       Details on 360&#176 Ratings on Competencies/Values
     .divider1
-
     .frame
       .heading.pull-left
         #{competency}
       .heading.pull-right
         360&#176; Score: 
-        = competency_scores[:score][:points] || "-"
+        = (competency_scores[:score][:points] == 0 || competency_scores[:score][:points].nil?) ? "-" : competency_scores[:score][:points]
       .clr
-
-
       .final_data_points.pull-right.small
         .high_low_scores{:style => "padding: 10px"}
           .black.pull-left
@@ -24,13 +21,13 @@
             .high.left.pull-left
               Highest
             .right.pull-left
-              #{@assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"}
+              = (@assessment.report_data[:competency_scores][competency][:max_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:max_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:max_score][:score]
             .clr
           .border_gray_light.span
             .low.left.pull-left
               Lowest
             .right.pull-left
-              #{@assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"}
+              = (@assessment.report_data[:competency_scores][competency][:min_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:min_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:min_score][:score]
             .clr
           .clr
       .clr 
