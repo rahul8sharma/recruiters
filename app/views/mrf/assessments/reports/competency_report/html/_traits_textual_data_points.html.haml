@@ -5,13 +5,13 @@
     .left
       Highest
     .right
-      = trait_score[:max_score_excluding_self][:points] || "-"
+      = @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score] == 0 ? "-" : @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:max_score][:score]
     .clr
   .trait_rating.min.span{:style => "width: 150px"}
     .left
       Lowest
     .right
-      = trait_score[:min_score_excluding_self][:points] || "-"
+      = @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score] == 0 ? "-" : @assessment.report_data[:trait_scores][trait_score[:trait][:name]][:min_score][:score]
     .clr
   .clr
 
