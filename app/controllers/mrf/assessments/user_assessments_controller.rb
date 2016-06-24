@@ -174,7 +174,7 @@ class Mrf::Assessments::UserAssessmentsController < ApplicationController
       "template_categories.name" => eval("Vger::Resources::Template::TemplateCategory::SEND_MRF_INVITATION_TO_CANDIDATE")
     }
     @user_templates = get_templates_for_company(query_options, @company.id)
-    @user_templates |= get_global_templates(@company.id)
+    @user_templates |= get_global_templates(query_options)
     query_options = {
       "template_categories.name" => eval("Vger::Resources::Template::TemplateCategory::SEND_#{@assessment.assessment_type.upcase}_MRF_INVITATION_TO_STAKEHOLDER_FROM_CANDIDATE")
     }              
