@@ -33,9 +33,9 @@
           %td.green_bg.captions
             = role.titleize
           %td.rating_score.average_rating
-            = score[:points] == 0 ? "-" : score[:points]
+            = (score[:points] == 0 || score[:points].nil? ) ? "-" : score[:points]
           %td.rating_score.average_rating
-            = score[:count] == 0 ? "-" : score[:count]
+            = (score[:count] == 0 || score[:count].nil? ) ? "-" : score[:count]
           - graph_buckets.each do |bucket|
             - bucket_score = score[:bucket_wise_percentages][bucket.name][:count] || "-"
             %td.rating_score
@@ -46,12 +46,12 @@
         %td.orange_bg.captions
           Overall
         %td.orange_bg.captions
-          = trait_score[:average_score_excluding_self][:points] || "-"
+          = (trait_score[:average_score_excluding_self][:points] == 0 || trait_score[:average_score_excluding_self][:points].nil? ) ? "-" : trait_score[:average_score_excluding_self][:points]
         %td.orange_bg.captions
           = stakeholder_count == 0 ? "-" : stakeholder_count
         - max_score = graph_buckets.map{|bucket| role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum }.max
         - graph_buckets.each do |bucket|
           - total = role_wise_scores.collect{|role,score| score[:bucket_wise_percentages][bucket.name][:count] }.sum
           %td.rating_score
-            = total
+            = total == 0 ? "-" : total
   .divider1
