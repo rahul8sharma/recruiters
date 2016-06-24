@@ -12,7 +12,7 @@
           #{competency}
         .heading.pull-right
           360&#176; Score: 
-          = competency_scores[:score][:points] == 0 ? "-" : competency_scores[:score][:points]
+          = (competency_scores[:score][:points] == 0 || competency_scores[:score][:points].nil?) ? "-" : competency_scores[:score][:points]
         .clr
         .padding-all1
           .final_data_points.pull-left.small
