@@ -15,6 +15,7 @@ class Suitability::ItemsController < MasterDataController
   def search_columns
     [
       :id,
+      :type,
       :difficulty_level,
       :active,
       :factor_id,
@@ -26,8 +27,16 @@ class Suitability::ItemsController < MasterDataController
     trait_difficulty_levels
   end
   
+  def select_type
+    ["Suitability::Item","Suitability::ImageItem","Suitability::Sjt::Item"]
+  end
+  
   def select_factor_id
-    Hash[Vger::Resources::Suitability::Factor.all.map{|factor| [factor.name,factor.id] }]
+    @select_factor_id ||= { "Select Factor" => nil }.merge(Hash[
+      Vger::Resources::Suitability::Factor.all.map{|factor| 
+        [factor.name,factor.id] 
+      }
+    ])
   end
   
   def import_from
