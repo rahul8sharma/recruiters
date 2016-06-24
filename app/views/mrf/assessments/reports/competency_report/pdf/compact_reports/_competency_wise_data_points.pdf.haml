@@ -6,7 +6,6 @@
     .color-info.big-text
       Details on 360&#176 Ratings on Competencies/Values
     .divider1
-
     .frame
       .heading.pull-left
         #{competency}
@@ -14,8 +13,6 @@
         360&#176; Score: 
         = competency_scores[:score][:points] || "-"
       .clr
-
-
       .final_data_points.pull-right.small
         .high_low_scores{:style => "padding: 10px"}
           .black.pull-left
@@ -53,7 +50,7 @@
                       .trait_title.first.span4
                         = role.pluralize.titleize
                       .stakeholder_rating.pull-left
-                        = scores[:points] || "-"
+                        = (scores[:points] == 0 || scores[:point].nil?) ? "-" : scores[:points]
                       .clr
                     
               .right_sec.span13.pull-right
