@@ -21,13 +21,13 @@
             .high.left.pull-left
               Highest
             .right.pull-left
-              = (@assessment.report_data[:competency_scores][competency][:max_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:max_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:max_score][:score]
+              = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
             .clr
           .border_gray_light.span
             .low.left.pull-left
               Lowest
             .right.pull-left
-              = (@assessment.report_data[:competency_scores][competency][:min_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:min_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:min_score][:score]
+              = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
             .clr
           .clr
       .clr 

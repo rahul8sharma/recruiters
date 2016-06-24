@@ -17,7 +17,7 @@
                 Lowest
               .span2.first.divider2.min_rating_icon_small
               .min_rating.medium-text.pull-left
-                = (@assessment.report_data[:competency_scores][competency][:min_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:min_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:min_score][:score]
+                = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
               .clr
             %li
               .span3.large-text.first.trait_title
@@ -31,7 +31,7 @@
                 Highest
               .span2.first.divider2.max_rating_icon_small
               .max_rating.medium-text.pull-left
-                = (@assessment.report_data[:competency_scores][competency][:max_score][:score] == 0 || @assessment.report_data[:competency_scores][competency][:max_score][:score].nil?) ? "-" : @assessment.report_data[:competency_scores][competency][:max_score][:score]
+                = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
               .clr
         .right_sec.span22.pull-right
           .classic_competency_graph
