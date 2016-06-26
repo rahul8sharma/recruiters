@@ -7,13 +7,13 @@
       .left
         Highest
       .right
-        = @assessment.report_data[:competency_scores][competency][:max_score][:score] || "-"
+        = @assessment.report_data[:competency_scores][competency][:max_score][:score] == 0 ? "-" : @assessment.report_data[:competency_scores][competency][:max_score][:score]
       .clr
     .trait_rating.min.span{:style => "width: 150px"}
       .left
         Lowest
       .right
-        = @assessment.report_data[:competency_scores][competency][:min_score][:score] || "-"
+        = @assessment.report_data[:competency_scores][competency][:min_score][:score] == 0 ? "-" : @assessment.report_data[:competency_scores][competency][:min_score][:score]
       .clr
     .clr
   

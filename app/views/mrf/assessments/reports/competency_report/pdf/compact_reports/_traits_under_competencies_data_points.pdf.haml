@@ -60,7 +60,7 @@
                             .trait_title.first.span4
                               = role.pluralize.titleize
                             .stakeholder_rating.pull-left
-                              = scores[:points]
+                              = scores[:points] || "-"
                             .clr
                         
                   .right_sec.span13.pull-right
