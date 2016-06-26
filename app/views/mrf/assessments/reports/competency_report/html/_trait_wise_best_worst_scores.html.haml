@@ -23,7 +23,7 @@
                 Candidate
               .span2.first.divider2.stakeholder_rating_icon_small
               .stakeholder_rating.medium-text.pull-left
-                = trait_score[:average_score_excluding_self][:points]
+                = trait_score[:average_score_excluding_self][:points] || "-"
               .clr
             %li
               .span3.large-text.first.trait_title

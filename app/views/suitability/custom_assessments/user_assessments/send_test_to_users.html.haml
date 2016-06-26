@@ -177,10 +177,11 @@
         .clr
 
     .divider1
-    %div{style: "display:#{is_superuser? ? 'block': 'none'}"}
+    %div
       %label.muted.medium-text.pull-left{ :for => "send_report_to_user", :class => "font-normal"}
         %input{ type:'checkbox', name: 'send_report_to_user', id: "send_report_to_user" }
         Send report to user
+    %div{style: "display:#{is_superuser? ? 'block': 'none'}"}
       %label.muted.medium-text.pull-left.left-offset1
         %input{:type=>"checkbox", name: "options[send_sms]"}
         Also send test invitations to users via SMS

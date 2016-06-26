@@ -1,5 +1,5 @@
 - sorted_perception_gap = sort_perception_gap_section(@report.report_data[:competency_scores], @report.report_hash[:perception_gap]) 
-
+- perception_gap_trait_details = Hash[@report.report_hash[:perception_gap_section_names].to_a.reverse]
 = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Perception Gap"}
 .competency_perception_gap_on_traits
   .divider2
@@ -8,25 +8,17 @@
       Perception Gap on Traits
   %table{:cellpadding=>"0", :cellspacing=>"0"}
     %tr.titles
-      %td
-        .span6.first
-          Agreement
-        .clr
-      %td.space
-      %td
-        .span6
-          Perceived Negative Difference
-        .clr
-      %td.space
-      %td
-        .span6
-          Perceived Positive Difference
-        .clr
+      - perception_gap_trait_details.each do |name, details|
+        %td
+          .span6.first
+            = details[:name].titleize()
+          .clr
+        %td.space
     %tr
-      - @report.report_hash[:perception_gap].each do |title, traits|
+      - perception_gap_trait_details.each do |name, details|
         %td.description
           .span6.first
-            = Rails.application.config.reports["perception_gap"][title.to_s]
+            = details[:description]
         %td.space
     %tr
       %td

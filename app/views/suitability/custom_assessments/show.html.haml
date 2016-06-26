@@ -64,7 +64,7 @@
               .rhs-sec.pull-right
                 .marker-set
                   - @company_norm_buckets.each do |norm_bucket|
-                    .marker{ class: (from_norm_bucket["name"] == norm_bucket["name"] || to_norm_bucket["name"] == norm_bucket["name"] ) ? "show" : "" }
+                    .marker{ class: (from_company_norm_bucket["name"] == norm_bucket["name"] || to_company_norm_bucket["name"] == norm_bucket["name"] ) ? "show" : "" }
                       -  if norm_bucket.name.split(" ").size == 1
                         %br/
                       = norm_bucket.name

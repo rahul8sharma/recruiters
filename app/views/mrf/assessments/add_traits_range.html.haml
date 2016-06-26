@@ -52,6 +52,31 @@
         %ul.clearfix
           - @assessment.assessment_competencies.sort_by(&:competency_order).each_with_index do |assessment_competency, index|
             = render :partial => 'mrf_competencies_range_field', :locals =>{:assessment_competency => assessment_competency, :index => index}
+    .span15.first
+      .factor-list
+        .titles.clearfix
+          .span10.first
+            .big-text
+              Set Names for Perception Gap section
+    .clr
+    .divider1
+    .factor-list
+      %ul.clearfix
+        %li.medium-text.gray-darker
+          .span6.first
+            Perceived Positive Difference
+          %input.span6{:name => "assessment[perception_gap_section_names][positive_difference][name]", :type => "text", :value => (@assessment.perception_gap_section_names[:positive_difference][:name] rescue ''), :placeholder => "Name"}  
+          %input.span14{:name => "assessment[perception_gap_section_names][positive_difference][description]", :type => "text", :value => (@assessment.perception_gap_section_names[:positive_difference][:description] rescue ''), :placeholder => "Description"}    
+        %li.medium-text.gray-darker
+          .span6.first
+            Perceived Negative Difference
+          %input.span6{:name => "assessment[perception_gap_section_names][negative_difference][name]", :type => "text", :value => (@assessment.perception_gap_section_names[:negative_difference][:name] rescue ''), :placeholder => "Name"}  
+          %input.span14{:name => "assessment[perception_gap_section_names][negative_difference][description]", :type => "text", :value => (@assessment.perception_gap_section_names[:negative_difference][:description] rescue ''), :placeholder => "Description"}  
+        %li.medium-text.gray-darker
+          .span6.first
+            Agreement
+          %input.span6{:name => "assessment[perception_gap_section_names][agreement][name]", :type => "text", :value => (@assessment.perception_gap_section_names[:agreement][:name] rescue ''), :placeholder => "Name"}  
+          %input.span14{:name => "assessment[perception_gap_section_names][agreement][description]", :type => "text", :value => (@assessment.perception_gap_section_names[:agreement][:description] rescue ''), :placeholder => "Description"}    
             
 
     .divider3
