@@ -1,5 +1,9 @@
 - @assessment_competencies = @assessment.assessment_competencies.to_a
 - @ordered_competency_ids = @assessment_competencies.sort_by(&:competency_order).map(&:competency_id)
+
+- @local_competencies = @local_competencies.present? ? @local_competencies.sort_by(&:id).reverse : @local_competencies
+- @global_competencies = @global_competencies.present? ? @global_competencies.sort_by(&:id).reverse : @global_competencies
+
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
@@ -31,7 +35,7 @@
           .span8
             Competency Name
           .span7
-            Psychometric Triats
+            Psychometric Traits
           .span7
             360 Traits
           .span2

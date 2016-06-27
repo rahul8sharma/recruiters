@@ -1,7 +1,17 @@
 .trait-show
-  .span13.page-title.first
-    .divider1
+  .divider1
+  .span13.page-title.info-block
     AID #{@assessment.id} - #{@assessment.name}
+    .info
+      %b
+        Type: 
+      = @assessment[:candidate_stage].titleize
+      %br/
+      %b
+        Language:
+      = @assessment[:language].titleize
+      %br/
+    .arrow
   - url = new_company_custom_assessment_path(:company_id => params[:company_id])
   = render :partial => "shared/suitability/create_custom_assessment_link", :locals => { :url => url}
   %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
@@ -14,13 +24,12 @@
       .big-text.font-bold
         .pull-left
           Traits Measured: #{@assessment_factor_norms.count}
-        
         .pull-right.span7.first.text-center
           Expected Score Range
         .clr
       .divider1
-      - if is_superuser?
-        .pull-left
+      .pull-left
+        - if is_superuser?
           %b
             Industry:
           = @assessment.industry.name rescue "Global"
@@ -32,6 +41,10 @@
           %b  
             Experience:
           = @assessment.job_experience.display_text rescue "Global"
+          %br/
+          %b
+            No. of Questions: 
+            = @assessment.item_ids.first[1].size
       .scale.pull-right
         - line_width = (((@company_norm_buckets.size-1)*50)+10)
         .line{:style => "width: #{line_width}px"}
