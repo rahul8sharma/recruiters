@@ -35,8 +35,12 @@
         Send Assessment 
       .clr
       .divider2          
+    - assessment_language = ""
     %ul
       - @assessments.each do |assessment|
+        - Vger::Resources::Language.all.each do |language|
+          - if (language.language_code == assessment[:language])
+            - assessment_language = language.name
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span2.first
             %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)} 
@@ -49,15 +53,12 @@
               = assessment.name
             .info  
               %b
-                Type
-              = assessment.assessment_type.titleize
-              |
-              %b
                 Purpose:
               = 'For '+(assessment.candidate_stage == 'employee' ? "Development" : "Hiring")
+              |
               %b
                 Language: 
-              = assessment[:language].titleize
+              = assessment_language
             .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
