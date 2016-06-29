@@ -1,14 +1,13 @@
 .overall_report.no-bg
   .divider1
-  .j-logo.pull-left
   .clr
-  - if @report.report_hash[:assessment][:brand_partner].present?
+  - if @report.report_data[:company][:logo_url]
     .divider10
     %div
       %p.text-center.medium-text.bold
         For
-      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
-      .partner-logo.margin-auto{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 200px "}
+      - imagePath = @report.report_data[:company][:logo_url]
+      .partner-logo.margin-auto{:style => "background: url(#{imagePath}) no-repeat center 0; width: auto; height: 200px "}
   .divider5
   .huge-text.bold
     = @report.report_hash[:user][:name]
