@@ -1,5 +1,11 @@
 :sections: [
   {
+    id: "pdf_cover_page_version_2",
+    text: "Cover Page Version 2.0",
+    path: "assessment_reports/competency_report/pdf/cover_page_version_2",
+    locals: {}
+  },
+  {
     id: "pdf_cover_page_compact",
     text: "Cover Page [COMPACT]",
     path: "assessment_reports/competency_report/pdf/cover_page_compact",
