@@ -15,7 +15,7 @@
         text: "Aggregate Numerical Score [Score]",
         path: "assessment_reports/competency_report/pdf/aggregate_numerical_score_compact",
         locals: {}
-      },      
+      },
       {
         id: "pdf_cover_page_compact_aggregate_score",
         text: "Aggregate Score",
