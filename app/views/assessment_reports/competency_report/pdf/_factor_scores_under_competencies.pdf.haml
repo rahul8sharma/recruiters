@@ -4,7 +4,7 @@
   .inner
     .scores.favorable_factors
       .divider1
-      .span12.first
+      .span12.first.pull-left
         - if step_toc == 0
           - step_toc += 1
           %h1.font-normal.blue_heading.large-text
@@ -24,13 +24,14 @@
             .instruction1.pull-left.first
               Favorable
             .instruction2.less_favorable.pull-left
-              Less Favorable
+              %u
+                Less Favorable
             .clr
         - if (@report.report_hash[:functional_items].present?)
           .functional-traits-title
             Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
       .pull-right
-        .divider1
+        .divider2
         .scale
           .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
           .marker-container
