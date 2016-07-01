@@ -147,6 +147,8 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     order_by = params[:order_by] || "created_at"
     params[:order_by] ||= order_by
     order_type = params[:order_type] || "DESC"
+    @languages = Hash[Vger::Resources::Language.all.map{|language| [language.language_code,language.name] }]
+
     @assessments = api_resource.where(
       :query_options => { 
         :company_id => params[:company_id], 
