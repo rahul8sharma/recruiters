@@ -1,5 +1,3 @@
-- languages = Vger::Resources::Language.all
-- assessment_language = ''
 .assessments-list
   .span14.page-title.first
     .divider1
@@ -39,9 +37,6 @@
       .divider2          
     %ul
       - @assessments.each do |assessment|
-        - languages.each do |language|
-          - if (language.language_code == assessment[:language])
-            - assessment_language = language.name
         %li.list-snippet.border-bottom-grayLighter.medium-text
           .span2.first
             %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)} 
@@ -59,7 +54,7 @@
               |
               %b
                 Language: 
-              = assessment_language
+              = @languages[assessment.language]
             .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
