@@ -1,3 +1,5 @@
+- languages = Vger::Resources::Language.all
+- assessment_language = ''
 .assessments-list
   .span14.page-title.first
     .divider1
@@ -35,10 +37,9 @@
         Send Assessment 
       .clr
       .divider2          
-    - assessment_language = ""
     %ul
       - @assessments.each do |assessment|
-        - Vger::Resources::Language.all.each do |language|
+        - languages.each do |language|
           - if (language.language_code == assessment[:language])
             - assessment_language = language.name
         %li.list-snippet.border-bottom-grayLighter.medium-text
