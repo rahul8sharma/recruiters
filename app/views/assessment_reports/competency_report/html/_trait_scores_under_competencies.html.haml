@@ -3,9 +3,10 @@
   .scores.container
     .title
       Scores of Traits measured under different Competencies / Values
-    .divider2
+    .divider1
     .pull-left
       .instruction_container
+        .divider2
         .instructions
           .box.pull-left
             .box-icon.pull-left
@@ -13,14 +14,14 @@
               Expected Score Range
             .clr
           .instruction1.pull-left
-            Favorable Traits
+            Favorable
           .instruction2.less_favorable.pull-left
-            Less Favorable Traits
+            Less Favorable
           .clr
       - if (@report.report_hash[:functional_items].present?)
         .functional-traits-title
           Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
-    .scale
+    .scale.pull-right
       .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
       .marker-container
         - @company_norm_buckets.each do |norm_bucket|
@@ -33,6 +34,6 @@
             = norm_bucket.name
         .clr
     .clr
-    .divider4
+    .divider1
     - section_value.each do |section|
       = render :partial => section["path"]

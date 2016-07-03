@@ -2,6 +2,9 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
 
+- @local_competencies = @local_competencies.present? ? @local_competencies.sort_by(&:id).reverse : @local_competencies
+- @global_competencies = @global_competencies.present? ? @global_competencies.sort_by(&:id).reverse : @global_competencies
+
 .competencies
   .page-title 
     #{@assessment.name}

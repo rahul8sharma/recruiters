@@ -35,8 +35,12 @@ class Suitability::ItemGroupsController < MasterDataController
   def manage
   end
 
-  def index
-    @item_groups = Vger::Resources::Suitability::ItemGroup.where(:page => params[:page], :per => 10, :order => "updated_at DESC")
+  def search_columns
+    [:id, :body, :behaviour]
+  end
+  
+  def index_columns
+    [:id, :body, :behaviour]
   end
   
   

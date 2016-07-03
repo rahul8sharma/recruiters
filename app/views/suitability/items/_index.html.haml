@@ -5,6 +5,8 @@
     %th
       Body
     %th
+      Factor
+    %th
       Difficulty Level
     %th
       Behavior
@@ -21,6 +23,8 @@
         = link_to item.id, suitability_item_path(item.id)
       %td{ width: "50%" }
         = link_to item.body, suitability_item_path(item.id)
+      %td
+        = controller.respond_to?(:select_factor_id) ? controller.select_factor_id.invert[item.factor_id] : item.factor_id
       %td
         = item.difficulty_level
       %td

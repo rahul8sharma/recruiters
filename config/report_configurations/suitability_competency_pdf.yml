@@ -1,5 +1,11 @@
 :sections: [
   {
+    id: "pdf_cover_page_version_2",
+    text: "Cover Page Version 2.0",
+    path: "assessment_reports/competency_report/pdf/cover_page_version_2",
+    locals: {}
+  },
+  {
     id: "pdf_cover_page_compact",
     text: "Cover Page [COMPACT]",
     path: "assessment_reports/competency_report/pdf/cover_page_compact",
@@ -9,7 +15,7 @@
         text: "Aggregate Numerical Score [Score]",
         path: "assessment_reports/competency_report/pdf/aggregate_numerical_score_compact",
         locals: {}
-      },      
+      },
       {
         id: "pdf_cover_page_compact_aggregate_score",
         text: "Aggregate Score",
@@ -28,12 +34,22 @@
         path: "assessment_reports/competency_report/pdf/competency_scores_overview/main_compact",
         children: [
           {
+            id: "pdf_legend_expected_score_show_compact",
+            text: "Legend with expected Score",
+            path: "assessment_reports/competency_report/pdf/competency_scores_overview/legend_with_expected_score",
+            locals: {}
+          },
+          {
+            id: "pdf_legend_expected_score_hide_compact",
+            text: "Legend without expected Score",
+            path: "assessment_reports/competency_report/pdf/competency_scores_overview/legend_without_expected_score",
+            locals: {}
+          },
+          {
             id: "pdf_competency_scores_overview_favourable_within_desired_range_compact",
             text: "Scale [Show Favourable within Desired Range]",
             path: "assessment_reports/competency_report/pdf/competency_scores_overview/favourable_within_desired_range",
-            locals: {
-              competency_scores: "competency_scores"
-            },
+            locals: { competency_scores: "competency_scores"},
             children: [
               {
                 id: "pdf_favourable_within_desired_range_show_desired_range_compact",
@@ -59,9 +75,7 @@
             id: "pdf_competency_scores_overview_favourable_above_desired_range_compact",
             text: "Scale [Show Favourable above Desired Range]",
             path: "assessment_reports/competency_report/pdf/competency_scores_overview/favourable_above_desired_range",
-            locals: {
-              competency_scores: "competency_scores"
-            },
+            locals: {competency_scores: "competency_scores"},
             children: [
               {
                 id: "pdf_favourable_above_desired_range_show_desired_range_compact",
@@ -153,6 +167,18 @@
     text: "Overview of Competencies Measured",
     path: "assessment_reports/competency_report/pdf/competency_scores_overview/main",
     children: [
+      {
+        id: "pdf_legend_expected_score_show",
+        text: "Legend with expected Score",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/legend_with_expected_score",
+        locals: {}
+      },
+      {
+        id: "pdf_legend_expected_score_hide",
+        text: "Legend without expected Score",
+        path: "assessment_reports/competency_report/pdf/competency_scores_overview/legend_without_expected_score",
+        locals: {}
+      },
       {
         id: "pdf_competency_scores_overview_favourable_within_desired_range",
         text: "Scale [Show Favourable within Desired Range]",

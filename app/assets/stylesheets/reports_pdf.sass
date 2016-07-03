@@ -4,8 +4,8 @@
 @import shared/reports/about_us_pdf
 
 
-$favorable_color: #82d23f  
-$less_favorable_color: #ffc000 
+$favorable_color: #61a219  
+$less_favorable_color: #d0a100 
 $mid_favorable_color: #062b58
 $width: 840px
 body  
@@ -78,12 +78,11 @@ body
       width: 55px
       bottom: -16px
       &.full-logo
-        background: image-url('report/pdf/jombay-logo.png') no-repeat center center
+        background: image-url('report/pdf/jombay-logo-bw.png') no-repeat center center
         position: static
         float: left
         width: 110px
-        height: 60px
-        height: 45px
+        height: 50px
         img
           display: none
 
@@ -110,10 +109,15 @@ body
     background: image-url('report/pdf/j-logo.png') no-repeat center center
   .j-logo-icon
     background: image-url('report/pdf/jombay-logo-icon.png') no-repeat center center
+
   .overall_report
     padding: 18px 40px
     padding-right: 40px
     background: image-url('report/pdf/overall_bg.png') no-repeat right top
+
+    .no-bg
+      background: none !important
+
     .color-band, .heading
       margin-left: -40px
       width: 62%
@@ -152,14 +156,18 @@ body
       &.fw
         width: 814px
 
+
+
+
   .blue_heading
     color: #1c7dab
 
   .instruction_container
     .box 
       padding-top: 5px
+      margin-right: 10px
       .box-icon
-        background: #79D5FF
+        background: #3091ba
         height: 10px
         width: 30px
         margin-top: 4px
@@ -171,9 +179,10 @@ body
       [class*=instruction]
         padding: 5px 0px 5px 30px
         color: $grayDark
-        margin-bottom: 10px
         background: image-url("report/pdf/small-hexagon-fav.png") no-repeat
-        margin-left: 15px
+        margin-right: 10px
+        margin-bottom: 10px
+        margin-left: 3px
       .instruction2
         background: image-url("report/pdf/small-hexagon-lessfav.png") no-repeat
   .factor_fit
@@ -192,7 +201,7 @@ body
     ul.scores_listing
       li
         border-top: 1px dashed #ccc
-        padding: 16px 0
+        padding: 16px 10px
         color: #000
 
         &:first-child
@@ -263,7 +272,7 @@ body
           margin: 25px 0px 0 0
           .range
             height: 100%
-            background: #79d5ff
+            background: #3091ba
           .pointer
             background: image-url('report/pdf/scale-pointer-hexagon.png') no-repeat center 0 
             height: 33px
@@ -277,7 +286,7 @@ body
               left: -23px
               font-size: 10px
               text-align: center
-              border: 1px solid #82d23f
+              border: 1px solid #61a219
               border-radius: 2px
               background: #fff
               width: 80px
@@ -293,7 +302,7 @@ body
               &.underlined
                 text-decoration: none
               .score-indicater
-                border-color: #fdc206
+                border-color: #d0a100
               .arrow
                 background-position: center -1px
           .position
@@ -551,7 +560,7 @@ body
         border: 1px dashed #28b29b
         padding: 0
         .instruction_container
-          font-size: 9px
+          font-size: 12px
 
         .overview-title
           font-size: 15px

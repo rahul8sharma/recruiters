@@ -47,10 +47,15 @@
           .span9.info-block
             %a{:href=> users_company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}  
               = assessment.name
-            - if is_superuser?
-              .info  
-                = assessment.assessment_type.titleize + ' Based | For ' + (assessment.candidate_stage == 'employee' ? "Development" : "Hiring")
-              .arrow
+            .info  
+              %b
+                Purpose:
+              = 'For '+(assessment.candidate_stage == 'employee' ? "Development" : "Hiring")
+              |
+              %b
+                Language: 
+              = @languages[assessment.language]
+            .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}
               %i.icon-eye-open

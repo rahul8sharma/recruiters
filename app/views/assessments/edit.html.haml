@@ -2,16 +2,16 @@
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
   = javascript_include_tag "suitability/assessment"
-
-%h1 Edit company assessment
-= form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
-  = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
-  = f.hidden_field :validate_items, value: "on"
-  .divider1
-  %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
+.new
+  %h1 Edit Assessment
+  = form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
+    = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
+    = f.hidden_field :validate_items, value: "on"
+    .divider1
+    %input.pull-left.btn.btn-warning.large-text{name: "save_and_next", type: "submit", value: "Update Assessment"}
+    .clr
   .clr
-.clr
-.divider2
-  
+  .divider2
+    
 
 
