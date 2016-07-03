@@ -24,6 +24,7 @@ class Oac::ExerciseManagementController < ApplicationController
         exercise_id: params[:import][:exercise_id], 
         override_overall_scores: !params[:import][:override_overall_scores].to_i.zero?,
         override_super_competency_scores: !params[:import][:override_super_competency_scores].to_i.zero?,
+        override_competency_scores: !params[:import][:override_competency_scores].to_i.zero?,
         user_id: current_user.id
       }
     )
