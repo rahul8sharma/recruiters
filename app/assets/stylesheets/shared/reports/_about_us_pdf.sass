@@ -63,17 +63,9 @@
       min-height: 80px
       text-align: justify
 
-
-    .feature01
-      background: image-url('report/pdf/about-thumb1.png') no-repeat 
-    .feature02
-      background: image-url('report/pdf/about-thumb2.png') no-repeat 
-    .feature03
-      background: image-url('report/pdf/about-thumb3.png') no-repeat
-    .feature04
-      background: image-url('report/pdf/about-thumb4.png') no-repeat
-    .feature05
-      background: image-url('report/pdf/about-thumb5.png') no-repeat
+    @for $i from 1 through 6
+      .feature0#{$i}
+        background: image-url('report/pdf/about-thumb#{$i}.png') no-repeat 
       
   .contact_section
     .content
