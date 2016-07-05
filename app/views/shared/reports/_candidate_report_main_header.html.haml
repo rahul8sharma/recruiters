@@ -9,7 +9,6 @@
       - if @report.report_data[:company][:logo_url]
         .logo.pull-left.pull-left
           - imagePath = @report.report_data[:company][:logo_url]
-          -# = image_tag(imagePath. :style => "max-height: 25px;")
           %img{:src => "#{imagePath}", :alt=> "Company Logo", :style => "max-height: 25px"}
       .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:user][:name] }
         = (@report.report_hash[:user][:name].titleize).truncate(25)
