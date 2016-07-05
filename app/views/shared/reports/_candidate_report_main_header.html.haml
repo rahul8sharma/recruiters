@@ -6,8 +6,12 @@
     .container
       .logo.pull-left.pull-left
         = image_tag(asset_path("jombay-logo.png"))
+      - if @report.report_data[:company][:logo_url]
+        .logo.pull-left.pull-left
+          - imagePath = @report.report_data[:company][:logo_url]
+          %img{:src => "#{imagePath}", :alt=> "Company Logo", :style => "max-height: 25px"}
       .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:user][:name] }
-        = @report.report_hash[:user][:name].truncate(25)
+        = (@report.report_hash[:user][:name].titleize).truncate(25)
       .pull-right
         - section_value.each do |section|
           = render :partial => section["path"], locals: { section_value: section["children"] }
