@@ -1,3 +1,5 @@
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 Recruiters::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
