@@ -137,7 +137,18 @@
           html: ["html_header_overview"],
           pdf: []
         }         
-      }
+      },
+      {
+        id: "html_introduction",
+        text: "Introduction",
+        path: "assessment_reports/competency_report/html/introduction",
+        locals: {},
+        children: [],
+        links: {
+          html: [],
+          pdf: []
+        }         
+      }      
     ]
   },
   {
