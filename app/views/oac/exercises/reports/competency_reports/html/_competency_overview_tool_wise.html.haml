@@ -15,7 +15,7 @@
                 = tool
             .clr
           .clr
-        - competencies = @report.report_data[:super_competency_configuration][:toolwise_configuration].values.flatten.map{|x| x.values.map{|k| k["name"] } }.flatten.uniq
+        - competencies = @report.report_data[:super_competency_configuration][:overall_configuration].map{|id,config| config[:name] }
         - competencies.each do |competency|
           %li.extra-medium-text
             .span11.big-text
