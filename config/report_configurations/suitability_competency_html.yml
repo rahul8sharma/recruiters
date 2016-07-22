@@ -141,7 +141,7 @@
       {
         id: "html_introduction",
         text: "Introduction",
-        path: "assessment_reports/competency_report/html/introduction",
+        path: "assessment_reports/common_pages/html/introduction",
         locals: {},
         children: [],
         links: {
