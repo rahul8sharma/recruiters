@@ -6,31 +6,28 @@
         .logo
       .clr
   .about-us-top-triangle
-    .container
-      .divider3
-      .content
-        %ul
-          %li.feature01
+    .about-us-bottom-triangle
+      .container
+        .divider3
+        .content
+          %ul
+            %li.feature01
+              %p
+                %span.bold About Jombay: 
+                Jombay is a Behavior to Bottomline Company. Jombay&apos;s Assessment tools are based on Goleman&apos;s emotional intelligence model and Cattell&apos;s Source & Surface theory. Jombay has profiled more than 1 million professionals to offer a highly valid and reliable suite of Assessment and 360 degree tools. Jombay&apos;s tools are used by Fortune 500 companies to hire, promote and develop talent.
+            %li.feature06
+              %p
+                For Support related queries, contact us at support&#64;jombay.com
+        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+          .divider1
+          .content.company-summary
+            .company-badge
+              - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+              %img{:src => brand_partner_image_path}
+            .divider2
             %p
-              %span.bold About Jombay: 
-              Jombay is a Talent Assessment &amp; Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe.
-      .divider1
-      .content
-        %ul
-          %li.feature06
-            %p
-              For Support related queries, contact us at support&#64;jombay.com
-      - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+              = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
         .divider1
-        .content.company-summary
-          .company-badge
-            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-            %img{:src => brand_partner_image_path}
-          .divider2
-          %p
-            = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
-      .divider1
-      -#
         .content.contact_section
           .divider1
           .inn
@@ -60,4 +57,4 @@
                 www.jombay.com
               .clr
             .divider1
-    .divider3
+      .divider3
