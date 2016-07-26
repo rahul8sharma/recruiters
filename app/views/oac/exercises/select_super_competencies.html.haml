@@ -11,7 +11,7 @@
         .divider3          
       %ul
         - @exercise.super_competency_configuration ||= {}
-        - @super_competencies.sort_by{|super_competency| super_competency.modules.size }.reverse.each do |super_competency|
+        - @super_competencies.sort_by{|super_competency| super_competency.modules.size }.reverse.each_with_index do |super_competency,competency_index|
           - checked = @exercise.super_competency_configuration.keys.map(&:to_i).include?(super_competency.id.to_i)
           - @exercise.super_competency_configuration[super_competency.id.to_s] ||= {}
           %li.list-snippet.border-bottom-grayLighter.medium-text
@@ -35,6 +35,11 @@
             %input.span4{ type: "number", min: 0, max: 1, step: 0.01, name: "exercise[super_competency_configuration][#{super_competency.id}][weightage]", placeholder: "Weightage", value: (@exercise.super_competency_configuration[super_competency.id.to_s][:weightage] || 1)}
             %textarea.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][definition]", placeholder: "Definition", rows: 5}
               = @exercise.super_competency_configuration[super_competency.id.to_s][:definition] || super_competency.description
+            - selected_order = @exercise.super_competency_configuration[super_competency.id.to_s][:order]  
+            %select.span4{name: "exercise[super_competency_configuration][#{super_competency.id}][order]"}
+              - @super_competencies.size.times do |competency_order|
+                %option{ value: competency_order, selected: (selected_order ? selected_order.to_i : competency_index) == competency_order }
+                  = competency_order+1
             .clr
             .divider1
         .clr

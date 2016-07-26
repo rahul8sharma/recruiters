@@ -145,6 +145,11 @@ class Oac::ExercisesController < ApplicationController
         flash[:error] = "Please select a minimum of 2 competencies"
         render :action => :select_super_competencies and return
       end
+      selected_orders = params[:exercise][:super_competency_configuration].values.map{|config| config[:order] }
+      if selected_orders.size != selected_orders.uniq.size
+        flash[:error] = "Please select a unique order for each competency"
+        render :action => :select_super_competencies and return
+      end
       @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
       if @exercise.error_messages.blank?
         redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)

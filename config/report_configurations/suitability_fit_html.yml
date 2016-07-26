@@ -97,6 +97,17 @@
           html: ["html_header_overview"],
           pdf: ["pdf_assessment_details"]
         }        
+      },
+      {
+        id: "html_introduction",
+        text: "Introduction",
+        path: "assessment_reports/common_pages/html/introduction",
+        locals: {},
+        children: [],
+        links: {
+          html: [],
+          pdf: []
+        }         
       }
     ]
   },
