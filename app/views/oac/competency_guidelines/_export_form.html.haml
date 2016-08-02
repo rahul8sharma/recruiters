@@ -1,0 +1,16 @@
+= form_tag controller.export_to_google_drive_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Download #{controller.resource_name.humanize}
+    = fields_for "export" do |f|
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url : 
+          = f.text_field "url"
+      %p
+        Exercise ID : 
+        = f.text_field :exercise_id
+      = f.hidden_field :email, :value => current_user.email
+    .actions
+      = submit_tag "Download #{controller.resource_name.humanize}", :confirm => "Are you sure?"
+

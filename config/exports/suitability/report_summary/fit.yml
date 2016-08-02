@@ -16,3 +16,9 @@ aggregate_score_rating:
 trait_scores:
   name: Trait Scores
   checked: true
+subjective_items:
+  name: Subjective Item Responses
+  checked: false
+objective_items:
+  name: Objective Item Responses
+  checked: false    

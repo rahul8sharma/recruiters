@@ -1245,6 +1245,15 @@ Recruiters::Application.routes.draw do
         post :export_to_google_drive
       end
     end
+    
+    resources :competency_guidelines do
+      collection do
+        get :manage
+        get :count
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
         
     resources :exercise_super_competencies do
       collection do
