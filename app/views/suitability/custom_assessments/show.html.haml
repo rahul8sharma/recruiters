@@ -34,9 +34,10 @@
           %br/
           %b
             No. of Questions: 
-            - objective_items = @assessment.item_ids.first[1].size
-            - subjective_items = @assessment.item_ids["other_subjective_items"] ?  @assessment.item_ids["other_subjective_items"].size : 0
-            = objective_items + subjective_items
+            - if @assessment.item_ids.is_a? Array
+              = @assessment.item_ids.size
+            - else  
+              = @assessment.item_ids.first[1].size + @assessment.item_ids["other_subjective_items"].to_a.size + @assessment.item_ids["other_objective_items"].to_a.size
       .scale.pull-right
         - line_width = (((@company_norm_buckets.size-1)*50)+10)
         .line{:style => "width: #{line_width}px"}
