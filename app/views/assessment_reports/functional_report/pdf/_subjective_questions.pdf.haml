@@ -2,7 +2,7 @@
   - subjective_items = Hash[@report.report_data[:subjective_items].sort_by{|item_id, item_data| item_data[:section] }]
   - subjective_items.each_slice(3) do |subjective_items|
     .functional-questions.objective
-      .divider2
+      .divider1
       %h1.font-normal.title.huge-text.default
         Subjective Questions
       .divider1
@@ -12,13 +12,13 @@
           .label.label-warning.pull-left.left-offset1
             Question
           .span14
-            = item_data[:item][:body].gsub("<text_box>","___________________").html_safe
+            = item_data[:item][:body].gsub("<text_box>","________________").html_safe
           .clr
           .divider1
           - item_data[:response].each do |index, response|
             .label.label-warning.pull-left.left-offset1
               Response #{(index.to_i+1)}
-            .span15.bold
+            .span14.bold
               = response
             .clr
             .divider1
