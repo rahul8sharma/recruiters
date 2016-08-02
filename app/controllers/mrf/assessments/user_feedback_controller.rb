@@ -43,7 +43,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
         active: params[:active]
       }
     )
-    flash[:notice] = "User successfully #{params[:active] ? 'enabled':'disabled'}."
+    flash[:notice] = "User successfully #{params[:active] == 'true' ? 'enabled':'disabled'}."
     redirect_to user_stakeholders_company_mrf_assessment_path(@company.id, @assessment.id, @user.id)
   end
 
