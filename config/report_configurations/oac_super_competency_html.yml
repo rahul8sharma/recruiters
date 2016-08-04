@@ -249,17 +249,6 @@
           pdf: ["pdf_data_points_competency_wise_strengths_improvement"]
         }        
       },
-       {
-        id: "html_development_guide_on_areas_of_improvement",
-        text: "Development Guide on Areas of Improvement",
-        path: "oac/exercises/reports/competency_reports/html/competency_data_points/development_guide_on_areas_of_improvement",
-        locals: {
-        },
-        links: {
-          html: [],
-          pdf: ["pdf_development_guide_on_areas_of_improvement"]
-        }
-      },
       {
         id: "html_data_points_competency_wise_competency_specific_score",
         text: "Competency Wise Score",

@@ -1,6 +1,6 @@
 - subjective_responses = get_subjective_response(@report , @report.report_data[:subjective_responses_others])
 - if subjective_responses.length > 0
-  - subjective_responses.each_slice(15) do |step_data|
+  - subjective_responses.each_slice(10) do |step_data|
     = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Response to Other Questions"}
     .divider1
     .scores
