@@ -329,8 +329,8 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           consistency_bucket: High
           description: More likely to avoid morally incorrect behavior; likely to be perceived as a role model for ethical behavior; less likely to use unethical shortcuts to get work done; might to feel guilty if he/she happens to overlook norms
           factor_definition: Degree to which an individual is mindful of doing wrong things
-      from_norm_bucket_uid: vBUZs
-      to_norm_bucket_uid: pZQeOjio
+      from_norm_bucket_uid: DrHWZ
+      to_norm_bucket_uid: ygMKO
     Client Acquisition & Retention: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       id: 402
       score: 50.0
@@ -398,7 +398,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           consistency_bucket: Low
           description: Usually understands others' emotions and feelings; may develop a moderate sense of rapport with others; might occasionally come across as unapproachable; may sometimes feel uncomfortable in emotional situations
           factor_definition: Degree to which an individual can understand others' emotions and connect with other people
-      from_norm_bucket_uid: vBUZs
+      from_norm_bucket_uid: ygMKO
       to_norm_bucket_uid: pZQeOjio
     Company Fit: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       id: 68
@@ -497,7 +497,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           consistency_bucket: Below Average
           description: May not always follow all rules and regulations; more likely to focus on getting work done than how it is done; may not always be updated about all standard policies and procedures; less likely to mind being flexible about certain rules and guidelines
           factor_definition: Degree to which an individual adheres to rules and regulations
-      from_norm_bucket_uid: vBUZs
+      from_norm_bucket_uid: ygMKO
       to_norm_bucket_uid: pZQeOjio
     Creation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       id: 2522
@@ -566,7 +566,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           consistency_bucket: Average
           description: Often open to change; often flexible at work; may occasionally take time to get accustomed to changes; less likely to be uncomfortable with change
           factor_definition: Degree to which an individual is open to new experiences, ideas, feedback and change
-      from_norm_bucket_uid: vBUZs
+      from_norm_bucket_uid: ygMKO
       to_norm_bucket_uid: pZQeOjio
   aggregate_competency_score_bucket: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 4

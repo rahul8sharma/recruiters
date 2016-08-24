@@ -100,23 +100,20 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
   end
   
   def update
+    params[:candidates] ||= {}                         
     @group_report = Vger::Resources::Mrf::AssessmentReport\
                         .find(params[:report_id], { 
                           company_id: params[:company_id], 
                           assessment_id: params[:id] 
                         })
-    if params[:candidates].blank?
-      render :action => :edit_group_report, :layout => "mrf/mrf"
+    @group_report = Vger::Resources::Mrf::AssessmentReport\
+                    .save_existing(params[:report_id], params[:group_report].merge(
+                      :candidate_ids => params[:candidates].keys.map(&:to_i)
+                    ))
+    if @group_report.error_messages.empty?
+      redirect_to group_reports_company_mrf_assessment_path(@company.id, @assessment.id)
     else
-      @group_report = Vger::Resources::Mrf::AssessmentReport\
-                      .save_existing(params[:report_id], params[:group_report].merge(
-                        :candidate_ids => params[:candidates].keys.map(&:to_i)
-                      ))
-      if @group_report.error_messages.empty?
-        redirect_to group_reports_company_mrf_assessment_path(@company.id, @assessment.id)
-      else
-        render :action => :edit_group_report, :layout => "mrf/mrf"
-      end
+      render :action => :edit_group_report, :layout => "mrf/mrf"
     end
   end
   
