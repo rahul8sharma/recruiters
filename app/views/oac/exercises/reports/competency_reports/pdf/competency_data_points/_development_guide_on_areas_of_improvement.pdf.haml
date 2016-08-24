@@ -1,13 +1,13 @@
-.divider1
-.color-info.medium-text
-  Development Guide on Areas of Improvement
+- areas_of_improvements = competency_scores.select{|id,data| !data[:score][:pass]}
+- if areas_of_improvements.present?
+  .color-info.medium-text
+    Development Guide on Areas of Improvement
+  %ul
+    - areas_of_improvements.each do |id, data|
+      %li
+        .line-height2
+          = data[:name]
+        .gray-dark
+          = @report.report_data[:competency_guidelines][data[:name]][:guide]
+        .divider1.border-bottom-grayLighter
   .divider1
-%ul
-  -2.times do
-    %li
-      .line-height2
-        Strategic Decision Making
-      .gray-dark
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-      .divider1.border-bottom-grayLighter
-      .divider1

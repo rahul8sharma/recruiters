@@ -126,6 +126,14 @@
         }
       },
       {
+        id: "pdf_development_guide_on_areas_of_improvement",
+        text: "Development Guide Areas of Improvement",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/development_guide_on_areas_of_improvement",
+        locals: {
+          competency_scores: "competency_scores"
+        }        
+      },
+      {
         id: "pdf_data_points_competency_wise_competency_specific_score",
         text: "Competency Wise Score",
         path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/competency_specific_score",
