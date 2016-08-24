@@ -1,0 +1,4 @@
+- locals_hash = { competency_scores: competency_scores }
+- section_value.each do |section|
+  - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
+  = render :partial => section["path"], :locals => locals

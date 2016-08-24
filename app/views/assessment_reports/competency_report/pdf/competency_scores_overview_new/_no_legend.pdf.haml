@@ -1,0 +1,15 @@
+.pull-left
+  .overview-title.text-left
+    %h1.font-normal.color-warning.medium-text
+      Overview of Competencies / Values Measured
+.scale
+  .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
+  .marker-container
+    - @company_norm_buckets.each do |norm_bucket|
+      .marker
+        - if norm_bucket.name.split(" ").size == 1
+          %br/
+        = norm_bucket.name
+    .clr
+.clr
+
