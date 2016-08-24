@@ -19,10 +19,6 @@
           - @company.error_messages ||= []
           - @company.error_messages.each do |message|
             = message
-        = f.hidden_field :hq_location_id, :id => "input_hq_location_id"
-        %input{ type: "hidden", name: "city", id: "input_city", value: @company.city }
-        %input{ type: "hidden", name: "state", id: "input_state", value: @company.state }
-        %input{ type: "hidden", name: "country", id: "input_country", value: @company.country }
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left
             Company Name:
@@ -35,43 +31,8 @@
           .clr  
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Company Pan Card Number:
-          = f.text_field :pancard, :class => "first span7 medium-text left-offset1"
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Country:
-          = f.select :country, @countries, { :prompt => "Select Country" }, { :id => "select_country", :class => "first span7 medium-text left-offset1" }
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            State:
-          = f.select :state, {}, { :prompt => "Select State" }, { :id => "select_state", :class => "first span7 medium-text left-offset1" }
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            City:
-          = f.select :city, {@company.city => @company.hq_location_id }, { :prompt => "Select City" }, { :id => "select_city", :class => "first span7 medium-text left-offset1" }
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Company Address:
-          = f.text_area :address, :rows => 5, :class => "first span7 medium-text left-offset1"
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Pincode:
-          = f.text_field :pincode, :class => "first span7 medium-text left-offset1"
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Contact Person's Name:
-          = f.text_field :contact_person, :class => "first span7 medium-text left-offset1"
-          .clr
-        .control-group
-          %label.span7.first.big-text.line-height2.gray-darker.text-left
-            Contact Person's Number:
-          = f.text_field :contact_person_mobile, :class => "first span7 medium-text left-offset1"
+            Domain:
+          = f.text_field :domain, :class => "first span7 medium-text left-offset1"
           .clr
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left
