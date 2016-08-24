@@ -186,7 +186,7 @@
             locals: {},
             links: {
               html: [],
-              pdf: ["pdf_legend_expected_score_show","pdf_legend_expected_score_show_compact"]
+              pdf: ["pdf_legend_expected_score_show_compact"]
             }
           },
           {
@@ -196,7 +196,7 @@
             locals: {},
             links: {
               html: [],
-              pdf: ["pdf_no_legend","pdf_no_legend_compact"]
+              pdf: ["pdf_no_legend_compact"]
             }
           }
         ]
@@ -219,7 +219,6 @@
             links: {
               html: ["html_competency_scores_overview_generic_legend"],
               pdf: [
-                "pdf_favourable_above_desired_range_show_desired_range",
                 "pdf_favourable_above_desired_range_show_desired_range_compact"
               ]
             } 
@@ -244,8 +243,7 @@
             links: {
               html: ["html_competency_scores_overview_generic_legend"],
               pdf: [
-                "pdf_favourable_within_desired_range_show_desired_range_compact",
-                "pdf_favourable_within_desired_range_show_desired_range"
+                "pdf_favourable_within_desired_range_show_desired_range_compact"
               ]
             }           
           },
@@ -259,7 +257,6 @@
             links: {
               html: ["html_competency_scores_overview_no_legend"],
               pdf: [
-                "pdf_favourable_within_desired_range_hide_desired_range",
                 "pdf_favourable_within_desired_range_hide_desired_range_compact"
               ]
             } 
