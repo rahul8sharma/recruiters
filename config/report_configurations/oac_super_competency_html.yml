@@ -236,7 +236,6 @@
           pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph"]
         }        
       },
-      
       {
         id: "html_data_points_competency_wise_strengths_improvement",
         text: "Strengths and Areas of Improvement",
@@ -247,6 +246,18 @@
         links: {
           html: [],
           pdf: ["pdf_data_points_competency_wise_strengths_improvement"]
+        }        
+      },
+      {
+        id: "html_guides_on_areas_of_improvement",
+        text: "Development Guide Areas of Improvement",
+        path: "oac/exercises/reports/competency_reports/html/competency_data_points/development_guide_on_areas_of_improvement",
+        locals: {
+          competency_scores: "competency_scores"
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_development_guide_on_areas_of_improvement"]
         }        
       },
       {
