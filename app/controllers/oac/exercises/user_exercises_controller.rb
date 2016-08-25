@@ -45,7 +45,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
         order = "oac_user_exercises.id #{order_type}"
       when "status"
         column = "oac_user_exercises.status"
-        order = "case when #{column}='scored' then 3 when #{column}='completed' then 2 when #{column}='pending' then 1 end, oac_user_exercises.status DESC"
+        order = "case when #{column}='scored' then 3 when #{column}='completed' then 2 when #{column}='pending' then 1 end, oac_user_exercises.status DESC, oac_user_exercises.id #{order_type}"
     end
     @user_exercises = Vger::Resources::Oac::UserExercise.where(
       :exercise_id => @exercise.id,
