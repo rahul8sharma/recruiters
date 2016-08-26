@@ -155,31 +155,46 @@ class CompanySettingsController < ApplicationController
       params[:users].each do |key,user_data|
         user_data[:notify] = user_data[:notify].present?
         user_data[:role] = Vger::Resources::Role::RoleName::ADMIN
-        user = Vger::Resources::User.find_or_create(user_data)
-        if !user.error_messages.present?
-          if user.company_id.present?
+        user = Vger::Resources::User.where(
+          query_options: {
+            email: user_data[:email]
+          },
+          methods: [:role_names]
+        ).first
+        user_data[:company_id] = @company.id
+        user_data[:companies_users_attributes] = {
+          0 => {
+            company_id: @company.id,
+            relation: "admin"
+          }
+        }
+        if user.present?
+          if user.role_names.include?(Vger::Resources::Role::RoleName::ADMIN) &&
+              user.company_id != @company.id
             errors[user.email] ||= []
             errors[user.email] |= [
               "#{user.email} is already an admin of Account ID #{user.company_id}. "+
               "Remove the user from Account #{user.company_id} before adding to this account."
             ]
           else
-            Vger::Resources::User.save_existing(user.id, {
-              company_id: @company.id,
-              role: Vger::Resources::Role::RoleName::ADMIN,
-              companies_users_attributes: {
-                0 => {
-                  company_id: @company.id,
-                  relation: "admin"
-                }
-              }
-            })
+            user = Vger::Resources::User.save_existing(user.id, user_data)
+            if user.error_messages.present?
+              errors[user.email] ||= []
+              errors[user.email] |= user.error_messages
+            else
+              user_data[:id] = user.id
+              users[user.id] = user_data
+            end
           end  
-          user_data[:id] = user.id
-          users[user.id] = user_data
         else
-          errors[user.email] ||= []
-          errors[user.email] |= user.error_messages
+          user = Vger::Resources::User.create(user_data)
+          if user.error_messages.present?
+            errors[user.email] ||= []
+            errors[user.email] |= user.error_messages
+          else
+            user_data[:id] = user.id
+            users[user.id] = user_data
+          end
         end
       end
       if errors.present?
