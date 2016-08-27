@@ -187,7 +187,7 @@ class CompanySettingsController < ApplicationController
             end
           end  
         else
-          user = Vger::Resources::User.create(user_data)
+          user = Vger::Resources::User.find_or_create(user_data)
           if user.error_messages.present?
             errors[user.email] ||= []
             errors[user.email] |= user.error_messages
