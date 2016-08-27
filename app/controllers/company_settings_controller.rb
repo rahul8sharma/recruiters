@@ -6,6 +6,7 @@ class CompanySettingsController < ApplicationController
 
   before_filter :get_company
   before_filter :get_company_managers, only: [:company_managers, :remove_company_managers]
+  before_filter :get_admins, only: [:user_settings, :remove_users]
 
   def settings
   end
@@ -30,16 +31,6 @@ class CompanySettingsController < ApplicationController
 
   def user_settings
     params[:users] ||= {}
-    @users = Vger::Resources::User.where(
-      joins: [:roles],
-      query_options: {
-        company_id: @company.id,
-        "roles.name" => Vger::Resources::Role::RoleName::ADMIN
-      }, 
-      page: params[:page],
-      per: 10,
-      methods: [:reset_password_token]
-    ).all
   end
   
   def company_managers
@@ -57,9 +48,23 @@ class CompanySettingsController < ApplicationController
 
   def confirm_remove_company_managers
     removed_user_ids = params[:company_manager_ids].split("|").map(&:to_i)
-    user_ids = @company.user_ids - removed_user_ids
-    Vger::Resources::Company.save_existing(@company.id, { user_ids: user_ids } )
-    flash[:notice] = "Company Managers removed successfully."
+    removed_user_ids.each do |user_id|
+      user = Vger::Resources::User.find(user_id, { include: :companies_users })
+      companies_users_attributes = {};
+      if user.companies_users.size > 0
+        companies_users_attributes = [{
+          _destroy: 1,
+          id: user.companies_users.to_a.find{|company_user| 
+            company_user.relation == 'company_manager' && 
+            company_user.company_id == @company.id 
+          }.id
+        }]
+      end
+      Vger::Resources::User.save_existing(user_id, { 
+        companies_users_attributes: companies_users_attributes
+      })
+    end
+    flash[:notice] = "Users removed successfully."
     redirect_to company_managers_company_path(@company)
   end
   
@@ -113,13 +118,6 @@ class CompanySettingsController < ApplicationController
 
   def remove_users
     params[:users] ||= {}
-    @users = Vger::Resources::User.where(
-      :query_options => {
-        :company_id => @company.id
-      }, 
-      :page => params[:page], 
-      :per => 10
-    ).all
     if params[:users].empty?
       flash[:error] = "Please select at least one user to remove"
     else
@@ -129,8 +127,20 @@ class CompanySettingsController < ApplicationController
 
   def confirm_remove_users
     params[:user_ids].split("|").each do |user_id,on|
+      user = Vger::Resources::User.find(user_id, { include: :companies_users })
+      companies_users_attributes = {};
+      if user.companies_users.size > 0
+        companies_users_attributes = [{
+          _destroy: 1,
+          id: user.companies_users.to_a.find{|company_user| 
+            company_user.relation == 'admin' && 
+            company_user.company_id == @company.id 
+          }.id
+        }]
+      end
       Vger::Resources::User.save_existing(user_id, { 
-        company_id: nil 
+        company_id: nil,
+        companies_users_attributes: companies_users_attributes
       })
     end
     flash[:notice] = "Users removed successfully."
@@ -170,7 +180,7 @@ class CompanySettingsController < ApplicationController
         }
         if user.present?
           if user.role_names.include?(Vger::Resources::Role::RoleName::ADMIN) &&
-              user.company_id != @company.id
+              !user.company_id.nil?
             errors[user.email] ||= []
             errors[user.email] |= [
               "#{user.email} is already an admin of Account ID #{user.company_id}. "+
@@ -219,11 +229,25 @@ class CompanySettingsController < ApplicationController
       joins: [:companies, :roles], 
       query_options: {
         "roles.name" => Vger::Resources::Role::RoleName::COMPANY_MANAGER,
-        "companies_users.company_id" => @company.id
+        "companies_users.company_id" => @company.id,
+        "companies_users.relation" => "company_manager"
       }, 
       page: params[:page],
       per: 10,
       methods: [:reset_password_token, :authentication_token]
+    ).all
+  end
+  
+  def get_admins
+    @users = Vger::Resources::User.where(
+      joins: [:roles],
+      query_options: {
+        company_id: @company.id,
+        "roles.name" => Vger::Resources::Role::RoleName::ADMIN
+      }, 
+      page: params[:page],
+      per: 10,
+      methods: [:reset_password_token]
     ).all
   end
 end
