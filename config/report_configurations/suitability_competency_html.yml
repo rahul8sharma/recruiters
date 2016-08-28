@@ -164,39 +164,47 @@
   {
     id: "html_competency_scores_overview",
     text: "Overview of Competencies Measured",
-    path: "assessment_reports/competency_report/html/competency_scores_overview/main",
+    path: "assessment_reports/competency_report/html/competency_scores_overview_new/main",
     locals: {},
     children: [
       {
         id: "html_competency_scores_overview_legend",
         text: "Competency Scores Overview Legend",
-        path: "assessment_reports/competency_report/html/competency_scores_overview/legend",
+        path: "assessment_reports/competency_report/html/competency_scores_overview_new/legend",
         locals: {},
         children: [
           {
             id: "html_competency_scores_overview_title",
             text: "Competency Scores Overview Title",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/competency_scores_overview_title",
-            locals: {}
-          },
-          {
-            id: "html_competency_scores_overview_custom_legend",
-            text: "Custom Legend [Without Expected Score]",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/custom_legend",
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/competency_scores_overview_title",
             locals: {}
           },
           {
             id: "html_competency_scores_overview_generic_legend",
             text: "Generic Legend [With Expected Score]",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/generic_legend",
-            locals: {}
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/generic_legend",
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_legend_expected_score_show_compact"]
+            }
+          },
+          {
+            id: "html_competency_scores_overview_no_legend",
+            text: "No Legend",
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/no_legend",
+            locals: {},
+            links: {
+              html: [],
+              pdf: ["pdf_no_legend_compact"]
+            }
           }
         ]
       },
       {
         id: "html_show_favourable_above_desired_range",
         text: "Scale [Show Favourable above Desired Range]",
-        path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_above_desired_range",
+        path: "assessment_reports/competency_report/html/competency_scores_overview_new/favourable_above_desired_range",
         locals: {
           competency_scores: "competency_scores"
         },
@@ -204,27 +212,15 @@
           {
             id: "html_competency_scores_overview_custom_show_desired_ranges",
             text: "Show Desired Ranges",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/show_desired_range",
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/show_desired_range",
             locals: {
-              width: "width",
-              offset: "offset"
+              competency_scores: "competency_scores"
             },
             links: {
-              html: [],
-              pdf: ["pdf_favourable_above_desired_range_show_desired_range_compact"]
-            } 
-          },
-          {
-            id: "html_competency_scores_overview_custom_hide_desired_ranges",
-            text: "Hide Desired Ranges",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/hide_desired_range",
-            locals: {
-              width: "width",
-              offset: "offset"
-            },
-            links: {
-              html: [],
-              pdf: ["pdf_favourable_above_desired_range_hide_desired_range_compact"]
+              html: ["html_competency_scores_overview_generic_legend"],
+              pdf: [
+                "pdf_favourable_above_desired_range_show_desired_range_compact"
+              ]
             } 
           }
         ]
@@ -232,7 +228,7 @@
       {
         id: "html_show_generic_scale",
         text: "Scale [Show Favourable within Desired Range]",
-        path: "assessment_reports/competency_report/html/competency_scores_overview/favourable_within_desired_range",
+        path: "assessment_reports/competency_report/html/competency_scores_overview_new/favourable_within_desired_range",
         locals: {
           competency_scores: "competency_scores"
         },
@@ -240,27 +236,29 @@
           {
             id: "html_competency_scores_overview_generic_show_desired_ranges",
             text: "Show Desired Ranges",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/show_desired_range",
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/show_desired_range",
             locals: {
-              width: "width",
-              offset: "offset"
+              competency_scores: "competency_scores"
             },
             links: {
-              html: [],
-              pdf: ["pdf_favourable_within_desired_range_show_desired_range_compact"]
+              html: ["html_competency_scores_overview_generic_legend"],
+              pdf: [
+                "pdf_favourable_within_desired_range_show_desired_range_compact"
+              ]
             }           
           },
           {
             id: "html_competency_scores_overview_generic_hide_desired_ranges",
             text: "Hide Desired Ranges",
-            path: "assessment_reports/competency_report/html/competency_scores_overview/hide_desired_range",
+            path: "assessment_reports/competency_report/html/competency_scores_overview_new/hide_desired_range",
             locals: {
-              width: "width",
-              offset: "offset"
+              competency_scores: "competency_scores"
             },
             links: {
-              html: [],
-              pdf: ["pdf_favourable_within_desired_range_hide_desired_range_compact"]
+              html: ["html_competency_scores_overview_no_legend"],
+              pdf: [
+                "pdf_favourable_within_desired_range_hide_desired_range_compact"
+              ]
             } 
           }
         ]

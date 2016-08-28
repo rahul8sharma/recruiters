@@ -228,7 +228,11 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   exercise: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Final OAC Test
     id: 25
-  cover_letter: "<p>\r\n<b>Introduction:</b>\r\n</p>\r\n<p>\r\nThe Assessment Centre\
+  cover_letter: "<p>\r
+<b>Introduction:</b>\r
+</p>\r
+<p>\r
+The Assessment Centre\
     \ process was designed to capture many of the important characteristics of the\
     \ role and focused on the behaviors most applicable to your performance. The scenarios\
     \ provided to you were neutral in nature to ensure a level playing ground for\
@@ -236,12 +240,19 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     \ online business simulations along with case studies and psychometric assessments.\
     \ This feedback report focuses on the overall performance in the online tasks\
     \ presented, rather than on \"right or wrong\" responses to the situations.</p>\r\
-    \n<p>\r\n<b>Report Content:</b>\r\n</p>\r\n<p>\r\nThis report contains feedback\
+    
+<p>\r
+<b>Report Content:</b>\r
+</p>\r
+<p>\r
+This report contains feedback\
     \ on your performance on several exercises including Psychometric Assessment,\
     \ Situational Judgement Test, Business Simulations, Competency Based Interview\
     \ and Business Case Study. The reports showcases score descriptions along with\
     \ your strengths and areas of improvements on competencies identified for superior\
-    \ performance that are imperative for success.\r\n</p>\r\n"
+    \ performance that are imperative for success.\r
+</p>\r
+"
   assessor_feedback: '-'
   completed_at: '2016-01-13T13:14:49Z'
   tools: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -371,7 +382,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             score_bucket_id: 2
             uid: OKsrTfWV
             weight: 2
-            pass: true
+            pass: false
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -393,7 +404,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             score_bucket_id: 2
             uid: OKsrTfWV
             weight: 2
-            pass: true
+            pass: false
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 21.0
@@ -650,7 +661,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             score_bucket_id: 2
             uid: OKsrTfWV
             weight: 2
-            pass: true
+            pass: false
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 22.0
@@ -867,7 +878,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             score_bucket_id: 3
             uid: TQHBqVkO
             weight: 3
-            pass: false
+            pass: true
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -1570,6 +1581,59 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Business Acumen: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       id: 8
       guide: 4) Bear claw jelly beans dragée jelly-o jelly-o topping cotton candy. Sweet roll chocolate cake wafer jelly jelly beans. Lemon drops cake cookie. Topping marshmallow pudding candy cotton candy donut pudding icing. Icing sugar plum gingerbread apple pie tart pudding cotton candy liquorice brownie. Bear claw danish chupa chups dragée. Bear claw sugar plum gummi bears.
+  competency_guidelines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    Delegation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3844
+      :guide: Delegation Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Coaching: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3845
+      :guide: Coaching Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Giving Feedback: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3846
+      :guide: Giving Feedback Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Rewards & Recognition: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3847
+      :guide: Rewards & Recognition Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Managing Targets: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3848
+      :guide: Managing Targets Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Planning and Prioritization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3849
+      :guide: Planning and Prioritization Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Monitoring: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3850
+      :guide: Monitoring Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Resource Optimization: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3851
+      :guide: Resource Optimization Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Influencing Skills: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3852
+      :guide: Influencing Skills Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Communication Skills: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3853
+      :guide: Communication Skills Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Conflict Management: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3854
+      :guide: Conflict Management Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    People Connect: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3855
+      :guide: People Connect Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Analytical Skills: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3856
+      :guide: Analytical Skills Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Decision Making: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3857
+      :guide: Decision Making Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Withstanding Pressure: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3858
+      :guide: Withstanding Pressure Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Risk Taking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3859
+      :guide: Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+    Big Picture Thinking: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      :id: 3860
+      :guide: Demonstrates an interest in the attitudes, motives and views of others. Keeps people informed and up to date with clear and open communication. Takes into account the emotions surrounding an issue before taking action, uses conflict to start dialogue. Empathises and supports team members in every possible way.
+
 status: scored
 user_exercise_id: 31
 user_id: 70614
