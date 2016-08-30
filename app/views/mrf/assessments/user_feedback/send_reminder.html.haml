@@ -23,5 +23,5 @@
     %input{ type: "hidden", name: "options", value: params[:options].to_yaml }  
     = render :partial => "email_settings", locals: { reminder: true }
     .span.pull-right
-      %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Invitations"}
+      %input.btn.btn-info.large-text.font-bold{name: "send", type: "submit", value: "Send Reminder"}
     .clr
