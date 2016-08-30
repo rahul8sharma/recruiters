@@ -63,7 +63,7 @@
           %li
             .lhs-sec.span20.first
               .factor-name
-                = factor_norm.factor.name
+                = @company.factors_map[factor_norm.factor_id.to_s] || factor_norm.factor.name
               .factor-description
                 = factor_norm.factor.definition
             .rhs-sec.pull-right
