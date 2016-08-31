@@ -1,6 +1,6 @@
 - @report.report_data[:trait_scores].each do |trait_score|
   - if trait_score[:items][:other_responses].any?{|other_response| other_response[:item].present?} || trait_score[:items][:self_responses].any?{|self_response| self_response[:item].present?}
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
+    = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
     .scores.classic_report.mrf_data_points
       .large-text.green_heading
         Trait: #{trait_score[:trait][:name]}

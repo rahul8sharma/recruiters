@@ -1,6 +1,6 @@
 - trait_scores = get_traits_under_competencies(@report)
 - trait_scores.each_slice(12).each do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "360 Degree and Self Ratings on Traits"}
+  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "360 Degree and Self Ratings on Traits"}
   .scores
     .traits_under_competencies.scores_competencies_graph.section02
       .divider1
