@@ -117,7 +117,7 @@ module Suitability
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        file_id = "#{user_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
+        file_id = "#{safe_name(user_name)}-#{safe_name(company_name)}-#{@report.id}"
         pdf_file_id = "#{file_id}.pdf"
         html_file_id = "#{file_id}.html"
         feedback_html_file_id = "feedback-#{file_id}.html"
@@ -216,6 +216,10 @@ module Suitability
           }
         }), "notify_report_status")
       end
+    end
+    
+    def safe_name(name)
+      name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')
     end
   end
 end  

@@ -55,6 +55,10 @@ module Mrf
         
         @report.report_hash = @report.report_data
         
+        user_name = @report.report_hash[:user][:name]
+        assessment_name = @report.report_hash[:assessment][:name]
+        company_name = @report.report_hash[:company][:name]
+        
         Vger::Resources::Mrf::Report.save_existing(report_id,
           :status => Vger::Resources::Mrf::Report::Status::UPLOADING
         )
@@ -93,10 +97,11 @@ module Mrf
 
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        html_file_id = "mrf_report_#{@report.id}.html"      
+        file_id = "#{safe_name(user_name)}-#{safe_name(assessment_name)}-#{safe_name(company_name)}-#{@report.id}"
+        html_file_id = "#{file_id}.html"
         html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
-
-        pdf_file_id = "mrf_report_#{@report.id}.pdf"
+        
+        pdf_file_id = "#{file_id}.pdf"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
         File.open(html_save_path, 'wb') do |file|
@@ -146,6 +151,10 @@ module Mrf
           }
         }), "notify_report_status")
       end
+    end
+    
+    def safe_name(name)
+      name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')
     end
   end
 end
