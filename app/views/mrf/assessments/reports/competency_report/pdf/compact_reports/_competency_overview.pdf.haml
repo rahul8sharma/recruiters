@@ -1,5 +1,5 @@
 - @report.report_data[:competency_scores].each_slice(10) do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Overview"}
+  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "Overview"}
   .mrf_rating_competency_overview
     .overview.bg
       .inner

@@ -1,6 +1,6 @@
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each do |trait_score|
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
+    = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
     .scores.classic_report.mrf_data_points
       .frame
         .heading.pull-left

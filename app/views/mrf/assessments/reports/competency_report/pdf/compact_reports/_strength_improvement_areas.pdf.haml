@@ -1,5 +1,5 @@
 - @report.report_data[:strengths_and_areas_of_improvement].each_slice(2) do |step_scores|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Strengths and Areas of Improvement"}
+  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "Strengths and Areas of Improvement"}
   - step_scores.each do |type, traits|
     .strength_weakness_areas.section02
       .scores
