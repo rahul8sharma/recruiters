@@ -73,28 +73,30 @@ module Suitability
         html = render_to_string(
            template: "assessment_reports/#{template}",
            layout: "layouts/user_reports",
-           handlers: [ :haml ],
            formats: [ :html ]
         )
 
         @view_mode = "feedback"
         feedback_html = render_to_string(
-           template: "assessment_reports/feedback_report.html.haml",
-           layout: "layouts/feedback_reports.html.haml",
-           handlers: [ :haml ],
+           template: "assessment_reports/feedback_report",
+           layout: "layouts/feedback_reports",
            formats: [ :html ]
         )
 
         hash_toc = {
           margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
           footer: {
-            :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-              layout: "layouts/user_reports.pdf.haml"
+            :content => render_to_string(
+              "shared/reports/pdf/_report_footer",
+              layout: "layouts/user_reports",
+              formats: [:pdf]
             )
           },
           header: {
-            :content => render_to_string("shared/reports/pdf/_report_header.pdf.haml",
-              layout: "layouts/user_reports.pdf.haml"
+            :content => render_to_string(
+              "shared/reports/pdf/_report_header",
+              layout: "layouts/user_reports",
+              formats: [:pdf]
             ),
             :spacing => 15
           }
@@ -109,9 +111,8 @@ module Suitability
 
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
-          render_to_string("assessment_reports/#{template}.pdf.haml",
-            layout: "layouts/user_reports.pdf.haml",
-            handlers: [ :haml ],
+          render_to_string("assessment_reports/#{template}",
+            layout: "layouts/user_reports",
             formats: [:pdf]
           ), hash_toc
         )

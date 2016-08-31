@@ -25,4 +25,4 @@
         = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
   - else
     .divider1
-    = render :partial => "shared/reports/pdf/contact_section.pdf"
+    = render :partial => "shared/reports/pdf/contact_section"
