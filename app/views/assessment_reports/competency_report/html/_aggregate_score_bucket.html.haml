@@ -2,6 +2,7 @@
   .score_rating_title.pull-left{:style=>"color: #fff"}
     Aggregate Score
   .span.large-text.line-height2
-    #{@report.report_hash[:aggregate_competency_score_bucket][:name]}
+    - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(@report.report_hash[:aggregate_competency_score_bucket][:uid])}
+    = company_norm_bucket ? company_norm_bucket.name : @report.report_hash[:aggregate_competency_score_bucket][:name]
   .clr
 .clr 
