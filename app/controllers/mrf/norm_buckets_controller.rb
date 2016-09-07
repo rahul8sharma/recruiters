@@ -10,7 +10,10 @@ class Mrf::NormBucketsController < MasterDataController
   def index_columns
     [:id,:uid,:name,:description,:weight,:company_id]
   end
-
+  
+  def search_columns
+    [:id,:uid,:name,:weight,:company_id]
+  end
 end
 
 
