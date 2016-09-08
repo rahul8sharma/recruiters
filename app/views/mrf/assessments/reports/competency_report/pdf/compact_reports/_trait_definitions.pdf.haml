@@ -1,6 +1,6 @@
 - trait_scores = @report.report_data[:competency_scores].collect{|competency,competency_data| competency_data[:trait_scores] }.flatten.uniq
 - trait_scores.each_slice(10) do |step_trait_definitions|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Trait Definition"}
+  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "Trait Definition"}
   .scores
     .large-text.blue-heading
       Definitions of Traits included in this assessment

@@ -1,6 +1,6 @@
 - comments = get_role_wise_comments(@report)
 - comments.each_slice(15) do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml",  :locals => { :display_text => "Stakeholder Comments on various Competencies"}
+  = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Stakeholder Comments on various Competencies"}
   .scores
     .stakeholder-comments
       .color-info.big-text

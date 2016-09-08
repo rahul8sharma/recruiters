@@ -73,28 +73,30 @@ module Suitability
         html = render_to_string(
            template: "assessment_reports/#{template}",
            layout: "layouts/user_reports",
-           handlers: [ :haml ],
            formats: [ :html ]
         )
 
         @view_mode = "feedback"
         feedback_html = render_to_string(
-           template: "assessment_reports/feedback_report.html.haml",
-           layout: "layouts/feedback_reports.html.haml",
-           handlers: [ :haml ],
+           template: "assessment_reports/feedback_report",
+           layout: "layouts/feedback_reports",
            formats: [ :html ]
         )
 
         hash_toc = {
           margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
           footer: {
-            :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-              layout: "layouts/user_reports.pdf.haml"
+            :content => render_to_string(
+              "shared/reports/pdf/_report_footer",
+              layout: "layouts/user_reports",
+              formats: [:pdf]
             )
           },
           header: {
-            :content => render_to_string("shared/reports/pdf/_report_header.pdf.haml",
-              layout: "layouts/user_reports.pdf.haml"
+            :content => render_to_string(
+              "shared/reports/pdf/_report_header",
+              layout: "layouts/user_reports",
+              formats: [:pdf]
             ),
             :spacing => 15
           }
@@ -109,15 +111,14 @@ module Suitability
 
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
-          render_to_string("assessment_reports/#{template}.pdf.haml",
-            layout: "layouts/user_reports.pdf.haml",
-            handlers: [ :haml ],
+          render_to_string("assessment_reports/#{template}",
+            layout: "layouts/user_reports",
             formats: [:pdf]
           ), hash_toc
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))
-        file_id = "#{user_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{company_name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')}-#{@report.id}"
+        file_id = "#{safe_name(user_name)}-#{safe_name(company_name)}-#{@report.id}"
         pdf_file_id = "#{file_id}.pdf"
         html_file_id = "#{file_id}.html"
         feedback_html_file_id = "feedback-#{file_id}.html"
@@ -216,6 +217,10 @@ module Suitability
           }
         }), "notify_report_status")
       end
+    end
+    
+    def safe_name(name)
+      name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')
     end
   end
 end  

@@ -1,7 +1,7 @@
 - roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
 - role_limit = 5
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
-  = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
+  = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
   .scores.border-bottom-grayLighter.mrf_data_points
     .color-info.big-text
       Details on 360&#176 Ratings on Competencies/Values
@@ -86,7 +86,7 @@
 
 
   - if roles.size >= role_limit
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Competencies"}
+    = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Data Points on Scores: Competencies"}
     .scores.border-bottom-grayLighter.mrf_data_points
       .color-info.big-text
         Details on 360&#176 Ratings on Competencies/Values
