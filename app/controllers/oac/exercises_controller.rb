@@ -49,6 +49,8 @@ class Oac::ExercisesController < ApplicationController
                                         :set_weightage,
                                         :show
                                       ]
+  before_filter :get_default_factor_norm_ranges, :only => [:select_competencies]
+  
   layout 'oac/oac'
 
   def home  
@@ -353,5 +355,33 @@ class Oac::ExercisesController < ApplicationController
     #  flash[:error] = "You can't update the configuration of this exercise."
     #  redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
     #end  
+  end
+  
+  def get_default_factor_norm_ranges
+    exercise_tool = @exercise_tools.select{|x| x.industry_id.present? }.first
+    factor_ids = @competencies.map(&:factor_ids).flatten.map(&:to_i)
+    if exercise_tool
+      @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where({
+        query_options: {
+          industry_id: exercise_tool.industry_id,
+          functional_area_id: exercise_tool.functional_area_id,
+          job_experience_id: exercise_tool.job_experience_id,
+          factor_id: factor_ids
+        }
+      }).all.to_a
+      if @default_factor_norm_ranges.size == 0
+        @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where({
+          query_options: {
+            industry_id: nil,
+            functional_area_id: nil,
+            job_experience_id: nil,
+            factor_id: factor_ids
+          }
+        }).all.to_a
+      end
+    end
+    @default_factor_norm_ranges = Hash[@default_factor_norm_ranges.map do |dfnr|
+      [dfnr.factor_id,dfnr]
+    end]
   end
 end
