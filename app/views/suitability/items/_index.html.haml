@@ -17,11 +17,15 @@
     %th
       Order
     %th
+      Language
+    %th
+      Ref English Item
+    %th
   - objects.each do |item|
     %tr 
       %td{ width: "5%" }
         = link_to item.id, suitability_item_path(item.id)
-      %td{ width: "50%" }
+      %td{ width: "45%" }
         = link_to item.body, suitability_item_path(item.id)
       %td
         = controller.respond_to?(:select_factor_id) ? controller.select_factor_id.invert[item.factor_id] : item.factor_id
@@ -36,5 +40,9 @@
           = link_to item.item_group_id, suitability_item_group_path(item.item_group_id)
       %td
         = item.item_order
+      %td
+        = item.language
+      %td
+        = item.english_item_id ? (link_to item.english_item_id, suitability_item_path(item.english_item_id)) : "Not Available"  
       %td
         = link_to "Edit", edit_suitability_item_path(item.id)

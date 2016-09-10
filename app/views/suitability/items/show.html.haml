@@ -17,6 +17,12 @@
   %br
   %b Help Text:
   = @item.help_text
+  %br
+  %b Language:
+  = @item.language
+  %br
+  %b Reference English Item ID:
+  = @item.english_item_id ? (link_to @item.english_item_id, suitability_item_path(@item.english_item_id)) : "Not Available"
 %br
 = link_to "Edit", edit_suitability_item_path(params[:id])
 \|
