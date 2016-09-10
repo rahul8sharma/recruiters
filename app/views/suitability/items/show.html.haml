@@ -50,11 +50,13 @@
     %th
       Order
     %th
+      English Reference
+    %th
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
     %tr
       %td
         = link_to option.id, suitability_item_option_path(params[:id], option.id)
-      %td
+      %td{ width: "40%" }
         = link_to option.body, suitability_item_option_path(params[:id], option.id)
       %td
         = option.score
@@ -62,5 +64,7 @@
         = option.active
       %td
         = option.option_order
+      %td
+        = option.english_option_id ? option.english_option_id : "Not Available"
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)
