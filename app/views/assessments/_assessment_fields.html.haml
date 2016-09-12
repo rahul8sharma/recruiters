@@ -117,17 +117,6 @@
   
 .control-group
   %label
-    Select Assessment Completion  Notification Template
-  %select.span21.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
-    %option{:value => ""}
-      Select Assessment Completion Notification Template
-    - @templates.each do |template|
-      %option{:value => template.id, selected: (assessment.assessment_completion_notification_template_id == template.id)}
-        = template.name
-  .clr      
-
-.control-group
-  %label
     Cocubes Passkey
   = f.text_field :cocubes_passkey, class: "span21 first", value: @assessment.cocubes_passkey
   .clr

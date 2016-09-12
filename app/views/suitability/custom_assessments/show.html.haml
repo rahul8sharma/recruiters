@@ -4,7 +4,7 @@
     AID #{@assessment.id} - #{@assessment.name}
   - url = new_company_custom_assessment_path(:company_id => params[:company_id])
   = render :partial => "shared/suitability/create_custom_assessment_link", :locals => { :url => url}
-  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]) }
+  %a.btn.btn-warning.pull-right.big-text.big.span{ href: add_users_company_custom_assessment_path(@company.id, @assessment.id) }
     Send this Assessment
   .clr
   .divider2

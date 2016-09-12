@@ -1,0 +1,81 @@
+- template = @completion_notification_templates.first
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.new
+  .page-title.pull-left
+    = @assessment.name
+  .clr
+  .divider1
+  = render :partial => "shared/navigation-sub-nav"
+  .divider2
+  = form_for @assessment, :as => :assessment, :url => select_templates_company_custom_assessment_path(@company.id, @assessment.id), method: "put", html: {id: "assessment_form", class: "creat-test-form" } do |f|
+    .pull-left.span11
+      .control-group
+        %label
+          Select Assessment Completion  Notification Template
+        %select.span10.first{name: 'assessment[assessment_completion_notification_template_id]', onchange: "selectTemplate(this)"}
+          %option{:value => ""}
+            Select Assessment Completion Notification Template
+          - @completion_notification_templates.each do |template|
+            %option{:value => template.id, selected: (@assessment.assessment_completion_notification_template_id == template.id), body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
+              = template.name
+        .clr      
+
+      .control-group
+        %label
+          Select Invitation Email Template
+        %select.span10.first{name: 'assessment[invitation_template_id]', onchange: "selectTemplate(this)"}
+          %option{:value => ""}
+            Select Invitation Email Template
+          - @invitation_templates.each do |template|
+            %option{:value => template.id, selected: (@assessment.invitation_template_id == template.id), body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
+              = template.name
+        .clr
+        
+      .control-group
+        %label
+          Select Reminder Email Template
+        %select.span10.first{name: 'assessment[reminder_template_id]', onchange: "selectTemplate(this)"}
+          %option{:value => ""}
+            Select Reminder Email Template
+          - @reminder_templates.each do |template|
+            %option{:value => template.id, selected: (@assessment.reminder_template_id == template.id), body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
+              = template.name
+        .clr        
+    .pull-right.span18
+      .email-template
+        .gray-dark
+          .large-text
+            Following is the Preview of the email that Assessment takers will receive.
+          .divider1
+          #template_name.medium-text.bold
+            E-mail Template: #{template.preview(:name).html_safe}
+          .custom-email
+            .test-text-to-send
+              %span.extra-medium-text.span2.first.show
+                From
+              .massage-body.italic.span15.medium-text.email-from
+                #{template.preview(:from).html_safe}
+              .clr
+              .divider1
+              %span.extra-medium-text.span2.first.show
+                Subject
+              .massage-body.italic.span15.medium-text.email-subject
+                #{template.preview(:subject).html_safe}
+              .clr
+              .divider1
+              %span.extra-medium-text.span2.first.show
+                Message
+              .massage-body.italic.span15.medium-text.email-body
+                #{template.preview(:body).html_safe}
+              .clr
+    .clr  
+    .divider2
+    .pull-right
+      %input.btn.btn-warning.large-text{ type: "submit", value: "Proceed", name: "fit" }
+    .clr
+    .divider1
+  .divider1
+= javascript_include_tag 'shared/select_template'     

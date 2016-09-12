@@ -36,7 +36,7 @@
       - if @templates.size > 1
         .big-text.line-height2
           Choose Email Template
-      %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate()" }
+      %select.span9.first{ id: "select_template", name: "template_id", class: (@templates.size <= 1 ? 'hide':''), onchange: "selectTemplate(this)" }
         -# add this class when template isnt availble "hide" to %select
         - @templates.each do |template|
           %option{value: template.id, body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from)}
