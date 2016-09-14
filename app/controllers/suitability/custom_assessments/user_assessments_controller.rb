@@ -577,7 +577,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       template_id = @assessment.invitation_template_id
     end
     query_options["template_categories.name"] = category if category.present?
-    query_options["templates.id"] = template_id if template_id.present?
+    if template_id.present?
+      query_options = {}
+      query_options["templates.id"] = template_id 
+    end
     @templates = get_templates_for_company(query_options, @company.id)
     @templates |= get_global_templates(query_options)
   end
