@@ -19,8 +19,13 @@ class Suitability::ItemsController < MasterDataController
       :difficulty_level,
       :active,
       :factor_id,
-      :body
+      :body,
+      :language
     ]
+  end
+  
+  def select_language
+    Hash[Vger::Resources::Language.all.map{|x| [x.name, x.language_code] }]
   end
   
   def select_difficulty_level
