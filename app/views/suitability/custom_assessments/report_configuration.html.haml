@@ -6,6 +6,12 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "jstree"
 
+.page-title.pull-left
+  #{@assessment.name}
+.clr
+.divider1
+= render :partial => "shared/navigation-sub-nav"
+.divider1
 %h1 Customize Report
 = form_for @assessment, :as => :assessment, :url => report_configuration_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
   %input{:id => "input_assessment_id", :value => @assessment.id, :type => "hidden"}

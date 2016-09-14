@@ -1,8 +1,8 @@
-function selectTemplate() {
-  var body = $("#select_template").find(":selected").attr("body");
-  var subject = $("#select_template").find(":selected").attr("subject");
-  var from = $("#select_template").find(":selected").attr("from");
-  var template_name = $("#select_template").find(":selected").attr("template_name");
+function selectTemplate(selectTag) {
+  var body = $(selectTag).find(":selected").attr("body");
+  var subject = $(selectTag).find(":selected").attr("subject");
+  var from = $(selectTag).find(":selected").attr("from");
+  var template_name = $(selectTag).find(":selected").attr("template_name");
   if(body) {
     $(".default-email").hide();
     $(".custom-email").show();

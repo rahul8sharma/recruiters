@@ -2,7 +2,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   include TemplatesHelper
   before_filter :get_company
   before_filter :get_defined_forms, :only => [:new, :edit, :create]
-  before_filter :get_templates, :only => [:new, :edit, :create]
+  before_filter :get_completion_notification_templates, :only => [:edit, :select_templates]
+  before_filter :get_invitation_templates, :only => [:edit, :select_templates]
+  before_filter :get_reminder_templates, :only => [:edit, :select_templates]
   before_filter :get_custom_form, :only => [:edit]
   after_filter :set_cache_buster
 
@@ -111,7 +113,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
       @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
       if @assessment.error_messages.blank?
-        redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+        redirect_to self.send("select_templates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
       else
         flash[:error] = @assessment.error_messages.join("<br/>")
         redirect_to report_configuration_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
@@ -193,6 +195,19 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   def download_pdf_reports
     url = S3Utils.get_url(params[:bucket], params[:key])
     redirect_to url
+  end
+  
+  def select_templates
+    if request.put?
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      if @assessment.error_messages.blank?
+        redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
+      else
+        flash[:error] = @assessment.error_messages.join("<br/>")
+        redirect_to select_templates_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
+      end
+    else
+    end
   end
 
   protected
@@ -276,12 +291,38 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @sections = Vger::Resources::Section.where(query_options: {active: true, company_id: @company.id}, include: [:subjective_items, :objective_items]).all.to_a
   end
   
-  def get_templates
+  def get_completion_notification_templates
     query_options = {
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
     }
-    @templates = get_templates_for_company(query_options, @company.id)
-    @templates |= get_global_templates(query_options)
+    @completion_notification_templates = get_templates_for_company(query_options, @company.id)
+    @completion_notification_templates |= get_global_templates(query_options)
+  end
+  
+  def get_invitation_templates
+    category = ""
+    query_options = {
+    }
+    category = [
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE,
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+   ]   
+    query_options["template_categories.name"] = category
+    @invitation_templates = get_templates_for_company(query_options, @company.id)
+    @invitation_templates |= get_global_templates(query_options)
+  end
+  
+  def get_reminder_templates
+    category = ""
+    query_options = {
+    }
+    category = [
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE,
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+    ]  
+    query_options["template_categories.name"] = category
+    @reminder_templates = get_templates_for_company(query_options, @company.id)
+    @reminder_templates |= get_global_templates(query_options)
   end
 
   def get_competencies(scope)
