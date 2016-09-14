@@ -21,8 +21,8 @@
   %b Language:
   = @item.language
   %br
-  %b Reference English Item ID:
-  = @item.english_item_id ? (link_to @item.english_item_id, suitability_item_path(@item.english_item_id)) : "Not Available"
+  %b Reference Item ID:
+  = @item.reference_item_id ? (link_to @item.reference_item_id, suitability_item_path(@item.reference_item_id)) : "Not Available"
 %br
 = link_to "Edit", edit_suitability_item_path(params[:id])
 \|
@@ -50,7 +50,7 @@
     %th
       Order
     %th
-      English Reference
+      Reference Item
     %th
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
     %tr
@@ -65,6 +65,6 @@
       %td
         = option.option_order
       %td
-        = option.english_option_id ? option.english_option_id : "Not Available"
+        = option.reference_option_id ? option.reference_option_id : "Not Available"
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)
