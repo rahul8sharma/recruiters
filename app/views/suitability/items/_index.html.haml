@@ -19,7 +19,7 @@
     %th
       Language
     %th
-      Ref English Item
+      Ref Item
     %th
   - objects.each do |item|
     %tr 
@@ -43,6 +43,6 @@
       %td
         = item.language
       %td
-        = item.english_item_id ? (link_to item.english_item_id, suitability_item_path(item.english_item_id)) : "Not Available"  
+        = item.reference_item_id ? (link_to item.reference_item_id, suitability_item_path(item.reference_item_id)) : "Not Available"  
       %td
         = link_to "Edit", edit_suitability_item_path(item.id)
