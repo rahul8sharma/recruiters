@@ -171,6 +171,7 @@ class UsersController < ApplicationController
   def update
     @user = Vger::Resources::User.save_existing(params[:id],params[:user])
     if @user.error_messages.present?
+      get_roles
       render :action => :edit
     else
       redirect_to user_path(@user)
