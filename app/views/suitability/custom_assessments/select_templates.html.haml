@@ -1,4 +1,3 @@
-- template = @completion_notification_templates.first
 - content_for :jquery do
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery_ujs"
@@ -43,7 +42,12 @@
           - @reminder_templates.each do |template|
             %option{:value => template.id, selected: (@assessment.reminder_template_id == template.id), body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
               = template.name
-        .clr        
+        .clr   
+        .divider1
+        .medium-text
+          (Default tempaltes will be chosen if no templates are selected.)
+        .divider1
+             
     .pull-right.span18
       .email-template
         .gray-dark
@@ -51,25 +55,25 @@
             Following is the Preview of the email that Assessment takers will receive.
           .divider1
           #template_name.medium-text.bold
-            E-mail Template: #{template.preview(:name).html_safe}
+            E-mail Template: 
           .custom-email
             .test-text-to-send
               %span.extra-medium-text.span2.first.show
                 From
               .massage-body.italic.span15.medium-text.email-from
-                #{template.preview(:from).html_safe}
+                
               .clr
               .divider1
               %span.extra-medium-text.span2.first.show
                 Subject
               .massage-body.italic.span15.medium-text.email-subject
-                #{template.preview(:subject).html_safe}
+                
               .clr
               .divider1
               %span.extra-medium-text.span2.first.show
                 Message
               .massage-body.italic.span15.medium-text.email-body
-                #{template.preview(:body).html_safe}
+                
               .clr
     .clr  
     .divider2
