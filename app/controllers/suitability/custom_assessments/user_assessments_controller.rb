@@ -549,17 +549,18 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
 
   def get_templates(reminder = false)
-    category = ""
+    category = nil
+    template_id = nil
     query_options = {
     }
     if reminder
-      user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => @assessment.id).all.first
-      category = case @assessment.candidate_stage
+      case @assessment.candidate_stage
         when Vger::Resources::User::Stage::CANDIDATE
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE
         when Vger::Resources::User::Stage::EMPLOYED
           category = Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
-        end
+      end
+      template_id = @assessment.reminder_template_id
     else
       case @assessment.candidate_stage
         when Vger::Resources::User::Stage::CANDIDATE
@@ -573,8 +574,13 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
                      ]   
                         
       end
+      template_id = @assessment.invitation_template_id
     end
     query_options["template_categories.name"] = category if category.present?
+    if template_id.present?
+      query_options = {}
+      query_options["templates.id"] = template_id 
+    end
     @templates = get_templates_for_company(query_options, @company.id)
     @templates |= get_global_templates(query_options)
   end

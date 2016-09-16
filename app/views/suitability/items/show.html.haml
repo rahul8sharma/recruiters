@@ -17,6 +17,12 @@
   %br
   %b Help Text:
   = @item.help_text
+  %br
+  %b Language:
+  = @item.language
+  %br
+  %b Reference Item ID:
+  = @item.reference_item_id ? (link_to @item.reference_item_id, suitability_item_path(@item.reference_item_id)) : "Not Available"
 %br
 = link_to "Edit", edit_suitability_item_path(params[:id])
 \|
@@ -44,11 +50,13 @@
     %th
       Order
     %th
+      Reference Item
+    %th
   - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
     %tr
       %td
         = link_to option.id, suitability_item_option_path(params[:id], option.id)
-      %td
+      %td{ width: "40%" }
         = link_to option.body, suitability_item_option_path(params[:id], option.id)
       %td
         = option.score
@@ -56,5 +64,7 @@
         = option.active
       %td
         = option.option_order
+      %td
+        = option.reference_option_id ? option.reference_option_id : "Not Available"
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)
