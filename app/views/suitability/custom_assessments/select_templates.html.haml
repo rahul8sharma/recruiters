@@ -42,7 +42,12 @@
           - @reminder_templates.each do |template|
             %option{:value => template.id, selected: (@assessment.reminder_template_id == template.id), body: template.preview(:body), subject: template.preview(:subject), from: template.preview(:from),template_name: template.preview(:name)}
               = template.name
-        .clr        
+        .clr   
+        .divider1
+        .medium-text
+          (Default tempaltes will be chosen if no templates are selected.)
+        .divider1
+             
     .pull-right.span18
       .email-template
         .gray-dark
