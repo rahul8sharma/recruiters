@@ -3,7 +3,14 @@
   = javascript_include_tag "jquery_ujs"
   = javascript_include_tag "suitability/assessment"
 .new
-  %h1 Edit Assessment
+  %h2
+    Edit Assessment Details
+  %a{ href: report_configuration_company_custom_assessment_path(@company.id,@assessment.id) }
+    Edit Report Configuration
+  \|  
+  %a{ href: select_templates_company_custom_assessment_path(@company.id,@assessment.id) }
+    Edit Templates
+  .clr      
   = form_for @assessment, :as => :assessment, :url => company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), multipart: true, method: :put , html:{id:"assessment_form"} do |f|
     = render :partial => "assessments/assessment_fields", :locals => { :assessment => @assessment, :f => f }
     = f.hidden_field :validate_items, value: "on"

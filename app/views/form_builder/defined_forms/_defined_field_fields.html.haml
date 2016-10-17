@@ -38,5 +38,5 @@
   .clr  
   .field
     %label Options
-    = f.text_area :options, :rows => 5, value: (f.object.options ? f.object.options.to_json : nil)
+    = f.text_area :options, :rows => 5, value: (f.object.options.present? ? f.object.options.to_json : nil)
     

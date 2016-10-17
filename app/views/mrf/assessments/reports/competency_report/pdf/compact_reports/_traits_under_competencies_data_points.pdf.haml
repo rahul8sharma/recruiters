@@ -2,7 +2,7 @@
 - role_limit = 5
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each do |trait_score|
-    = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Details on 360 Degree Ratings on Traits (Under Competencies / Values)"}
+    = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on 360 Degree Ratings on Traits (Under Competencies / Values)"}
     - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
     .scores.border-bottom-grayLighter.mrf_data_points
       .color-info.big-text
@@ -96,7 +96,7 @@
     .page-break
 
     - if roles.size >= role_limit
-      = render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
+      = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Data Points on Scores: Traits Under Competencies"}
       .scores.border-bottom-grayLighter.mrf_data_points
         .color-info.big-text
           Details on 360&#176 Ratings on Traits (Under Competencies / Values)

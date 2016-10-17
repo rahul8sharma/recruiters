@@ -1,6 +1,6 @@
 - sorted_perception_gap = sort_perception_gap_section(@report.report_data[:competency_scores], @report.report_hash[:perception_gap]) 
 - perception_gap_trait_details = Hash[@report.report_hash[:perception_gap_section_names].to_a.reverse]
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml", :locals => { :display_text => "Perception Gap"}
+= render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "Perception Gap"}
 .competency_perception_gap_on_traits
   .divider2
   .title_section{:style=>"margin-left: 27px"}

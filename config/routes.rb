@@ -213,6 +213,7 @@ Recruiters::Application.routes.draw do
         match "set_weightage" => "suitability/custom_assessments#set_weightage", :as => :set_weightage
         match "functional_traits" => "suitability/custom_assessments#functional_traits", :as => :functional_traits
         match "report_configuration" => "suitability/custom_assessments#report_configuration", :as => :report_configuration
+        match "select_templates" => "suitability/custom_assessments#select_templates", :as => :select_templates
         get "reports" => "suitability/custom_assessments/user_assessments#reports", :as => :reports
         match "competency_norms" => "suitability/custom_assessments#competency_norms", :as => :competency_norms
         match "competencies" => "suitability/custom_assessments#competencies", :as => :competencies

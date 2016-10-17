@@ -1,4 +1,4 @@
-= render partial: "shared/360/compact_mrf_report_header.pdf.haml" , :locals => { :display_text => "360 Degree Ratings on Competencies"}
+= render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "360 Degree Ratings on Competencies"}
 - sorted_competency_scores = @report.report_data[:competency_scores].sort_by{|key,value| value[:score][:points].to_f }.reverse
 .scores_competencies_graph.descending_order.padding-all1
   .divider1

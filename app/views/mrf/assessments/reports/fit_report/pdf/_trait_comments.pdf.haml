@@ -1,6 +1,6 @@
 - if @report.report_data[:trait_scores].any?{|trait| trait[:comments].values.flatten.any?{|comment| comment[:comment].present?} }
   - @report.report_data[:trait_scores].each do |trait_scores|
-    = render partial: "shared/360/mrf_report_header.pdf.haml"
+    = render partial: "shared/360/mrf_report_header"
     .stakeholder-comments
       .divider2
       .blue_heading.extra-large-text
@@ -10,7 +10,7 @@
         = render :partial => section["path"], :locals => {:trait_scores => trait_scores }
     .page-break        
 - else
-  = render partial: "shared/360/mrf_report_header.pdf.haml"
+  = render partial: "shared/360/mrf_report_header"
   .stakeholder-comments
     .divider2
     .blue_heading.extra-large-text
