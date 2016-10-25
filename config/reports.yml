@@ -58,8 +58,18 @@ perception_gap:
   positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidate's self rating (Traits appear in descending order of average ratings)"
 
 oac_report:
-  xjUlEDpa: "Novice"
-  OKsrTfWV: "Practitioner"
-  TQHBqVkO: "Competent"
-  mbAKnHly: "Proficient"
-  QHqInEYf: "Expert"
+  xjUlEDpa: 
+    name: "Novice"
+    description: "The person is relatively new and inexperienced for the job or situation"
+  OKsrTfWV: 
+    name: "Practitioner"
+    description: "The person is somewhat qualified to handle a particular job or situation"
+  TQHBqVkO: 
+    name: "Competent"
+    description: "The person has sufficient knowledge and competence for the job or situation"
+  mbAKnHly: 
+    name: "Proficient"
+    description: "The person is well-equipped to deal with the assigned job or situation"
+  QHqInEYf: 
+    name: "Expert"
+    description: "The person has high expertise and skill required for handling a job or situation"
