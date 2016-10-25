@@ -60,16 +60,16 @@ perception_gap:
 oac_report:
   xjUlEDpa: 
     name: "Novice"
-    description: "The person is relatively new and inexperienced for the job or situation"
+    description: "A Novice is relatively new to learning and demonstrating this competency"
   OKsrTfWV: 
     name: "Practitioner"
-    description: "The person is somewhat qualified to handle a particular job or situation"
+    description: "A Practitioner is an advanced beginner in demonstrating this competency"
   TQHBqVkO: 
     name: "Competent"
-    description: "The person has sufficient knowledge and competence for the job or situation"
+    description: "A Competent performer demonstrates sufficient knowledge and skills related to this competency"
   mbAKnHly: 
     name: "Proficient"
-    description: "The person is well-equipped to deal with the assigned job or situation"
+    description: "A Proficient Performer is sufficiently qualified and equipped to demonstrate this competency"
   QHqInEYf: 
     name: "Expert"
-    description: "The person has high expertise and skill required for handling a job or situation"
+    description: "An Expert demonstrates advanced understanding and application of knowledge related to this competency"
