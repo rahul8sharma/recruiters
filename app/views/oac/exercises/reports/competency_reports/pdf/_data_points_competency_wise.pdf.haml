@@ -17,7 +17,7 @@
         .heading.pull-left
           = truncate config[:name], length: 35
         .heading.pull-right
-          = @custom_score_bucket_names["#{data[:score][:uid]}"]
+          = @custom_score_bucket_names["#{data[:score][:uid]}"]['name']
         .clr
         .divider1
         .padding-all2.no-t-padding
