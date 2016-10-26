@@ -40,7 +40,7 @@
             - @score_buckets.each do |score_bucket|
               .marker
                 %br/
-                = @custom_score_bucket_names["#{score_bucket.uid}"]
+                = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
             .clr
         .clr
       .clr
@@ -69,7 +69,7 @@
                     .marker{ class: klass }
                       %br/
                       - if score_bucket.name == data[:score][:bucket]
-                        = @custom_score_bucket_names["#{score_bucket.uid}"]
+                        = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
                   .clr
               .clr
             .clr     
@@ -87,7 +87,7 @@
           .heading.pull-left
             = comptency_hash[keys[index]][:name]
           .heading.pull-right
-            = @custom_score_bucket_names[comptency_hash[keys[index]][:score][:uid]]
+            = @custom_score_bucket_names[comptency_hash[keys[index]][:score][:uid]]['name']
           .clr
           .less-padding-all1
             = comptency_hash[keys[index]][:score][:description]
@@ -112,7 +112,7 @@
             .heading.pull-left
               = data[:name]
             .heading.pull-right
-              = @custom_score_bucket_names[data[:score][:uid]]
+              = @custom_score_bucket_names[data[:score][:uid]]['name']
             .clr
             .less-padding-all1
               = data[:score][:description]

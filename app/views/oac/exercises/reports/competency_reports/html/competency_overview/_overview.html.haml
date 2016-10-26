@@ -14,11 +14,10 @@
     .marker-container
       - @score_buckets.each do |score_bucket|
         .marker
-          -#
-            .arrow
-            .marker-info
-              = @custom_score_bucket_names["#{score_bucket.uid}"]
-          = @custom_score_bucket_names["#{score_bucket.uid}"]
+          .arrow
+          .marker-info
+            = @custom_score_bucket_names["#{score_bucket.uid}"]['description']
+          = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
       .clr
   .clr
 .clr

@@ -6,6 +6,6 @@
       - if toolwise_scores[tool]
         .span2.small-text{ class: (index==0? "no-border text-center":"") }
           -# = toolwise_scores[tool][:score_bucket]
-          = @custom_score_bucket_names["#{toolwise_scores[tool][:uid]}"]
+          = @custom_score_bucket_names["#{toolwise_scores[tool][:uid]}"]['name']
     .clr
   .clr
