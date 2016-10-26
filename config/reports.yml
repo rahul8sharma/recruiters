@@ -58,8 +58,18 @@ perception_gap:
   positive_differences: "This section lists aspects on which Stakeholder rating is higher than the candidate's self rating (Traits appear in descending order of average ratings)"
 
 oac_report:
-  xjUlEDpa: "Novice"
-  OKsrTfWV: "Practitioner"
-  TQHBqVkO: "Competent"
-  mbAKnHly: "Proficient"
-  QHqInEYf: "Expert"
+  xjUlEDpa: 
+    name: "Novice"
+    description: "A Novice is relatively new to learning and demonstrating this competency"
+  OKsrTfWV: 
+    name: "Practitioner"
+    description: "A Practitioner is an advanced beginner in demonstrating this competency"
+  TQHBqVkO: 
+    name: "Competent"
+    description: "A Competent performer demonstrates sufficient knowledge and skills related to this competency"
+  mbAKnHly: 
+    name: "Proficient"
+    description: "A Proficient Performer is sufficiently qualified and equipped to demonstrate this competency"
+  QHqInEYf: 
+    name: "Expert"
+    description: "An Expert demonstrates advanced understanding and application of knowledge related to this competency"

@@ -19,11 +19,11 @@
           .classic_competency_graph
             .classic_competency_graph_scale
               .block.pull-left
-                = @custom_score_bucket_names["#{score_buckets[0].uid}"]
+                = @custom_score_bucket_names["#{score_buckets[0].uid}"]['name']
               - score_buckets[1..score_buckets.size-1].each do |score_bucket|
                 .block.pull-left{:style=>"width: #{470/(score_buckets.size-1)}px;"}
                   .pull-right
-                    = @custom_score_bucket_names["#{score_bucket.uid}"]
+                    = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
                   .clr
               .clr
             .graph
