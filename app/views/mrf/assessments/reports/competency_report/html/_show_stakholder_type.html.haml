@@ -3,15 +3,16 @@
     - subjective_response_value[:role_wise_subjective_responses].each_slice(2) do |step_role_wise_subjective_responses|
       %tr.clearfix
         - step_role_wise_subjective_responses.each do |role, role_wise_response|
-          %td
-            - role_wise_response.each do |comments|
-              .extra-medium-text
-                = role.titleize
-              .divider1
-              .medium-text
-                = comments
+          - role_wise_response.each do |comments|
+            - if comments.present?
+              %td
+                .extra-medium-text
+                  = role.titleize
+                .divider1
+                .medium-text
+                  = comments
 - else
   .no-responses
-    .box
+    .box.padding-all1
       No Responses
   .divider3

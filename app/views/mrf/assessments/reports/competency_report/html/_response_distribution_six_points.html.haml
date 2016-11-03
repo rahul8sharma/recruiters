@@ -20,7 +20,7 @@
               %li.titles.clearfix.bold
                 .span13
                   Questions on 
-                  = truncate "Trait: #{trait_score[:trait][:name]}", length: 80
+                  = truncate "#{trait_score[:trait][:name]}", length: 80
                 - item_data = trait_score[:items][:other_responses].first
                 - item_data[:responses].each do |body,response_count|
                   .span3
@@ -30,7 +30,7 @@
                   %li.clearfix
                     .span13
                       .question{:style => "padding-top: 5px;"}
-                        Q#{index+1}: #{item_data[:item]}
+                        Q. #{item_data[:item]}
                     - item_data[:responses].each_with_index do |(body,response_count),index|
                       .span3
                         = response_count
@@ -40,7 +40,7 @@
                   %li.clearfix.candidate_answer
                     .span13
                       .question
-                        Q#{index+1}: #{item_data[:item]}
+                        Q. #{item_data[:item]}
                     - item_data[:responses].each_with_index do |(body,response_count),index|
                       - klass = response_count > 0 ? "active" : ""
                       .span3{:class => klass}
