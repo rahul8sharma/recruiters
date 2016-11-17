@@ -52,9 +52,9 @@
                   .span9
                     .question{:style => "padding-top: 5px;"}
                       %span.bold
-                        Q#{index+1}
+                        Q.
                       #{item_data[:item]}
-                  - item_data[:responses].each_with_index do |(body,response_count),index|
+                  - item_data[:responses].each_with_index do |(body,response_count),index1|
                     .span2
                       = response_count
             -else 
@@ -63,9 +63,9 @@
                   .span9
                     .question{:style => "padding-top: 5px;"}
                       %span.bold
-                        Q#{index+1}
+                        Q.
                       #{item_data[:item]}
-                  - item_data[:responses].each_with_index do |(body,response_count),index|
+                  - item_data[:responses].each_with_index do |(body,response_count),index1|
                     - klass = response_count > 0 ? "active" : ""
                     .span2{:class => klass}
                       = response_count
