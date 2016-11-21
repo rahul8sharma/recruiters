@@ -61,7 +61,8 @@
         %input{name: "ignore_duplicate_names", id: "ignore_duplicate_names", type: "checkbox"}
         Ignore Duplicate Names
         .company-name.hide
-          %input{ id: "input_company_name", "data-company-name" => @company.name, placeholder: "Enter Exact Company Name (Case Sensitive)" }
+          %input.span8{ id: "input_company_name", "data-company-name" => @company.name, placeholder: "Enter Exact Company Name (Case Sensitive)" }
+        .clr
         .small-text
           (Checking this option would keep the last name that appears in the sheet for a stakeholder/candidate.)          
     = f.submit "Send Invitations", class: "pull-right btn btn-info big-text big font-bold", name: "Send", data: { confirm: "Are you sure?" }
