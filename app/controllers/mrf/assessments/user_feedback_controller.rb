@@ -333,6 +333,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
                         :assessment_id => @assessment.id,
                         :sender_id => current_user.id,
                         :send_invitations => params[:send_invitations],
+                        :ignore_duplicate_names => params[:ignore_duplicate_names].present?,
                         :template_id => params[:template_id],
                         :worksheets => [{
                           :file => "BulkUpload.xls",

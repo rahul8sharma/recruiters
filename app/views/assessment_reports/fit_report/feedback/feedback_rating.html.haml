@@ -29,6 +29,8 @@
             Your rating is
           %input{:type=>"hidden", name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][score]", value: 0}
           %select.span4{ name: "feedback[factor_feedback][#{factor_score[:factor_score_id]}][company_norm_bucket_id]" }
+            %option{ value: "" }
+              Select Rating
             - @company_norm_buckets.each do |norm_bucket|
               %option{ value: norm_bucket.id }
                 = norm_bucket.name
