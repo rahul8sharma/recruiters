@@ -98,18 +98,22 @@ class UsersManagementController < ApplicationController
     obj = S3Utils.upload(s3_key, data)
 
     Vger::Resources::User\
-      .import_assessments_factor_scores(
-                      :file => {
-                        :bucket => obj.bucket.name,
-                        :key => obj.key
-                      }, 
-                      :override_overall_scores => params[:import][:override_overall_scores].present?,
-                      :override_competency_scores => params[:import][:override_competency_scores].present?,
-                      :email => params[:import][:email]
+      .export_user_responses(
+                      params[:user].merge({
+                        :args => {
+                          :file => {
+                            :bucket => obj.bucket.name,
+                            :key => obj.key
+                          }, 
+                          :override_overall_scores => params[:import][:override_overall_scores].present?,
+                          :override_competency_scores => params[:import][:override_competency_scores].present?,
+                          :email => params[:import][:email]
+                        }
+                      })
                     )
     redirect_to manage_users_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
-
+  
   def import_user_scores
     unless params[:import][:file]
       flash[:notice] = "Please select a zip file."

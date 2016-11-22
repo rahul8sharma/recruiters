@@ -80,7 +80,8 @@ module ApplicationHelper
       "sent" => "Pending",
       "started" => "Started",
       "completed" => "Completed",
-      "ready_for_scoring" => "Completed",
+      "ready_for_scoring" => "Jombay Completed",
+      "competency_scoring" => "Jombay Completed",
       "scored" => "Completed",
       "expired" => "Expired"
     }

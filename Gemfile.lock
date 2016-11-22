@@ -46,6 +46,7 @@ GIT
       her (~> 0.6.8)
       kaminari (= 0.14.1)
       rails (>= 3.0.0)
+      spreadsheet (= 1.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -288,4 +289,4 @@ DEPENDENCIES
   wicked_pdf (= 0.9.6)
 
 BUNDLED WITH
-   1.11.2
+   1.13.6

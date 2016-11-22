@@ -112,23 +112,27 @@ class AssessmentsController < ApplicationController
   def get_factors
     factors = Vger::Resources::Suitability::Factor.where(
       :query_options => {
-        :active => true
+        :active => true,
+        :type => factor_types
       }, 
       :scopes => { 
         :global => nil, 
-        :for_suitability => nil 
+        :for_suitability => nil
       }, 
+      :root => "factor",
       :methods => [:type, :direct_predictor_ids]
     ).all.to_a
     factors |= Vger::Resources::Suitability::Factor.where(
       :query_options => { 
         "companies_factors.company_id" => params[:company_id], 
-        :active => true
+        :active => true,
+        :type => factor_types
       }, 
       :scopes => { 
         :for_suitability => nil 
       }, 
       :methods => [:type, :direct_predictor_ids], 
+      :root => "factor",
       :joins => [:companies]
     ).all.to_a
     factors |= Vger::Resources::Suitability::AlarmFactor.active.where(
@@ -192,10 +196,14 @@ class AssessmentsController < ApplicationController
 
       if factor.type == 'Suitability::AlarmFactor'
         @alarm_factor_norms << assessment_factor_norm
-      elsif factor.type == 'Suitability::Factor' && !direct_predictor_parent_ids.include?(factor_id)
+      elsif factor_types.include?(factor.type) && !direct_predictor_parent_ids.include?(factor_id)
         @factor_norms << assessment_factor_norm
       end
     end
+  end
+  
+  def factor_types
+    ["Suitability::Factor","Suitability::PearsonFactor"]
   end
 
   def get_company_norm_buckets  
@@ -249,7 +257,7 @@ class AssessmentsController < ApplicationController
       assessment_factor_norms = added_factors.select{|assessment_norm| competency.factor_ids.include? (assessment_norm.factor_id)}
       factors_by_competency = @factors.select{|id,factor| competency.factor_ids.include? id }.values
 
-      factors = assessment_factor_norms.select{|x| x.factor.type == 'Suitability::Factor'}
+      factors = assessment_factor_norms.select{|x| factor_types.include?(x.factor.type)}
       alarm_factors = assessment_factor_norms.select{|x| x.factor.type == 'Suitability::AlarmFactor'}
 
       @factor_norms << factors
