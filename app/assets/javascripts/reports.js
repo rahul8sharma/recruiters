@@ -16,12 +16,18 @@ function validateEmail(email) {
 } 
 
 function checkEmail(e){
+  if($("#feedback_form select option:selected[value='']").length > 0) {
+    $('.feedback-email-form').addClass('error');
+    $(".feedback-email-form .error-message .msg").html("Your rating for all the traits is needed to confirm feedback.")
+    //alert("Please select your rating for all the traits");
+    return false;
+  }
   var email = document.getElementById("feedback_email").value;
   if(validateEmail(email)) {
     return true;
   }else {
-    var d = document.getElementsByClassName('feedback-email-form')[0];
-    d.className = d.className + " error";
+    $('.feedback-email-form').addClass('error');
+    $(".feedback-email-form .error-message .msg").html("Your Email ID is needed to confirm feedback. Please enter it below & click Submit.")
     //alert("Please enter a valid email address.");
     return false;
   }

@@ -33,7 +33,7 @@
 .extra-medium-text.color-info
   = bulk_addition_text
 .divider2
-= form_for :assessment, as: :assessment, url: bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html: { multipart: true } do |f|
+= form_for :assessment, as: :assessment, url: bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id), method: :put, html: { multipart: true, id: "bulk_upload_form" } do |f|
   .span25.first.left-offset4.extra-medium-text
     .bulk-upload
       .span.left-offset1.pull-left
@@ -42,22 +42,46 @@
             .span.pull-left{:style => 'padding: 5px 0px 0px 0px;'}
             = fields_for :bulk_upload do |ff|
               = ff.file_field(:file, accept: '.xls')
-            .span.default-text
-              (File format supported: XLS (97/2000/XP/2003)
+              .span.default-text
+                (File format supported: XLS (97/2000/XP/2003)
           .span14.extra-medium-text
             %a{:target => "_blank", :href => download_sample_csv_for_mrf_bulk_upload_company_mrf_assessment_path(@company.id, @assessment.id)}
               Download Sample File for adding Candidates and Stakeholders
   .divider4
   = render :partial => "email_settings", locals: { reminder: false }
   .divider2
-  .span12.pull-right.medium-text
+  .span24.pull-right.medium-text
     - if is_superuser?
       .span.medium-text.pull-left
         %label.line-height2
           %input{name: "send_invitations", type: "checkbox", checked: "checked"}
           Send Email Invitations 
-    %input.pull-right.btn.btn-info.big-text.big.font-bold{ type: "submit", value: "Send Invitations" , name:"send"}
-  .clr  
-
-= javascript_include_tag 'jquery'
-= javascript_include_tag 'jquery_ujs'
+    .span.medium-text.pull-left
+      %label.line-height2
+        %input{name: "ignore_duplicate_names", id: "ignore_duplicate_names", type: "checkbox"}
+        Ignore Duplicate Names
+        .company-name.hide
+          %input.span8{ id: "input_company_name", "data-company-name" => @company.name, placeholder: "Enter Exact Company Name (Case Sensitive)" }
+        .clr
+        .small-text
+          (Checking this option would keep the last name that appears in the sheet for a stakeholder/candidate.)          
+    = f.submit "Send Invitations", class: "pull-right btn btn-info big-text big font-bold", name: "Send", data: { confirm: "Are you sure?" }
+  .clr
+  
+:javascript
+  $("#ignore_duplicate_names").on("change", function(){
+    if($(this).is(":checked")) {
+      $(".company-name").removeClass('hide');
+    } else {
+      $(".company-name").addClass('hide');
+    }
+  });
+  $("#bulk_upload_form").submit(function(e){
+    if($(".company-name").is(":visible")) {
+      if($("#input_company_name").val().trim() != $("#input_company_name").data("company-name")) {
+        alert("Please enter correct company name.");
+        return false;
+      }
+    }
+    return true;
+  });
