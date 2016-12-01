@@ -4,7 +4,7 @@
     = f.text_area :company_ids, value: @factor.company_ids.join(",")
   .field
     = f.label :type
-    = f.select :type, ["Suitability::Factor","Suitability::PearsonFactor"]
+    = f.select :type, controller.send(:select_type)
   .field
     = f.label :active
     = f.check_box :active
