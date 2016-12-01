@@ -5,7 +5,7 @@
       %strong Download Hive Scores for Multiple Assessments
     = f.fields_for "args" do |f|
       %p
-        Assessment IDs * : (Comma Separated )
+        Assessment IDs * : (Comma Separated, Keep blank to export for all hive assessments)
         = f.text_field :assessment_ids
         
       = f.fields_for "folder" do |f|

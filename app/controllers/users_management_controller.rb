@@ -78,7 +78,7 @@ class UsersManagementController < ApplicationController
   end
 
   def export_assessments_factor_scores
-    if params[:user][:args][:folder][:url].blank? || params[:user][:args][:assessment_ids].blank?
+    if params[:user][:args][:folder][:url].blank?
       flash[:error] = "Please enter required details"
       redirect_to request.env['HTTP_REFERER'] and return
     end
