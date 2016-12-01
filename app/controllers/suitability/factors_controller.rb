@@ -86,7 +86,7 @@ class Suitability::FactorsController < MasterDataController
   end
 
   def edit
-    @factor = api_resource.find(params[:id], :root => :factor, methods: [:company_ids])
+    @factor = api_resource.find(params[:id], :root => :factor, methods: [:company_ids, :type])
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -144,7 +144,13 @@ class Suitability::FactorsController < MasterDataController
   end
   
   def select_type
-    ["Suitability::Factor","Suitability::DirectPredictor","Suitability::LieDetector","Suitability::AlarmFactor"]
+    [
+      "Suitability::Factor",
+      "Suitability::PearsonFactor",
+      "Suitability::DirectPredictor",
+      "Suitability::LieDetector",
+      "Suitability::AlarmFactor"
+    ]
   end
   
   def search_columns
