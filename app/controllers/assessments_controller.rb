@@ -135,12 +135,6 @@ class AssessmentsController < ApplicationController
       :root => "factor",
       :joins => [:companies]
     ).all.to_a
-    factors |= Vger::Resources::Suitability::AlarmFactor.active.where(
-      :methods => [:type, :direct_predictor_ids], 
-      :scopes => { 
-        :for_suitability => nil 
-      }
-    ).all.to_a
     @factors = Hash[factors.sort_by{|factor| factor.name.to_s }.collect{|x| [x.id,x]}]
   end
 
@@ -203,7 +197,7 @@ class AssessmentsController < ApplicationController
   end
   
   def factor_types
-    ["Suitability::Factor","Suitability::PearsonFactor"]
+    Vger::Resources::Suitability::Factor.types_with_custom_norms
   end
 
   def get_company_norm_buckets  

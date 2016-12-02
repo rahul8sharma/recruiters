@@ -57,7 +57,9 @@ class SpecialMasterDataController < MasterDataController
   
   def select_factor_id
     factors = [ ["Global",""] ]
-    factors |= Vger::Resources::Suitability::Factor.all.to_a.collect{|factor| [factor.name, factor.id] }
+    factors |= Vger::Resources::Suitability::Factor.where(:root => :factor).all.to_a.collect{|factor| [factor.name, factor.id] }
+    factors |= Vger::Resources::Suitability::PearsonFactor.where(:root => :factor).all.to_a.collect{|factor| [factor.name, factor.id] }
+    factors |= Vger::Resources::Suitability::LieDetector.where(:root => :factor).all.to_a.collect{|factor| [factor.name, factor.id] }
     Hash[factors]
   end
 end
