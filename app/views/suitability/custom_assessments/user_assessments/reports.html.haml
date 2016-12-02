@@ -72,7 +72,7 @@
         No reports available! This can happen if no one has completely answered this assessment or if reports are still being generated.
   .divider1
 - url = email_reports_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id])
-= render :partial => "suitability/custom_assessments/disclaimers/brand_partners/#{@assessment.brand_partner}"
+= render :partial => "suitability/custom_assessments/disclaimers/brand_partner"
 - content_for :daterangepicker do
   .medium-text.pull-left.line-height2.bold
     %input{ name: "date_range", class: "daterangepicker" }
