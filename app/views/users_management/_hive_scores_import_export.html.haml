@@ -1,0 +1,39 @@
+= form_for :user, url: export_assessments_factor_scores_users_path, multipart: true, :method => :post do |f|
+  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::AssessmentsHiveScoresExporter" }
+  %fieldset
+    %legend 
+      %strong Download Hive Scores for Multiple Assessments
+    = f.fields_for "args" do |f|
+      %p
+        Assessment IDs * : (Comma Separated, Keep blank to export for all hive assessments)
+        = f.text_field :assessment_ids
+        
+      = f.fields_for "folder" do |f|
+        %p
+          Google Drive Folder Url * : 
+          = f.text_field "url"
+      %p
+        From Hours: 
+        = f.text_field :hours
+
+      = f.hidden_field :email, :value => current_user.email
+
+  .actions
+    = submit_tag 'Download'
+
+%br/
+%br/
+
+= form_tag import_assessments_factor_scores_users_path, multipart: true, :method => :post do
+  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::AssessmentsHiveScoresImporter" }
+  %fieldset
+    %legend 
+      %strong Import Hive Scores for Multiple Assessments
+    = fields_for "import" do |f|
+      %p
+        Zipped XLS File
+        = f.file_field "file"
+      = f.hidden_field :email, :value => current_user.email
+
+    .actions
+      = submit_tag "Import Scores"

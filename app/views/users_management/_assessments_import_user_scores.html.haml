@@ -1,4 +1,5 @@
 = form_tag import_assessments_factor_scores_users_path, multipart: true, :method => :post do
+  %input{ type: "hidden", name: "user[job_klass]", value: "Suitability::AssessmentsFactorScoresImporter" }
   %fieldset
     %legend 
       %strong Import Candidate Scores for Multiple Assessments
