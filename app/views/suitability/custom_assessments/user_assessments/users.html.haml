@@ -124,7 +124,7 @@
       = render :partial => "shared/pagination", :locals => { :objects => @user_assessments}
     .clr
 .divider1
-= render :partial => "suitability/custom_assessments/disclaimers/brand_partners/#{@assessment.brand_partner}" 
+= render :partial => "suitability/custom_assessments/disclaimers/brand_partner"
 = render :partial => "shared/export_popup_box", :locals => {:fields => export_fields, :url => email_assessment_status_url }
 
 = javascript_include_tag 'jquery'
