@@ -10,7 +10,7 @@
     - left = (from_bucket_weight-1)*width
     - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
     %li
-      .first.hexagon-icon.span1{:style => "margin-top: 14px"}
+      .first.hexagon-icon.span1{:style => "margin-top: 14px",:class => klass}
       .competency-name.pull-left
         = data[:name]
       .competency-value.pull-right
