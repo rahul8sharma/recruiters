@@ -154,7 +154,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @assessments = api_resource.where(
       :query_options => { 
         :company_id => params[:company_id], 
-        :assessment_type => ["fit","competency","super_competency"] 
+        :assessment_type => ["fit","competency"] 
       }, 
       :order => "#{order_by} #{order_type}", 
       :page => params[:page], 
