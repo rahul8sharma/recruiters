@@ -1,2 +1,5 @@
-%a{:href=> send_reminder_company_oac_exercise_url(company.id, exercise.id, user_exercise.user_id), :title=> "Send Reminder" }
-  Send Reminder
+- if is_superuser?
+  %a{:href=> send_reminder_company_oac_exercise_url(company.id, exercise.id, user_exercise.user_id), :title=> "Send Reminder" }
+    Send Reminder
+- else
+  \-

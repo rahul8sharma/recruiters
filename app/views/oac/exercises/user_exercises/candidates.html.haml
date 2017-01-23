@@ -2,10 +2,11 @@
   .span13.page-title.first
     .divider1
     Exercise #{@exercise.id} - #{@exercise.name}
-  %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_oac_exercise_path(@company.id), :title => "Click Here To Create new Assessment Center"}
-    Create New Assessment Center
-  %a.btn.btn-info.big.big-text.pull-right.span{:href=>add_users_bulk_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
-    Add Candidates
+  - if is_superuser?  
+    %a.btn.btn-info.big.big-text.pull-right.span{:href => new_company_oac_exercise_path(@company.id), :title => "Click Here To Create new Assessment Center"}
+      Create New Assessment Center
+    %a.btn.btn-info.big.big-text.pull-right.span{:href=>add_users_bulk_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id]), :title=>"View All Candidates"}
+      Add Candidates
   .clr
   .divider2
   = render :partial => "shared/oac/oac_assessment_sub_nav"
@@ -14,7 +15,7 @@
     .list-snippet-titles.extra-medium-text.clearfix
       .span3.first
         ATID
-      %div{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
+      %div.span10
         Assessment Taker
       .span8
         Status
@@ -30,7 +31,7 @@
           .span3.first
             %a{:href=> "", :title=>"User Id"} 
               =user_exercise.user.id
-          .info-block{ class: @company.subscription_mgmt ? 'span5' : 'span10' }
+          .info-block.span10
             %a{:href=> candidate_company_oac_exercise_path(@company.id, @exercise.id, user_exercise.user_id), :title=>"View Details"}
               =user_exercise.user.name
           .span8

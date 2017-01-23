@@ -1,0 +1,5 @@
+- if is_superuser?
+  = link_to "View Report (Review)", s3_report_company_oac_exercise_path(company.id, exercise.id, user_exercise.user_id, report.id), target: "_blank"
+- else
+  %i.icon-spinner.icon-spin
+  Generating Report...  
