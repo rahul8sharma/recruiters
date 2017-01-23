@@ -40,6 +40,13 @@
                 .divider1
                 %input.fw{:type=>"text", :placeholder=>"Page Size", name: "exercise[exercise_tools_attributes][#{index}][page_size]", value: exercise_tool.page_size }
                 .divider1
+                %input.fw{:type=>"text", :placeholder=>"Thank you message", name: "exercise[exercise_tools_attributes][#{index}][thank_you_message]", value: exercise_tool.thank_you_message }
+                .divider1
+                %select.fw{name: "exercise[exercise_tools_attributes][#{index}][defined_form_id]", value: exercise_tool.defined_form_id }
+                  - @defined_forms.each do |defined_form|
+                    %option{ value: defined_form.id, selected: (exercise_tool.defined_form_id.to_s == defined_form.id.to_s) }
+                      = defined_form.name
+                .divider1
               /
                 %input.fw{:type=>"text", :placeholder=>"Assessment URL", name: "exercise[exercise_tools_attributes][#{index}][url]", value: exercise_tool.url }
                 .divider1

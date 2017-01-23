@@ -348,6 +348,11 @@ class Oac::ExercisesController < ApplicationController
     @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
                         .all.to_a.collect{|x| [x.id,x]}]
     @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]  
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(
+      scopes: { for_company_id: @company.id }, 
+      query_options: { active: true },
+      methods: [:parent_uid]
+    ).all.to_a
   end
   
   def validate_status
