@@ -1,3 +1,5 @@
+= javascript_include_tag 'select_company'
+= stylesheet_link_tag 'jquery-ui/jquery.datetimepicker'
 .companies-list
   .divider1
   .page-title.pull-left
@@ -6,21 +8,44 @@
     .span6.extra-medium-text.gray-dark.first
       Click on Account Name or ID to go to an Account
   .border-primary.padding-all1.pull-right
-    .extra-medium-text.pull-left
-      Export and Email Overall Data (All Accounts)
-    .span.border-left-grayLighter
+    .medium-text.pull-left
+      Export and Email Overall Data (All / Selected Accounts)
+      .divider1
+      .pull-left.span4
+        .span
+          From: 
+        %input.span3.datepicker.from{ type: "text", id: "start_date" }
+      .pull-left.span4
+        .span
+          To: 
+        %input.span3.datepicker.to{ type: "text", id: "end_date" }  
+      .clr  
+    .span
+      .divider2
       .span
-        %a.btn.btn-warning.default-text{:href => email_assessment_stats_company_managers_path}
-          %i.icon-check
-          Assessment Status Summary
+        = form_tag email_assessment_stats_company_managers_path, method: :post do |f|
+          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
+          %input.start_date{ type: "hidden", name: "export[date_range][start]" }
+          %input.end_date{ type: "hidden", name: "export[date_range][end]" }
+          %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_assessment_stats_link"}
+            %i.icon-check
+            Assessment Status Summary
       .span
-        %a.btn.btn-warning.default-text{:href => email_reports_summary_company_managers_path}
-          %i.icon-file
-          Reports Summary    
+        = form_tag email_reports_summary_company_managers_path, method: :post do |f|
+          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
+          %input.start_date{ type: "hidden", name: "export[date_range][start]" }
+          %input.end_date{ type: "hidden", name: "export[date_range][end]" }
+          %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_reports_summary_link"}
+            %i.icon-file
+            Reports Summary    
       .span
-        %a.btn.btn-warning.default-text{:href => email_usage_stats_company_managers_path}
-          %i.icon-bar-chart
-          Usage Summary
+        = form_tag email_usage_stats_company_managers_path, method: :post do |f|
+          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
+          %input.start_date{ type: "hidden", name: "export[date_range][start]" }
+          %input.end_date{ type: "hidden", name: "export[date_range][end]" }
+          %a.btn.btn-warning.default-text.export-link{href: "#", id: "export_usage_stats_link"}
+            %i.icon-bar-chart
+            Usage Summary
 
     .clr
   .clr
@@ -31,7 +56,10 @@
         .divider2
         .list-snippet-titles.big-text.clearfix
           .span8.first
+            %input.pull-left{ type: "checkbox", :onchange => "$('.company-id').prop('checked',$(this).is(':checked'))" }
+            &nbsp;&nbsp;
             = sort_link "Account ID", select_companies_path, "id", params[:search]
+            .clr
           .span8
             = sort_link "Account Name", select_companies_path, :name, params[:search]
           .span.text-center
@@ -42,8 +70,11 @@
           - @companies.each do |company|
             %li.list-snippet
               .span8.first
-                %a.medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+                %input.company-id.pull-left{ type: "checkbox", value: company.id }
+                %a.pull-left.show.medium-text.line-height1{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
+                  &nbsp;&nbsp;
                   = company.id
+                .clr  
               .span8
                 %a.medium-text{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
                   = company.name
@@ -54,7 +85,7 @@
                     .info
                       Email Assessment Status Summary
                     .arrow
-                  %a.huge-text.span1.info-block{:href => email_reports_summary_company_managers_path(:company_ids => company.id), :title => "Email Reports Summary"}
+                  %a.huge-text.span1.info-block{:href => email_reports_summary_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
                     %i.icon-file
                     .info
                       Email Reports Summary
