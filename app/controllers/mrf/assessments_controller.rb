@@ -14,7 +14,12 @@ class Mrf::AssessmentsController < ApplicationController
     order_by = params[:order_by] || "mrf_assessments.created_at"
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
-    @assessments = Vger::Resources::Mrf::Assessment.where(company_id: params[:company_id], order: order, page: params[:page], per: 10).all
+    @assessments = Vger::Resources::Mrf::Assessment.where(
+      company_id: params[:company_id], 
+      order: order, 
+      select: [:id, :created_at, :name],
+      page: params[:page], per: 10
+    ).all
     @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
     @user_counts = Vger::Resources::User.group_count(
       group: "mrf_stakeholder_assessments.assessment_id", 
@@ -379,10 +384,24 @@ class Mrf::AssessmentsController < ApplicationController
 
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {
-                    :assessment_traits => { include: [:trait], methods: [:from_norm_bucket_name,:to_norm_bucket_name] },
-                    :assessment_competencies => { include: { :competency => { methods: [:factor_names, :mrf_trait_names] } }, methods:[:from_norm_bucket_name,:to_norm_bucket_name] }
-                    })
+      @assessment = Vger::Resources::Mrf::Assessment.find(
+        params[:id], 
+        company_id: @company.id, 
+        :include => {
+          :assessment_traits => { 
+            include: [:trait], 
+            methods: [:from_norm_bucket_name,:to_norm_bucket_name] 
+          },
+          :assessment_competencies => { 
+            include: { 
+              :competency => { 
+                methods: [:factor_names, :mrf_trait_names] 
+              } 
+            }, 
+            methods: [:from_norm_bucket_name,:to_norm_bucket_name] 
+          }
+        }
+      )
     else
       @assessment = Vger::Resources::Mrf::Assessment.new
     end
