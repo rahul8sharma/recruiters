@@ -566,7 +566,7 @@ Recruiters::Application.routes.draw do
   resources :template_categories do
   end
 
-  resources :templatevariables do
+  resources :template_variables do
     collection do
       post :import
       get :manage
