@@ -537,9 +537,9 @@ Recruiters::Application.routes.draw do
       post :import
       post :import_from_google_drive
       post :export_to_google_drive
-      get :email_usage_stats, :as => :email_usage_stats
-      get :email_assessment_stats, :as => :email_assessment_stats
-      get :email_reports_summary, :as => :email_reports_summary
+      match :email_usage_stats, :as => :email_usage_stats
+      match :email_assessment_stats, :as => :email_assessment_stats
+      match :email_reports_summary, :as => :email_reports_summary
     end
   end
 

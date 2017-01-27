@@ -4,12 +4,14 @@ class CompanyManagersController < MasterDataController
   end
 
   def email_usage_stats
+    params[:export] ||= {}
+    params[:export][:company_ids] = params[:export][:company_ids].to_s.split(',')
      options = {
       :account_usage_stats => {
         :job_klass => "AccountUsageStatsExporter",
         :args => {
           :user_id => current_user.id
-        }
+        }.merge(params[:export])
       }
     }
     Vger::Resources::User.find(current_user.id)\
@@ -18,13 +20,14 @@ class CompanyManagersController < MasterDataController
   end
   
   def email_reports_summary
+    params[:export] ||= {}
+    params[:export][:company_ids] = params[:export][:company_ids].to_s.split(',')
     options = {
       :assessment_stats => {
         :job_klass => "Suitability::Assessment::AccountReportsSummaryExporter",
         :args => {
           :user_id => current_user.id,
-          :company_ids => params[:company_ids]
-        }
+        }.merge(params[:export])
       }
     }
     Vger::Resources::User.find(current_user.id)\
@@ -33,12 +36,14 @@ class CompanyManagersController < MasterDataController
   end
   
   def email_assessment_stats
-     options = {
+    params[:export] ||= {}
+    params[:export][:company_ids] = params[:export][:company_ids].to_s.split(',')
+    options = {
       :assessment_stats => {
         :job_klass => "Suitability::Assessment::AccountAssessmentStatusExporter",
         :args => {
           :user_id => current_user.id
-        }
+        }.merge(params[:export])
       }
     }
     Vger::Resources::User.find(current_user.id)\

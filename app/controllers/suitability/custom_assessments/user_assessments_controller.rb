@@ -545,7 +545,11 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         methods << :assessmentwise_statistics
       end
     end
-    @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
+    @company = Vger::Resources::Company.find(
+      params[:company_id], 
+      :methods => methods,
+      :select  => [:id, :name] 
+    )
   end
 
   def get_templates(reminder = false)
