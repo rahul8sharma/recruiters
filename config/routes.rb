@@ -405,6 +405,7 @@ Recruiters::Application.routes.draw do
         
         get "download_bulk_upload_csv" => "oac/exercises/user_exercises#download_bulk_upload_csv", as: :download_bulk_upload_csv
         get "export_report_summary" => "oac/exercises/user_exercises#export_report_summary", :as => :export_report_summary
+        get "export_status_summary" => "oac/exercises/user_exercises#export_status_summary", :as => :export_status_summary
       end
     end
 
@@ -1237,6 +1238,8 @@ Recruiters::Application.routes.draw do
     get "manage" => "exercise_management#manage", as: :manage
     post "export_tool_wise_scores" => "exercise_management#export_tool_wise_scores", as: :export_tool_wise_scores
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
+    post "export_tool_wise_status" => "exercise_management#export_tool_wise_status", as: :export_tool_wise_status
+    post "import_tool_wise_status" => "exercise_management#import_tool_wise_status", as: :import_tool_wise_status
     
     resources :super_competency_guidelines do
       collection do

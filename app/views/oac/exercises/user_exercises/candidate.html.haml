@@ -3,7 +3,7 @@
     .divider1
     Exercise #{@exercise.id} - #{@exercise.name}
 
-  %a.btn.btn-info.big.big-text.pull-right.span{:href=> add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id), :title=>"View All Candidates"}
+  %a.btn.btn-info.big.big-text.pull-right.span{:href=> landing_page_for_oac_exercise(@exercise), :title=>"View All Candidates"}
     View All Candidates
   .clr
   .divider2

@@ -1,0 +1,14 @@
+.span18.pull-right
+  %ul#sub-nav.pull-right
+    %li
+      %a.setting{href: "#", title: "Account"}
+      %ul.medium-text
+        %li
+          %a{href: "/logout"} Logout
+  %ul.navbar.pull-right.clearfix
+    - if defined?(@company)
+      %li
+        %a{:href=>home_company_oac_exercises_path(@company), :title=> "VAC",class: (["oac/exercises/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+          VAC Home
+  .clr
+.clr

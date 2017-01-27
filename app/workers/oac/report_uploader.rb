@@ -98,13 +98,19 @@ module Oac
         
         html_s3 = upload_file_to_s3("oac_reports/html/#{html_file_id}",html_save_path)
         pdf_s3 = upload_file_to_s3("oac_reports/pdf/#{pdf_file_id}",pdf_save_path)
+        
+        if @report.report_data[:show_report]
+          status = Vger::Resources::Oac::UserExerciseReport::Status::UPLOADED
+        else
+          status = Vger::Resources::Oac::UserExerciseReport::Status::REVIEW
+        end  
     
         Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
           :html_key => html_s3[:key],
           :html_bucket => html_s3[:bucket],
           :pdf_key => pdf_s3[:key],
           :pdf_bucket => pdf_s3[:bucket],
-          :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADED
+          :status => status
         )
         
         File.delete(html_save_path)
