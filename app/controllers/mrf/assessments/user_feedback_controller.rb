@@ -335,6 +335,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
                         :send_invitations => params[:send_invitations],
                         :ignore_duplicate_names => params[:ignore_duplicate_names].present?,
                         :template_id => params[:template_id],
+                        :trial => params[:trial] == 'on',
                         :worksheets => [{
                           :file => "BulkUpload.xls",
                           :bucket => @s3_bucket,
@@ -359,7 +360,13 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
 
   def get_assessment
     if params[:id].present?
-      @assessment = Vger::Resources::Mrf::Assessment.find(params[:id], company_id: @company.id, :include => {:assessment_traits => { methods: [:trait] } })
+      @assessment = Vger::Resources::Mrf::Assessment.find(
+        params[:id], 
+        company_id: @company.id, 
+        include: {
+          assessment_traits: { methods: [:trait] } 
+        }
+      )
     else
       @assessment = Vger::Resources::Mrf::Assessment.new
     end
@@ -448,7 +455,8 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
         stakeholder_id: stakeholder_assessment.stakeholder_id,
         role: feedback_hash[:role],
         user_id: user.id,
-        status: Vger::Resources::Mrf::Feedback::Status::PENDING
+        status: Vger::Resources::Mrf::Feedback::Status::PENDING,
+        trial: params[:trial] == 'on'
       )
       if !feedback.error_messages.empty?
         flash[:error] = feedback.error_messages.join("<br/>").html_safe
