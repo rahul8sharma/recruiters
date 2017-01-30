@@ -14,13 +14,13 @@
       .control-group
         %label.span6.first.big-text.line-height2.gray-darker
           Number of Assessments:
-        = f.text_field :assessments_purchased, :name => "merchant_param1", :class => "first span7 medium-text left-offset1"
+        = f.text_field :assessments_purchased, :name => "merchant_param1", :class => "first span7 medium-text left-offset1", required: true
         .clr
 
       .control-group
         %label.span6.first.big-text.line-height2.gray-darker
           Expiry Date of Subscription
-        = f.text_field :valid_to, :name => "merchant_param2", :class => "first span7 medium-text left-offset1"
+        = f.text_field :valid_to, :name => "merchant_param2", :class => "first span7 medium-text left-offset1", required: true
 
         .clr
       
