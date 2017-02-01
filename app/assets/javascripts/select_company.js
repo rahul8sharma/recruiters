@@ -28,22 +28,13 @@ $(document).ready(function(){
   });
   
   $(".export-link").on("click", function(){
-    console.log($(this).parent('form').attr('id'));
     var start_date = $("#start_date").datetimepicker('getValue').toISOString();
     var end_date = $("#end_date").datetimepicker('getValue').toISOString();
-    var company_ids = $("input.company-id:checkbox:checked").map(function(){
-      return $(this).val();
-    }).get();
     $(this).parent('form').find(".start_date").val(start_date);
     $(this).parent('form').find(".end_date").val(end_date);
-    $(this).parent('form').find(".company_ids").val(company_ids.join(','));
-    if(company_ids.length == 0) {
-      var confirmExport = confirm("Do you really want to export data for all the accounts?");
-      if(confirmExport) {
-        $(this).parent('form').submit();  
-      }
-    } else {
-      $(this).parent('form').submit();
+    var confirmExport = confirm("Do you really want to export data for all the accounts?");
+    if(confirmExport) {
+      $(this).parent('form').submit();  
     }
   });
 });

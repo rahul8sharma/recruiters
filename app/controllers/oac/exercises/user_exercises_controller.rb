@@ -63,7 +63,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       query_options: {
         :exercise_id => @exercise.id
       },
-      include: [:user, :user_exercise_reports],
+      include: {
+        :user => { only: [:id, :name, :email] },
+        :user_exercise_reports => { only: [:id, :status] }
+      },
       page: params[:page],
       per: 10,
       order: order

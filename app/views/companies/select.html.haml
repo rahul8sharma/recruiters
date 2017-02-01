@@ -24,7 +24,6 @@
       .divider2
       .span
         = form_tag email_assessment_stats_company_managers_path, method: :post do |f|
-          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
           %input.start_date{ type: "hidden", name: "export[date_range][start]" }
           %input.end_date{ type: "hidden", name: "export[date_range][end]" }
           %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_assessment_stats_link"}
@@ -32,7 +31,6 @@
             Assessment Status Summary
       .span
         = form_tag email_reports_summary_company_managers_path, method: :post do |f|
-          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
           %input.start_date{ type: "hidden", name: "export[date_range][start]" }
           %input.end_date{ type: "hidden", name: "export[date_range][end]" }
           %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_reports_summary_link"}
@@ -40,7 +38,6 @@
             Reports Summary    
       .span
         = form_tag email_usage_stats_company_managers_path, method: :post do |f|
-          %input.company_ids{ type: "hidden", name: "export[company_ids]" }
           %input.start_date{ type: "hidden", name: "export[date_range][start]" }
           %input.end_date{ type: "hidden", name: "export[date_range][end]" }
           %a.btn.btn-warning.default-text.export-link{href: "#", id: "export_usage_stats_link"}
@@ -56,8 +53,6 @@
         .divider2
         .list-snippet-titles.big-text.clearfix
           .span8.first
-            %input.pull-left{ type: "checkbox", :onchange => "$('.company-id').prop('checked',$(this).is(':checked'))" }
-            &nbsp;&nbsp;
             = sort_link "Account ID", select_companies_path, "id", params[:search]
             .clr
           .span8
@@ -70,7 +65,6 @@
           - @companies.each do |company|
             %li.list-snippet
               .span8.first
-                %input.company-id.pull-left{ type: "checkbox", value: company.id }
                 %a.pull-left.show.medium-text.line-height1{:href => company_custom_assessments_path(:company_id => company.id), :title => "Go to #{company.name}"}
                   &nbsp;&nbsp;
                   = company.id

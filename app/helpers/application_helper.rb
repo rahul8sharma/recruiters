@@ -160,7 +160,7 @@ module ApplicationHelper
     session[:auth_token] = nil
     login_path
   end
-  
+=begin  
   def can?(action_name, resource_klass, record=nil)
     current_user && current_user.permissions.any? do |permission|
       (permission.subject_class == "All" && 
@@ -168,4 +168,5 @@ module ApplicationHelper
         permission.action_name == action_name)
     end
   end
+=end  
 end
