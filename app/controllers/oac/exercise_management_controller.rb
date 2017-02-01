@@ -5,6 +5,39 @@ class Oac::ExerciseManagementController < ApplicationController
   def manage
   end
   
+  def import_tool_wise_status
+    unless params[:import][:file]
+      flash[:notice] = "Please select a zip file."
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    data = params[:import][:file].read
+    now = Time.now
+    s3_key = "oac/toolwise_scores/#{now.strftime('%d_%m_%Y_%H_%I')}"
+    obj = S3Utils.upload(s3_key, data)
+
+    Vger::Resources::Oac::Exercise.import_tool_wise_status(
+      args: {
+        :file => {
+          :bucket => obj.bucket.name,
+          :key => obj.key
+        }, 
+        exercise_id: params[:import][:exercise_id], 
+        user_id: current_user.id
+      }
+    )
+    redirect_to oac_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
+  end
+  
+  def export_tool_wise_status
+    Vger::Resources::Oac::Exercise.export_tool_wise_status(
+      args: { 
+        exercise_id: params[:export][:exercise_id], 
+        user_id: current_user.id
+      }
+    )
+    redirect_to oac_manage_path, notice: "Export operation queued. Email notification should arrive as soon as the import is complete."
+  end
+  
   def import_tool_wise_scores
     unless params[:import][:file]
       flash[:notice] = "Please select a zip file."

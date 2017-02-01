@@ -154,8 +154,9 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @assessments = api_resource.where(
       :query_options => { 
         :company_id => params[:company_id], 
-        :assessment_type => ["fit","competency","super_competency"] 
+        :assessment_type => ["fit","competency"] 
       }, 
+      :select => [:id, :created_at, :name, :language],
       :order => "#{order_by} #{order_type}", 
       :page => params[:page], 
       :per => 15
@@ -253,7 +254,11 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     if ["show"].include? params[:action]
       methods << :factors_map
     end
-    @company = Vger::Resources::Company.find(params[:company_id], :methods => methods)
+    @company = Vger::Resources::Company.find(
+      params[:company_id], 
+      :methods => methods,
+      :select  => [:id, :name] 
+    )
   end
 
   def store_assessment_factor_norms

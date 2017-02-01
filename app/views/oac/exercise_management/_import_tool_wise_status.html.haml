@@ -1,0 +1,13 @@
+= form_tag oac_import_tool_wise_status_path, multipart: true, :method => :post do
+  %fieldset
+    %legend 
+      %strong Upload Toolwise status
+    = fields_for "import" do |f|
+      %p
+        Exercise ID
+        = f.text_field "exercise_id"
+      %p
+        Zipped XLS File
+        = f.file_field "file"
+    .actions
+      = submit_tag "Upload  Toolwise status"

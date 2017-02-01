@@ -27,12 +27,23 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   end
 
   def export_report_summary
-    Vger::Resources::User.get(
-      "/sidekiq/queue-job?job_klass=Oac::UserReportsExporter&"+
-      "args[exercise_id]=#{params[:id]}&"+
-      "args[user_id]=#{current_user.id}"
+    Vger::Resources::Oac::Exercise.export_report_summary(
+      args: { 
+        exercise_id: params[:id], 
+        user_id: current_user.id
+      }
     )
     redirect_to request.env['HTTP_REFERER'], notice: "Report summary will be generated and emailed to #{current_user.email}."
+  end
+  
+  def export_status_summary
+    Vger::Resources::Oac::Exercise.export_tool_wise_status(
+      args: { 
+        exercise_id: params[:id], 
+        user_id: current_user.id
+      }
+    )
+    redirect_to request.env['HTTP_REFERER'], notice: "Status summary will be generated and emailed to #{current_user.email}."
   end
   
   def candidates
@@ -52,7 +63,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       query_options: {
         :exercise_id => @exercise.id
       },
-      include: [:user, :user_exercise_reports],
+      include: {
+        :user => { only: [:id, :name, :email] },
+        :user_exercise_reports => { only: [:id, :status] }
+      },
       page: params[:page],
       per: 10,
       order: order

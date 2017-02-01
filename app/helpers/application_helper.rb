@@ -126,6 +126,10 @@ module ApplicationHelper
     companies_path
   end
   
+  def redirect_vac_admin
+    home_company_oac_exercises_path(current_user.company_ids.first)
+  end
+  
   def redirect_jit_user
     companies_path
   end
@@ -156,4 +160,13 @@ module ApplicationHelper
     session[:auth_token] = nil
     login_path
   end
+=begin  
+  def can?(action_name, resource_klass, record=nil)
+    current_user && current_user.permissions.any? do |permission|
+      (permission.subject_class == "All" && 
+        permission.action_name == "manage") || (permission.subject_class == resource_klass && 
+        permission.action_name == action_name)
+    end
+  end
+=end  
 end

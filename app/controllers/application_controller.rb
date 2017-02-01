@@ -54,6 +54,10 @@ class ApplicationController < ActionController::Base
     current_user and current_user.role == Vger::Resources::Role::RoleName::ADMIN
   end
   
+  def is_vac_admin?
+    current_user and current_user.role == "VacAdmin"
+  end
+  
   # catch unauthorized exception from Faraday
   # if user is logged in the error is because of cancan
   # set session[:redirect_to] - nil to avoid redirect loop
@@ -110,6 +114,8 @@ class ApplicationController < ActionController::Base
     elsif is_company_manager? && current_user.company_ids.include?(company_id.to_i)
       return true
     elsif is_admin? && current_user.company_id.to_i == company_id.to_i  
+      return true 
+    elsif is_vac_admin? && current_user.company_id.to_i == company_id.to_i  
       return true 
     else
       redirect_to redirect_user_path

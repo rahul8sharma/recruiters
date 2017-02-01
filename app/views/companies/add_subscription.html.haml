@@ -11,24 +11,6 @@
       Please provide the following information
     .divider2
     = form_for :subsciption, :url => add_subscription_company_path(@company), method: :put, :html => { :class => "add_subscription text-right span14 margin-auto"}  do |f|
-      =# Rails.application.config.vger["billing"]["url"]
-      = f.hidden_field :billing_name, value: @company.name, :name => "billing_name"
-      = f.hidden_field :billing_address, value: @company.address, :name => "billing_address"
-      = f.hidden_field :billing_city, value: @company.city, :name => "billing_city"
-      = f.hidden_field :billing_state, value: @company.state, :name => "billing_state"
-      = f.hidden_field :billing_zip, value: @company.pincode, :name => "billing_zip"
-      = f.hidden_field :billing_country, value: @company.country, :name => "billing_country"
-      = f.hidden_field :billing_tel, value: @company.contact_person_mobile, :name => "billing_tel"
-      = f.hidden_field :billing_email, value: @company.user[:email], :name => "billing_email"
-      
-      = f.hidden_field :delivery_name, value: @company.name, :name => "delivery_name"
-      = f.hidden_field :delivery_address, value: @company.address, :name => "delivery_address"
-      = f.hidden_field :delivery_city, value: @company.city, :name => "delivery_city"
-      = f.hidden_field :delivery_state, value: @company.state, :name => "delivery_state"
-      = f.hidden_field :delivery_zip, value: @company.pincode, :name => "delivery_zip"
-      = f.hidden_field :delivery_country, value: @company.country, :name => "delivery_country"
-      = f.hidden_field :delivery_tel, value: @company.contact_person_mobile, :name => "delivery_tel"
-      
       = f.hidden_field :company_id, value: @company.id, :name => "merchant_param3"
       = f.hidden_field :callback_url, value: @callback_url, :name => "merchant_param4"
       = f.hidden_field :customer_id, value: @company.id, :name => "customer_id"
@@ -38,20 +20,20 @@
       .control-group
         %label.span6.first.big-text.line-height2.gray-darker
           Number of Assessments:
-        = f.text_field :assessments_purchased, :name => "merchant_param1", :class => "first span7 medium-text left-offset1"
+        = f.text_field :assessments_purchased, :name => "merchant_param1", :class => "first span7 medium-text left-offset1", required: true
         .clr
 
       .control-group
         %label.span6.first.big-text.line-height2.gray-darker
           Expiry Date of Subscription
-        = f.text_field :valid_to, :name => "merchant_param2", :class => "first span7 medium-text left-offset1"
+        = f.text_field :valid_to, :name => "merchant_param2", :class => "first span7 medium-text left-offset1", required: true
 
         .clr
       
       .control-group
         %label.span6.first.big-text.line-height2.gray-darker
           Amount
-        = f.text_field :price, :name => "amount", :class => "first span7 medium-text left-offset1"
+        = f.number_field :price, :name => "amount", :class => "first span7 medium-text left-offset1", required: true
 
         .clr
       

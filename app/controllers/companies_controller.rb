@@ -115,16 +115,28 @@ class CompaniesController < ApplicationController
   
   def add_mrf_subscription
     if request.put?
-      subscription_data = {
-        company_id: @company.id,
-        assessments_purchased: params[:merchant_param1],
-        valid_from: Time.now.strftime("%d/%m/%Y"),
-        valid_to: params[:merchant_param2],
-        added_by_user_id: current_user.id
-      }
-      job_id = Vger::Resources::Mrf::Subscription.create(subscription_data)
-      flash[:notice] = "360 Subscription is being added. You should receive an email when the subscription gets added to the system."
-      redirect_to company_path(@company)
+      begin
+        valid_to = Date.parse(params[:merchant_param2])
+      rescue Exception => e
+        flash[:error] = e.message
+        render :action => :add_mrf_subscription
+        return
+      end
+      if (valid_to - Date.today) > 0
+        subscription_data = {
+          company_id: @company.id,
+          assessments_purchased: params[:merchant_param1],
+          valid_from: Time.now.strftime("%d/%m/%Y"),
+          valid_to: params[:merchant_param2],
+          added_by_user_id: current_user.id
+        }
+        job_id = Vger::Resources::Mrf::Subscription.create(subscription_data)
+        flash[:notice] = "360 Subscription is being added. You should receive an email when the subscription gets added to the system."
+        redirect_to company_path(@company)
+      else
+        flash[:error] = "Subscription should be valid for at least 1 day"
+        render :action => :add_mrf_subscription  
+      end  
     end
   end
 
@@ -142,18 +154,30 @@ class CompaniesController < ApplicationController
     # believed route to this action via line 36 of routes.rb
     # actual route to this action via line 199 of routes.rb
     if request.put?
-      subscription_data = {
-        company_id: @company.id,
-        assessments_purchased: params[:merchant_param1],
-        price: params[:amount],
-        valid_from: Time.now.strftime("%d/%m/%Y"),
-        valid_to: params[:merchant_param2],
-        added_by_user_id: current_user.id,
-        added_by_superuser: true
-      }
-      job_id = Vger::Resources::Subscription.create(subscription_data)
-      flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
-      redirect_to company_path(@company)
+      begin
+        valid_to = Date.parse(params[:merchant_param2])
+      rescue Exception => e
+        flash[:error] = e.message
+        render :action => :add_subscription
+        return
+      end
+      if (valid_to - Date.today) > 0
+        subscription_data = {
+          company_id: @company.id,
+          assessments_purchased: params[:merchant_param1],
+          price: params[:amount],
+          valid_from: Time.now.strftime("%d/%m/%Y"),
+          valid_to: params[:merchant_param2],
+          added_by_user_id: current_user.id,
+          added_by_superuser: true
+        }
+        job_id = Vger::Resources::Subscription.create(subscription_data)
+        flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
+        redirect_to company_path(@company)
+      else
+        flash[:error] = "Subscription should be valid for at least 1 day"
+        render :action => :add_subscription
+      end
     end
   end
 
