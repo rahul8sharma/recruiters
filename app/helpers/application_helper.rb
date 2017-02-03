@@ -169,4 +169,12 @@ module ApplicationHelper
     end
   end
 =end  
+
+  def subscription_types
+    return {
+      "Suitability" => "", 
+      "360" => "Mrf", 
+      "VAC" => "Oac"
+    }
+  end
 end

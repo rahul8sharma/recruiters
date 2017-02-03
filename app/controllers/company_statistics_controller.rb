@@ -13,6 +13,10 @@ class CompanyStatisticsController < ApplicationController
   def statistics_360
     get_360_subscriptions
   end
+  
+  def statistics_vac
+    get_vac_subscriptions
+  end
 
   def email_usage_stats
      options = {
@@ -35,6 +39,7 @@ class CompanyStatisticsController < ApplicationController
     methods = [
       :unlocked_invites_count,
       :unlocked_360_invites_count,
+      :unlocked_oac_invites_count,
       :recent_usage_statistics, 
       :assessment_statistics
     ]
@@ -43,12 +48,13 @@ class CompanyStatisticsController < ApplicationController
   
   def get_suitability_subscriptions
     @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
+    @vac_suitability_plan = Vger::Resources::Plan.where(scopes: { vac_suitability_plan: nil }).first
     @subscriptions = Vger::Resources::Subscription.where(
       :query_options => {
         :company_id => @company.id
       },
       :scopes => {
-        plan_id_not_in: [@trial_plan.id.to_i]
+        plan_id_not_in: [@trial_plan.id.to_i, @vac_suitability_plan.id.to_i]
       },
       :order => ["valid_to DESC, id desc"],
       :methods => [
@@ -64,6 +70,26 @@ class CompanyStatisticsController < ApplicationController
   def get_360_subscriptions
     @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
     @subscriptions = Vger::Resources::Mrf::Subscription.where(
+      :query_options => {
+        :company_id => @company.id
+      },
+      :order => ["valid_to DESC, id desc"],
+      :scopes => {
+        plan_id_not_in: [@trial_plan.id.to_i]
+      },
+      :methods => [
+        :assessments_sent,
+        :assessments_completed,
+        :unlocked_invites_count
+      ],
+      :page => params[:page],
+      :per => 5
+    )
+  end
+  
+  def get_vac_subscriptions
+    @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
+    @subscriptions = Vger::Resources::Oac::Subscription.where(
       :query_options => {
         :company_id => @company.id
       },
