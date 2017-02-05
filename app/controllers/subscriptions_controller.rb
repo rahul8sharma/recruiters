@@ -4,6 +4,14 @@ class SubscriptionsController < MasterDataController
     Vger::Resources::Subscription
   end
   
+  def invitation_klass
+    Vger::Resources::Invitation
+  end
+  
+  def redirect_path
+    manage_subscriptions_path
+  end
+  
   def import_from
     "import_from_google_drive"
   end
@@ -16,14 +24,14 @@ class SubscriptionsController < MasterDataController
       redirect_to manage_subscriptions_path and return
     end
     now = Time.now
-    subscription = Vger::Resources::Subscription.save_existing(params[:subscription_id], :valid_to => now)
+    subscription = api_resource.save_existing(params[:subscription_id], :valid_to => now)
     if subscription.error_messages.present?
       flash[:error] = subscription.error_messages.join("<br/>").html_safe
-      redirect_to manage_subscriptions_path
+      redirect_to redirect_path
     else
-      Vger::Resources::Invitation.update_all(:query_options => {:company_id => params[:company_id],:subscription_id => params[:subscription_id], :status => Vger::Resources::Invitation::Status::UNLOCKED}, :update_attributes => {:status => Vger::Resources::Invitation::Status::EXPIRED, :expiry => now})
+      invitation_klass.update_all(:query_options => {:company_id => params[:company_id],:subscription_id => params[:subscription_id], :status => invitation_klass::Status::UNLOCKED}, :update_attributes => {:status => invitation_klass::Status::EXPIRED, :expiry => now})
       flash[:notice] = "Subscription with id '#{params[:subscription_id]}' expired successfully."
-      redirect_to manage_subscriptions_path
+      redirect_to redirect_path
     end
   end
 

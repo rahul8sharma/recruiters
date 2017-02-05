@@ -5,6 +5,9 @@
     = f.fields_for "args" do |af|
       = af.hidden_field :email, :value => current_user.email
       %p
+        Type
+        = af.select :job_klass, { "Suitability" => "MonthlyReportExporter", "360" => "Mrf::MonthlyReportExporter","VAC" => "Oac::MonthlyReportExporter", "Partner Usage" => "Suitability::PartnerUsageExporter" }
+      %p
         Company Ids (Keep Blank to export all): 
         = af.text_field :company_ids, :value => ""
       %p
