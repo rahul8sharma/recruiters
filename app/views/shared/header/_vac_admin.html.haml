@@ -3,6 +3,9 @@
     %li
       %a.setting{href: "#", title: "Account"}
       %ul.medium-text
+        - if defined?(@company)
+          %li
+            %a{:href=>statistics_vac_company_path(@company)} VAC Usage
         %li
           %a{href: "/logout"} Logout
   %ul.navbar.pull-right.clearfix

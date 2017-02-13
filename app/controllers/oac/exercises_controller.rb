@@ -240,11 +240,14 @@ class Oac::ExercisesController < ApplicationController
     order_by = params[:order_by] || "oac_exercises.created_at"
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
-
+    query_options = {
+      company_id: params[:company_id],
+    }
+    if !is_superuser?
+      query_options[:workflow_status] = Vger::Resources::Oac::Exercise::WorkflowStatus::READY
+    end
     @exercises = Vger::Resources::Oac::Exercise.where(
-      query_options: {
-        company_id: params[:company_id]
-      },
+      query_options: query_options,
       order: order,
       methods: [:sent_count, :completed_count],
       page: params[:page], 
