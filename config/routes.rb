@@ -68,8 +68,6 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
-      post :export_monthly_partner_usage
-      post :mrf_export_monthly_report
       get :select
     end
 
@@ -91,6 +89,7 @@ Recruiters::Application.routes.draw do
       get "settings" => "company_settings#settings", :as => :settings
       get "statistics" => "company_statistics#statistics", :as => :statistics
       get "statistics_360" => "company_statistics#statistics_360", :as => :statistics_360
+      get "statistics_vac" => "company_statistics#statistics_vac", :as => :statistics_vac
       get "email_usage_stats" => "company_statistics#email_usage_stats", :as => :email_usage_stats
       get "settings/company" => "company_settings#company", :as => :company_settings
       get "settings/account" => "company_settings#account", :as => :account_settings
@@ -109,12 +108,9 @@ Recruiters::Application.routes.draw do
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
 
       get "users/:user_id" => "companies#user", :as => :user
-      get "add_subscription" => "companies#add_subscription", :as => :add_subscription
-      put "add_subscription" => "companies#add_subscription"
-      
-      get "add_mrf_subscription" => "companies#add_mrf_subscription", :as => :add_mrf_subscription
-      put "add_mrf_subscription" => "companies#add_mrf_subscription"
-      
+
+      match "add_subscription" => "companies#add_subscription", :as => :add_subscription
+
       get "home" => "companies#home", :as => :home
       get :landing
       get :email_assessment_stats
@@ -1240,6 +1236,17 @@ Recruiters::Application.routes.draw do
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
     post "export_tool_wise_status" => "exercise_management#export_tool_wise_status", as: :export_tool_wise_status
     post "import_tool_wise_status" => "exercise_management#import_tool_wise_status", as: :import_tool_wise_status
+    
+    resources :subscriptions, :only => [:index] do
+      collection do
+        post :expire_subscription, :as => :expire_subscription
+        post :import
+        get :manage
+        get :destroy_all
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end  
     
     resources :super_competency_guidelines do
       collection do

@@ -33,6 +33,7 @@
       Email Settings
     .divider2
     .left-offset1
+      .divider1  
       - if @templates.size > 1
         .big-text.line-height2
           Choose Email Template
@@ -68,7 +69,13 @@
             .massage-body.italic.span15.medium-text.email-body
               = template.preview(:body).html_safe
             .clr
-    %input.btn.btn-warning.large-text.pull-right.right-offset1{:type => "submit", :value => "Send Assessment"}
+    .pull-right
+      %label.pull-left
+        %input{ type:'checkbox', name: 'trial', value: false }
+        Send as Trials
+        &nbsp;&nbsp;&nbsp;
+      %input.pull-left.btn.btn-warning.large-text.right-offset1{:type => "submit", :value => "Send Assessment"}
+      .clr
     .clr
     .divider1
 = javascript_include_tag 'jquery'
