@@ -88,6 +88,12 @@ class AssessmentReportsController < ApplicationController
     @competency_grades["Average"] = "Average"
     @aggregate_competency_score_buckets = Hash[Vger::Resources::Suitability::AggregateCompetencyScoreBucket.all.collect{|x| [x.name, x.id.to_s]}]
     @report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params[:id], params.merge(:methods => [ :assessment_id, :user_id, :company_id ]))
+    @aggregate_competency_score_ratings = Hash[Vger::Resources::Suitability::CompetencyScoreRating\
+      .where(
+        query_options: {
+          assessment_id: @report.assessment_id
+        }
+      ).all.collect{|x| [x.name, x.id]}]
     @report.report_hash = @report.report_data
     if request.put?
       report_data = {
@@ -101,7 +107,7 @@ class AssessmentReportsController < ApplicationController
       flash[:notice] = "Report is being modified. Please check after some time."
       #redirect_to assessment_report_company_custom_assessment_user_user_assessment_report_url(@report, :company_id => params[:company_id], :user_id => params[:user_id], :custom_assessment_id => params[:custom_assessment_id], :patch => params[:report], :view_mode => params[:view_mode]) and return
     end
-    render :layout => "candidates"
+    render :layout => "admin"
   end
 
   def show
