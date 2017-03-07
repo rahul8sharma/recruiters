@@ -5,33 +5,44 @@
       Individual Development Plan
     .divider1
 
-    %table
+    %table.margin-auto
       %tr
-        %td{:rowspan=>"2"}
+        %td.bold{:rowspan=>"2"}
           SN
-        %td{:colspan=>"3"}
+        %td.text-center{:colspan=>"3"}
           Development Objective
-        %td{:rowspan=>"2", :colspan=>"2"}
-          Learning method - Experience, Exposure, Education (70:20:10)
-        %td{:rowspan=>"2"}
-          Details of activities
-        %td{:rowspan=>"2"}
-          What will success look like?
-        %td{:rowspan=>"2"}
-          Target compilation date
+        %td.text-center{:rowspan=>"2", :colspan=>"2"}
+          %span.span4.first
+            Learning method - Experience, Exposure, Education (70:20:10)
+        %td.text-center{:rowspan=>"2"}
+          %span.span2.first
+            Details of activities
+        %td.text-center{:rowspan=>"2"}
+          %span.span3.first
+            What will success look like?
+        %td.text-center{:rowspan=>"2"}
+          %span.span3.first
+            Target compilation date
       %tr
-        %td Behaviour
-        %td Sub competency
-        %td Competency
-      - 3.times do |index|
+        %td.text-center 
+          %span.span2.first
+            Behaviour
+        %td.text-center 
+          %span.span3.first
+            Sub competency
+        %td.text-center 
+          %span.span2.first
+            Competency
+      - 2.times do |index|
         %tr
-          %td{:rowspan=>"15"}
+          %td.text-center{:rowspan=>"15"}
             #{index+1}
           %td{:rowspan=>"15"}
           %td{:rowspan=>"15"}
           %td{:rowspan=>"15"}
-          %td{:rowspan=>"5"}
-            70
+          %td.text-center{:rowspan=>"5"}
+            %span.span1.first
+              70
           %td Design &amp; conduct a course
           %td &nbsp;
           %td &nbsp;
@@ -57,7 +68,7 @@
           %td &nbsp;
           %td &nbsp;
         %tr
-          %td{:rowspan=>"6"}
+          %td.text-center{:rowspan=>"6"}
             20
           %td 360 Degree Feedback
           %td &nbsp;
@@ -89,7 +100,7 @@
           %td &nbsp;
           %td &nbsp;
         %tr
-          %td{:rowspan=>"4"}
+          %td.text-center{:rowspan=>"4"}
             10
           %td Classroom training
           %td &nbsp;
