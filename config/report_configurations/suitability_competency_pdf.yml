@@ -253,6 +253,14 @@
         locals: {
           step_competency_scores: "step_competency_scores"
         }
+      },
+      {
+        id: "pdf_factor_block_without_competency_score",
+        text: "Competency Block Without Score",
+        path: "assessment_reports/competency_report/pdf/factor_block_without_competency_score",
+        locals: {
+          step_competency_scores: "step_competency_scores"
+        }
       }
     ]
   },
