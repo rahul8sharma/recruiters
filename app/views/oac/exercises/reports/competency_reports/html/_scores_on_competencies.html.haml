@@ -1,0 +1,37 @@
+= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+.scores_on_competencies
+  .inner
+    .blue_heading.big-text
+      Scores on Competencies
+    .divider1
+    .traits_under_graph
+      .graph_container
+        .left_sec.pull-left
+          .graph_instructions.left-offset4
+            .span1.divider2 
+          %ul
+            - 5.times do
+              %li
+                .trait_title.first.span5{:title => "Empathy"}
+                  Empathy
+                .clr
+            
+        .right_sec.span14.first.pull-right
+          .classic_competency_graph
+            .classic_competency_graph_scale
+              .block.pull-left
+                0
+              -4.times do |index|
+                .block.pull-left{:style => "width: #{550/4}px;"}
+                  #{index+1}
+
+              .clr
+            .graph
+              .graph_content
+                -5.times do
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: 60.0%; background: #a119a6; color: #fff"}
+                  .divider1
+                  
+        .clr
+
