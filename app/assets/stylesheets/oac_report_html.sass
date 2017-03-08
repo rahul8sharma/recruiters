@@ -7,6 +7,8 @@ $oac_image_url: report/html/oac
     border-top: 2px solid #18907c
     .overall_report
       background: none
+  .competencywise_assessor_comments
+    border-bottom: 1px dashed #28b29b
   .competency_report 
     .overview
       &.competency
@@ -58,6 +60,99 @@ $oac_image_url: report/html/oac
         padding: 18px 
         li
           border: 0 none !important
+  .ultratech_idp
+    border-bottom: 1px dashed #28b29b
+    table
+      border-collapse: collapse
+      tr
+        &.blank
+          background: #ccc 
+        td
+          border: 1px solid #333
+          font-size: 14px
+  .interpretation_guide
+    border-bottom: 1px dashed #28b29b
+    ul
+      li
+        border-top: 1px solid #A0A0A0
+        padding: 18px 0
+        &:first-child
+          border: 0 none
+        .index
+          background: #21AF99
+          width: 35px
+          height: 35px
+          line-height: 35px
+          font-size: 20px
+          text-align: center
+          color: #fff
+          border-radius: 50%
+        .description
+          font-size: 12px
+        table
+          border: 1px solid #21AF99
+          border-collapse: collapse
+          tr
+            th, td
+              width: 150px
+              padding: 10px 25px
+              font-weight: 200
+            th
+              color: #fff
+              background: #21AF99
+              font-size: 14px
+              &:first-child
+                border-right: 2px solid #fff
+                text-align: center
+            td
+              font-size: 12px
+              &:first-child
+                border-right: 2px solid #F5F5F6
+                text-align: center
+            &:nth-child(even)
+              background: #F5F5F6
+              td:first-child
+                border-right-color: #fff
+  .scores_on_behaviors, .scores_on_competencies 
+    border-bottom: 1px dashed #28b29b
+    .graph_container 
+      margin-bottom: 36px
+      .descending_graph_bar
+        border-radius: 0 5px 5px 0
+        height: 10px
+        background: #a119a6
+      .left_sec 
+        .graph_instructions
+          margin-bottom: 22px
+        ul
+          padding-top: 1px
+          li
+            font-weight: 200
+            margin-top: 0
+            line-height: 46px
+            font-size: 18px
+            .trait_title
+              padding-top: 0
+            &:first-child
+              margin-top: 0
+              .trait_title
+                padding-top: 15px
+      .right_sec .classic_competency_graph
+        .classic_competency_graph_scale
+          width: 101%
+          .block
+            text-align: right
+            font-size: 20px
+            color: #808285
+            line-height: 50px
+            &:first-child
+              width: 2px !important
+        .graph
+          border: 1px solid #e5e5e5
+          .graph_content
+            min-height: 20px
+            padding: 1px 0
+            position: relative
   .data_points_competency_wise
     border-bottom: 1px dashed  #28b29b
     ul.disc
