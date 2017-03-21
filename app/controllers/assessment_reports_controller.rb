@@ -147,6 +147,10 @@ class AssessmentReportsController < ApplicationController
       )
     )
     @report.report_data = @report.report_hash
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(
+      params[:custom_assessment_id], company_id: params[:company_id]
+    )
+    @report.report_configuration = @assessment.report_configuration
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else

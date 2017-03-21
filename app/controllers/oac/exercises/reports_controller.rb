@@ -25,6 +25,10 @@ class Oac::Exercises::ReportsController < ApplicationController
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
     
+    @assessment = Vger::Resources::Oac::Exercise.find(params[:id])
+    
+    @report.report_configuration = @assessment.report_configuration
+    
     if params[:view_mode]
       @view_mode = params[:view_mode]
     else
