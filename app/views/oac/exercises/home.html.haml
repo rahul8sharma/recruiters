@@ -31,14 +31,14 @@
       %li.list-snippet.border-bottom-grayLighter.medium-text
         - assessment_url = landing_page_for_oac_exercise(exercise)
         .span2.first
-          %a{:href=> assessment_url, :title =>  ""} 
+          %a{:href=> assessment_url, :title =>  exercise.id } 
             = exercise.id
         .span4
           %a{:href => assessment_url, :title => "Date"} 
             -# = Date.parse(assessment.created_at).strftime("%d/%m/%Y")
             = hdate exercise.created_at
         .info-block{ class: (is_superuser? ? 'span11' : 'span13') }
-          %a{:href=> assessment_url, :title => "Assessment Name"}  
+          %a{:href=> assessment_url, :title => exercise.name }  
             = exercise.name
         .span3.text-center
           %a{:href=> assessment_url, :title => "View Details"}

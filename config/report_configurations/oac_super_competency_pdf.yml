@@ -191,7 +191,7 @@
   },
    {
     id: "pdf_assessor_feedback_and_idp",
-    text: "Individual Development Plan",
+    text: "Assessor Feedback and IDP",
     path: "oac/exercises/reports/competency_reports/pdf/feedback_development_plan",
     children: [
       {
