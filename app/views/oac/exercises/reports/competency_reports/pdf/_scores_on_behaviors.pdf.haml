@@ -2,7 +2,7 @@
 - min_weight = @score_buckets.map(&:weight).min
 - competency_scores = get_sorted_competency_scores(@report)
 - competency_scores.each_slice(20) do |competency_scores|
-  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+  = render partial: "shared/reports/pdf/oac_report_header"
   .scores_on_behaviors
     .inner
       .blue_heading.big-text
