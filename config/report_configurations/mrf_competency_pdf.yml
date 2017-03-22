@@ -137,6 +137,12 @@
     children: []
   },
   {
+    id: "pdf_ratings_on_questions_details",
+    text: "Details of 360 Degree Ratings on Questions",
+    path: "mrf/assessments/reports/competency_report/pdf/compact_reports/ratings_on_questions_details",
+    children: []
+  },
+  {
     id: "pdf_competency_wise_data_points",
     text: "Details on 360 Degree Ratings on Competencies/Values",
     path: "mrf/assessments/reports/competency_report/pdf/compact_reports/competency_wise_data_points",
