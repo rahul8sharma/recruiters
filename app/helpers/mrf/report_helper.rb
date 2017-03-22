@@ -190,4 +190,19 @@ module Mrf::ReportHelper
       step: (max_per_page - competencies_per_page*2)
     }
   end
+  
+  def get_other_item_responses(report)
+    items = []
+    report.report_data[:competency_scores].each do |competency_name, competency_scores|
+      competency_scores[:trait_scores].each do |trait_scores|
+        trait_scores[:items][:other_responses].each do |item|
+          items << {
+            competency_name: competency_name,
+            trait_name: trait_scores[:trait][:name]
+          }.merge(item).with_indifferent_access
+        end
+      end
+    end
+    return items
+  end
 end
