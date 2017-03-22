@@ -38,6 +38,28 @@ class Mrf::AssessmentsController < ApplicationController
       }
     )
   end
+  
+  def download_pdf_reports
+    url = S3Utils.get_url(params[:bucket], params[:key])
+    redirect_to url
+  end
+  
+  def trigger_report_downloader
+    date_range = params[:date_range].present? ? JSON.parse(params[:date_range]) : nil
+    options = {
+      :assessment => {
+        :job_klass => "Mrf::ReportsDownloader",
+        :args => {
+          :date_range => date_range,
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Mrf::Assessment.find(params[:id], company_id: params[:company_id])\
+      .download_pdf_reports(options)
+    redirect_to users_company_mrf_assessment_path(@company.id,@assessment.id), notice: "Reports will be downloaded and link to download the zip file will be emailed to #{current_user.email}."
+  end
 
   def new
     get_custom_assessments
