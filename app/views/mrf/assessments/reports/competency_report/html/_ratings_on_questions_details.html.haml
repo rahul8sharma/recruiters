@@ -4,60 +4,63 @@
     .title
       Details of 360&#176; Ratings on Questions
     .divider2
-    .frame
-      .heading.pull-left
-        Competency: XXXXXXXX
-      .heading.pull-right
-        Trait: XXXXXX
-      .clr
-      .padding-all2
-        .medium-text
-          %b Question 1: 
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
-        .divider1
-        %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
-          %tbody
-            %tr.captions
-              %td.dark_mute_bg{:rowspan=>"2"}
-                Stakeholder(s)
-              %td.dark_mute_bg{:rowspan=>"2"}
-                Average rating given 
-                %br/
-                by Stakeholders
-              %td.dark_mute_bg{:rowspan=>"2"}
-                No. of 
-                %br/
-                Respondents
-              %td.dark_mute_bg{:colspan=>"5"}
-                Rating
-            %tr.captions.rating_ranges
-              - 5.times do
-                %td
-                  XXXX
-           
-            - 5.times do
-              %tr
-                %td.green_bg.captions
-                  XXXXXm
-                %td.rating_score.average_rating
-                  3
-                %td.rating_score.average_rating
-                  33
-                - 5.times do
-                  
-                  %td.rating_score
-                    44
-                    -#add class ".max_value" to ".rating_score" if td have maximum value of that row
-                
-            %tr.overall
-              %td.orange_bg.captions
-                Overall
-              %td.orange_bg.captions
-                100
-              %td.orange_bg.captions
-                1
-              -5.times do
-                %td.rating_score
-                  000
-    .divider2
-             
+    - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
+      - competency_scores[:trait_scores].each do |trait_scores|
+        .frame
+          .heading.pull-left
+            Competency: #{competency_name}
+          .heading.pull-right
+            Trait: #{trait_scores[:trait][:name]}
+          .clr
+          - trait_scores[:items][:other_responses].each do |item|
+            .padding-all2
+              .medium-text
+                %b Question 1: 
+                #{item[:item]}
+              .divider1
+              %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
+                %tbody
+                  %tr.captions
+                    %td.dark_mute_bg{:rowspan=>"2"}
+                      Stakeholder(s)
+                    %td.dark_mute_bg{:rowspan=>"2"}
+                      Average rating given 
+                      %br/
+                      by Stakeholders
+                    %td.dark_mute_bg{:rowspan=>"2"}
+                      No. of 
+                      %br/
+                      Respondents
+                    %td.dark_mute_bg{:colspan=> item[:responses].size}
+                      Rating
+                  %tr.captions.rating_ranges
+                    - item[:responses].each do |option, count|
+                      %td
+                        #{option}
+                 
+                  - item[:role_wise_scores].each do |role, role_wise_scores|
+                    %tr
+                      %td.green_bg.captions
+                        #{role}
+                      %td.rating_score.average_rating
+                        #{role_wise_scores[:average_score]}
+                      %td.rating_score.average_rating
+                        #{role_wise_scores[:count]}
+                      - role_wise_scores[:responses].each do |option, count|
+                        %td.rating_score
+                          #{count}
+                          -#add class ".max_value" to ".rating_score" if td have maximum value of that row
+                      
+                  %tr.overall
+                    %td.orange_bg.captions
+                      Overall
+                    %td.orange_bg.captions
+                      #{item[:score]}
+                    %td.orange_bg.captions
+                      #{item[:count]}
+                    - item[:responses].each do |option, count|
+                      %td.rating_score
+                        #{count}
+          .divider2
+        .divider2
+  .divider2        
