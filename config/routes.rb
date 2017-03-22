@@ -1612,6 +1612,7 @@ Recruiters::Application.routes.draw do
   put "/manage_report", :to => "reports_management#manage_report", :as => :manage_report
 
   get "/suitability_cover_page", :to => "report_cover#cover", :as => :report_cover
+  get "/oac_cover_page", :to => "report_cover#oac_cover", :as => :oac_report_cover
 
 
   resources :global_configurations do

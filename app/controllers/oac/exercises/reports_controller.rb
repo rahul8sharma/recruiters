@@ -41,7 +41,18 @@ class Oac::Exercises::ReportsController < ApplicationController
 
     template = "super_competency_report"    
     layout = "layouts/oac/reports"
-    
+    cover, toc = nil
+    if @assessment.enable_table_of_contents
+      cover =  oac_report_cover_url(:report_id => @report.id)
+      toc = {
+        disable_dotted_lines: true,
+        disable_toc_links: true,
+        level_indentation: 3,
+        text_size_shrink: 0.5,
+        margin: { left: "5mm", right: "5mm" },
+        xsl_style_sheet: "#{Rails.root.to_s}/public/stylesheets/toc.xsl"
+      }
+    end
     @page = 1
     respond_to do |format|
       format.html { 
@@ -54,17 +65,10 @@ class Oac::Exercises::ReportsController < ApplicationController
         footer: {
           :html => {
             template: "shared/reports/pdf/_oac_report_footer"
-          },
-          left: -10
+          }
         },
-        toc: {
-          disable_dotted_lines: true,
-          disable_toc_links: true,
-          level_indentation: 3,
-          text_size_shrink: 0.5,
-          margin: { left: "5mm", right: "5mm" },
-          xsl_style_sheet: "#{Rails.root.to_s}/public/stylesheets/toc.xsl"
-        },
+        cover: cover,
+        toc: toc,
         template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
