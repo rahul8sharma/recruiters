@@ -78,6 +78,10 @@
         .alert.medium-text.text-center
           No users present
     .divider2
+    .pull-left
+      = form_tag trigger_report_downloader_company_mrf_assessment_path(@company.id, @assessment.id), method: :get do |f|
+        %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Download PDF Reports" }
+        .clr
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @users}
     .clr
