@@ -39,8 +39,8 @@ class Oac::Exercises::ReportsController < ApplicationController
       end
     end
 
-    template = "super_competency_report.#{@view_mode}.haml"    
-    layout = "layouts/oac/reports.#{@view_mode}.haml"
+    template = "super_competency_report"    
+    layout = "layouts/oac/reports"
     
     @page = 1
     respond_to do |format|
@@ -50,16 +50,26 @@ class Oac::Exercises::ReportsController < ApplicationController
         formats: [:pdf, :html]
       }
       format.pdf {
-        render pdf: "report_#{params[:id]}.pdf",
+        render pdf: "report_#{params[:report_id]}",
         footer: {
           :html => {
-            template: "shared/reports/pdf/_oac_report_footer.pdf.haml"
-          }
+            template: "shared/reports/pdf/_oac_report_footer"
+          },
+          left: -10
+        },
+        toc: {
+          disable_dotted_lines: true,
+          disable_toc_links: true,
+          level_indentation: 3,
+          text_size_shrink: 0.5,
+          margin: { left: "5mm", right: "5mm" },
+          xsl_style_sheet: "#{Rails.root.to_s}/public/stylesheets/toc.xsl"
         },
         template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        page_offset: 0,
+        margin: { :left => 0, :right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
