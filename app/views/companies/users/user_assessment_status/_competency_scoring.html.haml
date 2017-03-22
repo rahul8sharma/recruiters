@@ -1,0 +1,6 @@
+- if user_assessment.assessment.brand_partner.present?
+  #{user_assessment.assessment.brand_partner.titleize} Pending
+- elsif is_superuser?
+  Competency Scoring...
+- else
+  Generating Report...
