@@ -298,6 +298,8 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "trigger_report_downloader" => "mrf/assessments#trigger_report_downloader", :as => :trigger_report_downloader
+        get "download_pdf_reports" => "mrf/assessments#download_pdf_reports", :as => :download_pdf_reports
         get "group_reports" => "mrf/assessments/assessment_reports#group_reports", :as => :group_reports
         get "group_reports/new" => "mrf/assessments/assessment_reports#new_group_report", :as => :new_group_report
         get "group_report/:report_id" => "mrf/assessments/assessment_reports#s3_report", :as => :s3_group_report
