@@ -1,11 +1,9 @@
 require 'sidekiq'
-=begin
 require 'sidekiq/web'
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
   [user, password] == ["sidekiqadmin", "mig33g0thic"]
 end
-=end
 
 Sidekiq.configure_server do |config|
   config.redis = Rails.configuration.sidekiq[:redis]

@@ -1,4 +1,4 @@
-#require 'sidekiq/web'
+require 'sidekiq/web'
 
 Recruiters::Application.routes.draw do
   resources :permissions
@@ -1626,5 +1626,5 @@ Recruiters::Application.routes.draw do
   root :to => "users#login"
 
   mount JombayNotify::Engine => "/jombay-notify"
-  #mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq'
 end

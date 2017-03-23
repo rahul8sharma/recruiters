@@ -101,7 +101,6 @@ module Recruiters
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
-=begin
     # Redis configuration for redis driven app configuration
     redis_configuration = YAML::load(
                     File.open(
@@ -112,6 +111,5 @@ module Recruiters
                                             port: redis_configuration['port'],
                                             db: redis_configuration['db'],
                                             driver: :celluloid
-=end  
   end
 end
