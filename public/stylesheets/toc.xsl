@@ -12,37 +12,57 @@
         <title>Table of Contents</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
-          h1 {
-            text-align: center;
-            font-size: 20px;
-            font-family: arial;
-            padding-top: 10px;
+          *{
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          }
+          .clr{
+            clear: both;
+          }
+          hr{
+            margin: 10px 30px 18px 30px;
           }
           div.title {
-            text-align: center;
-            font-size: 20px;
-            font-family: arial;
-            padding-top: 10px;
+            font-size: 18px;
+            line-height: 20px;
+            font-weight: 200;
+            color: #1c7dab;
+            padding: 30px 30px 10px 30px;
           }
-          div {
-            border-bottom: 1px dashed rgb(200,200,200); 
-            padding: 10px 10px; 
-            margin: 10px 10px;
+          div.content{
+            border-bottom: 1px dotted #414042
           }
-          span {float: right;}
-          li {list-style: none;}
+          li {
+            list-style: none;
+            font-size: 16px;
+            padding: 10px 30px;
+          }
           ul {
-            font-size: 20px;
-            font-family: arial;
+            font-size: 16px;
           }
           ul ul {font-size: 80%; }
           ul {padding-left: 0em;}
           ul ul {padding-left: 1em;}
           a {text-decoration:none; color: black;}
+          .section_name, .page_no{
+            background: #fff;
+            margin-bottom: -6px;
+          }
+          .section_name{
+            max-width: 95%;
+            float: left;
+            padding-right: 10px;
+          }
+          .page_no{
+            max-width: 4%;
+            float: right;
+            text-align: right;
+            padding-left: 10px;
+          }
         </style>
       </head>
       <body>
         <div class='title'>Table of Contents</div>
+        <hr/>
         <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
       </body>
     </html>
@@ -50,8 +70,9 @@
   <xsl:template match="outline:item">
     <li>
       <xsl:if test="@title!=''">
-        <div>
-          <a>
+        <div class="content">
+          
+          <a class="section_name">
             <xsl:if test="@link">
               <xsl:attribute name="href"><xsl:value-of select="@link"/></xsl:attribute>
             </xsl:if>
@@ -60,7 +81,8 @@
             </xsl:if>
             <xsl:value-of select="@title" /> 
           </a>
-          <span> <xsl:value-of select="@page" /> </span>
+          <div class="page_no"> <xsl:value-of select="@page" /> </div>
+          <div class="clr"></div>
         </div>
       </xsl:if>
       <ul>
