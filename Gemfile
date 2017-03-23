@@ -12,7 +12,6 @@ gem 'oauth2', '1.0.0'
 
 gem 'haml-rails', '0.3.4'
 gem 'jquery-rails', '2.2.1'
-gem 'rails-backbone','0.7.2'
 
 gem 'puma','2.9.0'
 
@@ -25,7 +24,7 @@ gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessabl
 gem 'her', '0.6.8'
 gem 'spreadsheet', '1.1.1'
 
-gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop", :ref => "6cfe015a149"
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
 gem 'faraday_middleware','0.9.1'
 gem 'awesome_print','1.1.0'
 gem 'request_store','1.0.5'
@@ -37,8 +36,6 @@ gem 'sinatra', '1.3.6', :require => nil
 gem 'sidekiq', '2.12.1'
 
 gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :branch => "develop"
-
-gem 'celluloid-redis', '0.0.2'
 
 platform :ruby do
   group :development do

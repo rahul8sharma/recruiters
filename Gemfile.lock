@@ -40,7 +40,6 @@ GIT
 GIT
   remote: git@github.com:yournextleap/vger.git
   revision: 6cfe015a149fdc6f426b15a90cd1a9d5c69de119
-  ref: 6cfe015a149
   branch: develop
   specs:
     vger (0.0.1)
@@ -110,25 +109,13 @@ GEM
       timers (>= 4.1.1)
     celluloid-fsm (0.20.5)
       timers (>= 4.1.1)
-    celluloid-io (0.17.2)
-      celluloid (>= 0.17.2)
-      nio4r (>= 1.1)
-      timers (>= 4.1.1)
     celluloid-pool (0.20.5)
       timers (>= 4.1.1)
-    celluloid-redis (0.0.2)
-      celluloid-io (>= 0.13.0.pre)
-      redis
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
     coderay (1.1.0)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.10.0)
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
-    ejs (1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
     faraday_middleware (0.9.1)
@@ -163,8 +150,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nio4r (1.1.1)
-    nio4r (1.1.1-java)
     nokogiri (1.5.11)
     nokogiri (1.5.11-java)
     oauth2 (1.0.0)
@@ -195,10 +180,6 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails-backbone (0.7.2)
-      coffee-script (~> 2.2.0)
-      ejs (~> 1.0.0)
-      railties (>= 3.1.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -265,7 +246,6 @@ DEPENDENCIES
   better_errors (= 0.8.0)
   binding_of_caller (= 0.7.1)
   bootstrap-sass (= 2.3.1.0)
-  celluloid-redis (= 0.0.2)
   exception_notification!
   faraday!
   faraday_middleware (= 0.9.1)
@@ -277,7 +257,6 @@ DEPENDENCIES
   oauth2 (= 1.0.0)
   puma (= 2.9.0)
   rails (= 3.2.13)
-  rails-backbone (= 0.7.2)
   request_store (= 1.0.5)
   sass (= 3.2.14)
   sass-rails (= 3.2.6)
