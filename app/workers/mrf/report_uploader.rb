@@ -94,7 +94,9 @@ module Mrf
               layout: "layouts/mrf/reports",
               formats: [:pdf]
             )
-          }
+          },
+          zoom: 1.5,
+          disable_smart_shrinking: false
         )
 
 

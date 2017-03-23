@@ -45,7 +45,9 @@ module Suitability
           footer: {
             content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
             layout: "layouts/benchmark_report.html.haml")
-          }
+          },
+          zoom: 1.5,
+          disable_smart_shrinking: false
         )
         
         FileUtils.mkdir_p(Rails.root.join("tmp"))
