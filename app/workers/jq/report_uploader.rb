@@ -56,7 +56,9 @@ module Jq
           margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
           footer: {
             :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/jq_reports.pdf.haml")
-          }
+          },
+          zoom: 1.5,
+          disable_smart_shrinking: false
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))

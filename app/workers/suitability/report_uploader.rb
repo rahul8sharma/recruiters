@@ -92,6 +92,8 @@ module Suitability
               formats: [:pdf]
             )
           },
+          zoom: 1.5,
+          disable_smart_shrinking: false,
           header: {
             :content => render_to_string(
               "shared/reports/pdf/_report_header",

@@ -5,7 +5,7 @@
   = render partial: "shared/reports/pdf/oac_report_header"
   .scores_on_behaviors
     .inner
-      .blue_heading.big-text
+      %h1.blue_heading.big-text
         Scores on Behaviors
       .divider1
       .traits_under_graph
@@ -20,13 +20,13 @@
                     = competency_data[:name]
                   .clr
               
-          .right_sec.span14.first.pull-right
+          .right_sec.span13.first.pull-right
             .classic_competency_graph
               .classic_competency_graph_scale
                 .block.pull-left
                   = @custom_score_bucket_names[@custom_score_bucket_names.keys.first][:name]
                 - @custom_score_bucket_names.except(@custom_score_bucket_names.keys.first).each do |uid, bucket|
-                  .block.pull-left{:style => "width: #{550/(@custom_score_bucket_names.size-1)}px;"}
+                  .block.pull-left{:style => "width: #{510/(@custom_score_bucket_names.size-1)}px;"}
                     = bucket[:name]
 
                 .clr

@@ -37,6 +37,8 @@ class Mrf::Assessments::ReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
+        zoom: 1.5,
+        disable_smart_shrinking: false,
         template: "mrf/assessments/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
