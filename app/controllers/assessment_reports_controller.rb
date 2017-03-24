@@ -44,7 +44,7 @@ class AssessmentReportsController < ApplicationController
         template: "assessment_reports/training_requirements_report.pdf.haml",
         layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
@@ -75,7 +75,7 @@ class AssessmentReportsController < ApplicationController
         template: "assessment_reports/benchmark_report.html.haml",
         layout: "layouts/benchmark_report.html.haml",
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
         formats: [:html],
         locals: { :@view_mode => "pdf" }
       }
@@ -189,13 +189,6 @@ class AssessmentReportsController < ApplicationController
 
     hash = {
       pdf: "report_#{params[:id]}.pdf",
-      header: {
-        :html => {
-          template: "shared/reports/pdf/_report_header.pdf.haml",
-          layout: "layouts/#{layout}"
-        },
-        :spacing => 15
-      },
       footer: {
         :html => {
           template: "shared/reports/pdf/_report_footer.pdf.haml",
@@ -207,7 +200,7 @@ class AssessmentReportsController < ApplicationController
       template: "assessment_reports/#{template}",
       layout: "layouts/#{layout}",
       handlers: [ :haml ],
-      margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
+      margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
       formats: [:pdf],
       locals: { :@view_mode => "pdf" }
     }
