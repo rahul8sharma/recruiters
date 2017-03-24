@@ -153,10 +153,10 @@ class AssessmentReportsController < ApplicationController
       params.merge(
         patch: params[:patch], 
         report_type: report_type,
-        methods: [:report_hash]
       )
     )
-    @report.report_data = @report.report_hash
+    #@report.report_data = @report.report_hash
+    @report.report_hash = @report.report_data
     @assessment = Vger::Resources::Suitability::CustomAssessment.find(
       params[:custom_assessment_id], company_id: params[:company_id]
     )
