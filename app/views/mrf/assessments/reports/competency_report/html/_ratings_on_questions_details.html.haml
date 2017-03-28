@@ -1,3 +1,4 @@
+- question_index = 1
 .ratings_on_questions_details.border-bottom-grayDark
   .divider2
   .container
@@ -15,7 +16,8 @@
           - trait_scores[:items][:other_responses].each do |item|
             .padding-all2
               .medium-text
-                %b Question 1: 
+                %b Question #{question_index}:
+                - question_index += 1  
                 #{item[:item]}
               .divider1
               %table.frequency_rating_table{:cellpadding=>"0", :cellspacing=> "0", width: "100%"}
@@ -41,7 +43,7 @@
                   - item[:role_wise_scores].each do |role, role_wise_scores|
                     %tr
                       %td.green_bg.captions
-                        #{role}
+                        #{role.titleize}
                       %td.rating_score.average_rating
                         #{role_wise_scores[:average_score]}
                       %td.rating_score.average_rating
