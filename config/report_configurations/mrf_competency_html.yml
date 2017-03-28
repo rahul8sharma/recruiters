@@ -223,7 +223,11 @@
     id: "html_ratings_on_questions_details",
     text: "Details of 360 Degree Ratings on Questions",
     path: "mrf/assessments/reports/competency_report/html/ratings_on_questions_details",
-    children: []
+    children: [],
+    links: {
+      html: [],
+      pdf: ['pdf_ratings_on_questions_details']
+    }
   },
  {
     id: "html_competency_importance_as_per_stakeholders",
