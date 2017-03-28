@@ -1,6 +1,24 @@
 = javascript_include_tag 'jquery'
 = javascript_include_tag 'jquery_ujs'
+
 - template = @templates[0]
+- content_for :from do
+  %span.extra-medium-text.span2.first.show
+    From
+  .massage-body.italic.span15.medium-text
+    = "Jombay Assessments Team"
+  .clr
+  .divider1
+
+- content_for :subject do
+  %span.extra-medium-text.span2.first.show
+    Subject
+  .massage-body.italic.span15.medium-text
+    = "<Assessment Taker's Name>, #{@company.name} has chosen you to write an Assessment"
+  .clr
+  .divider1  
+
+
 - content_for :email_partial do
   %span.extra-medium-text.span2.first.show
     Message
