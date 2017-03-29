@@ -22,8 +22,12 @@ class Oac::Exercises::ReportsController < ApplicationController
                           ).all
     @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     
+    @assessment = Vger::Resources::Oac::Exercise.find(params[:id])
+    
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
+    
+    @report.report_configuration = @assessment.report_configuration
     
     if params[:view_mode]
       @view_mode = params[:view_mode]
