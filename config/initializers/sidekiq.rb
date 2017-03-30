@@ -15,3 +15,4 @@ end
 Sidekiq.configure_client do |config|
   config.redis = Rails.configuration.sidekiq[:redis]
 end
+

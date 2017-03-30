@@ -158,6 +158,14 @@
             }
           }
         ]
+      },
+      {
+        id: "pdf_competency_wise_assessor_feedback",
+        text: "Assessor Feedback",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/assessor_feedback",
+        locals: {
+          assessor_feedback: "assessor_feedback"
+        }
       }
     ]
   },

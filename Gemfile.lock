@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git@github.com:yournextleap/vger.git
-  revision: 2bb92099f0e0c9de1e2e4d838d16a90dd343a32f
+  revision: ff1d40ed102ab21e742b5432a3daf85dd63c2d7e
   branch: develop
   specs:
     vger (0.0.1)
@@ -88,11 +88,6 @@ GEM
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
-    better_errors (0.8.0)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-    binding_of_caller (0.7.1)
-      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -120,13 +115,11 @@ GEM
       redis
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
-    coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
     connection_pool (2.2.0)
-    debug_inspector (0.0.2)
     ejs (1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -162,7 +155,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nio4r (1.1.1)
     nio4r (1.1.1-java)
     nokogiri (1.5.11)
     nokogiri (1.5.11-java)

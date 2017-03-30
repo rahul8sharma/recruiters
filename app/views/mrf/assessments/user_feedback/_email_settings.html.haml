@@ -2,6 +2,15 @@
 = javascript_include_tag 'jquery_ujs'       
 
 - template = @templates[0]
+
+- content_for :from do
+  %span.extra-medium-text.span2.first.show
+    From
+  .massage-body.italic.span15.medium-text
+    = "<Sender Name> for #{@company.name}"
+  .clr
+  .divider1
+  
 - content_for :email_partial do
   %span.extra-medium-text.span2.first.show
     Message

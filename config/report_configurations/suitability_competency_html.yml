@@ -333,6 +333,18 @@
           html: ["html_header_traits"],
           pdf: ["pdf_generic_factor_block"]
         }  
+      },
+      {
+        id: "html_factor_block_without_score",
+        text: "Competency Block without Competency Score",
+        path: "assessment_reports/competency_report/html/factor_block_without_competency_score",
+        locals: {
+          step_competency_scores: "step_competency_scores"
+        },
+        links: {
+          html: ["html_header_traits"],
+          pdf: ["pdf_factor_block_without_competency_score"]
+        }  
       }
     ]
   },

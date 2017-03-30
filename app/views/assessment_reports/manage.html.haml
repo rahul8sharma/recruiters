@@ -20,7 +20,6 @@
       .bold Overall Score:
       = f.select :overall_factor_score_bucket_id, @overall_factor_score_buckets, {}, {}
   %br
-  %br
   - if @report.report_hash["assessment"]["assessment_type"] == "fit"
     = f.fields_for :factor_scores do |factor_scores_form|
       %div
@@ -43,12 +42,18 @@
 
   - else
     - @report.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
+    - @report.competency_score_rating = @report.report_hash[:aggregate_competency_score_rating][:id]
     %div
-    = f.fields_for :aggregate_scores do |aggregate_scores_form|
-      - aggregate_scores_form.object = OpenStruct.new()
-      - aggregate_scores_form.object.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
-      .bold Aggregate Competency Score :
-      = f.select :aggregate_competency_score_bucket_id, @aggregate_competency_score_buckets, {}, {}
+      = f.fields_for :aggregate_scores do |aggregate_scores_form|
+        - aggregate_scores_form.object = OpenStruct.new()
+        - aggregate_scores_form.object.aggregate_competency_score_bucket_id = @report.report_hash[:aggregate_competency_score_bucket][:id]
+        - aggregate_scores_form.object.competency_score_rating = @report.report_hash[:aggregate_competency_score_rating][:id]
+        .bold Aggregate Competency Score:
+        = f.select :aggregate_competency_score_bucket_id, @aggregate_competency_score_buckets, {}, {}
+        %br
+        %br
+        .bold Aggregate Competency Score Rating (RAG):
+        = f.select :competency_score_rating, @aggregate_competency_score_ratings, {}, {}
     %br
     .bold Competency Grades
     %table
