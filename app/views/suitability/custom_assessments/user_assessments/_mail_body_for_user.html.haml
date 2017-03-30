@@ -1,25 +1,22 @@
 %p
-  Hello &lt;Assessment Taker's Name&gt;,
+  Dear &lt;Assessment Taker's Name&gt;,
 %p
-  #{@company.name} has arranged for you to complete a Jombay Questionnaire.
-%p
-  To proceed, please click the web-link listed below or visit it by copy-pasting the URL into your web browser's address bar.
+  You have been chosen by #{@company.name} to complete the Jombay Psychometric Assessment. To get started, click on the link below
 %p
   URL: &lt;Assessment Taker's specific url&gt;
 %p
-  If you face any technical difficulties or have any queries please feel free to reach us at  
+  This assessment link is meant to be used only by you. Please do not share your link with anyone else.
+%p
+  The assessment consists of an approx. 20-min questionnaire. These are multiple choice questions that are designed to gain a better understanding of you.
+%p
+  There are no right or wrong answers. ​Hence, answer what comes first to your mind.​The final assessment results will aid #{@company.name} in identifying your strengths.
+%p
+  If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in between.
+%p
+  If you face any technical difficulties or have any queries please feel free to reach us at 
   %a.muted{:href=>"mailto:#{Rails.application.config.emails[:jit_recipients][:support]}"}
-    #{Rails.application.config.emails[:jit_recipients][:support]}. 
+    #{Rails.application.config.emails[:jit_recipients][:support]}.
+%p
+  All the very best!
   %br
-%p
-  Best Regards, 
-  %br/
-  - if is_superuser?
-    Team Jombay
-  - else
-    = current_user.name
-    %br/
-    #{@company.name}
-  %br/
-%p
-  P.S.: If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in between.
+  Jombay Assessments Team

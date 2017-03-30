@@ -62,6 +62,7 @@
       .divider1
       .span24
         - @assessment_factor_weights.group_by(&:competency_id).each do |competency_id, factor_weights|
+          - next if !competency_id
           .span10.pull-left
             %h4
               = @competencies[competency_id].name

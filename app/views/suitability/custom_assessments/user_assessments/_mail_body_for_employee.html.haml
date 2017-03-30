@@ -1,28 +1,22 @@
 %p
   Dear &lt;Assessment Taker's Name&gt;,
 %p
-  You have been chosen by #{@company.name} to complete the Jombay Questionnaire.
+  You have been chosen by #{@company.name}</b> to complete the Jombay Psychometric Assessment. To get started, click on the link below:
 %p
-  Please click on the following link and fill out the Questionnaire.
-  %br
   URL: &lt;assessment taker specific url&gt;
-
 %p
-  The Questionnaire results will be used to help #{@company.name} better support your job satisfaction and career development. There are no right or wrong answers. The questionnaire will take approximately 20 minutes to complete.
+  This assessment link is meant to be used only by you. Please do not share your link with anyone else.
 %p
-  If you face any technical difficulties or have any queries please feel free to reach us at  
+  ​The assessment consists of an approx. 20-min questionnaire. These are multiple choice questions that are designed to ​gain a better understanding of you. There are no right or wrong answers.​ Hence, answer what comes first to your mind.​
+%p
+  The final assessment results will ​help #{@company.name} better support your job satisfaction and career development.​
+%p
+  If you face any technical difficulties or have any queries please feel free to reach us at 
   %a.muted{:href=>"mailto:#{Rails.application.config.emails[:jit_recipients][:support]}"}
     #{Rails.application.config.emails[:jit_recipients][:support]}.  
-  %br
-%p
-  Best Regards,
-  %br/
-  - if is_superuser?
-    Team Jombay
-  - else
-    = current_user.name
-    %br/
-    #{@company.name}
-  %br/
 %p
   P.S.: If the link above does not work, or wraps over 2 or more lines, please copy and paste the link directly into your browser and ensure that there are no spaces in between.
+%p
+  All the very best!
+  %br
+  Jombay Assessments Team

@@ -11,6 +11,15 @@
     - message = "all " + params[:options].values.first.pluralize.titleize
 - else
   - message = "all " + "pending".titleize   
+
+- content_for :subject do
+  %span.extra-medium-text.span2.first.show
+    Subject
+  .massage-body.italic.span15.medium-text
+    = "[REMINDER] <Stakeholder's name>, your feedback for <candidates-count> candidates is pending"
+  .clr
+  .divider1
+
 .span25.huge-text.page-title
   Send Reminder to #{message} 
   %br
