@@ -105,6 +105,7 @@ class UsersManagementController < ApplicationController
                             :bucket => obj.bucket.name,
                             :key => obj.key
                           }, 
+                          :user_id => current_user.id,
                           :override_overall_scores => params[:import][:override_overall_scores].present?,
                           :override_competency_scores => params[:import][:override_competency_scores].present?,
                           :email => params[:import][:email]
@@ -130,6 +131,7 @@ class UsersManagementController < ApplicationController
                         :bucket => obj.bucket.name,
                         :key => obj.key
                       }, 
+                      :user_id => current_user.id,
                       :assessment_id => params[:import][:assessment_id], 
                       :override_overall_scores => params[:import][:override_overall_scores].present?,
                       :override_competency_scores => params[:import][:override_competency_scores].present?,

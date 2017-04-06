@@ -8,27 +8,36 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
   end
 
   def export_assessment_trr_users
-    Vger::Resources::Suitability::CustomAssessment.find(params[:assessment][:id]).export_assessment_trr_users(params[:assessment])
+    Vger::Resources::Suitability::CustomAssessment\
+      .find(params[:assessment][:id])\
+      .export_assessment_trr_users(params[:assessment])
     redirect_to trr_manage_path, notice: "Export Operation Queued. Email notification should arrive as soon as the export is complete."
 
   end
 
   def export_group_trr_users
-    Vger::Resources::Suitability::TrainingRequirementGroup.find(params[:assessment][:assessment_group_id]).export_group_trr_users(params[:assessment])
+    Vger::Resources::Suitability::TrainingRequirementGroup\
+      .find(params[:assessment][:assessment_group_id])\
+      .export_group_trr_users(params[:assessment])
 
     redirect_to trr_manage_path, notice: "Export Operation Queued. Email notification should arrive as soon as the export is complete."
   end
 
   def import_assessment_trr_users
-
-    Vger::Resources::Suitability::CustomAssessment.find(params[:assessment][:id])\
-      .import_assessment_trr_users(params[:assessment])
+    Vger::Resources::Suitability::CustomAssessment\
+      .find(params[:assessment][:id])\
+      .import_assessment_trr_users(params[:assessment].merge({
+        user_id: current_user.id
+      }))
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def import_group_trr_users
-
-    Vger::Resources::Suitability::TrainingRequirementGroup.find(params[:assessment][:assessment_group_id]).import_group_trr_users(params[:assessment])
+    Vger::Resources::Suitability::TrainingRequirementGroup\
+      .find(params[:assessment][:assessment_group_id])\
+      .import_group_trr_users(params[:assessment].merge({
+        user_id: current_user.id
+      }))
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
