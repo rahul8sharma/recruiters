@@ -2,4 +2,4 @@
   .score_rating_title.fw.first{:style=>"color: #fff; margin-bottom: 1px; padding-right: 35px"}
     Score Rating Description
   .medium-text{:style => "padding: 15px 10px;"}
-    Indicates low level of suitability for the behaviours measured. This implies that the candidate has scored mostly in the unfavourable range and that the candidate has a low alignment to the behavioural profile
+    = @report.report_data[:aggregate_competency_score_rating][:description]
