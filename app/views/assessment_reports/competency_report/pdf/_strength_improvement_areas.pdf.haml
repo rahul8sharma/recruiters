@@ -1,0 +1,29 @@
+= render "shared/reports/pdf/report_header"
+.inner
+  .scores
+    .divider1
+    .strength_areas.section02
+      %h1.font-normal.blue_heading.large-text
+        Strengths and Areas of Improvement
+      .divider1
+      %table.section_description.extra-medium-text{:cellpadding=>"0", :cellspacing=>"10", :align=>"top"}
+        %tbody
+          %tr
+            %td.frame
+              .heading
+                Strengths
+              %ul.large-text
+                - 2.times do
+                  %li
+                    %span trait1
+            %td.frame
+              .heading
+                Areas of Improvement
+              %ul.large-text
+                - 4.times do
+                  %li
+                    %span trait2
+           
+        .divider2
+
+.page-break
