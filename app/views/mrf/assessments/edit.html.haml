@@ -21,18 +21,21 @@
         = surround '<!--[if !IE]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
           %input.span26.show.margin-auto{:type => "text", :value=>"#{@assessment.name}", name: "assessment[name]", required: true}
         .clr
-      %select.span26.show.margin-auto{name: "assessment[assessment_type]"}
-        %option{value: ''} Choose assessment type
-        %option{ value: "jombay", selected: @assessment.configuration["assessment_type"] == "jombay" }
-          Jombay
-        %option{ value: "classic", selected: @assessment.configuration["assessment_type"] == "classic" }
-          Classic  
+      .span26.margin-auto
+        %label.medium-text.default
+          Choose assessment type
+      = f.select :assessment_type, Vger::Resources::Mrf::Assessment::ASSESSMENT_TYPES, {}, class: "span26 show margin-auto"
+      .divider1
+      .span26.margin-auto
+        %label.medium-text.default
+          Choose assessment purpose
+      = f.select :assessment_purpose, Vger::Resources::Mrf::Assessment::ASSESSMENT_PURPOSES, {}, class: "span26 show margin-auto"
       .divider1
       .span26.margin-auto
         - if is_superuser?
           %label.medium-text.default
             Page Size
-          = f.text_field :page_size, placeholder: "Page Size", class: "fw"
+          = f.text_field :page_size, placeholder: "Page Size", class: "sw"
           .divider1
           %label.big-text.default
             = f.check_box :use_competencies, checked: @assessment.use_competencies, id: "check_use_competencies"
