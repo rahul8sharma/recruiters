@@ -54,7 +54,6 @@ module Suitability
         closest_weight = [from_weight, to_weight].min_by { |weight| (scored_weight - weight).abs }
         (closest_weight - scored_weight).abs
       end.reverse]
-      Rails.logger.ap fail_factors
       fail_factors
     end
     
