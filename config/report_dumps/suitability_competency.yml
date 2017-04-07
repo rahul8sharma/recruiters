@@ -576,6 +576,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 2
     name: AMBER
     color: '#CD6212'
+    description: Indicates low level of suitability for the behaviours measured. This implies that the candidate has scored mostly in the unfavourable range and that the candidate has a low alignment to the behavioural profile
   cocubes_score: 12.0
   cocubes_max_score: 30.0
   cocubes_percentage_score: 40.0
