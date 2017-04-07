@@ -1,10 +1,5 @@
 .color-band.extra-medium-text.pull-right{:style=>"margin-bottom: 1px;margin-top: 1px; background-color: #128975"}
+  .head{:style=>"color: #fff;width:94%;border-bottom:1px solid #fff"}
+    Aggregate Numerical Score
   .white.line-height1.default-text{:style=>"padding: 7px 10px"}
     = @report.report_data[:aggregate_competency_score_rating][:description]
--#
-  .final-score.overall_score_rating{:style=>"background-color: #128975; width: 495px; margin-bottom: 1px;margin-top: 1px"}
-    .score_rating_title.fw.first{:style=>"color: #fff; margin-bottom: 1px; padding-right: 35px"}
-      Score Rating Description
-    .medium-text{:style => "padding: 15px 10px;"}
-      = @report.report_data[:aggregate_competency_score_rating][:description]
-      
