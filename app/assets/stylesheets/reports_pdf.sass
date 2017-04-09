@@ -507,7 +507,7 @@ body
       background: #fff
     .overview 
       background: image-url('report/pdf/competency/overview_bg.png') no-repeat 
-      min-height: 840px
+      min-height: 640px
       .inner
         padding: 18px 40px
         width: auto
@@ -1211,5 +1211,27 @@ body
 .score-scale-bg
   background: image-url("report/pdf/score_scale.png") no-repeat center 0
   height: 330px
+  
+.strength_areas
+  table
+    width: 100% 
+    .frame  
+      border-width: 1px
+    tr
+      td
+        width: 50%
+        vertical-align: top
+        padding-bottom: 10px
+  ul
+    margin-left: 30px
+    li
+      line-height: 25px
+      list-style-type: disc
+      color: #28b29b
+      font-size: 14px
+      &:first-child
+        padding-top: 10px
 
+      span
+        color: #808285
 @import mrf_report_pdf

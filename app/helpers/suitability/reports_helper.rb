@@ -40,5 +40,29 @@ module Suitability
       end.reverse]
       return fail_guidelines.merge(pass_guidelines).to_a
     end
+    
+    def get_areas_of_improvements(report)
+      norm_buckets = Hash[@norm_buckets.map{|x| [x.uid,x.weight] }]
+      factors = report.report_data[:competency_scores].reduce({}) do |_hash, (name,competency_data)|
+        _hash.merge!(competency_data['factor_scores'])
+      end
+      fail_factors = factors.select{|factor_name, data| !data[:pass] }
+      fail_factors = Hash[fail_factors.sort_by do |factor_name, factor_score|
+        scored_weight = norm_buckets[factor_score[:norm_bucket_uid]]
+        from_weight = norm_buckets[factor_score[:scale][:from_norm_bucket_uid]]
+        to_weight = norm_buckets[factor_score[:scale][:to_norm_bucket_uid]]
+        closest_weight = [from_weight, to_weight].min_by { |weight| (scored_weight - weight).abs }
+        (closest_weight - scored_weight).abs
+      end.reverse]
+      fail_factors
+    end
+    
+    def get_strengths(report)
+      factors = report.report_data[:competency_scores].reduce({}) do |_hash, (name,competency_data)|
+        _hash.merge!(competency_data['factor_scores'])
+      end
+      pass_factors = factors.select{|factor_name, data| data[:pass] }
+      pass_factors
+    end
   end
 end

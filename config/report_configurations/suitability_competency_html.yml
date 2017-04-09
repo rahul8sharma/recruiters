@@ -124,6 +124,17 @@
                 }                
               }
             ]
+          },
+          {
+            id: "html_score_rating_description",
+            text: "Score Rating Description",
+            path: "assessment_reports/competency_report/html/score_rating_description",
+            locals: {},
+            children: [],
+            links: {
+              html: [],
+              pdf: ["pdf_score_rating_description"]
+            }  
           }
         ]
       },
@@ -264,6 +275,16 @@
         ]
       }
     ]
+  },
+  {
+    id: "html_strength_improvement_areas",
+    text: "Strength and Improvement Areas",
+    path: "assessment_reports/competency_report/html/strength_improvement_areas",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_strength_improvement_areas"]
+    }
   },
   {
     id: "html_aptitude_score",

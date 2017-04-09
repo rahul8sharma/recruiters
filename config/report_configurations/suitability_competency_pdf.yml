@@ -29,6 +29,13 @@
         locals: {}
       },
       {
+        id: "pdf_score_rating_description",
+        text: "Score Rating Description",
+        path: "assessment_reports/competency_report/pdf/score_rating_description",
+        locals: {},
+        children: []
+      },
+      {
         id: "pdf_cover_page_compact_overview_competencies_measured",
         text: "Overview Of Competencies/Value Measured",
         path: "assessment_reports/competency_report/pdf/competency_scores_overview_new/main_compact",
@@ -107,6 +114,7 @@
             children: [],
             locals: {},
           },
+          
           {
             id: "pdf_functional_trait_legend",
             text: "Functional Trait Legend",
@@ -207,6 +215,12 @@
         ]
       }
     ]
+  },
+  {
+    id: "pdf_strength_improvement_areas",
+    text: "Strength and Improvement Areas",
+    path: "assessment_reports/competency_report/pdf/strength_improvement_areas",
+    children: []
   },
   {
     id: "pdf_aptitude_score",

@@ -83,7 +83,11 @@ class UsersManagementController < ApplicationController
       redirect_to request.env['HTTP_REFERER'] and return
     end
     Vger::Resources::User\
-      .export_user_responses(params[:user])
+      .export_user_responses(params[:user].merge({
+        args: {
+          user_id: current_user.id
+        }
+      }))
     redirect_to manage_users_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 
@@ -105,6 +109,7 @@ class UsersManagementController < ApplicationController
                             :bucket => obj.bucket.name,
                             :key => obj.key
                           }, 
+                          :user_id => current_user.id,
                           :override_overall_scores => params[:import][:override_overall_scores].present?,
                           :override_competency_scores => params[:import][:override_competency_scores].present?,
                           :email => params[:import][:email]
@@ -130,6 +135,7 @@ class UsersManagementController < ApplicationController
                         :bucket => obj.bucket.name,
                         :key => obj.key
                       }, 
+                      :user_id => current_user.id,
                       :assessment_id => params[:import][:assessment_id], 
                       :override_overall_scores => params[:import][:override_overall_scores].present?,
                       :override_competency_scores => params[:import][:override_competency_scores].present?,
