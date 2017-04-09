@@ -266,7 +266,11 @@ function generatePreview(assessmentType, viewMode, $jsTree, candidate_type, bran
   
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
   var configuration = updateInput();
-  
+
+  $("#iframe1").css({
+    width: (viewMode=='pdf'?'1000px':'100%'),
+    display: 'block'
+  })
   var form_data = {
     "config": JSON.stringify(configuration),
     "authenticity_token": $('input[name="authenticity_token"]').val()
