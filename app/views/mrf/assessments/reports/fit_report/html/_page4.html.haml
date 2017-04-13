@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .title
-      Data Points about 360&#176; Scores 
+      Data Points about #{get_assessment_purpose(@report)}&#176; Scores 
     .divider2
     - section_value.each do |section|
       = render :partial => section["path"]

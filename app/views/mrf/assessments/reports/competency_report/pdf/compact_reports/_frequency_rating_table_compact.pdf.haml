@@ -1,24 +1,24 @@
 - roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
 - step_size = roles.size > 4 ? 1 : 2
 - @report.report_data[:competency_scores].each_slice(step_size) do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
+  = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on #{get_assessment_purpose(@report)} Degree Ratings on Competencies/Values"}
   .scores.border-bottom-grayLighter.mrf_data_points
     .color-info.big-text
-      Details on 360&#176 Ratings on Competencies/Values
+      Details on #{get_assessment_purpose(@report)}&#176; Ratings on Competencies/Values
     .divider1    
     - step_data.each do |competency, competency_scores|
       .frame
         .heading.pull-left
           #{competency}
         .heading.pull-right
-          360&#176; Score: 
+          #{get_assessment_purpose(@report)}&#176; Score: 
           = (competency_scores[:score][:points] == 0 || competency_scores[:score][:points].nil?) ? "-" : competency_scores[:score][:points]
         .clr
         .padding-all1
           .final_data_points.pull-left.small
             .high_low_scores{:style => "padding: 10px"}
               .span
-                360&#176; Scores Across Exercise
+                #{get_assessment_purpose(@report)}&#176; Scores Across Exercise
               .border_gray_light.span
                 .high.left.pull-left
                   Highest

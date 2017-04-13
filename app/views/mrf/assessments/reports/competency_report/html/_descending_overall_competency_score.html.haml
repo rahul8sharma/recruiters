@@ -7,14 +7,14 @@
       .clr
       .divider1
       %p.extra-medium-text.gray-darker
-        Candidate's overall ratings on this competency are graphically presented, including: Overall 360 Rating, Self Rating and 360 Score including Self Rating.
+        Candidate's overall ratings on this competency are graphically presented, including: Overall #{get_assessment_purpose(@report)} Rating, Self Rating and #{get_assessment_purpose(@report)}&#176; Score including Self Rating.
       .graph_container
         .left_sec.pull-left
           .divider2
           %ul
             %li
               .span5.big-text.first.trait_title
-                360&#176 Score
+                #{get_assessment_purpose(@report)}&#176; Score
                 
               .stakeholder_rating.medium-text.pull-left
                 = competency_scores[:score][:points] || "-"
@@ -30,7 +30,7 @@
 
             %li
               .span5.big-text.first.trait_title
-                360&#176 (Including Self)
+                #{get_assessment_purpose(@report)}&#176; (Including Self)
                 
               .including_self_rating.medium-text.pull-left
                 = competency_scores[:average_score_including_self][:points] || "-"

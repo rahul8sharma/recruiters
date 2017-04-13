@@ -4,13 +4,13 @@
     .divider2
     .container
       .title
-        360&#176; Traits: Scores in Descending Order
+        #{get_assessment_purpose(@report)}&#176; Traits: Scores in Descending Order
       .divider2
       .graph_instructions.medium-text
         .graph_stakeholder_rating_icon.span.first
         .span
           %span.bold
-            360&#176; 
+            #{get_assessment_purpose(@report)}&#176; 
           Rating
         .graph_classic_user_icon.span
         .span.bold

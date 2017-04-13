@@ -2,14 +2,14 @@
   .divider2
   .scores.container
     .title
-      Data Points on 360&#176; Scores: Questions
+      Data Points on #{get_assessment_purpose(@report)}&#176; Scores: Questions
     .divider2
     - @report.report_data[:competency_scores].each do |competency, competency_scores|
       .frame
         .heading.pull-left
           = truncate competency, length: 25
         .heading.pull-right
-          360&#176; Score: 
+          #{get_assessment_purpose(@report)}&#176; Score: 
           = competency_scores[:score][:points] || "-"
         .clr
         .divider2
@@ -37,7 +37,7 @@
                       .divider4
                       .rating_snippet
                         .rating_title.green
-                          360&#176; Score
+                          #{get_assessment_purpose(@report)}&#176; Score
                         .value
                           = other_response[:score]
                         .clr
