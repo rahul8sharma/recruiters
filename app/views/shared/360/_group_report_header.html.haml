@@ -4,7 +4,7 @@
       .logo.pull-left.pull-left
         = image_tag(asset_path("jombay-logo.png"))
       .big-text.gray-dark.padding-all1.pull-left
-        360&#176; Profiling Group Report
+        #{get_assessment_purpose(@report)}&#176; Profiling Group Report
       .pull-right
         %ul#nav.clearfix.pull-left
           %li.left

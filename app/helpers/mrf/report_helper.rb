@@ -205,4 +205,8 @@ module Mrf::ReportHelper
     end
     return items
   end
+  
+  def get_assessment_purpose(report)
+    return report.report_data[:assessment][:purpose] || '360'
+  end
 end

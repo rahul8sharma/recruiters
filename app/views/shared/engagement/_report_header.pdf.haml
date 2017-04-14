@@ -5,6 +5,6 @@
     .user_name
       = @report.report_hash[:user][:name]
     .medium-text
-      360&#176; Profiling: 
+      #{get_assessment_purpose(@report)}&#176; Profiling: 
       = @report.report_hash[:assessment][:name]
 

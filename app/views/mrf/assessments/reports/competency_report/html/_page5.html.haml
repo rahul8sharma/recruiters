@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .span10.title.pull-left
-      Traits with 360&#176; Scores 
+      Traits with #{get_assessment_purpose(@report)}&#176; Scores 
     .scale.mrf.pull-right.left-offset1
       .line{:class => "line#{@norm_buckets.size}"}
       .marker-container

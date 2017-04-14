@@ -4,7 +4,7 @@
     .user-name.pull-left
       = @report.report_data[:user][:name]
     .final-score.pull-right
-      360&#176; Profiling Report
+      #{get_assessment_purpose(@report)}&#176; Profiling Report
     .clr
     .divider1
     - section_value.each do |section|

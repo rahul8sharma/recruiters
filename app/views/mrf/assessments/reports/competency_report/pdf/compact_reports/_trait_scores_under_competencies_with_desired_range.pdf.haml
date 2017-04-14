@@ -1,11 +1,11 @@
 - trait_scores = get_traits_under_competencies(@report)
 - trait_scores.each_slice(12).each do |step_data|
-  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "360 Degree and Self Ratings on Traits"}
+  = render partial: "shared/360/compact_mrf_report_header", :locals => { :display_text => "#{get_assessment_purpose(@report)} Degree and Self Ratings on Traits"}
   .scores
     .traits_under_competencies.scores_competencies_graph.section02
       .divider1
       .color-info.big-text
-        360&#176; and Self Ratings on Traits
+        #{get_assessment_purpose(@report)}&#176; and Self Ratings on Traits
       .graph_instructions
         .graph_stakeholder_rating_icon.pull-left
         .stakeholder_rating.span

@@ -11,7 +11,7 @@
               .competency-name.title.pull-left
                 Competency
               .competency-value.title.pull-right
-                360&#176; Rating Average  
+                #{get_assessment_purpose(@report)}&#176; Rating Average  
               .clr
             - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
               %li

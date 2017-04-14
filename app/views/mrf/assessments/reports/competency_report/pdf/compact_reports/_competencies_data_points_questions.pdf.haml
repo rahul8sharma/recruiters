@@ -1,6 +1,6 @@
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each do |trait_score|
-    = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Data Points on 360 Degree Scores: Questions"}
+    = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Data Points on #{get_assessment_purpose(@report)} Degree Scores: Questions"}
     .scores.classic_report.mrf_data_points
       .frame
         .heading.pull-left
@@ -26,7 +26,7 @@
                     .left.pull-left.stakeholder_rating_icon
                     .right.pull-left
                       .medium-text.color-average
-                        360&#176; Score: #{other_response[:score]}
+                        #{get_assessment_purpose(@report)}&#176; Score: #{other_response[:score]}
                     .clr
                   .clr
                 .divider1
