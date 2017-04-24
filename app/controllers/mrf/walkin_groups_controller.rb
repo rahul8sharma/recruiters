@@ -42,6 +42,7 @@ class Mrf::WalkinGroupsController < ApplicationController
       redirect_to customize_company_mrf_walkin_group_path(@company, @walkin_group)
     else
       @assessments = Vger::Resources::Mrf::Assessment.where(
+        :company_id => @company.id,
         :query_options => { :company_id => @company.id }, select: ["name","id"]
       ).all
       @walkin_group.error_messages ||= []
