@@ -4,7 +4,7 @@
       .divider2
       .scores.container
         .title
-          Data Points on 360&#176; Traits: Score Averages
+          Data Points on #{get_assessment_purpose(@report)}&#176; Traits: Score Averages
         .divider2
         - @report.report_data[:trait_scores].each do |trait_score|
           .frame
@@ -24,14 +24,14 @@
                         .divider1
                         .rating_snippet
                           .rating_title.green
-                            360&#176; Score
+                            #{get_assessment_purpose(@report)}&#176; Score
                           .value
                             = trait_score[:average_score_excluding_self][:points] || "-"
                           .clr
                         .divider1
                   .span14
                     .large-text.bold
-                      360&#176; Scores Across Exercise
+                      #{get_assessment_purpose(@report)}&#176; Scores Across Exercise
                     .divider1
                     .panel.bg-white
                       .span12.margin-auto

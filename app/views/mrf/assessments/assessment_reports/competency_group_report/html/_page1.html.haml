@@ -5,7 +5,7 @@
     .pull-left
       .divider1
       .extra-medium-text
-        360&#176; Profiling: 
+        #{get_assessment_purpose(@report)}&#176; Profiling: 
         = @report.report_data[:assessment][:name]
       .divider1
       .medium-text.line-height2
@@ -15,7 +15,7 @@
 
     .pull-right
       .final-score
-        360&#176; Profiling Group Report
+        #{get_assessment_purpose(@report)}&#176; Profiling Group Report
       .medium-text.text-center.line-height2 
         Candidates Included: 
         = @report.report_data[:total_users]
