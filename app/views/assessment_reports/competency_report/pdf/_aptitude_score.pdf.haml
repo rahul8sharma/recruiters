@@ -5,7 +5,7 @@
   - cocubes_section_scores = @report.report_data[:cocubes_section_scores]
 - if cocubes_section_scores.present?
   - scores_step = 4
-  - (0..cocubes_section_scores.length).step(4).each do |step|
+  - (0..cocubes_section_scores.length-1).step(scores_step).each do |step|
     - step_cocubes_section_scores = Hash[cocubes_section_scores.to_a[step..(step+(scores_step - 1))]]
     .aptitude_score
       .divider2
@@ -29,5 +29,4 @@
             .clr
           .divider1
         .divider1
-      .page-break
-.page-break        
+    .page-break
