@@ -11,7 +11,7 @@
           %td
             Candidate names
           %td
-            Overall 360&#176 Rating
+            Overall #{get_assessment_purpose(@report)}&#176; Rating
           - @report.report_hash[:competency_individual_scores].each do |competency, competency_data|
             %td
               = competency
