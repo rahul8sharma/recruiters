@@ -2,7 +2,7 @@
   .heading.pull-left
     = truncate competency_name, length: 45
   .heading.pull-right
-    360&#176; Rating: 
+    #{get_assessment_purpose(@report)}&#176; Rating: 
     = competency_scores[:score][:bucket]
   .clr
    

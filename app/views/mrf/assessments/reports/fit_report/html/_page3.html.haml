@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .span10.line-height2.title.pull-left
-      Scores of Traits measured with 360&#176; Assessment
+      Scores of Traits measured with #{get_assessment_purpose(@report)}&#176; Assessment
     .scale.mrf.pull-right.left-offset1
       .line{ class: "line#{@norm_buckets.size}" }
       .marker-container

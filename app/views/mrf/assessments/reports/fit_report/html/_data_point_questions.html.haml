@@ -3,7 +3,7 @@
     .divider2
     .scores.container
       .title
-        Data Points on 360&#176; Scores: Questions
+        Data Points on #{get_assessment_purpose(@report)}&#176; Scores: Questions
       .divider2
       .clr
       .divider2
@@ -14,7 +14,7 @@
             %span
               = trait_score[:trait][:name]
           .large-text.pull-right.line-height2.white{:style=>" background: #28b29b;padding: 0 6px;"}
-            360&#176; Score: 
+            #{get_assessment_purpose(@report)}&#176; Score: 
             = trait_score[:average_score_excluding_self][:points]
           .clr
           .divider2
@@ -35,7 +35,7 @@
                   .divider4
                   .rating_snippet
                     .rating_title.green
-                      360&#176; Score
+                      #{get_assessment_purpose(@report)}&#176; Score
                     .value
                       = other_response[:score]
                     .clr

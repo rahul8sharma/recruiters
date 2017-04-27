@@ -5,10 +5,10 @@
       .user-name.pull-left
         = @report.report_data[:user][:name]
       .final-score.pull-right
-        360&#176; Profiling Report
+        #{get_assessment_purpose(@report)}&#176; Profiling Report
       .clr
       .extra-medium-text.pull-left
-        360&#176; Profiling: 
+        #{get_assessment_purpose(@report)}&#176; Profiling: 
         = @report.report_data[:assessment][:name]
         .divider1
       .clr

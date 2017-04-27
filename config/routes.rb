@@ -755,6 +755,7 @@ Recruiters::Application.routes.draw do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     post 'assessments_management/export_mrf_scores' => 'assessments_management#export_mrf_scores', :as => :export_scores
     post 'assessments_management/export_mrf_raw_scores' => 'assessments_management#export_mrf_raw_scores', :as => :export_raw_scores
+    post 'assessments_management/export_mrf_responses' => 'assessments_management#export_mrf_responses', :as => :export_mrf_responses
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
 
     resources :subscriptions, :only => [:index] do

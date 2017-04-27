@@ -3,7 +3,7 @@
   .divider2
   .container
     .title
-      Details of 360&#176; Ratings on Questions
+      Details of #{get_assessment_purpose(@report)}&#176; Ratings on Questions
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_scores|
       - competency_scores[:trait_scores].each do |trait_scores|

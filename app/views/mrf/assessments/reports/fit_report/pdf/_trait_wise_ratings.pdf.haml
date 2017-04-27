@@ -4,7 +4,7 @@
     .divider1
     .scores
       .blue_heading.large-text
-        Data Points about 360&#176; Scores 
+        Data Points about #{get_assessment_purpose(@report)}&#176; Scores 
       .divider1
       %ul.mrf_data_points_listing
         - trait_scores.each do |trait_score, index|

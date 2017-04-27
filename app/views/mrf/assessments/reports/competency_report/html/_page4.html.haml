@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .title
-      Data Points on 360&#176; Scores of Competencies
+      Data Points on #{get_assessment_purpose(@report)}&#176; Scores of Competencies
     .divider2
     - score_competencies_hash = HashWithIndifferentAccess.new({ role_wise_scores: @report.report_data[:role_wise_scores] })    
     - section_value.each do |section|

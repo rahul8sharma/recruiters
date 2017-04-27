@@ -17,7 +17,7 @@
             #{bucket.name}
       %tr
         %td.blue_bg.captions
-          360&#176; Rating
+          #{get_assessment_purpose(@report)}&#176; Rating
         - max_score = competency_scores[:average_score_excluding_self][:bucket_wise_percentages].values.map{|x| x[:count] }.max
         - graph_buckets.each do |bucket|
           - bucket_score = competency_scores[:average_score_excluding_self][:bucket_wise_percentages][bucket.name][:users_count]

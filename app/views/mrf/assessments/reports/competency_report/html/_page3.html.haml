@@ -3,7 +3,7 @@
   .scores.container
     .span10
       .title.line-height2
-        Competencies with 360&#176; Scores
+        Competencies with #{get_assessment_purpose(@report)}&#176; Scores
       .divider1
       - if @report.report_data[:assessment][:set_ranges]
         .mrf-benchmark-ranges-block.pull-left

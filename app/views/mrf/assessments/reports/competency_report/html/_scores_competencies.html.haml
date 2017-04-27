@@ -2,6 +2,6 @@
   .divider2
   .container
     .title.pull-left
-      360&#176; and Self Ratings on Competencies/Values
+      #{get_assessment_purpose(@report)}&#176; and Self Ratings on Competencies/Values
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { :section_value => section["children"]}

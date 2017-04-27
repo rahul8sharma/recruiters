@@ -2,5 +2,5 @@
   .logo.pull-left
     = wicked_pdf_image_tag('report/pdf/jombay-logo.png')
   .span16.pull-right.text-right{:style=>"padding-top: 5px"}
-    360&#176; Profiling: #{@report.report_data[:assessment][:name]}
+    #{get_assessment_purpose(@report)}&#176; Profiling: #{@report.report_data[:assessment][:name]}
   .clr

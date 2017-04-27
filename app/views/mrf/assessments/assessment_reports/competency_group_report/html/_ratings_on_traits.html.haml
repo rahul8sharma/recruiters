@@ -4,11 +4,11 @@
     .container
       .divider2
       .title.pull-left
-        360&#176 Ratings on Traits
+        #{get_assessment_purpose(@report)}&#176; Ratings on Traits
       .pull-left.left-offset1{:style => "font-size: 80px;color: #B100A0"}
         &#8226;
       .span.extra-medium-text.bold
-        Average 360&#176 Rating
+        Average #{get_assessment_purpose(@report)}&#176; Rating
       .clr
       .divider2
       .scores_competencies_graph.descending_order.descending_average_rating

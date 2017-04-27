@@ -1,0 +1,12 @@
+.navigation-sub-nav.clearfix.pull-left
+  .menu{ class: (params[:action] == 'new' ? 'active' : '') }
+    .count 1
+    Select Exercise
+  .menu{ class: (['customize','edit'].include?(params[:action]) ? 'active' : '') }
+    .count 2
+    Customize
+  .menu{ class: (params[:action] == 'summary' ? 'active' : '') }
+    .count 3
+    Summary
+  .clr
+.clr  

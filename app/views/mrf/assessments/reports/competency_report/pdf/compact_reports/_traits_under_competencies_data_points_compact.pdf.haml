@@ -2,12 +2,12 @@
 - step_size = roles.size > 4 ? 1 : 2
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each_slice(step_size) do |step_trait_score|
-    = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on 360 Degree Ratings on Traits (Under Competencies / Values)"}
+    = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on #{get_assessment_purpose(@report)} Degree Ratings on Traits (Under Competencies / Values)"}
     - step_trait_score.each do |trait_score|
       - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
       .scores.border-bottom-grayLighter.mrf_data_points
         .color-info.big-text
-          Details on 360&#176 Ratings on Traits (Under Competencies / Values)
+          Details on #{get_assessment_purpose(@report)}&#176; Ratings on Traits (Under Competencies / Values)
         .divider1
         .frame
           .heading.pull-left
@@ -21,7 +21,7 @@
             .final_data_points.pull-left.small
               .high_low_scores{:style => "padding: 10px"}
                 .heading.span
-                  360&#176; Rating : 
+                  #{get_assessment_purpose(@report)}&#176; Rating : 
                   = trait_score[:average_score_excluding_self][:points] || "-"
                 .border_gray_light.span
                   .high.left.pull-left

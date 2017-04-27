@@ -6,7 +6,7 @@
   .scores
     .ratings_on_questions_details
       %h1.color-info.big-text
-        Details of 360&#176; Ratings on Questions
+        Details of #{get_assessment_purpose(@report)}&#176; Ratings on Questions
       .divider1
       - items.each_with_index do |item,item_index|
         .frame
