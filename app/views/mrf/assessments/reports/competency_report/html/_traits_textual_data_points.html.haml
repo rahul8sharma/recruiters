@@ -1,6 +1,6 @@
 #distribution_data_points.pull-left 
   .span.heading.medium-text.line-height1{:style => "margin-top: 3px; padding: 4px"}
-    360&#176; Rating :
+    #{get_assessment_purpose(@report)}&#176; Rating :
     = trait_score[:average_score_excluding_self][:points] || "-"
   .trait_rating.max.span{:style => "width: 150px"}
     .left

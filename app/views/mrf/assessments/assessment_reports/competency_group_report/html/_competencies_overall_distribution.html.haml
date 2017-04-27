@@ -3,7 +3,7 @@
     .divider2
     .container
       .title
-        Distribution of Overall  360&#176; scores: Competencies
+        Distribution of Overall  #{get_assessment_purpose(@report)}&#176; scores: Competencies
       .divider1
       - color_index = 0
       - @report.report_hash[:competency_scores].each_slice(2) do |step_data|

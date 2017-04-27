@@ -4,7 +4,7 @@
     Walk-Ins
   - if can?(:create, "Suitability::WalkinGroup")    
     %a.btn.btn-warning.big.big-text.span.pull-right.large-text{:href => new_company_mrf_walkin_group_path(params[:company_id]), :title => "Click Here To Create New Walk-In"} 
-      Create a new Walk-In Index Page
+      Create a new Walk-In Page
   
   - if @walkin_groups.empty?
     .alert.pull-right
@@ -29,10 +29,10 @@
       - @walkin_groups.each do |walkin_group|
         %li.list-snippet.border-bottom-grayLighter
           .span5.first
-            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title =>  walkin_group.title} Walk In #{walkin_group.id}
+            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title =>  walkin_group.title.html_safe} Walk In #{walkin_group.id}
           .span10
-            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title => walkin_group.title}  
-              = walkin_group.title
+            %a{:href=> company_mrf_walkin_group_path(params[:company_id], walkin_group.id), :title => walkin_group.title.html_safe}  
+              = walkin_group.title.html_safe
           .span8
             %a{:href=> edit_company_mrf_walkin_group_path(@company.id, walkin_group.id), :title=> "title"}   
               Manage

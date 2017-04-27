@@ -11,7 +11,7 @@
             .competency-name.title.pull-left
               Competency
             .competency-value.title.pull-right
-              360&#176; Rating
+              #{get_assessment_purpose(@report)}&#176; Rating
             .clr
           %ul.competency-list.mrf.pull-left.default
             - step_data.each do |competency, competency_scores|

@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .title
-      Data Points about 360 Degree Scores: Competencies
+      Data Points about #{get_assessment_purpose(@report)} Degree Scores: Competencies
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_score|  
       - competency_hash = HashWithIndifferentAccess.new({ competency_score: competency_score })

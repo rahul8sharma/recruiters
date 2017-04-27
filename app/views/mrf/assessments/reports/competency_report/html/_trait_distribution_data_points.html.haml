@@ -2,7 +2,7 @@
   .divider1
   .scores.container
     .title
-      Data Points about 360 Degree Scores: Traits Under Competencies
+      Data Points about #{get_assessment_purpose(@report)} Degree Scores: Traits Under Competencies
     .divider2
     - @report.report_data[:competency_scores].each do |competency_name, competency_score|
       - competency_score[:trait_scores].each do |trait_score|

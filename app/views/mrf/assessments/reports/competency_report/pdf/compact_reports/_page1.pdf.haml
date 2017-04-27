@@ -8,7 +8,7 @@
   .divider1
   .banner
     .banner-heading.pull-left
-      360&#176;
+      #{get_assessment_purpose(@report)}&#176;
     .pull-right
       .divider3
       .banner-sub-heading
@@ -19,7 +19,7 @@
   .divider2
   .extra-large-text
     .span.left-offset1
-      360&#176; Profiling:
+      #{get_assessment_purpose(@report)}&#176; Profiling:
     .span13
       = @report.report_hash[:assessment][:name]
     .clr

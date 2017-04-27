@@ -34,7 +34,7 @@
           .divider1
           .span9.margin-auto
             .span3.first.rounded
-              #{score[:section_score].round(1)} / #{score[:max_score].round(1)} 
+              #{score[:section_score].round(1)} / #{score[:max_score]} 
             .span3.left-offset1.rounded
               = number_to_percentage((score[:section_score].to_f*100 /score[:max_score]), precision: 0)
             .clr

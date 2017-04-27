@@ -377,7 +377,10 @@ class AssessmentsController < ApplicationController
       @weights = @assessment.get_weights(@factors)
     rescue Vger::Errors::TraitsNotVisible => e
       flash[:error] = e.message
-      redirect_to competencies_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
+      redirect_to competencies_company_custom_assessment_path(
+        :company_id => params[:company_id], 
+        :id => @assessment.id
+      ) and return
     end
   end
   

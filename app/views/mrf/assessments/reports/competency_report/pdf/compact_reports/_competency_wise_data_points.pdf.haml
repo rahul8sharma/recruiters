@@ -1,22 +1,22 @@
 - roles = @report.report_data[:competency_scores].first[1][:role_wise_scores].keys
 - role_limit = 5
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
-  = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on 360 Degree Ratings on Competencies/Values"}
+  = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on #{get_assessment_purpose(@report)} Degree Ratings on Competencies/Values"}
   .scores.border-bottom-grayLighter.mrf_data_points
     .color-info.big-text
-      Details on 360&#176 Ratings on Competencies/Values
+      Details on #{get_assessment_purpose(@report)}&#176; Ratings on Competencies/Values
     .divider1
     .frame
       .heading.pull-left
         #{competency}
       .heading.pull-right
-        360&#176; Score: 
+        #{get_assessment_purpose(@report)}&#176; Score: 
         = (competency_scores[:score][:points] == 0 || competency_scores[:score][:points].nil?) ? "-" : competency_scores[:score][:points]
       .clr
       .final_data_points.pull-right.small
         .high_low_scores{:style => "padding: 10px"}
           .black.pull-left
-            360&#176; Scores across exercise
+            #{get_assessment_purpose(@report)}&#176; Scores across exercise
           .border_gray_light.span
             .high.left.pull-left
               Highest
@@ -36,7 +36,7 @@
         .extra-medium-text
           Average rating given by Stakeholders
         %p.medium-text.gray-darker
-          This section shows the comparison of 360 rating of the candidate with the lowest and highest ratings obtained by any candidate across the exercise for this competency.
+          This section shows the comparison of #{get_assessment_purpose(@report)} rating of the candidate with the lowest and highest ratings obtained by any candidate across the exercise for this competency.
         .scores_competencies_graph.descending_order.border-bottom-grayLighter
           .traits_under_graph
             .graph_container
@@ -89,14 +89,14 @@
     = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Data Points on Scores: Competencies"}
     .scores.border-bottom-grayLighter.mrf_data_points
       .color-info.big-text
-        Details on 360&#176 Ratings on Competencies/Values
+        Details on #{get_assessment_purpose(@report)}&#176; Ratings on Competencies/Values
       .divider1
 
       .frame
         .heading.pull-left
           #{competency}
         .heading.pull-right
-          360&#176; Score: 
+          #{get_assessment_purpose(@report)}&#176; Score: 
           = competency_scores[:score][:points] || "-"
         .clr
 

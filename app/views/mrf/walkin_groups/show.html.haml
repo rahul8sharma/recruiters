@@ -1,7 +1,7 @@
 .walk-ins-details
   .page-title.pull-left
     .divider1
-    = @walkin_group.title
+    = @walkin_group.title.html_safe
   
   %a.btn.btn-warning.pull-right.big-text.big.span{:href => edit_company_mrf_walkin_group_path(@company.id, @walkin_group.id), :title => "Edit Walk-In List"}
     Edit
@@ -23,31 +23,19 @@
         = @walkin_group.url
     .clr
   .divider2    
-  .content-sub-nav.clearfix
-    %a.menu{:title => "Candidates", :href => company_mrf_walkin_group_path(@company.id, @walkin_group.id), :class => "active"}
-      Summary   
-  .padding-all2.border-warning.shifted-up1
-    .list-snippet-titles.large-text.clearfix
-      .span3.first
-        %a{:href=>"#"}
-          AID
-          %i.icon-chevron-down.small-text.line-height1
-      .span13
-        %a{:href=>"#"}
-          Assessment Name
-          %i.icon-chevron-down.small-text.line-height1
-      .clr
-    .divider1
-    %ul
-      - @assessments.each do |assessment|
-        - if @walkin_group.assessment_hash["#{assessment.id}"]["enabled"] == "true"
-          %li.list-snippet.border-bottom-grayLighter
-            .divider1
-            .span3.first
-              %a{:title => assessment.id, :href => details_company_mrf_assessment_path(@company.id, assessment.id)}
-                #{assessment.id}
-            .span13
-              %a{:title => assessment.name, :href => details_company_mrf_assessment_path(@company.id, assessment.id)}
-                #{assessment.name}
-            .clr
-            .divider1
+  %span.span.medium-text.line-height2
+    Assessment:   
+    %b #{ @assessment.name.html_safe }
+  .clr
+  .divider1
+  %span.span.medium-text.line-height2
+    Page Title:   
+    %b #{ @walkin_group.page_title.html_safe }
+  .clr
+  .divider1
+  %span.span.medium-text.line-height2
+    Page Description:   
+    %b #{ @walkin_group.page_description.html_safe }
+  .clr
+  .divider1
+  .divider2

@@ -9,15 +9,9 @@
       Assessment ID : 
       = f.text_field :assessment_id
       
-    = f.fields_for "folder" do |f|
-      %p
-        Google Drive Folder Url : 
-        = f.text_field "url"
-
-    = f.hidden_field :email, :value => current_user.email
-
   .actions
     = submit_tag 'Download'
+.divider1
     
 = form_for :assessment, url: mrf_export_raw_scores_path, multipart: true, :method => :post do |f|
   %fieldset
@@ -30,12 +24,21 @@
       Assessment ID : 
       = f.text_field :assessment_id
       
-    = f.fields_for "folder" do |f|
-      %p
-        Google Drive Folder Url : 
-        = f.text_field "url"
 
-    = f.hidden_field :email, :value => current_user.email
+  .actions
+    = submit_tag 'Download'    
+    
+.divider1    
+= form_for :assessment, url: mrf_export_mrf_responses_path, multipart: true, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Download 360 Responses
+    %p
+      Company ID : 
+      = f.text_field :company_id
+    %p
+      Assessment ID : 
+      = f.text_field :assessment_id
 
   .actions
     = submit_tag 'Download'    

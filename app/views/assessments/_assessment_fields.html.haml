@@ -114,6 +114,13 @@
         = difficulty_level.titleize
 
   .clr
+
+.control-group
+  %label
+    Partner Assessment ID / Access Code
+  = f.text_field :partner_id, class: "span21 first", value: @assessment.partner_id
+  .clr
+
   
 .control-group
   %label

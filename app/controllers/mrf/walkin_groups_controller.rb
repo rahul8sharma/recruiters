@@ -37,14 +37,16 @@ class Mrf::WalkinGroupsController < ApplicationController
   end
   
   def create
-    @assessments = Vger::Resources::Mrf::Assessment.where(:query_options => { :company_id => @company.id }, select: ["name","id"]).all
-    params[:walkin_group][:assessment_hash].reject!{|assessment_id, assessment_data| assessment_data["enabled"] != "true" }
     @walkin_group = Vger::Resources::Mrf::WalkinGroup.new(params[:walkin_group])
-    if @walkin_group.assessment_hash.present? && @walkin_group.save
+    if @walkin_group.save
       redirect_to customize_company_mrf_walkin_group_path(@company, @walkin_group)
     else
+      @assessments = Vger::Resources::Mrf::Assessment.where(
+        :company_id => @company.id,
+        :query_options => { :company_id => @company.id }, select: ["name","id"]
+      ).all
       @walkin_group.error_messages ||= []
-      @walkin_group.error_messages << "Please select at least one assessment." if !@walkin_group.assessment_hash.present?
+      @walkin_group.error_messages << "Please select at least one assessment." if !@walkin_group.assessment_id.present?
       flash[:error] = @walkin_group.error_messages.join("<br/>")
       render :action => :new
     end
@@ -84,14 +86,12 @@ class Mrf::WalkinGroupsController < ApplicationController
   def get_walkin_group  
     @walkin_group = Vger::Resources::Mrf::WalkinGroup.find(params[:id], methods: [:url])
     @walkin_group.expires_on = DateTime.parse(@walkin_group.expires_on) if @walkin_group.expires_on.present?
-    @assessments = Vger::Resources::Mrf::Assessment.where(
-                    company_id: @company.id,   
-                    query_options: { 
-                      company_id: @company.id, 
-                      id: @walkin_group.assessment_hash.keys
-                    }, 
-                    select: ["name","id"]
-                   ).all.to_a
+    @assessment = Vger::Resources::Mrf::Assessment.find(
+                    @walkin_group.assessment_id, {
+                      company_id: @company.id,   
+                      select: ["name","id"]
+                    }
+                   )
   end
   
   def get_templates_for_users
