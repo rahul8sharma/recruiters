@@ -84,7 +84,7 @@ module Suitability
         )
 
         hash_toc = {
-          margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
           footer: {
             :content => render_to_string(
               "shared/reports/pdf/_report_footer",
@@ -92,15 +92,7 @@ module Suitability
               formats: [:pdf]
             )
           },
-          zoom: 1.5,
-          header: {
-            :content => render_to_string(
-              "shared/reports/pdf/_report_header",
-              layout: "layouts/user_reports",
-              formats: [:pdf]
-            ),
-            :spacing => 15
-          }
+          zoom: 1.5
         }
 
         if @report.report_hash[:enable_table_of_contents]

@@ -1,5 +1,6 @@
 - step_data.group_by{|trait_scores| trait_scores[:competency_name] }.each do |competency, trait_scores|  
   - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(trait_scores.first[:competency_data][:grade_uid])}
+  = render "shared/reports/pdf/report_header"  
   .frame
     .heading.pull-left
       #{competency} 

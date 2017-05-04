@@ -2,6 +2,7 @@
 - ordered_guides = get_ordered_guidelines(@report.report_hash[:guidelines_for_user_manager])  
 - (0..ordered_guides.length-1).step(guides_step) do |step|
   - step_user_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
+  = render "shared/reports/pdf/report_header"
   .inner
     .scores.interview_guide
       .divider1

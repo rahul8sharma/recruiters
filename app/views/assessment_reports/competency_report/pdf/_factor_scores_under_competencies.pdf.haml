@@ -1,6 +1,7 @@
 - step_toc = 0
 - trait_scores = get_factors_under_competencies(@report)
 - trait_scores.each_slice(5) do |step_data|
+  = render "shared/reports/pdf/report_header"
   .inner
     .scores.favorable_factors
       .divider1
