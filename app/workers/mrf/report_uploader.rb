@@ -95,8 +95,7 @@ module Mrf
               formats: [:pdf]
             )
           },
-          zoom: 1.5,
-          disable_smart_shrinking: false
+          zoom: 1.5
         )
 
 

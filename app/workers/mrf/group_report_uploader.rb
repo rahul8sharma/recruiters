@@ -58,8 +58,7 @@ module Mrf
             content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
                                         layout: "layouts/mrf/group_reports.pdf.haml")
           },
-          zoom: 1.5,
-          disable_smart_shrinking: false
+          zoom: 1.5
         )
         pdf_file_id = "mrf_group_report_#{@report.id}.pdf"
         pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")

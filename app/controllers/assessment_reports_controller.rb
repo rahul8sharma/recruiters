@@ -40,7 +40,6 @@ class AssessmentReportsController < ApplicationController
           }
         },
         zoom: 1.5,
-        disable_smart_shrinking: false,
         template: "assessment_reports/training_requirements_report.pdf.haml",
         layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
@@ -71,7 +70,6 @@ class AssessmentReportsController < ApplicationController
           }
         },
         zoom: 1.5,
-        disable_smart_shrinking: false,
         template: "assessment_reports/benchmark_report.html.haml",
         layout: "layouts/benchmark_report.html.haml",
         handlers: [ :haml ],
@@ -196,7 +194,6 @@ class AssessmentReportsController < ApplicationController
         }
       },
       zoom: 1.5,
-      disable_smart_shrinking: false,
       template: "assessment_reports/#{template}",
       layout: "layouts/#{layout}",
       handlers: [ :haml ],
