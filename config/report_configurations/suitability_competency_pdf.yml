@@ -229,6 +229,18 @@
     children: []
   },
   {
+    id: "pdf_overall_aptitude_score",
+    text: "Overall Score for Aptitude",
+    path: "assessment_reports/competency_report/pdf/aptitude/overall_score",
+    children: []
+  },
+  {
+    id: "pdf_aptitude_section_scores",
+    text: "Aptitude Section Scores",
+    path: "assessment_reports/competency_report/pdf/aptitude/section_scores",
+    children: []
+  },
+  {
     id: "pdf_aptitude_score_explanation",
     text: "Explanation of CoCubes Score",
     path: "assessment_reports/competency_report/pdf/explanation_of_cocubes_score",

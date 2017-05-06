@@ -1,0 +1,23 @@
+- if @report.report_data[:cocubes_score].present?
+  .aptitude_score
+    .container
+      .divider2
+      .title
+        Score for Aptitude 
+      .divider1
+      .pannel
+        .divider1
+        .span9.margin-auto
+          .span3.first.rounded
+            #{@report.report_data[:cocubes_score]} / #{@report.report_data[:cocubes_max_score]}
+          .span3.left-offset1.rounded
+            #{@report.report_data[:cocubes_percentage_score]}%
+          .clr
+          .divider1
+          .span3.first.text-center.extra-large-text
+            Score
+          .span3.left-offset1.text-center.extra-large-text
+            Percentage
+          .clr
+        .divider1
+      .divider1

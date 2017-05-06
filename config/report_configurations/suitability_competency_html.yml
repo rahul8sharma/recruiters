@@ -297,6 +297,26 @@
     }
   },
   {
+    id: "html_overall_aptitude_score",
+    text: "Overall Score for Aptitude",
+    path: "assessment_reports/competency_report/html/aptitude/overall_score",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_overall_aptitude_score"]
+    }
+  },
+  {
+    id: "html_aptitude_section_scores",
+    text: "Aptitude Section Scores",
+    path: "assessment_reports/competency_report/html/aptitude/section_scores",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_aptitude_section_scores"]
+    }
+  },
+  {
     id: "html_aptitude_score_explanation",
     text: "Explanation of CoCubes Score",
     path: "assessment_reports/competency_report/html/explanation_of_cocubes_score",
