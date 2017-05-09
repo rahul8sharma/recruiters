@@ -46,6 +46,10 @@ module Oac
           :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
         )
         
+        @assessment = Vger::Resources::Oac::Exercise.find(report_data[:exercise_id])
+        
+        @exercise = @assessment
+        
         get_norm_buckets
         get_oac_score_buckets
 
