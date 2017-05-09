@@ -1,4 +1,4 @@
-- @custom_score_bucket_names = @assessment.scale.with_indifferent_access || Rails.application.config.reports["oac_report"]
+- @custom_score_bucket_names = @report.report_data[:exercise][:scale].with_indifferent_access || Rails.application.config.reports["oac_report"]
 .competency_report  
   - @report.report_configuration["html"]["sections"].each do |section_value|
     = render :partial => section_value["path"], :locals => { :section_value => section_value["children"] }
