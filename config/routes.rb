@@ -247,11 +247,11 @@ Recruiters::Application.routes.draw do
         match "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         put "candidates/bulk-send-test" => "suitability/custom_assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
         match "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations", :as => :resend_invitations
-        match "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "candidates/:user_assessment_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
         get "candidates/:user_id" => "suitability/custom_assessments/user_assessments#user", :as => :user
-        match "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
-        get "candidates/:user_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
-        get "candidates/:user_id/update-status" => "suitability/custom_assessments/user_assessments#update_status", :as => :update_status
+        match "candidates/:user_assessment_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
+        get "candidates/:user_assessment_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
+        get "candidates/:user_assessment_id/update-status" => "suitability/custom_assessments/user_assessments#update_status", :as => :update_status
       end
 
       resources :users, path: "candidates", :except => [:destroy, :show] do
