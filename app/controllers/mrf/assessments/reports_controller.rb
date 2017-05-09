@@ -38,12 +38,12 @@ class Mrf::Assessments::ReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        zoom: 1.5,
+        zoom: 1.2,
         disable_smart_shrinking: false,
         template: "mrf/assessments/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => "0",:right => "0", :top => "0", :bottom => "9" },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
