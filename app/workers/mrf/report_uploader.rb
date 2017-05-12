@@ -95,7 +95,7 @@ module Mrf
               formats: [:pdf]
             )
           },
-          zoom: 1.2
+          zoom: 1.19
         )
 
 
