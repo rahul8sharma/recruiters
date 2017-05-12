@@ -69,7 +69,7 @@ class Oac::Exercises::ReportsController < ApplicationController
         },
         cover: cover,
         toc: toc,
-        zoom: 1.5,
+        zoom: 1.4,
         disable_smart_shrinking: false,
         template: "oac/exercises/reports/#{template}",
         layout: layout,
