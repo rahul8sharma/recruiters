@@ -41,12 +41,11 @@ module Suitability
             handlers: [ :haml ],
             formats: [:html]
           ),
-          margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
           footer: {
             content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
             layout: "layouts/benchmark_report.html.haml")
-          },
-          zoom: 1.5
+          }
         )
         
         FileUtils.mkdir_p(Rails.root.join("tmp"))

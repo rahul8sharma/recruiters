@@ -62,9 +62,7 @@ module Suitability
               handlers: [ :haml ],
               formats: [:pdf]
             )
-          },
-          zoom: 1,
-          disable_smart_shrinking: false
+          }
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))

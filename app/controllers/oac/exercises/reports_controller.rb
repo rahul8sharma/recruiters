@@ -69,13 +69,10 @@ class Oac::Exercises::ReportsController < ApplicationController
         },
         cover: cover,
         toc: toc,
-        zoom: 1.4,
-        disable_smart_shrinking: false,
         template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        page_offset: 0,
-        margin: { :left => 0, :right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0, :right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
