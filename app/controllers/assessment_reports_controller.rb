@@ -42,7 +42,7 @@ class AssessmentReportsController < ApplicationController
         template: "assessment_reports/training_requirements_report.pdf.haml",
         layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 10 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
