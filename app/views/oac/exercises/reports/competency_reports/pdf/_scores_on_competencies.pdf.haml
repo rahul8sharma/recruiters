@@ -14,17 +14,17 @@
             - super_competency_scores.each do |id, data|
               - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
               %li
-                .trait_title.first.span5{:title => config[:name]}
+                .trait_title.first.span7{:title => config[:name]}
                   = truncate config[:name], length: 35
                 .clr
             
-        .right_sec.span13.first.pull-right
+        .right_sec.span16.first.pull-right
           .classic_competency_graph
             .classic_competency_graph_scale
               .block.pull-left
                 = @custom_score_bucket_names[@custom_score_bucket_names.keys.first][:name]
               - @custom_score_bucket_names.except(@custom_score_bucket_names.keys.first).each do |uid, bucket|
-                .block.pull-left{:style => "width: #{510/(@custom_score_bucket_names.size-1)}px;"}
+                .block.pull-left{:style => "width: #{630/(@custom_score_bucket_names.size-1)}px;"}
                   = bucket[:name]
 
               .clr

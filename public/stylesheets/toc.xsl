@@ -51,6 +51,7 @@
             max-width: 95%;
             float: left;
             padding-right: 10px;
+            white-space: nowrap;
           }
           .page_no{
             max-width: 4%;
