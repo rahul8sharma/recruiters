@@ -84,10 +84,17 @@ module ReportsHelper
       multiplier = 10
     end
     new_factor_name = factor_name.dup
-    new_factor_name = (new_factor_name.size >= 15 && new_factor_name.split(" ").size == 1) ? [new_factor_name.slice(0,11)+"-",new_factor_name.slice(11,100)].join(' ') : new_factor_name
+    if new_factor_name.size >= 15 && new_factor_name.split(" ").size == 1
+      new_factor_name = [new_factor_name.slice(0,11)+"-",new_factor_name.slice(11,100)].join(' ')
+    end  
     new_factor_size = new_factor_name.split(" ").size
-    margin = new_factor_size >= 3 ? top : upperLimit-((new_factor_size-1)*multiplier)
-    margin
+    if new_factor_size >= 3
+      margin = top
+    elsif new_factor_size == 2
+      margin = 15
+    else
+      margin = 20   
+    end
   end
 
 end

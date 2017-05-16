@@ -2,7 +2,7 @@
   .graph_container
     .left_sec.pull-left
       .divider1
-      .span5.medium-text.first.trait_title.bold
+      .span6.medium-text.first.trait_title.bold
         #{display_name}
       .pull-left{:style => "margin-left:4px;font-size: 47px;color: #83b4e2"}
         &#8226;
@@ -10,18 +10,18 @@
       %ul
         -sorted_competency_scores.each do |competency, competency_score|
           %li
-            .span5.medium-text.first.trait_title
+            .span6.medium-text.first.trait_title
               = truncate competency, length: 25
             .stakeholder_rating.pull-left
               = competency_score[:average_score_including_self][:points] rescue "-"
             .clr
        
-    .right_sec.span13.pull-right
+    .right_sec.span15.pull-right
       .classic_competency_graph
         .classic_competency_graph_scale
           .block.pull-left
             = @competency_graph_buckets.first.min_val
-          - scale_width = (510/(@competency_graph_buckets.size-1))
+          - scale_width = (590/(@competency_graph_buckets.size-1))
           - @competency_graph_buckets[1..@competency_graph_buckets.length-1].each do |competency_graph_bucket|
             .block.pull-left{:style=>"width: #{scale_width}px; text-align: right"}
               = competency_graph_bucket.min_val
