@@ -87,7 +87,7 @@ module Mrf
             layout: "layouts/mrf/reports",
             formats: [:pdf]
           ),
-          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 10 },
           footer: {
             :content => render_to_string(
               "shared/reports/pdf/_report_footer",
