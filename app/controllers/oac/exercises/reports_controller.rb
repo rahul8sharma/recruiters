@@ -72,7 +72,7 @@ class Oac::Exercises::ReportsController < ApplicationController
         template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        margin: { :left => 0, :right => 0, :top => 0, :bottom => 10 },
+        margin: { :left => 0, :right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
