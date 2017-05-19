@@ -11,12 +11,12 @@
         - cdata[:score][:pass]
       - strengths = Hash[strengths.sort_by{|name, cdata| cdata[:score][:score] }.reverse]
       - if strengths.present?
-        %ul.disc.gray-dark.small-text
+        %ul.disc.gray-dark
           - strengths.each do |id,cdata|
             %li
               = cdata[:name]
       - else
-        .small-text
+        %div
           No strengths found 
     %td.space
     %td.tool_scores
@@ -24,12 +24,12 @@
         - !cdata[:score][:pass]
       - weaknesses = Hash[weaknesses.sort_by{|id, cdata| cdata[:score][:score] }]
       - if weaknesses.present?
-        %ul.disc.gray-dark.small-text
+        %ul.disc.gray-dark
           - weaknesses.each do |id,cdata|
             %li
               = cdata[:name]
       - else
-        .small-text
+        %div
           No areas of improvement found
 .divider1
 
