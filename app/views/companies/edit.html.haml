@@ -26,6 +26,11 @@
           .clr
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Parent ID:
+          = f.text_field :parent_id, :class => "first span7 medium-text left-offset1"
+          .clr
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
             Account Type:
           = f.select :account_type, Vger::Resources::Company::ACCOUNT_TYPES, { :prompt => "Select Account Type" }, { :id => "select_account_type", :class => "first span7 medium-text left-offset1" }
           .clr  
