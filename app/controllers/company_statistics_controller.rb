@@ -17,6 +17,33 @@ class CompanyStatisticsController < ApplicationController
   def statistics_vac
     get_vac_subscriptions
   end
+  
+  def subscription_management
+    @children = Vger::Resources::Company.where(
+      query_options: {
+        parent_id: @company.id
+      },
+      select: [:id, :name]
+    ).all
+    @subscriptions = Vger::Resources::Subscription.where(
+      query_options: {
+        parent_id: @company.id
+      },
+      select: [:id, :assessments_purchased, :valid_from, :valid_to]
+    )
+    @allocated_invitations = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @children.map(&:id)
+      },
+      group: :company_id
+    )
+    @unallocated_invitations = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id
+      },
+      group: :subscription_id
+    )
+  end
 
   def email_usage_stats
      options = {

@@ -1,0 +1,40 @@
+.usage
+  %b.extra-medium-text
+    Subscriptions (Unassigned Subscriptions: #{@unassigned_invitations_count}, Remaining Unused Subscriptions: #{@unused_invitations_count})
+  .divider1
+
+  %ul.usage-details-list.extra-medium-text
+    %li.headings
+      .span2
+        Account ID
+      .span12
+        Account Name
+      .span2
+        Subscriptions Assigned
+      .span2
+        Subscriptions Used
+      .span2
+        Assign Subscriptions
+      .span2
+        Revoke Subscriptions
+      .clr
+    - @children.each_with_index do |company, index|
+      %li
+        .span2
+          #{company.id}
+        .span12
+          #{company.name}
+        .span2
+          #{@assigned_invitation_counts[company.id.to_s] || 0}
+        .span2
+          #{@used_invitation_counts[company.id.to_s] || 0}
+        .span2
+          = link_to "Assign", assign_subscriptions_company_path(@company.id, company.id)
+        .span2
+          = link_to "Revoke", revoke_subscriptions_company_path(@company.id, company.id)
+        .clr
+  .divider3
+
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @children}
+  .clr
