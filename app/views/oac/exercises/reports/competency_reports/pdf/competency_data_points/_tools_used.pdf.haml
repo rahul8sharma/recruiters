@@ -1,10 +1,10 @@
 .tools
-  .span2.text-left.no-border.small-text
+  .span2.text-left.no-border
     Tools Used
   .pull-right
     - @report.report_data[:tools].each_with_index do |(tool, tool_data),index|
       - if toolwise_scores[tool]
-        .span2.small-text{ class: (index==0? "no-border text-center":"") }
+        .span2{ class: (index==0? "no-border text-center":"") }
           = tool
     .clr
   .clr

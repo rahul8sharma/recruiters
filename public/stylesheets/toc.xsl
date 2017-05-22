@@ -26,7 +26,7 @@
             line-height: 20px;
             font-weight: 200;
             color: #1c7dab;
-            padding: 30px 30px 10px 30px;
+            padding: 100px 30px 10px 30px;
           }
           div.content{
             border-bottom: 1px dotted #414042
@@ -51,6 +51,7 @@
             max-width: 95%;
             float: left;
             padding-right: 10px;
+            white-space: nowrap;
           }
           .page_no{
             max-width: 4%;
