@@ -1,9 +1,7 @@
 - items = get_response_distribution(@report)
-- slice_value = 8
-- scale_visibility_counter = 0
+- slice_value = 10
 - items.each_slice(slice_value) do |step_data|
   = render partial: "shared/360/compact_mrf_report_header",  :locals => { :display_text => "Response distribution on Questions"}    
-  - scale_visibility_counter += 1
   .response_distribution_six_points
     .scores
       .pull-left.color-info.big-text
@@ -18,56 +16,36 @@
         This section presents the questions asked in the exercise and frequency of responses on each of the options.
       .divider1
     .scores.border-bottom-grayLighter
-      - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, items|
-        - if scale_visibility_counter == 1
-          - scale_visibility_counter = 0
-          .response_distribution_six_points_titles.clearfix
-            .span10.no-bg.pull-left
-              &nbsp; 
-            .pull-left
-              .span.medium-text.float-none.line-height1
-                Numbers of stakeholders
-              .clr
-              - items.first[:responses].each do |body,response_count|
-                .span2
-                  = body
-              .clr
+      - step_data.group_by{|item_data| item_data["trait_name"] }.each do |trait_name, trait_items|
+        .response_distribution_six_points_titles.clearfix
+          .span10.no-bg.pull-left
+            &nbsp; 
+          .pull-left
+            .span.medium-text.float-none.line-height1
+              Numbers of stakeholders
             .clr
-          .extra-medium-text.span10{:style=>"padding-bottom: 10px"}
-            Questions on
-            = truncate "#{trait_name}", length: 80
+            - trait_items.first[:responses].each do |body,response_count|
+              .span2
+                = body
+            .clr
           .clr
-          %ul
-            -#
-              %li.response_distribution_six_points_titles.clearfix
+        .extra-medium-text.span10{:style=>"padding-bottom: 10px"}
+          Questions on
+          = truncate "#{trait_name}", length: 80
+        .clr
+        %ul
+          - trait_items.each_with_index do |item_data, index|
+            - if item_data[:responses].present?
+              - klass = item_data["role"] == "other" ? "" : "candidate_answer"
+              %li.clearfix{ class: klass }
                 .span10
-                - items.first[:responses].each do |body,response_count|                
-                  .span2
-                    = body
-
-            - items.each_with_index do |item_data, index|
-              - if item_data["role"] == "other"
-                - if item_data[:responses].present?
-                  %li.clearfix
-                    .span10
-                      .question{:style => "padding-top: 5px;"}
-                        %span.bold
-                          Q.
-                        #{item_data[:item]}
-                    - item_data[:responses].each_with_index do |(body,response_count),index1|
-                      .span2
-                        = response_count
-              -else 
-                - if item_data[:responses].present?
-                  %li.clearfix.candidate_answer
-                    .span10
-                      .question{:style => "padding-top: 5px;"}
-                        %span.bold
-                          Q.
-                        #{item_data[:item]}
-                    - item_data[:responses].each_with_index do |(body,response_count),index1|
-                      - klass = response_count > 0 ? "active" : ""
-                      .span2{:class => klass}
-                        = response_count
-    
+                  .question{:style => "padding-top: 5px;"}
+                    %span.bold
+                      Q.
+                    #{item_data[:item]}
+                - item_data[:responses].each_with_index do |(body,response_count),index1|
+                  - klass = response_count > 0 ? "active" : ""
+                  .span2{:class => klass}
+                    = response_count
+        .divider1
   .page-break           
