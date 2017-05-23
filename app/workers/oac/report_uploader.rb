@@ -55,6 +55,9 @@ module Oac
         
         cover, toc = nil
         if @assessment.enable_table_of_contents
+          @report.report_configuration["pdf"]["sections"].delete_if do |section|
+            section['id'] == 'pdf_cover_page'
+          end
           cover =  oac_report_cover_url(:report_id => @report.id).gsub("http://", '')
           toc = {
             disable_dotted_lines: true,
