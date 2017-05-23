@@ -55,7 +55,7 @@ module Oac
         
         cover, toc = nil
         if @assessment.enable_table_of_contents
-          cover =  oac_report_cover_url(:report_id => @report.id)
+          cover =  oac_report_cover_url(:report_id => @report.id).gsub("http://", '')
           toc = {
             disable_dotted_lines: true,
             disable_toc_links: true,
