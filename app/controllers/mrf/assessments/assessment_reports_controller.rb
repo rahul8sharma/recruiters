@@ -36,8 +36,9 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
           :html => {
             template: "shared/reports/pdf/_report_footer.pdf.haml",
             layout: layout
-          }
+          },
         },
+       
         template: "mrf/assessments/assessment_reports/#{template}",
         layout: layout,
         handlers: [ :haml ],

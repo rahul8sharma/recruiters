@@ -59,6 +59,7 @@ class Jq::UserAssessmentReportsController < MasterDataController
             layout: "layouts/#{layout}"
           }
         },
+        
         template: "jq/user_assessment_reports/#{template}",
         layout: "layouts/#{layout}",
         handlers: [ :haml ],

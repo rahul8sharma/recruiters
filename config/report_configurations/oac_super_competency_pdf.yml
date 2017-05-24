@@ -17,8 +17,13 @@
     ]
   },
   {
+    id: "pdf_table_of_contents",
+    text: "Table of Contents",
+    path: "oac/exercises/reports/competency_reports/pdf/table_of_contents",
+  },
+  {
     id: "pdf_participation",
-    text: "Participation",
+    text: "Introduction",
     path: "oac/exercises/reports/competency_reports/pdf/participation",
   },
   {
@@ -28,7 +33,7 @@
   },
   {
     id: "pdf_competency_overview",
-    text: "Competency Overview",
+    text: "Competency Scores",
     path: "oac/exercises/reports/competency_reports/pdf/competency_overview",
     children: [
       {
@@ -85,19 +90,37 @@
   },
   {
     id: "pdf_toolwise_descriptions",
-    text: "Toolwise Description",
+    text: "Tool Descriptions",
     path: "oac/exercises/reports/competency_reports/pdf/toolwise_descriptions",
     children: []
   },
   {
+    id: "pdf_report_interpretation_guide",
+    text: "Report Interpretation Guide",
+    path: "oac/exercises/reports/competency_reports/pdf/report_interpretation_guide",
+    children: []
+  },
+  {
     id: "pdf_top_bottom_competencies",
-    text: "Top and Bottom Competencies",
+    text: "Top 2 and Bottom 2 Competencies",
     path: "oac/exercises/reports/competency_reports/pdf/top_bottom_competencies",
     children: []
   },
   {
+    id: "pdf_scores_on_competencies",
+    text: "Scores on Competencies",
+    path: "oac/exercises/reports/competency_reports/pdf/scores_on_competencies",
+    children: []
+  },
+  {
+    id: "pdf_scores_on_behaviors",
+    text: "Scores on Behaviors",
+    path: "oac/exercises/reports/competency_reports/pdf/scores_on_behaviors",
+    children: []
+  },
+  {
     id: "pdf_data_points_competency_wise",
-    text: "Data Points Competency Wise",
+    text: "Competency Wise Data Points",
     path: "oac/exercises/reports/competency_reports/pdf/data_points_competency_wise",
     children: [
       {
@@ -168,6 +191,11 @@
         }
       }
     ]
+  },
+   {
+    id: "pdf_ultratech_idp",
+    text: "Individual Development Plan",
+    path: "oac/exercises/reports/competency_reports/pdf/ultratech_idp"
   },
    {
     id: "pdf_assessor_feedback_and_idp",

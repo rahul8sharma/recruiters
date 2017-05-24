@@ -1,13 +1,15 @@
-.container
+.competencywise_assessor_comments
+  .container
+    .divider2
+    .title
+      Competencywise Assessor's Comments
+    .divider2
+    - @report.report_data[:super_competency_scores].each do |name, data|
+      .frame.bg-gray
+        .heading 
+          = data[:name]
+        .padding-all1.extra-medium-text
+          = data[:score][:assessor_feedback]
+      .divider1
+      .clr
   .divider2
-  .title
-    Competencywise Assessor's Comments
-  .divider2
-  - @report.report_data[:super_competency_scores].each do |name, data|
-    .frame.bg-gray
-      .heading 
-        = data[:name]
-      .padding-all1.extra-medium-text
-        = data[:score][:assessor_feedback]
-    .divider1
-    .clr

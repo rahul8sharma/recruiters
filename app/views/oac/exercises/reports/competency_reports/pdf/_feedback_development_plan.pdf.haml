@@ -1,3 +1,4 @@
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+= render partial: "shared/reports/pdf/oac_report_header"
+%h1.small-text.white Assessor Feedback and IDP
 - section_value.each do |value|
   = render :partial => value["path"]

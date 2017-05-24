@@ -1,9 +1,11 @@
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+= render partial: "shared/reports/pdf/oac_report_header"
 
 - top_competencies = get_top_competencies(@report)
 - bottom_competencies = get_bottom_competencies(@report)
 .top_bottom_competencies
   .inner
+    %h1.small-text.white
+      Top 2 and Bottom 2 Competencies
     .caption.top.pull-left{ style: "width: 40%" }
       Top 2 Competencies
     .caption.bottom.pull-left{ style: "width: 40%" }

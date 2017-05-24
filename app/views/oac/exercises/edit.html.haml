@@ -31,6 +31,18 @@
         .divider1
         = f.text_area :cover_letter, rows: 10, placeholder: "#{@exercise.cover_letter}", class: "span16"
       .clr
+      .control-group.span20
+        %label.big-text.default.span8
+          Scale Description:
+        .clr
+        .divider1
+        = f.text_area :scale_description, rows: 3, placeholder: "#{@exercise.scale_description}", class: "span16"
+      .clr
+      .control-group.span20
+        %label.big-text.default.span12
+          = f.check_box :enable_table_of_contents
+          Enable Table of Contents and Cover Page:
+      .clr
     .divider2
     %input{ class: "btn pull-right btn-info big-text big font-bold", type: "Submit", value: "Update Assessment" }
     .clr

@@ -47,6 +47,114 @@
           background: #f8f8f8
           color: #808285
           font-size: 10px
+.interpretation_guide
+  ul
+    li
+      border-top: 1px solid #A0A0A0
+      padding: 18px 0
+      &:first-child
+        border: 0 none
+      .index
+        background: #21AF99
+        width: 25px
+        height: 25px
+        line-height: 25px
+        font-size: 16px
+        text-align: center
+        color: #fff
+        border-radius: 50%
+      .description
+        font-size: 14px
+      table
+        border: 1px solid #21AF99
+        border-collapse: collapse
+        tr
+          th, td
+            width: 150px
+            padding: 10px 25px
+            font-weight: 200
+          th
+            color: #fff
+            background: #21AF99
+            font-size: 14px
+            &:first-child
+              border-right: 2px solid #fff
+              text-align: center
+          td
+            font-size: 12px
+            &:first-child
+              border-right: 2px solid #F5F5F6
+              text-align: center
+          &:nth-child(even)
+            background: #F5F5F6
+            td:first-child
+              border-right-color: #fff
+
+.table_of_contents
+  ul
+    li
+      font-size: 16px
+      border-bottom: 1px dotted #414042
+      margin: 18px 0
+      .section_name, .page_no
+        background: #fff
+        margin-bottom: -6px
+      .section_name
+        max-width: 95%
+        float: left
+        padding-right: 10px
+      .page_no
+        max-width: 4%
+        float: right
+        text-align: right
+        padding-left: 10px
+.ultratech_idp
+  table
+    border-collapse: collapse
+    tr
+      &.blank
+        background: #ccc 
+      td
+        border: 1px solid #333
+        font-size: 10px
+
+.scores_on_behaviors, .scores_on_competencies 
+  .graph_container
+    margin-bottom: 36px
+  .graph_container 
+    .descending_graph_bar
+      border-radius: 0 2.5px 2.5px 0
+      height: 5px
+      background: #a119a6
+    .left_sec 
+      .graph_instructions
+        margin-bottom: 22px
+      ul
+        padding-top: 1px
+        li
+          font-weight: 200
+          margin-top: 14px
+          line-height: 22px
+          &:first-child
+            margin-top: 15px
+          div:first-child
+            padding-top: 5px
+    .right_sec .classic_competency_graph
+      .classic_competency_graph_scale
+        width: 101%
+        .block
+          text-align: right
+          color: #808285
+          &:first-child
+            width: 2px !important
+            line-height: 25px
+      .graph
+        border: 1px solid #e5e5e5
+        .graph_content
+          min-height: 20px
+          padding: 8px 0
+          position: relative
+
 .report 
   .competency_report 
     .overview 
@@ -163,8 +271,6 @@
 
     .competency_specific_score
       border: 1px solid #bee8e1
-      *
-        
       .tools, .tool_scores
         padding: 5px 0 5px 26px
         text-align: center
@@ -177,7 +283,6 @@
           width: 74px
       
       .tools
-        /*background: #bee8e1
       .tool_scores
       &.strengths_improvement
         border-collapse: collapse
@@ -208,7 +313,7 @@
                   padding-top: 0px 
                 &:first-child
                   div:first-child
-                    padding-top: 2px
+                    padding-top: 4px
 
             .right_sec 
               .classic_competency_graph 
@@ -257,6 +362,7 @@
     border-collapse: collapse
     width: 100%
     border: 1px solid #28b29b
+    table-layout: fixed
     tr
       &:first-child
         td
@@ -272,7 +378,7 @@
       border: 1px solid #28b29b
       border-top: 1px dashed #28b29b
       border-bottom: 1px dashed #28b29b
-      font-size: 10px
+      font-size: 12px
       width: 33%
       padding: 10px
       vertical-align: top

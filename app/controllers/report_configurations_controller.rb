@@ -180,6 +180,8 @@ class ReportConfigurationsController < MasterDataController
     report_conf = YAML::load(File.open("#{Rails.root.to_s}/config/report_dumps/#{report_type}_#{params[:assessment_type]}.yml")).with_indifferent_access
     
     @report = Vger::Resources::Oac::UserExerciseReport.new(report_conf)
+    
+    @assessment = Vger::Resources::Oac::Exercise.new()
  
     @report.report_hash = @report.report_data
     @report.report_data[:cover_letter] = params[:custom_message]

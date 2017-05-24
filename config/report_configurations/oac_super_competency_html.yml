@@ -97,7 +97,7 @@
   },
   {
     id: "html_participation",
-    text: "Particiaption",
+    text: "Introduction",
     path: "oac/exercises/reports/competency_reports/html/participation",
     children: [],
     links: {
@@ -117,7 +117,7 @@
   },
   {
     id: "html_competency_overview",
-    text: "Competency Overview",
+    text: "Competency Scores",
     path: "oac/exercises/reports/competency_reports/html/competency_overview",
     children: [
       {
@@ -188,7 +188,7 @@
   },
   {
     id: "html_toolwise_descriptions",
-    text: "Toolwise Description",
+    text: "Tool Descriptions",
     path: "oac/exercises/reports/competency_reports/html/toolwise_descriptions",
     children: [],
     links: {
@@ -198,7 +198,7 @@
   },
   {
     id: "html_top_bottom_competencies",
-    text: "Top and Bottom Competencies",
+    text: "Top 2 and Bottom 2 Competencies",
     path: "oac/exercises/reports/competency_reports/html/top_bottom_competencies",
     children: [],
     links: {
@@ -208,7 +208,7 @@
   },
   {
     id: "html_data_points_competency_wise",
-    text: "Data Points Competency Wise",
+    text: "Competency Wise Data Points",
     path: "oac/exercises/reports/competency_reports/html/data_points_competency_wise",
     children: [
       {
@@ -336,6 +336,46 @@
     links: {
       html: [],
       pdf: ["pdf_individual_development_plan"]
+    }
+  },
+  {
+    id: "html_report_interpretation_guide",
+    text: "Report Interpretation Guide",
+    path: "oac/exercises/reports/competency_reports/html/report_interpretation_guide",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_report_interpretation_guide"]
+    }
+  },
+  {
+    id: "html_scores_on_competencies",
+    text: "Scores on Competencies",
+    path: "oac/exercises/reports/competency_reports/html/scores_on_competencies",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_scores_on_competencies"]
+    }
+  },
+  {
+    id: "html_scores_on_behaviors",
+    text: "Scores on Behaviors",
+    path: "oac/exercises/reports/competency_reports/html/scores_on_behaviors",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_scores_on_behaviors"]
+    }
+  },
+  {
+    id: "html_ultratech_idp",
+    text: "Individual Development Plan",
+    path: "oac/exercises/reports/competency_reports/html/ultratech_idp",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_ultratech_idp"]
     }
   },
   {

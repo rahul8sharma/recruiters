@@ -82,12 +82,11 @@ class UsersManagementController < ApplicationController
       flash[:error] = "Please enter required details"
       redirect_to request.env['HTTP_REFERER'] and return
     end
+    args = params[:user][:args].merge!({
+      user_id: current_user.id
+    })
     Vger::Resources::User\
-      .export_user_responses(params[:user].merge({
-        args: {
-          user_id: current_user.id
-        }
-      }))
+      .export_user_responses(params[:user])
     redirect_to manage_users_path, notice: "Export operation queued. Email notification should arrive as soon as the export is complete."
   end
 

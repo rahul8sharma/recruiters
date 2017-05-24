@@ -45,6 +45,7 @@ class Exit::Surveys::GroupReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
+        
         template: "exit/surveys/group_reports/#{template}",
         layout: layout,
         handlers: [ :haml ],

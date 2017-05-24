@@ -1,0 +1,134 @@
+= render partial: "shared/reports/pdf/oac_report_header"
+.ultratech_idp
+  .inner
+    %h1.blue_heading.big-text
+      Individual Development Plan
+    .divider1
+
+    %table.margin-auto
+      %tr
+        %td.bold{:rowspan=>"2"}
+          SN
+        %td.text-center{:colspan=>"3"}
+          Development Objective
+        %td.text-center{:rowspan=>"2", :colspan=>"2"}
+          %span.span4.first
+            Learning method - Experience, Exposure, Education (70:20:10)
+        %td.text-center{:rowspan=>"2"}
+          %span.span2.first
+            Details of activities
+        %td.text-center{:rowspan=>"2"}
+          %span.span3.first
+            What will success look like?
+        %td.text-center{:rowspan=>"2"}
+          %span.span3.first
+            Target compilation date
+      %tr
+        %td.text-center 
+          %span.span2.first
+            Behaviour
+        %td.text-center 
+          %span.span3.first
+            Sub competency
+        %td.text-center 
+          %span.span2.first
+            Competency
+      - 2.times do |index|
+        %tr
+          %td.text-center{:rowspan=>"15"}
+            #{index+1}
+          %td{:rowspan=>"15"}
+          %td{:rowspan=>"15"}
+          %td{:rowspan=>"15"}
+          %td.text-center{:rowspan=>"5"}
+            %span.span1.first
+              70
+          %td Design &amp; conduct a course
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Secondment
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td External Visit
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Undertake research project
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td *Project of Business relevance
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td.text-center{:rowspan=>"6"}
+            20
+          %td 360 Degree Feedback
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Be a project guide
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Being Mentored within ABG
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Mentore Someone
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td.text-center{:rowspan=>"4"}
+            10
+          %td Classroom training
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td E-Learning
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Seminar / Conference
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr
+          %td Self Study
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+        %tr.blank
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+          %td &nbsp;
+.page-break

@@ -40,8 +40,8 @@ module Suitability
         )
 
         html = render_to_string(
-           template: "assessment_reports/training_requirements_report.html.haml",
-           layout: "layouts/training_requirements_report.html.haml",
+           template: "assessment_reports/training_requirements_report",
+           layout: "layouts/training_requirements_report",
            formats: [:html],
            handlers: [ :haml ]
         )
@@ -49,15 +49,19 @@ module Suitability
         @view_mode = "pdf"
         pdf = WickedPdf.new.pdf_from_string(
           render_to_string(
-            "assessment_reports/training_requirements_report.pdf.haml",
-            layout: "layouts/training_requirements_report.pdf.haml",
+            "assessment_reports/training_requirements_report",
+            layout: "layouts/training_requirements_report",
             handlers: [ :haml ],
             formats: [:pdf]
           ),
-          margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
           footer: {
-            content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-            layout: "layouts/training_requirements_report.pdf.haml")
+            content: render_to_string(
+              "shared/reports/pdf/_report_footer",
+              layout: "layouts/training_requirements_report",
+              handlers: [ :haml ],
+              formats: [:pdf]
+            )
           }
         )
 

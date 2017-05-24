@@ -1,4 +1,5 @@
 - step_competency_scores.each do |competency_name,competency_data|
+  = render "shared/reports/pdf/report_header"
   .competency-container
     .heading.pull-left{ title: competency_name }
       = competency_name.to_s[0..50]

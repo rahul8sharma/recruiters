@@ -33,6 +33,7 @@ class Engagement::Surveys::ReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
+       
         template: "engagement/surveys/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],

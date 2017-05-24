@@ -243,8 +243,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     uuidtools (2.1.5)
-    wicked_pdf (0.9.6)
-      rails
+    wicked_pdf (1.1.0)
 
 PLATFORMS
   java
@@ -278,7 +277,7 @@ DEPENDENCIES
   spreadsheet (= 1.1.1)
   uglifier (= 1.0.3)
   vger!
-  wicked_pdf (= 0.9.6)
+  wicked_pdf (= 1.1.0)
 
 BUNDLED WITH
    1.13.6

@@ -18,7 +18,7 @@ gem 'puma','2.9.0'
 
 gem 'kaminari', :github => "amatsuda/kaminari", :branch => "master", :ref => "c7c88c576786"
 
-gem 'wicked_pdf','0.9.6'
+gem 'wicked_pdf','1.1.0'
 
 gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessable-entity", :ref => "dca594d4664e42476826d098053135b304242614"
 

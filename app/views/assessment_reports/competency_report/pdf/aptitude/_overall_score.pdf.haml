@@ -1,0 +1,29 @@
+- if @report.report_data[:cocubes_score]
+  - cocubes_section_scores = { "Aptitude" => { section_score: @report.report_data[:cocubes_score], max_score: @report.report_data[:cocubes_max_score] } }
+  - scores_step = 4
+  - (0..cocubes_section_scores.length-1).step(scores_step).each do |step|
+    - step_cocubes_section_scores = Hash[cocubes_section_scores.to_a[step..(step+(scores_step - 1))]]
+    = render "shared/reports/pdf/report_header"
+    .aptitude_score
+      .divider2
+      - step_cocubes_section_scores.each do |name, score|
+        .font-normal.blue_heading.large-text
+          Score for #{name}
+        .divider1
+        .pannel
+          .divider1
+          .span7.margin-auto
+            .pull-left.rounded
+              #{score[:section_score].round(1)} / #{score[:max_score]} 
+            .pull-left.left-offset1.rounded
+              = number_to_percentage((score[:section_score].to_f*100 /score[:max_score]), precision: 0)
+            .clr
+            .divider1
+            .titles.pull-left.text-center.large-text
+              Score
+            .titles.pull-left.left-offset1.text-center.large-text
+              Percentage
+            .clr
+          .divider1
+        .divider1
+    .page-break

@@ -1,8 +1,8 @@
 - @report.report_data[:super_competency_guidelines].each_slice(5) do |step_guidelines|
-  = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+  = render partial: "shared/reports/pdf/oac_report_header"
   .development_guide
     .inner
-      .blue_heading.big-text
+      %h1.blue_heading.big-text
         Development Guide
       .divider1
       - step_guidelines.each do |competency, guideline|

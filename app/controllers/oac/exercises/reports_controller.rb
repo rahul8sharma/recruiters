@@ -22,10 +22,10 @@ class Oac::Exercises::ReportsController < ApplicationController
                           ).all
     @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     
-    @assessment = Vger::Resources::Oac::Exercise.find(params[:id])
-    
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
     @report.report_hash = @report.report_data
+    
+    @assessment = Vger::Resources::Oac::Exercise.find(params[:id])
     
     @report.report_configuration = @assessment.report_configuration
     
@@ -39,9 +39,23 @@ class Oac::Exercises::ReportsController < ApplicationController
       end
     end
 
-    template = "super_competency_report.#{@view_mode}.haml"    
-    layout = "layouts/oac/reports.#{@view_mode}.haml"
-    
+    template = "super_competency_report"    
+    layout = "layouts/oac/reports"
+    cover, toc = nil
+    if @assessment.enable_table_of_contents
+      @report.report_configuration["pdf"]["sections"].delete_if do |section|
+        section['id'] == 'pdf_cover_page'
+      end
+      cover =  oac_report_cover_url(:report_id => @report.id)
+      toc = {
+        disable_dotted_lines: true,
+        disable_toc_links: true,
+        level_indentation: 3,
+        text_size_shrink: 0.5,
+        margin: { left: "5mm", right: "5mm" },
+        xsl_style_sheet: "#{Rails.root.to_s}/public/stylesheets/toc.xsl"
+      }
+    end
     @page = 1
     respond_to do |format|
       format.html { 
@@ -50,16 +64,18 @@ class Oac::Exercises::ReportsController < ApplicationController
         formats: [:pdf, :html]
       }
       format.pdf {
-        render pdf: "report_#{params[:id]}.pdf",
+        render pdf: "report_#{params[:report_id]}",
         footer: {
           :html => {
-            template: "shared/reports/pdf/_oac_report_footer.pdf.haml"
+            template: "shared/reports/pdf/_oac_report_footer"
           }
         },
+        cover: cover,
+        toc: toc,
         template: "oac/exercises/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0, :right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }

@@ -84,21 +84,13 @@ module Suitability
         )
 
         hash_toc = {
-          margin: { :left => "0mm",:right => "0mm", :top => "13mm", :bottom => "12mm" },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
           footer: {
             :content => render_to_string(
               "shared/reports/pdf/_report_footer",
               layout: "layouts/user_reports",
               formats: [:pdf]
             )
-          },
-          header: {
-            :content => render_to_string(
-              "shared/reports/pdf/_report_header",
-              layout: "layouts/user_reports",
-              formats: [:pdf]
-            ),
-            :spacing => 15
           }
         }
 

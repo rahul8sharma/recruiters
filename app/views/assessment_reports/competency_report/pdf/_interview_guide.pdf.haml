@@ -1,6 +1,7 @@
 - step = 0
 - ordered_guides = get_ordered_guidelines(@report.report_hash[:interview_guide])  
-- ordered_guides.each_slice(8) do |step_interview_questions|
+- ordered_guides.each_slice(12) do |step_interview_questions|
+  = render "shared/reports/pdf/report_header"
   .inner
     .scores.interview_guide
       .divider1

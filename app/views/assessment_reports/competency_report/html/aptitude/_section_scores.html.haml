@@ -1,0 +1,24 @@
+- if @report.report_data[:cocubes_section_scores].present?
+  .aptitude_score
+    .container
+      - @report.report_data[:cocubes_section_scores].each do |name, score|
+        .divider1
+        .title
+          Score for #{name}
+        .divider1
+        .pannel
+          .divider1
+          .span9.margin-auto
+            .span3.first.rounded
+              #{score[:section_score].round(1)} / #{score[:max_score]} 
+            .span3.left-offset1.rounded
+              = number_to_percentage((score[:section_score].to_f*100 /score[:max_score]), precision: 0)
+            .clr
+            .divider1
+            .span3.first.text-center.extra-large-text
+              Score
+            .span3.left-offset1.text-center.extra-large-text
+              Percentage
+            .clr
+          .divider1
+        .divider1

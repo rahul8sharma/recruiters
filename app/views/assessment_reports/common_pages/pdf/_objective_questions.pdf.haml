@@ -1,6 +1,5 @@
 - if @report.report_hash[:objective_items].present? && @report.report_hash[:include_objective_questions]
   - @report.report_data[:objective_items].each_slice(1) do |objective_items|
-    = render partial: "shared/reports/pdf/report_header.pdf.haml"
     .functional-questions.objective
       .divider2
       .title
@@ -26,7 +25,7 @@
         .frame
           .label.label-warning.pull-left.left-offset1
             Question
-          .span14
+          .span17
             .question
               = item_data[:item][:body].html_safe
             .divider1

@@ -5,6 +5,7 @@
   - step_toc += 1
   - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
   - step_competency_scores_hash = HashWithIndifferentAccess.new({ step_competency_scores: step_competency_scores })
+  = render "shared/reports/pdf/report_header"
   #traits.section02
     .scores
       - if step_toc == 1
@@ -26,4 +27,3 @@
         - locals = Hash[section["locals"].map { |key, value| [key.to_sym, step_competency_scores_hash[key.to_sym]] }]
         = render :partial => section["path"], :locals => locals
   .page-break
-.page-break

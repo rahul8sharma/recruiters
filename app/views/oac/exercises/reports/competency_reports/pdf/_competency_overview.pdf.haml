@@ -1,4 +1,4 @@
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+= render partial: "shared/reports/pdf/oac_report_header"
 .overview.competency.oac_competency_overview
   .inner
     .divider1
@@ -9,4 +9,4 @@
     .divider1
 
     %p.medium-text
-      Scores ranging from Competent to Expert are considered as Strengths. Scores ranging between Novice and Practitioner are considered as Areas of Improvement.
+      = @assessment.scale_description

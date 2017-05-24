@@ -1,0 +1,45 @@
+- super_competency_scores = get_sorted_super_competency_scores(@report)
+= render partial: "shared/reports/pdf/oac_report_header"
+.scores_on_competencies
+  .inner
+    %h1.blue_heading.big-text
+      Scores on Competencies
+    .divider1
+    .traits_under_graph
+      .graph_container
+        .left_sec.pull-left
+          .graph_instructions.left-offset4
+            .span1.divider2 
+          %ul
+            - super_competency_scores.each do |id, data|
+              - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
+              %li
+                .trait_title.first.span6{:title => config[:name]}
+                  = truncate config[:name], length: 35
+                .clr
+            
+        .right_sec.span16.first.pull-right
+          .classic_competency_graph
+            .classic_competency_graph_scale
+              .block.pull-left
+                = @custom_score_bucket_names[@custom_score_bucket_names.keys.first][:name]
+              - @custom_score_bucket_names.except(@custom_score_bucket_names.keys.first).each do |uid, bucket|
+                .block.pull-left{:style => "width: #{630/(@custom_score_bucket_names.size-1)}px;"}
+                  = bucket[:name]
+
+              .clr
+            .graph
+              .graph_content
+                - super_competency_scores.each do |id, data|
+                  - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]    
+                  - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+                  - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+                  - scored_bucket_weight = data[:score][:weight].to_i
+                  - percentage = ((scored_bucket_weight-1)*100/(to_bucket_weight-1))
+                  - percentage = 2 if percentage == 0
+                  .divider1
+                  .descending_graph_bar.max{:style => "width: #{percentage}%; background: #a119a6; color: #fff"}
+                  .divider1
+                  
+        .clr
+

@@ -10,7 +10,7 @@
       - trait_scores.each do |factor_score|
         - scale_values = get_scale_calculations(50, factor_score, @company_norm_buckets, 34)
         %li{:id => "#{competency}#{factor_score[:factor_name]}"}
-          .lhs-sec.pull-left{:style=>"width:495px;"}
+          .lhs-sec.pull-left{:style=>"width:640px;"}
             .hexagon-icon{ class: "#{scale_values[:genericKlass]}" }
             .span.first
               .factor-name{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }

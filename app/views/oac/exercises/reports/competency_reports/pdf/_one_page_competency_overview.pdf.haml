@@ -12,14 +12,14 @@
 -# characters that can fit in a line = characters_per_line
 - characters_to_fit = lines_available * characters_per_line
 
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+= render partial: "shared/reports/pdf/oac_report_header"
 .overview.competency.oac_competency_overview
   .inner
     -# Legend
     .content
       .overview-title{:style=>"padding: 0 30px"}
         .pull-left.text-left
-          .big-text.color-warning{:style=>"padding-top: 10px"}
+          %h1.big-text.color-warning{:style=>"padding-top: 10px"}
             Competency Scores
           .instruction_container
             .instructions
@@ -78,7 +78,7 @@
   - limit = comptency_hash.size
   .competency_description
     .inner
-      .blue_heading.big-text
+      %h1.blue_heading.big-text
         Competency wise Data Points
       .divider1
       - index = 0
@@ -104,7 +104,7 @@
   .overview.competency.oac_competency_overview
     .competency_description
       .inner
-        .blue_heading.big-text
+        %h1.blue_heading.big-text
           Competency Wise Data Points
         .divider1
         - comptency_hash.each do |name, data|

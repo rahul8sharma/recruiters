@@ -1,0 +1,44 @@
+- max_weight = @score_buckets.map(&:weight).max
+- min_weight = @score_buckets.map(&:weight).min
+- competency_scores = get_sorted_competency_scores(@report)
+- competency_scores.each_slice(20) do |competency_scores|
+  = render partial: "shared/reports/pdf/oac_report_header"
+  .scores_on_behaviors
+    .inner
+      %h1.blue_heading.big-text
+        Scores on Behaviors
+      .divider1
+      .traits_under_graph
+        .graph_container
+          .left_sec.pull-left
+            .graph_instructions.left-offset4
+              .span1.divider2 
+            %ul
+              - competency_scores.each do |competency_id, competency_data|
+                %li
+                  .trait_title.first.span6{:title => competency_data[:name]}
+                    = competency_data[:name]
+                  .clr
+              
+          .right_sec.span16.first.pull-right
+            .classic_competency_graph
+              .classic_competency_graph_scale
+                .block.pull-left
+                  = @custom_score_bucket_names[@custom_score_bucket_names.keys.first][:name]
+                - @custom_score_bucket_names.except(@custom_score_bucket_names.keys.first).each do |uid, bucket|
+                  .block.pull-left{:style => "width: #{630/(@custom_score_bucket_names.size-1)}px;"}
+                    = bucket[:name]
+
+                .clr
+              .graph
+                .graph_content
+                  - competency_scores.each do |competency_id, competency_data|
+                    - weight = competency_data[:score][:weight]
+                    - percentage = convertToRange(min_weight, max_weight, 0, 100, weight)
+                    - percentage = percentage == 0 ? 2 : percentage
+                    .divider1
+                    .descending_graph_bar.max{:style => "width: #{percentage}%; background: #a119a6; color: #fff"}
+                    .divider1
+                    
+          .clr
+  .page-break          

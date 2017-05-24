@@ -41,7 +41,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
         template: "mrf/assessments/reports/#{template}",
         layout: layout,
         handlers: [ :haml ],
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }

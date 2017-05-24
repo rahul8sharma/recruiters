@@ -1,5 +1,8 @@
-= render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
+= render partial: "shared/reports/pdf/oac_report_header"
 .inner.border-bottom-grayDark
+  %h1.clearfix
+    Participation      
+  .divider1  
   .participation
     .content
       %p Dear #{@report.report_data[:user][:name]},
