@@ -46,8 +46,28 @@ module Oac
           :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
         )
         
+        @assessment = Vger::Resources::Oac::Exercise.find(report_data[:exercise_id])
+        
+        @exercise = @assessment
+        
         get_norm_buckets
         get_oac_score_buckets
+        
+        cover, toc = nil
+        if @assessment.enable_table_of_contents
+          @report.report_configuration["pdf"]["sections"].delete_if do |section|
+            section['id'] == 'pdf_cover_page'
+          end
+          cover =  oac_report_cover_url(:report_id => @report.id).gsub("http://", '')
+          toc = {
+            disable_dotted_lines: true,
+            disable_toc_links: true,
+            level_indentation: 3,
+            text_size_shrink: 0.5,
+            margin: { left: "5mm", right: "5mm" },
+            xsl_style_sheet: "#{Rails.root.to_s}/public/stylesheets/toc.xsl"
+          }
+        end
 
         report_status = {
           :errors => [],
@@ -75,11 +95,12 @@ module Oac
             handlers: [ :haml ],
             formats: [:pdf]
           ),
-          margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
           footer: {
             :content => render_to_string("shared/reports/pdf/_oac_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
           },
-          zoom: 1.5
+          cover: cover,
+          toc: toc
         )
 
         FileUtils.mkdir_p(Rails.root.join("tmp"))

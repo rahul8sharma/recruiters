@@ -23,13 +23,13 @@
         - factor_scores.each_with_index do |(factor_name,factor_score), index|
           - counter = counter + 1
           .snippet
-            .count.pull-left
+            .count
               = counter
-            .trait-title.pull-left
+            .trait-title
               = factor_name
             .clr
             .pie-visual
-              .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 100px;height: 100px;" }
+              .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 150px;height: 150px;" }
             .score
               #{factor_score[:percentage_users]}% Less Favourable
             - if @report.average_scores_in_top_training_needs

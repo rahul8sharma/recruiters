@@ -59,8 +59,7 @@ class Jq::UserAssessmentReportsController < MasterDataController
             layout: "layouts/#{layout}"
           }
         },
-        zoom: 1.5,
-        disable_smart_shrinking: false,
+        
         template: "jq/user_assessment_reports/#{template}",
         layout: "layouts/#{layout}",
         handlers: [ :haml ],
