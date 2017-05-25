@@ -139,11 +139,11 @@
           .divider1
           .span3.first
             %a{:href=> company_custom_assessment_path(:id => user_assessment.assessment_id, :company_id => @company.id), :title=>"TEST#{@assessment.id}"}
-              #{user_assessment.assessment.id}
+              #{@assessment.id}
           .span5
             #{@company.name}
           .span10
-            #{user_assessment.assessment.name}
+            #{@assessment.name}
           .span5
             - if user_assessment.candidate_stage != Vger::Resources::User::Stage::EMPLOYED
               = Vger::Resources::Suitability::Recommendation.where(:query_options => { :overall_fitment_grade_id => user_assessment.overall_fitment_grade_id, :candidate_stage => user_assessment.candidate_stage }).all[0].body rescue '-'
