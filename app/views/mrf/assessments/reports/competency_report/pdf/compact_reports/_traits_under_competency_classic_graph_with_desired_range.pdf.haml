@@ -2,7 +2,7 @@
   .graph_container
     .left_sec.pull-left
       .graph_instructions.pull-left
-        .span5.first.bold
+        .span6.first.bold
           = truncate competency, length: 30
         .span1.divider1.graph_stakeholder_rating_icon
         .span1.divider1.graph_classic_user_icon
@@ -14,20 +14,20 @@
           - other_score = trait_score[:average_score_excluding_self][:points]
           - if self_score || other_score
             %li
-              .span5.first
+              .span6.first
                 = truncate trait_score[:trait][:name], length: 30
               .stakeholder_rating.small-text.pull-left
                 = trait_score[:average_score_excluding_self][:points] || "-"
               .self_rating.small-text.span
                 = trait_score[:average_score_self][:points] || "-"
               .clr
-    .right_sec.span13.first.pull-right
+    .right_sec.span14.first.pull-right
       .classic_competency_graph
         .classic_competency_graph_scale
           .block.pull-left
             = @trait_graph_buckets.first.min_val
           - @trait_graph_buckets[1..100].each do |trait_graph_bucket|
-            .block.pull-left{:style=>"width: #{510/(@trait_graph_buckets.size-1)}px; text-align: right"}
+            .block.pull-left{:style=>"width: #{550/(@trait_graph_buckets.size-1)}px; text-align: right"}
               = trait_graph_bucket.min_val
           .clr
         .graph

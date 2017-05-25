@@ -129,12 +129,11 @@ class TrainingRequirementGroupsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        zoom: 1.5,
-        disable_smart_shrinking: false,
+        
         template: "assessment_group_reports/training_requirements_report.pdf.haml", 
         layout: "layouts/training_requirements_report.pdf.haml", 
         handlers: [ :haml ], 
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }

@@ -2,6 +2,7 @@
   - step_toc_objective = 0
   - objective_items = Hash[@report.report_data[:objective_items].sort_by{|item_id, item_data| item_data[:section] }]
   - objective_items.each_slice(2) do |objective_items|
+    = render "shared/reports/pdf/report_header"
     .functional-questions.objective
       - if step_toc_objective == 0
         - step_toc_objective += 1
@@ -40,7 +41,7 @@
         .frame
           .label.label-warning.pull-left.left-offset1
             Question
-          .span14
+          .span17
             .question
               = item_data[:item][:body].html_safe
             .divider1

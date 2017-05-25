@@ -1,0 +1,28 @@
+.common-top-trangle
+  .divider1
+  .about-us
+    .inner
+      .content
+        %ul
+          %li.feature01
+            %h1.font-bold.medium-text.default{:style => "display: inline-block; line-hieght: 25px;"} About Jombay
+            %span.medium-text.default{:style => "line-hieght: 25px;"}
+              \: Jombay is a Talent Assessment &amp; Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe.
+
+      .divider1
+      .content
+        %ul
+          %li.feature06
+            %p
+              For Support related queries, contact us at support&#64;jombay.com
+  - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+    .company-summary
+      .content
+        - imagePath = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+        .company-logo
+          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 55px "}
+        .divider1
+        = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
+  - else
+    .divider1
+    = render :partial => "shared/reports/pdf/contact_section"

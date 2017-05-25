@@ -8,32 +8,31 @@
           Frequency Distribution per Competency / Value
         .divider1
         - data.each_slice(2) do |step_data| 
-          .span
-            - step_data.each_with_index do |(competency, competency_scores), index|
-              - hex_code = @bucket_colors[color_index]
-              - color_index += 1
-              .span9.first{:class => (index+1) == 2 ? "pull-right border-left-grayLighter" : "", :style => (index+1) == 2 ? "padding-left: 17px;float:right" : ""}
-                .medium-text.text-center
-                  #{competency}
-                .grid_graph.small.span8.left-offset1
-                  .y_indication
-                  .x_indication
-                    Ratings
-                  .columns
-                    - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
-                      - bar_height = values[:percentage]
-                      - multiplier = 100 - bar_height
-                      .column{:style=>"background: #{hex_code}; margin-top: #{(230*multiplier/100)}px; height: #{bar_height}%"}
-                        .rating_range
-                          = bucket
-                    .clr
-                  .counts
-                    -counter = 110
-                    -11.times do |index|
-                      - counter = counter-10
-                      .count
-                        #{counter} 
-                .clr
-            .clr  
+          - step_data.each_with_index do |(competency, competency_scores), index|
+            - hex_code = @bucket_colors[color_index]
+            - color_index += 1
+            .span11.first{:class => (index+1) == 2 ? "pull-right border-left-grayLighter" : "", :style => (index+1) == 2 ? "padding-left: 17px;float:right" : ""}
+              .medium-text.text-center
+                #{competency}
+              .grid_graph.small.left-offset1
+                .y_indication
+                .x_indication
+                  Ratings
+                .columns
+                  - competency_scores[:overall_bucket_wise_percentages].each do |bucket, values|
+                    - bar_height = values[:percentage]
+                    - multiplier = 100 - bar_height
+                    .column{:style=>"background: #{hex_code}; margin-top: #{(230*multiplier/100)}px; height: #{bar_height}%"}
+                      .rating_range
+                        = bucket
+                  .clr
+                .counts
+                  -counter = 110
+                  -11.times do |index|
+                    - counter = counter-10
+                    .count
+                      #{counter} 
+              .clr
+          .clr  
             .divider3
     .page-break
