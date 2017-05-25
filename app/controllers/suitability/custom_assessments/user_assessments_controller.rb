@@ -183,11 +183,14 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           end
         end
         if @errors[key].blank?
-          user_assessment = @assessment.user_assessments.where(:query_options => {
-            :assessment_id => @assessment.id,
-            :user_id => user.id
-          }).all[0]
-          if user_assessment && Time.parse(user_assessment.created_at) > (Time.now - @company.cooling_off_period.months)
+          user_assessment = @assessment.user_assessments.where(
+            query_options: {
+              assessment_id: @assessment.id,
+              user_id: user.id
+            },
+            methods: ['attempted_within_cooling_off_period']
+          ).all[0]
+          if user_assessment && user_assessment.attempted_within_cooling_off_period
             @errors[key] << "Test is already sent to the candidates within the cooling off period of #{@company.cooling_off_period} months."
           end
         end
