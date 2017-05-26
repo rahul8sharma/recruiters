@@ -2,7 +2,6 @@ module Mrf
   class GroupReportUploader < Mrf::ReportUploader
     def upload_report
       report_id = @report_attributes["id"]
-      @report = nil
       puts "Getting Report #{report_id}"
       @report = Vger::Resources::Mrf::AssessmentReport.find(report_id, @report_attributes)
       @assessment = Vger::Resources::Mrf::Assessment.find(
@@ -12,13 +11,13 @@ module Mrf
       @report.report_hash = @report.report_data
       get_norm_buckets(@report_attributes)
       Vger::Resources::Mrf::AssessmentReport.save_existing(report_id,
-        :status => Vger::Resources::Mrf::AssessmentReport::Status::UPLOADING
+        status: Vger::Resources::Mrf::AssessmentReport::Status::UPLOADING
       )
       template = @report.report_data[:assessment][:use_competencies] ? "competency_group_report" : "fit_group_report"
       report_status = {
-        :errors => [],
-        :message => "",
-        :status => "success"
+        errors: [],
+        message: "",
+        status: "success"
       }
       @view_mode = "html"
       html = render_to_string(
@@ -36,12 +35,10 @@ module Mrf
       end
       html_s3 = upload_file_to_s3("mrf_group_reports/html/#{html_file_id}",html_save_path)
       
-      File.delete(html_save_path)
-      
       attributes = {
-        :html_bucket => html_s3[:bucket],
-        :html_key => html_s3[:key],
-        :status => Vger::Resources::Mrf::AssessmentReport::Status::UPLOADED
+        html_bucket: html_s3[:bucket],
+        html_key: html_s3[:key],
+        status: Vger::Resources::Mrf::AssessmentReport::Status::UPLOADED
       }
         
       @view_mode = "pdf"
@@ -52,7 +49,7 @@ module Mrf
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: pdf_margin,
         footer: {
           content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
                                       layout: "layouts/mrf/group_reports.pdf.haml")
@@ -68,6 +65,7 @@ module Mrf
       attributes[:pdf_bucket] = pdf_s3[:bucket]
       attributes[:pdf_key] = pdf_s3[:key]
               
+      File.delete(html_save_path)
       File.delete(pdf_save_path)
 
       Vger::Resources::Mrf::AssessmentReport.save_existing(report_id,attributes)
@@ -77,7 +75,7 @@ module Mrf
     def set_report_status_to_failed
       Vger::Resources::Mrf::AssessmentReport.save_existing(
         @report_attributes[:id],
-        :status => Vger::Resources::Mrf::AssessmentReport::Status::FAILED
+        status: Vger::Resources::Mrf::AssessmentReport::Status::FAILED
       )
     end
     

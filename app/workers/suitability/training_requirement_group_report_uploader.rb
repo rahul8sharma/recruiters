@@ -4,9 +4,9 @@ module Suitability
       training_requirement_group_id = @report_attributes["training_requirement_group_id"]
       training_requirement_group_report_id = @report_attributes["training_requirement_group_report_id"]
       report_status = {
-        :errors => [],
-        :message => "",
-        :status => "success"
+        errors: [],
+        message: "",
+        status: "success"
       }
       @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all.to_a
       @training_requirement_group = Vger::Resources::Suitability::TrainingRequirementGroup.find(training_requirement_group_id)
@@ -14,16 +14,16 @@ module Suitability
 
       if !@report.report_data || !@report.report_data[:factor_scores].present?
         Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
-          :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
+          status: Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
         )
         JombayNotify::Email.create_from_mail(
           SystemMailer.notify_report_status(
             "TR Group Report Uploader",
             "Failed to upload training requirements group report for Assessment Group with ID #{training_requirement_group_id} due to insufficient data.",
             {
-              :report => {
-                :status => "Failed",
-                :training_requirement_id => training_requirement_group_report_id
+              report: {
+                status: "Failed",
+                training_requirement_id: training_requirement_group_report_id
               }
             }
           ), 
@@ -51,7 +51,7 @@ module Suitability
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: pdf_margin,
         footer: {
           content: render_to_string(
             "shared/reports/pdf/_report_footer",
@@ -63,7 +63,7 @@ module Suitability
       )
 
       Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADING,
+        status: Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADING
       )
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))
@@ -83,12 +83,13 @@ module Suitability
       File.delete(pdf_save_path)
       File.delete(html_save_path)
 
-      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
-        :pdf_bucket  => html_s3[:bucket],
-        :pdf_key     => pdf_s3[:key],
-        :html_bucket => html_s3[:bucket],
-        :html_key    => html_s3[:key]
+      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(
+        training_requirement_group_report_id,
+        status:      Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADED,
+        pdf_bucket:  html_s3[:bucket],
+        pdf_key:     pdf_s3[:key],
+        html_bucket: html_s3[:bucket],
+        html_key:    html_s3[:key]
       )
 
       JombayNotify::Email.create_from_mail(SystemMailer.send_training_requirement_group_report(@report_attributes), "send_report")
@@ -97,7 +98,7 @@ module Suitability
     def set_report_status_to_failed
       Vger::Resources::Suitability::AssessmentGroupReport.save_existing(
         @report_attributes["training_requirement_group_report_id"],
-        :status => Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED,
+        status: Vger::Resources::Suitability::AssessmentGroupReport::Status::FAILED
       )
     end
     

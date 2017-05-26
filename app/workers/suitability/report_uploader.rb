@@ -12,24 +12,20 @@ module Suitability
       methods = []
       methods = [:report_hash] if !patch.empty?
       @report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(report_id,
-        :custom_assessment_id => assessment_id,
-        :user_id => user_id,
-        :company_id => company_id,
-        :patch => patch,
-        :methods => methods
+        custom_assessment_id: assessment_id,
+        user_id: user_id,
+        company_id: company_id,
+        patch: patch,
+        methods: methods
       )
       
       @report.report_hash = @report.report_data if patch.empty?
-      #if @report.status == Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADING
-      #  puts "Report #{report_id} is being uploaded already..."
-      #  return
-      #end
 
       Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(report_id,
-        :custom_assessment_id => assessment_id,
-        :user_id => user_id,
-        :company_id => company_id,
-        :status => Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::UPLOADING
+        custom_assessment_id: assessment_id,
+        user_id: user_id,
+        company_id: company_id,
+        status: Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::UPLOADING
       )
 
 
@@ -59,9 +55,9 @@ module Suitability
       end
       
       report_status = {
-        :errors => [],
-        :message => "",
-        :status => "success"
+        errors: [],
+        message: "",
+        status: "success"
       }
 
       @view_mode = "html"
@@ -79,9 +75,9 @@ module Suitability
       )
 
       hash_toc = {
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: pdf_margin,
         footer: {
-          :content => render_to_string(
+          content: render_to_string(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/user_reports",
             formats: [:pdf]
@@ -136,14 +132,16 @@ module Suitability
       else
         status = Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::HIVE_SCORES_PENDING
       end
-      Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(report_id,
-        :custom_assessment_id => assessment_id,
-        :user_id => user_id,
-        :company_id => company_id,
-        :notifications_sent_at => notifications_sent_at,
-        :uploaded_at => now,
-        :s3_keys => { :pdf => pdf_s3, :html => html_s3, :feedback => feedback_html_s3 },
-        :status => status
+      Vger::Resources::Suitability::Assessments::UserAssessmentReport\
+      .save_existing(
+        report_id,
+        custom_assessment_id: assessment_id,
+        user_id: user_id,
+        company_id: company_id,
+        notifications_sent_at: notifications_sent_at,
+        uploaded_at: now,
+        s3_keys: { pdf: pdf_s3, html: html_s3, feedback: feedback_html_s3 },
+        status: status
       )
       File.delete(pdf_save_path)
       File.delete(html_save_path)
@@ -182,19 +180,15 @@ module Suitability
     def set_report_status_to_failed
       Vger::Resources::Suitability::Assessments::UserAssessmentReport.save_existing(
         @report_attributes[:id],
-        :custom_assessment_id => @report_attributes[:assessment_id],
-        :user_id => @report_attributes[:user_id],
-        :company_id => @report_attributes[:company_id],
-        :status => Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::FAILED
+        custom_assessment_id: @report_attributes[:assessment_id],
+        user_id: @report_attributes[:user_id],
+        company_id: @report_attributes[:company_id],
+        status: Vger::Resources::Suitability::Assessments::UserAssessmentReport::Status::FAILED
       )
     end
     
     def error_email_subject
       "Failed to upload report #{@report[:id]}"
-    end
-    
-    def safe_name(name)
-      name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')
     end
   end
 end  

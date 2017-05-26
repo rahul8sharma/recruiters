@@ -39,7 +39,7 @@ module Oac
       @report.report_hash = @report.report_data
       
       Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
-        :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
+        status: Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
       )
       
       @assessment = Vger::Resources::Oac::Exercise.find(@report_attributes['exercise_id'])
@@ -54,7 +54,7 @@ module Oac
         @report.report_configuration["pdf"]["sections"].delete_if do |section|
           section['id'] == 'pdf_cover_page'
         end
-        cover =  oac_report_cover_url(:report_id => @report.id).gsub("http://", '')
+        cover =  oac_report_cover_url(report_id: @report.id).gsub("http://", '')
         toc = {
           disable_dotted_lines: true,
           disable_toc_links: true,
@@ -66,9 +66,9 @@ module Oac
       end
 
       report_status = {
-        :errors => [],
-        :message => "",
-        :status => "success"
+        errors: [],
+        message: "",
+        status: "success"
       }
 
       @view_mode = "html"        
@@ -91,9 +91,12 @@ module Oac
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: pdf_margin,
         footer: {
-          :content => render_to_string("shared/reports/pdf/_oac_report_footer.pdf.haml",layout: "layouts/mrf/reports.pdf.haml")
+          content: render_to_string(
+            "shared/reports/pdf/_oac_report_footer.pdf.haml",
+            layout: "layouts/mrf/reports.pdf.haml"
+          )
         },
         cover: cover,
         toc: toc
@@ -124,11 +127,11 @@ module Oac
       end  
   
       Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
-        :html_key => html_s3[:key],
-        :html_bucket => html_s3[:bucket],
-        :pdf_key => pdf_s3[:key],
-        :pdf_bucket => pdf_s3[:bucket],
-        :status => status
+        html_key: html_s3[:key],
+        html_bucket: html_s3[:bucket],
+        pdf_key: pdf_s3[:key],
+        pdf_bucket: pdf_s3[:bucket],
+        status: status
       )
       
       File.delete(html_save_path)
@@ -140,7 +143,7 @@ module Oac
     def set_report_status_to_failed
       Vger::Resources::Oac::UserExerciseReport.save_existing(
         @report_attributes[:id],
-        :status => Vger::Resources::Oac::UserExerciseReport::Status::FAILED
+        status: Vger::Resources::Oac::UserExerciseReport::Status::FAILED
       )
     end
     

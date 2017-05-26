@@ -58,7 +58,7 @@ module Mrf
       company_name = @report.report_hash[:company][:name]
       
       Vger::Resources::Mrf::Report.save_existing(report_id,
-        :status => Vger::Resources::Mrf::Report::Status::UPLOADING
+        status: Vger::Resources::Mrf::Report::Status::UPLOADING
       )
       
       get_norm_buckets(@report_attributes)
@@ -66,9 +66,9 @@ module Mrf
       template = @report.report_data[:assessment][:use_competencies] ? "competency_report" : "fit_report"
 
       report_status = {
-        :errors => [],
-        :message => "",
-        :status => "success"
+        errors: [],
+        message: "",
+        status: "success"
       }
       
       @view_mode = "html"
@@ -85,9 +85,9 @@ module Mrf
           layout: "layouts/mrf/reports",
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
+        margin: pdf_margin,
         footer: {
-          :content => render_to_string(
+          content: render_to_string(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/mrf/reports",
             formats: [:pdf]
@@ -115,11 +115,11 @@ module Mrf
       pdf_s3 = upload_file_to_s3("mrf_reports/pdf/#{pdf_file_id}",pdf_save_path)
   
       Vger::Resources::Mrf::Report.save_existing(report_id,
-        :html_key => html_s3[:key],
-        :pdf_key => pdf_s3[:key],
-        :html_bucket => html_s3[:bucket],
-        :pdf_bucket => pdf_s3[:bucket],
-        :status => Vger::Resources::Mrf::Report::Status::UPLOADED
+        html_key: html_s3[:key],
+        pdf_key: pdf_s3[:key],
+        html_bucket: html_s3[:bucket],
+        pdf_bucket: pdf_s3[:bucket],
+        status: Vger::Resources::Mrf::Report::Status::UPLOADED
       )
       
       File.delete(html_save_path)
@@ -131,7 +131,7 @@ module Mrf
     def set_report_status_to_failed
       Vger::Resources::Mrf::Report.save_existing(
         @report_attributes[:id],
-        :status => Vger::Resources::Mrf::Report::Status::FAILED
+        status: Vger::Resources::Mrf::Report::Status::FAILED
       )
     end
     

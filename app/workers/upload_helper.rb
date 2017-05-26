@@ -28,5 +28,9 @@ module UploadHelper
   def safe_name(name)
     name.underscore.gsub('/','-').gsub(' ','-').gsub('_','-')
   end
+  
+  def pdf_margin
+    { left: 0, right: 0, top: 0, bottom: 8 }
+  end
 end
 
