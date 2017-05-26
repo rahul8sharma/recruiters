@@ -85,30 +85,15 @@ module Mrf
           layout: "layouts/mrf/reports",
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
           :content => render_to_string(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/mrf/reports",
             formats: [:pdf]
-<<<<<<< HEAD
           )
-        },
-        zoom: 1.5
+        }
       )
-=======
-          ),
-          margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
-          footer: {
-            :content => render_to_string(
-              "shared/reports/pdf/_report_footer",
-              layout: "layouts/mrf/reports",
-              formats: [:pdf]
-            )
-          }
-        )
-
->>>>>>> 03185aa4ed42200589a62e003f93bf97fa61add9
 
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))
