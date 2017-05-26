@@ -32,17 +32,17 @@ module Oac
       @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     end
 
-<<<<<<< HEAD
     def upload_report
       report_id = @report_attributes["id"]
       puts "Getting Report #{report_id}"
       @report = Vger::Resources::Oac::UserExerciseReport.find(report_id, @report_attributes)
       @report.report_hash = @report.report_data
+      
       Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
         :status => Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
       )
       
-      @assessment = Vger::Resources::Oac::Exercise.find(report_data[:exercise_id])
+      @assessment = Vger::Resources::Oac::Exercise.find(@report_attributes['exercise_id'])
       
       @exercise = @assessment
       
