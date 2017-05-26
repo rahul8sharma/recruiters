@@ -36,32 +36,36 @@ module Suitability
       @report_data[:company_id] = @assessment.company_id
 
       @view_mode = "html"
-
-      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING,
-      )
-
+      
       html = render_to_string(
-         template: "assessment_reports/training_requirements_report.html.haml",
-         layout: "layouts/training_requirements_report.html.haml",
-         formats: [:html],
-         handlers: [ :haml ]
-      )
-
+           template: "assessment_reports/training_requirements_report",
+           layout: "layouts/training_requirements_report",
+           formats: [:html],
+           handlers: [ :haml ]
+        )
+        
       @view_mode = "pdf"
+      
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_reports/training_requirements_report.pdf.haml",
-          layout: "layouts/training_requirements_report.pdf.haml",
+          "assessment_reports/training_requirements_report",
+          layout: "layouts/training_requirements_report",
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
-          content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-          layout: "layouts/training_requirements_report.pdf.haml")
-        },
-        zoom: 1.5
+          content: render_to_string(
+            "shared/reports/pdf/_report_footer",
+            layout: "layouts/training_requirements_report",
+            handlers: [ :haml ],
+            formats: [:pdf]
+          )
+        }
+      )
+
+      Vger::Resources::Suitability::AssessmentReport.save_existing(assessment_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING,
       )
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))

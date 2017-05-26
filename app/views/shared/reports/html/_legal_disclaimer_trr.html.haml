@@ -1,0 +1,24 @@
+.legal_disclaimer
+  .header
+    .container
+      .icon
+      .title.black
+        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+          - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+          %img{:src => brand_partner_image_path, :style =>"height: 55px;position: relative;top: -17px;left: 2px;", :align => "center"}
+      .clr
+  .divider3
+  .container
+    %p.extra-large-text
+      Legal Disclaimer
+    %p
+      This is a system generated report. The profile is derived from an assessment completed by the respondent. The results reflect the responses that respondent selected when completing a self-report questionnaire. These results are compared to a norm population sample gathered as a part of the assessment standardisation.  There is extensive psychological research evidence indicating the validity of self-report measures as successful predictors of workplace outcomes. The report results should be interpreted alongside other important factors such as key skills and abilities, motivation, technical knowledge and job relevant experience. The information provided in this report is confidential. Users should comply with local guidelines and best practice principles of data protection. Jombay accepts no liabilities for the consequences of the use of this report. 
+
+.divider10
+.footer
+  .container
+    .pull-left
+      Private &amp; Confidential
+    .pull-right
+      &copy; Jombay
+    .clr

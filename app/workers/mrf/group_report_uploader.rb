@@ -52,12 +52,11 @@ module Mrf
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
           content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
                                       layout: "layouts/mrf/group_reports.pdf.haml")
-        },
-        zoom: 1.5
+        }
       )
       pdf_file_id = "mrf_group_report_#{@report.id}.pdf"
       pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")

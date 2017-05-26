@@ -44,11 +44,10 @@ module Jq
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => "0mm",:right => "0mm", :top => "0mm", :bottom => "12mm" },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
           :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/jq_reports.pdf.haml")
-        },
-        zoom: 1.5
+        }
       )
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))

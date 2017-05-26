@@ -39,11 +39,10 @@ class AssessmentReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        zoom: 1.5,
         template: "assessment_reports/training_requirements_report.pdf.haml",
         layout: "layouts/training_requirements_report.pdf.haml",
         handlers: [ :haml ],
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         formats: [:pdf],
         locals: { :@view_mode => "pdf" }
       }
@@ -69,11 +68,10 @@ class AssessmentReportsController < ApplicationController
             template: "shared/reports/pdf/_report_footer.pdf.haml"
           }
         },
-        zoom: 1.5,
         template: "assessment_reports/benchmark_report.html.haml",
         layout: "layouts/benchmark_report.html.haml",
         handlers: [ :haml ],
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         formats: [:html],
         locals: { :@view_mode => "pdf" }
       }
@@ -193,11 +191,10 @@ class AssessmentReportsController < ApplicationController
           layout: "layouts/#{layout}"
         }
       },
-      zoom: 1.5,
       template: "assessment_reports/#{template}",
       layout: "layouts/#{layout}",
       handlers: [ :haml ],
-      margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+      margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
       formats: [:pdf],
       locals: { :@view_mode => "pdf" }
     }

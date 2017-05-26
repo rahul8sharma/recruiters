@@ -7,7 +7,8 @@
 $favorable_color: #61a219  
 $less_favorable_color: #d0a100 
 $mid_favorable_color: #062b58
-$width: auto
+//$width: auto
+$width: 990px
 
 body  
   position: relative
@@ -201,7 +202,7 @@ body
     ul.scores_listing
       li
         border-top: 1px dashed #ccc
-        padding: 16px 10px
+        padding: 16px 5px
         color: #000
 
         &:first-child
@@ -449,12 +450,12 @@ body
         &:last-child
           border: none
       .factor-name
-        width: 100px
+        width: 130px
         padding: 5px 25px 0 0 
-        font-weight: 700
+        font-weight: 600
         line-height: 17px
       .description
-        width: 605px
+        width: 740px
         line-height: 15px
   .disclaimer
     .blue_bg_heading.logo
@@ -693,75 +694,48 @@ body
       min-height: 220px
 
       [class*="factor_"]
-        font-size: 10px
-        line-height: 12px
+        font-size: 12px
+        line-height: 14px
         height: 50px
         position: absolute
         text-align: center
         width: 80px
       .factor_1
-        left: 348px
-        top: 40px
+        left: ((348px)- 8)
+        top: ((40px)+8)
       .factor_2
-        left: 390px
-        top: 110px
+        left: ((430px)- 8)
+        top: 48px
       .factor_3
-        left: 307px
-        top: 110px
+        left: ((515px)- 8)
+        top: 48px
       .factor_4
-        top: 110px
-        left: 225px
+        left: ((307px)- 8)
+        top: ((110px)+8)
       .factor_5
-        left: 265px
-        top: 40px
+        left: ((390px)- 8)
+        top: ((110px)+8)
       .factor_6
-        left: 430px
-        top: 40px
+        left: ((472px)- 8)
+        top: ((110px)+8)
       .factor_7
-        left: 472px
-        top: 110px
+        left: ((555px)- 8)
+        top: ((110px)+8)
       .factor_8
-        left: 142px
-        top: 110px
+        left: ((265px)- 8)
+        top:  48px
       .factor_9
-        left: 183px
-        top: 40px
+        left: ((595px)- 8)
+        top: 48px
       .factor_10
-        left: 515px
-        top: 40px
+        left: ((225px)- 8)
+        top: ((110px)+8)
       .factor_11
-        left: 555px
-        top: 110px
-      .factor_12
-        left: 60px
-        top: 110px
-      .factor_13
-        left: 100px
-        top: 40px
-      .factor_14
-        left: 595px
-        top: 40px
-      .factor_15
-        top: 110px
-        left: 640px
-      .factor_16
-        left: 225px
-        top: -22px
-      .factor_17
-        left: 307px
-        top: -22px
-      .factor_18
-        left: 390px
-        top: -22px
-      .factor_19
-        left: 432px
-        top: -22px
+        top: ((110px)+8)
+        left: ((640px)- 8)
+      
     .frame
       border: 2px solid #28b29b
-     
-   
-     
-
   .factor-block
     margin: 5px 15px 0 15px
     .factor-header

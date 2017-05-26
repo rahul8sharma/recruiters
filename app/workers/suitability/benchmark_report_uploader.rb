@@ -13,7 +13,7 @@ module Suitability
       @assessment_report.report_data = @assessment.benchmark_report
       @report = @assessment.benchmark_report
       
-      @report_attributes["company_id"] = @assessment.company_id
+      report_data["company_id"] = @assessment.company_id
       @norm_buckets = Vger::Resources::Suitability::NormBucket.all.to_a
       
       @view_mode = "html"
@@ -36,12 +36,11 @@ module Suitability
           handlers: [ :haml ],
           formats: [:html]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
           content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
           layout: "layouts/benchmark_report.html.haml")
-        },
-        zoom: 1.5
+        }
       )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
@@ -70,7 +69,10 @@ module Suitability
         :report_data => @report
       )
       
-      JombayNotify::Email.create_from_mail(SystemMailer.send_benchmark_report(@report_attributes), "send_report")
+      patch["send_report"] ||= "Yes"
+      if patch["send_report"] == "Yes"
+        JombayNotify::Email.create_from_mail(SystemMailer.send_benchmark_report(report_data), "send_report")
+      end
     end
     
     def set_report_status_to_failed
@@ -82,6 +84,6 @@ module Suitability
     
     def error_email_subject
       "Failed to upload benchmark report for Assessment with ID #{@report_attributes[:assessment_id]}"
-    end
+    end  
   end
 end  

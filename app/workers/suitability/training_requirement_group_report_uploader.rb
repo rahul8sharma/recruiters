@@ -28,7 +28,7 @@ module Suitability
             }
           ), 
           "notify_report_status"
-        )
+        )  
         return
       end
       @report_data = @report.report_data
@@ -36,32 +36,34 @@ module Suitability
       @report.report_hash = @report.report_data
 
       @view_mode = "html"
-
-      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
-        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADING,
-      )
-
       html = render_to_string(
-         template: "assessment_group_reports/training_requirements_report",
-         layout: "layouts/training_requirements_report.html.haml",
-         handlers: [ :haml ],
-         formats: [:html]
-      )
+              template: "assessment_group_reports/training_requirements_report",
+              layout: "layouts/training_requirements_report",
+              handlers: [ :haml ],
+              formats: [:html]
+            )
 
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-          "assessment_group_reports/training_requirements_report.pdf.haml",
-          layout: "layouts/training_requirements_report.pdf.haml",
+          "assessment_group_reports/training_requirements_report",
+          layout: "layouts/training_requirements_report",
           handlers: [ :haml ],
           formats: [:pdf]
         ),
-        margin: { :left => 0,:right => 0, :top => 0, :bottom => 12 },
+        margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
-          content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-          layout: "layouts/training_requirements_report.pdf.haml")
-        },
-        zoom: 1.5
+          content: render_to_string(
+            "shared/reports/pdf/_report_footer",
+            layout: "layouts/training_requirements_report",
+            handlers: [ :haml ],
+            formats: [:pdf]
+          )
+        }
+      )
+
+      Vger::Resources::Suitability::AssessmentGroupReport.save_existing(training_requirement_group_report_id,
+        :status      => Vger::Resources::Suitability::AssessmentGroupReport::Status::UPLOADING,
       )
 
       FileUtils.mkdir_p(Rails.root.join("tmp"))

@@ -1,8 +1,9 @@
-- scores_step = Rails.application.config.reports[@view_mode]["scores_step"]    
+- scores_step = 6
 - if @report.report_hash[:factor_scores].present?
   - factor_scores = @report.report_hash[:factor_scores]
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
+    = render "shared/reports/pdf/report_header"
     .inner
       .scores.favorable_factors
         .divider1
@@ -24,7 +25,7 @@
               .clr
         .pull-right
           .divider1
-          .scale{:style=>"margin-right: 20px;"}
+          .scale{:style=>"margin-right: 0;"}
             .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
             .marker-container
               - @company_norm_buckets.each do |norm_bucket|
