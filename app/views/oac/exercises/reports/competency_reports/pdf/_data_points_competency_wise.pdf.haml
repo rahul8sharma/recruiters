@@ -1,9 +1,13 @@
-- @report.report_data[:super_competency_scores].each do |id, data|
+- @report.report_data[:super_competency_scores].each_with_index do |(id, data), index|
   = render partial: "shared/reports/pdf/oac_report_header"
   .data_points_competency_wise
     .inner
-      %h1.blue_heading.big-text
-        Competency wise Data Points
+      - if index == 0
+        %h1.blue_heading.big-text
+          Competency wise Data Points
+      - else
+        .blue_heading.big-text
+          Competency wise Data Points
       .divider1
       - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
       - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight

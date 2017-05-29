@@ -55,6 +55,7 @@ $trr_image_path: report/html/training_requirements_report
       +bg(logo-icon, 0, 0)
   .score-indicator
     margin-left: 25px
+    white-space: nowrap
     &.round
       .indicator
         background: image-url("report/pdf/training_requirements/round-indications-small.png") no-repeat 0 4px !important   
@@ -110,6 +111,7 @@ $trr_image_path: report/html/training_requirements_report
       font-size: 10px
       margin: 0px 0px 2px 0px
       line-height: 12px
+      white-space: normal
 
     .left
       text-align: center
@@ -280,8 +282,8 @@ $trr_image_path: report/html/training_requirements_report
       li
         .snippet
           .pie-visual
-            height: 100px
-            width: 110px
+            width: 150px
+            height: 150px
     li
       padding: 25px 45px
       border-bottom: 1px solid #e3e3e3
@@ -289,7 +291,7 @@ $trr_image_path: report/html/training_requirements_report
       &:nth-child(even)
         background: #fbfbfb
       .snippet
-        width: 219px
+        width: 270px
         margin-left: 45px
         float: left
         text-align: center
@@ -297,11 +299,12 @@ $trr_image_path: report/html/training_requirements_report
         &:first-child
           margin: 0
         .trait-title
-          font-size: 13px
+          font-size: 14px
           color: #000
           font-weight: 700
           min-height: 35px
           text-align: left
+          display: inline-block
         .count
           +bg(count-bg, 0, 0)
           font-weight: 700
@@ -311,6 +314,7 @@ $trr_image_path: report/html/training_requirements_report
           text-align: center
           color: #fff
           margin-right: 5px
+          display: inline-block
         .pie-visual
           height: 130px
           width: 150px

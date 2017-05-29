@@ -1,6 +1,8 @@
 - if @report.report_hash[:interview_guide].present?
+  = render "shared/reports/pdf/report_header"
   - step = 0
-  - @report.report_hash[:interview_guide].each_slice(8) do |step_interview_questions|
+  - @report.report_hash[:interview_guide].each_slice(12) do |step_interview_questions|
+    = render "shared/reports/pdf/report_header"
     .inner
       .scores.interview_guide
         .divider1

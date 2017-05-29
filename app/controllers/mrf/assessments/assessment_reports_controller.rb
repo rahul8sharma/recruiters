@@ -38,8 +38,7 @@ class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsC
             layout: layout
           },
         },
-        zoom: 1.5,
-        disable_smart_shrinking: false,
+       
         template: "mrf/assessments/assessment_reports/#{template}",
         layout: layout,
         handlers: [ :haml ],

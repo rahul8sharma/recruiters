@@ -3,5 +3,5 @@
   #{hdate user_assessment.expiry_date}, #{htime user_assessment.expiry_date} Hrs
 - if is_superuser?    
   .span2.big-text.first
-    %a.icon-plus-sign{ :href=> extend_validity_company_custom_assessment_path(company.id, assessment.id, user.id), title: "Extend Validity"}
-    = link_to "", expire_assessment_link_company_custom_assessment_path(company.id, assessment.id, user.id), :confirm => "Are you sure?", :class => "icon-remove-sign", title: "Expire Link"
+    %a.icon-plus-sign{ :href=> extend_validity_company_custom_assessment_path(company.id, assessment.id, user_assessment.id), title: "Extend Validity"}
+    = link_to "", expire_assessment_link_company_custom_assessment_path(company.id, assessment.id, user_assessment.id), :confirm => "Are you sure?", :class => "icon-remove-sign", title: "Expire Link"

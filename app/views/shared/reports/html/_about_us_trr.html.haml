@@ -1,0 +1,63 @@
+.about-us
+  .header
+    .container
+      .icon
+      .title
+        .logo
+      .clr
+  .about-us-top-triangle
+    .container
+      .divider3
+      .content
+        %ul
+          %li.feature01
+            %p
+              %span.bold About Jombay: 
+              Jombay is a Talent Assessment &amp; Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe.
+      .divider1
+      .content
+        %ul
+          %li.feature06
+            %p
+              For Support related queries, contact us at support&#64;jombay.com
+      - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
+        .divider1
+        .content.company-summary
+          .company-badge
+            - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+            %img{:src => brand_partner_image_path}
+          .divider2
+          %p
+            = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
+      .divider1
+      -#
+        .content.contact_section
+          .divider1
+          .inn
+            .caption For Sales Enquiries
+            .divider1
+            %ul.clearfix
+              %li.span6.first
+                America &amp; Europe
+                %a{:href=> "mailto:mansi@jombay.com"}
+                  mansi@jombay.com
+              %li.span7
+                Africa, Middle East &amp; Asia
+                %a{:href=> "mailto:pratik@jombay.com"}
+                  pratik@jombay.com
+              %li.span7
+                India
+                %a{:href=> "mailto:pranali@jombay.com"}
+                  pranali@jombay.com
+              %li.span5
+                Australia &amp; New Zealand
+                %a{:href=> "mailto:anuja@jombay.com"}
+                  anuja@jombay.com
+            .clr
+            .divider3
+            .home-page-redirect
+              %a{:href=> "http://products.jombay.com/", :target=>"_blank"}
+                www.jombay.com
+              .clr
+            .divider1
+    .divider3
