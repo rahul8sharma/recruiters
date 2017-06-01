@@ -11,44 +11,65 @@ class Companies::SubscriptionsController < ApplicationController
   end
 
   def manage
+    if @company.parent_id.present?
+      flash[:error] = "You are not allowed to access this page."
+      redirect_to company_path(@company.id)
+    end
+    get_suitability_subscriptions
     status = Vger::Resources::Invitation::Status
     @children = api_resource.where(
       query_options: {
         parent_id: @company.id
       },
       select: [:id, :name],
-      page: params[:page] || 1,
-      per: 10
+      order: "id desc"
     ).all
+    @children.unshift(@company)
     @assigned_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @children.map(&:id)
+        "invitations.company_id" => @children.map(&:id)
       },
-      group: :company_id
+      scopes: {
+        no_trials: nil
+      },
+      group: "invitations.company_id"
     )
     @used_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @children.map(&:id),
-        status: [status::LOCKED, status::USED, status::EXPIRED]
+        "invitations.company_id" => @children.map(&:id),
+        status: [status::LOCKED, status::USED]
       },
-      group: :company_id
+      scopes: {
+        no_trials: nil
+      },
+      group: "invitations.company_id"
     )
     @unassigned_invitations_count = Vger::Resources::Invitation.count(
       query_options: {
-        company_id: @company.id,
+        "invitations.company_id" => @company.id,
         status: [status::UNLOCKED]
+      },
+      scopes: {
+        no_trials: nil
       }
     )
+    
     @unused_invitations_count = Vger::Resources::Invitation.count(
       query_options: {
-        company_id: @children.map(&:id),
+        "invitations.company_id" => @children.map(&:id),
         status: [status::UNLOCKED]
+      },
+      scopes: {
+        no_trials: nil
       }
     )
   end
   
   def assign
-    @child = api_resource.find(params[:child_id], :methods => [])
+    @child = api_resource.find(params[:child_id], 
+      methods: [], 
+      select: [:id, :name]
+    )
     if request.post?
       @child = api_resource.new(@child.assign_invitations(params.merge({
         methods: [:error_messages]
@@ -65,7 +86,10 @@ class Companies::SubscriptionsController < ApplicationController
   end
   
   def revoke
-    @child = api_resource.find(params[:child_id], :methods => [])
+    @child = api_resource.find(params[:child_id],
+      methods: [], 
+      select: [:id, :name]
+    )
     if request.post?
       @child = api_resource.new(@child.revoke_invitations(params.merge({
         methods: [:error_messages]
@@ -82,6 +106,60 @@ class Companies::SubscriptionsController < ApplicationController
   end
 
   protected
+
+  def get_suitability_subscriptions
+    status = Vger::Resources::Invitation::Status
+    @invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @unlocked_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: [status::UNLOCKED]
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @sent_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: [status::LOCKED,status::USED]
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @completed_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: status::USED
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @subscriptions = Vger::Resources::Subscription.where(
+      query_options: {
+        company_id: @company.id
+      },
+      scopes: {
+        no_trials: nil
+      },
+      order: ["valid_to DESC, id desc"],
+      page: params[:page],
+      per: 5
+    )
+  end
 
   def get_company
     methods = []

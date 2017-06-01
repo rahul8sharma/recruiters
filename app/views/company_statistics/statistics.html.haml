@@ -102,11 +102,11 @@
         .span2
           #{subscription.id}
         .span4
-          #{subscription.assessments_purchased}
+          #{@invitation_counts[subscription.id.to_s]}
         .span4
-          #{subscription.assessments_sent}
+          #{@sent_invitation_counts[subscription.id.to_s] || 0}
         .span4
-          #{subscription.assessments_completed}
+          #{@completed_invitation_counts[subscription.id.to_s] || 0}
         .span4
           - valid_from = Date.parse(subscription.valid_from)
           #{valid_from.strftime("%d/%m/%Y")}
@@ -117,7 +117,7 @@
           - status_class = ""
           - if (valid_to < Time.now)
             - status_class = "expired"
-          - elsif (valid_to > Time.now) && subscription.unlocked_invites_count == 0
+          - elsif (valid_to > Time.now) && @unlocked_invitation_counts[subscription.id.to_s].to_i == 0
             - status_class = "exhausted"
           - else
             - status_class = "active"

@@ -218,6 +218,7 @@ class CompaniesController < ApplicationController
       obj.delete if file
       redirect_to company_path(@company), notice: "Company details updated successfully!"
     else
+      flash[:error] = @company.error_messages.join("<br/>").html_safe
       render :action => :edit
     end
   end
