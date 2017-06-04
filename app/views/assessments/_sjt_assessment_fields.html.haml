@@ -77,13 +77,21 @@
         %option{ value: defined_form.id }
           = defined_form.name
     .clr
+  .control-group  
+    %label
+      Select the Language for the Assessment
+    %select.span10.first{ name: "assessment[language]" }
+      - Vger::Resources::Language.all.each do |language|
+        %option{:value => language.language_code, selected: (assessment.language == language.language_code)}
+          = language.name
+    .clr  
   .control-group
     %label
       Select Assessment Completion Notification Template
     %select.span10.first{name: 'assessment[assessment_completion_notification_template_id]', id: 'select_assessment_completion_notification_template_id'}
       %option{:value => ""}
         Select Assessment Completion Notification Template
-      - @templates.each do |template|
+      - @completion_notification_templates.each do |template|
         %option{:value => template.id, selected: (@assessment.assessment_completion_notification_template_id == template.id)}
           = template.name
     .clr      
@@ -116,5 +124,5 @@
 - else
   = f.hidden_field :language, value: 'en'
   = f.hidden_field :assessment_type, value: @assessment.assessment_type || Vger::Resources::Assessment::AssessmentType::SJT_COMPETENCY, :id => "set_assessment_type"    
-  = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@templates.first.id rescue nil)
+  = f.hidden_field :assessment_completion_notification_template_id, :id => "input_assessment_completion_notification_template_id", value: @assessment.assessment_completion_notification_template_id || (@completion_notification_templates.first.id rescue nil)
 .divider2
