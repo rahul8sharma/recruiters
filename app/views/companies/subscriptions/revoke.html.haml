@@ -1,6 +1,9 @@
 .usage
   %b.extra-medium-text
-    Revoke Subscriptions from Account: #{@child.id} - #{@child.name}
+    Remove Subscriptions from Account: #{@child.id} - #{@child.name}
+  .divider2  
+  %b.extra-medium-text
+    Subscriptions Assigned: #{@child.assigned_invitations_count} | Assessments Sent: #{@child.used_invitations_count} | Active Subscriptions: #{@child.unused_invitations_count}
   .divider2  
   .span12
     = form_tag(url: revoke_subscriptions_company_path(@company.id, @child.id), method: :post) do |f|

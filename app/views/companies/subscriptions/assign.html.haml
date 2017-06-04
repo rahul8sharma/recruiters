@@ -1,6 +1,9 @@
 .usage
   %b.extra-medium-text
-    Assign Subscriptions to Account: #{@child.id} - #{@child.name}
+    Add Subscriptions in Account: #{@child.id} - #{@child.name}
+  .divider2  
+  %b.extra-medium-text
+    Unassigned Subscriptions: #{@company.unassigned_invitations_count}
   .divider2  
   .span12
     = form_tag(url: assign_subscriptions_company_path(@company.id, @child.id), method: :post) do |f|

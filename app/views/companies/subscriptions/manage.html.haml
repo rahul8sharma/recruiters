@@ -1,6 +1,6 @@
 .usage
   %b.extra-medium-text
-    Subscriptions
+    Active Subscriptions: #{@unused_invitations_count} | Unassigned Subscriptions: #{@company.unassigned_invitations_count}
   .divider1
   %ul.usage-details-list.extra-medium-text
     %li.headings
@@ -55,40 +55,45 @@
     = render :partial => "shared/pagination", :locals => { :objects => @subscriptions}
   .clr
   
-  %b.extra-medium-text
-    Accounts (Unassigned Subscriptions: #{@unassigned_invitations_count}, Remaining Unused Subscriptions: #{@unused_invitations_count})
-  .divider1
 
   %ul.usage-details-list.extra-medium-text
     %li.headings
-      .span2
+      .span
         Account ID
       .span10
         Account Name
       .span6
         Subscriptions Assigned
       .span4
-        Subscriptions Used
+        Assessments Sent
+      .span3
+        Assessments Answered
+      .span3
+        Assessments Active
       .span2
-        Assign Subscriptions
       .span2
-        Revoke Subscriptions
       .clr
     - @children.each_with_index do |company, index|
       %li
-        .span2
+        .span
           #{company.id}
         .span10
           #{company.name}
         .span6
           #{@assigned_invitation_counts[company.id.to_s] || 0}
-        .span4
+        .span3
           #{@used_invitation_counts[company.id.to_s] || 0}
-        .span2
-          - if company.id != @company.id
-            = link_to "Assign", assign_subscriptions_company_path(@company.id, company.id)
-        .span2
-          - if company.id != @company.id
-            = link_to "Revoke", revoke_subscriptions_company_path(@company.id, company.id)
+        .span3
+          #{@completed_assessment_counts[company.id.to_s] || 0}
+        .span3
+          #{@unused_assessment_counts[company.id.to_s] || 0}
+        - if company.id == @company.id
+          .span2
+          .span2
+        - else
+          .span2  
+            = link_to "Add", assign_subscriptions_company_path(@company.id, company.id)
+          .span2
+            = link_to "Remove", revoke_subscriptions_company_path(@company.id, company.id)
         .clr
   .divider3

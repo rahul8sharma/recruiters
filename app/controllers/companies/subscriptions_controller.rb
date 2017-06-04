@@ -44,15 +44,27 @@ class Companies::SubscriptionsController < ApplicationController
       },
       group: "invitations.company_id"
     )
-    @unassigned_invitations_count = Vger::Resources::Invitation.count(
+    @completed_assessment_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        "invitations.company_id" => @company.id,
+        "invitations.company_id" => @children.map(&:id),
+        status: [status::USED]
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: "invitations.company_id"
+    )
+    @unused_assessment_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        "invitations.company_id" => @children.map(&:id),
         status: [status::UNLOCKED]
       },
       scopes: {
         no_trials: nil
-      }
+      },
+      group: "invitations.company_id"
     )
+    
     
     @unused_invitations_count = Vger::Resources::Invitation.count(
       query_options: {
@@ -86,17 +98,22 @@ class Companies::SubscriptionsController < ApplicationController
   end
   
   def revoke
+    methods = [
+      :assigned_invitations_count,
+      :used_invitations_count,
+      :unused_invitations_count
+    ]
     @child = api_resource.find(params[:child_id],
-      methods: [], 
+      methods: methods, 
       select: [:id, :name]
     )
     if request.post?
       @child = api_resource.new(@child.revoke_invitations(params.merge({
-        methods: [:error_messages]
+        methods: methods+[:error_messages]
       }))[:company])
       if @child.error_messages.present?
         flash[:error] = @child.error_messages.join("<br/>").html_safe
-        render :assign
+        render :revoke
       else
         flash[:notice] = "#{params[:no_of_invitations]} successfully revoked from Account #{@child.id}"
         redirect_to manage_subscriptions_company_path(@company.id)
@@ -162,7 +179,9 @@ class Companies::SubscriptionsController < ApplicationController
   end
 
   def get_company
-    methods = []
+    methods = [
+      :unassigned_invitations_count
+    ]
     @company = api_resource.find(params[:id], :methods => methods)
   end
 end
