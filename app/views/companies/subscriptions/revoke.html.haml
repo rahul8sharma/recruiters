@@ -1,0 +1,18 @@
+.usage
+  %b.extra-medium-text
+    Remove Subscriptions from Account: #{@child.id} - #{@child.name}
+  .divider2  
+  %b.extra-medium-text
+    Subscriptions Assigned: #{@child.assigned_invitations_count} | Assessments Sent: #{@child.used_invitations_count} | Active Subscriptions: #{@child.unused_invitations_count}
+  .divider2  
+  .span12
+    = form_tag(url: revoke_subscriptions_company_path(@company.id, @child.id), method: :post) do |f|
+      .span12
+        .medium-text
+          = label_tag "Number of subscriptions"
+        = text_field_tag :no_of_invitations, "", class: "fw"
+      .clr  
+      .divider1
+      .pull-right
+        = submit_tag "Revoke", class: "btn btn-warning"
+      .clr

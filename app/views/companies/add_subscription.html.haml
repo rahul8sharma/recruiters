@@ -28,5 +28,7 @@
         = f.text_field :valid_to, :name => "valid_to", :class => "first span7 medium-text left-offset1", required: true
 
         .clr
-      %input.btn.btn-warning.large-text.pull-right{:type => "submit", :value => "Submit"}
+      = f.submit "Submit", class: "btn btn-warning large-text pull-right", confirm: "Are you sure?"
       .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'

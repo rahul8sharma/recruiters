@@ -1,0 +1,99 @@
+.usage
+  %b.extra-medium-text
+    Active Subscriptions: #{@unused_invitations_count} | Unassigned Subscriptions: #{@company.unassigned_invitations_count}
+  .divider1
+  %ul.usage-details-list.extra-medium-text
+    %li.headings
+      .span2
+        Package ID
+      .span4
+        Assessments in Package
+      .span4
+        Assessments Sent
+      .span4
+        Assessments Answered
+      .span4
+        Package Activation
+      .span4
+        Package Expiry
+      .span4
+        Status
+      .clr
+    - @subscriptions.each_with_index do |subscription, index|
+      %li
+        .span2
+          #{subscription.id}
+        .span4
+          #{@invitation_counts[subscription.id.to_s] || 0}
+        .span4
+          #{@sent_invitation_counts[subscription.id.to_s] || 0}
+        .span4
+          #{@completed_invitation_counts[subscription.id.to_s] || 0}
+        .span4
+          - valid_from = Date.parse(subscription.valid_from)
+          #{valid_from.strftime("%d/%m/%Y")}
+        .span4
+          - valid_to = DateTime.parse(subscription.valid_to)
+          #{valid_to.strftime("%d/%m/%Y")}
+        .span4.status
+          - status_class = ""
+          - if (valid_to < Time.now)
+            - status_class = "expired"
+          - elsif (valid_to > Time.now) && @unlocked_invitation_counts[subscription.id.to_s].to_i == 0
+            - status_class = "exhausted"
+          - else
+            - status_class = "active"
+          %div{ class: "#{status_class} " }
+            -# add classes .deactivated, .exhausted, .active, .expired
+            - if (status_class == "expired")
+              - status_class = 'inactive'
+            #{status_class.titleize}
+        .clr
+  .divider3
+
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @subscriptions}
+  .clr
+  
+
+  %ul.usage-details-list.extra-medium-text
+    %li.headings
+      .span
+        Account ID
+      .span10
+        Account Name
+      .span6
+        Subscriptions Assigned
+      .span4
+        Assessments Sent
+      .span3
+        Assessments Answered
+      .span3
+        Assessments Active
+      .span2
+      .span2
+      .clr
+    - @children.each_with_index do |company, index|
+      %li
+        .span
+          #{company.id}
+        .span10
+          #{company.name}
+        .span6
+          #{@assigned_invitation_counts[company.id.to_s] || 0}
+        .span3
+          #{@used_invitation_counts[company.id.to_s] || 0}
+        .span3
+          #{@completed_assessment_counts[company.id.to_s] || 0}
+        .span3
+          #{@unused_assessment_counts[company.id.to_s] || 0}
+        - if company.id == @company.id
+          .span2
+          .span2
+        - else
+          .span2  
+            = link_to "Add", assign_subscriptions_company_path(@company.id, company.id)
+          .span2
+            = link_to "Remove", revoke_subscriptions_company_path(@company.id, company.id)
+        .clr
+  .divider3

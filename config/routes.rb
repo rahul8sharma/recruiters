@@ -84,6 +84,10 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
+      get "subscriptions/manage" => "companies/subscriptions#manage", :as => :manage_subscriptions
+      match "subscriptions/assign/:child_id" => "companies/subscriptions#assign", :as => :assign_subscriptions
+      match "subscriptions/revoke/:child_id" => "companies/subscriptions#revoke", :as => :revoke_subscriptions
+      
       get "users_search" => "companies#users_search", :as => :users_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings

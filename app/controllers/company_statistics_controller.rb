@@ -17,7 +17,7 @@ class CompanyStatisticsController < ApplicationController
   def statistics_vac
     get_vac_subscriptions
   end
-
+  
   def email_usage_stats
      options = {
       :company_usage_stats => {
@@ -47,35 +47,67 @@ class CompanyStatisticsController < ApplicationController
   end
   
   def get_suitability_subscriptions
-    @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
-    @vac_suitability_plan = Vger::Resources::Plan.where(scopes: { vac_suitability_plan: nil }).first
+    status = Vger::Resources::Invitation::Status
+    @invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @unlocked_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: [status::UNLOCKED]
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @sent_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: [status::LOCKED,status::USED]
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
+    @completed_invitation_counts = Vger::Resources::Invitation.group_count(
+      query_options: {
+        company_id: @company.id,
+        status: status::USED
+      },
+      scopes: {
+        no_trials: nil
+      },
+      group: :subscription_id
+    )
     @subscriptions = Vger::Resources::Subscription.where(
-      :query_options => {
-        :company_id => @company.id
+      query_options: {
+        company_id: @company.id
       },
-      :scopes => {
-        plan_id_not_in: [@trial_plan.id.to_i, @vac_suitability_plan.id.to_i]
+      scopes: {
+        no_trials: nil
       },
-      :order => ["valid_to DESC, id desc"],
-      :methods => [
-        :assessments_sent,
-        :assessments_completed,
-        :unlocked_invites_count
-      ],
-      :page => params[:page],
-      :per => 5
+      order: ["valid_to DESC, id desc"],
+      page: params[:page],
+      per: 5
     )
   end
   
   def get_360_subscriptions
-    @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
     @subscriptions = Vger::Resources::Mrf::Subscription.where(
       :query_options => {
         :company_id => @company.id
       },
       :order => ["valid_to DESC, id desc"],
       :scopes => {
-        plan_id_not_in: [@trial_plan.id.to_i]
+        no_trials: nil
       },
       :methods => [
         :assessments_sent,
@@ -88,14 +120,13 @@ class CompanyStatisticsController < ApplicationController
   end
   
   def get_vac_subscriptions
-    @trial_plan = Vger::Resources::Plan.where(scopes: { trial_plan: nil }).first
     @subscriptions = Vger::Resources::Oac::Subscription.where(
       :query_options => {
         :company_id => @company.id
       },
       :order => ["valid_to DESC, id desc"],
       :scopes => {
-        plan_id_not_in: [@trial_plan.id.to_i]
+        no_trials: nil
       },
       :methods => [
         :assessments_sent,
