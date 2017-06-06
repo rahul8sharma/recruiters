@@ -48,17 +48,18 @@ $darkBlue: #002939
           color: $grayDarker
   .usage-details-list
     border: 1px solid #e3e3e3
-
     li
       &.headings
+        background: #E3E3E3 !important
         [class*="span"]
           min-height: 37px
           padding: 10px 0
+          border-color: #fff
       &:first-child
         border-bottom: 1px solid #e3e3e3
 
       &:nth-child(odd)
-        background: #f8f8f8
+        background: #FAFAFA
 
       [class*="span"]
         margin-left: 0
@@ -88,3 +89,13 @@ $darkBlue: #002939
           &.expired
             background-position: 0px -110px
             color: #dd0909
+          &.add, &.remove
+            margin-left: 15px
+            a
+              color: #414042
+
+            
+          &.add
+            background: image-url("usage-status-icon-add.png") no-repeat
+          &.remove
+            background: image-url("usage-status-icon-remove.png") no-repeat
