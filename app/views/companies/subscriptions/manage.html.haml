@@ -1,7 +1,8 @@
 .usage
-  %b.extra-medium-text
-    Active Subscriptions: #{@unused_invitations_count} | Unassigned Subscriptions: #{@company.unassigned_invitations_count}
   .divider1
+  .large-text
+    Active Subscriptions: #{@unused_invitations_count} | Unassigned Subscriptions: #{@company.unassigned_invitations_count}
+  .divider2
   %ul.usage-details-list.extra-medium-text
     %li.headings
       .span2
@@ -49,12 +50,16 @@
               - status_class = 'inactive'
             #{status_class.titleize}
         .clr
-  .divider3
+  .divider1
 
   .pull-right
     = render :partial => "shared/pagination", :locals => { :objects => @subscriptions}
   .clr
   
+  .divider2
+  .large-text
+    List of Accounts 
+  .divider1
 
   %ul.usage-details-list.extra-medium-text
     %li.headings
@@ -63,15 +68,15 @@
       .span10
         Account Name
       .span6
-        Subscriptions Assigned
+        Total Subscriptions
       .span4
         Assessments Sent
       .span3
         Assessments Answered
       .span3
-        Assessments Active
+        Active Subscriptions
       .span2
-      .span2
+        &nbsp;
       .clr
     - @children.each_with_index do |company, index|
       %li
@@ -89,11 +94,13 @@
           #{@unused_assessment_counts[company.id.to_s] || 0}
         - if company.id == @company.id
           .span2
-          .span2
+            \--
         - else
-          .span2  
-            = link_to "Add", assign_subscriptions_company_path(@company.id, company.id)
-          .span2
-            = link_to "Remove", revoke_subscriptions_company_path(@company.id, company.id)
+          .span2.status
+            %div.add.pull-left 
+              = link_to "Add", assign_subscriptions_company_path(@company.id, company.id)
+            %div.remove.pull-left
+              = link_to "Remove", revoke_subscriptions_company_path(@company.id, company.id)
+            .clr
         .clr
   .divider3
