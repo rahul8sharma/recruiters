@@ -21,7 +21,7 @@ class CompanyStatisticsController < ApplicationController
   def email_usage_stats
      options = {
       :company_usage_stats => {
-        :job_klass => "CompanyUsageStatsExporter",
+        :job_klass => (@company.parent_id.blank? ? "MotherAccountUsageStatsExporter" : "CompanyUsageStatsExporter"),
         :args => {
           :user_id => current_user.id,
           :company_id => @company.id
