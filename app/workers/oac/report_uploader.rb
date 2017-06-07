@@ -148,7 +148,7 @@ module Oac
     end
     
     def error_email_subject
-      "Failed to upload OAC report {@report_attributes[:id]}"      
+      "Failed to upload OAC report #{@report_attributes[:id]}"      
     end
   end
 end
