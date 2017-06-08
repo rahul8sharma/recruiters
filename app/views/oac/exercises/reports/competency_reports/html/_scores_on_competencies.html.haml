@@ -15,7 +15,7 @@
             - super_competency_scores.each do |id, data|
               - config = @report.report_data[:super_competency_configuration][:overall_configuration][id.to_s]
               %li
-                .trait_title.first.span5{:title => config[:name]}
+                .trait_title.first.span8{:title => config[:name]}
                   = truncate config[:name], length: 35
                 .clr
             
