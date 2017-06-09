@@ -37,25 +37,26 @@
           .clr  
           .divider1
       .clr
-      %h4
-        Tool Weightages
-      .divider1  
-      .span20
-        .span4
-          %b Jombay Competencies
-        .span4    
-          %input{ name: "projection[jombay_competencies][weight]", value: 1 }
-      .clr           
-      .divider1
-      .span20
-        .span4
-          %label
-            %input{ type: "checkbox", name: "projection[aptitude_score][included]" }
-            %b Aptitude Score
-        .span4    
-          %input{ name: "projection[aptitude_score][weight]", value: 1 }
-      .clr          
-      .divider2
+      - if @assessment.report_configuration['html']['sections'].find{|x| x['id'] == 'html_aptitude_score' }
+        %h4
+          Tool Weightages
+        .divider1  
+        .span20
+          .span4
+            %b Jombay Competencies
+          .span4    
+            %input{ name: "projection[jombay_competencies][weight]", value: 1 }
+        .clr           
+        .divider1
+        .span20
+          .span4
+            %label
+              %input{ type: "checkbox", name: "projection[aptitude_score][included]" }
+              %b Aptitude Score
+          .span4    
+            %input{ name: "projection[aptitude_score][weight]", value: 1 }
+        .clr          
+        .divider2
       .action.span10
         .pull-right
           = f.submit "Generate", class: "btn btn-large btn-warning"
