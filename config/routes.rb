@@ -980,7 +980,13 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
-    match 'assessments_management/projection_report' => 'assessments_management#projection_report', :as => :projection_report
+    
+    namespace :analytics do
+      match 'projection_report' => 'projections#projection_report', :as => :projection_report
+      match 'stack_ranking_report' => 'projections#stack_ranking_report', :as => :stack_ranking_report
+      match 'score_distributions_report' => 'distributions#score_distributions_report', :as => :score_distributions_report
+      match 'factual_info_distributions_report' => 'distributions#factual_info_distributions_report', :as => :factual_info_distributions_report
+    end
     
     resources :super_competencies do
       collection do

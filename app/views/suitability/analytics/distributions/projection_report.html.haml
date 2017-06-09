@@ -3,7 +3,7 @@
 .divider1
 - if @assessment
   .span24
-    = form_for :assessment, url: suitability_projection_report_path, :method => :post do |f|
+    = form_for :assessment, url: suitability_analytics_projection_report_path, :method => :post do |f|
       %input{ name: "projection[assessment_id]", value: @assessment.id, type: "hidden" }
       %h4
         Competency Score Ratings
@@ -85,7 +85,7 @@
         .clr  
       .clr    
 - else
-  = form_for :assessment, url: suitability_projection_report_path, :method => :get do |f|
+  = form_for :assessment, url: suitability_analytics_projection_report_path, :method => :get do |f|
     %fieldset
       %legend 
         %strong Create Projection Report
