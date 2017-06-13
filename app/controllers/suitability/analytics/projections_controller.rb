@@ -9,6 +9,7 @@ class Suitability::Analytics::ProjectionsController < ApplicationController
         get_assessment_details
       end
     else
+      flash[:notice] = "Projection Report will be generated and emailed to #{current_user.email} shortly"
       Vger::Resources::User\
         .post(
           "/sidekiq/post-job?job_klass=Suitability::Analytics::ProjectionReportGenerator",
@@ -25,6 +26,7 @@ class Suitability::Analytics::ProjectionsController < ApplicationController
         get_assessment_details
       end
     else
+      flash[:notice] = "Stack Ranking Report will be generated and emailed to #{current_user.email} shortly"
       Vger::Resources::User\
         .post(
           "/sidekiq/post-job?job_klass=Suitability::Analytics::StackRankingReportGenerator",
