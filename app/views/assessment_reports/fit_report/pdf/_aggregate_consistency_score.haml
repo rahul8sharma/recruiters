@@ -1,0 +1,7 @@
+- if @report.report_hash[:consistency][:score]
+  .heading.extra-large-text
+    %b
+      Aggregate Consistency Score:
+      #{(@report.report_hash[:consistency][:score].to_f*100).round(2)}%
+  .clr
+  .divider1      
