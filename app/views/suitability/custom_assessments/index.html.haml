@@ -12,8 +12,9 @@
   .divider2
   - if @assessments.empty?
     .alert.pull-left
-      No assessments have been created. To create an assessments, 
-      %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
+      No assessments have been created. 
+      - if is_superuser?
+        To create an assessments, %a{:href => new_company_custom_assessment_path(:company_id => params[:company_id]), :title => "Click Here To Create New Test"} click here.  
     .divider2  
   - if @assessments.present?    
     .list-snippet-titles.extra-medium-text.clearfix

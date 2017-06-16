@@ -567,7 +567,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     @company = Vger::Resources::Company.find(
       params[:company_id], 
       :methods => methods,
-      :select  => [:id, :name, :configuration] 
+      :select  => [:id, :name, :configuration, :parent_id] 
     )
   end
 

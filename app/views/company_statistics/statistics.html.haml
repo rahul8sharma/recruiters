@@ -102,7 +102,7 @@
         .span2
           #{subscription.id}
         .span4
-          #{@invitation_counts[subscription.id.to_s]}
+          #{subscription.assessments_purchased}
         .span4
           #{@sent_invitation_counts[subscription.id.to_s] || 0}
         .span4
