@@ -133,6 +133,17 @@ class Companies::SubscriptionsController < ApplicationController
   protected
 
   def get_suitability_subscriptions
+    @subscriptions = Vger::Resources::Subscription.where(
+      query_options: {
+        company_id: @company.id
+      },
+      scopes: {
+        no_trials: nil
+      },
+      order: ["valid_to DESC, id desc"],
+      page: params[:page],
+      per: 5
+    )
     status = Vger::Resources::Invitation::Status
     @invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
@@ -145,7 +156,7 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @unlocked_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: [status::UNLOCKED]
       },
       scopes: {
@@ -155,7 +166,7 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @sent_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: [status::LOCKED,status::USED]
       },
       scopes: {
@@ -165,24 +176,13 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @completed_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: status::USED
       },
       scopes: {
         no_trials: nil
       },
       group: :subscription_id
-    )
-    @subscriptions = Vger::Resources::Subscription.where(
-      query_options: {
-        company_id: @company.id
-      },
-      scopes: {
-        no_trials: nil
-      },
-      order: ["valid_to DESC, id desc"],
-      page: params[:page],
-      per: 5
     )
   end
 

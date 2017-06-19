@@ -79,59 +79,59 @@
   %b.extra-medium-text
     Remaining Usable Assessments: #{@company.unlocked_invites_count}
   .divider1
-
-  %ul.usage-details-list.extra-medium-text
-    %li.headings
-      .span2
-        Package ID
-      .span4
-        Assessments in Package
-      .span4
-        Assessments Sent
-      .span4
-        Assessments Answered
-      .span4
-        Package Activation
-      .span4
-        Package Expiry
-      .span4
-        Status
-      .clr
-    - @subscriptions.each_with_index do |subscription, index|
-      %li
+  - if @company.parent_id.blank?
+    %ul.usage-details-list.extra-medium-text
+      %li.headings
         .span2
-          #{subscription.id}
+          Package ID
         .span4
-          #{subscription.assessments_purchased}
+          Assessments in Package
         .span4
-          #{@sent_invitation_counts[subscription.id.to_s] || 0}
+          Assessments Sent
         .span4
-          #{@completed_invitation_counts[subscription.id.to_s] || 0}
+          Assessments Answered
         .span4
-          - valid_from = Date.parse(subscription.valid_from)
-          #{valid_from.strftime("%d/%m/%Y")}
+          Package Activation
         .span4
-          - valid_to = DateTime.parse(subscription.valid_to)
-          #{valid_to.strftime("%d/%m/%Y")}
-        .span4.status
-          - status_class = ""
-          - if (valid_to < Time.now)
-            - status_class = "expired"
-          - elsif (valid_to > Time.now) && @unlocked_invitation_counts[subscription.id.to_s].to_i == 0
-            - status_class = "exhausted"
-          - else
-            - status_class = "active"
-          %div{ class: "#{status_class} " }
-            -# add classes .deactivated, .exhausted, .active, .expired
-            - if (status_class == "expired")
-              - status_class = 'inactive'
-            #{status_class.titleize}
+          Package Expiry
+        .span4
+          Status
         .clr
-  .divider3
+      - @subscriptions.each_with_index do |subscription, index|
+        %li
+          .span2
+            #{subscription.id}
+          .span4
+            #{subscription.assessments_purchased}
+          .span4
+            #{@sent_invitation_counts[subscription.id.to_s] || 0}
+          .span4
+            #{@completed_invitation_counts[subscription.id.to_s] || 0}
+          .span4
+            - valid_from = Date.parse(subscription.valid_from)
+            #{valid_from.strftime("%d/%m/%Y")}
+          .span4
+            - valid_to = DateTime.parse(subscription.valid_to)
+            #{valid_to.strftime("%d/%m/%Y")}
+          .span4.status
+            - status_class = ""
+            - if (valid_to < Time.now)
+              - status_class = "expired"
+            - elsif (valid_to > Time.now) && @unlocked_invitation_counts[subscription.id.to_s].to_i == 0
+              - status_class = "exhausted"
+            - else
+              - status_class = "active"
+            %div{ class: "#{status_class} " }
+              -# add classes .deactivated, .exhausted, .active, .expired
+              - if (status_class == "expired")
+                - status_class = 'inactive'
+              #{status_class.titleize}
+          .clr
+    .divider3
 
-  .pull-right
-    = render :partial => "shared/pagination", :locals => { :objects => @subscriptions}
-  .clr
+    .pull-right
+      = render :partial => "shared/pagination", :locals => { :objects => @subscriptions}
+    .clr
 
 
 
