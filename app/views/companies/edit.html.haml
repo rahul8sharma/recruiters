@@ -15,14 +15,15 @@
     .divider2
     = form_for(@company, :as => :company, url: company_path(@company), method: :put, html: { :class => "edit_company_page" }) do |f|
       .span15.margin-auto
-        .error
-          - @company.error_messages ||= []
-          - @company.error_messages.each do |message|
-            = message
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left
             Company Name:
           = f.text_field :name, :class => "first span7 medium-text left-offset1"
+          .clr
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Parent ID:
+          = f.text_field :parent_id, :class => "first span7 medium-text left-offset1"
           .clr
         .control-group
           %label.span7.first.big-text.line-height2.gray-darker.text-left

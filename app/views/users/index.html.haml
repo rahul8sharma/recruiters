@@ -53,7 +53,8 @@
         .span6
           - if user.user_assessments.to_a.present?
             - user.user_assessments.each do |user_assessment|
-              = link_to user_assessment.assessment_id, user_company_custom_assessment_path(user_assessment.company_id,user_assessment.assessment_id,user_assessment.user_id), target: "_blank"
+              .pull-left
+                = link_to user_assessment.assessment_id.to_s+", ", user_company_custom_assessment_path(user_assessment.company_id,user_assessment.assessment_id,user_assessment.user_id), target: "_blank"
           - else
             \-
         .span2.first

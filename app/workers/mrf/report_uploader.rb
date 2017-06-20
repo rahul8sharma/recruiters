@@ -136,7 +136,7 @@ module Mrf
     end
     
     def error_email_subject
-      "Failed to upload MRF report {@report_attributes[:id]}"
+      "Failed to upload MRF report #{@report_attributes[:id]}"
     end
   end
 end
