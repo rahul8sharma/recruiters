@@ -83,6 +83,10 @@ class Companies::SubscriptionsController < ApplicationController
       select: [:id, :name]
     )
     if request.post?
+      if params[:no_of_invitations].to_i == 0
+        flash[:error] = "Please enter subscriptions to add"
+        render :assign and return
+      end
       @child = api_resource.new(@child.assign_invitations(params.merge({
         methods: [:error_messages]
       }))[:company])
@@ -90,7 +94,7 @@ class Companies::SubscriptionsController < ApplicationController
         flash[:error] = @child.error_messages.join("<br/>").html_safe
         render :assign
       else
-        flash[:notice] = "#{params[:no_of_invitations]} successfully assigned to Account #{@child.id}"
+        flash[:notice] = "#{params[:no_of_invitations]} subscriptions successfully added to Account #{@child.id}"
         redirect_to manage_subscriptions_company_path(@company.id)
       end
     else
@@ -108,6 +112,10 @@ class Companies::SubscriptionsController < ApplicationController
       select: [:id, :name]
     )
     if request.post?
+      if params[:no_of_invitations].to_i == 0
+        flash[:error] = "Please enter subscriptions to remove"
+        render :revoke and return
+      end
       @child = api_resource.new(@child.revoke_invitations(params.merge({
         methods: methods+[:error_messages]
       }))[:company])
@@ -115,7 +123,7 @@ class Companies::SubscriptionsController < ApplicationController
         flash[:error] = @child.error_messages.join("<br/>").html_safe
         render :revoke
       else
-        flash[:notice] = "#{params[:no_of_invitations]} successfully revoked from Account #{@child.id}"
+        flash[:notice] = "#{params[:no_of_invitations]} subscriptions successfully removed from Account #{@child.id}"
         redirect_to manage_subscriptions_company_path(@company.id)
       end
     else
@@ -125,6 +133,17 @@ class Companies::SubscriptionsController < ApplicationController
   protected
 
   def get_suitability_subscriptions
+    @subscriptions = Vger::Resources::Subscription.where(
+      query_options: {
+        company_id: @company.id
+      },
+      scopes: {
+        no_trials: nil
+      },
+      order: ["valid_to DESC, id desc"],
+      page: params[:page],
+      per: 5
+    )
     status = Vger::Resources::Invitation::Status
     @invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
@@ -137,7 +156,7 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @unlocked_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: [status::UNLOCKED]
       },
       scopes: {
@@ -147,7 +166,7 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @sent_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: [status::LOCKED,status::USED]
       },
       scopes: {
@@ -157,24 +176,13 @@ class Companies::SubscriptionsController < ApplicationController
     )
     @completed_invitation_counts = Vger::Resources::Invitation.group_count(
       query_options: {
-        company_id: @company.id,
+        subscription_id: @subscriptions.map(&:id),
         status: status::USED
       },
       scopes: {
         no_trials: nil
       },
       group: :subscription_id
-    )
-    @subscriptions = Vger::Resources::Subscription.where(
-      query_options: {
-        company_id: @company.id
-      },
-      scopes: {
-        no_trials: nil
-      },
-      order: ["valid_to DESC, id desc"],
-      page: params[:page],
-      per: 5
     )
   end
 

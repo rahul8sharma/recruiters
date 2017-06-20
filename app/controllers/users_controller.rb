@@ -19,9 +19,20 @@ class UsersController < ApplicationController
       root: :user,
       query_options: search_params,
       joins: :roles,
-      page: params[:page], per: 10,
-      select: ["distinct(jombay_users.id),jombay_users.*"],
-      include: { :user_assessments => { methods: [:company_id] } }
+      page: params[:page], 
+      per: 10,
+      select: [
+        "distinct(jombay_users.id)",
+        "jombay_users.name",
+        "jombay_users.email",
+        "jombay_users.company_id"
+      ],
+      include: { 
+        :user_assessments => { 
+          only: [:assessment_id, :user_id],
+          methods: [:company_id] 
+        }
+      }
     }
     conditions[:scopes] = {}
     conditions[:scopes][:name_like] = name if name
