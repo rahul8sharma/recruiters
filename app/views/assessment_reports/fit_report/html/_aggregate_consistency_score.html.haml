@@ -1,0 +1,8 @@
+- if @report.report_hash[:consistency][:score]
+  .final-score.overall_score_rating{:style=>"background-color: #128975; width: 495px"}
+    .score_rating_title.pull-left{:style=>"color: #fff"}
+      Consistency Score
+    .span.large-text.line-height2
+      #{(@report.report_hash[:consistency][:score].to_f*100).round(2)}%
+    .clr
+  .clr 

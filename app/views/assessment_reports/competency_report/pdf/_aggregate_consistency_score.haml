@@ -1,0 +1,7 @@
+- if @report.report_hash[:consistency][:score]
+  .color-band.extra-medium-text.pull-right{:style=>"margin-bottom: 2px; background-color: #128975"}
+    .head.pull-left{:style=>"color: #fff"}
+      Consistency Score
+    .white.pull-left
+      #{(@report.report_hash[:consistency][:score].to_f*100).round(2)}%
+    .clr
