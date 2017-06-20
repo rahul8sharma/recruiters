@@ -66,6 +66,17 @@
         path: "assessment_reports/fit_report/html/enable_recommendation",
         children: [
           {
+            id: "html_aggregate_consisteny_score",
+            text: "Aggregate Consistency Score",
+            path: "assessment_reports/fit_report/html/aggregate_consistency_score",
+            locals: {},
+            children: [],
+            links: {
+              html: [],
+              pdf: ["pdf_cover_page_compact_aggregate_consistenct_score"]
+            }
+          },
+          {
             id: "html_aggregate_score",
             text: "Aggregate Score [Score]",
             path: "assessment_reports/fit_report/html/aggregat_score_recommendation",
