@@ -1250,6 +1250,10 @@ Recruiters::Application.routes.draw do
     post "export_tool_wise_status" => "exercise_management#export_tool_wise_status", as: :export_tool_wise_status
     post "import_tool_wise_status" => "exercise_management#import_tool_wise_status", as: :import_tool_wise_status
     
+    namespace :analytics do
+      match 'performance_report' => 'performance_reports#performance_report', :as => :performance_report
+    end
+    
     resources :subscriptions, :only => [:index] do
       collection do
         post :expire_subscription, :as => :expire_subscription
