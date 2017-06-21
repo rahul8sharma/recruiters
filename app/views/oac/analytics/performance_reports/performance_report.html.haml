@@ -1,0 +1,15 @@
+= form_for :performance_report, url: oac_analytics_performance_report_path, :method => :post do |f|
+  %fieldset
+    %legend 
+      %strong Create VAC Performance Report
+    %p
+      Assessment ID:
+      = f.text_field :assessment_id
+    %p
+      Number of top performers: 
+      = f.text_field :no_of_top_performers
+    %p
+      Number of bottom performers: 
+      = f.text_field :no_of_bottom_performers
+  .actions
+    = submit_tag 'Create'
