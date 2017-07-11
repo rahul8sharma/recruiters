@@ -41,6 +41,7 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   consistency: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     enabled: true
     bucket_name: Average
+    score: 0.9
   reliability: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     enabled: true
     bucket_name: Reliable
