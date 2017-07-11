@@ -1,9 +1,9 @@
-.big-text
-  Generate a new Projection Report
-.divider1
 - if @assessment
+  .big-text
+    Generate a new Projection Report for Assessment ID: #{@assessment.id} - #{@assessment.name}
+  .divider1
   .span24
-    = form_for :assessment, url: suitability_projection_report_path, :method => :post do |f|
+    = form_for :assessment, url: suitability_analytics_projection_report_path, :method => :post do |f|
       %input{ name: "projection[assessment_id]", value: @assessment.id, type: "hidden" }
       %h4
         Competency Score Ratings
@@ -17,9 +17,9 @@
           .span4
             %b
               = name
-          .span4
+          .span6
             %input{ name: "projection[ratings][#{id}][min_val]", value: min_val }
-          .span4
+          .span6
             %input{ name: "projection[ratings][#{id}][max_val]", value: max_val }
           .clr  
           .divider1
@@ -85,7 +85,7 @@
         .clr  
       .clr    
 - else
-  = form_for :assessment, url: suitability_projection_report_path, :method => :get do |f|
+  = form_for :assessment, url: suitability_analytics_projection_report_path, :method => :get do |f|
     %fieldset
       %legend 
         %strong Create Projection Report

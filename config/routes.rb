@@ -980,7 +980,13 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
-    match 'assessments_management/projection_report' => 'assessments_management#projection_report', :as => :projection_report
+    
+    namespace :analytics do
+      match 'projection_report' => 'projections#projection_report', :as => :projection_report
+      match 'stack_ranking_report' => 'projections#stack_ranking_report', :as => :stack_ranking_report
+      match 'score_distributions_report' => 'distributions#score_distributions_report', :as => :score_distributions_report
+      match 'factual_data_distributions_report' => 'distributions#factual_data_distributions_report', :as => :factual_data_distributions_report
+    end
     
     resources :super_competencies do
       collection do
@@ -1243,6 +1249,10 @@ Recruiters::Application.routes.draw do
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
     post "export_tool_wise_status" => "exercise_management#export_tool_wise_status", as: :export_tool_wise_status
     post "import_tool_wise_status" => "exercise_management#import_tool_wise_status", as: :import_tool_wise_status
+    
+    namespace :analytics do
+      match 'performance_report' => 'performance_reports#performance_report', :as => :performance_report
+    end
     
     resources :subscriptions, :only => [:index] do
       collection do
