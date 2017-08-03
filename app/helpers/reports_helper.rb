@@ -38,10 +38,11 @@ module ReportsHelper
     to_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
     company_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
     
-    offset = ((from_norm_bucket.weight - 1) * marker_width)        
+    offset = marker_width * (from_norm_bucket.weight-1)        
     width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
     width = gutter if width == 0
-    position = (company_norm_bucket.weight - 1) * marker_width
+    #position = (company_norm_bucket.weight - 1) * marker_width
+    position = (100 / company_norm_buckets.size) * (company_norm_bucket.weight - 1) 
     position = scale_width-20 if position > scale_width
     scored_weight = company_norm_bucket.weight
     klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
