@@ -12,7 +12,6 @@ class Suitability::SuperCompetencyScoreBucketDescriptionsController < MasterData
       :id, 
       :super_competency_id, 
       :company_id,
-      :exercise_id,
       :scored_score_bucket_id, 
       :desired_score_bucket_id,
       :description
@@ -23,7 +22,6 @@ class Suitability::SuperCompetencyScoreBucketDescriptionsController < MasterData
     [
       :super_competency_id, 
       :company_id,
-      :exercise_id,
       :scored_score_bucket_id, 
       :desired_score_bucket_id
     ]

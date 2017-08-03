@@ -8,15 +8,14 @@ class Suitability::SuperCompetencyScoreBucketsController < MasterDataController
   end
 
   def index_columns
-    [:id,:uid, :name, :min_val, :max_val, :weight, :company_id, :exercise_id]
+    [:id,:uid, :name, :min_val, :max_val, :weight, :company_id]
   end
 
   def search_columns
     [
       :uid,
       :name,
-      :company_id,
-      :exercise_id
+      :company_id
     ]
   end
 end
