@@ -5,4 +5,6 @@
   - if is_superuser?
     = link_to "Export Report Summary", export_report_summary_company_oac_exercise_path(@company.id, @exercise.id), class: "btn btn-warning"  
   = link_to "Export Status Summary", export_status_summary_company_oac_exercise_path(@company.id, @exercise.id), class: "btn btn-warning"    
+  %a.btn.btn-warning{:href=>send_reminder_to_all_company_oac_exercise_url(params[:company_id], params[:id]), :title=>"Send Reminder to all pending candidates"}
+    Send Reminder to all
 .clearfix
