@@ -25,7 +25,7 @@
                   .padding-all1
                     .black
                       = factor_name
-                    .left.span11.first
+                    .left.span13.first
                       .divider1
                       .flow-chart
                         .parent-node
@@ -61,20 +61,18 @@
                         .divider5
                         .small-text.black  
                           Percentage of Assessment Takers across scores
-                    .right.span7
+                    .right.span9.first
                       .divider1
                       .text-center.black
                         Across all Assessment Takers
                       .divider1
-                      .span
-                        .pannel.span6.margin-auto
-                          .score_snippet.max
-                            Maximum Score: #{factor_data[:max_score][:bucket]}
-                          .score_snippet.min
-                            Minimum Score: #{factor_data[:min_score][:bucket]}
-                          .score_snippet.average
-                            Average Score: #{factor_data[:avg_score][:bucket]}
-                      .clr
+                      .pannel.span6.margin-auto
+                        .score_snippet.max
+                          Maximum Score: #{factor_data[:max_score][:bucket]}
+                        .score_snippet.min
+                          Minimum Score: #{factor_data[:min_score][:bucket]}
+                        .score_snippet.average
+                          Average Score: #{factor_data[:avg_score][:bucket]}
                     .clr
                   - if @report.tips_in_traits
                     .tip

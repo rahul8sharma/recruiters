@@ -1,10 +1,10 @@
 - @report.report_data[:cocubes_section_scores] ||= {}
 - if @report.report_data[:cocubes_score]
-  - cocubes_section_scores = { "Aptitude" => { section_score: @report.report_data[:cocubes_score], max_score: @report.report_data[:cocubes_max_score] } }.merge!(@report.report_data[:cocubes_section_scores]) 
+  - cocubes_section_scores = { "Aptitude / Cognitive" => { section_score: @report.report_data[:cocubes_score], max_score: @report.report_data[:cocubes_max_score] } }.merge!(@report.report_data[:cocubes_section_scores]) 
 - else
   - cocubes_section_scores = @report.report_data[:cocubes_section_scores]
 - if cocubes_section_scores.present?
-  - scores_step = 4
+  - scores_step = 5
   - (0..cocubes_section_scores.length-1).step(scores_step).each do |step|
     - step_cocubes_section_scores = Hash[cocubes_section_scores.to_a[step..(step+(scores_step - 1))]]
     = render "shared/reports/pdf/report_header"

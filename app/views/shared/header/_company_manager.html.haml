@@ -18,9 +18,14 @@
       %li
         %a{:href=>select_companies_path(), :title=> "ACCOUNTS"}
           ACCOUNTS
-      %li
-        %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
-          ASSESSMENTS
+      - if @company.parent_id.blank?
+        %li
+          %a{:href=>manage_subscriptions_company_path(@company), :title=> "SUBSCRIPTIONS",class: (["companies/subscriptions/manage"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+            SUBSCRIPTIONS  
+      - if @company.parent_id.present?    
+        %li
+          %a{:href=>company_custom_assessments_path(@company), :title=> "ASSESSMENTS",class: (["suitability/custom_assessments/index"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
+            ASSESSMENTS
       %li
         %a{:href=>reports_company_path(@company), :title=> "REPORTS",class: (["companies/reports"].include?("#{params[:controller]}/#{params[:action]}") ? "active" : "")}
           REPORTS

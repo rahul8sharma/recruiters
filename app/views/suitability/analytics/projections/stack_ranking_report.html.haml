@@ -1,0 +1,74 @@
+- if @assessment
+  .big-text
+    Generate a new Stack Ranking Report for Assessment ID: #{@assessment.id} - #{@assessment.name}
+  .divider1
+  .span24
+    = form_for :assessment, url: suitability_analytics_stack_ranking_report_path, :method => :post do |f|
+      %input{ name: "projection[assessment_id]", value: @assessment.id, type: "hidden" }
+      %h4
+        Competency Score Ratings
+      .divider1  
+      .span20  
+        - @assessment.competency_score_ratings.each do |competency_score_rating|
+          - id = competency_score_rating['competency_score_rating']['id']
+          - name = competency_score_rating['competency_score_rating']['name']
+          - min_val = competency_score_rating['competency_score_rating']['min_val']
+          - max_val = competency_score_rating['competency_score_rating']['max_val']
+          .span4
+            %b
+              = name
+          .span6
+            %input{ name: "projection[ratings][#{id}][min_val]", value: min_val }
+          .span6
+            %input{ name: "projection[ratings][#{id}][max_val]", value: max_val }
+          .clr  
+          .divider1
+      .clr
+      .divider1    
+      %h4 Competencies
+      .divider1
+      .span20
+        - @assessment_competency_weights.each do |competency_weight|
+          .span4
+            %b
+              = @competencies[competency_weight.competency_id].name
+          .span2
+            %input{ name: "projection[assessment_competency_weights][#{competency_weight.id}][weight]", value: competency_weight.weight }
+          .clr  
+          .divider1
+      .clr
+      - if @assessment.report_configuration['html']['sections'].find{|x| x['id'] == 'html_aptitude_score' }
+        %h4
+          Tool Weightages
+        .divider1  
+        .span20
+          .span4
+            %b Jombay Competencies
+          .span4    
+            %input{ name: "projection[jombay_competencies][weight]", value: 1 }
+        .clr           
+        .divider1
+        .span20
+          .span4
+            %label
+              %input{ type: "checkbox", name: "projection[aptitude_score][included]" }
+              %b Aptitude Score
+          .span4    
+            %input{ name: "projection[aptitude_score][weight]", value: 1 }
+        .clr          
+        .divider2
+      .action.span10
+        .pull-right
+          = f.submit "Generate", class: "btn btn-large btn-warning"
+        .clr  
+      .clr    
+- else
+  = form_for :assessment, url: suitability_analytics_stack_ranking_report_path, :method => :get do |f|
+    %fieldset
+      %legend 
+        %strong Create Stack Ranking Report
+      %p
+        Assessment ID : 
+        = f.text_field :assessment_id
+    .actions
+      = submit_tag 'Create'

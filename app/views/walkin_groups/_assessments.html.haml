@@ -85,6 +85,13 @@
             .clr
           .control-group
             .span5.medium-text.line-height2.first.text-center
+              Language:
+            .span25
+              %label.checked
+                = Vger::Resources::Language.where(query_options:{ language_code: assessment.language }).first.name
+            .clr
+          .control-group
+            .span5.medium-text.line-height2.first.text-center
               Display Name (Optional):
             .span25
               %input{:type => "hidden", name: "walkin_group[assessment_hash][#{assessment.id}][name]", value: assessment.name}

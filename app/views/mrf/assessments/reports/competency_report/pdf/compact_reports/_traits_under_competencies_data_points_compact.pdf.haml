@@ -3,11 +3,13 @@
 - @report.report_data[:competency_scores].each do |competency, competency_scores|
   - competency_scores[:trait_scores].each_slice(step_size) do |step_trait_score|
     = render partial: "shared/360/compact_mrf_report_header" , :locals => { :display_text => "Details on #{get_assessment_purpose(@report)} Degree Ratings on Traits (Under Competencies / Values)"}
-    - step_trait_score.each do |trait_score|
-      - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
-      .scores.border-bottom-grayLighter.mrf_data_points
-        .color-info.big-text
-          Details on #{get_assessment_purpose(@report)}&#176; Ratings on Traits (Under Competencies / Values)
+
+    .scores.mrf_data_points  
+      .color-info.big-text
+        Details on #{get_assessment_purpose(@report)}&#176; Ratings on Traits (Under Competencies / Values)  
+      .divider1
+      - step_trait_score.each do |trait_score|
+        - value_hash = HashWithIndifferentAccess.new({trait_score: trait_score, competency: competency})
         .divider1
         .frame
           .heading.pull-left
@@ -40,5 +42,4 @@
             .border-bottom-greyLighte
               = render :partial => "mrf/assessments/reports/competency_report/pdf/compact_reports/frequency_rating_table_trait", locals: { role_wise_scores: trait_score[:role_wise_scores], trait_wise: true, graph_buckets: @trait_graph_buckets, trait_score: trait_score }
               .clr
-          .divider1
     .page-break

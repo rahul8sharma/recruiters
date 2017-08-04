@@ -155,6 +155,14 @@ class CompaniesController < ApplicationController
 
   def index
     if @companies.present?
+      @assessment_counts = Vger::Resources::Suitability::CustomAssessment.group_count(
+        :query_options => {
+          :company_id => @companies.map(&:id)
+        },
+        :group => [ :company_id ],
+        :select => [ :company_id ]
+      )
+      
       @remaining_invitations = Vger::Resources::Invitation.group_count(
         :query_options => {
           :company_id => @companies.map(&:id),
@@ -218,6 +226,7 @@ class CompaniesController < ApplicationController
       obj.delete if file
       redirect_to company_path(@company), notice: "Company details updated successfully!"
     else
+      flash[:error] = @company.error_messages.join("<br/>").html_safe
       render :action => :edit
     end
   end

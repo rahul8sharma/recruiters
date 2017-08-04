@@ -5,6 +5,12 @@
     path: "assessment_reports/fit_report/pdf/page1",
     children: [
       {
+        id: "pdf_cover_page_compact_aggregate_consistenct_score",
+        text: "Aggregate Consistency Score",
+        path: "assessment_reports/fit_report/pdf/aggregate_consistency_score",
+        locals: {}
+      },
+      {
         id: "pdf_enable_recommendation",
         text: "Enable Recommendation",
         path: "assessment_reports/fit_report/pdf/enable_recommendation",

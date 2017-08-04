@@ -182,6 +182,18 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
             users[user.id] = user_data
           end
         end
+        if @errors[key].blank?
+          user_assessment = @assessment.user_assessments.where(
+            query_options: {
+              assessment_id: @assessment.id,
+              user_id: user.id
+            },
+            methods: ['attempted_within_cooling_off_period']
+          ).all[0]
+          if user_assessment && user_assessment.attempted_within_cooling_off_period
+            @errors[key] << "Test is already sent to the candidates within the cooling off period of #{@company.cooling_off_period} months."
+          end
+        end
       end
 
       unless @errors.values.flatten.empty?
@@ -214,13 +226,19 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   # GET : renders send_reminder page
   # PUT : sends reminder and redirects to users list for current assessment
   def send_reminder
+    @user_assessment = Vger::Resources::Suitability::UserAssessment.find(
+      params[:user_assessment_id],
+      :assessment_id => params[:id]
+    )
     if request.get?
       @user = Vger::Resources::User.find(params[:user_id])
-      @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
       get_templates(true)
     elsif request.put?
-      @user_assessment = Vger::Resources::Suitability::UserAssessment.where(:assessment_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]
-      Vger::Resources::Suitability::UserAssessment.send_reminder(params.merge(:assessment_id => params[:id], :user_assessment_id => @user_assessment.id, :template_id => params[:template_id]))
+      Vger::Resources::Suitability::UserAssessment.send_reminder(
+        :assessment_id => params[:id], 
+        :id => @user_assessment.id, 
+        :template_id => params[:template_id]
+      )
       flash[:notice] = "Reminder was sent successfully!"
       redirect_to users_url
     end
@@ -273,10 +291,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         render :action => :send_test_to_users and return
       end
       params[:selected_users].each do |user_id,on|
-        user_assessment = @assessment.user_assessments.where(:query_options => {
-          :assessment_id => @assessment.id,
-          :user_id => user_id
-        }).all[0]
+        #user_assessment = @assessment.user_assessments.where(:query_options => {
+        #  :assessment_id => @assessment.id,
+        #  :user_id => user_id
+        #}).all[0]
 
         assessment_taker_type = Vger::Resources::Suitability::UserAssessment::AssessmentTakerType::REGULAR
         @user = Vger::Resources::User.find(user_id)
@@ -319,22 +337,20 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
 
         # create user_assessment if not present
         # add it to list of user_assessments to send email
-        unless user_assessment
-          user_assessment = Vger::Resources::Suitability::UserAssessment.create(
-            :trial => params[:trial] == "true",
-            :applicant_id => params[:users][user_id][:applicant_id],
-            :assessment_id => @assessment.id,
-            :user_id => user_id,
-            :responses_count => 0,
-            :report_email_recipients => recipients.join(","),
-            :options => options,
-            :language => @assessment.language
-          )
-          if user_assessment.error_messages.present?
-            failed_user_assessments << user_assessment
-          else
-            user_assessments.push user_assessment
-          end
+        user_assessment = Vger::Resources::Suitability::UserAssessment.create(
+          :trial => params[:trial] == "true",
+          :applicant_id => params[:users][user_id][:applicant_id],
+          :assessment_id => @assessment.id,
+          :user_id => user_id,
+          :responses_count => 0,
+          :report_email_recipients => recipients.join(","),
+          :options => options,
+          :language => @assessment.language
+        )
+        if user_assessment.error_messages.present?
+          failed_user_assessments << user_assessment
+        else
+          user_assessments.push user_assessment
         end
       end
       assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_users(
@@ -448,14 +464,15 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
 
   def extend_validity
-    @user = Vger::Resources::User.find(params[:user_id], :include => [ :functional_area, :industry, :location ])
-    @user_assessment = Vger::Resources::Suitability::UserAssessment\
-      .where(:assessment_id => @assessment.id,
-        :query_options => {
-          :user_id => @user.id
-        },
-        :methods => [:expiry_date,:link_status]).first
-
+    @user_assessment = Vger::Resources::Suitability::UserAssessment.find(
+      params[:user_assessment_id],
+      :assessment_id => @assessment.id,
+      :methods => [:expiry_date,:link_status]
+    )
+    @user = Vger::Resources::User.find(
+      @user_assessment.user_id, 
+      include: [ :functional_area, :industry, :location ]
+    )
     if request.put?
       if params[:cancel_or_update] == "Update"
         if params[:user_assessment][:validity_in_days] == ""
@@ -463,10 +480,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           flash[:error] = "Please select a value for the validity of the assessment."
           redirect_to extend_validity_url()
         else
-          Vger::Resources::Suitability::UserAssessment\
-            .where(:assessment_id => @assessment.id, :query_options => {
-              :user_id => @user.id
-            }).all[0].extend_validity(params)
+          @user_assessment.extend_validity(params)
           redirect_to users_url()
         end
       else
@@ -476,13 +490,11 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   end
   
   def expire_assessment_link
-    @user_assessment = Vger::Resources::Suitability::UserAssessment.where(
+    @user_assessment = Vger::Resources::Suitability::UserAssessment.find(
+      params[:user_assessment_id],
       :assessment_id => params[:id],
-      :query_options => {
-        :user_id => params[:user_id]
-      },
       :methods => [:url]
-    ).all.first
+    )
     if @user_assessment
       @invitation = Vger::Resources::Invitation.find(@user_assessment.invitation_id)
       @invitation = @invitation.expire({})
@@ -530,7 +542,19 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
   # fetches assessment if id is present in params
   # creates new assessment otherwise
   def get_assessment
-    @assessment = Vger::Resources::Suitability::CustomAssessment.find(params[:id], :include => [:functional_area, :industry, :job_experience], :methods => [:competency_ids])
+    methods = [:competency_ids]
+    if ["users"].include?(params[:action])
+      methods |= [
+        :sent_count,
+        :completed_count,
+        :trials_sent_count
+      ]
+    end
+    @assessment = Vger::Resources::Suitability::CustomAssessment.find(
+      params[:id], 
+      include: [:functional_area, :industry, :job_experience], 
+      methods: methods
+    )
     if(@assessment.company_id.to_i == params[:company_id].to_i)
     else
       redirect_to root_path, alert: "Page you are looking for doesn't exist."
@@ -540,15 +564,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
 
   def get_company
     methods = []
-    if ["index", "users"].include?(params[:action])
-      if Rails.application.config.statistics[:load_assessmentwise_statistics]
-        methods << :assessmentwise_statistics
-      end
-    end
     @company = Vger::Resources::Company.find(
       params[:company_id], 
       :methods => methods,
-      :select  => [:id, :name, :configuration] 
+      :select  => [:id, :name, :configuration, :parent_id] 
     )
   end
 

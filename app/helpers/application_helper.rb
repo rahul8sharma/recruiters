@@ -171,10 +171,16 @@ module ApplicationHelper
 =end  
 
   def subscription_types
-    return {
-      "Suitability" => "", 
+    hash = {}
+    if @company.parent_id.blank?
+      hash.merge!({
+        "Suitability" => "" 
+      })
+    end
+    hash.merge!({
       "360" => "Mrf", 
       "VAC" => "Oac"
-    }
+    })
+    return hash
   end
 end

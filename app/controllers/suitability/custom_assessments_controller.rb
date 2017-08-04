@@ -257,7 +257,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     @company = Vger::Resources::Company.find(
       params[:company_id], 
       :methods => methods,
-      :select  => [:id, :name, :configuration] 
+      :select  => [:id, :name, :configuration, :parent_id] 
     )
   end
 

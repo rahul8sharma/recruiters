@@ -18,4 +18,29 @@ class ReportUploader < AbstractController::Base
   def protect_against_forgery?
     false
   end
+  
+  def perform(report_attributes, auth_token, patch={})
+    tries = 0
+    begin
+      @report_attributes = report_attributes.with_indifferent_access
+      @patch = patch
+      Rails.logger.debug "************* #{report_attributes} ******************"
+      RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
+      upload_report
+    rescue SocketError, Faraday::ConnectionFailed => exception
+      Rails.logger.debug exception.class
+      Rails.logger.debug exception.message
+      sleep(10)
+      retry  
+    rescue Exception => exception
+      Rails.logger.debug exception.class
+      Rails.logger.debug exception.message
+      tries = tries + 1
+      if tries < 5
+        retry
+      else
+        upload_failed(exception)
+      end
+    end 
+  end
 end

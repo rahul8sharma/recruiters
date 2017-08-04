@@ -1,4 +1,5 @@
 - if @report.report_data[:functional_trait_scores].present?
+  = render "shared/reports/pdf/report_header"
   - @report.report_data[:functional_trait_scores].each_slice(5) do |functional_trait_scores|
     #scores.section03
       .divider2

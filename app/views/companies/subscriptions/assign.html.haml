@@ -1,0 +1,17 @@
+.usage
+  .divider4
+  .assign-subscriptions.margin-auto.span15
+    = form_tag(url: assign_subscriptions_company_path(@company.id, @child.id), method: :post) do |f|
+      .pannel
+        .heading
+          Assign subscriptions to: #{@child.id} : #{@child.name}
+        .divider1
+        .content.extra-medium-text
+          Unassigned Subscriptions: #{@company.unassigned_invitations_count}
+          .divider1
+          .margin-auto.span9
+            = text_field_tag :no_of_invitations, "", class: "fw", :placeholder => "Enter no of subscriptions"
+        .divider3
+      .divider1
+      = submit_tag "Done", class: "btn btn-warning big pull-right span extra-medium-text"
+      .clr

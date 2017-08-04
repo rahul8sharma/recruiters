@@ -84,6 +84,10 @@ Recruiters::Application.routes.draw do
       get "plans/:plan_id/contact" => "companies/plans#contact", :as => :contact_plan
       get "plans/:plan_id/payment_status" => "companies/plans#payment_status", :as => :payment_status
 
+      get "subscriptions/manage" => "companies/subscriptions#manage", :as => :manage_subscriptions
+      match "subscriptions/assign/:child_id" => "companies/subscriptions#assign", :as => :assign_subscriptions
+      match "subscriptions/revoke/:child_id" => "companies/subscriptions#revoke", :as => :revoke_subscriptions
+      
       get "users_search" => "companies#users_search", :as => :users_search
       get "reports" => "companies#reports", :as => :reports
       get "settings" => "company_settings#settings", :as => :settings
@@ -247,11 +251,11 @@ Recruiters::Application.routes.draw do
         match "candidates/send-test" => "suitability/custom_assessments/user_assessments#send_test_to_users", :as => :send_test_to_users
         put "candidates/bulk-send-test" => "suitability/custom_assessments/user_assessments#bulk_send_test_to_users", :as => :bulk_send_test_to_users
         match "candidates/resend-invitations" => "suitability/custom_assessments/user_assessments#resend_invitations", :as => :resend_invitations
-        match "candidates/:user_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
+        match "candidates/:user_assessment_id/send-reminder" => "suitability/custom_assessments/user_assessments#send_reminder", :as => :send_reminder_to_user
         get "candidates/:user_id" => "suitability/custom_assessments/user_assessments#user", :as => :user
-        match "candidates/:user_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
-        get "candidates/:user_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
-        get "candidates/:user_id/update-status" => "suitability/custom_assessments/user_assessments#update_status", :as => :update_status
+        match "candidates/:user_assessment_id/extend-validity" => "suitability/custom_assessments/user_assessments#extend_validity", :as => :extend_validity
+        get "candidates/:user_assessment_id/expire-link" => "suitability/custom_assessments/user_assessments#expire_assessment_link", :as => :expire_assessment_link
+        get "candidates/:user_assessment_id/update-status" => "suitability/custom_assessments/user_assessments#update_status", :as => :update_status
       end
 
       resources :users, path: "candidates", :except => [:destroy, :show] do
@@ -976,7 +980,13 @@ Recruiters::Application.routes.draw do
   namespace :suitability do
     get "assessments_management" => 'assessments_management#manage', :as => :assessments_management
     match 'assessments_management/replicate_assessment' => 'assessments_management#replicate_assessment', :as => :replicate_assessment
-    match 'assessments_management/projection_report' => 'assessments_management#projection_report', :as => :projection_report
+    
+    namespace :analytics do
+      match 'projection_report' => 'projections#projection_report', :as => :projection_report
+      match 'stack_ranking_report' => 'projections#stack_ranking_report', :as => :stack_ranking_report
+      match 'score_distributions_report' => 'distributions#score_distributions_report', :as => :score_distributions_report
+      match 'factual_data_distributions_report' => 'distributions#factual_data_distributions_report', :as => :factual_data_distributions_report
+    end
     
     resources :super_competencies do
       collection do
@@ -1239,6 +1249,10 @@ Recruiters::Application.routes.draw do
     post "import_tool_wise_scores" => "exercise_management#import_tool_wise_scores", as: :import_tool_wise_scores
     post "export_tool_wise_status" => "exercise_management#export_tool_wise_status", as: :export_tool_wise_status
     post "import_tool_wise_status" => "exercise_management#import_tool_wise_status", as: :import_tool_wise_status
+    
+    namespace :analytics do
+      match 'performance_report' => 'performance_reports#performance_report', :as => :performance_report
+    end
     
     resources :subscriptions, :only => [:index] do
       collection do
