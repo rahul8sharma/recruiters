@@ -41,7 +41,6 @@ module ReportsHelper
     offset = marker_width * (from_norm_bucket.weight-1)        
     width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
     width = gutter if width == 0
-    #position = (company_norm_bucket.weight - 1) * marker_width
     position = (100 / company_norm_buckets.size) * (company_norm_bucket.weight - 1) 
     position = scale_width-20 if position > scale_width
     scored_weight = company_norm_bucket.weight
