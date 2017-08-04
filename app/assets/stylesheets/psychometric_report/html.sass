@@ -1,5 +1,6 @@
 @import toolkit/typography/awesome-font
 @import toolkit/component/buttons
+@import toolkit/component/badges
 
 .header-container
   position: relative
@@ -68,6 +69,8 @@
   .title
     font-size: 25px
     color: #0a90c3
+  .frame  
+    border: 1px solid #28b29b
   .scale
     .scale_inner
       position: relative
@@ -504,9 +507,74 @@
   
   .functional
     .functional-questions 
+      border-bottom: 1px dashed #28b29b
+      font-size: 18px
+      line-height: 25px
+      color: #000
       .correct-responses
         padding: 0
         line-height: 30px
+      .frame
+        padding-top: 10px
+      .label
+        border-radius: 6px
+        padding: 0  25px
+        line-height: 20px
+        font-size: 14px
+      .attachment-info
+        background: #28B29B
+        padding-left: 50px
+        line-height: 38px
+        color: #fff
+      .instruction-box
+        .user, .correct, .incorrect
+          font-weight: 700
+          text-align: center
+          padding: 15px 0
+        .user
+          background: #f8f8f8
+        .correct
+          background: #ebffed
+          color: #53bf36
+        .incorrect
+          background: #ffeeee
+          color: #ff0000
+      .correct-responses
+        background: #28b29b
+        border: 1px dashed #086556
+        font-weight: 700
+        text-align: center
+        padding: 10px 0
+        color: #fff
+      .responses-result
+        height: 45px
+        width: 42px
+        float: left
+        margin-top: 45px
+        background: image-url("report/pdf/competency/result-sign.png") no-repeat 
+        &.incorrect
+          background-position: 0px -54px
+      ul.options
+        list-style: lower-alpha outside none
+        margin-left: 20px
+        li
+          margin-bottom: 10px
+          padding-right: 20px
+      ul.options-response
+        li
+          padding: 10px 0
+          padding-left: 165px
+          .icon-edit
+            visibility: hidden
+          &.correct, &.incorrect
+            .icon-edit
+              visibility: visible
+          &.correct
+            color: #54bf36 !important
+          &.incorrect
+            color: #ff0000
+          &:nth-child(odd)
+            background: #f8f8f8
     .functional_final_score
       background: #28b29b
       padding: 18px 0
@@ -525,10 +593,6 @@
       .content
         background: #fff
         border: 1px dashed #28b29b
-        .content 
-          .overview-title
-            text-align: left
-            padding: 40px
         .competency-name
           padding: 10px 0
           border-right: 1px solid #e3e3e3
@@ -542,6 +606,7 @@
           width: 5%
           padding: 10px 0
           margin-left: 15px
+          line-height: 32px
         .competency-list
           border: 0 none
           margin: 0
@@ -552,18 +617,13 @@
           border-bottom: 1px dashed #28b29b
           font-size: 20px
           color: #f58220
-                
+
         li
           padding: 16px 30px
           &:nth-child(odd)
             background: #f8f8f8
-            padding: 5px 40px
           &:nth-child(even)
             background: #fff
-          &:nth-child(odd)
-            background: #f8f8f8
-            
-           
 
   .about-us, .legal_disclaimer
     .content

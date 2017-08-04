@@ -24,7 +24,7 @@
 
 - if @report.cover_page
   = render :partial => "assessment_group_reports/training_requirements_report/html/cover_page"
-  .page-break
+ 
 
 - if @report.include_competencies  
   - if @report.overview_competency_average_scores
@@ -41,14 +41,12 @@
   - (0..top_training_needs.keys.length-1).step(scores_step) do |step|
     - step_top_training_needs = top_training_needs.slice(*top_training_needs.keys[step..(step+(scores_step - 1))])
     = render :partial => "assessment_reports/training_requirements_report/html/top_training_needs", :locals => { :factor_scores => step_top_training_needs, :step => step }
-    .page-break  
   
 - if @report.show_remaining_traits  
   - remaining_factor_scores = @report_data[:factor_scores].except(*top_training_needs.keys)
   - (0..remaining_factor_scores.keys.length-1).step(scores_step) do |step|
     - step_factor_scores = remaining_factor_scores.slice(*remaining_factor_scores.keys[step..(step+(scores_step - 1))])
     = render :partial => "assessment_reports/training_requirements_report/html/remaining_traits", :locals => { :factor_scores => step_factor_scores, :step => step }
-    .page-break  
     
 - if @report.include_competencies
   - if @report.data_points_competencies
@@ -64,7 +62,6 @@
   - (0..less_favorable_factors.keys.length-1).step(scores_step) do |step|
     - step_factor_scores = less_favorable_factors.slice(*less_favorable_factors.keys[step..(step+(scores_step - 1))])
     = render :partial => "assessment_reports/training_requirements_report/html/areas_of_improvements", :locals => { :factor_scores => step_factor_scores, :step => step }
-    .page-break 
 
 = render :partial => "shared/reports/html/about_us_trr"
 = render :partial => "shared/reports/html/legal_disclaimer_trr"

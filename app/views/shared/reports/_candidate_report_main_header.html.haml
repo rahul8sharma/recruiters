@@ -4,10 +4,10 @@
 .header-container
   #header
     .container
-      .logo.pull-left.pull-left
+      .logo.pull-left
         = image_tag(asset_path("jombay-logo.png"))
       - if @report.report_data[:company][:logo_url]
-        .logo.pull-left.pull-left
+        .logo.pull-left
           - imagePath = @report.report_data[:company][:logo_url]
           %img{:src => "#{imagePath}", :alt=> "Company Logo", :style => "max-height: 25px"}
       .big-text.gray-dark.padding-all1.pull-left{ title: @report.report_hash[:user][:name] }
