@@ -93,7 +93,8 @@ module Recruiters
 
     hosts = YAML::load(File.open("#{Rails.root.to_s}/config/hosts.yml"))[Rails.env.to_s]
     config.hosts = hosts
-    config.action_mailer.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'] }
+    config.action_mailer.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'], secure: true }
+    config.action_controller.default_url_options = { :host => hosts['action_mailer']['host'], :only_path => false, :protocol => hosts['action_mailer']['protocol'], secure: true }
     config.action_controller.asset_host = "#{hosts['action_controller']['asset_protocol']}://#{hosts['action_controller']['asset_host']}"
 
     config.statistics = YAML::load(File.open("#{Rails.root.to_s}/config/statistics.yml"))["statistics"].symbolize_keys
