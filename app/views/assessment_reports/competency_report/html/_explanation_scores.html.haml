@@ -5,15 +5,24 @@
   - @company_norm_buckets.each do |norm_bucket_scale, index|
     %li
       .container
-        .left.pull-left
-          .scale.right-offset1
-            .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
-            .marker-container
+        .scale.span12
+          - range_offset = 100 / (@company_norm_buckets.size * 2) 
+          - range_width = 100 - (100/@company_norm_buckets.size) 
+          - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
+          - marker_width = 100 / @company_norm_buckets.size 
+          - range_right_offset = marker_width / 2 
+          .scale_inner{ style: "margin-left: #{ -range_right_offset }%" }
+
+            .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+            .marker_container
               - @company_norm_buckets.each_with_index do |norm_bucket, index|
-                .marker{ :class=> norm_bucket_scale.name == norm_bucket.name ? 'active': ''}
-                  = norm_bucket.name
+                .marker{ :class=> norm_bucket_scale.name == norm_bucket.name ? 'active': '', style: "width: #{ marker_width }%" }
+                  %span
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name.split(" ").join("<br/>").html_safe
               .clr
-          .clr
+          
         .right.pull-right.big-text
           .divider1
           = norm_bucket_scale.description

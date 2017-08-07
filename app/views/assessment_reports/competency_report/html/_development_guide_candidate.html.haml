@@ -3,10 +3,10 @@
   - ordered_guides = get_ordered_guidelines(@report.report_hash[:development_guide])
   - (0..ordered_guides.length-1).step(guides_step) do |step|    
     - step_post_assessment_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]
-    #developement_guide.section05
+    #developement_guide.developement_guide.section_end_line
       .divider2
       .scores.container.interview_guide
-        .title.pull-left
+        .title.pull-left.left-offset1
           Development Guide for the Assessment Taker
         .instruction_container.pull-right
           .instructions

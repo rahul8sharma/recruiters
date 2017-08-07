@@ -1,33 +1,35 @@
 %ul.competency-list.pull-left
   - competency_scores.each do |competency_name, competency_score|
-    - marker_width = 80
+    - marker_width = 100/@company_norm_buckets.size
     - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
     - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
     - norm_bucket_uid = competency_score[:grade_uid]
     - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
     - position = (company_norm_bucket.weight - 1) * marker_width
-    - offset = ((from_norm_bucket.weight - 1) * marker_width)
+    - offset = ((from_norm_bucket.weight - 1) * marker_width) + (marker_width / 2)
     - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    - offset = offset-17 if width == 0 && offset != 0
-    - width = 17 if width == 0   
+    - offset = offset-2 if width == 0 && offset != 0
+    - width = 2 if width == 0   
     - scored_weight = company_norm_bucket.weight
     - klass = "favorable"
-    - if ((width == 17) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
-      - offset = offset + 6
+    - if ((width == 2) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
+      - offset = offset + 2
     %li
-      -#toggle class".less_favorable" and "favorable"
-      .competency-name.pull-left
+      .competency-name.span14.line-height-normal.no-border
         = competency_name
-      .competency-value.pull-right
-        .scale.right-offset1
-          .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
-          .marker-container
+      .scale.overview_scale.span12.pull-right
+        - range_offset = 100 / (@company_norm_buckets.size * 2) 
+        - range_width = 100 - (100/@company_norm_buckets.size) 
+        - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
+        - marker_width = 100 / @company_norm_buckets.size 
+        - range_right_offset = marker_width / 2 
+        .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+          .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+          .marker_container
             - @company_norm_buckets.each do |company_norm_bucket|
-              -#toggle class".less_favorable" and "favorable" below
-              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}" }
-                = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}", style: "width: #{marker_width}%"}
+                %span
+                  = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
             .clr
-        .clr
-        -#= competency_score[:grade]
       .clr
 .clr

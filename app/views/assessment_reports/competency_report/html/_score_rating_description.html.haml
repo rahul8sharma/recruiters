@@ -1,5 +1,8 @@
-.final-score.overall_score_rating{:style=>"background-color: #128975; width: 495px; margin-bottom: 1px;margin-top: 1px"}
-  .score_rating_title.fw.first{:style=>"color: #fff; margin-bottom: 1px; padding-right: 35px"}
-    Score Rating Description
-  .medium-text{:style => "padding: 15px 10px;"}
-    = @report.report_data[:aggregate_competency_score_rating][:description]
+.score{:style=>"background-color: #128975;"}
+  .left_sec.float-none{:style=>"width: auto"}
+    Score Rating
+  .right_sec.float-none{:style=>"width: auto"}
+    .medium-text.less-padding-all1
+      = @report.report_data[:aggregate_competency_score_rating][:description]
+  .clr
+  

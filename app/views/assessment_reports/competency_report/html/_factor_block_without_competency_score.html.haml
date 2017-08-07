@@ -1,6 +1,6 @@
 - step_competency_scores.each do |competency_name, competency_data|
   / - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
-  .competency-container
+  .competency-container.frame
     .heading.pull-left{ title: competency_name }
       = competency_name.to_s[0..50]
     .heading.pull-right
