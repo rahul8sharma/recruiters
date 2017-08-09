@@ -1,20 +1,19 @@
-#overview.section01
-  .overall_report.container
-    .divider12
-    .final-score.pull-right
-      = @report.report_title
-    .clr
-    .divider3
-    .extra-medium-text
-      Report Generated On: #{hdate(Date.today)}
-      .divider1
-      Assessment Included: 
-      #{@report_data[:assessment_name]}
-      .divider1
-      Total Candidates Assessed: 
-      #{@report_data[:no_of_users_assessed]}
-    .divider2
-
-
-
-      
+#overview.cover_page
+  .overall_report
+    .divider8
+    .scores
+      .score
+        = @report.report_title
+    .container
+      .divider3
+      .extra-medium-text
+        Report Generated On: 
+        #{hdate(Date.today)}
+        .divider1
+        Assessment Included: 
+        #{@report_data[:assessment_name]}
+        .divider1
+        Total Candidates Assessed: 
+        #{@report_data[:no_of_users_assessed]}
+      .divider2
+        

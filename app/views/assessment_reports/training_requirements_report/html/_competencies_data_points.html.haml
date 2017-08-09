@@ -1,4 +1,4 @@
-#data_point_competencies.data_points.competency_report
+#data_point_competencies.competency_report.data_points
   .container
     .divider2
     .title
@@ -8,25 +8,31 @@
       .frame
         .heading.pull-left
           = competency
-
         .heading.pull-right
           = competency_data[:avg_score][:bucket]
         .clr
         .divider2
         .left.span18
-          .bucket-holder
-            .connector
-            - @norm_buckets.each do |norm_bucket|
-              .span2.across_score
-                .score
-                  #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
-                .divider1
-                = norm_bucket.name
-            .clr
-            .divider2
-            .medium-text.black
-              Percentage of Assessment Takers across scores
-            .divider5
+          .divider3
+          .across_score_bucket_scale
+            - line_offset = 100 / (@norm_buckets.size * 2) 
+            - range_width = 100 - (100/@norm_buckets.size) 
+            - line_width = 100 - (100/(@norm_buckets.size - 1)) 
+            - across_score_width = 100 / @norm_buckets.size 
+            - main_offset = across_score_width / 2 
+            .bucket_scale_inner
+              .line{ style: "left: #{ line_offset }%; width: #{line_width }%" }
+              .across_score_container
+                - @norm_buckets.each do |norm_bucket|
+                  .across_score{ style: "width: #{ across_score_width }%" }
+                    #{competency_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                    %span
+                      = norm_bucket.name.split(" ").join("<br/>").html_safe
+                .clr
+          .divider2
+          .medium-text.black
+            Percentage of Assessment Takers across scores
+          .divider5
         .right.span11
           .divider1
           .big-text.text-center.black

@@ -1,4 +1,4 @@
-%ul.competency-list.pull-left
+%ul.competency-list
   - competency_scores.each do |competency_name, competency_score|
     - marker_width = 100/@company_norm_buckets.size
     - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
