@@ -6,6 +6,6 @@
         Overall Feedback 
 
       .padding-all2.extra-medium-text
-        #{@report.report_data[:assessor_feedback]}
+        #{@report.report_data[:assessor_feedback].to_s.html_safe}
     .divider2
   
