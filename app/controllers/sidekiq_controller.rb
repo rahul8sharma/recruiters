@@ -47,7 +47,7 @@ class SidekiqController < ApplicationController
   def upload_jq_reports
     reports = Vger::Resources::Jq::UserAssessmentReport.where(
       query_options: {
-        is_norm: => false,
+        is_norm: false,
         status:  Vger::Resources::Jq::UserAssessmentReport::Status::SCORED
       },
       select: [:id],
@@ -160,7 +160,7 @@ class SidekiqController < ApplicationController
         status: Vger::Resources::Exit::GroupReport::Status::SCORED
       },
       select: [:id, :survey_id],
-      methods: [:company_id]
+      methods: [:company_id],
       page: params[:page],
       per: 25
     ).all.to_a
