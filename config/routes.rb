@@ -397,6 +397,8 @@ Recruiters::Application.routes.draw do
         put "bulk_send_assessment" => "oac/exercises/user_exercises#bulk_send_assessment", :as => :bulk_send
         match "send_assessment" => "oac/exercises/user_exercises#send_assessment", :as => :send_assessment
         
+        match "candidates/send_reminder_to_all" => "oac/exercises/user_exercises#send_reminder_to_all", :as => :send_reminder_to_all
+        
         get "candidates" => "oac/exercises/user_exercises#candidates", :as => :candidates
         get "candidates/:user_id/" => "oac/exercises/user_exercises#candidate", :as => :candidate
         match "candidates/:user_id/send_reminder" => "oac/exercises/user_exercises#send_reminder", :as => :send_reminder
@@ -1300,6 +1302,14 @@ Recruiters::Application.routes.draw do
     end
     
     resources :aggregate_super_competency_score_ratings do
+      collection do
+        get :manage
+        post :import_from_google_drive
+        post :export_to_google_drive
+      end
+    end
+    
+    resources :super_competency_score_bucket_descriptions do
       collection do
         get :manage
         post :import_from_google_drive

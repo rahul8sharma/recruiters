@@ -256,7 +256,13 @@ class Oac::ExercisesController < ApplicationController
   end
   
   def get_exercise
-    @exercise = Vger::Resources::Oac::Exercise.find(params[:id])
+    @exercise = Vger::Resources::Oac::Exercise.find(
+      params[:id],
+      methods: [
+        :combined_super_competency_score_buckets,
+        :combined_competency_score_buckets
+      ]
+    )
   end
   
   def get_competencies
@@ -291,47 +297,19 @@ class Oac::ExercisesController < ApplicationController
   
   def get_super_competency_score_buckets
     @super_competency_score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: params[:company_id]
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    if @super_competency_score_buckets.empty?                                                                    
-      @super_competency_score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: nil
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    end
+                                        .where(
+                                          scopes: {
+                                            global: nil
+                                          }
+                                        ).all
   end
   
   def get_combined_super_competency_score_buckets
-    @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: params[:company_id]
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    if @super_competency_score_buckets.empty?                                                                    
-      @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: nil
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    end
+    @super_competency_score_buckets = @exercise.combined_super_competency_score_buckets
   end
   
   def get_combined_competency_score_buckets
-    @super_competency_score_buckets = Vger::Resources::Oac::CombinedCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: params[:company_id]
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    if @super_competency_score_buckets.empty?                                                                    
-      @super_competency_score_buckets = Vger::Resources::Oac::CombinedCompetencyScoreBucket\
-                                                                    .where(query_options: {
-                                                                      company_id: nil
-                                                                    })\
-                                                                    .where(order: "min_val ASC").all
-    end
+    @super_competency_score_buckets = @exercise.combined_competency_score_buckets
   end
   
   def get_selected_super_competencies
