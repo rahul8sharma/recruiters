@@ -1,8 +1,7 @@
 - competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
-- range_offset = 100 / (@norm_buckets.size * 2) 
-- line_width = 100 - (100/(@norm_buckets.size - 1)) 
-- marker_width = 100 / @norm_buckets.size 
-- range_right_offset = marker_width / 2
+- marker_width = 100.0 / @norm_buckets.size 
+- line_width = marker_width * (@norm_buckets.size-1) 
+- range_offset = marker_width / 2
 .overview
   .bottom-triangle
     .container
@@ -16,7 +15,7 @@
             .divider2
             Overview of Competencies / Values Measured
           .scale.span12.pull-right
-            .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+            .scale_inner{ style: "margin-right: #{ -range_offset }%" }
 
               .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
               .marker_container
@@ -38,7 +37,7 @@
               .competency-name.span14.line-height-normal.no-border
                 = competency
               .scale.overview_scale.span12.pull-right
-                .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+                .scale_inner{ style: "margin-right: #{ -range_offset }%" }
                   .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
                   .marker_container
                     - @norm_buckets.each do |norm_bucket| 

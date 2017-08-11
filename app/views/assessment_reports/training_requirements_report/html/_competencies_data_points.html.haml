@@ -12,14 +12,12 @@
           = competency_data[:avg_score][:bucket]
         .clr
         .divider2
-        .left.span18
+        .left.span18.first
           .divider3
           .across_score_bucket_scale
-            - line_offset = 100 / (@norm_buckets.size * 2) 
-            - range_width = 100 - (100/@norm_buckets.size) 
-            - line_width = 100 - (100/(@norm_buckets.size - 1)) 
-            - across_score_width = 100 / @norm_buckets.size 
-            - main_offset = across_score_width / 2 
+            - across_score_width = 100.0 / @norm_buckets.size 
+            - line_offset = across_score_width / 2
+            - line_width = 100 - across_score_width 
             .bucket_scale_inner
               .line{ style: "left: #{ line_offset }%; width: #{line_width }%" }
               .across_score_container
@@ -33,7 +31,7 @@
           .medium-text.black
             Percentage of Assessment Takers across scores
           .divider5
-        .right.span11
+        .right.span12.pull-right.first
           .divider1
           .big-text.text-center.black
             Across all Assessment Takers
