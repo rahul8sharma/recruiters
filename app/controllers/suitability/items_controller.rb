@@ -69,6 +69,12 @@ class Suitability::ItemsController < MasterDataController
   # GET /items/:id.json
   def show
     @item = Vger::Resources::Suitability::Item.find(params[:id])
+    @options = Vger::Resources::Suitability::Option.where(
+      query_options: {
+        item_id: @item.id
+      },
+      methods: [:reference_option_body]
+    )
     respond_to do |format|
       format.html
     end
