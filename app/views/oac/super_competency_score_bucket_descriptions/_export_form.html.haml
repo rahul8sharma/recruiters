@@ -11,6 +11,10 @@
         Company ID :
         %input{ name: "export[filters][company_id]", type: "text" }    
       %br
+      %p
+        Exercise ID :
+        %input{ name: "export[filters][exercise_id]", type: "text" }    
+      %br
       %br
       = f.hidden_field :email, :value => current_user.email
     .actions

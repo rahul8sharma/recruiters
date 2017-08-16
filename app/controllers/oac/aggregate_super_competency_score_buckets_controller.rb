@@ -8,6 +8,14 @@ class Oac::AggregateSuperCompetencyScoreBucketsController < MasterDataController
   end
 
   def index_columns
-    [:id, :uid, :name, :min_val, :max_val, :weight]
+    [
+      :id, 
+      :uid, 
+      :name, 
+      :min_val, 
+      :max_val, 
+      :weight,
+      :company_id
+    ]
   end
 end

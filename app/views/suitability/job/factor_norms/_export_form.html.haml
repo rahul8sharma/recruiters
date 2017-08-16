@@ -8,9 +8,6 @@
           Google Drive Folder Url : 
           = f.text_field "url"
       %p
-        Purpose : 
-        = f.select :purpose, ['suitability','vac']
-      %p
         Industry :
           
         %select{ name: "export[filters][industry_id][]", multiple: true, size: 10 }    

@@ -24,7 +24,7 @@ class SidekiqController < ApplicationController
         status:  Vger::Resources::Suitability::UserAssessmentReport::Status::SCORED
       },
       page: params[:page],
-      per: 25,
+      per: (params[:per] || 10),
       select: [:id, :user_assessment_id],
       methods: [
         :assessment_id,
@@ -52,7 +52,7 @@ class SidekiqController < ApplicationController
       },
       select: [:id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
 
     reports.each do |report|
@@ -72,7 +72,7 @@ class SidekiqController < ApplicationController
       select: [:id, :assessment_id, :user_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
 
     reports.each do |report|
@@ -95,7 +95,7 @@ class SidekiqController < ApplicationController
       select: [:id, :assessment_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
 
     reports.each do |report|
@@ -117,7 +117,7 @@ class SidekiqController < ApplicationController
       select:[:id, :survey_id, :user_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
 
     reports.each do |report|
@@ -140,7 +140,7 @@ class SidekiqController < ApplicationController
       select: [:id, :survey_id, :user_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
     reports.each do |report|
       report_data = {
@@ -162,7 +162,7 @@ class SidekiqController < ApplicationController
       select: [:id, :survey_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
     reports.each do |report|
       report_data = {
@@ -247,7 +247,7 @@ class SidekiqController < ApplicationController
       select: [:id, :exercise_id],
       methods: [:company_id],
       page: params[:page],
-      per: 25
+      per: (params[:per] || 10),
     ).all.to_a
 
     reports.each do |report|
