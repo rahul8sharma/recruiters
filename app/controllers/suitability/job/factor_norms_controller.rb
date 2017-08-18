@@ -12,8 +12,7 @@ class Suitability::Job::FactorNormsController < SpecialMasterDataController
       :job_experience_id,
       :norm_bucket_id,
       :norm_min,
-      :norm_max,
-      :purpose
+      :norm_max
     ]
   end
   
@@ -22,12 +21,7 @@ class Suitability::Job::FactorNormsController < SpecialMasterDataController
       :industry_id,
       :functional_area_id, 
       :job_experience_id,
-      :factor_id,
-      :purpose
+      :factor_id
     ]
-  end
-  
-  def select_purpose
-    ['suitability','vac']
   end
 end
