@@ -14,9 +14,7 @@ class Oac::CombinedCompetencyScoreBucketsController < MasterDataController
       :name, 
       :min_val, 
       :max_val, 
-      :weight,
-      :company_id,
-      :exercise_id
+      :weight
     ]
   end
 end
