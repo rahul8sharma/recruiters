@@ -10,11 +10,11 @@ module Oac
 
     def get_oac_score_buckets
       @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                          .where(order: "min_val ASC")\.all
+                          .where(order: "min_val ASC").all
       @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
       
       @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
-                                  .where(order: "min_val ASC")\.all
+                                  .where(order: "min_val ASC").all
       
       @combined_score_buckets_by_id = Hash[@combined_score_buckets\
         .collect{|score_bucket| [score_bucket.id,score_bucket] }
