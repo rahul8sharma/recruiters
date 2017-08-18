@@ -29,8 +29,8 @@ class Oac::Exercises::ReportsController < ApplicationController
       end
     end
 
-    template = "super_competency_report"    
-    layout = "layouts/oac/reports"
+    template = "super_competency_report.#{@view_mode}.haml"    
+    layout = "layouts/oac/reports.#{@view_mode}.haml"
     cover, toc = nil
     if @assessment.enable_table_of_contents
       @report.report_configuration["pdf"]["sections"].delete_if do |section|
