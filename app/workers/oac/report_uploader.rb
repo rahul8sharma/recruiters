@@ -3,33 +3,22 @@ module Oac
     helper Oac::ReportHelper
     
     def get_norm_buckets
-      @norm_buckets = Vger::Resources::Suitability::NormBucket.where(
-                        order: "weight ASC").all
-      
-      if @norm_buckets.empty?
-        @norm_buckets = Vger::Resources::Suitability::NormBucket.where(
-                        order: "weight ASC").all
-      end
+      @norm_buckets = Vger::Resources::Suitability::NormBucket\
+                        .where(order: "weight ASC")\
+                        .all
     end
 
     def get_oac_score_buckets
       @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                            .where(
-                              query_options: {
-                                company_id: nil
-                              },
-                              order: "weight ASC"
-                            ).all
+                          .where(order: "min_val ASC").all
       @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
       
       @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
-                            .where(
-                              query_options: {
-                                company_id: nil
-                              },
-                              order: "weight ASC"
-                            ).all
-      @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
+                                  .where(order: "min_val ASC").all
+      
+      @combined_score_buckets_by_id = Hash[@combined_score_buckets\
+        .collect{|score_bucket| [score_bucket.id,score_bucket] }
+      ]
     end
 
     def upload_report
@@ -42,9 +31,9 @@ module Oac
         status: Vger::Resources::Oac::UserExerciseReport::Status::UPLOADING
       )
       
-      @assessment = Vger::Resources::Oac::Exercise.find(@report_attributes['exercise_id'])
-      
-      @exercise = @assessment
+      @exercise = @assessment = Vger::Resources::Oac::Exercise.find(
+        @report_attributes['exercise_id']
+      )
       
       get_norm_buckets
       get_oac_score_buckets

@@ -5,5 +5,5 @@
         Overall Feedback 
 
       .padding-all1
-        #{@report.report_data[:assessor_feedback]}
+        = @report.report_data[:assessor_feedback].to_s.html_safe
   

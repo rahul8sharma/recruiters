@@ -19,6 +19,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
         tool.integration_configuration["link_configuration"].each do |index, config|
           custom_columns << "#{tool.name}_#{config['name']}".underscore
         end
+        if !tool.is_jombay_tool
+          custom_columns << "#{tool.name}_tutorial_link".underscore
+          custom_columns << "#{tool.name}_practice_link".underscore
+        end
       end
       header |= custom_columns.compact.uniq
       csv << header
@@ -260,6 +264,30 @@ class Oac::Exercises::UserExercisesController < ApplicationController
         :exercise_id => params[:id], 
           :user_id => params[:user_id] 
         }
+      ).all.to_a
+      Vger::Resources::Oac::Exercise.send_reminder_to_users(
+        params.merge(
+          :exercise_id => params[:id], 
+          :user_exercise_ids => @user_exercises.map(&:id), 
+          :template_id => params[:template_id]
+        )
+      )
+      flash[:notice] = "Reminder was sent successfully!"
+      redirect_to candidates_company_oac_exercise_path(@company.id, @exercise.id)
+    end
+  end
+  
+  def send_reminder_to_all
+    if request.get?
+      get_templates(Vger::Resources::User::Stage::EMPLOYED, true)
+    elsif request.put?
+      @user_exercises = Vger::Resources::Oac::UserExercise.where(
+        :exercise_id => params[:id], 
+        :query_options => { 
+          :exercise_id => params[:id],
+          :status => :pending
+        },
+        select: [:id]
       ).all.to_a
       Vger::Resources::Oac::Exercise.send_reminder_to_users(
         params.merge(

@@ -15,4 +15,13 @@ class Suitability::Job::FactorNormsController < SpecialMasterDataController
       :norm_max
     ]
   end
+  
+  def search_columns
+    [
+      :industry_id,
+      :functional_area_id, 
+      :job_experience_id,
+      :factor_id
+    ]
+  end
 end

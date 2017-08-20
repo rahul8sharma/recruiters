@@ -1,10 +1,10 @@
 %table.strengths_improvement.competency_specific_score{:width=>"100%", :cellpadding=>"0", :cellspacing=>"0"}
   %tr
     %td.tools
-      Strengths
+      Relative Strengths
     %td.space
     %td.tools
-      Areas of improvement
+      Relative Areas of Development
   %tr
     %td.tool_scores
       - strengths = competency_scores.select do |name, cdata|
@@ -17,7 +17,7 @@
               = cdata[:name]
       - else
         .medium-text
-          No strengths found 
+          No relative strengths found
     %td.space
     %td.tool_scores
       - weaknesses = competency_scores.select do |id, cdata|
@@ -30,7 +30,7 @@
               = cdata[:name]
       - else
         .medium-text
-          No areas of improvement found
+          No relative areas of development found
 .divider1
 %p.medium-text
   = @assessment.scale_description
