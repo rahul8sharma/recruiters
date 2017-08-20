@@ -12,7 +12,7 @@ class Suitability::SuperCompetenciesController < MasterDataController
   end
   
   def form_fields
-    [:id, :uid, :name, :company_id, :active]
+    [:id, :uid, :name, :company_id, :active, :description]
   end
 
   def search_columns

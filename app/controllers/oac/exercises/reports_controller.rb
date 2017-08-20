@@ -5,20 +5,13 @@ class Oac::Exercises::ReportsController < ApplicationController
   def report
     report_type = params[:report_type] || "fit_report"
     @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                          .where(
-                            scopes: {
-                              global: nil
-                            }
-                          ).all
+                        .where(order: "min_val ASC").all.all
     @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     
-    @exercise = @assessment = Vger::Resources::Oac::Exercise.find(
-      params[:id], 
-      methods: [:combined_super_competency_score_buckets]
-    )
+    @exercise = @assessment = Vger::Resources::Oac::Exercise.find(params[:id])
     
-    @combined_score_buckets = @exercise.combined_super_competency_score_buckets   
-                          
+    @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                .where(order: "min_val ASC").all.all
     @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     
     @report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id])
@@ -36,8 +29,8 @@ class Oac::Exercises::ReportsController < ApplicationController
       end
     end
 
-    template = "super_competency_report"    
-    layout = "layouts/oac/reports"
+    template = "super_competency_report.#{@view_mode}.haml"    
+    layout = "layouts/oac/reports.#{@view_mode}.haml"
     cover, toc = nil
     if @assessment.enable_table_of_contents
       @report.report_configuration["pdf"]["sections"].delete_if do |section|

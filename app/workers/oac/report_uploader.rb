@@ -10,14 +10,11 @@ module Oac
 
     def get_oac_score_buckets
       @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                            .where(
-                              scopes: {
-                                global: nil
-                              }
-                            ).all
+                          .where(order: "min_val ASC").all
       @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
       
-      @combined_score_buckets = @exercise.combined_super_competency_score_buckets
+      @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                  .where(order: "min_val ASC").all
       
       @combined_score_buckets_by_id = Hash[@combined_score_buckets\
         .collect{|score_bucket| [score_bucket.id,score_bucket] }
@@ -35,8 +32,7 @@ module Oac
       )
       
       @exercise = @assessment = Vger::Resources::Oac::Exercise.find(
-        @report_attributes['exercise_id'], 
-        methods: [:combined_super_competency_score_buckets]
+        @report_attributes['exercise_id']
       )
       
       get_norm_buckets

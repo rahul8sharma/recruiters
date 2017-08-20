@@ -19,8 +19,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
         tool.integration_configuration["link_configuration"].each do |index, config|
           custom_columns << "#{tool.name}_#{config['name']}".underscore
         end
-        custom_columns << "#{tool.name}_demo_link".underscore
-        custom_columns << "#{tool.name}_video_practice_link".underscore
+        if !tool.is_jombay_tool
+          custom_columns << "#{tool.name}_tutorial_link".underscore
+          custom_columns << "#{tool.name}_practice_link".underscore
+        end
       end
       header |= custom_columns.compact.uniq
       csv << header

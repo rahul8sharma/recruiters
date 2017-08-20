@@ -257,11 +257,7 @@ class Oac::ExercisesController < ApplicationController
   
   def get_exercise
     @exercise = Vger::Resources::Oac::Exercise.find(
-      params[:id],
-      methods: [
-        :combined_super_competency_score_buckets,
-        :combined_competency_score_buckets
-      ]
+      params[:id]
     )
   end
   
@@ -297,19 +293,17 @@ class Oac::ExercisesController < ApplicationController
   
   def get_super_competency_score_buckets
     @super_competency_score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                                        .where(
-                                          scopes: {
-                                            global: nil
-                                          }
-                                        ).all
+                                        .where(order: "min_val ASC").all.all
   end
   
   def get_combined_super_competency_score_buckets
-    @super_competency_score_buckets = @exercise.combined_super_competency_score_buckets
+    @super_competency_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
+                                        .where(order: "min_val ASC").all.all
   end
   
   def get_combined_competency_score_buckets
-    @super_competency_score_buckets = @exercise.combined_competency_score_buckets
+    @super_competency_score_buckets = Vger::Resources::Oac::CombinedCompetencyScoreBucket\
+                                        .where(order: "min_val ASC").all.all
   end
   
   def get_selected_super_competencies
