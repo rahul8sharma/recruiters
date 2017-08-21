@@ -17,39 +17,48 @@
         Jombay's assessments are built around 6-point scales ranging from Low to High. You can hover over each score to see its meaning.
       .dot-nav.span1.first{:style=>"margin-top: 28px;"}
         .rounded
-      .scale.pull-right
-        .line
-        .marker-container
-          - @norm_buckets.each do |norm_bucket|
-            .marker
-              .arrow
-              .marker-info
+
+      .scale.span12.pull-right
+        - range_offset = 100 / (@company_norm_buckets.size * 2) 
+        - range_width = 100 - (100/@company_norm_buckets.size) 
+        - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
+        - marker_width = 100 / @company_norm_buckets.size 
+        - range_right_offset = marker_width / 2 
+        .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+
+          .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+          .marker_container
+            - @norm_buckets.each do |norm_bucket|
+              .marker{ style: "width: #{ marker_width }%" }
+                %span
+                  - if norm_bucket.name.split(" ").size == 1
+                    %br/
+                  = norm_bucket.name.split(" ").join("<br/>").html_safe
+                .arrow_box
+                  .arrow
+              .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
                 = norm_bucket.description
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
-          .clr
+            .clr
       .clr
+      
     .divider5
     .section_02
       .big-text.black.line-height2.pull-left 
         Interpersonal Relations and Emotional Control
-      .scale.pull-right
-        .line
-        .marker-container
-          .marker
-          .marker
-          .marker.active
-            Average (Low)
-          .marker
-          .marker
-          .marker
-          .clr
+      .scale.overview_scale.span12.pull-right
+        .scale_inner{ style: "margin-right: -8%" }
+          .line{ style: "left: 8%; width: 80%" }
+          .marker_container
+            - 6.times do |index|
+              .marker{ class: "#{(index == 2) ? 'active' : ''}", style: "width: 16%"}
+                %span
+                  #{(index == 2) ? 'Average (Low)' : ''}
+            .clr
       .clr
     .divider2
     .box-bordered.span15{:style=>"margin:0 0 0 35px;"}
       Competency Overview section gives you your scores in each of the competencies
-    .dot-nav.divider2.pull-left{:style=>"width: 250px; margin-top: -16px;"}
+    .dot-nav.divider2.pull-left{:style=>"width: 275px; margin-top: -16px;"}
       .rounded
     .clr
 

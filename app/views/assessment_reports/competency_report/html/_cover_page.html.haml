@@ -1,8 +1,8 @@
-#overview.section01
-  .overall_report.container
+#overview.cover_page
+  .overall_report
     .divider8
-    .user-name.span16.pull-left.line-height2.first
-      = @report.report_hash[:user][:name]
+    .container
+      .user-name.pull-left
+        = @report.report_hash[:user][:name]
     - section_value.each do |section|
       = render :partial => section["path"], :locals => { nested_child: section["children"] }
-    .clr  

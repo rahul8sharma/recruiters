@@ -18,9 +18,9 @@
                   - @report.report_data[:section_wise_objective_item_scores].each do |section_name, section_data|
                     - next if section_name == "Global"
                     %li
-                      .competency-name.pull-left
+                      .competency-name.span14
                         = section_name
-                      .competency-value.pull-left
+                      .competency-value.span
                         #{section_data[:percentage]}%
                       .clr
                 .clr

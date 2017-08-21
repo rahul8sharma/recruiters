@@ -4,7 +4,7 @@
 - (0..competency_scores.length-1).step(competency_step) do |step|    
   - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
   - step_competency_scores_hash = HashWithIndifferentAccess.new({ step_competency_scores: step_competency_scores })
-  #traits.section02
+  #traits.section_end_line
     .divider2
     .scores.container
       .title
@@ -17,7 +17,8 @@
           .instruction2.less_favorable.pull-left
             Less Favorable
           .clr
-      .divider3
+      .divider2
       - section_value.each do |section|
         - locals = Hash[section["locals"].map { |key, value| [key.to_sym, step_competency_scores_hash[key.to_sym]] }]
         = render :partial => section["path"], :locals => locals
+    .divider1

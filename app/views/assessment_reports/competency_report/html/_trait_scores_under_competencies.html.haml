@@ -1,4 +1,4 @@
-#scores.section03
+#scores.section_end_line
   .divider2
   .scores.container
     .title
@@ -21,19 +21,30 @@
       - if (@report.report_hash[:functional_items].present?)
         .functional-traits-title
           Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
-    .scale.pull-right
-      .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
-      .marker-container
-        - @company_norm_buckets.each do |norm_bucket|
-          .marker
-            .arrow
-            .marker-info
+    .scale.span12.pull-right
+      - range_offset = 100 / (@company_norm_buckets.size * 2) 
+      - range_width = 100 - (100/@company_norm_buckets.size) 
+      - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
+      - marker_width = 100 / @company_norm_buckets.size 
+      - range_right_offset = marker_width / 2 
+      .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+
+        .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+        .marker_container
+          - @company_norm_buckets.each do |norm_bucket|
+            .marker{ style: "width: #{ marker_width }%" }
+              %span
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name.split(" ").join("<br/>").html_safe
+              .arrow_box
+                .arrow
+            .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
               = norm_bucket.description
-            - if norm_bucket.name.split(" ").size == 1
-              %br/
-            = norm_bucket.name
-        .clr
+          .clr
     .clr
-    .divider1
+    .divider2
+
     - section_value.each do |section|
       = render :partial => section["path"]
+  .divider1

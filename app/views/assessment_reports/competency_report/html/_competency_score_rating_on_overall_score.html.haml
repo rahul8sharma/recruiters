@@ -1,9 +1,8 @@
 - bg_hex = @report.report_hash[:aggregate_competency_score_rating][:color]
-.final-score.overall_score_rating{:style=>"background-color: #{bg_hex}; width: 495px; padding-top: 2px"}
-  -#colors are - green: #0EB156, Amber: #CD6212, red: #ED4D4D..chnge text acoordingly..color chge at 2 places => 1.Above BG .. 2. Below line color(Same color for BG and below color) 
-  .score_rating_title.pull-left{:style=>"color: #fff"}
+.score_rating.score{:style=>"background-color: #{bg_hex};"}
+  .left_sec
     Score Rating
-  .span.large-text.line-height2{ title: @report.report_hash[:aggregate_competency_score_rating][:name] }
+  .right_sec{ title: @report.report_hash[:aggregate_competency_score_rating][:name] }
     = truncate @report.report_hash[:aggregate_competency_score_rating][:name], :length => 18 rescue "-"
   .clr
-.clr
+  

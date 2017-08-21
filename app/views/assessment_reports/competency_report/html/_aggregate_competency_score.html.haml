@@ -1,5 +1,4 @@
-.pull-right
+.scores
   - nested_child.each do |child|
-    = render :partial => child["path"], :locals => { functional_legends: child["children"]}  
-  .divider1
+    = render :partial => child["path"], :locals => { functional_legends: child["children"]}
 .clr

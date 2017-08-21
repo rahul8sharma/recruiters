@@ -3,7 +3,7 @@
   .scores.container
     .title.span15.line-height2
       Please rate #{@report.report_hash[:user][:name]} on the following traits
-    .scale.span12.right
+    .scale.span12.pull-right
       - range_offset = 100 / (@company_norm_buckets.size * 2) 
       - range_width = 100 - (100/@company_norm_buckets.size) 
       - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
