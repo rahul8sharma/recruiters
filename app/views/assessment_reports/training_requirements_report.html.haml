@@ -1,5 +1,6 @@
-- content_for :stylesheets do
-  = wicked_pdf_stylesheet_link_tag "training_requirements"
+-# 
+  - content_for :stylesheets do
+    = wicked_pdf_stylesheet_link_tag "training_requirements"
 
 - content_for :javascripts do
   = wicked_pdf_javascript_include_tag "jquery"
@@ -64,8 +65,6 @@
   - (0..less_favorable_factors.keys.length-1).step(scores_step) do |step|
     - step_factor_scores = less_favorable_factors.slice(*less_favorable_factors.keys[step..(step+(scores_step - 1))])
     = render :partial => "assessment_reports/training_requirements_report/html/areas_of_improvements", :locals => { :factor_scores => step_factor_scores, :step => step }
-    .page-break 
-  
 
 = render :partial => "shared/reports/html/about_us_trr"
 = render :partial => "shared/reports/html/legal_disclaimer_trr"

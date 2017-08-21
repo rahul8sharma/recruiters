@@ -16,7 +16,6 @@
       .frame
         .heading.pull-left
           = competency
-
         .heading.pull-right
           = competency_data[:avg_score][:bucket]
         .clr
@@ -40,26 +39,36 @@
                     - from_weight = factor_data[:acceptable_range][:from_norm_bucket][:weight]
                     - to_weight = factor_data[:acceptable_range][:to_norm_bucket][:weight]
                     - diff = to_weight - from_weight
-                    - width = diff * 121
-                    - left = (from_weight-1) * 121
-                    .line{ style: "left: #{left}px;width: #{width}px;" }
-                    .range{ style: "left: #{left}px;width: #{width}px;" }
-                      .text
-                        .text-inner Expected Score Range
-                  
-                  - @norm_buckets.each_with_index do |norm_bucket, index|
-                    - small = index == 2 || index == 3
-                    - if factor_data[:acceptable_range]
-                      - min_score = (norm_bucket.weight < from_weight || norm_bucket.weight > to_weight) ? 'min-score' : ''
-                    - else
-                      - min_score = 'gray'  
-                    .child-node{ :class => "#{min_score} #{index < (@norm_buckets.size/2) ? 'left-node' : 'right-node'} #{small ? 'small' : ''}"}
-                      .score
-                        #{factor_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
-                      .bucket-name
-                        = norm_bucket.name
-                  .clr
-                  .divider7
+                    - bucket_score_width = 100.0 / @norm_buckets.size 
+                    - line_offset = bucket_score_width / 2 
+
+                    - line_width = 100 - bucket_score_width
+                    - range_offset = ((from_weight-1) * bucket_score_width)+ line_offset
+                    - range_width = diff * bucket_score_width
+                  - else
+                    - min_score = 'gray'
+                  .flow_chart_bucket_scale
+                    .flow_chart_bucket_inner
+                      .line{ style: "left: #{ line_offset }%; width: #{line_width }%" }
+                      .line.expected_score{ style: "left: #{ range_offset }%; width: #{ range_width }%" }
+                      .expected_score_bracket{ style: "left: #{ range_offset }%; width: #{ range_width }%" }
+                        %span
+                          Expected Score Range
+                      .flow_chart_bucket_container
+                        - @norm_buckets.each_with_index do |norm_bucket, index|
+                          - if factor_data[:acceptable_range]
+                            - min_score = (norm_bucket.weight < from_weight || norm_bucket.weight > to_weight) ? 'min-score' : ''
+                          - else
+                            - min_score = 'gray'
+                          .flow_chart_bucket_score{:class => "#{min_score}", style: "width: #{ bucket_score_width }%" }
+                            #{factor_data[:bucket_wise_percentages][norm_bucket.name] || 0}%
+                            %span
+                              = norm_bucket.name.split(" ").join("<br/>").html_safe
+                            .v-line
+                        .clr
+                    .divider2
+                    
+                  .divider2
                   .medium-text.black  
                     Percentage of Assessment Takers across scores
 

@@ -4,11 +4,11 @@
     - counter = counter + 1
     %li
       .container
-        .trait-title
+        .trait-title.span10.first
           = factor_name
         .score
           #{factor_score[:percentage_users]}% Less Favourable
-        .bar-graph
+        .bar-graph.span15.first
           .bar{:style=>"width: #{factor_score[:percentage_users]}%;"}
         .clr
 .divider2

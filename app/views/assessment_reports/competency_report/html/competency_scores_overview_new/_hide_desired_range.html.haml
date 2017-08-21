@@ -1,4 +1,4 @@
-%ul.competency-list.pull-left
+%ul.competency-list
   - competency_scores.each do |competency_name, competency_score|
     - marker_width = 100/@company_norm_buckets.size
     - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
@@ -8,12 +8,9 @@
     - position = (company_norm_bucket.weight - 1) * marker_width
     - offset = ((from_norm_bucket.weight - 1) * marker_width) + (marker_width / 2)
     - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    - offset = offset-2 if width == 0 && offset != 0
-    - width = 2 if width == 0   
+    - width = 5 if width == 0   
     - scored_weight = company_norm_bucket.weight
     - klass = "favorable"
-    - if ((width == 2) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
-      - offset = offset + 2
     %li
       .competency-name.span14.line-height-normal.no-border
         = competency_name

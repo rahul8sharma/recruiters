@@ -1,3 +1,6 @@
+- marker_width = 100.0 / @norm_buckets.size 
+- line_width = marker_width * (@norm_buckets.size-1) 
+- range_offset = marker_width / 2
 #details
   .container
     .divider2
@@ -17,19 +20,24 @@
           Most frequent score amongst less favourable scores
         .clr
     
-    .scale.pull-right
-      .line
-      .marker-container
-        -@norm_buckets.each do |norm_bucket|
-          .marker
-            .arrow
-            .marker-info
+    .scale.gray.span12.pull-right
+      .scale_inner{ style: "margin-right: #{ -range_offset }%" }
+
+        .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+        .marker_container
+          - @norm_buckets.each do |norm_bucket|
+            .marker{ style: "width: #{ marker_width }%" }
+              %span
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name.split(" ").join("<br/>").html_safe
+              .arrow_box
+                .arrow
+            .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
               = norm_bucket.description
-            - if norm_bucket.name.split(" ").size == 1
-              %br/
-            = norm_bucket.name
-        .clr
+          .clr
     .clr
+    
     .divider1
   %ul.improvement-tips-list
     - factor_scores.each_with_index do |(factor_name, factor_score), index|
@@ -43,7 +51,7 @@
             .left.medium-text.pull-left 
               - left = factor_score[:percentage_users]
               #{left}%
-            .bar-graph.pull-left
+            .bar-graph.span7
               .bar{:style=>"width: #{factor_score[:percentage_users]}%;"}
 
             .right.medium-text.favorable.pull-right
@@ -58,14 +66,18 @@
               .pie-chart{ id: "pie_#{index}", "data-percentage-users" => factor_score[:percentage_users], style: "width: 70px;height: 70px;" }
             .right.favorable
               #{100 - factor_score[:percentage_users]}%
-          .rating-slider.pull-right
-            - @norm_buckets.each do |norm_bucket|
-              .marker{:class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': ''}
-                .arrow
-                .score
-                  = norm_bucket.name
-            .clr
+          .scale.overview_scale.span12.pull-right
+            .scale_inner{ style: "margin-right: #{ -range_offset }%" }
+              .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+              .marker_container
+                - @norm_buckets.each do |norm_bucket|
+                  .marker{ :class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'active': '', style: "width: #{ marker_width }%" }
+                    .score_indicater_container{ :class => norm_bucket.name == factor_score[:most_scored_norm_bucket] ? 'show': 'hide'}
+                      .score_indicater
+                        = norm_bucket.name
+                .clr
           .clr
+          
           .divider1
           - if @report.tips_in_traits
             %p
