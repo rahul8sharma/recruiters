@@ -50,9 +50,11 @@
     %th
       Order
     %th
-      Reference Item
+      Reference Option ID
     %th
-  - Vger::Resources::Suitability::Option.where(:query_options => { :item_id => @item.id }).all.each do |option|
+      Reference Option
+    %th
+  - @options.each do |option|
     %tr
       %td
         = link_to option.id, suitability_item_option_path(params[:id], option.id)
@@ -65,6 +67,8 @@
       %td
         = option.option_order
       %td
-        = option.reference_option_id ? option.reference_option_id : "Not Available"
+        = option.reference_option_id || "Not Available"
+      %td
+        = option.reference_option_body || "Not Available"
       %td
         = link_to "Edit", edit_suitability_item_option_path(params[:id], option.id)
