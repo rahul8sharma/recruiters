@@ -1,21 +1,31 @@
-.section03
+.feedback_rating
   .divider1
   .scores.container
     .title.span15.line-height2
       Please rate #{@report.report_hash[:user][:name]} on the following traits
-    .scale
-      .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
-      .marker-container
-        - marker_width = 80
-        - @company_norm_buckets.each do |norm_bucket|
-          .marker{ style: "width: #{marker_width}px;" }
-            .arrow
-            .marker-info
+    .scale.span12.right
+      - range_offset = 100 / (@company_norm_buckets.size * 2) 
+      - range_width = 100 - (100/@company_norm_buckets.size) 
+      - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
+      - marker_width = 100 / @company_norm_buckets.size 
+      - range_right_offset = marker_width / 2 
+      .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+
+        .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+        .marker_container
+          - @company_norm_buckets.each do |norm_bucket|
+            .marker{ style: "width: #{ marker_width }%" }
+              %span
+                - if norm_bucket.name.split(" ").size == 1
+                  %br/
+                = norm_bucket.name.split(" ").join("<br/>").html_safe
+              .arrow_box
+                .arrow
+            .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
               = norm_bucket.description
-            - if norm_bucket.name.split(" ").size == 1
-              %br/
-            = norm_bucket.name.split(" ").join("<br/>").html_safe
+          .clr
     .clr
+    
     .divider1
     %ul
       - factor_scores.each_with_index do |(factor_name,factor_score),index|
