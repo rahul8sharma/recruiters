@@ -1,11 +1,6 @@
 - @report.report_hash[:competency_scores].each do |competency_name, competency_data|
   - if competency_data[:factor_scores].present?
     - company_norm_bucket = @company_norm_buckets.detect{|bucket| bucket.norm_bucket_ids.include?(competency_data[:grade_uid])}
-    - range_offset = 100 / (@company_norm_buckets.size * 2) 
-    - range_width = 100 - (100/@company_norm_buckets.size) 
-    - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
-    - marker_width = 100 / @company_norm_buckets.size 
-    - range_right_offset = marker_width / 2 
     .frame
       .heading.pull-left
         #{competency_name}
@@ -14,8 +9,7 @@
       .clr 
       %ul.clearfix.scores_listing.first
         - competency_data[:factor_scores].each do |factor_name, factor_score|
-          - expected_score_block_width = 100 / (@company_norm_buckets.size - 1)
-          - scale_values = get_scale_calculations(expected_score_block_width, factor_score, @company_norm_buckets, 0)
+          - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 0)
           %li{:id => "#{competency_name}#{factor_name}"}
             .lhs-sec.pull-left
               %div{ class: "span1 first hexagon-icon #{scale_values[:genericKlass]}" }
@@ -27,13 +21,11 @@
                 .arrow
               .clr
             .score_slider.span12.pull-right
-              - if ((scale_values[:width] == 34) && (scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name))
-                - scale_values[:offset] = scale_values[:offset] - 34
-              .score_slider_inner{style:"margin-right: #{-range_right_offset}%;"}
-                .progress_container{style: "left: #{range_offset}%; width: #{line_width}%;"}
-                  .expected_score_progress{style:"width: #{scale_values[:width]}%; margin-left: #{scale_values[:offset]}%"}
+              .score_slider_inner
+                .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
+                  .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
                 .marker_container
-                  .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:position]}%; width: #{marker_width}%" }
+                  .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
                     .score_indicater_container
                       .score_indicater
                         = scale_values[:company_norm_bucket_name]

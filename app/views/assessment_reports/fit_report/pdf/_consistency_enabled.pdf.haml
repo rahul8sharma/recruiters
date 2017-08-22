@@ -1,6 +1,6 @@
 %ul.clearfix.scores_listing.first
   - step_factor_scores.each_with_index do |(factor_name,factor_score),index|
-    - scale_values = get_scale_calculations(50, factor_score, @company_norm_buckets, 34)
+    - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 34)
     %li{:id => "#{factor_name}"}
       .lhs-sec.pull-left{:style=>"width:640px;"}
         .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
@@ -9,13 +9,11 @@
             = factor_name
       .rhs-sec.pull-right
         .slider{:style=>"width:#{scale_values[:scale_width]}px;"}
-          - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
-            - scale_values[:offset] = scale_values[:offset] - 33
-          .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]-20}px;" }
+          .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]-20}px;" }
             .score-indicater
               = scale_values[:company_norm_bucket_name]
             .arrow
-          .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+          .range{ style: "margin-left: #{scale_values[:range_offset]}px;width: #{scale_values[:range_width]}px;" }
       .clr
       .divider1
       .factor-description

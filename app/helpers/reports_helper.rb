@@ -29,33 +29,89 @@ module ReportsHelper
       [competency,{ pick: pick, pending: (traits.size - pick.size) }]
     end]
   end
+  
+  def get_scale_and_marker_width(company_norm_buckets, gutter = 2)
+    marker_width = (100.0 / company_norm_buckets.size)
+    scale_offset = (marker_width/2)
+    scale_width = 100.0 - (100.0/(company_norm_buckets.size)) 
+    return {
+      scale_offset: scale_offset,
+      scale_width: scale_width,
+      marker_width: marker_width
+    }
+  end
 
-  def get_scale_calculations(marker_width, factor_score, company_norm_buckets, gutter)
-    scale_width = (company_norm_buckets.size-1)*marker_width
+  def get_scale_calculations(factor_score, company_norm_buckets, gutter)
     scale = factor_score[:scale]
     norm_bucket_uid = factor_score[:norm_bucket_uid] 
     from_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:from_norm_bucket_uid] }
     to_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? scale[:to_norm_bucket_uid] }
     company_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-    
-    offset = marker_width * (from_norm_bucket.weight-1)        
-    width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    width = gutter if width == 0
-    position = (100 / company_norm_buckets.size) * (company_norm_bucket.weight - 1) 
-    position = scale_width-20 if position > scale_width
     scored_weight = company_norm_bucket.weight
+
     klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable underlined"
     genericKlass = (scored_weight >= from_norm_bucket.weight && scored_weight <= to_norm_bucket.weight) ? "favorable" : "less_favorable underlined" 
+    
+    scale_and_marker = get_scale_and_marker_width(company_norm_buckets)
+    
+    marker_width = scale_and_marker[:marker_width]
+    scale_offset = scale_and_marker[:scale_offset]
+    scale_width  = scale_and_marker[:scale_width]
+    
+    scale_unit_width = 100.0 / (company_norm_buckets.size-1)
+    
+    marker_position = (100.0 / company_norm_buckets.size) * (company_norm_bucket.weight - 1) 
+    range_width = (to_norm_bucket.weight - from_norm_bucket.weight) * scale_unit_width
+    range_width = gutter if range_width == 0
 
+    range_offset = scale_unit_width * (from_norm_bucket.weight-1)
+    range_offset -= 2 if from_norm_bucket.id == to_norm_bucket.id    
+    
     HashWithIndifferentAccess.new({ 
-      offset: offset,
-      width: width,
-      position: position,
-      klass: klass,
+      marker_position: marker_position,
+      marker_width: marker_width,
+      scale_offset: scale_offset,
       scale_width: scale_width,
+      range_offset: range_offset,
+      range_width: range_width,
+      klass: klass,
       to_norm_bucket_name: to_norm_bucket.name,
       company_norm_bucket_name: company_norm_bucket.name,
       genericKlass: genericKlass
+    })
+  end
+  
+  def get_scale_calculations_for_competency(competency_score, company_norm_buckets, gutter = 2)
+    scale_and_marker = get_scale_and_marker_width(company_norm_buckets)
+    
+    marker_width = scale_and_marker[:marker_width]
+    scale_offset = scale_and_marker[:scale_offset]
+    scale_width  = scale_and_marker[:scale_width]
+    
+    from_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
+    to_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
+    norm_bucket_uid = competency_score[:grade_uid]
+    company_norm_bucket = company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
+    scored_weight = company_norm_bucket.weight
+    klass = (scored_weight >= from_norm_bucket.weight && scored_weight <= to_norm_bucket.weight) ? "favorable" : "less_favorable" 
+    
+    scale_unit_width = 100.0 / (company_norm_buckets.size-1)
+    
+    range_width = (to_norm_bucket.weight - from_norm_bucket.weight) * scale_unit_width
+    range_width = gutter if range_width == 0
+
+    range_offset = scale_unit_width * (from_norm_bucket.weight-1)
+    range_offset -= 2 if from_norm_bucket.id == to_norm_bucket.id    
+    
+    HashWithIndifferentAccess.new({ 
+      marker_width: marker_width,
+      scale_offset: scale_offset,
+      scale_width: scale_width,
+      range_offset: range_offset,
+      range_width: range_width,
+      klass: klass,
+      to_norm_bucket_name: to_norm_bucket.name,
+      company_norm_bucket_name: company_norm_bucket.name
     })
   end
 

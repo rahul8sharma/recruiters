@@ -1,35 +1,18 @@
 %ul.competency-list.pull-left
   - competency_scores.each do |competency_name, competency_score|
-    - marker_width = 100/@company_norm_buckets.size
-    - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
-    - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
-    - norm_bucket_uid = competency_score[:grade_uid]
-    - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-    - position = (company_norm_bucket.weight - 1) * marker_width
-    - offset = ((from_norm_bucket.weight - 1) * marker_width) + (marker_width / 2)
-    - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    - width = 5 if width == 0   
-    - scored_weight = company_norm_bucket.weight
-    - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-    
+    - scale_values = get_scale_calculations_for_competency(competency_score, @company_norm_buckets)
     %li
-      .span1.first.hexagon-icon{:class =>  klass}
-      -#toggle class".less_favorable" and "favorable"
+      .span1.first.hexagon-icon{:class =>  scale_values[:klass]}
       .competency-name.span14.line-height-normal.no-border
         = competency_name
       .scale.overview_scale.span12.pull-right
-        - range_offset = 100 / (@company_norm_buckets.size * 2) 
-        - range_width = 100 - (100/@company_norm_buckets.size) 
-        - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
-        - marker_width = 100 / @company_norm_buckets.size 
-        - range_right_offset = marker_width / 2 
-        .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
-          .desire_range{:style=>"width: #{width}%; left: #{offset}%"}
+        .scale_inner{ style: "margin-right: #{ -scale_values[:scale_offset] }%" }
+          .desire_range{:style=>"width: #{scale_values[:range_width]}%; left: #{scale_values[:range_offset]}%"}
 
-          .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+          .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
           .marker_container
             - @company_norm_buckets.each do |company_norm_bucket|
-              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}", style: "width: #{marker_width}%"}
+              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{scale_values[:klass]}" : "#{scale_values[:klass]}", style: "width: #{scale_values[:marker_width]}%"}
                 %span
                   = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
             .clr

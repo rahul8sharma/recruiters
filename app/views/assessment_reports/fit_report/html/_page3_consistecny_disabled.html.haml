@@ -21,24 +21,20 @@
               Less Favorable Traits
             .clr
         .scale.span12.pull-right
-          - range_offset = 100 / (@company_norm_buckets.size * 2) 
-          - range_width = 100 - (100/@company_norm_buckets.size) 
-          - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
-          - marker_width = 100 / @company_norm_buckets.size 
-          - range_right_offset = marker_width / 2 
-          .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+          - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+          .scale_inner{ style: "margin-right: #{ -scale_values[:scale_offset] }%" }
 
-            .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
             .marker_container
               - @company_norm_buckets.each do |norm_bucket|
-                .marker{ style: "width: #{ marker_width }%" }
+                .marker{ style: "width: #{ scale_values[:marker_width] }%" }
                   %span
                     - if norm_bucket.name.split(" ").size == 1
                       %br/
                     = norm_bucket.name.split(" ").join("<br/>").html_safe
                   .arrow_box
                     .arrow
-                .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
+                .marker_info{ style: "left: #{ scale_values[:scale_offset] / 2 }%; width: #{ scale_values[:scale_width] }%" }
                   = norm_bucket.description
               .clr
         .clr
@@ -55,15 +51,12 @@
                     = factor_score[:factor_definition]
                   .arrow
               .score_slider.span12.pull-right
-                - expected_score_block_width = 100 / (@company_norm_buckets.size - 1)
-                - scale_values = get_scale_calculations(expected_score_block_width, factor_score, @company_norm_buckets, 0)
-                - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
-                  - scale_values[:offset] = scale_values[:offset] - 34
-                .score_slider_inner{style:"margin-right: #{-range_right_offset}%;"}
-                  .progress_container{style: "left: #{range_offset}%; width: #{line_width}%;"}
-                    .expected_score_progress{style:"width: #{scale_values[:width]}%; margin-left: #{scale_values[:offset]}%"}
+                - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 0)
+                .score_slider_inner{style:"margin-right: #{-scale_values[:scale_offset]}%;"}
+                  .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
+                    .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
                   .marker_container
-                    .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:position]}%; width: #{marker_width}%" }
+                    .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
                       .score_indicater_container
                         .score_indicater
                           = scale_values[:company_norm_bucket_name]

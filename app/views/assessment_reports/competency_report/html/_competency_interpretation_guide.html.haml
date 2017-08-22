@@ -19,24 +19,20 @@
         .rounded
 
       .scale.span12.pull-right
-        - range_offset = 100 / (@company_norm_buckets.size * 2) 
-        - range_width = 100 - (100/@company_norm_buckets.size) 
-        - line_width = 100 - (100/(@company_norm_buckets.size - 1)) 
-        - marker_width = 100 / @company_norm_buckets.size 
-        - range_right_offset = marker_width / 2 
-        .scale_inner{ style: "margin-right: #{ -range_right_offset }%" }
+        - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+        .scale_inner{ style: "margin-right: #{ -scale_values[:scale_offset] }%" }
 
-          .line{ style: "left: #{ range_offset }%; width: #{line_width }%" }
+          .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width]}%" }
           .marker_container
             - @norm_buckets.each do |norm_bucket|
-              .marker{ style: "width: #{ marker_width }%" }
+              .marker{ style: "width: #{scale_values[:marker_width]}%" }
                 %span
                   - if norm_bucket.name.split(" ").size == 1
                     %br/
                   = norm_bucket.name.split(" ").join("<br/>").html_safe
                 .arrow_box
                   .arrow
-              .marker_info{ style: "left: #{ range_offset / 2 }%; width: #{ line_width }%" }
+              .marker_info{ style: "left: #{ scale_values[:scale_offset] / 2 }%; width: #{ scale_values[:scale_width] }%" }
                 = norm_bucket.description
             .clr
       .clr
@@ -47,12 +43,12 @@
         Interpersonal Relations and Emotional Control
       .scale.overview_scale.span12.pull-right
         .scale_inner{ style: "margin-right: -8%" }
-          .line{ style: "left: 8%; width: 80%" }
+          .line{ style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%" }
           .marker_container
-            - 6.times do |index|
-              .marker{ class: "#{(index == 2) ? 'active' : ''}", style: "width: 16%"}
+            - @norm_buckets.each_with_index do |norm_bucket, index|
+              .marker{ class: "#{(index == 2) ? 'active' : ''}", style: "width: #{scale_values[:marker_width]}%"}
                 %span
-                  #{(index == 2) ? 'Average (Low)' : ''}
+                  #{(index == 2) ? norm_bucket.name : ''}
             .clr
       .clr
     .divider2
