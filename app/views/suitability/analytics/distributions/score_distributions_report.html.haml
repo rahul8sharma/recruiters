@@ -2,15 +2,38 @@
   Generate a new Score Distributions Report
 .divider1
 .span24
-  = form_for :assessment, url: suitability_analytics_score_distributions_report_path, :method => :post do |f|
+  = form_for :score_distributions, url: suitability_analytics_score_distributions_report_path, :method => :post do |f|
     .span10
       .span.pull-left
-        Assessment IDs
+        Assessment IDs (Comma Separated)
+      .span
+        = f.text_field :assessment_ids
+      .clr 
+      .divider1 
+      .span.pull-left
+        Select Candidates
+      .span
+        = f.file_field :file, accept: '.xls'
+      .clr  
+      .divider2
+      .action.pull-right
+        = f.submit "Generate", class: "btn btn-large btn-warning"
+      .clr    
+.clr
+.divider2
+.big-text
+  Download Candidates for Score Distributions Report
+.divider1
+.span24
+  = form_for :score_distributions, url: suitability_analytics_download_candidates_score_distributions_report_path, :method => :post do |f|
+    .span10
+      .span.pull-left
+        Assessment IDs (Comma Separated)
       .span
         %input{ name: "score_distributions[assessment_ids]" }
       .clr  
       .divider2
       .action.pull-right
-        = f.submit "Generate", class: "btn btn-large btn-warning"
+        = f.submit "Download", class: "btn btn-large btn-warning"
       .clr    
 .clr    
