@@ -1,9 +1,9 @@
 - if @report.report_hash[:factor_scores].present?
   = render "shared/reports/pdf/report_header"
-  .inner
-    .factor_fit.report_content
-      .divider1
-      .blue_heading.large-text.pull-left
+  .factor_fit.report_content
+    .container
+      .divider2
+      .page_title.pull-left
         Traits measured in this Assessment
 
       .instruction_container.pull-left
@@ -23,6 +23,7 @@
               .wrapper{:style=>"margin-top: #{margin}px;"}
                 %a{:href => "#"+"#{factor_name}", :title => "#{factor_name}", :class => "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}"}
                   = factor_name.gsub(" ","<br/>").html_safe
+          .clr
       .divider3
       %p.bottom-sec
         Empty Hexagons represent behavioural traits that are not included in the scope of this Assessment
