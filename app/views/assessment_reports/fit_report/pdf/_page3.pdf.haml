@@ -4,11 +4,11 @@
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
     = render "shared/reports/pdf/report_header"
-    .inner
-      .scores.favorable_factors
+    .scores.favorable_factors
+      .container
         .divider1
         .pull-left
-          .blue_heading.large-text
+          .page_title
             Scores of Traits measured in this Assessment
           .divider1
           .instruction_container
@@ -23,18 +23,20 @@
               .instruction2.less_favorable.pull-left
                 Less Favorable Traits
               .clr
-        .pull-right
-          .divider1
-          .scale{:style=>"margin-right: 0;"}
-            .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-            .marker-container
+        .scale.span8.pull-right
+          - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+          .scale_inner
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width]}%" }
+            .marker_container
               - @company_norm_buckets.each do |norm_bucket|
-                .marker
-                  - if norm_bucket.name.split(" ").size == 1
-                    %br/
-                  = norm_bucket.name
+                .marker{ style: "width: #{scale_values[:marker_width]}%" }
+                  %span
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
               .clr
         .clr
+
         - section_value.each do |section|
           = render :partial => section["path"], :locals => {step_factor_scores: step_factor_scores }
     .page-break

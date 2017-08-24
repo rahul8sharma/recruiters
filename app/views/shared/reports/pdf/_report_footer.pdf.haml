@@ -3,20 +3,21 @@
 - last_page ||= false
 - if @view_mode != "html" || force
   .report-footer.clearfix
-    - if @view_mode != "html" && navigation
-      .pull-left{:style=>"width:40%; text-align: left;"}
-        Private &amp; Confidential
-      .current-page.pull-left{:style=>"width:20%; text-align: center;"}
-        1
+    .container
+      - if @view_mode != "html" && navigation
+        .pull-left{:style=>"width:40%; text-align: left;"}
+          Private &amp; Confidential
+        .current-page.pull-left{:style=>"width:20%; text-align: center;"}
+          1
 
-      .pull-right{:style=>"width:40%; text-align: right;"} 
-        &copy; Jombay 
+        .pull-right{:style=>"width:40%; text-align: right;"} 
+          &copy; Jombay 
 
-    - else    
-      .pull-left
-        Private &amp; Confidential
-      .pull-right 
-        &copy; Jombay 
-    .clr 
+      - else    
+        .pull-left
+          Private &amp; Confidential
+        .pull-right 
+          &copy; Jombay 
+      .clr 
 - if @view_mode == "html" && !last_page     
   %hr

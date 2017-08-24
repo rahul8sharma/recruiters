@@ -1,21 +1,30 @@
 %ul.clearfix.scores_listing.first
   - step_factor_scores.each_with_index do |(factor_name,factor_score),index|
-    - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 34)
+    - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 0)
     %li{:id => "#{factor_name}"}
-      .lhs-sec.pull-left{:style=>"width:470px;"}
-        .hexagon-icon{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-        .span.first
-          .factor-name
-            = factor_name
-      .rhs-sec.pull-right
-        .slider{:style=>"width:#{scale_values[:scale_width]}px;"}
-          .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]-20}px;" }
-            .score-indicater
-              = scale_values[:company_norm_bucket_name]
-            .arrow
-          .range{ style: "margin-left: #{scale_values[:range_offset]}px;width: #{scale_values[:range_width]}px;" }
+      .lhs-sec.pull-left
+        %div{ class: "span1 first hexagon-icon #{scale_values[:klass]}" }
+        
+        .factor-name.pull-left{ class: "#{factor_score[:type] == 'Functional::Trait' ? 'star':''}" }
+          = factor_name 
+
+        .clr
+     
+      .score_slider.span8.pull-right
+        .score_slider_inner
+          .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
+            .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
+          .marker_container
+            .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
+              .score_indicater_container
+                .score_indicater
+                  = scale_values[:company_norm_bucket_name]
+            .clr
+        .clr
+      .clr
+
       .clr
       .divider1
       .factor-description
         = factor_score[:description]
-      .divider1
+     

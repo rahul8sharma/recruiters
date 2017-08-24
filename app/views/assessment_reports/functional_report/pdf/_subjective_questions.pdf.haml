@@ -2,27 +2,28 @@
   - subjective_items = Hash[@report.report_data[:subjective_items].sort_by{|item_id, item_data| item_data[:section] }]
   - subjective_items.each_slice(3) do |subjective_items|
     = render "shared/reports/pdf/report_header"
+    .divider2
     .functional-questions.objective
-      .divider1
-      %h1.font-normal.title.huge-text.default
-        Subjective Questions
-      .divider1
-      - subjective_items.each do |item_id, item_data|
-        .frame
-          .divider1
-          .label.label-warning.pull-left.left-offset1
-            Question
-          .span14
-            = item_data[:item][:body].gsub("<text_box>","________________").html_safe
-          .clr
-          .divider1
-          - item_data[:response].each do |index, response|
+      .container
+        %h1.font-normal.title.huge-text.default
+          Subjective Questions
+        .divider1
+        - subjective_items.each do |item_id, item_data|
+          .frame
+            .divider1
             .label.label-warning.pull-left.left-offset1
-              Response #{(index.to_i+1)}
-            .span14.bold
-              = response
+              Question
+            .span14
+              = item_data[:item][:body].gsub("<text_box>","________________").html_safe
             .clr
             .divider1
-        .divider1
+            - item_data[:response].each do |index, response|
+              .label.label-warning.pull-left.left-offset1
+                Response #{(index.to_i+1)}
+              .span14.bold
+                = response
+              .clr
+              .divider1
+          .divider1
     .divider1
     .page-break

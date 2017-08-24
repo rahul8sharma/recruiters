@@ -6,10 +6,10 @@
   - (0..ordered_guides.length-1).step(guides_step) do |step|
     - step_user_manager_guidelines = Hash[ordered_guides[step..(step+(guides_step - 1))]]     
     = render "shared/reports/pdf/report_header"
-    .inner
-      .scores.interview_guide
+    .scores.interview_guide
+      .container
         .divider1
-        .blue_heading.large-text.pull-left
+        .page_title
           Guidelines for Assessment Taker&#39;s Manager
         .instruction_container.pull-right
           .instructions
@@ -20,16 +20,14 @@
             .clr
         .clr
         .divider1
-        %ul.clearfix.interview_guide_listing
+        %ul.clearfix.scores_listing.first.interview_guide_listing
           - step_user_manager_guidelines.each do |factor_name, guide|
             %li
-              .divider1
               - klass = guide[:factor_type] == "Suitability::DirectPredictor" ? 'mid_favorable' : (guide[:pass]? 'favorable' : 'less_favorable')
-              .que-no.hexagon-icon{ class: klass }
-              .factor-name.pull-left
+              .span1.first.hexagon-icon{ class: klass }
+              .factor-name.span5
                 = factor_name
-              .description.pull-left
+              .description.span16
                 = guide[:body]
               .clr
-              .divider1
     .page-break              
