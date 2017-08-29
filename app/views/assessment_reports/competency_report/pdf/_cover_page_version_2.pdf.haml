@@ -1,34 +1,35 @@
-.overall_report
-  .divider1
-  .clr
-  .divider10
-  - if @report.report_data[:company][:logo_url]
-    %div
-      %p.text-center.medium-text.bold
-        For
-      - imagePath = @report.report_data[:company][:logo_url]
-      .partner-logo.margin-auto{:style => "background: url(#{imagePath}) no-repeat center 0; width: auto; height: 200px "}
-  .divider5
-  .huge-text.bold
-    = @report.report_hash[:user][:name].titleize
-  .divider2
-  .large-text
-    .span.first
-      Assessment Name:
-    .span13
-      = @report.report_hash[:assessment][:name]
+.cover_page
+  .container
+    .divider1
     .clr
-    Assessment Taken On:
-    = @report.report_hash[:completed_at]
+    .divider10
+    - if @report.report_data[:company][:logo_url]
+      %div
+        %p.text-center.big-text.bold
+          For
+        - imagePath = @report.report_data[:company][:logo_url]
+        .partner-logo.margin-auto{:style => "background: url(#{imagePath}) no-repeat center 0; width: auto; height: 200px "}
+    .divider5
+    .huge-text.bold
+      = @report.report_hash[:user][:name].titleize
     .divider2
+    .large-text
+      .span.first
+        Assessment Name:
+      .span13
+        = @report.report_hash[:assessment][:name]
+      .clr
+      Assessment Taken On:
+      = @report.report_hash[:completed_at]
+      .divider2
+      .clr
+    
+    .frame.padding-all2
+      %p.large-text
+        This Assessment is designed to capture the behavioural characteristics that are most applicable to the assessment taker. The statements used in the assessment are neutral in nature to ensure that there are no &#145;Right&#146; or &#145;Wrong&#146; responses.
+      %p.large-text
+        This report focuses on the overall behavioural profile of the assessment taker and is intended to act as an indicative guiding tool rather than a judgement. The reports showcases score descriptions along with the strengths and areas of improvements on competencies identified for superior performance that are imperative for success.
     .clr
-  
-  .frame.padding-all2
-    %p.big-text
-      This Assessment is designed to capture the behavioural characteristics that are most applicable to the assessment taker. The statements used in the assessment are neutral in nature to ensure that there are no &#145;Right&#146; or &#145;Wrong&#146; responses.
-    %p.big-text
-      This report focuses on the overall behavioural profile of the assessment taker and is intended to act as an indicative guiding tool rather than a judgement. The reports showcases score descriptions along with the strengths and areas of improvements on competencies identified for superior performance that are imperative for success.
-  .clr
 
 
 .page-break

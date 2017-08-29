@@ -97,11 +97,11 @@ module ReportsHelper
     
     scale_unit_width = 100.0 / (company_norm_buckets.size-1)
     
-    range_width = (to_norm_bucket.weight - from_norm_bucket.weight) * scale_unit_width
+    range_width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
     range_width = gutter if range_width == 0
 
-    range_offset = scale_unit_width * (from_norm_bucket.weight-1)
-    range_offset -= 2 if from_norm_bucket.id == to_norm_bucket.id    
+    range_offset = (marker_width * (from_norm_bucket.weight-1)) + scale_offset
+    range_offset -= 2 if from_norm_bucket.id == to_norm_bucket.id 
     
     HashWithIndifferentAccess.new({ 
       marker_width: marker_width,

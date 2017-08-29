@@ -1,16 +1,21 @@
 = render "shared/reports/pdf/report_header"  
-.divider1
-.overall_report.compact
-  .span10.first
-    .extra-large-text
-      = @report.report_hash[:user][:name]
+#overview.cover_page.compact
+  .overall_report
+    .divider2
+    .container
+      .user-name.extra-large-text
+        = @report.report_hash[:user][:name]
+      .divider1
+      .extra-medium-text
+        Assessment: 
+        = @report.report_hash[:assessment][:name]
+        %br/
+        Assessment Answered On: 
+        = @report.report_hash[:completed_at]
     .divider1
-    .extra-medium-text
-      Assessment: 
-      = @report.report_hash[:assessment][:name]
-      %br/
-      Assessment Answered On: 
-      = @report.report_hash[:completed_at]
-  - section_value.each do |section|
-    = render :partial => section["path"], :locals => { :section_value => section["children"] }
+    - section_value.each do |section|
+      = render :partial => section["path"], :locals => { :section_value => section["children"] }
+    .clr
+    .divider1
+
 .page-break

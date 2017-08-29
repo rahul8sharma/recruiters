@@ -2,17 +2,17 @@
 - trait_scores = get_factors_under_competencies(@report)
 - trait_scores.each_slice(7) do |step_data|
   = render "shared/reports/pdf/report_header"
-  .inner
+  .container
     .scores.favorable_factors
       .divider1
       .span12.first.pull-left
         - if step_toc == 0
           - step_toc += 1
-          %h1.font-normal.blue_heading.large-text
+          %h1.page_title
             Scores of Factors measured under different Competencies / Values
           .divider1
         - else
-          .font-normal.blue_heading.large-text
+          .page_title
             Scores of Factors measured under different Competencies / Values
           .divider1
         .instruction_container
@@ -33,15 +33,21 @@
             Functional Traits (Trait Score is #{@report.report_data[:include_functional_traits_in_aggregate_scores] ? "included in":"excluded from"} competency scores)
       .pull-right
         .divider2
-        .scale{:style=>"margin-right: 20px;"}
-          .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-          .marker-container
-            - @company_norm_buckets.each do |norm_bucket|
-              .marker
-                - if norm_bucket.name.split(" ").size == 1
-                  %br/
-                = norm_bucket.name
-            .clr
+        .scale.span8
+          - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+          .scale_inner
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width]}%" }
+            .marker_container
+              - @company_norm_buckets.each do |norm_bucket|
+                .marker{ style: "width: #{scale_values[:marker_width]}%" }
+                  %span
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
+              .clr
+        .clr
+        .divider1
+
       .clr
       - section_value.each do |section|
         = render :partial => section["path"], :locals => {:step_data => step_data}
