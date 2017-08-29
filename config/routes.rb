@@ -987,6 +987,10 @@ Recruiters::Application.routes.draw do
       match 'projection_report' => 'projections#projection_report', :as => :projection_report
       match 'stack_ranking_report' => 'projections#stack_ranking_report', :as => :stack_ranking_report
       match 'score_distributions_report' => 'distributions#score_distributions_report', :as => :score_distributions_report
+      
+      post 'download_candidates_stack_ranking_report' => 'projections#download_candidates_stack_ranking_report', :as => :download_candidates_stack_ranking_report
+      post 'download_candidates_score_distributions_report' => 'distributions#download_candidates_score_distributions_report', :as => :download_candidates_score_distributions_report
+      
       match 'factual_data_distributions_report' => 'distributions#factual_data_distributions_report', :as => :factual_data_distributions_report
     end
     

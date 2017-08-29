@@ -49,7 +49,7 @@
                     - min_score = 'gray'
                   .flow_chart_bucket_scale
                     .flow_chart_bucket_inner
-                      ..line{ :class => "#{min_score}", style: "left: #{ line_offset }%; width: #{line_width }%" }
+                      .line{ :class => "#{min_score}", style: "left: #{ line_offset }%; width: #{line_width }%" }
                       - if factor_data[:acceptable_range]
                         .line.expected_score{ style: "left: #{ range_offset }%; width: #{ range_width }%" }
                         .expected_score_bracket{ style: "left: #{ range_offset }%; width: #{ range_width }%" }
