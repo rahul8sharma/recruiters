@@ -2,7 +2,6 @@
 @import toolkit/component/buttons
 $favorable_color: #61a219  
 $less_favorable_color: #d0a100 
-$mid_favorable_color: #062b58
 
 ul
   margin: 0
@@ -339,8 +338,6 @@ ul
             line-height: normal
             padding: 10px
             font-size: 14px
-        &.aggregate_score
-          
         &.score_rating 
           padding-top: 3px
           .right_sec
@@ -378,9 +375,9 @@ ul
         font-weight: 700 
         font-size: 13px
       .favorable
-        color: #61a219  
+        color: $favorable_color
       .less_favorable
-        color: #d0a100
+        color: $less_favorable_color
         text-decoration: underline  
       .factor_1
         left: 320px
@@ -591,18 +588,18 @@ ul
         &.favorable
           .score_indicater_container
             .score_indicater
-              border-color: #61A219
+              border-color: $favorable_color
               color: #000
               &:before
-                border-top-color: #61A219
+                border-top-color: $favorable_color
         &.less_favorable
           background-position: center -44px
           .score_indicater_container
             .score_indicater
-              border-color: #D0A100
+              border-color: $less_favorable_color
               color: #000
               &:before
-                border-top-color: #D0A100
+                border-top-color: $less_favorable_color
         .score_indicater_container
           position: absolute
           width: 155%
@@ -611,7 +608,7 @@ ul
           .score_indicater
             position: relative
             background: #ffffff
-            border: 1px solid #D0A100
+            border: 1px solid $less_favorable_color
             font-size: 10px
             text-align: center
             color: #000
@@ -635,7 +632,7 @@ ul
               margin-left: -7px
             &:before 
               border-color: rgba(253, 193, 6, 0)
-              border-top-color: #D0A100
+              border-top-color: $less_favorable_color
               border-width: 8px
               margin-left: -8px
   
@@ -758,7 +755,7 @@ ul
       &.solid_border
         border: 1px solid #9b9da0
         .competency-list
-          padding: 1px
+          margin-right: 1px
       .competency-name
         padding: 7px 0
         border-right: 1px solid #e3e3e3
