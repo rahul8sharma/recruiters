@@ -1,32 +1,17 @@
-%ul.competency-list.pull-left
+%ul.competency-list
   - competency_scores.each do |competency_name, competency_score|
-    - marker_width = 50
-    - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
-    - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
-    - norm_bucket_uid = competency_score[:grade_uid]
-    - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-    - position = (company_norm_bucket.weight - 1) * marker_width
-    - offset = ((from_norm_bucket.weight - 1) * marker_width)
-    - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    - offset = offset-17 if width == 0 && offset != 0
-    - width = 17 if width == 0   
-    - scored_weight = company_norm_bucket.weight
     - klass = "favorable"
-    - if ((width == 17) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
-      - offset = offset + 6
-
     %li
-      .competency-name.pull-left
+      .competency-name.span14.line-height-normal.no-border.first
         = competency_name
-      .competency-value.pull-right
-        .scale.right-offset1
-          .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-          .marker-container
+      .scale.span8.pull-right.overview_scale
+        - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+        .scale_inner
+          .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width]}%" }
+          .marker_container
             - @company_norm_buckets.each do |company_norm_bucket|
-              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}" }
-                = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}",style: "width: #{scale_values[:marker_width]}%" }
+                %span
+                  = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
             .clr
-          .clr
-        .clr
-      .clr          
-.clr
+      .clr

@@ -1,14 +1,15 @@
 .divider1
-.overall_report
-  .divider3
-  .j-logo.pull-left
-  - if @report.report_hash[:assessment][:brand_partner].present?
-    .pull-right
-      - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
-      .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 200px "}
-  .clr
-  .divider26
-  .user_name
+.cover_page
+  .divider5
+  .container
+    .j-logo.pull-left
+    - if @report.report_hash[:assessment][:brand_partner].present?
+      .pull-right
+        - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
+        .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 200px "}
+    .clr
+    .divider26
+  .user_name.huge-text
     = @report.report_hash[:user][:name]
   .divider2
   - section_value.each do |section|
