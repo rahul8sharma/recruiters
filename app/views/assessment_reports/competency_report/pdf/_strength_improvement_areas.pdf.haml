@@ -1,28 +1,27 @@
 = render "shared/reports/pdf/report_header"
-.inner
-  .scores
-    .divider1
-    .strength_areas.section02
-      %h1.font-normal.blue_heading.large-text
-        Strengths and Areas of Improvement
-      %table.section_description.extra-medium-text{:cellpadding=>"0", :cellspacing=>"10", :align=>"top"}
-        %tbody
-          %tr
-            %td.frame
-              .heading
-                Strengths
-              %ul.large-text
-                - get_strengths(@report).each do |factor_name, factor_score|
-                  %li
-                    %span #{factor_name}
-            %td.frame
-              .heading
-                Areas of Improvement
-              %ul.large-text
-                - get_areas_of_improvements(@report).each do |factor_name,factor_score|
-                  %li
-                    %span #{factor_name}
-           
-      .divider2
+.container
+  .divider2
+  .strength_areas.section02
+    %h1.page_title
+      Strengths and Areas of Improvement
+    %table.section_description.extra-medium-text{:cellpadding=>"0", :cellspacing=>"10", :align=>"top"}
+      %tbody
+        %tr
+          %td.frame
+            .heading
+              Strengths
+            %ul.large-text
+              - get_strengths(@report).each do |factor_name, factor_score|
+                %li
+                  %span #{factor_name}
+          %td.frame
+            .heading
+              Areas of Improvement
+            %ul.large-text
+              - get_areas_of_improvements(@report).each do |factor_name,factor_score|
+                %li
+                  %span #{factor_name}
+         
+    .divider2
 
 .page-break

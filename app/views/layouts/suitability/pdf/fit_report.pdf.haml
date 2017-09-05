@@ -1,0 +1,13 @@
+- content_for :javascripts do
+  = wicked_pdf_javascript_include_tag "reports"
+  = wicked_pdf_javascript_include_tag "https://web.mxradon.com/t/Tracker.js"
+  = wicked_pdf_javascript_include_tag "shared/leadsquared.js"
+- content_for :stylesheets do
+  = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "suitability/pdf/fit"
+
+- content_for :body do
+  .report.fit_report
+    = yield 
+      
+= render :file => 'layouts/haml'

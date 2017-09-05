@@ -1,5 +1,5 @@
 .report_header.clearfix
-  .container
+  .container{:style=>"width: 92%"}
     .logo.full-logo
       = image_tag('report/pdf/jombay-logo-icon.png')
     - if @report.report_data[:assessment][:brand_partner] && @report.report_data[:assessment][:brand_partner] == "cocubes"
@@ -12,4 +12,4 @@
       .medium-text
         Assessment: 
         = @report.report_data[:assessment][:name]
-
+    .clr

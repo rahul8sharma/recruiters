@@ -47,11 +47,12 @@ module Suitability
 
       user_name = @report.report_hash[:user][:name]
       company_name = @report.report_hash[:company][:name]
+      assessment_type = @report.report_hash[:assessment][:assessment_type]
 
       template = if @report.configuration[:is_functional_assessment]
         "functional_report"
       else
-        @report.report_hash[:assessment][:assessment_type]+"_report"
+        assessment_type+"_report"
       end
       
       report_status = {
@@ -63,14 +64,14 @@ module Suitability
       @view_mode = "html"
       html = render_to_string(
          template: "assessment_reports/#{template}",
-         layout: "layouts/user_reports",
+         layout: "layouts/suitability/html/#{assessment_type}_report",
          formats: [ :html ]
       )
 
       @view_mode = "feedback"
       feedback_html = render_to_string(
          template: "assessment_reports/feedback_report",
-         layout: "layouts/feedback_reports",
+         layout: "layouts/suitability/html/feedback_report",
          formats: [ :html ]
       )
 
@@ -79,7 +80,7 @@ module Suitability
         footer: {
           content: render_to_string(
             "shared/reports/pdf/_report_footer",
-            layout: "layouts/user_reports",
+            layout: "layouts/suitability/pdf/#{assessment_type}_report",
             formats: [:pdf]
           )
         }
@@ -95,7 +96,7 @@ module Suitability
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
         render_to_string("assessment_reports/#{template}",
-          layout: "layouts/user_reports",
+          layout: "layouts/suitability/pdf/#{assessment_type}_report",
           formats: [:pdf]
         ), hash_toc
       )

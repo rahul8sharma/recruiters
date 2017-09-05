@@ -1,4 +1,5 @@
 %ul.competency-list
+  - scale_values = get_scale_and_marker_width(@company_norm_buckets)
   - competency_scores.each do |competency_name, competency_score|
     - klass = "favorable"
     %li

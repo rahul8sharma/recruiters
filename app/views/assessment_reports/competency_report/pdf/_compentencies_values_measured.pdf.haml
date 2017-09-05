@@ -6,13 +6,14 @@
   - step_competency_scores = Hash[competency_scores[step..(step+(competency_step - 1))]]
   - step_competency_scores_hash = HashWithIndifferentAccess.new({ step_competency_scores: step_competency_scores })
   = render "shared/reports/pdf/report_header"
-  #traits.section02
-    .scores
+  #traits
+    .container
+      .divider1
       - if step_toc == 1
-        %h1.font-normal.blue_heading.large-text.pull-left
+        %h1.page_title.pull-left
           Competencies / Values Measured
       - else
-        .font-normal.blue_heading.large-text.pull-left
+        .page_title.pull-left
           Competencies / Values Measured
       .instruction_container.pull-left
         .instructions

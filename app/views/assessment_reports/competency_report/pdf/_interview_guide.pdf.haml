@@ -2,14 +2,14 @@
 - ordered_guides = get_ordered_guidelines(@report.report_hash[:interview_guide])  
 - ordered_guides.each_slice(12) do |step_interview_questions|
   = render "shared/reports/pdf/report_header"
-  .inner
+  .container
     .scores.interview_guide
       .divider1
       - if step == 0
-        %h1.font-normal.blue_heading.large-text.pull-left
+        %h1.page_title.pull-left
           Interview Questions
       -else
-        .blue_heading.large-text.pull-left
+        .page_title.pull-left
           Interview Questions
       - step += 1
       .instruction_container.pull-right
@@ -21,16 +21,14 @@
               Less Favorable
           .clr
       .clr
-      %ul.clearfix.interview_guide_listing
+      %ul.clearfix.scores_listing.first.interview_guide_listing
         - step_interview_questions.each do |factor_name, question|
           - klass = question[:pass] ? "favorable" : "less_favorable"
           %li
-            .divider1
-            .que-no.hexagon-icon{ class: klass }
-            .factor-name.pull-left
+            .span1.first.hexagon-icon{ class: klass }
+            .factor-name.span5
               = factor_name
-            .description.pull-left
+            .description.span16
               = question[:body]
             .clr
-            .divider1
   .page-break
