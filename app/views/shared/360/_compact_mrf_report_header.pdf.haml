@@ -1,10 +1,10 @@
 .report_header.clearfix
   .logo.full-logo.pull-left
     = wicked_pdf_image_tag ('report/pdf/j-logo.png')
-  - if @report.report_data[:company][:logo_url].present?
-    - logo_url = @report.report_data[:company][:logo_url]
-    .pull-left{ style: "width: 50px;" }
-      = wicked_pdf_image_tag(logo_url, :style => "padding: 5px 0 0 10px;")
+  - logo_url = @report.report_data[:company][:logo_url]
+  - if logo_url.present?
+    .pull-left{ style: "height: 30px;" }
+      = wicked_pdf_image_tag(logo_url, :style => "padding: 10px 0 0 10px; height: 100%; width: auto;")
   .text-right
     .user_name
       = @report.report_hash[:user][:name]
