@@ -1,6 +1,10 @@
 .report_header.clearfix
-  .logo
+  .logo.pull-left
     = wicked_pdf_image_tag ('report/pdf/jombay-logo-icon.png')
+  - if @report.report_data[:company][:logo_url]
+    .logo.pull-left
+      - imagePath = @report.report_data[:company][:logo_url]
+      %img{:src => "#{imagePath}", :alt=> "Company Logo", :style => "max-height: 25px"}
   .text-right
     .user_name
       = @report.report_hash[:user][:name]
