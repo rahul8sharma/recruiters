@@ -3,7 +3,7 @@
     .left_sec.pull-left
       .graph_instructions.pull-left
         .span6.first.bold
-          = truncate competency, length: 30
+          = truncate competency, length: 45
         .span1.divider1.graph_stakeholder_rating_icon
         .span1.divider1.graph_classic_user_icon
         .clr
@@ -15,7 +15,7 @@
           - if self_score || other_score
             %li
               .span6.first
-                = truncate trait_score[:trait][:name], length: 30
+                = trait_score[:trait][:name]
               .stakeholder_rating.small-text.pull-left
                 = trait_score[:average_score_excluding_self][:points] || "-"
               .self_rating.small-text.span

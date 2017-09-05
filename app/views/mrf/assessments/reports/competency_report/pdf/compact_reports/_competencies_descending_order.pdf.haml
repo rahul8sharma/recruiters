@@ -15,14 +15,15 @@
   .traits_under_graph
     .graph_container
       .left_sec.pull-left
-        .graph_instructions.left-offset4
+        .graph_instructions.pull-right
           .span1.divider2.graph_stakeholder_rating_icon
           .clr
+        .clr  
         %ul
           - sorted_competency_scores.each do |competency, competency_score|
             %li
-              .trait_title.first.span6{ title: competency }
-                = truncate competency, length: 25
+              .trait_title.first.span7{ title: competency }
+                = truncate competency, length: 45
               .stakeholder_rating.pull-left
                 = competency_score[:score][:points] || "-"
               .clr
