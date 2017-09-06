@@ -170,7 +170,7 @@ class AssessmentReportsController < ApplicationController
     template = if @report.configuration[:is_functional_assessment]
       "functional_report"
     else
-      assessment_type+"_report"
+      "#{assessment_type}_report"
     end
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
