@@ -233,7 +233,7 @@ class ReportConfigurationsController < MasterDataController
                         .where(order: "weight ASC").all                    
     @company_norm_buckets = Vger::Resources::Suitability::CompanyNormBucket\
                       .where(query_options: {
-                        company_id: nil
+                        company_id: params[:company_id]
                       })\
                       .where(order: "weight ASC").all
   end
