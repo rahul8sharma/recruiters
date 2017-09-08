@@ -2,12 +2,12 @@
   - competency_scores.each do |competency_name, competency_score|
     - scale_values = get_scale_calculations_for_competency(competency_score, @company_norm_buckets)
     %li
-      .span1.first.hexagon-icon{:class =>  scale_values[:klass]}
+      .span1.first.hexagon-icon{:class =>  scale_values[:genericKlass]}
       .competency-name.span14.line-height-normal.no-border
         = competency_name
       .scale.overview_scale.span12.pull-right
         .scale_inner{ style: "margin-right: #{ -scale_values[:scale_offset] }%" }
-          - locals_hash = { width: scale_values[:range_width], offset: scale_values[:range_offset] }
+          - locals_hash = { scale_values: scale_values }
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
             = render :partial => section["path"], :locals => locals
@@ -15,7 +15,7 @@
           .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
           .marker_container
             - @company_norm_buckets.each do |company_norm_bucket|
-              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{scale_values[:klass]}" : "#{scale_values[:klass]}", style: "width: #{scale_values[:marker_width]}%"}
+              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{scale_values[:genericKlass]}" : "#{scale_values[:genericKlass]}", style: "width: #{scale_values[:marker_width]}%"}
                 %span
                   = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
             .clr

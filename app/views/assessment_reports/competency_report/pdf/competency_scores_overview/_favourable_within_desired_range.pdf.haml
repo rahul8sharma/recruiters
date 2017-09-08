@@ -8,7 +8,7 @@
         = competency_name
       .scale.span8.pull-right.overview_scale
         .scale_inner
-          - locals_hash = { width: scale_values[:range_width], offset: scale_values[:range_offset] }
+          - locals_hash = { scale_values: scale_values }
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
             = render :partial => section["path"], :locals => locals
