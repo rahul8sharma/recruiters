@@ -105,8 +105,6 @@ module Recruiters
     }
     config.action_controller.asset_host = "#{hosts['action_controller']['asset_protocol']}://#{hosts['action_controller']['asset_host']}"
 
-    config.statistics = YAML::load(File.open("#{Rails.root.to_s}/config/statistics.yml"))["statistics"].symbolize_keys
-
     # Temporary fix for Rails vulnerability
     ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
