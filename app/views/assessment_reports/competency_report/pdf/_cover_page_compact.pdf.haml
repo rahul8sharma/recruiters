@@ -3,7 +3,7 @@
   .overall_report
     .divider2
     .container
-      .pull-left
+      .pull-left.span16
         .user-name.extra-large-text
           = @report.report_hash[:user][:name]
         .divider1
@@ -13,7 +13,7 @@
           %br/
           Assessment Answered On: 
           = @report.report_hash[:completed_at]
-      .pull-right
+      .pull-right.span12
         - section_value.each do |section|
           = render :partial => section["path"], :locals => { :section_value => section["children"] }
         .clr
