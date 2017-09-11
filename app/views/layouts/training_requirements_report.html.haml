@@ -3,8 +3,8 @@
   = wicked_pdf_javascript_include_tag "https://web.mxradon.com/t/Tracker.js"
   = wicked_pdf_javascript_include_tag "shared/leadsquared.js"
 - content_for :stylesheets do
-  = wicked_pdf_stylesheet_link_tag "reports_html"
   = wicked_pdf_stylesheet_link_tag "toolkit/main-layout"
+  = wicked_pdf_stylesheet_link_tag "training_requirements_report/html"
 
 - content_for :body do
   - if @view_mode == "html" 

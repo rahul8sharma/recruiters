@@ -18,12 +18,13 @@
               For Support related queries, contact us at support&#64;jombay.com
   - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
     .company-summary
-      .content
-        - imagePath = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-        .company-logo
-          .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 55px "}
-        .divider1
-        = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
+      .container{:style=>"width: 92%"}
+        .content
+          - imagePath = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
+          .company-logo
+            .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 55px "}
+          .divider1
+          = Rails.application.config.brand_partners[@report.report_hash[:assessment][:brand_partner].underscore][:description].html_safe
   - else
     .divider1
     = render :partial => "shared/reports/pdf/contact_section"

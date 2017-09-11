@@ -3,9 +3,9 @@
   - factor_scores = @report.report_hash[:factor_scores]
   - (0..factor_scores.keys.length-1).step(scores_step) do |step|  
     - step_factor_scores = factor_scores.slice(*factor_scores.keys[step..(step+(scores_step - 1))])
-    #scores.section03
-      .divider2
-      .scores.container
+    #scores.section_end_line
+      .container
+        .divider2
         .title
           Scores of Traits measured in this Assessment
         .divider1
@@ -20,45 +20,48 @@
             .instruction2.less_favorable.pull-left
               Less Favorable Traits
             .clr
-        .scale
-          .line{:style=>"width:#{(@company_norm_buckets.size-1)*80}px"}
-          .marker-container
-            - marker_width = 80
-            - @company_norm_buckets.each do |norm_bucket|
-              .marker{ style: "width: #{marker_width}px;" }
-                .arrow
-                .marker-info
+        .scale.span12.pull-right
+          - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+          .scale_inner{ style: "margin-right: #{ -scale_values[:scale_offset] }%" }
+
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
+            .marker_container
+              - @company_norm_buckets.each do |norm_bucket|
+                .marker{ style: "width: #{ scale_values[:marker_width] }%" }
+                  %span
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name.split(" ").join("<br/>").html_safe
+                  .arrow_box
+                    .arrow
+                .marker_info{ style: "left: #{ scale_values[:scale_offset] / 2 }%; width: #{ scale_values[:scale_width] }%" }
                   = norm_bucket.description
-                - if norm_bucket.name.split(" ").size == 1
-                  %br/
-                = norm_bucket.name.split(" ").join("<br/>").html_safe
-            .clr
+              .clr
         .clr
         .divider4
         %ul.clearfix.scores_listing.first
           - step_factor_scores.each_with_index do |(factor_name,factor_score),index|
             - factor_score_consistency_hash = HashWithIndifferentAccess.new({ factor_score: factor_score })
             %li{:id => "#{factor_name}"}
-              .divider1
-              .lhs-sec.pull-left{:style=> "width: 730px;"}
+              .lhs-sec.pull-left
                 %div{ class: "span1 first hexagon-icon #{factor_score[:pass] ? 'favorable' : 'less_favorable'}" }
-                .span16.first
-                  .factor-name.pull-left
-                    = factor_name
-                    .info
-                      = factor_score[:factor_definition]
-                    .arrow
-                  .clr
-              .rhs-sec.pull-left
-                - scale_values = get_scale_calculations(80, factor_score, @company_norm_buckets, 34)
-                .slider{:style=>"width:#{scale_values[:scale_width]}px;"}                  
-                  - if scale_values[:to_norm_bucket_name] == @company_norm_buckets.last.name && scale_values[:width] == 34
-                    - scale_values[:offset] = scale_values[:offset] - 34
-                  .pointer{ class: "#{factor_score[:pass] ? '' : 'less_favorable'}", style: "left: #{scale_values[:position]-15}px;" }
-                    .score-indicater
-                      = scale_values[:company_norm_bucket_name]
-                    .arrow
-                  .range{ style: "margin-left: #{scale_values[:offset]}px;width: #{scale_values[:width]}px;" }
+                .factor-name.pull-left
+                  = factor_name
+                  .info
+                    = factor_score[:factor_definition]
+                  .arrow
+              .score_slider.span12.pull-right
+                - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 0)
+                .score_slider_inner{style:"margin-right: #{-scale_values[:scale_offset]}%;"}
+                  .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
+                    .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
+                  .marker_container
+                    .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
+                      .score_indicater_container
+                        .score_indicater
+                          = scale_values[:company_norm_bucket_name]
+                    .clr
+                .clr
               .clr
               .divider1
               .factor-description

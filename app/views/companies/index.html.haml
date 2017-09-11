@@ -73,7 +73,7 @@
           %a.extra-medium-text{:href => company_path(company.id), :title => "Go to #{company.name}"}
             = h @remaining_invitations[company.id.to_s], 0
         .span3.first
-          = (company.subscription ? hdate(company.subscription.valid_to) : h(nil)) rescue "-"
+          = company.subscription_valid_to ? hdate(company.subscription_valid_to) : h(nil)
         .clr
         .divider1
   .divider2

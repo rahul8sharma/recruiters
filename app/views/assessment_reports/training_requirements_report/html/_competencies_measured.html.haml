@@ -1,6 +1,6 @@
 - competency_scores = @report_data[:competency_scores].sort_by{|competency, competency_data| competency_data[:avg_score][:score] }.reverse
-#competencies.competency_report
-  #traits.section02
+.competency_report
+  #competencies.section_end_line
     .divider2
     .scores.container
       .title
@@ -13,7 +13,10 @@
           .instruction2.less_favorable.pull-left
             Less Favorable Traits
           .clr
-      .divider3
+      .divider2  
+
       - competency_scores.each do |competency, competency_data|
         = render :partial => "assessment_reports/training_requirements_report/html/competency_factor_block", locals: { competency: competency, competency_data: competency_data }
-    
+
+    .divider2
+      

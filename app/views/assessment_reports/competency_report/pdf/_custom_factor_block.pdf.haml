@@ -1,6 +1,5 @@
 - step_competency_scores.each do |competency_name,competency_data|
-  = render "shared/reports/pdf/report_header"
-  .competency-container
+  .frame.competency-container
     .heading.pull-left{ title: competency_name }
       = competency_name.to_s[0..50]
     .heading.pull-right
@@ -10,17 +9,12 @@
     .factors_container
       .factors_list  
         - competency_data[:factor_scores].each_with_index do |(factor_name,factor_score), index|
-          - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:from_norm_bucket_uid] }
-          - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? factor_score[:scale][:to_norm_bucket_uid] }
-          - norm_bucket_uid = factor_score[:norm_bucket_uid]
-          - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-          - scored_weight = company_norm_bucket.weight
-          - klass = (scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
+          - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 10)
           - factor_name_link = factor_name
           - margin = centralAlignTraitNames(factor_name, "pdf")
           %div{:class=>"factor_#{index+1}"}
             .text-wrap{:style=>"margin-top: #{margin}px;"}
-              %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{klass}"}
+              %a{:href => "#"+"#{competency_name}#{factor_name}", :class => "#{scale_values[:klass]}"}
                 = factor_name.gsub(" ","<br/>").html_safe
         -#use ".less_favorable" or ".favorable" to change the color of text and ".underlined" for underlined Text.
 

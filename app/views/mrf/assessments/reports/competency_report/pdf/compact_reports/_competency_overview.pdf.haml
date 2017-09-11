@@ -17,7 +17,7 @@
             - step_data.each do |competency, competency_scores|
               %li
                 .competency-name.pull-left
-                  = truncate competency, length: 30
+                  = truncate competency, length: 45
                 .competency-value.pull-right
                   = competency_scores[:score][:points]
                 .clr

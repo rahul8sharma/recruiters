@@ -1,11 +1,13 @@
 = render "shared/reports/pdf/report_header"
-.scores
-  .divider2
-  .blue_heading.large-text 
-    Jombay Score Scale
-  .divider2
-  .text-center
-    .score-scale-bg
-    .divider1
-    %p.medium-text
-      Scores indicate where a person stands on a particular trait, when compared to the relevant norm population
+.score_scale
+  .container
+    .divider2
+    .page_title
+      Jombay Score Scale
+    .divider3
+    .text-center
+      = image_tag(asset_path("report/pdf/score_scale.png"))
+      .divider1
+      %p.medium-text
+        Scores indicate where a person stands on a particular trait, when compared to the relevant norm population
+      .divider2

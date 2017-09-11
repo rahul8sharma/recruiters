@@ -14,7 +14,6 @@
 .large-text
   font-size: $large-text  !important
   line-height: $large-text + 2
-
 .big-text
   font-size: $big-text !important
   line-height: $big-text + 2
@@ -28,6 +27,8 @@
 
 .font-normal
   font-weight: normal !important
+.line-height-normal
+  line-height: normal !important
 .italic
   font-style: italic
 .font-bold
@@ -132,8 +133,10 @@ ul.unstyled, ol.unstyled
   margin-left: 0
   list-style: none
 ul.disc
-  list-style: disc outside 
+  list-style: disc outside !important
   margin-left: 35px 
+  li
+    list-style: disc outside !important
 // Description Lists
 dl
   margin-bottom: $baseLineHeight
