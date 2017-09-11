@@ -149,6 +149,11 @@
   .control-group
     %label.medium-text  
       = "Custom Form Chosen: #{@custom_form.defined_form_id} - #{@custom_form.name}".html_safe
+.control-group
+  %label.medium-text
+    = f.check_box :enable_proctoring, id: "enable_proctoring"
+    Enable Proctoring for this assessment
+
 
 .control-group
   %label.medium-text

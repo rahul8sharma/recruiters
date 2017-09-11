@@ -13,12 +13,22 @@ module Suitability
           )
         ))
         
-        file_name = assessment.brand_partner
-        fields.merge!(YAML.load(
-          File.read(
-            "#{Rails.root}/config/exports/suitability/report_summary/#{file_name}.yml"
-          )
-        ))
+        if assessment.brand_partner
+          file_name = assessment.brand_partner
+          fields.merge!(YAML.load(
+            File.read(
+              "#{Rails.root}/config/exports/suitability/report_summary/#{file_name}.yml"
+            )
+          ))
+        end
+        
+        if assessment.enable_proctoring
+          fields.merge!(YAML.load(
+            File.read(
+              "#{Rails.root}/config/exports/suitability/report_summary/proctoring.yml"
+            )
+          ))
+        end  
 
       rescue Errno::ENOENT => e
         Rails.logger.debug "No report summary configuration found for #{assessment.brand_partner} or for #{assessment.assessment_type}"

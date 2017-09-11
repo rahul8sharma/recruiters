@@ -451,15 +451,16 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         order = "jombay_users.name #{order_type}"
     end
     @user_assessments = Vger::Resources::Suitability::UserAssessment.where(
-      :assessment_id => @assessment.id,
-      :joins => [:user_assessment_reports, :user],
-      :include => [:user_assessment_reports, :user],
-      :query_options => {
+      assessment_id: @assessment.id,
+      joins: [:user_assessment_reports, :user],
+      include: [:user_assessment_reports, :user],
+      methods: [:proctoring_url],
+      query_options: {
         "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
       },
-      :order => order,
-      :page => params[:page],
-      :per=>10
+      order: order,
+      page: params[:page],
+      per: 10
     ).all
   end
 
