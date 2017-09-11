@@ -5,7 +5,8 @@ $less_favorable_color: #d0a100
 
 ul
   margin: 0
-
+.divider1
+  height: 15px
 .report
   position: relative
   .page-break
@@ -47,34 +48,6 @@ ul
           width: 100%
           bottom: 20px
 
-    &.overview_scale
-      .desire_range
-        background-color: #3aafe5
-        border-radius: 2px
-        height: 4px
-        position: absolute
-        bottom: 6px
-        z-index: 1
-      .line
-        bottom: 8px
-        border-color: #ccc
-      .marker_container
-        .marker
-          color: #000
-          font-size: 10px
-          font-weight: 200
-          cursor: default
-          height: 35px
-          white-space: nowrap
-          background: image-url('report/pdf/competency/overview_scale_hexagon.png') no-repeat center 21px
-          span
-            bottom: 18px
-          &.active
-            background: image-url('report/pdf/competency/list-scale-small-hexa.png') no-repeat center bottom
-            &.favorable
-              background: image-url('report/pdf/competency/overview_scale_hexagon_favorable.png') no-repeat center bottom
-            &.less_favorable
-              background: image-url('report/pdf/competency/overview_scale_hexagon_less_favorable.png') no-repeat center bottom
   .report_header
     padding: 10px 0
     color: #fff
@@ -142,154 +115,6 @@ ul
     .box-title
       background: none
       padding-left: 5px
-
-  .suitability-competency-report-guideline
-    .overview_scale
-      .marker_container .marker.active
-        background-image: image-url("report/pdf/scale-hexagon.png")
-    .interpretation_guideline_hexagon
-      background: image-url("report/pdf/interpretation_guideline_hexagon.png") no-repeat
-      height: 180px
-      width: 700px
-      margin: 0 0 0 110px
-    .marker .inn
-      width: 100px
-      margin-left: -25px
-    img
-      margin-left: -35px
-      max-width: none
-    .title
-      color: $color-warning
-      font-size: 14px
-      line-height: 25px
-      border-top: 2px solid $color-warning
-      font-weight: 700
-      .index-holder
-        background: #fff
-        width: 25px
-        height: 25px
-        text-align: center
-        overflow: hidden
-        color: #fff
-        margin-top: -15px
-      .rounded
-        background: image-url("report/pdf/guideline_index_holder_icon.png") no-repeat
-        height: 100%
-        width: 100%
-      .title-text
-        background: #fff
-        margin-top: -15px
-        padding: 0 5px
-    .box-bordered
-      border: 1px dashed #414042
-      padding: 7px 10px
-      font-size: 10px
-      line-height: 14px
-      background: #fff
-    .dot-nav
-      border-width: 0 1px 1px 0
-      border-color: #414042
-      border-style: none solid solid none
-      position: relative
-      &.left
-        border-width: 0 0 1px 1px
-        border-style: none none solid solid
-        .rounded
-          left: -3px
-          right: auto
-          
-      .rounded
-        position: absolute
-        height: 6px 
-        width: 6px 
-        right: -3px
-        top: -3px
-        background: image-url("report/pdf/dot_nav_icon.png") no-repeat
-
-    .section_02
-      background: none repeat scroll 0 0 #F8F8F8
-      padding: 4px 25px
-    .section_03
-      .frame
-        background: #fbfbfb
-        border-color: #e3e3e3
-      .bottom-tag
-        border: 1px solid #808285
-        border-top: 0 none
-        .text
-          background: #FBFBFB
-          font-weight: 700
-          margin-top: -9px
-    .section_04
-      .interpretation_guideline_trait
-        background: image-url("report/pdf/interpretation_guideline_trait.png") no-repeat center center
-        height: 180px 
-  .competency_report
-    .heading
-      background: #28b29b
-      line-height: 24px
-      font-size: 16px
-      color: #fff
-      padding: 0 10px
-      white-space: nowrap
-    .overview
-      background: image-url('report/pdf/competency/overview_bg.png') no-repeat  right 0
-      min-height: 800px
-      &.compact
-        background: none
-        min-height: auto
-    .competency-container
-      background: image-url('report/pdf/competency/competency-container-bg.png') no-repeat #fbfbfb center center
-      margin-bottom: 5px
-    .factors_list
-      position: relative
-      background: image-url('report/pdf/competency/competency-hexagon-bg.png') no-repeat center center
-      min-height: 210px
-      width: 930px
-      margin-left: auto
-      margin-right: auto
-
-      [class*="factor_"]
-        font-size: 11px
-        line-height: 14px
-        height: 50px
-        position: absolute
-        text-align: center
-        width: 80px
-      .factor_1
-        left: ((348px)- 8)
-        top: 40px
-      .factor_2
-        left: ((430px)- 8)
-        top: 40px
-      .factor_3
-        left: ((515px)- 8)
-        top: 40px
-      .factor_4
-        left: ((307px)- 8)
-        top: 110px
-      .factor_5
-        left: ((390px)- 8)
-        top: 110px
-      .factor_6
-        left: ((472px)- 8)
-        top: 110px
-      .factor_7
-        left: ((555px)- 8)
-        top: 110px
-      .factor_8
-        left: ((265px)- 8)
-        top:  48px
-      .factor_9
-        left: ((595px)- 8)
-        top: 40px
-      .factor_10
-        left: ((225px)- 8)
-        top: 110px
-      .factor_11
-        top: 110px
-        left: ((640px)- 8)
-      
   .cover_page
     background: image-url('report/pdf/overall_bg.png') no-repeat right top
     &.compact
@@ -314,7 +139,7 @@ ul
     .user_name, .note, .assessment_details
       padding: 0 40px
     .scores
-      width: 50%
+      width: 100%
       float: right
       .score
         background-color: #fff
@@ -349,6 +174,11 @@ ul
             background-color: #ED4D4D
           &.green
             background-color: #0EB156
+  .favorable
+    color: $favorable_color
+  .less_favorable
+    color: $less_favorable_color
+    text-decoration: underline  
   .factor_fit
     background: #fcfcfd
     .bottom-sec
@@ -373,12 +203,8 @@ ul
         width: 117px
         text-align: center
         font-weight: 700 
-        font-size: 13px
-      .favorable
-        color: $favorable_color
-      .less_favorable
-        color: $less_favorable_color
-        text-decoration: underline  
+        font-size: 12px
+      
       .factor_1
         left: 320px
         top: 245px
@@ -542,6 +368,8 @@ ul
       color: #000
       &:first-child
         border: none
+    .description
+      font-size: 14px
     .factor-name
       font-weight: 700
       font-size: 14px
@@ -602,7 +430,7 @@ ul
                 border-top-color: $less_favorable_color
         .score_indicater_container
           position: absolute
-          width: 155%
+          width: 175%
           bottom: 0
           left: 50%
           .score_indicater
@@ -680,59 +508,7 @@ ul
           &:nth-child(even)
             background: #fff
           &:nth-child(odd)
-            background: #f8f8f8
-  .explanation_of_cocubes_score
-    ul
-      li
-        color: #000
-        padding: 25px
-        border-top: 1px dashed #d4d4d4
-        &:first-child
-          border: 0 none
-        p
-          padding-left: 50px
-          margin: 0
-        .cocubes_score_title
-          padding-left: 50px
-          line-height: 49px
-          background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
-        .cocubes_score_scale
-          margin-top: 15px
-          height: 18px
-          border: 1px solid #919191
-          background: #c8c8c8
-          position: relative
-        .average
-          background-position: 0px -57px 
-        .high
-          background-position: 0px -114px
-        .icon
-          background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
-          width: 45px
-          height: 49px
-          position: absolute
-          top: -14px
-          .arrow
-            background: image-url('report/html/explanation_of_cocubes_score_hexagon.png') no-repeat
-            position: absolute
-            left: -50%
-            top: -30px
-            margin-left: -13px
-            text-align: center
-            line-height: 29px
-            height: 32px
-            width: 111px
-            background-position: 0px -171px
-        .slider
-          float: left
-          height: 100%
-          &.average
-            background: #fcc311
-            width: 32%
-            margin-left: 32%
-          &.high
-            background: #6ba630
-            width: 36%
+            background: #f8f8f8  
   .aptitude_score
     .rounded
       background: image-url("report/pdf/competency/apti.png") no-repeat center center

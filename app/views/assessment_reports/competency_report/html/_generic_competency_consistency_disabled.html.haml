@@ -9,7 +9,7 @@
       .clr 
       %ul.clearfix.scores_listing.first
         - competency_data[:factor_scores].each do |factor_name, factor_score|
-          - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 0)
+          - scale_values = get_scale_calculations(factor_score, @company_norm_buckets, 10)
           %li{:id => "#{competency_name}#{factor_name}"}
             .lhs-sec.pull-left
               %div{ class: "span1 first hexagon-icon #{scale_values[:genericKlass]}" }
@@ -25,7 +25,7 @@
                 .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
                   .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
                 .marker_container
-                  .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
+                  .marker{ class: "#{scale_values[:genericKlass]}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
                     .score_indicater_container
                       .score_indicater
                         = scale_values[:company_norm_bucket_name]

@@ -300,10 +300,10 @@ class CompaniesController < ApplicationController
   protected
 
   def get_company
-    methods = [:is_logo_present, :small_logo_url, :large_logo_url, :original_logo_url]
-    if Rails.application.config.statistics[:load_assessment_statistics]
-      methods.push :assessment_statistics
-    end
+    methods = [
+      :is_logo_present, :small_logo_url, :large_logo_url, :original_logo_url,
+      :assessment_statistics
+    ]
     @company = Vger::Resources::Company.find(
       params[:id],
       :include => [:subscription, :user],
@@ -312,14 +312,13 @@ class CompaniesController < ApplicationController
   end
 
   def get_companies
-    methods = []
+    methods = [
+      :assessmentwise_statistics, :assessment_statistics, :subscription_valid_to
+    ]
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
-    if Rails.application.config.statistics[:load_assessmentwise_statistics]
-      methods |= [:assessmentwise_statistics, :assessment_statistics]
-    end
     params[:search].delete :account_type if params[:search][:account_type] == "All"
     search_params = params[:search].dup
     name = search_params.delete :name

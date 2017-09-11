@@ -1,37 +1,24 @@
 %ul.competency-list.pull-left
   - competency_scores.each do |competency_name, competency_score|
-    - marker_width = 50
-    - from_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:from_norm_bucket_uid] }
-    - to_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include? competency_score[:to_norm_bucket_uid] }
-    - norm_bucket_uid = competency_score[:grade_uid]
-    - company_norm_bucket = @company_norm_buckets.detect{|company_norm_bucket| company_norm_bucket.norm_bucket_ids.include?(norm_bucket_uid)}
-    - position = (company_norm_bucket.weight - 1) * marker_width
-    - offset = ((from_norm_bucket.weight - 1) * marker_width)
-    - width = (to_norm_bucket.weight - from_norm_bucket.weight) * marker_width
-    - offset = offset-17 if width == 0 && offset != 0
-    - width = 17 if width == 0   
-    - scored_weight = company_norm_bucket.weight
-    - klass = (scored_weight <= to_norm_bucket.weight && scored_weight >= from_norm_bucket.weight) ? "favorable" : "less_favorable" 
-    - if ((width == 17) && (to_norm_bucket.name != @company_norm_buckets.last.name && from_norm_bucket.name != @company_norm_buckets.first.name))
-      - offset = offset + 6
-
+    - scale_values = get_scale_calculations_for_competency(competency_score, @company_norm_buckets)
     %li
-      .first.hexagon-icon.span1{:class => klass}
-      .competency-name.pull-left
+      .span1.first.hexagon-icon{:class =>  scale_values[:klass]}
+      -#toggle class".less_favorable" and "favorable"
+      .competency-name.span12.line-height-normal.no-border.first
         = competency_name
-      .competency-value.pull-right
-        .scale.right-offset1
-          - locals_hash = { width: width, offset: offset }
+      .scale.span8.pull-right.overview_scale
+        .scale_inner
+          - locals_hash = { scale_values: scale_values }
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
             = render :partial => section["path"], :locals => locals
-          .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-          .marker-container
+
+          .line{ style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width] }%" }
+          .marker_container
             - @company_norm_buckets.each do |company_norm_bucket|
-              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{klass}" : "#{klass}" }
-                = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
+              .marker{ class: company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? "active #{scale_values[:klass]}" : "#{scale_values[:klass]}", style: "width: #{scale_values[:marker_width]}%"}
+                %span
+                  = company_norm_bucket.norm_bucket_ids.include?(competency_score[:grade_uid]) ? company_norm_bucket.name : ""
             .clr
-          .clr
-        .clr
-      .clr          
+      .clr
 .clr

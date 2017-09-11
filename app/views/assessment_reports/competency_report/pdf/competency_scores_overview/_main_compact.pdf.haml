@@ -1,19 +1,28 @@
 - competency_scores = @report.report_hash[:competency_scores].map{|key,value| [key,value] }
-.divider1.clr
+= render "shared/reports/pdf/report_header"
+.divider1
 .overview.compact
-  .inner{ style: "margin-top:0px;" }
-    %h1.font-normal
-      Overview of Competencies / Values Measured
-    .content.overview_scale
-      .scale
-        .line{:style=>"width:#{(@company_norm_buckets.size-1)*50}px"}
-        .marker-container
-          - @company_norm_buckets.each do |norm_bucket|
-            .marker
-              - if norm_bucket.name.split(" ").size == 1
-                %br/
-              = norm_bucket.name
-          .clr
+  .container
+    .content
+      .overview-title
+        %h1.pull-left.text-left.color-warning.extra-medium-text.font-normal
+          Overview of Competencies / Values Measured
+          .divider1
+          
+   
+        .scale.span8.pull-right
+          - scale_values = get_scale_and_marker_width(@company_norm_buckets)
+          .scale_inner
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width]}%" }
+            .marker_container
+              - @company_norm_buckets.each do |norm_bucket|
+                .marker{ style: "width: #{scale_values[:marker_width]}%" }
+                  %span
+                    - if norm_bucket.name.split(" ").size == 1
+                      %br/
+                    = norm_bucket.name
+              .clr
+        .clr
       - locals_hash = { competency_scores: competency_scores }
       - section_value.each do |section|
         - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]

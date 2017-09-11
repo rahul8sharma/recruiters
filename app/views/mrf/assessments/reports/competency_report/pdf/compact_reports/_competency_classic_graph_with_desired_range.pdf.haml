@@ -1,14 +1,15 @@
 .graph_container
   .left_sec.pull-left
-    .graph_instructions
+    .graph_instructions.pull-right
       .span1.divider1.graph_stakeholder_rating_icon
       .span1.divider1.graph_classic_user_icon
       .clr
+    .clr  
     %ul
       - @report.report_data[:competency_scores].each do |competency, competency_scores|
         %li
-          .span6.first
-            = truncate competency, length: 30
+          .span7.first
+            = truncate competency, length: 45
           .stakeholder_rating.small-text.pull-left
             = competency_scores[:score][:points] || "-"
           .self_rating.small-text.span

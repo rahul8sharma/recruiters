@@ -21,7 +21,7 @@
               .progress_container{style: "left: #{scale_values[:scale_offset]}%; width: #{scale_values[:scale_width]}%;"}
                 .expected_score_progress{style:"width: #{scale_values[:range_width]}%; margin-left: #{scale_values[:range_offset]}%"}
               .marker_container
-                .marker{ class: "#{factor_score[:pass] ? 'favorable' : 'less_favorable'}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
+                .marker{ class: "#{scale_values[:genericKlass]}", style: "left: #{scale_values[:marker_position]}%; width: #{scale_values[:marker_width]}%" }
                   .score_indicater_container
                     .score_indicater
                       = scale_values[:company_norm_bucket_name]

@@ -1,6 +1,10 @@
 .overall_report
   .divider1
   .j-logo.pull-left
+  - if @report.report_data[:company][:logo_url].present?
+    - logo_url = @report.report_data[:company][:logo_url]
+    .pull-left{ style: "height: 50px;" }
+      = wicked_pdf_image_tag(logo_url, :style => "height:100%; width: auto;padding: 5px 0 0 10px;")
   .clr
   .divider28
   .huge-text.left-offset1

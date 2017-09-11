@@ -166,19 +166,20 @@ class AssessmentReportsController < ApplicationController
         @view_mode = "html"
       end
     end
+    assessment_type = @report.report_hash[:assessment][:assessment_type]
     template = if @report.configuration[:is_functional_assessment]
       "functional_report"
     else
-      @report.report_hash[:assessment][:assessment_type]+"_report"
+      "#{assessment_type}_report"
     end
     template = @view_mode == "html" ? "#{template}.html.haml" : "#{template}.pdf.haml"
     case @view_mode
       when "html" 
-        layout = "user_reports.html.haml"
+        layout = "suitability/html/#{assessment_type}_report.html.haml"
       when "pdf"
-        layout  = "user_reports.pdf.haml"
+        layout  = "suitability/pdf/#{assessment_type}_report.pdf.haml"
       when "feedback"  
-        layout  = "feedback_reports.html.haml"
+        layout  = "suitability/html/feedback_report.html.haml"
         template = "feedback_report.html.haml"
     end    
     @page = 1

@@ -17,6 +17,10 @@ class Suitability::CompanyNormBucketsController < MasterDataController
     [:id, :name, :weight, :company_id]
   end
   
+  def form_fields
+    [:name, :weight, :description, :company_id]
+  end
+  
   def split_norm_bucket_ids
     params[resource_name.singularize][:norm_bucket_ids] = params[resource_name.singularize][:norm_bucket_ids].to_s.split(";").map(&:strip)
   end

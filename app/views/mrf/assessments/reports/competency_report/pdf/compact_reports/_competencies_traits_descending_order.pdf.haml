@@ -16,14 +16,15 @@
     .traits_under_graph
       .graph_container
         .left_sec.pull-left
-          .graph_instructions.left-offset4
+          .graph_instructions.pull-right
             .span1.divider2.graph_stakeholder_rating_icon
             .clr
+          .clr  
           %ul
             - step_data.each do |trait_score|
               %li
-                .trait_title.first.span6{ title: trait_score[:trait][:name] }
-                  = truncate trait_score[:trait][:name], length: 25
+                .trait_title.first.span7{ title: trait_score[:trait][:name] }
+                  = truncate trait_score[:trait][:name], length: 45
                 .stakeholder_rating.pull-left
                   = trait_score[:average_score_excluding_self][:points] || "-"
                 .clr            
