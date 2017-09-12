@@ -15,7 +15,8 @@
           = @report.report_hash[:completed_at]
       .pull-right.span12
         - section_value.each do |section|
-          = render :partial => section["path"], :locals => { :section_value => section["children"] }
+          - if section['id'] != 'pdf_cover_page_compact_overview_competencies_measured'
+            = render :partial => section["path"], :locals => { :section_value => section["children"] }
         .clr
       .clr  
     .divider1
