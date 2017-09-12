@@ -10,7 +10,7 @@
           - locals_hash = { scale_values: scale_values }
           - section_value.each do |section|
             - locals = Hash[section["locals"].map { |key, value| [key.to_sym, locals_hash[key.to_sym]] }]
-            = render :partial => section["path"], :locals => locals
+            = render :partial => section["path"], :locals => locals.merge(locals_hash)
 
           .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
           .marker_container
