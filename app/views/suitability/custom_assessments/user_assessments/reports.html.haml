@@ -19,13 +19,14 @@
           = sort_link "ATID", reports_url, :id, params[:search]
         .span8
           = sort_link "Assessment Taker", reports_url, :name, params[:search]
-        .span4
+        .span10
           Assessment Status 
+        .span4
+          Report Link  
+        - if @assessment.enable_proctoring  
+          .span4
+            Proctoring
         .clr
-      - if is_superuser?
-        .span4.pull-right
-          %a.label.label-warning.label-small.small-text{ href: export_feedback_scores_url, }
-            Export Feedback Scores
       .clr
       .divider1
       %ul
@@ -44,9 +45,14 @@
                 Completed as of
                 #{htime(user_assessment.completed_at)} Hrs,
                 #{hdate(user_assessment.completed_at)}
-            .span
+            .span4
               - report = user_assessment.user_assessment_reports.first
               = render :partial => "suitability/custom_assessments/user_assessments/report_status/#{report.status}", locals: { report: report, user_assessment: user_assessment }
+            - if @assessment.enable_proctoring  
+              .span4
+                %a{:href => user_assessment.proctoring_url, :title => "View Proctoring Analysis", target: "_blank"}
+                  %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
+                  View Proctoring
             .clr
       .divider2
       .pull-right
