@@ -7,7 +7,7 @@
             - if comments.present?
               %td
                 .medium-text
-                  = comments
+                  = comments.html_safe
 - else
   .no-responses
     .box.padding-all1
