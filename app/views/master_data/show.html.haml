@@ -3,7 +3,7 @@
 %table{ cellspacing: 5, cellpadding: 5 }
   - form_fields.each do |index_column|
     %tr
-      %td 
+      %td{ width: 200 }
         %h4
           #{index_column.to_s.titleize}:
       %td #{@resource.send(index_column).to_s}

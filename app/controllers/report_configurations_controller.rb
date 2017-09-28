@@ -209,21 +209,11 @@ class ReportConfigurationsController < MasterDataController
   
   def get_oac_score_buckets
     @score_buckets = Vger::Resources::Suitability::SuperCompetencyScoreBucket\
-                          .where(
-                            query_options: {
-                              company_id: nil
-                            },
-                            order: "weight ASC"
-                          ).all
+                        .where(order: "min_val ASC").all.all
     @score_buckets_by_id = Hash[@score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
     
     @combined_score_buckets = Vger::Resources::Oac::CombinedSuperCompetencyScoreBucket\
-                          .where(
-                            query_options: {
-                              company_id: nil
-                            },
-                            order: "weight ASC"
-                          ).all
+                                .where(order: "min_val ASC").all.all
     @combined_score_buckets_by_id = Hash[@combined_score_buckets.collect{|score_bucket| [score_bucket.id,score_bucket] }]
   end
 

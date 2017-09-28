@@ -13,7 +13,7 @@ module Suitability
           )
         ))
         
-        if assessment.brand_partner
+        if assessment.brand_partner.present?
           file_name = assessment.brand_partner
           fields.merge!(YAML.load(
             File.read(

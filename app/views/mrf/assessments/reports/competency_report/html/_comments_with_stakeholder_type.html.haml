@@ -9,5 +9,5 @@
             .divider1
             .medium-text
               - role_wise_comment.each do |comment|
-                = comment[:comment]
+                = comment[:comment].html_safe
 

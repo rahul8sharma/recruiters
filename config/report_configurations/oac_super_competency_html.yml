@@ -403,11 +403,5 @@
     text: "About Us[vac]",
     path: "shared/reports/html/about_us_vac",
     locals: {}
-  },
-  {
-    id: "html_about_us_compact",
-    text: "About Us[compact]",
-    path: "shared/reports/html/about_us_compact",
-    locals: {}
   }
 ]

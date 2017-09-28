@@ -25,7 +25,7 @@
                   %li
                     .stakeholder.span3.first
                     .comment-box.span23.pull-right.medium-text.line-height1
-                      = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ")
+                      = role_wise_comment.map { |comment| comment[:comment].present? ? comment[:comment] : 'No Response' }.join("; ").html_safe
                       .arrow
                     .clr
       .divider2

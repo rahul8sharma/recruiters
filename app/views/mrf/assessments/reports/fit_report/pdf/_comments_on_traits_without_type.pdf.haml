@@ -23,7 +23,7 @@
               %li
                 .stakeholder.span2.first
                 .comment-box.span15.pull-right.medium-text.line-height1
-                  = role_wise_comment.map { |comment| comment[:comment] }.compact.join("; ")
+                  = role_wise_comment.map { |comment| comment[:comment] }.compact.join("; ").html_safe
                   .arrow
                 .clr
 - else
