@@ -1,0 +1,24 @@
+.competency_description
+  .container
+    .divider2
+    .title
+      Overview of Competencies and Behaviors Measured
+    .divider2
+    %table{ :cellspacing=> "0", :cellpadding=> "0", :width=>"100%" }
+      - @report.report_data[:super_competency_scores].each do |id, super_competency_data|
+        %tr
+          %td{ colspan: 2 }
+            = super_competency_data[:name]
+        - super_competency_data[:competency_scores].each do |id, competency_data|
+          %tr
+            %td.left
+              .span3.margin-auto
+                = competency_data[:name]
+
+            %td.right
+              = competency_data[:description]    
+      %tr
+        %td{ colspan: 2 }
+          &nbsp;              
+    .divider2
+.divider2

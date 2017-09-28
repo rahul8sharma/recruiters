@@ -106,6 +106,16 @@
     }    
   },
   {
+    id: "html_competency_behavior_overview",
+    text: "Overview of Competencies and Behaviors Measured",
+    path: "oac/exercises/reports/competency_reports/html/competency_behavior_overview",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_competency_behavior_overview"]
+    }    
+  },
+  {
     id: "html_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/html/competency_description",

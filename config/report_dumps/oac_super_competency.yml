@@ -275,6 +275,7 @@ This report contains feedback\
     '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Result Orientation
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        super_competency_description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"
         assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 39.59
         bucket: Below Average
@@ -321,6 +322,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"  
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -355,6 +357,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 66.0
@@ -383,6 +386,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -405,6 +409,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 21.0
@@ -468,6 +473,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 11.0
@@ -490,6 +496,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 55.0
@@ -518,6 +525,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -546,6 +554,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -621,6 +630,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 25.0
@@ -662,6 +672,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 22.0
@@ -702,6 +713,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 12.0
@@ -736,6 +748,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 88.0
@@ -805,6 +818,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 40.0
@@ -845,6 +859,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 33.0
@@ -879,6 +894,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -901,6 +917,7 @@ This report contains feedback\
             uid: QHqInEYf
             weight: 5
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 100.0
@@ -917,6 +934,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 88.0
