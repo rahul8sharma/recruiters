@@ -27,6 +27,11 @@
     path: "oac/exercises/reports/competency_reports/pdf/participation",
   },
   {
+    id: "pdf_competency_behavior_overview",
+    text: "Overview of Competencies and Behaviors Measured",
+    path: "oac/exercises/reports/competency_reports/pdf/competency_behavior_overview",
+  },
+  {
     id: "pdf_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/pdf/competency_description",
@@ -136,6 +141,24 @@
         text: "Behaviour Measured Graph",
         path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/behaviors_measured_graph",
         locals:  {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        }
+      },
+      {
+        id: "pdf_data_points_competency_wise_behaviors_measured_graph_with_desired_range",
+        text: "Graph With Desired Range",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/behaviors/graph_with_desired_range",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        }
+      },
+      {
+        id: "pdf_data_points_competency_wise_behaviors_measured_graph_without_desired_range",
+        text: "Graph Without Desired Range",
+        path: "oac/exercises/reports/competency_reports/pdf/competency_data_points/behaviors/graph_without_desired_range",
+        locals: {
           competency_scores: "data[:competency_scores]",
           score_buckets: "@score_buckets"
         }

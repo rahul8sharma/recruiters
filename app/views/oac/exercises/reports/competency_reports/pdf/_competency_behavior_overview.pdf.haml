@@ -1,11 +1,11 @@
-.competency_description
-  .container
-    .divider2
-    .title
-      Overview of Competencies and Behaviors Measured
-    .divider2
-    %table{ :cellspacing=> "0", :cellpadding=> "0", :width=>"100%" }
-      - @report.report_data[:super_competency_scores].each do |id, super_competency_data|
+- @report.report_data[:super_competency_scores].each do |id, super_competency_data|
+  = render partial: "shared/reports/pdf/oac_report_header"
+  .competency_description
+    .inner.border-bottom-grayDark
+      %h1.blue_heading.big-text
+        Overview of Competencies and Behaviors Measured
+      .divider1
+      %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
         %tr
           %td{ colspan: 2 }
             = super_competency_data[:name]
@@ -19,8 +19,4 @@
 
             %td.right
               = competency_data[:description]    
-      %tr
-        %td{ colspan: 2 }
-          &nbsp;              
-    .divider2
-.divider2
+  .page-break

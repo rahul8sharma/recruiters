@@ -247,6 +247,32 @@
         }        
       },
       {
+        id: "html_data_points_competency_wise_behaviors_measured_graph_with_desired_range",
+        text: "Graph With Desired Range",
+        path: "oac/exercises/reports/competency_reports/html/competency_data_points/behaviors/graph_with_desired_range",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph_with_desired_range"]
+        }            
+      },
+      {
+        id: "html_data_points_competency_wise_behaviors_measured_graph_without_desired_range",
+        text: "Graph Without Desired Range",
+        path: "oac/exercises/reports/competency_reports/html/competency_data_points/behaviors/graph_without_desired_range",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph_without_desired_range"]
+        }            
+      },
+      {
         id: "html_data_points_competency_wise_strengths_improvement",
         text: "Strengths and Areas of Improvement",
         path: "oac/exercises/reports/competency_reports/html/competency_data_points/strengths_improvement",
