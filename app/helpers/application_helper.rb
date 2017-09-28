@@ -170,6 +170,14 @@ module ApplicationHelper
   end
 =end  
 
+  def all_subscription_types
+    return {
+      "Suitability" => "",
+      "360" => "Mrf", 
+      "VAC" => "Oac"
+    }
+  end
+
   def subscription_types
     hash = {}
     if @company.parent_id.blank?

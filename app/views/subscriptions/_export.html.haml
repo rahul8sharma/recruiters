@@ -1,0 +1,14 @@
+= form_tag export_subscriptions_path, :method => :post do
+  %fieldset
+    %legend 
+      %strong Export Subscriptions
+    = fields_for "export" do |f|
+      %p
+        Type:
+        = f.select :type, all_subscription_types
+      %p
+        Number of months:
+        = f.number_field  :months, min: 1, value: 1
+    .actions
+      = submit_tag "Export Subscriptions", :confirm => "Are you sure?"
+

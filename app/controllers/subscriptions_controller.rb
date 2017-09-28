@@ -12,6 +12,18 @@ class SubscriptionsController < MasterDataController
     manage_subscriptions_path
   end
   
+  def export
+    export_hash = {
+      args: params[:export].merge({
+        user_id: current_user.id,
+      }),
+      job_klass: "SubscriptionsExporter"
+    }
+    Vger::Resources::User.get("/sidekiq/queue-job?#{export_hash.to_param}")
+    flash[:notice] = "Export is triggered. An email will be sent to #{current_user.email}"
+    redirect_to manage_subscriptions_path
+  end
+  
   def import_from
     "import_from_google_drive"
   end
