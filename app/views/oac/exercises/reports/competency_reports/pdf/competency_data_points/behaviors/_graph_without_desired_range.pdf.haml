@@ -8,14 +8,7 @@
             Behaviors Measured
           .clr
           .divider1  
-          .instruction_container
-            .instructions
-              .instruction1.pull-left.default
-                Relative Strengths
-              .instruction2.less_favorable.pull-left.default
-                Relative Areas of Development
-              .clr
-          .clr
+          
         .scale
           .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
           .marker-container
@@ -37,7 +30,6 @@
           - left = (from_bucket_weight-1)*width
           - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
           %li
-            .first.hexagon-icon.span1{:style => "margin-top: 14px",:class => klass}
             .competency-name.pull-left
               = data[:name]
             .competency-value.pull-right
