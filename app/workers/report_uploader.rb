@@ -25,12 +25,12 @@ class ReportUploader < AbstractController::Base
       @report_attributes = report_attributes.with_indifferent_access
       @patch = patch
       Rails.logger.debug "************* #{report_attributes} ******************"
-      RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
+      get_token({ auth_token: auth_token }).token
       upload_report
     rescue Faraday::Unauthorized => exception
       Rails.logger.debug exception.class
       Rails.logger.debug exception.message
-      RequestStore.store[:auth_token] = get_token({ auth_token: auth_token }).token
+      get_token({ auth_token: auth_token }).token
       retry  
     rescue SocketError, Faraday::ConnectionFailed => exception
       Rails.logger.debug exception.class
