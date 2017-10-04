@@ -9,7 +9,14 @@
   - if is_superuser?
     %a.menu{ class: (["training_requirements"].include?(params[:action]) ? "active" : ""), :href => training_requirements_company_custom_assessment_path(:company_id => params[:company_id], :id => params[:id]), :title => "Training Requirements"}
       Training Requirements
-    %a.label-warning.label-small.medium-text.pull-right{:href=> send_reminder_to_pending_users_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} 
-      Send Reminder to all pending users
+    .pull-right  
+      %a.label-warning.label-small.medium-text.pull-left{:href=> send_reminder_to_pending_users_company_custom_assessment_path(:id=>params[:id],:company_id=>params[:company_id]), :title=>"Send Reminder to all pending"} 
+        Send Reminder to all pending users
+      &nbsp;  
+      - if respond_to?(:export_feedback_scores_url)
+        %a.label-warning.label-small.medium-text.pull-right{ href: export_feedback_scores_url }
+          Export Feedback Scores
+        .clr
+    .clr    
 
 

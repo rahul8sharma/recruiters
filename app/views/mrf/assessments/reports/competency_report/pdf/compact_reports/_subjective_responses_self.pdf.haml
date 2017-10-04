@@ -27,6 +27,6 @@
                       - section_value.each do |section|
                         = render :partial => section["path"], :locals => {:role => response[:role]}
                       .small-text
-                        = response[:response]
+                        = response[:response].html_safe
           .divider1
     .page-break

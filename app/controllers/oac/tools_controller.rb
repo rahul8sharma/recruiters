@@ -8,7 +8,7 @@ class Oac::ToolsController < MasterDataController
   end
 
   def index_columns
-    [:id, :name, :display_name, :host, :logo,:tutorial_link,:practice_link]
+    [:id, :name, :display_name,:tutorial_link,:practice_link]
   end
   
   def form_fields
@@ -20,7 +20,9 @@ class Oac::ToolsController < MasterDataController
       :assessment_type, 
       :user_exercise_type, 
       :report_type, 
-      :logo, 
+      :logo,
+      :company_name,
+      :about_company, 
       :description,
       :is_jombay_tool,
       :tutorial_link,

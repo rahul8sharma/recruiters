@@ -257,20 +257,30 @@ This report contains feedback\
   completed_at: '2016-01-13T13:14:49Z'
   tools: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      company_name: Jombay
+      about_company: "Jombay is a Talent Assessment & Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe."
       description: It is a personality assessment tool has 16 primary scales and other numerous derivative scales. It effectively measures aspects of Personality, Attitde, Emotional Control and Organisational Skills
       logo: jombay.png
     Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      company_name: Jombay
+      about_company: "Jombay is a Talent Assessment & Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe."
       description: Situation judgement Tests present hypothetical and challenging situations that employees might encounter at work, and may involve working with others as part of a team, interacting with others, and dealing with workplace problems. In response to each situation, candidates are presented with several possible actions (in multiple choice format) that could be taken when dealing with the problem described.
       logo: jombay.png
     Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      company_name: TalentLens
+      about_company: "We develop and deliver leading, scientifically-valid assessments used to improve performance, identify talent, develop leaders, and engage teams.<br/>TalentLens, a Pearson business, publishes scientific assessments that are used globally to hire and develop the 21st century workforce. Our instruments measure critical thinking, problem solving, and a range of job skills to deliver data-driven insights that inform and clarify an organization's human capital decisions. Learn more at TalentLens.com"
       description: A online Simulation presents hypothetical cases and problems that the candidate may face at the workplace to recreate their responses to those situations and assess participants on the behaviours displayed based on the actions taken
       logo: pearson.png
     Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      description: A case study presents an account of a scenario in a business or industry. It chronicles the events that managers had to deal with, such as changes in the competitive environment, and charts the managers' response.The purpose of this tool is to evaluate how the participant understands the business environment and the impact of the solutions he/ she has provided
+      company_name: Jombay
+      about_company: "Jombay is a Talent Assessment & Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe."
+      description: "A case study presents an account of a scenario in a business or industry. It chronicles the events that managers had to deal with, such as changes in the competitive environment, and charts the managers' response.The purpose of this tool is to evaluate how the participant understands the business environment and the impact of the solutions he/ she has provided"
       logo: knolskape.png
     Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      description: Behavioural Event Interview (BEI) is a structured interview format that is used to collect information about an individual's past be havior. BEI is based on the premise that past behavior is the best predictor for future behavior. Specific incedents are targetted to hold the dialogue
-      logo: knolskape.png
+      company_name: Jombay
+      about_company: "Jombay is a Talent Assessment & Analytics platform powered by Psychometrics. Jombay measures Personality, Attitudes, Emotional Intelligence, Motivators and Organizational Skills of an individual. Psychometrics is a field of Psychology that enables you to objectively measure human behavior - for the purpose of hiring, promoting  or developing your talent. Jombay has profiled more than 1 million Professionals across the globe."
+      description: "Behavioural Event Interview (BEI) is a structured interview format that is used to collect information about an individual's past be havior. BEI is based on the premise that past behavior is the best predictor for future behavior. Specific incedents are targetted to hold the dialogue"
+      logo: pearson.png
   super_competency_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Result Orientation

@@ -20,6 +20,6 @@
                     .bold{:style=>"padding-bottom: 10px"}
                       #{role_comment[:role].titleize}
                     .small-text
-                      = role_comment[:comment]
+                      = role_comment[:comment].html_safe
         .divider1
   .page-break                  
