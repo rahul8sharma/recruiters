@@ -1,59 +1,63 @@
 - width = 70
-.overview-title{:style=>"padding: 0 30px"}
-  .pull-left.text-left
-    %h1.big-text.color-warning{:style=>"padding-top: 10px"}
-      Behaviors Measured
-    .clr
-    .divider1  
-    .instruction_container
-      .instructions
-        .box.pull-left
-          .box-icon.pull-left
-          .box-title.pull-left.default 
-            Expected Range
+.competency_report 
+  .overview.competency.oac_competency_overview
+    .content.no-border
+      .overview-title{:style=>"padding: 0 30px"}
+        .pull-left.text-left
+          %h1.blue_heading.big-text{:style=>"padding-top: 10px"}
+            Behaviors Measured
           .clr
-        .instruction1.pull-left.default
-          Favorable
-        .instruction2.less_favorable.pull-left.default
-          Less Favorable
-        .clr
-    .clr
-  .scale
-    .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
-    .marker-container
-      - @score_buckets.each do |score_bucket|
-        .marker
-          %br/
-          = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
-      .clr
-  .clr
-.clr
-%ul.competency-list.medium-text
-  - competency_scores.each do |id, data|
-    - config = @report.report_data[:competency_configuration][:overall_configuration][id.to_s]
-    - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
-    - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
-    - scored_bucket_weight = data[:score][:weight].to_i
-    - scored_bucket = data[:score][:bucket]
-    - range = (to_bucket_weight - from_bucket_weight)*width
-    - left = (from_bucket_weight-1)*width
-    - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
-    %li
-      .first.hexagon-icon.span1{:style => "margin-top: 14px",:class => klass}
-      .competency-name.pull-left
-        = data[:name]
-      .competency-value.pull-right
+          .divider1  
+          .instruction_container
+            .instructions
+              .box.pull-left
+                .box-icon.pull-left
+                .box-title.pull-left.default 
+                  Expected Range
+                .clr
+              .instruction1.pull-left.default
+                Relative Strengths
+              .instruction2.less_favorable.pull-left.default
+                Relative Areas of Development
+              .clr
+          .clr
         .scale
           .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
           .marker-container
-            .desire_range{:style => "left: #{left+32}px; width: #{range}px;"}
             - @score_buckets.each do |score_bucket|
-              - klass = score_bucket.name == scored_bucket ? "active" : ""
-              - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
-              .marker{ class: klass }
+              .marker
                 %br/
-                - if score_bucket.name == data[:score][:bucket]
-                  = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
+                = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
             .clr
         .clr
-      .clr 
+      .clr
+      %ul.competency-list.medium-text
+        - competency_scores.each do |id, data|
+          - config = @report.report_data[:competency_configuration][:overall_configuration][id.to_s]
+          - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+          - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+          - scored_bucket_weight = data[:score][:weight].to_i
+          - scored_bucket = data[:score][:bucket]
+          - range = (to_bucket_weight - from_bucket_weight)*width
+          - left = (from_bucket_weight-1)*width
+          - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+          %li
+            .first.hexagon-icon.span1{:style => "margin-top: 14px",:class => klass}
+            .competency-name.pull-left
+              = data[:name]
+            .competency-value.pull-right
+              .scale
+                .line{:style => "width:#{(@score_buckets.size-1)*width}px"}
+                .marker-container
+                  .desire_range{:style => "left: #{left+32}px; width: #{range}px;"}
+                  - @score_buckets.each do |score_bucket|
+                    - klass = score_bucket.name == scored_bucket ? "active" : ""
+                    - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
+                    .marker{ class: klass }
+                      %br/
+                      - if score_bucket.name == data[:score][:bucket]
+                        = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
+                  .clr
+              .clr
+            .clr 
+.divider1

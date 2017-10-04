@@ -76,7 +76,7 @@
 
   - keys = comptency_hash.keys
   - limit = comptency_hash.size
-  .competency_description
+  .tool_description
     .inner
       %h1.blue_heading.big-text
         Competency wise Data Points
@@ -102,7 +102,7 @@
 - if (comptency_hash.size > 0)
   = render partial: "shared/reports/pdf/oac_report_header.pdf.haml"
   .overview.competency.oac_competency_overview
-    .competency_description
+    .tool_description
       .inner
         %h1.blue_heading.big-text
           Competency Wise Data Points

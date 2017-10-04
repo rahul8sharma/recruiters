@@ -8,9 +8,11 @@
       %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
         %tr
           %td{ colspan: 2 }
-            = super_competency_data[:name]
-            %br
-            = super_competency_data[:description]
+            .competency_name
+              = super_competency_data[:name]
+            .divider1
+            .competency_description
+              = super_competency_data[:description]
         - super_competency_data[:competency_scores].each do |id, competency_data|
           %tr
             %td.left
@@ -18,5 +20,7 @@
                 = competency_data[:name]
 
             %td.right
-              = competency_data[:description]    
+              = competency_data[:description]  
+        %tr.last
+          %td.right{ colspan: 2 }  
   .page-break

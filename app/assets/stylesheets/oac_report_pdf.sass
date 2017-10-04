@@ -28,7 +28,7 @@
     font-size: 12px
     line-height: 15px
     margin: 0 0 15px
-.competency_description 
+.tool_description 
   table 
     tr
       td
@@ -47,6 +47,55 @@
           background: #f8f8f8
           color: #808285
           font-size: 10px
+.competency_description
+  table 
+    tr
+      &.last
+        td.right 
+          padding: 0
+          height: 0
+
+      td
+        line-height: 16px
+        .competency_name
+          font-size: 16px
+          line-height: 18px
+          color: #fff
+          font-weight: 700
+        .competency_description
+          font-size: 12px
+          color: #fff
+        &.left
+          border-top: 2px solid #fff
+          border-left: 2px solid #808285
+          text-align: center
+          padding: 10px 18px
+          background: #808285
+          color: #fff
+          font-size: 16px
+          line-height: 18px
+          width: 16%
+          padding: 15px 30px
+        &.right
+          border-top: 2px solid #808285
+          border-right: 2px solid #808285
+          width: 84%
+          vertical-align: top
+          background: #fff
+          color: #808285
+          font-size: 12px
+          padding: 15px 30px
+      &:first-child
+        td 
+          background: #27B19B
+          padding: 15px 30px
+          border-color: #27B19B
+        & + tr 
+          td
+            &.right
+              border-top-color: transparent
+
+
 .interpretation_guide
   ul
     li
