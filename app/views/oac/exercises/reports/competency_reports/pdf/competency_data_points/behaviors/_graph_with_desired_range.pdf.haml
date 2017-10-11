@@ -37,7 +37,7 @@
           - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
           - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
           - scored_bucket_weight = data[:score][:weight].to_i
-          - scored_bucket = data[:score][:bucket]
+          - scored_bucket = data[:score][:score_bucket]
           - range = (to_bucket_weight - from_bucket_weight)*width
           - left = (from_bucket_weight-1)*width
           - klass = (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
