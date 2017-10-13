@@ -131,33 +131,6 @@
     path: "oac/exercises/reports/competency_reports/html/competency_overview",
     children: [
       {
-        id: "html_competency_overview_legend",
-        text: "Legend For Markers[With / Without Desired Range]",
-        path: "oac/exercises/reports/competency_reports/html/competency_overview/overview",
-        children: [
-          {
-            id: "html_competency_overview_legend_with_desired",
-            text: "Legend With Desired Range",
-            path: "oac/exercises/reports/competency_reports/html/competency_overview/with_desired_range",
-            locals: {},
-            links: {
-              html: ["html_header_competencies",],
-              pdf: ["pdf_competency_overview_legend_with_desired"]
-            }            
-          },
-          {
-            id: "html_competency_overview_legend_without_desired",
-            text: "Legend Without Desired Range",
-            path: "oac/exercises/reports/competency_reports/html/competency_overview/without_desired_range",
-            locals: {},
-            links: {
-              html: ["html_header_competencies",],
-              pdf: ["pdf_competency_overview_legend_without_desired"]
-            }            
-          }
-        ]
-      },
-      {
         id: "html_competency_overview_graph",
         text: "Graph",
         path: "oac/exercises/reports/competency_reports/html/competency_overview/graph_holder",

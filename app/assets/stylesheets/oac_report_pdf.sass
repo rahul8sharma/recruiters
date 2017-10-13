@@ -207,7 +207,7 @@
 .report 
   .competency_report 
     .overview 
-      min-height: auto
+      min-height: 50px !important
       &.competency
         background: none
         .content
@@ -243,7 +243,9 @@
                     position: relative
                     z-index: 2
                     &.active
-                      background: image-url('report/html/competency/list-scale-small-hexa-favorable.png') no-repeat center 26px
+                      background: image-url('report/html/competency/list-scale-small-hexa.png') no-repeat center 26px
+                      &.favorable
+                        background: image-url('report/html/competency/list-scale-small-hexa-favorable.png') no-repeat center 26px
                       &.less_favorable
                         background: image-url("report/html/competency/list-scale-small-hexa-less-favorable.png") no-repeat center 26px
                         text-decoration: none
