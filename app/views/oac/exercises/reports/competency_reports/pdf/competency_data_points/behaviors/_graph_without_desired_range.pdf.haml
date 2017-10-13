@@ -39,7 +39,7 @@
                   - klass = score_bucket.name == scored_bucket ? "active" : ""
                   .marker{ class: klass }
                     %br/
-                    - if score_bucket.name == data[:score][:bucket]
+                    - if score_bucket.name == scored_bucket
                       = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
                 .clr
             .clr

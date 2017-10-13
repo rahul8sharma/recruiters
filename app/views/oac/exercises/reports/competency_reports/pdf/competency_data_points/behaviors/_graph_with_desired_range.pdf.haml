@@ -54,7 +54,7 @@
                   - klass += (from_bucket_weight..to_bucket_weight).include?(scored_bucket_weight) ? " favorable" : " less_favorable"
                   .marker{ class: klass }
                     %br/
-                    - if score_bucket.name == data[:score][:bucket]
+                    - if score_bucket.name == scored_bucket
                       = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
                 .clr
             .clr
