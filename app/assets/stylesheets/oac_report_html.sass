@@ -1,5 +1,62 @@
 $oac_image_url: report/html/oac
 .report 
+  .explanation_scores_list
+    li
+      padding: 30px 0
+      border-bottom: 1px dashed #d8d8d8
+      &:nth-child(even)
+        background: #f8f8f8
+    .scale
+      float: left
+      .scale_inner
+        position: relative
+      .line
+        border: 1px solid #ccc
+        height: 0px
+        background: #ccc
+        bottom: 8px
+        position: absolute
+      .marker_container
+        .marker
+          float: left
+          text-align: center
+          position: relative
+          height: 70px
+          line-height: 18px
+          font-size: 14px
+          color: #ccc
+          cursor: default
+          background: image-url("report/html/scale-hexagon_gray.png") no-repeat center bottom
+          z-index: 3
+
+          span
+            position: absolute
+            display: block
+            width: 100%
+            bottom: 30px
+          &:hover
+            cursor: pointer
+            background: image-url("report/html/scale-hexagon_gray.png") no-repeat center bottom
+          &.active
+            color: #3aafe5
+            background: image-url("report/html/scale-hexagon.png") no-repeat center bottom
+        .marker_info
+          display: none
+          background: #fff
+          border: 1px solid #39afe5
+          border-radius: 2px
+          color: #000
+          display: none
+          font-size: 10px
+          left: 30px
+          line-height: 13px
+          padding: 5px 20px
+          position: absolute
+          text-align: left
+          top: 85px
+          z-index: 2
+    .right
+      width: 42%
   .frame
     border-width: 1px
   .section01

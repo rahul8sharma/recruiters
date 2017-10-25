@@ -3,7 +3,44 @@
   .inner
     padding: 30px
     width: auto
-  
+  .explanation_scores_list
+    li
+      padding: 18px 0
+      border-bottom: 1px dashed #d8d8d8
+      &:nth-child(even)
+        background: #f8f8f8
+    .scale
+      width: 350px
+      float: left
+      .scale_inner
+        position: relative
+      .line
+        border-top: 1px solid #ccc
+        bottom: 6px
+        position: absolute
+      .marker_container
+        .marker
+          float: left
+          text-align: center
+          position: relative
+          height: 50px
+          line-height: normal
+          font-size: 12px
+          color: #ccc
+          z-index: 3
+          background: image-url("report/pdf/scale-hexagon_gray.png") no-repeat center bottom
+          &.active
+            color: #3aafe5
+            background: image-url("report/pdf/scale-hexagon.png") no-repeat center bottom
+          span
+            position: absolute
+            display: block
+            width: 100%
+            bottom: 20px
+
+    .right
+      width: 42%
+ 
 .banner
   color: #fff
   background: #21b099
