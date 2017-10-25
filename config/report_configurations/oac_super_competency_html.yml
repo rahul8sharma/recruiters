@@ -106,6 +106,16 @@
     }    
   },
   {
+    id: "html_scale_description",
+    text: "Scale Description",
+    path: "oac/exercises/reports/competency_reports/html/scale_description",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_scale_description"]
+    } 
+  },
+  {
     id: "html_competency_behavior_overview",
     text: "Overview of Competencies and Behaviors Measured",
     path: "oac/exercises/reports/competency_reports/html/competency_behavior_overview",

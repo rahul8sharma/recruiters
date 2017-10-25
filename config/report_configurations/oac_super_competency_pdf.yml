@@ -32,6 +32,11 @@
     path: "oac/exercises/reports/competency_reports/pdf/competency_behavior_overview",
   },
   {
+    id: "pdf_scale_description",
+    text: "Scale Description",
+    path: "oac/exercises/reports/competency_reports/pdf/scale_description"
+  },
+  {
     id: "pdf_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/pdf/competency_description",
