@@ -1,11 +1,12 @@
 = render partial: "shared/reports/pdf/oac_report_header"
 .divider3
-.container
-  %h1.page_title Explanation of Jombay Scores
+.container{:style=>"width: 92%"}
+  %h1.blue_heading.big-text 
+    Explanation of Jombay Scores
 %ul.explanation_scores_list
   - @score_buckets.each do |norm_bucket_scale, index|
     %li
-      .container
+      .container{:style=>"width: 92%"}
         .scale.span9
           - scale_values = get_scale_and_marker_width(@score_buckets)
           .scale_inner{ style: "margin-left: #{ -scale_values[:scale_offset] }%" }
