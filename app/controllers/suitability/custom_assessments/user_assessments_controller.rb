@@ -413,6 +413,8 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       :methods => [:expiry_date,:link_status],
       :select => [
         'suitability_user_assessments.id',
+        'suitability_user_assessments.assessment_id',
+        'suitability_user_assessments.options',
         'suitability_user_assessments.status',
         'suitability_user_assessments.candidate_stage',
         'suitability_user_assessments.created_at',

@@ -38,7 +38,7 @@ gem 'sidekiq', '2.12.1'
 
 gem 'jombay-notify', :git => "git@bitbucket.org:jombay/jombay-notify.git", :branch => "develop"
 
-#gem 'celluloid-redis', '0.0.2'
+gem 'celluloid-redis', '0.0.2'
 
 platform :ruby do
   group :development do

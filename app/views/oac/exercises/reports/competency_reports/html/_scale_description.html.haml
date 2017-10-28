@@ -1,0 +1,25 @@
+.divider3
+.container
+  .title Explanation of Jombay Scores
+%ul.explanation_scores_list
+  - @score_buckets.each do |norm_bucket_scale, index|
+    %li
+      .container
+        .scale.span12
+          - scale_values = get_scale_and_marker_width(@score_buckets)
+          .scale_inner{ style: "margin-left: #{ -scale_values[:scale_offset] }%" }
+
+            .line{ style: "left: #{ scale_values[:scale_offset] }%; width: #{scale_values[:scale_width] }%" }
+            .marker_container
+              - @score_buckets.each_with_index do |norm_bucket, index|
+                .marker{ :class=> norm_bucket_scale.name == norm_bucket.name ? 'active': '', style: "width: #{ scale_values[:marker_width] }%" }
+                  %span
+                    - if @custom_score_bucket_names["#{norm_bucket.uid}"]['name'].split(" ").size == 1
+                      %br/
+                    = @custom_score_bucket_names["#{norm_bucket.uid}"]['name'].split(" ").join("<br/>").html_safe
+              .clr
+          
+        .right.pull-right.big-text
+          .divider1
+          = @custom_score_bucket_names["#{norm_bucket_scale.uid}"]['description']
+        .clr

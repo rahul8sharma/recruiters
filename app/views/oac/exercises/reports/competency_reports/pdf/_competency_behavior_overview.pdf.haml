@@ -1,22 +1,30 @@
-- @report.report_data[:super_competency_scores].each do |id, super_competency_data|
+- ids = @report.report_data[:super_competency_scores].keys
+- ids.each_slice(2).each do |sliced_ids|
   = render partial: "shared/reports/pdf/oac_report_header"
   .competency_description
     .inner.border-bottom-grayDark
       %h1.blue_heading.big-text
         Overview of Competencies and Behaviors Measured
       .divider1
-      %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
-        %tr
-          %td{ colspan: 2 }
-            = super_competency_data[:name]
-            %br
-            = super_competency_data[:description]
-        - super_competency_data[:competency_scores].each do |id, competency_data|
+      - sliced_ids.each do |id|
+        - super_competency_data = @report.report_data[:super_competency_scores][id]
+        %table{ width: "100%", :cellspacing=> "0", :cellpadding=> "0" }
           %tr
-            %td.left
-              .span3.margin-auto
-                = competency_data[:name]
+            %td{ colspan: 2 }
+              .competency_name
+                = super_competency_data[:name]
+              .divider1
+              .competency_description
+                = super_competency_data[:description]
+          - super_competency_data[:competency_scores].each do |id, competency_data|
+            %tr
+              %td.left
+                .span3.margin-auto
+                  = competency_data[:name]
 
-            %td.right
-              = competency_data[:description]    
+              %td.right
+                = competency_data[:description]  
+          %tr.last
+            %td.right{ colspan: 2 }  
+        .divider1    
   .page-break

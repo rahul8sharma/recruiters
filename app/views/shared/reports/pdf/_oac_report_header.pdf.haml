@@ -1,4 +1,9 @@
 .report_header.clearfix
-  .pull-right
+  .pull-left{style: "border-right: 1px solid white;margin: 5px 0 5px 0;padding: 0 15px 0 0;"}
+    = image_tag('report/pdf/jombay-logo.png')
+  - if @report.report_data[:company][:logo_url]
+    .logo-partner.with-full-logo
+      = image_tag(@report.report_data[:company][:logo_url], :style => "padding: 5px 0 0 15px;height: 25px;")
+  .pull-right.no-wrap.extra-medium-text{ style: "padding: 5px 0 0 0;"  }
     #{@report.report_data[:exercise][:name]} 
 

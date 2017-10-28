@@ -32,6 +32,11 @@
     path: "oac/exercises/reports/competency_reports/pdf/competency_behavior_overview",
   },
   {
+    id: "pdf_scale_description",
+    text: "Scale Description",
+    path: "oac/exercises/reports/competency_reports/pdf/scale_description"
+  },
+  {
     id: "pdf_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/pdf/competency_description",
@@ -41,25 +46,6 @@
     text: "Competency Scores",
     path: "oac/exercises/reports/competency_reports/pdf/competency_overview",
     children: [
-      {
-        id: "pdf_overview_legend",
-        text: "Legend For Markers[With / Without Desired Range]",
-        path: "oac/exercises/reports/competency_reports/pdf/competency_overview/overview",
-        children: [
-          {
-            id: "pdf_competency_overview_legend_with_desired",
-            text: "Legend With Desired Range",
-            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/with_desired_range",
-            locals: {}
-          },
-          {
-            id: "pdf_competency_overview_legend_without_desired",
-            text: "Legend Without Desired Range",
-            path: "oac/exercises/reports/competency_reports/pdf/competency_overview/without_desired_range",
-            locals: {}
-          }
-        ]
-      },
       {
         id: "pdf_overview_graph",
         text: "Graph",
