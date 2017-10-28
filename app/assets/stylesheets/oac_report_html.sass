@@ -1,5 +1,62 @@
 $oac_image_url: report/html/oac
 .report 
+  .explanation_scores_list
+    li
+      padding: 30px 0
+      border-bottom: 1px dashed #d8d8d8
+      &:nth-child(even)
+        background: #f8f8f8
+    .scale
+      float: left
+      .scale_inner
+        position: relative
+      .line
+        border: 1px solid #ccc
+        height: 0px
+        background: #ccc
+        bottom: 8px
+        position: absolute
+      .marker_container
+        .marker
+          float: left
+          text-align: center
+          position: relative
+          height: 70px
+          line-height: 18px
+          font-size: 14px
+          color: #ccc
+          cursor: default
+          background: image-url("report/html/scale-hexagon_gray.png") no-repeat center bottom
+          z-index: 3
+
+          span
+            position: absolute
+            display: block
+            width: 100%
+            bottom: 30px
+          &:hover
+            cursor: pointer
+            background: image-url("report/html/scale-hexagon_gray.png") no-repeat center bottom
+          &.active
+            color: #3aafe5
+            background: image-url("report/html/scale-hexagon.png") no-repeat center bottom
+        .marker_info
+          display: none
+          background: #fff
+          border: 1px solid #39afe5
+          border-radius: 2px
+          color: #000
+          display: none
+          font-size: 10px
+          left: 30px
+          line-height: 13px
+          padding: 5px 20px
+          position: absolute
+          text-align: left
+          top: 85px
+          z-index: 2
+    .right
+      width: 42%
   .frame
     border-width: 1px
   .section01
@@ -178,7 +235,7 @@ $oac_image_url: report/html/oac
 
       
       .tools
-        /*background: #bee8e1
+        //background: #bee8e1
         font-size: 12px
       .tool_scores
         line-height: 36px
@@ -241,7 +298,7 @@ $oac_image_url: report/html/oac
     font-size: 16px
     line-height: 20px
     margin: 0 0 15px
-.competency_description 
+.tool_description
   border-bottom: 1px dashed #28b29b
   table 
     tr
@@ -260,6 +317,54 @@ $oac_image_url: report/html/oac
           background: #f8f8f8
           color: #808285
           font-size: 16px
+.competency_description
+  table 
+    tr
+      &.last
+        td.right 
+          padding: 0
+          height: 0
+
+      td
+        line-height: 20px
+        .competency_name
+          font-size: 18px
+          line-height: 20px
+          color: #fff
+          font-weight: 700
+        .competency_description
+          font-size: 14px
+          color: #fff
+        &.left
+          border-top: 2px solid #fff
+          border-left: 2px solid #808285
+          text-align: center
+          padding: 10px 18px
+          background: #808285
+          color: #fff
+          font-size: 18px
+          line-height: 20px
+          width: 16%
+          padding: 15px 30px
+        &.right
+          border-top: 2px solid #808285
+          border-right: 2px solid #808285
+          width: 84%
+          vertical-align: top
+          background: #fff
+          color: #808285
+          font-size: 14px
+          padding: 15px 30px
+      &:first-child
+        td 
+          background: #27B19B
+          padding: 15px 30px
+          border-color: #27B19B
+        & + tr 
+          td
+            &.right
+              border-top-color: transparent
+
 .top_bottom_competencies
   border-bottom: 1px dashed #28b29b
   *

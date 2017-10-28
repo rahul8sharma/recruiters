@@ -402,14 +402,33 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       :per => 10, 
       :joins => :user, 
       :order => order,
-      :include => [:user, :user_assessment_reports]
+      :include => {
+        :user => {
+          :only => [:id, :name, :email]
+        }, 
+        :user_assessment_reports => {
+          :only => [:id, :status]
+        }
+      },
+      :methods => [:expiry_date,:link_status],
+      :select => [
+        'suitability_user_assessments.id',
+        'suitability_user_assessments.assessment_id',
+        'suitability_user_assessments.options',
+        'suitability_user_assessments.status',
+        'suitability_user_assessments.candidate_stage',
+        'suitability_user_assessments.created_at',
+        'suitability_user_assessments.updated_at',
+        'suitability_user_assessments.completed_at',
+        'suitability_user_assessments.invitation_id',
+        'suitability_user_assessments.user_id'
+      ]
     )
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
     end
-    scope  = scope.where(:methods => [:expiry_date,:link_status])
     @user_assessments = scope
     @users = @user_assessments.map(&:user)
     @users = Kaminari.paginate_array(@users, total_count: @user_assessments.total_count).page(params[:page]).per(10)

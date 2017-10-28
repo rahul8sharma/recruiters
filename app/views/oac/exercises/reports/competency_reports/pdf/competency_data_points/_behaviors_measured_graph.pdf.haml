@@ -11,7 +11,7 @@
           %ul
             - competency_scores.each do |competency_id, competency_data|
               %li
-                .span5.first.trait_title
+                .span6.first.trait_title
                   = competency_data[:name]
                 .clr
 
@@ -35,5 +35,4 @@
                   .descending_graph_bar.max{:style => "background-color:#e9c537;width: #{percentage}%"}
         .clr
 %p{:style=>"font-size: 12px"}
-  = @assessment.scale_description
-        
+  = @assessment.scale_description        

@@ -106,6 +106,26 @@
     }    
   },
   {
+    id: "html_scale_description",
+    text: "Scale Description",
+    path: "oac/exercises/reports/competency_reports/html/scale_description",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_scale_description"]
+    } 
+  },
+  {
+    id: "html_competency_behavior_overview",
+    text: "Overview of Competencies and Behaviors Measured",
+    path: "oac/exercises/reports/competency_reports/html/competency_behavior_overview",
+    children: [],
+    links: {
+      html: [],
+      pdf: ["pdf_competency_behavior_overview"]
+    }    
+  },
+  {
     id: "html_competency_description",
     text: "Competency Description",
     path: "oac/exercises/reports/competency_reports/html/competency_description",
@@ -120,33 +140,6 @@
     text: "Competency Scores",
     path: "oac/exercises/reports/competency_reports/html/competency_overview",
     children: [
-      {
-        id: "html_competency_overview_legend",
-        text: "Legend For Markers[With / Without Desired Range]",
-        path: "oac/exercises/reports/competency_reports/html/competency_overview/overview",
-        children: [
-          {
-            id: "html_competency_overview_legend_with_desired",
-            text: "Legend With Desired Range",
-            path: "oac/exercises/reports/competency_reports/html/competency_overview/with_desired_range",
-            locals: {},
-            links: {
-              html: ["html_header_competencies",],
-              pdf: ["pdf_competency_overview_legend_with_desired"]
-            }            
-          },
-          {
-            id: "html_competency_overview_legend_without_desired",
-            text: "Legend Without Desired Range",
-            path: "oac/exercises/reports/competency_reports/html/competency_overview/without_desired_range",
-            locals: {},
-            links: {
-              html: ["html_header_competencies",],
-              pdf: ["pdf_competency_overview_legend_without_desired"]
-            }            
-          }
-        ]
-      },
       {
         id: "html_competency_overview_graph",
         text: "Graph",
@@ -235,6 +228,32 @@
           html: [],
           pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph"]
         }        
+      },
+      {
+        id: "html_data_points_competency_wise_behaviors_measured_graph_with_desired_range",
+        text: "Graph With Desired Range",
+        path: "oac/exercises/reports/competency_reports/html/competency_data_points/behaviors/graph_with_desired_range",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph_with_desired_range"]
+        }            
+      },
+      {
+        id: "html_data_points_competency_wise_behaviors_measured_graph_without_desired_range",
+        text: "Graph Without Desired Range",
+        path: "oac/exercises/reports/competency_reports/html/competency_data_points/behaviors/graph_without_desired_range",
+        locals: {
+          competency_scores: "data[:competency_scores]",
+          score_buckets: "@score_buckets"
+        },
+        links: {
+          html: [],
+          pdf: ["pdf_data_points_competency_wise_behaviors_measured_graph_without_desired_range"]
+        }            
       },
       {
         id: "html_data_points_competency_wise_strengths_improvement",

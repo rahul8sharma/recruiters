@@ -1,0 +1,27 @@
+.competency_description
+  .divider2
+  .container
+    .title
+      Overview of Competencies and Behaviors Measured
+    .divider2
+    - @report.report_data[:super_competency_scores].each do |id, super_competency_data|
+      %table{ :cellspacing=> "0", :cellpadding=> "0", :width=>"100%" }
+        %tr
+          %td{ colspan: 2 }
+            .competency_name
+              = super_competency_data[:name]
+            .divider1
+            .competency_description
+              = super_competency_data[:description]
+        - super_competency_data[:competency_scores].each do |id, competency_data|
+          %tr
+            %td.left
+              .span3.margin-auto
+                = competency_data[:name]
+
+            %td.right
+              = competency_data[:description]    
+        %tr.last
+          %td.right{ colspan: 2 }
+      .divider2
+.divider2

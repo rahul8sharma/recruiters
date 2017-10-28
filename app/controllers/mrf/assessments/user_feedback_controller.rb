@@ -27,7 +27,11 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
     params[:options] ||= {}
     query_options = {
       company_id: @company.id, 
-      assessment_id: @assessment.id
+      assessment_id: @assessment.id,
+      status: [
+        Vger::Resources::Mrf::Feedback::Status::PENDING,
+        Vger::Resources::Mrf::Feedback::Status::STARTED
+      ]
     }
     query_options.merge!({
       id: params[:feedback_id]

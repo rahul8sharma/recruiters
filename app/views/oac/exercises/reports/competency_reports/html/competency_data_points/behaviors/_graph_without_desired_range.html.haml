@@ -1,0 +1,49 @@
+- width = 66.66
+.competency_report{:style=>"width: calc(100% + 72px); margin-left: -36px"}
+  .overview.competency
+    .content.no-border
+      .overview-title{:style=>"padding-left: 32px"}
+        .pull-left.text-left
+          .large-text.color-info
+            Behaviors Measured
+          .divider1
+          
+        .scale
+          .line{:style => "width:#{@score_buckets.size*width-10}px"}
+          .marker-container
+            - @score_buckets.each do |score_bucket|
+              .marker
+                .arrow
+                .marker-info
+                  = @custom_score_bucket_names["#{score_bucket.uid}"]['description']
+                = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
+            .clr
+        .clr
+      .clr
+      %ul.competency-list
+        - competency_scores.each do |id, data|
+          - config = @report.report_data[:competency_configuration][:overall_configuration][id.to_s]
+          - from_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['from_bucket'].to_i].weight
+          - to_bucket_weight = @combined_score_buckets_by_id[config['desired_range']['to_bucket'].to_i].weight
+          - scored_bucket_weight = data[:score][:weight].to_i
+          - scored_bucket = data[:score][:score_bucket]
+          - range = (to_bucket_weight - from_bucket_weight)*80
+          - left = (from_bucket_weight-1)*80
+          %li
+            .competency-name.pull-left
+              = data[:name]
+            .competency-value.pull-right
+              .scale
+                .line{:style => "width:#{@score_buckets.size*width-14}px"}
+                .marker-container
+                  - @score_buckets.each do |score_bucket|
+                    - klass = score_bucket.name == scored_bucket ? "active" : ""
+                    .marker{ class: klass }
+                      - if score_bucket.name == scored_bucket
+                        = @custom_score_bucket_names["#{score_bucket.uid}"]['name']
+                  .clr
+              .clr
+            .clr     
+.divider2
+%p.medium-text
+  = @assessment.scale_description

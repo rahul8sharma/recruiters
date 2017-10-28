@@ -610,6 +610,7 @@ Recruiters::Application.routes.draw do
 
   resources :subscriptions, :only => [:index] do
     collection do
+      post :export
       post :expire_subscription, :as => :expire_subscription
       post :payment_status, :as => :payment_status
       post :import

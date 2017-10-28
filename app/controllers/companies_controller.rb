@@ -328,7 +328,8 @@ class CompaniesController < ApplicationController
       :per => 15,
       :order => "#{order_by} #{order_type}",
       :include => [:subscription],
-      :methods => methods
+      :methods => methods,
+      :select => ['id','name','created_at']
     }
     conditions[:scopes] = { :name_like => name } if name
 
