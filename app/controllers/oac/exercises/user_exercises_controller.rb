@@ -6,6 +6,10 @@ class Oac::Exercises::UserExercisesController < ApplicationController
   before_filter :get_exercise
   before_filter :validate_exercise
   before_filter :get_exercise_tools, only: [:download_bulk_upload_csv]
+  
+  helper_method :trigger_report_downloader_url
+
+  
   layout 'oac/oac'
   
   def download_bulk_upload_csv
@@ -301,6 +305,23 @@ class Oac::Exercises::UserExercisesController < ApplicationController
     end
   end
   
+  def trigger_report_downloader
+    date_range = params[:date_range].present? ? JSON.parse(params[:date_range]) : nil
+    options = {
+      :exercise => {
+        :job_klass => "Oac::ReportsDownloader",
+        :args => {
+          :date_range => date_range,
+          :user_id => current_user.id,
+          :assessment_id => params[:id]
+        }
+      }
+    }
+    Vger::Resources::Oac::Exercise.find(params[:id])\
+      .download_pdf_reports(options)
+    redirect_to candidates_url, notice: "Reports will be downloaded and link to download the zip file will be emailed to #{current_user.email}."
+  end
+  
   protected
 
   def get_company
@@ -343,5 +364,13 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       },
       include: [:tool]
     ).all
+  end
+  
+  def trigger_report_downloader_url
+    trigger_report_downloader_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id])
+  end
+  
+  def candidates_url
+    candidates_company_oac_exercise_path(:company_id => params[:company_id], :id => params[:id])
   end
 end

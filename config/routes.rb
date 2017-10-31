@@ -385,6 +385,9 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "download_pdf_reports" => "oac/exercises#download_pdf_reports", :as => :download_pdf_reports
+        get "trigger_report_downloader" => "oac/exercises/user_exercises#trigger_report_downloader", :as => :trigger_report_downloader
+        
         match "edit" => "oac/exercises#edit", :as => :edit
         match "select_tools" => "oac/exercises#select_tools", :as => :select_tools
         match "select_competencies" => "oac/exercises#select_competencies", :as => :select_competencies
