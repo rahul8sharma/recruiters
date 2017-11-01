@@ -12,7 +12,6 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
       .find(params[:assessment][:id])\
       .export_assessment_trr_users(params[:assessment])
     redirect_to trr_manage_path, notice: "Export Operation Queued. Email notification should arrive as soon as the export is complete."
-
   end
 
   def export_group_trr_users
@@ -24,19 +23,44 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
   end
 
   def import_assessment_trr_users
+    file = params[:import][:file]
+    unless file
+      flash[:notice] = "Please select an xls file."
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    data = params[:import][:file].read
+    obj = S3Utils.upload("trr_candidates//#{file.original_filename}", data)
+    params.delete :import
     Vger::Resources::Suitability::CustomAssessment\
-      .find(params[:assessment][:id])\
-      .import_assessment_trr_users(params[:assessment].merge({
-        user_id: current_user.id
+      .find(params[:assessment_id])\
+      .import_assessment_trr_users(params.merge({
+        user_id: current_user.id,
+        file: {
+          bucket: obj.bucket.name,
+          key: obj.key
+        }
       }))
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
 
   def import_group_trr_users
+    file = params[:import][:file]
+    unless file
+      flash[:notice] = "Please select an xls file."
+      redirect_to request.env['HTTP_REFERER'] and return
+    end
+    data = file.read
+    obj = S3Utils.upload("trr_candidates/#{file.original_filename}", data)
+    params.delete :import
+    
     Vger::Resources::Suitability::TrainingRequirementGroup\
-      .find(params[:assessment][:assessment_group_id])\
-      .import_group_trr_users(params[:assessment].merge({
-        user_id: current_user.id
+      .find(params[:assessment_group_id])\
+      .import_group_trr_users(params.merge({
+        user_id: current_user.id,
+        file: {
+          bucket: obj.bucket.name,
+          key: obj.key
+        }
       }))
     redirect_to trr_manage_path, notice: "Import operation queued. Email notification should arrive as soon as the import is complete."
   end
@@ -48,6 +72,4 @@ class Suitability::CustomAssessments::TrainingRequirementsReportsManagementContr
   def regenerate_group_trr
     redirect_to trr_manage_path, notice: "Regeneration Triggered. Email notification should arrive as soon as regeneration is complete."
   end
-
-
 end

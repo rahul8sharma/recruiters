@@ -24,7 +24,9 @@ module Oac
     def upload_report
       report_id = @report_attributes["id"]
       puts "Getting Report #{report_id}"
-      @report = Vger::Resources::Oac::UserExerciseReport.find(report_id, @report_attributes)
+      @report = Vger::Resources::Oac::UserExerciseReport.find(report_id, @report_attributes.merge({
+        methods: [:pdf_file_name]
+      }))
       @report.report_hash = @report.report_data
       
       Vger::Resources::Oac::UserExerciseReport.save_existing(report_id,
@@ -95,7 +97,7 @@ module Oac
       html_file_id = "vdc_report_#{@report.id}.html"      
       html_save_path = File.join(Rails.root.to_s,'tmp',"#{html_file_id}")
 
-      pdf_file_id = "vdc_report_#{@report.id}.pdf"
+      pdf_file_id = @report.report_data[:pdf_file_name] || @report.pdf_file_name
       pdf_save_path = File.join(Rails.root.to_s,'tmp',"#{pdf_file_id}")
 
       File.open(html_save_path, 'wb') do |file|
