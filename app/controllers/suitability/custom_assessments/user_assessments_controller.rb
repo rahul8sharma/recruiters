@@ -345,7 +345,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           :responses_count => 0,
           :report_email_recipients => recipients.join(","),
           :options => options,
-          :language => @assessment.language
+          :language => (@assessment.languages.size == 1 ? @assessment.languages.first : nil)
         )
         if user_assessment.error_messages.present?
           failed_user_assessments << user_assessment
