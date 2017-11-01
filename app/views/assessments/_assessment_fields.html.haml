@@ -68,10 +68,10 @@
 .control-group
   .span10.first
     %label
-      Select the Language for the Assessment
-    %select.fw{ name: "assessment[language]" }
+      Select the languages for the Assessment
+    %select.fw{ name: "assessment[languages][]", multiple: true }
       - Vger::Resources::Language.all.each do |language|
-        %option{:value => language.language_code, selected: (assessment.language == language.language_code)}
+        %option{:value => language.language_code, selected: (assessment.languages.include?(language.language_code))}
           = language.name
   .span10.left-offset1
     %label
