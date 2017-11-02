@@ -20,21 +20,31 @@ class Mrf::AssessmentsController < ApplicationController
       select: [:id, :created_at, :name],
       page: params[:page], per: 10
     ).all
-    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(group: "mrf_stakeholder_assessments.assessment_id", joins: :stakeholder_assessments, query_options: { "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) })
+    @stakeholder_counts = Vger::Resources::Stakeholder.group_count(
+      group: "mrf_stakeholder_assessments.assessment_id", 
+      joins: { :stakeholder_assessments => :feedbacks }, 
+      select: "distinct(stakeholders.id)",
+      query_options: { 
+        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
+        "mrf_feedbacks.trial" => false
+      }
+    )
     @user_counts = Vger::Resources::User.group_count(
       group: "mrf_stakeholder_assessments.assessment_id", 
       joins: {:feedbacks => :stakeholder_assessment}, 
       select: "distinct(jombay_users.id)", 
       query_options: { 
-        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id) 
+        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
+        "mrf_feedbacks.trial" => false
       }
     )
     @completed_counts = Vger::Resources::User.group_count(
       group: "mrf_stakeholder_assessments.assessment_id", 
       joins: {:feedbacks => :stakeholder_assessment}, 
       query_options: { 
-      "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), 
-      "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses 
+        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), 
+        "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
+        "mrf_feedbacks.trial" => false 
       }
     )
   end
@@ -328,7 +338,8 @@ class Mrf::AssessmentsController < ApplicationController
       group: ["role"],
       joins: [:stakeholder_assessment],
       query_options: {
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+        "mrf_feedbacks.trial" => false
       }
     )
     @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
@@ -338,7 +349,8 @@ class Mrf::AssessmentsController < ApplicationController
       joins: [:stakeholder_assessment],
       query_options: {
         "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+        "mrf_feedbacks.trial" => false
       }
     )
 
@@ -348,7 +360,8 @@ class Mrf::AssessmentsController < ApplicationController
       joins: [:stakeholder_assessment],
       query_options: {
         role: Vger::Resources::Mrf::Feedback::Role::SELF,
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+        "mrf_feedbacks.trial" => false
       }
     )
     
@@ -358,7 +371,8 @@ class Mrf::AssessmentsController < ApplicationController
       select: ["distinct(user_id)"],
       joins: [:stakeholder_assessment],
       query_options: {
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id
+        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+        "mrf_feedbacks.trial" => false
       }
     )
   end
