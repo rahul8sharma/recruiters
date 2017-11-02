@@ -1,3 +1,5 @@
+- average_bucket_id = @super_competency_score_buckets.select{|x| x.weight == 3.0 }.first.id
+- high_bucket_id = @super_competency_score_buckets.map(&:id).max
 .container
   .page-title
     Select Super Competencies
@@ -22,12 +24,12 @@
               = "#{super_competency.name}"
             %input{:type => "hidden", name: "exercise[super_competency_configuration][#{super_competency.id}][name]", value: super_competency.name}
             - @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range] ||= {}
-            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:from_bucket] || @super_competency_score_buckets.map(&:id).min
+            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:from_bucket] || average_bucket_id
             %select.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][desired_range][from_bucket]" }
               - @super_competency_score_buckets.each do |norm_bucket|
                 %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
                   = norm_bucket.name
-            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:to_bucket] || @super_competency_score_buckets.map(&:id).max
+            - selected = @exercise.super_competency_configuration[super_competency.id.to_s][:desired_range][:to_bucket] || high_bucket_id
             %select.span4{ name: "exercise[super_competency_configuration][#{super_competency.id}][desired_range][to_bucket]" }
               - @super_competency_score_buckets.each do |norm_bucket|
                 %option{ value: norm_bucket.id, selected: norm_bucket.id == selected.to_i }
