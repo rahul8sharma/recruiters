@@ -114,10 +114,6 @@ class CompaniesController < ApplicationController
   end
   
   def add_subscription
-    #if !@company.user
-    #  flash[:error] = "Admin account is not created for #{@company.name}. Please create user acoount before adding a subscription."
-    #  redirect_to company_path(@company)
-    #end
     #@callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
     # @redirect_url = payment_status_subscriptions_url
     # the post request to this route will come in via :
@@ -125,6 +121,10 @@ class CompaniesController < ApplicationController
     # code to generate URL for the billing app
     # believed route to this action via line 36 of routes.rb
     # actual route to this action via line 199 of routes.rb
+    if !@company.admin.present?
+      flash[:error] = "Please add an admin to this account before adding subscription."
+      redirect_to company_path(@company) and return
+    end
     if request.put?
       begin
         valid_to = Date.parse(params[:valid_to])
@@ -302,7 +302,8 @@ class CompaniesController < ApplicationController
   def get_company
     methods = [
       :is_logo_present, :small_logo_url, :large_logo_url, :original_logo_url,
-      :assessment_statistics
+      :assessment_statistics,
+      :admin
     ]
     @company = Vger::Resources::Company.find(
       params[:id],
