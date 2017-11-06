@@ -29,7 +29,7 @@ class WalkinGroupsController < ApplicationController
       :query_options => { 
         :company_id => @company.id 
       }, 
-      select: ["name","id","language","candidate_stage"], 
+      select: ["name","id","languages","candidate_stage"], 
       order: ["created_at DESC"]
     ).all
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(:company_id => @company.id, :expires_on => Time.now + 24.hours)
@@ -90,7 +90,7 @@ class WalkinGroupsController < ApplicationController
                       company_id: @company.id, 
                       id: @walkin_group.assessment_hash.keys
                     }, 
-                    select: ["name","id","language"]
+                    select: ["name","id","languages"]
                    ).all.to_a
   end
   

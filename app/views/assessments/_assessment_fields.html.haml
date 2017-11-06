@@ -3,7 +3,7 @@
   .control-group
     %label
       Select the Industry your Company belongs to
-    %select.span21.first{name: 'assessment[industry_id]', id: 'select_industry'}
+    %select.span21.first{name: 'assessment[industry_id]', id: 'select_industry', required: true}
       %option{:value => ""}
         Industry
       - @industries.each do |id, industry|
@@ -35,26 +35,26 @@
 .control-group
   %label
     Enter a Title for the Assessment
-  = f.text_field :name, :class => "span21 first", :placeholder => "(e.g. Senior Marketing Manager)"
+  = f.text_field :name, :class => "span21 first", :placeholder => "(e.g. Senior Marketing Manager)", required: true
   .clr
 .control-group
   .span8.first
     %label
       Select the purpose of the assessment
     %label.extra-medium-text
-      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::EMPLOYED, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED}
+      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::EMPLOYED, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::EMPLOYED, required: true}
       Development 
     %label.extra-medium-text
-      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::CANDIDATE, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE}
+      %input{:type => "radio", name: 'assessment[candidate_stage]', value: Vger::Resources::User::Stage::CANDIDATE, checked: @assessment.candidate_stage == Vger::Resources::User::Stage::CANDIDATE, required: true}
       Hiring  
   .span6.left-offset1
     %label
       Select Assessment Type
     %label.extra-medium-text
-      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::COMPETENCY, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY}
+      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::COMPETENCY, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::COMPETENCY, required: true}
       Competency 
     %label.extra-medium-text
-      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::FIT, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::FIT}
+      %input{:type => "radio", class: 'rb_assessment_type', name: 'assessment[assessment_type]', value: Vger::Resources::Assessment::AssessmentType::FIT, checked: @assessment.assessment_type == Vger::Resources::Assessment::AssessmentType::FIT, required: true}
       Traits 
   .span8.left-offset1
     %label
@@ -69,7 +69,7 @@
   .span10.first
     %label
       Select the languages for the Assessment
-    %select.fw{ name: "assessment[languages][]", multiple: true }
+    %select.fw{ name: "assessment[languages][]", multiple: true, required: true }
       - Vger::Resources::Language.all.each do |language|
         %option{:value => language.language_code, selected: ((assessment.languages || []).include?(language.language_code))}
           = language.name
