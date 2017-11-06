@@ -170,6 +170,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
                     :send_sms => params[:options][:send_sms],
                     :send_email => params[:options][:send_email],
                     :trial => params[:trial] == 'on',
+                    :schedule_at => params[:schedule_at],
                     :worksheets => [{
                       :candidate_stage => Vger::Resources::User::Stage::EMPLOYED,
                       :template_id => params[:template_id].present? ? params[:template_id].to_i : nil,

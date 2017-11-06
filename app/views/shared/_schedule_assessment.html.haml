@@ -1,0 +1,21 @@
+- if is_superuser? && !params[:users]
+  .heading
+    %i.icon-calendar
+    Schedule Assessment (Optional)
+  %p.extra-medium-text
+    Please select the Date and Time at which the Assessment should be sent. 
+  .divider1
+  .date-time-pick
+    %label.label-main.extra-medium-text.default.pull-left
+      Date &amp; time
+    .icon-time.big-text.pull-left
+    %input.pull-left.input-main{name: "schedule_at", id: "datetimepicker", readonly: "readonly", style:"color: #000; cursor: pointer"}
+    .clr
+  .divider3
+  
+- content_for :stylesheets do
+  = stylesheet_link_tag "jquery-ui/jquery.datetimepicker"
+  = stylesheet_link_tag "jquery-ui/jquery-ui"
+- content_for :javascripts do
+  = javascript_include_tag 'shared/date_time_picker'        
+  

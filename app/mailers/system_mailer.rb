@@ -5,7 +5,8 @@ class SystemMailer < ActionMailer::Base
     @messages = messages
     to_email = [
       Rails.application.config.emails[:jit_recipients][:engineering],
-      Rails.application.config.emails[:jit_recipients][:product]
+      Rails.application.config.emails[:jit_recipients][:product],
+      Rails.application.config.emails[:jit_recipients][:operations]
     ]
     mail(
       :to => to_email.join(","),
