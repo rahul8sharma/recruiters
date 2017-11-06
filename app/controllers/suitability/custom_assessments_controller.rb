@@ -156,7 +156,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         :company_id => params[:company_id], 
         :assessment_type => ["fit","competency"] 
       }, 
-      :select => [:id, :created_at, :name, :language, :candidate_stage],
+      :select => [:id, :created_at, :name, :languages, :candidate_stage],
       :order => "#{order_by} #{order_type}", 
       :page => params[:page], 
       :per => 15
