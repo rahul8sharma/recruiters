@@ -7,6 +7,9 @@ assessment_takers_email:
 assessment_status:
   name: Assessment Status
   checked: true
+assessment_language:
+  name: Assessment Language
+  checked: true
 assessment_link:
   name: Assessment Link
   checked: true
