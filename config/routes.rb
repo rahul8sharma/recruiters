@@ -68,7 +68,6 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
-      get :select
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
@@ -536,14 +535,18 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  resources :vac_company_managers do
+    collection do
+      get :select_company
+      match :email_status_summary, :as => :email_status_summary
+      match :email_reports_summary, :as => :email_reports_summary
+    end
+  end
 
   resources :company_managers do
     collection do
-      get :manage
-      get :destroy_all
-      post :import
-      post :import_from_google_drive
-      post :export_to_google_drive
+      get :select_company
       match :email_usage_stats, :as => :email_usage_stats
       match :email_assessment_stats, :as => :email_assessment_stats
       match :email_reports_summary, :as => :email_reports_summary

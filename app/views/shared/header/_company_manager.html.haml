@@ -16,7 +16,7 @@
   %ul.navbar.pull-right.clearfix
     - if defined?(@company)
       %li
-        %a{:href=>select_companies_path(), :title=> "ACCOUNTS"}
+        %a{:href=>select_company_company_managers_path(), :title=> "ACCOUNTS"}
           ACCOUNTS
       - if @company.parent_id.blank?
         %li
