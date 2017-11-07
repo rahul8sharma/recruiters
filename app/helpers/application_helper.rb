@@ -130,6 +130,10 @@ module ApplicationHelper
     home_company_oac_exercises_path(current_user.company_ids.first)
   end
   
+  def redirect_vac_company_manager
+    select_company_vac_company_managers_path
+  end
+  
   def redirect_jit_user
     companies_path
   end
@@ -142,7 +146,7 @@ module ApplicationHelper
     if current_user.company_ids.size == 1
       company_custom_assessments_path(current_user.company_ids.first)
     else
-      select_companies_path
+      select_company_company_managers_path
     end
   end
   
