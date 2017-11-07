@@ -8,7 +8,7 @@ class LanguagesController < MasterDataController
   end
 
   def index_columns
-    return [:id, :name,:language_code]
+    return [:id, :name,:language_code, :display_name]
   end
   
   def search_columns
