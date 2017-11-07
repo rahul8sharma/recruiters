@@ -85,10 +85,10 @@
             .clr
           .control-group
             .span5.medium-text.line-height2.first.text-center
-              Language:
+              Languages:
             .span25
               %label.checked
-                = Vger::Resources::Language.where(query_options:{ language_code: assessment.language }).first.name
+                = Vger::Resources::Language.where(query_options:{ language_code: assessment.languages }).map(&:name).join(', ')
             .clr
           .control-group
             .span5.medium-text.line-height2.first.text-center

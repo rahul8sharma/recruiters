@@ -37,7 +37,8 @@
             - if @assessment.item_ids.is_a? Array
               = @assessment.item_ids.size
             - else  
-              = @assessment.item_ids.first[1].size + @assessment.item_ids["other_subjective_items"].to_a.size + @assessment.item_ids["other_objective_items"].to_a.size
+              - language_items = @assessment.item_ids[@assessment.item_ids.keys.first]
+              = language_items[language_items.keys.first].size + @assessment.item_ids["other_subjective_items"].to_a.size + @assessment.item_ids["other_objective_items"].to_a.size
       .scale.pull-right
         - line_width = (((@company_norm_buckets.size-1)*50)+10)
         .line{:style => "width: #{line_width}px"}
