@@ -1,8 +1,8 @@
 assessment_takers_name:
-  name: Assessment Taker's Name
+  name: "Assessment Taker's Name"
   checked: true
 assessment_takers_email:
-  name: Assessment Taker's Email
+  name: "Assessment Taker's Email"
   checked: true
 assessment_status:
   name: Assessment Status
