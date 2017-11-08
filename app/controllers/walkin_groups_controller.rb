@@ -37,7 +37,7 @@ class WalkinGroupsController < ApplicationController
   end
   
   def create
-    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id","language"]).all
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id","languages"]).all
     params[:walkin_group][:assessment_hash].reject!{|assessment_id, assessment_data| assessment_data["enabled"] != "true" }
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(params[:walkin_group])
     if @walkin_group.assessment_hash.present? && @walkin_group.save
