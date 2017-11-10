@@ -340,6 +340,7 @@ class Mrf::Assessments::UserFeedbackController < ApplicationController
                         :ignore_duplicate_names => params[:ignore_duplicate_names].present?,
                         :template_id => params[:template_id],
                         :trial => params[:trial] == 'on',
+                        :schedule_at => params[:schedule_at],
                         :worksheets => [{
                           :file => "BulkUpload.xls",
                           :bucket => @s3_bucket,

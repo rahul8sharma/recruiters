@@ -69,7 +69,12 @@
             .massage-body.italic.span15.medium-text.email-body
               = template.preview(:body).html_safe
             .clr
+    = render :partial => "shared/schedule_assessment"            
     .pull-right
+      %label.pull-left
+        %input{:type=>"checkbox", name: "options[send_email]", checked: true}
+        Send emails
+        &nbsp;&nbsp;&nbsp;
       %label.pull-left
         %input{ type:'checkbox', name: 'trial', value: false }
         Send as Trials

@@ -1,234 +1,184 @@
-.pull-left
-  Company Pages
-  %br
-  %br
-  = link_to "Subscriptions", subscriptions_path
-  %br
-  %br
-  = link_to "Plans", plans_path
-  %br
-  %br
-  = link_to "Languages", languages_path
-  %br
-  %br
-  Functional Links
-  %br
-  %br
-  = link_to "Traits", functional_traits_path
-  %br
-  %br
-  = link_to "Norm Buckets", functional_norm_buckets_path
-  %br
-  %br
-  = link_to "Functional Items", functional_items_path
-  %br
-  %br
-  = link_to "Trait Score Buckets", functional_trait_score_buckets_path
-  %br
-  %br
-  Miscellaneous
-  %br
-  %br
-  = link_to "Objective Items", objective_items_path
-  %br
-  %br
-  = link_to "Subjective Items", subjective_items_path
-  %br
-  %br
-  = link_to "Sections", sections_path
-  %br
-  %br
-.pull-left{ style: "margin-left:20px" }
-  Master Data Links
-  %br
-  %br
-  = link_to "Locations", locations_path
-  %br
-  %br
-  = link_to "Degrees", degrees_path
-  %br
-  %br
-  = link_to "Functional Areas", functional_areas_path
-  %br
-  %br
-  = link_to "Industries", industries_path
-  %br
-  %br
-  = link_to "Job Experiences", job_experiences_path
-  %br
-  %br
-  = link_to "Teams", teams_path
-  %br
-  %br
-  Form Builder Links
-  %br
-  %br
-  = link_to "Defined Form", form_builder_defined_forms_path
-  %br
-  %br
-  = link_to "Factual Information Forms", form_builder_factual_information_forms_path
-  %br
-  %br
-  Template Links
-  %br
-  %br
-  = link_to "Templates", templates_path
-  %br
-  %br
-  = link_to "Template Variables", template_variables_path
-  %br
-  %br
-.pull-left{ style: "margin-left:20px" }
-  Psychometry Links
-  %br
-  %br
-  = link_to "Suitability Factors", suitability_factors_path
-  %br
-  %br
-  = link_to "Competencies", suitability_competencies_path
-  %br
-  %br
-  = link_to "Competency Grades", suitability_competency_grades_path
-  %br
-  %br
-  = link_to "Aggregate Competency Score Buckets", suitability_aggregate_competency_score_buckets_path
-  %br
-  %br
-  = link_to "Suitability Job Factor Norms", suitability_job_factor_norms_path
-  %br
-  %br
-  = link_to "Suitability Item Groups", suitability_item_groups_path
-  %br
-  %br
-  = link_to "Norm Buckets", suitability_norm_buckets_path
-  %br
-  %br
-  = link_to "Company Norm Buckets", suitability_company_norm_buckets_path
-  %br
-  %br
-  = link_to "Factor Score Ratings", suitability_factor_score_ratings_path
-  %br
-  %br
-  = link_to "Competency Score Ratings", suitability_competency_score_ratings_path
-  %br
-  %br
-  = link_to "Fits", suitability_fits_path
-  %br
-  %br
-  = link_to "Overall Consistency Buckets", suitability_consistency_buckets_path
-  %br
-  %br
-  = link_to "Pattern Response Buckets", suitability_pattern_response_buckets_path
-  %br
-  %br
-  = link_to "Overall Factor Score Buckets", suitability_overall_factor_score_buckets_path
-  %br
-  %br
-  = link_to "Super Competencies", suitability_super_competencies_path
-  %br
-  %br
-  = link_to "Super Competency Score Buckets", suitability_super_competency_score_buckets_path
-  %br
-  %br
-.pull-left{ style: "margin-left:20px" }
-  Psychometry Links
-  %br
-  %br
-  = link_to "Overall Fitment Grades", suitability_overall_fitment_grades_path
-  %br
-  %br
-  = link_to "Factor Norm Bucket Descriptions", suitability_factor_norm_bucket_descriptions_path
-  %br
-  %br
-  = link_to "Fitment Grades", suitability_fitment_grades_path
-  %br
-  %br
-  = link_to "Fitment Grade Mappings", suitability_fitment_grade_mappings_path
-  %br
-  %br
-  = link_to "Default Factor Norm Ranges", suitability_default_factor_norm_ranges_path
-  %br
-  %br
-  = link_to "Post Assessment Guidelines", suitability_post_assessment_guidelines_path
-  %br
-  %br
-  = link_to "Recommendations", suitability_recommendations_path
-  %br
-  %br
+.master_data_list
+  .list_container.pull-left
+    %ul
+      %li.title 
+        Company Pages
+      %li
+        = link_to "Languages", languages_path
+      %li
+        = link_to "Plans", plans_path
+      %li
+        = link_to "Subscriptions", subscriptions_path
+      
+    %ul
+      %li.title 
+        Functional Links
+      %li
+        = link_to "Functional Items", functional_items_path
+      %li
+        = link_to "Norm Buckets", functional_norm_buckets_path
+      %li
+        = link_to "Trait Score Buckets", functional_trait_score_buckets_path
+      %li
+        = link_to "Traits", functional_traits_path
 
-.pull-left{ style: "margin-left:20px" }
-  MRF Links
-  %br
-  %br
-  = link_to "Traits", mrf_traits_path
-  %br
-  %br
-  = link_to "Items", mrf_items_path
-  %br
-  %br
-  = link_to "Subjective Items", mrf_subjective_items_path
-  %br
-  %br
-  = link_to "Mrf Subscription", mrf_subscriptions_path
-  %br
-  %br
-  = link_to "Trait Score Buckets", mrf_trait_score_buckets_path
-  %br
-  %br
-  = link_to "Competency Score Buckets", mrf_competency_score_buckets_path
-  %br
-  %br
-  = link_to "Trait Graph Buckets", mrf_trait_graph_buckets_path
-  %br
-  %br
-  = link_to "Competency Graph Buckets", mrf_competency_graph_buckets_path
-  %br
-  %br
-  = link_to "Norm Buckets", mrf_norm_buckets_path
-  %br
-  %br
-  = link_to "Default Trait Norm Ranges", mrf_default_trait_norm_ranges_path
-  %br
-  %br
-  = link_to "Default Competency Norm Ranges", mrf_default_competency_norm_ranges_path
-  %br
-  %br
+    %ul
+      %li.title
+        Master Data Links
+      %li
+        = link_to "Degrees", degrees_path
+      %li
+        = link_to "Functional Areas", functional_areas_path
+      %li
+        = link_to "Industries", industries_path
+      %li
+        = link_to "Job Experiences", job_experiences_path
+      %li
+        = link_to "Locations", locations_path
+      %li
+        = link_to "Teams", teams_path
+  .list_container.pull-left
+    %ul
+      %li.title
+        Psychometry Functional Item Links
+      %li
+        = link_to "Objective Items", objective_items_path
+      %li
+        = link_to "Sections", sections_path
+      %li
+        = link_to "Subjective Items", subjective_items_path
 
-.pull-left{ style: "margin-left:20px" }
-  OAC Links
-  %br
-  %br
-  = link_to "OAC Subscription", oac_subscriptions_path
-  %br
-  %br
-  = link_to "Manage OAC Exercise", oac_manage_path
-  %br
-  %br
-  = link_to "Tools", oac_tools_path
-  %br
-  %br
-  = link_to "Combined Super Competency Score Buckets", oac_combined_super_competency_score_buckets_path
-  %br
-  %br
-  = link_to "Combined Competency Score Buckets", oac_combined_competency_score_buckets_path
-  %br
-  %br
-  = link_to "Aggregate Competency Score Buckets", oac_aggregate_super_competency_score_buckets_path
-  %br
-  %br
-  = link_to "Aggregate Competency Score Ratings", oac_aggregate_super_competency_score_ratings_path
-  %br
-  %br
-  = link_to "Super Competency Guidelines", oac_super_competency_guidelines_path
-  %br
-  %br
-  = link_to "Competency Guidelines", oac_competency_guidelines_path
-  %br
-  %br
-  IDP
-  %br
-  %br
-  = link_to "IDPs", idp_idps_path
-  %br  
-.clr
+    %ul
+      %li.title  
+        EMail Template Links
+      %li
+        = link_to "Templates", templates_path
+      %li
+        = link_to "Template Variables", template_variables_path
+    %ul
+      %li.title
+        Factual Form Builder Links
+      %li
+        = link_to "Factual Form", form_builder_defined_forms_path
+      %li
+        = link_to "Factual Information Forms", form_builder_factual_information_forms_path
+    %ul
+      %li.title
+        Psychometry Links
+      %li
+        = link_to "Aggregate Competency Score Buckets", suitability_aggregate_competency_score_buckets_path
+      %li
+        = link_to "Company Norm Buckets", suitability_company_norm_buckets_path
+      %li
+        = link_to "Competencies", suitability_competencies_path
+      %li
+        = link_to "Competency Grades", suitability_competency_grades_path
+      %li
+        = link_to "Competency Score Ratings", suitability_competency_score_ratings_path
+      %li
+        = link_to "Default Factor Norm Ranges", suitability_default_factor_norm_ranges_path
+      %li
+        = link_to "Download Scores", manage_users_path
+      %li
+        = link_to "Factor Norm Bucket Descriptions", suitability_factor_norm_bucket_descriptions_path
+      %li
+        = link_to "Factor Score Ratings", suitability_factor_score_ratings_path
+      %li
+        = link_to "Fitment Grade Mappings", suitability_fitment_grade_mappings_path
+      %li
+        = link_to "Fitment Grades", suitability_fitment_grades_path
+      %li
+        = link_to "Fits", suitability_fits_path
+      %li
+        = link_to "Norm Buckets", suitability_norm_buckets_path
+      %li
+        = link_to "Overall Consistency Buckets", suitability_consistency_buckets_path
+      %li
+        = link_to "Overall Factor Score Buckets", suitability_overall_factor_score_buckets_path
+      %li
+        = link_to "Overall Fitment Grades", suitability_overall_fitment_grades_path
+      %li
+        = link_to "Pattern Response Buckets", suitability_pattern_response_buckets_path
+      %li
+        = link_to "Post Assessment Guidelines", suitability_post_assessment_guidelines_path
+      %li
+        = link_to "Recommendations", suitability_recommendations_path
+      %li
+        = link_to "Replicate Assessment", suitability_assessments_management_path
+      %li
+        = link_to "Suitability Factors", suitability_factors_path
+      %li
+        = link_to "Suitability Item Groups", suitability_item_groups_path
+      %li
+        = link_to "Suitability Job Factor Norms", suitability_job_factor_norms_path
+  .list_container.pull-left      
+    %ul
+      %li.title
+        TRRs
+      %li
+        = link_to "Generate TRR", trr_manage_path
+    %ul
+      %li.title
+        MRF Links
+      %li
+        = link_to "Competency Graph Buckets", mrf_competency_graph_buckets_path
+      %li
+        = link_to "Competency Score Buckets", mrf_competency_score_buckets_path
+      %li
+        = link_to "Default Competency Norm Ranges", mrf_default_competency_norm_ranges_path
+      %li
+        = link_to "Default Trait Norm Ranges", mrf_default_trait_norm_ranges_path
+      %li
+        = link_to "Items", mrf_items_path
+      %li
+        = link_to "Mrf Subscription", mrf_subscriptions_path
+      %li
+        = link_to "Norm Buckets", mrf_norm_buckets_path
+      %li
+        = link_to "Regenerate Reports", report_management_path
+      %li
+        = link_to "Replicate 360s & Download scores", mrf_assessments_management_path
+      %li
+        = link_to "Subjective Items", mrf_subjective_items_path
+      %li
+        = link_to "Trait Score Buckets", mrf_trait_score_buckets_path
+      %li
+        = link_to "Trait Graph Buckets", mrf_trait_graph_buckets_path
+        
+      %li
+        = link_to "Traits", mrf_traits_path
+  .list_container.pull-left
+    %ul
+      %li.title
+        VAC Links
+      %li
+        = link_to "Aggregate Competency Score Buckets", oac_aggregate_super_competency_score_buckets_path
+      %li
+        = link_to "Aggregate Competency Score Ratings", oac_aggregate_super_competency_score_ratings_path
+      %li
+        = link_to "Combined Competency Score Buckets", oac_combined_competency_score_buckets_path
+      %li
+        = link_to "Combined Super Competency Score Buckets", oac_combined_super_competency_score_buckets_path
+      %li
+        = link_to "Competency Guidelines", oac_competency_guidelines_path
+      %li
+        = link_to "Super Competencies", suitability_super_competencies_path
+      %li
+        = link_to "Super Competency Guidelines", oac_super_competency_guidelines_path
+      %li
+        = link_to "Super Competency Score Buckets", suitability_super_competency_score_buckets_path
+      %li
+        = link_to "Super Competency Score Descriptions", suitability_super_competency_score_bucket_descriptions_path
+      %li
+        = link_to "Tools", oac_tools_path
+      %li
+        = link_to "VAC Exercise Scores and Status", oac_manage_path       
+      %li
+        = link_to "VAC Subscription", oac_subscriptions_path
 
+    %ul
+      %li.title
+        IDP
+      %li
+        = link_to "IDPs", idp_idps_path  
+    .clr

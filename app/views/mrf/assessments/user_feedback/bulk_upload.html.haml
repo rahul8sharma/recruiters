@@ -59,7 +59,8 @@
   .divider4
   = render :partial => "email_settings", locals: { reminder: false }
   .divider2
-  .span24.pull-right.medium-text
+  = render :partial => "shared/schedule_assessment"
+  .span26.pull-right.medium-text
     - if is_superuser?
       .span.medium-text.pull-left
         %label.line-height2
