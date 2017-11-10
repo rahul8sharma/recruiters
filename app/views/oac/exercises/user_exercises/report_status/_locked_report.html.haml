@@ -1,0 +1,4 @@
+- if is_superuser?
+  = link_to "View Report", s3_report_company_oac_exercise_path(company.id, exercise.id, user_exercise.user_id, report.id), target: "_blank"
+- else
+  Locked Report  

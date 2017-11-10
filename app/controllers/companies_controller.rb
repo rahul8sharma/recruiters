@@ -73,7 +73,10 @@ class CompaniesController < ApplicationController
       :order => order
     ).where(
       :query_options => {
-        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => [
+          Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED,
+          Vger::Resources::Suitability::UserAssessmentReport::Status::LOCKED
+        ]
       }, :page => params[:page], :per => 5
     ).all
   end

@@ -19,25 +19,27 @@ class SubscriptionManagersController < ApplicationController
       )
       @invitations = Vger::Resources::Invitation.group_count(
         :query_options => {
-          :company_id => @companies.map(&:id)
+          "invitations.company_id" => @companies.map(&:id)
         },
-        :group => [ :company_id ],
-        :select => [ :company_id ]
+        :scopes => { no_trials: nil },
+        :group => [ "invitations.company_id" ],
+        :select => [ "invitations.company_id" ]
       )
       
       @used_invitations = Vger::Resources::Invitation.group_count(
         :query_options => {
-          :company_id => @companies.map(&:id),
-          :status => Vger::Resources::Invitation::Status::USED
+          "invitations.company_id" => @companies.map(&:id)
         },
-        :group => [ :company_id ],
-        :select => [ :company_id ]
+        :scopes => { no_trials: nil, locked_or_used: nil },
+        :group => [ "invitations.company_id" ],
+        :select => [ "invitations.company_id" ]
       )
 
       @subscriptions = Vger::Resources::Subscription.group_count(
         :query_options => {
           :company_id => @companies.map(&:id)
         },
+        :scopes => { no_trials: nil },
         :group => [ :company_id ],
         :select => [ :company_id ]
       )
@@ -45,6 +47,7 @@ class SubscriptionManagersController < ApplicationController
         :query_options => {
           :company_id => @companies.map(&:id)
         },
+        :scopes => { no_trials: nil },
         :scopes => { :active => nil },
         :group => [ :company_id ],
         :select => [ :company_id ]
