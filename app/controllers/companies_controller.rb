@@ -323,7 +323,6 @@ class CompaniesController < ApplicationController
     conditions[:scopes] = { :name_like => name } if name
 
     @companies = Vger::Resources::Company.where(conditions)
-    @active_subscription
   end
 
   def get_countries

@@ -1,0 +1,21 @@
+.span18.pull-right
+  %ul#sub-nav.pull-right
+    %li
+      %a.setting{href: "#", title: "Account"}
+      %ul.medium-text
+        %li
+          %a{href: "/logout"} Logout
+  %ul.navbar.pull-right.clearfix
+    %li
+      %a{:href=>companies_subscription_managers_path, class: (params[:action] == 'companies' ? 'active' : '')} ACCOUNTS
+    - if defined?(@company)
+      %li
+        %a{:href=> company_subscription_managers_path(@company.id), class: (params[:action] == 'company' ? 'active' : '')} Home
+      %li
+        %a{:href=> company_statistics_subscription_managers_path(@company.id, type: "suitability"), class: (params[:type] == 'suitability' ? 'active' : '')} Suitability Usage
+      %li
+        %a{:href=> company_statistics_subscription_managers_path(@company.id, type: "360"), class: (params[:type] == '360' ? 'active' : '')} 360 Usage
+      %li
+        %a{:href=> company_statistics_subscription_managers_path(@company.id, type: "vac"), class: (params[:type] == 'vac' ? 'active' : '')} VAC Usage    
+  .clr
+.clr

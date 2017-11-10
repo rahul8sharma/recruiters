@@ -85,6 +85,8 @@ module Recruiters
     config.signup = YAML.load(File.read(Rails.root.join("config/signup.yml"))).symbolize_keys
     config.emails = YAML.load(File.read(Rails.root.join("config/emails.yml"))).with_indifferent_access
     
+    config.allowed_roles = YAML.load(File.read(Rails.root.join("config/allowed_roles.yml")))
+    
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp

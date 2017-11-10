@@ -1,0 +1,11 @@
+.usage
+  = render :partial => "recent_usage"
+
+  %b.extra-medium-text
+    Remaining Usable Assessments: #{@company.unlocked_invites_count}
+  .divider1
+  
+  = render :partial => "subscriptions"
+
+
+
