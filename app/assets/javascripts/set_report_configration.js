@@ -367,7 +367,7 @@ $(document).ready(function(){
     var custom_message = $('#exercise_cover_letter').length ==1 ?$('#exercise_cover_letter').val() : "";
     var brand_partner = $('#select_brand_partner').length == 1 ? $('#select_brand_partner').val() : "";
     if($('#set_assessment_type').val() !== "") {
-      gview($(this), $pdfTree, candidate_type, brand_partner,custom_message);
+      loadPreview($(this), $pdfTree, candidate_type, brand_partner,custom_message);
     } else {
       alert("Please select assessment type!");
     }  
