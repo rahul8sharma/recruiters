@@ -261,7 +261,7 @@ function generatePreview(assessmentType, viewMode, $jsTree, candidate_type, bran
   uri += "&report_type="+reportType;
   uri += "&company_id="+company_id;
   uri += "&candidate_type="+candidate_type;
-  uri += "&custom_message="+custom_message;
+  uri += "&custom_message="+encodeURI(custom_message);
   uri += "&brand_partner="+brand_partner;
   
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
@@ -367,7 +367,7 @@ $(document).ready(function(){
     var custom_message = $('#exercise_cover_letter').length ==1 ?$('#exercise_cover_letter').val() : "";
     var brand_partner = $('#select_brand_partner').length == 1 ? $('#select_brand_partner').val() : "";
     if($('#set_assessment_type').val() !== "") {
-      loadPreview($(this), $pdfTree, candidate_type, brand_partner,custom_message);
+      gview($(this), $pdfTree, candidate_type, brand_partner,custom_message);
     } else {
       alert("Please select assessment type!");
     }  
