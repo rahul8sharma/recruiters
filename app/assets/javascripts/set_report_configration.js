@@ -261,7 +261,7 @@ function generatePreview(assessmentType, viewMode, $jsTree, candidate_type, bran
   uri += "&report_type="+reportType;
   uri += "&company_id="+company_id;
   uri += "&candidate_type="+candidate_type;
-  uri += "&custom_message="+custom_message;
+  uri += "&custom_message="+encodeURI(custom_message);
   uri += "&brand_partner="+brand_partner;
   
   var url = "/report_configurations/report_preview_"+reportType+"/?"+uri;
