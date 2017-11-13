@@ -1,0 +1,9 @@
+.pull-right
+  = form_tag trigger_report_downloader_url, method: :get do |f|
+    .medium-text.pull-left.line-height2.bold
+      %input{ name: "date_range", class: "daterangepicker" }
+    .medium-text.pull-left
+      &nbsp;&nbsp;&nbsp;
+    %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Download PDF Reports" }
+    .clr
+.clr
