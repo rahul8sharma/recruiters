@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter(:except => [:select]) { authorize_user!(params[:id]) }
-  before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive, :select]
+  before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
   before_filter :get_companies, :only => [ :index ]
   before_filter :get_countries, :only => [ :edit, :update ]
 
@@ -11,18 +11,6 @@ class CompaniesController < ApplicationController
     Vger::Resources::Company
   end
   
-  def select
-    params[:search] ||= {}
-    if current_user.company_ids && current_user.company_ids.size > 0
-      params[:search] = params[:search].merge({ "companies.id" => current_user.company_ids })
-      params[:search] = params[:search].select{|key,val| val.present? }
-      order_by = params[:order_by] || "created_at"
-      order_type = params[:order_type] || "DESC"
-      @companies = Vger::Resources::Company.where(query_options: params[:search], order: "#{order_by} #{order_type}", page: params[:page], per: 10).all
-    else
-      @companies = []
-    end
-  end
 
   def destroy_all
     api_resource.destroy_all
