@@ -134,6 +134,10 @@ module ApplicationHelper
     select_company_vac_company_managers_path
   end
   
+  def redirect_subscription_manager
+    companies_subscription_managers_path
+  end
+  
   def redirect_jit_user
     companies_path
   end

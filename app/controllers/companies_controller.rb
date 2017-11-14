@@ -73,7 +73,10 @@ class CompaniesController < ApplicationController
       :order => order
     ).where(
       :query_options => {
-        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => [
+          Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED,
+          Vger::Resources::Suitability::UserAssessmentReport::Status::LOCKED
+        ]
       }, :page => params[:page], :per => 5
     ).all
   end
@@ -323,7 +326,6 @@ class CompaniesController < ApplicationController
     conditions[:scopes] = { :name_like => name } if name
 
     @companies = Vger::Resources::Company.where(conditions)
-    @active_subscription
   end
 
   def get_countries

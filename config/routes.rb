@@ -543,6 +543,17 @@ Recruiters::Application.routes.draw do
       match :email_reports_summary, :as => :email_reports_summary
     end
   end
+  
+  resources :subscription_managers do
+    collection do
+      get :companies
+      get "companies/:company_id" => 'subscription_managers#company', as: :company
+      get "companies/:company_id/statistics" => 'subscription_managers#company_statistics', as: :company_statistics
+      match "companies/:company_id/edit" => 'subscription_managers#edit_company', as: :edit_company
+      match "companies/:company_id/add_subscription" => 'subscription_managers#add_subscription', as: :add_subscription
+      match "companies/:company_id/edit_subscription" => 'subscription_managers#edit_subscription', as: :edit_subscription
+    end
+  end
 
   resources :company_managers do
     collection do

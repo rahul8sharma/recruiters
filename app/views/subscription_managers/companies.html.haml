@@ -1,0 +1,62 @@
+.companies-list
+  .page-title
+    .divider1
+    Search Companies 
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @companies}
+  .clr
+  .divider1
+  .search
+    = form_for :search, url: companies_subscription_managers_path, method: :get do |f|
+      - f.object = OpenStruct.new(params[:search])
+      .field
+        = f.text_field :id, :placeholder => "Company ID", value: params[:search][:id]
+        = f.text_field :name, :placeholder => "Company Name", value: params[:search][:name]
+        = f.submit "Search", class: "btn btn-warning"
+  .divider2
+  .list-snippet-titles.medium-text.clearfix
+    .span2.first
+      = sort_link "ID", companies_subscription_managers_path, "id", params[:search]
+    .span8
+      = sort_link "Company Name", companies_subscription_managers_path, :name, params[:search]
+    .span4
+      No of Packages Added
+    .span4
+      Total Subscriptions
+    .span3
+      Subscriptions Used
+    .span3
+      Subscriptions Remaining
+    .span3
+      Valid till
+    .clr
+    .divider2
+  %ul
+    - @companies.each do |company|
+      %li.list-snippet.border-bottom-grayLighter
+        .span2.first
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = company.id
+        .span8
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = company.name
+        .span4
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = h @subscriptions[company.id.to_s], 0
+        .span4
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = h @invitations[company.id.to_s], 0
+        .span3
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = h @used_invitations[company.id.to_s], 0
+        .span3
+          %a.extra-medium-text{:href => company_subscription_managers_path(company.id), :title => "Go to #{company.name}"}
+            = h @remaining_invitations[company.id.to_s], 0
+        .span3
+          = company.subscription_valid_to ? hdate(company.subscription_valid_to) : h(nil)
+        .clr
+        .divider1
+  .divider2
+  .pull-right
+    = render :partial => "shared/pagination", :locals => { :objects => @companies}
+  .clr

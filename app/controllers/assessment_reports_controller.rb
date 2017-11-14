@@ -117,7 +117,7 @@ class AssessmentReportsController < ApplicationController
     else
       view_mode = params[:view_mode] || "html"
     end
-    if report.s3_keys[view_mode].present?
+    if report.s3_keys[view_mode].present? && (is_superuser? || report.uploaded?)
       url = S3Utils.get_url(report.s3_keys[view_mode][:bucket], report.s3_keys[view_mode][:key])
       redirect_to url
     else

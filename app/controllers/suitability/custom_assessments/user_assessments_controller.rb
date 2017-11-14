@@ -475,7 +475,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       include: [:user_assessment_reports, :user],
       methods: [:proctoring_url],
       query_options: {
-        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => [
+          Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED,
+          Vger::Resources::Suitability::UserAssessmentReport::Status::LOCKED
+        ]
       },
       order: order,
       page: params[:page],
@@ -587,7 +590,8 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     @company = Vger::Resources::Company.find(
       params[:company_id], 
       :methods => methods,
-      :select  => [:id, :name, :configuration, :parent_id] 
+      :select  => [
+        :id, :name, :configuration, :parent_id, :enable_suitability_reports_access] 
     )
   end
 

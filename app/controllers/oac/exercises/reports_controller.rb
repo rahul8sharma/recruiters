@@ -76,11 +76,18 @@ class Oac::Exercises::ReportsController < ApplicationController
   def s3_report
     report = Vger::Resources::Oac::UserExerciseReport.find(params[:report_id], params)
     if request.format.to_s == "application/pdf"
-      url = S3Utils.get_url(report.pdf_bucket, report.pdf_key)
+      view_mode = "pdf"
     else
-      url = S3Utils.get_url(report.html_bucket, report.html_key)
+      view_mode = params[:view_mode] || "html"
     end
-    redirect_to url
+    bucket = report.send("#{view_mode}_bucket")
+    key = report.send("#{view_mode}_key")
+    if report.s3_keys[view_mode].present? && (is_superuser? || report.uploaded?)
+      url = S3Utils.get_url(bucket, key)
+      redirect_to url
+    else
+      raise Faraday::ResourceNotFound.new("Not Found")
+    end
   end
 
   protected

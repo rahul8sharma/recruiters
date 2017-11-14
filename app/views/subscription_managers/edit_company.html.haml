@@ -1,0 +1,48 @@
+- content_for :jquery do
+  = javascript_include_tag "jquery"
+  = javascript_include_tag "jquery_ujs"
+
+.company_profile
+  .page-title
+    .divider1
+    Edit Company
+  .divider2
+
+  .padding-all2.border-warning.shifted-up1
+    .extra-large-text
+      Please provide the following information
+    .divider2
+    = form_for(@company, :as => :company, url: edit_company_subscription_managers_path(@company.id), method: :put, html: { :class => "edit_company_page" }) do |f|
+      .span15.margin-auto
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Company Name:
+          = f.text_field :name, :class => "first span7 medium-text left-offset1"
+          .clr
+      .divider1
+      .span15.margin-auto
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Enable Suitability Report Access:
+          = f.check_box :enable_suitability_reports_access, :class => "first span7 medium-text left-offset1"
+          .clr
+      .divider1
+      .span15.margin-auto
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Enable 360 Report Access:
+          = f.check_box :enable_360_reports_access, :class => "first span7 medium-text left-offset1"
+          .clr
+      .divider1
+      .span15.margin-auto
+        .control-group
+          %label.span7.first.big-text.line-height2.gray-darker.text-left
+            Enable VAC Report Access:
+          = f.check_box :enable_vac_reports_access, :class => "first span7 medium-text left-offset1"
+          .clr
+      .divider1
+      .control-group.text-center
+        %input.btn.btn-warning.large-text{:type => "submit", :value => "Submit"}
+
+    .clr      
+= javascript_include_tag 'edit_company'
