@@ -66,8 +66,14 @@ class SubscriptionManagersController < ApplicationController
   end
   
   def add_subscription
-    @company = Vger::Resources::Company.find(params[:company_id],{})
+    @company = Vger::Resources::Company.find(params[:company_id],{
+      methods: [:admin]
+    })
     if request.post?
+      if !@company.admin.present?
+        flash[:error] = "Please add an admin to this account before adding subscription."
+        redirect_to company_subscription_managers_path(@company) and return
+      end
       begin
         valid_to = Date.parse(params[:subsciption][:valid_to])
       rescue Exception => e

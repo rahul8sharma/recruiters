@@ -82,7 +82,7 @@ class Oac::Exercises::ReportsController < ApplicationController
     end
     bucket = report.send("#{view_mode}_bucket")
     key = report.send("#{view_mode}_key")
-    if report.s3_keys[view_mode].present? && (is_superuser? || report.uploaded?)
+    if report.send("#{view_mode}_bucket").present? && (is_superuser? || report.uploaded?)
       url = S3Utils.get_url(bucket, key)
       redirect_to url
     else
