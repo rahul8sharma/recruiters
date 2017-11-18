@@ -112,8 +112,6 @@ Recruiters::Application.routes.draw do
 
       get "users/:user_id" => "companies#user", :as => :user
 
-      match "add_subscription" => "companies#add_subscription", :as => :add_subscription
-
       get "home" => "companies#home", :as => :home
       get :landing
       get :email_assessment_stats
