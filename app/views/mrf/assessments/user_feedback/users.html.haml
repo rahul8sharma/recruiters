@@ -58,13 +58,9 @@
                 - else
                   Partially Complete
               .span5
-                - if @reports[user.id].present? && @reports[user.id].last.status == Vger::Resources::Mrf::Report::Status::UPLOADED
-                  %a{:href => s3_report_company_mrf_assessment_path(@company.id, @assessment.id, user.id, @reports[user.id].last.id), :title => "View Report", :target => '_blank'}
-                    %i.icon-file
-                    View Report
-                - elsif @reports[user.id].present?
-                  %i.icon-spinner.icon-spin 
-                  Generating Report...
+                - if @reports[user.id].present?
+                  - report = @reports[user.id].first
+                  = render :partial => "mrf/assessments/user_feedback/report_status/#{report.status}", locals: { report: report, user: user }
                 - else
                   = "-"
               .span4

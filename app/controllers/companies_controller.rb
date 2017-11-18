@@ -73,7 +73,10 @@ class CompaniesController < ApplicationController
       :order => order
     ).where(
       :query_options => {
-        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => [
+          Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED,
+          Vger::Resources::Suitability::UserAssessmentReport::Status::LOCKED
+        ]
       }, :page => params[:page], :per => 5
     ).all
   end
@@ -101,46 +104,6 @@ class CompaniesController < ApplicationController
     end
   end
   
-  def add_subscription
-    #@callback_url = payment_status_subscriptions_url(:auth_token => RequestStore.store[:auth_token])
-    # @redirect_url = payment_status_subscriptions_url
-    # the post request to this route will come in via :
-    # from the add subscription form on the subscription view
-    # code to generate URL for the billing app
-    # believed route to this action via line 36 of routes.rb
-    # actual route to this action via line 199 of routes.rb
-    if !@company.admin.present?
-      flash[:error] = "Please add an admin to this account before adding subscription."
-      redirect_to company_path(@company) and return
-    end
-    if request.put?
-      begin
-        valid_to = Date.parse(params[:valid_to])
-      rescue Exception => e
-        flash[:error] = e.message
-        render :action => :add_subscription
-        return
-      end
-      if (valid_to - Date.today) > 0
-        subscription_data = {
-          company_id: @company.id,
-          assessments_purchased: params[:assessments_purchased],
-          valid_from: Time.now.strftime("%d/%m/%Y"),
-          valid_to: params[:valid_to],
-          added_by_user_id: current_user.id
-        }
-        type = params[:type].present? ? "::#{params[:type]}" : ""
-        klass = "Vger::Resources#{type}::Subscription".constantize
-        job_id = klass.create(subscription_data)
-        flash[:notice] = "Subscription is being added. You should receive an email when the subscription gets added to the system."
-        redirect_to company_path(@company)
-      else
-        flash[:error] = "Subscription should be valid for at least 1 day"
-        render :action => :add_subscription
-      end
-    end
-  end
-
   def index
     if @companies.present?
       @assessment_counts = Vger::Resources::Suitability::CustomAssessment.group_count(
@@ -323,7 +286,6 @@ class CompaniesController < ApplicationController
     conditions[:scopes] = { :name_like => name } if name
 
     @companies = Vger::Resources::Company.where(conditions)
-    @active_subscription
   end
 
   def get_countries

@@ -45,14 +45,8 @@
               
           .clr
     .divider3
-    .pull-left
-      = form_tag trigger_report_downloader_url, method: :get do |f|
-        .medium-text.pull-left.line-height2.bold
-          %input{ name: "date_range", class: "daterangepicker" }
-        .medium-text.pull-left
-          &nbsp;&nbsp;&nbsp;
-        %input.pull-left.btn.btn-warning.medium-text{ type: "submit", value: "Download PDF Reports" }
-        .clr
+    - if @company.enable_vac_reports_access
+      = render :partial => "shared/download_pdf_reports"
     .pull-right
       = render :partial => "shared/pagination", :locals => { :objects => @user_exercises }
     .clr

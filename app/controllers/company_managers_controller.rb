@@ -12,7 +12,17 @@ class CompanyManagersController < ApplicationController
       params[:search] = params[:search].select{|key,val| val.present? }
       order_by = params[:order_by] || "created_at"
       order_type = params[:order_type] || "DESC"
-      @companies = Vger::Resources::Company.where(query_options: params[:search], order: "#{order_by} #{order_type}", page: params[:page], per: 10).all
+      @companies = Vger::Resources::Company.where(
+        query_options: params[:search], 
+        order: "#{order_by} #{order_type}", 
+        select: [
+          :id,
+          :name,
+          :created_at,
+          :enable_suitability_reports_access
+        ],
+        page: params[:page], per: 10
+      ).all
     else
       @companies = []
     end

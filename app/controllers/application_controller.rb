@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   helper_method :can?
-  helper_method :is_superuser?, :is_jit_user?, :is_company_manager?, :is_admin?
+  helper_method :is_superuser?
   
   # redirect user according to type of the user
   # keep the flash message before redirecting to display any errors/warnings
-  def after_sign_in_path_for()
+  def after_sign_in_path_for
     flash.keep
     return params[:redirect_to] if params[:redirect_to].present?
     redirect_user_path
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   
   def redirect_user_path
     if current_user
-      self.send "redirect_#{current_user.role.underscore}"
+      self.send "redirect_#{current_user.role_names.first.underscore}"
     else
       login_path(:redirect_to => request.fullpath)
     end
@@ -39,27 +39,12 @@ class ApplicationController < ActionController::Base
   end
   
   def is_superuser?
-    current_user and (is_jit_user? || current_user.role == Vger::Resources::Role::RoleName::SUPER_ADMIN)
-  end
-  
-  def is_jit_user?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::JIT
-  end
-  
-  def is_company_manager?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::COMPANY_MANAGER
-  end
-  
-  def is_admin?
-    current_user and current_user.role == Vger::Resources::Role::RoleName::ADMIN
-  end
-  
-  def is_vac_admin?
-    current_user and current_user.role == "VacAdmin"
-  end
-  
-  def is_vac_company_manager?
-    current_user and current_user.role == "VacCompanyManager"
+    current_user && (
+      ([
+        Vger::Resources::Role::RoleName::JIT,
+        Vger::Resources::Role::RoleName::SUPER_ADMIN
+      ] & current_user.role_names).present?
+    )
   end
   
   # catch unauthorized exception from Faraday
@@ -112,17 +97,15 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
   
+  def current_user_has_allowed_role?
+    (Rails.application.config.allowed_roles & current_user.role_names).present?
+  end
+  
   def authorize_user!(company_id)
-    if is_superuser? || is_jit_user?
+    if current_user_has_allowed_role? && (
+      is_superuser? || current_user.company_ids.include?(company_id.to_i)
+    )
       return true
-    elsif is_company_manager? && current_user.company_ids.include?(company_id.to_i)
-      return true
-    elsif is_admin? && current_user.company_id.to_i == company_id.to_i  
-      return true 
-    elsif is_vac_admin? && current_user.company_id.to_i == company_id.to_i  
-      return true 
-    elsif is_vac_company_manager? && current_user.company_ids.include?(company_id.to_i)
-      return true 
     else
       redirect_to redirect_user_path
     end

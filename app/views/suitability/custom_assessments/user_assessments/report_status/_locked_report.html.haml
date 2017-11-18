@@ -1,0 +1,11 @@
+- if is_superuser?
+  - url =  company_custom_assessment_user_user_assessment_report_url(:company_id => @company.id, :user_id => user_assessment.user_id, :custom_assessment_id => user_assessment.assessment_id, :id => report.id, :view_mode => "html")
+  %a{:href => url, :title => "View Report", target: "_blank"}
+    %i.icon-file{:style=>"font-size: 21px; line-height: 20px;"}
+    View Report
+    - if is_superuser?
+      - if user_assessment.options[:link_used]
+        - url_params = CGI::parse(user_assessment.options[:link_used])
+        = "(Manager Link Used)" if url_params["cc"].present?
+- else
+  Locked Report        

@@ -24,10 +24,6 @@ class SubscriptionsController < MasterDataController
     redirect_to manage_subscriptions_path
   end
   
-  def import_from
-    "import_from_google_drive"
-  end
-  
   # Expires a subscription prematurely
   # Sets status of all invitations under a subscription to 'expired'
   def expire_subscription

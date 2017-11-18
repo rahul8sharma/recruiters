@@ -77,12 +77,13 @@
                     .info
                       Email Status Summary
                     .arrow
-                  %a.huge-text.span1.info-block{:href => email_reports_summary_vac_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
-                    %i.icon-file
-                    .info
-                      Email Reports Summary
-                    .arrow
-                  .clr
+                  - if company.enable_vac_reports_access  
+                    %a.huge-text.span1.info-block{:href => email_reports_summary_vac_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
+                      %i.icon-file
+                      .info
+                        Email Reports Summary
+                      .arrow
+                    .clr
                 .clr
               .clr
               .divider1
