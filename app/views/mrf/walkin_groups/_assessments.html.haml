@@ -29,6 +29,11 @@
 
   = f.text_field :page_description, :placeholder => "Page Description", :class => "padding-all1 span21 float-none first"
   .divider2
+  
+  %label.padding-all1.span21.float-none.first
+    = f.check_box :send_email_notifications
+    Send Email Notifications
+  .divider2
   .enable-assessment-list
     .divider2
     = render :partial => "mrf/assessments/user_assessments/email_settings_for_user"
