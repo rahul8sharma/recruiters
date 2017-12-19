@@ -410,6 +410,7 @@ Recruiters::Application.routes.draw do
         get "download_bulk_upload_csv" => "oac/exercises/user_exercises#download_bulk_upload_csv", as: :download_bulk_upload_csv
         get "export_report_summary" => "oac/exercises/user_exercises#export_report_summary", :as => :export_report_summary
         get "export_status_summary" => "oac/exercises/user_exercises#export_status_summary", :as => :export_status_summary
+        get "export_candidates" => "oac/exercises/user_exercises#export_candidates", :as => :export_candidates
       end
     end
 
