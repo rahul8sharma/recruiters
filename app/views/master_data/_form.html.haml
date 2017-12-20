@@ -7,7 +7,7 @@
       .field
         = f.label index_column
         %select{ name: "#{resource_name.singularize}[#{index_column}]", style: "width:200px" }    
-          - controller.send("select_#{index_column}").sort.each do |value|
+          - controller.send("select_#{index_column}").each do |key, value|
             %option{ value: value, selected: (@resource.send(index_column) == value) }
               = value
     - else

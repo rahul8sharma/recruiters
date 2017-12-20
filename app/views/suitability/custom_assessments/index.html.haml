@@ -53,10 +53,10 @@
               %b
                 Purpose:
               = 'For '+(assessment.candidate_stage == 'employee' ? "Development" : "Hiring")
-              |
+              %br
               %b
-                Language: 
-              = @languages[assessment.language]
+                Languages: 
+              = assessment.languages.map{|language_code| @languages[language_code] }.join(", ")
             .arrow
           .span3.text-center
             %a{:href => company_custom_assessment_path(:company_id => params[:company_id], :id => assessment.id)}

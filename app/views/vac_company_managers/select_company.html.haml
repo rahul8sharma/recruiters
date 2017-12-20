@@ -1,0 +1,95 @@
+= javascript_include_tag 'select_company'
+= stylesheet_link_tag 'jquery-ui/jquery.datetimepicker'
+.companies-list
+  .divider1
+  .page-title.pull-left
+    Your Accounts
+    .clr
+    .span6.extra-medium-text.gray-dark.first
+      Click on Account Name or ID to go to an Account
+  .border-primary.padding-all1.pull-right
+    .medium-text.pull-left
+      Export and Email Overall Data
+      .divider1
+      .pull-left.span4
+        .span
+          From: 
+        %input.span3.datepicker.from{ type: "text", id: "start_date" }
+      .pull-left.span4
+        .span
+          To: 
+        %input.span3.datepicker.to{ type: "text", id: "end_date" }  
+      .clr  
+    .span
+      .divider2
+      .span
+        = form_tag email_status_summary_vac_company_managers_path, method: :post do |f|
+          %input.start_date{ type: "hidden", name: "export[date_range][start]" }
+          %input.end_date{ type: "hidden", name: "export[date_range][end]" }
+          %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_assessment_stats_link"}
+            %i.icon-check
+            Email Status Summary
+      .span
+        = form_tag email_reports_summary_vac_company_managers_path, method: :post do |f|
+          %input.start_date{ type: "hidden", name: "export[date_range][start]" }
+          %input.end_date{ type: "hidden", name: "export[date_range][end]" }
+          %a.btn.btn-warning.default-text.export-link{:href => "#", id: "export_reports_summary_link"}
+            %i.icon-file
+            Email Reports Summary    
+
+    .clr
+  .clr
+  .divider2
+  .border-primary.padding-all1
+    .span30.margin-auto
+      - if @companies.present?
+        .divider2
+        .list-snippet-titles.big-text.clearfix
+          .span4.first
+            = sort_link "Account ID", select_company_vac_company_managers_path, :id, params[:search]
+            .clr
+          .span12
+            = sort_link "Account Name", select_company_vac_company_managers_path, :name, params[:search]
+          .span6
+            = sort_link "Created On", select_company_vac_company_managers_path, :created_at, params[:search]
+          .span.text-center
+            %a{:href=>"#"} Export and Email
+          .clr
+          .divider2
+        %ul
+          - @companies.each do |company|
+            %li.list-snippet
+              .span4.first
+                %a.pull-left.show.medium-text.line-height1{:href => home_company_oac_exercises_path(company.id), :title => "Go to #{company.name}"}
+                  &nbsp;&nbsp;
+                  = company.id
+                .clr  
+              .span12
+                %a.medium-text{:href => home_company_oac_exercises_path(company.id), :title => "Go to #{company.name}"}
+                  = company.name
+              .span6
+                %a.medium-text{:href => home_company_oac_exercises_path(company.id), :title => "Go to #{company.name}"}
+                  = hdate company.created_at
+              .span4.text-center
+                .span3.margin-auto
+                  %a.huge-text.span1.first.info-block{:href => email_status_summary_vac_company_managers_path("export[company_ids]" => company.id), :title => "Email Status Summary"}
+                    %i.icon-check
+                    .info
+                      Email Status Summary
+                    .arrow
+                  - if company.enable_vac_reports_access  
+                    %a.huge-text.span1.info-block{:href => email_reports_summary_vac_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
+                      %i.icon-file
+                      .info
+                        Email Reports Summary
+                      .arrow
+                    .clr
+                .clr
+              .clr
+              .divider1
+        .divider2
+        .pull-right
+          = render :partial => "shared/pagination", :locals => { :objects => @companies}
+        .clr
+      - else
+        No companies found under your account! Please contact <a href="mailto:#{Rails.application.config.emails[:jit_recipients][:support]}">#{Rails.application.config.emails[:jit_recipients][:support]}</a>

@@ -1,6 +1,31 @@
-class CompanyManagersController < MasterDataController
+class CompanyManagersController < ApplicationController
+  layout "companies"
+  
   def api_resource
     Vger::Resources::User
+  end
+  
+  def select_company
+    params[:search] ||= {}
+    if current_user.company_ids && current_user.company_ids.size > 0
+      params[:search] = params[:search].merge({ "companies.id" => current_user.company_ids })
+      params[:search] = params[:search].select{|key,val| val.present? }
+      order_by = params[:order_by] || "created_at"
+      order_type = params[:order_type] || "DESC"
+      @companies = Vger::Resources::Company.where(
+        query_options: params[:search], 
+        order: "#{order_by} #{order_type}", 
+        select: [
+          :id,
+          :name,
+          :created_at,
+          :enable_suitability_reports_access
+        ],
+        page: params[:page], per: 10
+      ).all
+    else
+      @companies = []
+    end
   end
 
   def email_usage_stats
@@ -49,27 +74,5 @@ class CompanyManagersController < MasterDataController
     Vger::Resources::User.find(current_user.id)\
       .export_assessment_stats(options)
     redirect_to request.env['HTTP_REFERER'], notice: "Assessment Status Summary will be generated and emailed to #{current_user.email}."
-  end
-
-
-  def import_from
-    "import_from_google_drive"
-  end
-
-  def index_columns
-    [
-      :id,
-      :name,
-      :email,
-      :reset_password_token
-    ]
-  end
-
-  def search_columns
-    [
-      :id,
-      :name,
-      :email
-    ]
   end
 end

@@ -345,7 +345,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           :responses_count => 0,
           :report_email_recipients => recipients.join(","),
           :options => options,
-          :language => @assessment.language
+          :language => (@assessment.languages.size == 1 ? @assessment.languages.first : nil)
         )
         if user_assessment.error_messages.present?
           failed_user_assessments << user_assessment
@@ -402,14 +402,33 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       :per => 10, 
       :joins => :user, 
       :order => order,
-      :include => [:user, :user_assessment_reports]
+      :include => {
+        :user => {
+          :only => [:id, :name, :email]
+        }, 
+        :user_assessment_reports => {
+          :only => [:id, :status]
+        }
+      },
+      :methods => [:expiry_date,:link_status],
+      :select => [
+        'suitability_user_assessments.id',
+        'suitability_user_assessments.assessment_id',
+        'suitability_user_assessments.options',
+        'suitability_user_assessments.status',
+        'suitability_user_assessments.candidate_stage',
+        'suitability_user_assessments.created_at',
+        'suitability_user_assessments.updated_at',
+        'suitability_user_assessments.completed_at',
+        'suitability_user_assessments.invitation_id',
+        'suitability_user_assessments.user_id'
+      ]
     )
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
       scope = scope.where(:query_options => params[:search])
     end
-    scope  = scope.where(:methods => [:expiry_date,:link_status])
     @user_assessments = scope
     @users = @user_assessments.map(&:user)
     @users = Kaminari.paginate_array(@users, total_count: @user_assessments.total_count).page(params[:page]).per(10)
@@ -456,7 +475,10 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       include: [:user_assessment_reports, :user],
       methods: [:proctoring_url],
       query_options: {
-        "suitability_user_assessment_reports.status" => Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED
+        "suitability_user_assessment_reports.status" => [
+          Vger::Resources::Suitability::UserAssessmentReport::Status::UPLOADED,
+          Vger::Resources::Suitability::UserAssessmentReport::Status::LOCKED
+        ]
       },
       order: order,
       page: params[:page],
@@ -568,7 +590,8 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     @company = Vger::Resources::Company.find(
       params[:company_id], 
       :methods => methods,
-      :select  => [:id, :name, :configuration, :parent_id] 
+      :select  => [
+        :id, :name, :configuration, :parent_id, :enable_suitability_reports_access] 
     )
   end
 

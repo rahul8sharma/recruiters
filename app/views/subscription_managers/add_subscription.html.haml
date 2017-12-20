@@ -1,0 +1,41 @@
+.company_profile
+  .page-title
+    .divider1
+    Add Subscription to CID: #{@company.id} - #{@company.name}
+  .divider2
+  .padding-all2.border-warning.shifted-up1
+    .extra-large-text.text-center
+      Please provide the following information
+    .divider2
+    = form_for :subsciption, :url => add_subscription_subscription_managers_path(@company.id), method: :post, :html => { :class => "add_subscription text-right span14 margin-auto"}  do |f|
+      .control-group
+        %label.span6.first.big-text.line-height2.gray-darker
+          Type:
+        = select_tag :type, options_for_select(subscription_types), :name => "type", :class => "first span7 medium-text left-offset1"
+        .clr
+      .control-group
+        %label.span6.first.big-text.line-height2.gray-darker
+          Number of Assessments:
+        = f.text_field :assessments_purchased, :class => "first span7 medium-text left-offset1", required: true
+        .clr
+
+      .control-group
+        %label.span6.first.big-text.line-height2.gray-darker
+          Expiry Date of Subscription
+        = f.text_field :valid_to, :class => "first span7 medium-text left-offset1 datepicker", :id => "datepicker", required: true
+
+        .clr
+      .control-group
+        %label.span6.first.big-text.line-height2.gray-darker
+          Subscription Type:
+        = f.select :plan_id, subscription_type_options, :class => "first span7 medium-text left-offset1"
+        .clr
+      = f.submit "Submit", class: "btn btn-warning large-text pull-right", confirm: "Are you sure?"
+      .clr
+= javascript_include_tag 'jquery'
+= javascript_include_tag 'jquery_ujs'
+- content_for :stylesheets do
+  = stylesheet_link_tag "jquery-ui/jquery.datetimepicker"
+  = stylesheet_link_tag "jquery-ui/jquery-ui"
+- content_for :javascripts do
+  = javascript_include_tag 'shared/date_time_picker'        

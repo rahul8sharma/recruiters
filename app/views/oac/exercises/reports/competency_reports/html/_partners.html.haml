@@ -1,7 +1,7 @@
 .partners.text-right
   .container
     - if @report.report_data[:company][:logo_url]
-      .span2.first
+      .span4.first
         .divider1
         - url = @report.report_data[:company][:logo_url]
         = image_tag(url)

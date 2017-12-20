@@ -210,6 +210,11 @@ class Oac::ExercisesController < ApplicationController
     end
   end
 
+  def download_pdf_reports
+    url = S3Utils.get_url(params[:bucket], params[:key])
+    redirect_to url
+  end
+
   protected
 
   def get_company

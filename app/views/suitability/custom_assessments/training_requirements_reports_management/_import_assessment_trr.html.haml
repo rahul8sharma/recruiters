@@ -1,14 +1,14 @@
-= form_for :assessment, url: import_assessment_trr_users_path, multipart: true, :method => :post do |f|
+= form_tag import_assessment_trr_users_path, multipart: true, :method => :post do
   %fieldset
     %legend
       %strong Import Candidate List(Single Assessment TRR)
     %p
       Assessment ID :
-      = f.text_field :id
+      = text_field_tag :assessment_id
     %p
-      Google Spreadsheet Url :
-      = f.text_field "url"
-    = f.hidden_field :email, :value => current_user.email
+      = fields_for :import do |ff|
+        XLS File
+        = ff.file_field "file"
 
   .actions
     = submit_tag 'Regenerate TRR'

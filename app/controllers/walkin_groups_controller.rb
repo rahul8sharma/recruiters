@@ -29,7 +29,7 @@ class WalkinGroupsController < ApplicationController
       :query_options => { 
         :company_id => @company.id 
       }, 
-      select: ["name","id","language","candidate_stage"], 
+      select: ["name","id","languages","candidate_stage"], 
       order: ["created_at DESC"]
     ).all
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(:company_id => @company.id, :expires_on => Time.now + 24.hours)
@@ -37,7 +37,7 @@ class WalkinGroupsController < ApplicationController
   end
   
   def create
-    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id","language"]).all
+    @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id","languages"]).all
     params[:walkin_group][:assessment_hash].reject!{|assessment_id, assessment_data| assessment_data["enabled"] != "true" }
     @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(params[:walkin_group])
     if @walkin_group.assessment_hash.present? && @walkin_group.save
@@ -90,7 +90,7 @@ class WalkinGroupsController < ApplicationController
                       company_id: @company.id, 
                       id: @walkin_group.assessment_hash.keys
                     }, 
-                    select: ["name","id","language"]
+                    select: ["name","id","languages"]
                    ).all.to_a
   end
   

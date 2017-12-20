@@ -285,6 +285,7 @@ This report contains feedback\
     '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       name: Result Orientation
       score: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        super_competency_description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"
         assessor_feedback: One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed 
         score: 39.59
         bucket: Below Average
@@ -331,6 +332,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"  
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -365,6 +367,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 66.0
@@ -393,6 +396,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -415,6 +419,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 21.0
@@ -478,6 +483,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 11.0
@@ -500,6 +506,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 55.0
@@ -528,6 +535,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -556,6 +564,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 65.0
@@ -631,6 +640,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 25.0
@@ -672,6 +682,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 22.0
@@ -712,6 +723,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 12.0
@@ -746,6 +758,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 88.0
@@ -815,6 +828,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 40.0
@@ -855,6 +869,7 @@ This report contains feedback\
             uid: OKsrTfWV
             weight: 2
             pass: false
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 33.0
@@ -889,6 +904,7 @@ This report contains feedback\
             uid: TQHBqVkO
             weight: 3
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 50.0
@@ -911,6 +927,7 @@ This report contains feedback\
             uid: QHqInEYf
             weight: 5
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 100.0
@@ -927,6 +944,7 @@ This report contains feedback\
             uid: mbAKnHly
             weight: 4
             pass: true
+          description: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed"    
           toolwise_scores: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
             Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
               score: 88.0
@@ -953,452 +971,556 @@ This report contains feedback\
               uid: QHqInEYf
               weight: 5
   competency_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Withstanding Pressure
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Stress Tolerance
-            weightage: '1'
-      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Influencing Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Giving Feedback
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+    overall_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Delegation
         weightage: '1'
+        name: Understanding Customers
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Delegation
-            weightage: '1'
-      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Decision Making
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Conflict Management
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Communication Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Coaching
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Assertiveness
-            weightage: '1'
-          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Mentoring
-            weightage: '1'
-          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Helpfulness
-            weightage: '1'
-      '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Big Picture Thinking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4201': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Analytical Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-    Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Withstanding Pressure
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Stress Tolerance
-            weightage: '1'
-      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Risk Taking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Risk Taking
-            weightage: '1'
-      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Managing Targets
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Persistence
-            weightage: '1'
-          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Target Orientation
-            weightage: '1'
-      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Influencing Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Giving Feedback
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Delegation
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Delegation
-            weightage: '1'
-      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Decision Making
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Conflict Management
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Communication Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-      '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Coaching
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Assertiveness
-            weightage: '1'
-          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Mentoring
-            weightage: '1'
-          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Helpfulness
-            weightage: '1'
-      '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Big Picture Thinking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-    Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Withstanding Pressure
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Stress Tolerance
-            weightage: '1'
-      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Risk Taking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '2'
           to_bucket: '5'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Risk Taking
-            weightage: '1'
-      '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Rewards & Recognition
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Monitoring
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Managing Targets
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Persistence
-            weightage: '1'
-          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Target Orientation
-            weightage: '1'
-      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Influencing Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Delegation
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Delegation
-            weightage: '1'
-      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Decision Making
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Conflict Management
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Communication Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
       '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Coaching
         weightage: '1'
+        name: Sets Systems & Processes
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Assertiveness
-            weightage: '1'
-          '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Mentoring
-            weightage: '1'
-          '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Helpfulness
-            weightage: '1'
-    Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Withstanding Pressure
+          to_bucket: '5'
+      '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         weightage: '1'
+        name: Concern for Quality
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Stress Tolerance
-            weightage: '1'
-      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Risk Taking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Risk Taking
-            weightage: '1'
+          to_bucket: '5'
       '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Rewards & Recognition
         weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '5'
-          to_bucket: '6'
-      '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Resource Optimization
-        weightage: '1'
+        name: Big Picture Understanding
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-      '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: People Connect
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-      '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Monitoring
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
+          to_bucket: '5'
       '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Managing Targets
         weightage: '1'
+        name: Timely Decision Making
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Persistence
-            weightage: '1'
-          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Target Orientation
-            weightage: '1'
-      '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Influencing Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Decision Making
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-      '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Conflict Management
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Communication Skills
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
-    Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Withstanding Pressure
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Stress Tolerance
-            weightage: '1'
-      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Risk Taking
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Risk Taking
-            weightage: '1'
-      '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Rewards & Recognition
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
-      '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Resource Optimization
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '4'
-          to_bucket: '6'
+          to_bucket: '5'
       '4194': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Planning and Prioritization
         weightage: '1'
+        name: Seeks Feedback
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '11': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Planning and Prioritization
-            weightage: '1'
-      '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: People Connect
-        weightage: '1'
-        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          from_bucket: '3'
-          to_bucket: '6'
+          to_bucket: '5'
       '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Monitoring
         weightage: '1'
+        name: Risk Taking
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-      '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Managing Targets
+          to_bucket: '5'
+      '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
         weightage: '1'
+        name: Process Excellence
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
-        traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-          '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Persistence
-            weightage: '1'
-          '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-            name: Target Orientation
-            weightage: '1'
+          to_bucket: '5'
       '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Influencing Skills
         weightage: '1'
+        name: Prioritising
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
+          to_bucket: '5'
+      '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Offers Customised Solutions
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
       '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-        name: Conflict Management
         weightage: '1'
+        name: Honouring Commitments
         desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
           from_bucket: '3'
-          to_bucket: '6'
+          to_bucket: '5'
+      '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Ensures Customer Delight
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+      '4201': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Desire to Outperform
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+      '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Dealing with Ambiguity
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+      '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Considers Multiple Solutions
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+      '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Competitor Awareness
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+      '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        weightage: '1'
+        name: Competitiveness
+        desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          from_bucket: '3'
+          to_bucket: '5'
+    toolwise_configuration:
+      Psychometric Assessment: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Stress Tolerance
+              weightage: '1'
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Giving Feedback
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Delegation
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Delegation
+              weightage: '1'
+        '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Decision Making
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Communication Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Coaching
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Assertiveness
+              weightage: '1'
+            '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Mentoring
+              weightage: '1'
+            '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Helpfulness
+              weightage: '1'
+        '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Big Picture Thinking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4201': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Analytical Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      Situation Judgement Test: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Stress Tolerance
+              weightage: '1'
+        '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Risk Taking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Risk Taking
+              weightage: '1'
+        '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Managing Targets
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Persistence
+              weightage: '1'
+            '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Target Orientation
+              weightage: '1'
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4191': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Giving Feedback
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Delegation
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Delegation
+              weightage: '1'
+        '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Decision Making
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Communication Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+        '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Coaching
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Assertiveness
+              weightage: '1'
+            '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Mentoring
+              weightage: '1'
+            '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Helpfulness
+              weightage: '1'
+        '4205': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Big Picture Thinking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+      Simulation: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Stress Tolerance
+              weightage: '1'
+        '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Risk Taking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '2'
+            to_bucket: '5'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Risk Taking
+              weightage: '1'
+        '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Rewards & Recognition
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Monitoring
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Managing Targets
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Persistence
+              weightage: '1'
+            '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Target Orientation
+              weightage: '1'
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4189': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Delegation
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '87': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Delegation
+              weightage: '1'
+        '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Decision Making
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Communication Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4190': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Coaching
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '1': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Assertiveness
+              weightage: '1'
+            '88': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Mentoring
+              weightage: '1'
+            '9': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Helpfulness
+              weightage: '1'
+      Case Study: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Stress Tolerance
+              weightage: '1'
+        '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Risk Taking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Risk Taking
+              weightage: '1'
+        '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Rewards & Recognition
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '5'
+            to_bucket: '6'
+        '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Resource Optimization
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: People Connect
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+        '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Monitoring
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Managing Targets
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Persistence
+              weightage: '1'
+            '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Target Orientation
+              weightage: '1'
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4202': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Decision Making
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4198': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Communication Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+      Behavioral Event Interview: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        '4203': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Withstanding Pressure
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Stress Tolerance
+              weightage: '1'
+        '4204': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Risk Taking
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '15': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Risk Taking
+              weightage: '1'
+        '4192': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Rewards & Recognition
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4196': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Resource Optimization
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '4'
+            to_bucket: '6'
+        '4194': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Planning and Prioritization
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '11': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Planning and Prioritization
+              weightage: '1'
+        '4200': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: People Connect
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4195': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Monitoring
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4193': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Managing Targets
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+          traits: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            '68': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Persistence
+              weightage: '1'
+            '35': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+              name: Target Orientation
+              weightage: '1'
+        '4197': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Influencing Skills
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
+        '4199': !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+          name: Conflict Management
+          weightage: '1'
+          desired_range: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+            from_bucket: '3'
+            to_bucket: '6'
   super_competency_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     overall_configuration: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       '2': !ruby/hash:ActiveSupport::HashWithIndifferentAccess

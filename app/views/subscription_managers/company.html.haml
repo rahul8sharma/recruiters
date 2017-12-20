@@ -1,0 +1,54 @@
+.company_profile
+  .page-title
+    .divider1
+    Company Details
+
+  .divider2
+
+  .padding-all2.border-warning.shifted-up1.extra-medium-text
+    .span19.margin-auto
+      %ul
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
+            Company Name:
+          .span7
+            #{@company.name}
+          .clr
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
+            No of Packages Added:
+          .span7
+            #{@company.subscriptions_count}
+          .clr
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
+            Total no of Subscriptions:
+          .span7
+            #{@company.assigned_invitations_count}
+          .clr
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
+            Subscriptions Used:
+          .span7
+            #{@company.used_invitations_count}
+          .clr      
+        %li.padding-all1.big-text
+          .span10.gray-dark
+            %i.icon-group
+            Expiry Date:
+          .span7
+            #{hdate @company.subscription_valid_to}
+          .clr        
+      %a.btn.btn-warning.inverse.medium-text.pull-left.bold{href: edit_company_subscription_managers_path(@company.id)}
+        Edit Company Profile
+      %a.btn.btn-warning.medium-text.pull-right.left-offset1{href: add_subscription_subscription_managers_path(@company.id)}
+        Add Subscription
+      .clr
+    .divider4
+.divider4
+
+

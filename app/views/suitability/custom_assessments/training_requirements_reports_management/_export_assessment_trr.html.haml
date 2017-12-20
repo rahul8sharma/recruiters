@@ -6,11 +6,6 @@
       Assessment ID :
       = f.text_field :id
 
-    = f.fields_for "folder" do |f|
-      %p
-        Google Drive Folder Url :
-        = f.text_field "url"
-
     = f.hidden_field :email, :value => current_user.email
 
   .actions

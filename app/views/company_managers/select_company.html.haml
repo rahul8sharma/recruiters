@@ -53,10 +53,10 @@
         .divider2
         .list-snippet-titles.big-text.clearfix
           .span8.first
-            = sort_link "Account ID", select_companies_path, "id", params[:search]
+            = sort_link "Account ID", select_company_company_managers_path, "id", params[:search]
             .clr
           .span8
-            = sort_link "Account Name", select_companies_path, :name, params[:search]
+            = sort_link "Account Name", select_company_company_managers_path, :name, params[:search]
           .span.text-center
             %a{:href=>"#"} Export and Email
           .clr
@@ -79,11 +79,12 @@
                     .info
                       Email Assessment Status Summary
                     .arrow
-                  %a.huge-text.span1.info-block{:href => email_reports_summary_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
-                    %i.icon-file
-                    .info
-                      Email Reports Summary
-                    .arrow
+                  - if company.enable_suitability_reports_access
+                    %a.huge-text.span1.info-block{:href => email_reports_summary_company_managers_path("export[company_ids]" => company.id), :title => "Email Reports Summary"}
+                      %i.icon-file
+                      .info
+                        Email Reports Summary
+                      .arrow
                   %a.huge-text.span1.info-block{:href => email_usage_stats_company_path(company.id), :title => "Email Usage Summary"}
                     %i.icon-bar-chart
                     .info

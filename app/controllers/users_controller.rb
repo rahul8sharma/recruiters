@@ -176,7 +176,10 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = Vger::Resources::User.find(params[:id], methods: [:authentication_token], include: [:industry,:functional_area,:location,:degree])
+    @user = Vger::Resources::User.find(params[:id], 
+      methods: [:authentication_token], 
+      include: [:industry,:functional_area,:location,:degree]
+    )
   end
   
   def update

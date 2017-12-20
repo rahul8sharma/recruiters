@@ -68,7 +68,6 @@ Recruiters::Application.routes.draw do
       post :export_to_google_drive
       post :export_companies
       post :export_monthly_report
-      get :select
     end
 
     resources :standard_assessments, :controller => "companies/standard_assessments", :path => "standard-tests" do
@@ -112,8 +111,6 @@ Recruiters::Application.routes.draw do
       match "settings/user_settings/add_company_managers" => "company_settings#add_company_managers", :as => :add_company_managers
 
       get "users/:user_id" => "companies#user", :as => :user
-
-      match "add_subscription" => "companies#add_subscription", :as => :add_subscription
 
       get "home" => "companies#home", :as => :home
       get :landing
@@ -385,6 +382,9 @@ Recruiters::Application.routes.draw do
       end
 
       member do
+        get "download_pdf_reports" => "oac/exercises#download_pdf_reports", :as => :download_pdf_reports
+        get "trigger_report_downloader" => "oac/exercises/user_exercises#trigger_report_downloader", :as => :trigger_report_downloader
+        
         match "edit" => "oac/exercises#edit", :as => :edit
         match "select_tools" => "oac/exercises#select_tools", :as => :select_tools
         match "select_competencies" => "oac/exercises#select_competencies", :as => :select_competencies
@@ -533,14 +533,29 @@ Recruiters::Application.routes.draw do
       end
     end
   end
+  
+  resources :vac_company_managers do
+    collection do
+      get :select_company
+      match :email_status_summary, :as => :email_status_summary
+      match :email_reports_summary, :as => :email_reports_summary
+    end
+  end
+  
+  resources :subscription_managers do
+    collection do
+      get :companies
+      get "companies/:company_id" => 'subscription_managers#company', as: :company
+      get "companies/:company_id/statistics" => 'subscription_managers#company_statistics', as: :company_statistics
+      match "companies/:company_id/edit" => 'subscription_managers#edit_company', as: :edit_company
+      match "companies/:company_id/add_subscription" => 'subscription_managers#add_subscription', as: :add_subscription
+      match "companies/:company_id/edit_subscription" => 'subscription_managers#edit_subscription', as: :edit_subscription
+    end
+  end
 
   resources :company_managers do
     collection do
-      get :manage
-      get :destroy_all
-      post :import
-      post :import_from_google_drive
-      post :export_to_google_drive
+      get :select_company
       match :email_usage_stats, :as => :email_usage_stats
       match :email_assessment_stats, :as => :email_assessment_stats
       match :email_reports_summary, :as => :email_reports_summary
@@ -610,6 +625,7 @@ Recruiters::Application.routes.draw do
 
   resources :subscriptions, :only => [:index] do
     collection do
+      post :export
       post :expire_subscription, :as => :expire_subscription
       post :payment_status, :as => :payment_status
       post :import
