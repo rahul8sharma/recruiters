@@ -1,7 +1,7 @@
 module SubscriptionsHelper
   def free_plan
     trial_plan = Vger::Resources::Plan.where(
-      scopes: [:trial_plan]
+      scopes: [:free_plan]
     ).first
   end
   
