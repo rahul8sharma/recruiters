@@ -47,8 +47,7 @@ class SubscriptionManagersController < ApplicationController
         :query_options => {
           :company_id => @companies.map(&:id)
         },
-        :scopes => { no_trials: nil },
-        :scopes => { :active => nil },
+        :scopes => { no_trials: nil, active: nil },
         :group => [ :company_id ],
         :select => [ :company_id ]
       )
@@ -152,6 +151,7 @@ class SubscriptionManagersController < ApplicationController
         company_id: @company.id
       },
       scopes: {
+        no_trials: nil
       },
       :methods => [
         :assessments_sent,
