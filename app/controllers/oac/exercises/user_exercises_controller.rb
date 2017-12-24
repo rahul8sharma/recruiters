@@ -54,6 +54,11 @@ class Oac::Exercises::UserExercisesController < ApplicationController
     redirect_to request.env['HTTP_REFERER'], notice: "Status summary will be generated and emailed to #{current_user.email}."
   end
   
+  def export_candidates
+    Vger::Resources::Oac::Exercise.get("/sidekiq/queue-job?args[user_id]=#{current_user.id}&args[exercise_id]=#{params[:id]}&job_klass=Oac::CandidatesExporter")
+    redirect_to request.env['HTTP_REFERER'], notice: "Candidates sheet will be generated and emailed to #{current_user.email}."
+  end
+  
   def candidates
     order = params[:order_by] || "status"
     order_type = params[:order_type] || "DESC"
