@@ -13,11 +13,10 @@ module Suitability
           )
         ))
         
-        if assessment.brand_partner.present?
-          file_name = assessment.brand_partner
+        assessment.brand_partners.to_a.each do |partner|
           fields.merge!(YAML.load(
             File.read(
-              "#{Rails.root}/config/exports/suitability/report_summary/#{file_name}.yml"
+              "#{Rails.root}/config/exports/suitability/report_summary/#{partner}.yml"
             )
           ))
         end
@@ -31,7 +30,7 @@ module Suitability
         end  
 
       rescue Errno::ENOENT => e
-        Rails.logger.debug "No report summary configuration found for #{assessment.brand_partner} or for #{assessment.assessment_type}"
+        Rails.logger.debug "No report summary configuration found for #{assessment.brand_partners} or for #{assessment.assessment_type}"
       end    
       return fields
     end

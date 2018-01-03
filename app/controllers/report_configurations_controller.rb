@@ -135,7 +135,7 @@ class ReportConfigurationsController < MasterDataController
     @report.report_hash = @report.report_data
     @report.report_configuration = HashWithIndifferentAccess.new JSON.parse(params[:config])
     @report.report_hash[:candidate_stage] = params[:candidate_type]
-    @report.report_hash[:assessment][:brand_partner] = params[:brand_partner]
+    @report.report_hash[:assessment][:brand_partners] = params[:brand_partners].split(',')
 
     if params[:view_mode]
       @view_mode = params[:view_mode]

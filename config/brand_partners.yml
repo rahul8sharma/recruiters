@@ -1,9 +1,25 @@
+aptitude_partners:
+  - cocubes
+  - hireme
+  - jombay_aptitude
 brand_partners:
   pearson: 
     description: "<p>&nbsp;&nbsp;&nbsp;&nbsp;We develop and deliver leading, scientifically-valid assessments used to improve performance, identify talent, develop leaders, and engage teams.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;TalentLens, a Pearson business, publishes scientific assessments that are used globally to hire and develop the 21st century workforce. Our instruments measure critical thinking, problem solving, and a range of job skills to deliver data-driven insights that inform and clarify an organization's human capital decisions. Learn more at TalentLens.com.</p>"
+    type:
+      - cognitive
   cocubes: 
     description: "CoCubes.com is India's largest assessment and hiring platform. They work with 450+ corporate, 2600+ colleges, and 1 million+ students through a platform that runs > 500,000 assessments each year in 250+ cities; thus everyday helping corporate get greater control and transparency, helping institutional clients measure and improve employability and helping students move ahead on their career path. CoCubes&#39; vision is to ensure that everyone in the country gets an equal opportunity to build a career."
+    type:
+      - aptitude
   talview: 
     description: "Talview is a video interview platform which helps employers build a high performing workforce by reaching out to and screening more candidates using lesser time and resources than traditional hiring processes. Talview has served clients across 102 countries and its client list includes many leading organizations like ABB, Avery Dennison, Cognizant, GlaxoSmithKline, NTT Group, Tata Group, Unicef, VF Corporation and Wipro."
+    type: []
   hireme:
     description: "Hire.Me is an integrated recruitment solution that uniquely addresses the complex challenges HR professionals face when recruiting talent. The platform gives you the ability to effectively reach, engage and evaluate candidates on multiple parameters. Real-time assessment, analytics, and reporting help you make the best candidate hiring and selection decision."
+    type:
+      - aptitude
+  jombay_aptitude:
+    description: ""
+    type:
+      - aptitude
+
