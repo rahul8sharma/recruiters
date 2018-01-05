@@ -13,10 +13,6 @@ brand_partners:
     logo: 'brand-partners/cocubes.png'
     type:
       - aptitude
-  talview: 
-    description: "Talview is a video interview platform which helps employers build a high performing workforce by reaching out to and screening more candidates using lesser time and resources than traditional hiring processes. Talview has served clients across 102 countries and its client list includes many leading organizations like ABB, Avery Dennison, Cognizant, GlaxoSmithKline, NTT Group, Tata Group, Unicef, VF Corporation and Wipro."
-    logo: 'brand-partners/talview.png'
-    type: []
   hireme:
     description: "Hire.Me is an integrated recruitment solution that uniquely addresses the complex challenges HR professionals face when recruiting talent. The platform gives you the ability to effectively reach, engage and evaluate candidates on multiple parameters. Real-time assessment, analytics, and reporting help you make the best candidate hiring and selection decision."
     logo: 'brand-partners/hireme.png'
