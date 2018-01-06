@@ -23,13 +23,3 @@ brand_partners:
     logo:
     type:
       - aptitude
-  jombay_abstract_thinking:
-    description:
-    logo:
-    type:
-      - abstract_thinking
-  jombay_critical_thinking:
-    description:
-    logo:
-    type:
-      - critical_thinking
