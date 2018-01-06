@@ -2,9 +2,10 @@
   .divider5
   .container
     .j-logo.pull-left
-    - if @report.report_hash[:assessment][:brand_partner].present?
+    - logos = @report.report_hash[:assessment][:brand_partners].to_a.map{|partner| Rails.application.config.brand_partners[partner][:logo] }.compact.uniq
+    - logos.each do |logo|
       .pull-right
-        - imagePath = asset_path("brand-partners/"+@report.report_hash[:assessment][:brand_partner].underscore+".png")
+        - imagePath = asset_path(logo)
         .partner-logo{:style => "background: url(#{imagePath}) no-repeat center 0; width: 240px; height: 200px "}
     .clr
   .divider24

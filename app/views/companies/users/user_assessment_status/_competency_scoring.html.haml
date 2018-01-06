@@ -1,5 +1,5 @@
-- if user_assessment.assessment.brand_partner.present?
-  #{user_assessment.assessment.brand_partner.titleize} Pending
+- if user_assessment.assessment.brand_partners.present?
+  #{user_assessment.assessment.brand_partners.map(&:titleize).join(',')} Pending
 - elsif is_superuser?
   Competency Scoring...
 - else

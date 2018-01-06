@@ -2,8 +2,8 @@
   .container{:style=>"width: 92%"}
     .logo.full-logo
       = image_tag('report/pdf/jombay-logo-icon.png')
-    - if @report.report_data[:assessment][:brand_partner] && @report.report_data[:assessment][:brand_partner] == "cocubes"
-      - logo_url = asset_path("#{@report.report_data[:assessment][:brand_partner].underscore}.png")
+    - if @report.report_data[:assessment][:brand_partners].to_a.include?("cocubes")
+      - logo_url = asset_path("cocubes.png")
       .logo-partner.with-full-logo
         =image_tag(logo_url, :style => "padding: 5px 0 0 10px;")
     .text-right

@@ -3,9 +3,11 @@
     .container
       .icon
       .title.black
-        - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
-          - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-          %img{:src => brand_partner_image_path, :style =>"height: 55px;position: relative;top: -17px;left: 2px;", :align => "center"}
+        - if @report && @report.report_hash && @report.report_hash[:assessment]
+          - @report.report_hash[:assessment][:brand_partners].to_a.each do |partner|
+            - partner_data = Rails.application.config.brand_partners[partner]
+            - next if partner_data[:logo].blank?
+            %img{:src => asset_path(partner_data[:logo]), :style =>"height: 55px;position: relative;top: -17px;left: 2px;", :align => "center"}
       .clr
   .divider3
   .container
