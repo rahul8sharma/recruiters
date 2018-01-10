@@ -47,6 +47,14 @@
                     %option{ value: defined_form.id, selected: (exercise_tool.defined_form_id.to_s == defined_form.id.to_s) }
                       = defined_form.name
                 .divider1
+              - if exercise_tool.tool.assessment_names.present?
+                %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][assessment_name]" }
+                  %option{ value: "" }
+                    Select Assessment
+                  - exercise_tool.tool.assessment_names.each do |assessment_name|
+                    %option{ value: assessment_name, selected: exercise_tool.assessment_name == assessment_name }
+                      = assessment_name
+                .divider1
               /
                 %input.fw{:type=>"text", :placeholder=>"Assessment URL", name: "exercise[exercise_tools_attributes][#{index}][url]", value: exercise_tool.url }
                 .divider1

@@ -3,6 +3,9 @@
     = f.label :company_ids
     = f.text_area :company_ids, value: @factor.company_ids.join(",")
   .field
+    = f.label :modules
+    = f.text_area :modules, value: @factor.modules.join(",")
+  .field
     = f.label :type
     = f.select :type, controller.send(:select_type)
   .field

@@ -19,6 +19,7 @@ class Oac::Exercises::UserExercisesController < ApplicationController
       custom_columns = []
       @exercise_tools.each do |exercise_tool|
         tool = exercise_tool.tool
+        tool.integration_configuration ||= {}
         tool.integration_configuration["link_configuration"] ||= {}
         tool.integration_configuration["link_configuration"].each do |index, config|
           custom_columns << "#{tool.name}_#{config['name']}".underscore

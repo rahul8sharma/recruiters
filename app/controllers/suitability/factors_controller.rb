@@ -94,6 +94,7 @@ class Suitability::FactorsController < MasterDataController
 
   def update
     params[:factor][:company_ids] = params[:factor][:company_ids].to_s.split(",")
+    params[:factor][:modules] = params[:factor][:modules].to_s.split(",")
     @factor = api_resource.save_existing(params[:id], params[:factor])
     respond_to do |format|
       if @factor.error_messages.present?
