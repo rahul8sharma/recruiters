@@ -1,2 +1,3 @@
-- @assessment.brand_partners.to_a.each do |partner|
+- @assessment.brand_partners.to_a.compact.each do |partner|
+  - next if partner.blank?
   = render "suitability/custom_assessments/disclaimers/brand_partners/#{partner}"
