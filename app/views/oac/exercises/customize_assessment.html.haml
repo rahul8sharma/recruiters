@@ -17,35 +17,17 @@
                   = exercise_tool.tool.name.titleize
                 %input.span2.first{ :type => "text", :name=>"exercise[exercise_tools_attributes][#{index}][tool_weightage]", :placeholder=>"Weightage", value: exercise_tool.tool_weightage }
               - if exercise_tool.tool.is_jombay_tool  
-                %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][industry_id]" }
-                  %option{ value: "" }
-                    Select Industry
-                  - @industries.each do |industry_id, industry|
-                    %option{ value: industry.id, selected: exercise_tool.industry_id.to_i == industry.id }
-                      = industry.name
-                .divider1
-                %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][functional_area_id]" }
-                  %option{ value: "" }
-                    Select Function
-                  - @functional_areas.each do |functional_area_id, functional_area|
-                    %option{ value: functional_area.id, selected: exercise_tool.functional_area_id.to_i == functional_area.id }
-                      = functional_area.name  
-                .divider1
-                %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][job_experience_id]" }
-                  %option{ value: "" }
-                    Select Experience
-                  - @job_experiences.each do |job_experience_id, job_experience|
-                    %option{ value: job_experience.id, selected: exercise_tool.job_experience_id.to_i == job_experience.id }
-                      = job_experience.display_text
-                .divider1
                 %input.fw{:type=>"text", :placeholder=>"Page Size", name: "exercise[exercise_tools_attributes][#{index}][page_size]", value: exercise_tool.page_size }
                 .divider1
                 %input.fw{:type=>"text", :placeholder=>"Thank you message", name: "exercise[exercise_tools_attributes][#{index}][thank_you_message]", value: exercise_tool.thank_you_message }
                 .divider1
-                %select.fw{name: "exercise[exercise_tools_attributes][#{index}][defined_form_id]", value: exercise_tool.defined_form_id }
-                  - @defined_forms.each do |defined_form|
-                    %option{ value: defined_form.id, selected: (exercise_tool.defined_form_id.to_s == defined_form.id.to_s) }
-                      = defined_form.name
+              - if exercise_tool.tool.assessment_names.present?
+                %select.fw{ name: "exercise[exercise_tools_attributes][#{index}][assessment_name]" }
+                  %option{ value: "" }
+                    Select Assessment
+                  - exercise_tool.tool.assessment_names.each do |assessment_name|
+                    %option{ value: assessment_name, selected: exercise_tool.assessment_name == assessment_name }
+                      = assessment_name
                 .divider1
               /
                 %input.fw{:type=>"text", :placeholder=>"Assessment URL", name: "exercise[exercise_tools_attributes][#{index}][url]", value: exercise_tool.url }

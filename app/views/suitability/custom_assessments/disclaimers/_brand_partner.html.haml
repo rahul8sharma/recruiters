@@ -1,2 +1,3 @@
-- if @assessment.brand_partner.present?
-  = render "suitability/custom_assessments/disclaimers/brand_partners/#{@assessment.brand_partner}"
+- @assessment.brand_partners.to_a.compact.each do |partner|
+  - next if partner.blank?
+  = render "suitability/custom_assessments/disclaimers/brand_partners/#{partner}"

@@ -1,5 +1,6 @@
 .span
-  - if @report && @report.report_hash && @report.report_hash[:assessment] && @report.report_hash[:assessment][:brand_partner].present?
-    - brand_partner_image_path = asset_path("#{@report.report_hash[:assessment][:brand_partner].underscore}.png")
-    %img.pull-right{:src => brand_partner_image_path}
+  - if @report && @report.report_hash && @report.report_hash[:assessment]
+    - logos = @report.report_hash[:assessment][:brand_partners].to_a.map{|partner| Rails.application.config.brand_partners[partner][:logo] }.compact.uniq
+    - logos.each do |logo|
+      %img.pull-right{:src => asset_path(logo)}
 .clr

@@ -68,8 +68,8 @@
           Assessment Type:
           = f.select :assessment_type, ["Type",Vger::Resources::Suitability::CustomAssessment::AssessmentType::FIT,Vger::Resources::Suitability::CustomAssessment::AssessmentType::COMPETENCY]
         %p
-          Brand Partner
-          = f.select :brand_partner, [""]+Rails.application.config.brand_partners.keys
+          Brand Partners
+          = f.select :brand_partners, [""]+Rails.application.config.brand_partners.keys
         %p#competencies{style: "display:none;"}
           %label
             Competencies

@@ -26,6 +26,48 @@
     .span22.margin-auto
       .control-group.span20
         %label.big-text.default.span8
+          Industry:
+        %select.span8{ name: "exercise[industry_id]" }
+          %option{ value: "" }
+            Select Industry
+          - @industries.each do |industry_id, industry|
+            %option{ value: industry.id, selected: @exercise.industry_id.to_i == industry.id }
+              = industry.name
+    .divider1
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Function:
+        %select.span8{ name: "exercise[functional_area_id]" }
+          %option{ value: "" }
+            Select Function
+          - @functional_areas.each do |functional_area_id, functional_area|
+            %option{ value: functional_area.id, selected: @exercise.functional_area_id.to_i == functional_area.id }
+              = functional_area.name  
+    .divider1
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Experience Level:
+        %select.span8{ name: "exercise[job_experience_id]" }
+          %option{ value: "" }
+            Select Experience
+          - @job_experiences.each do |job_experience_id, job_experience|
+            %option{ value: job_experience.id, selected: @exercise.job_experience_id.to_i == job_experience.id }
+              = job_experience.display_text
+    .divider1
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
+          Factual Information Form:
+        %select.span8{name: "exercise[defined_form_id]" }
+          - @defined_forms.each do |defined_form|
+            %option{ value: defined_form.id, selected: (@exercise.defined_form_id.to_s == defined_form.id.to_s) }
+              = defined_form.name
+    .divider1  
+    .span22.margin-auto
+      .control-group.span20
+        %label.big-text.default.span8
           Enter Cover Letter Content:
         .clr
         .divider1

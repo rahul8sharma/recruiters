@@ -8,7 +8,7 @@ class Oac::ExercisesController < ApplicationController
                                         :select_tools, 
                                         :customize_assessment
                                       ]
-  before_filter :get_master_data, :only => [:customize_assessment]
+  before_filter :get_master_data, :only => [:new, :edit]
   before_filter :get_super_competencies, :only => [
                                         :select_super_competencies
                                       ]
@@ -345,6 +345,7 @@ class Oac::ExercisesController < ApplicationController
   def get_default_factor_norm_ranges
     exercise_tool = @exercise_tools.select{|x| x.industry_id.present? }.first
     factor_ids = @competencies.map(&:factor_ids).flatten.map(&:to_i)
+    @default_factor_norm_ranges = []
     if exercise_tool
       @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where({
         query_options: {
@@ -354,16 +355,16 @@ class Oac::ExercisesController < ApplicationController
           factor_id: factor_ids
         }
       }).all.to_a
-      if @default_factor_norm_ranges.size == 0
-        @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where({
-          query_options: {
-            industry_id: nil,
-            functional_area_id: nil,
-            job_experience_id: nil,
-            factor_id: factor_ids
-          }
-        }).all.to_a
-      end
+    end
+    if @default_factor_norm_ranges.size == 0
+      @default_factor_norm_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where({
+        query_options: {
+          industry_id: nil,
+          functional_area_id: nil,
+          job_experience_id: nil,
+          factor_id: factor_ids
+        }
+      }).all.to_a
     end
     @default_factor_norm_ranges = Hash[@default_factor_norm_ranges.map do |dfnr|
       [dfnr.factor_id,dfnr]

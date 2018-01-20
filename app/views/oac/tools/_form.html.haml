@@ -3,11 +3,14 @@
 = form_for @resource, as: resource_name.singularize, url: url do |f|
   = @resource.error_messages.to_a.join("<br/>").html_safe
   - form_fields.each do |index_column|
+    - f.object.send("#{index_column}=",f.object.send(index_column).join('|')) if f.object.send(index_column).is_a? Array
     - next if index_column.to_s == 'id'
     - next if index_column.to_s == 'name' && params[:action] == "edit"
+    - value = @resource.send(index_column)
+    - value = value.join('|') if value.is_a? Array
     .field
       = f.label index_column
-      = f.text_field index_column
+      = f.text_field index_column, value: value
   .field   
     .integration_configuration
       .span6
@@ -15,13 +18,24 @@
           Integration Configuration
       .clr
       .divider2      
-      #configuration
+      #link_configuration
       .span4  
-        %a.btn.btn-info{ href: "javascript:void(0);", id: "btnAddConfig" }
+        %a.btn.btn-info{ href: "javascript:void(0);", id: "btnAddLinkConfig" }
+          Add
+      .clr
+      .divider2      
+      .span6
+        %label.big-text
+          API Configuration
+      .clr
+      .divider2      
+      #api_configuration
+      .span4  
+        %a.btn.btn-info{ href: "javascript:void(0);", id: "btnAddApiConfig" }
           Add
       .clr
       .divider2      
           
   .action
     = f.submit  
-= javascript_include_tag "oac/tools/integration_configuration"    
+= javascript_include_tag "oac/tools/integration_configuration"
