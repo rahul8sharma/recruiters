@@ -1,5 +1,6 @@
 - if @assessment.brand_partners.present?
-  #{@assessment.brand_partners.map(&:titleize).join(',')} Pending
+  %span{ title: @assessment.brand_partners.map(&:titleize).join(',') + ' Pending' }
+    #{truncate(@assessment.brand_partners.map(&:titleize).join(','), { length: 15 })} Pending
 - elsif is_superuser?
   Competency Scoring...
 - else

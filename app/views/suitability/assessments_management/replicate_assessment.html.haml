@@ -68,6 +68,20 @@
         %input{ name: "replicate", type: "checkbox", checked: true }
         Replicate the selected form for the new assessment
       .clr  
+    .control-group
+      %label
+        Partner Assessment ID / Access Code
+      = f.text_field :partner_id, class: "span21 first", value: ""
+      .clr
+    .control-group  
+      .span10.left-offset1
+        %label
+          Select Partners
+        - Rails.application.config.brand_partners.each do |partner, content|
+          %label.extra-medium-text
+            %input{:type => "checkbox", name: 'assessment[brand_partners][]', value: partner, checked: @assessment.brand_partners.to_a.include?(partner)}
+            = partner.titleize
+      .clr  
       
   .actions
     = submit_tag 'Create', class: "btn btn-warning"

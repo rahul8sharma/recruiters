@@ -42,7 +42,7 @@ class Suitability::CompetenciesController < MasterDataController
 
   def edit
     @competency = api_resource.find(params[:id], :root => :competency,
-      :methods => [:factor_ids, :company_ids, :functional_trait_ids, :mrf_trait_ids]
+      :methods => [:company_ids]
     )
     respond_to do |format|
       format.html # edit.html.erb
@@ -51,7 +51,7 @@ class Suitability::CompetenciesController < MasterDataController
 
   def show
     @competency = api_resource.find(params[:id], :root => :competency,
-      :methods => [:factor_ids, :company_ids, :functional_trait_ids, :mrf_trait_ids]
+      :methods => [:company_ids]
     )
     respond_to do |format|
       format.html # new.html.erb
@@ -76,23 +76,7 @@ class Suitability::CompetenciesController < MasterDataController
 
   def set_params
     company_ids = params[:company_ids].to_s.split(",").map(&:to_i)
-    params[:factor_ids] ||= {}
-    params[:mrf_trait_ids] ||= {}
-    params[:functional_trait_ids] ||= {}
-    factor_ids = params[:factor_ids]\
-      .collect { |index,factor_hash| factor_hash.keys}\
-      .flatten.map(&:to_i)
-    mrf_trait_ids = params[:mrf_trait_ids]\
-      .collect { |index, factor_hash| factor_hash.keys}\
-      .flatten.map(&:to_i)
-    functional_trait_ids = params[:functional_trait_ids]\
-      .collect { |index, factor_hash| factor_hash.keys}\
-      .flatten.map(&:to_i)
-    params[:competency][:factor_ids] = factor_ids
-    params[:competency][:mrf_trait_ids] = mrf_trait_ids
-    params[:competency][:functional_trait_ids] = functional_trait_ids
     params[:competency][:company_ids] = company_ids
-
   end
 
 
