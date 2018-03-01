@@ -581,6 +581,16 @@ report_data: &1 !ruby/hash:ActiveSupport::HashWithIndifferentAccess
   cocubes_score: 12.0
   cocubes_max_score: 30.0
   cocubes_percentage_score: 40.0
+  cocubes_section_scores:
+    analytical_thinking:
+      max_score: 30
+      section_score: 20
+    english:
+      max_score: 20
+      section_score: 15  
+    problem_solving:
+      max_score: 50
+      section_score: 45  
   objective_score: 20
   objective_items: 
     21:
