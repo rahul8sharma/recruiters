@@ -1,0 +1,24 @@
+development: &dev
+  sms:
+    debug: false
+    netcore:
+      username: 9673333087
+      password: twdtm
+      feedid: 334489
+      senderid: "JOMBAY"
+  database:  
+    adapter: postgresql
+    encoding: unicode
+    database: api_jombay_development
+    pool: 20
+    username: deploy
+    password: deploy
+
+staging_internal: &staging_internal
+  <<: *dev    
+    
+staging: &staging
+  <<: *dev
+ 
+production: &production
+  <<: *dev  
