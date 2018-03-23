@@ -1,8 +1,8 @@
 - @report.report_data[:cocubes_section_scores] ||= {}
 - if @report.report_data[:cocubes_score]
-  - cocubes_section_scores = { "Aptitude / Cognitive" => { section_score: @report.report_data[:cocubes_score], max_score: @report.report_data[:cocubes_max_score] } }.merge!(@report.report_data[:cocubes_section_scores]) 
+  - cocubes_section_scores = { "Overall Score for Aptitude / Cognitive" => { section_score: @report.report_data[:cocubes_score], max_score: @report.report_data[:cocubes_max_score] } }.merge!(Hash[@report.report_data[:cocubes_section_scores].map{|k,v| ["Score for #{k}",v] }]) 
 - else
-  - cocubes_section_scores = @report.report_data[:cocubes_section_scores]
+  - cocubes_section_scores = Hash[@report.report_data[:cocubes_section_scores].map{|k,v| ["Score for #{k}",v] }]
 - if cocubes_section_scores.present?
   - scores_step = 5
   - (0..cocubes_section_scores.length-1).step(scores_step).each do |step|
@@ -13,7 +13,7 @@
         .divider2
         - step_cocubes_section_scores.each do |name, score|
           .page_title
-            Score for #{name}
+            #{name}
           .divider1
           .pannel
             .divider1
