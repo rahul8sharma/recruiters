@@ -1,9 +1,9 @@
 class Engagement::Surveys::UsersController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_survey
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_survey
   
   layout 'engagement'
   def bulk_upload

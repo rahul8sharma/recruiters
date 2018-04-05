@@ -1,11 +1,11 @@
 class AssessmentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_superuser, :only => [:edit,:update]
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_assessment, :except => [:index,:search]
-  before_filter :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
-  before_filter :get_factors, :only => [:norms, :competency_norms]
-  before_filter :add_set, :only => [:new]
+  before_action :authenticate_user!
+  before_action :check_superuser, :only => [:edit,:update]
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_assessment, :except => [:index,:search]
+  before_action :get_meta_data, :only => [:new, :edit, :norms, :competency_norms]
+  before_action :get_factors, :only => [:norms, :competency_norms]
+  before_action :add_set, :only => [:new]
   
   helper_method :assessment_url, 
                 :edit_assessment_url
@@ -67,7 +67,7 @@ class AssessmentsController < ApplicationController
   def search
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
-    search_params = params[:search].dup
+    search_params = params[:search].to_h
     name = search_params.delete :name
     conditions = {
       query_options: search_params,
@@ -89,7 +89,7 @@ class AssessmentsController < ApplicationController
   end
 
   def update
-    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
     if @assessment.error_messages.present?
       flash[:error] = @assessment.error_messages.uniq.join("<br/>").html_safe
       redirect_to edit_assessment_url
@@ -399,7 +399,7 @@ class AssessmentsController < ApplicationController
         return false
       end
     end
-    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
     if @assessment.error_messages.blank?
       redirect_to functional_traits_company_custom_assessment_path(:company_id => params[:company_id],:id => @assessment.id)
       return true

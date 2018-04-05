@@ -1,5 +1,5 @@
 class Suitability::CompanyNormBucketsController < MasterDataController
-  before_filter :split_norm_bucket_ids, only: [:create, :update]
+  before_action :split_norm_bucket_ids, only: [:create, :update]
   
   def api_resource
     Vger::Resources::Suitability::CompanyNormBucket

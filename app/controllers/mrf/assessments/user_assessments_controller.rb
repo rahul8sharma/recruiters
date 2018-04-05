@@ -1,9 +1,9 @@
 class Mrf::Assessments::UserAssessmentsController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_assessment
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_assessment
 
   layout 'mrf/mrf'
   

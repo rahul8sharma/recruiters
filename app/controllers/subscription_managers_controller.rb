@@ -1,10 +1,10 @@
 class SubscriptionManagersController < ApplicationController
   layout 'companies'
   
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   
-  before_filter :get_companies, only: [:companies]
-  before_filter :get_company, only: [:company_statistics]
+  before_action :get_companies, only: [:companies]
+  before_action :get_company, only: [:company_statistics]
 
   
   def companies
@@ -173,7 +173,7 @@ class SubscriptionManagersController < ApplicationController
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     params[:search].delete :account_type if params[:search][:account_type] == "All"
-    search_params = params[:search].dup
+    search_params = params[:search].to_h
     search_params[:account_type] = Vger::Resources::Company::AccountType::PAID
     name = search_params.delete :name
     conditions = {

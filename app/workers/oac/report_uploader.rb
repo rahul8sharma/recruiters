@@ -66,27 +66,52 @@ module Oac
       template = "super_competency_report"
       layout = "layouts/oac/reports.#{@view_mode}.haml"
       
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "oac/exercises/reports/#{template}.html.haml",
          layout: layout,
          handlers: [ :haml ],
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         assessment: @assessment, exercise: @exercise, 
+         report_attributes: @report_attributes,
+         norm_buckets: @norm_buckets,
+         score_buckets: @score_buckets,
+         combined_score_buckets: @combined_score_buckets,
+         score_buckets_by_id: @score_buckets_by_id,
+         combined_score_buckets_by_id: @combined_score_buckets_by_id
+        }
       )
       
       @view_mode = "pdf"
       layout = "layouts/oac/reports.#{@view_mode}.haml"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+        ApplicationController.render(
           "oac/exercises/reports/#{template}.pdf.haml",
           layout: layout,
           handlers: [ :haml ],
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          assessment: @assessment, exercise: @exercise, 
+          report_attributes: @report_attributes,
+          norm_buckets: @norm_buckets,
+          score_buckets: @score_buckets,
+          combined_score_buckets: @combined_score_buckets,
+          score_buckets_by_id: @score_buckets_by_id,
+          combined_score_buckets_by_id: @combined_score_buckets_by_id
         ),
         margin: pdf_margin,
         footer: {
-          content: render_to_string(
+          content: ApplicationController.render(
             "shared/reports/pdf/_oac_report_footer.pdf.haml",
-            layout: "layouts/mrf/reports.pdf.haml"
+            layout: "layouts/mrf/reports.pdf.haml",
+            assigns: { report: @report, view_mode: @view_mode, 
+            assessment: @assessment, exercise: @exercise, 
+            report_attributes: @report_attributes,
+            norm_buckets: @norm_buckets,
+            score_buckets: @score_buckets,
+            combined_score_buckets: @combined_score_buckets,
+            score_buckets_by_id: @score_buckets_by_id,
+            combined_score_buckets_by_id: @combined_score_buckets_by_id
           )
         },
         cover: cover,

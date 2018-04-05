@@ -1,13 +1,13 @@
 class Mrf::FeedbacksController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
 
   layout 'mrf/mrf'
   
   def index
     params[:search] ||= {}
-    search_params = params[:search].dup
+    search_params = params[:search].to_h
     search_params[:company_id] = params[:company_id]
     scopes = {}
     scopes["user_name_like"] = search_params.delete :user_name

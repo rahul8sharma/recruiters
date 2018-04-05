@@ -1,6 +1,6 @@
 class Exit::Surveys::ReportsController < ApplicationController
-  before_filter :get_company, except: [:s3_report]
-  before_filter :get_survey, except: [:s3_report]
+  before_action :get_company, except: [:s3_report]
+  before_action :get_survey, except: [:s3_report]
   
   layout "exit"
 

@@ -1,8 +1,8 @@
 class Suitability::ItemsController < MasterDataController
   include Suitability::AssessmentsHelper
   
-  before_filter :authenticate_user!
-  before_filter :get_factors, :only => [ :new, :create, :update, :edit ]
+  before_action :authenticate_user!
+  before_action :get_factors, :only => [ :new, :create, :update, :edit ]
   
   def api_resource
     return Vger::Resources::Suitability::Item

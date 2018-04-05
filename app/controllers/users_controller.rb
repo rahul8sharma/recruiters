@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout "users"
-  before_filter :authenticate_user!, :only => [ 
+  before_action :authenticate_user!, :only => [ 
     :password_settings, 
     :index,
     :show,
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def index
     params[:search] ||= {}
     params[:search] = params[:search].select{|key,val| val.present? }
-    search_params = params[:search].dup
+    search_params = params[:search].to_h
     name = search_params.delete :name
     email = search_params.delete :email
     conditions = {

@@ -1,7 +1,7 @@
 class AssessmentReportsController < ApplicationController
   layout 'candidates'
-  before_filter :authenticate_user!, :only => [ :manage, :assessment_report ]
-  before_filter :check_superuser, :only => [ :manage, :assessment_report ]
+  before_action :authenticate_user!, :only => [ :manage, :assessment_report ]
+  before_action :check_superuser, :only => [ :manage, :assessment_report ]
 
   def training_requirements_report
     @norm_buckets = Vger::Resources::Suitability::NormBucket.where(order: "weight ASC").all   
@@ -111,7 +111,12 @@ class AssessmentReportsController < ApplicationController
   end
 
   def show
-    report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params[:id], params)
+    # report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params[:id], params)
+    report = Vger::Resources::Suitability::Assessments::UserAssessmentReport.find(params['id'], 
+              company_id: params['company_id'],
+              custom_assessment_id: params['custom_assessment_id'],
+              user_id: params['user_id'])
+
     if request.format.to_s == "application/pdf"
       view_mode = "pdf"
     else

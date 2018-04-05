@@ -1,5 +1,5 @@
 class Mrf::Assessments::AssessmentReportsController < Mrf::Assessments::ReportsController
-  before_filter :get_candidates, only: [:new_group_report, :edit_group_report]
+  before_action :get_candidates, only: [:new_group_report, :edit_group_report]
 
   def group_report
     get_norm_buckets

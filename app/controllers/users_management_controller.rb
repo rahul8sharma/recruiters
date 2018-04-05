@@ -1,8 +1,8 @@
 class UsersManagementController < ApplicationController
   layout "users"
-  before_filter :authenticate_user!
-  before_filter :check_superuser
-  before_filter :get_master_data, :only => [:edit]
+  before_action :authenticate_user!
+  before_action :check_superuser
+  before_action :get_master_data, :only => [:edit]
 
   def manage
     render :layout => "admin"

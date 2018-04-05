@@ -33,11 +33,12 @@ module Exit
       }
 
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "exit/surveys/group_reports/exit_report.html.haml",
          layout: "layouts/exit_group_report.html.haml",
          handlers: [ :haml ],
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, report_attributes: @report_attributes }
       )
       FileUtils.mkdir_p(Rails.root.join("tmp"))
 

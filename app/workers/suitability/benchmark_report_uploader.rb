@@ -22,24 +22,34 @@ module Suitability
         status: Vger::Resources::Suitability::AssessmentReport::Status::UPLOADING
       )
       
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "assessment_reports/benchmark_report", 
          layout: "layouts/benchmark_report.html.haml", 
-         handlers: [ :haml ]
+         handlers: [ :haml ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         report_attributes: @report_attributes, assessment: @assessment,
+         assessment_report: @assessment_report, norm_buckets: @norm_buckets }
       )
       
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+        ApplicationController.render(
           "assessment_reports/benchmark_report", 
           layout: "layouts/benchmark_report.html.haml", 
           handlers: [ :haml ],
-          formats: [:html]
+          formats: [:html],
+          assigns: { report: @report, view_mode: @view_mode, 
+          report_attributes: @report_attributes, assessment: @assessment,
+          assessment_report: @assessment_report, norm_buckets: @norm_buckets }
         ),
         margin: pdf_margin,
         footer: {
-          content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-          layout: "layouts/benchmark_report.html.haml")
+          content: ApplicationController.render("shared/reports/pdf/_report_footer.pdf.haml",
+          layout: "layouts/benchmark_report.html.haml",
+          assigns: { report: @report, view_mode: @view_mode, 
+          report_attributes: @report_attributes, assessment: @assessment,
+          assessment_report: @assessment_report, norm_buckets: @norm_buckets }
+          )
         }
       )
       

@@ -1,8 +1,8 @@
 class Mrf::AssessmentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_assessment, :except => [:index]
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_assessment, :except => [:index]
   
   def api_resource
     Vger::Resources::Mrf::Assessment
@@ -15,37 +15,50 @@ class Mrf::AssessmentsController < ApplicationController
     order_type = params[:order_type] || "DESC"
     order = "#{order_by} #{order_type}"
     @assessments = Vger::Resources::Mrf::Assessment.where(
-      company_id: params[:company_id], 
-      order: order, 
+      company_id: params[:company_id],
+      order: order,
       select: [:id, :created_at, :name],
       page: params[:page], per: 10
     ).all
+
     @stakeholder_counts = Vger::Resources::Stakeholder.group_count(
-      group: "mrf_stakeholder_assessments.assessment_id", 
-      joins: { :stakeholder_assessments => :feedbacks }, 
+      group: "mrf_stakeholder_assessments.assessment_id",
+      joins: { :stakeholder_assessments => :feedbacks },
       select: "distinct(stakeholders.id)",
-      query_options: { 
-        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
-        "mrf_feedbacks.trial" => false
-      }
+      query_options: ["mrf_stakeholder_assessments.assessment_id in (#{@assessments.map(&:id).join(',')}) and mrf_feedbacks.trial = false"]
+      # {
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
     @user_counts = Vger::Resources::User.group_count(
-      group: "mrf_stakeholder_assessments.assessment_id", 
-      joins: {:feedbacks => :stakeholder_assessment}, 
-      select: "distinct(jombay_users.id)", 
-      query_options: { 
-        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
-        "mrf_feedbacks.trial" => false
-      }
+      group: "mrf_stakeholder_assessments.assessment_id",
+      joins: {:feedbacks => :stakeholder_assessment},
+      select: "distinct(jombay_users.id)",
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id in (#{@assessments.map(&:id).join(',')}) and mrf_feedbacks.trial = false"
+      ]
+      # {
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
     @completed_counts = Vger::Resources::User.group_count(
-      group: "mrf_stakeholder_assessments.assessment_id", 
-      joins: {:feedbacks => :stakeholder_assessment}, 
-      query_options: { 
-        "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id), 
-        "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
-        "mrf_feedbacks.trial" => false 
-      }
+        group: "mrf_stakeholder_assessments.assessment_id",
+        joins: {:feedbacks => :stakeholder_assessment},
+      # query_options: [
+      #   "mrf_stakeholder_assessments.assessment_id in (#{@assessments.map(&:id).join(',')}) and mrf_feedbacks.status in (#{Vger::Resources::Mrf::Feedback.completed_statuses.join(',')}) and mrf_feedbacks.trial = false"
+      # ]
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id in (1,2) and mrf_feedbacks.status in (?) and mrf_feedbacks.trial = ?",
+        Vger::Resources::Mrf::Feedback.completed_statuses.join(','),
+        false
+      ]
+      # {
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessments.map(&:id),
+      #   "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
   end
   
@@ -147,7 +160,7 @@ class Mrf::AssessmentsController < ApplicationController
   def update
     params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
     params[:assessment][:company_id] = @company.id
-    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment]);
+    @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id,params[:assessment].to_h);
     flash[:notice] = "360 Degree Exercise successfully updated"
     redirect_to edit_company_mrf_assessment_path(@company.id,@assessment.id)
   end
@@ -251,7 +264,7 @@ class Mrf::AssessmentsController < ApplicationController
   def add_traits
     if request.put?
       if params[:assessment][:assessment_traits_attributes]
-        @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment])
+        @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].to_h)
         redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
       else
         flash[:error] = 'Please select traits to create this Feedback Exercise!'
@@ -271,7 +284,7 @@ class Mrf::AssessmentsController < ApplicationController
           comment_compulsory: false
         })
       end
-      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id))
+      @assessment = Vger::Resources::Mrf::Assessment.save_existing(@assessment.id, params[:assessment].merge(company_id: @company.id).to_h)
       if @assessment.error_messages.present?
         flash[:error] = @assessment.error_messages.join("<br/>").html_safe 
         redirect_to add_traits_range_company_mrf_assessment_path(@company.id,@assessment.id) and return
@@ -337,32 +350,48 @@ class Mrf::AssessmentsController < ApplicationController
       assessment_id: @assessment.id,
       group: ["role"],
       joins: [:stakeholder_assessment],
-      query_options: {
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
-        "mrf_feedbacks.trial" => false
-      }
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id = ? and mrf_feedbacks.trial = ?",
+        @assessment.id,
+        false
+      ]
+      # {
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
     @completed_feedbacks = Vger::Resources::Mrf::Feedback.group_count(
       company_id: @company.id,
       assessment_id: @assessment.id,
       group: ["role"],
       joins: [:stakeholder_assessment],
-      query_options: {
-        "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
-        "mrf_feedbacks.trial" => false
-      }
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id = ? and mrf_feedbacks.status in (?) and mrf_feedbacks.trial = ?",
+        @assessment.id,
+        Vger::Resources::Mrf::Feedback.completed_statuses.join(','),
+        false
+      ]
+      # {
+      #   "mrf_feedbacks.status" => Vger::Resources::Mrf::Feedback.completed_statuses,
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
 
     @self_feedbacks = Vger::Resources::Mrf::Feedback.count(
       company_id: @company.id,
       assessment_id: @assessment.id,
       joins: [:stakeholder_assessment],
-      query_options: {
-        role: Vger::Resources::Mrf::Feedback::Role::SELF,
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
-        "mrf_feedbacks.trial" => false
-      }
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id = ? and mrf_feedbacks.trial = ?",
+        @assessment.id,
+        false
+      ]
+      # {
+      #   role: Vger::Resources::Mrf::Feedback::Role::SELF,
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
     
     @total_users = Vger::Resources::Mrf::Feedback.count(
@@ -370,10 +399,15 @@ class Mrf::AssessmentsController < ApplicationController
       assessment_id: @assessment.id,
       select: ["distinct(user_id)"],
       joins: [:stakeholder_assessment],
-      query_options: {
-        "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
-        "mrf_feedbacks.trial" => false
-      }
+      query_options: [
+        "mrf_stakeholder_assessments.assessment_id = ? and mrf_feedbacks.trial = ?",
+        @assessment.id,
+        false
+      ]
+      # {
+      #   "mrf_stakeholder_assessments.assessment_id" => @assessment.id,
+      #   "mrf_feedbacks.trial" => false
+      # }
     )
   end
 

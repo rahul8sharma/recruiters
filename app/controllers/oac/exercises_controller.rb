@@ -1,47 +1,47 @@
 class Oac::ExercisesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_exercises, only: [:home]
-  before_filter :get_exercise, except: [:home, :new, :create]
-  before_filter :get_tools, :only => [
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_exercises, only: [:home]
+  before_action :get_exercise, except: [:home, :new, :create]
+  before_action :get_tools, :only => [
                                         :select_tools, 
                                         :customize_assessment
                                       ]
-  before_filter :get_master_data, :only => [:new, :edit]
-  before_filter :get_super_competencies, :only => [
+  before_action :get_master_data, :only => [:new, :edit]
+  before_action :get_super_competencies, :only => [
                                         :select_super_competencies
                                       ]
-  before_filter :validate_status, :only => [
+  before_action :validate_status, :only => [
                                     :select_tools,
                                     :customize_assessment,
                                     :select_competencies,
                                     :set_weightage
                                   ]
-  before_filter :get_norm_buckets, :only => [
+  before_action :get_norm_buckets, :only => [
                                       :show,  
                                       :select_competencies,
                                       :set_weightage
                                     ]
-  before_filter :get_super_competency_score_buckets, :only => [
+  before_action :get_super_competency_score_buckets, :only => [
                                       :set_weightage
                                     ]
-  before_filter :get_combined_super_competency_score_buckets, :only => [
+  before_action :get_combined_super_competency_score_buckets, :only => [
                                       :select_super_competencies,
                                       :show
                                     ]
-  before_filter :get_combined_competency_score_buckets, :only => [
+  before_action :get_combined_competency_score_buckets, :only => [
                                       :select_competencies
                                     ]
-  before_filter :get_selected_super_competencies, :only => [
+  before_action :get_selected_super_competencies, :only => [
                                       :select_competencies,
                                       :set_weightage
                                     ]
-  before_filter :get_competencies, :only => [
+  before_action :get_competencies, :only => [
                                       :select_competencies,
                                       :set_weightage
                                     ]
-  before_filter :get_exercise_tools, :only => [
+  before_action :get_exercise_tools, :only => [
                                         :select_tools, 
                                         :customize_assessment,
                                         :select_competencies,
@@ -49,7 +49,7 @@ class Oac::ExercisesController < ApplicationController
                                         :set_weightage,
                                         :show
                                       ]
-  before_filter :get_default_factor_norm_ranges, :only => [:select_competencies]
+  before_action :get_default_factor_norm_ranges, :only => [:select_competencies]
   
   layout 'oac/oac'
 
@@ -81,7 +81,7 @@ class Oac::ExercisesController < ApplicationController
   
   def update
     params[:exercise][:report_configuration] = JSON.parse(params[:exercise][:report_configuration])
-    @exercise = Vger::Resources::Oac::Exercise.save_existing(@exercise.id, params[:exercise])
+    @exercise = Vger::Resources::Oac::Exercise.save_existing(@exercise.id, params[:exercise].to_h)
     if !@exercise.error_messages.present?
       flash[:notice] = "Online assessment center is updated successfully."
       redirect_to candidates_company_oac_exercise_path(@company.id, @exercise.id)
@@ -102,7 +102,7 @@ class Oac::ExercisesController < ApplicationController
         flash[:error] = "Please select a minimum of 2 tools"
         render :action => :select_tools and return
       end
-      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise].to_h)
       if @exercise.error_messages.blank?
         redirect_to customize_assessment_company_oac_exercise_path(@company.id, @exercise.id)
       else
@@ -126,7 +126,7 @@ class Oac::ExercisesController < ApplicationController
         flash[:error] = "Please select an industry"
         render :action => :customize_assessment and return
       end
-      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise].to_h)
       if @exercise.error_messages.blank?
         redirect_to select_super_competencies_company_oac_exercise_path(@company.id, @exercise.id)
       else
@@ -152,7 +152,7 @@ class Oac::ExercisesController < ApplicationController
         flash[:error] = "Please select a unique order for each competency"
         render :action => :select_super_competencies and return
       end
-      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise].to_h)
       if @exercise.error_messages.blank?
         redirect_to select_competencies_company_oac_exercise_path(@company.id, @exercise.id)
       else
@@ -185,7 +185,7 @@ class Oac::ExercisesController < ApplicationController
         flash[:error] = "#{@non_selected_competencies.map(&:name).join(', ')} is not measured by any of the tools."
         render :action => :select_competencies and return
       end
-      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise].to_h)
       if @exercise.error_messages.blank?
         redirect_to set_weightage_company_oac_exercise_path(@company.id, @exercise.id)
       else
@@ -199,7 +199,7 @@ class Oac::ExercisesController < ApplicationController
   def set_weightage
     if request.put?
       params[:exercise][:workflow_status] = Vger::Resources::Oac::Exercise::WorkflowStatus::MARKED_FOR_CREATION
-      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise])
+      @exercise = Vger::Resources::Oac::Exercise.save_existing(params[:id], params[:exercise].to_h)
       if @exercise.error_messages.blank?
         redirect_to add_users_bulk_company_oac_exercise_path(@company.id, @exercise.id)
       else

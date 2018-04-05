@@ -1,11 +1,11 @@
 class Oac::Exercises::UserExercisesController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_exercise
-  before_filter :validate_exercise
-  before_filter :get_exercise_tools, only: [:download_bulk_upload_csv]
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_exercise
+  before_action :validate_exercise
+  before_action :get_exercise_tools, only: [:download_bulk_upload_csv]
   
   helper_method :trigger_report_downloader_url
 

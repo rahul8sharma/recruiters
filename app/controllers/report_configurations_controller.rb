@@ -1,6 +1,6 @@
 class ReportConfigurationsController < MasterDataController
-  before_filter :authenticate_user!
-  before_filter :set_params, :only => [:create, :update]
+  before_action :authenticate_user!
+  before_action :set_params, :only => [:create, :update]
   
   def api_resource
     Vger::Resources::ReportConfiguration
@@ -117,9 +117,12 @@ class ReportConfigurationsController < MasterDataController
     layout = "layouts/mrf/reports.#{params[:view_mode]}.haml"
     template = "mrf/assessments/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
     render json:{ 
-      content: render_to_string(
+      content: ApplicationController.render(
         :template => template,
-        :layout => layout)
+        :layout => layout,
+        assigns: { report: @report, assessment: @assessment, 
+        norm_buckets_by_id: @norm_buckets_by_id}
+        )
     }
   end
 
@@ -167,9 +170,12 @@ class ReportConfigurationsController < MasterDataController
     @page = 1
     
     render json:{ 
-      content: render_to_string(
+      content: ApplicationController.render(
         :template => "assessment_reports/#{template}",
-        :layout => "layouts/#{layout}")
+        :layout => "layouts/#{layout}",
+        assigns: { report: @report, view_mode: @view_mode, 
+        page: @page}
+        )
     }
   end
 
@@ -195,9 +201,12 @@ class ReportConfigurationsController < MasterDataController
     template = "oac/exercises/reports/#{params[:assessment_type]}_report.#{params[:view_mode]}.haml"
 
     render json:{ 
-      content: render_to_string(
+      content: ApplicationController.render(
         :template => template,
-        :layout => layout)
+        :layout => layout,
+        assigns: { report: @report, assessment: @assessment,
+        norm_buckets_by_id: @norm_buckets_by_id}
+        )
     }
   end
 

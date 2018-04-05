@@ -1,5 +1,5 @@
 class FormBuilder::DefinedFormsController < MasterDataController
-  before_filter :set_params, :only => [:create, :update]
+  before_action :set_params, :only => [:create, :update]
   
   def replicate
     Vger::Resources::FormBuilder::DefinedForm\

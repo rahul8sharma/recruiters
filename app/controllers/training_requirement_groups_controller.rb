@@ -1,8 +1,8 @@
 class TrainingRequirementGroupsController < ApplicationController
-  before_filter :authenticate_user!, except: [:download_report]
-  before_filter(except: [:download_report])  { authorize_user!(params[:company_id]) }
-  before_filter :get_company, except: [:download_report]
-  before_filter :get_training_requirement_group, :except => [:index]
+  before_action :authenticate_user!, except: [:download_report]
+  before_action(except: [:download_report])  { authorize_user!(params[:company_id]) }
+  before_action :get_company, except: [:download_report]
+  before_action :get_training_requirement_group, :except => [:index]
   
   layout "training_requirement_groups"
   

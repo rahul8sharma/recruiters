@@ -7,7 +7,7 @@
 # 3. All scaffolding views and actions are present in configuration engine
 # 4. Override specific views in respective view paths
 class ConfigurationController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   layout "admin"
   require 'celluloid/redis'
   require 'json'

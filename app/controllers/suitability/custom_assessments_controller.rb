@@ -1,11 +1,11 @@
 class Suitability::CustomAssessmentsController < AssessmentsController
   include TemplatesHelper
-  before_filter :get_company
-  before_filter :get_defined_forms, :only => [:new, :edit, :create]
-  before_filter :get_completion_notification_templates, :only => [:edit, :select_templates]
-  before_filter :get_invitation_templates, :only => [:edit, :select_templates]
-  before_filter :get_reminder_templates, :only => [:edit, :select_templates]
-  before_filter :get_custom_form, :only => [:edit]
+  before_action :get_company
+  before_action :get_defined_forms, :only => [:new, :edit, :create]
+  before_action :get_completion_notification_templates, :only => [:edit, :select_templates]
+  before_action :get_invitation_templates, :only => [:edit, :select_templates]
+  before_action :get_reminder_templates, :only => [:edit, :select_templates]
+  before_action :get_custom_form, :only => [:edit]
   after_filter :set_cache_buster
 
   layout "tests"
@@ -86,7 +86,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       end
       @assessment.other_subjective_items = params[:assessment][:other_subjective_items].keys if params[:assessment][:other_subjective_items].present?
       @assessment.other_objective_items = params[:assessment][:other_objective_items].keys if params[:assessment][:other_objective_items].present?
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
 
       # This is a bad workaround to allow superuser to proceed even if items are not available
       # Need a better way to manage this
@@ -111,7 +111,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
       params[:assessment] ||= {}
       params[:assessment][:report_configuration] ||= {}.to_json
       params[:assessment][:report_configuration] = JSON.parse(params[:assessment][:report_configuration])
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
       if @assessment.error_messages.blank?
         redirect_to self.send("select_templates_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
       else
@@ -133,7 +133,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
     get_styles
     if request.put?
       params[:assessment] ||= {}
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
       if @assessment.error_messages.blank?
         redirect_to add_users_company_custom_assessment_path(:company_id => params[:company_id], :id => @assessment.id) and return
       else
@@ -200,7 +200,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
   
   def select_templates
     if request.put?
-      @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+      @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
       if @assessment.error_messages.blank?
         redirect_to self.send("add_users_company_#{@assessment.assessment_type}_assessment_path", params[:company_id], @assessment.id)
       else
@@ -274,7 +274,7 @@ class Suitability::CustomAssessmentsController < AssessmentsController
         end
       end
     end
-    @assessment = api_resource.save_existing(@assessment.id, params[:assessment])
+    @assessment = api_resource.save_existing(@assessment.id, params[:assessment].to_h)
     if @assessment.error_messages.blank?
       #if @assessment.assessment_type == api_resource::AssessmentType::BENCHMARK
       flash[:error] = @assessment.error_messages.uniq.join("<br/>")

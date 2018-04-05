@@ -1,5 +1,5 @@
 class RolesController < MasterDataController
-  before_filter :get_permissions, only: [:new, :create, :edit, :update]
+  before_action :get_permissions, only: [:new, :create, :edit, :update]
   def api_resource
     Vger::Resources::Role
   end

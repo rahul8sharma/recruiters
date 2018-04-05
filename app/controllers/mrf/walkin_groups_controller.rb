@@ -1,10 +1,10 @@
 class Mrf::WalkinGroupsController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter :get_company
+  before_action :authenticate_user!
+  before_action :get_company
   
-  before_filter :get_walkin_group, :except => [ :index, :create, :new ]
-  before_filter :get_templates_for_users, :only => [:edit]
+  before_action :get_walkin_group, :except => [ :index, :create, :new ]
+  before_action :get_templates_for_users, :only => [:edit]
   layout "walk_ins"
   
   def index

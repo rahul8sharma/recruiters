@@ -1,7 +1,7 @@
 class Suitability::CustomAssessments::TrainingRequirementsReportsManagementController < ApplicationController
   layout "tests"
-  before_filter :authenticate_user!
-  before_filter :check_superuser
+  before_action :authenticate_user!
+  before_action :check_superuser
 
   def manage
     render :layout => "admin"

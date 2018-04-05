@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
-  before_filter :set_auth_token
+
+  before_action :set_auth_token
   
   include Vger::Helpers::AuthenticationHelper
   include ApplicationHelper

@@ -1,5 +1,5 @@
 class Mrf::OptionsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   
   layout "admin"
   

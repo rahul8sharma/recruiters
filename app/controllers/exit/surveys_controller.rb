@@ -1,9 +1,9 @@
 class Exit::SurveysController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:company_id]) }
-  before_filter :get_company
-  before_filter :get_survey, :except => [:index,:home]
-  before_filter :get_defined_forms, :only => [:new, :edit, :create]
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:company_id]) }
+  before_action :get_company
+  before_action :get_survey, :except => [:index,:home]
+  before_action :get_defined_forms, :only => [:new, :edit, :create]
 
   layout 'exit'
 

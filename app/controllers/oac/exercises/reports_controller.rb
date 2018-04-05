@@ -1,6 +1,6 @@
 class Oac::Exercises::ReportsController < ApplicationController
-  before_filter :authenticate_user!, except: [:s3_report]
-  before_filter :get_company
+  before_action :authenticate_user!, except: [:s3_report]
+  before_action :get_company
 
   def report
     report_type = params[:report_type] || "fit_report"

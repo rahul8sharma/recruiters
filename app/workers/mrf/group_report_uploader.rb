@@ -20,11 +20,13 @@ module Mrf
         status: "success"
       }
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "mrf/assessments/assessment_reports/#{template}.html.haml",
          layout: "layouts/mrf/group_reports.html.haml",
          handlers: [ :haml ],
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         assessment: @assessment, report_attributes: @report_attributes}
       )
       
       FileUtils.mkdir_p(Rails.root.join("tmp"))
@@ -43,16 +45,20 @@ module Mrf
         
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+        ApplicationController.render(
           "mrf/assessments/assessment_reports/#{template}.pdf.haml",
           layout: "layouts/mrf/group_reports.pdf.haml",
           handlers: [ :haml ],
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          assessment: @assessment, report_attributes: @report_attributes}
         ),
         margin: pdf_margin,
         footer: {
-          content: render_to_string("shared/reports/pdf/_report_footer.pdf.haml",
-                                      layout: "layouts/mrf/group_reports.pdf.haml")
+          content: ApplicationController.render("shared/reports/pdf/_report_footer.pdf.haml",
+                                      layout: "layouts/mrf/group_reports.pdf.haml", assigns: { report: @report, view_mode: @view_mode, 
+                                      assessment: @assessment, 
+                                      report_attributes: @report_attributes})
         }
       )
       pdf_file_id = "mrf_group_report_#{@report.id}.pdf"

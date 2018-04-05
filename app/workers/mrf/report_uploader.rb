@@ -72,25 +72,46 @@ module Mrf
       }
       
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "mrf/assessments/reports/#{template}",
          layout: "layouts/mrf/reports",
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         assessment: @assessment, report_attributes: @report_attributes,
+         norm_buckets: @norm_buckets,
+         norm_buckets_by_id: @norm_buckets_by_id,
+         trait_graph_buckets: @trait_graph_buckets,
+         competency_graph_buckets: @competency_graph_buckets
+        }
       )
       
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+          ApplicationController.render(
           "mrf/assessments/reports/#{template}",
           layout: "layouts/mrf/reports",
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          assessment: @assessment, report_attributes: @report_attributes,
+          norm_buckets: @norm_buckets,
+          norm_buckets_by_id: @norm_buckets_by_id,
+          trait_graph_buckets: @trait_graph_buckets,
+          competency_graph_buckets: @competency_graph_buckets
+         }
         ),
         margin: pdf_margin,
         footer: {
-          content: render_to_string(
+          content: ApplicationController.render(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/mrf/reports",
-            formats: [:pdf]
+            formats: [:pdf],
+            assigns: { report: @report, view_mode: @view_mode, 
+            assessment: @assessment, report_attributes: @report_attributes,
+            norm_buckets: @norm_buckets,
+            norm_buckets_by_id: @norm_buckets_by_id,
+            trait_graph_buckets: @trait_graph_buckets,
+            competency_graph_buckets: @competency_graph_buckets
+            }
           )
         }
       )

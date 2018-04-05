@@ -1,8 +1,8 @@
 class Suitability::CustomAssessments::UserAssessmentsController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter :get_assessment
-  before_filter :get_company
+  before_action :authenticate_user!
+  before_action :get_assessment
+  before_action :get_company
 
   layout "tests"
 
@@ -170,11 +170,11 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
           attributes = user_data.dup
           attributes.delete(:applicant_id)
           attributes.each { |attribute,value| attributes.delete(attribute) unless user.send(attribute).blank? }
-          Vger::Resources::User.save_existing(user.id, attributes)
+          Vger::Resources::User.save_existing(user.id, attributes.to_h)
         else
           attributes = user_data.dup
           attributes.delete(:applicant_id)
-          user = Vger::Resources::User.find_or_create(attributes)
+          user = Vger::Resources::User.find_or_create(attributes.to_h)
           if user.error_messages.present?
             @errors[key] |= user.error_messages
           else
@@ -338,14 +338,15 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
         # create user_assessment if not present
         # add it to list of user_assessments to send email
         user_assessment = Vger::Resources::Suitability::UserAssessment.create(
-          :trial => params[:trial] == "true",
-          :applicant_id => params[:users][user_id][:applicant_id],
-          :assessment_id => @assessment.id,
-          :user_id => user_id,
-          :responses_count => 0,
-          :report_email_recipients => recipients.join(","),
-          :options => options,
-          :language => (@assessment.languages.size == 1 ? @assessment.languages.first : nil)
+          options.merge(
+            :trial => params[:trial] == "true",
+            :applicant_id => params[:users][user_id][:applicant_id],
+            :assessment_id => @assessment.id,
+            :user_id => user_id,
+            :responses_count => 0,
+            :report_email_recipients => recipients.join(","),
+            :language => (@assessment.languages.size == 1 ? @assessment.languages.first : nil)
+          )
         )
         if user_assessment.error_messages.present?
           failed_user_assessments << user_assessment
@@ -356,7 +357,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
       assessment = Vger::Resources::Suitability::CustomAssessment.send_test_to_users(
         :id => @assessment.id,
         :user_assessment_ids => user_assessments.map(&:id),
-        :options => params[:options]
+        :options => params[:options].to_h
       ) if user_assessments.present?
       if failed_user_assessments.present?
         #flash[:error] = "Cannot send test to #{failed_user_assessments.size} users.#{failed_user_assessments.first.error_messages.join('<br/>')}"
@@ -427,7 +428,7 @@ class Suitability::CustomAssessments::UserAssessmentsController < ApplicationCon
     params[:search] ||= {}
     params[:search] = params[:search].reject{|column,value| value.blank? }
     if params[:search].present?
-      scope = scope.where(:query_options => params[:search])
+      scope = scope.where(:query_options => params[:search].to_h)
     end
     @user_assessments = scope
     @users = @user_assessments.map(&:user)

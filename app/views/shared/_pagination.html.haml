@@ -1,4 +1,4 @@
-- if (objects.present? && (objects.next_page || objects.prev_page))
+- if (objects.present? && (objects.page(1).next_page || objects.page(1).prev_page))
   .muted.extra-medium-text
     .span.line-height2
       Go to Page

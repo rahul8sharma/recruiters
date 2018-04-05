@@ -1,5 +1,5 @@
 class Mrf::TraitsController < MasterDataController
-  before_filter :set_params, only: [:edit, :update, :create]
+  before_action :set_params, only: [:edit, :update, :create]
   def api_resource
     Vger::Resources::Mrf::Trait
   end

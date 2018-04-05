@@ -29,24 +29,31 @@ module Jq
       }
 
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "jq/user_assessment_reports/#{template}",
          layout: "layouts/jq_reports",
          handlers: [ :haml ],
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+        norm_buckets: @norm_buckets, report_attributes: @report_attributes}
       )
 
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+        ApplicationController.render(
           "jq/user_assessment_reports/#{template}.pdf.haml",
           layout: "layouts/jq_reports.pdf.haml",
           handlers: [ :haml ],
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          norm_buckets: @norm_buckets, report_attributes: @report_attributes}
         ),
         margin: { :left => 0,:right => 0, :top => 0, :bottom => 8 },
         footer: {
-          :content => render_to_string("shared/reports/pdf/_report_footer.pdf.haml",layout: "layouts/jq_reports.pdf.haml")
+          :content => ApplicationController.render("shared/reports/pdf/_report_footer.pdf.haml",
+                      layout: "layouts/jq_reports.pdf.haml",
+                      assigns: { report: @report, view_mode: @view_mode, 
+                      norm_buckets: @norm_buckets, report_attributes: @report_attributes })
         }
       )
 

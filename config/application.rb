@@ -1,19 +1,21 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
+require "rails"
 # Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
 # require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+# require "active_resource/railtie"
 require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+require "rails/test_unit/railtie"
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 module Recruiters
   class Application < Rails::Application
@@ -39,6 +41,7 @@ module Recruiters
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.action_controller.permit_all_parameters = true
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -60,7 +63,8 @@ module Recruiters
     # config.active_record.whitelist_attributes = true
     config.validators = YAML.load(File.read(Rails.root.join("config/validation.yml")))
     # assets_precompile_enforcer module copied from https://github.com/ndbroadbent/assets_precompile_enforcer
-    require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
+    
+    # require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
     config.assets.original_precompile = config.assets.precompile.dup
     config.to_prepare { load 'config/assets_precompile.rb' }
     config.watchable_files << 'config/assets_precompile.rb'
@@ -90,6 +94,7 @@ module Recruiters
     config.time_zone = 'Mumbai'
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
+    # config.action_mailer.delivery_method = :letter_opener
 
     hosts = YAML::load(File.open("#{Rails.root.to_s}/config/hosts.yml"))[Rails.env.to_s]
     config.hosts = hosts
@@ -108,7 +113,7 @@ module Recruiters
     config.action_controller.asset_host = "#{hosts['action_controller']['asset_protocol']}://#{hosts['action_controller']['asset_host']}"
 
     # Temporary fix for Rails vulnerability
-    ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
+    # ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
     config.s3 = YAML::load(File.open("#{Rails.root.to_s}/config/s3/#{Rails.env.to_s}.yml")).symbolize_keys
     # Redis configuration for redis driven app configuration
     redis_configuration = YAML::load(

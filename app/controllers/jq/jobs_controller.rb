@@ -1,6 +1,6 @@
 class Jq::JobsController < MasterDataController
-  before_filter :authenticate_user!
-  before_filter :set_params, :only => [:create, :update]
+  before_action :authenticate_user!
+  before_action :set_params, :only => [:create, :update]
   
   def new
     @resource = api_resource.new(:location_ids => [])

@@ -1,10 +1,10 @@
 class WalkinGroupsController < ApplicationController
   include TemplatesHelper
-  before_filter :authenticate_user!
-  before_filter :get_company
+  before_action :authenticate_user!
+  before_action :get_company
   
-  before_filter :get_walkin_group, :except => [ :index, :create, :new ]
-  before_filter :get_templates, only: [:update, :customize, :edit]
+  before_action :get_walkin_group, :except => [ :index, :create, :new ]
+  before_action :get_templates, only: [:update, :customize, :edit]
   layout "walk_ins"
   
   def index
@@ -39,7 +39,7 @@ class WalkinGroupsController < ApplicationController
   def create
     @assessments = Vger::Resources::Suitability::CustomAssessment.where(:query_options => { :company_id => @company.id }, select: ["name","id","languages"]).all
     params[:walkin_group][:assessment_hash].reject!{|assessment_id, assessment_data| assessment_data["enabled"] != "true" }
-    @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(params[:walkin_group])
+    @walkin_group = Vger::Resources::Suitability::WalkinGroup.new(params[:walkin_group].to_h)
     if @walkin_group.assessment_hash.present? && @walkin_group.save
       redirect_to customize_company_walkin_group_path(@company, @walkin_group)
     else

@@ -1,7 +1,7 @@
 class Companies::Jq::JobsController < ApplicationController
   layout 'jq'
   
-  before_filter :get_company
+  before_action :get_company
   
   def index
     @jobs = Vger::Resources::Jq::Job.where(query_options: { 

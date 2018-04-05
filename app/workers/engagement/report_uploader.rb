@@ -44,11 +44,12 @@ module Engagement
       }
 
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
          template: "engagement/surveys/reports/engagement_report.html.haml",
          layout: "layouts/engagement_report.html.haml",
          handlers: [ :haml ],
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, report_attributes: @report_attributes }
       )
       FileUtils.mkdir_p(Rails.root.join("tmp"))
 

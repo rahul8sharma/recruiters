@@ -1,6 +1,6 @@
 class Engagement::Surveys::ReportsController < ApplicationController
-  before_filter :get_company, except: [:s3_report]
-  before_filter :get_survey, except: [:s3_report]
+  before_action :get_company, except: [:s3_report]
+  before_action :get_survey, except: [:s3_report]
 
   def report
     @user_survey = Vger::Resources::Engagement::UserSurvey.where(:survey_id => params[:id], :query_options => { :user_id => params[:user_id] }).all[0]

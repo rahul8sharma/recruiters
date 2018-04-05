@@ -1,6 +1,6 @@
 class TemplateVariablesController < MasterDataController
-  before_filter :get_template_categories, only: [:edit, :new]
-  before_filter :set_params, only: [:create, :update]
+  before_action :get_template_categories, only: [:edit, :new]
+  before_action :set_params, only: [:create, :update]
   
   def api_resource
     Vger::Resources::TemplateVariable

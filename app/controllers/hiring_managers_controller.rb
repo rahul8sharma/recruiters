@@ -1,5 +1,5 @@
 class HiringManagersController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def import
     Vger::Resources::HiringManager.import(params[:file])

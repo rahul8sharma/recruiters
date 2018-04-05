@@ -1,11 +1,11 @@
 class CompaniesController < ApplicationController
   layout "companies"
 
-  before_filter :authenticate_user!
-  before_filter(:except => [:select]) { authorize_user!(params[:id]) }
-  before_filter :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
-  before_filter :get_companies, :only => [ :index ]
-  before_filter :get_countries, :only => [ :edit, :update ]
+  before_action :authenticate_user!
+  before_action(:except => [:select]) { authorize_user!(params[:id]) }
+  before_action :get_company, :except => [ :index, :manage, :import_from_google_drive, :import_to_google_drive]
+  before_action :get_companies, :only => [ :index ]
+  before_action :get_countries, :only => [ :edit, :update ]
 
   def api_resource
     Vger::Resources::Company
@@ -272,7 +272,7 @@ class CompaniesController < ApplicationController
     order_by = params[:order_by] || "created_at"
     order_type = params[:order_type] || "DESC"
     params[:search].delete :account_type if params[:search][:account_type] == "All"
-    search_params = params[:search].dup
+    search_params = params[:search].to_h 
     name = search_params.delete :name
     conditions = {
       :query_options => search_params,
@@ -285,7 +285,7 @@ class CompaniesController < ApplicationController
     }
     conditions[:scopes] = { :name_like => name } if name
 
-    @companies = Vger::Resources::Company.where(conditions)
+    @companies = Vger::Resources::Company.where(conditions.to_h)
   end
 
   def get_countries

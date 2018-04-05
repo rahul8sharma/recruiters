@@ -1,6 +1,6 @@
 class Companies::StandardAssessmentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_company
+  before_action :authenticate_user!
+  before_action :get_company
   
   layout "companies"
   

@@ -2,12 +2,12 @@ require "net/http"
 require "uri"
 
 class Companies::PlansController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:id]) }
-  before_filter :get_plan, :except => [:payment_status]
-  before_filter :get_company
-  before_filter :get_countries, :only => [:contact]
-  before_filter :get_hq_location, :only => [:contact]
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:id]) }
+  before_action :get_plan, :except => [:payment_status]
+  before_action :get_company
+  before_action :get_countries, :only => [:contact]
+  before_action :get_hq_location, :only => [:contact]
 
 
   layout "companies"

@@ -1,6 +1,6 @@
 class HelpController < ApplicationController
   layout "help"
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   def adding_users
   end
 

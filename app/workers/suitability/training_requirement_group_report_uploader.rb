@@ -36,28 +36,37 @@ module Suitability
       @report.report_hash = @report.report_data
 
       @view_mode = "html"
-      html = render_to_string(
+      html = ApplicationController.render(
               template: "assessment_group_reports/training_requirements_report",
               layout: "layouts/training_requirements_report",
               handlers: [ :haml ],
-              formats: [:html]
+              formats: [:html],
+              assigns: { report: @report, view_mode: @view_mode, 
+              report_data: @report_data, norm_buckets: @norm_buckets,
+              training_requirement_group: @training_requirement_group }
             )
 
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string(
+        ApplicationController.render(
           "assessment_group_reports/training_requirements_report",
           layout: "layouts/training_requirements_report",
           handlers: [ :haml ],
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          report_data: @report_data, norm_buckets: @norm_buckets,
+          training_requirement_group: @training_requirement_group }
         ),
         margin: pdf_margin,
         footer: {
-          content: render_to_string(
+          content: ApplicationController.render(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/training_requirements_report",
             handlers: [ :haml ],
-            formats: [:pdf]
+            formats: [:pdf],
+            assigns: { report: @report, view_mode: @view_mode, 
+            report_data: @report_data, norm_buckets: @norm_buckets,
+            training_requirement_group: @training_requirement_group }            
           )
         }
       )

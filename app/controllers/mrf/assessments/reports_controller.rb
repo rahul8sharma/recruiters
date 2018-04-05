@@ -1,6 +1,6 @@
 class Mrf::Assessments::ReportsController < ApplicationController
-  before_filter :get_company, except: [:s3_report]
-  before_filter :get_assessment, except: [:s3_report]
+  before_action :get_company, except: [:s3_report]
+  before_action :get_assessment, except: [:s3_report]
   
   def report
     report_type = params[:report_type] || "fit_report"  
@@ -50,7 +50,7 @@ class Mrf::Assessments::ReportsController < ApplicationController
 
 
   def s3_report
-    report = Vger::Resources::Mrf::Report.find(params[:report_id], params)
+    report = Vger::Resources::Mrf::Report.find(params[:report_id], params.to_h)
     if request.format.to_s == "application/pdf"
       view_mode = "pdf"
     else

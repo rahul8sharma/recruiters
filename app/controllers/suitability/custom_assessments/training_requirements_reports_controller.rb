@@ -1,9 +1,9 @@
 class Suitability::CustomAssessments::TrainingRequirementsReportsController < ApplicationController
   layout "tests"
   
-  before_filter :authenticate_user!, :except => [:download_report]
-  before_filter :get_assessment, :except => [:download_report]
-  before_filter :get_company, :except => [:download_report]
+  before_action :authenticate_user!, :except => [:download_report]
+  before_action :get_assessment, :except => [:download_report]
+  before_action :get_company, :except => [:download_report]
   
   def training_requirements
     @assessment_report = Vger::Resources::Suitability::AssessmentReport.where(

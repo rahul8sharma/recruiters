@@ -61,27 +61,36 @@ module Suitability
         status: "success"
       }
 
-      @view_mode = "html"
-      html = render_to_string(
+      @view_mode = "html"   
+      html = ApplicationController.render(
          template: "assessment_reports/#{template}",
          layout: "layouts/suitability/html/#{assessment_type}_report",
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         company_norm_buckets: @company_norm_buckets,
+         patch: @patch, report_attributes: @report_attributes, norm_buckets: @norm_buckets}
       )
 
       @view_mode = "feedback"
-      feedback_html = render_to_string(
+      feedback_html = ApplicationController.render(
          template: "assessment_reports/feedback_report",
          layout: "layouts/suitability/html/feedback_report",
-         formats: [ :html ]
+         formats: [ :html ],
+         assigns: { report: @report, view_mode: @view_mode, 
+         company_norm_buckets: @company_norm_buckets,
+         patch: @patch, report_attributes: @report_attributes, norm_buckets: @norm_buckets}
       )
 
       hash_toc = {
         margin: pdf_margin,
         footer: {
-          content: render_to_string(
+          content: ApplicationController.render(
             "shared/reports/pdf/_report_footer",
             layout: "layouts/suitability/pdf/#{assessment_type}_report",
-            formats: [:pdf]
+            formats: [:pdf],
+            assigns: { report: @report, view_mode: @view_mode, 
+            company_norm_buckets: @company_norm_buckets,
+            patch: @patch, report_attributes: @report_attributes, norm_buckets: @norm_buckets}
           )
         }
       }
@@ -95,9 +104,12 @@ module Suitability
 
       @view_mode = "pdf"
       pdf = WickedPdf.new.pdf_from_string(
-        render_to_string("assessment_reports/#{template}",
+        ApplicationController.render("assessment_reports/#{template}",
           layout: "layouts/suitability/pdf/#{assessment_type}_report",
-          formats: [:pdf]
+          formats: [:pdf],
+          assigns: { report: @report, view_mode: @view_mode, 
+          company_norm_buckets: @company_norm_buckets,
+          patch: @patch, report_attributes: @report_attributes, norm_buckets: @norm_buckets}
         ), hash_toc
       )
 
@@ -166,6 +178,7 @@ module Suitability
           # use send_report_to_user template
           # else use send_report template
           puts "Sending Report"
+
           report_email_recipients = @report.report_hash[:report_email_recipients].to_s.split(',')
           if report_email_recipients.include? @report.report_hash[:user][:email]
             JombayNotify::Email.create_from_mail(SystemMailer.send_report_to_user(mailer_data), "send_report_to_user")

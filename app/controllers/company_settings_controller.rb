@@ -1,12 +1,12 @@
 class CompanySettingsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:id]) }
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:id]) }
 
   layout "companies"
 
-  before_filter :get_company
-  before_filter :get_company_managers, only: [:company_managers, :remove_company_managers]
-  before_filter :get_admins, only: [:user_settings, :remove_users]
+  before_action :get_company
+  before_action :get_company_managers, only: [:company_managers, :remove_company_managers]
+  before_action :get_admins, only: [:user_settings, :remove_users]
 
   def settings
   end

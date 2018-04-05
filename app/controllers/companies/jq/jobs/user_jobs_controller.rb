@@ -1,6 +1,6 @@
 class Companies::Jq::Jobs::UserJobsController < ApplicationController
   layout 'jq'
-  before_filter :get_company, :get_job
+  before_action :get_company, :get_job
   
   def index
     order = params[:order_by] || "default"

@@ -1,10 +1,10 @@
 class Companies::SubscriptionsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter { authorize_user!(params[:id]) }
+  before_action :authenticate_user!
+  before_action { authorize_user!(params[:id]) }
 
   layout "companies"
 
-  before_filter :get_company
+  before_action :get_company
   
   def api_resource
     Vger::Resources::Company
