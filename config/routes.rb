@@ -1674,4 +1674,13 @@ Rails.application.routes.draw do
 
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
+
+  # New routes for updated jit flow
+  namespace :jit_reloaded do
+    resources :vac do
+      collection do
+        get :new
+      end
+    end
+  end
 end

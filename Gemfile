@@ -91,3 +91,4 @@ group :development do
 end
 
 gem "redis-namespace", "~> 1.6"
+gem 'webpacker', '~> 3.4'
