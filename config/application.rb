@@ -64,6 +64,8 @@ module Recruiters
     config.validators = YAML.load(File.read(Rails.root.join("config/validation.yml")))
     # assets_precompile_enforcer module copied from https://github.com/ndbroadbent/assets_precompile_enforcer
     
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    
     # require "assets_precompile_enforcer/sprockets/helpers/rails_helper"
     config.assets.original_precompile = config.assets.precompile.dup
     config.to_prepare { load 'config/assets_precompile.rb' }
@@ -78,7 +80,7 @@ module Recruiters
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.ttf *.woff)
     config.vger = YAML::load(File.open("#{Rails.root.to_s}/config/vger.yml"))[Rails.env.to_s]
     config.payments = YAML::load(File.open("#{Rails.root.to_s}/config/payments.yml"))
     config.reports = YAML::load(File.open("#{Rails.root.to_s}/config/reports.yml"))

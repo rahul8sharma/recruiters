@@ -1,4 +1,15 @@
 GIT
+  remote: git@bitbucket.org:jombay/jombay-notify.git
+  revision: a3a06d7538f8ba6856b3b3b302e6e21e60456d84
+  branch: rails-5
+  specs:
+    jombay-notify (0.0.1)
+      activerecord-jdbcpostgresql-adapter (= 50.0)
+      nokogiri (= 1.8.2)
+      rails (= 5.0.6)
+      sidekiq (= 5.1.1)
+
+GIT
   remote: git@github.com:yournextleap/vger.git
   revision: f096a0f19c4b73da10bdfc92068a2ea48a949bf6
   branch: develop
@@ -27,15 +38,6 @@ GIT
   specs:
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-
-PATH
-  remote: /data/workspace/enterprise/jombay-notify
-  specs:
-    jombay-notify (0.0.1)
-      activerecord-jdbcpostgresql-adapter (= 50.0)
-      nokogiri (= 1.8.2)
-      rails (= 5.0.6)
-      sidekiq (= 5.1.1)
 
 GEM
   remote: https://rubygems.org/

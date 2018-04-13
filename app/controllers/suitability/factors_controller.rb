@@ -8,7 +8,7 @@ class Suitability::FactorsController < MasterDataController
     params[:search] = params[:search].select{|key,val| val.present? }
     params[:search] = params[:search].each{|key,val| params[:search][key].strip! }
     @factors = Vger::Resources::Suitability::Factor.where(
-      :page => params[:page],
+      :page => params[:page] || 1,
       :per => 50,
       :include => [:parent],
       :methods => [:type, :company_names, :company_ids],
