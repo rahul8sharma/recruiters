@@ -9,4 +9,4 @@
 
 console.log('Hello World from Webpacker')
 
-import 'assets/css/application.css'
+import 'assets/css/application.scss'

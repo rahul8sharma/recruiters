@@ -7,9 +7,9 @@
 <script>
   export default {
     data () {
-        return {
-            text: 'Hello World!'
-        }
+      return {
+        text: 'Hello World!'
+      }
     }
   }
 </script>

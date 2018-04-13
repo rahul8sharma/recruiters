@@ -1,0 +1,11 @@
+
+.assessments-list
+  .span14.page-title.first
+    .divider1
+    Assessment Center Development Center
+  - if is_superuser?
+    %button.btn.btn-info.big.big-text.pull-right.span{:title => "Click Here To Create new ACDC"}
+      Create New Assessment Center
+  #acdc-assessment-centers-edit-component
+    %acdc-assessment-centers-edit-component
+  = javascript_pack_tag 'acdc/assessment_centers/edit'

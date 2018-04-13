@@ -533,6 +533,13 @@ Rails.application.routes.draw do
         post :export_to_google_drive
       end
     end
+
+    # New routes for updated jit flow
+    resources :acdc_assessment_centers, :controller => "acdc/assessment_centers", :path => "acdc" do
+      collection do
+        get :home
+      end
+    end
   end
   
   resources :vac_company_managers do
@@ -1674,13 +1681,4 @@ Rails.application.routes.draw do
 
   mount JombayNotify::Engine => "/jombay-notify"
   mount Sidekiq::Web => '/sidekiq'
-
-  # New routes for updated jit flow
-  namespace :jit_reloaded do
-    resources :vac do
-      collection do
-        get :new
-      end
-    end
-  end
 end
