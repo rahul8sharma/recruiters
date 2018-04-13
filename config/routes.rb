@@ -533,6 +533,13 @@ Rails.application.routes.draw do
         post :export_to_google_drive
       end
     end
+
+    # New routes for updated jit flow
+    resources :acdc_assessment_centers, :controller => "acdc/assessment_centers", :path => "acdc" do
+      collection do
+        get :home
+      end
+    end
   end
   
   resources :vac_company_managers do
