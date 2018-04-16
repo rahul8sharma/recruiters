@@ -534,12 +534,8 @@ Rails.application.routes.draw do
       end
     end
 
-    # New routes for updated jit flow
-    resources :acdc_assessment_centers, :controller => "acdc/assessment_centers", :path => "acdc" do
-      collection do
-        get :home
-      end
-    end
+    # New routes for ACDC
+    resources :acdc_assessments, :controller => "acdc/assessments", :path => "acdc"
   end
   
   resources :vac_company_managers do

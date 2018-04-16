@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title ACDC
+    = csrf_meta_tags
+    = javascript_pack_tag 'application'
+    = stylesheet_pack_tag 'application'
+  %body
+    = yield
