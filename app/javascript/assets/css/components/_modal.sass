@@ -1,0 +1,37 @@
+.modal
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background: #000000
+  background: rgba(0, 0, 0, 0.45)
+  z-index: 999999
+  @include flex
+  justify-content: center
+  align-items: center
+  .modal-container
+    background: #fff
+    position: relative
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4)
+    .close
+      font-size: rem-calc(30)
+      color: #000
+    .heading
+      background: #f6f6f6
+      padding: rem-calc(7 14 7 25)
+      @include flex
+      align-items: center;
+
+    .modal-body
+      padding: rem-calc(25 30)
+    .actions
+      @include flex
+      align-items: center
+      padding: rem-calc(9 12)
+      border-top: 2px solid rgba(0, 0, 0, 0.1)
+  &.scrollable
+    .modal-container
+      .modal-body
+        max-height: 85vh
+        overflow-y: auto

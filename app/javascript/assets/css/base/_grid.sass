@@ -1,0 +1,11 @@
+@import 'variables'
+
+@for $i from 1 through $gridCount
+  .large-#{$i}
+    width: #{$width * $i}#{%}
+
+@for $i from 1 through $gridCount
+  .left-offset-#{$i}
+    margin-left: #{$width * $i}#{%}
+
+
