@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <Header></Header>
+    <AssessmentCRUD></AssessmentCRUD>
 	<ReportConfigurationLoad></ReportConfigurationLoad>
     <div class="divider-2"></div>
     <div class="container">
@@ -32,12 +33,14 @@
 </template>
 
 <script>
-    import Header from 'components/shared/Header.vue';
-    import Footer from 'components/shared/Footer.vue';
+  import Header from 'components/shared/Header.vue';
+  import Footer from 'components/shared/Footer.vue';
 	import ReportConfigurationLoad from 'components/acdc/report_configurations/Load.vue';
 	import CreateAssessment from 'components/acdc/assessments/New.vue';
+  import AssessmentCRUD from 'components/acdc/assessments/AssessmentCRUD.vue';
+
   export default {
-    components: { Header, Footer, ReportConfigurationLoad, CreateAssessment },
+    components: { Header, Footer, ReportConfigurationLoad, CreateAssessment, AssessmentCRUD },
     data () {
           return {
           text: 'Hello World!'

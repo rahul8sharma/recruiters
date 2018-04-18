@@ -535,7 +535,11 @@ Rails.application.routes.draw do
     end
 
     # New routes for ACDC
-    resources :acdc_assessments, :controller => "acdc/assessments", :path => "acdc"
+    resources :acdc_assessments, :controller => "acdc/assessments", :path => "acdc" do
+      collection do
+        get "meta_data" => "acdc/assessments#get_meta_data"
+      end
+    end
   end
   
   resources :vac_company_managers do

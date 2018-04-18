@@ -6,9 +6,7 @@
 
 <script>
   import VJstree from 'vue-jstree'
-  import { store } from 'store'
   export default {
-    store,
     components: { VJstree },
     methods: {
       // TODO: If item click event not needed then remove it
