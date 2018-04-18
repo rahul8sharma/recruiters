@@ -7,10 +7,17 @@
   background: #000000
   background: rgba(0, 0, 0, 0.45)
   z-index: 999999
-  @include flex
   justify-content: center
   align-items: center
+  display: none
+  &.modalOpen
+    @include flex
+    .modal-container
+      transform: scale(1)
+      opacity: 1
   .modal-container
+    transform: scale(0)
+    opacity: 0
     background: #fff
     position: relative
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4)
@@ -33,5 +40,5 @@
   &.scrollable
     .modal-container
       .modal-body
-        max-height: 85vh
+        max-height: 80vh
         overflow-y: auto
