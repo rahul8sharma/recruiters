@@ -4,10 +4,12 @@ import vueResource from 'vue-resource';
 Vue.use(Vuex);
 Vue.use(vueResource)
 
-import vacstore  from './vac';
+import AcdcStore  from './acdc';
+import ReportConfigurationStore  from './report_configurations';
 
 export const store = new Vuex.Store({
     modules: {
-        vacstore: vacstore
+        AcdcStore: AcdcStore,
+        ReportConfigurationStore: ReportConfigurationStore
     }
 })

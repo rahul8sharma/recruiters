@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <Header></Header>
+	<ReportConfigurationLoad></ReportConfigurationLoad>
     <div class="divider-2"></div>
     <div class="container">
       <a href="#" class="button btn-warning big big-text right uppercase">Create Assessment</a>
@@ -32,12 +33,11 @@
 
 <script>
     import Header from 'components/shared/Header.vue';
-    import CreateAssessment from 'components/acdc/assessments/New.vue';
-  //   import VueScrollbar from 'vue2-scrollbar';
-  // require("vue2-scrollbar/dist/style/vue2-scrollbar.css")
     import Footer from 'components/shared/Footer.vue';
+	import ReportConfigurationLoad from 'components/acdc/report_configurations/Load.vue';
+	import CreateAssessment from 'components/acdc/assessments/New.vue';
   export default {
-    components: { Header, Footer, CreateAssessment },
+    components: { Header, Footer, ReportConfigurationLoad, CreateAssessment },
     data () {
           return {
           text: 'Hello World!'
