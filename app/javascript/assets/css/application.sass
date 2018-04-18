@@ -1,2 +1,132 @@
-#rahul
-  background-color: red
+@import 'base'
+@import 'components'
+
+ul
+  list-style: none
+  margin: 0
+
+#header
+  background: #fff
+  border-bottom: 1px solid #ccc
+  width: 100%
+  .container
+    height: 55px
+  .logo
+    margin-top: 14px
+    padding: 0px 4px 0px 4px
+   
+  .label
+    margin-top: 15px
+    font-weight: 600
+
+  .company_name
+    font-size: 18px
+    line-height: 21px
+    color: #808285
+    border-left: 1px solid #ccc
+    padding: 18px 0 18px 10px
+    margin-left: 10px
+  .navbar
+    border-left: 1px solid #ccc
+    padding: 0 13px
+    margin-top: 1px
+    font-size: rem-calc(14)
+
+    li
+      float: left
+
+      a
+        padding: 18px 4px
+        margin: 0 9px
+        display: block
+        color: #414042
+        border-bottom: 3px solid transparent
+
+        &:hover, &.active
+          color: $color-warning
+          border-bottom: 3px solid $color-warning
+          text-decoration: none
+
+        &.search-menu
+          background: url('~assets/images/search-icon-black.png') no-repeat 0 18px
+          width: 20px
+          padding: 0
+          height: 54px
+          &:hover, &.active
+            background-image: url('~assets/images/search-icon-warning.png')
+
+  #sub-nav
+    position: relative
+    z-index: 5
+    margin: 10px 0 0 25px
+    > li
+      padding-bottom: 10px
+    .setting
+      width: 60px
+      height: 30px
+      border-radius: 3px
+      border: 1px solid #ccc
+      background: url('~assets/images/caret-arrow.png') no-repeat center 5px  #fff
+      &:hover
+        color: #fff
+        background-color: #ccc
+        background-position: center -23px
+      &.other-apps
+        width: auto
+        background: none
+        line-height: 20px
+        border: 0 none
+        padding-top: 10px
+        padding-bottom: 0
+        margin-right: 20px
+        &:hover
+          background: none
+          color: #000
+
+    li
+      float: left
+      position: relative
+
+    a
+      display: block
+      padding: 5px 5px 5px 10px
+      background-color: #fff
+      color: #414042
+      text-decoration: none
+      font-size: rem-calc(14)
+      line-height: 10px
+      white-space: nowrap
+
+    ul
+      background: #fff
+      padding: 5px 0
+      margin-top: 3px
+      border: 1px solid #ccc
+      list-style: none
+      position: absolute
+      top: 100%
+      display: none
+      li
+        float: none
+
+    li:hover
+      ul
+        display: block
+        right: 0
+      .setting
+        color: #fff
+        background-color: #ccc
+        background-position: center -23px
+        &.other-apps
+          background: none
+          color: #000
+      ul
+        min-height: 30px
+        a
+          text-decoration: none
+          min-width: 100px
+        li a:hover
+          background: $color-warning
+          color: #fff
+
+        

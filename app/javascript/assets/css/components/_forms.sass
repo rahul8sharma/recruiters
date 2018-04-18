@@ -1,0 +1,26 @@
+.form-group
+  @include flex
+  -webkit-flex-flow: column
+  flex-flow: column
+  input[type='text']
+    width: 100%
+    order: 2
+    padding: rem-calc(10 0)
+    height: rem-calc(30)
+    border: 0 none
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    color: rgba(0, 0, 0, 0.87)
+    font-size: rem-calc(16)
+    &:focus
+      border-color: $color-warning
+      box-shadow: none
+      &+label
+        color: $color-warning
+        transform: scale(1)
+        opacity: 1
+  label
+    order: 1
+    font-size: rem-calc(12)
+    opacity: 0
+    transform: scale(0)
+    transform-origin: left

@@ -1,0 +1,36 @@
+
+button, .button
+  -webkit-appearance: none
+  -moz-appearance: none
+  border-radius: 3px
+  border: 1px solid #007095
+  cursor: pointer
+  line-height: normal
+  position: relative
+  text-decoration: none
+  position: relative
+  text-align: center
+  transition: background-color 300ms ease-out
+  background-color: #008CBA
+  color: #FFF
+  padding: rem-calc(7 14)
+  &:hover, &:focus,  &:hover,  &:focus
+    opacity: 0.7
+    text-decoration: none
+  &.btn-warning
+    background: $color-warning
+    border-color: $color-warning
+  &.btn-link
+    background-color: transparent
+    border-color: transparent
+    &:hover
+      background-color: transparent
+      border-color: transparent
+
+  &.disabled, &[disabled]
+    background-color: rgba(0, 0, 0, 0.1)
+    color: #fff
+    cursor: not-allowed
+    border-color: rgba(0, 0, 0, 0.1)
+
+   

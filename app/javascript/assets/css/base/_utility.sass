@@ -1,0 +1,114 @@
+@for $i from 1 through $gridCount
+  .divider-#{$i}
+    height: $i * rem-calc($dividerHeight)
+
+@for $i from 1 through $gridCount
+  .line-height-#{$i}
+    line-height: $i * rem-calc($dividerHeight) !important
+@for $i from 1 through $gridCount*2
+  .fs-#{($i*2)+2}
+    font-size:  rem-calc(($i*2)+2) !important
+@for $i from 0 through $gridCount*2
+  .m-#{$i}
+    margin:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .mt-#{$i}
+    margin-top:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .mr-#{$i}
+    margin-right:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .mb-#{$i}
+    margin-bottom:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .ml-#{$i}
+    margin-left:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .pt-#{$i}
+    padding-top:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .pr-#{$i}
+    padding-right:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .pb-#{$i}
+    padding-bottom:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
+  .pl-#{$i}
+    padding-left:  rem-calc($i) !important
+//Colors
+@for $i from 1 through 10
+  .black-#{$i}
+    color:  rgba(0, 0, 0, $i/10) !important
+.black-6
+//Mixins
+@mixin clearfix 
+  content: " "
+  display: table
+
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+@mixin truncate
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.right
+  float: right
+.left
+  float: left
+.text-right
+  text-align: right
+.text-center
+  text-align: center
+.text-left
+  text-align: left
+.hide
+  display: none
+.show
+  display: block !important
+.invisible
+  visibility: hidden
+.first 
+  padding-left: 0 !important
+.last
+  padding-right: 0
+.no-background
+  background: none !important
+
+.no-wrap
+  white-space: nowrap
+
+.float-none
+  float: none !important
+
+.centered
+  margin-left: auto !important
+  margin-right: auto !important
+  float: none !important
+.clr
+  clear: both
+.column, .columns
+  float: left
+  padding: rem-calc(10 0)
+.container
+  width: 90%
+  margin: auto
+.bold
+  font-weight: 600 !important
+.font-normal
+  font-weight: 200 !important
+.capitalize
+  text-transform: capitalize
+.uppercase
+  text-transform: uppercase
+.spacer
+  flex: 1 1 auto
+  -webkit-flex: 1 1 auto 
+  -ms-flex: 1 1 auto 
+  display: inline-block
+
