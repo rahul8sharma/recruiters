@@ -1,143 +1,164 @@
 <template>
-  <div class="create_assessment">
-    <form>
-      <div class="form-group large-15 column">
-        <input type="text" placeholder="Name of Assessment">
-        <label>Name of Assessment:</label>
+  <div class="modal scrollable" v-bind:class="{modalOpen:isModalOpen}">
+    <div class="modal-container large-20">
+      <div class="heading fs-14 uppercase">
+        <span>Create Assessment</span>
+        <div class="spacer"></div>
+        <div @click="setModalState" class="close">&times;</div>
       </div>
-      <div class="large-15 column fs-14 black-6">
-        <div class="divider-1"></div>
-        11/24 characters
-      </div>
-      <div class="clr"></div>
-      <em class="fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
+      <div class="modal-body">
+        <div class="create_assessment">
+          <form>
+            <div class="form-group large-15 column">
+              <input type="text" placeholder="Name of Assessment">
+              <label>Name of Assessment:</label>
+            </div>
+            <div class="large-15 column fs-14 black-6">
+              <div class="divider-1"></div>
+              11/24 characters
+            </div>
+            <div class="clr"></div>
+            <em class="fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
 
-      <div class="divider-1"></div>
-      <div class="section_title uppercase fs-12 bold">
-        Select Assessment Type
-      </div>
-      <div class="assessment-type">
-        <div class="divider-1"></div>
-        <div class="uppercase fs-14 bold black-9">
-          Plain Psychometry 
-        </div>
-        <ul class="pannel-list">
-          <li class="list_item large-7">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">Just Psychometry</div>
-                Plain Old vanilla Psychometry
+            <div class="divider-1"></div>
+            <div class="section_title uppercase fs-12 bold">
+              Select Assessment Type
+            </div>
+            <div class="assessment-type">
+              <div class="divider-1"></div>
+              <div class="uppercase fs-14 bold black-9">
+                Plain Psychometry 
               </div>
-            </label>
-          </li>
-        </ul>
-      </div>
+              <ul class="pannel-list">
+                <li class="list_item large-7">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">Just Psychometry</div>
+                      Plain Old vanilla Psychometry
+                    </div>
+                  </label>
+                </li>
+              </ul>
+            </div>
 
-      <div class="assessment-type">
-        <div class="divider-1"></div>
-        <div class="uppercase fs-14 bold black-9">
-          BHiVE
-        </div>
-        <ul class="pannel-list">
-          <li class="list_item large-7">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">BHive with Cocubes</div>
-                Psychometry integrated with Cocubes
+            <div class="assessment-type">
+              <div class="divider-1"></div>
+              <div class="uppercase fs-14 bold black-9">
+                BHiVE
               </div>
-            </label>
-          </li>
-          <li class="list_item large-7">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">BHive with HireMe</div>
-                Psychometry integrated with HireMe
-              </div>
-            </label>
-          </li>
-          <li class="list_item large-8">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">BHive with Jombay Aptitude</div>
-                Psychometry integrated Jombay Seamless Experience
-              </div>
-            </label>
-          </li>
-        </ul>
-      </div>
+              <ul class="pannel-list">
+                <li class="list_item large-7">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">BHive with Cocubes</div>
+                      Psychometry integrated with Cocubes
+                    </div>
+                  </label>
+                </li>
+                <li class="list_item large-7">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">BHive with HireMe</div>
+                      Psychometry integrated with HireMe
+                    </div>
+                  </label>
+                </li>
+                <li class="list_item large-8">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">BHive with Jombay Aptitude</div>
+                      Psychometry integrated Jombay Seamless Experience
+                    </div>
+                  </label>
+                </li>
+              </ul>
+            </div>
 
-      <div class="assessment-type">
-        <div class="divider-1"></div>
-        <div class="uppercase fs-14 bold black-9">
-          Mini HiVE
-        </div>
-        <ul class="pannel-list">
-          <li class="list_item large-8">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">MiniHiVE with Pearson Ravens</div>
-                Psychometry integrated with Pearson
+            <div class="assessment-type">
+              <div class="divider-1"></div>
+              <div class="uppercase fs-14 bold black-9">
+                Mini HiVE
               </div>
-            </label>
-          </li>
-          <li class="list_item large-8">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">MiniHiVE with WG</div>
-                Psychometry integrated with WG
-              </div>
-            </label>
-          </li>
-        </ul>
-        <ul class="pannel-list">
-          <li class="list_item large-10">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">MiniHiVE with Jombay Abstract Thinking</div>
-                Psychometry integrated Jombay Seamless Experience
-              </div>
-            </label>
-          </li>
-          <li class="list_item large-10">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">MiniHiVE with Jombay Critical Thinking</div>
-                Psychometry integrated Jombay Seamless Experience
-              </div>
-            </label>
-          </li>
-        </ul>
-      </div>
+              <ul class="pannel-list">
+                <li class="list_item large-8">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">MiniHiVE with Pearson Ravens</div>
+                      Psychometry integrated with Pearson
+                    </div>
+                  </label>
+                </li>
+                <li class="list_item large-8">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">MiniHiVE with WG</div>
+                      Psychometry integrated with WG
+                    </div>
+                  </label>
+                </li>
+              </ul>
+              <ul class="pannel-list">
+                <li class="list_item large-10">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">MiniHiVE with Jombay Abstract Thinking</div>
+                      Psychometry integrated Jombay Seamless Experience
+                    </div>
+                  </label>
+                </li>
+                <li class="list_item large-10">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">MiniHiVE with Jombay Critical Thinking</div>
+                      Psychometry integrated Jombay Seamless Experience
+                    </div>
+                  </label>
+                </li>
+              </ul>
+            </div>
 
-      <div class="assessment-type">
-        <div class="divider-1"></div>
-        <div class="uppercase fs-14 bold black-9">
-          VAC
-        </div>
-        <ul class="pannel-list">
-          <li class="list_item large-7">
-            <label class="pannel_container">
-              <input type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">Virtual Assessment Center</div>
+            <div class="assessment-type">
+              <div class="divider-1"></div>
+              <div class="uppercase fs-14 bold black-9">
                 VAC
               </div>
-            </label>
-          </li>
-        </ul>
+              <ul class="pannel-list">
+                <li class="list_item large-7">
+                  <label class="pannel_container">
+                    <input type="radio" name="assessmentType" class="input_field">
+                    <div class="pannel">
+                      <div class="title">Virtual Assessment Center</div>
+                      VAC
+                    </div>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+      <div class="actions">
+        <div class="spacer"></div>
+        <button @click="setModalState" class="button btn-link uppercase fs-14 black-7">Discard</button>
+        <button  disabled class="button btn-warning uppercase fs-14">Create Assessment</button>
+      </div>
+    </div>
   </div>
 </template>
-<!-- <style src="~assets/css/timepass.sass" scoped></style> -->
+
+<script>
+  export default {
+    props: ['isModalOpen', 'setModalState']
+  }
+</script>
 
 <style lang="sass" scoped>
   $color-warning: #ff8308 
