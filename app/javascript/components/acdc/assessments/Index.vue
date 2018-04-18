@@ -37,7 +37,7 @@
   import Footer from 'components/shared/Footer.vue';
 	import ReportConfigurationLoad from 'components/acdc/report_configurations/Load.vue';
 	import CreateAssessment from 'components/acdc/assessments/New.vue';
-  import AssessmentCRUD from 'components/acdc/assessments/assessment_crud.vue';
+  import AssessmentCRUD from 'components/acdc/assessments/AssessmentCRUD.vue';
 
   export default {
     components: { Header, Footer, ReportConfigurationLoad, CreateAssessment, AssessmentCRUD },

@@ -15,14 +15,7 @@ export default {
     },
     actions: {
       create_acdc_assessment ({commit, getters}, payload) {
-	      Vue.http.post('/companies/2/acdc', {
-          acdc_assessment: {
-            name: "raw_data",
-            company_id: 2,
-            user_id: 176698,
-            raw_data: {test: 'example'}
-          } //TODO need to update
-        })
+	      Vue.http.post('/companies/2/acdc', payload)
         .then(function (response) {
             commit('setAcdcAssessment', response.body);
         })
@@ -40,11 +33,7 @@ export default {
       	})
 	  	},
 	  	update_acdc_assessment ({commit, getters}, payload) {
-	      Vue.http.put('/companies/2/acdc/1',{
-	      	acdc_assessment: {
-	          raw_data: {test: 'example2'}
-	        } //TODO need to update
-	      })
+	      Vue.http.put('/companies/2/acdc/1', payload)
 	      .then(function (response) {
             commit('setAcdcAssessment', response.body);
         })
