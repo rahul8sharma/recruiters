@@ -57,7 +57,7 @@ gem 'faraday', :github => "prcongithub/faraday", :branch => "handle-unprocessabl
 gem 'her', '0.6.8'
 gem 'spreadsheet', '1.1.1'
 
-gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "develop"
+gem 'vger', :git => "git@github.com:yournextleap/vger.git", :branch => "rails-5-acdc"
 
 gem 'faraday_middleware', '0.12.2'
 gem 'awesome_print', '1.8.0'
