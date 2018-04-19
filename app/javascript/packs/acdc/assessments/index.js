@@ -7,7 +7,7 @@ import AcdcAssessmentsIndexComponent from 'components/acdc/assessments/Index.vue
 
 Vue.use(VueResource);
 
-const integrationIndex = new Vue({
+const index = new Vue({
     el: '#acdc-assessments-index-component',
     store,
     components: {

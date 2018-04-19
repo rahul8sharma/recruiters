@@ -7,4 +7,12 @@
     = javascript_pack_tag 'application'
     = stylesheet_pack_tag 'application'
   %body
+    #shared-navbar-component.new
+      %shared-navbar-component
+    = javascript_pack_tag 'shared/navbar'
+
     = yield
+
+    #shared-footer-component.new
+      %shared-footer-component
+    = javascript_pack_tag 'shared/footer'

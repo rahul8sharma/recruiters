@@ -32,7 +32,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="Just Psychometry" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">Just Psychometry</div>
                       Plain Old vanilla Psychometry
@@ -50,7 +50,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="BHive with Cocubes" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with Cocubes</div>
                       Psychometry integrated with Cocubes
@@ -59,7 +59,7 @@
                 </li>
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="BHive with HireMe" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with HireMe</div>
                       Psychometry integrated with HireMe
@@ -68,7 +68,7 @@
                 </li>
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="BHive with Jombay Aptitude" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with Jombay Aptitude</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -86,7 +86,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="MiniHiVE with Pearson Ravens" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Pearson Ravens</div>
                       Psychometry integrated with Pearson
@@ -95,7 +95,7 @@
                 </li>
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="MiniHiVE with WG" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with WG</div>
                       Psychometry integrated with WG
@@ -106,7 +106,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-10">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="MiniHiVE with Jombay Abstract Thinking" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Jombay Abstract Thinking</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -115,7 +115,7 @@
                 </li>
                 <li class="list_item large-10">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="MiniHiVE with Jombay Critical Thinking" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Jombay Critical Thinking</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -133,7 +133,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" value="Virtual Assessment Center" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">Virtual Assessment Center</div>
                       VAC
