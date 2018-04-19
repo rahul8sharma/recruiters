@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
     <Header></Header>
-    <AssessmentCRUD></AssessmentCRUD>
     <div class="divider-2"></div>
     <div class="container">
       <button @click="setModalState" class="button btn-warning big big-text right uppercase">Create Assessment</button>
@@ -23,10 +22,9 @@
   import Header from 'components/shared/Header.vue';
   import Footer from 'components/shared/Footer.vue';
   import CreateAssessment from 'components/acdc/assessments/New.vue';
-  import AssessmentCRUD from 'components/acdc/assessments/AssessmentCRUD.vue';
 
   export default {
-    components: { Header, Footer, CreateAssessment, AssessmentCRUD },
+    components: { Header, Footer, CreateAssessment },
     data () {
       return {
         modal: {
@@ -44,7 +42,7 @@
       },
       createAssessment () {
           console.log("Called...")
-          this.$store.dispatch('create_acdc_assessment', {
+          this.$store.dispatch('createAcdcAssessment', {
               acdc_assessment: {
                   name: this.assessment.name,
                   company_id: 2,

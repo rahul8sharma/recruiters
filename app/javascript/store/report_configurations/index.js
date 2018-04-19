@@ -29,17 +29,17 @@ export default {
         })
         .catch(error => {
           console.log(error)
-      })
+        })
     }
   },
   getters: {
     htmlReportConfiguration (state) {
       return state.htmlReportConfiguration
     },
-    PdfReportConfiguration (state) {
+    pdfReportConfiguration (state) {
       return state.pdfReportConfiguration
     },
-    ErrorReportConfiguration (state) {
+    errorReportConfiguration (state) {
       return state.errorReportConfiguration
     }
   }
