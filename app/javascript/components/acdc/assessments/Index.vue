@@ -6,7 +6,7 @@
     <div class="container">
       <button @click="setModalState" class="button btn-warning big big-text right uppercase">Create Assessment</button>
       <div class="clr"></div>
-      <CreateAssessment v-bind:isModalOpen="isModalOpen" :set-modal-state="setModalState"></CreateAssessment>
+      <CreateAssessment v-bind:isModalOpen="modal.isOpen" v-bind:isCreateSubmitButtonEnable="isCreateSubmitButtonEnable" v-bind:assessment="assessment" :set-modal-state="setModalState"></CreateAssessment>
     </div>
     <Footer></Footer>
   </div>
@@ -22,12 +22,23 @@
     components: { Header, Footer, CreateAssessment, AssessmentCRUD },
     data () {
       return {
-        isModalOpen: false
+        modal: {
+          isOpen: false
+        },
+        assessment: {
+          name: '',
+          tool: ''
+        }
       }
     },
     methods: {
       setModalState () {
-        this.isModalOpen = !this.isModalOpen;
+        this.modal.isOpen = !this.modal.isOpen;
+      }
+    },
+    computed: {
+      isCreateSubmitButtonEnable () {
+        return !(this.assessment.name != '' && this.assessment.tool != '' )
       }
     }
   }

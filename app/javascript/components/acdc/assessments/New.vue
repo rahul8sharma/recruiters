@@ -10,7 +10,7 @@
         <div class="create_assessment">
           <form>
             <div class="form-group large-15 column">
-              <input type="text" placeholder="Name of Assessment">
+              <input type="text" placeholder="Name of Assessment" v-model="assessment.name">
               <label>Name of Assessment:</label>
             </div>
             <div class="large-15 column fs-14 black-6">
@@ -32,7 +32,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">Just Psychometry</div>
                       Plain Old vanilla Psychometry
@@ -50,7 +50,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with Cocubes</div>
                       Psychometry integrated with Cocubes
@@ -59,7 +59,7 @@
                 </li>
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with HireMe</div>
                       Psychometry integrated with HireMe
@@ -68,7 +68,7 @@
                 </li>
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">BHive with Jombay Aptitude</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -86,7 +86,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Pearson Ravens</div>
                       Psychometry integrated with Pearson
@@ -95,7 +95,7 @@
                 </li>
                 <li class="list_item large-8">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with WG</div>
                       Psychometry integrated with WG
@@ -106,7 +106,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-10">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Jombay Abstract Thinking</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -115,7 +115,7 @@
                 </li>
                 <li class="list_item large-10">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">MiniHiVE with Jombay Critical Thinking</div>
                       Psychometry integrated Jombay Seamless Experience
@@ -133,7 +133,7 @@
               <ul class="pannel-list">
                 <li class="list_item large-7">
                   <label class="pannel_container">
-                    <input type="radio" name="assessmentType" class="input_field">
+                    <input v-model="assessment.tool" type="radio" name="assessmentType" class="input_field">
                     <div class="pannel">
                       <div class="title">Virtual Assessment Center</div>
                       VAC
@@ -148,7 +148,7 @@
       <div class="actions">
         <div class="spacer"></div>
         <button @click="setModalState" class="button btn-link uppercase fs-14 black-7">Discard</button>
-        <button  disabled class="button btn-warning uppercase fs-14">Create Assessment</button>
+        <button :disabled="isCreateSubmitButtonEnable" class="button btn-warning uppercase fs-14">Create Assessment</button>
       </div>
     </div>
   </div>
@@ -156,7 +156,7 @@
 
 <script>
   export default {
-    props: ['isModalOpen', 'setModalState']
+    props: ['isModalOpen', 'setModalState', 'isCreateSubmitButtonEnable', 'assessment']
   }
 </script>
 
