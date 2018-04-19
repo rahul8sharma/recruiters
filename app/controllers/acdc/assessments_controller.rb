@@ -1,5 +1,5 @@
 class Acdc::AssessmentsController < ApplicationController
-  # before_action :set_acdc_assessment, only: [:show, :edit, :update, :destroy]
+  before_action :set_acdc_assessment, only: [:show, :edit]
   before_action :authenticate_user!
   before_action { authorize_user!(params[:company_id]) }
   before_action :get_company
@@ -12,7 +12,7 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def index
-    @assessment = api_resource.where(:query_options => { 
+    @assessments = api_resource.where(:query_options => {
                             :company_id => params[:company_id]
                           }, 
                           :page => params[:page], :per => 10,
@@ -21,12 +21,9 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def edit
-    @assessment = api_resource.find(params[:id])
-    render json: @assessment.attributes, status: :ok
   end
 
   def show
-    @assessment = api_resource.find(params[:id])
     render json: @assessment.attributes, status: :ok
   end
 
@@ -44,7 +41,7 @@ class Acdc::AssessmentsController < ApplicationController
     @assessment = api_resource.save_existing(params[:id], acdc_assessment_params)
 
     if @assessment.error_messages && @assessment.error_messages.present?
-      render json: @assessment.errors, status: :unprocessable_entity  
+      render json: @assessment.errors, status: :unprocessable_entity
     else
       render json: @assessment.attributes, status: :accepted
     end
@@ -64,6 +61,11 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_acdc_assessment
+      @assessment = api_resource.find(params[:id])
+    end
+
     #Return current company
     def get_company
       @company = Vger::Resources::Company.find(params[:company_id], :methods => [])

@@ -148,7 +148,7 @@
       <div class="actions">
         <div class="spacer"></div>
         <button @click="setModalState" class="button btn-link uppercase fs-14 black-7">Discard</button>
-        <button :disabled="isCreateSubmitButtonEnable" class="button btn-warning uppercase fs-14">Create Assessment</button>
+        <button @click="createAssessment" :disabled="isCreateSubmitButtonEnable" class="button btn-warning uppercase fs-14">Create Assessment</button>
       </div>
     </div>
   </div>
@@ -156,7 +156,13 @@
 
 <script>
   export default {
-    props: ['isModalOpen', 'setModalState', 'isCreateSubmitButtonEnable', 'assessment']
+    props: [
+      'isModalOpen',
+      'setModalState',
+      'isCreateSubmitButtonEnable',
+      'assessment',
+      'createAssessment'
+    ]
   }
 </script>
 
