@@ -10,12 +10,12 @@
         <div class="create_assessment">
           <form>
             <div class="form-group large-15 column">
-              <input type="text" placeholder="Name of Assessment" v-model="assessment.name">
-              <label>Name of Assessment:</label>
+              <input type="text" placeholder="Name of Assessment" v-model="assessment.name" :maxlength="nameMaxLength">
+              <label>Name of Assessment*</label>
             </div>
             <div class="large-15 column fs-14 black-6">
               <div class="divider-1"></div>
-              11/24 characters
+              {{nameMaxLength - assessment.name.length}}/{{nameMaxLength}} characters
             </div>
             <div class="clr"></div>
             <em class="fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
@@ -162,7 +162,12 @@
       'isCreateSubmitButtonEnable',
       'assessment',
       'createAssessment'
-    ]
+    ],
+    data () {
+      return {
+        nameMaxLength: 24
+      }
+    }
   }
 </script>
 
