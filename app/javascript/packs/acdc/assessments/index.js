@@ -13,13 +13,13 @@ const index = new Vue({
   store,
   components: {
     'acdc-assessments-index-component': AcdcAssessmentsIndexComponent
+  },
+  created: function () {
+    // Get company and user id from rails view
+    var element = document.getElementById("acdc-assessments-index-component");
+
+    // Set company and user id to vuex
+    store.dispatch("setUserId", {user_id: element.dataset.user_id});
+    store.dispatch("setCompanyId", {company_id: element.dataset.company_id});
   }
 });
-
-
-// Get company and user id from rails view
-var element = document.getElementById("acdc-assessments-index-component");
-
-// Set company and user id to vuex
-store.dispatch("setUserId", {user_id: element.dataset.user_id});
-store.dispatch("setCompanyId", {company_id: element.dataset.company_id});
