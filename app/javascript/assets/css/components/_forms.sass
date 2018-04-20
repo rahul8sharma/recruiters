@@ -4,10 +4,21 @@
   flex-flow: column
   .ui
     order: 2
+    &.label > .close.icon, &.label > .delete.icon
+      &:before
+        height: rem-calc(12)
+        width: rem-calc(10)
+        content: "X"
+        display: inline-block
+        font-style: normal
+        font-size: rem-calc(14)
+
+
   input[type='text']
     width: 100%
     order: 2
     padding: rem-calc(10 0)
+    margin-top: 0
     height: rem-calc(30)
     border: 0 none
     border-bottom: 1px solid rgba(0, 0, 0, 0.1)
@@ -27,7 +38,11 @@
     transform: scale(0)
     transform-origin: left
 .select-box
+  ui fluid multiple search selectiondropdown
   .ui
+    &.multiple.search.dropdown > input.search, &.search.dropdown > .text,  &.dropdown:not(.button) > .default.text, &.default.dropdown:not(.button) > .text
+      margin: 0
+      padding: rem-calc(10 0)
     &.dropdown
       border-color: $color-warning
       box-shadow: none
@@ -43,9 +58,10 @@
         &:hover
           box-shadow: none
           border-color: $color-warning
+          padding: 0
       &.selection
         min-height: rem-calc(35)
-        padding: rem-calc(12) 0
+        padding: 0
         color: rgba(0, 0, 0, 0.87)
         border: 0 none
         border-bottom: 1px solid rgba(0, 0, 0, 0.1)
@@ -55,6 +71,7 @@
         &:hover, &:focus
           border-color: $color-warning
           box-shadow: none
+          padding: 0
           &+label
             color: $color-warning
             transform: scale(1)
@@ -71,13 +88,19 @@
           &:hover
             box-shadow: none
             border-color: $color-warning
+            padding: 0
             .menu
               box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
               padding-top: 0
               padding-bottom: 0
               border: 0 none
+        &.search
+          &.multiple
+            padding-right: rem-calc(30)
+
     &.search.selection.dropdown > input.search
-      padding: rem-calc(10) 0
+      padding: rem-calc(10 0)
+      margin: 0
 
 .toggleSwitch
   .toggle
@@ -113,6 +136,8 @@
     background: $color-warning
     &:before
       left: rem-calc(33)
+    &+.toggle-label
+      color: $color-warning
   .toggle-checkbox
     position: absolute
     visibility: hidden
@@ -122,5 +147,39 @@
     top: rem-calc(2)
     font-size: rem-calc(14)
     color: rgba(0, 0, 0, 0.6)
-
-
+.custom-radio, .custom-checkbox
+  position: relative 
+  input[type="radio"], input[type="checkbox"]
+    position: absolute
+    opacity: 0
+    top: 0
+    left: 0
+    &:checked, .checked
+      & + .label-text
+        &:before
+          background: url('~assets/images/ic-radio-on.svg') no-repeat center 0
+  .label-text
+    padding-left: rem-calc(25)
+    position: relative 
+    color: rgba(0, 0, 0, 0.67)
+    font-size: rem-calc(14)
+    line-height: rem-calc(16)
+    &:before
+      position: absolute
+      left: 0
+      top: 0
+      content: " "
+      width: rem-calc(24)
+      height: rem-calc(24)
+      background: url('~assets/images/ic-radio-off.svg') no-repeat center 0
+.custom-checkbox
+  input[type="radio"], input[type="checkbox"]
+    &:checked, .checked
+      & + .label-text
+        &:before
+          background: url('~assets/images/ic-checkbox-selected.svg') no-repeat center 0
+  .label-text
+    line-height: rem-calc(19)
+    padding-left: rem-calc(28)
+    &:before
+      background: url('~assets/images/ic-checkbox-unselected.svg') no-repeat center 0
