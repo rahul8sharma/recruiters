@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <Header></Header>
     <div class="heading_bar flex-box container">
       <div class="fs-18 black-10">
         <div class="assessment_title bold">
@@ -54,10 +53,9 @@
 </template>
 
 <script>
-  import Header from 'components/shared/Header.vue';
   import Description from 'components/acdc/assessments/tabs/Description.vue';
   export default {
-    components: { Header, Description },
+    components: { Description },
     data () {
       return {
         tabItems: [
