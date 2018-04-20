@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-    <Header></Header>
-    <AssessmentCRUD></AssessmentCRUD>
+    <loader></loader>
     <div class="divider-2"></div>
     <div class="container">
       <button @click="setModalState" class="button btn-warning big big-text right uppercase">Create Assessment</button>
@@ -15,18 +14,15 @@
       >
       </CreateAssessment>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
-  import Header from 'components/shared/Header.vue';
-  import Footer from 'components/shared/Footer.vue';
   import CreateAssessment from 'components/acdc/assessments/New.vue';
-  import AssessmentCRUD from 'components/acdc/assessments/AssessmentCRUD.vue';
+  import Loader from 'components/shared/loader.vue';
 
   export default {
-    components: { Header, Footer, CreateAssessment, AssessmentCRUD },
+    components: { CreateAssessment, Loader },
     data () {
       return {
         modal: {
@@ -43,15 +39,14 @@
         this.modal.isOpen = !this.modal.isOpen;
       },
       createAssessment () {
-          console.log("Called...")
-          this.$store.dispatch('create_acdc_assessment', {
-              acdc_assessment: {
-                  name: this.assessment.name,
-                  company_id: 2,
-                  user_id: 176698,
-                  raw_data: {tool: this.assessment.tool}
-              }
-          })
+        this.$store.dispatch('createAcdcAssessment', {
+          acdc_assessment: {
+            name: this.assessment.name,
+            company_id: this.$store.getters.companyId,
+            user_id: this.$store.getters.userId,
+            raw_data: {tool: this.assessment.tool}
+          }
+        })
       }
     },
     computed: {
