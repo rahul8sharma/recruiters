@@ -2,6 +2,8 @@
   @include flex
   -webkit-flex-flow: column
   flex-flow: column
+  .ui
+    order: 2
   input[type='text']
     width: 100%
     order: 2
@@ -11,7 +13,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1)
     color: rgba(0, 0, 0, 0.87)
     font-size: rem-calc(16)
-    &:focus
+    &:focus, &:hover
       border-color: $color-warning
       box-shadow: none
       &+label
@@ -24,3 +26,101 @@
     opacity: 0
     transform: scale(0)
     transform-origin: left
+.select-box
+  .ui
+    &.dropdown
+      border-color: $color-warning
+      box-shadow: none
+      .menu
+        top: calc(100% + 1px)
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+        padding-top: 0
+        padding-bottom: 0
+        border: 0 none
+      &.active
+        box-shadow: none
+        border-color: $color-warning
+        &:hover
+          box-shadow: none
+          border-color: $color-warning
+      &.selection
+        min-height: rem-calc(35)
+        padding: rem-calc(12) 0
+        color: rgba(0, 0, 0, 0.87)
+        border: 0 none
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        border-radius: 0
+        -webkit-tap-highlight-color: transparent
+        box-shadow: none
+        &:hover, &:focus
+          border-color: $color-warning
+          box-shadow: none
+          &+label
+            color: $color-warning
+            transform: scale(1)
+            opacity: 1
+        &.active
+          box-shadow: none
+          border-color: $color-warning
+          .menu
+            top: calc(100% + 1px)
+            box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+            padding-top: 0
+            padding-bottom: 0
+            border: 0 none
+          &:hover
+            box-shadow: none
+            border-color: $color-warning
+            .menu
+              box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+              padding-top: 0
+              padding-bottom: 0
+              border: 0 none
+    &.search.selection.dropdown > input.search
+      padding: rem-calc(10) 0
+
+.toggleSwitch
+  .toggle
+    cursor: pointer
+    display: inline-block
+  .toggle-switch
+    display: inline-block
+    background: #ccc
+    border-radius: rem-calc(16)
+    width: rem-calc(55)
+    height: rem-calc(26)
+    position: relative
+    vertical-align: middle
+    transition: background 0.25s
+    &:before,
+    &:after
+      content: " "
+    &:before
+      display: block
+      background: #fff
+      border-radius: 50%
+      width: rem-calc(18)
+      height: rem-calc(18)
+      position: absolute
+      top: rem-calc(4)
+      left: rem-calc(4)
+      transition: left 0.25s
+    .toggle:hover &:before
+      background: linear-gradient(to bottom, #fff 0%,#fff 100%)
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.5)
+
+  .toggle-checkbox:checked + .toggle-switch
+    background: $color-warning
+    &:before
+      left: rem-calc(33)
+  .toggle-checkbox
+    position: absolute
+    visibility: hidden
+  .toggle-label
+    margin-left: rem-calc(5)
+    position: relative
+    top: rem-calc(2)
+    font-size: rem-calc(14)
+    color: rgba(0, 0, 0, 0.6)
+
+

@@ -1,7 +1,6 @@
 @for $i from 1 through $gridCount
   .divider-#{$i}
     height: $i * rem-calc($dividerHeight)
-
 @for $i from 1 through $gridCount
   .line-height-#{$i}
     line-height: $i * rem-calc($dividerHeight) !important
@@ -24,6 +23,9 @@
   .ml-#{$i}
     margin-left:  rem-calc($i) !important
 @for $i from 0 through $gridCount*2
+  .p-#{$i}
+    padding:  rem-calc($i) !important
+@for $i from 0 through $gridCount*2
   .pt-#{$i}
     padding-top:  rem-calc($i) !important
 @for $i from 0 through $gridCount*2
@@ -39,7 +41,8 @@
 @for $i from 1 through 10
   .black-#{$i}
     color:  rgba(0, 0, 0, $i/10) !important
-.black-6
+.white
+  color: #fff !important
 //Mixins
 @mixin clearfix 
   content: " "
@@ -56,6 +59,17 @@
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+.truncate
+  @include truncate
+.clearfix::before, .clearfix::after
+  @include clearfix
+.clearfix::after
+  clear: both
+.flex-box
+  @include flex
+  align-items: center
+  justify-content: center
+  width: 100%
 
 .right
   float: right
@@ -94,10 +108,8 @@
   clear: both
 .column, .columns
   float: left
-  padding: rem-calc(10 0)
 .container
-  width: 90%
-  margin: auto
+  padding: rem-calc(0 30)
 .bold
   font-weight: 600 !important
 .font-normal
