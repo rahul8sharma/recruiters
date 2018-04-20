@@ -3,7 +3,6 @@ class Acdc::AssessmentsController < ApplicationController
   before_action :authenticate_user!
   before_action { authorize_user!(params[:company_id]) }
   before_action :get_company
-  protect_from_forgery with: :null_session #TODO need to change
 
   layout 'acdc/acdc'
 
@@ -58,6 +57,11 @@ class Acdc::AssessmentsController < ApplicationController
                    'industries': @industries,
                    'job_experiences': @job_experiences 
                  }, status: :ok
+  end
+
+  def get_languages
+    @languages = Hash[Vger::Resources::Language.all.map{|language| [language.language_code,language.name] }] 
+    render json: @language, status: :ok
   end
 
   private

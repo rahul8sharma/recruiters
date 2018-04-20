@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <div class="divider-2"></div>
+    <Header></Header>
+    <loader></loader>
+    <div class="divid er-2"></div>
     <div class="container">
       <button @click="setModalState" class="button btn-warning big big-text right uppercase">Create Assessment</button>
       <div class="clr"></div>
@@ -17,10 +19,11 @@
 </template>
 
 <script>
-  import CreateAssessment from 'components/acdc/assessments/New.vue';
+  import CreateAssessment from 'components/acdc/assessments/New.vue'; 
+  import Loader from 'components/shared/loader.vue';
 
   export default {
-    components: { CreateAssessment },
+    components: { CreateAssessment, Loader },
     data () {
       return {
         modal: {
