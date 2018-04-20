@@ -23,13 +23,6 @@ strong, b
   font-weight: 600
 strong, a
   display: inline-block
-// Focus states
-a:focus
-  outline: 0
-
-// Hover & Active
-a:hover, a:active
-  outline: 0
 
 // Prevents sub and sup affecting line-height in all browsers
 sub, sup
@@ -53,8 +46,11 @@ img
 a 
   outline: none
   color: $color-warning
-  &:focus
-    outline: none
+  cursor: pointer
+  text-decoration: none
+  &:hover, &:focus
+    outline: 0
+    text-decoration: none
   img
     border: 0 none
 
@@ -62,7 +58,8 @@ a
 button, input, select, textarea
   margin: 0
   vertical-align: middle
-
+label
+  cursor: pointer
 button, input
   *overflow: visible
   // Inner spacing ie IE6/7
@@ -104,11 +101,6 @@ textarea
 // LINKS
 // -----
 
-a
-  text-decoration: none
-
-a:hover
-  text-decoration: underline
 ul
   margin: 0
   padding: 0

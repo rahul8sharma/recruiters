@@ -44,7 +44,8 @@
           <button class="button btn-warning uppercase fs-14">Save &amp; Next</button>
         </div>
         
-        <Description></Description>
+        <!-- <Description></Description> -->
+        <ConfigureTools></ConfigureTools>
 
       </div>
 
@@ -54,8 +55,9 @@
 
 <script>
   import Description from 'components/acdc/assessments/tabs/Description.vue';
+  import ConfigureTools from 'components/acdc/assessments/tabs/ConfigureTools.vue';
   export default {
-    components: { Description },
+    components: { Description, ConfigureTools },
     data () {
       return {
         tabItems: [
@@ -196,5 +198,4 @@
     height: calc(100vh - (#{$headerHeight} + #{$headingBarHeight} + #{$actionBarHeight} + 10px))
     padding: 20px
     overflow-y: auto
-
 </style>
