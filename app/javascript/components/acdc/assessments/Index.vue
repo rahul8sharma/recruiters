@@ -39,14 +39,14 @@
         this.modal.isOpen = !this.modal.isOpen;
       },
       createAssessment () {
-          this.$store.dispatch('createAcdcAssessment', {
-              acdc_assessment: {
-                  name: this.assessment.name,
-                  company_id: 2,
-                  user_id: 176698,
-                  raw_data: {tool: this.assessment.tool}
-              }
-          })
+        this.$store.dispatch('createAcdcAssessment', {
+          acdc_assessment: {
+            name: this.assessment.name,
+            company_id: this.$store.getters.companyId,
+            user_id: this.$store.getters.userId,
+            raw_data: {tool: this.assessment.tool}
+          }
+        })
       }
     },
     computed: {

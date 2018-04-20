@@ -8,16 +8,18 @@ import AcdcAssessmentsIndexComponent from 'components/acdc/assessments/Index.vue
 
 Vue.use(VueResource);
 
+const index = new Vue({
+  el: '#acdc-assessments-index-component',
+  store,
+  components: {
+    'acdc-assessments-index-component': AcdcAssessmentsIndexComponent
+  }
+});
+
+
+// Get company and user id from rails view
 var element = document.getElementById("acdc-assessments-index-component");
 
-const index = new Vue({
-    el: '#acdc-assessments-index-component',
-    data: {
-	    user_id: element.dataset.user_id,
-	    company_id: element.dataset.company_id
-     },
-    store,
-    components: {
-        'acdc-assessments-index-component': AcdcAssessmentsIndexComponent
-    }
-});
+// Set company and user id to vuex
+store.dispatch("setUserId", {user_id: element.dataset.user_id});
+store.dispatch("setCompanyId", {company_id: element.dataset.company_id});
