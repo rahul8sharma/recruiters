@@ -26,3 +26,10 @@ $color-warning: #ff8308
     $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value))
   
   @return $remValues
+@mixin clearfix
+  content: " "
+  display: table
+@mixin truncate
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
