@@ -11,8 +11,8 @@
   });
 
   Vue.http.headers.common['X-CSRF-Token'] = document
-  .querySelector('meta[name="csrf-token"]')
-  .getAttribute('content')
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute('content')
 
   const MappingUrl = {
     data() {
