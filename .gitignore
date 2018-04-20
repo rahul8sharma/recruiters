@@ -55,3 +55,4 @@ config/puma.rb
 yarn-debug.log*
 .yarn-integrity
 /public
+yarn-error.log

@@ -538,6 +538,7 @@ Rails.application.routes.draw do
     resources :acdc_assessments, :controller => "acdc/assessments", :path => "acdc" do
       collection do
         get "meta_data" => "acdc/assessments#get_meta_data"
+        get "languages" => "acdc/assessments#get_languages"
       end
     end
   end
