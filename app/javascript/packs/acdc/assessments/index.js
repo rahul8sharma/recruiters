@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import VueResource from 'vue-resource';
 import { store } from 'store'
-import VueMixin from 'config/VueConfig'
+import VueMixin from 'config/VueConfig.js'
 
 // This the .vue file that we will create next
 import AcdcAssessmentsIndexComponent from 'components/acdc/assessments/Index.vue';

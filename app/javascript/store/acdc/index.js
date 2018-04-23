@@ -4,7 +4,9 @@ export default {
   state: {
     userId: "",
     companyId: "",
-    assessmentId: ""
+    assessmentId: "",
+    assessmentName: "",
+    assessmentStatus: ""
   },
   mutations: {
     setUserId (state, payload) {
@@ -15,6 +17,12 @@ export default {
     },
     setAssessmentId (state, payload) {
       state.assessmentId = payload
+    },
+    setAssessmentName (state, payload) {
+      state.assessmentName = payload
+    },
+    setAssessmentStatus (state, payload) {
+      state.assessmentStatus = payload
     }
   },
   actions: {
@@ -35,6 +43,12 @@ export default {
     },
     setAssessmentId ({commit, getters}, payload) {
       commit('setAssessmentId', payload.assessment_id);
+    },
+    setAssessmentName ({commit, getters}, payload) {
+      commit('setAssessmentName', payload.assessment_name);
+    },
+    setAssessmentStatus ({commit, getters}, payload) {
+      commit('setAssessmentStatus', payload.assessment_status);
     }
   },
   getters: {
@@ -46,6 +60,12 @@ export default {
     },
     assessmentId (state) {
       return state.assessmentId
+    },
+    assessmentName (state) {
+      return state.assessmentName
+    },
+    assessmentStatus (state) {
+      return state.assessmentStatus
     }
   }
 };

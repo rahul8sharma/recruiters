@@ -1,5 +1,5 @@
-<template>
-  <div class="loaderContainer" id="loader">
+  <template>
+  <div class="loaderContainer">
     <i class="fs-40">loading..........</i>
   </div>        
 </template>

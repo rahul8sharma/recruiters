@@ -19,13 +19,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType"/>
+            <input type="radio" name="PsychometryType" value="Development" v-model="selectPsychometryType" />
             <div class="label-text">Development</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType"/>
+            <input type="radio" name="PsychometryType" value="Hiring" v-model="selectPsychometryType" />
             <div class="label-text">Hiring</div>
           </label>
         </div>
@@ -40,13 +40,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass"/>
+            <input type="radio" name="AssessmentClass" value="Competency" v-model="selectAssessmentClass" />
             <div class="label-text">Competency</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass"/>
+            <input type="radio" name="AssessmentClass" value="Trait" v-model="selectAssessmentClass"/>
             <div class="label-text">Trait</div>
           </label>
         </div>
@@ -55,8 +55,8 @@
       <div class="divider-2"></div>
       <div class="select-box large-15">
         <div class="form-group">
-          <multi-select :options="options"
-            :selected-options="items"
+          <multi-select :options="languages"
+            :selected-options="selectlanguages"
             placeholder="Select Language for the assessment*"
             @select="onSelect">
           </multi-select>
@@ -67,8 +67,8 @@
         <div class="divider-1"></div>  
 
         <div class="form-group">
-          <model-select :options="options"
-            v-model="item"
+          <model-select :options="pageSize"
+            v-model="selectPageSize"
             placeholder="Select Page Size*">
           </model-select>
           <label>Select Page Size*</label>
@@ -93,7 +93,7 @@
           <div class="large-15 columns">
             <div class="toggleSwitch large-14 columns">
               <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox">
+                <input class="toggle-checkbox" type="checkbox" v-model="selectEnableApplicationId">
                 <div class="toggle-switch"></div>
                 <span class="toggle-label">Disabled</span>
               </label>
@@ -113,7 +113,7 @@
           <div class="large-15 columns">
             <div class="toggleSwitch large-14 columns">
               <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox">
+                <input class="toggle-checkbox" type="checkbox" v-model='selectShowHelpText'>
                 <div class="toggle-switch"></div>
                 <span class="toggle-label">Show</span>
               </label>
@@ -128,28 +128,28 @@
         <div class="clearfix">
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox"/>
+              <input type="checkbox" value="Talview" v-model='selectReportUpload' />
               <div class="label-text">Talview</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox"/>
+              <input type="checkbox" value="Taleo" v-model='selectReportUpload' />
               <div class="label-text">Taleo</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox"/>
+              <input type="checkbox" value="Success Factor" v-model='selectReportUpload' />
               <div class="label-text">Success Factor</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox"/>
+              <input type="checkbox" value="Zoho" v-model='selectReportUpload' />
               <div class="label-text">Zoho</div>
             </label>            
           </div>
@@ -159,7 +159,7 @@
         <div class="divider-2"></div>
 
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage">
+          <input type="text" placeholder="Tool Weightage" v-model='selectWeightage'>
           <label>Tool Weightage</label>
         </div>
 
@@ -178,38 +178,48 @@
   export default {
     data () {
       return {
-        options: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
-        ],
-        item: {
-          value: '',
-          text: ''
-        },
+        languages: [],
+        pageSize: [],
+        selectlanguages: [],
+        selectPageSize: { value: '', text: '' },
+        selectEnableApplicationId: false,
+        selectShowHelpText: false,
+        selectReportUpload: [],
+        selectWeightage: '',
+        selectPsychometryType: '',
+        selectAssessmentClass: '',
         searchText: '', // If value is falsy, reset searchText & searchItem
-        items: [],
         lastSelectItem: {}
       }
     },
     methods: {
       onSelect (items, lastSelectItem) {
-        this.items = items
+        this.selectlanguages = items
         this.lastSelectItem = lastSelectItem
       },
       // deselect option
       reset () {
-        this.items = [] // reset
+        this.selectlanguages = [] // reset
       },
       // select option from parent component
       selectOption () {
-        this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
+        this.selectlanguages = _.unionWith(this.selectlanguages, [this.languages[0]], _.isEqual)
       }
     },
     components: {
       MultiSelect, ModelSelect
+    },
+    created: function() {
+       this.get.languages({company_id: 2})
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          this.languages = data.languages
+        })
+        for (let index=1; index <= 100; index++) {
+         this.pageSize.push({value: index, text: index})
+        }
     }
   }
 </script> 

@@ -47,11 +47,11 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def get_meta_data
-    @functional_areas = Hash[Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
-                          .all.to_a.collect{|x| [x.id,x]}]
-    @industries = Hash[Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
-                        .all.to_a.collect{|x| [x.id,x]}]
-    @job_experiences = Hash[Vger::Resources::JobExperience.active.all.to_a.collect{|x| [x.id,x]}]
+    @functional_areas = Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
+                          .all.to_a.collect{|x| {value: x.id, text: x.name}}
+    @industries = Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
+                        .all.to_a.collect{|x| {value: x.id, text: x.name}}
+    @job_experiences = Vger::Resources::JobExperience.active.all.to_a.collect{|x| {value: x.id, text: x.display_text}}
     render json: { 
                    'functional_areas': @functional_areas, 
                    'industries': @industries,
@@ -60,8 +60,9 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def get_languages
-    @languages = Hash[Vger::Resources::Language.all.map{|language| [language.language_code,language.name] }] 
-    render json: @language, status: :ok
+    @languages = Vger::Resources::Language.all.map{|language| { value: language.language_code, text: language.name} } 
+
+    render json: { 'languages': @languages }, status: :ok
   end
 
   private

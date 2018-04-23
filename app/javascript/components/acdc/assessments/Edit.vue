@@ -1,12 +1,13 @@
 <template>
   <div class="wrapper">
+    <loader></loader>
     <div class="heading_bar flex-box container">
       <div class="fs-18 black-10">
         <div class="assessment_title bold">
-          New Jombay Aptitude
+          {{this.$store.state.AcdcStore.assessmentName}}
           <span class="fs-14 font-normal">(B-Hive with Co-Cubes)</span>
         </div>
-        <em class="fs-14 black-7">AID: 10259, Status: In Draft</em>
+        <em class="fs-14 black-7">AID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
       </div>
       <div class="spacer"></div>
       <button class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
@@ -15,13 +16,17 @@
 
     <div class="tab_view clearfix">
       <ul class="tab_list large-7 columns">
-        <li class="tab_item done active" v-for="(item, index) in tabItems">
+        <li class="tab_item " 
+          v-for="(tab, index) in tabItems"
+          v-bind:key="tab"
+          v-bind:class="['done', { active: currentTab === tab }]"
+          v-on:click="currentTab = tab">
           <div class="index">
             <div class="count">{{ index + 1 }}</div>
           </div> 
           <div class="line"></div>
           <div class="tab_name">
-            <span>{{ item }}</span>
+            <span>{{ tab }}</span>
           </div>
         </li>
       </ul>
@@ -40,12 +45,13 @@
               </div>
             </div>
           </div>
-
+         
           <button class="button btn-warning uppercase fs-14">Save &amp; Next</button>
         </div>
-        
-        <!-- <Description></Description> -->
-        <ConfigureTools></ConfigureTools>
+
+        <component
+          v-bind:is="currentTabComponent">
+        </component>
 
       </div>
 
@@ -56,20 +62,38 @@
 <script>
   import Description from 'components/acdc/assessments/tabs/Description.vue';
   import ConfigureTools from 'components/acdc/assessments/tabs/ConfigureTools.vue';
+  import CreateCustomForms from 'components/acdc/assessments/tabs/CreateCustomForms.vue';
+  import AddBehavioursCompetenciesTraits from 'components/acdc/assessments/tabs/AddBehavioursCompetenciesTraits.vue';
+  import SelectSubjectiveObjectiveQuestions from 'components/acdc/assessments/tabs/SelectSubjectiveObjectiveQuestions.vue';
+  import SelectTemplate from 'components/acdc/assessments/tabs/SelectTemplate.vue';
+  import ReportConfiguration from 'components/acdc/assessments/tabs/ReportConfiguration.vue';
+  import Review from 'components/acdc/assessments/tabs/Review.vue';
+  import Loader from 'components/shared/loader.vue';
+
   export default {
-    components: { Description, ConfigureTools },
+    components: { Description, ConfigureTools,
+                  CreateCustomForms, AddBehavioursCompetenciesTraits, 
+                  SelectSubjectiveObjectiveQuestions, SelectTemplate,
+                  ReportConfiguration, Review,
+                  Loader },
     data () {
       return {
+        currentTab: 'Description',
         tabItems: [
           'Description', 
-          'Configure Tools', 
-          'Create Custom Forms', 
-          'Add Behaviours/ Competencies/ Traits', 
-          'Select Subjective/ Objective Questions', 
-          'Select Template', 
-          'Report Configuration', 
+          'Configure Tools',
+          'Create Custom Forms',
+          'Add Behaviours/ Competencies/ Traits',
+          'Select Subjective/ Objective Questions',
+          'Select Template',
+          'Report Configuration',
           'Review'
         ]
+      }
+    },
+    computed: {
+      currentTabComponent: function () {
+        return this.currentTab.replace(/\s+|[,\/]/g, '');
       }
     }
   }
