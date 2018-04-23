@@ -18,15 +18,15 @@
       <ul class="tab_list large-7 columns">
         <li class="tab_item " 
           v-for="(tab, index) in tabItems"
-          v-bind:key="tab"
-          v-bind:class="['done', { active: currentTab === tab }]"
-          v-on:click="currentTab = tab">
+          v-bind:key="tab.text"
+          v-bind:class="['done', { active: currentTab === tab.text }]"
+          v-on:click="currentTab = tab.text">
           <div class="index">
             <div class="count">{{ index + 1 }}</div>
           </div> 
           <div class="line"></div>
           <div class="tab_name">
-            <span>{{ tab }}</span>
+            <span>{{ tab.text }}</span>
           </div>
         </li>
       </ul>
@@ -46,11 +46,12 @@
             </div>
           </div>
          
-          <button class="button btn-warning uppercase fs-14">Save &amp; Next</button>
+          <button  @click="submit" class="button btn-warning uppercase fs-14">Save &amp; Next</button>
         </div>
 
         <component
-          v-bind:is="currentTabComponent">
+          v-bind:is="currentTabComponent"
+          @acdcAssessmentRawData="acdcAssessmentRawData = $event ">
         </component>
 
       </div>
@@ -80,20 +81,56 @@
       return {
         currentTab: 'Description',
         tabItems: [
-          'Description', 
-          'Configure Tools',
-          'Create Custom Forms',
-          'Add Behaviours/ Competencies/ Traits',
-          'Select Subjective/ Objective Questions',
-          'Select Template',
-          'Report Configuration',
-          'Review'
-        ]
+          { text: 'Description', url: 'description' },
+          { text: 'Configure Tools', url: 'configure_tools' },
+          { text: 'Create Custom Forms', url: 'create_custom_forms' },
+          { text: 'Add Behaviours/ Competencies/ Traits', url: 'add_behaviours_competencies_traits' },
+          { text: 'Select Subjective/ Objective Questions', url: 'select_subjective_objective_questions' },
+          { text: 'Select Template', url: 'select_template' },
+          { text: 'Report Configuration', url: 'report_Configuration' },
+          { text: 'Review', url: 'review' },
+        ],
+        acdcAssessmentRawData: {}
       }
     },
     computed: {
       currentTabComponent: function () {
+        window.location.href = window.location.href.split('#')[0] + '#' +
+          getUrlByText(this.currentTab, this.tabItems);
         return this.currentTab.replace(/\s+|[,\/]/g, '');
+      }
+    },
+    methods: {
+      submit() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.assessmentId,
+          acdc_assessment: this.acdcAssessmentRawData
+        })
+     }
+    }, 	
+    created: function () {
+      let urlLength = window.location.href.split('#').length;
+      if (urlLength > 1) {
+        this.currentTab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
+      }
+    }
+  }
+
+  function getUrlByText(text, data) {
+    var i, len = data.length;
+    for (i = 0; i < len; i++) {
+      if (data[i] && (data[i].text == text)) {
+        return data[i]['url'];
+      }
+    }
+  }
+
+  function getTextByUrl(url, data) {
+    var i, len = data.length;
+    for (i = 0; i < len; i++) {
+      if (data[i] && (data[i].url == url)) {
+        return data[i]['text'];
       }
     }
   }
