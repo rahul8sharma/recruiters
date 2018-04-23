@@ -46,11 +46,12 @@
             </div>
           </div>
          
-          <button class="button btn-warning uppercase fs-14">Save &amp; Next</button>
+          <button  @click="submit" class="button btn-warning uppercase fs-14">Save &amp; Next</button>
         </div>
 
         <component
-          v-bind:is="currentTabComponent">
+          v-bind:is="currentTabComponent"
+          @acdcAssessmentRawData="acdcAssessmentRawData = $event ">
         </component>
 
       </div>
@@ -88,7 +89,8 @@
           { text: 'Select Template', url: 'select_template' },
           { text: 'Report Configuration', url: 'report_Configuration' },
           { text: 'Review', url: 'review' },
-        ]
+        ],
+        acdcAssessmentRawData: {}
       }
     },
     computed: {
@@ -98,6 +100,15 @@
         return this.currentTab.replace(/\s+|[,\/]/g, '');
       }
     },
+    methods: {
+      submit() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.assessmentId,
+          acdc_assessment: this.acdcAssessmentRawData
+        })
+     }
+    }, 	
     created: function () {
       let urlLength = window.location.href.split('#').length;
       if (urlLength > 1) {

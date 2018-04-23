@@ -34,7 +34,16 @@ export default {
         .catch(error => {
           console.log(error)
     	})
-	},
+  	},
+    updateAcdcAssessment ({commit, getters}, payload) {
+      Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
+          { assessments: {raw_data: payload.acdc_assessment }})
+        .then(function (response) {
+        })
+        .catch(error => {
+          console.log(error)
+      }  )    
+    },    
     setUserId ({commit, getters}, payload) {
       commit('setUserId', payload.user_id);
     },

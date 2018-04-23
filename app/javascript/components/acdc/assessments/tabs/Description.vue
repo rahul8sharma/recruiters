@@ -2,7 +2,7 @@
   <div class="edit_section">
     <form>
       <div class="form-group large-15 column">
-        <input type="text" placeholder="New Jombay Aptitude" />
+        <input type="text" placeholder="New Jombay Aptitude" v-model="name" @change="updatedAssessement()" />
         <label>New Jombay Aptitude</label>
       </div>
 
@@ -52,7 +52,8 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Enable Proctoring </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox" v-model="setProctoring">
+            <input class="toggle-checkbox" type="checkbox" v-model="setProctoring" 
+            @change="updatedAssessement()">
             <div class="toggle-switch"></div>
             <span class="toggle-label">Disabled</span>
           </label>
@@ -76,7 +77,23 @@
         selectFunctionArea: {value: '', text: ''},
         selectIndustry: {value: '', text: ''},
         selectJobExperiences: {value: '', text: ''},
-        setProctoring: false
+        setProctoring: false,
+        name: '',
+        acdcAssessmentRawData: {}
+      }
+    },
+    methods: {
+      updatedAssessement() {
+      this.acdcAssessmentRawData = {
+        custom_assessment: {  
+            industry_id: this.selectIndustry.value, 
+            functional_area_id: this.selectFunctionArea.value, 
+            job_experience_id: this.selectJobExperiences.value, 
+            name: this.name, 
+            partner_id: this.setProctoring
+          }
+        }
+        this.$emit('acdcAssessmentRawData', this.acdcAssessmentRawData)
       }
     },
     components: {
@@ -93,6 +110,17 @@
          this.industries = data.industries
          this.jobExperiences = data.job_experiences
         })
+    },
+    watch: {
+      selectIndustry: function (val) {
+        this.updatedAssessement()
+      },
+      selectFunctionArea: function (val) {
+        this.updatedAssessement()
+      },
+      selectJobExperiences: function (val) {
+        this.updatedAssessement()
+      }
     }
   }
 </script>
