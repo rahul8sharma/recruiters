@@ -37,14 +37,7 @@
     z-index: 999999
     justify-content: center
     align-items: center
-    //display: block
-    display: -webkit-box
-    display: -moz-box
-    display: -ms-flexbox
-    display: -webkit-flex
-    display: flex
-    align-items: center
-    justify-content: center
+    display: none
     &.loaderOpen
       display: -webkit-box
       display: -moz-box
