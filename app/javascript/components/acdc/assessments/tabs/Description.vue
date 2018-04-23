@@ -17,8 +17,8 @@
       <div class="divider-1"></div>
       <div class="select-box large-15">
         <div class="form-group">
-          <model-select :options="options"
-            v-model="item"
+          <model-select :options="industries"
+            v-model="selectIndustry"
             placeholder="Select Industry">
           </model-select>
           <label>Select Industry</label>
@@ -27,8 +27,8 @@
         <div class="divider-1"></div>
 
         <div class="form-group">
-          <model-select :options="options"
-            v-model="item"
+          <model-select :options="functionalAreas"
+            v-model="selectFunctionArea"
             placeholder="Select Functional Area">
           </model-select>
           <label>Select Functional Area</label>
@@ -37,8 +37,8 @@
         <div class="divider-1"></div>
 
         <div class="form-group">
-          <model-select :options="options"
-            v-model="item"
+          <model-select :options="jobExperiences"
+            v-model="selectJobExperiences"
             placeholder="Select Experience">
           </model-select>
           <label>Select Experience</label>
@@ -52,7 +52,7 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Enable Proctoring </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox">
+            <input class="toggle-checkbox" type="checkbox" v-model="setProctoring">
             <div class="toggle-switch"></div>
             <span class="toggle-label">Disabled</span>
           </label>
@@ -70,46 +70,29 @@
   export default {
     data () {
       return {
-        options: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
-        ],
-        item: {
-          value: '',
-          text: ''
-        },
-        options2: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
-        ],
-        item2: ''
-      }
-    },
-    methods: {
-      reset () {
-        this.item = {}
-      },
-      selectOption () {
-        // select option from parent component
-        this.item = this.options[0]
-      },
-      reset2 () {
-        this.item2 = ''
-      },
-      selectOption2 () {
-        // select option from parent component
-        this.item2 = this.options2[0].value
+        functionalAreas: [],
+        industries: [],
+        jobExperiences: [],
+        selectFunctionArea: {value: '', text: ''},
+        selectIndustry: {value: '', text: ''},
+        selectJobExperiences: {value: '', text: ''},
+        setProctoring: false
       }
     },
     components: {
       ModelSelect
       // https://www.npmjs.com/package/vue-search-select
+    },
+    created: function() {
+       this.get.meta_data({company_id: 2})
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+         this.functionalAreas = data.functional_areas
+         this.industries = data.industries
+         this.jobExperiences = data.job_experiences
+        })
     }
   }
 </script>
