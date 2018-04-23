@@ -17,13 +17,14 @@
   input[type='text']
     width: 100%
     order: 2
-    padding: rem-calc(10 0)
+    padding: rem-calc(18 0)
     margin-top: 0
     height: rem-calc(30)
     border: 0 none
     border-bottom: 1px solid rgba(0, 0, 0, 0.1)
     color: rgba(0, 0, 0, 0.87)
     font-size: rem-calc(16)
+    background: transparent
     &:focus, &:hover
       border-color: $color-warning
       box-shadow: none
@@ -40,6 +41,7 @@
 .select-box
   ui fluid multiple search selectiondropdown
   .ui
+    background: transparent
     &.multiple.search.dropdown > input.search, &.search.dropdown > .text,  &.dropdown:not(.button) > .default.text, &.default.dropdown:not(.button) > .text
       margin: 0
       padding: rem-calc(10 0)
@@ -55,11 +57,13 @@
       &.active
         box-shadow: none
         border-color: $color-warning
+
         &:hover
           box-shadow: none
           border-color: $color-warning
           padding: 0
       &.selection
+        background: transparent
         min-height: rem-calc(35)
         padding: 0
         color: rgba(0, 0, 0, 0.87)
@@ -183,3 +187,13 @@
     padding-left: rem-calc(28)
     &:before
       background: url('~assets/images/ic-checkbox-unselected.svg') no-repeat center 0
+textarea
+  width: 100%
+  padding: 14px
+  font-size: 16px
+  border: 0 none
+  resize: none
+  color: rgba(0, 0, 0, 0.6)
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  &.resizable
+    resize: both

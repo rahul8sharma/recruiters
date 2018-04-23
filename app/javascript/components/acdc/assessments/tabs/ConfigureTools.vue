@@ -81,6 +81,7 @@
       <a href="#" class="more_actions_btn uppercase fs-12 bold open">
         More Actions
       </a>
+      <em class="fs-12 black-6 pl-20">(Applicant ID, Help Text, Tool weightage)</em>
 
       <div class="more_actions_container open">
 

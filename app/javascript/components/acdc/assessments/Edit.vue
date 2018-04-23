@@ -157,6 +157,7 @@
           display: none
       &.active
         border-left-color: $color-warning
+        background: #fff
         .tab_name
           color: $color-warning
       &.done

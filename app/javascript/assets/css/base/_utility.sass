@@ -45,7 +45,10 @@
   color: #fff !important
 .color-warning
   color: $color-warning !important
-
+//BG Colors
+@for $i from 1 through 10
+  .bg-black-#{$i}
+    background-color:  rgba(0, 0, 0, $i/10) !important
 //Mixins
 @mixin clearfix 
   content: " "
@@ -62,6 +65,18 @@
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+@mixin grayscale
+  -webkit-filter: grayscale(100%)
+  -moz-filter: grayscale(100%)
+  -ms-filter: grayscale(100%)
+  -o-filter: grayscale(100%)
+  filter: grayscale(100%)
+  filter: gray
+  pointer-events: none
+  cursor: not-allowed
+  *
+    color: #B0B0B0 !important
+
 .truncate
   @include truncate
 .clearfix::before, .clearfix::after
@@ -71,9 +86,7 @@
 .flex-box
   @include flex
   align-items: center
-  justify-content: center
   width: 100%
-
 .right
   float: right
 .left
@@ -127,4 +140,16 @@
   -webkit-flex: 1 1 auto 
   -ms-flex: 1 1 auto 
   display: inline-block
+.grayscale
+  @include grayscale
 
+.disabled, [disabled]
+  cursor: not-allowed !important
+  opacity: 0.3 !important
+  &:hover
+    @include grayscale
+
+ul
+  &.decimal
+    li
+      list-style-type: decimal !important
