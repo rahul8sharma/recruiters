@@ -2,7 +2,7 @@
   <div class="edit_section">
     <form>
       <div class="form-group large-15 column">
-        <input type="text" placeholder="New Jombay Aptitude" v-model="name" @change="updatedAssessement()" />
+        <input type="text" placeholder="New Jombay Aptitude" v-model="tabData.custom_assessment.name" />
         <label>New Jombay Aptitude</label>
       </div>
 
@@ -52,8 +52,7 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Enable Proctoring </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox" v-model="setProctoring" 
-            @change="updatedAssessement()">
+            <input class="toggle-checkbox" type="checkbox" v-model="tabData.custom_assessment.partner_id">
             <div class="toggle-switch"></div>
             <span class="toggle-label">Disabled</span>
           </label>
@@ -69,6 +68,7 @@
   import { ModelSelect } from 'vue-search-select'
  
   export default {
+    props: ['tabData'],
     data () {
       return {
         functionalAreas: [],
@@ -76,24 +76,7 @@
         jobExperiences: [],
         selectFunctionArea: {value: '', text: ''},
         selectIndustry: {value: '', text: ''},
-        selectJobExperiences: {value: '', text: ''},
-        setProctoring: false,
-        name: '',
-        acdcAssessmentRawData: {}
-      }
-    },
-    methods: {
-      updatedAssessement() {
-      this.acdcAssessmentRawData = {
-        custom_assessment: {  
-            industry_id: this.selectIndustry.value, 
-            functional_area_id: this.selectFunctionArea.value, 
-            job_experience_id: this.selectJobExperiences.value, 
-            name: this.name, 
-            partner_id: this.setProctoring
-          }
-        }
-        this.$emit('acdcAssessmentRawData', this.acdcAssessmentRawData)
+        selectJobExperiences: {value: '', text: ''}
       }
     },
     components: {
@@ -113,13 +96,13 @@
     },
     watch: {
       selectIndustry: function (val) {
-        this.updatedAssessement()
+        this.tabData.custom_assessment.industry_id = this.selectIndustry.value
       },
       selectFunctionArea: function (val) {
-        this.updatedAssessement()
+          this.tabData.custom_assessment.functional_area_id = this.selectFunctionArea.value
       },
       selectJobExperiences: function (val) {
-        this.updatedAssessement()
+          this.tabData.custom_assessment.job_experience_id = this.selectJobExperiences.value
       }
     }
   }
