@@ -6,7 +6,8 @@ export default {
     companyId: "",
     assessmentId: "",
     assessmentName: "",
-    assessmentStatus: ""
+    assessmentStatus: "",
+    assessmentRawData: {}
   },
   mutations: {
     setUserId (state, payload) {
@@ -23,6 +24,9 @@ export default {
     },
     setAssessmentStatus (state, payload) {
       state.assessmentStatus = payload
+    },
+    setAssessmentRawData (state, payload) {
+      state.assessmentRawData = payload
     }
   },
   actions: {
@@ -37,12 +41,16 @@ export default {
   	},
     updateAcdcAssessment ({commit, getters}, payload) {
       Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
-          { assessments: {raw_data: payload.acdc_assessment }})
+          { acdc_assessment:{ raw_data: payload.acdc_assessment } })
         .then(function (response) {
+          return response.json()
+        })
+        .then(function (response) {
+          commit('setAssessmentRawData', response.raw_data);
         })
         .catch(error => {
           console.log(error)
-      }  )    
+        })    
     },    
     setUserId ({commit, getters}, payload) {
       commit('setUserId', payload.user_id);
@@ -58,6 +66,9 @@ export default {
     },
     setAssessmentStatus ({commit, getters}, payload) {
       commit('setAssessmentStatus', payload.assessment_status);
+    },
+    setAssessmentRawData({commit, getters}, payload) {
+      commit('setAssessmentRawData', payload.raw_data);
     }
   },
   getters: {
@@ -75,6 +86,9 @@ export default {
     },
     assessmentStatus (state) {
       return state.assessmentStatus
+    },
+    assessmentRawData (state) {
+      return state.assessmentRawData
     }
   }
 };
