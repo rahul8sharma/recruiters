@@ -96,12 +96,14 @@
           {
             text: 'Description', url: 'description',
             tabData: {
-              custom_assessment: {
-                industry_id: 'Hello',
-                functional_area_id: '',
-                job_experience_id: '',
-                name: '',
-                partner_id: false
+              name: this.$store.state.AcdcStore.assessmentName,
+              raw_data: {  
+                custom_assessment: {
+                  industry_id: 'Hello',
+                  functional_area_id: '',
+                  job_experience_id: '',
+                  partner_id: false
+                }
               }
             }
           },

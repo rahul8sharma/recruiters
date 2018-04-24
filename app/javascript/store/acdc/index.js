@@ -41,7 +41,7 @@ export default {
   	},
     updateAcdcAssessment ({commit, getters}, payload) {
       Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
-          { acdc_assessment:{ raw_data: payload.acdc_assessment } })
+          { acdc_assessment: payload.acdc_assessment })
         .then(function (response) {
           return response.json()
         })

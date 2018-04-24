@@ -96,7 +96,8 @@
               <label class="toggle">
                 <input class="toggle-checkbox" type="checkbox" v-model="selectEnableApplicationId">
                 <div class="toggle-switch"></div>
-                <span class="toggle-label">Disabled</span>
+                <span class="toggle-label" v-show="!selectEnableApplicationId">Disabled</span>
+                <span class="toggle-label" v-show="selectEnableApplicationId">Enabled</span>
               </label>
             </div> 
           </div>
@@ -168,6 +169,7 @@
     </div>
 
   <div class="divider-3"></div>
+    <component v-bind:is="currentTool"></component>
   </div>
 </template>
 
@@ -175,6 +177,13 @@
   import _ from 'lodash'
   import { MultiSelect } from 'vue-search-select'
   import { ModelSelect } from 'vue-search-select'
+  import BHiVEwithCoCubes from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithCoCubes.vue';
+  import BHiVEwithHireMe from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithHireMe.vue';
+  import BHiVEwithJombayAptitude from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithJombayAptitude.vue';
+  import MiniHiVEwithJombayAbstractThinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayAbstractThinking.vue';
+  import MiniHiVEwithJombayCriticalThinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayCriticalThinking.vue';
+  import MiniHiVEwithPearsonRavens from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
+  import Psychometry from 'components/acdc/assessments/tabs/configure_tools/Psychometry.vue';
  
   export default {
     data () {
@@ -190,7 +199,8 @@
         selectPsychometryType: '',
         selectAssessmentClass: '',
         searchText: '', // If value is falsy, reset searchText & searchItem
-        lastSelectItem: {}
+        lastSelectItem: {},
+        currentTool: 'MiniHiVEwithPearsonRavens'
       }
     },
     methods: {
@@ -208,7 +218,11 @@
       }
     },
     components: {
-      MultiSelect, ModelSelect
+      MultiSelect, ModelSelect, BHiVEwithCoCubes,
+      BHiVEwithHireMe, BHiVEwithJombayAptitude,
+      BHiVEwithJombayAptitude, MiniHiVEwithJombayAbstractThinking,
+      MiniHiVEwithJombayCriticalThinking, MiniHiVEwithPearsonRavens,
+      Psychometry
     },
     created: function() {
        this.get.languages({company_id: 2})
