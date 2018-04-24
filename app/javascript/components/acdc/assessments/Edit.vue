@@ -11,7 +11,12 @@
       </div>
       <div class="spacer"></div>
       <button class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
-      <button class="btn-warning inverse uppercase fs-14">Save &amp; Exit</button>
+      <button
+        :disabled="isSaveExitButtonEnable"
+        class="btn-warning inverse uppercase fs-14"
+      >
+        Save &amp; Exit
+      </button>
     </div>
 
     <div class="tab_view clearfix">
@@ -46,12 +51,19 @@
             </div>
           </div>
          
-          <button  @click="submit" class="button btn-warning uppercase fs-14">Save &amp; Next</button>
+          <button
+            :disabled="isSaveNextButtonEnable"
+            class="button btn-warning uppercase fs-14"
+            @click="saveAndNext"
+          >
+            Save &amp; Next
+          </button>
         </div>
 
         <component
+          v-bind:tabData="currentTabData"
           v-bind:is="currentTabComponent"
-          @acdcAssessmentRawData="acdcAssessmentRawData = $event ">
+        >
         </component>
 
       </div>
@@ -81,14 +93,49 @@
       return {
         currentTab: 'Description',
         tabItems: [
-          { text: 'Description', url: 'description' },
-          { text: 'Configure Tools', url: 'configure_tools' },
-          { text: 'Create Custom Forms', url: 'create_custom_forms' },
-          { text: 'Add Behaviours/ Competencies/ Traits', url: 'add_behaviours_competencies_traits' },
-          { text: 'Select Subjective/ Objective Questions', url: 'select_subjective_objective_questions' },
-          { text: 'Select Template', url: 'select_template' },
-          { text: 'Report Configuration', url: 'report_Configuration' },
-          { text: 'Review', url: 'review' },
+          {
+            text: 'Description', url: 'description',
+            tabData: {
+              custom_assessment: {
+                industry_id: 'Hello',
+                functional_area_id: '',
+                job_experience_id: '',
+                name: '',
+                partner_id: false
+              }
+            }
+          },
+          {
+            text: 'Configure Tools', url: 'configure_tools',
+            tabData: {}
+          },
+          {
+            text: 'Create Custom Forms', url: 'create_custom_forms',
+            tabData: {}
+          },
+          {
+            text: 'Add Behaviours/ Competencies/ Traits',
+            url: 'add_behaviours_competencies_traits',
+            tabData: {}
+          },
+          {
+            text: 'Select Subjective/ Objective Questions',
+            url: 'select_subjective_objective_questions',
+            tabData: {}
+          },
+          {
+            text: 'Select Template',
+            url: 'select_template',
+            tabData: {}
+          },
+          {
+            text: 'Report Configuration', url: 'report_Configuration',
+            tabData: {}
+          },
+          {
+            text: 'Review', url: 'review',
+            tabData: {}
+          }
         ],
         acdcAssessmentRawData: {}
       }
@@ -98,14 +145,23 @@
         window.location.href = window.location.href.split('#')[0] + '#' +
           getUrlByText(this.currentTab, this.tabItems);
         return this.currentTab.replace(/\s+|[,\/]/g, '');
+      },
+      currentTabData: function () {
+        return getDataByText(this.currentTab, this.tabItems);
+      },
+      isSaveNextButtonEnable: function () {
+        return false
+      },
+      isSaveExitButtonEnable: function () {
+        return false
       }
     },
     methods: {
-      submit() {
+      saveAndNext() {
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.assessmentId,
-          acdc_assessment: this.acdcAssessmentRawData
+          acdc_assessment: this.currentTabData
         })
      }
     }, 	
@@ -131,6 +187,15 @@
     for (i = 0; i < len; i++) {
       if (data[i] && (data[i].url == url)) {
         return data[i]['text'];
+      }
+    }
+  }
+
+  function getDataByText(text, data) {
+    var i, len = data.length;
+    for (i = 0; i < len; i++) {
+      if (data[i] && (data[i].text == text)) {
+        return data[i]['tabData'];
       }
     }
   }
