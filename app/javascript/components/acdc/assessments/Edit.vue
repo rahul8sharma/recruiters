@@ -25,7 +25,7 @@
           v-for="(tab, index) in tabItems"
           v-bind:key="tab.text"
           v-bind:class="['done', { active: currentTab === tab.text }]"
-          v-on:click="currentTab = tab.text">
+          v-on:click="tabHandler(tab.text, index + 1)">
           <div class="index">
             <div class="count">{{ index + 1 }}</div>
           </div> 
@@ -52,11 +52,11 @@
           </div>
          
           <button
-            :disabled="isSaveNextButtonEnable"
+            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex"
             class="button btn-warning uppercase fs-14"
             @click="saveAndNext"
           >
-            Save &amp; Next
+            Save &amp; Next{{currentTabIndex}}-{{tabItems.length}}
           </button>
         </div>
 
@@ -92,54 +92,66 @@
     data () {
       return {
         currentTab: 'Description',
+        currentTabIndex: 0,
         tabItems: [
           {
             text: 'Description', url: 'description',
             tabData: {
               name: this.$store.state.AcdcStore.assessmentName,
-              raw_data: {  
-                custom_assessment: {
-                  industry_id: 'Hello',
-                  functional_area_id: '',
-                  job_experience_id: '',
-                  partner_id: false
-                }
+              raw_data: {
+                industry_id: '',
+                functional_area_id: '',
+                job_experience_id: '',
+                partner_id: false
               }
             }
           },
           {
             text: 'Configure Tools', url: 'configure_tools',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Create Custom Forms', url: 'create_custom_forms',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Add Behaviours/ Competencies/ Traits',
             url: 'add_behaviours_competencies_traits',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Select Subjective/ Objective Questions',
             url: 'select_subjective_objective_questions',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Select Template',
             url: 'select_template',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Report Configuration', url: 'report_Configuration',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           },
           {
             text: 'Review', url: 'review',
-            tabData: {}
+            tabData: {
+              raw_data: {}
+            }
           }
-        ],
-        acdcAssessmentRawData: {}
+        ]
       }
     },
     computed: {
@@ -152,6 +164,13 @@
         return getDataByText(this.currentTab, this.tabItems);
       },
       isSaveNextButtonEnable: function () {
+        var customAssessment = this.currentTabData.raw_data;
+        for (var key in customAssessment) {
+          var val = customAssessment[key];
+          if (val.length == 0) {
+            return true
+          }
+        }
         return false
       },
       isSaveExitButtonEnable: function () {
@@ -164,13 +183,27 @@
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.assessmentId,
           acdc_assessment: this.currentTabData
+        }).then(() => {
+          let tab = getNextTab(this.currentTab, this.tabItems)
+          this.tabHandler(tab.text, tab.index)
         })
-     }
+      },
+      setCurrentTab:function(text){
+        this.currentTab = text
+      },
+      setCurrentTabIndex:function(index){
+        this.currentTabIndex = index
+      },
+      tabHandler:function(text, index){
+        this.setCurrentTab(text);
+        this.setCurrentTabIndex(index);
+      }
     }, 	
     created: function () {
       let urlLength = window.location.href.split('#').length;
       if (urlLength > 1) {
-        this.currentTab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
+        let tab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
+        this.tabHandler(tab.text, tab.index)
       }
     }
   }
@@ -188,7 +221,10 @@
     var i, len = data.length;
     for (i = 0; i < len; i++) {
       if (data[i] && (data[i].url == url)) {
-        return data[i]['text'];
+        return {
+          text: data[i]['text'],
+          index: i + 1
+        };
       }
     }
   }
@@ -198,6 +234,18 @@
     for (i = 0; i < len; i++) {
       if (data[i] && (data[i].text == text)) {
         return data[i]['tabData'];
+      }
+    }
+  }
+
+  function getNextTab(text, data) {
+    var i, len = data.length;
+    for (i = 0; i < len; i++) {
+      if (data[i] && (data[i].text == text)) {
+        return {
+          text: data[i+1]['text'],
+          index: i + 2
+        };
       }
     }
   }

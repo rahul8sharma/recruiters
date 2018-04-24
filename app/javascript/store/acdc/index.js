@@ -50,7 +50,12 @@ export default {
         })
         .catch(error => {
           console.log(error)
-        })    
+        })
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+        resolve()
+      }, 500)
+    })
     },    
     setUserId ({commit, getters}, payload) {
       commit('setUserId', payload.user_id);
