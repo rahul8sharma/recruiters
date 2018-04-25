@@ -52,10 +52,10 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Enable Proctoring </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.custom_assessment.partner_id">
+            <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.partner_id">
             <div class="toggle-switch"></div>
-            <span class="toggle-label" v-show="!tabData.raw_data.custom_assessment.partner_id">Disabled</span>
-            <span class="toggle-label" v-show="tabData.raw_data.custom_assessment.partner_id">Enabled</span>
+            <span class="toggle-label" v-show="!tabData.raw_data.partner_id">Disabled</span>
+            <span class="toggle-label" v-show="tabData.raw_data.partner_id">Enabled</span>
           </label>
         </div> 
       </div>
@@ -97,13 +97,13 @@
     },
     watch: {
       selectIndustry: function (val) {
-        this.tabData.raw_data.custom_assessment.industry_id = this.selectIndustry.value
+        this.tabData.raw_data.industry_id = this.selectIndustry.value
       },
       selectFunctionArea: function (val) {
-          this.tabData.raw_data.custom_assessment.functional_area_id = this.selectFunctionArea.value
+          this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
       },
       selectJobExperiences: function (val) {
-          this.tabData.raw_data.custom_assessment.job_experience_id = this.selectJobExperiences.value
+          this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
       }
     }
   }
