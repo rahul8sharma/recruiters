@@ -65,6 +65,11 @@ class Acdc::AssessmentsController < ApplicationController
     render json: { 'languages': @languages }, status: :ok
   end
 
+  def get_products
+    @products = Vger::Resources::Product.where(:query_options => {},:order => "name ASC").to_a
+    render json: @products.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_acdc_assessment
