@@ -56,7 +56,7 @@
             class="button btn-warning uppercase fs-14"
             @click="saveAndNext"
           >
-            Save &amp; Next{{currentTabIndex}}-{{tabItems.length}}
+            Save &amp; Next
           </button>
         </div>
 
@@ -109,7 +109,12 @@
           {
             text: 'Configure Tools', url: 'configure_tools',
             tabData: {
-              raw_data: {}
+              raw_data: [
+                {
+                  url: '',
+                  toolWeightage: ''
+                }
+              ]
             }
           },
           {
@@ -182,7 +187,7 @@
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.assessmentId,
-          acdc_assessment: this.currentTabData
+          acdc_assessment: createAcdcAssessmentJson(this.tabItems)
         }).then(() => {
           let tab = getNextTab(this.currentTab, this.tabItems)
           this.tabHandler(tab.text, tab.index)
@@ -223,7 +228,7 @@
       if (data[i] && (data[i].url == url)) {
         return {
           text: data[i]['text'],
-          index: i + 1
+          index: i
         };
       }
     }
@@ -248,6 +253,15 @@
         };
       }
     }
+  }
+  
+  function createAcdcAssessmentJson(tabItems) {
+    var i, len = tabItems.length;
+    var acdcAssessmentJson = {}
+    for (i = 0; i < len; i++) {
+      acdcAssessmentJson[tabItems[i].url] = tabItems[i].tabData.raw_data
+    }
+    return {raw_data: acdcAssessmentJson, name: tabItems[0].tabData.name}
   }
 </script>
 <style lang="sass" scoped>

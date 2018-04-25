@@ -7,7 +7,7 @@
     <div class="p-15">
       <div class="divider-1"></div>
       <div class="form-group large-15">
-        <input type="text" placeholder="Enter Redirection URL">
+        <input v-model="configureToolData.url" type="text" placeholder="Enter Redirection URL">
         <label>Enter Redirection URL</label>
       </div>
 
@@ -39,7 +39,7 @@
       <div class="more_actions_container open">
 
         <div class="form-group large-15">
-          <input type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.toolWeightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 
@@ -50,6 +50,12 @@
     <div class="divider-3"></div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: ['configureToolData']
+  }
+</script>
 
 <style lang="sass" scoped>
   $color-warning: #ff8308 
