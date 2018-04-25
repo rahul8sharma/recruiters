@@ -539,6 +539,7 @@ Rails.application.routes.draw do
       collection do
         get "meta_data" => "acdc/assessments#get_meta_data"
         get "languages" => "acdc/assessments#get_languages"
+        get "products" => "acdc/assessments#get_products"
       end
     end
   end
