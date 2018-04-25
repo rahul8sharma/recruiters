@@ -19,13 +19,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType" value="Development" v-model="selectPsychometryType" />
+            <input type="radio" name="PsychometryType" value="Development" v-model="configureToolData.psychometry_type" />
             <div class="label-text">Development</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType" value="Hiring" v-model="selectPsychometryType" />
+            <input type="radio" name="PsychometryType" value="Hiring" v-model="configureToolData.psychometry_type" />
             <div class="label-text">Hiring</div>
           </label>
         </div>
@@ -40,13 +40,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Competency" v-model="selectAssessmentClass" />
+            <input type="radio" name="AssessmentClass" value="Competency" v-model="configureToolData.assessment_class" />
             <div class="label-text">Competency</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Trait" v-model="selectAssessmentClass"/>
+            <input type="radio" name="AssessmentClass" value="Trait" v-model="configureToolData.assessment_class"/>
             <div class="label-text">Trait</div>
           </label>
         </div>
@@ -56,7 +56,7 @@
       <div class="select-box large-15">
         <div class="form-group">
           <multi-select :options="languages"
-            :selected-options="selectlanguages"
+            :selected-options="configureToolData.languages"
             placeholder="Select Language for the assessment*"
             @select="onSelect">
           </multi-select>
@@ -94,7 +94,7 @@
           <div class="large-15 columns">
             <div class="toggleSwitch large-14 columns">
               <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox" v-model="selectEnableApplicationId">
+                <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.enable_application_id">
                 <div class="toggle-switch"></div>
                 <span class="toggle-label">Disabled</span>
               </label>
@@ -114,7 +114,7 @@
           <div class="large-15 columns">
             <div class="toggleSwitch large-14 columns">
               <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox" v-model='selectShowHelpText'>
+                <input class="toggle-checkbox" type="checkbox" v-model='configureToolData.show_help_text'>
                 <div class="toggle-switch"></div>
                 <span class="toggle-label">Show</span>
               </label>
@@ -129,28 +129,28 @@
         <div class="clearfix">
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Talview" v-model='selectReportUpload' />
+              <input type="checkbox" value="Talview" v-model='configureToolData.report_upload_callback' />
               <div class="label-text">Talview</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Taleo" v-model='selectReportUpload' />
+              <input type="checkbox" value="Taleo" v-model='configureToolData.report_upload_callback' />
               <div class="label-text">Taleo</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Success Factor" v-model='selectReportUpload' />
+              <input type="checkbox" value="Success Factor" v-model='configureToolData.report_upload_callback' />
               <div class="label-text">Success Factor</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Zoho" v-model='selectReportUpload' />
+              <input type="checkbox" value="Zoho" v-model='configureToolData.report_upload_callback' />
               <div class="label-text">Zoho</div>
             </label>            
           </div>
@@ -160,7 +160,7 @@
         <div class="divider-2"></div>
 
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage" v-model='selectWeightage'>
+          <input type="text" placeholder="Tool Weightage" v-model='configureToolData.tool_weightage'>
           <label>Tool Weightage</label>
         </div>
 
@@ -177,41 +177,24 @@
   import { ModelSelect } from 'vue-search-select'
  
   export default {
+    props: ['configureToolData'],
     data () {
       return {
         languages: [],
         pageSize: [],
-        selectlanguages: [],
-        selectPageSize: { value: '', text: '' },
-        selectEnableApplicationId: false,
-        selectShowHelpText: false,
-        selectReportUpload: [],
-        selectWeightage: '',
-        selectPsychometryType: '',
-        selectAssessmentClass: '',
-        searchText: '', // If value is falsy, reset searchText & searchItem
-        lastSelectItem: {}
+        selectPageSize: { value: '', text: '' }
       }
     },
     methods: {
       onSelect (items, lastSelectItem) {
-        this.selectlanguages = items
-        this.lastSelectItem = lastSelectItem
-      },
-      // deselect option
-      reset () {
-        this.selectlanguages = [] // reset
-      },
-      // select option from parent component
-      selectOption () {
-        this.selectlanguages = _.unionWith(this.selectlanguages, [this.languages[0]], _.isEqual)
+        this.configureToolData.languages = items
       }
     },
     components: {
       MultiSelect, ModelSelect
     },
     created: function() {
-       this.get.languages({company_id: 2})
+      this.get.languages({company_id: 2})
         .then(response => {
           return response.json()
         })
@@ -219,8 +202,13 @@
           this.languages = data.languages
         })
         for (let index=1; index <= 100; index++) {
-         this.pageSize.push({value: index, text: index})
+          this.pageSize.push({value: index, text: index})
         }
+    },
+    watch: {
+      selectPageSize: function (val) {
+        this.configureToolData.page_size = this.selectPageSize.value
+      }
     }
   }
 </script> 

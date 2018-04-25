@@ -111,8 +111,14 @@
             tabData: {
               raw_data: [
                 {
-                  url: '',
-                  toolWeightage: ''
+                psychometry_type: '',
+                page_size: '',
+                assessment_class: '',
+                enable_application_id: false,
+                show_help_text: false,
+                tool_weightage: '',
+                report_upload_callback: [],
+                languages: []
                 }
               ]
             }

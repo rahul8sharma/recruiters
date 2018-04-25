@@ -11,7 +11,7 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Show Sectional Score  </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox"/>
+            <input v-model="configureToolData.is_sectional_score" class="toggle-checkbox" type="checkbox"/>
             <div class="toggle-switch"></div>
             <span class="toggle-label">Don’t Show</span>
           </label>
@@ -21,7 +21,7 @@
       <div class="divider-1"></div>
 
       <div class="form-group large-15">
-        <input type="text" placeholder="Enter Access Code" />
+        <input v-model="configureToolData.access_code" type="text" placeholder="Enter Access Code" />
         <label>Enter Access Code</label>
       </div>
 
@@ -37,7 +37,7 @@
       <div class="more_actions_container open">
 
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 
@@ -48,6 +48,12 @@
     <div class="divider-3"></div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: ['configureToolData']
+  }
+</script>
 
 <style lang="sass" scoped>
   $color-warning: #ff8308 

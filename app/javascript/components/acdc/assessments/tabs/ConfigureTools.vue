@@ -27,7 +27,7 @@
     },
     data () {
       return {
-        currentTools: ['MiniHiVEwithPearsonRavens']
+        currentTools: ['Psychometry']
       }
     },
     methods: {}
