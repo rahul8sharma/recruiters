@@ -34,6 +34,7 @@
   import { ModelSelect } from 'vue-search-select'
  
   export default {
+    props: ['tabData'],
     data () {
       return {
         existingForms: [],
@@ -67,6 +68,7 @@
             this.definedFields = data
             this.showPreview = true
           });
+        this.tabData.raw_data.default_form_id =  this.existingForm.value
       }
     }
   }
