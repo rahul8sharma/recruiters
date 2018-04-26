@@ -82,6 +82,7 @@
   import ReportConfiguration from 'components/acdc/assessments/tabs/ReportConfiguration.vue';
   import Review from 'components/acdc/assessments/tabs/Review.vue';
   import Loader from 'components/shared/loader.vue';
+  import ToolsJson from 'config/tools.json'
 
   export default {
     components: { Description, ConfigureTools,
@@ -95,72 +96,42 @@
         currentTabIndex: 0,
         tabItems: [
           {
-            text: 'Description', url: 'description',
-            tabData: {
-              name: this.$store.state.AcdcStore.assessmentName,
-              raw_data: {
-                industry_id: '',
-                functional_area_id: '',
-                job_experience_id: '',
-                partner_id: false
-              }
-            }
+            text: 'Description', url: 'description_tab',
+            tabData: { name: this.$store.state.AcdcStore.assessmentName, raw_data: {} }
           },
           {
-            text: 'Configure Tools', url: 'configure_tools',
-            tabData: {
-              raw_data: [
-                {
-                psychometry_type: '',
-                page_size: '',
-                assessment_class: '',
-                enable_application_id: false,
-                show_help_text: false,
-                tool_weightage: '',
-                report_upload_callback: [],
-                languages: []
-                }
-              ]
-            }
+            text: 'Configure Tools',
+            url: 'tool_configuaration_tab',
+            tabData: { raw_data: [], tools: [] }
           },
           {
-            text: 'Create Custom Forms', url: 'create_custom_forms',
-            tabData: {
-              raw_data: {}
-            }
+            text: 'Create Custom Forms',
+            url: 'create_custom_forms_tab',
+            tabData: { raw_data: {} }
           },
           {
             text: 'Add Behaviours/ Competencies/ Traits',
-            url: 'add_behaviours_competencies_traits',
-            tabData: {
-              raw_data: {}
-            }
+            url: 'add_behaviours_competencies_traits_tab',
+            tabData: { raw_data: {} }
           },
           {
             text: 'Select Subjective/ Objective Questions',
-            url: 'select_subjective_objective_questions',
-            tabData: {
-              raw_data: {}
-            }
+            url: 'select_subjective_objective_questions_tab',
+            tabData: { raw_data: {} }
           },
           {
             text: 'Select Template',
-            url: 'select_template',
-            tabData: {
-              raw_data: {}
-            }
+            url: 'select_template_tab',
+            tabData: { raw_data: {} }
           },
           {
-            text: 'Report Configuration', url: 'report_Configuration',
-            tabData: {
-              raw_data: {}
-            }
+            text: 'Report Configuration', url: 'report_configuration_tab',
+            tabData: { raw_data: {} }
           },
           {
-            text: 'Review', url: 'review',
-            tabData: {
-              raw_data: {}
-            }
+            text: 'Review',
+            url: 'review_tab',
+            tabData: { raw_data: {} }
           }
         ]
       }
@@ -175,13 +146,13 @@
         return getDataByText(this.currentTab, this.tabItems);
       },
       isSaveNextButtonEnable: function () {
-        var customAssessment = this.currentTabData.raw_data;
-        for (var key in customAssessment) {
-          var val = customAssessment[key];
-          if (val.length == 0) {
-            return true
-          }
-        }
+        // var customAssessment = this.currentTabData.raw_data;
+        // for (var key in customAssessment) {
+        //   var val = customAssessment[key];
+        //   if (val.length == 0) {
+        //     return true
+        //   }
+        // }
         return false
       },
       isSaveExitButtonEnable: function () {
@@ -192,7 +163,7 @@
       saveAndNext() {
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
-          companyId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
           acdc_assessment: createAcdcAssessmentJson(this.tabItems)
         }).then(() => {
           let tab = getNextTab(this.currentTab, this.tabItems)
@@ -215,6 +186,32 @@
       if (urlLength > 1) {
         let tab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
         this.tabHandler(tab.text, tab.index)
+      }
+      this.$store.dispatch('setAssessmentRawData', {raw_data: {}})
+      this.$store.dispatch('getAcdcAssessment', {
+        assessmentId: this.$store.state.AcdcStore.assessmentId,
+        companyId: this.$store.state.AcdcStore.companyId
+      })
+    },
+    watch: {
+      '$store.state.AcdcStore.assessmentRawData' (newCount, oldCount) {
+        let rawData = this.$store.state.AcdcStore.assessmentRawData
+        if(Object.keys(rawData).length != 0) {
+          var i, len = this.tabItems.length
+          for (i = 0; i < len; i++) {
+            if (this.tabItems[i].url == 'tool_configuaration_tab') {
+              if(rawData[this.tabItems[i].url].length == 0) {
+                this.tabItems[i].tabData.tools = rawData['tools']
+                var j, toolLen = rawData['tools'].length
+                for (j = 0; j < toolLen; j++) {
+                  this.tabItems[i].tabData.raw_data.push(ToolsJson[rawData['tools'][j]])
+                }
+              }
+            } else {
+              this.tabItems[i].tabData.raw_data = rawData[this.tabItems[i].url]
+            }
+          }
+        }
       }
     }
   }
@@ -265,6 +262,9 @@
     var i, len = tabItems.length;
     var acdcAssessmentJson = {}
     for (i = 0; i < len; i++) {
+      if (tabItems[i].tabData.hasOwnProperty('tools')) {
+        acdcAssessmentJson['tools'] = tabItems[i].tabData.tools
+      }
       acdcAssessmentJson[tabItems[i].url] = tabItems[i].tabData.raw_data
     }
     return {raw_data: acdcAssessmentJson, name: tabItems[0].tabData.name}

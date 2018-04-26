@@ -26,11 +26,10 @@
       mini_hive_with_jombay_abstract_thinking, mini_hive_with_jombay_critical_thinking,
       mini_hive_with_pearson_ravens, mini_hive_with_wg, psychometry
     },
-    data () {
-      return {
-        currentTools: ['psychometry']
+    computed: {
+      currentTools: function () {
+        return this.tabData.tools
       }
-    },
-    methods: {}
+    }
   }
 </script>

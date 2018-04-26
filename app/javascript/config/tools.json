@@ -1,0 +1,41 @@
+{
+  "bhive_with_cocubes": {
+    "assessment_flow": "",
+    "tool_weightage": ""
+  },
+  "bhive_with_hire_me": {
+    "is_sectional_score": false,
+    "access_code": "",
+    "tool_weightage": ""
+  },
+  "bhive_with_jombay_aptitude": {
+    "is_sectional_score": false,
+    "aptitude_assessment": "",
+    "tool_weightage": ""
+  },
+  "mini_hive_with_jombay_abstract_thinking": {
+    "tool_weightage": ""
+  },
+  "mini_hive_with_jombay_critical_thinking": {
+    "aptitude_assessment": "",
+    "tool_weightage": ""
+  },
+  "mini_hive_with_pearson_ravens": {
+    "url": "",
+    "tool_weightage": ""
+  },
+  "mini_hive_with_wg": {
+    "url": "",
+    "tool_weightage": ""
+  },
+  "psychometry": {
+    "psychometry_type": "",
+    "page_size": "",
+    "assessment_class": "",
+    "enable_application_id": false,
+    "show_help_text": false,
+    "report_upload_callback": [],
+    "languages": [],
+    "tool_weightage": ""
+  }
+}
