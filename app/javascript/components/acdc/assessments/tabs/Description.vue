@@ -85,7 +85,7 @@
       // https://www.npmjs.com/package/vue-search-select
     },
     created: function() {
-       this.get.meta_data({company_id: 2})
+      this.get.meta_data({company_id: 2})
         .then(response => {
           return response.json()
         })

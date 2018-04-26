@@ -10,24 +10,25 @@
 </template>
 
 <script>
-  import BHiVEwithCoCubes from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithCoCubes.vue';
-  import BHiVEwithHireMe from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithHireMe.vue';
-  import BHiVEwithJombayAptitude from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithJombayAptitude.vue';
-  import MiniHiVEwithJombayAbstractThinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayAbstractThinking.vue';
-  import MiniHiVEwithJombayCriticalThinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayCriticalThinking.vue';
-  import MiniHiVEwithPearsonRavens from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
-  import Psychometry from 'components/acdc/assessments/tabs/configure_tools/Psychometry.vue';
+  import bhive_with_cocubes from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithCoCubes.vue';
+  import bhive_with_hire_me from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithHireMe.vue';
+  import bhive_with_jombay_aptitude from 'components/acdc/assessments/tabs/configure_tools/B-HiVEwithJombayAptitude.vue';
+  import mini_hive_with_jombay_abstract_thinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayAbstractThinking.vue';
+  import mini_hive_with_jombay_critical_thinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayCriticalThinking.vue';
+  import mini_hive_with_pearson_ravens from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
+  import mini_hive_with_wg from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
+  import psychometry from 'components/acdc/assessments/tabs/configure_tools/Psychometry.vue';
  
   export default {
     props: ['tabData'],
     components: {
-      BHiVEwithCoCubes, BHiVEwithHireMe, BHiVEwithJombayAptitude,
-      MiniHiVEwithJombayAbstractThinking, MiniHiVEwithJombayCriticalThinking,
-      MiniHiVEwithPearsonRavens, Psychometry
+      bhive_with_cocubes, bhive_with_hire_me, bhive_with_jombay_aptitude,
+      mini_hive_with_jombay_abstract_thinking, mini_hive_with_jombay_critical_thinking,
+      mini_hive_with_pearson_ravens, mini_hive_with_wg, psychometry
     },
     data () {
       return {
-        currentTools: ['Psychometry']
+        currentTools: ['psychometry']
       }
     },
     methods: {}
