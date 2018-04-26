@@ -8,7 +8,7 @@
       <div class="select-box large-15">
         <div class="form-group">
           <model-select :options="options"
-            v-model="item"
+            v-model="selectAptitudeAssessment"
             placeholder="Select Aptitude Assessment">
           </model-select>
           <label>Select Aptitude Assessment</label>
@@ -27,7 +27,7 @@
       <div class="more_actions_container open">
 
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 
@@ -43,8 +43,9 @@
   import _ from 'lodash'
   import { MultiSelect } from 'vue-search-select'
   import { ModelSelect } from 'vue-search-select'
- 
+
   export default {
+    props: ['configureToolData'],
     data () {
       return {
         options: [
@@ -54,31 +55,16 @@
           { value: '4', text: 'cd' + ' - ' + '4' },
           { value: '5', text: 'de' + ' - ' + '5' }
         ],
-        item: {
-          value: '',
-          text: ''
-        },
-        searchText: '', // If value is falsy, reset searchText & searchItem
-        items: [],
-        lastSelectItem: {}
-      }
-    },
-    methods: {
-      onSelect (items, lastSelectItem) {
-        this.items = items
-        this.lastSelectItem = lastSelectItem
-      },
-      // deselect option
-      reset () {
-        this.items = [] // reset
-      },
-      // select option from parent component
-      selectOption () {
-        this.items = _.unionWith(this.items, [this.options[0]], _.isEqual)
+        selectAptitudeAssessment: {value: '', text: ''}
       }
     },
     components: {
       MultiSelect, ModelSelect
+    },
+    watch: {
+      selectAptitudeAssessment: function (val) {
+        this.configureToolData.aptitude_assessment = this.selectAptitudeAssessment.value
+      }
     }
   }
 </script>

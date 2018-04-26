@@ -39,7 +39,7 @@
       <div class="more_actions_container open">
 
         <div class="form-group large-15">
-          <input v-model="configureToolData.toolWeightage" type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 

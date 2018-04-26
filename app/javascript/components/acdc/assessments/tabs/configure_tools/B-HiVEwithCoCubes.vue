@@ -14,13 +14,23 @@
         <div class="large-3 columns"></div>
         <div class="large-5 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType"/>
+            <input
+              v-model="configureToolData.assessment_flow"
+              type="radio"
+              name="PsychometryType"
+              value="Sectional Score"
+            />
             <div class="label-text">Sectional Score</div>
           </label>
         </div>
         <div class="large-5 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType"/>
+            <input
+              v-model="configureToolData.assessment_flow"
+              type="radio"
+              name="PsychometryType"
+              value="Put Scores in traits"
+            />
             <div class="label-text">Put Scores in traits</div>
           </label>
         </div>
@@ -37,7 +47,7 @@
       <div class="more_actions_container open">
 
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 
@@ -48,6 +58,12 @@
     <div class="divider-3"></div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: ['configureToolData']
+  }
+</script>
 
 <style lang="sass" scoped>
   $color-warning: #ff8308 

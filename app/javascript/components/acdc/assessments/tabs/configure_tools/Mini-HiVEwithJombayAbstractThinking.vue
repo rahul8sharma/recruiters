@@ -13,7 +13,7 @@
 
       <div class="more_actions_container open">
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage">
+          <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
         </div>
 
@@ -24,6 +24,12 @@
     <div class="divider-3"></div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: ['configureToolData']
+  }
+</script>
 
 <style lang="sass" scoped>
   $color-warning: #ff8308 

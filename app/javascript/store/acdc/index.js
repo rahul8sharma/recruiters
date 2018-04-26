@@ -47,6 +47,7 @@ export default {
         })
         .then(function (response) {
           commit('setAssessmentRawData', response.raw_data);
+          commit('setAssessmentName', payload.name);
         })
         .catch(error => {
           console.log(error)

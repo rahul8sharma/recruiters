@@ -9,6 +9,7 @@
         v-bind:isModalOpen="modal.isOpen"
         v-bind:isCreateSubmitButtonEnable="isCreateSubmitButtonEnable"
         v-bind:assessment="assessment"
+        v-bind:products="products"
         :set-modal-state="setModalState"
         :create-assessment="createAssessment"
       >
@@ -28,9 +29,11 @@
         modal: {
           isOpen: false
         },
+        products: [],
         assessment: {
           name: '',
-          tool: ''
+          tools: [],
+          product: ''
         }
       }
     },
@@ -39,12 +42,32 @@
         this.modal.isOpen = !this.modal.isOpen;
       },
       createAssessment () {
+        if (this.assessment.product != 'mini_hive') {
+          this.assessment.tools.push(this.assessment.product)
+        }
+        let assessmentRawData = {
+          product_id: '',
+          tools: this.assessment.tools,
+          description_tab: {
+            industry_id: '',
+            functional_area_id: '',
+            job_experience_id: '',
+            enable_proctoring: false
+          },
+          tool_configuaration_tab: [],
+          create_custom_forms_tab: {},
+          add_behaviours_competencies_traits_tab: {},
+          select_subjective_objective_questions_tab: {},
+          select_template_tab: {},
+          report_configuration_tab: {},
+          review_tab: {}
+        }
         this.$store.dispatch('createAcdcAssessment', {
           acdc_assessment: {
             name: this.assessment.name,
             company_id: this.$store.getters.companyId,
             user_id: this.$store.getters.userId,
-            raw_data: {tool: this.assessment.tool}
+            raw_data: assessmentRawData
           }
         })
       }
@@ -53,6 +76,15 @@
       isCreateSubmitButtonEnable () {
         return !(this.assessment.name != '' && this.assessment.tool != '' )
       }
+    },
+    created: function() {
+      this.get.products({company_id: 2})
+        .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        this.products = data
+      })
     }
   }
 </script>
