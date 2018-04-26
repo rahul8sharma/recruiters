@@ -2,8 +2,8 @@
   <div class="edit_section">
     <div class="select-box large-15">
       <div class="form-group">
-        <model-select :options="options"
-          v-model="item"
+        <model-select :options="existingForms"
+          v-model="existingForm"
           placeholder="Select a form from existing">
         </model-select>
         <label>Select a form from existing</label>
@@ -23,14 +23,55 @@
     <button class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
     <div class="clr"></div>
     
-    <!-- <FormPreview></FormPreview> -->
+    <FormPreview v-if="showPreview" v-bind:definedFields="definedFields"></FormPreview>
     <!-- <CreatNewModel></CreatNewModel> -->
-
-
-    
-
   </div>
 </template>
+
+<script>
+  import FormPreview from 'components/acdc/assessments/tabs/custom_forms/FormPreview.vue'
+  // import CreatNewModel from 'components/acdc/assessments/tabs/custom_forms/CreateNew.vue'
+  import { ModelSelect } from 'vue-search-select'
+ 
+  export default {
+    data () {
+      return {
+        existingForms: [],
+        existingForm: {
+          value: '',
+          text: ''
+        },
+        showPreview: false,
+        definedFields: []
+      }
+    },
+    created: function() {
+     this.get.defined_forms({company_id: 2})
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        this.existingForms = data
+      });
+    },
+    components: {
+      ModelSelect, FormPreview
+    },
+    watch: {
+      existingForm: function (form_object) {
+        this.get.defined_field({company_id: 2, defined_form_id: form_object.value})
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            this.definedFields = data
+            this.showPreview = true
+          });
+      }
+    }
+  }
+</script>
+
 <style lang="sass" scoped>
   .field_list
     .field_list_item
@@ -62,33 +103,3 @@
               opacity: 1    
 
 </style>
-<script>
-  // import { FormPreview } from 'components/acdc/assessments/tabs/custom_forms/FormPreview.vue'
-  // import { CreatNewModel } from 'components/acdc/assessments/tabs/custom_forms/FormPreview.vue'
-  import { ModelSelect } from 'vue-search-select'
- 
-  export default {
-    data () {
-      return {
-        options: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
-        ],
-        item: {
-          value: '',
-          text: ''
-        },
-        searchText: '', // If value is falsy, reset searchText & searchItem
-        items: [],
-        lastSelectItem: {}
-      }
-    },
-   
-    components: {
-      ModelSelect
-    }
-  }
-</script>
