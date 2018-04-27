@@ -14,7 +14,7 @@
       <ul class="questions_list">
         <li class="questions_item">
           <div class="large-20 left">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">Blank</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">&lt;Blank&gt;</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
           </div>
           <div class="large-10 left">
             <a href="" class="button btn-warning btn-link uppercase bold line-height-2">remove</a>
@@ -23,7 +23,7 @@
         </li>
         <li class="questions_item">
           <div class="large-20 left">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">Blank</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">&lt;Blank&gt;</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
           </div>
           <div class="large-10 left">
             <a href="" class="button btn-warning btn-link uppercase bold line-height-2">remove</a>
