@@ -200,6 +200,7 @@
         })
         .then(data => {
           this.languages = data.languages
+          this.selectPageSize = this.configureToolData.page_size
         })
         for (let index=1; index <= 100; index++) {
           this.pageSize.push({value: index, text: index})
@@ -207,7 +208,7 @@
     },
     watch: {
       selectPageSize: function (val) {
-        this.configureToolData.page_size = this.selectPageSize.value
+        this.configureToolData.page_size = this.selectPageSize
       }
     }
   }

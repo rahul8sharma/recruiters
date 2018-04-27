@@ -206,6 +206,9 @@
                 for (j = 0; j < toolLen; j++) {
                   this.tabItems[i].tabData.raw_data.push(ToolsJson[rawData['tools'][j]])
                 }
+              } else {
+                this.tabItems[i].tabData.raw_data = rawData[this.tabItems[i].url]
+                this.tabItems[i].tabData.tools = rawData['tools']
               }
             } else {
               this.tabItems[i].tabData.raw_data = rawData[this.tabItems[i].url]
