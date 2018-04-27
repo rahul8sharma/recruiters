@@ -8,7 +8,7 @@
 
       <div class="large-15 column fs-14 black-6">
         <div class="divider-1"></div>
-        11/24 characters
+        11/20 characters
       </div>
 
       <div class="clr"></div>

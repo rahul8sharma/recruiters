@@ -1,7 +1,6 @@
 <template>
-  <div class="edit_section">
-    <h4> Add Behaviours/ Competencies/ Traits </h4>
-  </div>
+  <!-- <AddCompetencies></AddCompetencies> -->
+  <!-- <AddTraits></AddTraits> -->
 </template>
 
 <script>
