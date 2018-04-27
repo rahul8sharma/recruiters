@@ -540,6 +540,8 @@ Rails.application.routes.draw do
         get "meta_data" => "acdc/assessments#get_meta_data"
         get "languages" => "acdc/assessments#get_languages"
         get "products" => "acdc/assessments#get_products"
+        get "defined_forms" => "acdc/assessments#get_defined_forms"
+        get "defined_field/:defined_form_id" => "acdc/assessments#get_defined_field"
       end
     end
   end

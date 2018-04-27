@@ -48,10 +48,10 @@ class Acdc::AssessmentsController < ApplicationController
 
   def get_meta_data
     @functional_areas = Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
-                          .all.to_a.collect{|x| {value: x.id, text: x.name}}
+                          .all.to_a.collect{|functional_area| {value: functional_area.id, text: functional_area.name}}
     @industries = Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
-                        .all.to_a.collect{|x| {value: x.id, text: x.name}}
-    @job_experiences = Vger::Resources::JobExperience.active.all.to_a.collect{|x| {value: x.id, text: x.display_text}}
+                        .all.to_a.collect{|industry| {value: industry.id, text: industry.name}}
+    @job_experiences = Vger::Resources::JobExperience.active.all.to_a.collect{|job_experience| {value: job_experience.id, text: job_experience.display_text}}
     render json: { 
                    'functional_areas': @functional_areas, 
                    'industries': @industries,
@@ -67,7 +67,26 @@ class Acdc::AssessmentsController < ApplicationController
 
   def get_products
     @products = Vger::Resources::Product.where(:query_options => {},:order => "name ASC").to_a
-    render json: @products.to_json
+    render json: @products.to_json, status: :ok
+  end
+
+  def get_defined_forms
+    @defined_forms = Vger::Resources::FormBuilder::DefinedForm.where(
+      scopes: { for_company_id: params[:company_id] },
+      query_options: { active: true },
+      methods: [:parent_uid]
+    ).all.to_a.collect{|form| {value: form.id, text: form.name}}
+    render json: @defined_forms, status: :ok
+  end
+
+  def get_defined_field
+   @defined_fields = Vger::Resources::FormBuilder::DefinedField.where(
+      query_options: {
+        defined_form_id: params[:defined_form_id]
+      },
+      order: "field_order ASC"
+    ).all.to_a.collect{|field| field.attributes }
+    render json: @defined_fields, status: :ok
   end
 
   private
