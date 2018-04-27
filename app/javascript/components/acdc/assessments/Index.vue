@@ -49,9 +49,9 @@
           product_id: '',
           tools: this.assessment.tools,
           description_tab: {
-            industry_id: '',
-            functional_area_id: '',
-            job_experience_id: '',
+            industry_id: {value: '', text: ''},
+            functional_area_id: {value: '', text: ''},
+            job_experience_id: {value: '', text: ''},
             enable_proctoring: false
           },
           tool_configuaration_tab: [],

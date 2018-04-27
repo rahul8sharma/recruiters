@@ -10,14 +10,14 @@
   },
   "bhive_with_jombay_aptitude": {
     "is_sectional_score": false,
-    "aptitude_assessment": "",
+    "aptitude_assessment": { "value": "", "text": "" },
     "tool_weightage": ""
   },
   "mini_hive_with_jombay_abstract_thinking": {
     "tool_weightage": ""
   },
   "mini_hive_with_jombay_critical_thinking": {
-    "aptitude_assessment": "",
+    "aptitude_assessment": { "value": "", "text": "" },
     "tool_weightage": ""
   },
   "mini_hive_with_pearson_ravens": {
@@ -30,7 +30,7 @@
   },
   "psychometry": {
     "psychometry_type": "",
-    "page_size": "",
+    "page_size": { "value": "", "text": "" },
     "assessment_class": "",
     "enable_application_id": false,
     "show_help_text": false,

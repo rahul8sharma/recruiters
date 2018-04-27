@@ -52,10 +52,10 @@
         <div class="fs-16 black-9 uppercase large-16 columns">Enable Proctoring </div>
         <div class="toggleSwitch large-14 columns">
           <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.partner_id">
+            <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.enable_proctoring">
             <div class="toggle-switch"></div>
-            <span class="toggle-label" v-show="!tabData.raw_data.partner_id">Disabled</span>
-            <span class="toggle-label" v-show="tabData.raw_data.partner_id">Enabled</span>
+            <span class="toggle-label" v-show="!tabData.raw_data.enable_proctoring">Disabled</span>
+            <span class="toggle-label" v-show="tabData.raw_data.enable_proctoring">Enabled</span>
           </label>
         </div> 
       </div>
@@ -90,20 +90,23 @@
           return response.json()
         })
         .then(data => {
-         this.functionalAreas = data.functional_areas
-         this.industries = data.industries
-         this.jobExperiences = data.job_experiences
+          this.functionalAreas = data.functional_areas
+          this.industries = data.industries
+          this.jobExperiences = data.job_experiences
+          this.selectIndustry = this.tabData.raw_data.industry_id
+          this.selectFunctionArea = this.tabData.raw_data.functional_area_id
+          this.selectJobExperiences = this.tabData.raw_data.job_experience_id
         })
     },
     watch: {
       selectIndustry: function (val) {
-        this.tabData.raw_data.industry_id = this.selectIndustry.value
+        this.tabData.raw_data.industry_id = this.selectIndustry
       },
       selectFunctionArea: function (val) {
-          this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
+          this.tabData.raw_data.functional_area_id = this.selectFunctionArea
       },
       selectJobExperiences: function (val) {
-          this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
+          this.tabData.raw_data.job_experience_id = this.selectJobExperiences
       }
     }
   }
