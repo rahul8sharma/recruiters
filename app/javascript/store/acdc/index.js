@@ -41,7 +41,7 @@ export default {
   	},
     updateAcdcAssessment ({commit, getters}, payload) {
       Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
-          { acdc_assessment: payload.acdc_assessment })
+        { acdc_assessment: payload.acdc_assessment })
         .then(function (response) {
           return response.json()
         })
@@ -52,12 +52,24 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-        resolve()
-      }, 500)
-    })
-    },    
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+          resolve()
+        }, 500)
+      })
+    },
+    getAcdcAssessment ({commit, getters}, payload) {
+      Vue.http.get("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (response) {
+            commit('setAssessmentRawData', response.raw_data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     setUserId ({commit, getters}, payload) {
       commit('setUserId', payload.user_id);
     },
