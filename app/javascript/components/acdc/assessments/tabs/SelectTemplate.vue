@@ -1,6 +1,7 @@
 <template>
   <div class="edit_section">
-    <h4> Select Template </h4>
+    <!-- email_template/Select.vue -->
+    <!-- email_template/New.vue -->
     <div class="divider-4"></div>
   </div>
 </template>
