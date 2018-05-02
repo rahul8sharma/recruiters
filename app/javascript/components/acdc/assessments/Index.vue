@@ -55,10 +55,44 @@
             enable_proctoring: false
           },
           tool_configuaration_tab: [],
-          create_custom_forms_tab: {},
-          add_behaviours_competencies_traits_tab: {},
+          create_custom_forms_tab: {
+            form_id: '',
+            form_name: ''
+          },
+          add_behaviours_competencies_traits_tab: {
+            competencies: [{
+              id: '',
+              name: '',
+              weightage: 1.0,
+              order: 0,
+              selectedFactors: [{
+                id: '',
+                name: '',
+                from_norm_bucket: {value: '', text: ''},
+                to_norm_bucket: {value: '', text: ''},
+                weightage: 1.0
+              }]
+            }],
+            showCompetencyScoreOnReport: false,
+            showConsistencyScoreOnReport: false,
+            showTraitConsistencyScoresonReport: false
+          },
           select_subjective_objective_questions_tab: {},
-          select_template_tab: {},
+          select_template_tab: {
+            invitation_template: {
+              id: '',
+              name: ''
+            },
+            completion_notification_templates: {
+              id: '',
+              name: '',
+              disableSssessmentCompletionNotification: false
+            },
+            reminder_templates: {
+              id: '',
+              name: ''
+            }
+          },
           report_configuration_tab: {},
           review_tab: {}
         }

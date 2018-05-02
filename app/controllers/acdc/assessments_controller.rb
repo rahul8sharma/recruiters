@@ -1,8 +1,12 @@
 class Acdc::AssessmentsController < ApplicationController
+  include TemplatesHelper
   before_action :set_acdc_assessment, only: [:show, :edit]
   before_action :authenticate_user!
   before_action { authorize_user!(params[:company_id]) }
   before_action :get_company
+  before_action :get_completion_notification_templates, :only => [:select_templates]
+  before_action :get_invitation_templates, :only => [:select_templates]
+  before_action :get_reminder_templates, :only => [:select_templates]
 
   layout 'acdc/acdc'
 
@@ -89,6 +93,99 @@ class Acdc::AssessmentsController < ApplicationController
     render json: @defined_fields, status: :ok
   end
 
+  def competencies
+    get_competencies(:for_suitability)
+    render json: @local_competencies, status: :ok
+  end
+
+  def get_competencies(scope)
+    @local_competencies = Vger::Resources::Suitability::Competency.where(
+      :query_options => {
+        "companies_competencies.company_id" => @company.id,
+        :active => true
+      },
+      :scopes => {
+        scope => nil,
+        :with_factors => nil
+      },
+      :methods => [:factors_data, :factor_names],
+      :order => ["name ASC"],
+      :joins => "companies"
+    ).all.to_a.collect do |competency|
+       competency.attributes[:factors_data].each do |factor|
+        get_default_norm_bucket_ranges(factor[:id])
+        factor[:from_norm_bucket_id] = @default_norm_bucket_ranges[0][:from_norm_bucket_id]
+        factor[:to_norm_bucket_id] = @default_norm_bucket_ranges[0][:to_norm_bucket_id]
+       end
+       competency.attributes
+      end
+  end
+
+  def get_default_norm_bucket_ranges(factor_id)
+      query_options = {
+        :functional_area_id => params[:functional_areas_id],
+        :industry_id => params[:industry_id],
+        :job_experience_id => params[:job_experience_id],
+        :factor_id => factor_id
+      }
+      @default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(:query_options => query_options).all.to_a
+      if @default_norm_bucket_ranges.empty?
+
+        query_options = {
+          :functional_area_id => nil,
+          :industry_id => nil,
+          :job_experience_id => nil,
+          :factor_id => factor_id
+        }
+        @default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                    where(:query_options => query_options).all.to_a
+      end
+      @default_norm_bucket_ranges
+  end
+
+  def select_templates
+    render json: {
+        completion_notification_templates: @completion_notification_templates.collect{|field| template_preview(field) },
+        invitation_templates: @invitation_templates.collect{|field| template_preview(field) },
+        reminder_templates: @reminder_templates.collect{|field| template_preview(field) }
+      }, status: :ok
+  end
+
+
+  def get_completion_notification_templates
+    query_options = {
+      "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
+    }
+    @completion_notification_templates = get_templates_for_company(query_options, @company.id)
+    @completion_notification_templates |= get_global_templates(query_options)
+  end
+
+  def get_invitation_templates
+    category = ""
+    query_options = {
+    }
+    category = [
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_CANDIDATE,
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
+   ]
+    query_options["template_categories.name"] = category
+    @invitation_templates = get_templates_for_company(query_options, @company.id)
+    @invitation_templates |= get_global_templates(query_options)
+  end
+  
+  def get_reminder_templates
+    category = ""
+    query_options = {
+    }
+    category = [
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_CANDIDATE,
+      Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
+    ]
+    query_options["template_categories.name"] = category
+    @reminder_templates = get_templates_for_company(query_options, @company.id)
+    @reminder_templates |= get_global_templates(query_options)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_acdc_assessment
@@ -103,5 +200,15 @@ class Acdc::AssessmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def acdc_assessment_params
       params.fetch(:acdc_assessment, {})
+    end
+
+    def template_preview(field)
+      {
+        id: field.preview(:id),
+        name: field.preview(:name),
+        body: field.preview(:body),
+        subject: field.preview(:subject),
+        from: field.preview(:from)
+      }
     end
 end
