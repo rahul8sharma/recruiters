@@ -25,6 +25,7 @@
     
     <FormPreview v-if="showPreview" v-bind:definedFields="definedFields"></FormPreview>
     <!-- <CreatNewModel></CreatNewModel> -->
+    <div class="divider-4"></div>
   </div>
 </template>
 

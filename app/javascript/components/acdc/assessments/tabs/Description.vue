@@ -61,7 +61,7 @@
       </div>
     </form>
 
-    <div class="divider-2"></div>
+    <div class="divider-4"></div>
 
   </div>
 </template>

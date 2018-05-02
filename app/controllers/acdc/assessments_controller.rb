@@ -89,6 +89,12 @@ class Acdc::AssessmentsController < ApplicationController
     render json: @defined_fields, status: :ok
   end
 
+  # Get file for ACDC assessment
+  def get_google_drive_file_by_url
+    file = api_resource.get_google_drive_file_by_url(acdc_assessment_params)
+    render json: file, status: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_acdc_assessment
