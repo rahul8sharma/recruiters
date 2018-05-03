@@ -6,10 +6,9 @@
         <div>
           <div class="fs-16 black-9 bold">Invitation Template</div>
           <div class="divider-1"></div>
-          <label class="custom-checkbox">
-            <input type="checkbox"/>
+          <label v-if="tabData.disableAssessmentCompletionNotification !== undefined" class="custom-checkbox">
+            <input v-model="disableAssessment" type="checkbox"/>
 
-            <!-- only if this action needed -->
             <div class="label-text fs-12 black-9">Disable assessment completion notification</div>
 
           </label>
@@ -24,6 +23,8 @@
       <div class="select-box large-15">
         <div class="form-group">
           <model-select
+            :options="formatTemplates"
+            v-model="item"
             placeholder="Select Template from Existing">
           </model-select>
           <label>Select Template from Existing</label>
@@ -46,20 +47,22 @@
         <div class="p-20">
           <div class="clearfix">
             <strong class="large-4 columns show">From: </strong>
-            <div class="large-26 columns">loremipsum@jombay.com</div>
+            <div class="large-26 columns">
+              <span v-html="selectTemplated.from"></span>
+            </div>
           </div>
           <div class="clearfix">
             <strong class="large-4 columns show">Subject: </strong>
-            <div class="large-26 columns">Lorem Ipsum Subject for this Assessment</div>
+            <div class="large-26 columns">
+              <span v-html="selectTemplated.subject"></span>
+            </div>
           </div>
         </div>
 
         <hr/>
 
         <div class="p-20">
-          <p>Hello &lt;employee name&gt;,</p>
-          
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque in eros. Vestibulum volutpat diam cursus scelerisque egestas.</p>
+          <p><span v-html="selectTemplated.body"></span></p>
         </div>
       </div>
     </div>
@@ -74,6 +77,51 @@
 </style>
 
 <script>
+  import { ModelSelect } from 'vue-search-select'
+
   export default {
+    props: ['currentTemplates', 'formatTemplates', 'tabData'],
+    data () {
+      return {
+        item: {
+          value: '',
+          text: ''
+        },
+        selectTemplated: {},
+        disableAssessment: false,
+      }
+    },
+    components: {
+      ModelSelect
+    },
+    watch: {
+      item: function() {
+        if(this.item.value.length !== 0) {
+          this.tabData.id = this.currentTemplates[this.item.value].id
+          this.tabData.name = this.currentTemplates[this.item.value].name
+          this.selectTemplated = this.currentTemplates[this.item.value]  
+        }
+      },
+      "formatTemplates": function() {
+        if(this.tabData.id.length !== 0) {
+          const index = indexWhere(this.currentTemplates, item => item.id === this.tabData.id.toString())
+          this.selectTemplated = this.currentTemplates[index]  
+          this.item = { value: index, text: this.currentTemplates[index].name }
+        } else {
+          this.item = { value: '', text: ''}
+          this.selectTemplated = {}  
+        }
+      }
+    },
+    computed: {
+      setDisableAssessment: function() {
+        tabData.disableAssessmentCompletionNotification = this.disableAssessment
+      }
+    },
+  }
+
+  function indexWhere(array, conditionFn) {
+    const item = array.find(conditionFn)
+    return array.indexOf(item)
   }
 </script>
