@@ -18,7 +18,7 @@
   import mini_hive_with_jombay_abstract_thinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayAbstractThinking.vue';
   import mini_hive_with_jombay_critical_thinking from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithJombayCriticalThinking.vue';
   import mini_hive_with_pearson_ravens from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
-  import mini_hive_with_wg from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
+  import mini_hive_with_wg from 'components/acdc/assessments/tabs/configure_tools/Mini-HIVEwithWG.vue';
   import psychometry from 'components/acdc/assessments/tabs/configure_tools/Psychometry.vue';
  
   export default {

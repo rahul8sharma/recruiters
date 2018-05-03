@@ -22,11 +22,13 @@
   },
   "mini_hive_with_pearson_ravens": {
     "url": "",
-    "tool_weightage": ""
+    "tool_weightage": "",
+    "thank_you_message": ""
   },
   "mini_hive_with_wg": {
     "url": "",
-    "tool_weightage": ""
+    "tool_weightage": "",
+    "thank_you_message": ""
   },
   "psychometry": {
     "psychometry_type": "",

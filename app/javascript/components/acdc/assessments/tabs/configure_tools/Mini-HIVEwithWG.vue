@@ -18,7 +18,7 @@
 
       <div class="clearfix">
 
-        <vue-editor id="editor1" v-model="configureToolData.thank_you_message" :editorToolbar="customToolbar"></vue-editor>
+        <vue-editor id="editor2" v-model="configureToolData.thank_you_message" :editorToolbar="customToolbar"></vue-editor>
 
         <div class="large-14 columns fs-14 black-6 p-16">
           0/400 characters
