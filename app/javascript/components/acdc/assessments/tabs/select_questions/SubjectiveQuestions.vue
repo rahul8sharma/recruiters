@@ -1,9 +1,8 @@
 <template>
   <div class="edit_section p-0">
     <div class="p-30">
-      <div class="text_editor">
-        Text Editor here
-      </div>
+      <vue-editor v-model="content" :editorToolbar="customToolbar"></vue-editor>
+      <button :disabled="isAddButton" @click="addQuestion" class="button btn-warning btn-link uppercase bold line-height-2">Add</button>
     </div>
 
     <hr/>
@@ -12,21 +11,10 @@
     <div class="questions p-30">
       <div class="fs-15 black-10 bold">Questions</div>
       <ul class="questions_list">
-        <li class="questions_item">
-          <div class="large-20 left">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">&lt;Blank&gt;</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
-          </div>
+        <li class="questions_item" v-for="(question, index) in subjectiveQuestion.questions">
+          <div class="large-20 left" v-html="question"></div>
           <div class="large-10 left">
-            <a href="" class="button btn-warning btn-link uppercase bold line-height-2">remove</a>
-          </div> 
-          <div class="clr"></div>
-        </li>
-        <li class="questions_item">
-          <div class="large-20 left">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque <span class="blank">&lt;Blank&gt;</span> in eros. Vestibulum volutpat diam cursus scelerisque egestas?
-          </div>
-          <div class="large-10 left">
-            <a href="" class="button btn-warning btn-link uppercase bold line-height-2">remove</a>
+            <button @click="removeQuestion(index)" class="button btn-warning btn-link uppercase bold line-height-2">remove</button>
           </div> 
           <div class="clr"></div>
         </li>
@@ -35,10 +23,39 @@
 
   </div>
 </template>
+
+<script>
+  import { VueEditor } from 'vue2-editor'
+
+  export default {
+    props: ['subjectiveQuestion'],
+    components: { VueEditor },
+    data() {
+      return {
+        content: '',
+        customToolbar: [
+            ['bold', 'italic']
+          ]
+      }
+    },
+    methods: {
+      addQuestion() {
+        this.subjectiveQuestion.questions.push(this.content)
+        this.content = ''
+      },
+      removeQuestion(index) {
+        this.subjectiveQuestion.questions.splice(index, 1)
+      }
+    },
+    computed: {
+      isAddButton: function () {
+        return this.content == ''
+      }
+    }
+  }
+</script>
+
 <style lang="sass" scoped>
-  .text_editor
-    background-color: #f6f6f6
-    height: 150px
   .questions
     max-height: 215px
     overflow: auto
@@ -52,7 +69,3 @@
         color: rgba(0, 0, 0, 0.9)
         font-weight: 600
 </style>
-<script>
-  export default {
-  }
-</script>

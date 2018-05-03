@@ -1,5 +1,5 @@
 <template>
-  <div class="divider-3">
+  <div class="edit_section">
     <component
       v-for="(currentTool, index) in currentTools"
       v-bind:is="currentTool"
@@ -7,6 +7,7 @@
       v-bind:configureToolData="tabData.raw_data[index]"
     >
     </component>
+    <div class="divider-4"></div>
   </div>
 </template>
 

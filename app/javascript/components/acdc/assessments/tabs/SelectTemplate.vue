@@ -9,6 +9,7 @@
       v-bind:formatTemplates="formatTemplates"
       v-if="show"
     ></SelectTemplate>
+    <div class="divider-4"></div>
     <!-- email_template/New.vue -->
   </div>
 </template>

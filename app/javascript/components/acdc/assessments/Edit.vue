@@ -180,13 +180,15 @@
         this.setCurrentTab(text);
         this.setCurrentTabIndex(index);
       }
-    }, 	
+    },
     created: function () {
       let urlLength = window.location.href.split('#').length;
       if (urlLength > 1) {
         let tab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
         this.tabHandler(tab.text, tab.index)
       }
+    },
+    beforeMount() {
       this.$store.dispatch('setAssessmentRawData', {raw_data: {}})
       this.$store.dispatch('getAcdcAssessment', {
         assessmentId: this.$store.state.AcdcStore.assessmentId,

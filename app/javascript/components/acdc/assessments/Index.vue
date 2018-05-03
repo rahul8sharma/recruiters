@@ -42,6 +42,9 @@
         this.modal.isOpen = !this.modal.isOpen;
       },
       createAssessment () {
+        if (this.assessment.product != 'psychometry') {
+          this.assessment.tools.push('psychometry')
+        }
         if (this.assessment.product != 'mini_hive') {
           this.assessment.tools.push(this.assessment.product)
         }
@@ -77,7 +80,16 @@
             showConsistencyScoreOnReport: false,
             showTraitConsistencyScoresonReport: false
           },
-          select_subjective_objective_questions_tab: {},
+          select_subjective_objective_questions_tab: {
+            objective_question: {
+              weightage: '',
+              is_question_uploaded: false,
+              sections: []
+            },
+            subjective_question: {
+              questions: []
+            }
+          },
           select_template_tab: {
             invitation_template: {
               id: '',

@@ -7,7 +7,8 @@ export default {
     assessmentId: "",
     assessmentName: "",
     assessmentStatus: "",
-    assessmentRawData: {}
+    assessmentRawData: {},
+    googleDriveObjectiveQuestion: {}
   },
   mutations: {
     setUserId (state, payload) {
@@ -27,6 +28,9 @@ export default {
     },
     setAssessmentRawData (state, payload) {
       state.assessmentRawData = payload
+    },
+    setGoogleDriveObjectiveQuestion (state, payload) {
+      state.googleDriveObjectiveQuestion = payload
     }
   },
   actions: {
@@ -64,7 +68,20 @@ export default {
             return response.json()
         })
         .then(function (response) {
-            commit('setAssessmentRawData', response.raw_data);
+          commit('setAssessmentRawData', response.raw_data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    getGoogleDriveFileByUrl ({commit, getters}, payload) {
+      Vue.http.post("/companies/" + payload.companyId + "/acdc/get_google_drive_file_by_url", 
+        { acdc_assessment: {file_url: payload.url} })
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (response) {
+          commit('setGoogleDriveObjectiveQuestion', response.attributes.sections);
         })
         .catch(error => {
           console.log(error)
@@ -107,6 +124,9 @@ export default {
     },
     assessmentRawData (state) {
       return state.assessmentRawData
+    },
+    googleDriveObjectiveQuestion (state) {
+      return state.googleDriveObjectiveQuestion
     }
   }
 };

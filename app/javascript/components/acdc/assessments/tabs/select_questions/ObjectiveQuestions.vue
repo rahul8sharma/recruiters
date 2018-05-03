@@ -2,7 +2,7 @@
   <div class="edit_section">
     <div class="clearfix">
       <div class="form-group large-3 columns">
-        <input type="text" placeholder="Weightage"/>
+        <input type="text" v-model="objectiveQuestion.weightage" placeholder="Weightage"/>
         <label>Weightage</label>
       </div>
       <div class="large-4 columns"></div>
@@ -11,7 +11,7 @@
         <div class="divider-1"></div>
 
         <label class="custom-checkbox">
-          <input type="checkbox"/>
+          <input  v-model="objectiveQuestion.is_question_uploaded" type="checkbox"/>
           <div class="label-text fs-12">I already have the questions uploaded in the account</div>
         </label>
       </div>
@@ -21,11 +21,11 @@
 
     <div class="clearfix">
       <div class="form-group large-15 columns">
-        <input type="text" placeholder="Upload Questions from Google Sheet URL"/>
+        <input v-model="drive_url" type="text" placeholder="Upload Questions from Google Sheet URL"/>
         <label>Upload Questions from Google Sheet URL</label>
       </div>
       <div class="large-15 columns">
-        <a href="" class="button btn-warning btn-link uppercase bold line-height-2">Update</a>
+        <button :disabled="isSaveUploadButton" @click="uploadQuestions" href="" class="button btn-warning btn-link uppercase bold line-height-2">Update</button>
       </div> 
     </div>
 
@@ -49,45 +49,67 @@
     
     <div class="divider-1"></div>  
     
-    <div class="section_title uppercase fs-12 bold">
-      1.  Lorem Ipsum Competency
+    <div v-for="(section, section_index) in objectiveQuestion.sections">
+      <div class="section_title uppercase fs-12 bold">
+        {{section_index + 1}} . {{section.section_name}}
+      </div>
+
+      <ul class="questions_list" v-for="(question, question_index) in section.data">
+        <li class="question fs-16 black-6">
+          <div class="question_index">{{question_index + 1}}.</div>
+          <div class="question_text">
+            {{question.question_body}}
+          </div>
+
+          <div class="question_options clearfix">
+            <div class="question_option large-15" v-for="(option, option_index) in question.options">
+              <label class="pannel_container">
+                <div class="input_field" :class="{ checked: option.score == '1' }"></div>
+                <div class="pannel">
+                  <div class="title">Option {{option_index + 1}}</div>
+                  {{option.body}}
+                </div>
+              </label>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-
-    <ul class="questions_list">
-      <li class="question fs-16 black-6">
-        <div class="question_index">1.</div>
-        <div class="question_text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante urna, tempor vitae tempus nec, pellentesque in eros. Vestibulum volutpat diam cursus scelerisque egestas?
-        </div>
-
-        <div class="question_options clearfix">
-          <div class="question_option large-15">
-            <label class="pannel_container">
-              <input value="psychometry" type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">Option 1</div>
-                Psychometry integrated with Pearson
-              </div>
-            </label>
-          </div>
-
-          <div class="question_option large-15">
-            <label class="pannel_container">
-              <input value="psychometry" type="radio" name="assessmentType" class="input_field">
-              <div class="pannel">
-                <div class="title">Option 1</div>
-                Psychometry integrated with Pearson
-              </div>
-            </label>
-            
-          </div>
-        </div>
-        
-      </li>
-    </ul>
-
   </div>
+
 </template>
+
+<script>
+  export default {
+    props: ['objectiveQuestion'],
+    data () {
+      return {
+        drive_url: '',
+      }
+    },
+    methods: {
+      uploadQuestions() {
+        this.$store.dispatch('getGoogleDriveFileByUrl', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          url: this.drive_url
+        }).then(() => {
+        })
+      }
+    },
+    watch: {
+      '$store.state.AcdcStore.googleDriveObjectiveQuestion' (newCount, oldCount) {
+        this.objectiveQuestion.sections = this.$store.getters.googleDriveObjectiveQuestion
+      }
+    },
+    computed: {
+      isSaveUploadButton: function () {
+        return this.drive_url == ''
+      }
+    }
+  }
+</script>
+
 <style lang="sass" scoped>
   $color-warning: #ff8308
   @mixin flex
@@ -113,21 +135,20 @@
     @include flex
     align-items: top
     flex-wrap: wrap
+    margin-left: -15px
     .question_option
       padding: 15px
-      &:first-child
-        padding-left: 0
       .pannel_container
         position: relative
         height: 100%
         display: block
-        cursor: pointer
+        cursor: default
         .input_field
           opacity: 0
           position: absolute
           top: 0
           left: 0
-          &:checked
+          &:checked, &.checked
             & + .pannel
               background-color: $color-warning
               color: #fff
@@ -150,18 +171,4 @@
             color: rgba(0, 0, 0, 0.87)
             margin-bottom: 10px
             font-weight: 600
-
-      &:hover
-        .pannel
-          background-color: $color-warning
-          color: #fff
-          box-shadow: 0 8px 10px 0 rgba(255, 131, 8, 0.2)
-          border-color: $color-warning
-          opacity: 0.7
-          .title
-            color: #fff
 </style>
-<script>
-  export default {
-  }
-</script>
