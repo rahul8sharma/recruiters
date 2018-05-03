@@ -31,7 +31,7 @@
 
 <script>
   import FormPreview from 'components/acdc/assessments/tabs/custom_forms/FormPreview.vue'
-  // import CreatNewModel from 'components/acdc/assessments/tabs/custom_forms/CreateNew.vue'
+  import CreatNewModel from 'components/acdc/assessments/tabs/custom_forms/CreateNew.vue'
   import { ModelSelect } from 'vue-search-select'
  
   export default {
@@ -54,10 +54,13 @@
       })
       .then(data => {
         this.existingForms = data
+        if(this.tabData.raw_data.form_id.length !== 0) {
+         this.existingForm = { value: this.tabData.raw_data.form_id, text: this.tabData.raw_data.form_name }
+        }
       });
     },
     components: {
-      ModelSelect, FormPreview
+      ModelSelect, FormPreview, CreatNewModel
     },
     watch: {
       existingForm: function (form_object) {
@@ -69,7 +72,8 @@
             this.definedFields = data
             this.showPreview = true
           });
-        this.tabData.raw_data.default_form_id =  this.existingForm.value
+        this.tabData.raw_data.form_id =  this.existingForm.value
+        this.tabData.raw_data.form_name =  this.existingForm.text
       }
     }
   }

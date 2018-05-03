@@ -3,6 +3,7 @@
     <component
       v-for="(currentTool, index) in currentTools"
       v-bind:is="currentTool"
+      v-bind:key="index"
       v-bind:configureToolData="tabData.raw_data[index]"
     >
     </component>
