@@ -54,7 +54,7 @@
       })
       .then(data => {
         this.existingForms = data
-        if(this.tabData.raw_data.form_id.length !== 0) {
+        if(this.tabData.raw_data.form_id != null && this.tabData.raw_data.form_id.length !== 0) {
          this.existingForm = { value: this.tabData.raw_data.form_id, text: this.tabData.raw_data.form_name }
         }
       });
