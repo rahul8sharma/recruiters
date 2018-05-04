@@ -103,7 +103,7 @@
         }
       },
       "formatTemplates": function() {
-        if(this.tabData.id.length !== 0) {
+        if(this.tabData.id != null && this.tabData.id.length !== 0) {
           const index = indexWhere(this.currentTemplates, item => item.id === this.tabData.id.toString())
           this.selectTemplated = this.currentTemplates[index]  
           this.item = { value: index, text: this.currentTemplates[index].name }

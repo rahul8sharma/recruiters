@@ -52,11 +52,20 @@
           </div>
          
           <button
-            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex"
+            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex || isSendForReview()"
             class="button btn-warning uppercase fs-14"
             @click="saveAndNext"
+            v-if="!isReviewPage()"
           >
             Save &amp; Next
+          </button>
+          <button
+            class="button btn-warning uppercase fs-14"
+            :disabled="isSendForReview()"
+            @click="sendForApproval()"
+            v-if="isReviewPage()"
+          >
+            SEND FOR APPROVAL
           </button>
         </div>
 
@@ -133,7 +142,8 @@
             url: 'review_tab',
             tabData: { raw_data: {} }
           }
-        ]
+        ],
+        reviewPage: false
       }
     },
     computed: {
@@ -179,6 +189,23 @@
       tabHandler:function(text, index){
         this.setCurrentTab(text);
         this.setCurrentTabIndex(index);
+      },
+      isReviewPage:function() {
+        return (this.currentTab === undefined || this.currentTab === 'Review') ? true : false
+      },
+      sendForApproval:function() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {status: 'review'}
+        }).then(() => {
+          alert("Assessment Send For Approval")
+        })
+      },
+      isSendForReview:function() {
+        return (this.$store.state.AcdcStore.assessmentStatus === 'review' ||
+                this.$store.state.AcdcStore.assessmentStatus === 'approve') ?
+                true : false
       }
     },
     created: function () {
