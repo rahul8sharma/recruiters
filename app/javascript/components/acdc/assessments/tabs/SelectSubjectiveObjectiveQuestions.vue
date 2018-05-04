@@ -5,6 +5,7 @@
     <component
       v-if="isObjective"
       v-for="(questionType, index) in tabData"
+      v-bind:key="index"
       v-bind:is="Object.keys(questionType)[0]"
       v-bind:objectiveQuestion="tabData.raw_data[Object.keys(questionType)[0]]"
     >
@@ -13,6 +14,7 @@
     <component
       v-if="!isObjective"
       v-for="(questionType, index) in tabData"
+      v-bind:key="index"
       v-bind:is="Object.keys(questionType)[1]"
       v-bind:subjectiveQuestion="tabData.raw_data[Object.keys(questionType)[1]]"
     >
