@@ -12,33 +12,45 @@
     <div class="clr"></div>
 
     <ul>
-      <li>
-        <div class="fs-16 large-1 columns black-9 line-height-4">1.</div>
+      <li v-for="(competency, competencyIndex) in tabData.competencies">
+        <div class="fs-16 large-1 columns black-9 line-height-4">{{ competencyIndex + 1 }}.</div>
 
-        <div class="form-group large-7 columns">
-          <input type="text" placeholder="Competency name" />
-          <label>Competency name</label>
+        <div class="form-group large-8 columns">
+            <v-autocomplete 
+              :items="items"
+              :min-len='0'
+              v-model="competency.name"
+              :get-label="getLabel"
+              :component-item='template'
+              @item-selected="itemSelected"
+              @update-items="update"
+              placeholder='Type Competency name'
+              @change="setCurrentIndex(competencyIndex)"
+              v-focus
+              :id="competencyIndex"
+              :input-attrs="{name: 'input-test', id: 'v-my-autocomplete'}">
+            </v-autocomplete>
         </div>
 
         <em class="large-6 columns fs-12 black-6 line-height-3">
-          11/20 characters
+          0/20 characters
         </em>
         <div class="form-group large-3 columns">
-          <input type="text" placeholder="Weightage" />
+          <input type="text" placeholder="Weightage" v-model="tabData.competencies[competencyIndex].weightage" />
           <label>Weightage</label>
         </div>
 
         <div class="large-2 columns"></div>
 
-        <a href="" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
-        <a href="" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
+        <a href="" :disabled="competencyIndex == (tabData.competencies.length - 1)" @click.prevent="moveDown(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
+        <a href="" :disabled="competencyIndex == 0" @click.prevent="moveUp(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
         <div class="clr"></div>
         
       </li>
     </ul>
     <div class="divider-2"></div>
     
-    <button class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Competency</button>
+    <button @click="addCompetency()" class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Competency</button>
     
     <div class="divider-2"></div>
     
@@ -52,13 +64,13 @@
       <div class="clearfix">
         <div class="large-10 columns">
           <label class="custom-checkbox">
-            <input type="checkbox"/>
+            <input v-model="tabData.showCompetencyScoreOnReport" type="checkbox"/>
             <div class="label-text fs-12">Show competency score on report</div>
           </label>
         </div>
         <div class="large-10 columns">
           <label class="custom-checkbox">
-            <input type="checkbox"/>
+            <input v-model="tabData.showConsistencyScoreOnReport" type="checkbox"/>
             <div class="label-text fs-12">Show consistency score on report</div>
           </label>
         </div>
@@ -68,6 +80,115 @@
 
   </div>
 </template>
+
+<script>
+  import { BasicSelect } from 'vue-search-select'
+  import Autocomplete from 'v-autocomplete'
+  import ItemTemplate from './ItemTemplate.vue'
+
+  export default {
+    props: ['competencies' ,'competencyNames', 'tabData'],
+    data () {
+      return {
+        items: [],
+        template: ItemTemplate,
+        currentIndex: '',
+        initializeData: false
+      }
+    },            
+    components: {
+      'v-autocomplete': Autocomplete
+    },
+    methods: {
+      addCompetency () {
+        this.tabData.competencies.push({
+          id: '',
+          name: '',
+          weightage: 1.0,
+          order: this.tabData.competencies.length ,
+          selectedFactors: [{
+            id: '',
+            name: '',
+            from_norm_bucket: {value: '', text: ''},
+            to_norm_bucket: {value: '', text: ''},
+            weightage: 1.0
+          }]
+        })
+      }, 
+      getLabel (item) {
+        return item
+      },
+      itemSelected (competencyName) {
+        if(!this.initializeData) {
+          const index = indexWhere(this.competencies, item => item.name === competencyName)
+          const competency = this.competencies[index]
+
+          this.tabData.competencies[this.currentIndex].name = competency.name
+          this.tabData.competencies[this.currentIndex].id = competency.id
+          this.tabData.competencies[this.currentIndex].selectedFactors = [{
+            id: '',
+            name: '',
+            from_norm_bucket: {value: '', text: ''},
+            to_norm_bucket: {value: '', text: ''},
+            weightage: 1.0
+          }]
+        }
+      },
+      getLabel (item) {
+        if (item) {
+          return item
+        }
+        return ''
+      },
+      update (text) {
+        this.initializeData = false
+        this.items = this.competencyNames.filter((item) => {
+          return (new RegExp(text.toLowerCase())).test(item.toLowerCase())
+        })
+      },
+      setCurrentIndex(index) {
+        this.currentIndex = index
+      },
+      moveDown(index) {
+        this.initializeData = true
+        let temp = this.tabData.competencies[index].order = (this.tabData.competencies[index].order + 1 )
+        this.tabData.competencies[temp].order = (this.tabData.competencies[temp].order - 1)
+
+        this.tabData.competencies.sort(function(a, b){
+          return a.order - b.order });
+      },
+      moveUp(index) {
+        this.initializeData = true
+        let temp = this.tabData.competencies[index].order = (this.tabData.competencies[index].order - 1 )
+        this.tabData.competencies[temp].order = (this.tabData.competencies[temp].order + 1)
+
+        this.tabData.competencies.sort(function(a, b){
+          return a.order - b.order });
+      },
+      test(event) {
+        debugger
+      }
+    },
+    created: function() {
+      this.initializeData = true
+      this.items = this.competencyNames
+    },
+    directives: {
+      focus: {
+        // directive definition
+        inserted: function (el) {
+          el.focus()
+        }
+      }
+    }
+  }
+
+  function indexWhere(array, conditionFn) {
+    const item = array.find(conditionFn)
+    return array.indexOf(item)
+  }
+
+</script>
 <style lang="sass" scoped>
   .shuffle_action
     &:hover
@@ -84,8 +205,18 @@
     padding-top: 15px
     &.open
       display: block
+  .v-autocomplete
+  .v-autocomplete-input-group
+    .v-autocomplete-input
+      font-size 1.5em
+      padding 10px 15px
+      box-shadow none
+      border 1px solid #157977
+      width calc(100% - 32px)
+      outline none
+      background-color #eee
+    &.v-autocomplete-selected
+      .v-autocomplete-input
+        color green
+        background-color #f2fff2
 </style>
-<script>
-  export default {
-  }
-</script>
