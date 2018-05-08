@@ -35,7 +35,7 @@
     },
     components: { objective_question,  subjective_question },
     methods: {
-      changeQuestionType(currentTemplate) {
+      changeQuestionType() {
         this.isObjective = !this.isObjective
       }
     }
