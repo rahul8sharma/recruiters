@@ -31,12 +31,12 @@
     "thank_you_message": ""
   },
   "psychometry": {
-    "psychometry_type": "",
+    "candidate_stage": "",
     "page_size": { "value": "", "text": "" },
-    "assessment_class": "",
-    "enable_application_id": false,
+    "assessment_type": "",
+    "set_applicant_id": false,
     "show_help_text": false,
-    "report_upload_callback": [],
+    "report_upload_callbacks": [],
     "languages": [],
     "tool_weightage": ""
   }

@@ -59,8 +59,7 @@
           },
           tool_configuaration_tab: [],
           create_custom_forms_tab: {
-            form_id: '',
-            form_name: ''
+            defined_form_id: ''
           },
           add_behaviours_competencies_traits_tab: {
             competencies: [{

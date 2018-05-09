@@ -93,20 +93,20 @@
           this.functionalAreas = data.functional_areas
           this.industries = data.industries
           this.jobExperiences = data.job_experiences
-          this.selectIndustry = this.tabData.raw_data.industry_id
-          this.selectFunctionArea = this.tabData.raw_data.functional_area_id
-          this.selectJobExperiences = this.tabData.raw_data.job_experience_id
+          this.selectIndustry = {value: this.tabData.raw_data.industry_id, text: ''}
+          this.selectFunctionArea = {value: this.tabData.raw_data.functional_area_id, text: ''}
+          this.selectJobExperiences = {value: this.tabData.raw_data.job_experience_id, text: ''}
         })
     },
     watch: {
       selectIndustry: function (val) {
-        this.tabData.raw_data.industry_id = this.selectIndustry
+        this.tabData.raw_data.industry_id = this.selectIndustry.value
       },
       selectFunctionArea: function (val) {
-          this.tabData.raw_data.functional_area_id = this.selectFunctionArea
+          this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
       },
       selectJobExperiences: function (val) {
-          this.tabData.raw_data.job_experience_id = this.selectJobExperiences
+          this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
       }
     }
   }

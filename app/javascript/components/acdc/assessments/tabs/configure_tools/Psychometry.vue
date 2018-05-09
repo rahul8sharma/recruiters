@@ -19,13 +19,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType" value="Development" v-model="configureToolData.psychometry_type" />
+            <input type="radio" name="PsychometryType" value="employee" v-model="configureToolData.candidate_stage" />
             <div class="label-text">Development</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="PsychometryType" value="Hiring" v-model="configureToolData.psychometry_type" />
+            <input type="radio" name="PsychometryType" value="candidate" v-model="configureToolData.candidate_stage" />
             <div class="label-text">Hiring</div>
           </label>
         </div>
@@ -40,13 +40,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Competency" v-model="configureToolData.assessment_class" />
+            <input type="radio" name="AssessmentClass" value="Competency" v-model="configureToolData.assessment_type" />
             <div class="label-text">Competency</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Trait" v-model="configureToolData.assessment_class"/>
+            <input type="radio" name="AssessmentClass" value="Trait" v-model="configureToolData.assessment_type"/>
             <div class="label-text">Trait</div>
           </label>
         </div>
@@ -56,7 +56,7 @@
       <div class="select-box large-15">
         <div class="form-group">
           <multi-select :options="languages"
-            :selected-options="configureToolData.languages"
+            :selected-options="selectedLanguages"
             placeholder="Select Language for the assessment*"
             @select="onSelect">
           </multi-select>
@@ -94,7 +94,7 @@
           <div class="large-15 columns">
             <div class="toggleSwitch large-14 columns">
               <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.enable_application_id">
+                <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.set_applicant_id">
                 <div class="toggle-switch"></div>
                 <span class="toggle-label">Disabled</span>
               </label>
@@ -129,28 +129,28 @@
         <div class="clearfix">
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Talview" v-model='configureToolData.report_upload_callback' />
+              <input type="checkbox" value="Talview" v-model='configureToolData.report_upload_callbacks' />
               <div class="label-text">Talview</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Taleo" v-model='configureToolData.report_upload_callback' />
+              <input type="checkbox" value="Taleo" v-model='configureToolData.report_upload_callbacks' />
               <div class="label-text">Taleo</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Success Factor" v-model='configureToolData.report_upload_callback' />
+              <input type="checkbox" value="Success Factor" v-model='configureToolData.report_upload_callbacks' />
               <div class="label-text">Success Factor</div>
             </label>            
           </div>
 
           <div class="large-5 columns">
             <label class="custom-checkbox">
-              <input type="checkbox" value="Zoho" v-model='configureToolData.report_upload_callback' />
+              <input type="checkbox" value="Zoho" v-model='configureToolData.report_upload_callbacks' />
               <div class="label-text">Zoho</div>
             </label>            
           </div>
@@ -181,13 +181,18 @@
     data () {
       return {
         languages: [],
+        selectedLanguages: [],
         pageSize: [],
         selectPageSize: { value: '', text: '' }
       }
     },
     methods: {
       onSelect (items, lastSelectItem) {
-        this.configureToolData.languages = items
+        this.configureToolData.languages = []
+        this.selectedLanguages = items;
+        for(var k=0; k<items.length; k++) {
+          this.configureToolData.languages.push(items[k].value)
+        }
       }
     },
     components: {
@@ -200,7 +205,8 @@
         })
         .then(data => {
           this.languages = data.languages
-          this.selectPageSize = this.configureToolData.page_size
+          this.selectPageSize = { value: this.configureToolData.page_size, text: '' }
+          this.selectedLanguages = getSelectedLanguages(this.languages, this.configureToolData.languages)
         })
         for (let index=1; index <= 100; index++) {
           this.pageSize.push({value: index, text: index})
@@ -208,9 +214,21 @@
     },
     watch: {
       selectPageSize: function (val) {
-        this.configureToolData.page_size = this.selectPageSize
+        this.configureToolData.page_size = this.selectPageSize.value
       }
     }
+  }
+
+  function getSelectedLanguages(allLanguages, selectedLanguages) {
+    var allSelectedLanguages = [];
+    for(var i=0; i<selectedLanguages.length; i++) {
+      for(var j=0; j<allLanguages.length; j++) {
+        if(selectedLanguages[i] == allLanguages[j].value) {
+          allSelectedLanguages.push(allLanguages[j]);
+        }
+      }
+    }
+    return allSelectedLanguages;
   }
 </script> 
 <style lang="sass" scoped>

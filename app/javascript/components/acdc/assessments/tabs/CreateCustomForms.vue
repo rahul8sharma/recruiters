@@ -48,14 +48,14 @@
       }
     },
     created: function() {
-     this.get.defined_forms({company_id: 2})
+     this.get.defined_forms({company_id: this.$store.state.AcdcStore.companyId})
       .then(response => {
         return response.json()
       })
       .then(data => {
         this.existingForms = data
-        if(this.tabData.raw_data.form_id != null && this.tabData.raw_data.form_id.length !== 0) {
-         this.existingForm = { value: this.tabData.raw_data.form_id, text: this.tabData.raw_data.form_name }
+        if(this.tabData.raw_data.defined_form_id != null && this.tabData.raw_data.defined_form_id.length !== 0) {
+         this.existingForm = { value: this.tabData.raw_data.defined_form_id, text: '' }
         }
       });
     },
@@ -64,7 +64,7 @@
     },
     watch: {
       existingForm: function (form_object) {
-        this.get.defined_field({company_id: 2, defined_form_id: form_object.value})
+        this.get.defined_field({company_id: this.$store.state.AcdcStore.companyId, defined_form_id: form_object.value})
           .then(response => {
             return response.json()
           })
@@ -72,8 +72,7 @@
             this.definedFields = data
             this.showPreview = true
           });
-        this.tabData.raw_data.form_id =  this.existingForm.value
-        this.tabData.raw_data.form_name =  this.existingForm.text
+        this.tabData.raw_data.defined_form_id =  this.existingForm.value
       }
     }
   }
