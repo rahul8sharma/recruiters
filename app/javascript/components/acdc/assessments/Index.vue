@@ -105,7 +105,10 @@
               name: ''
             }
           },
-          report_configuration_tab: {},
+          report_configuration_tab: {
+            html: [],
+            pdf: []
+          },
           review_tab: {}
         }
         this.$store.dispatch('createAcdcAssessment', {

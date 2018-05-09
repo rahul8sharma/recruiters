@@ -12,37 +12,51 @@
 
 <script>
   import VJstree from 'vue-jstree'
+  import deepConfig from 'config/deepMerge.js'
+
   export default {
+    props: ['tabData'],
     components: { VJstree },
     data () {
       return  {
-        isHtmlReport: true
+        isHtmlReport: true,
+        htmlData: [],
+        pdfData: []
       }
     },
     methods: {
       // TODO: If item click event not needed then remove it
       itemClick (node) {
-        console.log(node.model.text + ' clicked !')
+        if (this.isHtmlReport) {
+          this.setHtmlRawData()
+        } else {
+          this.setPdfRawData()
+        }
       },
       changeReportType() {
         this.isHtmlReport = !this.isHtmlReport
         document.getElementById("reportConfigIframe").classList.add("hide");
       },
       generateReportPreview() {
-        let cloneConfig = {}
         let selectedReportConfig = []
         if (this.isHtmlReport) {
-          cloneConfig = JSON.parse(JSON.stringify(this.htmlData));
-          selectedReportConfig = { html: { sections: getSelectedReportConfig(cloneConfig) } }
+          selectedReportConfig = { html: this.tabData.raw_data.html }
         } else {
-          cloneConfig = JSON.parse(JSON.stringify(this.pdfData));
-          selectedReportConfig = { pdf: { sections: getSelectedReportConfig(cloneConfig) } }
+          selectedReportConfig = { pdf: this.tabData.raw_data.pdf }
         }
         let viewMode = this.isHtmlReport ? "html" : "pdf"
         this.$store.dispatch('getreportPreview', {
           config: selectedReportConfig,
           viewMode: viewMode
         })
+      },
+      setHtmlRawData () {
+        let cloneConfig = JSON.parse(JSON.stringify(this.htmlData));
+        this.tabData.raw_data.html = { sections: deepConfig.getSelectedReportConfig(cloneConfig) }
+      },
+      setPdfRawData () {
+        let cloneConfig = JSON.parse(JSON.stringify(this.pdfData));
+        this.tabData.raw_data.pdf = { sections: deepConfig.getSelectedReportConfig(cloneConfig) }
       }
     },
     created: function () {
@@ -50,12 +64,6 @@
       this.$store.dispatch('getReportConfiguration')
     },
     computed: {
-      htmlData () {
-       return this.$store.getters.htmlReportConfiguration;
-      },
-      pdfData () {
-        return this.$store.getters.pdfReportConfiguration
-      },
       error () {
         return this.$store.getters.errorReportConfiguration
       }
@@ -67,24 +75,39 @@
           document.getElementById('reportConfigIframe').classList.remove("hide");
           document.getElementById('reportConfigIframe').contentWindow.document.body.innerHTML = reportPreviewConfig
         }
+      },
+      'htmlData' (newCount, oldCount) {
+        this.setHtmlRawData()
+      },
+      'pdfData' (newCount, oldCount) {
+        this.setPdfRawData()
+      },
+      '$store.state.ReportConfigurationStore.htmlSelectedConfig' (newCount, oldCount) {
+        if (this.tabData.raw_data.html.length != 0) {
+          this.htmlData =  deepConfig.deepMerge(
+            this.$store.getters.htmlConfig,
+            this.tabData.raw_data.html.sections
+          )
+        } else {
+          this.htmlData =  deepConfig.deepMerge(
+            this.$store.getters.htmlConfig,
+            this.$store.getters.htmlSelectedConfig
+          )
+        }
+      },
+      '$store.state.ReportConfigurationStore.pdfSelectedConfig' (newCount, oldCount) {
+        if (this.tabData.raw_data.pdf.length != 0) {
+          this.pdfData =  deepConfig.deepMerge(
+            this.$store.getters.pdfConfig,
+            this.tabData.raw_data.pdf.sections
+          )
+        } else {
+          this.pdfData =  deepConfig.deepMerge(
+            this.$store.getters.pdfConfig,
+            this.$store.getters.pdfSelectedConfig
+          )
+        }
       }
     }
-  }
-
-  function getSelectedReportConfig(reportConfig) {
-    for(var k=0; k<reportConfig.length; k++) {
-      if (reportConfig[k].selected) {
-        reportConfig[k]["state"] = { "selected": true}
-        delete reportConfig[k].opened
-        delete reportConfig[k].selected
-        delete reportConfig[k].value
-        if (typeof reportConfig[k] == "object" && reportConfig[k].children != null) {getSelectedReportConfig(reportConfig[k].children);
-        }
-      } else {
-        reportConfig.splice(k, 1);
-        k = k - 1;
-      }
-    };
-    return reportConfig;
   }
 </script>
