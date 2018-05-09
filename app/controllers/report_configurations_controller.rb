@@ -173,8 +173,13 @@ class ReportConfigurationsController < MasterDataController
       content: ApplicationController.render(
         :template => "assessment_reports/#{template}",
         :layout => "layouts/#{layout}",
-        assigns: { report: @report, view_mode: @view_mode, 
-        page: @page}
+        assigns: {
+          report: @report,
+          view_mode: @view_mode,
+          page: @page,
+          norm_buckets: @norm_buckets,
+          company_norm_buckets: @company_norm_buckets
+        }
         )
     }
   end
