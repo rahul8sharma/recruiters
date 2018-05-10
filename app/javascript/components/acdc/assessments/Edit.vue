@@ -10,16 +10,22 @@
         <em class="fs-14 black-7">AID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
       </div>
       <div class="spacer"></div>
-      <button class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
-      <button
-        :disabled="isSaveExitButtonEnable"
-        class="btn-warning inverse uppercase fs-14"
-      >
-        Save &amp; Exit
-      </button>
+      <div v-if="!isSendForReview">
+        <button v-if="!isSendForReview" class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
+        <button
+          :disabled="isSaveExitButtonEnable"
+          class="btn-warning inverse uppercase fs-14"
+        >
+          Save &amp; Exit
+        </button>
+      </div>
+      <div v-else="isSendForReview">
+        <button class="btn-link uppercase black-6 fs-14">DISAPPROVE</button>
+        <button class="btn-warning inverse uppercase fs-14">APPROVE</button>
+      </div>
     </div>
 
-    <div class="tab_view clearfix">
+    <div class="tab_view clearfix" v-if="!isSendForReview">
       <ul class="tab_list large-7 columns">
         <li class="tab_item " 
           v-for="(tab, index) in tabItems"
@@ -52,18 +58,18 @@
           </div>
          
           <button
-            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex || isSendForReview()"
+            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex || isSendForReview"
             class="button btn-warning uppercase fs-14"
             @click="saveAndNext"
-            v-if="!isReviewPage()"
+            v-if="!isReviewPage"
           >
             Save &amp; Next
           </button>
           <button
             class="button btn-warning uppercase fs-14"
-            :disabled="isSendForReview()"
+            :disabled="isSendForReview"
             @click="sendForApproval()"
-            v-if="isReviewPage()"
+            v-if="isReviewPage"
           >
             SEND FOR APPROVAL
           </button>
@@ -77,6 +83,10 @@
 
       </div>
 
+    </div>
+
+    <div v-else="!isSendForReview">
+      <Review></Review>
     </div>
   </div>  
 </template>
@@ -167,6 +177,12 @@
       },
       isSaveExitButtonEnable: function () {
         return false
+      },
+      isSendForReview:function() {
+        return this.$store.state.AcdcStore.assessmentStatus === 'review'
+      },
+      isReviewPage:function() {
+        return this.currentTab === 'Review'
       }
     },
     methods: {
@@ -190,9 +206,6 @@
         this.setCurrentTab(text);
         this.setCurrentTabIndex(index);
       },
-      isReviewPage:function() {
-        return (this.currentTab === undefined || this.currentTab === 'Review') ? true : false
-      },
       sendForApproval:function() {
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
@@ -200,12 +213,8 @@
           acdc_assessment: {status: 'review'}
         }).then(() => {
           alert("Assessment Send For Approval")
+          location.reload();
         })
-      },
-      isSendForReview:function() {
-        return (this.$store.state.AcdcStore.assessmentStatus === 'review' ||
-                this.$store.state.AcdcStore.assessmentStatus === 'approve') ?
-                true : false
       }
     },
     created: function () {
