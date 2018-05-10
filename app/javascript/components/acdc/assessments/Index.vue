@@ -43,7 +43,7 @@
       },
       createAssessment () {
         if (this.assessment.product != 'psychometry') {
-          this.assessment.tools.push('psychometry')
+          this.assessment.tools.unshift('psychometry')
         }
         if (this.assessment.product != 'mini_hive') {
           this.assessment.tools.push(this.assessment.product)
@@ -122,7 +122,11 @@
     },
     computed: {
       isCreateSubmitButtonEnable () {
-        return !(this.assessment.name != '' && this.assessment.tool != '' )
+        if (this.assessment.product == 'mini_hive') {
+          return !(this.assessment.name != '' && this.assessment.tools.length != 0 )
+        } else {
+          return !(this.assessment.name != '' && this.assessment.product != '' )
+        }
       }
     },
     created: function() {

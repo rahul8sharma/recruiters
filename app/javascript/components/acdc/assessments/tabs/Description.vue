@@ -2,13 +2,13 @@
   <div class="edit_section">
     <form>
       <div class="form-group large-15 column">
-        <input type="text" placeholder="Name of Assessment" v-model="tabData.name" />
+        <input type="text" placeholder="Name of Assessment" v-model="tabData.name" :maxlength="nameMaxLength" />
         <label>Name of Assessment</label>
       </div>
 
       <div class="large-15 column fs-14 black-6">
         <div class="divider-1"></div>
-        11/20 characters
+        {{nameMaxLength - tabData.name.length}}/{{nameMaxLength}} characters
       </div>
 
       <div class="clr"></div>
@@ -77,7 +77,8 @@
         jobExperiences: [],
         selectFunctionArea: {value: '', text: ''},
         selectIndustry: {value: '', text: ''},
-        selectJobExperiences: {value: '', text: ''}
+        selectJobExperiences: {value: '', text: ''},
+        nameMaxLength: 20
       }
     },
     components: {

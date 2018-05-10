@@ -65,24 +65,22 @@
       
     </div>
 
-    <a href="#" class="more_actions_btn uppercase fs-12 bold open">
-        More Actions
-      </a>
-      <em class="fs-12 black-6">(Competency Range)</em>
+    <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
+      More Actions
+    </a>
+    <em class="fs-12 black-6">(Competency Range)</em>
 
-      <div class="more_actions_container open">
-        <div class="divider-1"></div>
-        <div class="clearfix">
-          <div class="large-10 columns">
-            <label class="custom-checkbox">
-              <input v-model="tabData.showTraitConsistencyScoresonReport" type="checkbox"/>
-              <div class="label-text fs-12">Show Consistency Scores on report</div>
-            </label>
-          </div>
-         
+    <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+      <div class="divider-1"></div>
+      <div class="clearfix">
+        <div class="large-10 columns">
+          <label class="custom-checkbox">
+            <input v-model="tabData.showTraitConsistencyScoresonReport" type="checkbox"/>
+            <div class="label-text fs-12">Show Consistency Scores on report</div>
+          </label>
         </div>
-
       </div>
+    </div>
   </div>
 </template>
 
@@ -112,8 +110,9 @@
           {value: 5, text: 'Above Average'},
           {value: 6, text: 'High'},
         ],
+        initializeData: false,
+        moreActions: false
       }
-      initializeData: false
     },
     components: {
       'v-autocomplete': Autocomplete,
