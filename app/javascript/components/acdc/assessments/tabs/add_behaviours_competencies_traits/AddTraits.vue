@@ -1,69 +1,64 @@
 <template>
   <div class="edit_section">
-    <div v-for="(localCompetency, competencyIndex) in tabData.competencies">
-      <div class="section_title uppercase fs-12 bold">
-        {{ competencyIndex + 1 }}.  {{localCompetency.name}}
-      </div>
-      <div class="divider-2"></div>
-      <div class="fs-12 large-8 columns color-warning pr-20">Type Trait name</div>
-      <div class="fs-12 large-7 columns color-warning pr-20">Range from</div>
-      <div class="fs-12 large-7 columns color-warning pr-20">Range to</div>
-      <div class="fs-12 large-5 columns color-warning pr-20">Weightage</div>
-      <div class="clr"></div>
+    <div class="divider-2"></div>
+    <div class="fs-12 large-8 columns color-warning pr-20">Type Trait name</div>
+    <div class="fs-12 large-7 columns color-warning pr-20">Range from</div>
+    <div class="fs-12 large-7 columns color-warning pr-20">Range to</div>
+    <div class="fs-12 large-5 columns color-warning pr-20">Weightage</div>
+    <div class="clr"></div>
 
-      <ul>
-        <li v-for="(trait, traitIndex) in localCompetency.selectedFactors" >
-          <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
+    <ul>
+      <li v-for="(trait, traitIndex) in tabData.job_assessment_factor_norms_attributes" >
+        <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
 
-          <div class="form-group large-8 columns pr-20">
-            <v-autocomplete 
-              :items="items[competencyIndex].competencySuggestion[traitIndex].suggestion" 
-              :min-len='0'
-              v-model="trait.name" 
-              :get-label="getLabel"
-              :component-item='template' 
-              @item-selected="itemSelected" 
-              placeholder="Type Trait name"
-              @update-items="update"
-              @change="setCurrentIndex(traitIndex, competencyIndex)">
-            </v-autocomplete>
-            <label>Trait name</label>
-          </div>
-          <div class="select-box large-7 columns pr-20">
-            <div class="form-group">
-              <model-select :options="options"
-                v-model="trait.from_norm_bucket"
-                placeholder="Range from">
-              </model-select>
-              <label>Range from</label>
-            </div>
-          </div>
-          <div class="select-box large-7 columns pr-20">
-            <div class="form-group">
-              <model-select :options="options"
-              v-model="trait.to_norm_bucket"
+        <div class="form-group large-8 columns pr-20">
+          <v-autocomplete 
+            :items="items" 
+            :min-len='0'
+            v-model="trait.name" 
+            :get-label="getLabel"
+            :component-item='template' 
+            @item-selected="itemSelected" 
+            placeholder="Type Trait name"
+            @update-items="update"
+            @focus="setCurrentIndex(traitIndex)"
+            autofocus>
+          </v-autocomplete>
+          <label>Trait name</label>
+        </div>
+        <div class="select-box large-7 columns pr-20">
+          <div class="form-group">
+            <model-select :options="options"
+              v-model="trait.from_norm_bucket_id"
               placeholder="Range from">
-              </model-select>
-              <label>Range to</label>
-            </div>
+            </model-select>
+            <label>Range from</label>
           </div>
-          
-          <div class="form-group large-5 columns pr-20">
-            <input v-model="trait.weightage" type="text" placeholder="Weightage" />
-            <label>Weightage</label>
+        </div>
+        <div class="select-box large-7 columns pr-20">
+          <div class="form-group">
+            <model-select :options="options"
+            v-model="trait.to_norm_bucket_id"
+            placeholder="Range from">
+            </model-select>
+            <label>Range to</label>
           </div>
+        </div>
+        
+        <div class="form-group large-5 columns pr-20">
+          <input v-model="trait.weight" type="text" placeholder="Weightage" />
+          <label>Weightage</label>
+        </div>
 
-          <div class="clr"></div>
-          
-        </li>
-      </ul>
-      <div class="divider-2"></div>
-      
-      <button @click="addTrait(competencyIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Traits</button>
-      
-      <div class="divider-2"></div>
-      
-    </div>
+        <div class="clr"></div>
+        
+      </li>
+    </ul>
+    <div class="divider-2"></div>
+    
+    <button @click="addTrait()" class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Traits</button>
+    
+    <div class="divider-2"></div>
 
     <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
       More Actions
@@ -90,18 +85,12 @@
   import { ModelSelect } from 'vue-search-select'
 
   export default {
-    props: ["competencies", 'tabData'],
+    props: ['tabData'],
     data () {
       return {
-        items: [{
-          competencySuggestion: [{
-            suggestion: [],
-          }]
-        }],
+        items: [],
         template: ItemTemplate,
         currentTraitIndex:'',
-        currentCompetencyIndex:'',
-        currentCompetenciesIndex: '',
         options: [
           {value: 1, text: 'Low'},
           {value: 2, text: 'Below Average'},
@@ -110,7 +99,8 @@
           {value: 5, text: 'Above Average'},
           {value: 6, text: 'High'},
         ],
-        initializeData: false,
+        factors: [],
+        factorNames: [],
         moreActions: false
       }
     },
@@ -119,27 +109,24 @@
       ModelSelect
     },
     methods: {
-      addTrait(index) {
-       this.tabData.competencies[index].selectedFactors.push({
-          id: '',
+      addTrait() {
+        this.tabData.job_assessment_factor_norms_attributes.push({
+          factor_id: '',
           name: '',
-          from_norm_bucket: {value: '', text: ''},
-          to_norm_bucket: {value: '', text: ''},
-          weightage: 1.0
+          from_norm_bucket_id: {value: '', text: ''},
+          to_norm_bucket_id: {value: '', text: ''},
+          weight: 1
         })
-       this.items[index].competencySuggestion.push({suggestion: []})
       }, 
       itemSelected (factorName) {
-        if(!this.initializeData) {
-          const competency = this.tabData.competencies[this.currentCompetencyIndex]
-          const index = indexWhere(this.competencies[this.currentCompetenciesIndex].factors, item => item.name === factorName)
-          const factor = this.competencies[this.currentCompetenciesIndex].factors[index]
+        const index = indexWhere(this.factors, item => item.name === factorName)
+        const factor = this.factors[index]
+        const jobFactor = this.tabData.job_assessment_factor_norms_attributes
 
-          competency.selectedFactors[this.currentTraitIndex].id = factor.id
-          competency.selectedFactors[this.currentTraitIndex].name = factor.name
-          competency.selectedFactors[this.currentTraitIndex].to_norm_bucket = this.options[(factor.to_norm_bucket_id - 1)]
-          competency.selectedFactors[this.currentTraitIndex].from_norm_bucket = this.options[(factor.from_norm_bucket_id - 1)]
-        }  
+        jobFactor[this.currentTraitIndex].factor_id = factor.id
+        jobFactor[this.currentTraitIndex].to_norm_bucket_id = this.options[(factor.from_norm_bucket_id - 1)]
+        jobFactor[this.currentTraitIndex].from_norm_bucket_id = this.options[(factor.to_norm_bucket_id - 1)]
+        jobFactor[this.currentTraitIndex].name = factor.name
       },
       getLabel (item) {
         if (item) {
@@ -148,27 +135,29 @@
         return ''
       },
       update (text) {
-        this.initializeData = false
-        const factor = this.tabData.competencies[this.currentCompetencyIndex]
-        this.currentCompetenciesIndex = indexWhere(this.competencies, item => item.id === factor.id)
-
-        this.items[this.currentCompetencyIndex].competencySuggestion[this.currentTraitIndex].suggestion = this.competencies[this.currentCompetenciesIndex].factor_names.filter((item) => {
+        this.items = this.factorNames.filter((item) => {
           return (new RegExp(text.toLowerCase())).test(item.toLowerCase())
         })
       },
-      setCurrentIndex(traitIndex, competencyIndex) {
+      setCurrentIndex(traitIndex) {
         this.currentTraitIndex = traitIndex
-        this.currentCompetencyIndex = competencyIndex
       }
     },
     created: function() {
-      this.initializeData = true
-      for(var competencyIndex = 0; competencyIndex < this.tabData.competencies.length; competencyIndex ++) {
-        this.items.push({competencySuggestion: []})
-        for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
-          this.items[competencyIndex].competencySuggestion.push({suggestion: []})
-        }  
-      }
+      // TODO need to Update 
+      this.get.traits({
+        company_id: 2,
+        functional_areas_id: 1,
+        industry_id: 1,
+        job_experience_id: 1
+       })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        this.factors = data.factors
+        this.factorNames = data.factor_names
+      });
     }
   }
 

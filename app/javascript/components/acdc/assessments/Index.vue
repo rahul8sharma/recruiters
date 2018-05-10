@@ -63,22 +63,33 @@
           },
           add_behaviours_competencies_traits_tab: {
             competencies: [{
-              id: '',
               name: '',
-              weightage: 1.0,
+              description: "-",
+              modules: ["suitability"],
+              factor_ids: [],
+              company_ids: [this.$store.state.AcdcStore.companyId],
+              weight: 1.0,
               order: 0,
               selectedFactors: [{
-                id: '',
+                factor_id: '',
                 name: '',
                 from_norm_bucket: {value: '', text: ''},
                 to_norm_bucket: {value: '', text: ''},
-                weightage: 1.0
+                weight: 1.0
               }]
+            }],
+            job_assessment_factor_norms_attributes: [{
+              factor_id: '',
+              name: '',
+              from_norm_bucket_id: {value: '', text: ''},
+              to_norm_bucket_id: {value: '', text: ''},
+              weight: 1
             }],
             showCompetencyScoreOnReport: false,
             showConsistencyScoreOnReport: false,
             showTraitConsistencyScoresonReport: false
           },
+
           select_subjective_objective_questions_tab: {
             objective_question: {
               weightage: '',
