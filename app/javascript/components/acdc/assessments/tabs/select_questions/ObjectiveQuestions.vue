@@ -19,7 +19,7 @@
 
     <div class="divider-1"></div>
 
-    <div class="clearfix">
+    <div class="clearfix" v-if="!objectiveQuestion.is_question_uploaded">
       <div class="form-group large-15 columns">
         <input v-model="drive_url" type="text" placeholder="Upload Questions from Google Sheet URL"/>
         <label>Upload Questions from Google Sheet URL</label>
@@ -104,9 +104,14 @@
     },
     computed: {
       isSaveUploadButton: function () {
-        return this.drive_url == ''
+        return isGoogleDriveUrlValid(this.drive_url)
       }
     }
+  }
+
+  function isGoogleDriveUrlValid(url) {
+    var googleDriveRegex = /^https?:\/\/([^\/]+)\/([^?]*\/)?([^\/?]+)/;
+    return !googleDriveRegex.exec(url);
   }
 </script>
 
