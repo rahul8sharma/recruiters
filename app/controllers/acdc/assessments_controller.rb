@@ -103,52 +103,7 @@ class Acdc::AssessmentsController < ApplicationController
     get_competencies(:for_suitability)
     render json: @local_competencies, status: :ok
   end
-
-  def get_competencies(scope)
-    @local_competencies = Vger::Resources::Suitability::Competency.where(
-      :query_options => {
-        "companies_competencies.company_id" => @company.id,
-        :active => true
-      },
-      :scopes => {
-        scope => nil,
-        :with_factors => nil
-      },
-      :methods => [:factors_data, :factor_names],
-      :order => ["name ASC"],
-      :joins => "companies"
-    ).all.to_a.collect do |competency|
-       competency.attributes[:factors_data].each do |factor|
-        get_default_norm_bucket_ranges(factor[:id])
-        factor[:from_norm_bucket_id] = @default_norm_bucket_ranges[0][:from_norm_bucket_id]
-        factor[:to_norm_bucket_id] = @default_norm_bucket_ranges[0][:to_norm_bucket_id]
-       end
-       competency.attributes
-      end
-  end
-
-  def get_default_norm_bucket_ranges(factor_id)
-      query_options = {
-        :functional_area_id => params[:functional_areas_id],
-        :industry_id => params[:industry_id],
-        :job_experience_id => params[:job_experience_id],
-        :factor_id => factor_id
-      }
-      @default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.where(:query_options => query_options).all.to_a
-      if @default_norm_bucket_ranges.empty?
-
-        query_options = {
-          :functional_area_id => nil,
-          :industry_id => nil,
-          :job_experience_id => nil,
-          :factor_id => factor_id
-        }
-        @default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
-                                    where(:query_options => query_options).all.to_a
-      end
-      @default_norm_bucket_ranges
-  end
-
+  
   def select_templates
     render json: {
         completion_notification_templates: @completion_notification_templates.collect{|field| template_preview(field) },
@@ -156,7 +111,6 @@ class Acdc::AssessmentsController < ApplicationController
         reminder_templates: @reminder_templates.collect{|field| template_preview(field) }
       }, status: :ok
   end
-
 
   def get_completion_notification_templates
     query_options = {
@@ -192,6 +146,32 @@ class Acdc::AssessmentsController < ApplicationController
     @reminder_templates |= get_global_templates(query_options)
   end
 
+
+  def get_norms
+    factor_data = []
+    factor_names = []
+
+    get_factors
+    default_norm_bucket_ranges = get_default_norm_bucket_ranges
+
+    @factors.each do |factor_id, factor|
+      default_norm_bucket_range = default_norm_bucket_ranges.find{|x| x.factor_id == factor_id}
+
+      factor_data.push({
+          :from_norm_bucket_id => default_norm_bucket_range.from_norm_bucket_id,
+          :to_norm_bucket_id => default_norm_bucket_range.to_norm_bucket_id,
+          :id => factor.id,
+          :name => factor.name,
+          :definition => factor.definition
+      })
+     
+      factor_names.push(factor.name)
+    end
+
+    render json: {factors: factor_data, factor_names: factor_names}
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_acdc_assessment
@@ -216,5 +196,61 @@ class Acdc::AssessmentsController < ApplicationController
         subject: field.preview(:subject),
         from: field.preview(:from)
       }
+    end
+
+    def get_factors
+      factors = Vger::Resources::Suitability::Factor.where(
+        :query_options => {
+          :active => true,
+          :type => factor_types
+        },
+        :scopes => {
+          :global => nil,
+          :for_suitability => nil
+        },
+        :root => "factor",
+        :methods => [:type, :direct_predictor_ids]
+      ).all.to_a
+      factors |= Vger::Resources::Suitability::Factor.where(
+        :query_options => {
+          "companies_factors.company_id" => params[:company_id],
+          :active => true,
+          :type => factor_types
+        },
+        :scopes => {
+          :for_suitability => nil
+        },
+        :methods => [:type, :direct_predictor_ids],
+        :root => "factor",
+        :joins => [:companies]
+      ).all.to_a
+      @factors = Hash[factors.sort_by{|factor| factor.name.to_s }.collect{|x| [x.id,x]}]
+    end
+
+    def factor_types
+      Vger::Resources::Suitability::Factor.types_with_custom_norms
+    end
+
+    def get_default_norm_bucket_ranges
+      query_options = {
+        :functional_area_id => params[:functional_areas_id],
+        :industry_id => params[:industry_id],
+        :job_experience_id => params[:job_experience_id],
+      }
+      default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                      where(:query_options => query_options).all.to_a
+      if default_norm_bucket_ranges.empty?
+        #if is_superuser? && ["norms","competency_norms"].include?(params[:action])
+        #  flash[:alert] = "Custom norms not present for this combination. Global norms have been picked."
+        #end
+        query_options = {
+          :functional_area_id => nil,
+          :industry_id => nil,
+          :job_experience_id => nil
+        }
+        default_norm_bucket_ranges = Vger::Resources::Suitability::DefaultFactorNormRange.\
+                                      where(:query_options => query_options).all.to_a
+      end
+      default_norm_bucket_ranges
     end
 end

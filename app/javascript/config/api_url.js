@@ -4,6 +4,6 @@ export const CustomActions = {
   products: {method: 'GET', url: '/companies{/company_id}/acdc/products'},
   defined_forms: {method: 'GET', url: '/companies{/company_id}/acdc/defined_forms'},
   defined_field: {method: 'GET', url: '/companies{/company_id}/acdc/defined_field{/defined_form_id}'},
-  competencies: {method: 'GET', url: '/companies{/company_id}/acdc/competencies'},
+  traits: {method: 'GET', url: '/companies{/company_id}/acdc/traits'},
   select_templates: {method: 'GET', url: '/companies{/company_id}/acdc/select_templates'}
 };
