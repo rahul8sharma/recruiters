@@ -1,16 +1,10 @@
 <template>
   <div class="loaderContainer">
     <img src="~assets/images/loader.gif" alt="">
-  <!--   <div class="loader_icon">
-      Loading.................
-    </div>
- -->
-
   </div>        
 </template>
 
 <style lang="sass" scoped>
- 
   .loaderContainer
     position: absolute
     top: 0
