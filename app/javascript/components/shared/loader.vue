@@ -14,11 +14,12 @@
     z-index: 999999999
     justify-content: center
     align-items: center
-    display: flex
-    background: url('~assets/images/loader.gif') no-repeat center center rgba(255, 255, 255, 0.8)
+    display: none
+    background: rgba(255, 255, 255, 0.8)
     cursor: progress
     img
       max-width: 100%
+      max-height: 100%
     &.loaderOpen
       display: -webkit-box
       display: -moz-box
