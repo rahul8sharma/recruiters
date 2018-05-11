@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="action_bar">
-      <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
+      <div class="fs-16 black-9 link_breadcrumb uppercase">
+        <a href="" class="active">HTML</a>
+        <a href="">PDF</a>
+      </div>
 
       <div class="spacer"></div>
 
@@ -132,3 +135,14 @@
     }
   }
 </script>
+<style lang="sass" scoped>
+  .action_bar 
+    .link_breadcrumb
+      a
+        padding: 5px 24px
+        background: none
+        position: relative
+        &:first-child
+          border-right: 2px solid #eaeaea
+          padding-left: 0
+</style>

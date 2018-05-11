@@ -400,6 +400,20 @@
     align-items: center
     border-bottom: 2px solid rgba(0, 0, 0, 0.1)
     padding: 0 25px
+    .link_breadcrumb
+      a
+        color: #000
+        padding: 10px 20px
+        background: url('~assets/images/patch-break.svg') no-repeat 0 center
+        &:first-child
+          background: none
+
+        &:hover
+          opacity: 0.6
+        &.active
+          color: #ff8308
+          font-weight: 600
+        
     .info_tooltip
       width: 24px
       height: 24px

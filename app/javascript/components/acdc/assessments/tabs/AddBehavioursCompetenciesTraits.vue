@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="action_bar">
-      <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
+      <div class="fs-16 black-9 link_breadcrumb uppercase">
+        <a href="" class="active">A. Add Competencies</a>
+        <a href="">B. Add Behaviours</a>
+        <a href="">3. Add Traits</a>
+      </div>
 
       <div class="spacer"></div>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="action_bar">
-      <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
+      <div class="fs-16 black-9 bold">Review Assessment</div>
 
       <div class="spacer"></div>
 
@@ -19,14 +19,30 @@
     </div>
 
     <div class="edit_section p-0">
-      <AssessmentDescription></AssessmentDescription> 
-      <ConfigureTools></ConfigureTools> 
-      <CustomForms></CustomForms> 
-      <BehaviourCompetencyTraits></BehaviourCompetencyTraits> 
-      <ObjectiveQuestions></ObjectiveQuestions> 
-      <SubjectiveQuestions></SubjectiveQuestions> 
-      <EmailTemplates></EmailTemplates> 
-      <ReportConfiguration></ReportConfiguration> 
+      <div class="review_section">
+        <AssessmentDescription></AssessmentDescription>         
+      </div>
+      <div class="review_section">
+        <ConfigureTools></ConfigureTools>         
+      </div>
+      <div class="review_section">
+        <CustomForms></CustomForms>         
+      </div>
+      <div class="review_section">
+        <BehaviourCompetencyTraits></BehaviourCompetencyTraits>         
+      </div>
+      <div class="review_section">
+        <ObjectiveQuestions></ObjectiveQuestions>         
+      </div>
+      <div class="review_section">
+        <SubjectiveQuestions></SubjectiveQuestions>         
+      </div>
+      <div class="review_section">
+        <EmailTemplates></EmailTemplates>         
+      </div>
+      <div class="review_section">
+        <ReportConfiguration></ReportConfiguration>         
+      </div>
 
       <div class="divider-2"></div>
 
@@ -65,3 +81,8 @@
     }
   }
 </script>
+<style lang="sass" scoped>
+  .review_section
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    padding: 25px 0
+</style>
