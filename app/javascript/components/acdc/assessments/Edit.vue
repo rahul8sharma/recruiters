@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
     <loader></loader>
     <div class="heading_bar flex-box container">
       <div class="fs-18 black-10">

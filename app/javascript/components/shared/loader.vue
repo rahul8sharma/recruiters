@@ -1,43 +1,30 @@
 <template>
   <div class="loaderContainer">
-    <div class="loader_icon">
+    <img src="~assets/images/loader.gif" alt="">
+  <!--   <div class="loader_icon">
       Loading.................
     </div>
-
+ -->
 
   </div>        
 </template>
 
 <style lang="sass" scoped>
-  .loader_icon
-    width: 30%
-    overflow: hidden
-    font-size: 80px
-    animation: arrow-spin 2s 0s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite
-    color: #fff
-
-    @keyframes arrow-spin
-      0%
-        width: 0px
-      50%
-        width: 15%
-      100%
-        width: 30%
-        /*transform: rotate(360deg)*/
-
-      
+ 
   .loaderContainer
-    position: fixed
+    position: absolute
     top: 0
     left: 0
-    width: 100vw
-    height: 100vh
-    background: #000000
-    background: rgba(0, 0, 0, 0.45)
-    z-index: 999999
+    width: 100%
+    height: 100%
+    z-index: 999999999
     justify-content: center
     align-items: center
-    display: none
+    display: flex
+    background: url('~assets/images/loader.gif') no-repeat center center rgba(255, 255, 255, 0.8)
+    cursor: progress
+    img
+      max-width: 100%
     &.loaderOpen
       display: -webkit-box
       display: -moz-box
