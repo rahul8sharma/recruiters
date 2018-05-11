@@ -8,7 +8,14 @@ export default {
     assessmentName: "",
     assessmentStatus: "",
     assessmentRawData: {},
-    googleDriveObjectiveQuestion: {}
+    googleDriveObjectiveQuestion: {},
+    assessmentDescription: {},
+    assessmentToolConfiguration: [],
+    assessmentCreateCustomForms: {},
+    assessmentAddBehavioursCompetenciesTraits: {},
+    assessmentSelectQuestions: {},
+    assessmentSelectTemplates: {},
+    assessmentReportConfiguration: {},
   },
   mutations: {
     setUserId (state, payload) {
@@ -31,6 +38,37 @@ export default {
     },
     setGoogleDriveObjectiveQuestion (state, payload) {
       state.googleDriveObjectiveQuestion = payload
+    },
+    setAssessmentDescription (state, payload) {
+      state.assessmentDescription = payload
+    },
+    setAssessmentToolConfiguration (state, payload) {
+      state.assessmentToolConfiguration = payload
+    },
+    setAssessmentCreateCustomForms (state, payload) {
+      state.assessmentCreateCustomForms = payload
+    },
+    setAssessmentAddBehavioursCompetenciesTraits (state, payload) {
+      state.assessmentAddBehavioursCompetenciesTraits = payload
+    },
+    setAssessmentSelectQuestions (state, payload) {
+      state.assessmentSelectQuestions = payload
+    },
+    setAssessmentSelectTemplates (state, payload) {
+      state.assessmentSelectTemplates = payload
+    },
+    setAssessmentReportConfiguration (state, payload) {
+      state.assessmentReportConfiguration = payload
+    },
+    setAssessmentdata (state, payload) {
+      state.assessmentName = payload.name
+      state.assessmentDescription = payload.description,
+      state.assessmentToolConfiguration = payload.tool_configuration,
+      state.assessmentCreateCustomForms = payload.create_custom_forms,
+      state.assessmentAddBehavioursCompetenciesTraits = payload.add_behaviours_competencies_traits,
+      state.assessmentSelectQuestions = payload.select_questions,
+      state.assessmentSelectTemplates = payload.select_templates,
+      state.assessmentReportConfiguration = payload.report_configuration
     }
   },
   actions: {
@@ -50,8 +88,8 @@ export default {
           return response.json()
         })
         .then(function (response) {
-          commit('setAssessmentRawData', response.raw_data);
-          commit('setAssessmentName', payload.name);
+          commit('setAssessmentdata', response);
+          commit('setAssessmentRawData', setAssessmentData(response));
         })
         .catch(error => {
           console.log(error)
@@ -68,7 +106,8 @@ export default {
             return response.json()
         })
         .then(function (response) {
-          commit('setAssessmentRawData', response.raw_data);
+          commit('setAssessmentdata', response);
+          commit('setAssessmentRawData', setAssessmentData(response));
         })
         .catch(error => {
           console.log(error)
@@ -86,6 +125,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    setassessmentData ({commit, getters}, payload) {
+      commit('setUserId', payload.user_id);
     },
     setUserId ({commit, getters}, payload) {
       commit('setUserId', payload.user_id);
@@ -127,6 +169,41 @@ export default {
     },
     googleDriveObjectiveQuestion (state) {
       return state.googleDriveObjectiveQuestion
+    },
+    assessmentDescription (state) {
+      return state.assessmentDescription
+    },
+    assessmentToolConfiguration (state) {
+      return state.assessmentToolConfiguration
+    },
+    assessmentCreateCustomForms (state) {
+      return state.assessmentCreateCustomForms
+    },
+    assessmentAddBehavioursCompetenciesTraits (state) {
+      return state.assessmentAddBehavioursCompetenciesTraits
+    },
+    assessmentSelectQuestions (state) {
+      return state.assessmentSelectQuestions
+    },
+    assessmentSelectTemplates (state) {
+      return state.assessmentSelectTemplatess
+    },
+    assessmentReportConfiguration (state) {
+      return state.assessmentReportConfiguration
     }
   }
 };
+
+function setAssessmentData(response) {
+  return {
+    'tools': response.tools,
+    'description': response.description,
+    'tool_configuaration': response.tool_configuration,
+    'create_custom_forms': response.create_custom_forms,
+    'add_behaviours_competencies_traits': response.add_behaviours_competencies_traits,
+    'select_subjective_objective_questions': response.select_questions,
+    'select_template': response.select_templates,
+    'report_configuration': response.report_configuration,
+    'review': {}
+  }
+}

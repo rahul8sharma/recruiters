@@ -48,76 +48,78 @@
         if (this.assessment.product != 'mini_hive') {
           this.assessment.tools.push(this.assessment.product)
         }
-        let assessmentRawData = {
-          product_id: '',
-          tools: this.assessment.tools,
-          description_tab: {
-            industry_id: {value: '', text: ''},
-            functional_area_id: {value: '', text: ''},
-            job_experience_id: {value: '', text: ''},
-            enable_proctoring: false
-          },
-          tool_configuaration_tab: [],
-          create_custom_forms_tab: {
-            defined_form_id: ''
-          },
-          add_behaviours_competencies_traits_tab: {
-            competencies: [{
-              name: '',
-              description: "-",
-              modules: ["suitability"],
-              factor_ids: [],
-              company_ids: [this.$store.state.AcdcStore.companyId],
-              weight: 1.0,
-              order: 0,
-              selectedFactors: [{
-                factor_id: '',
-                name: '',
-                from_norm_bucket: {value: '', text: ''},
-                to_norm_bucket: {value: '', text: ''},
-                weight: 1.0
-              }]
-            }],
-            job_assessment_factor_norms_attributes: [{
+        let description = {
+          industry_id: '',
+          functional_area_id: '',
+          job_experience_id: '',
+          enable_proctoring: false
+        }
+        let tool_configuration = []
+        let create_custom_forms = {
+          defined_form_id: ''
+        }
+        let add_behaviours_competencies_traits = {
+          competencies: [{
+            name: '',
+            description: "-",
+            modules: ["suitability"],
+            factor_ids: [],
+            company_ids: [this.$store.state.AcdcStore.companyId],
+            weight: 1.0,
+            order: 0,
+            selectedFactors: [{
               factor_id: '',
               name: '',
-              from_norm_bucket_id: {value: '', text: ''},
-              to_norm_bucket_id: {value: '', text: ''},
-              weight: 1
-            }],
-            showCompetencyScoreOnReport: false,
-            showConsistencyScoreOnReport: false,
-            showTraitConsistencyScoresonReport: false
+              from_norm_bucket: {value: '', text: ''},
+              to_norm_bucket: {value: '', text: ''},
+              weight: 1.0
+            }]
+          }],
+          job_assessment_factor_norms_attributes: [{
+            factor_id: '',
+            name: '',
+            from_norm_bucket_id: {value: '', text: ''},
+            to_norm_bucket_id: {value: '', text: ''},
+            weight: 1
+          }],
+          showCompetencyScoreOnReport: false,
+          showConsistencyScoreOnReport: false,
+          showTraitConsistencyScoresonReport: false
+        }
+        let select_questions = {
+          objective_question: {
+            weightage: '',
+            is_question_uploaded: false,
+            sections: []
           },
-
-          select_subjective_objective_questions_tab: {
-            objective_question: {
-              weightage: '',
-              is_question_uploaded: false,
-              sections: []
-            },
-            subjective_question: {
-              questions: []
-            }
-          },
-          select_template_tab: {
-            invitation_template_id: '',
-            completion_notification_template_id: '',
-            reminder_template_id: '',
-            disableAssessmentCompletionNotification: false
-          },
-          report_configuration_tab: {
-            html: [],
-            pdf: []
-          },
-          review_tab: {}
+          subjective_question: {
+            questions: []
+          }
+        }
+        let select_templates = {
+          invitation_template_id: '',
+          completion_notification_template_id: '',
+          reminder_template_id: '',
+          disableAssessmentCompletionNotification: false
+        }
+        let report_configuration = {
+          html: [],
+          pdf: []
         }
         this.$store.dispatch('createAcdcAssessment', {
           acdc_assessment: {
             name: this.assessment.name,
             company_id: this.$store.getters.companyId,
             user_id: this.$store.getters.userId,
-            raw_data: assessmentRawData
+            description: description,
+            tool_configuration: tool_configuration,
+            create_custom_forms: create_custom_forms,
+            add_behaviours_competencies_traits: add_behaviours_competencies_traits,
+            select_questions: select_questions,
+            select_templates: select_templates,
+            report_configuration: report_configuration,
+            product_id: '',
+            tools: this.assessment.tools
           }
         })
       }

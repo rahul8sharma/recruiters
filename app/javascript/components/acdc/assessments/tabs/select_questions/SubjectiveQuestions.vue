@@ -51,6 +51,19 @@
       isAddButton: function () {
         return this.content == ''
       }
+    },
+    mounted: function () {
+      let customTag = document.querySelector('.ql-formats');
+      customTag.innerHTML = customTag.innerHTML +  '<button type="button" class="add-blank-button" style="width: 71px;">' +
+        '<svg style="width: 91px;">' +
+        '<text x="0" y="15">&lt;&gt;Add Blank</text>' +
+        '</svg>' +
+        '</button>';
+      let customButton = document.querySelector('.add-blank-button');
+      customButton.addEventListener('click', function() {
+        let editor = document.querySelector('.ql-editor')
+        editor.innerHTML = [editor.innerHTML.slice(0, editor.innerHTML.length - 4), '<>Add Blank', editor.innerHTML.slice(editor.innerHTML.length - 4)].join('');
+      });
     }
   }
 </script>
