@@ -6,8 +6,8 @@
         <div>
           <div class="fs-16 black-9 bold">Invitation Template</div>
           <div class="divider-1"></div>
-          <label v-if="tabData.disableAssessmentCompletionNotification !== undefined" class="custom-checkbox">
-            <input v-model="disableAssessment" type="checkbox"/>
+          <label v-if="templateName == 'completion_notification_template_id'" class="custom-checkbox">
+            <input v-model="tabData.disableAssessmentCompletionNotification" type="checkbox"/>
 
             <div class="label-text fs-12 black-9">Disable assessment completion notification</div>
 
@@ -80,7 +80,7 @@
   import { ModelSelect } from 'vue-search-select'
 
   export default {
-    props: ['currentTemplates', 'formatTemplates', 'tabData'],
+    props: ['currentTemplates', 'formatTemplates', "tabData", "templateName"],
     data () {
       return {
         item: {
@@ -88,7 +88,6 @@
           text: ''
         },
         selectTemplated: {},
-        disableAssessment: false,
       }
     },
     components: {
@@ -97,14 +96,13 @@
     watch: {
       item: function() {
         if(this.item.value.length !== 0) {
-          this.tabData.id = this.currentTemplates[this.item.value].id
-          this.tabData.name = this.currentTemplates[this.item.value].name
+          this.tabData[this.templateName] = this.currentTemplates[this.item.value].id
           this.selectTemplated = this.currentTemplates[this.item.value]  
         }
       },
       "formatTemplates": function() {
-        if(this.tabData.id != null && this.tabData.id.length !== 0) {
-          const index = indexWhere(this.currentTemplates, item => item.id === this.tabData.id.toString())
+        if(this.tabData[this.templateName] != null && this.tabData[this.templateName].length !== 0) {
+          const index = indexWhere(this.currentTemplates, item => item.id === this.tabData[this.templateName].toString())
           this.selectTemplated = this.currentTemplates[index]  
           this.item = { value: index, text: this.currentTemplates[index].name }
         } else {
@@ -112,12 +110,7 @@
           this.selectTemplated = {}  
         }
       }
-    },
-    computed: {
-      setDisableAssessment: function() {
-        tabData.disableAssessmentCompletionNotification = this.disableAssessment
-      }
-    },
+    }
   }
 
   function indexWhere(array, conditionFn) {

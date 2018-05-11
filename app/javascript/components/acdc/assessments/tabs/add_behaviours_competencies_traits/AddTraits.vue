@@ -50,6 +50,8 @@
           <label>Weightage</label>
         </div>
 
+         <button @click="removeCompetency(traitIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Trait</button>
+  
         <div class="clr"></div>
         
       </li>
@@ -141,6 +143,9 @@
       },
       setCurrentIndex(traitIndex) {
         this.currentTraitIndex = traitIndex
+      },
+      removeCompetency(traitIndex) {
+        this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
       }
     },
     created: function() {

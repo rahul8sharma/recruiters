@@ -33,6 +33,8 @@
         <a href="" :disabled="competencyIndex == (tabData.competencies.length - 1)" @click.prevent="moveDown(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
         <a href="" :disabled="competencyIndex == 0" @click.prevent="moveUp(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
         <div class="clr"></div>
+
+        <button @click="removeCompetency(competencyIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Competency</button>
         
       </li>
     </ul>
@@ -110,6 +112,9 @@
 
         this.tabData.competencies.sort(function(a, b){
           return a.order - b.order });
+      },
+      removeCompetency(competencyIndex) {
+        this.tabData.competencies.splice(competencyIndex, 1)
       }
     }
   }

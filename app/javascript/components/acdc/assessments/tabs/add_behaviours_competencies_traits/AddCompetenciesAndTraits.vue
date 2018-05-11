@@ -54,6 +54,8 @@
             <label>Weightage</label>
           </div>
 
+           <button @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Trait</button>
+
           <div class="clr"></div>
           
         </li>
@@ -143,6 +145,8 @@
           competency.selectedFactors[this.currentTraitIndex].name = factor.name
           competency.selectedFactors[this.currentTraitIndex].to_norm_bucket = this.options[(factor.to_norm_bucket_id - 1)]
           competency.selectedFactors[this.currentTraitIndex].from_norm_bucket = this.options[(factor.from_norm_bucket_id - 1)]
+
+          competency.factor_ids[this.currentTraitIndex] = factor.id
         }  
       },
       getLabel (item) {
@@ -161,6 +165,10 @@
       setCurrentIndex(traitIndex, competencyIndex) {
         this.currentTraitIndex = traitIndex
         this.currentCompetencyIndex = competencyIndex
+      },
+      removeCompetency(traitIndex, competencyIndex) {
+        this.tabData.competencies[this.currentCompetencyIndex].selectedFactors.splice(traitIndex, 1)
+        this.tabData.competencies[this.currentCompetencyIndex].factor_ids.splice(traitIndex, 1)
       }
     },
     created: function() {

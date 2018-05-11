@@ -5,7 +5,8 @@
     <button @click="changeTemplate('Reminder')">Reminder</button>
     <SelectTemplate
       v-bind:currentTemplates="currentTemplates"
-      v-bind:tabData="data"
+      v-bind:templateName="templateName"
+      v-bind:tabData="tabData.raw_data"
       v-bind:formatTemplates="formatTemplates"
       v-if="show"
     ></SelectTemplate>
@@ -25,7 +26,7 @@
         currentTemplate: 'Invitation',
         currentTemplates: {},
         formatTemplates: [],
-        data: '',
+        templateName: '',
         show: true
       }
     },
@@ -34,20 +35,20 @@
         this.show = false
         switch(currentTemplate) {
           case 'Invitation':
-            this.assignData(this.templates.invitation_templates, this.tabData.raw_data.invitation_template)
+            this.assignData(this.templates.invitation_templates, "invitation_template_id")
             break;
           case 'CompletionNotification':
-            this.assignData(this.templates.completion_notification_templates, this.tabData.raw_data.completion_notification_templates)
+            this.assignData(this.templates.completion_notification_templates, "completion_notification_template_id")
             break;
           case 'Reminder':
-            this.assignData(this.templates.reminder_templates, this.tabData.raw_data.reminder_templates)
+            this.assignData(this.templates.reminder_templates, "reminder_template_id")
             break;
         }
       },
       assignData(templatesData, setTabData) {
         this.formatTemplates = []
         this.currentTemplates = templatesData
-        this.data = setTabData
+        this.templateName = setTabData
         this.show = true
         for(var index = 0; index < this.currentTemplates.length; index ++) {
           this.formatTemplates.push({value: index, text: this.currentTemplates[index].name})
@@ -64,7 +65,7 @@
         this.templates = data
 
         // assign default data
-        this.assignData(this.templates.invitation_templates, this.tabData.raw_data.invitation_template)
+        this.assignData(this.templates.invitation_templates, "invitation_template_id")
       });
 
     }

@@ -7,7 +7,7 @@
           {{this.$store.state.AcdcStore.assessmentName}}
           <span class="fs-14 font-normal">(B-Hive with Co-Cubes)</span>
         </div>
-        <em class="fs-14 black-7">AID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
+        <em class="fs-14 black-7">ID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
       </div>
       <div class="spacer"></div>
       <div v-if="!isSendForReview">
