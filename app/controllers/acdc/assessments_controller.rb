@@ -116,8 +116,7 @@ class Acdc::AssessmentsController < ApplicationController
     query_options = {
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
     }
-    @completion_notification_templates = get_templates_for_company(query_options, @company.id)
-    @completion_notification_templates |= get_global_templates(query_options)
+    @completion_notification_templates = get_templates_for_company_specific(query_options, @company.id)
   end
 
   def get_invitation_templates
@@ -129,8 +128,7 @@ class Acdc::AssessmentsController < ApplicationController
       Vger::Resources::Template::TemplateCategory::SEND_TEST_TO_EMPLOYEE
    ]
     query_options["template_categories.name"] = category
-    @invitation_templates = get_templates_for_company(query_options, @company.id)
-    @invitation_templates |= get_global_templates(query_options)
+    @invitation_templates = get_templates_for_company_specific(query_options, @company.id)
   end
   
   def get_reminder_templates
@@ -142,8 +140,7 @@ class Acdc::AssessmentsController < ApplicationController
       Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
     ]
     query_options["template_categories.name"] = category
-    @reminder_templates = get_templates_for_company(query_options, @company.id)
-    @reminder_templates |= get_global_templates(query_options)
+    @reminder_templates = get_templates_for_company_specific(query_options, @company.id)
   end
 
 
@@ -170,7 +167,6 @@ class Acdc::AssessmentsController < ApplicationController
 
     render json: {factors: factor_data, factor_names: factor_names}
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

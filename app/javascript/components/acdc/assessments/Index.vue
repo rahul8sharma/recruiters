@@ -101,19 +101,10 @@
             }
           },
           select_template_tab: {
-            invitation_template: {
-              id: '',
-              name: ''
-            },
-            completion_notification_templates: {
-              id: '',
-              name: '',
-              disableSssessmentCompletionNotification: false
-            },
-            reminder_templates: {
-              id: '',
-              name: ''
-            }
+            invitation_template_id: '',
+            completion_notification_template_id: '',
+            reminder_template_id: '',
+            disableAssessmentCompletionNotification: false
           },
           report_configuration_tab: {
             html: [],
