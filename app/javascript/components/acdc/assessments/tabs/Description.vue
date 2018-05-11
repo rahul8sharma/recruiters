@@ -73,8 +73,8 @@
             <label class="toggle">
               <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.enable_proctoring">
               <div class="toggle-switch"></div>
-              <span class="toggle-label" v-show="!tabData.raw_data.enable_proctoring">Disabled</span>
-              <span class="toggle-label" v-show="tabData.raw_data.enable_proctoring">Enabled</span>
+              <span class="toggle-label" v-if="!tabData.raw_data.enable_proctoring">Disabled</span>
+              <span class="toggle-label" v-if="tabData.raw_data.enable_proctoring">Enabled</span>
             </label>
           </div> 
         </div>
