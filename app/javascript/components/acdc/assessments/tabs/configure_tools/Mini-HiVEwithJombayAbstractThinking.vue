@@ -6,12 +6,12 @@
 
     <div class="p-15">      
       <div class="divider-1"></div>
-      <a href="#" class="more_actions_btn uppercase fs-12 bold open">
+      <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
         More Actions
       </a>
       <em class="fs-12 black-6">(Tool weightage)</em>
 
-      <div class="more_actions_container open">
+      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
         <div class="form-group large-15 column">
           <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
           <label>Tool Weightage</label>
@@ -27,7 +27,12 @@
 
 <script>
   export default {
-    props: ['configureToolData']
+    props: ['configureToolData'],
+    data () {
+      return {
+        moreActions: false
+      }
+    }
   }
 </script>
 

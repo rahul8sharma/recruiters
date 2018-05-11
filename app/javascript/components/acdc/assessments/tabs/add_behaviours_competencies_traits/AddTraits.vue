@@ -60,12 +60,12 @@
     
     <div class="divider-2"></div>
 
-    <a href="#" class="more_actions_btn uppercase fs-12 bold open">
+    <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
       More Actions
     </a>
     <em class="fs-12 black-6">(Competency Range)</em>
 
-    <div class="more_actions_container open">
+    <div class="more_actions_container" v-bind:class="{'open':moreActions}">
       <div class="divider-1"></div>
       <div class="clearfix">
         <div class="large-10 columns">
@@ -74,7 +74,6 @@
             <div class="label-text fs-12">Show Consistency Scores on report</div>
           </label>
         </div>
-       
       </div>
     </div>
   </div>
@@ -102,6 +101,7 @@
         ],
         factors: [],
         factorNames: [],
+        moreActions: false
       }
     },
     components: {

@@ -42,12 +42,12 @@
     
     <div class="divider-2"></div>
     
-    <a href="#" class="more_actions_btn uppercase fs-12 bold open">
+    <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
       More Actions
     </a>
     <em class="fs-12 black-6">(Competency Ranges, Competency Scores, Consistency Report)</em>
 
-    <div class="more_actions_container open">
+    <div class="more_actions_container" v-bind:class="{'open':moreActions}">
       <div class="divider-1"></div>
       <div class="clearfix">
         <div class="large-10 columns">
@@ -72,6 +72,11 @@
 <script>
   export default {
     props: ['tabData'],
+    data () {
+      return {
+        moreActions: false
+      }
+    },  
     methods: {
       addCompetency() {
         this.tabData.competencies.push({
