@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section">
+  <div>
     <div class="section_title uppercase fs-12 bold">
       1. Psychometry
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section">
+  <div>
     <div class="clearfix">
       <div class="form-group large-3 columns">
         <input type="text" v-model="objectiveQuestion.weightage" placeholder="Weightage"/>

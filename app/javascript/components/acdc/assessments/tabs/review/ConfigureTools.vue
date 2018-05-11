@@ -1,5 +1,5 @@
 <template>
-  <div class="review_section">
+  <div>
     <div class="section_heading flex-box">
       <span>Configure Tools</span>
       <div class="spacer"></div>

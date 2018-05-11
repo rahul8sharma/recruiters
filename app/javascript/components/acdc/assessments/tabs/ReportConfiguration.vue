@@ -1,13 +1,34 @@
 <template>
-  <div class="edit_section">
-    <button @click="changeReportType()">Html Report</button>
-    <button @click="changeReportType()">PDF Report</button>
-    <v-jstree v-if="isHtmlReport" :data="htmlData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
-    <v-jstree v-if="!isHtmlReport" :data="pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
-    <button @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
-    <iframe class="hide" id="reportConfigIframe" style="height: 1000px;width:99.7%;margin:auto;overflow:auto;"></iframe>
-    <div class="divider-4"></div>
+  <div>
+    <div class="action_bar">
+      <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
+
+      <div class="spacer"></div>
+
+      <div class="info_tooltip">
+        <div class="tooltip_text">
+          <div class="text_container">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+          </div>
+        </div>
+      </div>
+     
+      <button class="button btn-warning uppercase fs-14">
+        Save &amp; Next
+      </button>
+    </div>
+    
+    <div class="edit_section">
+      <button @click="changeReportType()">Html Report</button>
+      <button @click="changeReportType()">PDF Report</button>
+      <v-jstree v-if="isHtmlReport" :data="htmlData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
+      <v-jstree v-if="!isHtmlReport" :data="pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
+      <button @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
+      <iframe class="hide" id="reportConfigIframe" style="height: 1000px;width:99.7%;margin:auto;overflow:auto;"></iframe>
+      <div class="divider-4"></div>
+    </div>
   </div>
+
 </template>
 
 <script>

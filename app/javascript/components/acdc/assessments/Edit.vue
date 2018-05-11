@@ -44,7 +44,7 @@
 
       <div class="large-23 columns">
 
-        <div class="action_bar">
+<!--         <div class="action_bar">
           <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
 
           <div class="spacer"></div>
@@ -74,7 +74,7 @@
             SEND FOR APPROVAL
           </button>
         </div>
-
+ -->
         <component
           v-bind:tabData="currentTabData"
           v-bind:is="currentTabComponent"
@@ -311,6 +311,7 @@
     return {raw_data: acdcAssessmentJson, name: tabItems[0].tabData.name}
   }
 </script>
+
 <style lang="sass" scoped>
   $headerHeight: 55px
   $headingBarHeight: 80px
@@ -383,9 +384,14 @@
         &.active
           .index
             background: url('~assets/images/ic-checked.svg') no-repeat 0 0
-  
+</style>
+<style lang="sass">
+  .edit_section
+    height: calc(100vh - (55px + 80px + 50px + 10px))
+    padding: 20px
+    overflow-y: auto
   .action_bar 
-    height: $actionBarHeight
+    height: 50px
     display: -webkit-box
     display: -moz-box
     display: -ms-flexbox
@@ -432,8 +438,4 @@
       &:hover
         .tooltip_text
           display: block
-  .edit_section
-    height: calc(100vh - (#{$headerHeight} + #{$headingBarHeight} + #{$actionBarHeight} + 10px))
-    padding: 20px
-    overflow-y: auto
 </style>

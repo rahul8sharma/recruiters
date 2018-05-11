@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section">
+  <div>
     <em class="fs-12 black-6 large-12 show">(Type Competencies name to add them in this Assessment, You can arrange the order of the competencies in next step)</em>
     <div class="divider-1"></div>
     <div class="large-1 columns"></div>
