@@ -25,13 +25,26 @@ button, .button
       color: $color-warning
     &.btn-link
       color: $color-warning
+  &.btn-default
+    background: $color-gray
+    border-color: $color-gray
+    &.inverse
+      background-color: #fff
+      color: $color-gray
+    &.btn-link
+      color: $color-gray
 
   &.btn-link
     background-color: transparent
     border-color: transparent
+    &.disabled, &[disabled]
+      background-color: transparent
+      border-color: transparent
+      color: #e3e3e3
     &:hover
       background-color: transparent
       border-color: transparent
+
 
   &.disabled, &[disabled]
     background-color: rgba(0, 0, 0, 0.1)

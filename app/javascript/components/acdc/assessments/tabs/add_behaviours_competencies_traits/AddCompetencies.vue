@@ -20,7 +20,7 @@
            <label>Competency name</label>
         </div>
 
-        <em class="large-6 columns fs-12 black-6 line-height-3">
+        <em class="large-5 columns fs-12 black-6 line-height-3">
           0/20 characters
         </em>
         <div class="form-group large-3 columns">
@@ -32,9 +32,10 @@
 
         <a href="" :disabled="competencyIndex == (tabData.competencies.length - 1)" @click.prevent="moveDown(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
         <a href="" :disabled="competencyIndex == 0" @click.prevent="moveUp(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
+
+        <button @click="removeCompetency(competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
         <div class="clr"></div>
 
-        <button @click="removeCompetency(competencyIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Competency</button>
         
       </li>
     </ul>

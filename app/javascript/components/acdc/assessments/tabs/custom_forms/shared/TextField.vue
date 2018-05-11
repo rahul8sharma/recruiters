@@ -8,6 +8,8 @@
       <input type="text" v-bind:value="field.default_value" v-bind:placeholder="field.placeholder" />
       <label>{{field.placeholder}}</label>
     </div>
+    <div class="clr"></div>
+    <div class="divider-1"></div>
   </div>
 </template>
 <script>
