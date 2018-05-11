@@ -96,7 +96,7 @@
               <label class="toggle">
                 <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.set_applicant_id">
                 <div class="toggle-switch"></div>
-                <span class="toggle-label">Disabled</span>
+                <span class="toggle-label">{{configureToolData.set_applicant_id ? 'Enabled' : 'Disabled'}}</span>
               </label>
             </div> 
           </div>
@@ -116,7 +116,7 @@
               <label class="toggle">
                 <input class="toggle-checkbox" type="checkbox" v-model='configureToolData.show_help_text'>
                 <div class="toggle-switch"></div>
-                <span class="toggle-label">Show</span>
+                <span class="toggle-label">{{configureToolData.show_help_text ? 'Show' : "Don't Show"}}</span>
               </label>
             </div> 
           </div>

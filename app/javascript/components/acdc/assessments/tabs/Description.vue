@@ -73,8 +73,7 @@
             <label class="toggle">
               <input class="toggle-checkbox" type="checkbox" v-model="tabData.raw_data.enable_proctoring">
               <div class="toggle-switch"></div>
-              <span class="toggle-label" v-if="!tabData.raw_data.enable_proctoring">Disabled</span>
-              <span class="toggle-label" v-if="tabData.raw_data.enable_proctoring">Enabled</span>
+              <span class="toggle-label">{{tabData.raw_data.enable_proctoring ? 'Enabled' : 'Disabled'}}</span>
             </label>
           </div> 
         </div>
@@ -124,10 +123,10 @@
         this.tabData.raw_data.industry_id = this.selectIndustry.value
       },
       selectFunctionArea: function (val) {
-          this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
+        this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
       },
       selectJobExperiences: function (val) {
-          this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
+        this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
       }
     }
   }

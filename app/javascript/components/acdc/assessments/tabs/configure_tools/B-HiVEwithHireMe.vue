@@ -13,7 +13,7 @@
           <label class="toggle">
             <input v-model="configureToolData.is_sectional_score" class="toggle-checkbox" type="checkbox"/>
             <div class="toggle-switch"></div>
-            <span class="toggle-label">Don’t Show</span>
+            <span class="toggle-label">{{configureToolData.is_sectional_score ? 'Show' : "Don’t Show"}}</span>
           </label>
         </div> 
       </div>

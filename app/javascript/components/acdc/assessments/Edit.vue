@@ -115,41 +115,41 @@
         currentTabIndex: 0,
         tabItems: [
           {
-            text: 'Description', url: 'description_tab',
+            text: 'Description', url: 'description',
             tabData: { name: this.$store.state.AcdcStore.assessmentName, raw_data: {} }
           },
           {
             text: 'Configure Tools',
-            url: 'tool_configuaration_tab',
+            url: 'tool_configuaration',
             tabData: { raw_data: [], tools: [] }
           },
           {
             text: 'Create Custom Forms',
-            url: 'create_custom_forms_tab',
+            url: 'create_custom_forms',
             tabData: { raw_data: {} }
           },
           {
             text: 'Add Behaviours/ Competencies/ Traits',
-            url: 'add_behaviours_competencies_traits_tab',
+            url: 'add_behaviours_competencies_traits',
             tabData: { raw_data: {} }
           },
           {
             text: 'Select Subjective/ Objective Questions',
-            url: 'select_subjective_objective_questions_tab',
+            url: 'select_subjective_objective_questions',
             tabData: { raw_data: {} }
           },
           {
             text: 'Select Template',
-            url: 'select_template_tab',
+            url: 'select_template',
             tabData: { raw_data: {} }
           },
           {
-            text: 'Report Configuration', url: 'report_configuration_tab',
+            text: 'Report Configuration', url: 'report_configuration',
             tabData: { raw_data: {} }
           },
           {
             text: 'Review',
-            url: 'review_tab',
+            url: 'review',
             tabData: { raw_data: {} }
           }
         ],
@@ -237,7 +237,7 @@
         if(Object.keys(rawData).length != 0) {
           var i, len = this.tabItems.length
           for (i = 0; i < len; i++) {
-            if (this.tabItems[i].url == 'tool_configuaration_tab') {
+            if (this.tabItems[i].url == 'tool_configuaration') {
               if(rawData[this.tabItems[i].url].length == 0) {
                 this.tabItems[i].tabData.tools = rawData['tools']
                 var j, toolLen = rawData['tools'].length
