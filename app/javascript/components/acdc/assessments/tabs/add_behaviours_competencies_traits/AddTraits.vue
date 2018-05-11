@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section">
+  <div>
     <div class="divider-2"></div>
     <div class="fs-12 large-8 columns color-warning pr-20">Type Trait name</div>
     <div class="fs-12 large-7 columns color-warning pr-20">Range from</div>

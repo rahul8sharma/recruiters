@@ -1,5 +1,5 @@
 <template>
-  <div class="review_section">
+  <div>
     <div class="section_heading flex-box">
       <span>Behaviour / Competency / Traits</span>
       <div class="spacer"></div>

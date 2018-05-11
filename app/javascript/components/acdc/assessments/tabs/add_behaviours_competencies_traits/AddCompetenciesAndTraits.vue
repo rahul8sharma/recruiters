@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section">
+  <div>
     <div v-for="(localCompetency, competencyIndex) in tabData.competencies">
       <div class="section_title uppercase fs-12 bold">
         {{ competencyIndex + 1 }}.  {{localCompetency.name}}

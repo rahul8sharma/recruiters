@@ -1,31 +1,52 @@
 <template>
-  <div class="edit_section">
-    <div class="select-box large-15">
-      <div class="form-group">
-        <model-select :options="existingForms"
-          v-model="existingForm"
-          placeholder="Select a form from existing">
-        </model-select>
-        <label>Select a form from existing</label>
+  <div>
+    <div class="action_bar">
+      <div class="fs-16 black-9 bold">Create Custom Form</div>
+
+      <div class="spacer"></div>
+
+      <div class="info_tooltip">
+        <div class="tooltip_text">
+          <div class="text_container">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+          </div>
+        </div>
       </div>
+     
+      <button class="button btn-warning uppercase fs-14">
+        Save &amp; Next
+      </button>
     </div>
-    
-    <div class="divider-1"></div>
-    <div class="fs-16 black-9 line-height-2 pr-25 left">OR</div>
-    <button class="button btn-warning uppercase fs-14 left">Create New Form</button>
-    <div class="clr"></div> 
+    <div class="edit_section">
+      <div class="select-box large-15">
+        <div class="form-group">
+          <model-select :options="existingForms"
+            v-model="existingForm"
+            placeholder="Select a form from existing">
+          </model-select>
+          <label>Select a form from existing</label>
+        </div>
+      </div>
+      
+      <div class="divider-1"></div>
+      <div class="fs-16 black-9 line-height-2 pr-25 left">OR</div>
+      <button class="button btn-warning uppercase fs-14 left">Create New Form</button>
+      <div class="clr"></div> 
 
-    <div class="divider-1"></div>
-    <hr/>
-    <div class="divider-1"></div>
+      <div class="divider-1"></div>
+      <hr/>
+      <div class="divider-1"></div>
 
-    <div class="fs-16 black-9 left bold">Form Preview:</div>
-    <button class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
-    <div class="clr"></div>
-    
-    <FormPreview v-if="showPreview" v-bind:definedFields="definedFields"></FormPreview>
-    <!-- <CreatNewModel></CreatNewModel> -->
-    <div class="divider-4"></div>
+      <div class="fs-16 black-9 left bold">Form Preview:</div>
+      <button class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
+      <div class="clr"></div>
+      
+      <FormPreview v-if="showPreview" v-bind:definedFields="definedFields"></FormPreview>
+      <!-- <CreatNewModel></CreatNewModel> -->
+      <div class="divider-4"></div>
+    </div>
+
+
   </div>
 </template>
 

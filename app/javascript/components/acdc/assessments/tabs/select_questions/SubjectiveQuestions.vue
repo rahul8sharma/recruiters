@@ -1,5 +1,5 @@
 <template>
-  <div class="edit_section p-0">
+  <div>
     <div class="p-30">
       <vue-editor v-model="content" :editorToolbar="customToolbar"></vue-editor>
       <button :disabled="isAddButton" @click="addQuestion" class="button btn-warning btn-link uppercase bold line-height-2">Add</button>
