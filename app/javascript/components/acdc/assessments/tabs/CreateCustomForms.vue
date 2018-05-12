@@ -42,7 +42,12 @@
     <div class="clr"></div>
     
     <FormPreview v-if="previewForm.showPreview" v-bind:definedFields="previewForm.definedFields"></FormPreview>
-    <CreatNewModel v-if="model.createNewShow" v-bind:previewForm="previewForm" v-bind:tabData="tabData.raw_data" v-bind:model="model"></CreatNewModel>
+    <CreatNewModel v-if="model.createNewShow"
+      v-bind:previewForm="previewForm"
+      v-bind:tabData="tabData.raw_data"
+      v-bind:definedForm="definedForm"
+      v-bind:model="model"
+    ></CreatNewModel>
     <div class="divider-4"></div>
   </div>
  </div> 
@@ -68,6 +73,24 @@
         },
         model: {
           createNewShow: false
+        },
+        definedForm: {
+          name: '',
+          active: true,
+          parent_id: '',
+          defined_fields_attributes: [{
+            field_type: '',
+            label: '',
+            defined_form_id: '',
+            active: false,
+            identifier: '',
+            validator_regex: '',
+            default_value: '',
+            is_mandatory: false,
+            placeholder: '',
+            options: '',
+            field_order: 0
+          }]
         }
       }
     },
@@ -80,6 +103,7 @@
         this.existingForms = data
         if(this.tabData.raw_data.defined_form_id != null && this.tabData.raw_data.defined_form_id.length !== 0) {
          this.existingForm = { value: this.tabData.raw_data.defined_form_id, text: '' }
+         this.tabData.raw_data.defined_form = {}
         }
       });
     },
@@ -88,27 +112,57 @@
     },
     methods: {
       createNewForm() {
-        this.tabData.raw_data.defined_form = []
-        this.model.createNewShow=true
+        if(this.tabData.raw_data.defined_form.length != 0){
+          console.log("Template Data create New")
+          this.tabData.raw_data.defined_form = {}
+          this.model.createNewShow=true
+          this.definedForm = {
+            name: '',
+            active: true,
+            parent_id: '',
+            defined_fields_attributes: [{
+              field_type: '',
+              label: '',
+              defined_form_id: '',
+              active: false,
+              identifier: '',
+              validator_regex: '',
+              default_value: '',
+              is_mandatory: false,
+              placeholder: '',
+              options: '',
+              field_order: 0
+            }]
+          }
+        }
       },
       editForm() {
-        this.tabData.raw_data.defined_form = this.previewForm.definedFields
+        this.definedForm.defined_fields_attributes = JSON.parse(JSON.stringify(this.previewForm.definedFields));
+        this.definedForm.parent_id = this.existingForm.value
         this.model.createNewShow=true
       }
     },
     watch: {
       existingForm: function (form_object) {
-        this.get.defined_field({company_id: this.$store.state.AcdcStore.companyId, defined_form_id: form_object.value})
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            this.previewForm.definedFields = data
-            this.previewForm.showPreview = true
-          });
-        this.tabData.raw_data.defined_form_id =  this.existingForm.value
+        if(form_object.value != '') {
+          this.get.defined_field({company_id: this.$store.state.AcdcStore.companyId, defined_form_id: form_object.value})
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              this.previewForm.definedFields = data
+              this.previewForm.showPreview = true
+            });
+          this.tabData.raw_data.defined_form_id =  this.existingForm.value
+          this.tabData.raw_data.defined_form = []
+        }
+      },
+      "previewForm.definedFields": function() {
+        if(this.tabData.raw_data.defined_form.defined_fields_attributes != undefined && this.tabData.raw_data.defined_form.defined_fields_attributes.length != 0) {
+          this.existingForm= {value: '', text: ''}
+        }
       }
-    }
+    },
   }
 </script>
 

@@ -12,13 +12,13 @@
           <form>
             <div class="p-30">
               <div class="form-group large-15 column">
-                <input type="text" v-model="defined_form.name" placeholder="Name of the form:" />
+                <input type="text" v-model="definedForm.name" placeholder="Name of the form:" :maxlength="nameMaxLength" required />
                 <label>Name of the form:</label>
               </div>
 
               <div class="large-15 column fs-14 black-6">
                 <div class="divider-1"></div>
-                11/24 characters
+                {{nameMaxLength - definedForm.name.length}}/{{nameMaxLength}} characters
               </div>
 
               <div class="clr"></div>
@@ -26,8 +26,8 @@
             </div>
 
             <ul class="field_list">
-              <li v-for="(definedField, index) in defined_form.defined_fields_attributes" class="field_list_item">
-                <div class="index">1.</div>
+              <li v-for="(definedField, index) in definedForm.defined_fields_attributes" class="field_list_item">
+                <div class="index">{{index + 1}}.</div>
 
                 <div class="clearfix">
                   <div class="select-box large-7 columns">
@@ -47,7 +47,7 @@
                   </div>
 
                   <div class="shuffle_actions right">
-                    <a :disabled="index == (defined_form.defined_fields_attributes.length - 1)" @click.prevent="moveDown(index)" class="shuffle_action ">Move Down</a>
+                    <a :disabled="index === (definedForm.defined_fields_attributes.length - 1)" @click.prevent="moveDown(index)" class="shuffle_action ">Move Down</a>
                     <a :disabled="index == 0" @click.prevent="moveUp(index)" class="shuffle_action">Move Up</a>
 
                     <button @click.prevent="removeField(index)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
@@ -110,7 +110,7 @@
 
                 <div class="divider-1"></div>
                 <div class="large-20">
-                  <textarea v-model="definedField.options" class="bg-black-1" data-gramm_editor="false" placeholder="Type here something abpout your interest"></textarea>
+                  <textarea v-model="definedField.options" @change="UpdateOptions(index)" class="bg-black-1" data-gramm_editor="false" placeholder="Type here something abpout your interest"></textarea>
                 </div>
 
               </li>
@@ -163,31 +163,14 @@
   import VSelect from 'vue-select'
   
   export default {
-    props: ['previewForm', 'tabData', 'model'],
+    props: ['previewForm', 'tabData', 'model', 'definedForm'],
     data () {
       return {
         options: [
           "TextField", "DropDown", "CheckBox", 
           "TextArea", "RadioButton"
         ],
-        defined_form: {
-          name: '',
-          active: true,
-          parent_id: '',
-          defined_fields_attributes: [{
-            field_type: '',    
-            label: '',
-            defined_form_id: '',
-            active: false,  
-            identifier: '',
-            validator_regex: '',
-            default_value: '',
-            is_mandatory: '',
-            placeholder: '',
-            options: '',
-            field_order: 0
-          }]   
-        }
+        nameMaxLength: 20
       }
     },
     components: {
@@ -195,21 +178,25 @@
     },
     methods: {
       moveUp(index) {
-        let temp = this.defined_form.defined_fields_attributes[index].field_order = (this.defined_form.defined_fields_attributes[index].field_order - 1 )
-        this.defined_form.defined_fields_attributes[temp].field_order = (this.defined_form.defined_fields_attributes[temp].field_order + 1)
+        let temp = this.definedForm.defined_fields_attributes[index].field_order
+        this.definedForm.defined_fields_attributes[index].field_order = (this.definedForm.defined_fields_attributes[(index-1)].field_order )
+        this.definedForm.defined_fields_attributes[(index-1)].field_order = temp
 
-        this.defined_form.defined_fields_attributes.sort(function(a, b){
+        this.definedForm.defined_fields_attributes.sort(function(a, b){
         return a.field_order - b.field_order });
       },
       moveDown(index) {
-        let temp = this.defined_form.defined_fields_attributes[index].field_order = (this.defined_form.defined_fields_attributes[index].field_order + 1 )
-        this.defined_form.defined_fields_attributes[temp].field_order = (this.defined_form.defined_fields_attributes[temp].field_order - 1)
+        let temp = this.definedForm.defined_fields_attributes[index].field_order
+        this.definedForm.defined_fields_attributes[index].field_order = (this.definedForm.defined_fields_attributes[(index+1)].field_order )
+        this.definedForm.defined_fields_attributes[(index+1)].field_order = temp
 
-        this.defined_form.defined_fields_attributes.sort(function(a, b){
+        this.definedForm.defined_fields_attributes.sort(function(a, b){
         return a.field_order - b.field_order });
       },
       addDefinedField(){
-        this.defined_form.defined_fields_attributes.push({
+        let order = this.definedForm.defined_fields_attributes[this.definedForm.defined_fields_attributes.length - 1].field_order + 1 
+
+        this.definedForm.defined_fields_attributes.push({
           field_type: '',    
           label: '',
           defined_form_id: '',
@@ -217,24 +204,26 @@
           identifier: '',
           validator_regex: '',
           default_value: '',
-          is_mandatory: '',
+          is_mandatory: false,
           placeholder: '',
           options: '',
-          field_order: this.defined_form.defined_fields_attributes.length
+          field_order: order
         })
       },
       removeField(index) {
-        this.defined_form.defined_fields_attributes.splice(index, 1)
+        this.definedForm.defined_fields_attributes.splice(index, 1)
       },
       saveInTabData(){
-        this.tabData.defined_form = this.defined_form
-        this.previewForm.definedFields = this.defined_form.defined_fields_attributes
+        this.tabData.defined_form_id = ''
+        this.tabData.defined_form = this.definedForm
+        this.previewForm.definedFields = []
+        this.previewForm.definedFields = this.definedForm.defined_fields_attributes
         this.previewForm.showPreview = true
         this.model.createNewShow=false
+      },
+      UpdateOptions(index) {
+        this.definedForm.defined_fields_attributes[index].options = this.definedForm.defined_fields_attributes[index].options.split(',')
       }
-    },
-    create: function() {
-      this.defined_form = this.tabData.defined_form
     }
   }
 </script>
