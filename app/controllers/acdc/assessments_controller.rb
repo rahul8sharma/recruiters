@@ -17,7 +17,7 @@ class Acdc::AssessmentsController < ApplicationController
   def index
     @assessments = api_resource.where(:query_options => {
                             :company_id => params[:company_id]
-                          }, 
+                          },
                           :page => params[:page], :per => 10,
                           order: ["created_at DESC"]
                         ).all
@@ -56,15 +56,18 @@ class Acdc::AssessmentsController < ApplicationController
     @industries = Vger::Resources::Industry.where(:query_options => {:active=>true},:order => "name ASC")\
                         .all.to_a.collect{|industry| {value: industry.id, text: industry.name}}
     @job_experiences = Vger::Resources::JobExperience.active.all.to_a.collect{|job_experience| {value: job_experience.id, text: job_experience.display_text}}
-    render json: { 
-                   'functional_areas': @functional_areas, 
+    render json: {
+                   'functional_areas': @functional_areas,
                    'industries': @industries,
-                   'job_experiences': @job_experiences 
+                   'job_experiences': @job_experiences
                  }, status: :ok
   end
 
   def get_languages
-    @languages = Vger::Resources::Language.all.map{|language| { value: language.language_code, text: language.name} } 
+    @languages = Vger::Resources::Language.where(
+      :order => params[:order] || "id asc",
+      :page => params[:page],
+      :per => params[:per] || 10).all.map{|language| { value: language.language_code, text: language.name} }
 
     render json: { 'languages': @languages }, status: :ok
   end
@@ -103,7 +106,7 @@ class Acdc::AssessmentsController < ApplicationController
     get_competencies(:for_suitability)
     render json: @local_competencies, status: :ok
   end
-  
+
   def select_templates
     render json: {
         completion_notification_templates: @completion_notification_templates.collect{|field| template_preview(field) },
@@ -130,7 +133,7 @@ class Acdc::AssessmentsController < ApplicationController
     query_options["template_categories.name"] = category
     @invitation_templates = get_templates_for_company_specific(query_options, @company.id)
   end
-  
+
   def get_reminder_templates
     category = ""
     query_options = {
@@ -161,7 +164,7 @@ class Acdc::AssessmentsController < ApplicationController
           :name => factor.name,
           :definition => factor.definition
       })
-     
+
       factor_names.push(factor.name)
     end
 
