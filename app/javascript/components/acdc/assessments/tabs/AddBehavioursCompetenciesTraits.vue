@@ -1,11 +1,14 @@
 <template>
   <div>
     <div class="action_bar">
-      <div class="fs-16 black-9 link_breadcrumb uppercase">
-        <a @click="changeComponent('Competencies')" v-bind:class="{active:currentComponent == 'Competencies'}">A. Add Competencies</a>
-        <!-- <a href="">B. Add Behaviours</a> -->
-        <a @click="changeComponent('CompetencyTraits')" v-bind:class="{active:currentComponent == 'CompetencyTraits'}">3. Add Traits</a>
+      <div v-if="false">
+        <a href="">Add Traits</a>
       </div>
+      <div v-else class="fs-16 black-9 link_breadcrumb uppercase">
+        <a @click="changeComponent('Competencies')" v-bind:class="{active:currentComponent == 'Competencies'}">A. Add Competencies</a>
+        <a @click="changeComponent('CompetencyTraits')" v-bind:class="{active:currentComponent == 'CompetencyTraits'}">B. Add Behaviours</a>
+      </div>
+
 
       <div class="spacer"></div>
 
