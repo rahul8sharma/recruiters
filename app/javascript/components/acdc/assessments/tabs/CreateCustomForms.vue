@@ -30,24 +30,22 @@
       
       <div class="divider-1"></div>
       <div class="fs-16 black-9 line-height-2 pr-25 left">OR</div>
-      <button class="button btn-warning uppercase fs-14 left">Create New Form</button>
+      <button  @click="createNewForm()" class="button btn-warning uppercase fs-14 left">Create New Form</button>
       <div class="clr"></div> 
 
-      <div class="divider-1"></div>
-      <hr/>
-      <div class="divider-1"></div>
+    <div class="divider-1"></div>
+    <hr/>
+    <div class="divider-1"></div>
 
-      <div class="fs-16 black-9 left bold">Form Preview:</div>
-      <button class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
-      <div class="clr"></div>
-      
-      <FormPreview v-if="showPreview" v-bind:definedFields="definedFields"></FormPreview>
-      <!-- <CreatNewModel></CreatNewModel> -->
-      <div class="divider-4"></div>
-    </div>
-
-
+    <div class="fs-16 black-9 left bold">Form Preview:</div>
+    <button v-if="previewForm.showPreview" @click="editForm()" class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
+    <div class="clr"></div>
+    
+    <FormPreview v-if="previewForm.showPreview" v-bind:definedFields="previewForm.definedFields"></FormPreview>
+    <CreatNewModel v-if="model.createNewShow" v-bind:previewForm="previewForm" v-bind:tabData="tabData.raw_data" v-bind:model="model"></CreatNewModel>
+    <div class="divider-4"></div>
   </div>
+ </div> 
 </template>
 
 <script>
@@ -64,8 +62,13 @@
           value: '',
           text: ''
         },
-        showPreview: false,
-        definedFields: []
+        previewForm: {
+          showPreview: false,
+          definedFields: [], 
+        },
+        model: {
+          createNewShow: false
+        }
       }
     },
     created: function() {
@@ -83,6 +86,16 @@
     components: {
       ModelSelect, FormPreview, CreatNewModel
     },
+    methods: {
+      createNewForm() {
+        this.tabData.raw_data.defined_form = []
+        this.model.createNewShow=true
+      },
+      editForm() {
+        this.tabData.raw_data.defined_form = this.previewForm.definedFields
+        this.model.createNewShow=true
+      }
+    },
     watch: {
       existingForm: function (form_object) {
         this.get.defined_field({company_id: this.$store.state.AcdcStore.companyId, defined_form_id: form_object.value})
@@ -90,8 +103,8 @@
             return response.json()
           })
           .then(data => {
-            this.definedFields = data
-            this.showPreview = true
+            this.previewForm.definedFields = data
+            this.previewForm.showPreview = true
           });
         this.tabData.raw_data.defined_form_id =  this.existingForm.value
       }

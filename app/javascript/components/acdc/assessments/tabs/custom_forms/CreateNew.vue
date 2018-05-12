@@ -4,7 +4,7 @@
       <div class="heading fs-14 uppercase">
         <span>Create / Edit Custom Form</span>
         <div class="spacer"></div>
-        <div class="close">&times;</div>
+        <div @click="model.createNewShow=false" class="close">&times;</div>
       </div>
 
       <div class="modal-body p-0">
@@ -12,7 +12,7 @@
           <form>
             <div class="p-30">
               <div class="form-group large-15 column">
-                <input type="text" placeholder="Name of the form:" />
+                <input type="text" v-model="defined_form.name" placeholder="Name of the form:" />
                 <label>Name of the form:</label>
               </div>
 
@@ -26,29 +26,32 @@
             </div>
 
             <ul class="field_list">
-              <li class="field_list_item">
+              <li v-for="(definedField, index) in defined_form.defined_fields_attributes" class="field_list_item">
                 <div class="index">1.</div>
 
                 <div class="clearfix">
                   <div class="select-box large-7 columns">
                     <div class="form-group">
-                      <model-select :options="options" 
-                        v-model="item"
+                      <v-select class="field_list" :options="options" 
+                        v-model="definedField.field_type"
                         placeholder="Type">
-                      </model-select>
+                      </v-select>
                       <label>Type</label>
                     </div>
                   </div>
 
                   <div class="large-3 columns"></div>
                   <div class="form-group large-7 columns">
-                    <input type="text" placeholder="Identifier" />
+                    <input type="text" v-model="definedField.identifier" placeholder="Identifier" />
                     <label>Identifier</label>
                   </div>
 
                   <div class="shuffle_actions right">
-                    <a class="shuffle_action disabled">Move Down</a>
-                    <a class="shuffle_action">Move Down</a>
+                    <a :disabled="index == (defined_form.defined_fields_attributes.length - 1)" @click.prevent="moveDown(index)" class="shuffle_action ">Move Down</a>
+                    <a :disabled="index == 0" @click.prevent="moveUp(index)" class="shuffle_action">Move Up</a>
+
+                    <button @click.prevent="removeField(index)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+
                     <div class="clr"></div>
                   </div>
                   <div class="clr"></div>
@@ -58,21 +61,21 @@
 
                 <div class="clearfix">
                   <div class="form-group large-7 columns">
-                    <input type="text" placeholder="Label" />
+                    <input v-model="definedField.label" type="text" placeholder="Label" />
                     <label>Label</label>
                   </div>
 
                   <div class="large-2 columns"></div>
 
                   <div class="form-group large-12 columns">
-                    <input type="text" placeholder="Placeholder" />
+                    <input v-model="definedField.placeholder" type="text" placeholder="Placeholder" />
                     <label>Placeholder</label>
                   </div>
 
                   <div class="large-2 columns"></div>
 
                   <div class="form-group large-7 columns">
-                    <input type="text" placeholder="Default Value" />
+                    <input v-model="definedField.default_value" type="text" placeholder="Default Value" />
                     <label>Default Value</label>
                   </div>
 
@@ -83,7 +86,7 @@
                 
                 <div class="clearfix">
                   <div class="form-group large-18">
-                    <input type="text" placeholder="Validator Regex" />
+                    <input v-model="definedField.validator_regex" type="text" placeholder="Validator Regex" />
                     <label>Validator Regex</label>
                   </div>
                 </div>
@@ -93,21 +96,21 @@
                 <div class="clearfix flex-box">
                   <div class="toggleSwitch">
                     <label class="toggle">
-                      <input class="toggle-checkbox" type="checkbox">
+                      <input v-model="definedField.active" class="toggle-checkbox" type="checkbox">
                       <div class="toggle-switch"></div>
                       <span class="toggle-label">Active</span>
                     </label>
                   </div> 
                   <div class="large-2"></div>
                   <label class="custom-checkbox">
-                    <input type="checkbox"/>
+                    <input v-model="definedField.is_mandatory" type="checkbox"/>
                     <div class="label-text">Mandatory</div>
                   </label>    
                 </div>
 
                 <div class="divider-1"></div>
                 <div class="large-20">
-                  <textarea class="bg-black-1" data-gramm_editor="false" placeholder="Type here something abpout your interest"></textarea>
+                  <textarea v-model="definedField.options" class="bg-black-1" data-gramm_editor="false" placeholder="Type here something abpout your interest"></textarea>
                 </div>
 
               </li>
@@ -116,9 +119,9 @@
         </div>
 
         <div class="actions">
-          <button class="button btn-warning btn-link  uppercase fs-14">+ Add More Competency</button>
+          <button @click.prevent="addDefinedField()" class="button btn-warning btn-link  uppercase fs-14">+ Add More Field</button>
           <div class="spacer"></div>
-          <button class="button btn-warning uppercase fs-14">Save</button>
+          <button @click="saveInTabData()" class="button btn-warning uppercase fs-14">Save</button>
         </div>
       </div>
     </div>
@@ -156,30 +159,82 @@
 
 </style>
 <script>
-  import { ModelSelect } from 'vue-search-select'
- 
+  // import { ModelSelect } from 'vue-search-select'
+  import VSelect from 'vue-select'
+  
   export default {
+    props: ['previewForm', 'tabData', 'model'],
     data () {
       return {
         options: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
+          "TextField", "DropDown", "CheckBox", 
+          "TextArea", "RadioButton"
         ],
-        item: {
-          value: '',
-          text: ''
-        },
-        searchText: '', // If value is falsy, reset searchText & searchItem
-        items: [],
-        lastSelectItem: {}
+        defined_form: {
+          name: '',
+          active: true,
+          parent_id: '',
+          defined_fields_attributes: [{
+            field_type: '',    
+            label: '',
+            defined_form_id: '',
+            active: false,  
+            identifier: '',
+            validator_regex: '',
+            default_value: '',
+            is_mandatory: '',
+            placeholder: '',
+            options: '',
+            field_order: 0
+          }]   
+        }
       }
     },
-   
     components: {
-      ModelSelect
+      'v-select': VSelect
+    },
+    methods: {
+      moveUp(index) {
+        let temp = this.defined_form.defined_fields_attributes[index].field_order = (this.defined_form.defined_fields_attributes[index].field_order - 1 )
+        this.defined_form.defined_fields_attributes[temp].field_order = (this.defined_form.defined_fields_attributes[temp].field_order + 1)
+
+        this.defined_form.defined_fields_attributes.sort(function(a, b){
+        return a.field_order - b.field_order });
+      },
+      moveDown(index) {
+        let temp = this.defined_form.defined_fields_attributes[index].field_order = (this.defined_form.defined_fields_attributes[index].field_order + 1 )
+        this.defined_form.defined_fields_attributes[temp].field_order = (this.defined_form.defined_fields_attributes[temp].field_order - 1)
+
+        this.defined_form.defined_fields_attributes.sort(function(a, b){
+        return a.field_order - b.field_order });
+      },
+      addDefinedField(){
+        this.defined_form.defined_fields_attributes.push({
+          field_type: '',    
+          label: '',
+          defined_form_id: '',
+          active: false,  
+          identifier: '',
+          validator_regex: '',
+          default_value: '',
+          is_mandatory: '',
+          placeholder: '',
+          options: '',
+          field_order: this.defined_form.defined_fields_attributes.length
+        })
+      },
+      removeField(index) {
+        this.defined_form.defined_fields_attributes.splice(index, 1)
+      },
+      saveInTabData(){
+        this.tabData.defined_form = this.defined_form
+        this.previewForm.definedFields = this.defined_form.defined_fields_attributes
+        this.previewForm.showPreview = true
+        this.model.createNewShow=false
+      }
+    },
+    create: function() {
+      this.defined_form = this.tabData.defined_form
     }
   }
 </script>
