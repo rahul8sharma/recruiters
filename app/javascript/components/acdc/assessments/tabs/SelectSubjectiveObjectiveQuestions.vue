@@ -2,8 +2,8 @@
   <div>
     <div class="action_bar">
       <div class="fs-16 black-9 link_breadcrumb uppercase">
-        <a href="" class="active">A. Add Objective Questions</a>
-        <a href="">B. Add Subjective Questions</a>
+        <a @click="changeToObjective()" v-bind:class="{active:isObjective}">A. Add Objective Questions</a>
+        <a @click="changeToSubjective()" v-bind:class="{active:!isObjective}">B. Add Subjective Questions</a>
       </div>
 
       <div class="spacer"></div>
@@ -16,14 +16,12 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
     
     <div class="edit_section">
-      <button @click="changeQuestionType()">Objective Question</button>
-      <button @click="changeQuestionType()">Subjective Question</button>
       <component
         v-if="isObjective"
         v-for="(questionType, index) in tabData"
@@ -59,8 +57,18 @@
     },
     components: { objective_question,  subjective_question },
     methods: {
-      changeQuestionType() {
-        this.isObjective = !this.isObjective
+      changeToObjective() {
+        this.isObjective = true
+      },
+      changeToSubjective() {
+        this.isObjective = false
+      },
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {select_questions: this.tabData.raw_data}
+        })
       }
     }
   }

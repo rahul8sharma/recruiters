@@ -43,38 +43,6 @@
       </ul>
 
       <div class="large-23 columns">
-
-<!--         <div class="action_bar">
-          <div class="fs-16 black-9 bold">Follow these steps to configure every tool</div>
-
-          <div class="spacer"></div>
-
-          <div class="info_tooltip">
-            <div class="tooltip_text">
-              <div class="text_container">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
-              </div>
-            </div>
-          </div>
-         
-          <button
-            :disabled="isSaveNextButtonEnable || tabItems.length == currentTabIndex || isSendForReview"
-            class="button btn-warning uppercase fs-14"
-            @click="saveAndNext"
-            v-if="!isReviewPage"
-          >
-            Save &amp; Next
-          </button>
-          <button
-            class="button btn-warning uppercase fs-14"
-            :disabled="isSendForReview"
-            @click="sendForApproval()"
-            v-if="isReviewPage"
-          >
-            SEND FOR APPROVAL
-          </button>
-        </div>
- -->
         <component
           v-bind:tabData="currentTabData"
           v-bind:is="currentTabComponent"
@@ -165,37 +133,14 @@
       currentTabData: function () {
         return getDataByText(this.currentTab, this.tabItems);
       },
-      isSaveNextButtonEnable: function () {
-        // var customAssessment = this.currentTabData.raw_data;
-        // for (var key in customAssessment) {
-        //   var val = customAssessment[key];
-        //   if (val.length == 0) {
-        //     return true
-        //   }
-        // }
-        return false
-      },
       isSaveExitButtonEnable: function () {
         return false
       },
       isSendForReview:function() {
         return this.$store.state.AcdcStore.assessmentStatus === 'review'
-      },
-      isReviewPage:function() {
-        return this.currentTab === 'Review'
       }
     },
     methods: {
-      saveAndNext() {
-        this.$store.dispatch('updateAcdcAssessment', {
-          assessmentId: this.$store.state.AcdcStore.assessmentId,
-          companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: createAcdcAssessmentJson(this.tabItems)
-        }).then(() => {
-          let tab = getNextTab(this.currentTab, this.tabItems)
-          this.tabHandler(tab.text, tab.index)
-        })
-      },
       setCurrentTab:function(text){
         this.currentTab = text
       },
@@ -205,16 +150,6 @@
       tabHandler:function(text, index){
         this.setCurrentTab(text);
         this.setCurrentTabIndex(index);
-      },
-      sendForApproval:function() {
-        this.$store.dispatch('updateAcdcAssessment', {
-          assessmentId: this.$store.state.AcdcStore.assessmentId,
-          companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {status: 'review'}
-        }).then(() => {
-          alert("Assessment Send For Approval")
-          location.reload();
-        })
       }
     },
     created: function () {
@@ -253,6 +188,10 @@
             }
           }
         }
+      },
+      '$store.state.AcdcStore.assessmentCurrentTab' (newCount, oldCount) {
+        let tab = getNextTab(this.currentTab, this.tabItems)
+        this.tabHandler(tab.text, tab.index)
       }
     }
   }

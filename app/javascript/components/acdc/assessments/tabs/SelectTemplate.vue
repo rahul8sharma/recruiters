@@ -1,17 +1,37 @@
 <template>
-  <div class="edit_section">
-    <button @click="changeTemplate('Invitation')">Invitation</button>
-    <button @click="changeTemplate('CompletionNotification')">Completion Notification</button>
-    <button @click="changeTemplate('Reminder')">Reminder</button>
-    <SelectTemplate
-      v-bind:currentTemplates="currentTemplates"
-      v-bind:templateName="templateName"
-      v-bind:tabData="tabData.raw_data"
-      v-bind:formatTemplates="formatTemplates"
-      v-if="show"
-    ></SelectTemplate>
-    <div class="divider-4"></div>
-    <NewTemplate></NewTemplate>
+  <div>
+    <div class="action_bar">
+      <div class="fs-16 black-9 link_breadcrumb uppercase">
+        <a @click="changeTemplate('Invitation')" v-bind:class="{active:templateName == 'invitation_template_id'}">INVITATION</a>
+        <a @click="changeTemplate('Reminder')" v-bind:class="{active:templateName == 'reminder_template_id'}">REMINDER</a>
+        <a @click="changeTemplate('CompletionNotification')" v-bind:class="{active:templateName == 'completion_notification_template_id'}">COMPLETION NOTIFICATION</a>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="info_tooltip">
+        <div class="tooltip_text">
+          <div class="text_container">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+          </div>
+        </div>
+      </div>
+     
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+        Save &amp; Next
+      </button>
+    </div>
+    <div class="edit_section">
+      <SelectTemplate
+        v-bind:currentTemplates="currentTemplates"
+        v-bind:templateName="templateName"
+        v-bind:tabData="tabData.raw_data"
+        v-bind:formatTemplates="formatTemplates"
+        v-if="show"
+      ></SelectTemplate>
+      <div class="divider-4"></div>
+      <NewTemplate></NewTemplate>
+    </div>
   </div>
 </template>
 
@@ -54,6 +74,13 @@
         for(var index = 0; index < this.currentTemplates.length; index ++) {
           this.formatTemplates.push({value: index, text: this.currentTemplates[index].name})
         }
+      },
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {select_templates: this.tabData.raw_data}
+        })
       }
     },
     components: { SelectTemplate, NewTemplate },

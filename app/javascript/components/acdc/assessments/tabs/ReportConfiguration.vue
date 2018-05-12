@@ -2,8 +2,8 @@
   <div>
     <div class="action_bar">
       <div class="fs-16 black-9 link_breadcrumb uppercase">
-        <a href="" class="active">HTML</a>
-        <a href="">PDF</a>
+        <a @click="changeToHtml()" v-bind:class="{active:isHtmlReport}">HTML</a>
+        <a @click="changeToPdf()" v-bind:class="{active:!isHtmlReport}">PDF</a>
       </div>
 
       <div class="spacer"></div>
@@ -16,14 +16,12 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
     
     <div class="edit_section">
-      <button @click="changeReportType()">Html Report</button>
-      <button @click="changeReportType()">PDF Report</button>
       <v-jstree v-if="isHtmlReport" :data="htmlData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
       <v-jstree v-if="!isHtmlReport" :data="pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
       <button @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
@@ -57,8 +55,12 @@
           this.setPdfRawData()
         }
       },
-      changeReportType() {
-        this.isHtmlReport = !this.isHtmlReport
+      changeToHtml() {
+        this.isHtmlReport = true
+        document.getElementById("reportConfigIframe").classList.add("hide");
+      },
+      changeToPdf() {
+        this.isHtmlReport = false
         document.getElementById("reportConfigIframe").classList.add("hide");
       },
       generateReportPreview() {
@@ -81,6 +83,13 @@
       setPdfRawData () {
         let cloneConfig = JSON.parse(JSON.stringify(this.pdfData));
         this.tabData.raw_data.pdf = { sections: deepConfig.getSelectedReportConfig(cloneConfig) }
+      },
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {report_configuration: this.tabData.raw_data}
+        })
       }
     },
     created: function () {

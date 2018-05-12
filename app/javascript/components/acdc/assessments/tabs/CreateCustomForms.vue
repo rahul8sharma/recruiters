@@ -13,7 +13,7 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
@@ -140,6 +140,13 @@
         this.definedForm.defined_fields_attributes = JSON.parse(JSON.stringify(this.previewForm.definedFields));
         this.definedForm.parent_id = this.existingForm.value
         this.model.createNewShow=true
+      },
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {create_custom_forms: this.tabData.raw_data}
+        })
       }
     },
     watch: {
