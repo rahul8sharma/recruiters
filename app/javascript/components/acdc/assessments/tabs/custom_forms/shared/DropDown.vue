@@ -6,34 +6,24 @@
     </div>
     <div class="select-box large-12 columns">
       <div class="form-group">
-        <model-select :options="options"
-          v-model="item"
+        <v-select :options="field.options"
+          v-model="field.default_value"
           v-bind:placeholder="field.placeholder">
-        </model-select>
+        </v-select>
         <label>{{field.placeholder}}</label>
-        <!-- TODO Need to set default_value -->
       </div>
     </div>
   </div>
 </template>
 <script>
-  import { ModelSelect } from 'vue-search-select'
+  import VSelect from 'vue-select'
   export default {
     props: ['field'],
     data() {
       return {
-        options: [],
-        item: {
-          value: '',
-          text: ''
-        },
+        item: ''
       }
     },
-    components: { ModelSelect },
-    mounted: function() {
-      for (var  index = 0; index < this.field.options.length; index++) {
-        this.options[index] = { value: index, text: this.field.options[index] };
-      }
-    }
+    components: { 'v-select': VSelect },
   }
 </script>

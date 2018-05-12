@@ -56,7 +56,8 @@
         }
         let tool_configuration = []
         let create_custom_forms = {
-          defined_form_id: ''
+          defined_form_id: '',
+          defined_form: {}
         }
         let add_behaviours_competencies_traits = {
           competencies: [{
