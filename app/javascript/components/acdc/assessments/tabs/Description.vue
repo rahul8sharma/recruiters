@@ -13,7 +13,7 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
@@ -127,6 +127,15 @@
       },
       selectJobExperiences: function (val) {
         this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
+      }
+    },
+    methods: {
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {description: this.tabData.raw_data, name: this.tabData.name}
+        })
       }
     }
   }

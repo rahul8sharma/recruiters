@@ -16,6 +16,7 @@ export default {
     assessmentSelectQuestions: {},
     assessmentSelectTemplates: {},
     assessmentReportConfiguration: {},
+    assessmentCurrentTab: 1
   },
   mutations: {
     setUserId (state, payload) {
@@ -69,6 +70,9 @@ export default {
       state.assessmentSelectQuestions = payload.select_questions,
       state.assessmentSelectTemplates = payload.select_templates,
       state.assessmentReportConfiguration = payload.report_configuration
+    },
+    setAssessmentCurrentTab (state, payload) {
+      state.assessmentCurrentTab = payload
     }
   },
   actions: {
@@ -81,7 +85,7 @@ export default {
           console.log(error)
     	})
   	},
-    updateAcdcAssessment ({commit, getters}, payload) {
+    updateAcdcAssessment ({commit, getters, state}, payload) {
       Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
         { acdc_assessment: payload.acdc_assessment })
         .then(function (response) {
@@ -90,6 +94,7 @@ export default {
         .then(function (response) {
           commit('setAssessmentdata', response);
           commit('setAssessmentRawData', setAssessmentData(response));
+          commit('setAssessmentCurrentTab', state.assessmentCurrentTab + 1);
         })
         .catch(error => {
           console.log(error)
@@ -190,6 +195,9 @@ export default {
     },
     assessmentReportConfiguration (state) {
       return state.assessmentReportConfiguration
+    },
+    assessmentCurrentTab (state) {
+      return state.assessmentCurrentTab
     }
   }
 };

@@ -78,9 +78,12 @@
     components: {
       MultiSelect, ModelSelect
     },
+    mounted: function() {
+      this.selectAptitudeAssessment = { value: this.configureToolData.aptitude_assessment + '', text: '' }
+    },
     watch: {
       selectAptitudeAssessment: function (val) {
-        this.configureToolData.aptitude_assessment = this.selectAptitudeAssessment
+        this.configureToolData.aptitude_assessment = this.selectAptitudeAssessment.value
       }
     }
   }

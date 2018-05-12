@@ -13,7 +13,7 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="sendForApproval()">
         SEND FOR APPROVAL
       </button>
     </div>
@@ -78,6 +78,18 @@
      SubjectiveQuestions,
      EmailTemplates,
      ReportConfiguration
+    },
+    methods: {
+      sendForApproval:function() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {status: 'review'}
+        }).then(() => {
+          alert("Assessment Send For Approval")
+          location.reload();
+        })
+      }
     }
   }
 </script>

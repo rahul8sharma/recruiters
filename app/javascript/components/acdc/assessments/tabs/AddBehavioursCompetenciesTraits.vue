@@ -2,9 +2,9 @@
   <div>
     <div class="action_bar">
       <div class="fs-16 black-9 link_breadcrumb uppercase">
-        <a href="" class="active">A. Add Competencies</a>
-        <a href="">B. Add Behaviours</a>
-        <a href="">3. Add Traits</a>
+        <a @click="changeComponent('Competencies')" v-bind:class="{active:currentComponent == 'Competencies'}">A. Add Competencies</a>
+        <!-- <a href="">B. Add Behaviours</a> -->
+        <a @click="changeComponent('CompetencyTraits')" v-bind:class="{active:currentComponent == 'CompetencyTraits'}">3. Add Traits</a>
       </div>
 
       <div class="spacer"></div>
@@ -17,7 +17,7 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
@@ -28,8 +28,6 @@
         <Traits v-bind:tabData='tabData.raw_data'></Traits>
       </div> 
       <div v-else>
-        <button @click="changeComponent('Competencies')">Competencies</button>
-        <button @click="changeComponent('CompetencyTraits')">Traits</button>
         <Competencies
           v-bind:tabData='tabData.raw_data'
           v-bind:is="currentComponent"
@@ -57,6 +55,13 @@
     methods: {
       changeComponent (name) {
         this.currentComponent = name
+      },
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {add_behaviours_competencies_traits: this.tabData.raw_data}
+        })
       }
     }
   }

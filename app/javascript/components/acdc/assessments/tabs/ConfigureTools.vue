@@ -13,7 +13,7 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14">
+      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
         Save &amp; Next
       </button>
     </div>
@@ -52,6 +52,15 @@
     computed: {
       currentTools: function () {
         return this.tabData.tools
+      }
+    },
+    methods: {
+      saveAndNext() {
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {tool_configuration: this.tabData.raw_data}
+        })
       }
     }
   }
