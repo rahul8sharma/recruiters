@@ -13,8 +13,8 @@
       <div v-if="!isSendForReview">
         <button v-if="!isSendForReview" class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
         <button
-          :disabled="isSaveExitButtonEnable"
           class="btn-warning inverse uppercase fs-14"
+          @click="saveAndExit"
         >
           Save &amp; Exit
         </button>
@@ -45,6 +45,7 @@
       <div class="large-23 columns">
         <component
           v-bind:tabData="currentTabData"
+          v-bind:isSendForReview="isSendForReview"
           v-bind:is="currentTabComponent"
         >
         </component>
@@ -54,7 +55,9 @@
     </div>
 
     <div v-else="!isSendForReview">
-      <Review></Review>
+      <Review
+        v-bind:isSendForReview="isSendForReview"
+      ></Review>
     </div>
   </div>  
 </template>
@@ -120,8 +123,7 @@
             url: 'review',
             tabData: { raw_data: {} }
           }
-        ],
-        reviewPage: false
+        ]
       }
     },
     computed: {
@@ -132,9 +134,6 @@
       },
       currentTabData: function () {
         return getDataByText(this.currentTab, this.tabItems);
-      },
-      isSaveExitButtonEnable: function () {
-        return false
       },
       isSendForReview:function() {
         return this.$store.state.AcdcStore.assessmentStatus === 'review'
@@ -150,6 +149,9 @@
       tabHandler:function(text, index){
         this.setCurrentTab(text);
         this.setCurrentTabIndex(index);
+      },
+      saveAndExit:function(){
+        window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
       }
     },
     created: function () {
@@ -192,6 +194,10 @@
       '$store.state.AcdcStore.assessmentCurrentTab' (newCount, oldCount) {
         let tab = getNextTab(this.currentTab, this.tabItems)
         this.tabHandler(tab.text, tab.index)
+      },
+      '$store.state.AcdcStore.changeCurrentTab' (newCount, oldCount) {
+        let tab = this.$store.state.AcdcStore.changeCurrentTab
+        this.tabHandler(tab.text, tab.index)
       }
     }
   }
@@ -230,10 +236,17 @@
     var i, len = data.length;
     for (i = 0; i < len; i++) {
       if (data[i] && (data[i].text == text)) {
-        return {
-          text: data[i+1]['text'],
-          index: i + 2
-        };
+        if (data[i]['text'] == 'Review') {
+          return {
+            text: data[i]['text'],
+            index: i + 1
+          };
+        } else {
+          return {
+            text: data[i+1]['text'],
+            index: i + 2
+          };
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
     <div class="section_heading flex-box">
       <span>Custom Forms</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -74,5 +74,13 @@
 </style>
 <script>
   export default {
+    props: ['createCustomForms', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Create Custom Forms', index: 2}
+        })
+      }
+    }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="action_bar">
+    <div class="action_bar" v-bind:class="{hide:isSendForReview}">
       <div class="fs-16 black-9 bold">Review Assessment</div>
 
       <div class="spacer"></div>
@@ -18,30 +18,63 @@
       </button>
     </div>
 
-    <div class="edit_section p-0">
+    <div class="edit_section p-0" v-if="Object.keys($store.state.AcdcStore.assessmentRawData).length !== 0">
       <div class="review_section">
-        <AssessmentDescription></AssessmentDescription>         
+        <AssessmentDescription 
+          v-bind:description="assessmentData.description"
+          v-bind:isSendForReview="isSendForReview"
+          v-bind:tools="assessmentData.tools"
+        >
+        </AssessmentDescription>
       </div>
       <div class="review_section">
-        <ConfigureTools></ConfigureTools>         
+        <ConfigureTools
+          v-bind:toolConfiguration="assessmentData.tool_configuration"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </ConfigureTools>
       </div>
       <div class="review_section">
-        <CustomForms></CustomForms>         
+        <CustomForms
+          v-bind:createCustomForms="assessmentData.create_custom_forms"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </CustomForms>         
       </div>
       <div class="review_section">
-        <BehaviourCompetencyTraits></BehaviourCompetencyTraits>         
+        <BehaviourCompetencyTraits
+          v-bind:addBehavioursCompetenciesTraits="assessmentData.add_behaviours_competencies_traits"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </BehaviourCompetencyTraits>         
       </div>
       <div class="review_section">
-        <ObjectiveQuestions></ObjectiveQuestions>         
+        <ObjectiveQuestions
+          v-bind:selectObjectiveQuestions="assessmentData.select_questions"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </ObjectiveQuestions>         
       </div>
       <div class="review_section">
-        <SubjectiveQuestions></SubjectiveQuestions>         
+        <SubjectiveQuestions
+          v-bind:selectSubjectiveQuestions="assessmentData.select_questions"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </SubjectiveQuestions>
       </div>
       <div class="review_section">
-        <EmailTemplates></EmailTemplates>         
+        <EmailTemplates
+          v-bind:selectTemplates="assessmentData.select_templates"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </EmailTemplates>         
       </div>
       <div class="review_section">
-        <ReportConfiguration></ReportConfiguration>         
+        <ReportConfiguration
+          v-bind:reportConfiguration="assessmentData.report_configuration"
+          v-bind:isSendForReview="isSendForReview"
+        >
+        </ReportConfiguration>         
       </div>
 
       <div class="divider-2"></div>
@@ -69,6 +102,7 @@
   import EmailTemplates from 'components/acdc/assessments/tabs/review/EmailTemplates.vue';
   import ReportConfiguration from 'components/acdc/assessments/tabs/review/ReportConfiguration.vue';
   export default {
+    props: ['isSendForReview'],
     components: {
      AssessmentDescription,
      ConfigureTools, 
@@ -89,6 +123,11 @@
           alert("Assessment Send For Approval")
           location.reload();
         })
+      }
+    },
+    computed: {
+      assessmentData: function () {
+        return this.$store.state.AcdcStore.assessmentRawData
       }
     }
   }

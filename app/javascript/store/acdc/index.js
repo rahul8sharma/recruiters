@@ -16,7 +16,8 @@ export default {
     assessmentSelectQuestions: {},
     assessmentSelectTemplates: {},
     assessmentReportConfiguration: {},
-    assessmentCurrentTab: 1
+    assessmentCurrentTab: 1,
+    changeCurrentTab: {text: 'Description', index: 0}
   },
   mutations: {
     setUserId (state, payload) {
@@ -73,6 +74,9 @@ export default {
     },
     setAssessmentCurrentTab (state, payload) {
       state.assessmentCurrentTab = payload
+    },
+    setChangeCurrentTab (state, payload) {
+      state.changeCurrentTab = payload
     }
   },
   actions: {
@@ -151,6 +155,9 @@ export default {
     },
     setAssessmentRawData({commit, getters}, payload) {
       commit('setAssessmentRawData', payload.raw_data);
+    },
+    setChangeCurrentTab({commit, getters}, payload) {
+      commit('setChangeCurrentTab', payload.currentTab);
     }
   },
   getters: {
@@ -198,6 +205,9 @@ export default {
     },
     assessmentCurrentTab (state) {
       return state.assessmentCurrentTab
+    },
+    changeCurrentTab (state) {
+      return state.changeCurrentTab
     }
   }
 };

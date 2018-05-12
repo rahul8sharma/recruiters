@@ -3,7 +3,7 @@
     <div class="section_heading flex-box">
       <span>Configure Tools</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -68,5 +68,13 @@
 </style>
 <script>
   export default {
+    props: ['toolConfiguration', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Configure Tools', index: 1}
+        })
+      }
+    }
   }
 </script>
