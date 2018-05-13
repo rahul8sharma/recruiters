@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section_title uppercase fs-12 bold">
-      2. B-HiVE with Jombay Aptitude
+      {{index}}. B-HiVE with Jombay Aptitude
     </div>
 
     <div class="p-15">
@@ -61,7 +61,7 @@
   import { ModelSelect } from 'vue-search-select'
  
   export default {
-    props: ['configureToolData'],
+    props: ['configureToolData', 'index'],
     data () {
       return {
         options: [

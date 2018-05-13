@@ -13,7 +13,11 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+      <button 
+        class="button btn-warning uppercase fs-14" 
+        @click="saveAndNext"
+        :disabled = "isSaveNextButtonDisabled"
+      >
         Save &amp; Next
       </button>
     </div>
@@ -170,6 +174,11 @@
         }
       }
     },
+    computed: {
+      isSaveNextButtonDisabled:function() {
+        return this.existingForm.value == '' || this.existingForm.value == null
+      }
+    }
   }
 </script>
 
