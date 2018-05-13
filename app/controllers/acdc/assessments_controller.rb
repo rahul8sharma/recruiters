@@ -17,7 +17,7 @@ class Acdc::AssessmentsController < ApplicationController
   def index
     @assessments = api_resource.where(:query_options => {
                             :company_id => params[:company_id]
-                          },
+                          }, 
                           :page => params[:page], :per => 10,
                           order: ["created_at DESC"]
                         ).all
@@ -92,7 +92,7 @@ class Acdc::AssessmentsController < ApplicationController
         defined_form_id: params[:defined_form_id]
       },
       order: "field_order ASC"
-    ).all.to_a.collect{|field| field.attributes }
+    ).all.to_a.collect{|field| field.attributes.except(:id, :created_at, :updated_at) }
     render json: @defined_fields, status: :ok
   end
 
@@ -106,7 +106,7 @@ class Acdc::AssessmentsController < ApplicationController
     get_competencies(:for_suitability)
     render json: @local_competencies, status: :ok
   end
-
+  
   def select_templates
     render json: {
         completion_notification_templates: @completion_notification_templates.collect{|field| template_preview(field) },
@@ -133,7 +133,7 @@ class Acdc::AssessmentsController < ApplicationController
     query_options["template_categories.name"] = category
     @invitation_templates = get_templates_for_company_specific(query_options, @company.id)
   end
-
+  
   def get_reminder_templates
     category = ""
     query_options = {
@@ -164,7 +164,7 @@ class Acdc::AssessmentsController < ApplicationController
           :name => factor.name,
           :definition => factor.definition
       })
-
+     
       factor_names.push(factor.name)
     end
 

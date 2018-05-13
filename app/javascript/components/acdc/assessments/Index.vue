@@ -79,8 +79,8 @@
           job_assessment_factor_norms_attributes: [{
             factor_id: '',
             name: '',
-            from_norm_bucket_id: {value: '', text: ''},
-            to_norm_bucket_id: {value: '', text: ''},
+            from_norm_bucket_id: 0,
+            to_norm_bucket_id: 0,
             weight: 1
           }],
           showCompetencyScoreOnReport: false,
@@ -99,9 +99,9 @@
         }
         let select_templates = {
           invitation_template_id: '',
-          completion_notification_template_id: '',
+          assessment_completion_notification_template_id: '',
           reminder_template_id: '',
-          disableAssessmentCompletionNotification: false
+          enable_completion_notification: false
         }
         let report_configuration = {
           html: [],

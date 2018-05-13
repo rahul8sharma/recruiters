@@ -6,10 +6,10 @@
         <div>
           <div class="fs-16 black-9 bold">Invitation Template</div>
           <div class="divider-1"></div>
-          <label v-if="templateName == 'completion_notification_template_id'" class="custom-checkbox">
-            <input v-model="tabData.disableAssessmentCompletionNotification" type="checkbox"/>
+          <label v-if="templateName == 'assessment_completion_notification_template_id'" class="custom-checkbox">
+            <input v-model="tabData.enable_completion_notification" type="checkbox"/>
 
-            <div class="label-text fs-12 black-9">Disable assessment completion notification</div>
+            <div class="label-text fs-12 black-9">Enable Completion Notification</div>
 
           </label>
         </div>
