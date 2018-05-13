@@ -158,6 +158,18 @@ export default {
     },
     setChangeCurrentTab({commit, getters}, payload) {
       commit('setChangeCurrentTab', payload.currentTab);
+    },
+    deleteAcdcAssessment ({commit, getters, state}, payload) {
+      Vue.http.delete("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (response) {
+          window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   getters: {

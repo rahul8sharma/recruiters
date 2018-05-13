@@ -11,7 +11,12 @@
       </div>
       <div class="spacer"></div>
       <div v-if="!isSendForReview">
-        <button v-if="!isSendForReview" class="btn-link uppercase black-6 fs-14">Delete this Assessment</button>
+        <button
+          class="btn-link uppercase black-6 fs-14"
+          @click="deleteAssessment"
+        >
+          Delete this Assessment
+        </button>
         <button
           class="btn-warning inverse uppercase fs-14"
           @click="saveAndExit"
@@ -152,6 +157,12 @@
       },
       saveAndExit:function(){
         window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
+      },
+      deleteAssessment:function(){
+        // this.$store.dispatch('deleteAcdcAssessment', {
+        //   assessmentId: this.$store.state.AcdcStore.assessmentId,
+        //   companyId: this.$store.state.AcdcStore.companyId
+        // });
       }
     },
     created: function () {
