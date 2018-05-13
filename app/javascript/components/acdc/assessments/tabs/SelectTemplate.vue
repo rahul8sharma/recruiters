@@ -4,7 +4,7 @@
       <div class="fs-16 black-9 link_breadcrumb uppercase">
         <a @click="changeTemplate('Invitation')" v-bind:class="{active:templateName == 'invitation_template_id'}">INVITATION</a>
         <a @click="changeTemplate('Reminder')" v-bind:class="{active:templateName == 'reminder_template_id'}">REMINDER</a>
-        <a @click="changeTemplate('CompletionNotification')" v-bind:class="{active:templateName == 'completion_notification_template_id'}">COMPLETION NOTIFICATION</a>
+        <a @click="changeTemplate('CompletionNotification')" v-bind:class="{active:templateName == 'assessment_completion_notification_template_id'}">COMPLETION NOTIFICATION</a>
       </div>
 
       <div class="spacer"></div>
@@ -30,7 +30,7 @@
         v-if="show"
       ></SelectTemplate>
       <div class="divider-4"></div>
-      <NewTemplate></NewTemplate>
+      <!-- <NewTemplate></NewTemplate> -->
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@
             this.assignData(this.templates.invitation_templates, "invitation_template_id")
             break;
           case 'CompletionNotification':
-            this.assignData(this.templates.completion_notification_templates, "completion_notification_template_id")
+            this.assignData(this.templates.completion_notification_templates, "assessment_completion_notification_template_id")
             break;
           case 'Reminder':
             this.assignData(this.templates.reminder_templates, "reminder_template_id")

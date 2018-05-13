@@ -115,8 +115,8 @@
         this.tabData.job_assessment_factor_norms_attributes.push({
           factor_id: '',
           name: '',
-          from_norm_bucket_id: {value: '', text: ''},
-          to_norm_bucket_id: {value: '', text: ''},
+          from_norm_bucket_id: 0,
+          to_norm_bucket_id: 0,
           weight: 1
         })
       }, 
@@ -126,8 +126,8 @@
         const jobFactor = this.tabData.job_assessment_factor_norms_attributes
 
         jobFactor[this.currentTraitIndex].factor_id = factor.id
-        jobFactor[this.currentTraitIndex].to_norm_bucket_id = this.options[(factor.from_norm_bucket_id - 1)]
-        jobFactor[this.currentTraitIndex].from_norm_bucket_id = this.options[(factor.to_norm_bucket_id - 1)]
+        jobFactor[this.currentTraitIndex].to_norm_bucket_id = factor.from_norm_bucket_id
+        jobFactor[this.currentTraitIndex].from_norm_bucket_id = factor.to_norm_bucket_id
         jobFactor[this.currentTraitIndex].name = factor.name
       },
       getLabel (item) {
@@ -146,6 +146,20 @@
       },
       removeCompetency(traitIndex) {
         this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
+      },
+      reset () {
+        this.trait.from_norm_bucket_id = ''
+      },
+      selectOption () {
+        // select option from parent component
+        this.trait.from_norm_bucket_id = this.options[0].value
+      },
+      reset2 () {
+        this.trait.to_norm_bucket_id = ''
+      },
+      selectOption2 () {
+        // select option from parent component
+        this.trait.to_norm_bucket_id = this.options[0].value
       }
     },
     created: function() {

@@ -40,13 +40,13 @@
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Competency" v-model="configureToolData.assessment_type" />
+            <input type="radio" name="AssessmentClass" value="competency" v-model="configureToolData.assessment_type" />
             <div class="label-text">Competency</div>
           </label>
         </div>
         <div class="large-6 columns">
           <label class="custom-radio">
-            <input type="radio" name="AssessmentClass" value="Trait" v-model="configureToolData.assessment_type"/>
+            <input type="radio" name="AssessmentClass" value="fit" v-model="configureToolData.assessment_type"/>
             <div class="label-text">Trait</div>
           </label>
         </div>
