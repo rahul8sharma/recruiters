@@ -13,7 +13,11 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+      <button 
+        class="button btn-warning uppercase fs-14" 
+        @click="saveAndNext"
+        :disabled = "isSaveNextButtonDisabled"
+      >
         Save &amp; Next
       </button>
     </div>
@@ -24,6 +28,7 @@
         v-bind:is="currentTool"
         v-bind:key="index"
         v-bind:configureToolData="tabData.raw_data[index]"
+        v-bind:index="index + 1"
       >
       </component>
       <div class="divider-4"></div>
@@ -45,13 +50,46 @@
   export default {
     props: ['tabData'],
     components: {
-      bhive_with_cocubes, bhive_with_hire_me, bhive_with_jombay_aptitude,
-      mini_hive_with_jombay_abstract_thinking, mini_hive_with_jombay_critical_thinking,
-      mini_hive_with_pearson_ravens, mini_hive_with_wg, psychometry
+      bhive_with_cocubes, bhive_with_hire_me,
+      bhive_with_jombay_aptitude,
+      mini_hive_with_jombay_abstract_thinking,
+      mini_hive_with_jombay_critical_thinking,
+      mini_hive_with_pearson_ravens,
+      mini_hive_with_wg,
+      psychometry
     },
     computed: {
       currentTools: function () {
         return this.tabData.tools
+      },
+      isSaveNextButtonDisabled:function() {
+        let isDisabled = true
+        for(var k=0; k<this.tabData.tools.length; k++) {
+          if(this.tabData.tools[k] == 'psychometry') {
+            isDisabled = this.tabData.raw_data[k].languages.length == 0
+              || this.tabData.raw_data[k].assessment_type == ''
+              || this.tabData.raw_data[k].candidate_stage == ''
+              || this.tabData.raw_data[k].page_size == ''
+          } else if(this.tabData.tools[k] == 'bhive_with_hire_me') {
+            isDisabled = this.tabData.raw_data[k].access_code == ''
+          } else if(this.tabData.tools[k] == 'bhive_with_cocubes') {
+            isDisabled = this.tabData.raw_data[k].assessment_flow == ''
+          } else if(this.tabData.tools[k] == 'bhive_with_jombay_aptitude') {
+            isDisabled = this.tabData.raw_data[k].aptitude_assessment == ''
+          } else if(this.tabData.tools[k] == 'mini_hive_with_pearson_ravens') {
+            isDisabled = this.tabData.raw_data[k].url == ''
+              || this.tabData.raw_data[k].thank_you_message == ''
+          } else if(this.tabData.tools[k] == 'mini_hive_with_jombay_critical_thinking') {
+            isDisabled = this.tabData.raw_data[k].aptitude_assessment == ''
+          } else if(this.tabData.tools[k] == 'mini_hive_with_wg') {
+            isDisabled = this.tabData.raw_data[k].url == ''
+              || this.tabData.raw_data[k].thank_you_message == ''
+          }
+          if (isDisabled) {
+            break;
+          }
+        }
+        return isDisabled
       }
     },
     methods: {

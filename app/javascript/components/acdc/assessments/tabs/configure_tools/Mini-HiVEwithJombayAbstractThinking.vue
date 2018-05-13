@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section_title uppercase fs-12 bold">
-      2. Mini-HiVE with Jombay Abstract Thinking
+      {{index}}. Mini-HiVE with Jombay Abstract Thinking
     </div>
 
     <div class="p-15">      
@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    props: ['configureToolData'],
+    props: ['configureToolData', 'index'],
     data () {
       return {
         moreActions: false

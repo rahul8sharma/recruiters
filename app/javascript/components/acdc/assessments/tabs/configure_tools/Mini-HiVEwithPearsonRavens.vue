@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section_title uppercase fs-12 bold">
-      2. Mini-HiVE with Pearson Ravens
+      {{index}}. Mini-HiVE with Pearson Ravens
     </div>
 
     <div class="p-15">
@@ -51,7 +51,7 @@
 import { VueEditor } from 'vue2-editor'
 
   export default {
-    props: ['configureToolData'],
+    props: ['configureToolData', 'index'],
     components: { VueEditor },
     data () {
       return {

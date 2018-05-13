@@ -13,7 +13,11 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+      <button 
+        class="button btn-warning uppercase fs-14" 
+        @click="saveAndNext"
+        :disabled = "isSaveNextButtonDisabled"
+      >
         Save &amp; Next
       </button>
     </div>
@@ -136,6 +140,11 @@
           companyId: this.$store.state.AcdcStore.companyId,
           acdc_assessment: {description: this.tabData.raw_data, name: this.tabData.name}
         })
+      }
+    },
+    computed: {
+      isSaveNextButtonDisabled:function() {
+        return this.tabData.name.length == 0 || this.selectIndustry.value == '' || this.selectIndustry.value == null
       }
     }
   }

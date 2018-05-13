@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="section_title uppercase fs-12 bold">
-      2. B-HiVE with CoCubes
+      {{index}}. B-HiVE with CoCubes
     </div>
 
     <div class="p-15">
@@ -61,7 +61,7 @@
 
 <script>
   export default {
-    props: ['configureToolData'],
+    props: ['configureToolData', 'index'],
     data () {
       return {
         moreActions: false
