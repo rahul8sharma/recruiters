@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="section_heading flex-box">
-      <span>Email Templates</span>
+      <span>Report Configuration</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -20,5 +20,13 @@
 </style>
 <script>
   export default {
+    props: ['reportConfiguration', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Report Configuration', index: 6}
+        })
+      }
+    }
   }
 </script>

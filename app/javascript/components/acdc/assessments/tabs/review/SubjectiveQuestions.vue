@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="section_heading flex-box">
-      <span>Objective Questions</span>
+      <span>Subjective Questions</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -27,5 +27,13 @@
 </style>
 <script>
   export default {
+    props: ['selectSubjectiveQuestions', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Select Subjective/ Objective Questions', index: 4}
+        })
+      }
+    }
   }
 </script>

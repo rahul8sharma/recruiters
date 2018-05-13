@@ -3,7 +3,7 @@
     <div class="section_heading flex-box">
       <span>Behaviour / Competency / Traits</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -47,5 +47,13 @@
 </style>
 <script>
   export default {
+    props: ['addBehavioursCompetenciesTraits', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Add Behaviours/ Competencies/ Traits', index: 3}
+        })
+      }
+    }
   }
 </script>

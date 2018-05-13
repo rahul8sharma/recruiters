@@ -50,6 +50,15 @@ class Acdc::AssessmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @assessment = api_resource.destroy(acdc_assessment_params)
+    if @assessment.error_messages && @assessment.error_messages.present?
+      render json: @assessment.errors, status: :unprocessable_entity
+    else
+      render json: @assessment.attributes, status: :created
+    end
+  end
+
   def get_meta_data
     @functional_areas = Vger::Resources::FunctionalArea.where(:query_options => {:active=>true},:order => "name ASC")\
                           .all.to_a.collect{|functional_area| {value: functional_area.id, text: functional_area.name}}

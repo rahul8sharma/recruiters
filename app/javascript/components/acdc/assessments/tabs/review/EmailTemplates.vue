@@ -3,7 +3,7 @@
     <div class="section_heading flex-box">
       <span>Email Templates</span>
       <div class="spacer"></div>
-      <a href="" class="button btn-warning btn-link">
+      <a v-if="!isSendForReview" class="button btn-warning btn-link" @click="changeCurrentTab">
         Edit
       </a>
     </div>
@@ -90,5 +90,13 @@
 </style>
 <script>
   export default {
+    props: ['selectTemplates', 'isSendForReview'],
+    methods: {
+      changeCurrentTab() {
+        this.$store.dispatch('setChangeCurrentTab', {
+          currentTab: {text: 'Select Template', index: 5}
+        })
+      }
+    }
   }
 </script>
