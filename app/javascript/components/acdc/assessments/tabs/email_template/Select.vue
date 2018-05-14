@@ -80,7 +80,16 @@
   import { ModelSelect } from 'vue-search-select'
 
   export default {
-    props: ['currentTemplates', 'formatTemplates', "tabData", "templateName", 'model', 'model.item'],
+    props: ['currentTemplates', 'formatTemplates', "tabData", "templateName", 'model', 'createTemplateName'],
+    data() {
+      return {
+        templateCategoryIds: {
+          create_invitation_template: 2,
+          create_completion_notification_template: 21,
+          create_reminder_template: 3
+        }
+      }
+    },
     components: {
       ModelSelect
     },
@@ -98,7 +107,11 @@
           this.model.item = { value: index, text: this.currentTemplates[index].name }
         } else {
           this.model.item = { value: '', text: ''}
-          this.model.selectTemplated = {}  
+          if(this.tabData[this.createTemplateName] != undefined && Object.keys(this.tabData[this.createTemplateName]).length !== 0) {
+            this.model.selectTemplated = this.tabData[this.createTemplateName]
+          } else {
+            this.model.selectTemplated = {}  
+          }
         }
       }
     },
@@ -109,13 +122,13 @@
           body: '',
           subject: '',
           from: '',
-          template_category_id: 20
+          template_category_id: this.templateCategoryIds[this.createTemplateName]
         }
         this.model.showModel = true
       },
       editTemplate() {
-        // this.model.create_template = JSON.parse(JSON.stringify(this.model.selectTemplated));
-        this.model.create_template = this.model.selectTemplated;
+        this.model.create_template = JSON.parse(JSON.stringify(this.model.selectTemplated));
+        this.model.create_template["template_category_id"] = this.templateCategoryIds[this.createTemplateName]
         this.model.showModel = true
       }
     }
