@@ -27,6 +27,7 @@
         v-bind:templateName="templateName"
         v-bind:tabData="tabData.raw_data"
         v-bind:formatTemplates="formatTemplates"
+        v-bind:createTemplateName="createTemplateName"
         v-bind:model="model"
         v-if="show"
       ></SelectTemplate>
@@ -60,13 +61,6 @@
         show: true,
         model: {
           showModel: false,
-          create_invitation_template: {
-            name: '',
-            body: '',
-            subject: '',   
-            from: '',
-            template_category_id: 20
-          },
           selectTemplated: {},
           item: {
             value: '',

@@ -2,11 +2,11 @@
   <div>
     <div class="action_bar">
       <div v-if="false">
-        <a href="">Add Traits</a>
+        <a href="">Add Behaviours</a>
       </div>
       <div v-else class="fs-16 black-9 link_breadcrumb uppercase">
         <a @click="changeComponent('Competencies')" v-bind:class="{active:currentComponent == 'Competencies'}">A. Add Competencies</a>
-        <a @click="changeComponent('CompetencyTraits')" v-bind:class="{active:currentComponent == 'CompetencyTraits'}">B. Add Behaviours</a>
+        <a @click="changeComponent('CompetencyTraits')" v-bind:class="{active:currentComponent == 'CompetencyTraits'}">B. Add Traits</a>
       </div>
 
 
@@ -20,7 +20,11 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+      <button 
+        class="button btn-warning uppercase fs-14" 
+        @click="saveAndNext"
+        :disabled = "isSaveNextButtonDisabled"
+      >
         Save &amp; Next
       </button>
     </div>
@@ -50,6 +54,7 @@
     data () {
       return {
         currentComponent: 'Competencies',
+        isSaveNextButtonDisabled: true
       }
     },
     components: {
@@ -66,6 +71,25 @@
           acdc_assessment: {add_behaviours_competencies_traits: this.tabData.raw_data}
         })
       }
+    },
+    watch: {
+      tabData: {
+        handler(val){
+          this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.competencies)
+        },
+        deep: true
+      }
     }
+  }
+
+  function isValidForm(competencies) {
+    var isValid = true;
+    for(var k=0; k<competencies.length; k++) {
+      isValid = competencies[k].name.length == 0 || competencies[k].factor_ids.length == 0
+      if (isValid) {
+        break;
+      }
+    }
+    return isValid
   }
 </script>

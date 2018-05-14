@@ -176,7 +176,8 @@
     },
     computed: {
       isSaveNextButtonDisabled:function() {
-        return this.existingForm.value == '' || this.existingForm.value == null
+        return (this.existingForm.value == null || this.existingForm.value == '')
+          && (this.previewForm.definedFields.length == 0)
       }
     }
   }
