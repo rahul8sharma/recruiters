@@ -26,7 +26,7 @@
     </CreateAssessment>
 
     <div class="listing">
-      <div class="headings uppercase black-9 fs-14 bg-black-1 bold">
+      <div class="headings uppercase black-9 fs-14 bold">
         <div class="container flex-box clearfix pt-16 pb-16">
           <div class="large-2 iconic">
             AID
