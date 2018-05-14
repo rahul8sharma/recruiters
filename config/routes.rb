@@ -545,6 +545,7 @@ Rails.application.routes.draw do
         get "traits" => "acdc/assessments#get_norms"
         get "select_templates" => "acdc/assessments#select_templates"
         post "get_google_drive_file_by_url"
+        get "get_all_assessments"
       end
     end
   end
