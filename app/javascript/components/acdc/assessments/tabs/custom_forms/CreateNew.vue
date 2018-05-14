@@ -50,7 +50,7 @@
                     <a :disabled="index === (definedForm.defined_fields_attributes.length - 1)" @click.prevent="moveDown(index)" class="shuffle_action ">Move Down</a>
                     <a :disabled="index == 0" @click.prevent="moveUp(index)" class="shuffle_action">Move Up</a>
 
-                    <button @click.prevent="removeField(index)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+                    <button v-if="((definedForm.defined_fields_attributes.length -1) != 0)"  @click.prevent="removeField(index)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
 
                     <div class="clr"></div>
                   </div>
@@ -121,7 +121,7 @@
         <div class="actions">
           <button @click.prevent="addDefinedField()" class="button btn-warning btn-link  uppercase fs-14">+ Add More Field</button>
           <div class="spacer"></div>
-          <button @click="saveInTabData()" class="button btn-warning uppercase fs-14">Save</button>
+          <button :disabled="isSaveBuddonDisabled" @click="saveInTabData()" class="button btn-warning uppercase fs-14">Save</button>
         </div>
       </div>
     </div>
@@ -211,6 +211,7 @@
           options: '',
           field_order: order
         })
+        this.isSaveBuddonDisabled = isValidForm(this.definedForm)
       },
       removeField(index) {
         this.definedForm.defined_fields_attributes.splice(index, 1)
@@ -233,6 +234,27 @@
         // select option from parent component
         this.tabData.field_type = this.options[0].value
       },
+    },
+    computed: {
+      isSaveBuddonDisabled: {
+        get: function () {
+          return this.definedForm.name.length == 0 || isValidForm(this.definedForm)
+        },
+        set: function (newValue) {
+          return newValue
+        }
+      }
     }
+  }
+
+  function isValidForm(definedForm) {
+    let isValid = true
+    for(var k=0; k<definedForm.defined_fields_attributes.length; k++) {
+      isValid = definedForm.defined_fields_attributes[k].field_type.length == 0
+      if (isValid) {
+        break;
+      }
+    }
+    return isValid
   }
 </script>

@@ -39,7 +39,7 @@
             <hr/>
 
             <div class="text_editor">
-              <vue-editor class="large" :editorToolbar="customToolbar" v-model="model.create_template.body"></vue-editor>
+              <vue-editor class="large" v-model="model.create_template.body"></vue-editor>
             </div>
 
           </div>
@@ -51,7 +51,7 @@
               <div class="divider-1"></div>
               <ul>
                 <li v-for="(templateVariable, index) in templateVariables">
-                  <a href="" class="variables">{{index+1}}. {{templateVariable.name}}</a>
+                  <a @click="setVariable(templateVariable.id)" class="variables">{{index+1}}. {{templateVariable.name}}</a>
                 </li>
               </ul>
             </div>  
@@ -97,15 +97,6 @@
     components: {
       VueEditor
     },
-    data() {
-      return {
-       customToolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['image', 'code-block']
-          ]
-      }
-    },
     methods: {
       saveTemplate(){
         this.tabData[this.createTemplateName] = this.model.create_template
@@ -115,13 +106,10 @@
         this.model.item.value =  ''
         this.model.item.text = ''
       },
-      setEditorContent: function() {
-        this.model.create_template.body = this.model.create_template.body
-      }
-    },
-    watch: {
-      "model.showModel": function(){
-        this.setEditorContent()
+      setVariable(id) {
+        // this.model.create_template.body = this.model.create_template.body + "<p><$" + id +  "$></p>"
+        let editor = document.querySelector('.ql-editor')
+        editor.innerHTML = [editor.innerHTML.slice(0, editor.innerHTML.length - 4), "<p><$" + id +  "$></p>", editor.innerHTML.slice(editor.innerHTML.length - 4)].join('');
       }
     }
   }
