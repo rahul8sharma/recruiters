@@ -1,19 +1,97 @@
 <template>
   <div class="wrapper">
     <loader></loader>
-    <div class="divider-2"></div>
-    <div class="container">
-      <button @click="setModalState" class="button btn-warning big big-text right uppercase">Create Assessment</button>
-      <div class="clr"></div>
-      <CreateAssessment
-        v-bind:isModalOpen="modal.isOpen"
-        v-bind:isCreateSubmitButtonEnable="isCreateSubmitButtonEnable"
-        v-bind:assessment="assessment"
-        v-bind:products="products"
-        :set-modal-state="setModalState"
-        :create-assessment="createAssessment"
-      >
-      </CreateAssessment>
+
+    <div class="divider-1"></div>
+    <div class="container flex-box">
+      <div class="fs-18 black-10">
+        In-draft assessments
+        <br>
+        <em class="black-7 fs-14">showing 25 of 123 results</em>
+      </div>
+      <div class="spacer"></div>
+      <button @click="setModalState" class="button btn-warning big big-text uppercase">Create Assessment</button>
+    </div>
+
+    <div class="divider-1"></div>
+
+    <CreateAssessment
+      v-bind:isModalOpen="modal.isOpen"
+      v-bind:isCreateSubmitButtonEnable="isCreateSubmitButtonEnable"
+      v-bind:assessment="assessment"
+      v-bind:products="products"
+      :set-modal-state="setModalState"
+      :create-assessment="createAssessment"
+    >
+    </CreateAssessment>
+
+    <div class="listing">
+      <div class="headings uppercase black-9 fs-14 bg-black-1 bold">
+        <div class="container flex-box clearfix pt-16 pb-16">
+          <div class="large-2 iconic">
+            AID
+            <span class="icon_up hide">&#9650;</span>
+            <span class="icon_down">&#9660;</span>
+          </div>
+          <div class="large-10 iconic">
+            Assessment Title
+            <span class="icon_up hide">&#9650;</span>
+            <span class="icon_down">&#9660;</span>
+          </div>
+          <div class="large-3 iconic">
+            Created on 
+            <span class="icon_up hide">&#9650;</span>
+            <span class="icon_down">&#9660;</span>
+          </div>
+          <div class="large-4">Status</div>
+          <div class="large-4">Actions</div>
+          
+        </div>
+      </div>
+      <ul class="list">
+        <li class="pt-16 pb-16">
+          <div class="container flex-box">
+            <div class="large-2">2812</div>
+            <div class="large-10 ">
+              <a href="">
+                <div class="truncate">Lorem ipsum assessment for lore Lorem ipsum assessment for lor</div>
+                <div class="info_container fs-14">
+                  <div class="info p-10 black-6">
+                    <div class="clearfix p-8">
+                      <div class="bold large-10 columns black-9">Name</div>
+                      <div class="large-20 columns">New Jombay Aptitude</div>
+                    </div>
+
+                    <div class="clearfix p-8">
+                      <div class="bold large-10 columns black-9">Type</div>
+                      <div class="large-20 columns">
+                        MiniHiVE
+                        <em class="fs-12">Psychometry, Situational Judgement, Inbasket</em>
+                      </div>
+                    </div>
+                    
+                    <div class="clearfix p-8">
+                      <div class="bold large-10 columns black-9">Language</div>
+                      <div class="large-20 columns">English, Hindi</div>
+                    </div>
+                    
+                    <div class="clearfix p-8">
+                      <div class="bold large-10 columns black-9">Purpose</div>
+                      <div class="large-20 columns">Hiring</div>
+                    </div>
+
+
+                  </div>
+                </div>
+
+              </a>
+            </div>
+            <div class="large-3">18/03/2018</div>
+            <div class="large-4">Under approval</div>
+            <div class="large-4"><a href="" class="bold">Edit Assessment</a></div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -148,3 +226,6 @@
     }
   }
 </script>
+<style lang="sass">
+  @import '~assets/css/shared/index' 
+</style>
