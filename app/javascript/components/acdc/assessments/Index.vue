@@ -101,7 +101,10 @@
           invitation_template_id: '',
           assessment_completion_notification_template_id: '',
           reminder_template_id: '',
-          enable_completion_notification: false
+          enable_completion_notification: false,
+          create_invitation_template: {},
+          create_completion_notification_template: {},
+          create_reminder_template: {}
         }
         let report_configuration = {
           html: [],

@@ -4,7 +4,7 @@
       <div class="heading fs-14 uppercase bold">
         <span>Edit Template</span>
         <div class="spacer"></div>
-        <div class="close">&times;</div>
+        <div @click.prevent="model.showModel=false" class="close">&times;</div>
       </div>
 
       <div class="modal-body p-0 ">
@@ -12,9 +12,17 @@
           <div class="large-20 ">
             <div class="p-30 pb-0">
               <div class="clearfix fs-16  black-9">
+                <div class="large-5 columns bold line-height-4">Name:  </div>
+                <div class="form-group large-25 columns bold">
+                  <input value="" v-model="model.create_template.name" type="text" placeholder="name"/>
+                  <label>name</label>
+                </div>
+              </div>
+
+              <div class="clearfix fs-16  black-9">
                 <div class="large-5 columns bold line-height-4">From: </div>
                 <div class="form-group large-25 columns bold">
-                  <input type="text" placeholder="From"/>
+                  <input v-model="model.create_template.from" type="text" placeholder="From"/>
                   <label>From</label>
                 </div>
               </div>
@@ -22,7 +30,7 @@
               <div class="clearfix fs-16  black-9">
                 <div class="large-5 columns bold line-height-4">Subject:  </div>
                 <div class="form-group large-25 columns bold">
-                  <input type="text" placeholder="Subject"/>
+                  <input v-model="model.create_template.subject" type="text" placeholder="Subject"/>
                   <label>Subject</label>
                 </div>
               </div>
@@ -31,7 +39,7 @@
             <hr/>
 
             <div class="text_editor">
-              .large
+              <vue-editor class="large" :editorToolbar="customToolbar" v-model="model.create_template.body"></vue-editor>
             </div>
 
           </div>
@@ -42,11 +50,8 @@
               <em class="fs-12 black-6">(Click on a template variable to add it to the template body)</em>
               <div class="divider-1"></div>
               <ul>
-                <li>
-                  <a href="" class="variables">1. Assessment Taker’s Name</a>
-                </li>
-                 <li>
-                  <a href="" class="variables">18. Assessment Link</a>
+                <li v-for="(templateVariable, index) in templateVariables">
+                  <a href="" class="variables">{{index+1}}. {{templateVariable.name}}</a>
                 </li>
               </ul>
             </div>  
@@ -63,7 +68,7 @@
             </a>
           </div>
           <div class="spacer"></div>
-          <button class="button btn-warning uppercase fs-14">Save</button>
+          <button @click="saveTemplate()" class="button btn-warning uppercase fs-14">Save</button>
         </div>
       </div>
     </div>
@@ -83,10 +88,41 @@
 
       &:hover
         opacity: 0.6
-  
+    
 </style>
 <script>
+  import { VueEditor } from 'vue2-editor'
   export default {
-
+    props: ['currentTemplates', "tabData", "templateName", 'model', 'createTemplateName', 'templateVariables'],
+    components: {
+      VueEditor
+    },
+    data() {
+      return {
+       customToolbar: [
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['image', 'code-block']
+          ]
+      }
+    },
+    methods: {
+      saveTemplate(){
+        this.tabData[this.createTemplateName] = this.model.create_template
+        this.model.showModel = false
+        this.model.selectTemplated = this.model.create_template
+        this.tabData[this.templateName] = ''
+        this.model.item.value =  ''
+        this.model.item.text = ''
+      },
+      setEditorContent: function() {
+        this.model.create_template.body = this.model.create_template.body
+      }
+    },
+    watch: {
+      "model.showModel": function(){
+        this.setEditorContent()
+      }
+    }
   }
 </script>

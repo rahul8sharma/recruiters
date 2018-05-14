@@ -33,7 +33,7 @@
         <a href="" :disabled="competencyIndex == (tabData.competencies.length - 1)" @click.prevent="moveDown(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
         <a href="" :disabled="competencyIndex == 0" @click.prevent="moveUp(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
 
-        <button @click="removeCompetency(competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+        <button v-if="((tabData.competencies.length - 1) != 0)" @click="removeCompetency(competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
         <div class="clr"></div>
 
         
@@ -115,7 +115,9 @@
           return a.order - b.order });
       },
       removeCompetency(competencyIndex) {
-        this.tabData.competencies.splice(competencyIndex, 1)
+        if((this.tabData.competencies.length - 1) != 0) {
+          this.tabData.competencies.splice(competencyIndex, 1)
+        }
       }
     }
   }
