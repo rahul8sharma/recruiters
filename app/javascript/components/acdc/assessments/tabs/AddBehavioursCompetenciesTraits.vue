@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="action_bar">
-      <div v-if="false">
-        <a href="">Add Behaviours</a>
+      <div v-if="isAssessmentClassCompetency">
+        <a>Add Traits</a>
       </div>
       <div v-else class="fs-16 black-9 link_breadcrumb uppercase">
         <a @click="changeComponent('Competencies')" v-bind:class="{active:currentComponent == 'Competencies'}">A. Add Competencies</a>
@@ -31,7 +31,7 @@
     
     <div class="edit_section">
       <!-- TODO need to Update if condition -->
-      <div v-if="false">
+      <div v-if="isAssessmentClassCompetency">
         <Traits v-bind:tabData='tabData.raw_data'></Traits>
       </div> 
       <div v-else>
@@ -75,21 +75,58 @@
     watch: {
       tabData: {
         handler(val){
-          this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.competencies)
+          if(this.isAssessmentClassCompetency) {
+            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.job_assessment_factor_norms_attributes, this.isAssessmentClassCompetency)
+          } else {
+            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.competencies, this.isAssessmentClassCompetency)
+          }
         },
         deep: true
+      }
+    },
+    computed: {
+      isAssessmentClassCompetency () {
+        if(Object.keys(this.$store.state.AcdcStore.assessmentRawData).length !== 0) {
+          return isAssessmentClassCompetency(this.$store.state.AcdcStore.assessmentRawData)
+        } else {
+          return false
+        }
       }
     }
   }
 
-  function isValidForm(competencies) {
+  function isValidForm(competenciesAndTrait, isAssessmentClassCompetency) {
     var isValid = true;
-    for(var k=0; k<competencies.length; k++) {
-      isValid = competencies[k].name.length == 0 || competencies[k].factor_ids.length == 0
-      if (isValid) {
-        break;
+    for(var k=0; k<competenciesAndTrait.length; k++) {
+      if (isAssessmentClassCompetency) {
+        isValid = competenciesAndTrait[k].name == null
+          || competenciesAndTrait[k].name.length == 0 
+          || competenciesAndTrait[k].weight.length == 0
+        if (isValid) {
+          break;
+        }
+      } else {
+        var isTraitValid = true;
+        for(var i=0; i<competenciesAndTrait[k].selectedFactors.length; i++) {
+          isTraitValid = competenciesAndTrait[k].selectedFactors[i].weight.length == 0
+            || competenciesAndTrait[k].selectedFactors[i].name == null
+            || competenciesAndTrait[k].selectedFactors[i].name.length == 0
+          if (isTraitValid) {
+            break;
+          }
+        }
+        isValid = competenciesAndTrait[k].name.length == 0
+          || competenciesAndTrait[k].weight.length == 0
+          || competenciesAndTrait[k].factor_ids.length == 0 || isTraitValid
+        if (isValid) {
+          break;
+        }
       }
     }
     return isValid
+  }
+
+  function isAssessmentClassCompetency(data) {
+    return data.tool_configuaration[0].assessment_type != 'competency'
   }
 </script>
