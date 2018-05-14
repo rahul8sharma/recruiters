@@ -159,10 +159,16 @@
         window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
       },
       deleteAssessment:function(){
-        // this.$store.dispatch('deleteAcdcAssessment', {
-        //   assessmentId: this.$store.state.AcdcStore.assessmentId,
-        //   companyId: this.$store.state.AcdcStore.companyId
-        // });
+        this.$dialog.confirm("If you delete this assessment, It'll be gone forever.")
+          .then((dialog) => {
+            this.$store.dispatch('deleteAcdcAssessment', {
+              assessmentId: this.$store.state.AcdcStore.assessmentId,
+              companyId: this.$store.state.AcdcStore.companyId
+            });
+          })
+          .catch(() => {
+              console.log('Delete aborted');
+          });
       }
     },
     created: function () {

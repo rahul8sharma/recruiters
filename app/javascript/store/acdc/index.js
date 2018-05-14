@@ -17,7 +17,8 @@ export default {
     assessmentSelectTemplates: {},
     assessmentReportConfiguration: {},
     assessmentCurrentTab: 1,
-    changeCurrentTab: {text: 'Description', index: 0}
+    changeCurrentTab: {text: 'Description', index: 0},
+    allAssessment: {}
   },
   mutations: {
     setUserId (state, payload) {
@@ -77,6 +78,9 @@ export default {
     },
     setChangeCurrentTab (state, payload) {
       state.changeCurrentTab = payload
+    },
+    setAllAssessment (state, payload) {
+      state.allAssessment = payload
     }
   },
   actions: {
@@ -165,7 +169,19 @@ export default {
           return response.json()
         })
         .then(function (response) {
-          window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
+          window.location = "/companies/" + payload.companyId + "/acdc"
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    setAllAssessment ({commit, getters, state}, payload) {
+      Vue.http.get("/companies/" + payload.companyId + "/acdc/get_all_assessments")
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (response) {
+          commit('setAllAssessment', response.assessments);
         })
         .catch(error => {
           console.log(error)
@@ -220,6 +236,9 @@ export default {
     },
     changeCurrentTab (state) {
       return state.changeCurrentTab
+    },
+    allAssessment (state) {
+      return state.allAssessment
     }
   }
 };

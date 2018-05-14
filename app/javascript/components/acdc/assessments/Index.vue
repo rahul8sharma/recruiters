@@ -34,7 +34,8 @@
           name: '',
           tools: [],
           product: ''
-        }
+        },
+        allAssessment: {}
       }
     },
     methods: {
@@ -145,6 +146,14 @@
       .then(data => {
         this.products = data
       })
+      this.$store.dispatch('setAllAssessment', {
+        companyId: this.$store.state.AcdcStore.companyId
+      })
+    },
+    watch: {
+      '$store.state.AcdcStore.allAssessment' (newCount, oldCount) {
+        this.allAssessment = this.$store.state.AcdcStore.allAssessment
+      }
     }
   }
 </script>
