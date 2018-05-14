@@ -50,7 +50,7 @@
           <label>Weightage</label>
         </div>
 
-         <button @click="removeCompetency(traitIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Trait</button>
+         <button v-if="((tabData.job_assessment_factor_norms_attributes.length -1) != 0)" @click="removeTrait(traitIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
   
         <div class="clr"></div>
         
@@ -144,8 +144,10 @@
       setCurrentIndex(traitIndex) {
         this.currentTraitIndex = traitIndex
       },
-      removeCompetency(traitIndex) {
-        this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
+      removeTrait(traitIndex) {
+        if((this.tabData.job_assessment_factor_norms_attributes.length -1) != 0) {
+          this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
+        }
       },
       reset () {
         this.trait.from_norm_bucket_id = ''

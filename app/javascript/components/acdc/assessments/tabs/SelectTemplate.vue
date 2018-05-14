@@ -27,10 +27,18 @@
         v-bind:templateName="templateName"
         v-bind:tabData="tabData.raw_data"
         v-bind:formatTemplates="formatTemplates"
+        v-bind:model="model"
         v-if="show"
       ></SelectTemplate>
       <div class="divider-4"></div>
-      <!-- <NewTemplate></NewTemplate> -->
+      <NewTemplate v-if="model.showModel"
+        v-bind:currentTemplates="currentTemplates"
+        v-bind:templateName="templateName"
+        v-bind:createTemplateName="createTemplateName"
+        v-bind:tabData="tabData.raw_data"
+        v-bind:templateVariables="templates.template_variables"
+        v-bind:model="model"
+        ></NewTemplate>
     </div>
   </div>
 </template>
@@ -48,7 +56,23 @@
         currentTemplates: {},
         formatTemplates: [],
         templateName: '',
-        show: true
+        createTemplateName: '',
+        show: true,
+        model: {
+          showModel: false,
+          create_invitation_template: {
+            name: '',
+            body: '',
+            subject: '',   
+            from: '',
+            template_category_id: 20
+          },
+          selectTemplated: {},
+          item: {
+            value: '',
+            text: ''
+          }
+        }
       }
     },
     methods: {
@@ -56,20 +80,21 @@
         this.show = false
         switch(currentTemplate) {
           case 'Invitation':
-            this.assignData(this.templates.invitation_templates, "invitation_template_id")
+            this.assignData(this.templates.invitation_templates, "invitation_template_id", "create_invitation_template")
             break;
           case 'CompletionNotification':
-            this.assignData(this.templates.completion_notification_templates, "assessment_completion_notification_template_id")
+            this.assignData(this.templates.completion_notification_templates, "assessment_completion_notification_template_id", "create_completion_notification_template")
             break;
           case 'Reminder':
-            this.assignData(this.templates.reminder_templates, "reminder_template_id")
+            this.assignData(this.templates.reminder_templates, "reminder_template_id", "create_reminder_template")
             break;
         }
       },
-      assignData(templatesData, setTabData) {
+      assignData(templatesData, setTabData, createTemplateName) {
         this.formatTemplates = []
         this.currentTemplates = templatesData
         this.templateName = setTabData
+        this.createTemplateName = createTemplateName
         this.show = true
         for(var index = 0; index < this.currentTemplates.length; index ++) {
           this.formatTemplates.push({value: index, text: this.currentTemplates[index].name})
@@ -93,7 +118,7 @@
         this.templates = data
 
         // assign default data
-        this.assignData(this.templates.invitation_templates, "invitation_template_id")
+        this.assignData(this.templates.invitation_templates, "invitation_template_id", "create_invitation_template")
       });
 
     }

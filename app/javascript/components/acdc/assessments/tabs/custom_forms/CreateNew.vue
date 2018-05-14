@@ -32,10 +32,10 @@
                 <div class="clearfix">
                   <div class="select-box large-7 columns">
                     <div class="form-group">
-                      <v-select class="field_list" :options="options" 
+                      <model-select class="field_list" :options="options" 
                         v-model="definedField.field_type"
                         placeholder="Type">
-                      </v-select>
+                      </model-select>
                       <label>Type</label>
                     </div>
                   </div>
@@ -159,22 +159,24 @@
 
 </style>
 <script>
-  // import { ModelSelect } from 'vue-search-select'
-  import VSelect from 'vue-select'
-  
+  import { ModelSelect } from 'vue-search-select'
+
   export default {
     props: ['previewForm', 'tabData', 'model', 'definedForm'],
     data () {
       return {
         options: [
-          "TextField", "DropDown", "CheckBox", 
-          "TextArea", "RadioButton"
+          {text: 'TextField', value: 'TextField'},
+          {text: 'DropDown', value: 'DropDown'},
+          {text: 'CheckBox', value: 'CheckBox'},
+          {text: 'TextArea', value: 'TextArea'},
+          {text: 'RadioButton', value: 'RadioButton'}
         ],
         nameMaxLength: 20
       }
     },
     components: {
-      'v-select': VSelect
+      ModelSelect
     },
     methods: {
       moveUp(index) {
@@ -223,7 +225,14 @@
       },
       UpdateOptions(index) {
         this.definedForm.defined_fields_attributes[index].options = this.definedForm.defined_fields_attributes[index].options.split(',')
-      }
+      },
+      reset () {
+        this.tabData.field_type = ''
+      },
+      selectOption () {
+        // select option from parent component
+        this.tabData.field_type = this.options[0].value
+      },
     }
   }
 </script>

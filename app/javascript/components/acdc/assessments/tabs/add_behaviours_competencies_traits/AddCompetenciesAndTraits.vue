@@ -54,7 +54,7 @@
             <label>Weightage</label>
           </div>
 
-           <button @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-warning btn-link  uppercase fs-16 bold">Remove Trait</button>
+           <button v-if="((tabData.competencies[competencyIndex].selectedFactors.length -1) != 0)" @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
 
           <div class="clr"></div>
           
@@ -167,8 +167,10 @@
         this.currentCompetencyIndex = competencyIndex
       },
       removeCompetency(traitIndex, competencyIndex) {
-        this.tabData.competencies[this.currentCompetencyIndex].selectedFactors.splice(traitIndex, 1)
-        this.tabData.competencies[this.currentCompetencyIndex].factor_ids.splice(traitIndex, 1)
+        if((this.tabData.competencies[competencyIndex].selectedFactors.length -1) != 0) {
+          this.tabData.competencies[competencyIndex].selectedFactors.splice(traitIndex, 1)
+          this.tabData.competencies[competencyIndex].factor_ids.splice(traitIndex, 1)  
+        }
       }
     },
     created: function() {

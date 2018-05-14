@@ -15,7 +15,7 @@
         </div>
         <div class="spacer"></div>
         <div>
-          <a href="" class="button btn-warning inverse uppercase fs-14 bold">Create New Template</a>
+          <a href="" @click.prevent="createNewTemplate()" class="button btn-warning inverse uppercase fs-14 bold">Create New Template</a>
         </div>
       </div>
       <div class="divider-2"></div>
@@ -24,7 +24,7 @@
         <div class="form-group">
           <model-select
             :options="formatTemplates"
-            v-model="item"
+            v-model="model.item"
             placeholder="Select Template from Existing">
           </model-select>
           <label>Select Template from Existing</label>
@@ -40,7 +40,7 @@
       <div class="form_preview">
         <div class="clearfix">
           <div class="fs-16 black-9 bold left">Form Preview:</div>
-          <a href="" class="button btn-warning btn-link uppercase fs-14 bold right">Edit Template</a>
+          <a href="" @click.prevent="editTemplate()" class="button btn-warning btn-link uppercase fs-14 bold right">Edit Template</a>
         </div>
       </div>
       <div class="preview_container black-6">
@@ -48,13 +48,13 @@
           <div class="clearfix">
             <strong class="large-4 columns show">From: </strong>
             <div class="large-26 columns">
-              <span v-html="selectTemplated.from"></span>
+              <span v-html="model.selectTemplated.from"></span>
             </div>
           </div>
           <div class="clearfix">
             <strong class="large-4 columns show">Subject: </strong>
             <div class="large-26 columns">
-              <span v-html="selectTemplated.subject"></span>
+              <span v-html="model.selectTemplated.subject"></span>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
         <hr/>
 
         <div class="p-20">
-          <p><span v-html="selectTemplated.body"></span></p>
+          <p><span v-html="model.selectTemplated.body"></span></p>
         </div>
       </div>
     </div>
@@ -80,35 +80,43 @@
   import { ModelSelect } from 'vue-search-select'
 
   export default {
-    props: ['currentTemplates', 'formatTemplates', "tabData", "templateName"],
-    data () {
-      return {
-        item: {
-          value: '',
-          text: ''
-        },
-        selectTemplated: {},
-      }
-    },
+    props: ['currentTemplates', 'formatTemplates', "tabData", "templateName", 'model', 'model.item'],
     components: {
       ModelSelect
     },
     watch: {
-      item: function() {
-        if(this.item.value.length !== 0) {
-          this.tabData[this.templateName] = this.currentTemplates[this.item.value].id
-          this.selectTemplated = this.currentTemplates[this.item.value]  
+      "model.item": function() {
+        if(this.model.item.value.length !== 0) {
+          this.tabData[this.templateName] = this.currentTemplates[this.model.item.value].id
+          this.model.selectTemplated = this.currentTemplates[this.model.item.value]  
         }
       },
       "formatTemplates": function() {
         if(this.tabData[this.templateName] != null && this.tabData[this.templateName].length !== 0) {
           const index = indexWhere(this.currentTemplates, item => item.id === this.tabData[this.templateName].toString())
-          this.selectTemplated = this.currentTemplates[index]  
-          this.item = { value: index, text: this.currentTemplates[index].name }
+          this.model.selectTemplated = this.currentTemplates[index]  
+          this.model.item = { value: index, text: this.currentTemplates[index].name }
         } else {
-          this.item = { value: '', text: ''}
-          this.selectTemplated = {}  
+          this.model.item = { value: '', text: ''}
+          this.model.selectTemplated = {}  
         }
+      }
+    },
+    methods: {
+      createNewTemplate() {
+        this.model.create_template = {
+          name: '',
+          body: '',
+          subject: '',
+          from: '',
+          template_category_id: 20
+        }
+        this.model.showModel = true
+      },
+      editTemplate() {
+        // this.model.create_template = JSON.parse(JSON.stringify(this.model.selectTemplated));
+        this.model.create_template = this.model.selectTemplated;
+        this.model.showModel = true
       }
     }
   }

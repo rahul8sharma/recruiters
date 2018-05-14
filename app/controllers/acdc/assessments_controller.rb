@@ -120,7 +120,8 @@ class Acdc::AssessmentsController < ApplicationController
     render json: {
         completion_notification_templates: @completion_notification_templates.collect{|field| template_preview(field) },
         invitation_templates: @invitation_templates.collect{|field| template_preview(field) },
-        reminder_templates: @reminder_templates.collect{|field| template_preview(field) }
+        reminder_templates: @reminder_templates.collect{|field| template_preview(field) },
+        template_variables: get_template_variables
       }, status: :ok
   end
 
@@ -261,4 +262,11 @@ class Acdc::AssessmentsController < ApplicationController
       end
       default_norm_bucket_ranges
     end
+
+  def get_template_variables
+    template_variables = Vger::Resources::TemplateVariable.where(
+      :order => params[:order] || "id asc",
+      :page => params[:page],
+      :per => params[:per] || 30).all.map{|template_variable| template_variable.attributes }.uniq
+  end
 end
