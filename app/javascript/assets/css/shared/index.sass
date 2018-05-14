@@ -1,0 +1,59 @@
+$color-warning: #ff8308
+.listing
+  border-top: 2px solid rgba(0, 0, 0, 0.1)
+  a
+    color: inherit
+  .headings
+    background: #f6f6f6
+    .iconic
+      cursor: pointer
+      &:hover
+        [class*='icon_']
+          color: $color-warning
+      
+  .list
+    li
+      position: relative
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+      a
+        position: relative
+        display: block
+        &:hover
+          .info_container
+            display: block
+      &:hover
+        background: #fff4e9
+        a
+          color: $color-warning
+
+      .info_container
+        position: absolute
+        left: 100%
+        top: 0
+        display: none
+        width: 100%
+        z-index: 2
+        .info
+          position: relative
+          background: #fff
+          border: 1px solid #ff8308
+          border-radius: 4px
+          &:after, &:before
+            right: 100%
+            top: 25px
+            border: solid transparent
+            content: " "
+            height: 0
+            width: 0
+            position: absolute
+            pointer-events: none
+          &:after
+            border-color: rgba(255, 255, 255, 0)
+            border-right-color: #ffffff
+            border-width: 10px
+            margin-top: -10px
+          &:before
+            border-color: rgba(255, 131, 8, 0)
+            border-right-color: #ff8308
+            border-width: 11px
+            margin-top: -11px
