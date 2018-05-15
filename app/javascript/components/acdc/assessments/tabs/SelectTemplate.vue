@@ -125,8 +125,6 @@
          handler(val){
            if(Object.keys(this.tabData.raw_data).length !== 0) {
             this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data)
-          } else {
-            this.isSaveNextButtonDisabled = true
           }
          },
          deep: true

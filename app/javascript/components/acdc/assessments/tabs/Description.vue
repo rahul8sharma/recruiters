@@ -41,7 +41,7 @@
         <div class="select-box large-15">
           <div class="form-group">
             <model-select :options="industries"
-              v-model="selectIndustry"
+              v-model="tabData.raw_data.industry_id"
               placeholder="Select Industry">
             </model-select>
             <label>Select Industry</label>
@@ -51,7 +51,7 @@
 
           <div class="form-group">
             <model-select :options="functionalAreas"
-              v-model="selectFunctionArea"
+              v-model="tabData.raw_data.functional_area_id"
               placeholder="Select Functional Area">
             </model-select>
             <label>Select Functional Area</label>
@@ -61,7 +61,7 @@
 
           <div class="form-group">
             <model-select :options="jobExperiences"
-              v-model="selectJobExperiences"
+              v-model="tabData.raw_data.job_experience_id"
               placeholder="Select Experience">
             </model-select>
             <label>Select Experience</label>
@@ -98,10 +98,8 @@
         functionalAreas: [],
         industries: [],
         jobExperiences: [],
-        selectFunctionArea: {value: '', text: ''},
-        selectIndustry: {value: '', text: ''},
-        selectJobExperiences: {value: '', text: ''},
-        nameMaxLength: 20
+        nameMaxLength: 20,
+        isSaveNextButtonDisabled: true
       }
     },
     components: {
@@ -117,21 +115,7 @@
           this.functionalAreas = data.functional_areas
           this.industries = data.industries
           this.jobExperiences = data.job_experiences
-          this.selectIndustry = {value: this.tabData.raw_data.industry_id, text: ''}
-          this.selectFunctionArea = {value: this.tabData.raw_data.functional_area_id, text: ''}
-          this.selectJobExperiences = {value: this.tabData.raw_data.job_experience_id, text: ''}
         })
-    },
-    watch: {
-      selectIndustry: function (val) {
-        this.tabData.raw_data.industry_id = this.selectIndustry.value
-      },
-      selectFunctionArea: function (val) {
-        this.tabData.raw_data.functional_area_id = this.selectFunctionArea.value
-      },
-      selectJobExperiences: function (val) {
-        this.tabData.raw_data.job_experience_id = this.selectJobExperiences.value
-      }
     },
     methods: {
       saveAndNext() {
@@ -142,9 +126,14 @@
         })
       }
     },
-    computed: {
-      isSaveNextButtonDisabled:function() {
-        return this.tabData.name.length == 0 || this.selectIndustry.value == '' || this.selectIndustry.value == null
+    watch: {
+      tabData: {
+         handler(val){
+           if(Object.keys(this.tabData.raw_data).length !== 0) {
+            this.isSaveNextButtonDisabled = this.tabData.name.length == 0 || this.tabData.raw_data.industry_id.value == '' || this.tabData.raw_data.industry_id.value == null
+          }
+         },
+         deep: true
       }
     }
   }

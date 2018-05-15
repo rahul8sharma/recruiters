@@ -95,7 +95,8 @@
             options: '',
             field_order: 0
           }]
-        }
+        },
+        isSaveNextButtonDisabled: true
       }
     },
     created: function() {
@@ -105,8 +106,8 @@
       })
       .then(data => {
         this.existingForms = data
-        if(this.tabData.raw_data.defined_form_id != null && this.tabData.raw_data.defined_form_id.length !== 0) {
-         this.existingForm = { value: this.tabData.raw_data.defined_form_id, text: '' }
+        if(this.tabData.raw_data.defined_form_id.value != null && this.tabData.raw_data.defined_form_id.value.length !== 0) {
+         this.existingForm = this.tabData.raw_data.defined_form_id
          this.tabData.raw_data.defined_form = {}
         }
       });
@@ -142,7 +143,7 @@
       },
       editForm() {
         this.definedForm.defined_fields_attributes = JSON.parse(JSON.stringify(this.previewForm.definedFields));
-        this.definedForm.parent_id = this.existingForm.value
+        this.definedForm.parent_id = this.existingForm
         this.model.createNewShow=true
       },
       saveAndNext() {
@@ -164,7 +165,7 @@
               this.previewForm.definedFields = data
               this.previewForm.showPreview = true
             });
-          this.tabData.raw_data.defined_form_id =  this.existingForm.value
+          this.tabData.raw_data.defined_form_id =  this.existingForm
           this.tabData.raw_data.defined_form = []
         }
       },
@@ -172,12 +173,15 @@
         if(this.tabData.raw_data.defined_form.defined_fields_attributes != undefined && this.tabData.raw_data.defined_form.defined_fields_attributes.length != 0) {
           this.existingForm= {value: '', text: ''}
         }
-      }
-    },
-    computed: {
-      isSaveNextButtonDisabled:function() {
-        return (this.existingForm.value == null || this.existingForm.value == '')
-          && (this.previewForm.definedFields.length == 0)
+      },
+      tabData: {
+         handler(val){
+           if(Object.keys(this.tabData.raw_data).length !== 0) {
+            this.isSaveNextButtonDisabled = this.tabData.raw_data.defined_form_id.value.length == 0
+            && Object.keys(this.tabData.raw_data.defined_form).length == 0
+          }
+         },
+         deep: true
       }
     }
   }
