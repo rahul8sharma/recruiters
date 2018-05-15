@@ -49,35 +49,35 @@
         </div>
       </div>
       <ul class="list">
-        <li class="pt-16 pb-16">
+        <li class="pt-16 pb-16" v-for="assessment in allAssessment">
           <div class="container flex-box">
-            <div class="large-2">2812</div>
+            <div class="large-2">{{assessment.attributes.id}}</div>
             <div class="large-10 ">
               <a href="">
-                <div class="truncate">Lorem ipsum assessment for lore Lorem ipsum assessment for lor</div>
+                <div class="truncate">{{assessment.attributes.name}}</div>
                 <div class="info_container fs-14">
                   <div class="info p-10 black-6">
                     <div class="clearfix p-8">
                       <div class="bold large-10 columns black-9">Name</div>
-                      <div class="large-20 columns">New Jombay Aptitude</div>
+                      <div class="large-20 columns">{{assessment.attributes.name}}</div>
                     </div>
 
                     <div class="clearfix p-8">
                       <div class="bold large-10 columns black-9">Type</div>
                       <div class="large-20 columns">
-                        MiniHiVE
-                        <em class="fs-12">Psychometry, Situational Judgement, Inbasket</em>
+                        <!-- MiniHiVE -->
+                        <em class="fs-12">{{getToolsName(assessment.attributes.tools)}}</em>
                       </div>
                     </div>
                     
                     <div class="clearfix p-8">
                       <div class="bold large-10 columns black-9">Language</div>
-                      <div class="large-20 columns">English, Hindi</div>
+                      <div class="large-20 columns">{{getlanguages(assessment.attributes.tool_configuration)}}</div>
                     </div>
                     
                     <div class="clearfix p-8">
                       <div class="bold large-10 columns black-9">Purpose</div>
-                      <div class="large-20 columns">Hiring</div>
+                      <div class="large-20 columns">{{getPurpose(assessment.attributes.tool_configuration)}}</div>
                     </div>
 
 
@@ -86,9 +86,11 @@
 
               </a>
             </div>
-            <div class="large-3">18/03/2018</div>
-            <div class="large-4">Under approval</div>
-            <div class="large-4"><a href="" class="bold">Edit Assessment</a></div>
+            <div class="large-3">{{assessment.attributes.created_at.split('T')[0]}}</div>
+            <div class="large-4">{{assessment.attributes.status}}</div>
+            <div class="large-4">
+              <a v-bind:href="'/companies/' + $store.state.AcdcStore.companyId + '/acdc/' + assessment.attributes.id + '/edit'" class="bold">Edit Assessment</a>
+            </div>
           </div>
         </li>
       </ul>
@@ -128,14 +130,14 @@
           this.assessment.tools.push(this.assessment.product)
         }
         let description = {
-          industry_id: '',
-          functional_area_id: '',
-          job_experience_id: '',
+          industry_id: { text:'', value: ''},
+          functional_area_id: { text:'', value: ''},
+          job_experience_id: { text:'', value: ''},
           enable_proctoring: false
         }
         let tool_configuration = []
         let create_custom_forms = {
-          defined_form_id: '',
+          defined_form_id: { text:'', value: ''},
           defined_form: {}
         }
         let add_behaviours_competencies_traits = {
@@ -205,6 +207,40 @@
             tools: this.assessment.tools
           }
         })
+      },
+      getToolsName(tools) {
+        let toolsName = "NON-VAC("
+        for(var toolIndex=0; toolIndex<tools.length; toolIndex++) {
+          let lower = tools[toolIndex].split('_').join(' ')
+          toolsName = toolsName + lower.charAt(0).toUpperCase() + lower.substr(1)
+          if((tools.length - 1) != toolIndex) {
+            toolsName = toolsName + ', '
+          }
+        }
+        
+        return toolsName + ")"
+      },
+      getlanguages(tool_configurations) {
+        let languages = ""
+        if (tool_configurations.length != 0 && tool_configurations[0].languages.length != 0) {
+          let toolLanguages = tool_configurations[0].languages
+          for(var toolIndex=0; toolIndex<toolLanguages.length; toolIndex++) {
+            languages = languages + toolLanguages[toolIndex].text
+            if((toolLanguages.length - 1) != toolIndex) {
+              languages = languages + ', '
+            }
+          }
+        }
+        
+        return languages
+      },
+      getPurpose(tool_configurations) {
+        let purpose = ""
+        if (tool_configurations.length != 0 && tool_configurations[0].candidate_stage.length != 0) {
+          purpose = tool_configurations[0].candidate_stage.replace(/\b\w/g, l => l.toUpperCase())
+        }
+        
+        return purpose
       }
     },
     computed: {
