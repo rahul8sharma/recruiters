@@ -217,7 +217,7 @@
         this.definedForm.defined_fields_attributes.splice(index, 1)
       },
       saveInTabData(){
-        this.tabData.defined_form_id = ''
+        this.tabData.defined_form_id = { text:'', value: ''}
         this.tabData.defined_form = this.definedForm
         this.previewForm.definedFields = []
         this.previewForm.definedFields = this.definedForm.defined_fields_attributes
