@@ -90,7 +90,7 @@
               <div class="large-4">{{assessment.attributes.created_at.split('T')[0]}}</div>
               <div class="large-4">{{assessment.attributes.status}}</div>
               <div class="large-4">
-                <a v-bind:href="'/companies/' + $store.state.AcdcStore.companyId + '/acdc/' + assessment.attributes.id + '/edit'" class="bold">Edit Assessment</a>
+                <a v-bind:href="getAssessmentUrl(assessment.attributes.id)" class="bold">Edit Assessment</a>
               </div>
             </div>
           </li>
@@ -249,6 +249,9 @@
         }
         
         return purpose
+      },
+      getAssessmentUrl(id) {
+        return "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc/" + id + "/edit"
       }
     },
     computed: {
