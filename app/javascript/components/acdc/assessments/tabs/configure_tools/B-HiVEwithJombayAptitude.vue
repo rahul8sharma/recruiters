@@ -24,7 +24,7 @@
         <div class="form-group">
           <model-select :options="options"
             placeholder="Select Aptitude Assessment"
-            v-model="selectAptitudeAssessment"
+            v-model="configureToolData.aptitude_assessment"
           >
           </model-select>
           <label>Select Aptitude Assessment</label>
@@ -64,26 +64,16 @@
     props: ['configureToolData', 'index'],
     data () {
       return {
-        options: [
-          { value: '1', text: 'aa' + ' - ' + '1' },
-          { value: '2', text: 'ab' + ' - ' + '2' },
-          { value: '3', text: 'bc' + ' - ' + '3' },
-          { value: '4', text: 'cd' + ' - ' + '4' },
-          { value: '5', text: 'de' + ' - ' + '5' }
-        ],
-        selectAptitudeAssessment: {value: '', text: ''},
+        options: [],
         moreActions: false
       }
     },
     components: {
       MultiSelect, ModelSelect
     },
-    mounted: function() {
-      this.selectAptitudeAssessment = { value: this.configureToolData.aptitude_assessment + '', text: '' }
-    },
-    watch: {
-      selectAptitudeAssessment: function (val) {
-        this.configureToolData.aptitude_assessment = this.selectAptitudeAssessment.value
+    created: function() {
+      for (let index=1; index <= 5; index++) {
+        this.options.push({value: index, text: 'a' + index})
       }
     }
   }

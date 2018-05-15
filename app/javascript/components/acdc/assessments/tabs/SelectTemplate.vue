@@ -17,7 +17,11 @@
         </div>
       </div>
      
-      <button class="button btn-warning uppercase fs-14" @click="saveAndNext">
+      <button 
+        class="button btn-warning uppercase fs-14" 
+        @click="saveAndNext"
+        :disabled = "isSaveNextButtonDisabled"
+      >
         Save &amp; Next
       </button>
     </div>
@@ -66,7 +70,8 @@
             value: '',
             text: ''
           }
-        }
+        },
+        isSaveNextButtonDisabled: true
       }
     },
     methods: {
@@ -114,8 +119,21 @@
         // assign default data
         this.assignData(this.templates.invitation_templates, "invitation_template_id", "create_invitation_template")
       });
-
+    },
+    watch: {
+      tabData: {
+         handler(val){
+           if(Object.keys(this.tabData.raw_data).length !== 0) {
+            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data)
+          }
+         },
+         deep: true
+      }
     }
   }
 
+  function isValidForm(raw_data) {
+    return (raw_data.invitation_template_id.length == 0 && Object.keys(raw_data.create_invitation_template).length == 0)
+      || (raw_data.reminder_template_id.length == 0 && Object.keys(raw_data.create_reminder_template).length == 0)
+  }
 </script>

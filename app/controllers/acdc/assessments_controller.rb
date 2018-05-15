@@ -15,12 +15,6 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def index
-    @assessments = api_resource.where(:query_options => {
-                            :company_id => params[:company_id]
-                          }, 
-                          :page => params[:page], :per => 10,
-                          order: ["created_at DESC"]
-                        ).all
   end
 
   def edit
@@ -51,12 +45,25 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def destroy
-    @assessment = api_resource.destroy(acdc_assessment_params)
+    @assessment = api_resource.destroy_existing(params[:id])
     if @assessment.error_messages && @assessment.error_messages.present?
       render json: @assessment.errors, status: :unprocessable_entity
     else
       render json: @assessment.attributes, status: :created
     end
+  end
+
+  def get_all_assessments
+    @assessments = api_resource.where(
+      :query_options => {
+        :company_id => params[:company_id]
+      },
+      :page => params[:page],
+      :per => 10,
+      order: ["created_at DESC"]
+    ).all
+    
+    render json: { assessments: @assessments.to_a }, status: :ok
   end
 
   def get_meta_data

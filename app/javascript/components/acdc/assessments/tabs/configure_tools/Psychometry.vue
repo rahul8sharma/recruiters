@@ -56,7 +56,7 @@
       <div class="select-box large-15">
         <div class="form-group">
           <multi-select :options="languages"
-            :selected-options="selectedLanguages"
+            :selected-options="configureToolData.languages"
             placeholder="Select Language for the assessment*"
             @select="onSelect">
           </multi-select>
@@ -68,7 +68,7 @@
 
         <div class="form-group">
           <model-select :options="pageSize"
-            v-model="selectPageSize"
+            v-model="configureToolData.page_size"
             placeholder="Select Page Size*">
           </model-select>
           <label>Select Page Size*</label>
@@ -181,19 +181,14 @@
     data () {
       return {
         languages: [],
-        selectedLanguages: [],
         pageSize: [],
-        selectPageSize: { value: '', text: '' },
         moreActions: false
       }
     },
     methods: {
       onSelect (items, lastSelectItem) {
         this.configureToolData.languages = []
-        this.selectedLanguages = items;
-        for(var k=0; k<items.length; k++) {
-          this.configureToolData.languages.push(items[k].value)
-        }
+        this.configureToolData.languages = items
       }
     },
     components: {
@@ -206,30 +201,11 @@
         })
         .then(data => {
           this.languages = data.languages
-          this.selectPageSize = { value: this.configureToolData.page_size, text: '' }
-          this.selectedLanguages = getSelectedLanguages(this.languages, this.configureToolData.languages)
         })
         for (let index=1; index <= 100; index++) {
           this.pageSize.push({value: index, text: index})
         }
-    },
-    watch: {
-      selectPageSize: function (val) {
-        this.configureToolData.page_size = this.selectPageSize.value
-      }
     }
-  }
-
-  function getSelectedLanguages(allLanguages, selectedLanguages) {
-    var allSelectedLanguages = [];
-    for(var i=0; i<selectedLanguages.length; i++) {
-      for(var j=0; j<allLanguages.length; j++) {
-        if(selectedLanguages[i] == allLanguages[j].value) {
-          allSelectedLanguages.push(allLanguages[j]);
-        }
-      }
-    }
-    return allSelectedLanguages;
   }
 </script> 
 <style lang="sass" scoped>
