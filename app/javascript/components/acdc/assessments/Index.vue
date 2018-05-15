@@ -38,7 +38,7 @@
             <span class="icon_up hide">&#9650;</span>
             <span class="icon_down">&#9660;</span>
           </div>
-          <div class="large-3 iconic">
+          <div class="large-4 iconic">
             Created on 
             <span class="icon_up hide">&#9650;</span>
             <span class="icon_down">&#9660;</span>
@@ -48,52 +48,60 @@
           
         </div>
       </div>
-      <ul class="list">
-        <li class="pt-16 pb-16" v-for="assessment in allAssessment">
-          <div class="container flex-box">
-            <div class="large-2">{{assessment.attributes.id}}</div>
-            <div class="large-10 ">
-              <a href="">
-                <div class="truncate">{{assessment.attributes.name}}</div>
-                <div class="info_container fs-14">
-                  <div class="info p-10 black-6">
-                    <div class="clearfix p-8">
-                      <div class="bold large-10 columns black-9">Name</div>
-                      <div class="large-20 columns">{{assessment.attributes.name}}</div>
-                    </div>
-
-                    <div class="clearfix p-8">
-                      <div class="bold large-10 columns black-9">Type</div>
-                      <div class="large-20 columns">
-                        <!-- MiniHiVE -->
-                        <em class="fs-12">{{getToolsName(assessment.attributes.tools)}}</em>
+      <div class="list">
+        <ul>
+          <li class="pt-16 pb-16" v-for="assessment in allAssessment">
+            <div class="container flex-box">
+              <div class="large-2">{{assessment.attributes.id}}</div>
+              <div class="large-10 ">
+                <a href="">
+                  <div class="truncate">{{assessment.attributes.name}}</div>
+                  <div class="info_container fs-14">
+                    <div class="info p-10 black-6">
+                      <div class="clearfix p-8">
+                        <div class="bold large-10 columns black-9">Name</div>
+                        <div class="large-20 columns">{{assessment.attributes.name}}</div>
                       </div>
-                    </div>
-                    
-                    <div class="clearfix p-8">
-                      <div class="bold large-10 columns black-9">Language</div>
-                      <div class="large-20 columns">{{getlanguages(assessment.attributes.tool_configuration)}}</div>
-                    </div>
-                    
-                    <div class="clearfix p-8">
-                      <div class="bold large-10 columns black-9">Purpose</div>
-                      <div class="large-20 columns">{{getPurpose(assessment.attributes.tool_configuration)}}</div>
-                    </div>
+
+                      <div class="clearfix p-8">
+                        <div class="bold large-10 columns black-9">Type</div>
+                        <div class="large-20 columns">
+                          <!-- MiniHiVE -->
+                          <em class="fs-12">{{getToolsName(assessment.attributes.tools)}}</em>
+                        </div>
+                      </div>
+                      
+                      <div class="clearfix p-8">
+                        <div class="bold large-10 columns black-9">Language</div>
+                        <div class="large-20 columns">{{getlanguages(assessment.attributes.tool_configuration)}}</div>
+                      </div>
+                      
+                      <div class="clearfix p-8">
+                        <div class="bold large-10 columns black-9">Purpose</div>
+                        <div class="large-20 columns">{{getPurpose(assessment.attributes.tool_configuration)}}</div>
+                      </div>
 
 
+                    </div>
                   </div>
-                </div>
 
-              </a>
+                </a>
+              </div>
+              <div class="large-4">{{assessment.attributes.created_at.split('T')[0]}}</div>
+              <div class="large-4">{{assessment.attributes.status}}</div>
+              <div class="large-4">
+                <a v-bind:href="'/companies/' + $store.state.AcdcStore.companyId + '/acdc/' + assessment.attributes.id + '/edit'" class="bold">Edit Assessment</a>
+              </div>
             </div>
-            <div class="large-3">{{assessment.attributes.created_at.split('T')[0]}}</div>
-            <div class="large-4">{{assessment.attributes.status}}</div>
-            <div class="large-4">
-              <a v-bind:href="'/companies/' + $store.state.AcdcStore.companyId + '/acdc/' + assessment.attributes.id + '/edit'" class="bold">Edit Assessment</a>
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+        <div class="divider-10"></div>
+      </div>
+    </div>
+    <div class="pagination">
+      <div class="container">
+        1 2 3
+      </div>
     </div>
   </div>
 </template>
@@ -273,4 +281,9 @@
 </script>
 <style lang="sass">
   @import '~assets/css/shared/index' 
+</style>
+<style lang="sass" scoped>
+  .list
+    overflow-y: auto
+    height: calc(100vh - 185px)
 </style>
