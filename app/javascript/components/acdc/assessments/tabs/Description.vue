@@ -36,7 +36,7 @@
 
         <div class="clr"></div>
 
-        <em class="fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
+        <em class="large-15 fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
         <div class="divider-1"></div>
         <div class="select-box large-15">
           <div class="form-group">

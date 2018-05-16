@@ -22,8 +22,7 @@
     </div>
     
     <div class="edit_section">
-      <v-jstree v-if="isHtmlReport" :data="htmlData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
-      <v-jstree v-if="!isHtmlReport" :data="pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
+      <v-jstree :data="isHtmlReport ? htmlData : pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
       <button @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
       <iframe class="hide" id="reportConfigIframe" style="height: 1000px;width:99.7%;margin:auto;overflow:auto;"></iframe>
       <div class="divider-4"></div>

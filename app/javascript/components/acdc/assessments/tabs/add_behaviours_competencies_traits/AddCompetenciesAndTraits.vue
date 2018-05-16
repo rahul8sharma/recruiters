@@ -54,7 +54,7 @@
             <label>Weightage</label>
           </div>
 
-           <button v-if="((tabData.competencies[competencyIndex].selectedFactors.length -1) != 0)" @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+           <button v-if="((tabData.competencies[competencyIndex].selectedFactors.length -1) != 0)" @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-default btn-link uppercase fs-30 black-10 large-3 columns">&times;</button>
 
           <div class="clr"></div>
           
@@ -67,8 +67,8 @@
       <div class="divider-2"></div>
       
     </div>
-
-    <a href="#" class="more_actions_btn uppercase fs-12 bold open">
+    <div class="large-30">
+      <a href="#" class="more_actions_btn uppercase fs-12 bold open">
         More Actions
       </a>
       <em class="fs-12 black-6">(Competency Range)</em>
@@ -86,6 +86,7 @@
         </div>
 
       </div>
+    </div>
   </div>
 </template>
 
