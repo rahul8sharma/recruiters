@@ -381,7 +381,7 @@
           opacity: 0.6
         &.active
           color: #ff8308
-          text-shadow: 1px 0 0 currentColor
+          text-shadow: 1px 0 0 #ff8308
         
     .info_tooltip
       width: 24px
