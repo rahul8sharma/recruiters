@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20">
     <div class="clearfix">
       <div class="form-group large-3 columns">
         <input type="text" v-model="objectiveQuestion.weightage" placeholder="Weightage"/>
@@ -44,37 +44,39 @@
     </div>
 
     <div class="divider-1"></div>  
+    <div class="large-30">
+      <div class="fs-16 black-9 bold">Preview:</div>
+      <div class="divider-1"></div>  
+      <div v-for="(section, section_index) in objectiveQuestion.sections">
+        <div class="section_title uppercase fs-12 bold">
+          {{section_index + 1}} . {{section.section_name}}
+        </div>
 
-    <div class="fs-16 black-9 bold">Preview:</div>
-    
-    <div class="divider-1"></div>  
-    
-    <div v-for="(section, section_index) in objectiveQuestion.sections">
-      <div class="section_title uppercase fs-12 bold">
-        {{section_index + 1}} . {{section.section_name}}
-      </div>
-
-      <ul class="questions_list" v-for="(question, question_index) in section.data">
-        <li class="question fs-16 black-6">
-          <div class="question_index">{{question_index + 1}}.</div>
-          <div class="question_text">
-            {{question.question_body}}
-          </div>
-
-          <div class="question_options clearfix">
-            <div class="question_option large-15" v-for="(option, option_index) in question.options">
-              <label class="pannel_container">
-                <div class="input_field" :class="{ checked: option.score == '1' }"></div>
-                <div class="pannel">
-                  <div class="title">Option {{option_index + 1}}</div>
-                  {{option.body}}
-                </div>
-              </label>
+        <ul class="questions_list" v-for="(question, question_index) in section.data">
+          <li class="question fs-16 black-6">
+            <div class="question_index">{{question_index + 1}}.</div>
+            <div class="question_text">
+              {{question.question_body}}
             </div>
-          </div>
-        </li>
-      </ul>
+
+            <div class="question_options clearfix">
+              <div class="question_option large-15" v-for="(option, option_index) in question.options">
+                <label class="pannel_container">
+                  <div class="input_field" :class="{ checked: option.score == '1' }"></div>
+                  <div class="pannel">
+                    <div class="title">Option {{option_index + 1}}</div>
+                    {{option.body}}
+                  </div>
+                </label>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
     </div>
+    
+    
   </div>
 
 </template>

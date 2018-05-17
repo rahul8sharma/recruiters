@@ -1,6 +1,6 @@
 <template>
   <div class="modal scrollable modalOpen">
-    <div class="modal-container large-20">
+    <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase bold">
         <span>Edit Template</span>
         <div class="spacer"></div>

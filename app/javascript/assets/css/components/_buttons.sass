@@ -23,16 +23,32 @@ button, .button
     &.inverse
       background-color: #fff
       color: $color-warning
+      &.disabled, &[disabled]
+        background-color: transparent
+        color: rgba(0, 0, 0, 0.1)
+        cursor: not-allowed
+        border-color: rgba(0, 0, 0, 0.1)
     &.btn-link
       color: $color-warning
+      &:hover
+        color: $color-gray
+
   &.btn-default
     background: $color-gray
     border-color: $color-gray
     &.inverse
       background-color: #fff
       color: $color-gray
+      &.disabled, &[disabled]
+        background-color: transparent
+        color: rgba(0, 0, 0, 0.1)
+        cursor: not-allowed
+        border-color: rgba(0, 0, 0, 0.1)
+
     &.btn-link
       color: $color-gray
+      &:hover
+        color: $color-warning
 
   &.btn-link
     background-color: transparent

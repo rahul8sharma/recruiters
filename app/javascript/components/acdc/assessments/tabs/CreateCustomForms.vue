@@ -33,9 +33,12 @@
       </div>
       
       <div class="divider-1"></div>
-      <div class="fs-16 black-9 line-height-2 pr-25 left">OR</div>
-      <button  @click="createNewForm()" class="button btn-warning uppercase fs-14 left">Create New Form</button>
-      <div class="clr"></div> 
+      <div class="large-30">
+        <div class="fs-16 black-9 line-height-2 pr-25 left">OR</div>
+        <button  @click="createNewForm()" class="button btn-warning uppercase fs-14 left">Create New Form</button>
+        <div class="clr"></div> 
+        
+      </div>
 
     <div class="divider-1"></div>
     <hr/>

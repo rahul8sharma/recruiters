@@ -77,93 +77,95 @@
       <em class="fs-12 black-6 pt-8">(*How Many questions will appear on one page)</em>
 
       <div class="divider-2"></div>
+      <div class="large-30">
+        <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
+          More Actions
+        </a>
+        <em class="fs-12 black-6 pl-20">(Applicant ID, Help Text, Tool weightage)</em>
 
-      <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
-        More Actions
-      </a>
-      <em class="fs-12 black-6 pl-20">(Applicant ID, Help Text, Tool weightage)</em>
+        <div class="more_actions_container" v-bind:class="{'open':moreActions}">
 
-      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+          <div class="clearfix">
+            <div class="large-15 columns">
+              <div class="fs-16 black-9 uppercase">Enable Applicant ID</div>
+              <em class="fs-12 pt-10 black-6">(Applicant ID is 8 digit number which can act as Employee code)</em>
+            </div>
 
-        <div class="clearfix">
-          <div class="large-15 columns">
-            <div class="fs-16 black-9 uppercase">Enable Applicant ID</div>
-            <em class="fs-12 pt-10 black-6">(Applicant ID is 8 digit number which can act as Employee code)</em>
-          </div>
+            <div class="large-15 columns">
+              <div class="toggleSwitch large-14 columns">
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.set_applicant_id">
+                  <div class="toggle-switch"></div>
+                  <span class="toggle-label">{{configureToolData.set_applicant_id ? 'Enabled' : 'Disabled'}}</span>
+                </label>
+              </div> 
+            </div>
 
-          <div class="large-15 columns">
-            <div class="toggleSwitch large-14 columns">
-              <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox" v-model="configureToolData.set_applicant_id">
-                <div class="toggle-switch"></div>
-                <span class="toggle-label">{{configureToolData.set_applicant_id ? 'Enabled' : 'Disabled'}}</span>
-              </label>
-            </div> 
-          </div>
-
-        </div>
-        
-        <div class="divider-2"></div>
-
-        <div class="clearfix">
-          <div class="large-15 columns">
-            <div class="fs-16 black-9 uppercase">Show Help text for Items</div>
-            <em class="fs-12 pt-10 black-6">(If enabled, system will show help text for every item for better understanding of the candidate. Helptext is in Hinglish Language)</em>
-          </div>
-
-          <div class="large-15 columns">
-            <div class="toggleSwitch large-14 columns">
-              <label class="toggle">
-                <input class="toggle-checkbox" type="checkbox" v-model='configureToolData.show_help_text'>
-                <div class="toggle-switch"></div>
-                <span class="toggle-label">{{configureToolData.show_help_text ? 'Show' : "Don't Show"}}</span>
-              </label>
-            </div> 
-          </div>
-
-        </div>
-        
-        <div class="divider-2"></div>
-        <div class="fs-16 black-9 uppercase">Report Upload Callbacks</div>
-        <div class="divider-1"></div>
-        <div class="clearfix">
-          <div class="large-5 columns">
-            <label class="custom-checkbox">
-              <input type="checkbox" value="Talview" v-model='configureToolData.report_upload_callbacks' />
-              <div class="label-text">Talview</div>
-            </label>            
-          </div>
-
-          <div class="large-5 columns">
-            <label class="custom-checkbox">
-              <input type="checkbox" value="Taleo" v-model='configureToolData.report_upload_callbacks' />
-              <div class="label-text">Taleo</div>
-            </label>            
-          </div>
-
-          <div class="large-5 columns">
-            <label class="custom-checkbox">
-              <input type="checkbox" value="Success Factor" v-model='configureToolData.report_upload_callbacks' />
-              <div class="label-text">Success Factor</div>
-            </label>            
-          </div>
-
-          <div class="large-5 columns">
-            <label class="custom-checkbox">
-              <input type="checkbox" value="Zoho" v-model='configureToolData.report_upload_callbacks' />
-              <div class="label-text">Zoho</div>
-            </label>            
           </div>
           
+          <div class="divider-2"></div>
+
+          <div class="clearfix">
+            <div class="large-15 columns">
+              <div class="fs-16 black-9 uppercase">Show Help text for Items</div>
+              <em class="fs-12 pt-10 black-6">(If enabled, system will show help text for every item for better understanding of the candidate. Helptext is in Hinglish Language)</em>
+            </div>
+
+            <div class="large-15 columns">
+              <div class="toggleSwitch large-14 columns">
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" v-model='configureToolData.show_help_text'>
+                  <div class="toggle-switch"></div>
+                  <span class="toggle-label">{{configureToolData.show_help_text ? 'Show' : "Don't Show"}}</span>
+                </label>
+              </div> 
+            </div>
+
+          </div>
+          
+          <div class="divider-2"></div>
+          <div class="fs-16 black-9 uppercase">Report Upload Callbacks</div>
+          <div class="divider-1"></div>
+          <div class="clearfix">
+            <div class="large-5 columns">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Talview" v-model='configureToolData.report_upload_callbacks' />
+                <div class="label-text">Talview</div>
+              </label>            
+            </div>
+
+            <div class="large-5 columns">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Taleo" v-model='configureToolData.report_upload_callbacks' />
+                <div class="label-text">Taleo</div>
+              </label>            
+            </div>
+
+            <div class="large-5 columns">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Success Factor" v-model='configureToolData.report_upload_callbacks' />
+                <div class="label-text">Success Factor</div>
+              </label>            
+            </div>
+
+            <div class="large-5 columns">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Zoho" v-model='configureToolData.report_upload_callbacks' />
+                <div class="label-text">Zoho</div>
+              </label>            
+            </div>
+            
+          </div>
+
+          <div class="divider-2"></div>
+
+          <div class="form-group large-15 column">
+            <input type="text" placeholder="Tool Weightage" v-model='configureToolData.tool_weightage'>
+            <label>Tool Weightage</label>
+          </div>
+
         </div>
-
-        <div class="divider-2"></div>
-
-        <div class="form-group large-15 column">
-          <input type="text" placeholder="Tool Weightage" v-model='configureToolData.tool_weightage'>
-          <label>Tool Weightage</label>
-        </div>
-
+        
       </div>
     </div>
 

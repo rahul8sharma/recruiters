@@ -50,7 +50,7 @@
           <label>Weightage</label>
         </div>
 
-         <button v-if="((tabData.job_assessment_factor_norms_attributes.length -1) != 0)" @click="removeTrait(traitIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+         <button v-if="((tabData.job_assessment_factor_norms_attributes.length -1) != 0)" @click="removeTrait(traitIndex)" class="button btn-default btn-link uppercase fs-30 black-10 large-3 columns">&times;</button>
   
         <div class="clr"></div>
         
@@ -61,20 +61,21 @@
     <button @click="addTrait()" class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Traits</button>
     
     <div class="divider-2"></div>
+    <div class="large-30">
+      <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
+        More Actions
+      </a>
+      <em class="fs-12 black-6">(Competency Range)</em>
 
-    <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
-      More Actions
-    </a>
-    <em class="fs-12 black-6">(Competency Range)</em>
-
-    <div class="more_actions_container" v-bind:class="{'open':moreActions}">
-      <div class="divider-1"></div>
-      <div class="clearfix">
-        <div class="large-10 columns">
-          <label class="custom-checkbox">
-            <input v-model="tabData.showTraitConsistencyScoresonReport" type="checkbox"/>
-            <div class="label-text fs-12">Show Consistency Scores on report</div>
-          </label>
+      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+        <div class="divider-1"></div>
+        <div class="clearfix">
+          <div class="large-10 columns">
+            <label class="custom-checkbox">
+              <input v-model="tabData.showTraitConsistencyScoresonReport" type="checkbox"/>
+              <div class="label-text fs-12">Show Consistency Scores on report</div>
+            </label>
+          </div>
         </div>
       </div>
     </div>

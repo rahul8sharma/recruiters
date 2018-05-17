@@ -54,7 +54,7 @@
             <div class="container flex-box">
               <div class="large-2">{{assessment.attributes.id}}</div>
               <div class="large-10 ">
-                <a href="">
+                <a href="javascript:void(0)">
                   <div class="truncate">{{assessment.attributes.name}}</div>
                   <div class="info_container fs-14">
                     <div class="info p-10 black-6">
@@ -66,7 +66,8 @@
                       <div class="clearfix p-8">
                         <div class="bold large-10 columns black-9">Type</div>
                         <div class="large-20 columns">
-                          <!-- MiniHiVE -->
+                          <span>ToDo Name of product</span>
+                          <br/>
                           <em class="fs-12">{{splitToolsName(assessment.attributes.tools)}}</em>
                         </div>
                       </div>
@@ -95,7 +96,7 @@
             </div>
           </li>
         </ul>
-        <div class="divider-10"></div>
+        <div class="divider-12"></div>
       </div>
     </div>
     <div class="pagination">
