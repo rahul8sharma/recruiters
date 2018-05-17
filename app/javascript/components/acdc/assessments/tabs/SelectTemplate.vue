@@ -133,7 +133,19 @@
   }
 
   function isValidForm(raw_data) {
-    return (raw_data.invitation_template_id.length == 0 && Object.keys(raw_data.create_invitation_template).length == 0)
-      || (raw_data.reminder_template_id.length == 0 && Object.keys(raw_data.create_reminder_template).length == 0)
+    var isInvitationTemplateIdValid = true, isReminderTemplateIdValid = true
+    if (raw_data.invitation_template_id != null ) {
+      isInvitationTemplateIdValid = raw_data.invitation_template_id.length == 0
+    }
+    if (raw_data.reminder_template_id != null ) {
+      isReminderTemplateIdValid = raw_data.reminder_template_id.length == 0
+    }
+    return (
+        isInvitationTemplateIdValid
+        && Object.keys(raw_data.create_invitation_template).length == 0
+      ) || (
+        isReminderTemplateIdValid
+        && Object.keys(raw_data.create_reminder_template).length == 0
+      )
   }
 </script>
