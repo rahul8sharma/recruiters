@@ -29,7 +29,7 @@
       </div>
       <div class="review_section">
         <ConfigureTools
-          v-bind:toolConfiguration="assessmentData.tool_configuration"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
         </ConfigureTools>

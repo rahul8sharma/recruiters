@@ -34,7 +34,7 @@
 
 <script>
   import VJstree from 'vue-jstree'
-  import deepConfig from 'config/deepMerge.js'
+  import deepConfigHelper from 'helpers/deepMerge.js'
 
   export default {
     props: ['tabData'],
@@ -78,11 +78,11 @@
       },
       setHtmlRawData () {
         let cloneConfig = JSON.parse(JSON.stringify(this.htmlData));
-        this.tabData.raw_data.html = { sections: deepConfig.getSelectedReportConfig(cloneConfig) }
+        this.tabData.raw_data.html = { sections: deepConfigHelper.getSelectedReportConfig(cloneConfig) }
       },
       setPdfRawData () {
         let cloneConfig = JSON.parse(JSON.stringify(this.pdfData));
-        this.tabData.raw_data.pdf = { sections: deepConfig.getSelectedReportConfig(cloneConfig) }
+        this.tabData.raw_data.pdf = { sections: deepConfigHelper.getSelectedReportConfig(cloneConfig) }
       },
       saveAndNext() {
         this.$store.dispatch('updateAcdcAssessment', {
@@ -117,12 +117,12 @@
       },
       '$store.state.ReportConfigurationStore.htmlSelectedConfig' (newCount, oldCount) {
         if (this.tabData.raw_data.html.length != 0) {
-          this.htmlData =  deepConfig.deepMerge(
+          this.htmlData =  deepConfigHelper.deepMerge(
             this.$store.getters.htmlConfig,
             this.tabData.raw_data.html.sections
           )
         } else {
-          this.htmlData =  deepConfig.deepMerge(
+          this.htmlData =  deepConfigHelper.deepMerge(
             this.$store.getters.htmlConfig,
             this.$store.getters.htmlSelectedConfig
           )
@@ -130,12 +130,12 @@
       },
       '$store.state.ReportConfigurationStore.pdfSelectedConfig' (newCount, oldCount) {
         if (this.tabData.raw_data.pdf.length != 0) {
-          this.pdfData =  deepConfig.deepMerge(
+          this.pdfData =  deepConfigHelper.deepMerge(
             this.$store.getters.pdfConfig,
             this.tabData.raw_data.pdf.sections
           )
         } else {
-          this.pdfData =  deepConfig.deepMerge(
+          this.pdfData =  deepConfigHelper.deepMerge(
             this.$store.getters.pdfConfig,
             this.$store.getters.pdfSelectedConfig
           )

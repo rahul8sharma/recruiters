@@ -19,11 +19,11 @@
         </p>
         <p class="clearfix">
           <strong class="large-5 black-9">Functional Area: </strong>
-          <span class="large-25 black-6">{{description.functional_area_id}}</span>
+          <span class="large-25 black-6">{{description.functional_area_id.text}}</span>
         </p>
         <p class="clearfix">
           <strong class="large-5 black-9">Experience: </strong>
-          <span class="large-25 black-6">{{description.job_experience_id}}</span>
+          <span class="large-25 black-6">{{description.job_experience_id.text}}</span>
         </p>
         <p class="clearfix">
           <strong class="large-5 black-9">Proctoring: </strong>
