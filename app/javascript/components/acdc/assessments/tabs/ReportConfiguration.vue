@@ -21,10 +21,28 @@
       </button>
     </div>
     
-    <div class="edit_section">
-      <v-jstree :data="isHtmlReport ? htmlData : pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
-      <button @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
-      <iframe class="hide" id="reportConfigIframe" style="height: 1000px;width:99.7%;margin:auto;overflow:auto;"></iframe>
+    <div class="edit_section p-0">
+      <div class="p-24">
+        <v-jstree :data="isHtmlReport ? htmlData : pdfData" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
+      </div>  
+      <div class="action_bar generate_action">
+        <div class="spacer"></div>
+        <button class="btn-warning inverse uppercase fs-14" @click="generateReportPreview()">Generate {{isHtmlReport ? "HTML" : "PDF"}} Preview</button>
+        
+      </div>
+
+      <div class="report_config_preview hide" id="reportConfigPreview">
+        <div class="heading fs-14 uppercase">
+          <div class="spacer"></div> 
+          <strong>{{isHtmlReport ? "HTML" : "PDF"}} Preview</strong> 
+          <div class="spacer"></div> 
+          <div class="close" @click="closePreview()">&times;</div>
+        </div>
+          
+        <iframe id="reportConfigIframe"></iframe>
+        <div class="divider-4"></div>
+
+      </div>
       <div class="divider-4"></div>
     </div>
   </div>
@@ -54,13 +72,16 @@
           this.setPdfRawData()
         }
       },
+      closePreview() {
+        document.getElementById("reportConfigPreview").classList.add("hide");
+      },
       changeToHtml() {
         this.isHtmlReport = true
-        document.getElementById("reportConfigIframe").classList.add("hide");
+        document.getElementById("reportConfigPreview").classList.add("hide");
       },
       changeToPdf() {
         this.isHtmlReport = false
-        document.getElementById("reportConfigIframe").classList.add("hide");
+        document.getElementById("reportConfigPreview").classList.add("hide");
       },
       generateReportPreview() {
         let selectedReportConfig = []
@@ -104,7 +125,7 @@
       '$store.state.ReportConfigurationStore.reportPreview' (newCount, oldCount) {
         let reportPreviewConfig = this.$store.getters.reportPreview
         if (reportPreviewConfig.length != 0) {
-          document.getElementById('reportConfigIframe').classList.remove("hide");
+          document.getElementById('reportConfigPreview').classList.remove("hide");
           document.getElementById('reportConfigIframe').contentWindow.document.body.innerHTML = reportPreviewConfig
         }
       },
@@ -144,7 +165,39 @@
   }
 </script>
 <style lang="sass" scoped>
-  .action_bar 
+  iframe
+    width: 100%
+    margin: auto
+    overflow: auto
+    border: 0 none
+    padding: 0
+    min-height: 100vh
+    padding-bottom: 65px
+  .report_config_preview
+    position: fixed
+    width: 100vw
+    top: 0
+    left: 0
+    z-index: 999999
+    background: #fff
+    .heading
+      background: #f6f6f6
+      padding: 7px 14px 7px 25px
+      display: -webkit-box
+      display: -ms-flexbox
+      display: flex
+      -webkit-box-align: center
+      -ms-flex-align: center
+      align-items: center
+    .close
+      font-size: 30px
+      color: #000
+      cursor: pointer
+      &:hover
+        opacity: 0.5
+  .action_bar
+    &.generate_action
+      border-top: 2px solid rgba(0, 0, 0, 0.1)
     .link_breadcrumb
       a
         padding: 5px 24px
