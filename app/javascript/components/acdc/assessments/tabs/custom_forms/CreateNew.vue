@@ -1,6 +1,6 @@
 <template>
   <div class="modal scrollable modalOpen">
-    <div class="modal-container large-20">
+    <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase">
         <span>Create / Edit Custom Form</span>
         <div class="spacer"></div>
@@ -40,7 +40,7 @@
                     </div>
                   </div>
 
-                  <div class="large-3 columns"></div>
+                  <div class="large-2 columns"></div>
                   <div class="form-group large-7 columns">
                     <input type="text" v-model="definedField.identifier" placeholder="Identifier" />
                     <label>Identifier</label>
@@ -50,7 +50,7 @@
                     <a :disabled="index === (definedForm.defined_fields_attributes.length - 1)" @click.prevent="moveDown(index)" class="shuffle_action ">Move Down</a>
                     <a :disabled="index == 0" @click.prevent="moveUp(index)" class="shuffle_action">Move Up</a>
 
-                    <button v-if="((definedForm.defined_fields_attributes.length -1) != 0)"  @click.prevent="removeField(index)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+                    <a v-if="((definedForm.defined_fields_attributes.length -1) != 0)"  @click.prevent="removeField(index)" class="fs-30 black-10 large-3 columns line-height-1">&times;</a>
 
                     <div class="clr"></div>
                   </div>
@@ -93,7 +93,7 @@
 
                 <div class="divider-1"></div>
                 
-                <div class="clearfix flex-box">
+                <div class="clearfix flex-box large-30">
                   <div class="toggleSwitch">
                     <label class="toggle">
                       <input v-model="definedField.active" class="toggle-checkbox" type="checkbox">

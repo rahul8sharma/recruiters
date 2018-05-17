@@ -1,6 +1,6 @@
 <template>
   <div class="modal scrollable" v-bind:class="{modalOpen:isModalOpen}">
-    <div class="modal-container large-20">
+    <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase">
         <span>Create Assessment</span>
         <div class="spacer"></div>
@@ -17,7 +17,7 @@
             {{nameMaxLength - assessment.name.length}}/{{nameMaxLength}} characters
           </div>
           <div class="clr"></div>
-          <em class="fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
+          <em class="large-15 fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
 
           <div class="divider-1"></div>
           <div class="section_title uppercase fs-12 bold">

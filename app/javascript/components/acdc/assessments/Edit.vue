@@ -31,7 +31,7 @@
     </div>
 
     <div class="tab_view clearfix" v-if="!isSendForReview">
-      <ul class="tab_list large-7 columns">
+      <ul class="tab_list large-7 columns p-0">
         <li class="tab_item " 
           v-for="(tab, index) in tabItems"
           v-bind:key="tab.text"
@@ -47,7 +47,7 @@
         </li>
       </ul>
 
-      <div class="large-23 columns">
+      <div class="large-23 columns p-0">
         <component
           v-bind:tabData="currentTabData"
           v-bind:isSendForReview="isSendForReview"
@@ -381,7 +381,7 @@
           opacity: 0.6
         &.active
           color: #ff8308
-          font-weight: 600
+          text-shadow: 1px 0 0 #ff8308
         
     .info_tooltip
       width: 24px
@@ -397,6 +397,7 @@
         width: 200px
         transform: translateX(-50%)
         display: none
+        z-index: 5
         .text_container
           position: relative
           padding: 10px

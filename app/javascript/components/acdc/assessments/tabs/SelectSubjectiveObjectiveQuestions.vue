@@ -21,7 +21,7 @@
       </button>
     </div>
     
-    <div class="edit_section">
+    <div class="edit_section p-0">
       <component
         v-if="isObjective"
         v-for="(questionType, index) in tabData"
@@ -39,7 +39,6 @@
         v-bind:subjectiveQuestion="tabData.raw_data[Object.keys(questionType)[1]]"
       >
       </component>
-      <div class="divider-4"></div>
     </div>
   </div>
 

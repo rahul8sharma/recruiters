@@ -33,7 +33,7 @@
         <a href="" :disabled="competencyIndex == (tabData.competencies.length - 1)" @click.prevent="moveDown(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move Down</a>
         <a href="" :disabled="competencyIndex == 0" @click.prevent="moveUp(competencyIndex)" class="shuffle_action fs-12 uppercase black-6 text-center line-height-3 bold large-3 columns">Move up</a>
 
-        <button v-if="((tabData.competencies.length - 1) != 0)" @click="removeCompetency(competencyIndex)" class="button btn-default btn-link uppercase fs-40 black-10 large-3 columns">&times;</button>
+        <button v-if="((tabData.competencies.length - 1) != 0)" @click="removeCompetency(competencyIndex)" class="button btn-default btn-link uppercase fs-30 black-10 large-3 columns">&times;</button>
         <div class="clr"></div>
 
         
@@ -44,29 +44,31 @@
     <button @click="addCompetency()" class="button btn-warning btn-link  uppercase fs-16 bold">+ Add More Competency</button>
     
     <div class="divider-2"></div>
-    
-    <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
-      More Actions
-    </a>
-    <em class="fs-12 black-6">(Competency Ranges, Competency Scores, Consistency Report)</em>
+    <div class="large-30">
+      <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
+        More Actions
+      </a>
+      <em class="fs-12 black-6">(Competency Ranges, Competency Scores, Consistency Report)</em>
 
-    <div class="more_actions_container" v-bind:class="{'open':moreActions}">
-      <div class="divider-1"></div>
-      <div class="clearfix">
-        <div class="large-10 columns">
-          <label class="custom-checkbox">
-            <input v-model="tabData.showCompetencyScoreOnReport" type="checkbox"/>
-            <div class="label-text fs-12">Show competency score on report</div>
-          </label>
+      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+        <div class="divider-1"></div>
+        <div class="clearfix">
+          <div class="large-10 columns">
+            <label class="custom-checkbox">
+              <input v-model="tabData.showCompetencyScoreOnReport" type="checkbox"/>
+              <div class="label-text fs-12">Show competency score on report</div>
+            </label>
+          </div>
+          <div class="large-10 columns">
+            <label class="custom-checkbox">
+              <input v-model="tabData.showConsistencyScoreOnReport" type="checkbox"/>
+              <div class="label-text fs-12">Show consistency score on report</div>
+            </label>
+          </div>
         </div>
-        <div class="large-10 columns">
-          <label class="custom-checkbox">
-            <input v-model="tabData.showConsistencyScoreOnReport" type="checkbox"/>
-            <div class="label-text fs-12">Show consistency score on report</div>
-          </label>
-        </div>
+
       </div>
-
+      
     </div>
 
   </div>
