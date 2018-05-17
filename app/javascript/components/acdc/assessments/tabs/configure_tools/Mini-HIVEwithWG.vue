@@ -32,7 +32,7 @@
         </a>
         <em class="fs-12 black-6">(Tool weightage)</em>
 
-        <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
 
           <div class="form-group large-15">
             <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
@@ -83,7 +83,6 @@ import { VueEditor } from 'vue2-editor'
       background: url('~assets/images/ic-dropdown-warning.svg') no-repeat right center 
   .more_actions_container
     overflow: hidden
-    display: none
     padding-top: 15px
     &.open
       display: block

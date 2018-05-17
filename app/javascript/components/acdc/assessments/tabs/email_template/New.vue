@@ -1,8 +1,8 @@
 <template>
-  <div class="modal scrollable modalOpen">
+  <div class="modal scrollable hide" id="modal">
     <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase bold">
-        <span>Edit Template</span>
+        <span>Edit Template ff</span>
         <div class="spacer"></div>
         <div @click.prevent="model.showModel=false" class="close">&times;</div>
       </div>
@@ -111,6 +111,12 @@
         let editor = document.querySelector('.ql-editor')
         editor.innerHTML = [editor.innerHTML.slice(0, editor.innerHTML.length - 4), "<p><$" + id +  "$></p>", editor.innerHTML.slice(editor.innerHTML.length - 4)].join('');
       }
-    }
+    },
+    mounted: function (){
+      setTimeout(function() {
+        document.getElementById("modal").classList.remove("hide");
+        document.getElementById("modal").classList.add("modalOpen");
+      }, 0);
+    }    
   }
 </script>

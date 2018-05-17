@@ -67,7 +67,7 @@
       </a>
       <em class="fs-12 black-6">(Competency Range)</em>
 
-      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+      <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
         <div class="divider-1"></div>
         <div class="clearfix">
           <div class="large-10 columns">
@@ -204,7 +204,6 @@
       background: url('~assets/images/ic-dropdown-warning.svg') no-repeat right center 
   .more_actions_container
     overflow: hidden
-    display: none
     padding-top: 15px
     &.open
       display: block
