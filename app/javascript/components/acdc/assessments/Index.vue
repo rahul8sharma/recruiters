@@ -104,8 +104,8 @@
         <paginate
           :page-count="totalPage"
           :click-handler="getAssessmentByPageNumber"
-          :prev-text="'Prev'"
-          :next-text="'Next'"
+          :prev-text="'<'"
+          :next-text="'>'"
           :container-class="'className'">
         </paginate>
       </div>
@@ -303,6 +303,6 @@
 </style>
 <style lang="sass" scoped>
   .list
-    overflow-y: auto
+    overflow-y: scroll
     height: calc(100vh - 185px)
 </style>
