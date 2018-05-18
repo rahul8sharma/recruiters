@@ -1,4 +1,4 @@
-<template>
+Select Trait<template>
   <div>
     <em class="fs-12 black-6 large-12 show">(Type Competencies name to add them in this Assessment, You can arrange the order of the competencies in next step)</em>
     <div class="divider-1"></div>
@@ -95,7 +95,7 @@
           order: this.tabData.competencies.length,
           selectedFactors: [{
             id: '',
-            name: '',
+            name: 'Select Trait',
             from_norm_bucket: {value: '', text: ''},
             to_norm_bucket: {value: '', text: ''},
             weight: 1.0

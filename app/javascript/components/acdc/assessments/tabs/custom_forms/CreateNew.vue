@@ -98,7 +98,7 @@
                     <label class="toggle">
                       <input v-model="definedField.active" class="toggle-checkbox" type="checkbox">
                       <div class="toggle-switch"></div>
-                      <span class="toggle-label">Active</span>
+                      <span class="toggle-label">{{definedField.active ? 'Active' : 'InActive'}}</span>
                     </label>
                   </div> 
                   <div class="large-2"></div>
