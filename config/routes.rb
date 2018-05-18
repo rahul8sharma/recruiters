@@ -544,6 +544,7 @@ Rails.application.routes.draw do
         get "defined_field/:defined_form_id" => "acdc/assessments#get_defined_field"
         get "traits" => "acdc/assessments#get_norms"
         get "select_templates" => "acdc/assessments#select_templates"
+        get "get_objective_and_subject_questions" => "acdc/assessments#get_objective_and_subject_questions"
         post "get_google_drive_file_by_url"
         get "get_all_assessments"
       end
