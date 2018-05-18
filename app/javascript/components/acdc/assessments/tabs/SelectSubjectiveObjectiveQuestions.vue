@@ -71,7 +71,7 @@
       }
     },
     created: function() {
-      this.get.get_objective_and_subject_questions({company_id: 2})
+      this.get.get_section_with_objective({company_id: 2})
         .then(response => {
           return response.json()
         })
