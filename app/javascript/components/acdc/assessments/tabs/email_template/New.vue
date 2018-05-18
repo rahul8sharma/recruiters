@@ -39,7 +39,7 @@
             <hr/>
 
             <div class="text_editor">
-              <vue-editor class="large" v-model="model.create_template.body"></vue-editor>
+              <vue-editor class="large" :editorToolbar="customToolbar" v-model="model.create_template.body"></vue-editor>
             </div>
 
           </div>
@@ -94,6 +94,19 @@
   import { VueEditor } from 'vue2-editor'
   export default {
     props: ['currentTemplates', "tabData", "templateName", 'model', 'createTemplateName', 'templateVariables'],
+    data() {
+      return {
+        customToolbar: [
+          [{ 'header': [false, 1, 2, 3, 4, 5, 6, ] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+          ['blockquote', 'code-block'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'indent': '-1'}, { 'indent': '+1' }],
+          [{ 'color': [] }, { 'background': [] }],
+        ]
+      }
+    },
     components: {
       VueEditor
     },

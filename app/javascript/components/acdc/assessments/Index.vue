@@ -160,7 +160,7 @@
             order: 0,
             selectedFactors: [{
               factor_id: '',
-              name: '',
+              name: 'Select Trait',
               from_norm_bucket: {value: '', text: ''},
               to_norm_bucket: {value: '', text: ''},
               weight: 1.0
@@ -168,10 +168,10 @@
           }],
           job_assessment_factor_norms_attributes: [{
             factor_id: '',
-            name: '',
-            from_norm_bucket_id: 0,
-            to_norm_bucket_id: 0,
-            weight: 1
+            name: 'Select Trait',
+            from_norm_bucket: {value: '', text: ''},
+            to_norm_bucket: {value: '', text: ''},
+            weight: 1.0
           }],
           showCompetencyScoreOnReport: false,
           showConsistencyScoreOnReport: false,

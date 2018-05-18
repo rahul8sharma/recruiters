@@ -113,6 +113,11 @@
          this.existingForm = this.tabData.raw_data.defined_form_id
          this.tabData.raw_data.defined_form = {}
         }
+        if(Object.keys(this.tabData.raw_data.defined_form).length !== 0) {
+         this.existingForm = { value: '', text: '' }
+         this.previewForm.definedFields = this.tabData.raw_data.defined_form.defined_fields_attributes
+         this.previewForm.showPreview = true
+        }
       });
     },
     components: {
@@ -120,8 +125,30 @@
     },
     methods: {
       createNewForm() {
-        if(this.tabData.raw_data.defined_form.length != 0){
+        if(Object.keys(this.tabData.raw_data.defined_form).length !== 0) { 
           console.log("Template Data create New")
+          // dialog box come here
+          this.tabData.raw_data.defined_form = {}
+          this.model.createNewShow=true
+          this.definedForm = {
+            name: '',
+            active: true,
+            parent_id: '',
+            defined_fields_attributes: [{
+              field_type: '',
+              label: '',
+              defined_form_id: '',
+              active: false,
+              identifier: '',
+              validator_regex: '',
+              default_value: '',
+              is_mandatory: false,
+              placeholder: '',
+              options: '',
+              field_order: 0
+            }]
+          }
+         } else { 
           this.tabData.raw_data.defined_form = {}
           this.model.createNewShow=true
           this.definedForm = {

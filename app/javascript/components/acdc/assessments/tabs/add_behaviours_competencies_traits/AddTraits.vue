@@ -12,24 +12,16 @@
         <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
 
         <div class="form-group large-8 columns pr-20">
-          <v-autocomplete 
-            :items="items" 
-            :min-len='0'
-            v-model="trait.name" 
-            :get-label="getLabel"
-            :component-item='template' 
-            @item-selected="itemSelected" 
-            placeholder="Type Trait name"
-            @update-items="update"
-            @focus="setCurrentIndex(traitIndex)"
-            autofocus>
-          </v-autocomplete>
+          <select2 :options="items[traitIndex]" v-model="trait.name" :id="'trait_id_' +  traitIndex"
+           :traitData="{tabData: tabData.job_assessment_factor_norms_attributes, traitIndex: traitIndex, items: items, factors: factors, options: options, selectedtraits:selectedtraits}"
+           :initializeData="initializeData">
+            </select2>
           <label>Trait name</label>
         </div>
         <div class="select-box large-7 columns pr-20">
-          <div class="form-group">
+          <div class="form-gro  up">
             <model-select :options="options"
-              v-model="trait.from_norm_bucket_id"
+              v-model="trait.from_norm_bucket"
               placeholder="Range from">
             </model-select>
             <label>Range from</label>
@@ -38,7 +30,7 @@
         <div class="select-box large-7 columns pr-20">
           <div class="form-group">
             <model-select :options="options"
-            v-model="trait.to_norm_bucket_id"
+            v-model="trait.to_norm_bucket"
             placeholder="Range from">
             </model-select>
             <label>Range to</label>
@@ -83,16 +75,15 @@
 </template>
 
 <script>
-  import Autocomplete from 'v-autocomplete'
-  import ItemTemplate from './ItemTemplate.vue'
   import { ModelSelect } from 'vue-search-select'
+  import select2 from './TraitsOnlySelect2.vue'
 
   export default {
     props: ['tabData'],
     data () {
       return {
         items: [],
-        template: ItemTemplate,
+        selectedtraits: [],
         currentTraitIndex:'',
         options: [
           {value: 1, text: 'Low'},
@@ -104,66 +95,78 @@
         ],
         factors: [],
         factorNames: [],
-        moreActions: false
+        moreActions: false,
+        initializeData: false,
+        isremoveTraitEvent: -1
       }
     },
     components: {
-      'v-autocomplete': Autocomplete,
-      ModelSelect
+      ModelSelect, select2
     },
     methods: {
       addTrait() {
         this.tabData.job_assessment_factor_norms_attributes.push({
           factor_id: '',
-          name: '',
-          from_norm_bucket_id: 0,
-          to_norm_bucket_id: 0,
+          name: 'Select Trait',
+          from_norm_bucket: {value: '', text: ''},
+          to_norm_bucket: {value: '', text: ''},
           weight: 1
         })
-      }, 
-      itemSelected (factorName) {
-        const index = indexWhere(this.factors, item => item.name === factorName)
-        const factor = this.factors[index]
-        const jobFactor = this.tabData.job_assessment_factor_norms_attributes
+        this.selectedtraits.push("Select Trait")
 
-        jobFactor[this.currentTraitIndex].factor_id = factor.id
-        jobFactor[this.currentTraitIndex].to_norm_bucket_id = factor.from_norm_bucket_id
-        jobFactor[this.currentTraitIndex].from_norm_bucket_id = factor.to_norm_bucket_id
-        jobFactor[this.currentTraitIndex].name = factor.name
-      },
-      getLabel (item) {
-        if (item) {
-          return item
-        }
-        return ''
-      },
-      update (text) {
-        this.items = this.factorNames.filter((item) => {
-          return (new RegExp(text.toLowerCase())).test(item.toLowerCase())
-        })
-      },
-      setCurrentIndex(traitIndex) {
-        this.currentTraitIndex = traitIndex
-      },
+        if(this.factorNames.indexOf('Select Trait') > -1) {
+          this.items[this.tabData.job_assessment_factor_norms_attributes.length -1] = this.factorNames.slice()
+         } else {
+          this.items[this.tabData.job_assessment_factor_norms_attributes.length -1] = this.factorNames.slice()
+          this.items[this.tabData.job_assessment_factor_norms_attributes.length -1].unshift("Select Trait")
+         }
+        
+       let traitIndex = this.tabData.job_assessment_factor_norms_attributes.length - 1
+       let traits = this.tabData.job_assessment_factor_norms_attributes.map(function(elem){ return elem.name;}).filter((v, i, a) => a.indexOf(v) === i)
+
+        for (var i = 0; i < traits.length; i++) {
+          if(traits[i].length != 0 && traits[i] != 'Select Trait') {
+            var j = this.items[traitIndex].indexOf(traits[i]);
+            if (j > -1) {
+               this.items[traitIndex].splice(j, 1);
+            }
+          }
+        }  
+      }, 
+     
       removeTrait(traitIndex) {
-        if((this.tabData.job_assessment_factor_norms_attributes.length -1) != 0) {
-          this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
+        this.removeTraitValue = this.tabData.job_assessment_factor_norms_attributes[traitIndex].name
+
+        this.tabData.job_assessment_factor_norms_attributes.splice(traitIndex, 1)
+        this.selectedtraits.splice(traitIndex, 1)
+        this.items.splice(traitIndex, 1)
+        this.isremoveTraitEvent = traitIndex
+      },
+    },
+    updated: function() {
+      if(this.isremoveTraitEvent != -1) {
+        let traitLength = this.tabData.job_assessment_factor_norms_attributes.length
+
+        for (let j=0; j<traitLength; j++){
+          if(this.removeTraitValue  != 'Select Trait') {
+            this.items[j].push(this.removeTraitValue)
+
+            let currentTritId = 'trait_id_' + j
+            let currentTraitSelect = document.getElementById(currentTritId)
+            let option = ''
+            option = document.createElement("option")
+            option.text = this.removeTraitValue
+            currentTraitSelect.add(option);
+          }
         }
-      },
-      reset () {
-        this.trait.from_norm_bucket_id = ''
-      },
-      selectOption () {
-        // select option from parent component
-        this.trait.from_norm_bucket_id = this.options[0].value
-      },
-      reset2 () {
-        this.trait.to_norm_bucket_id = ''
-      },
-      selectOption2 () {
-        // select option from parent component
-        this.trait.to_norm_bucket_id = this.options[0].value
+
+        for (let j=0; j<traitLength; j++){
+          var string_copy = (' ' + this.selectedtraits[j]).slice(1);
+          this.tabData.job_assessment_factor_norms_attributes[j].name = string_copy
+        }
       }
+      this.isremoveTraitEvent = -1
+      
     },
     created: function() {
       // TODO need to Update 
@@ -179,6 +182,27 @@
       .then(data => {
         this.factors = data.factors
         this.factorNames = data.factor_names
+        for(var factor in this.tabData.job_assessment_factor_norms_attributes) {
+          if(this.tabData.job_assessment_factor_norms_attributes[parseInt(factor)].name != ""){
+            this.selectedtraits.push(this.tabData.job_assessment_factor_norms_attributes[parseInt(factor)].name)
+          } else {
+            this.selectedtraits.push('Select Trait')
+            this.tabData.job_assessment_factor_norms_attributes[parseInt(factor)].name = 'Select Trait'
+            this.factorNames.unshift("Select Trait")
+          }
+          this.initializeData = true
+          this.items[parseInt(factor)] = this.factorNames.slice()
+        }
+        let selectedTrait = this.selectedtraits.filter(function(v) { return v != 'Select Trait' })
+        for(var factor in this.tabData.job_assessment_factor_norms_attributes) {
+          let traitName = this.tabData.job_assessment_factor_norms_attributes[parseInt(factor)].name
+          this.items[parseInt(factor)] = this.items[parseInt(factor)].filter(function (item) {
+              return selectedTrait.indexOf(item) === -1
+          });
+          if (traitName != 'Select Trait') {
+            this.items[parseInt(factor)].push(traitName)
+          }
+        }
       });
     }
   }
