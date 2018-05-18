@@ -29,7 +29,7 @@
       </div>
       <div class="review_section">
         <ConfigureTools
-          v-bind:toolConfiguration="assessmentData.tool_configuration"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
         </ConfigureTools>
@@ -50,14 +50,14 @@
       </div>
       <div class="review_section">
         <ObjectiveQuestions
-          v-bind:selectObjectiveQuestions="assessmentData.select_questions"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
-        </ObjectiveQuestions>         
+        </ObjectiveQuestions>
       </div>
       <div class="review_section">
         <SubjectiveQuestions
-          v-bind:selectSubjectiveQuestions="assessmentData.select_questions"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
         </SubjectiveQuestions>

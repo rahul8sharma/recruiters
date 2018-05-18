@@ -61,12 +61,12 @@
       
     </div>
     <div class="large-30">
-      <a href="#" class="more_actions_btn uppercase fs-12 bold open">
+      <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">
         More Actions
       </a>
       <em class="fs-12 black-6">(Competency Range)</em>
 
-      <div class="more_actions_container open">
+      <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']">
         <div class="divider-1"></div>
         <div class="clearfix">
           <div class="large-10 columns">
@@ -108,7 +108,8 @@
         factors: [],
         isremoveTraitEvent: -1,
         removeTraitValue: '',
-        traitIndex: ''
+        traitIndex: '',
+        moreActions: false
       }
     },
     components: {

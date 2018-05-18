@@ -61,7 +61,7 @@
       </a>
       <em class="fs-12 black-6">(Competency Range)</em>
 
-      <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
+      <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']">
         <div class="divider-1"></div>
         <div class="clearfix">
           <div class="large-10 columns">

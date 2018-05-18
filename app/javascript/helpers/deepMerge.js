@@ -53,4 +53,4 @@ function getObjectBykey(jsonObjects, id) {
   return found;
 }
 
-export default { deepMerge, getObjectBykey, getSelectedReportConfig  }
+export default { deepMerge, getObjectBykey, getSelectedReportConfig }

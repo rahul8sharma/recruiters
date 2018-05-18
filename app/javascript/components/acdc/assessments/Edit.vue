@@ -193,15 +193,15 @@
           for (i = 0; i < len; i++) {
             if (this.tabItems[i].url == 'tool_configuaration') {
               if(rawData[this.tabItems[i].url].length == 0) {
-                this.tabItems[i].tabData.tools = rawData['tools']
                 var j, toolLen = rawData['tools'].length
+                this.tabItems[i].tabData.raw_data = []
                 for (j = 0; j < toolLen; j++) {
                   this.tabItems[i].tabData.raw_data.push(ToolsJson[rawData['tools'][j]])
                 }
               } else {
                 this.tabItems[i].tabData.raw_data = rawData[this.tabItems[i].url]
-                this.tabItems[i].tabData.tools = rawData['tools']
               }
+              this.tabItems[i].tabData.tools = rawData['tools']
             } else {
               this.tabItems[i].tabData.raw_data = rawData[this.tabItems[i].url]
             }

@@ -12,6 +12,7 @@
     "vue-template-compiler": "^2.5.16",
     "vue2-editor": "^2.4.3",
     "vuejs-dialog": "^0.9.0",
+    "vuejs-paginate": "^1.9.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
