@@ -116,8 +116,7 @@
         this.model.showModel = false
         this.model.selectTemplated = this.model.create_template
         this.tabData[this.templateName] = ''
-        this.model.item.value =  ''
-        this.model.item.text = ''
+        this.model.item = { value: '', text: ''}
       },
       setVariable(id) {
         // this.model.create_template.body = this.model.create_template.body + "<p><$" + id +  "$></p>"
