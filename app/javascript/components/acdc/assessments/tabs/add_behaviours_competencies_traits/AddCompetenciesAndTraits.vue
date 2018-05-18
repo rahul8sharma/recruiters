@@ -219,7 +219,6 @@
       background: url('~assets/images/ic-dropdown-warning.svg') no-repeat right center 
   .more_actions_container
     overflow: hidden
-    display: none
     padding-top: 15px
     &.open
       display: block

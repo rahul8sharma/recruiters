@@ -1,5 +1,5 @@
 <template>
-  <div class="modal scrollable" v-bind:class="{modalOpen:isModalOpen}">
+  <div class="modal scrollable" v-bind:class="[isModalOpen ? 'modalOpen' : 'hide']">
     <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase">
         <span>Create Assessment</span>
